@@ -54,6 +54,13 @@ import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
+	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
+		@Override
+		public DiagramService createService() {
+			return new DefaultDiagramService();
+		}		
+	}
+	
 	private static class ClosedDiagramReference implements DiagramReference {
 		private final ResourceSet rs;
 		private final URI uri;
@@ -91,8 +98,11 @@ public class DefaultDiagramService implements DiagramService {
 			return null;
 		}
 		
-	}
-	
+		@Override
+		public IProject getProject() {
+			return SelectionHelper.getProject(uri);
+		}
+	}	
 	
 	private static class OpenDiagramReference implements DiagramReference {
 		private final AgeDiagramEditor editor;
@@ -115,12 +125,19 @@ public class DefaultDiagramService implements DiagramService {
 		public AgeDiagramEditor getEditor() {
 			return editor;
 		}
+		
+		@Override
+		public IProject getProject() {
+			return SelectionHelper.getProject(getDiagram().eResource());
+		}
 	}
 		
 	@Override
 	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne) {
 		final String aadlElementName = ne.getQualifiedName();
 		final List<DiagramReference> diagramRefs = findDiagrams();
+		final URI resourceUri = ne.eResource().getURI();
+		final IProject project = SelectionHelper.getProject(resourceUri);
 		
 		// Check open diagrams first
 		for(final DiagramReference diagramRef : diagramRefs) {
@@ -129,7 +146,8 @@ public class DefaultDiagramService implements DiagramService {
 				if(featureProvider != null) {
 					final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
 					if(bo != null && bo instanceof NamedElement) {
-						if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+						final NamedElement tmpEl = (NamedElement)bo;
+						if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
 							return diagramRef;
 						}
 					}
@@ -139,16 +157,19 @@ public class DefaultDiagramService implements DiagramService {
 		
 		// Check closed diagrams
 		for(final DiagramReference diagramRef : diagramRefs) {
-			if(!diagramRef.isOpen()) {
-				// Create a feature provider and check if it is linked to the aadl element
-				final Diagram diagram = diagramRef.getDiagram();
-				if(diagram != null) {
-					final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-					if(featureProvider != null) {
-						final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
-						if(bo != null && bo instanceof NamedElement) {
-							if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
-								return diagramRef;
+			if(project == diagramRef.getProject()) {
+				if(!diagramRef.isOpen()) {
+					// Create a feature provider and check if it is linked to the aadl element
+					final Diagram diagram = diagramRef.getDiagram();
+					if(diagram != null) {
+						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
+						if(featureProvider != null) {
+							final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
+							if(bo != null && bo instanceof NamedElement) {
+								final NamedElement tmpEl = (NamedElement)bo;
+								if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
+									return diagramRef;
+								}
 							}
 						}
 					}

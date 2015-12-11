@@ -28,11 +28,17 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface,
  org.eclipse.core.resources,
  org.eclipse.core.expressions,
- org.osate.aadl2.instantiation
+ org.osate.aadl2.instantiation,
+ org.osate.annexsupport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.draw2d.graph,
  org.eclipse.ui,
  org.eclipse.ui.part,
  org.eclipse.ui.views.contentoutline
+Service-Component: components/DefaultExtensionRegistryService.xml,
+ components/DefaultDiagramService.xml,
+ components/DefaultSavedAadlPackageService.xml
+Export-Package: org.osate.ge.ext,
+ org.osate.ge.ext.annotations
 

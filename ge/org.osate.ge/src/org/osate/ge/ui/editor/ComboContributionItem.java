@@ -27,7 +27,7 @@ public class ComboContributionItem extends ControlContribution {
 
 	@Override
 	protected Control createControl(final Composite parent) {
-		combo = new Combo(parent, SWT.DROP_DOWN);
+		combo = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
 		combo.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {

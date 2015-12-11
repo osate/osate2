@@ -120,8 +120,6 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 				// Remove the old object
 				EcoreUtil.remove(feature);
 				
-				// TODO: Does it keep refineness?
-
 				return null;
 			}			
 		});

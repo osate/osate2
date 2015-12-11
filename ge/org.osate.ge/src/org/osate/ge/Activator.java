@@ -27,7 +27,7 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
-		// Ensure that the EMFIndexRetrieval is activated triggering the activation of the plugin it depends on.
+		// Ensure that the Aadl2Factory eInstance and similar classes are initialized
 		org.osate.xtext.aadl2.properties.ui.MyPropertiesActivator.getInstance();
 	}
 

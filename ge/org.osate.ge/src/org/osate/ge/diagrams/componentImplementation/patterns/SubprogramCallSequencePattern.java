@@ -49,11 +49,11 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.dialogs.SelectSubprogramDialog;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -72,6 +72,7 @@ import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.util.AadlHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -117,8 +118,8 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	}
 	
 	@Override
-	public Category getCategory() {
-		return Category.SUBPROGRAM_CALLS;
+	public String getCategory() {
+		return Categories.SUBPROGRAM_CALLS;
 	}
 
 	@Override
@@ -229,9 +230,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
 
-		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-		}
+		layoutService.checkShapeBoundsWithAncestors((ContainerShape)context.getPictogramElement());
 	}
 	
 	// Resize
@@ -252,9 +251,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
 		super.resizeShape(context);
 
-		layoutService.checkContainerSize(shape);
-		
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		layoutService.checkShapeBoundsWithAncestors(shape);
 
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
@@ -278,7 +275,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		final Shape nameShape = getNameShape(shape);
 		
 		// Create the graphics algorithm for the shape
-		final int newSize[] = layoutService.adjustChildShapePositions(shape);
+		final int newSize[] = layoutService.getMinimumSize(shape);
 		if(nameShape != null) {
 			newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShape.getGraphicsAlgorithm().getWidth() + 30);
 			newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30);
@@ -313,7 +310,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getSubprogramCallSequence().getName());
+		return ImageHelper.getImage(p.getSubprogramCallSequence().getName());
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ public interface AadlModificationService {
 		/**
 		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. Is not executed if the modification is aborted.
 		 */
-		void afterCommit(Resource resource, E element, R modificationResult);
+		void afterCommit(Resource resource);
 	}
 	
 	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
@@ -49,7 +49,7 @@ public interface AadlModificationService {
 		}
 		
 		@Override
-		public void afterCommit(Resource resource, E element, R modificationResult) {			
+		public void afterCommit(Resource resource) {			
 		}
 	}
 }

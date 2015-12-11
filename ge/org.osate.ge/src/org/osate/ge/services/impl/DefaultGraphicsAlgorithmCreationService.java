@@ -44,6 +44,7 @@ import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
+import org.osate.ge.styles.StyleConstants;
 
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
 // allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
@@ -68,7 +69,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	public Text createLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-        text.setStyle(styleService.getLabelStyle());
+        text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
         return text;
 	}
 	
@@ -76,7 +77,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	public MultiText createMultiLineLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final MultiText text = gaService.createPlainMultiText(container, labelTxt);
-        text.setStyle(styleService.getLabelStyle());
+        text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
         return text;
 	}
 	
@@ -84,15 +85,19 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	public Text createAnnotationGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String annotationTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, annotationTxt);
-        text.setStyle(styleService.getAnnotationStyle());
+        text.setStyle(getAnnotationStyle());
         return text;
 	}
+	
+	private Style getAnnotationStyle() {
+		return styleService.getStyle("annotation");
+    }
 		
 	@Override
 	public GraphicsAlgorithm createTextBackground(final GraphicsAlgorithmContainer container) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm background = gaService.createPlainRectangle(container);	
-		background.setStyle(styleService.getTextBackgroundStyle());		
+		background.setStyle(getTextBackgroundStyle());		
 		return background;
 	}
 	
@@ -122,33 +127,33 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 			}
 			     
 	        if(category == ComponentCategory.SYSTEM) {
-	        	ga = createSystemGraphicsAlgorithm(shape, styleService.getSystemStyle(isImplementation), width, height);
+	        	ga = createSystemGraphicsAlgorithm(shape, getSystemStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.PROCESS) {
-	        	ga = createProcessGraphicsAlgorithm(shape, styleService.getProcessStyle(isImplementation), width, height);
+	        	ga = createProcessGraphicsAlgorithm(shape, getProcessStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.THREAD_GROUP) {
-	        	ga = createThreadGroupGraphicsAlgorithm(shape, styleService.getThreadGroupStyle(isImplementation), width, height);
+	        	ga = createThreadGroupGraphicsAlgorithm(shape, getThreadGroupStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.THREAD) {
-	        	ga = createThreadGraphicsAlgorithm(shape, styleService.getThreadStyle(isImplementation), width, height);
+	        	ga = createThreadGraphicsAlgorithm(shape, getThreadStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.SUBPROGRAM) {
-	        	ga = createSubprogramGraphicsAlgorithm(shape, styleService.getSubprogramStyle(isImplementation), width, height);
+	        	ga = createSubprogramGraphicsAlgorithm(shape, getSubprogramStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.SUBPROGRAM_GROUP) {
-	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, styleService.getSubprogramGroupStyle(isImplementation), width, height);
+	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, getSubprogramGroupStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.DATA) {
-	        	ga = createDataGraphicsAlgorithm(shape, styleService.getDataStyle(isImplementation), width, height);
+	        	ga = createDataGraphicsAlgorithm(shape, getDataStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.ABSTRACT) {
-	        	ga = createAbstractGraphicsAlgorithm(shape, styleService.getAbstractStyle(isImplementation), width, height);
+	        	ga = createAbstractGraphicsAlgorithm(shape, getAbstractStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.VIRTUAL_BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, styleService.getVirtualBusStyle(isImplementation), width, height);
+	        	ga = createBusGraphicsAlgorithm(shape, getVirtualBusStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.VIRTUAL_PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, styleService.getVirtualProcessorStyle(isImplementation), width, height);
+	        	ga = createProcessorGraphicsAlgorithm(shape, getVirtualProcessorStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, styleService.getBusStyle(isImplementation), width, height);
+	        	ga = createBusGraphicsAlgorithm(shape, getBusStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, styleService.getProcessorStyle(isImplementation), width, height);
+	        	ga = createProcessorGraphicsAlgorithm(shape, getProcessorStyle(isImplementation), width, height);
 	        } else if(category == ComponentCategory.DEVICE) {     	
-	        	ga = createDeviceGraphicsAlgorithm(shape, styleService.getDeviceStyle(isImplementation), styleService.getShadedStyle(), width, height);
+	        	ga = createDeviceGraphicsAlgorithm(shape, getDeviceStyle(isImplementation), getShadedStyle(), width, height);
 	        } else if(category == ComponentCategory.MEMORY) {
-	        	ga = createMemoryGraphicsAlgorithm(shape, styleService.getMemoryStyle(isImplementation), width, height);
+	        	ga = createMemoryGraphicsAlgorithm(shape, getMemoryStyle(isImplementation), width, height);
 	        } else {
 	        	// Create a generic shape
 	        	ga = createDummyGraphicsAlgorithm(shape, width, height);
@@ -199,7 +204,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	@Override
 	public GraphicsAlgorithm createPortGraphicsAlgorithm(final Shape shape, final PortCategory category, DirectionType direction) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Style style = styleService.getFeatureStyle();
+		final Style style = getFeatureStyle();
 		final boolean hasData = category == PortCategory.DATA || category == PortCategory.EVENT_DATA;
 		final boolean hasEvent = category == PortCategory.EVENT || category == PortCategory.EVENT_DATA;
 		
@@ -294,7 +299,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	
 	private GraphicsAlgorithm createAbstractFeatureGraphicsAlgorithm(final Shape shape, DirectionType direction) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Style style = styleService.getFeatureStyle();
+		final Style style = getFeatureStyle();
 		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
     	gaService.setSize(ga,  25,  20);
     	
@@ -345,7 +350,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
     	final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
     	 
     	if(category == AccessCategory.BUS || category == AccessCategory.DATA) {
-    		final Style style = styleService.getFeatureStyle();
+    		final Style style = getFeatureStyle();
     		width = 20;
     		height = 20;        		
     		final int slopeWidth = 5;
@@ -371,7 +376,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
     		}        		
     		graphicsAlgorithmUtil.shrink(ga);
     	} else if(category == AccessCategory.SUBPROGRAM || category == AccessCategory.SUBPROGRAM_GROUP) {
-    		final Style style = category == AccessCategory.SUBPROGRAM ? styleService.getSubprogramAccessStyle() : styleService.getSubprogramGroupAccessStyle();
+    		final Style style = category == AccessCategory.SUBPROGRAM ? getSubprogramAccessStyle() : getSubprogramGroupAccessStyle();
     		width = 35;
     		height = 20;
     		final int vPadding = 5;
@@ -418,7 +423,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
     			width*3/4, height,
     			width/4, height,
     			0, height/2});
-		ga.setStyle(styleService.getModeStyle());
+		ga.setStyle(getModeStyle());
 		gaService.setSize(ga, width, height);
 		
 		return ga;
@@ -431,10 +436,18 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	public GraphicsAlgorithm createInitialModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, int size) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createEllipse(container);
-		ga.setStyle(styleService.getInitialModeStyle());
+		ga.setStyle(getInitialModeStyle());
 		gaService.setSize(ga, size, size);
 		return ga;
 	}
+	
+	private Style getInitialModeStyle() {
+		return styleService.getStyle("mode-initial");
+	}
+	
+	private Style getModeStyle() {
+		return styleService.getStyle("mode");
+    }
 	
 	private static GraphicsAlgorithm createDummyGraphicsAlgorithm(final GraphicsAlgorithmContainer containerShape, int width, int height) {
 		final RoundedRectangle roundedRectangle = Graphiti.getGaService().createPlainRoundedRectangle(containerShape, 5, 5);
@@ -545,7 +558,6 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		return outlinePolygon;
 	}
 	
-	// TODO: Avoid hardcoded numbers. Especially repeated	
 	private static GraphicsAlgorithm createDeviceGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final Style shadedStyle, final int width, final int height) {
 		final int padding = 4;
 		final IGaService gaService = Graphiti.getGaService();
@@ -650,7 +662,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	 */
 	@Override
 	public GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final int width, final int height) {
-		final Style style = styleService.getFeatureGroupStyle();
+		final Style style = getFeatureGroupStyle();
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		final int circleSize = width*2/3;
@@ -673,7 +685,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	}
 	
 	private GraphicsAlgorithm createFeatureGroupTypeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final int width, final int height) {
-		final Style style = styleService.getFeatureGroupStyle();
+		final Style style = getFeatureGroupStyle();
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		final int size = Math.min(width, height);
@@ -703,7 +715,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		// White circle for padding
 		final GraphicsAlgorithm paddingCircle = gaService.createPlainEllipse(ga);
 		gaService.setLocationAndSize(paddingCircle, (int)Math.round(size/2.0 - paddingCircleSize/2.0), (int)Math.round(height/2.0-paddingCircleSize/2.0), paddingCircleSize, paddingCircleSize);
-		paddingCircle.setStyle(styleService.getBackgroundStyle());
+		paddingCircle.setStyle(getBackgroundStyle());
 		
 		// Inner Circle
 		final GraphicsAlgorithm innerCircle = gaService.createPlainEllipse(ga);
@@ -712,6 +724,10 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 
 		return ga;
 	}
+	
+	private Style getBackgroundStyle() {
+		return styleService.getStyle("background");
+    }
 	
 	private static GraphicsAlgorithm createParallelogram(final GraphicsAlgorithmContainer container, final int width, final int height, int horizontalOffset) {
 		final IGaService gaService = Graphiti.getGaService();
@@ -724,4 +740,90 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		gaService.setSize(ga, width, height);
 		return ga;
 	}
+	
+	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {
+		final String finalStyleId = getImplementation ? (styleId + "-implementation") : styleId;
+		return styleService.getStyle(finalStyleId);
+	}
+	
+	private Style getSystemStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("system", isImplementation);
+	}
+	
+	private Style getSubprogramAccessStyle() {
+		return styleService.getStyle("subprogram_access");
+    }
+	
+	private Style getSubprogramGroupAccessStyle() {
+		return styleService.getStyle("subprogram_group_access");
+    }
+	
+	private Style getFeatureStyle() {
+		return styleService.getStyle("feature");
+    }
+	
+	private Style getTextBackgroundStyle() {
+		return styleService.getStyle("text-background");
+	}
+	
+	private Style getShadedStyle() {
+		return styleService.getStyle("shaded");
+	}
+	
+	private Style getFeatureGroupStyle() {
+		return getImplementationStyleConditionally("feature-group", false);
+	}
+	
+	private Style getMemoryStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("memory", isImplementation);
+	}
+	
+	private Style getDeviceStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("device", isImplementation);
+	}
+	
+	private Style getProcessorStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("processor", isImplementation);
+	}
+	
+	private Style getBusStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("bus", isImplementation);
+	}
+	
+	private Style getVirtualProcessorStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("virtual-processor", isImplementation);
+	}
+	
+	private Style getVirtualBusStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("virtual-bus", isImplementation);
+	}
+	
+	private Style getAbstractStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("abstract", isImplementation);
+	}
+	
+	private Style getDataStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("data", isImplementation);
+	}
+	
+	private Style getThreadGroupStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("thread-group", isImplementation);
+	}
+	
+	private Style getThreadStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("thread", isImplementation);
+	}
+	
+	private Style getSubprogramStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("subprogram", isImplementation);
+	}
+
+	private Style getSubprogramGroupStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("subprogram-group", isImplementation);
+	}
+
+	private Style getProcessStyle(final boolean isImplementation) {
+		return getImplementationStyleConditionally("process", isImplementation);
+	}
+	
 }

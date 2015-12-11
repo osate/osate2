@@ -23,10 +23,12 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.util.ColorConstant;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -35,18 +37,17 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.StyleService;
 
 public class DefaultColoringService implements ColoringService {
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
-	private final StyleService styleService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	private final LinkedList<ColoringCalculator> coloringCalculators = new LinkedList<ColoringCalculator>();
@@ -96,25 +97,68 @@ public class DefaultColoringService implements ColoringService {
 		@Override
 		public org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-			final Context context;
-			if(bo instanceof Feature && pe instanceof Shape) {
-				final Element possibleContext = shapeService.getClosestBusinessObjectOfType((Shape)pe, Context.class, Classifier.class);
-				context = possibleContext instanceof Context ? (Context)possibleContext : null;
+			final Shape possibleContextShape;
+			if(bo instanceof Feature) {
+				return null;
+			} else if(bo instanceof Subcomponent && pe instanceof Shape) {
+				possibleContextShape = shapeService.getClosestAncestorWithBusinessObjectType(((Shape)pe).getContainer(), Context.class, Classifier.class);
 			} else if(bo instanceof FlowSpecification && pe instanceof Connection) {
-				context = getSubcomponent((Connection)pe);
+				possibleContextShape = getSubcomponentShape((Connection)pe); 
+			} else {
+				possibleContextShape = null;
+			}
+
+			final Context context;
+			final Shape contextShape;
+			final Object possibleContext = possibleContextShape == null ? null : bor.getBusinessObjectForPictogramElement(possibleContextShape);
+			if(possibleContext instanceof Context) {
+				context = (Context)possibleContext;
+				contextShape = possibleContextShape;
 			} else {
 				context = null;
+				contextShape = null;
+			}
+			
+			// Exclude sub-subcomponents from highlighting...
+			if(context instanceof Subcomponent) {
+				if(shapeService.getClosestBusinessObjectOfType(contextShape.getContainer(), Context.class) != null) {
+					return null;
+				}
 			}
 			
 			// Check the mode of the element
 			final String selectedModeName = propertyService.getSelectedMode(getDiagram());
 	 		final boolean isModeSelected = !selectedModeName.equals(""); 	
 	 		boolean inSelectedMode = false;
-	 		if(isModeSelected && !(context instanceof Subcomponent)) {
-				if(bo instanceof ModalElement) {
+	 		if(isModeSelected) {
+	 			if(bo instanceof ModalElement) {
 					final ModalElement modalElement = (ModalElement)bo;
-					inSelectedMode = isInMode(modalElement, selectedModeName);	 			
-				}
+		 			if(context instanceof Subcomponent) {
+		 				final Subcomponent sc = (Subcomponent)context;
+		 				final boolean subcomponentIsInMode = isInMode(sc, selectedModeName);
+		 				
+		 				// If the subcomponent uses derived modes, then check that the element is in the derived mode
+		 				final ComponentType ct = sc.getComponentType();
+		 				final boolean elementIsInDerviedMode;
+		 				if(ct != null && ct.isDerivedModes()) {
+		 					String derivedModeName = "";
+			 				for(final ModeBinding modeBinding : sc.getOwnedModeBindings()) {
+			 					if(modeBinding.getParentMode() != null && selectedModeName.equalsIgnoreCase(modeBinding.getParentMode().getName())) {
+			 						derivedModeName = modeBinding.getDerivedMode() == null ? modeBinding.getParentMode().getName() : modeBinding.getDerivedMode().getName();
+			 						break;
+			 					}
+		 					}
+			 				
+			 				elementIsInDerviedMode = derivedModeName == null ? false : isInMode(modalElement, derivedModeName);
+		 				} else {
+		 					elementIsInDerviedMode = true;
+		 				}
+		 				
+		 				inSelectedMode = subcomponentIsInMode && elementIsInDerviedMode;
+		 			} else {	 			
+						inSelectedMode = isInMode(modalElement, selectedModeName);	 			
+		 			}
+	 			}
 	 		}
 			
 	 		// Check whether the element is in the flow
@@ -170,17 +214,17 @@ public class DefaultColoringService implements ColoringService {
 
 			// Highlight accordingly
 	 		if(inSelectedMode && (inSelectedFlow && isFlowInMode)) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedModeAndFlowColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedModeAndFlowColor());
 	 		} else if(inSelectedMode) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedModeColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedModeColor());
 	 		} else if(inSelectedFlow && isFlowInMode) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedFlowColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedFlowColor());
 	 		}
 	 		
 	 		return null;
 		}
 		
-		private Subcomponent getSubcomponent(final Connection connection) {
+		private Shape getSubcomponentShape(final Connection connection) {
 			if(connection.getStart() == null) {
 				return null;
 			}
@@ -190,14 +234,13 @@ public class DefaultColoringService implements ColoringService {
 				return null;
 			}		
 			
-			return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, Subcomponent.class);
+			return shapeService.getClosestAncestorWithBusinessObjectType((Shape)startContainer, Subcomponent.class);
 		}
 	};
 	
-	public DefaultColoringService(final ShapeService shapeService, final PropertyService propertyService, final StyleService styleService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public DefaultColoringService(final ShapeService shapeService, final PropertyService propertyService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.shapeService = shapeService;
 		this.propertyService = propertyService;
-		this.styleService = styleService;
 		this.bor = bor;
 		this.fp = fp;
 		
@@ -328,4 +371,16 @@ public class DefaultColoringService implements ColoringService {
 	private Diagram getDiagram() {
 		return fp.getDiagramTypeProvider().getDiagram();
 	}
+	
+	private IColorConstant getInSelectedModeColor() {
+		return ColorConstant.BLUE;
+	}
+	
+	private IColorConstant getInSelectedFlowColor() {
+		return ColorConstant.DARK_GREEN;
+	}
+	
+	private IColorConstant getInSelectedModeAndFlowColor() {
+		return ColorConstant.CYAN;
+	};
 }

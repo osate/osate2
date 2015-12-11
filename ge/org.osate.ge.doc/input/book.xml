@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../docbook-xml-4.5/docbookx.dtd">
 
 <book>
-	<title>OSATE Graphical Editor User Guide</title>
+	<title>OSATE Graphical Editor Documentation</title>
 	<bookinfo>
-		<title>OSATE Graphical Editor User Guide</title>
+		<title>OSATE Graphical Editor Documentation</title>
 	</bookinfo>
 	<chapter>
 		<title>Getting Started</title>
@@ -18,15 +18,16 @@
 				</listitem>
 				<listitem>
 					<para>Select <emphasis>Aadl Package (Graphical)</emphasis> and select <emphasis>Next.</emphasis></para>
-					<imageobject>
-    				<imagedata fileref="images/AadlPackage(Graphical).png" format="PNG"/>
-  				</imageobject>
+					
+					<mediaobject><imageobject>
+    					<imagedata fileref="images/AadlPackage(Graphical).png" format="PNG"/>
+  					</imageobject></mediaobject>
 				</listitem>
 				<listitem>
 					<para>Enter a name for the new package.</para>
-					<imageobject>
+					<mediaobject><imageobject>
     				<imagedata fileref="images/AadlPackageName.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 				</listitem>
 				<listitem>
 					<para>Select the AADL Project to create the package inside.</para>
@@ -63,23 +64,23 @@
 		<section>
 			<title>Opening an Associated Diagram</title>
 			<para>Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting <emphasis>Open Associated Diagram</emphasis> from the context menu.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/OpenAssociatedDiagram.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 		</section>
 		<section>
 			<title>Opening an Element's Package Diagram</title>
 			<para>When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting <emphasis>Go to Package Diagram</emphasis> from the context menu.</para>
-			<imageobject>
+			<mediaobject><imageobject>
     			<imagedata fileref="images/GoToPackageDiagram.png" format="PNG"/>
-  			</imageobject>
+  			</imageobject></mediaobject>
 		</section>
 		<section>
 			<title>Opening the Type Diagram for a Component Implementation</title>
 			<para>When viewing a component implementation diagram, the diagram for the component implementation's type can be opened by right-clicking inside the diagram and selecting <emphasis>Go to Type Diagram</emphasis> from the context menu.</para>
-			<imageobject>
+			<mediaobject><imageobject>
     			<imagedata fileref="images/GoToTypeDiagram.png" format="PNG"/>
-  			</imageobject>
+  			</imageobject></mediaobject>
 		</section>
 	</chapter>
 		
@@ -92,9 +93,9 @@
 			<section>
 				<title>Deleting</title>
 				<para>An element can be deleted from the AADL model by selecting it and pressing the <emphasis><emphasis role="bold">Delete</emphasis></emphasis> key. An element can also be deleted by right-clicking on it and selecting <emphasis>Delete</emphasis> from the context menu.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/Delete.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 				<para>Elements can only be deleted when viewing the element which contains it. For example, a feature defined in a system type cannot be deleted while editing the diagram of a system implementation.</para>
 			</section>
 			<section>
@@ -106,9 +107,9 @@
 					</listitem>
 					<listitem>
 						<para>Click the name label. An editable field will appear.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/Renaming.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Adjust the name as desired.</para>
@@ -126,9 +127,9 @@
 			<section>
 				<title>Instantiating</title>
 				<para>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <emphasis>Instantiate</emphasis> from the context menu. The instance model will be created in that projects <emphasis>instances</emphasis> folder in the AADL Navigator.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/Instantiate.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 			</section>
 			<section>
 				<title>Editing Property Associations</title>
@@ -154,9 +155,9 @@
 			<section>
 				<title>Performing Diagram Layout</title>
 				<para>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select <emphasis>Layout Diagram</emphasis>. Doing so will adjust the positions of all the shapes in the diagram.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 			</section>
 		</section>
 		<section>
@@ -193,9 +194,9 @@
 							</listitem>
 							<listitem>
 								<para>In the <emphasis>Properties</emphasis> view, select the <emphasis>Connections</emphasis> tab.</para>
-								<imageobject>
+								<mediaobject><imageobject>
     								<imagedata fileref="images/ConnectionProperties.png" format="PNG"/>
-  								</imageobject>
+  								</imageobject></mediaobject>
 							</listitem>
 						</orderedlist>
 					</section>
@@ -203,9 +204,9 @@
 			<section>
 				<title>Connection_Pattern Property Visualization</title>
 				<para>When working with arrays, the graphical editor supports visualization of the connection_pattern property. See <xref linkend="arrays"/>.</para>
-				<imageobject>
+				<mediaobject><imageobject>
 					<imagedata fileref="images/ConnectionPattern.png" format="PNG"/>
-				</imageobject>
+				</imageobject></mediaobject>
 			</section>
 		</section>
 		<section>
@@ -220,9 +221,9 @@
 					</listitem>
 					<listitem>
 						<para>Drag the appropriate classifier type from the palette onto the diagram.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/Palette.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>If a component implementation was dropped onto the diagram, select the classifier for the implementation to implement or extend.</para>
@@ -255,9 +256,9 @@
 						</listitem>
 						<listitem>
 							<para>Select the classifier to extend.</para>
-							<imageobject>
+							<mediaobject><imageobject>
     							<imagedata fileref="images/SetExtendedClassifier.png" format="PNG"/>
-  							</imageobject>
+  							</imageobject></mediaobject>
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>OK</emphasis>. The appropriate arrow indicating the extension will appear.</para>
@@ -280,9 +281,9 @@
 			<section>
 				<title>Setting the Feature Classifier</title>
 				<para>The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right-clicking on the feature and selecting <emphasis>Set Classifier...</emphasis> from the context menu.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/SetClassifier.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 			</section>
 			<section>
 				<title>Setting the Feature Direction (Directional Features Only)</title>
@@ -307,9 +308,9 @@
 			<section>
 				<title>Setting the Classifier</title>
 				<para>Select the subcomponent classifier by right-clicking on the subcomponent and selecting <emphasis>Set Classifier...</emphasis> from the context menu. After selecting the classifier, the subcomponent will be updated to show the appropriate features.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/SetClassifierSubComponent.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 			</section>
 			<section>
 				<title>Setting Modes</title>
@@ -320,14 +321,20 @@
 				<para>Internal details of subcomponents such as inner connections and subcomponents can be displayed within a diagram. The number of subcomponent levels to display is determined by the nesting depth. The nesting depth can be set to customize how many subcomponent levels to show. Anything beyond the specified nesting depth is hidden from the diagram.</para>
 				<section>
 					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth</title>
-					<orderedlist>
-						<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
-					</orderedlist>
+					<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.
+						<mediaobject><imageobject>
+    					<imagedata fileref="images/NestingButtonsToolbar.png" format="PNG"/>
+  						</imageobject></mediaobject>
+  					</para>
 				</section>
 				<section>
 					<title>Using the Depth Selector Drop-Down to Select a Nesting Depth</title>
 					<orderedlist>
-					<para>The nesting depth can be set using the depth selector on the toolbar.</para>
+					<para>The nesting depth can be set using the depth selector on the toolbar.
+						<mediaobject><imageobject>
+    						<imagedata fileref="images/NestingDropdownToolbar.png" format="PNG"/>
+  						</imageobject></mediaobject>
+  					</para>
 						<listitem>
 							<para>Select the depth selector drop-down.</para>
 						</listitem>
@@ -344,9 +351,9 @@
 			<section>
 				<title>Creating Flow Specifications</title>
 				<para>Flow paths, flow sinks, and flow sources can be created using the palette when editing a component type.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/FlowSpecificationPalette.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 				<section>
 					<title>Creating Flow Paths</title>
 					<orderedlist>
@@ -385,31 +392,35 @@
 				</section>
 			</section>
 			<section>
-				<title>Creating Flow Implementations and End-To-End Flows</title>
-				<para>When editing a component implementation, flow implementations and end-to-end flows can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
+				<title>Creating Flow Implementations and End-To-End Flow Specifications</title>
+				<para>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow Specification</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
 			<section>
 				<title>Creating Flow Implementations</title>
-				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.</para>
+				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.
+					<mediaobject><imageobject>
+						<imagedata fileref="images/CreateFlowImplementationToolbar.png" format="PNG"/>
+					</imageobject></mediaobject>
+				</para>
 				<section>
 				<title>Creating Source Flow Implementations</title>
 					<orderedlist>
 					<listitem>
-						<para>Select a valid source flow specification.</para>
-						<imageobject>
+						<para>Select a valid source flow specification in the top-level component implementation.</para>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/FlowImplSourceStep1.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid subcomponent flow specification, subcomponent, or data access.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/FlowImplSourceStep2.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the source flow specification.  Optionally, select modes or mode transitions.</para>
-					<imageobject>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplSourceStep3.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select <emphasis>OK</emphasis> when done.</para>
@@ -420,22 +431,22 @@
 				<title>Creating Sink Flow Implementations</title>
 				<orderedlist>
 					<listitem>
-					<para>Select a valid sink flow specification.</para>
-					<imageobject>
+					<para>Select a valid sink flow specification in the top-level component implementation.</para>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplSinkStep1.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid connection.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplSinkStep2.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the end subcomponent flow.  Optionally, select modes or mode transitions.</para>
-					<imageobject>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplSinkStep3.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select <emphasis>OK</emphasis> when done.</para>
@@ -446,22 +457,22 @@
 				<title>Creating Path Flow Implementations</title>
 				<orderedlist>
 					<listitem>
-					<para>Select a valid path flow specification.</para>
-					<imageobject>
+					<para>Select a valid path flow specification in the top-level component implementation.</para>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplPathStep1.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 					<para>Select a valid connection.</para>
-					<imageobject>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplPathStep2.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the path flow specification's out flow end.  Optionally, select modes or mode transitions.</para>
-					<imageobject>
+					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplPathStep3.png" format="PNG"/>
-  					</imageobject>
+  					</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select <emphasis>OK</emphasis> when done.</para>
@@ -470,29 +481,33 @@
 				</section>
 			</section>
 			<section>
-				<title>Creating End-To-End Flows</title>
-				<para>Select <emphasis>Create End-To-End Flow</emphasis> from the toolbar, the dialog will appear.</para>
+				<title>Creating End-To-End Flow Specifications</title>
+				<para>Select <emphasis>Create End-To-End Flow Specification</emphasis> from the toolbar, the dialog will appear.
+					<mediaobject><imageobject>
+						<imagedata fileref="images/CreateEndToEndFlowSpecificationToolbar.png" format="PNG"/>
+					</imageobject></mediaobject>
+				</para>
 				<orderedlist>
 					<listitem>
 						<para>Select a valid subcomponent source flow specification.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/EndToEndFlowStep1.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid connection.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/EndToEndFlowStep2.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select valid flow segments.  Optionally, select modes or mode transitions.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/EndToEndFlowStep3.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
-						<para>Specify a name for the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
+						<para>Specify a name for the End-To-End Flow Specification and select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 			</section>
@@ -500,13 +515,13 @@
 			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>
 				<para>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting <emphasis>Edit Flows...</emphasis> from the context menu.</para>
-				<imageobject>
+				<mediaobject><imageobject>
     				<imagedata fileref="images/EditFlows.png" format="PNG"/>
-  				</imageobject>
+  				</imageobject></mediaobject>
 			</section>
 			<section>
-				<title>Highlighting Flow Implementations and End-to-End Flows</title>
-				<para>Selecting a flow implementation or end-to-end flow from the flow drop-down in the toolbar will highlight the flow.</para>
+				<title>Highlighting Flow Implementations and End-to-End Flow Specifications</title>
+				<para>Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.</para>
 			</section>
 		</section>
 		<section>
@@ -532,9 +547,9 @@
 					</listitem>
 					<listitem>
 						<para>Select the destination mode. The <emphasis>Select Trigger Ports</emphasis> dialog will appear.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     						<imagedata fileref="images/PortTriggerDialog.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select the ports to use as the triggers for the transition. Multiple ports can be selected by holding down <emphasis>Ctrl</emphasis>.</para>
@@ -577,13 +592,17 @@
 							<para>Select the diagram element for which to set the binding.</para>
 						</listitem>
 						<listitem>
-							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.</para>
+							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.
+							<mediaobject><imageobject>
+								<imagedata fileref="images/BindToolbar.png" format="PNG"/>
+							</imageobject></mediaobject>
+						</para>
 						</listitem>
 						<listitem>
 							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
-							<imageobject>
+							<mediaobject><imageobject>
     							<imagedata fileref="images/Bindings.png" format="PNG"/>
-  							</imageobject>
+  							</imageobject></mediaobject>
 						</listitem>
 						<listitem>
 							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
@@ -601,9 +620,9 @@
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
-							<imageobject>
+							<mediaobject><imageobject>
     							<imagedata fileref="images/BindContextMenu.png" format="PNG"/>
-  							</imageobject>
+  							</imageobject></mediaobject>
 						</listitem>
 						<listitem>
 							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
@@ -629,9 +648,9 @@
 					</listitem>
 					<listitem>
 						<para>Select the checkboxes to configure which bindings to show.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     							<imagedata fileref="images/BindingProperties.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 				</orderedlist>
 			</section>
@@ -651,15 +670,15 @@
 					</listitem>
 					<listitem>
 						<para>From the Modify Dimensions dialog, select <emphasis>Add</emphasis>, then <emphasis>Modify</emphasis>.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     							<imagedata fileref="images/ModifyDimensions.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>From the Modify Dimension dialog, select desired type and value.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     							<imagedata fileref="images/ModifyDimension.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select <emphasis>OK</emphasis>.  The array dimensions will appear on the element.</para>
@@ -705,9 +724,9 @@
 					</listitem>
 					<listitem>
 						<para>In the <emphasis>Select Subprogram</emphasis> dialog, select desired type and subprogram component.</para>
-						<imageobject>
+						<mediaobject><imageobject>
     							<imagedata fileref="images/SubprogramCallSequence.png" format="PNG"/>
-  						</imageobject>
+  						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
 						<para>Select <emphasis>OK</emphasis>.  The new call sequence will appear.</para>
@@ -725,17 +744,144 @@
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>OK</emphasis>.  The new subprogram call will appear.</para>
-							<imageobject>
+							<mediaobject><imageobject>
     							<imagedata fileref="images/SubprogramCallSequenceDiagram.png" format="PNG"/>
-  							</imageobject>
+  							</imageobject></mediaobject>
 						</listitem>
 					</orderedlist>
 				</section>
 			</section>
-			
 			<section>
 				<title>Editing Subprogram Call Sequences</title>
 				<para>To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select <emphasis>Move Up</emphasis> or <emphasis>Move Down</emphasis>.</para>
+			</section>
+		</section>
+		<section>
+			<title>Annexes</title>
+			<para>The graphical editor supports creating Annex Libraries and Annex Subclauses in appropriate AADL packages and classifiers, respectively.</para>
+			<section>
+				<title>Creating Annex Libraries and Annex Subclauses</title>
+				<para>Annex Libraries and Annex Libraries can be created by using the palette.</para>
+				<orderedlist>
+					<listitem>
+						<para>Drag the appropriate annex type from the palette onto the diagram, a dialog will appear.</para>
+					</listitem>
+					<listitem>
+						<para>Type in a valid name for the new annex and select <emphasis>OK</emphasis>.</para>
+						<mediaobject><imageobject>
+							<imagedata fileref="images/AnnexDialog.png" format="PNG"/>
+						</imageobject></mediaobject>
+					</listitem>
+				</orderedlist>
+			</section>
+		</section>
+	</chapter>
+	<chapter>
+		<title>Developing Extensions</title>
+		<para>
+		The OSATE Graphical Editor provides extension points to allow Eclipse plugins to expand the capabilities of the graphical editor.
+		</para>
+		<para>
+			<emphasis role="bold">Note: this documentation and the extension points described are currently Work In Progress (WIP) and the details will change before the interface is finalized.</emphasis>
+		</para>
+		<section>
+			<title>General Information</title>
+			<para>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by the Java Extensions are implemented which have a no-argument constructor and which contains annotations to specify which methods should be called. Required services and other arguments are passed into annotated methods via dependency injection.</para>
+			<para>The graphical editor is built on top of the Graphiti framework. In many cases knowledge of Graphiti is not required, but it is needed for more advanced use cases.</para>
+			<section>
+				<title>Services</title>
+				<para>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <emphasis>TBD</emphasis> package.</para>
+				<para><emphasis role="bold">Unless otherwise noted, extensions may be reused between diagrams. To avoid increased unnecessary memory usage, extensions should not retain references to services.</emphasis></para>
+				<para><emphasis role="bold">The set of services which will be provided to extensions has not yet been finalized.</emphasis></para>
+			</section>
+			<section>
+				<title>Annotations</title>
+				<para>Extensions are found in the <emphasis>org.osate.ge.ext.annotations</emphasis> package. The applicable extensions depend on the type of extension being implemented. For details regarding each annotation, it is recommended to consult the annotation package.</para>
+			</section>
+		</section>
+		<section>
+			<title>Extension Points</title>
+			<para>Extensions may be used to extend the editing capabiliy of diagrams or the elements represented within the diagrams. 
+			<emphasis role="bold">NOTE: using extensions to add support for entirely new business objects is not currently supported.</emphasis> 
+			Extending the graphical editor with support for a new type of business object requires multiple extensions.
+			A business object is a generic term used to refer to any object which is representated pictogram elements inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.
+			</para>
+			<section>
+				<title>Tools</title>
+				<para>Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own user interface to provide feedback to the user. Tools are displayed in the toolbar.</para>
+				<para>The tools extension point(<emphasis>org.osate.ge.tools</emphasis>) is used to register tools. The graphical editor implements tool extensions which may be used as examples. Those tools are contained in the <emphasis>org.osate.ge.tools</emphasis> package.</para>
+				<para>Required Annotations:</para>
+				<itemizedlist>
+					<listitem><para>Activate</para></listitem>
+					<listitem><para>Deactivate</para></listitem>
+					<listitem><para>Description</para></listitem>
+					<listitem><para>Id</para></listitem>
+					<listitem><para>Description</para></listitem>
+					<listitem><para>Icon</para></listitem>
+				</itemizedlist>
+				<para>Optional Annotations:</para>
+				<itemizedlist>
+					<listitem><para>CanActivate</para></listitem>
+					<listitem><para>SelectionChanged</para></listitem>
+				</itemizedlist>
+				<para>Supported named parameters:</para>
+				<itemizedlist>
+					<listitem><para>SELECTED_PICTOGRAM_ELEMENTS(SelectionChanged)</para></listitem>
+				</itemizedlist>
+			</section>
+			<section>
+				<title>Adding Support for a new Business Object</title>
+				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
+				<section>
+					<title>Reference Handlers</title>
+					<para>Referenced handlers are registered using the org.osate.ge.referenceHandlers extension point. The graphical editor uses reference handlers to generate a reference to a business object and to retrieve a business object using the previously generated reference.</para>
+					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference handler. A single reference handler may handle multiple types of business objects.</para>
+					<para>The DeclarativeReferenceHandler class may be used as an example of a reference handler.</para>
+					<para>Reference handlers differ from other extensions in a couple ways.</para>
+					<itemizedlist>
+						<listitem><para>Instances are not shared between diagrams.</para></listitem>
+						<listitem><para>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</para></listitem>
+					</itemizedlist>
+					<para>Required Annotations:</para>
+					<itemizedlist>
+						<listitem><para>BuildReference</para></listitem>
+						<listitem><para>ResolveReference</para></listitem>
+					</itemizedlist>
+					<para>Optional Annotations:</para>
+					<itemizedlist>
+						<listitem><para>PreDestroy</para></listitem>
+					</itemizedlist>
+					<para>Supported named parameters:</para>
+					<itemizedlist>
+						<listitem><para>BUSINESS_OBJECT(BuildReference)</para></listitem>
+						<listitem><para>REFERENCE(ResolveReference)</para></listitem>
+					</itemizedlist>
+				</section>
+				<section>
+					<title>Styles</title>
+					<para>The graphical editor manages creating and updating the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
+					<para>The graphical editor implements style factories which may be used as examples. Those style factories are contained in the <emphasis>org.osate.ge.styles</emphasis> package.</para>
+					<para>Required Annotations:</para>
+					<itemizedlist>
+						<listitem><para>Activate</para></listitem>
+					</itemizedlist>
+					<para>Optional Annotations:</para>
+					<itemizedlist>
+						<listitem><para>None</para></listitem>
+					</itemizedlist>
+					<para>Supported named parameters:</para>
+					<itemizedlist>
+						<listitem><para>STYLE_ID(Activate)</para></listitem>
+					</itemizedlist>
+				</section>
+				<section>
+					<title>Categories</title>
+					<para>The graphical editor manages a list of categories. These categories are used to group items in the palette. Categories are registered using the <emphasis>org.osate.ge.categories</emphasis> extension point.</para>
+				</section>
+				<section>
+					<title>Images</title>
+					<para>The graphical editor references images using unique identifiers. Images are registered using the <emphasis>org.osate.go.images</emphasis> extension point.</para>
+				</section>
 			</section>
 		</section>
 	</chapter>
@@ -745,16 +891,16 @@
 		<section>
 			<title>Build Automatically</title>
 			<para><emphasis>Project->Build Automatically</emphasis> must be enabled. If it is not enabled, the graphical editor will not function properly.</para>
-			<imageobject>
+			<mediaobject><imageobject>
     			<imagedata fileref="images/BuildAutomatically.png" format="PNG"/>
-  			</imageobject>
+  			</imageobject></mediaobject>
 		</section>
 		<section>
 			<title>Updating a Diagram</title>
 			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
-			<imageobject>
+			<mediaobject><imageobject>
     			<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
-  			</imageobject>
+  			</imageobject></mediaobject>
 		</section>
 		<section>
 			<title>Reporting Bugs</title>

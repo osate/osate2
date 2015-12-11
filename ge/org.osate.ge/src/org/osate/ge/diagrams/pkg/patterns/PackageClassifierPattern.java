@@ -56,10 +56,10 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -72,9 +72,10 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.Log;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern implements Categorized {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
@@ -143,7 +144,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
         this.link(labelShape, new AadlElementWrapper(classifier));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
-        // Set the size        
+        // Set the size
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
 		final int textWidth = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
 		final int height = 50; 
@@ -232,7 +233,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	
 	@Override
 	public String getCreateImageId() {
-		return AgeImageProvider.getImage(classifierType.getName());
+		return ImageHelper.getImage(classifierType.getName());
 	}
 	
 	
@@ -432,7 +433,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	 */
 	private List<IEObjectDescription> getValidBaseClassifierDescriptions() {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(getDiagram().eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			for(final EClass superType : classifierType.getESuperTypes()) {
 				if(!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
@@ -605,7 +606,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
     }
 
 	@Override
-	public Category getCategory() {
-		return Category.CLASSIFIERS;
+	public String getCategory() {
+		return Categories.CLASSIFIERS;
 	}
 }

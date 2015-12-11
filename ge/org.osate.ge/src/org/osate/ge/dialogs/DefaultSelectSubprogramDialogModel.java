@@ -30,11 +30,11 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.ComponentImplementationService;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 
 /**
  * This is a default implementation of the model used for the SelectSubprogramDialog. 
- * It supplies contexts and subprogram from the EMFIndexRetrieval and the specified BehavioredImplementation.
+ * It supplies contexts and subprogram from the ScopedEMFIndexRetrieval and the specified BehavioredImplementation.
  * @author philip.alldredge
  *
  */
@@ -59,7 +59,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// subprogram group unique type reference
 		// abstract unique type reference
 		final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
-		for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(aadl2Package.getComponentClassifier())) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(), aadl2Package.getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			final EClass classifierEClass = desc.getEClass();
 			if(aadl2Package.getDataType() == classifierEClass ||
@@ -151,7 +151,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		} else if(context == nullContext) { // Null Context
 			// Subprogram classifier reference
 			final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
-			for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(aadl2Package.getComponentClassifier())) {
+			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(), aadl2Package.getComponentClassifier())) {
 				// Add objects that have care either types or implementations of the same category as the classifier type
 				final EClass classifierEClass = desc.getEClass();
 				if(aadl2Package.getSubprogramClassifier().isSuperTypeOf(classifierEClass)) {

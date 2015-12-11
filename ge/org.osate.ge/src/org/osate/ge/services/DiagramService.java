@@ -11,10 +11,9 @@ package org.osate.ge.services;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.services.impl.DefaultDiagramService;
-import org.osate.ge.services.impl.SimpleServiceFactory;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 /**
@@ -23,15 +22,10 @@ import org.osate.ge.ui.editor.AgeDiagramEditor;
  *
  */
 public interface DiagramService {
-	public static class Factory extends SimpleServiceFactory {
-		public Factory() {
-			super(DiagramService.class, DefaultDiagramService.class);
-		}
-	}
-	
 	public static interface DiagramReference {
 		boolean isOpen();
 		Diagram getDiagram();
+		IProject getProject();
 		
 		/**
 		 * Returns the currently open editor for the diagram.

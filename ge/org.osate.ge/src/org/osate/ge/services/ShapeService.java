@@ -23,15 +23,13 @@ public interface ShapeService {
 	List<Shape> getNonGhostChildren(ContainerShape shape);
 	
 	/**
-	 * Gets a child shape tied to a particular element. Delegates to comparison by element name because there are scenarios where names can be duplicated. For example
-	 * an invalid model during copy and paste operations.
+	 * Gets a child shape tied to a particular business object. The business object comparison is done using serializable references
 	 * Note: This method will return ghosted children.
 	 * @param shape
 	 * @param el
 	 * @return
 	 */
-	Shape getChildShapeByElementQualifiedName(ContainerShape shape,
-			NamedElement el);
+	Shape getChildShapeByReference(ContainerShape shape, Object bo);
 
 	/**
 	 * Note: This method will not return invisible shapes. The method will returns null if the specified shape is not visible.
@@ -42,6 +40,15 @@ public interface ShapeService {
 	Shape getChildShapeByElementName(ContainerShape shape,
 			NamedElement el);
 
+	/**
+	 * Gets a descendant shape tied to a particular business object. The business object comparison is done using serializable references
+	 * Does not look at children if the child shape is associated with another object.
+	 * @param shape
+	 * @param el
+	 * @return
+	 */
+	Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo);
+	
 	/**
 	 * Gets a descendant shape that is linked to a an AADL element with the same qualified same as the specified element. Does not look at children if the child shape is associated with another object.
 	 * @param shape

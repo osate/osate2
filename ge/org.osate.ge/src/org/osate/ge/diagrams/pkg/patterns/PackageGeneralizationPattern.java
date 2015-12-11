@@ -46,9 +46,9 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -59,6 +59,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.util.ImageHelper;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, Categorized {
 	private final StyleService styleUtil;
@@ -102,7 +103,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		// Create the arrow
 		final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(
 				connection, false, 1.0, true);
-		createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
+		createArrow(arrowConnectionDecorator, getGeneralizationArrowHeadStyle());
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
-		final Style style = isImplements ? styleUtil.getImplementsStyle() : styleUtil.getExtendsStyle();
+		final Style style = isImplements ? getImplementsStyle() : getExtendsStyle();
 		ga.setStyle(style);
 	}
 
@@ -144,7 +145,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getGeneralization().getName());
+		return ImageHelper.getImage(p.getGeneralization().getName());
 	}
 	@Override
 	public String getCreateName() {
@@ -472,8 +473,19 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	}
 
 	@Override
-	public Category getCategory() {
-		return Category.RELATIONSHIPS;
+	public String getCategory() {
+		return Categories.RELATIONSHIPS;
 	}
 	
+	private Style getGeneralizationArrowHeadStyle() {
+		return styleUtil.getStyle("generalization-arrowhead");
+    }
+	
+	private Style getExtendsStyle() {
+		return styleUtil.getStyle("extends");
+    }
+	
+	private Style getImplementsStyle() {
+		return styleUtil.getStyle("implements");
+    }
 }

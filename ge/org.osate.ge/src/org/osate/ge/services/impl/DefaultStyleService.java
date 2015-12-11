@@ -8,6 +8,10 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.Objects;
+
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -17,18 +21,20 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.util.ColorConstant;
-import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.services.StyleProviderService;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+import org.osate.ge.ext.Names;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.StyleService;
 
 public class DefaultStyleService implements StyleService {
 	private final IFeatureProvider fp;
-	private final StyleProviderService styleProviderService;
+	private final ExtensionService extensionService;
 	
-	public DefaultStyleService(final IFeatureProvider fp, final StyleProviderService styleProviderService) {
+	public DefaultStyleService(final IFeatureProvider fp, final ExtensionService extensionService) {
 		this.fp = fp;
-		this.styleProviderService = styleProviderService;
+		this.extensionService = extensionService;
 	}
 	
 	/* (non-Javadoc)
@@ -36,285 +42,25 @@ public class DefaultStyleService implements StyleService {
 	 */
 	@Override
 	public Style getStyle(final String styleId) {
-		return styleProviderService.getStyle(getDiagram(), styleId);
+		final IGaService gaService = Graphiti.getGaService();
+		final Diagram diagram  = getDiagram();
+        final Style style = gaService.findStyle(diagram, styleId);
+    	
+        // If it does not exist, create it
+        if(style == null) {
+        	final Object styleFactory = extensionService.getStyleFactory(styleId);
+        	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
+        	try {
+	        	context.set(Names.STYLE_ID, styleId);
+	        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        	} finally {
+        		context.dispose();
+        	}
+        }
+		
+		return style;
 	}
-	
-	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {
-		final String finalStyleId = getImplementation ? (styleId + "-implementation") : styleId;
-		return getStyle(finalStyleId);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getSystemStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getSystemStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("system", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getProcessStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getProcessStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("process", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getThreadGroupStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getThreadGroupStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("thread-group", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getThreadStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getThreadStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("thread", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getSubprogramStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getSubprogramStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("subprogram", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getSubprogramGroupStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getSubprogramGroupStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("subprogram-group", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getDataStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getDataStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("data", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getAbstractStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getAbstractStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("abstract", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getVirtualBusStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getVirtualBusStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("virtual-bus", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getVirtualProcessorStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getVirtualProcessorStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("virtual-processor", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getBusStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getBusStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("bus", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getProcessorStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getProcessorStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("processor", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getDeviceStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getDeviceStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("device", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getMemoryStyle(org.eclipse.graphiti.mm.pictograms.Diagram, boolean)
-	 */
-	@Override
-	public Style getMemoryStyle(final boolean isImplementation) {
-		return getImplementationStyleConditionally("memory", isImplementation);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureGroupStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getFeatureGroupStyle() {
-		return getImplementationStyleConditionally("feature-group", false);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getShadedStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getShadedStyle() {
-		return getStyle("shaded");
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getImplementsStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getImplementsStyle() {
-		return getStyle("implements");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getFlowSpecificationStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getFlowSpecificationStyle() {
-		return getStyle("flow_specification");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getExtendsStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getExtendsStyle() {
-		return getStyle("extends");
-    }	
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getGeneralizationArrowHeadStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getGeneralizationArrowHeadStyle() {
-		return getStyle("generalization-arrowhead");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getDecoratorStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getDecoratorStyle() {
-		return getStyle("decorator");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getModeTransitionTrigger(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getModeTransitionTrigger() {
-		return getStyle("mode_transition_trigger");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getLabelStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getLabelStyle() {
-		return getStyle("label");
-    }
-	
-	@Override
-	public Style getAnnotationStyle() {
-		return getStyle("annotation");
-    }
-	
-	@Override
-	public Style getTextBackgroundStyle() {
-		return getStyle("text-background");
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getFeatureStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getFeatureStyle() {
-		return getStyle("feature");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getSubprogramAccessStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getSubprogramAccessStyle() {
-		return getStyle("subprogram_access");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getSubprogramGroupAccessStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getSubprogramGroupAccessStyle() {
-		return getStyle("subprogram_group_access");
-    }
-	
-	@Override
-	public Style getSubprogramCallOrderStyle() {
-		return getStyle("subprogram_call_order");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getBackgroundStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getBackgroundStyle() {
-		return getStyle("background");
-    }
 
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getModeStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getModeStyle() {
-		return getStyle("mode");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getInitialModeStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
-	 */
-	@Override
-	public Style getInitialModeStyle() {
-		return getStyle("mode-initial");
-    }
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getInSelectedModeColor()
-	 */
-	@Override
-	public IColorConstant getInSelectedModeColor() {
-		return ColorConstant.BLUE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.StyleService#getInSelectedFlowColor()
-	 */
-	@Override
-	public IColorConstant getInSelectedFlowColor() {
-		return ColorConstant.GREEN;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.getInSelectedModeAndFlowColor()
-	 */
-	@Override
-	public IColorConstant getInSelectedModeAndFlowColor() {
-		return ColorConstant.CYAN;
-	};
-	
 	@Override
 	public void refreshStyles() {
 		// Remove all styles. Styles will be recreated as needed

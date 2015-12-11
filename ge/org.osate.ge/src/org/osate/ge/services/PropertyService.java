@@ -105,6 +105,7 @@ public interface PropertyService {
 	
 	static enum BindingType {
 		ACTUAL_CONNECTION("actual_connection"),
+		ACTUAL_FUNCTION("actual_function"),
 		ACTUAL_MEMORY("actual_memory"),
 		ACTUAL_PROCESSOR("actual_processor"),
 		ALLOWED_CONNECTION("allowed_connection"),

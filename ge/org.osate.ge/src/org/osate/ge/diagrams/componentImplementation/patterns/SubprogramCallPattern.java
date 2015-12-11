@@ -52,12 +52,12 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.aadl2.SubprogramType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.dialogs.SelectSubprogramDialog;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
@@ -76,6 +76,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.AadlHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class SubprogramCallPattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -123,8 +124,8 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	}
 	
 	@Override
-	public Category getCategory() {
-		return Category.SUBPROGRAM_CALLS;
+	public String getCategory() {
+		return Categories.SUBPROGRAM_CALLS;
 	}
 
 	@Override
@@ -278,9 +279,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
 
-		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-		}
+		layoutService.checkShapeBoundsWithAncestors((ContainerShape)context.getPictogramElement());
 	}
 	
 	// Resize
@@ -299,11 +298,9 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	@Override
 	public void resizeShape(final IResizeShapeContext context) {
 		super.resizeShape(context);
-		
+
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
-		layoutService.checkContainerSize(shape);
-		
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		layoutService.checkShapeBoundsWithAncestors(shape);
 		
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
@@ -327,10 +324,10 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 		final Shape subprogramReferenceShape = getSubprogramReferenceShape(shape);
 		
 		// Create the graphics algorithm for the shape
-		final int newSize[] = layoutService.adjustChildShapePositions(shape);
+		final int newSize[] = layoutService.getMinimumSize(shape);
 		if(nameShape != null && subprogramReferenceShape != null) {
-			newSize[0] = Math.max(Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShape.getGraphicsAlgorithm().getWidth() + 30), subprogramReferenceShape.getGraphicsAlgorithm().getWidth() + 30);
-			newSize[1] = Math.max(Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30), subprogramReferenceShape.getGraphicsAlgorithm().getHeight() + 30);
+			newSize[0] = Math.max(Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShape.getGraphicsAlgorithm().getWidth() + 30), subprogramReferenceShape.getGraphicsAlgorithm().getWidth());
+			newSize[1] = Math.max(Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30), subprogramReferenceShape.getGraphicsAlgorithm().getHeight());
 		}
 		
 		createGraphicsAlgorithm(shape, x, y, newSize[0], newSize[1]);
@@ -373,7 +370,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getSubprogramCall().getName());
+		return ImageHelper.getImage(p.getSubprogramCall().getName());
 	}
 	
 	@Override

@@ -19,9 +19,12 @@ import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -31,8 +34,16 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.VirtualProcessorType;
+import org.osate.ge.ext.Categories;
+import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -40,6 +51,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 
 /**
@@ -75,7 +87,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 
 	@Override
 	public String getCreateImageId() {
-		return flowKind == FlowKind.SINK ? AgeImageProvider.getImage("FlowSink") : AgeImageProvider.getImage("FlowSource");
+		return flowKind == FlowKind.SINK ? ImageHelper.getImage("FlowSink") : ImageHelper.getImage("FlowSource");
 	}
 	
 	@Override
@@ -103,6 +115,22 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public boolean isAvailable(final IContext ctx) {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof ThreadGroupType || 
+				diagramBo instanceof ThreadType || 
+				diagramBo instanceof VirtualProcessorType || 
+				diagramBo instanceof ProcessType ||
+				diagramBo instanceof DeviceType ||
+				diagramBo instanceof AbstractType ||
+				diagramBo instanceof ProcessorType ||
+				diagramBo instanceof DataType ||
+				diagramBo instanceof SystemType ||
+				diagramBo instanceof SubprogramType ||
+				diagramBo instanceof SubprogramGroupType;
 	}
   
 	@Override
@@ -160,8 +188,8 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 
 
 	@Override
-	public Category getCategory() {
-		return Category.FLOWS;
+	public String getCategory() {
+		return Categories.FLOWS;
 	}
 
 	@Override

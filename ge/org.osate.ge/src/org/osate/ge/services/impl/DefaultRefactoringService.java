@@ -149,7 +149,7 @@ public class DefaultRefactoringService implements RefactoringService {
 			}
 			
 			@Override
-			public void afterCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
+			public void afterCommit(final Resource resource) {
 				// Build the project so that the index will be updated
 				// This was formerly part of DefaultAadlModificationService but it causes deadlock under certain circumstances(renaming features).
 				final IProject project = SelectionHelper.getProject(resource);

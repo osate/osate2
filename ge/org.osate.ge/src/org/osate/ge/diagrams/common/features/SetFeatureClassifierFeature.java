@@ -49,8 +49,8 @@ import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 	private static Map<EClass, FeatureClassifierSetterInfo> featureTypeToClassifierSetterMap = new HashMap<EClass, FeatureClassifierSetterInfo>();
@@ -163,8 +163,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 				
 				// Set the classifier
 				setFeatureClassifier(feature, dlg.getFirstSelectedElement());
-				
-				// TODO: Update other diagrams as appropriate once capability is added to DiagramService
+
 				return null;
 			}			
 		});
@@ -180,7 +179,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		
 		final FeatureClassifierSetterInfo setterInfo = featureTypeToClassifierSetterMap.get(feature.eClass());
 		// Populate the list with valid classifier descriptions
-		for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(setterInfo.classifierEClass)) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(feature.eResource(), setterInfo.classifierEClass)) {
 			featureClassifiers.add(desc);
 		}
 		

@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common;
 
+import java.util.Objects;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -15,7 +17,6 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.ui.PlatformUI;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -27,6 +28,7 @@ import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.SavedAadlResourceService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
@@ -41,7 +43,6 @@ import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.ExtensionRegistryService;
@@ -81,6 +82,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
+	private DefaultSerializableReferenceService serializableReferenceService;
 	
 	public AgeDiagramTypeProvider() {	
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -95,27 +97,28 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Create objects for the context
+		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
-		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
-		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+		final DiagramService diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
 		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
-		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);
-		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, bor);
-		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
-		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, bor, fp);
+		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);		
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
-		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
-		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(fp);
+		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
-		final DefaultStyleService styleUtil = new DefaultStyleService(fp, styleProviderService);
+		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), this, context);
+		serializableReferenceService = new DefaultSerializableReferenceService(extensionService);
+		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
+		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
+		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, bor, fp);
+		final DefaultStyleService styleUtil = new DefaultStyleService(fp, extensionService);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
@@ -123,10 +126,9 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
-		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, styleUtil, bor, fp);		
+		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
-		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), context);
-		
+				
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
 		context.set(IFeatureProvider.class, fp);
@@ -137,9 +139,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(ComponentImplementationService.class, componentImplementationService);
 		context.set(AadlArrayService.class, arrayService);
-		context.set(DiagramService.class, diagramService);
 		context.set(DiagramModificationService.class, diagramModificationService);
-		context.set(StyleProviderService.class, styleProviderService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);
@@ -162,6 +162,20 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(LabelService.class, labelService);
 		
 		return context;
+	}
+	
+	@Override
+	public void dispose() {
+		// Dispose of services that need disposing
+		if(serializableReferenceService != null) {
+			serializableReferenceService.dispose();
+		}
+		
+		if(context != null) {
+			context.dispose();
+		}
+		
+		super.dispose();
 	}
 	
 	@Override

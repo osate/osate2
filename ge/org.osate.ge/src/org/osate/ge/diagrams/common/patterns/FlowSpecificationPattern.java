@@ -28,10 +28,13 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -41,9 +44,17 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -57,6 +68,8 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.util.ImageHelper;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
@@ -90,11 +103,21 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
 	}
-
+	
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return diagramBo instanceof ComponentType;
+		return diagramBo instanceof ThreadGroupType || 
+				diagramBo instanceof ThreadType || 
+				diagramBo instanceof VirtualProcessorType || 
+				diagramBo instanceof ProcessType ||
+				diagramBo instanceof DeviceType ||
+				diagramBo instanceof AbstractType ||
+				diagramBo instanceof ProcessorType ||
+				diagramBo instanceof DataType ||
+				diagramBo instanceof SystemType ||
+				diagramBo instanceof SubprogramType ||
+				diagramBo instanceof SubprogramGroupType;
 	}
 	
 	@Override
@@ -120,25 +143,25 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 			{
 				// Create the arrow
 		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-		        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());	
+		        createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 			
 		case SOURCE:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());
+				createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle());	
+				createVbar(vbarConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 			
 		case SINK:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle()));
+				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE)));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle());	
+				createVbar(vbarConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 		}
@@ -147,7 +170,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(styleUtil.getLabelStyle());
+		text.setStyle(styleUtil.getStyle(StyleConstants.LABEL_STYLE));
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(fs.getName());
 	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(fs));
@@ -157,7 +180,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	protected void createGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getFlowSpecificationStyle();
+		final Style style = getFlowSpecificationStyle();
 		polyline.setStyle(style);
 	}
 	
@@ -247,10 +270,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentClassifier.class);
 	}	
 	
-	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
+	// This pattern only handles the creation of flow paths.
 	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage("FlowPath");
+		return ImageHelper.getImage("FlowPath");
 	}
 	
 	@Override
@@ -381,7 +404,11 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	}
 
 	@Override
-	public Category getCategory() {
-		return Category.FLOWS;
+	public String getCategory() {
+		return Categories.FLOWS;
 	}
+	
+	private Style getFlowSpecificationStyle() {
+		return styleUtil.getStyle("flow_specification");
+    }
 }

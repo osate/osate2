@@ -37,6 +37,8 @@ public interface ShapeCreationService {
 			List<? extends NamedElement> elements, int startX, boolean incX,
 			int xPadding, int startY, boolean incY, int yPadding, final Collection<Shape> touchedShapes);
 	
+	void createUpdateShapeForElement(ContainerShape shape, NamedElement element);
+	
 	/**
 	 * Create a shape for the specified element in the specified container if one does not exist. Otherwise, it sets the shapes position.
 	 * @param container

@@ -13,6 +13,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.ITextSelection;
@@ -134,7 +135,11 @@ public class SelectionHelper {
 	}
 	
 	public static IProject getProject(final Resource resource) {
-		final IPath projectPath = new Path(resource.getURI().toPlatformString(true)).uptoSegment(1);
+		return getProject(resource.getURI());
+	}
+	
+	public static IProject getProject(final URI resourceUri) {
+		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
 		if(projectResource instanceof IProject) {
 			return (IProject)projectResource;

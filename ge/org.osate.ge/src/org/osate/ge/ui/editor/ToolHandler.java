@@ -6,7 +6,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
-import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
 import org.osate.ge.ext.annotations.Deactivate;
@@ -27,6 +27,10 @@ public class ToolHandler {
 	public ToolHandler(final ExtensionService extensionService, final DefaultPaletteBehavior paletteBehavior) {
 		this.paletteBehavior = paletteBehavior;
 		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
+	}
+	
+	public void dispose() {
+		this.context.dispose();
 	}
 	
 	public boolean isToolActive() {
@@ -72,10 +76,10 @@ public class ToolHandler {
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
 		// Update the context
-		context.set(ExtensionConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
+		context.set(Names.SELECTED_PICTOGRAM_ELEMENTS, pes);
 		// Notify the active tool
 		if(activeTool != null) {
-			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
+			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
 		}
 	}
 }
