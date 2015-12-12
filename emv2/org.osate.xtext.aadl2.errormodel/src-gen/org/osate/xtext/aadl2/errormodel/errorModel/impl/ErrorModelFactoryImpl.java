@@ -64,9 +64,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     switch (eClass.getClassifierID())
     {
-      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT: return createErrorModelGrammarRoot();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
       case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
       case ErrorModelPackage.ERROR_TYPE: return createErrorType();
       case ErrorModelPackage.TYPE_SET: return createTypeSet();
@@ -121,10 +120,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorModelGrammarRoot createErrorModelGrammarRoot()
+  public ErrorModelLibrary createErrorModelLibrary()
   {
-    ErrorModelGrammarRootImpl errorModelGrammarRoot = new ErrorModelGrammarRootImpl();
-    return errorModelGrammarRoot;
+    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
+    return errorModelLibrary;
   }
 
   /**
@@ -136,17 +135,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
     return errorModelSubclause;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorModelLibrary createErrorModelLibrary()
-  {
-    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
-    return errorModelLibrary;
   }
 
   /**

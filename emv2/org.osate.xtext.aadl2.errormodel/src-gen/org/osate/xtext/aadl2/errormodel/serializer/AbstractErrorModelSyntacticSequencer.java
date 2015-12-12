@@ -23,6 +23,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	protected ErrorModelGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_a;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_p;
+	protected AbstractElementAlias match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q;
 	protected AbstractElementAlias match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q;
 	protected AbstractElementAlias match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q;
 	protected AbstractElementAlias match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q;
@@ -37,6 +38,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		grammarAccess = (ErrorModelGrammarAccess) access;
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
+		match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_3_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_3_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_3_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_3_8()));
 		match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_6()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_7()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_8()));
 		match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_9()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_10()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_11()));
 		match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_7_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_7_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_7_6()));
@@ -63,6 +65,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 				emit_ConditionTerm_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ConditionTerm_LeftParenthesisKeyword_3_0_p.equals(syntax))
 				emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q.equals(syntax))
+				emit_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q.equals(syntax))
 				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q.equals(syntax))
@@ -106,6 +110,20 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
 	protected void emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('error' 'types' 'end' 'types' ';')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=QEMREF (ambiguity) (rule end)
+	 *     name=QEMREF (ambiguity) behaviors+=ErrorBehaviorStateMachine
+	 *     name=QEMREF (ambiguity) mappings+=TypeMappingSet
+	 *     name=QEMREF (ambiguity) transformations+=TypeTransformationSet
+	 */
+	protected void emit_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

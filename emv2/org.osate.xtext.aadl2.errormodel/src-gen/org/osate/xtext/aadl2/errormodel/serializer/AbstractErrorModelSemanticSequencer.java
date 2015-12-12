@@ -42,7 +42,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelGrammarRoot;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -232,12 +231,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.ERROR_EVENT:
 				sequence_ErrorEvent(context, (ErrorEvent) semanticObject); 
 				return; 
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT:
-				sequence_ErrorModelGrammarRoot(context, (ErrorModelGrammarRoot) semanticObject); 
-				return; 
 			case ErrorModelPackage.ERROR_MODEL_LIBRARY:
-				sequence_ErrorModelLibrary(context, (ErrorModelLibrary) semanticObject); 
-				return; 
+				if(context == grammarAccess.getEMV2LibraryRule()) {
+					sequence_EMV2Library(context, (ErrorModelLibrary) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAnnexLibraryRule() ||
+				   context == grammarAccess.getErrorModelLibraryRule() ||
+				   context == grammarAccess.getNamedElementRule()) {
+					sequence_ErrorModelLibrary(context, (ErrorModelLibrary) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
 				sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
 				return; 
@@ -463,6 +468,26 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         name=QEMREF 
+	 *         (
+	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
+	 *             properties+=ContainedPropertyAssociation*
+	 *         )? 
+	 *         behaviors+=ErrorBehaviorStateMachine* 
+	 *         mappings+=TypeMappingSet* 
+	 *         transformations+=TypeTransformationSet*
+	 *     )
+	 */
+	protected void sequence_EMV2Library(EObject context, ErrorModelLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*) | (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*))
 	 */
 	protected void sequence_Element_TypeSetElement_TypeToken(EObject context, TypeToken semanticObject) {
@@ -543,15 +568,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
 	 */
 	protected void sequence_ErrorEvent(EObject context, ErrorEvent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (eml=ErrorModelLibrary | emsc=ErrorModelSubclause)
-	 */
-	protected void sequence_ErrorModelGrammarRoot(EObject context, ErrorModelGrammarRoot semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

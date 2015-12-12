@@ -37,7 +37,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getErrorModelGrammarRootAccess().getAlternatives(), "rule__ErrorModelGrammarRoot__Alternatives");
+					put(grammarAccess.getEMV2LibraryAccess().getAlternatives_3_4(), "rule__EMV2Library__Alternatives_3_4");
 					put(grammarAccess.getNamedElementAccess().getAlternatives(), "rule__NamedElement__Alternatives");
 					put(grammarAccess.getElementAccess().getAlternatives(), "rule__Element__Alternatives");
 					put(grammarAccess.getErrorModelLibraryAccess().getAlternatives_1_4(), "rule__ErrorModelLibrary__Alternatives_1_4");
@@ -85,7 +85,13 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
 					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getGroup_0(), "rule__ErrorModelGrammarRoot__Group_0__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup(), "rule__EMV2Library__Group__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3(), "rule__EMV2Library__Group_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_2(), "rule__EMV2Library__Group_3_2__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_2_3(), "rule__EMV2Library__Group_3_2_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_3(), "rule__EMV2Library__Group_3_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_3_2(), "rule__EMV2Library__Group_3_3_2__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_5(), "rule__EMV2Library__Group_3_5__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup(), "rule__ErrorModelSubclause__Group__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_1(), "rule__ErrorModelSubclause__Group_1__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_1_3(), "rule__ErrorModelSubclause__Group_1_3__0");
@@ -270,8 +276,17 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getQCREFAccess().getGroup(), "rule__QCREF__Group__0");
 					put(grammarAccess.getQCREFAccess().getGroup_0(), "rule__QCREF__Group_0__0");
 					put(grammarAccess.getQCREFAccess().getGroup_2(), "rule__QCREF__Group_2__0");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getEmlAssignment_0_1(), "rule__ErrorModelGrammarRoot__EmlAssignment_0_1");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getEmscAssignment_1(), "rule__ErrorModelGrammarRoot__EmscAssignment_1");
+					put(grammarAccess.getEMV2LibraryAccess().getNameAssignment_2(), "rule__EMV2Library__NameAssignment_2");
+					put(grammarAccess.getEMV2LibraryAccess().getUseTypesAssignment_3_2_2(), "rule__EMV2Library__UseTypesAssignment_3_2_2");
+					put(grammarAccess.getEMV2LibraryAccess().getUseTypesAssignment_3_2_3_1(), "rule__EMV2Library__UseTypesAssignment_3_2_3_1");
+					put(grammarAccess.getEMV2LibraryAccess().getExtendsAssignment_3_3_1(), "rule__EMV2Library__ExtendsAssignment_3_3_1");
+					put(grammarAccess.getEMV2LibraryAccess().getExtendsAssignment_3_3_2_1(), "rule__EMV2Library__ExtendsAssignment_3_3_2_1");
+					put(grammarAccess.getEMV2LibraryAccess().getTypesAssignment_3_4_0(), "rule__EMV2Library__TypesAssignment_3_4_0");
+					put(grammarAccess.getEMV2LibraryAccess().getTypesetsAssignment_3_4_1(), "rule__EMV2Library__TypesetsAssignment_3_4_1");
+					put(grammarAccess.getEMV2LibraryAccess().getPropertiesAssignment_3_5_1(), "rule__EMV2Library__PropertiesAssignment_3_5_1");
+					put(grammarAccess.getEMV2LibraryAccess().getBehaviorsAssignment_4(), "rule__EMV2Library__BehaviorsAssignment_4");
+					put(grammarAccess.getEMV2LibraryAccess().getMappingsAssignment_5(), "rule__EMV2Library__MappingsAssignment_5");
+					put(grammarAccess.getEMV2LibraryAccess().getTransformationsAssignment_6(), "rule__EMV2Library__TransformationsAssignment_6");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_2(), "rule__ErrorModelSubclause__UseTypesAssignment_1_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_3_1(), "rule__ErrorModelSubclause__UseTypesAssignment_1_3_1");
 					put(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_2_3(), "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3");
@@ -524,7 +539,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.internal.InternalErrorModelParser typedParser = (org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.internal.InternalErrorModelParser) parser;
-			typedParser.entryRuleErrorModelGrammarRoot();
+			typedParser.entryRuleEMV2Library();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

@@ -5,7 +5,7 @@ import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext"
-var file.extensions = "aaem"
+var file.extensions = "emv2"
 var projectName = "org.osate.xtext.aadl2.errormodel"
 var runtimeProject = "../${projectName}"
 

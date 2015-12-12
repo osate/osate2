@@ -23,13 +23,13 @@ public interface ErrorModelFactory extends EFactory
   ErrorModelFactory eINSTANCE = org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Grammar Root</em>'.
+   * Returns a new object of class '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Grammar Root</em>'.
+   * @return a new object of class '<em>Library</em>'.
    * @generated
    */
-  ErrorModelGrammarRoot createErrorModelGrammarRoot();
+  ErrorModelLibrary createErrorModelLibrary();
 
   /**
    * Returns a new object of class '<em>Subclause</em>'.
@@ -39,15 +39,6 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   ErrorModelSubclause createErrorModelSubclause();
-
-  /**
-   * Returns a new object of class '<em>Library</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Library</em>'.
-   * @generated
-   */
-  ErrorModelLibrary createErrorModelLibrary();
 
   /**
    * Returns a new object of class '<em>Error Types</em>'.
