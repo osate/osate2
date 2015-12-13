@@ -1,6 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -357,7 +358,8 @@ public class EM2TypeSetUtil {
 	 * @param token TypeToken
 	 * @param result List of type tokens
 	 */
-	protected static void getConstrainedTypeTokens(TypeToken constraint, TypeToken token, Collection<TypeToken> result) {
+	protected static void getConstrainedTypeTokens(TypeToken constraint, TypeToken token,
+			Collection<TypeToken> result) {
 		int toksize = token.getType().size();
 		EList<ErrorTypes> toklist = token.getType();
 		EList<ErrorTypes> conlist = constraint.getType();
@@ -402,7 +404,7 @@ public class EM2TypeSetUtil {
 	 * @param typeSet
 	 * @return list of type tokens
 	 */
-	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, EList<ErrorModelLibrary> usetypes) {
+	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
 		if (typeSet == null) {
 			return result;
@@ -443,7 +445,7 @@ public class EM2TypeSetUtil {
 	 * @param tuc
 	 * @return
 	 */
-	public static EList<ErrorType> getSubTypes(ErrorType et, EList<ErrorModelLibrary> usetypes) {
+	public static EList<ErrorType> getSubTypes(ErrorType et, List<ErrorModelLibrary> usetypes) {
 		UniqueEList<ErrorType> result = new UniqueEList<ErrorType>();
 		ErrorType resolvedet = EMV2Util.resolveAlias(et);
 		for (ErrorModelLibrary etl : usetypes) {
@@ -481,7 +483,7 @@ public class EM2TypeSetUtil {
 	 * @param et
 	 * @return
 	 */
-	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, EList<ErrorModelLibrary> usetypes) {
+	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, List<ErrorModelLibrary> usetypes) {
 		EList<ErrorType> result = new UniqueEList<ErrorType>();
 		EList<ErrorType> removeMe = new UniqueEList<ErrorType>();
 		for (ErrorModelLibrary etl : usetypes) {
