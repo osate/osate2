@@ -1545,12 +1545,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cJavaMethodParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cManualMethodParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cPluginMethodParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cAgreeMethodParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//MethodKind:
-		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod;
+		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
+		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ResoluteMethod
@@ -1564,6 +1565,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PluginMethod
 		public RuleCall getPluginMethodParserRuleCall_3() { return cPluginMethodParserRuleCall_3; }
+
+		//AgreeMethod
+		public RuleCall getAgreeMethodParserRuleCall_4() { return cAgreeMethodParserRuleCall_4; }
 	}
 
 	public class ResoluteMethodElements extends AbstractParserRuleElementFinder {
@@ -1653,8 +1657,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cMethodIDAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cMethodIDIDTerminalRuleCall_1_0 = (RuleCall)cMethodIDAssignment_1.eContents().get(0);
 		
-		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		//PluginMethod:
 		//	"plugin" methodID=ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -1670,6 +1672,44 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getMethodIDIDTerminalRuleCall_1_0() { return cMethodIDIDTerminalRuleCall_1_0; }
+	}
+
+	public class AgreeMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AgreeMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cAgreeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cSingleLayerAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final Keyword cSingleLayerSingleKeyword_1_0_0 = (Keyword)cSingleLayerAssignment_1_0.eContents().get(0);
+		private final Assignment cAllAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final Keyword cAllAllKeyword_1_1_0 = (Keyword)cAllAssignment_1_1.eContents().get(0);
+		
+		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+		//AgreeMethod:
+		//	"agree" (singleLayer?="single" | all?="all");
+		@Override public ParserRule getRule() { return rule; }
+
+		//"agree" (singleLayer?="single" | all?="all")
+		public Group getGroup() { return cGroup; }
+
+		//"agree"
+		public Keyword getAgreeKeyword_0() { return cAgreeKeyword_0; }
+
+		//singleLayer?="single" | all?="all"
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//singleLayer?="single"
+		public Assignment getSingleLayerAssignment_1_0() { return cSingleLayerAssignment_1_0; }
+
+		//"single"
+		public Keyword getSingleLayerSingleKeyword_1_0_0() { return cSingleLayerSingleKeyword_1_0_0; }
+
+		//all?="all"
+		public Assignment getAllAssignment_1_1() { return cAllAssignment_1_1; }
+
+		//"all"
+		public Keyword getAllAllKeyword_1_1_0() { return cAllAllKeyword_1_1_0; }
 	}
 	
 	
@@ -1695,6 +1735,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final JavaMethodElements pJavaMethod;
 	private final ManualMethodElements pManualMethod;
 	private final PluginMethodElements pPluginMethod;
+	private final AgreeMethodElements pAgreeMethod;
 	
 	private final Grammar grammar;
 
@@ -1727,6 +1768,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pJavaMethod = new JavaMethodElements();
 		this.pManualMethod = new ManualMethodElements();
 		this.pPluginMethod = new PluginMethodElements();
+		this.pAgreeMethod = new AgreeMethodElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1947,7 +1989,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MethodKind:
-	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod;
+	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod;
 	public MethodKindElements getMethodKindAccess() {
 		return pMethodKind;
 	}
@@ -1986,8 +2028,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getManualMethodAccess().getRule();
 	}
 
-	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 	//PluginMethod:
 	//	"plugin" methodID=ID;
 	public PluginMethodElements getPluginMethodAccess() {
@@ -1996,6 +2036,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPluginMethodRule() {
 		return getPluginMethodAccess().getRule();
+	}
+
+	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+	//AgreeMethod:
+	//	"agree" (singleLayer?="single" | all?="all");
+	public AgreeMethodElements getAgreeMethodAccess() {
+		return pAgreeMethod;
+	}
+	
+	public ParserRule getAgreeMethodRule() {
+		return getAgreeMethodAccess().getRule();
 	}
 
 	//Description:

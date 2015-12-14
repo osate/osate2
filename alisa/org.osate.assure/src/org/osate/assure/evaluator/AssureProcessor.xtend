@@ -60,6 +60,58 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.verify.verify.AgreeMethod
+import com.rockwellcollins.atc.agree.analysis.AgreeUtils
+import com.rockwellcollins.atc.agree.analysis.AgreeException
+import com.rockwellcollins.atc.agree.analysis.ast.AgreeProgram
+import com.rockwellcollins.atc.agree.analysis.ast.AgreeASTBuilder
+import jkind.lustre.Program
+//import com.rockwellcollins.atc.agree.analysis.translation.LustreAstBuilder
+import org.eclipse.xtext.util.Pair
+import java.util.List
+import jkind.api.results.CompositeAnalysisResult
+import com.rockwellcollins.atc.agree.analysis.ConsistencyResult
+import jkind.api.results.JRealizabilityResult
+import jkind.api.results.AnalysisResult
+import org.osate.aadl2.ComponentImplementation
+import java.util.HashMap
+import com.rockwellcollins.atc.agree.analysis.AgreeLayout
+import java.util.ArrayList
+import jkind.lustre.Node
+import com.rockwellcollins.atc.agree.analysis.AgreeRenaming
+import jkind.api.results.JKindResult
+import java.util.Map
+import java.util.Collections
+import jkind.lustre.VarDecl
+import com.rockwellcollins.atc.agree.analysis.ast.AgreeVar
+import com.rockwellcollins.atc.agree.analysis.AgreeLayout.SigType
+import org.osate.aadl2.FeatureGroup
+import com.rockwellcollins.atc.agree.agree.Arg
+import com.rockwellcollins.atc.agree.agree.AssertStatement
+import com.rockwellcollins.atc.agree.agree.AssumeStatement
+import com.rockwellcollins.atc.agree.agree.LemmaStatement
+import org.osate.aadl2.DataPort
+import com.rockwellcollins.atc.agree.agree.GuaranteeStatement
+import org.osate.aadl2.EventDataPort
+import org.osate.aadl2.ComponentType
+import com.rockwellcollins.atc.agree.agree.PropertyStatement
+import com.rockwellcollins.atc.agree.analysis.ast.AgreeNode
+import com.rockwellcollins.atc.agree.analysis.ast.AgreeStatement
+import java.util.ArrayDeque
+import java.util.Queue
+import com.rockwellcollins.atc.agree.analysis.handlers.VerifySingleHandler
+import org.eclipse.xtext.ui.editor.utils.EditorUtils
+import org.eclipse.xtext.resource.XtextResource
+import org.eclipse.xtext.util.concurrent.IUnitOfWork
+import org.osate.aadl2.Element
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Status
+import org.eclipse.ui.handlers.IHandlerService
+import org.eclipse.core.resources.WorkspaceJob
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.xtext.ui.editor.XtextEditor
+import org.eclipse.ui.handlers.IHandlerActivation
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -77,6 +129,7 @@ class AssureProcessor implements IAssureProcessor {
 	var IProgressMonitor progressmonitor
 	
 	var long start = 0
+	
 	
 	def void startSubTask(VerificationActivityResult vaResult){
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
@@ -338,6 +391,21 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 				}
+				AgreeMethod: {
+					AssureUtilExtension.initializeResoluteContext(instanceroot);
+					
+					val agreemethod = methodtype as AgreeMethod
+					
+					if (agreemethod.isAll) { // is recursive
+						//System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
+					
+					} else if (agreemethod.singleLayer) {
+						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
+						
+						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
+						verHandler.executeSystemInstance(instanceroot);
+					}
+				}
 //					case SupportedTypes.RESOLUTEPREDICATE: {
 //					AssureUtilExtension.initializeResoluteContext(instance);
 //						val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
@@ -373,6 +441,7 @@ class AssureProcessor implements IAssureProcessor {
 			throw e;
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
+			//e.printStackTrace;
 		}
 		verificationResult.eResource.save(null)
 	}
@@ -462,6 +531,6 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		return success;
 	}
-
+	
 }
 

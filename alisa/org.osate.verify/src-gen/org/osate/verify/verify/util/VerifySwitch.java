@@ -187,6 +187,14 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.AGREE_METHOD:
+      {
+        AgreeMethod agreeMethod = (AgreeMethod)theEObject;
+        T result = caseAgreeMethod(agreeMethod);
+        if (result == null) result = caseMethodKind(agreeMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.THEN_EXPR:
       {
         ThenExpr thenExpr = (ThenExpr)theEObject;
@@ -459,6 +467,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T casePluginMethod(PluginMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Agree Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Agree Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAgreeMethod(AgreeMethod object)
   {
     return null;
   }

@@ -804,6 +804,43 @@ public interface VerifyPackage extends EPackage
   int PLUGIN_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.AgreeMethodImpl <em>Agree Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.AgreeMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAgreeMethod()
+   * @generated
+   */
+  int AGREE_METHOD = 14;
+
+  /**
+   * The feature id for the '<em><b>Single Layer</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGREE_METHOD__SINGLE_LAYER = METHOD_KIND_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>All</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGREE_METHOD__ALL = METHOD_KIND_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Agree Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGREE_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -811,7 +848,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 14;
+  int THEN_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -848,7 +885,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 15;
+  int ELSE_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -903,7 +940,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 16;
+  int ALL_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -931,7 +968,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 17;
+  int REF_EXPR = 18;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -959,7 +996,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 18;
+  int VERIFICATION_VALIDATION = 19;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -996,7 +1033,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 19;
+  int VERIFICATION_PRECONDITION = 20;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1739,6 +1776,38 @@ public interface VerifyPackage extends EPackage
   EAttribute getPluginMethod_MethodID();
 
   /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.AgreeMethod <em>Agree Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Agree Method</em>'.
+   * @see org.osate.verify.verify.AgreeMethod
+   * @generated
+   */
+  EClass getAgreeMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.AgreeMethod#isSingleLayer <em>Single Layer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Single Layer</em>'.
+   * @see org.osate.verify.verify.AgreeMethod#isSingleLayer()
+   * @see #getAgreeMethod()
+   * @generated
+   */
+  EAttribute getAgreeMethod_SingleLayer();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.AgreeMethod#isAll <em>All</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>All</em>'.
+   * @see org.osate.verify.verify.AgreeMethod#isAll()
+   * @see #getAgreeMethod()
+   * @generated
+   */
+  EAttribute getAgreeMethod_All();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2464,6 +2533,32 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute PLUGIN_METHOD__METHOD_ID = eINSTANCE.getPluginMethod_MethodID();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.AgreeMethodImpl <em>Agree Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.AgreeMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAgreeMethod()
+     * @generated
+     */
+    EClass AGREE_METHOD = eINSTANCE.getAgreeMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Single Layer</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGREE_METHOD__SINGLE_LAYER = eINSTANCE.getAgreeMethod_SingleLayer();
+
+    /**
+     * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGREE_METHOD__ALL = eINSTANCE.getAgreeMethod_All();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.

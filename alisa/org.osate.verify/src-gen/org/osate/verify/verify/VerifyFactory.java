@@ -162,6 +162,15 @@ public interface VerifyFactory extends EFactory
   PluginMethod createPluginMethod();
 
   /**
+   * Returns a new object of class '<em>Agree Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Agree Method</em>'.
+   * @generated
+   */
+  AgreeMethod createAgreeMethod();
+
+  /**
    * Returns a new object of class '<em>Then Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

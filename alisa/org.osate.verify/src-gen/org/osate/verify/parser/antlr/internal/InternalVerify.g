@@ -2356,6 +2356,16 @@ ruleMethodKind returns [EObject current=null]
         $current = $this_PluginMethod_3.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getMethodKindAccess().getAgreeMethodParserRuleCall_4()); 
+    }
+    this_AgreeMethod_4=ruleAgreeMethod
+    { 
+        $current = $this_AgreeMethod_4.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -2530,6 +2540,62 @@ rulePluginMethod returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleAgreeMethod
+entryRuleAgreeMethod returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAgreeMethodRule()); }
+	 iv_ruleAgreeMethod=ruleAgreeMethod 
+	 { $current=$iv_ruleAgreeMethod.current; } 
+	 EOF 
+;
+
+// Rule AgreeMethod
+ruleAgreeMethod returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='agree' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getAgreeMethodAccess().getAgreeKeyword_0());
+    }
+((
+(
+		lv_singleLayer_1_0=	'single' 
+    {
+        newLeafNode(lv_singleLayer_1_0, grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAgreeMethodRule());
+	        }
+       		setWithLastConsumed($current, "singleLayer", true, "single");
+	    }
+
+)
+)
+    |(
+(
+		lv_all_2_0=	'all' 
+    {
+        newLeafNode(lv_all_2_0, grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAgreeMethodRule());
+	        }
+       		setWithLastConsumed($current, "all", true, "all");
+	    }
+
+)
+)))
 ;
 
 

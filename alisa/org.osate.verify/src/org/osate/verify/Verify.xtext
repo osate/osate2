@@ -156,7 +156,7 @@ VerificationMethod:
 	;
 
 MethodKind:
-	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
+	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod
 ;
 	
 	ResoluteMethod:
@@ -175,7 +175,9 @@ MethodKind:
 		'plugin' methodID=ID
 	;
 
-
+	AgreeMethod:
+		'agree' (singleLayer?='single' | all?='all')
+	;
 
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';

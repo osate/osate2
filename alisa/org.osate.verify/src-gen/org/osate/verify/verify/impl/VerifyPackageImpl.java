@@ -33,6 +33,7 @@ import org.osate.categories.categories.CategoriesPackage;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
+import org.osate.verify.verify.AgreeMethod;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
@@ -161,6 +162,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass pluginMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass agreeMethodEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -936,6 +944,36 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAgreeMethod()
+  {
+    return agreeMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAgreeMethod_SingleLayer()
+  {
+    return (EAttribute)agreeMethodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAgreeMethod_All()
+  {
+    return (EAttribute)agreeMethodEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getThenExpr()
   {
     return thenExprEClass;
@@ -1181,6 +1219,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     pluginMethodEClass = createEClass(PLUGIN_METHOD);
     createEAttribute(pluginMethodEClass, PLUGIN_METHOD__METHOD_ID);
 
+    agreeMethodEClass = createEClass(AGREE_METHOD);
+    createEAttribute(agreeMethodEClass, AGREE_METHOD__SINGLE_LAYER);
+    createEAttribute(agreeMethodEClass, AGREE_METHOD__ALL);
+
     thenExprEClass = createEClass(THEN_EXPR);
     createEReference(thenExprEClass, THEN_EXPR__LEFT);
     createEReference(thenExprEClass, THEN_EXPR__SUCCESSOR);
@@ -1243,6 +1285,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     javaMethodEClass.getESuperTypes().add(this.getMethodKind());
     manualMethodEClass.getESuperTypes().add(this.getMethodKind());
     pluginMethodEClass.getESuperTypes().add(this.getMethodKind());
+    agreeMethodEClass.getESuperTypes().add(this.getMethodKind());
     thenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     elseExprEClass.getESuperTypes().add(this.getArgumentExpr());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
@@ -1330,6 +1373,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(pluginMethodEClass, PluginMethod.class, "PluginMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPluginMethod_MethodID(), theEcorePackage.getEString(), "methodID", null, 0, 1, PluginMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(agreeMethodEClass, AgreeMethod.class, "AgreeMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAgreeMethod_SingleLayer(), theEcorePackage.getEBoolean(), "singleLayer", null, 0, 1, AgreeMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAgreeMethod_All(), theEcorePackage.getEBoolean(), "all", null, 0, 1, AgreeMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(thenExprEClass, ThenExpr.class, "ThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

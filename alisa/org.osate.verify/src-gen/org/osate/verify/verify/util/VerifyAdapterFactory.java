@@ -158,6 +158,11 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createPluginMethodAdapter();
       }
       @Override
+      public Adapter caseAgreeMethod(AgreeMethod object)
+      {
+        return createAgreeMethodAdapter();
+      }
+      @Override
       public Adapter caseThenExpr(ThenExpr object)
       {
         return createThenExprAdapter();
@@ -415,6 +420,21 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPluginMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.AgreeMethod <em>Agree Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.AgreeMethod
+   * @generated
+   */
+  public Adapter createAgreeMethodAdapter()
   {
     return null;
   }

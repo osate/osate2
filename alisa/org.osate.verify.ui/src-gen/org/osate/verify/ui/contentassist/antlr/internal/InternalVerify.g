@@ -692,6 +692,34 @@ finally {
 
 
 
+// Entry rule entryRuleAgreeMethod
+entryRuleAgreeMethod 
+:
+{ before(grammarAccess.getAgreeMethodRule()); }
+	 ruleAgreeMethod
+{ after(grammarAccess.getAgreeMethodRule()); } 
+	 EOF 
+;
+
+// Rule AgreeMethod
+ruleAgreeMethod
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getGroup()); }
+(rule__AgreeMethod__Group__0)
+{ after(grammarAccess.getAgreeMethodAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleDescription
 entryRuleDescription 
 :
@@ -2069,6 +2097,34 @@ rule__MethodKind__Alternatives
 { before(grammarAccess.getMethodKindAccess().getPluginMethodParserRuleCall_3()); }
 	rulePluginMethod
 { after(grammarAccess.getMethodKindAccess().getPluginMethodParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getMethodKindAccess().getAgreeMethodParserRuleCall_4()); }
+	ruleAgreeMethod
+{ after(grammarAccess.getMethodKindAccess().getAgreeMethodParserRuleCall_4()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AgreeMethod__Alternatives_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getSingleLayerAssignment_1_0()); }
+(rule__AgreeMethod__SingleLayerAssignment_1_0)
+{ after(grammarAccess.getAgreeMethodAccess().getSingleLayerAssignment_1_0()); }
+)
+
+    |(
+{ before(grammarAccess.getAgreeMethodAccess().getAllAssignment_1_1()); }
+(rule__AgreeMethod__AllAssignment_1_1)
+{ after(grammarAccess.getAgreeMethodAccess().getAllAssignment_1_1()); }
 )
 
 ;
@@ -9047,6 +9103,69 @@ finally {
 
 
 
+rule__AgreeMethod__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__AgreeMethod__Group__0__Impl
+	rule__AgreeMethod__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AgreeMethod__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getAgreeKeyword_0()); }
+
+	'agree' 
+
+{ after(grammarAccess.getAgreeMethodAccess().getAgreeKeyword_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__AgreeMethod__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__AgreeMethod__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AgreeMethod__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getAlternatives_1()); }
+(rule__AgreeMethod__Alternatives_1)
+{ after(grammarAccess.getAgreeMethodAccess().getAlternatives_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
 rule__Description__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -15238,6 +15357,52 @@ rule__PluginMethod__MethodIDAssignment_1
 (
 { before(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); }
 	RULE_ID{ after(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AgreeMethod__SingleLayerAssignment_1_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0()); }
+(
+{ before(grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0()); }
+
+	'single' 
+
+{ after(grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0()); }
+)
+
+{ after(grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AgreeMethod__AllAssignment_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0()); }
+(
+{ before(grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0()); }
+
+	'all' 
+
+{ after(grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0()); }
+)
+
+{ after(grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0()); }
 )
 
 ;
