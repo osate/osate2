@@ -7020,8 +7020,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (null == asp)
 			return;
 		if (asp instanceof Property) {
-			propertyType = ((Property) asp).getPropertyType();
-		} else if (asp instanceof PropertyConstant) {
+			error(arraySize, "Array size should only be integer or property constant value, not a property value");
+			return;
+//			propertyType = ((Property) asp).getPropertyType();
+		} else 
+			if (asp instanceof PropertyConstant) {
 			propertyType = ((PropertyConstant) asp).getPropertyType();
 		}
 
