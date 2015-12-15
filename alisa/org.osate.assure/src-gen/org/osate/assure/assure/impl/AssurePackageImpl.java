@@ -377,9 +377,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSubsystemResult_TargetSystem()
+  public EReference getSubsystemResult_TargetSystem()
   {
-    return (EAttribute)subsystemResultEClass.getEStructuralFeatures().get(1);
+    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -437,9 +437,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getClaimResult_ModelElement()
+  {
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getClaimResult_Message()
   {
-    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -449,7 +459,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_SubClaimResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -459,7 +469,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_VerificationActivityResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -767,6 +777,16 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getMetrics_ExecutionTime()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPreconditionResult()
   {
     return preconditionResultEClass;
@@ -917,13 +937,14 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     subsystemResultEClass = createEClass(SUBSYSTEM_RESULT);
     createEAttribute(subsystemResultEClass, SUBSYSTEM_RESULT__NAME);
-    createEAttribute(subsystemResultEClass, SUBSYSTEM_RESULT__TARGET_SYSTEM);
+    createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__TARGET_SYSTEM);
     createEAttribute(subsystemResultEClass, SUBSYSTEM_RESULT__MESSAGE);
     createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__CLAIM_RESULT);
     createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__SUBSYSTEM_RESULT);
 
     claimResultEClass = createEClass(CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
+    createEReference(claimResultEClass, CLAIM_RESULT__MODEL_ELEMENT);
     createEAttribute(claimResultEClass, CLAIM_RESULT__MESSAGE);
     createEReference(claimResultEClass, CLAIM_RESULT__SUB_CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
@@ -963,6 +984,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(metricsEClass, METRICS__PRECONDITIONFAIL_COUNT);
     createEAttribute(metricsEClass, METRICS__VALIDATIONFAIL_COUNT);
     createEAttribute(metricsEClass, METRICS__WEIGHT);
+    createEAttribute(metricsEClass, METRICS__EXECUTION_TIME);
 
     preconditionResultEClass = createEClass(PRECONDITION_RESULT);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
@@ -1048,13 +1070,14 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     initEClass(subsystemResultEClass, SubsystemResult.class, "SubsystemResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSubsystemResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSubsystemResult_TargetSystem(), theEcorePackage.getEString(), "targetSystem", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSubsystemResult_TargetSystem(), theAadl2Package.getSubcomponent(), null, "targetSystem", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSubsystemResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSubsystemResult_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSubsystemResult_SubsystemResult(), this.getSubsystemResult(), null, "subsystemResult", null, 0, -1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClaimResult_ModelElement(), theAadl2Package.getNamedElement(), null, "modelElement", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaimResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_SubClaimResult(), this.getClaimResult(), null, "subClaimResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_VerificationActivityResult(), this.getVerificationExpr(), null, "verificationActivityResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1094,6 +1117,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getMetrics_PreconditionfailCount(), theEcorePackage.getEInt(), "preconditionfailCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ValidationfailCount(), theEcorePackage.getEInt(), "validationfailCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_ExecutionTime(), theAadl2Package.getInteger(), "executionTime", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationMethod(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

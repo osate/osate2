@@ -17,6 +17,8 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.aadl2.Subcomponent;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Subsystem Result</b></em>'.
@@ -66,30 +68,30 @@ public interface SubsystemResult extends AssureResult
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Target System</b></em>' attribute.
+   * Returns the value of the '<em><b>Target System</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target System</em>' attribute isn't clear,
+   * If the meaning of the '<em>Target System</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target System</em>' attribute.
-   * @see #setTargetSystem(String)
+   * @return the value of the '<em>Target System</em>' reference.
+   * @see #setTargetSystem(Subcomponent)
    * @see org.osate.assure.assure.AssurePackage#getSubsystemResult_TargetSystem()
    * @model
    * @generated
    */
-  String getTargetSystem();
+  Subcomponent getTargetSystem();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target System</em>' attribute.
+   * @param value the new value of the '<em>Target System</em>' reference.
    * @see #getTargetSystem()
    * @generated
    */
-  void setTargetSystem(String value);
+  void setTargetSystem(Subcomponent value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

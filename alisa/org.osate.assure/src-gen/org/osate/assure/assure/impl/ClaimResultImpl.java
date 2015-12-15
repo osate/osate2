@@ -23,12 +23,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
@@ -45,6 +48,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -63,6 +67,16 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * @ordered
    */
   protected Requirement target;
+
+  /**
+   * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModelElement()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement modelElement;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -173,6 +187,49 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public NamedElement getModelElement()
+  {
+    if (modelElement != null && ((EObject)modelElement).eIsProxy())
+    {
+      InternalEObject oldModelElement = (InternalEObject)modelElement;
+      modelElement = (NamedElement)eResolveProxy(oldModelElement);
+      if (modelElement != oldModelElement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CLAIM_RESULT__MODEL_ELEMENT, oldModelElement, modelElement));
+      }
+    }
+    return modelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetModelElement()
+  {
+    return modelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModelElement(NamedElement newModelElement)
+  {
+    NamedElement oldModelElement = modelElement;
+    modelElement = newModelElement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__MODEL_ELEMENT, oldModelElement, modelElement));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getMessage()
   {
     return message;
@@ -250,6 +307,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
+        if (resolve) return getModelElement();
+        return basicGetModelElement();
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return getMessage();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -273,6 +333,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)newValue);
+        return;
+      case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
+        setModelElement((NamedElement)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -302,6 +365,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)null);
         return;
+      case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
+        setModelElement((NamedElement)null);
+        return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
@@ -327,6 +393,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__TARGET:
         return target != null;
+      case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
+        return modelElement != null;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:

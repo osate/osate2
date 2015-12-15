@@ -20,6 +20,17 @@
 package org.osate.assure.scoping
 
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.emf.ecore.EReference
+import org.osate.assure.assure.ClaimResult
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.ComponentImplementation
+import org.osate.assure.assure.SubsystemResult
+import org.osate.assure.assure.ModelResult
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -30,5 +41,38 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
  */
 class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
 
+	def scope_NamedElement(ClaimResult context, EReference reference) {
+		val targetClassifier = context.caseTargetClassifier
+		if (targetClassifier != null) {
+			val thescope = new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			if (targetClassifier instanceof ComponentImplementation) {
+				new SimpleScope(thescope,
+					Scopes::scopedElementsFor(targetClassifier.allSubcomponents+targetClassifier.allEndToEndFlows+
+						targetClassifier.allConnections,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			} else {
+				return thescope
+			}
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+
+
+	def scope_Subcomponent(SubsystemResult context, EReference reference) {
+		val parent = context.eContainer
+		val cl = switch(parent){
+			SubsystemResult: parent.targetSystem.allClassifier
+			ModelResult: parent.target
+		}
+		if (cl instanceof ComponentImplementation){
+		val subs = cl.allSubcomponents
+		return new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(subs,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+		}
+		return IScope::NULLSCOPE
+	}
 
 }

@@ -997,6 +997,16 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getRequirement_Connections()
+  {
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIncludeGlobalRequirement()
   {
     return includeGlobalRequirementEClass;
@@ -1285,6 +1295,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(requirementEClass, REQUIREMENT__DEVELOPMENT_STAKEHOLDER);
     createEReference(requirementEClass, REQUIREMENT__REQUIREMENT_REFERENCE);
     createEAttribute(requirementEClass, REQUIREMENT__COMPONENT_CATEGORY);
+    createEAttribute(requirementEClass, REQUIREMENT__CONNECTIONS);
 
     includeGlobalRequirementEClass = createEClass(INCLUDE_GLOBAL_REQUIREMENT);
     createEReference(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__INCLUDE);
@@ -1448,6 +1459,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getRequirement_DevelopmentStakeholder(), theOrganizationPackage.getStakeholder(), null, "developmentStakeholder", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RequirementReference(), this.getRequirement(), null, "requirementReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRequirement_Connections(), theEcorePackage.getEBoolean(), "connections", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(includeGlobalRequirementEClass, IncludeGlobalRequirement.class, "IncludeGlobalRequirement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getIncludeGlobalRequirement_Include(), theEcorePackage.getEObject(), null, "include", null, 0, 1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

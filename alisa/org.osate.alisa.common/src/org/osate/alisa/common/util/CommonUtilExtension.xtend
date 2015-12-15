@@ -38,6 +38,7 @@ import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
+import org.osate.aadl2.instance.ConnectionInstance
 
 class CommonUtilExtension {
 
@@ -176,6 +177,22 @@ class CommonUtilExtension {
 			if(name.equalsIgnoreCase(n1)) return ei
 		}
 		return null
+	}
+
+	def static ConnectionInstance findConnectionInstance(ComponentInstance ci, String name) {
+		for (ei : ci.connectionInstances) {
+			for(connref:ei.connectionReferences){
+				val conn = connref.connection
+				if(conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent && 
+				name.equalsIgnoreCase(conn.name)) return ei
+			}
+		}
+		return null
+	}
+
+	def static getCrossConnections(ComponentImplementation ci) {
+	   ci.allConnections.filter[conn|conn.source.context instanceof Subcomponent && 
+	   	conn.destination.context instanceof Subcomponent]
 	}
 
 	def static findElementInstance(ComponentInstance io, String elementName) {

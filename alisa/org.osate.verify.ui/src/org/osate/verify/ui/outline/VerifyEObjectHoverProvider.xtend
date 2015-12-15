@@ -40,12 +40,12 @@ class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		return "No message!!"
 	}
 	
-	
 	def reqText(Requirement req){
 				val z =  (req.title?:"") 
-				val zz = req.description?.toText(req.targetClassifier)
-				val res = "Requirement "+req.name+": "+ z + ": " + zz
-				return res
+				var zz = (req.description?.toText(req.targetClassifier))?:""
+				if (zz.length > 0) zz = ": " + zz
+				val res = "Requirement "+req.name+": "+ z + zz
+			return res
 	}
 	
 }

@@ -23,6 +23,7 @@ import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
+import com.rockwellcollins.atc.resolute.resolute.NestedDotID
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
@@ -66,7 +67,6 @@ import com.rockwellcollins.atc.agree.analysis.AgreeException
 import com.rockwellcollins.atc.agree.analysis.ast.AgreeProgram
 import com.rockwellcollins.atc.agree.analysis.ast.AgreeASTBuilder
 import jkind.lustre.Program
-//import com.rockwellcollins.atc.agree.analysis.translation.LustreAstBuilder
 import org.eclipse.xtext.util.Pair
 import java.util.List
 import jkind.api.results.CompositeAnalysisResult
@@ -112,6 +112,10 @@ import org.eclipse.core.runtime.IStatus
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.ui.handlers.IHandlerActivation
 import org.eclipse.emf.ecore.util.EcoreUtil
+import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
+import com.rockwellcollins.atc.resolute.resolute.ThisExpr
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.verify.verify.MethodKind
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -127,21 +131,24 @@ interface IAssureProcessor {
 class AssureProcessor implements IAssureProcessor {
 
 	var IProgressMonitor progressmonitor
-	
+
 	var long start = 0
-	
-	
-	def void startSubTask(VerificationActivityResult vaResult){
+
+	def void startSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
-		start = System.currentTimeMillis();	
+		start = System.currentTimeMillis();
 	}
-	def void doneSubTask(VerificationActivityResult vaResult){
-		val instanceroot = vaResult.assuranceCaseInstanceModel
-		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
-		val target = targetComponent.instanceObjectPath
+
+	def void doneSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.worked(1)
 		val stop = System.currentTimeMillis();
-		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s :"+vaResult.target.name+" on "+target);
+		vaResult.metrics.executionTime = (stop - start)
+
+//		val instanceroot = vaResult.assuranceCaseInstanceModel
+//		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
+		val targetPath = vaResult.buildCaseModelElementPath
+		System.out.println(
+			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
 	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
@@ -234,9 +241,8 @@ class AssureProcessor implements IAssureProcessor {
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
-		var Object res = null
 		// target element is the element referred to by the requirement. This may be empty
-		val targetElement = verificationResult.targetElement
+		val targetElement = verificationResult.caseTargetModelElement
 		// the next outer assurance case object that refers to a system implementation. 
 		var instanceroot = verificationResult.assuranceCaseInstanceModel
 		if (instanceroot == null) {
@@ -249,7 +255,7 @@ class AssureProcessor implements IAssureProcessor {
 			setToError(verificationResult, "Unresolved target system for claim", null)
 			return
 		}
-		var InstanceObject target = targetComponent;
+		var InstanceObject target = targetComponent
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
 				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
@@ -342,39 +348,26 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
-					if (res != null) {
-						if (res instanceof Boolean) {
-							if (res != true) {
-								setToFail(verificationResult, "", target);
-							} else {
-								setToSuccess(verificationResult)
-							}
-						} else if (res instanceof String) {
-							setToSuccess(verificationResult, res, target)
-						} else if (res instanceof ResultReport) {
-							verificationResult.resultReport = res
-						} else {
-							setToError(verificationResult, "No result report from analysis", target);
-						}
-					}
+					executeJavaMethod(verificationResult, methodtype, target, parameters)
+					verificationResult.eResource.save(null)
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
-					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
-						parameters) // returning the marker or diagnostic id as string
+					val res = VerificationMethodDispatchers.eInstance.
+						dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
 						addMarkersAsResult(verificationResult, target, res, method)
 					} else {
 						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
+					verificationResult.eResource.save(null)
 				}
 				ResoluteMethod: {
 					// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype, parameters)
+					val provecall = createWrapperProveCall(methodtype, targetComponent, parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -390,6 +383,7 @@ class AssureProcessor implements IAssureProcessor {
 							setToFail(verificationResult, proveri.issues)
 						}
 					}
+					verificationResult.eResource.save(null)
 				}
 				AgreeMethod: {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
@@ -401,10 +395,12 @@ class AssureProcessor implements IAssureProcessor {
 					
 					} else if (agreemethod.singleLayer) {
 						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
-						
 						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
 						verHandler.executeSystemInstance(instanceroot);
 					}
+					
+					//Should not save here because it is job based
+					//verificationResult.eResource.save(null)
 				}
 //					case SupportedTypes.RESOLUTEPREDICATE: {
 //					AssureUtilExtension.initializeResoluteContext(instance);
@@ -433,30 +429,72 @@ class AssureProcessor implements IAssureProcessor {
 //						}
 //					}
 				case ManualMethod: {
+					verificationResult.eResource.save(null)
 				}
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
+			verificationResult.eResource.save(null)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 			//e.printStackTrace;
+			verificationResult.eResource.save(null)
 		}
-		verificationResult.eResource.save(null)
+		//verificationResult.eResource.save(null)
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, EList<EObject> params) {
+	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
+		EList<EObject> parameters) {
+		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
+		if (res != null) {
+			if (res instanceof Boolean) {
+				if (res != true) {
+					setToFail(verificationResult, "", target);
+				} else {
+					setToSuccess(verificationResult)
+				}
+			} else if (res instanceof String) {
+				setToSuccess(verificationResult, res, target)
+			} else if (res instanceof ResultReport) {
+				verificationResult.resultReport = res
+			} else {
+				setToError(verificationResult, "No result report from analysis", target);
+			}
+		}
+
+	}
+
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, EList<EObject> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
 		val call = factory.createFnCallExpr
 		call.fn = found
-		call.args.add(factory.createThisExpr)
+		// TODO this is instance root. We want the current instance.
+		// Either this.sub1.sub2 or new NamedElementValue(targetComponent)
+		call.args.add(createComponentinstanceReference(ci))
 		addParams(call, params)
 		val prove = factory.createProveStatement
 		prove.expr = call
 		prove
+	}
+
+	def ThisExpr createComponentinstanceReference(ComponentInstance ci) {
+		val factory = ResoluteFactory.eINSTANCE
+		var NestedDotID nid = null
+		var nci = ci
+		while (!(ci instanceof SystemInstance)) {
+			val x = factory.createNestedDotID
+			x.base = ci.subcomponent
+			x.sub = nid
+			nid = x
+			nci = nci.eContainer as ComponentInstance
+		}
+		val te = factory.createThisExpr
+		te.sub = nid
+		te
 	}
 
 	def addParams(FnCallExpr call, EList<EObject> params) {
@@ -485,7 +523,7 @@ class AssureProcessor implements IAssureProcessor {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr
-		target.id = vr.claimSubject
+		target.id = vr.caseTargetModelElement
 		val call = factory.createFnCallExpr
 		call.fn = found
 		call.args.add(target)

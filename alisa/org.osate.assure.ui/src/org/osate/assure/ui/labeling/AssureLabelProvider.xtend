@@ -53,18 +53,16 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
-		+ ele.assureResultCounts
+		"Evidence "+ele.name + " "+ele.assureExecutionTime+": " + ele.constructMessage 
+		
 
 	}
 	def text(ValidationResult ele) {
-		"Validation "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
-		+ ele.assureResultCounts
+		"Validation "+ele.name +": "+ ele.constructMessage 
 
 	}
 	def text(PreconditionResult ele) {
-		"Precondition "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
-		+ ele.assureResultCounts
+		"Precondition "+ele.name +": "+ ele.constructMessage 
 
 	}
 	

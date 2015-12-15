@@ -2045,8 +2045,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cComponentCategoryAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_3_1_0 = (RuleCall)cComponentCategoryAssignment_3_1.eContents().get(0);
+		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
+		private final Assignment cComponentCategoryAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
+		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_3_1_0_0 = (RuleCall)cComponentCategoryAssignment_3_1_0.eContents().get(0);
+		private final Assignment cConnectionsAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final Keyword cConnectionsConnectionsKeyword_3_1_1_0 = (Keyword)cConnectionsAssignment_3_1_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
@@ -2129,8 +2132,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Requirement:
-		//	"requirement" name=ID (":" title=STRING)? ("for" componentCategory+=ComponentCategory+)? "[" (("quality"
-		//	qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
+		//	"requirement" name=ID (":" title=STRING)? ("for" (componentCategory+=ComponentCategory+ |
+		//	connections?="connections"))? "[" (("quality" qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
 		//	& ("category" userCategory+=[categories::UserCategory]+)? & description=Description? & constants+=ValDeclaration* &
 		//	computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &
 		//	("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
@@ -2141,8 +2144,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	("see" "document" docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"requirement" name=ID (":" title=STRING)? ("for" componentCategory+=ComponentCategory+)? "[" (("quality"
-		//qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
+		//"requirement" name=ID (":" title=STRING)? ("for" (componentCategory+=ComponentCategory+ | connections?="connections"))?
+		//"[" (("quality" qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
 		//& ("category" userCategory+=[categories::UserCategory]+)? & description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &
 		//("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
@@ -2174,17 +2177,26 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//("for" componentCategory+=ComponentCategory+)?
+		//("for" (componentCategory+=ComponentCategory+ | connections?="connections"))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"for"
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
+		//componentCategory+=ComponentCategory+ | connections?="connections"
+		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
+
 		//componentCategory+=ComponentCategory+
-		public Assignment getComponentCategoryAssignment_3_1() { return cComponentCategoryAssignment_3_1; }
+		public Assignment getComponentCategoryAssignment_3_1_0() { return cComponentCategoryAssignment_3_1_0; }
 
 		//ComponentCategory
-		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_3_1_0() { return cComponentCategoryComponentCategoryParserRuleCall_3_1_0; }
+		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_3_1_0_0() { return cComponentCategoryComponentCategoryParserRuleCall_3_1_0_0; }
+
+		//connections?="connections"
+		public Assignment getConnectionsAssignment_3_1_1() { return cConnectionsAssignment_3_1_1; }
+
+		//"connections"
+		public Keyword getConnectionsConnectionsKeyword_3_1_1_0() { return cConnectionsConnectionsKeyword_3_1_1_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
@@ -3378,8 +3390,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Requirement:
-	//	"requirement" name=ID (":" title=STRING)? ("for" componentCategory+=ComponentCategory+)? "[" (("quality"
-	//	qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
+	//	"requirement" name=ID (":" title=STRING)? ("for" (componentCategory+=ComponentCategory+ |
+	//	connections?="connections"))? "[" (("quality" qualityCategory+=[categories::QualityCategory]+)? // predicate expression 
 	//	& ("category" userCategory+=[categories::UserCategory]+)? & description=Description? & constants+=ValDeclaration* &
 	//	computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &
 	//	("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"

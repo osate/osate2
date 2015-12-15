@@ -182,7 +182,14 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (target=[Requirement|QualifiedName] metrics=Metrics message=STRING? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr*)
+	 *     (
+	 *         target=[Requirement|QualifiedName] 
+	 *         metrics=Metrics 
+	 *         modelElement=[NamedElement|ID]? 
+	 *         message=STRING? 
+	 *         subClaimResult+=ClaimResult* 
+	 *         verificationActivityResult+=VerificationExpr*
+	 *     )
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -217,7 +224,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         thenskipCount=INT? 
 	 *         preconditionfailCount=INT? 
 	 *         validationfailCount=INT? 
-	 *         weight=INT?
+	 *         weight=INT? 
+	 *         executionTime=AInt?
 	 *     )
 	 */
 	protected void sequence_Metrics(EObject context, Metrics semanticObject) {
@@ -263,7 +271,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         targetSystem=ID 
+	 *         targetSystem=[Subcomponent|ID] 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 

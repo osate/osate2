@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ * 
+ * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
+ * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
+ * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
+ * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
+ * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
+ * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ * 
+ * See COPYRIGHT file for full details.
+ */
+
 package org.osate.assure.evaluator;
 
 import java.io.IOException;
@@ -16,6 +32,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.util.Pair;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
@@ -88,13 +105,13 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 	AgreeVerifySingleHandler(VerificationResult result) {
 		super();
+
 		verificationResult = result;
+
 	}
 
 	public Object executeSystemInstance(SystemInstance si) {
 		// window = HandlerUtil.getActiveWorkbenchWindow(event);
-
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDD executeURI 00000   ");
 
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			// private IHandlerActivation terminateActivation;
@@ -110,7 +127,6 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.schedule();
 
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDD executeURI 22222   ");
 		return null;
 	}
 
@@ -169,6 +185,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		Thread analysisThread = new Thread() {
 			public void run() {
 				// activateTerminateHandlers(globalMonitor);
+
 				KindApi api = PreferencesUtil.getKindApi();
 				KindApi consistApi = PreferencesUtil.getConsistencyApi();
 				JRealizabilityApi realApi = PreferencesUtil.getJRealizabilityApi();
@@ -204,6 +221,11 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 					queue.remove().cancel();
 				}
 
+				Resource res2 = verificationResult.eResource();
+				if (res2 == null) {
+					System.out.println("DDDDDDDDDDDDDDDDDDDDDDDD executeURI NULLLLLLLLLLLLLLLL  3333333333333333");
+				}
+
 				// translating results to Assure
 				try {
 					updateAgreeResults((CompositeAnalysisResult) jobResult);
@@ -228,11 +250,12 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	 * @throws IOException 
 	 */
 	protected void updateAgreeResults(CompositeAnalysisResult compositeAnalysisResult) throws IOException {
-		System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 0000");
+		// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 0000");
+
 		for (Iterator iterator = compositeAnalysisResult.getChildren().iterator(); iterator.hasNext();) {
 			AnalysisResult analysisResult = (AnalysisResult) iterator.next();
 
-			System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 1111");
+			// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 1111");
 			if (analysisResult instanceof CompositeAnalysisResult) { // if agree all was used
 				CompositeAnalysisResult subCompositeResult = (CompositeAnalysisResult) analysisResult;
 				updateAgreeResults(subCompositeResult);
@@ -244,7 +267,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 			} else { // JKindResult. Row that shows Contract Guarantees
 				JKindResult jKindResult = (JKindResult) analysisResult;
-				System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 2222");
+				// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() 2222");
 				switch (jKindResult.getMultiStatus().getOverallStatus()) {
 
 				case VALID:
@@ -263,7 +286,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						PropertyResult propertyResult = (PropertyResult) iterator2.next();
 
 						System.out.println(
-								"AgreeVerifySingleHandler.updateAgreeResults() 3333" + propertyResult.getName());
+								"AgreeVerifySingleHandler.updateAgreeResults() Invalid --" + propertyResult.getName());
 
 						Map<String, EObject> refMap = linker.getReferenceMap(propertyResult.getParent());
 						EObject target = refMap.get(propertyResult.getName());
@@ -288,7 +311,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 							break;
 						}
 					}
-					System.out.println("AgreeVerifySingleHandler.updateAgreeResults()  setToFail");
+					// System.out.println("AgreeVerifySingleHandler.updateAgreeResults() setToFail");
 					AssureUtilExtension.setToFail(verificationResult, topResultIssue.getIssues());
 				default:
 

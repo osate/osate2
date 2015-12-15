@@ -40,8 +40,9 @@ class ReqSpecEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	
 	def reqText(ContractualElement req){
 				val z =  (req.title?:"") 
-				val zz = req.description?.toText(req.targetClassifier)
-				val res = req.eClass.name+" "+req.name+": "+ z + ": " + zz
+				var zz = (req.description?.toText(req.targetClassifier))?:""
+				if (zz.length > 0) zz = ": " + zz
+				val res = req.eClass.name+" "+req.name+": "+ z + zz
 				return res
 	}
 	

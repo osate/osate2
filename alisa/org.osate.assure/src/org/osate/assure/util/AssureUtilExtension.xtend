@@ -74,6 +74,9 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.assure.services.AssureGrammarAccess.SubsystemResultElements
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.Subcomponent
 
 class AssureUtilExtension {
 
@@ -96,7 +99,19 @@ class AssureUtilExtension {
 		return result as AssuranceCaseResult
 	}
 
-	def static ComponentImplementation getAssuranceCaseTarget(EObject assureObject) {
+	def static ModelResult getModelResult(EObject assureObject) {
+		var result = assureObject
+		while (result != null) {
+			if (result instanceof ModelResult) return result
+			result = result.eContainer
+		}
+		return null
+	}
+
+	/*
+	 * return the component classifier associated with the ModelResult target, i.e., the AADL instance model being verified
+	 */
+	def static ComponentClassifier getCaseTargetClassifier(EObject assureObject) {
 		var ac = assureObject
 		while (ac != null) {
 			ac = ac.eContainer
@@ -104,13 +119,17 @@ class AssureUtilExtension {
 				if (ac.target != null){
 					return ac.target
 				}
+			} else if (ac instanceof SubsystemResult){
+				if (ac.targetSystem != null){
+					return ac.targetSystem.allClassifier
+				}
 			}
 		}
 		return null
 	}
 
-	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
-		var result = assureObject.eContainer
+	def static ClaimResult getClaimResult(EObject assureObject) {
+		var result = assureObject
 		while (!(result instanceof ClaimResult)) {
 			result = result.eContainer
 		}
@@ -118,22 +137,26 @@ class AssureUtilExtension {
 		return result as ClaimResult
 	}
 
-	def static NamedElement getClaimSubject(EObject assureObject) {
-		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
-				target
-		req?.targetElement ?: req.targetClassifier
+	/*
+	 * return the model element that is the target of verification
+	 */
+	def static NamedElement getCaseTargetModelElement(EObject assureObject) {
+		val cr = assureObject.claimResult
+		val res = cr.modelElement
+		if (!Aadl2Util.isNull(res))	return res
+		val req = cr.target
+		req?.targetElement ?: req.targetClassifier?:cr.caseTargetClassifier
 	}
 
-	def static NamedElement getTargetElement(EObject assureObject) {
-		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
-				target
-		req?.targetElement
+
+	def static boolean isConnections(EObject assureObject) {
+		assureObject.claimResult.target?.connections
 	}
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
-		val rac = assureObject.assuranceCaseTarget
-		if (rac == null) return null
-		rac.instanceModel
+		val rac = assureObject.modelResult?.target
+		if (rac == null || !(rac instanceof ComponentImplementation)) return null
+		(rac as ComponentImplementation).instanceModel
 	}
 
 	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si,SubsystemResult ac){
@@ -144,6 +167,7 @@ class AssureUtilExtension {
 			si
 		}
 	}
+
 
 	def static VerificationMethod getMethod(VerificationResult vr) {
 		switch (vr) {
@@ -189,10 +213,10 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
-		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]) {
+		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.FAIL]) {
 			verificationActivityResult.setToFail
-//		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
-//			verificationActivityResult.setToError
+		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
+			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
 		}
@@ -228,6 +252,20 @@ class AssureUtilExtension {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message?:"no message"
 		issue.issueType = ResultIssueType.ERROR;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+
+	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message) {
+		addFailIssue(vr, target, message, null)
+	}
+
+	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource) {
+		val issue = CommonFactory.eINSTANCE.createResultIssue
+		issue.message = message?:"no message"
+		issue.issueType = ResultIssueType.FAIL;
 		issue.exceptionType = issueSource
 		issue.target = target
 		vr.issues.add(issue)
@@ -804,7 +842,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, String message, EObject target) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
+		verificationActivityResult.addErrorIssue(target, message, null);
 		verificationActivityResult.setToError
 	}
 
@@ -814,7 +852,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, String message, EObject target) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
+		verificationActivityResult.addFailIssue(target, message, null);
 		verificationActivityResult.setToFail
 	}
 
@@ -823,13 +861,8 @@ class AssureUtilExtension {
 		verificationActivityResult.setToFail
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, EObject target, String message) {
-		verificationActivityResult.addErrorIssue(target, message, null);
-		verificationActivityResult.setToFail
-	}
-
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addErrorIssue(null, e.message ?: e.toString, null); // e.getClass().getName());
+		verificationActivityResult.addFailIssue(null, e.message ?: e.toString, null); // e.getClass().getName());
 		verificationActivityResult.setToFail
 	}
 
@@ -843,13 +876,6 @@ class AssureUtilExtension {
 		verificationActivityResult.setToError
 	}
 
-//	
-//	def static String stackTrace(Throwable e){
-//		val StringWriter writer = new StringWriter
-//		val PrintWriter pwriter = new PrintWriter(writer)
-//		e.printStackTrace(pwriter)
-//		writer.toString
-//	}
 	/**
 	 * the next methods update the counts for FailThen and AndThen
 	 */
@@ -912,24 +938,11 @@ class AssureUtilExtension {
 	def private static boolean updateOwnResultState(VerificationResult ar, VerificationResultState newState) {
 		val counts = ar.metrics
 		if (ar.resultState == newState) return false
-		if (ar.resultState == VerificationResultState.TBD) {
-			counts.tbdCount = counts.tbdCount - 1
-			ar.executionState = VerificationExecutionState.COMPLETED
-			switch (newState) {
-				case VerificationResultState.SUCCESS:
-					counts.successCount = counts.successCount + 1
-				case VerificationResultState.FAIL:
-					counts.failCount = counts.failCount + 1
-				case VerificationResultState.ERROR:
-					counts.errorCount = counts.errorCount + 1
-				case VerificationResultState.TIMEOUT:
-					counts.timeoutCount = counts.timeoutCount + 1
-				case VerificationResultState.TBD: {
-				}
-			}
-		} else if (newState == VerificationResultState.TBD) {
-			counts.tbdCount = counts.tbdCount + 1
-			ar.executionState = VerificationExecutionState.TODO
+	
+		if (ar.resultState == VerificationResultState.FAIL && newState != VerificationResultState.TBD) return true 
+		if (ar.resultState == VerificationResultState.ERROR && (newState == VerificationResultState.SUCCESS|| newState == VerificationResultState.TIMEOUT)) return true 
+		if (ar.resultState == VerificationResultState.TIMEOUT && newState == VerificationResultState.SUCCESS ) return true 
+	// undo old state count
 			switch (ar.resultState) {
 				case VerificationResultState.SUCCESS:
 					counts.successCount = counts.successCount - 1
@@ -942,9 +955,20 @@ class AssureUtilExtension {
 				case VerificationResultState.TBD:
 					counts.tbdCount = counts.tbdCount - 1
 			}
-		} else {
-			// should not occur or only when setting multiple error or fail messages
-		}
+		// do new state count
+			switch (newState) {
+				case VerificationResultState.SUCCESS:
+					counts.successCount = counts.successCount + 1
+				case VerificationResultState.FAIL:
+					counts.failCount = counts.failCount + 1
+				case VerificationResultState.ERROR:
+					counts.errorCount = counts.errorCount + 1
+				case VerificationResultState.TIMEOUT:
+					counts.timeoutCount = counts.timeoutCount + 1
+				case VerificationResultState.TBD: {
+				}
+			}
+		
 		ar.resultState = newState
 		true
 	}
@@ -1157,23 +1181,26 @@ class AssureUtilExtension {
 	}
 
 	def static String getName(ModelResult ce) {
-		return ce.assuranceCaseResult.name+'.'+ce.plan.getName
+		return ce.assuranceCaseResult.name+'.'+ce.plan.getName+"("+ce.target.name+")"
 	}
 
 	def static String getName(SubsystemResult ce) {
-		return ce.targetSystem
+		return ce.targetSystem.name
 	}
 
 	def static String getName(ClaimResult cr) {
+		val me = cr.caseTargetModelElement
+		val targetElementLabel= if(me != null) "("+me.name+")" 
+		else ""
 		if (!Aadl2Util.isNull(cr.target)) {
-			return cr.target?.name
+			return cr.target?.name + targetElementLabel
 		}
-		return "[unresolved:" + cr.target.toString + "]"
+		return "[unresolved:" + cr.target.toString + "]"+targetElementLabel
 	}
 
 	def static String constructDescription(ClaimResult cr) {
 		val r = cr.target
-		if (r.description != null) return r.description.toText(cr.claimSubject)
+		if (r.description != null) return r.description.toText(cr.caseTargetModelElement)
 		if (r.title != null) return r.title
 		""
 	}
@@ -1208,6 +1235,28 @@ class AssureUtilExtension {
 		}
 		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " E" + elec.errorCount + " tbd" +
 			elec.tbdCount + " EL" + elec.didelseCount + " TS" + elec.thenskipCount + ")"
+	}
+
+	def static String assureExecutionTime(AssureResult ele) {
+		val elec= ele.metrics
+		"("+elec.executionTime+" ms)"
+	}
+	
+	
+	def static String buildCaseModelElementPath(AssureResult ar){
+		switch (ar){
+			SubsystemResult: buildCaseModelElementPath(ar.eContainer as AssureResult)+"."+ar.targetSystem?.name
+			ModelResult: ar.target.getQualifiedName()
+			ClaimResult: {
+				val res = buildCaseModelElementPath(ar.eContainer as AssureResult)
+				if (ar.eContainer instanceof ClaimResult)  res
+				else 
+				if (ar.modelElement != null)  res+"."+ar.modelElement.name
+				else  res
+				}
+			VerificationResult: buildCaseModelElementPath(ar.claimResult)
+			AssuranceCaseResult: ""
+		}
 	}
 
 	// manage instance model generation

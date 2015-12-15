@@ -20,7 +20,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubsystemResult" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetSystem" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetSystem" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"
         eType="#//ClaimResult" containment="true"/>
@@ -29,6 +29,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClaimResult" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subClaimResult" upperBound="-1"
         eType="#//ClaimResult" containment="true"/>
@@ -85,6 +86,7 @@
         eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationfailCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VerificationResultState">
     <eLiterals name="TBD" literal="tbd"/>

@@ -1134,13 +1134,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
+   * The feature id for the '<em><b>Connections</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+
+  /**
    * The number of structural features of the '<em>Requirement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
@@ -2358,6 +2367,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ComponentCategory();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Connections</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#isConnections()
+   * @see #getRequirement()
+   * @generated
+   */
+  EAttribute getRequirement_Connections();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement <em>Include Global Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3175,6 +3195,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getRequirement_ComponentCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Connections</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT__CONNECTIONS = eINSTANCE.getRequirement_Connections();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.

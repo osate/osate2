@@ -30,6 +30,8 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 Requirements : 'requirements';
 
+Connections : 'connections';
+
 Description : 'description';
 
 Development : 'development';

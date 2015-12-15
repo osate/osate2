@@ -264,7 +264,7 @@ public interface AssurePackage extends EPackage
   int SUBSYSTEM_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Target System</b></em>' attribute.
+   * The feature id for the '<em><b>Target System</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -337,13 +337,22 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Model Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM_RESULT__MODEL_ELEMENT = ASSURE_RESULT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int CLAIM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -352,7 +361,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Verification Activity Result</b></em>' containment reference list.
@@ -361,7 +370,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Claim Result</em>' class.
@@ -370,7 +379,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -702,13 +711,22 @@ public interface AssurePackage extends EPackage
   int METRICS__WEIGHT = 9;
 
   /**
+   * The feature id for the '<em><b>Execution Time</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__EXECUTION_TIME = 10;
+
+  /**
    * The number of structural features of the '<em>Metrics</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 10;
+  int METRICS_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
@@ -1146,15 +1164,15 @@ public interface AssurePackage extends EPackage
   EAttribute getSubsystemResult_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Target System</em>'.
+   * @return the meta object for the reference '<em>Target System</em>'.
    * @see org.osate.assure.assure.SubsystemResult#getTargetSystem()
    * @see #getSubsystemResult()
    * @generated
    */
-  EAttribute getSubsystemResult_TargetSystem();
+  EReference getSubsystemResult_TargetSystem();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getMessage <em>Message</em>}'.
@@ -1209,6 +1227,17 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EReference getClaimResult_Target();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.ClaimResult#getModelElement <em>Model Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Model Element</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getModelElement()
+   * @see #getClaimResult()
+   * @generated
+   */
+  EReference getClaimResult_ModelElement();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}'.
@@ -1568,6 +1597,17 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_Weight();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Execution Time</em>'.
+   * @see org.osate.assure.assure.Metrics#getExecutionTime()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_ExecutionTime();
+
+  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1816,12 +1856,12 @@ public interface AssurePackage extends EPackage
     EAttribute SUBSYSTEM_RESULT__NAME = eINSTANCE.getSubsystemResult_Name();
 
     /**
-     * The meta object literal for the '<em><b>Target System</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Target System</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SUBSYSTEM_RESULT__TARGET_SYSTEM = eINSTANCE.getSubsystemResult_TargetSystem();
+    EReference SUBSYSTEM_RESULT__TARGET_SYSTEM = eINSTANCE.getSubsystemResult_TargetSystem();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
@@ -1864,6 +1904,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference CLAIM_RESULT__TARGET = eINSTANCE.getClaimResult_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Model Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLAIM_RESULT__MODEL_ELEMENT = eINSTANCE.getClaimResult_ModelElement();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
@@ -2140,6 +2188,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__WEIGHT = eINSTANCE.getMetrics_Weight();
+
+    /**
+     * The meta object literal for the '<em><b>Execution Time</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__EXECUTION_TIME = eINSTANCE.getMetrics_ExecutionTime();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.

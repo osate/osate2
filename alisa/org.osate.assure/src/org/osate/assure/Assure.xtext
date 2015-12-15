@@ -34,7 +34,7 @@ ModelResult:
 
 SubsystemResult:
 	'subsystem' name=QualifiedName 
-	'for' targetSystem=ID
+	'for' targetSystem=[aadl2::Subcomponent|ID]
 	'['
 	metrics=Metrics
 	('message' message= STRING)?
@@ -49,6 +49,7 @@ ClaimResult:
 	'claim' target=[ReqSpec::Requirement|QualifiedName]
 	'['
 	metrics=Metrics
+	('for' modelElement=[aadl2::NamedElement|ID])?
 	('message' message= STRING)?
 	(subClaimResult += ClaimResult)*
 	(verificationActivityResult+= VerificationExpr)*
@@ -146,6 +147,7 @@ Metrics returns Metrics:
 	('prefailcount'  preconditionfailCount=INT)?
 	('validfailcount'  validationfailCount=INT)?
 	('weight' weight = INT)?
+	('time' executionTime = AInt)?
 ;
 
 
