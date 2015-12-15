@@ -90,7 +90,7 @@ property set Timing_Properties is
 		applies to (processor, device, system);
 	
 	Process_Swap_Execution_Time: Time_Range
-		applies to (processor);
+		applies to (processor, virtual processor);
 	
 	Reference_Processor: inherit classifier (processor)
 		applies to (subprogram, subprogram group, thread, thread group, process, device, system);
