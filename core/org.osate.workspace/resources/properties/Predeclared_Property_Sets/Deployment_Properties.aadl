@@ -20,7 +20,7 @@ property set Deployment_Properties is
 	Allowed_Memory_Binding: inherit list of reference (memory, system, processor)
 		applies to (memory, thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor);
 	
-	Actual_Memory_Binding: inherit list of reference (memory, system)
+	Actual_Memory_Binding: inherit list of reference (memory, system, processor)
 		applies to (memory, thread, thread group, process, system, processor, device, data, data port, event data port, subprogram, subprogram group);
 	
 	Allowed_Connection_Binding_Class:
