@@ -5396,7 +5396,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
-			if (!(connectionEnd instanceof Access)) {
+			if (!(connectionEnd instanceof Access || connectionEnd instanceof DataSubcomponent)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid access connection end.", connectedElement,
