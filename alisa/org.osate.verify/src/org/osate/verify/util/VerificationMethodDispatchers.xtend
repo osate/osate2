@@ -137,11 +137,13 @@ class VerificationMethodDispatchers {
 		}
 	}
 
-	// invoke method in workspace project
+	// Method returns null if Java method was found.
+	// Otherwise it returns an error message
 	def String methodExists(JavaMethod vm, EList<FormalParameter> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
-		if (i == -1)
-			return null;
+		if (i == -1){
+			return "Java method is "+vm.methodPath+" missing Class"
+		}
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
 		try {
