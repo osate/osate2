@@ -4,7 +4,7 @@
 
 property set Programming_Properties is
 	Activate_Entrypoint: classifier (subprogram classifier)
-		applies to (thread, device);
+		applies to (thread, device, processor, virtual processor);
 	
 	Activate_Entrypoint_Call_Sequence: reference (subprogram call sequence)
 		applies to (thread, device);
