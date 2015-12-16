@@ -75,17 +75,23 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
+import com.ibm.icu.util.IslamicCalendar.CalculationType;
+
 public class GetProperties {
 	/**
 	 * returns true if property is explicitly assigned
-	 * @param element NamedELement
-	 * @param pn Property definition
+	 * 
+	 * @param element
+	 *            NamedELement
+	 * @param pn
+	 *            Property definition
 	 * @return
 	 */
 	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
@@ -101,8 +107,11 @@ public class GetProperties {
 
 	/**
 	 * returns true if property is explicitly assigned
-	 * @param element NamedELement
-	 * @param pn Property definition
+	 * 
+	 * @param element
+	 *            NamedELement
+	 * @param pn
+	 *            Property definition
 	 * @return
 	 */
 	public static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
@@ -111,11 +120,17 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Definition name
+	 * find property definition for given name. The property may be qualified by
+	 * the property set name via the ps parameter For predeclared properties
+	 * this is not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param ps
+	 *            String property set name, which may be null
+	 * @param name
+	 *            String Property Definition name
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
@@ -124,10 +139,15 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param qpname String qualified Property Definition name
+	 * find property definition for given name. The property may be qualified by
+	 * the property set name via the ps parameter For predeclared properties
+	 * this is not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param qpname
+	 *            String qualified Property Definition name
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context, String qpname) {
@@ -135,11 +155,17 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property type for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Type name
+	 * find property type for given name. The property may be qualified by the
+	 * property set name via the ps parameter For predeclared properties this is
+	 * not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param ps
+	 *            String property set name, which may be null
+	 * @param name
+	 *            String Property Type name
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String ps, String name) {
@@ -148,10 +174,15 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property type for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param qname String Property Type qualified name
+	 * find property type for given name. The property may be qualified by the
+	 * property set name via the ps parameter For predeclared properties this is
+	 * not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param qname
+	 *            String Property Type qualified name
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context, String qname) {
@@ -159,11 +190,17 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property constant for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Constant name
+	 * find property constant for given name. The property may be qualified by
+	 * the property set name via the ps parameter For predeclared properties
+	 * this is not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param ps
+	 *            String property set name, which may be null
+	 * @param name
+	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String ps, String name) {
@@ -172,11 +209,17 @@ public class GetProperties {
 	}
 
 	/**
-	 * find property constant for given name. The property may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param context EObject the model object that references the property definition
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Constant name
+	 * find property constant for given name. The property may be qualified by
+	 * the property set name via the ps parameter For predeclared properties
+	 * this is not required
+	 * 
+	 * @param context
+	 *            EObject the model object that references the property
+	 *            definition
+	 * @param ps
+	 *            String property set name, which may be null
+	 * @param name
+	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
@@ -186,8 +229,11 @@ public class GetProperties {
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
-	 * @param pd Property Definition
-	 * @param literalname String
+	 * 
+	 * @param pd
+	 *            Property Definition
+	 * @param literalname
+	 *            String
 	 * @return UnitLiteral or null if the unit literal could not be found or the
 	 *         definition does not have a unit
 	 */
@@ -243,19 +289,20 @@ public class GetProperties {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
 
-//	/**
-//	 * this method only picks up the first element, which may not be a bus
-//	 * @param connection Connection Instance
-//	 * @return
-//	 */
-//	public static ComponentInstance getBoundBus(final ConnectionInstance connection) {
-//		List<ComponentInstance> ret = getActualConnectionBinding(connection);
-//		ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
-//		if (ci != null) {
-//			return ci;
-//		}
-//		return null;
-//	}
+	// /**
+	// * this method only picks up the first element, which may not be a bus
+	// * @param connection Connection Instance
+	// * @return
+	// */
+	// public static ComponentInstance getBoundBus(final ConnectionInstance
+	// connection) {
+	// List<ComponentInstance> ret = getActualConnectionBinding(connection);
+	// ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
+	// if (ci != null) {
+	// return ci;
+	// }
+	// return null;
+	// }
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
@@ -287,8 +334,8 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add((ComponentInstance) ((InstanceReferenceValue) propertyExpression)
-					.getReferencedInstanceObject());
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 		}
 		return components;
 	}
@@ -304,8 +351,8 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add((ComponentInstance) ((InstanceReferenceValue) propertyExpression)
-					.getReferencedInstanceObject());
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 		}
 		return components;
 	}
@@ -321,8 +368,8 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add((ComponentClassifier) ((InstanceReferenceValue) propertyExpression)
-					.getReferencedInstanceObject());
+			components.add(
+					(ComponentClassifier) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 		}
 		return components;
 	}
@@ -338,8 +385,8 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add((ComponentInstance) ((InstanceReferenceValue) propertyExpression)
-					.getReferencedInstanceObject());
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 		}
 		return components;
 	}
@@ -355,8 +402,8 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add((ComponentInstance) ((InstanceReferenceValue) propertyExpression)
-					.getReferencedInstanceObject());
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 		}
 		return components;
 	}
@@ -465,10 +512,12 @@ public class GetProperties {
 	}
 
 	/**
-	 * instruction execution time of processor
-	 * This is calculated from the MIPSCapacity.
-	 * This function acts as replacement for the cycle_time property
-	 * @param proc processor component instance
+	 * instruction execution time of processor This is calculated from the
+	 * MIPSCapacity. This function acts as replacement for the cycle_time
+	 * property
+	 * 
+	 * @param proc
+	 *            processor component instance
 	 * @return
 	 */
 	public static double getInstructionExecutionTimeinUS(final ComponentInstance proc) {
@@ -476,10 +525,12 @@ public class GetProperties {
 	}
 
 	/**
-	 * instruction execution time of processor
-	 * This is calculated from the MIPSCapacity.
-	 * This function acts as replacement for the cycle_time property
-	 * @param proc processor component instance
+	 * instruction execution time of processor This is calculated from the
+	 * MIPSCapacity. This function acts as replacement for the cycle_time
+	 * property
+	 * 
+	 * @param proc
+	 *            processor component instance
 	 * @return
 	 */
 	public static double getInstructionExecutionTimeinSec(final ComponentInstance proc) {
@@ -586,7 +637,7 @@ public class GetProperties {
 		double dataTransferTime;
 		double acquisitionTime;
 
-		dataSize = computeDataSizeInBytes(dataClassifier);
+		dataSize = getDataSizeInBytes(dataClassifier);
 		speed = getMaximumTransmissionTimePerByte(bus);
 		dataTransferTime = speed * dataSize;
 
@@ -601,24 +652,13 @@ public class GetProperties {
 		double dataTransferTime;
 		double acquisitionTime;
 
-		dataSize = computeDataSizeInBytes(dataClassifier);
+		dataSize = getDataSizeInBytes(dataClassifier);
 		speed = getMinimumTransmissionTimePerByte(bus);
 		dataTransferTime = speed * dataSize;
 
 		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
-	}
-
-	public static double computeDataSizeInBytes(Classifier cl) {
-		double dataSize = GetProperties.getSourceDataSizeInBytes(cl);
-		if (dataSize == 0.0 && cl instanceof ComponentImplementation) {
-			EList<Subcomponent> subs = ((ComponentImplementation) cl).getAllSubcomponents();
-			for (Subcomponent subcomponent : subs) {
-				dataSize = dataSize + computeDataSizeInBytes(subcomponent.getAllClassifier());
-			}
-		}
-		return dataSize;
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
@@ -632,6 +672,7 @@ public class GetProperties {
 	/**
 	 * calculate the scaling factor from the MIPSCapacity of the two processors.
 	 * The default value is 1
+	 * 
 	 * @param thread
 	 * @return double scaling factor of processor speed
 	 */
@@ -658,11 +699,10 @@ public class GetProperties {
 	}
 
 	/**
-	 * Get the MIPS per sec of the bound processor. First tries to find the
-	 * MIPS capacity.  If it does not find
-	 * it, then it gets the cycle time of that processor.
-	 * Failing that, it returns a
-	 * value corresponding to a 1GIPS processor.
+	 * Get the MIPS per sec of the bound processor. First tries to find the MIPS
+	 * capacity. If it does not find it, then it gets the cycle time of that
+	 * processor. Failing that, it returns a value corresponding to a 1GIPS
+	 * processor.
 	 */
 	public static double getBoundProcessorMIPS(final ComponentInstance thread) {
 		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
@@ -674,7 +714,8 @@ public class GetProperties {
 	}
 
 	/**
-	 * Get the  bound processor. It will take the first if the binding identifies more than one.
+	 * Get the bound processor. It will take the first if the binding identifies
+	 * more than one.
 	 */
 	public static ComponentInstance getBoundProcessor(final ComponentInstance processorthread) {
 		List<ComponentInstance> pciList = getActualProcessorBinding(processorthread);
@@ -686,7 +727,7 @@ public class GetProperties {
 	}
 
 	/**
-	 * Get the MIPS of the  processor from the MIPSCapacity.
+	 * Get the MIPS of the processor from the MIPSCapacity.
 	 */
 	public static double getProcessorMIPS(final ComponentInstance processor) {
 		return getMIPSCapacityInMIPS(processor, 0);
@@ -694,7 +735,9 @@ public class GetProperties {
 
 	/**
 	 * compute MIPS for thread based on instructions per dispatch;
-	 * @param threadinstance thread instance
+	 * 
+	 * @param threadinstance
+	 *            thread instance
 	 * @return MIPS or 0.0
 	 */
 	public static double getThreadExecutionIPDinMIPS(ComponentInstance threadinstance) {
@@ -710,8 +753,8 @@ public class GetProperties {
 	/**
 	 * @author: Dionisio de Niz
 	 * 
-	 * For now we will use MIPS as a representative of cycles per second but we will change it
-	 * to a more meaningful property name
+	 *          For now we will use MIPS as a representative of cycles per
+	 *          second but we will change it to a more meaningful property name
 	 * 
 	 * @param threadInstance
 	 * @return execution time in cyles
@@ -728,8 +771,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * compute MIPS for thread based on instructions per dispatch; or based on specified execution time
-	 * @param threadinstance thread instance
+	 * compute MIPS for thread based on instructions per dispatch; or based on
+	 * specified execution time
+	 * 
+	 * @param threadinstance
+	 *            thread instance
 	 * @return MIPS or 0.0
 	 */
 	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
@@ -750,8 +796,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * compute Execution time for actual processor from instructions per dispatch; or based on specified execution time
-	 * @param threadinstance thread instance
+	 * compute Execution time for actual processor from instructions per
+	 * dispatch; or based on specified execution time
+	 * 
+	 * @param threadinstance
+	 *            thread instance
 	 * @return double scaled execution time in Sec
 	 */
 	public static double getThreadExecutioninSec(ComponentInstance threadinstance) {
@@ -764,8 +813,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * compute Execution time for actual processor from instructions per dispatch; or based on specified execution time
-	 * @param threadinstance thread instance
+	 * compute Execution time for actual processor from instructions per
+	 * dispatch; or based on specified execution time
+	 * 
+	 * @param threadinstance
+	 *            thread instance
 	 * @return double scaled execution time in Sec
 	 */
 	public static double getThreadExecutioninMilliSec(ComponentInstance threadinstance) {
@@ -779,9 +831,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get max execution time scaled in terms of the processor the thread is bound to
-	 * If it is not bound then return the specified execution time
-	 * @param ne thread component instance
+	 * get max execution time scaled in terms of the processor the thread is
+	 * bound to If it is not bound then return the specified execution time
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return scaled time or 0.0
 	 */
 	public static double getScaledMaxComputeExecutionTimeinMilliSec(final NamedElement ne) {
@@ -797,9 +851,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get min execution time scaled in terms of the processor the thread is bound to
-	 * If it is not bound then return the specified execution time
-	 * @param ne thread component instance
+	 * get min execution time scaled in terms of the processor the thread is
+	 * bound to If it is not bound then return the specified execution time
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return scaled time or 0.0
 	 */
 	public static double getScaledMinComputeExecutionTimeinMilliSec(final NamedElement ne) {
@@ -815,9 +871,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time scaled in terms of the processor the thread is bound to
-	 * If it is not bound then return the specified execution time
-	 * @param ne thread component instance
+	 * get execution time scaled in terms of the processor the thread is bound
+	 * to If it is not bound then return the specified execution time
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return scaled time or 0.0
 	 */
 	public static double getScaledComputeExecutionTimeinSec(final NamedElement ne) {
@@ -833,9 +891,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified in nsec - the upper bound
-	 * not adjusted for different processor speeds
-	 * @param ne thread component instance
+	 * get execution time as specified in nsec - the upper bound not adjusted
+	 * for different processor speeds
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return specified time or 0.0
 	 */
 	public static double getMaximumComputeExecutionTimeinNsec(final NamedElement ne) {
@@ -847,9 +907,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified in sec - the upper bound
-	 * not adjusted for different processor speeds
-	 * @param ne thread component instance
+	 * get execution time as specified in sec - the upper bound not adjusted for
+	 * different processor speeds
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return specified time or 0.0
 	 */
 	public static double getMaximumComputeExecutionTimeinSec(final NamedElement ne) {
@@ -861,9 +923,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified in sec - the lower bound
-	 * not adjusted for different processor speeds
-	 * @param ne thread component instance
+	 * get execution time as specified in sec - the lower bound not adjusted for
+	 * different processor speeds
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return specified time or 0.0
 	 */
 	public static double getMinimumComputeExecutionTimeinSec(final NamedElement ne) {
@@ -875,9 +939,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified in ms - the upper bound
-	 * not adjusted for different processor speeds
-	 * @param ne thread component instance
+	 * get execution time as specified in ms - the upper bound not adjusted for
+	 * different processor speeds
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return specified time or 0.0
 	 */
 	public static double getMaximumComputeExecutionTimeinMs(final NamedElement ne) {
@@ -889,9 +955,11 @@ public class GetProperties {
 	}
 
 	/**
-	 * get execution time as specified in ms - the lower bound
-	 * not adjusted for different processor speeds
-	 * @param ne thread component instance
+	 * get execution time as specified in ms - the lower bound not adjusted for
+	 * different processor speeds
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return specified time or 0.0
 	 */
 	public static double getMinimumComputeExecutionTimeinMs(final NamedElement ne) {
@@ -904,7 +972,9 @@ public class GetProperties {
 
 	/**
 	 * get specified instructions per dispatch as MIPD
-	 * @param ne thread component instance
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return double MIPD
 	 */
 	public static double getSpecifiedThreadInstructionsinMIPD(final NamedElement ne) {
@@ -916,7 +986,9 @@ public class GetProperties {
 
 	/**
 	 * get specified instructions per dispatch as IPD
-	 * @param ne thread component instance
+	 * 
+	 * @param ne
+	 *            thread component instance
 	 * @return double IPD
 	 */
 	public static double getSpecifiedThreadInstructionsinIPD(final NamedElement ne) {
@@ -1080,55 +1152,71 @@ public class GetProperties {
 		}
 	}
 
+	/*
+	 * deprecated. Now called getDataSizeInBytes
+	 */
 	public static double getSourceDataSizeInBytes(final NamedElement ne) {
+		return getDataSizeInBytes(ne);
+	}
+
+	public static double getDataSizeInBytes(final NamedElement ne) {
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
 				MemoryProperties.SOURCE_DATA_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
-		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, Bytes, 0.0);
-		if (res == 0.0 && ne instanceof FeatureGroupType) {
-			EList fl = ((FeatureGroupType) ne).getAllFeatures();
-			for (Object f : fl) {
-				Classifier c = ((Feature) f).getAllClassifier();
-				if (c == null) {
-//						res = res + 1.0;
-				} else {
-					res = res + getSourceDataSizeInBytes(c);
-				}
-			}
-		}
-		return res;
+		return getDataSize(ne, Bytes);
 	}
 
+	/*
+	 * deprecated. Now called getDataSize
+	 */
 	public static double getSourceDataSize(final NamedElement ne, UnitLiteral unit) {
+		return getDataSize(ne, unit);
+	}
+
+	public static double getDataSize(final NamedElement ne, UnitLiteral unit) {
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
 				MemoryProperties.SOURCE_DATA_SIZE);
 		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
-		if (res == 0.0) {
-			Classifier cl = null;
-			if (ne instanceof Classifier) {
-				cl = (Classifier) ne;
-			} else if (ne instanceof FeatureInstance) {
-				cl = ((FeatureInstance) ne).getFeature().getClassifier();
-			} else if (ne instanceof Feature) {
-				cl = ((Feature) ne).getClassifier();
-			} else if (ne instanceof DataSubcomponent) {
-				cl = ((DataSubcomponent) ne).getClassifier();
-			}
-			if (cl != null) {
-				if (cl instanceof FeatureGroupType) {
-					EList fl = ((FeatureGroupType) cl).getAllFeatures();
-					for (Object f : fl) {
-						Classifier c = ((Feature) f).getAllClassifier();
-						if (c == null) {
-//							res = res + 1.0;
-						} else {
-							res = res + getSourceDataSize(c, unit);
-						}
-					}
-				} else if (cl instanceof DataImplementation) {
-					for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
-						res = res + getSourceDataSize(ds, unit);
-					}
+		long mult = 1;
+		if (ne instanceof DataSubcomponent) {
+			mult = AadlUtil.getMultiplicity(ne);
+		}
+		if (res != 0.0) {
+			return res * mult;
+		}
+		if (ne instanceof DataSubcomponent || ne instanceof DataImplementation) {
+			// mult is one or the array size of the data subcomponent.
+			return sumElementsDataSize(ne, unit) * mult;
+		}
+		return 0.0;
+	}
+
+	/*
+	 * return data size of elements or zero. Do this for classifier (feature
+	 * group type or data implementation), feature instance, feature, data
+	 * subcomponent
+	 */
+	public static double sumElementsDataSize(final NamedElement ne, UnitLiteral unit) {
+		double res = 0.0;
+		Classifier cl = null;
+		if (ne instanceof Classifier) {
+			cl = (Classifier) ne;
+		} else if (ne instanceof FeatureInstance) {
+			cl = ((FeatureInstance) ne).getFeature().getAllClassifier();
+		} else if (ne instanceof Feature) {
+			cl = ((Feature) ne).getClassifier();
+		} else if (ne instanceof DataSubcomponent) {
+			cl = ((DataSubcomponent) ne).getClassifier();
+		}
+		if (cl != null) {
+			if (cl instanceof FeatureGroupType) {
+				EList<Feature> fl = ((FeatureGroupType) cl).getAllFeatures();
+				for (Feature f : fl) {
+					res = res + getDataSize(f, unit);
+				}
+			} else if (cl instanceof DataImplementation) {
+				for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
+					res = res + getDataSize(ds, unit);
 				}
 			}
 		}
@@ -1193,7 +1281,8 @@ public class GetProperties {
 		if (aci == null) {
 			return 0.0;
 		}
-		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME,
+				CommunicationProperties.LATENCY);
 		UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(aci, Latency, milliSecond, 0.0);
 	}
@@ -1203,7 +1292,8 @@ public class GetProperties {
 		if (aci == null) {
 			return 0.0;
 		}
-		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+		Property Latency = lookupPropertyDefinition(aci, CommunicationProperties._NAME,
+				CommunicationProperties.LATENCY);
 		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledRangeMaximum(aci, Latency, microSecond, 0.0);
 	}
@@ -1433,8 +1523,11 @@ public class GetProperties {
 
 	/**
 	 * Get the module schedule for a processor
-	 * @param ne - the processor component
-	 * @return - a list with all the module schedule. An empty list if not defined.
+	 * 
+	 * @param ne
+	 *            - the processor component
+	 * @return - a list with all the module schedule. An empty list if not
+	 *         defined.
 	 */
 	public static List<ARINC653ScheduleWindow> getModuleSchedule(final ComponentInstance io) {
 		Property moduleScheduleProperty;
@@ -1489,7 +1582,9 @@ public class GetProperties {
 
 	/**
 	 * Return the value of the property ARINC653::Module_Major_Frame
-	 * @param module - the component that represents the ARINC653 module
+	 * 
+	 * @param module
+	 *            - the component that represents the ARINC653 module
 	 * @return - the major frame - 0 otherwise
 	 */
 	public static double getARINC653ModuleMajorFrame(final ComponentInstance module) {
@@ -1511,7 +1606,9 @@ public class GetProperties {
 
 	/**
 	 * Get the virtual bus required for a connection, virtual bus, port, etc.
-	 * @param io - the component which has the property
+	 * 
+	 * @param io
+	 *            - the component which has the property
 	 * @return - the list of virtual bus classifier
 	 */
 	public static List<ComponentClassifier> getRequiredVirtualBusClass(final NamedElement io) {
@@ -1586,9 +1683,9 @@ public class GetProperties {
 	}
 
 	/*
-	 * Look for SEI::Data_Rate first.
-	 * Then pick up Output_Rate, whose default value is 1 per dispatch
-	 * That rate is converted to persecond using Period. If Period is zero then the resulting data rate is zero as well.
+	 * Look for SEI::Data_Rate first. Then pick up Output_Rate, whose default
+	 * value is 1 per dispatch That rate is converted to persecond using Period.
+	 * If Period is zero then the resulting data rate is zero as well.
 	 */
 	public static double getOutgoingDataRatePerSecond(final NamedElement ne) {
 		double res = GetProperties.getSEIDataRatePerSecond(ne);
@@ -1606,8 +1703,8 @@ public class GetProperties {
 			if (unit == null || unit.getName().equalsIgnoreCase("PerDispatch")) {
 				double period = 0;
 				if (ne instanceof InstanceObject) {
-					period = GetProperties
-							.getPeriodInSeconds(((InstanceObject) ne).getContainingComponentInstance(), 0);
+					period = GetProperties.getPeriodInSeconds(((InstanceObject) ne).getContainingComponentInstance(),
+							0);
 				} else {
 					period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
 				}
