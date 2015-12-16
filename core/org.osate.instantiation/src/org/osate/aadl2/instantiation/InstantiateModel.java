@@ -133,6 +133,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
+import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 /**
  * This class implements the instantiation of models from a root system impl.
@@ -1381,19 +1382,6 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private long getArraySizeValue(ComponentInstance ci, Property pd) {
-//		PropertyExpression res = ci.getSimplePropertyValue(pd);
-		Subcomponent sub = ci.getSubcomponent();
-		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
-				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
-				if (pe instanceof IntegerLiteral) {
-					return ((IntegerLiteral) pe).getValue();
-				}
-			}
-		}
-		return 0;
-	}
 
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
@@ -1855,32 +1843,6 @@ public class InstantiateModel {
 		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);
 	}
 
-	// --------------------------------------------------------------------------------------------
-	// Methods related to arrays
-	// --------------------------------------------------------------------------------------------
-
-	private long getElementCount(ArraySize as, ComponentInstance ci) {
-		long result = 0L;
-		if (as == null) {
-			return result;
-		}
-		if (as.getSizeProperty() == null) {
-			result = as.getSize();
-		} else {
-			ArraySizeProperty asp = as.getSizeProperty();
-			if (asp instanceof PropertyConstant) {
-				PropertyConstant pc = (PropertyConstant) asp;
-				PropertyExpression cv = pc.getConstantValue();
-				if (cv instanceof IntegerLiteral) {
-					result = ((IntegerLiteral) cv).getValue();
-				}
-			} else if (asp instanceof Property) {
-				Property pd = (Property) asp;
-				result = getArraySizeValue(ci, pd);
-			}
-		}
-		return result;
-	}
 
 	// --------------------------------------------------------------------------------------------
 	// Methods related to properties

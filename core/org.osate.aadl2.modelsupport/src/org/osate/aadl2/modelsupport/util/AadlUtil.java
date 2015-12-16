@@ -83,6 +83,10 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.ArraySizeProperty;
+import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -110,6 +114,7 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
@@ -124,6 +129,8 @@ import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Realization;
@@ -2307,4 +2314,94 @@ public final class AadlUtil {
 		}
 		return null;
 	}
+	
+	/*
+	 * return the size of an arrayed named element.
+	 * Find the array dimensions in the element or the element it refines.
+	 */
+	public static long getMultiplicity(NamedElement el){
+		if (!(el instanceof ArrayableElement)) return 1;
+		ArrayableElement ae = (ArrayableElement)el;
+		EList<ArrayDimension> dims = ae.getArrayDimensions();
+		if (!dims.isEmpty()){
+			return calcSize(dims);
+		} else {
+			if (el instanceof Subcomponent){
+				Subcomponent sub = (Subcomponent) el;
+				EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
+				for (Subcomponent subcomponent : subs) {
+					dims = subcomponent.getArrayDimensions();
+					if (!dims.isEmpty()){
+						return calcSize(dims);
+					}
+				}
+			} else if (el instanceof Feature){
+				Feature fe = (Feature) el;
+				EList<Feature> feas = fe.getAllFeatureRefinements();
+				for (Feature feature : feas) {
+					dims = feature.getArrayDimensions();
+					if (!dims.isEmpty()){
+						return calcSize(dims);
+					}
+				}
+			}
+		}
+		return 1;
+	}
+	
+	/*
+	 * compute the size of the specified array
+	 */
+	public static long calcSize(EList<ArrayDimension> dims){
+		long size = 1;
+		for (ArrayDimension dim : dims) {
+			ArraySize asize = dim.getSize();
+			size = size * getElementCount(asize);
+		}
+		return size;
+	}
+	
+
+	public static long getElementCount(ArraySize as, ComponentInstance ci) {
+		return getElementCount(as);
+	}
+
+		public static long getElementCount(ArraySize as) {
+		long result = 0L;
+		if (as == null) {
+			return result;
+		}
+		if (as.getSizeProperty() == null) {
+			result = as.getSize();
+		} else {
+			ArraySizeProperty asp = as.getSizeProperty();
+			if (asp instanceof PropertyConstant) {
+				PropertyConstant pc = (PropertyConstant) asp;
+				PropertyExpression cv = pc.getConstantValue();
+				if (cv instanceof IntegerLiteral) {
+					result = ((IntegerLiteral) cv).getValue();
+				}
+// ** we do not support arrays via properties
+//			} else if (asp instanceof Property) {
+//				Property pd = (Property) asp;
+//				result = getArraySizeValue(ci, pd);
+			}
+		}
+		return result;
+	}
+
+//	private static long getArraySizeValue(ComponentInstance ci, Property pd) {
+////		PropertyExpression res = ci.getSimplePropertyValue(pd);
+//		Subcomponent sub = ci.getSubcomponent();
+//		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
+//			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
+//				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
+//				if (pe instanceof IntegerLiteral) {
+//					return ((IntegerLiteral) pe).getValue();
+//				}
+//			}
+//		}
+//		return 0;
+//	}
+
 }
