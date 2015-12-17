@@ -1675,8 +1675,11 @@ public class GetProperties {
 		return ((NumberValue) minimum).getScaledValue();
 	}
 
-	public static double getSEIDataRatePerSecond(NamedElement ne) {
-		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+	public static double getDataRatePerSecond(NamedElement ne) {
+		Property dr = GetProperties.lookupPropertyDefinition(ne, CommunicationProperties._NAME, SEI.DATA_RATE);
+		if (dr == null){
+			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+		}
 		if (dr == null)
 			return 0;
 		return PropertyUtils.getRealValue(ne, dr, 0.0);
@@ -1688,7 +1691,7 @@ public class GetProperties {
 	 * If Period is zero then the resulting data rate is zero as well.
 	 */
 	public static double getOutgoingDataRatePerSecond(final NamedElement ne) {
-		double res = GetProperties.getSEIDataRatePerSecond(ne);
+		double res = GetProperties.getDataRatePerSecond(ne);
 		if (res > 0) {
 			return res;
 		}
