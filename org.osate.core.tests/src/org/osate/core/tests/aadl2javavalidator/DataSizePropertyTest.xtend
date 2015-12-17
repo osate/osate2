@@ -134,7 +134,12 @@ class DataSizePropertyTest extends OsateTest {
 			publicSection.ownedClassifiers.get(5) => [
 				"d1.i5".assertEquals(name)
 				//Tests checkDataSizeProperty
-				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i5" (4 Bytes) does not match the sum of its subcomponents (2 Bytes).')
+				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i5" (4 Bytes) is larger than the sum of its subcomponents (2 Bytes).')
+			]
+			publicSection.ownedClassifiers.get(6) => [
+				"d1.i6".assertEquals(name)
+				//Tests checkDataSizeProperty
+				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i6" (4 Bytes) is larger than the sum of its subcomponents (1 Bytes).')
 			]
 			publicSection.ownedClassifiers.get(7) => [
 				"d1.i7".assertEquals(name)
@@ -144,7 +149,12 @@ class DataSizePropertyTest extends OsateTest {
 			publicSection.ownedClassifiers.get(10) => [
 				"d1.i10".assertEquals(name)
 				//Tests checkDataSizeProperty
-				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i10" (2 Bytes) does not match the sum of its subcomponents (3 Bytes).')
+				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i10" (2 Bytes) is smaller than the sum of its subcomponents (3 Bytes).')
+			]
+			publicSection.ownedClassifiers.get(11) => [
+				"d1.i11".assertEquals(name)
+				//Tests checkDataSizeProperty
+				assertError(testFileResult.issues, issueCollection, 'Data size of "d1.i11" (3 Bytes) is larger than the sum of its subcomponents (2 Bytes).')
 			]
 			publicSection.ownedClassifiers.get(13) => [
 				"d1.i13".assertEquals(name)

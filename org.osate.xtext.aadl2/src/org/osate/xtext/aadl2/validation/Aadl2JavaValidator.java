@@ -3652,12 +3652,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
 		if (implementationSize == 0.0 || sum == 0.0) return;
 		if (sum > implementationSize) {
-			error("Data size of \"" + dataImplementation.getName() + "\" (" + implementationSize
-					+ ") is smaller than the sum of its subcomponents (" + sum + ").", dataImplementation,
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
+					+ " Bytes) is smaller than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
 					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
 		} else if (sum < implementationSize) {
-			error("Data size of \"" + dataImplementation.getName() + "\" (" + implementationSize
-					+ ") is larger than the sum of its subcomponents (" + sum + ").", dataImplementation,
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
+					+ " Bytes) is larger than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
 					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
 		}
 		// try {
