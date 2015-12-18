@@ -3645,10 +3645,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkDataSizeProperty(DataImplementation dataImplementation) {
 		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_DATA_SIZE);
+				MemoryProperties.DATA_SIZE);
 		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
 		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
 				0.0);
+		if (implementationSize == 0.0){
+			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
+					MemoryProperties.SOURCE_DATA_SIZE);
+			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
+					0.0);	}
 		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
 		if (implementationSize == 0.0 || sum == 0.0) return;
 		if (sum > implementationSize) {
