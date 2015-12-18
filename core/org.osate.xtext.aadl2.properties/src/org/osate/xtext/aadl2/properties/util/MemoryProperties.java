@@ -60,6 +60,7 @@ public final class MemoryProperties {
 	public static final String SOURCE_DATA_SIZE = "Source_Data_Size";
 	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
 	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";
+	public static final String SOURCE_HEAP_SIZE = "Source_Heap_Size";
 	public static final String BYTE_COUNT = "Byte_Count";
 
 	/**
