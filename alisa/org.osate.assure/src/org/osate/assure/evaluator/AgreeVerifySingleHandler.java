@@ -73,6 +73,8 @@ import com.rockwellcollins.atc.agree.analysis.ast.AgreeStatement;
 import com.rockwellcollins.atc.agree.analysis.ast.AgreeVar;
 import com.rockwellcollins.atc.agree.analysis.handlers.VerifySingleHandler;
 import com.rockwellcollins.atc.agree.analysis.preferences.PreferencesUtil;
+import com.rockwellcollins.atc.agree.analysis.translation.LustreAstBuilder;
+import com.rockwellcollins.atc.agree.analysis.translation.LustreContractAstBuilder;
 
 import jkind.JKindException;
 import jkind.api.JRealizabilityApi;
@@ -163,7 +165,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				jobResult = wrapper;
 			} else if (isRealizability()) {
 				AgreeProgram agreeProgram = new AgreeASTBuilder().getAgreeProgram(si);
-				Program program = CopyLustreAstBuilder.getRealizabilityLustreProgram(agreeProgram);
+				Program program = LustreAstBuilder.getRealizabilityLustreProgram(agreeProgram);
 				wrapper.addChild(createVerification("Realizability Check", si, program, agreeProgram,
 						AgreeAnalysisType.Realizability));
 				jobResult = wrapper;
@@ -370,12 +372,11 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 			if (!isMonolithic()) {
 				throw new AgreeException("Kind2 now only supports monolithic verification");
 			}
-			program = CopyLustreContractAstBuilder.getContractLustreProgram(agreeProgram);
+			program = LustreContractAstBuilder.getContractLustreProgram(agreeProgram);
 		} else {
-			program = CopyLustreAstBuilder.getAssumeGuaranteeLustreProgram(agreeProgram, isMonolithic());
+			program = LustreAstBuilder.getAssumeGuaranteeLustreProgram(agreeProgram, isMonolithic());
 		}
-		List<Pair<String, Program>> consistencies = CopyLustreAstBuilder.getConsistencyChecks(agreeProgram,
-				isMonolithic());
+		List<Pair<String, Program>> consistencies = LustreAstBuilder.getConsistencyChecks(agreeProgram, isMonolithic());
 
 		wrapper.addChild(createVerification("Contract Guarantees", si, program, agreeProgram,
 				AgreeAnalysisType.AssumeGuarantee));
@@ -501,7 +502,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		if (var.compInst == null || var.reference == null) {
 			return null;
 		}
-		return CopyLustreAstBuilder.getRelativeLocation(var.compInst.getInstanceObjectPath());
+		return LustreAstBuilder.getRelativeLocation(var.compInst.getInstanceObjectPath());
 	}
 
 	private String getReferenceStr(AgreeVar var) {
