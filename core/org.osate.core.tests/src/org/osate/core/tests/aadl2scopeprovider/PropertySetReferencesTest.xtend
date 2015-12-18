@@ -103,7 +103,7 @@ class PropertySetReferencesTest extends OsateTest {
 				  
 				  abstract a1
 				  features
-				    af: feature[ps::def1];
+				    af: feature[ps::const1];
 				  properties
 				    ps::def1 => 4;
 				  end a1;
@@ -328,7 +328,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedAbstractFeatures.head => [
 					"af".assertEquals(name)
 					arrayDimensions.head.size => [
-						"ps::def1".assertEquals((sizeProperty as NamedElement).qualifiedName())
+						"ps::const1".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
 						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
 							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
@@ -357,7 +357,7 @@ class PropertySetReferencesTest extends OsateTest {
 							"Recover_Deadline", "Recover_Entrypoint", "Recover_Entrypoint_Call_Sequence", "Recover_Entrypoint_Source_Text",
 							"Recover_Execution_Time", "Reference_Processor", "Required_Connection", "Required_Connection_Quality_Of_Service",
 							"Required_Virtual_Bus_Class", "Resumption_Policy", "Runtime_Protection", "Runtime_Protection_Support", "Scheduler_Quantum",
-							"Scheduling_Protocol", "Slot_Time", "Source_Language", "Source_Name", "Source_Text", "Stack_Size", "Startup_Deadline",
+							"Scheduling_Protocol", "Slot_Time", "Source_Code_Size", "Source_Data_Size","Source_Heap_Size","Source_Language", "Source_Name","Source_Stack_Size", "Source_Text", "Stack_Size", "Startup_Deadline",
 							"Startup_Execution_Time", "Subprogram_Call_Rate", "Subprogram_Call_Type", "Supported_Classifier_Complement_Matches",
 							"Supported_Classifier_Equivalence_Matches", "Supported_Classifier_Subset_Matches", "Supported_Source_Language",
 							"Supported_Type_Conversions", "Synchronized_Component", "Thread_Limit", "Thread_Swap_Execution_Time", "Time_Slot", "Timing",
@@ -394,7 +394,9 @@ class PropertySetReferencesTest extends OsateTest {
 							"Memory_Properties::Allowed_Message_Size", "Memory_Properties::Assign_Time", "Memory_Properties::Base_Address",
 							"Memory_Properties::Byte_Count", "Memory_Properties::Code_Size", "Memory_Properties::Data_Size",
 							"Memory_Properties::Device_Register_Address", "Memory_Properties::Heap_Size", "Memory_Properties::Memory_Size",
-							"Memory_Properties::Read_Time", "Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space",
+							"Memory_Properties::Read_Time", 
+							"Memory_Properties::Source_Code_Size", "Memory_Properties::Source_Data_Size", "Memory_Properties::Source_Heap_Size", "Memory_Properties::Source_Stack_Size", 
+							"Memory_Properties::Stack_Size", "Memory_Properties::Word_Size", "Memory_Properties::Word_Space",
 							"Memory_Properties::Write_Time", "Modeling_Properties::Acceptable_Array_Size", "Modeling_Properties::Classifier_Matching_Rule",
 							"Modeling_Properties::Classifier_Substitution_Rule", "Modeling_Properties::Implemented_As",
 							"Modeling_Properties::Prototype_Substitution_Rule", "Programming_Properties::Activate_Entrypoint",
