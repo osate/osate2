@@ -114,8 +114,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 			dstMinRateValue = GetProperties.getMinDataRate(dstRate);
 		}
 		// now try it as SEI::Data_Rate
-		double srcRateValue = GetProperties.getDataRatePerSecond(srcFI);
-		double dstRateValue = GetProperties.getDataRatePerSecond(dstFI);
+		double srcRateValue = GetProperties.getMessageRatePerSecond(srcFI);
+		double dstRateValue = GetProperties.getMessageRatePerSecond(dstFI);
 
 		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
 		Classifier dstC = GetProperties.getSingleBaseType(dstFI);
