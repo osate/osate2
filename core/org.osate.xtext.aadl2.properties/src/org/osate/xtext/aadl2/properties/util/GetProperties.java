@@ -1160,8 +1160,7 @@ public class GetProperties {
 	}
 
 	public static double getDataSizeInBytes(final NamedElement ne) {
-		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_DATA_SIZE);
+		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
 		return getDataSize(ne, Bytes);
 	}
@@ -1174,9 +1173,12 @@ public class GetProperties {
 	}
 
 	public static double getDataSize(final NamedElement ne, UnitLiteral unit) {
-		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_DATA_SIZE);
+		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
 		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
+		if (res == 0.0) {
+			SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_DATA_SIZE);
+			res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
+		}
 		long mult = 1;
 		if (ne instanceof DataSubcomponent) {
 			mult = AadlUtil.getMultiplicity(ne);
@@ -1224,13 +1226,20 @@ public class GetProperties {
 	}
 
 	public static double getSourceCodeSizeInBytes(final NamedElement ne) {
-		Property SourceCodeSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_CODE_SIZE);
+		return getCodeSizeInBytes(ne);
+	}
+
+	public static double getCodeSizeInBytes(final NamedElement ne) {
+		Property SourceCodeSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.CODE_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceCodeSize, AadlProject.BYTES_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, Bytes, 0.0);
+		return getSourceCodeSize(ne, Bytes);
 	}
 
 	public static double getSourceStackSizeInBytes(final NamedElement ne) {
+		return getStackSizeInBytes(ne);
+	}
+
+	public static double getStackSizeInBytes(final NamedElement ne) {
 		Property SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
 				MemoryProperties.SOURCE_STACK_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceStackSize, AadlProject.BYTES_LITERAL);
@@ -1238,15 +1247,31 @@ public class GetProperties {
 	}
 
 	public static double getSourceCodeSize(final NamedElement ne, UnitLiteral unit) {
-		Property SourceCodeSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_CODE_SIZE);
-		return PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, unit, 0.0);
+		return getCodeSize(ne, unit);
+	}
+
+	public static double getCodeSize(final NamedElement ne, UnitLiteral unit) {
+		Property SourceCodeSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.CODE_SIZE);
+		double res = PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, unit, 0.0);
+		if (res == 0.0) {
+			SourceCodeSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_CODE_SIZE);
+			res = PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, unit, 0.0);
+		}
+		return res;
 	}
 
 	public static double getSourceStackSize(final NamedElement ne, UnitLiteral unit) {
-		Property SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
-				MemoryProperties.SOURCE_STACK_SIZE);
-		return PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		return getStackSize(ne, unit);
+	}
+
+	public static double getStackSize(final NamedElement ne, UnitLiteral unit) {
+		Property SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.STACK_SIZE);
+		double res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		if (res == 0.0) {
+			SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_STACK_SIZE);
+			res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		}
+		return res;
 	}
 
 	public static boolean getIsPartition(final NamedElement ne) {
@@ -1677,7 +1702,7 @@ public class GetProperties {
 
 	public static double getDataRatePerSecond(NamedElement ne) {
 		Property dr = GetProperties.lookupPropertyDefinition(ne, CommunicationProperties._NAME, SEI.DATA_RATE);
-		if (dr == null){
+		if (dr == null) {
 			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
 		}
 		if (dr == null)
