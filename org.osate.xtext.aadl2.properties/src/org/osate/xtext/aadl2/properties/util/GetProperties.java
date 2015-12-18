@@ -1700,10 +1700,10 @@ public class GetProperties {
 		return ((NumberValue) minimum).getScaledValue();
 	}
 
-	public static double getDataRatePerSecond(NamedElement ne) {
-		Property dr = GetProperties.lookupPropertyDefinition(ne, CommunicationProperties._NAME, SEI.DATA_RATE);
+	public static double getMessageRatePerSecond(NamedElement ne) {
+		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE );
 		if (dr == null) {
-			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.MESSAGE_RATE);
 		}
 		if (dr == null)
 			return 0;
@@ -1711,12 +1711,12 @@ public class GetProperties {
 	}
 
 	/*
-	 * Look for SEI::Data_Rate first. Then pick up Output_Rate, whose default
+	 * Look for Message_Rate or SEI::Data_Rate first. Then pick up Output_Rate, whose default
 	 * value is 1 per dispatch That rate is converted to persecond using Period.
 	 * If Period is zero then the resulting data rate is zero as well.
 	 */
-	public static double getOutgoingDataRatePerSecond(final NamedElement ne) {
-		double res = GetProperties.getDataRatePerSecond(ne);
+	public static double getOutgoingMessageRatePerSecond(final NamedElement ne) {
+		double res = GetProperties.getMessageRatePerSecond(ne);
 		if (res > 0) {
 			return res;
 		}
