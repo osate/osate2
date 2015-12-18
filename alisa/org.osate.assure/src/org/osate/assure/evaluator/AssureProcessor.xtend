@@ -472,8 +472,6 @@ class AssureProcessor implements IAssureProcessor {
 		if(found == null) return null
 		val call = factory.createFnCallExpr
 		call.fn = found
-		// TODO this is instance root. We want the current instance.
-		// Either this.sub1.sub2 or new NamedElementValue(targetComponent)
 		call.args.add(createComponentinstanceReference(ci))
 		addParams(call, params)
 		val prove = factory.createProveStatement
