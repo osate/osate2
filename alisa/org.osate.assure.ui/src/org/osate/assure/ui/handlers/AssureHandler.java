@@ -79,7 +79,7 @@ public class AssureHandler extends AlisaHandler {
 //		}
 //        return null;
 //    }
-	
+
 	@Override
 	protected String getJobName() {
 		return "ASSURE verification";
@@ -90,7 +90,7 @@ public class AssureHandler extends AlisaHandler {
 
 		AssuranceCaseResult rootCaseResult = null;
 		try {
-			rootCaseResult = (AssuranceCaseResult)sel;
+			rootCaseResult = (AssuranceCaseResult) sel;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Status.CANCEL_STATUS;

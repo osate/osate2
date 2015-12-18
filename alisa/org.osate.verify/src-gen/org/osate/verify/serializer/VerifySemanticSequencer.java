@@ -52,6 +52,7 @@ import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
+import org.osate.verify.verify.AgreeMethod;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
@@ -147,6 +148,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == VerifyPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case VerifyPackage.AGREE_METHOD:
+				sequence_AgreeMethod(context, (AgreeMethod) semanticObject); 
+				return; 
 			case VerifyPackage.ALL_EXPR:
 				sequence_QuantifiedEvidenceExpr(context, (AllExpr) semanticObject); 
 				return; 
@@ -215,6 +219,15 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Constraint:
+	 *     (singleLayer?='single' | all?='all')
+	 */
+	protected void sequence_AgreeMethod(EObject context, AgreeMethod semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Constraint:

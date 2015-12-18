@@ -86,6 +86,10 @@
     <genClasses ecoreClass="Verify.ecore#//PluginMethod">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//PluginMethod/methodID"/>
     </genClasses>
+    <genClasses ecoreClass="Verify.ecore#//AgreeMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//AgreeMethod/singleLayer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//AgreeMethod/all"/>
+    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/successor"/>
