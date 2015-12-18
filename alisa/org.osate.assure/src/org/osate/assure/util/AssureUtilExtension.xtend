@@ -918,6 +918,7 @@ class AssureUtilExtension {
 	 */
 	def private static boolean updateOwnResultState(VerificationResult ar, VerificationResultState newState) {
 		val counts = ar.metrics
+		
 		if (ar.resultState == newState) return false
 	
 		if (ar.resultState == VerificationResultState.FAIL && newState != VerificationResultState.TBD) return true 
@@ -938,15 +939,25 @@ class AssureUtilExtension {
 			}
 		// do new state count
 			switch (newState) {
-				case VerificationResultState.SUCCESS:
+				case VerificationResultState.SUCCESS: {
 					counts.successCount = counts.successCount + 1
-				case VerificationResultState.FAIL:
+					ar.executionState = VerificationExecutionState.COMPLETED
+					}
+				case VerificationResultState.FAIL: {
 					counts.failCount = counts.failCount + 1
-				case VerificationResultState.ERROR:
+					ar.executionState = VerificationExecutionState.COMPLETED
+				}
+				case VerificationResultState.ERROR:{
 					counts.errorCount = counts.errorCount + 1
-				case VerificationResultState.TIMEOUT:
+					ar.executionState = VerificationExecutionState.COMPLETED
+				}
+				case VerificationResultState.TIMEOUT: {
 					counts.timeoutCount = counts.timeoutCount + 1
+					ar.executionState = VerificationExecutionState.COMPLETED
+				}
 				case VerificationResultState.TBD: {
+					counts.tbdCount = counts.tbdCount + 1
+					ar.executionState = VerificationExecutionState.TODO
 				}
 			}
 		
