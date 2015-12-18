@@ -410,7 +410,7 @@ class AssureProcessor implements IAssureProcessor {
 		val factory = ResoluteFactory.eINSTANCE
 		var NestedDotID nid = null
 		var nci = ci
-		while (!(ci instanceof SystemInstance)) {
+		while (!(nci instanceof SystemInstance)) {
 			val x = factory.createNestedDotID
 			x.base = ci.subcomponent
 			x.sub = nid
