@@ -323,19 +323,19 @@ class AssureUtilExtension {
 			val subri = if (subclaim.isValid)
 					ri.addSuccessIssue(subclaim.location, subclaim.text)
 				else
-					ri.addErrorIssue(subclaim.location, subclaim.text)
+					ri.addFailIssue(subclaim.location, subclaim.text)
 			subclaim.doResoluteResults(subri)
 		]
 	}
 
-	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message) {
-		addErrorIssue(ri, target, message, null)
+	def static ResultIssue addFailIssue(ResultIssue ri, EObject target, String message) {
+		addIssue(ri, ResultIssueType.FAIL,target, message, null)
 	}
 
-	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message, String issueSource) {
+	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message, String issueSource) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
-		issue.issueType = ResultIssueType.ERROR;
+		issue.issueType = type;
 		issue.exceptionType = issueSource
 		if (target instanceof FunctionDefinition) {
 			issue.target = target
@@ -351,28 +351,9 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message) {
-		addSuccessIssue(ri, target, message, null)
+		addIssue(ri, ResultIssueType.SUCCESS, target, message, null)
 	}
 
-	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message, String issueSource) {
-		val issue = CommonFactory.eINSTANCE.createResultIssue
-		issue.message = message
-		issue.issueType = ResultIssueType.SUCCESS;
-		issue.exceptionType = issueSource
-		if (target instanceof FunctionDefinition) {
-			issue.target = target
-		} else if (!(target instanceof FailExpr)) {
-			issue.target = target
-		} else if (target instanceof FailExpr) {
-			if (message.length > 14) {
-				ri.message = message.substring(15)
-			} else {
-				ri.message = message
-			}
-		}
-		ri.issues.add(issue)
-		issue
-	}
 
 	def static getTotalCount(AssureResult ar) {
 		val counts = ar.metrics

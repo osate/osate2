@@ -303,7 +303,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						case ERROR:
 						case WAITING:
 							// case VALID_REFINED:
-							AssureUtilExtension.addErrorIssue(topResultIssue, target,
+							AssureUtilExtension.addFailIssue(topResultIssue, target,
 									propertyResult.getStatus().toString() + "-" + propertyResult.getName());
 							break;
 
