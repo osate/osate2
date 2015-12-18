@@ -280,7 +280,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 				case CANCELED:
 				case ERROR:
 				case WAITING:
-				case VALID_REFINED:
+					// case VALID_REFINED:
 					ResultIssue topResultIssue = CommonFactory.eINSTANCE.createResultIssue();
 					for (Iterator iterator2 = jKindResult.getPropertyResults().iterator(); iterator2.hasNext();) {
 						PropertyResult propertyResult = (PropertyResult) iterator2.next();
@@ -302,7 +302,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						case CANCELED:
 						case ERROR:
 						case WAITING:
-						case VALID_REFINED:
+							// case VALID_REFINED:
 							AssureUtilExtension.addErrorIssue(topResultIssue, target,
 									propertyResult.getStatus().toString() + "-" + propertyResult.getName());
 							break;
