@@ -193,6 +193,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 						if (searchResult != null) {
 							return Collections.singletonList(searchResult);
 						}
+						searchResult = EMV2Util.findErrorType(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
 //					if (cxtElement instanceof Classifier) {
 						// look up subcomponent in classifier of previous subcomponent, or feature group
 						// we do not want to return features as they should get resolved to an error propagation
