@@ -232,13 +232,6 @@ import com.google.inject.Inject;
 	    public void dispose() {
 	    	xtextDoc.removeModelListener(modelListener);
 	    }
-	    private MenuManager createExportSubmenu(ClaimResult claim) {
-	        MenuManager manager = new MenuManager("Export");
-
-	        manager.add(createLogClaimAction(claim));
-	        manager.add(createExportCAZAction(claim));
-	        return manager;
-	    }
 	 
 	    private IAction createHyperlinkAction(String text, final EObject eObject) {
 	        return new Action(text) {
@@ -268,80 +261,7 @@ import com.google.inject.Inject;
 			return result;
 	    }
 	    
-	    private static boolean CERTWARE_INSTALLED;
-	    static {
-	        try {
-//	            CertWareExport.tryLoad();
-	            CERTWARE_INSTALLED = true;
-	        } catch (NoClassDefFoundError e) {
-	            CERTWARE_INSTALLED = false;
-	        }
-	    }
-	    
-	   
-
-	    private IAction createExportCAZAction(final ClaimResult claim) {
-	        String name = "Export to CertWare";
-	        if (!CERTWARE_INSTALLED) {
-	            name += " [CertWare plug-ins not installed]";
-	        }
-	        
-	        return new Action(name) {
-	            @Override
-	            public void run() {
-	                try {
-//	                    CertWareExport.export(claim);
-	                } catch (Throwable t) {
-	                    MessageDialog.openError(treeViewer.getControl().getShell(),
-	                            "Error during export to CertWare", t.getMessage());
-	                    t.printStackTrace();
-	                }
-	            }
-	            
-	            @Override
-	            public boolean isEnabled() {
-	                return CERTWARE_INSTALLED;
-	            }
-	        };
-	    }
-
 	  
-	    private Action createLogClaimAction(final ClaimResult claim) {
-	        return new Action("Show claim description in Console") {
-	            @Override
-	            public void run() {
-	                MessageConsole console = findConsole("Claim Description");
-	                showConsole(console);
-	                console.clearConsole();
-	                console.newMessageStream().println(claim.toString());
-	            }
-	        };
-	    }
-
-	    private static MessageConsole findConsole(String name) {
-	        ConsolePlugin plugin = ConsolePlugin.getDefault();
-	        IConsoleManager conMan = plugin.getConsoleManager();
-	        IConsole[] existing = conMan.getConsoles();
-	        for (int i = 0; i < existing.length; i++) {
-	            if (name.equals(existing[i].getName())) {
-	                return (MessageConsole) existing[i];
-	            }
-	        }
-	        // no console found, so create a new one
-	        MessageConsole myConsole = new MessageConsole(name, null);
-	        conMan.addConsoles(new IConsole[] { myConsole });
-	        return myConsole;
-	    }
-
-	    private void showConsole(IConsole console) {
-	        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	        try {
-	            IConsoleView view = (IConsoleView) page.showView(IConsoleConstants.ID_CONSOLE_VIEW);
-	            view.display(console);
-	            view.setScrollLock(true);
-	        } catch (PartInitException e) {
-	        }
-	    }
 
 	    public void setProofs(AssuranceCaseResult proofTrees) {
 	    	if (xtextDoc != null){
