@@ -321,18 +321,18 @@ class AssureUtilExtension {
 		subrrs.forEach [ subrr |
 			val subclaim = subrr as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 			val subri = if (subclaim.isValid)
-					ri.addResoluteSuccessIssue(subclaim.location, subclaim.text)
+					ri.addSuccessIssue(subclaim.location, subclaim.text)
 				else
-					ri.addResoluteFailIssue(subclaim.location, subclaim.text)
+					ri.addFailIssue(subclaim.location, subclaim.text)
 			subclaim.doResoluteResults(subri)
 		]
 	}
 
-	def static ResultIssue addResoluteFailIssue(ResultIssue ri, EObject target, String message) {
-		addResoluteIssue(ri, ResultIssueType.FAIL,target, message, null)
+	def static ResultIssue addFailIssue(ResultIssue ri, EObject target, String message) {
+		addIssue(ri, ResultIssueType.FAIL,target, message, null)
 	}
 
-	def static ResultIssue addResoluteIssue(ResultIssue ri, ResultIssueType type, EObject target, String message, String issueSource) {
+	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message, String issueSource) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = type;
@@ -350,8 +350,8 @@ class AssureUtilExtension {
 		issue
 	}
 
-	def static ResultIssue addResoluteSuccessIssue(ResultIssue ri, EObject target, String message) {
-		addResoluteIssue(ri, ResultIssueType.SUCCESS, target, message, null)
+	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message) {
+		addIssue(ri, ResultIssueType.SUCCESS, target, message, null)
 	}
 
 
