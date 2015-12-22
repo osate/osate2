@@ -133,7 +133,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 	}
 
 	def boolean isAlisaResource(String ext) {
-		#{'cat', 'org', 'verify', 'reqspec', 'alisa', 'aadl'}.contains(ext)
+		#{'cat', 'org', 'verify', 'methodregistry', 'constants','goals', 'goaldoc', 'reqspec', 'reqdoc', 'alisa', 'aadl'}.contains(ext)
 	}
 
 }
