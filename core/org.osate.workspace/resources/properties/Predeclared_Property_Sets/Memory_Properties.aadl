@@ -67,7 +67,7 @@ property set Memory_Properties is
 		applies to (memory); -- Deprecated. use memory_size
 	
 	Memory_Size: Size
-		applies to (memory);
+		applies to (memory, system, processor, virtual processor);
 	
 	Word_Size: Size => 8 bits
 		applies to (memory);
