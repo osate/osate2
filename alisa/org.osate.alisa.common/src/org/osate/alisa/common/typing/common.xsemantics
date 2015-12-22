@@ -1,7 +1,18 @@
 import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.ListType
+import org.osate.aadl2.NumberType
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.UnitsType
+import org.osate.alisa.common.common.ABinaryOperation
+import org.osate.alisa.common.common.AListTerm
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.validation.AbstractCommonValidator
 
@@ -26,3 +37,67 @@ rule AExpression
 from {
 	type = Aadl2Factory.eINSTANCE.createAadlInteger
 }
+
+
+// binary operations
+
+rule ABinaryExpression
+	G |- ABinaryOperation binary : PropertyType type
+from {
+	G |- binary.leftOperand : var PropertyType leftType
+	G |- binary.rightOperand : var PropertyType rightType
+	val op = binary.^feature
+	switch op {
+		case '&&', case '||': {
+				leftType instanceof AadlBoolean && rightType instanceof AadlBoolean
+				type = leftType
+			}
+		case '==', case '!=': {
+				leftType.eClass == rightType.eClass
+				type = Aadl2Factory.eINSTANCE.createAadlBoolean
+			}
+		case '<', case '<=', case '>', case '>=': {
+				leftType instanceof NumberType && rightType instanceof NumberType
+				type = Aadl2Factory.eINSTANCE.createAadlBoolean
+			}
+		case '*', case '/', case '+', case '-': {
+				leftType instanceof NumberType && rightType instanceof NumberType
+				type = if (leftType instanceof AadlReal) leftType else rightType 
+		}
+	}
+}
+
+// compound types
+
+rule AListTerm
+	G |- AListTerm list : ListType type
+from {
+	type = Aadl2Factory.eINSTANCE.createListType
+	var PropertyType elementType
+	G |- list.elements.head : elementType
+	type.ownedElementType = elementType // owned vs. referenced???
+}
+
+
+// simple types
+
+axiom IntegerLiteral
+	G |- IntegerLiteral value : {
+		val intType = Aadl2Factory.eINSTANCE.createAadlInteger
+		intType.referencedUnitsType = value.unit?.eContainer as UnitsType
+		intType
+	}
+
+axiom RealLiteral
+	G |- RealLiteral value : {
+		val realType = Aadl2Factory.eINSTANCE.createAadlReal
+		realType.referencedUnitsType = value.unit?.eContainer as UnitsType
+		realType
+	}
+
+axiom BooleanLiteral
+	G |- BooleanLiteral _ : Aadl2Factory.eINSTANCE.createAadlBoolean
+
+axiom StringLiteral
+	G |- StringLiteral _ : Aadl2Factory.eINSTANCE.createAadlString
+
