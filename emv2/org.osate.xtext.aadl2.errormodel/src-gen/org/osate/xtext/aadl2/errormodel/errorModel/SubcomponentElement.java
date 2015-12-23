@@ -14,10 +14,10 @@ import org.osate.aadl2.Subcomponent;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement#getSubcomponent <em>Subcomponent</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getSubcomponentElement()
  * @model

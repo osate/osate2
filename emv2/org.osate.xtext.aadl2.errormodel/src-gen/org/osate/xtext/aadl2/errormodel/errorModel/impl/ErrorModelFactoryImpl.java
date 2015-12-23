@@ -64,9 +64,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     switch (eClass.getClassifierID())
     {
-      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT: return createErrorModelGrammarRoot();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
       case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
       case ErrorModelPackage.ERROR_TYPE: return createErrorType();
       case ErrorModelPackage.TYPE_SET: return createTypeSet();
@@ -95,7 +94,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
       case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
-      case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
       case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
       case ErrorModelPackage.ORMORE_EXPRESSION: return createOrmoreExpression();
       case ErrorModelPackage.ORLESS_EXPRESSION: return createOrlessExpression();
@@ -106,6 +104,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE: return createQualifiedErrorBehaviorState();
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
@@ -121,10 +120,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorModelGrammarRoot createErrorModelGrammarRoot()
+  public ErrorModelLibrary createErrorModelLibrary()
   {
-    ErrorModelGrammarRootImpl errorModelGrammarRoot = new ErrorModelGrammarRootImpl();
-    return errorModelGrammarRoot;
+    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
+    return errorModelLibrary;
   }
 
   /**
@@ -136,17 +135,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
     return errorModelSubclause;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorModelLibrary createErrorModelLibrary()
-  {
-    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
-    return errorModelLibrary;
   }
 
   /**
@@ -462,17 +450,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeUseContext createTypeUseContext()
-  {
-    TypeUseContextImpl typeUseContext = new TypeUseContextImpl();
-    return typeUseContext;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ConditionExpression createConditionExpression()
   {
     ConditionExpressionImpl conditionExpression = new ConditionExpressionImpl();
@@ -576,6 +553,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     CompositeStateImpl compositeState = new CompositeStateImpl();
     return compositeState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedErrorBehaviorState createQualifiedErrorBehaviorState()
+  {
+    QualifiedErrorBehaviorStateImpl qualifiedErrorBehaviorState = new QualifiedErrorBehaviorStateImpl();
+    return qualifiedErrorBehaviorState;
   }
 
   /**

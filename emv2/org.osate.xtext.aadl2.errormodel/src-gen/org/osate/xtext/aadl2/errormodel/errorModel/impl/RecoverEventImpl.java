@@ -25,11 +25,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl#getEventInitiator <em>Event Initiator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl#getCondition <em>Condition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

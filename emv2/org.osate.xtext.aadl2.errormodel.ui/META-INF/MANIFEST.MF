@@ -18,7 +18,8 @@ Require-Bundle: org.osate.xtext.aadl2.errormodel;visibility:=reexport,
  org.osate.aadl2,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.annexsupport;bundle-version="1.0.0",
- org.eclipse.emf.transaction
+ org.eclipse.emf.transaction,
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.osate.aadl2.modelsupport.util,

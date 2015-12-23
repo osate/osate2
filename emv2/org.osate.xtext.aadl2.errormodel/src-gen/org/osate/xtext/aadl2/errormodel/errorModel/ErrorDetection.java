@@ -4,9 +4,8 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Port;
+import org.osate.aadl2.TriggerPort;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,16 +14,15 @@ import org.osate.aadl2.Port;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAllStates <em>All States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort <em>Internal Detection Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getErrorCode <em>Error Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection()
  * @model
@@ -137,32 +135,6 @@ public interface ErrorDetection extends EObject, NamedElement
   void setCondition(ConditionExpression value);
 
   /**
-   * Returns the value of the '<em><b>Internal Detection Port</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Internal Detection Port</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Internal Detection Port</em>' containment reference.
-   * @see #setInternalDetectionPort(InternalFeature)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_InternalDetectionPort()
-   * @model containment="true"
-   * @generated
-   */
-  InternalFeature getInternalDetectionPort();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort <em>Internal Detection Port</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Internal Detection Port</em>' containment reference.
-   * @see #getInternalDetectionPort()
-   * @generated
-   */
-  void setInternalDetectionPort(InternalFeature value);
-
-  /**
    * Returns the value of the '<em><b>Detection Reporting Port</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -171,12 +143,12 @@ public interface ErrorDetection extends EObject, NamedElement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Detection Reporting Port</em>' reference.
-   * @see #setDetectionReportingPort(Port)
+   * @see #setDetectionReportingPort(TriggerPort)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_DetectionReportingPort()
    * @model
    * @generated
    */
-  Port getDetectionReportingPort();
+  TriggerPort getDetectionReportingPort();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}' reference.
@@ -186,7 +158,7 @@ public interface ErrorDetection extends EObject, NamedElement
    * @see #getDetectionReportingPort()
    * @generated
    */
-  void setDetectionReportingPort(Port value);
+  void setDetectionReportingPort(TriggerPort value);
 
   /**
    * Returns the value of the '<em><b>Error Code</b></em>' containment reference.

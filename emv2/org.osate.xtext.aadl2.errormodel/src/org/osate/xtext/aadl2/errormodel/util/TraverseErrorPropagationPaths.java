@@ -235,7 +235,7 @@ public class TraverseErrorPropagationPaths {
 			failureMode = (ErrorBehaviorState) fmr;
 		}
 		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
-				EMV2Util.getContainingTypeUseContext(errorSource));
+				EMV2Util.getUseTypes(errorSource));
 		return sourceTokenSet;
 	}
 

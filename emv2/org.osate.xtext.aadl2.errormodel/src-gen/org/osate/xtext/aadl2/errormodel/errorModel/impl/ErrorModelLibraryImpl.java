@@ -33,7 +33,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getTypes <em>Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getTypesets <em>Typesets</em>}</li>
@@ -42,12 +44,21 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getMappings <em>Mappings</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl#getTransformations <em>Transformations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorModelLibrary
 {
+  /**
+   * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUseTypes()
+   * @generated
+   * @ordered
+   */
+  protected EList<ErrorModelLibrary> useTypes;
+
   /**
    * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -137,6 +148,20 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ErrorModelLibrary> getUseTypes()
+  {
+    if (useTypes == null)
+    {
+      useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.ERROR_MODEL_LIBRARY__USE_TYPES);
+    }
+    return useTypes;
   }
 
   /**
@@ -273,6 +298,8 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY__USE_TYPES:
+        return getUseTypes();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__EXTENDS:
         return getExtends();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__TYPES:
@@ -302,6 +329,10 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY__USE_TYPES:
+        getUseTypes().clear();
+        getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
+        return;
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__EXTENDS:
         getExtends().clear();
         getExtends().addAll((Collection<? extends ErrorModelLibrary>)newValue);
@@ -344,6 +375,9 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY__USE_TYPES:
+        getUseTypes().clear();
+        return;
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__EXTENDS:
         getExtends().clear();
         return;
@@ -379,6 +413,8 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY__USE_TYPES:
+        return useTypes != null && !useTypes.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__EXTENDS:
         return extends_ != null && !extends_.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__TYPES:

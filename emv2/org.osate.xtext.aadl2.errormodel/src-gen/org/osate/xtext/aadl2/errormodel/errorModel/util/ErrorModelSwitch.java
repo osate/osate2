@@ -56,7 +56,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * Checks whether this is a switch for the given package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
+   * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
    * @generated
    */
@@ -78,10 +78,13 @@ public class ErrorModelSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT:
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY:
       {
-        ErrorModelGrammarRoot errorModelGrammarRoot = (ErrorModelGrammarRoot)theEObject;
-        T result = caseErrorModelGrammarRoot(errorModelGrammarRoot);
+        ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)theEObject;
+        T result = caseErrorModelLibrary(errorModelLibrary);
+        if (result == null) result = caseAnnexLibrary(errorModelLibrary);
+        if (result == null) result = caseNamedElement(errorModelLibrary);
+        if (result == null) result = caseElement(errorModelLibrary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -90,20 +93,9 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
         T result = caseErrorModelSubclause(errorModelSubclause);
         if (result == null) result = caseAnnexSubclause(errorModelSubclause);
-        if (result == null) result = caseTypeUseContext(errorModelSubclause);
         if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseNamedElement(errorModelSubclause);
         if (result == null) result = caseElement(errorModelSubclause);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.ERROR_MODEL_LIBRARY:
-      {
-        ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)theEObject;
-        T result = caseErrorModelLibrary(errorModelLibrary);
-        if (result == null) result = caseAnnexLibrary(errorModelLibrary);
-        if (result == null) result = caseNamedElement(errorModelLibrary);
-        if (result == null) result = caseElement(errorModelLibrary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -150,7 +142,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeTransformationSet typeTransformationSet = (TypeTransformationSet)theEObject;
         T result = caseTypeTransformationSet(typeTransformationSet);
         if (result == null) result = caseNamedElement(typeTransformationSet);
-        if (result == null) result = caseTypeUseContext(typeTransformationSet);
         if (result == null) result = caseElement(typeTransformationSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -168,7 +159,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeMappingSet typeMappingSet = (TypeMappingSet)theEObject;
         T result = caseTypeMappingSet(typeMappingSet);
         if (result == null) result = caseNamedElement(typeMappingSet);
-        if (result == null) result = caseTypeUseContext(typeMappingSet);
         if (result == null) result = caseElement(typeMappingSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -276,7 +266,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorBehaviorStateMachine errorBehaviorStateMachine = (ErrorBehaviorStateMachine)theEObject;
         T result = caseErrorBehaviorStateMachine(errorBehaviorStateMachine);
         if (result == null) result = caseNamedElement(errorBehaviorStateMachine);
-        if (result == null) result = caseTypeUseContext(errorBehaviorStateMachine);
         if (result == null) result = caseElement(errorBehaviorStateMachine);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -368,14 +357,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.TYPE_USE_CONTEXT:
-      {
-        TypeUseContext typeUseContext = (TypeUseContext)theEObject;
-        T result = caseTypeUseContext(typeUseContext);
-        if (result == null) result = caseElement(typeUseContext);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.CONDITION_EXPRESSION:
       {
         ConditionExpression conditionExpression = (ConditionExpression)theEObject;
@@ -463,6 +444,14 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE:
+      {
+        QualifiedErrorBehaviorState qualifiedErrorBehaviorState = (QualifiedErrorBehaviorState)theEObject;
+        T result = caseQualifiedErrorBehaviorState(qualifiedErrorBehaviorState);
+        if (result == null) result = caseElement(qualifiedErrorBehaviorState);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT:
       {
         SubcomponentElement subcomponentElement = (SubcomponentElement)theEObject;
@@ -512,17 +501,17 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Grammar Root</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Grammar Root</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Library</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseErrorModelGrammarRoot(ErrorModelGrammarRoot object)
+  public T caseErrorModelLibrary(ErrorModelLibrary object)
   {
     return null;
   }
@@ -539,22 +528,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorModelSubclause(ErrorModelSubclause object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Library</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseErrorModelLibrary(ErrorModelLibrary object)
   {
     return null;
   }
@@ -1008,22 +981,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTypeUseContext(TypeUseContext object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Condition Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1184,6 +1141,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Qualified Error Behavior State</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Qualified Error Behavior State</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseQualifiedErrorBehaviorState(QualifiedErrorBehaviorState object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Subcomponent Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1296,6 +1269,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAnnexLibrary(AnnexLibrary object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Modal Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1323,22 +1312,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAnnexSubclause(AnnexSubclause object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Annex Library</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Annex Library</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAnnexLibrary(AnnexLibrary object)
   {
     return null;
   }

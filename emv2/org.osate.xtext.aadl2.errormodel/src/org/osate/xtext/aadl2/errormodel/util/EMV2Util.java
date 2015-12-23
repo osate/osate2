@@ -60,6 +60,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -67,7 +69,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
 
@@ -122,15 +123,17 @@ public class EMV2Util {
 	 * @param element declarative model element or error annex element or instance object
 	 * @return ErrorModelSubclause
 	 */
-	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
-		Classifier cl;
+	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(EObject element) {
+		Classifier cl = null;
 		if (element instanceof InstanceObject) {
 			ComponentInstance ci = ((InstanceObject) element).getComponentInstance();
 			cl = ci.getComponentClassifier();
-		} else {
-			cl = element.getContainingClassifier();
+		} else if (element != null) {
+			cl = AadlUtil.getContainingClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
+		if (cl == null)
+			return result;
 		if (cl instanceof ComponentImplementation) {
 			getAllClassifierEMV2Subclause(cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
@@ -586,6 +589,25 @@ public class EMV2Util {
 	}
 
 	/**
+	 * Find ErrorType with given name by looking through all error types 
+	 * referenced in all EMV2 subclauses of the supplied element's containing
+	 * classifier 
+	 * @param el the element whose classifier we're using
+	 * @param name the name of the Errortype to search for
+	 * @return the specified error type, or null, if either the element's classifier is null or no
+	 * ErrorType by the specified name was found
+	 */
+	public static ErrorType findErrorType(Element el, String name) {
+		Classifier cl = el.getContainingClassifier();
+		if (cl != null) {
+			for(ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl))
+				for(ErrorModelLibrary currLibrary : currSubclause.getUseTypes())
+					return (ErrorType) AadlUtil.findNamedElementInList(currLibrary.getTypes(), name);
+		}
+		return null;
+	}
+	
+	/**
 	 * find the error flow whose incoming error propagation point is flowSource
 	 * @param eps List of error propagations
 	 * @param flowSource ErrorPropagation
@@ -804,11 +826,10 @@ public class EMV2Util {
 	 */
 	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name) {
 		ErrorBehaviorStateMachine ebsm;
-		if (context instanceof ConditionElement && !((ConditionElement) context).getSubcomponents().isEmpty()) {
+		if (context instanceof QualifiedErrorBehaviorState) {
 			// look up state in state machine of subcomponent
-			ConditionElement tcs = (ConditionElement) context;
-			EList<SubcomponentElement> sublist = tcs.getSubcomponents();
-			Subcomponent sub = sublist.get(sublist.size() - 1).getSubcomponent();
+			QualifiedErrorBehaviorState qualifiedState = (QualifiedErrorBehaviorState) context;
+			Subcomponent sub = qualifiedState.getSubcomponent().getSubcomponent();
 			ComponentClassifier subcl = sub.getAllClassifier();
 			if (subcl == null) {
 				return null;
@@ -1546,6 +1567,8 @@ public class EMV2Util {
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
 
 		BasicEList<ErrorBehaviorTransition> result = new BasicEList<ErrorBehaviorTransition>();
+		if (cl == null)
+			return result;
 		result.addAll(res);
 		result.addAll(unlist);
 		return result;
@@ -1844,22 +1867,6 @@ public class EMV2Util {
 	}
 
 	/**
-	 * get the enclosing type use context
-	 * A type use context is is the object that contains use references to error model/type libraries
-	 * @param element
-	 * @return Type transformation set, type mapping set, error propagations object, EBSM,
-	 * component error behavior, composite error behavior
-	 * or null if not in any
-	 */
-	public static TypeUseContext getContainingTypeUseContext(Element element) {
-		EObject container = element;
-		while (container != null && !(container instanceof TypeUseContext)) {
-			container = container.eContainer();
-		}
-		return (TypeUseContext) container;
-	}
-
-	/**
 	 * return the feature the error propagation is pointing to or null
 	 * @param ep
 	 * @return Feature
@@ -2094,13 +2101,20 @@ public class EMV2Util {
 		return null;
 	}
 
+	public static EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
+
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes
 	 * @param context Type use context
 	 * @return EList<ErrorModelLibrary>
 	 */
-	public static EList<ErrorModelLibrary> getUseTypes(TypeUseContext context) {
-		if (context instanceof ErrorModelSubclause) {
+	public static EList<ErrorModelLibrary> getUseTypes(EObject context) {
+		EObject useTypesContainer = context;
+		while (!(useTypesContainer instanceof ErrorModelLibrary || useTypesContainer instanceof ErrorModelSubclause
+				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet || useTypesContainer instanceof ErrorBehaviorStateMachine)) {
+			useTypesContainer = useTypesContainer.eContainer();
+		}
+		if (useTypesContainer instanceof ErrorModelSubclause) {
 			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
 			for (ErrorModelSubclause errorModelSubclause : emslist) {
 				EList<ErrorModelLibrary> eml = errorModelSubclause.getUseTypes();
@@ -2108,18 +2122,21 @@ public class EMV2Util {
 					return eml;
 				}
 			}
-			return null;
+			return EmptyElist;
 		}
-		if (context instanceof TypeTransformationSet) {
-			return ((TypeTransformationSet) context).getUseTypes();
+		if (useTypesContainer instanceof TypeTransformationSet) {
+			return ((TypeTransformationSet) useTypesContainer).getUseTypes();
 		}
-		if (context instanceof TypeMappingSet) {
-			return ((TypeMappingSet) context).getUseTypes();
+		if (useTypesContainer instanceof TypeMappingSet) {
+			return ((TypeMappingSet) useTypesContainer).getUseTypes();
 		}
-		if (context instanceof ErrorBehaviorStateMachine) {
-			return ((ErrorBehaviorStateMachine) context).getUseTypes();
+		if (useTypesContainer instanceof ErrorBehaviorStateMachine) {
+			return ((ErrorBehaviorStateMachine) useTypesContainer).getUseTypes();
 		}
-		return null;
+		if (useTypesContainer instanceof ErrorModelLibrary) {
+			return ((ErrorModelLibrary) useTypesContainer).getUseTypes();
+		}
+		return EmptyElist;
 	}
 
 	/**
@@ -2478,4 +2495,57 @@ public class EMV2Util {
 		}
 		return list;
 	}
+
+	public static EList<SubcomponentElement> getSubcomponents(QualifiedPropagationPoint propagationPoint) {
+		final EList<SubcomponentElement> list = new BasicEList<>();
+		for (QualifiedPropagationPoint current = propagationPoint; current != null; current = current.getNext()) {
+			list.add(current.getSubcomponent());
+		}
+		return list;
+	}
+
+	public static EList<SubcomponentElement> getSubcomponents(ConditionElement conditionElement) {
+		final EList<SubcomponentElement> list = new BasicEList<>();
+		for (QualifiedErrorBehaviorState current = conditionElement
+				.getQualifiedState(); current != null; current = current.getNext()) {
+			list.add(current.getSubcomponent());
+		}
+		return list;
+	}
+
+	public static ErrorBehaviorState getState(ConditionElement conditionElement) {
+		for (QualifiedErrorBehaviorState current = conditionElement
+				.getQualifiedState(); current != null; current = current.getNext()) {
+			if (current.getState() != null) {
+				return current.getState();
+			}
+		}
+		return null;
+	}
+
+	public static boolean checkCyclicExtends(ErrorModelLibrary etl) {
+		if (etl.getExtends() == null) {
+			return false;
+		}
+		HashSet<ErrorModelLibrary> result = new HashSet<ErrorModelLibrary>();
+		return recursiveCheckCyclicExtends(etl, result);
+	}
+
+	private static boolean recursiveCheckCyclicExtends(ErrorModelLibrary etl, HashSet<ErrorModelLibrary> shetl) {
+		boolean result = false;
+		if (etl.getExtends() != null) {
+			shetl.add(etl);
+			EList<ErrorModelLibrary> etllist = etl.getExtends();
+			for (ErrorModelLibrary xetl : etllist) {
+				if (shetl.contains(xetl)) {
+					result = true;
+				} else {
+					result = result || recursiveCheckCyclicExtends(xetl, shetl);
+				}
+			}
+			shetl.remove(etl);
+		}
+		return result;
+	}
+
 }

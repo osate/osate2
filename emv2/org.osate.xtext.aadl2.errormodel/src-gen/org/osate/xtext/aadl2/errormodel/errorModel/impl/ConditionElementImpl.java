@@ -2,28 +2,20 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -32,13 +24,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getSubcomponents <em>Subcomponents</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getQualifiedState <em>Qualified State</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -65,24 +56,14 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   protected TypeSet constraint;
 
   /**
-   * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' containment reference list.
+   * The cached value of the '{@link #getQualifiedState() <em>Qualified State</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubcomponents()
+   * @see #getQualifiedState()
    * @generated
    * @ordered
    */
-  protected EList<SubcomponentElement> subcomponents;
-
-  /**
-   * The cached value of the '{@link #getState() <em>State</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getState()
-   * @generated
-   * @ordered
-   */
-  protected ErrorBehaviorState state;
+  protected QualifiedErrorBehaviorState qualifiedState;
 
   /**
    * <!-- begin-user-doc -->
@@ -201,13 +182,9 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SubcomponentElement> getSubcomponents()
+  public QualifiedErrorBehaviorState getQualifiedState()
   {
-    if (subcomponents == null)
-    {
-      subcomponents = new EObjectContainmentEList<SubcomponentElement>(SubcomponentElement.class, this, ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS);
-    }
-    return subcomponents;
+    return qualifiedState;
   }
 
   /**
@@ -215,42 +192,37 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorBehaviorState getState()
+  public NotificationChain basicSetQualifiedState(QualifiedErrorBehaviorState newQualifiedState, NotificationChain msgs)
   {
-    if (state != null && state.eIsProxy())
-    {
-      InternalEObject oldState = (InternalEObject)state;
-      state = (ErrorBehaviorState)eResolveProxy(oldState);
-      if (state != oldState)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONDITION_ELEMENT__STATE, oldState, state));
-      }
-    }
-    return state;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorBehaviorState basicGetState()
-  {
-    return state;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setState(ErrorBehaviorState newState)
-  {
-    ErrorBehaviorState oldState = state;
-    state = newState;
+    QualifiedErrorBehaviorState oldQualifiedState = qualifiedState;
+    qualifiedState = newQualifiedState;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__STATE, oldState, state));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, oldQualifiedState, newQualifiedState);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setQualifiedState(QualifiedErrorBehaviorState newQualifiedState)
+  {
+    if (newQualifiedState != qualifiedState)
+    {
+      NotificationChain msgs = null;
+      if (qualifiedState != null)
+        msgs = ((InternalEObject)qualifiedState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, null, msgs);
+      if (newQualifiedState != null)
+        msgs = ((InternalEObject)newQualifiedState).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, null, msgs);
+      msgs = basicSetQualifiedState(newQualifiedState, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, newQualifiedState, newQualifiedState));
   }
 
   /**
@@ -265,8 +237,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
     {
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return basicSetConstraint(null, msgs);
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        return ((InternalEList<?>)getSubcomponents()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
+        return basicSetQualifiedState(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -286,11 +258,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
         return basicGetIncoming();
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return getConstraint();
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        return getSubcomponents();
-      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
-        if (resolve) return getState();
-        return basicGetState();
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
+        return getQualifiedState();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -300,7 +269,6 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -312,12 +280,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)newValue);
         return;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        getSubcomponents().clear();
-        getSubcomponents().addAll((Collection<? extends SubcomponentElement>)newValue);
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
-        setState((ErrorBehaviorState)newValue);
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
+        setQualifiedState((QualifiedErrorBehaviorState)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -339,11 +303,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)null);
         return;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        getSubcomponents().clear();
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
-        setState((ErrorBehaviorState)null);
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
+        setQualifiedState((QualifiedErrorBehaviorState)null);
         return;
     }
     super.eUnset(featureID);
@@ -363,10 +324,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
         return incoming != null;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return constraint != null;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        return subcomponents != null && !subcomponents.isEmpty();
-      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
-        return state != null;
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
+        return qualifiedState != null;
     }
     return super.eIsSet(featureID);
   }

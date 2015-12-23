@@ -23,12 +23,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.BranchValueImpl#getRealvalue <em>Realvalue</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.BranchValueImpl#getSymboliclabel <em>Symboliclabel</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.BranchValueImpl#isOthers <em>Others</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

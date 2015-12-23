@@ -27,7 +27,7 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 			 * with an error model annex.  See EMV2AnnexUnparser.  If this check is not here, then a ClassCastException occurs
 			 * during serialization.
 			 */
-			if (((NamedElement) obj).getName() == null || EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
+			if (((NamedElement) obj).getName() == null){// || EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
 				return null;
 			}
 			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
@@ -38,8 +38,10 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	protected String getTheName(NamedElement namedElement) {
 		NamedElement root = namedElement.getElementRoot();
 		if (namedElement instanceof ErrorModelLibrary) {
+			if (namedElement == root) return namedElement.getName();
 			return "emv2$" + root.getName();
 		}
+		if (root instanceof ErrorModelLibrary) return root.getName() + "::" + namedElement.getName();
 		return "emv2$" + root.getName() + "::" + namedElement.getName();
 	}
 }

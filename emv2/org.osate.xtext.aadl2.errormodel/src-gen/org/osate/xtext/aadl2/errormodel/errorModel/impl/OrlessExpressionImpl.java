@@ -29,11 +29,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrlessExpressionImpl#getCount <em>Count</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrlessExpressionImpl#getOperands <em>Operands</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -95,9 +95,9 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	private double handleElement(final ConditionElement conditionElement, final ComponentInstance root) {
 		double result = 0;
 
-		ErrorBehaviorState behaviorState = conditionElement.getState();
+		ErrorBehaviorState behaviorState = EMV2Util.getState(conditionElement);
 
-		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
+		ComponentInstance relatedInstance = findInstance(root, EMV2Util.getSubcomponents(conditionElement));
 //		OsateDebug.osateDebug("         instance " + relatedInstance);
 
 		if (relatedInstance != null && !componentsNames.contains(relatedInstance)) {

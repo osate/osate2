@@ -4,6 +4,8 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -13,17 +15,17 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet#getMapping <em>Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeMappingSet()
  * @model
  * @generated
  */
-public interface TypeMappingSet extends NamedElement, TypeUseContext
+public interface TypeMappingSet extends EObject, NamedElement
 {
   /**
    * Returns the value of the '<em><b>Use Types</b></em>' reference list.

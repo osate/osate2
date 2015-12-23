@@ -218,8 +218,7 @@ public class PropagateErrorSources {
 						ts = ep.getTypeSet();
 					}
 
-					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
-							EMV2Util.getContainingTypeUseContext(ep));
+					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ts, EMV2Util.getUseTypes(ep));
 					for (TypeToken typeToken : result) {
 						handledTypes.add(typeToken);
 						traceErrorPaths(ci, ep, typeToken, 2,

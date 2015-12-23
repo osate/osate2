@@ -2,8 +2,6 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.osate.aadl2.Element;
 
 /**
@@ -13,13 +11,12 @@ import org.osate.aadl2.Element;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState <em>Qualified State</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement()
  * @model
@@ -80,45 +77,29 @@ public interface ConditionElement extends Element, ConditionExpression
   void setConstraint(TypeSet value);
 
   /**
-   * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
+   * Returns the value of the '<em><b>Qualified State</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Subcomponents</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Qualified State</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Subcomponents</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Subcomponents()
+   * @return the value of the '<em>Qualified State</em>' containment reference.
+   * @see #setQualifiedState(QualifiedErrorBehaviorState)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_QualifiedState()
    * @model containment="true"
    * @generated
    */
-  EList<SubcomponentElement> getSubcomponents();
+  QualifiedErrorBehaviorState getQualifiedState();
 
   /**
-   * Returns the value of the '<em><b>State</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>State</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>State</em>' reference.
-   * @see #setState(ErrorBehaviorState)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_State()
-   * @model
-   * @generated
-   */
-  ErrorBehaviorState getState();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}' reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState <em>Qualified State</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>State</em>' reference.
-   * @see #getState()
+   * @param value the new value of the '<em>Qualified State</em>' containment reference.
+   * @see #getQualifiedState()
    * @generated
    */
-  void setState(ErrorBehaviorState value);
+  void setQualifiedState(QualifiedErrorBehaviorState value);
 
 } // ConditionElement

@@ -263,7 +263,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						if (es.getIncoming() == ep) {
 
 							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-									EMV2Util.getContainingTypeUseContext(ep))) {
+									EMV2Util.getUseTypes(ep))) {
 
 								if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 									error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
@@ -290,7 +290,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					if (es.getOutgoing() == ep) {
 
 						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-								EMV2Util.getContainingTypeUseContext(ep))) {
+								EMV2Util.getUseTypes(ep))) {
 
 							if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 								error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
@@ -316,7 +316,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
 					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
-							EMV2Util.getContainingTypeUseContext(ep));
+							EMV2Util.getUseTypes(ep));
 //
 //					for (TypeToken tt1 : srcTokens)
 //					{
@@ -504,7 +504,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance
 						.getComponentClassifier())) {
 					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-							EMV2Util.getContainingTypeUseContext(ep));
+							EMV2Util.getUseTypes(ep));
 
 					for (TypeToken tt : epTokens) {
 						// OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
@@ -662,7 +662,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
 						if (cs.getState() == ebs) {
 							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(cs)) {
-								for (SubcomponentElement se : ce.getSubcomponents()) {
+								for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 									if (se != null) {
 										subcomponents.add(se.getSubcomponent());
 									}
@@ -731,15 +731,15 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					 * some consistency check and handle the different operators such as and, or, etc.
 					 */
 					for (ConditionElement ce : elementsComposite) {
-						for (SubcomponentElement se : ce.getSubcomponents()) {
+						for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 							se.getSubcomponent();
 							// OsateDebug.osateDebug("se=" + se);
 							EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(
-									componentInstance, ce.getState(), null);
+									componentInstance, EMV2Util.getState(ce), null);
 							if (PA.isEmpty()) {
 								warning(componentInstance, "C13: component " + componentInstance.getName()
 										+ " does not define occurrence for " + EMV2Util.getPrintName(se)
-										+ " and state " + EMV2Util.getPrintName(ce.getState()));
+										+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(ce)));
 							} else {
 								// OsateDebug.osateDebug("         PA " + PA);
 								tmp = EMV2Properties.getOccurenceValue(PA.get(0));

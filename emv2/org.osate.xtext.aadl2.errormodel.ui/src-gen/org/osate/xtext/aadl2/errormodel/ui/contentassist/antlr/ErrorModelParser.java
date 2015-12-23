@@ -37,10 +37,10 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getErrorModelGrammarRootAccess().getAlternatives(), "rule__ErrorModelGrammarRoot__Alternatives");
+					put(grammarAccess.getEMV2LibraryAccess().getAlternatives_3_4(), "rule__EMV2Library__Alternatives_3_4");
 					put(grammarAccess.getNamedElementAccess().getAlternatives(), "rule__NamedElement__Alternatives");
 					put(grammarAccess.getElementAccess().getAlternatives(), "rule__Element__Alternatives");
-					put(grammarAccess.getErrorModelLibraryAccess().getAlternatives_1_3(), "rule__ErrorModelLibrary__Alternatives_1_3");
+					put(grammarAccess.getErrorModelLibraryAccess().getAlternatives_1_4(), "rule__ErrorModelLibrary__Alternatives_1_4");
 					put(grammarAccess.getErrorTypesAccess().getAlternatives(), "rule__ErrorTypes__Alternatives");
 					put(grammarAccess.getTypeDefinitionAccess().getAlternatives_1(), "rule__TypeDefinition__Alternatives_1");
 					put(grammarAccess.getTypeSetDefinitionAccess().getAlternatives_1(), "rule__TypeSetDefinition__Alternatives_1");
@@ -59,6 +59,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorPathAccess().getAlternatives_7(), "rule__ErrorPath__Alternatives_7");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_8(), "rule__ErrorPath__Alternatives_8");
 					put(grammarAccess.getErrorPropagationPointAccess().getAlternatives(), "rule__ErrorPropagationPoint__Alternatives");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives_2(), "rule__QualifiedPropagationPoint__Alternatives_2");
 					put(grammarAccess.getErrorBehaviorEventAccess().getAlternatives(), "rule__ErrorBehaviorEvent__Alternatives");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_1(), "rule__ErrorBehaviorTransition__Alternatives_1");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_5(), "rule__ErrorBehaviorTransition__Alternatives_5");
@@ -66,17 +67,16 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getBranchValueAccess().getAlternatives_1(), "rule__BranchValue__Alternatives_1");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_4(), "rule__ConnectionErrorSource__Alternatives_4");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_6_1(), "rule__ConnectionErrorSource__Alternatives_6_1");
-					put(grammarAccess.getTypeUseContextAccess().getAlternatives(), "rule__TypeUseContext__Alternatives");
 					put(grammarAccess.getConditionTermAccess().getAlternatives(), "rule__ConditionTerm__Alternatives");
 					put(grammarAccess.getEventOrPropagationAccess().getAlternatives(), "rule__EventOrPropagation__Alternatives");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_1(), "rule__OutgoingPropagationCondition__Alternatives_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_5_0(), "rule__OutgoingPropagationCondition__Alternatives_5_0");
 					put(grammarAccess.getErrorDetectionAccess().getAlternatives_1(), "rule__ErrorDetection__Alternatives_1");
-					put(grammarAccess.getErrorDetectionAccess().getAlternatives_5(), "rule__ErrorDetection__Alternatives_5");
 					put(grammarAccess.getErrorCodeValueAccess().getAlternatives(), "rule__ErrorCodeValue__Alternatives");
 					put(grammarAccess.getCompositeStateAccess().getAlternatives_2(), "rule__CompositeState__Alternatives_2");
 					put(grammarAccess.getSConditionTermAccess().getAlternatives(), "rule__SConditionTerm__Alternatives");
 					put(grammarAccess.getSConditionElementAccess().getAlternatives(), "rule__SConditionElement__Alternatives");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getAlternatives_2(), "rule__QualifiedErrorBehaviorState__Alternatives_2");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
@@ -85,7 +85,13 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
 					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getGroup_0(), "rule__ErrorModelGrammarRoot__Group_0__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup(), "rule__EMV2Library__Group__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3(), "rule__EMV2Library__Group_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_2(), "rule__EMV2Library__Group_3_2__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_2_3(), "rule__EMV2Library__Group_3_2_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_3(), "rule__EMV2Library__Group_3_3__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_3_2(), "rule__EMV2Library__Group_3_3_2__0");
+					put(grammarAccess.getEMV2LibraryAccess().getGroup_3_5(), "rule__EMV2Library__Group_3_5__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup(), "rule__ErrorModelSubclause__Group__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_1(), "rule__ErrorModelSubclause__Group_1__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_1_3(), "rule__ErrorModelSubclause__Group_1_3__0");
@@ -110,8 +116,10 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorModelLibraryAccess().getGroup(), "rule__ErrorModelLibrary__Group__0");
 					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1(), "rule__ErrorModelLibrary__Group_1__0");
 					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_2(), "rule__ErrorModelLibrary__Group_1_2__0");
-					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_2_2(), "rule__ErrorModelLibrary__Group_1_2_2__0");
-					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_4(), "rule__ErrorModelLibrary__Group_1_4__0");
+					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_2_3(), "rule__ErrorModelLibrary__Group_1_2_3__0");
+					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_3(), "rule__ErrorModelLibrary__Group_1_3__0");
+					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_3_2(), "rule__ErrorModelLibrary__Group_1_3_2__0");
+					put(grammarAccess.getErrorModelLibraryAccess().getGroup_1_5(), "rule__ErrorModelLibrary__Group_1_5__0");
 					put(grammarAccess.getTypeDefinitionAccess().getGroup(), "rule__TypeDefinition__Group__0");
 					put(grammarAccess.getTypeDefinitionAccess().getGroup_1_0(), "rule__TypeDefinition__Group_1_0__0");
 					put(grammarAccess.getTypeDefinitionAccess().getGroup_1_1(), "rule__TypeDefinition__Group_1_1__0");
@@ -154,7 +162,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getPropagationPathAccess().getGroup(), "rule__PropagationPath__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup_0(), "rule__PropagationPath__Group_0__0");
 					put(grammarAccess.getQualifiedPropagationPointAccess().getGroup(), "rule__QualifiedPropagationPoint__Group__0");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getGroup_0(), "rule__QualifiedPropagationPoint__Group_0__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup(), "rule__ErrorBehaviorStateMachine__Group__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup_3(), "rule__ErrorBehaviorStateMachine__Group_3__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup_3_3(), "rule__ErrorBehaviorStateMachine__Group_3_3__0");
@@ -204,9 +211,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getGroup(), "rule__ErrorDetection__Group__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_0(), "rule__ErrorDetection__Group_0__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_1_0(), "rule__ErrorDetection__Group_1_0__0");
+					put(grammarAccess.getErrorDetectionAccess().getGroup_7(), "rule__ErrorDetection__Group_7__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup(), "rule__ErrorStateToModeMapping__Group__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup_6(), "rule__ErrorStateToModeMapping__Group_6__0");
-					put(grammarAccess.getInternalPortAccess().getGroup(), "rule__InternalPort__Group__0");
 					put(grammarAccess.getCompositeStateAccess().getGroup(), "rule__CompositeState__Group__0");
 					put(grammarAccess.getCompositeStateAccess().getGroup_0(), "rule__CompositeState__Group_0__0");
 					put(grammarAccess.getSConditionExpressionAccess().getGroup(), "rule__SConditionExpression__Group__0");
@@ -219,9 +226,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup_4(), "rule__SOrlessExpression__Group_4__0");
 					put(grammarAccess.getSConditionTermAccess().getGroup_3(), "rule__SConditionTerm__Group_3__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_0(), "rule__SConditionElement__Group_0__0");
-					put(grammarAccess.getSConditionElementAccess().getGroup_0_0(), "rule__SConditionElement__Group_0_0__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1(), "rule__SConditionElement__Group_1__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1_1(), "rule__SConditionElement__Group_1_1__0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getGroup(), "rule__QualifiedErrorBehaviorState__Group__0");
 					put(grammarAccess.getQEMREFAccess().getGroup(), "rule__QEMREF__Group__0");
 					put(grammarAccess.getQEMREFAccess().getGroup_0(), "rule__QEMREF__Group_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
@@ -269,8 +276,17 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getQCREFAccess().getGroup(), "rule__QCREF__Group__0");
 					put(grammarAccess.getQCREFAccess().getGroup_0(), "rule__QCREF__Group_0__0");
 					put(grammarAccess.getQCREFAccess().getGroup_2(), "rule__QCREF__Group_2__0");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getEmlAssignment_0_1(), "rule__ErrorModelGrammarRoot__EmlAssignment_0_1");
-					put(grammarAccess.getErrorModelGrammarRootAccess().getEmscAssignment_1(), "rule__ErrorModelGrammarRoot__EmscAssignment_1");
+					put(grammarAccess.getEMV2LibraryAccess().getNameAssignment_2(), "rule__EMV2Library__NameAssignment_2");
+					put(grammarAccess.getEMV2LibraryAccess().getUseTypesAssignment_3_2_2(), "rule__EMV2Library__UseTypesAssignment_3_2_2");
+					put(grammarAccess.getEMV2LibraryAccess().getUseTypesAssignment_3_2_3_1(), "rule__EMV2Library__UseTypesAssignment_3_2_3_1");
+					put(grammarAccess.getEMV2LibraryAccess().getExtendsAssignment_3_3_1(), "rule__EMV2Library__ExtendsAssignment_3_3_1");
+					put(grammarAccess.getEMV2LibraryAccess().getExtendsAssignment_3_3_2_1(), "rule__EMV2Library__ExtendsAssignment_3_3_2_1");
+					put(grammarAccess.getEMV2LibraryAccess().getTypesAssignment_3_4_0(), "rule__EMV2Library__TypesAssignment_3_4_0");
+					put(grammarAccess.getEMV2LibraryAccess().getTypesetsAssignment_3_4_1(), "rule__EMV2Library__TypesetsAssignment_3_4_1");
+					put(grammarAccess.getEMV2LibraryAccess().getPropertiesAssignment_3_5_1(), "rule__EMV2Library__PropertiesAssignment_3_5_1");
+					put(grammarAccess.getEMV2LibraryAccess().getBehaviorsAssignment_4(), "rule__EMV2Library__BehaviorsAssignment_4");
+					put(grammarAccess.getEMV2LibraryAccess().getMappingsAssignment_5(), "rule__EMV2Library__MappingsAssignment_5");
+					put(grammarAccess.getEMV2LibraryAccess().getTransformationsAssignment_6(), "rule__EMV2Library__TransformationsAssignment_6");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_2(), "rule__ErrorModelSubclause__UseTypesAssignment_1_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_3_1(), "rule__ErrorModelSubclause__UseTypesAssignment_1_3_1");
 					put(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_2_3(), "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3");
@@ -290,11 +306,13 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorModelSubclauseAccess().getPointsAssignment_9_2(), "rule__ErrorModelSubclause__PointsAssignment_9_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPathsAssignment_9_3(), "rule__ErrorModelSubclause__PathsAssignment_9_3");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPropertiesAssignment_10_1(), "rule__ErrorModelSubclause__PropertiesAssignment_10_1");
-					put(grammarAccess.getErrorModelLibraryAccess().getExtendsAssignment_1_2_1(), "rule__ErrorModelLibrary__ExtendsAssignment_1_2_1");
-					put(grammarAccess.getErrorModelLibraryAccess().getExtendsAssignment_1_2_2_1(), "rule__ErrorModelLibrary__ExtendsAssignment_1_2_2_1");
-					put(grammarAccess.getErrorModelLibraryAccess().getTypesAssignment_1_3_0(), "rule__ErrorModelLibrary__TypesAssignment_1_3_0");
-					put(grammarAccess.getErrorModelLibraryAccess().getTypesetsAssignment_1_3_1(), "rule__ErrorModelLibrary__TypesetsAssignment_1_3_1");
-					put(grammarAccess.getErrorModelLibraryAccess().getPropertiesAssignment_1_4_1(), "rule__ErrorModelLibrary__PropertiesAssignment_1_4_1");
+					put(grammarAccess.getErrorModelLibraryAccess().getUseTypesAssignment_1_2_2(), "rule__ErrorModelLibrary__UseTypesAssignment_1_2_2");
+					put(grammarAccess.getErrorModelLibraryAccess().getUseTypesAssignment_1_2_3_1(), "rule__ErrorModelLibrary__UseTypesAssignment_1_2_3_1");
+					put(grammarAccess.getErrorModelLibraryAccess().getExtendsAssignment_1_3_1(), "rule__ErrorModelLibrary__ExtendsAssignment_1_3_1");
+					put(grammarAccess.getErrorModelLibraryAccess().getExtendsAssignment_1_3_2_1(), "rule__ErrorModelLibrary__ExtendsAssignment_1_3_2_1");
+					put(grammarAccess.getErrorModelLibraryAccess().getTypesAssignment_1_4_0(), "rule__ErrorModelLibrary__TypesAssignment_1_4_0");
+					put(grammarAccess.getErrorModelLibraryAccess().getTypesetsAssignment_1_4_1(), "rule__ErrorModelLibrary__TypesetsAssignment_1_4_1");
+					put(grammarAccess.getErrorModelLibraryAccess().getPropertiesAssignment_1_5_1(), "rule__ErrorModelLibrary__PropertiesAssignment_1_5_1");
 					put(grammarAccess.getErrorModelLibraryAccess().getBehaviorsAssignment_2(), "rule__ErrorModelLibrary__BehaviorsAssignment_2");
 					put(grammarAccess.getErrorModelLibraryAccess().getMappingsAssignment_3(), "rule__ErrorModelLibrary__MappingsAssignment_3");
 					put(grammarAccess.getErrorModelLibraryAccess().getTransformationsAssignment_4(), "rule__ErrorModelLibrary__TransformationsAssignment_4");
@@ -359,8 +377,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getPropagationPathAccess().getNameAssignment_0_0(), "rule__PropagationPath__NameAssignment_0_0");
 					put(grammarAccess.getPropagationPathAccess().getSourceAssignment_1(), "rule__PropagationPath__SourceAssignment_1");
 					put(grammarAccess.getPropagationPathAccess().getTargetAssignment_3(), "rule__PropagationPath__TargetAssignment_3");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentsAssignment_0_0(), "rule__QualifiedPropagationPoint__SubcomponentsAssignment_0_0");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_1(), "rule__QualifiedPropagationPoint__PropagationPointAssignment_1");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0(), "rule__QualifiedPropagationPoint__SubcomponentAssignment_0");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_2_0(), "rule__QualifiedPropagationPoint__NextAssignment_2_0");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_2_1(), "rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getNameAssignment_2(), "rule__ErrorBehaviorStateMachine__NameAssignment_2");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesAssignment_3_2(), "rule__ErrorBehaviorStateMachine__UseTypesAssignment_3_2");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesAssignment_3_3_1(), "rule__ErrorBehaviorStateMachine__UseTypesAssignment_3_3_1");
@@ -429,9 +448,8 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getTypeTokenConstraintAssignment_1_0_1(), "rule__ErrorDetection__TypeTokenConstraintAssignment_1_0_1");
 					put(grammarAccess.getErrorDetectionAccess().getAllStatesAssignment_1_1(), "rule__ErrorDetection__AllStatesAssignment_1_1");
 					put(grammarAccess.getErrorDetectionAccess().getConditionAssignment_3(), "rule__ErrorDetection__ConditionAssignment_3");
-					put(grammarAccess.getErrorDetectionAccess().getInternalDetectionPortAssignment_5_0(), "rule__ErrorDetection__InternalDetectionPortAssignment_5_0");
-					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5_1(), "rule__ErrorDetection__DetectionReportingPortAssignment_5_1");
-					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7(), "rule__ErrorDetection__ErrorCodeAssignment_7");
+					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5(), "rule__ErrorDetection__DetectionReportingPortAssignment_5");
+					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7_1(), "rule__ErrorDetection__ErrorCodeAssignment_7_1");
 					put(grammarAccess.getErrorCodeValueAccess().getIntValueAssignment_0(), "rule__ErrorCodeValue__IntValueAssignment_0");
 					put(grammarAccess.getErrorCodeValueAccess().getConstantAssignment_1(), "rule__ErrorCodeValue__ConstantAssignment_1");
 					put(grammarAccess.getErrorCodeValueAccess().getEnumLiteralAssignment_2(), "rule__ErrorCodeValue__EnumLiteralAssignment_2");
@@ -439,7 +457,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorStateToModeMappingAccess().getTypeTokenAssignment_1(), "rule__ErrorStateToModeMapping__TypeTokenAssignment_1");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getMappedModesAssignment_5(), "rule__ErrorStateToModeMapping__MappedModesAssignment_5");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getMappedModesAssignment_6_1(), "rule__ErrorStateToModeMapping__MappedModesAssignment_6_1");
-					put(grammarAccess.getInternalPortAccess().getNameAssignment_2(), "rule__InternalPort__NameAssignment_2");
 					put(grammarAccess.getCompositeStateAccess().getNameAssignment_0_0(), "rule__CompositeState__NameAssignment_0_0");
 					put(grammarAccess.getCompositeStateAccess().getConditionAssignment_2_0(), "rule__CompositeState__ConditionAssignment_2_0");
 					put(grammarAccess.getCompositeStateAccess().getOthersAssignment_2_1(), "rule__CompositeState__OthersAssignment_2_1");
@@ -453,11 +470,13 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getCountAssignment_0(), "rule__SOrlessExpression__CountAssignment_0");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_3(), "rule__SOrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__SOrlessExpression__OperandsAssignment_4_1");
-					put(grammarAccess.getSConditionElementAccess().getSubcomponentsAssignment_0_0_0(), "rule__SConditionElement__SubcomponentsAssignment_0_0_0");
-					put(grammarAccess.getSConditionElementAccess().getStateAssignment_0_1(), "rule__SConditionElement__StateAssignment_0_1");
-					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_2(), "rule__SConditionElement__ConstraintAssignment_0_2");
+					put(grammarAccess.getSConditionElementAccess().getQualifiedStateAssignment_0_0(), "rule__SConditionElement__QualifiedStateAssignment_0_0");
+					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_1(), "rule__SConditionElement__ConstraintAssignment_0_1");
 					put(grammarAccess.getSConditionElementAccess().getIncomingAssignment_1_1_0(), "rule__SConditionElement__IncomingAssignment_1_1_0");
 					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_1_1_1(), "rule__SConditionElement__ConstraintAssignment_1_1_1");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getSubcomponentAssignment_0(), "rule__QualifiedErrorBehaviorState__SubcomponentAssignment_0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getNextAssignment_2_0(), "rule__QualifiedErrorBehaviorState__NextAssignment_2_0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getStateAssignment_2_1(), "rule__QualifiedErrorBehaviorState__StateAssignment_2_1");
 					put(grammarAccess.getSubcomponentElementAccess().getSubcomponentAssignment(), "rule__SubcomponentElement__SubcomponentAssignment");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppendAssignment_1_1(), "rule__ContainedPropertyAssociation__AppendAssignment_1_1");
@@ -520,7 +539,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.internal.InternalErrorModelParser typedParser = (org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.internal.InternalErrorModelParser) parser;
-			typedParser.entryRuleErrorModelGrammarRoot();
+			typedParser.entryRuleEMV2Library();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

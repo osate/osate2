@@ -15,11 +15,23 @@
  * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE
  */
-package org.osate.xtext.aadl2.errormodel.ui.contentassist;
+package org.osate.xtext.aadl2.errormodel.util;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
-public class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
+class ErrorModelUtil{
+	
+	def public static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
+		library.extends.map[allErrorTypes].flatten.toSet + library.types
+	}
+	
+	def public static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
+		library.extends.map[allTypesets].flatten.toSet + library.typesets
+	}
 
 }

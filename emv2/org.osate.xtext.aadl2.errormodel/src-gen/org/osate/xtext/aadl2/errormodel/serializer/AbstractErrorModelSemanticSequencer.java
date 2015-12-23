@@ -21,7 +21,6 @@ import org.osate.aadl2.ComputedValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedValue;
@@ -43,7 +42,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelGrammarRoot;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -60,6 +58,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -108,9 +107,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case Aadl2Package.INTEGER_LITERAL:
 				sequence_IntegerTerm(context, (IntegerLiteral) semanticObject); 
-				return; 
-			case Aadl2Package.INTERNAL_FEATURE:
-				sequence_InternalPort(context, (InternalFeature) semanticObject); 
 				return; 
 			case Aadl2Package.LIST_VALUE:
 				sequence_ListTerm(context, (ListValue) semanticObject); 
@@ -235,12 +231,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.ERROR_EVENT:
 				sequence_ErrorEvent(context, (ErrorEvent) semanticObject); 
 				return; 
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT:
-				sequence_ErrorModelGrammarRoot(context, (ErrorModelGrammarRoot) semanticObject); 
-				return; 
 			case ErrorModelPackage.ERROR_MODEL_LIBRARY:
-				sequence_ErrorModelLibrary(context, (ErrorModelLibrary) semanticObject); 
-				return; 
+				if(context == grammarAccess.getEMV2LibraryRule()) {
+					sequence_EMV2Library(context, (ErrorModelLibrary) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAnnexLibraryRule() ||
+				   context == grammarAccess.getErrorModelLibraryRule() ||
+				   context == grammarAccess.getNamedElementRule()) {
+					sequence_ErrorModelLibrary(context, (ErrorModelLibrary) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
 				sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
 				return; 
@@ -318,6 +320,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.PROPAGATION_POINT:
 				sequence_PropagationPoint(context, (PropagationPoint) semanticObject); 
+				return; 
+			case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE:
+				sequence_QualifiedErrorBehaviorState(context, (QualifiedErrorBehaviorState) semanticObject); 
 				return; 
 			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT:
 				sequence_QualifiedPropagationPoint(context, (QualifiedPropagationPoint) semanticObject); 
@@ -463,7 +468,27 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*))
+	 *     (
+	 *         name=QEMREF 
+	 *         (
+	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
+	 *             properties+=ContainedPropertyAssociation*
+	 *         )? 
+	 *         behaviors+=ErrorBehaviorStateMachine* 
+	 *         mappings+=TypeMappingSet* 
+	 *         transformations+=TypeTransformationSet*
+	 *     )
+	 */
+	protected void sequence_EMV2Library(EObject context, ErrorModelLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*) | (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*))
 	 */
 	protected void sequence_Element_TypeSetElement_TypeToken(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -529,7 +554,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         (internalDetectionPort=InternalPort | detectionReportingPort=[Port|ID]) 
+	 *         detectionReportingPort=[TriggerPort|ID] 
 	 *         errorCode=ErrorCodeValue?
 	 *     )
 	 */
@@ -549,17 +574,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (eml=ErrorModelLibrary | emsc=ErrorModelSubclause)
-	 */
-	protected void sequence_ErrorModelGrammarRoot(EObject context, ErrorModelGrammarRoot semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         (
+	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
 	 *             properties+=ContainedPropertyAssociation*
@@ -673,15 +690,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_InternalPort(EObject context, InternalFeature semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     typeTokens+=NoErrorTypeToken
 	 */
 	protected void sequence_NoErrorTypeSet(EObject context, TypeSet semanticObject) {
@@ -769,7 +777,16 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponents+=SubcomponentElement+ propagationPoint=[PropagationPoint|ID])
+	 *     (subcomponent=SubcomponentElement (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState|ID]))
+	 */
+	protected void sequence_QualifiedErrorBehaviorState(EObject context, QualifiedErrorBehaviorState semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (subcomponent=SubcomponentElement (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID]))
 	 */
 	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -806,7 +823,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         (subcomponents+=SubcomponentElement+ state=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?) | 
+	 *         (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?) | 
 	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
 	 *     )
 	 */
@@ -907,7 +924,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*)
+	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*)
 	 */
 	protected void sequence_TypeSetElement(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
