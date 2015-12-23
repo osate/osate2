@@ -30,7 +30,6 @@ public final class SEI {
 	public static final String ROM_ACTUAL = "ROMActual";
 
 	public static final String BROADCAST_PROTOCOL = "Broadcast_Protocol";
-//	public static final String DATA_RATE = "Data_Rate"; We now have output_rate as predeclared property
 
 	public static final String NETWEIGHT = "NetWeight";
 	public static final String GROSSWEIGHT = "GrossWeight";
@@ -53,7 +52,8 @@ public final class SEI {
 	public static final String KW_LITERAL = "KW";
 
 	public static final String DATA_RATE = "Data_Rate";
-
+	public static final String MESSAGE_RATE = "Message_Rate";
+	
 	public static final String NSLOC = "nsloc";
 	public static final String VDID_INSPECT = "vdid_inspect";
 

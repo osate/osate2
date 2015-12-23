@@ -73,6 +73,6 @@ property set Communication_Properties is
 	Latency: Time_Range
 		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
 		
-	Data_Rate : aadlinteger units Data_Rate_Units applies to (feature);
+	Data_Rate : aadlinteger units Data_Rate_Units applies to (feature, connection, bus, virtual bus, system, processor, virtual processor, memory, device);
 
 end Communication_Properties;

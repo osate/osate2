@@ -115,7 +115,15 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public static final String UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.upper_less_than_lower";
 	public static final String DELTA_NEGATIVE = "org.osate.xtext.aadl2.properties.delta_negative";
 	public static final String MISSING_NUMBERVALUE_UNITS = "org.osate.xtext.aadl2.properties.missing_numbervalue_units";
+	public static final String SEI_DATA_RATE_DEPRECATED = "org.osate.xtext.aadl2.properties.sei_data_rate_deprecated";
 	public static final String BYTE_COUNT_DEPRECATED = "org.osate.xtext.aadl2.properties.byte_count_deprecated";
+	public static final String SOURCE_DATA_SIZE_DEPRECATED = "org.osate.xtext.aadl2.properties.source_data_size_deprecated";
+	public static final String SOURCE_CODE_SIZE_DEPRECATED = "org.osate.xtext.aadl2.properties.source_code_size_deprecated";
+	public static final String SOURCE_HEAP_SIZE_DEPRECATED = "org.osate.xtext.aadl2.properties.source_heap_size_deprecated";
+	public static final String SOURCE_STACK_SIZE_DEPRECATED = "org.osate.xtext.aadl2.properties.source_stack_size_deprecated";
+	public static final String DATA_VOLUME_DEPRECATED = "org.osate.xtext.aadl2.properties.data_volume_deprecated";
+
+	
 	public static final String ARRAY_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.array_range_upper_less_than_lower";
 	public static final String ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_range_upper_greater_than_maximum";
 	public static final String ARRAY_INDEX_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_rindex_greater_than_maximum";
@@ -226,7 +234,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
 					}
 					if (rangeLowerbound == 0) {
-						error("0 is out of bounds. Array indices start with 1.", range, null, ARRAY_LOWER_BOUND_IS_ZERO);
+						error("0 is out of bounds. Array indices start with 1.", range, null,
+								ARRAY_LOWER_BOUND_IS_ZERO);
 					} else if (rangeUpperbound == 0 && dimensionSize > 0 && rangeLowerbound > dimensionSize) {
 						error(range, "Array index is greater than allowed in type definition.");
 						error("Array index is greater than allowed in type definition.", range, null,
@@ -529,7 +538,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 		for (BasicPropertyAssociation association : ownedValues) {
 			for (BasicPropertyAssociation association2 : ownedValues) {
-				if (!(association.equals(association2)) && association.getProperty().equals(association2.getProperty())) {
+				if (!(association.equals(association2))
+						&& association.getProperty().equals(association2.getProperty())) {
 					error(association, "Duplicate assignment of record value");
 				}
 			}
@@ -555,20 +565,40 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
-		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())) {
-			boolean offerQuickFix = true;
-			for (ModalPropertyValue modalPropertyValue : pvl) {
-				PropertyExpression pe = modalPropertyValue.getOwnedValue();
-				if (!(pe instanceof NumberValue)) {
-					offerQuickFix = false;
-					break;
+		if (pa.getProperty() != null) {
+			if ("Byte_Count".equalsIgnoreCase(pa.getProperty().getName())) {
+				boolean offerQuickFix = true;
+				for (ModalPropertyValue modalPropertyValue : pvl) {
+					PropertyExpression pe = modalPropertyValue.getOwnedValue();
+					if (!(pe instanceof NumberValue)) {
+						offerQuickFix = false;
+						break;
+					}
 				}
-			}
 
-			if (offerQuickFix) {
-				warning("Byte_Count is deprecated. Please use Memory_Size.", pa, null, BYTE_COUNT_DEPRECATED);
-			} else {
-				warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+				if (offerQuickFix) {
+					warning("Byte_Count is deprecated. Please use Memory_Size.", pa, null, BYTE_COUNT_DEPRECATED);
+				} else {
+					warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+				}
+			} else
+//			if ( "SEI::Data_Rate".equalsIgnoreCase(pa.getProperty().getQualifiedName())) {
+//				warning("SEI::Data_Rate is deprecated. Please use SEI::Message_Rate.", pa, null, SEI_DATA_RATE_DEPRECATED);
+//			} else
+			if ( "Source_Code_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Source_Code_Size is deprecated. Please use Code_Size.", pa, null, SOURCE_CODE_SIZE_DEPRECATED);
+			} else
+			if ( "Source_Data_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Source_Data_Size is deprecated. Please use Data_Size.", pa, null, SOURCE_DATA_SIZE_DEPRECATED);
+			} else
+			if ( "Source_Heap_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Source_Heap_Size is deprecated. Please use Heap_Size.", pa, null, SOURCE_HEAP_SIZE_DEPRECATED);
+			} else
+			if ( "Source_Stack_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Source_Stack_Size is deprecated. Please use Stack_Size.", pa, null, SOURCE_STACK_SIZE_DEPRECATED);
+			} else
+			if ( "Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Data_Volume is deprecated. Please use Data_Rate.", pa, null, DATA_VOLUME_DEPRECATED);
 			}
 		}
 	}
@@ -635,11 +665,12 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	/**
-	 * Make sure that a NamedValue object pointing to a property or property constant referenced as a
-	 * subclause of a boolean expression actually refers to a boolean-valued
-	 * property.  Also make sure that if the property reference is to a
-	 * property definition, then the property holder or property definition
-	 * that it is a part of should have a compatible applies to clause.
+	 * Make sure that a NamedValue object pointing to a property or property
+	 * constant referenced as a subclause of a boolean expression actually
+	 * refers to a boolean-valued property. Also make sure that if the property
+	 * reference is to a property definition, then the property holder or
+	 * property definition that it is a part of should have a compatible applies
+	 * to clause.
 	 */
 	protected void checkPropertyReference(final NamedValue pr) {
 		final EObject parent = pr.eContainer();
@@ -655,8 +686,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			final Property refPD = rp;
 			/*
 			 * Find the property making reference to us. It is either the PD
-			 * from a property association, or the enclosing PD if our use is
-			 * as a default value.
+			 * from a property association, or the enclosing PD if our use is as
+			 * a default value.
 			 */
 			Property pd = null;
 			EObject current = parent;
@@ -703,8 +734,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * @param pt: PropertyType or unresolved proxy or null
-	 * @param pv: PropertyExpression or null
+	 * 
+	 * @param pt:
+	 *            PropertyType or unresolved proxy or null
+	 * @param pv:
+	 *            PropertyExpression or null
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName) {
 		typeCheckPropertyValues(pt, pv, "", holder, defName);
@@ -712,9 +746,13 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * @param pt: PropertyType or unresolved proxy or null
-	 * @param pv: PropertyExpression or null
-	 * @param prefix: String prefix to error message used for lists
+	 * 
+	 * @param pt:
+	 *            PropertyType or unresolved proxy or null
+	 * @param pv:
+	 *            PropertyExpression or null
+	 * @param prefix:
+	 *            String prefix to error message used for lists
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix, Element holder,
 			String defName) {
@@ -728,8 +766,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 		if (pv instanceof ListValue) {
 			if (pt instanceof ListType) {
-				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(),
-						holder, defName);
+				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(), holder,
+						defName);
 			} else {
 				error(holder, prefix + "Assigning a list of values" + msg);
 			}
@@ -828,7 +866,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder, String defName) {
+	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder,
+			String defName) {
 		for (PropertyExpression propertyExpression : pel) {
 			typeCheckPropertyValues(pt, propertyExpression, "list element", holder, defName);
 		}
@@ -903,12 +942,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
 		if (contextNS != referenceNS) {
 			if (!AadlUtil.isImportedPropertySet(referenceNS, contextNS)) {
-				error("The referenced property set '"
-						+ referenceNS.getName()
-						+ "' of "
-						+ (pse instanceof Property ? "property '" : (pse instanceof PropertyType ? "property type '"
-								: "property constant '")) + pse.getName() + "' is not listed in a with clause.",
-						context, null, MISSING_WITH, referenceNS.getName(), EcoreUtil.getURI(referenceNS).toString(),
+				error("The referenced property set '" + referenceNS.getName() + "' of "
+						+ (pse instanceof Property ? "property '"
+								: (pse instanceof PropertyType ? "property type '" : "property constant '"))
+						+ pse.getName() + "' is not listed in a with clause.", context, null, MISSING_WITH,
+						referenceNS.getName(), EcoreUtil.getURI(referenceNS).toString(),
 						EcoreUtil.getURI(contextNS).toString());
 			}
 		}
@@ -916,9 +954,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	private void typeCheckContainmentPathElement(ContainmentPathElement pathElement) {
 		if (pathElement.getOwner() instanceof ContainmentPathElement
-				&& (pathElement.getNamedElement() instanceof InternalFeature || pathElement.getNamedElement() instanceof ProcessorFeature)) {
-			error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(pathElement.getNamedElement()
-					.eClass()))
+				&& (pathElement.getNamedElement() instanceof InternalFeature
+						|| pathElement.getNamedElement() instanceof ProcessorFeature)) {
+			error(StringExtensions
+					.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(pathElement.getNamedElement().eClass()))
 					+ " is not visible outside of its component implementation or extending implementations.",
 					pathElement, Aadl2Package.eINSTANCE.getContainmentPathElement_NamedElement());
 		}

@@ -44,9 +44,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -74,6 +77,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
@@ -119,6 +123,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String NUMERIC_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.numeric_range_upper_less_than_lower";
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
+	public static final String DATA_SIZE_INCONSISTENT = "org.osate.xtext.aadl2.data_size_inconsistent";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -155,8 +160,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseImplementationExtension(ImplementationExtension implementationExtension) {
 		checkExtensionAndRealizationHierarchy(implementationExtension);
 		checkImplementationExtensionCategory(implementationExtension);
-		checkSubcomponentsOfExtendedAbstractImplementation((ComponentImplementation) implementationExtension
-				.getSpecific());
+		checkSubcomponentsOfExtendedAbstractImplementation(
+				(ComponentImplementation) implementationExtension.getSpecific());
 		checkClassifierReferenceInWith(implementationExtension.getExtended(), implementationExtension);
 	}
 
@@ -277,6 +282,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseDataImplementation(DataImplementation dataImplementation) {
 		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
+		checkDataSizeProperty(dataImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -351,7 +357,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			checkClassifierReferenceInWith(feature.getClassifier(), feature);
 		}
-//		checkPropertyAssocs(feature);
+		// checkPropertyAssocs(feature);
 	}
 
 	@Check(CheckType.FAST)
@@ -389,9 +395,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
-		typeCheckFeatureConnectionEnd(connection.getSource());
-		typeCheckFeatureConnectionEnd(connection.getDestination());
-		checkConnectionDirection(connection);
+		if (connection.getSource().getConnectionEnd() instanceof FeatureGroupConnectionEnd
+				&& connection.getDestination().getConnectionEnd() instanceof FeatureGroupConnectionEnd) {
+			typeCheckFeatureGroupConnectionEnd(connection.getSource());
+			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+			checkFeatureGroupConnectionDirection(connection);
+			checkFeatureGroupConnectionClassifiers(connection);
+		} else {
+			typeCheckFeatureConnectionEnd(connection.getSource());
+			typeCheckFeatureConnectionEnd(connection.getDestination());
+			checkConnectionDirection(connection);
+			checkFeatureConnectionFeatureGroupToFeatureOrAbstract(connection);
+		}
 	}
 
 	@Check(CheckType.FAST)
@@ -543,7 +558,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseClassifier(Classifier cl) {
 		checkExtendCycles(cl);
-//		checkEndId(cl);
+		// checkEndId(cl);
 	}
 
 	@Check(CheckType.FAST)
@@ -598,7 +613,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseRangeType(RangeType nt) {
-//		checkRangeType(nt);
+		// checkRangeType(nt);
 		if (nt.getNumberType() != nt.getOwnedNumberType()) {
 			checkPropertySetElementReference(nt.getNumberType(), nt);
 		}
@@ -790,7 +805,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			errMsg.append(" in 'with' clause is not used.");
 			String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
 			warning(errMsg.toString(), propertySet, Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(),
-					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(), importedUnitURI);
+					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+					importedUnitURI);
 		}
 	}
 
@@ -800,8 +816,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (subcomponentType == null)
 			return;
 		if (subcomponentType.equals(containingClassifier)) {
-			error(subcomponent, "The type of subcomponent '" + subcomponent.getName()
-					+ "' cannot be the object that contains it");
+			error(subcomponent,
+					"The type of subcomponent '" + subcomponent.getName() + "' cannot be the object that contains it");
 		} else {
 			if (isSubcomponentCircularDependency(subcomponentType, containingClassifier, new ArrayList<Classifier>())) {
 				error(subcomponent, "Invalid circular dependency. Subcomponent '" + subcomponent.getName()
@@ -852,8 +868,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 			@Override
 			public boolean equals(Object arg0) {
-				return (null != arg0 && arg0 instanceof Holder && appliesTo.equals(((Holder) arg0).appliesTo) && property
-						.equals(((Holder) arg0).property));
+				return (null != arg0 && arg0 instanceof Holder && appliesTo.equals(((Holder) arg0).appliesTo)
+						&& property.equals(((Holder) arg0).property));
 			}
 		}
 
@@ -1092,11 +1108,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			warning("Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'", cl,
 					Aadl2Package.eINSTANCE.getNamedElement_Name(), MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS,
 					cl.getName(), ss, Integer.toString(endingIdentifierOffset));
-// XXX TODO
-//	        IXtextDocument xtextDocument = context.getXtextDocument();
-//	         String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//	         xtextDocument.replace(issue.getOffset(), 1,
-//	                               Strings.toFirstUpper(firstLetter));
+			// XXX TODO
+			// IXtextDocument xtextDocument = context.getXtextDocument();
+			// String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+			// xtextDocument.replace(issue.getOffset(), 1,
+			// Strings.toFirstUpper(firstLetter));
 		}
 	}
 
@@ -1104,12 +1120,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ICompositeNode n = NodeModelUtils.getNode(mu);
 		INode lln = getPreviousNode(getLastLeaf(n));
 		String ss = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
-//		lln = getPreviousNode(lln);
-//		while (lln.getText().equalsIgnoreCase("::")) {
-//			lln = getPreviousNode(lln);
-//			ss = lln.getText() + "::" + ss;
-//		}
-//		ss = ss.replaceAll(" ", "");
+		// lln = getPreviousNode(lln);
+		// while (lln.getText().equalsIgnoreCase("::")) {
+		// lln = getPreviousNode(lln);
+		// ss = lln.getText() + "::" + ss;
+		// }
+		// ss = ss.replaceAll(" ", "");
 		if (!ss.equalsIgnoreCase(mu.getName())) {
 			int endingIdentifierOffset = lln.getTotalOffset() + lln.getText().indexOf(ss);
 			warning("Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'", mu,
@@ -1119,9 +1135,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks the second part of legality rule 3 in section 10.2 (Flow Implementations) on page 188.
-	 * "The out_flow feature of a flow implementation must be identical to the
-	 * out_flow feature of the corresponding flow specification."
+	 * Checks the second part of legality rule 3 in section 10.2 (Flow
+	 * Implementations) on page 188. "The out_flow feature of a flow
+	 * implementation must be identical to the out_flow feature of the
+	 * corresponding flow specification."
 	 */
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
 		if (Aadl2Util.isNull(flow.getSpecification()) || Aadl2Util.isNull(flow.getSpecification().getAllOutEnd())) {
@@ -1138,9 +1155,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		lln = getPreviousNode(lln);
 		String outContextName = null;
-		if (lln != null
-				&& lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "").replaceAll("\n", "")
-						.equals(".")) {
+		if (lln != null && lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
+				.replaceAll("\n", "").equals(".")) {
 			lln = getPreviousNode(lln);
 			outContextName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 					.replaceAll("\n", "");
@@ -1158,17 +1174,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Feature specFeature = outEnd.getFeature();
 		if (Aadl2Util.isNull(specFeature) || (specContext != null && Aadl2Util.isUnresolved(specContext))) {
 			// the feature is unresolved or null; or the context is unresolved.
-			// the context could be null but should not be unresolved for the checking to occur
+			// the context could be null but should not be unresolved for the
+			// checking to occur
 			return;
 		}
 		// if the feature names don't match
 		if ((!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-		// if the spec has a context, but the impl doesn't: flow spec picks an element from a FG
+				// if the spec has a context, but the impl doesn't: flow spec
+				// picks an element from a FG
 				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
-				// if the impl has a context (FG), but the spec doesn't (feature is FG)
+				// if the impl has a context (FG), but the spec doesn't (feature
+				// is FG)
 				(outContextName != null && Aadl2Util.isNull(specContext)) ||
-		// if the context names don't match
-		(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
+				// if the context names don't match
+				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
 			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
 			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
 			error('\'' + outImplName + "' does not match the out flow feature identifier '" + specName
@@ -1178,9 +1197,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks the first part of legality rule 3 in section 10.2 (Flow Implementations) on page 188.
-	 * "The in_flow feature of a flow implementation must be identical to the
-	 * in_flow feature of the corresponding flow specification."
+	 * Checks the first part of legality rule 3 in section 10.2 (Flow
+	 * Implementations) on page 188. "The in_flow feature of a flow
+	 * implementation must be identical to the in_flow feature of the
+	 * corresponding flow specification."
 	 */
 	private void checkInFeatureIdentifier(FlowImplementation flow) {
 		ICompositeNode n = NodeModelUtils.getNode(flow);
@@ -1210,17 +1230,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Feature specFeature = inEnd.getFeature();
 		if (Aadl2Util.isNull(specFeature) || (specContext != null && Aadl2Util.isUnresolved(specContext))) {
 			// the feature is unresolved or null; or the context is unresolved.
-			// the context could be null but should not be unresolved for the checking to occur
+			// the context could be null but should not be unresolved for the
+			// checking to occur
 			return;
 		}
 		// if the feature names don't match
 		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-		// if the spec has a context, but the impl doesn't
+				// if the spec has a context, but the impl doesn't
 				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context, but the spec doesn't
 				(inContextName != null && Aadl2Util.isNull(specContext)) ||
-		// if the context names don't match
-		(inContextName != null && specContext != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
+				// if the context names don't match
+				(inContextName != null && specContext != null
+						&& !inContextName.equalsIgnoreCase(specContext.getName())))) {
 			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
 			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
 			error('\'' + inImplName + "' does not match the in flow feature identifier '" + specName
@@ -1245,17 +1267,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page 188.
-	 * "The source of a connection named in a flow implementation declaration must
-	 * be the same as the in_flow feature of the flow implementation, or as the
-	 * out flow feature of the directly preceding subcomponent flow specification,
-	 * if present."
+	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page
+	 * 188. "The source of a connection named in a flow implementation
+	 * declaration must be the same as the in_flow feature of the flow
+	 * implementation, or as the out flow feature of the directly preceding
+	 * subcomponent flow specification, if present."
 	 *
-	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page 188.
-	 * "The destination of a connection named in a flow implementation declaration
-	 * must be the same as the out flow feature of the flow implementation, or as
-	 * the in_flow feature of the directly succeeding subcomponent flow
-	 * specification, if present.
+	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page
+	 * 188. "The destination of a connection named in a flow implementation
+	 * declaration must be the same as the out flow feature of the flow
+	 * implementation, or as the in_flow feature of the directly succeeding
+	 * subcomponent flow specification, if present.
 	 */
 	private void checkFlowConnectionOrder(FlowImplementation flow) {
 		if (Aadl2Util.isNull(flow.getSpecification())) {
@@ -1264,7 +1286,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<FlowSegment> segs = flow.getOwnedFlowSegments();
 		boolean connNext = true;
 		if (flow.getKind().equals(FlowKind.SOURCE)) {
-			// the first element in a flow source should be a subcomponent/flow spec
+			// the first element in a flow source should be a subcomponent/flow
+			// spec
 			connNext = false;
 		}
 		for (FlowSegment flowSegment : segs) {
@@ -1283,10 +1306,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			} else {
 				// expecting a component and flow spec
 				connNext = !connNext;
-				if (!fe.eIsProxy()
-						&& (flowSegment.getContext() == null || !flowSegment.getContext().eIsProxy())
-						&& !((flowSegment.getContext() == null && (fe instanceof DataAccess || fe instanceof Subcomponent)) || (flowSegment
-								.getContext() instanceof Subcomponent && fe instanceof FlowSpecification))) {
+				if (!fe.eIsProxy() && (flowSegment.getContext() == null || !flowSegment.getContext().eIsProxy())
+						&& !((flowSegment.getContext() == null
+								&& (fe instanceof DataAccess || fe instanceof Subcomponent))
+								|| (flowSegment.getContext() instanceof Subcomponent
+										&& fe instanceof FlowSpecification))) {
 					StringBuilder errorMessage = new StringBuilder(
 							"Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found ");
 					if (flowSegment.getContext() != null) {
@@ -1308,17 +1332,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page 188.
-	 * "The source of a connection named in a flow implementation declaration must
-	 * be the same as the in_flow feature of the flow implementation, or as the
-	 * out flow feature of the directly preceding subcomponent flow specification,
-	 * if present."
+	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page
+	 * 188. "The source of a connection named in a flow implementation
+	 * declaration must be the same as the in_flow feature of the flow
+	 * implementation, or as the out flow feature of the directly preceding
+	 * subcomponent flow specification, if present."
 	 *
-	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page 188.
-	 * "The destination of a connection named in a flow implementation declaration
-	 * must be the same as the out flow feature of the flow implementation, or as
-	 * the in_flow feature of the directly succeeding subcomponent flow
-	 * specification, if present.
+	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page
+	 * 188. "The destination of a connection named in a flow implementation
+	 * declaration must be the same as the out flow feature of the flow
+	 * implementation, or as the in_flow feature of the directly succeeding
+	 * subcomponent flow specification, if present.
 	 */
 	private void checkFlowConnectionEnds(FlowImplementation flow) {
 		if (Aadl2Util.isNull(flow.getSpecification())) {
@@ -1344,8 +1368,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
 								error(flow.getOwnedFlowSegments().get(i),
-										"The source of connection '"
-												+ connection.getName()
+										"The source of connection '" + connection.getName()
 												+ "' does not match the in flow feature '"
 												+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 												+ inEnd.getFeature().getName() + '\'');
@@ -1367,8 +1390,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								cxt = connection.getAllDestinationContext();
 								if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
 									error(flow.getOwnedFlowSegments().get(i),
-											"The source of connection '"
-													+ connection.getName()
+											"The source of connection '" + connection.getName()
 													+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
 													+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName()
 													+ '.' + previousFlowSegment.getName() + '\'');
@@ -1409,8 +1431,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (ce instanceof Feature) {
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
 								error(flow.getOwnedFlowSegments().get(i),
-										"The destination of connection '"
-												+ connection.getName()
+										"The destination of connection '" + connection.getName()
 												+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
 												+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
 												+ nextFlowSegment.getName() + '\'');
@@ -1423,8 +1444,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
-	 * (issue #345)
+	 * If a flow segment is a subcomponent, preceding and following connections
+	 * may not continue inside that subcomponent (issue #345)
 	 */
 	private void checkSubcomponentFlows(EndToEndFlow flow) {
 		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
@@ -1450,8 +1471,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
-	 * (issue #345)
+	 * If a flow segment is a subcomponent, preceding and following connections
+	 * may not continue inside that subcomponent (issue #345)
 	 */
 	private void checkSubcomponentFlows(FlowImplementation flow) {
 		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
@@ -1478,9 +1499,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Check if one of the connections continues inside the subcomponent
-	 * @param segment - attach error to this model element
-	 * @param sub - subcomponent at which connections should end
-	 * @param conns - connection(s) immediately before/after the subcomponent
+	 * 
+	 * @param segment
+	 *            - attach error to this model element
+	 * @param sub
+	 *            - subcomponent at which connections should end
+	 * @param conns
+	 *            - connection(s) immediately before/after the subcomponent
 	 */
 	private void checkSubcomponentFlowHelper(Element segment, Subcomponent sub, List<Connection> conns) {
 		for (Connection conn : conns) {
@@ -1495,9 +1520,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
 							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
 						// connection continues inside subcomponent
-						error(segment,
-								"Connection '" + conn.getName() + "' continues inside subcomponent '" + sub.getName()
-										+ "'");
+						error(segment, "Connection '" + conn.getName() + "' continues inside subcomponent '"
+								+ sub.getName() + "'");
 						break;
 					}
 				}
@@ -1506,8 +1530,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * see if the endpoints of the connection and the flow spec point to the same thing.
-	 * They may be refinements of the other. They may be features of feature groups on one or the other side.
+	 * see if the endpoints of the connection and the flow spec point to the
+	 * same thing. They may be refinements of the other. They may be features of
+	 * feature groups on one or the other side.
+	 * 
 	 * @param fsFeature
 	 * @param fsContext
 	 * @param connEnd
@@ -1521,24 +1547,29 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		Feature connFeature = (Feature) connEnd;
 		return AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature)
-				// flow spec points to feature within fg, connection points to fg
-				|| (fsContext instanceof FeatureGroup && connFeature instanceof FeatureGroup && (AadlUtil
-						.isSameOrRefines((FeatureGroup) connFeature, (FeatureGroup) fsContext) || AadlUtil
-						.isSameOrRefines((FeatureGroup) fsContext, (FeatureGroup) connFeature)))
-				// both contexts are feature groups. Let's check for features lining up
-				|| (fsContext instanceof FeatureGroup && connContext instanceof FeatureGroup && (AadlUtil
-						.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature)))
-				// the flow spec has a FG as context and a feature within. The connection can only point to FG.
-				|| (fsFeature instanceof FeatureGroup && connContext instanceof FeatureGroup && (AadlUtil
-						.isSameOrRefines((FeatureGroup) connContext, fsFeature) || AadlUtil.isSameOrRefines(fsFeature,
-						(FeatureGroup) connContext)));
+		// flow spec points to feature within fg, connection points to fg
+				|| (fsContext instanceof FeatureGroup && connFeature instanceof FeatureGroup
+						&& (AadlUtil.isSameOrRefines((FeatureGroup) connFeature, (FeatureGroup) fsContext)
+								|| AadlUtil.isSameOrRefines((FeatureGroup) fsContext, (FeatureGroup) connFeature)))
+								// both contexts are feature groups. Let's check
+								// for features lining up
+				|| (fsContext instanceof FeatureGroup && connContext instanceof FeatureGroup
+						&& (AadlUtil.isSameOrRefines(fsFeature, connFeature)
+								|| AadlUtil.isSameOrRefines(connFeature, fsFeature)))
+								// the flow spec has a FG as context and a
+								// feature within. The connection can only point
+								// to FG.
+				|| (fsFeature instanceof FeatureGroup && connContext instanceof FeatureGroup
+						&& (AadlUtil.isSameOrRefines((FeatureGroup) connContext, fsFeature)
+								|| AadlUtil.isSameOrRefines(fsFeature, (FeatureGroup) connContext)));
 	}
 
 	/**
-	 * Checks legality rule 5 in section 10.2 (Flow Implementations) on page 189.
-	 * "In case of a mode-specific flow implementation, the connections and the
-	 * subcomponents named in the flow implementation must be declared at least
-	 * for the modes listed in the in modes statement of the flow implementation."
+	 * Checks legality rule 5 in section 10.2 (Flow Implementations) on page
+	 * 189. "In case of a mode-specific flow implementation, the connections and
+	 * the subcomponents named in the flow implementation must be declared at
+	 * least for the modes listed in the in modes statement of the flow
+	 * implementation."
 	 */
 	private void checkFlowSegmentModes(FlowImplementation flow) {
 		if (flow.getContainingComponentImpl().getAllModes().isEmpty()) {
@@ -1679,94 +1710,101 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return result;
 	}
 
-//	private void checkFlowPathElements(FlowImplementation flowimplementation) {
-//
-//		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
-//			return;
-//		}
-//
-//		FlowSpecification spec = flowimplementation.getSpecification();
-//		if (Aadl2Util.isNull(spec)) {
-//			return;
-//		}
-//
-//		FlowEnd specIn = spec.getAllInEnd();
-//		if (Aadl2Util.isNull(specIn)) {
-//			return;
-//		}
-//		FlowEnd specOut = spec.getAllOutEnd();
-//		if (Aadl2Util.isNull(specOut)) {
-//			return;
-//		}
-//
-//		String specInContext = (specIn.getContext() != null) ? specIn.getContext().getName() + "." : "";
-//		String specOutContext = (specOut.getContext() != null) ? specOut.getContext().getName() + "." : "";
-//		String specInFeature = specIn.getFeature().getName();
-//		String specOutFeature = specOut.getFeature().getName();
-//		String specInName = specInContext + specInFeature;
-//		String specOutName = specOutContext + specOutFeature;
-//
-//		ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
-//		List<String> resolvedComposite = resolveCompositeNodeToList(n);
-//
-//		if (null == resolvedComposite || resolvedComposite.isEmpty() || !resolvedComposite.contains("->")) {
-//			return;
-//		}
-//
-//		int index = resolvedComposite.size() - 1;
-//
-//		String outFeature = resolvedComposite.get(index--);
-//		String outContext = "";
-//
-//		if (resolvedComposite.get(index).equals(".")) {
-//			index--;
-//		}
-//		if (resolvedComposite.get(index).equals("->")) {
-//			outContext = "";
-//		} else {
-//			outContext = resolvedComposite.get(index--);
-//		}
-//		String outImpl = outContext + ((outContext.equals("")) ? "" : ".") + outFeature;
-//
-//		String inFeature = "";
-//		String inContext = "";
-//
-//		index = 0;
-//		for (int i = 0; i < resolvedComposite.size(); i++) {
-//			if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
-//				index = i + 1;
-//				break;
-//			}
-//		}
-//
-//		inFeature = resolvedComposite.get(index++);
-//		if (resolvedComposite.get(index++).equals(".")) {
-//			inContext = inFeature;
-//			inFeature = resolvedComposite.get(index);
-//		}
-//
-//		String inImpl = inContext + ((inContext.equals("")) ? "" : ".") + inFeature;
-//
-//		if (!inImpl.equalsIgnoreCase(specInName)) {
-//			error(flowimplementation, "Flow implementation In type: " + inImpl
-//					+ " differs from specification In type: " + specInName);
-//		}
-//		if (!outImpl.equalsIgnoreCase(specOutName)) {
-//			error(flowimplementation, "Flow implementation Out type: " + outImpl
-//					+ " differs from specification Out type: " + specOutName);
-//		}
-//	}
+	// private void checkFlowPathElements(FlowImplementation flowimplementation)
+	// {
+	//
+	// if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
+	// return;
+	// }
+	//
+	// FlowSpecification spec = flowimplementation.getSpecification();
+	// if (Aadl2Util.isNull(spec)) {
+	// return;
+	// }
+	//
+	// FlowEnd specIn = spec.getAllInEnd();
+	// if (Aadl2Util.isNull(specIn)) {
+	// return;
+	// }
+	// FlowEnd specOut = spec.getAllOutEnd();
+	// if (Aadl2Util.isNull(specOut)) {
+	// return;
+	// }
+	//
+	// String specInContext = (specIn.getContext() != null) ?
+	// specIn.getContext().getName() + "." : "";
+	// String specOutContext = (specOut.getContext() != null) ?
+	// specOut.getContext().getName() + "." : "";
+	// String specInFeature = specIn.getFeature().getName();
+	// String specOutFeature = specOut.getFeature().getName();
+	// String specInName = specInContext + specInFeature;
+	// String specOutName = specOutContext + specOutFeature;
+	//
+	// ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
+	// List<String> resolvedComposite = resolveCompositeNodeToList(n);
+	//
+	// if (null == resolvedComposite || resolvedComposite.isEmpty() ||
+	// !resolvedComposite.contains("->")) {
+	// return;
+	// }
+	//
+	// int index = resolvedComposite.size() - 1;
+	//
+	// String outFeature = resolvedComposite.get(index--);
+	// String outContext = "";
+	//
+	// if (resolvedComposite.get(index).equals(".")) {
+	// index--;
+	// }
+	// if (resolvedComposite.get(index).equals("->")) {
+	// outContext = "";
+	// } else {
+	// outContext = resolvedComposite.get(index--);
+	// }
+	// String outImpl = outContext + ((outContext.equals("")) ? "" : ".") +
+	// outFeature;
+	//
+	// String inFeature = "";
+	// String inContext = "";
+	//
+	// index = 0;
+	// for (int i = 0; i < resolvedComposite.size(); i++) {
+	// if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
+	// index = i + 1;
+	// break;
+	// }
+	// }
+	//
+	// inFeature = resolvedComposite.get(index++);
+	// if (resolvedComposite.get(index++).equals(".")) {
+	// inContext = inFeature;
+	// inFeature = resolvedComposite.get(index);
+	// }
+	//
+	// String inImpl = inContext + ((inContext.equals("")) ? "" : ".") +
+	// inFeature;
+	//
+	// if (!inImpl.equalsIgnoreCase(specInName)) {
+	// error(flowimplementation, "Flow implementation In type: " + inImpl
+	// + " differs from specification In type: " + specInName);
+	// }
+	// if (!outImpl.equalsIgnoreCase(specOutName)) {
+	// error(flowimplementation, "Flow implementation Out type: " + outImpl
+	// + " differs from specification Out type: " + specOutName);
+	// }
+	// }
 
 	/**
-	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
-	 * "Component type extensions may refine flow specifications and component implementation
-	 * extensions may refine subcomponents and connections with in modes statements.  A flow
-	 * implementation that is inherited by the extension must be consistent with the modes of
-	 * the refined flow specifications, subcomponents, and connections if named in the flow
-	 * implementation according to rules (L4) and (L5).  Otherwise, the flow implementation
-	 * has to be defined again in the component implementation extension and satisfy rules
-	 * (L4) and (L5)."
-	 * This method checks the (L5) portion of (L7).
+	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations)
+	 * on page 189. "Component type extensions may refine flow specifications
+	 * and component implementation extensions may refine subcomponents and
+	 * connections with in modes statements. A flow implementation that is
+	 * inherited by the extension must be consistent with the modes of the
+	 * refined flow specifications, subcomponents, and connections if named in
+	 * the flow implementation according to rules (L4) and (L5). Otherwise, the
+	 * flow implementation has to be defined again in the component
+	 * implementation extension and satisfy rules (L4) and (L5)." This method
+	 * checks the (L5) portion of (L7).
 	 */
 	private void checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(
 			ComponentImplementation componentImplementation) {
@@ -1789,8 +1827,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		ArrayList<FlowImplementation> inheritedFlows = new ArrayList<FlowImplementation>();
-		for (FlowImplementation flow : removeOverridenFlowImplementations(componentImplementation
-				.getAllFlowImplementations())) {
+		for (FlowImplementation flow : removeOverridenFlowImplementations(
+				componentImplementation.getAllFlowImplementations())) {
 			if (!componentImplementation.getOwnedFlowImplementations().contains(flow)) {
 				inheritedFlows.add(flow);
 			}
@@ -1899,8 +1937,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private Subcomponent findSubcomponentRefinement(Subcomponent baseSubcomponent,
 			ArrayList<Subcomponent> subcomponentRefinements) {
 		for (Subcomponent refinement : subcomponentRefinements) {
-			for (Subcomponent currentParent = refinement.getRefined(); currentParent != null; currentParent = currentParent
-					.getRefined()) {
+			for (Subcomponent currentParent = refinement
+					.getRefined(); currentParent != null; currentParent = currentParent.getRefined()) {
 				if (currentParent == baseSubcomponent) {
 					return refinement;
 				}
@@ -1909,10 +1947,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return null;
 	}
 
-	private Connection findConnectionRefinement(Connection baseConnection, ArrayList<Connection> connectionRefinements) {
+	private Connection findConnectionRefinement(Connection baseConnection,
+			ArrayList<Connection> connectionRefinements) {
 		for (Connection refinement : connectionRefinements) {
-			for (Connection currentParent = refinement.getRefined(); currentParent != null; currentParent = currentParent
-					.getRefined()) {
+			for (Connection currentParent = refinement
+					.getRefined(); currentParent != null; currentParent = currentParent.getRefined()) {
 				if (currentParent == baseConnection) {
 					return refinement;
 				}
@@ -1922,21 +1961,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 4 in section 10.2 (Flow Implementations) on page 189.
-	 * "If the component implementation provides mode-specific flow implementations,
-	 * as indicated by the in modes statement, then the set of modes in the in modes
-	 * statement of all flow implementations for a given flow specification must
-	 * include all the modes for which the flow specification is declared."
+	 * Checks legality rule 4 in section 10.2 (Flow Implementations) on page
+	 * 189. "If the component implementation provides mode-specific flow
+	 * implementations, as indicated by the in modes statement, then the set of
+	 * modes in the in modes statement of all flow implementations for a given
+	 * flow specification must include all the modes for which the flow
+	 * specification is declared."
 	 *
-	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
-	 * "Component type extensions may refine flow specifications and component implementation
-	 * extensions may refine subcomponents and connections with in modes statements.  A flow
-	 * implementation that is inherited by the extension must be consistent with the modes of
-	 * the refined flow specifications, subcomponents, and connections if named in the flow
-	 * implementation according to rules (L4) and (L5).  Otherwise, the flow implementation
-	 * has to be defined again in the component implementation extension and satisfy rules
-	 * (L4) and (L5).
-	 * This method checks the (L4) portion of (L7).
+	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations)
+	 * on page 189. "Component type extensions may refine flow specifications
+	 * and component implementation extensions may refine subcomponents and
+	 * connections with in modes statements. A flow implementation that is
+	 * inherited by the extension must be consistent with the modes of the
+	 * refined flow specifications, subcomponents, and connections if named in
+	 * the flow implementation according to rules (L4) and (L5). Otherwise, the
+	 * flow implementation has to be defined again in the component
+	 * implementation extension and satisfy rules (L4) and (L5). This method
+	 * checks the (L4) portion of (L7).
 	 */
 	private void checkModeSpecificFlowImplementations(ComponentImplementation componentImplementation) {
 		EList<Mode> componentModes = componentImplementation.getAllModes();
@@ -1971,11 +2012,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Partially checks naming rule 3 in section 10.3 (End-To-End Flows) on page 191.
-	 * "The subcomponent flow identifier of an end-to-end flow declaration must name
-	 * an optional flow specification in the component type of the named subcomponent
-	 * or to a data component in the form of a data subcomponent, provides data access,
-	 * or requires data access."
+	 * Partially checks naming rule 3 in section 10.3 (End-To-End Flows) on page
+	 * 191. "The subcomponent flow identifier of an end-to-end flow declaration
+	 * must name an optional flow specification in the component type of the
+	 * named subcomponent or to a data component in the form of a data
+	 * subcomponent, provides data access, or requires data access."
 	 */
 	private void typeCheckEndToEndFlowSegments(EndToEndFlow flow) {
 		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
@@ -1993,17 +2034,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 									+ "'.  Cannot refer to a flow specification in the local classifier's namespace.");
 						} else if (segment.getFlowElement() instanceof DataAccess && i > 0
 								&& i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
-							error(segment,
-									"Illegal reference to '"
-											+ segment.getFlowElement().getName()
-											+ "'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.");
+							error(segment, "Illegal reference to '" + segment.getFlowElement().getName()
+									+ "'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.");
 						}
 					} else if (segment.getContext() instanceof Subcomponent) {
 						if (!(segment.getFlowElement() instanceof FlowSpecification)) {
-							error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(segment
-									.getFlowElement().eClass()))
-									+ " in "
-									+ getEClassDisplayNameWithIndefiniteArticle(segment.getContext().eClass())
+							error(StringExtensions
+									.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(
+											segment.getFlowElement().eClass()))
+									+ " in " + getEClassDisplayNameWithIndefiniteArticle(segment.getContext().eClass())
 									+ " is not a valid subcomponent flow.", segment,
 									Aadl2Package.eINSTANCE.getEndToEndFlowSegment_FlowElement());
 						}
@@ -2014,7 +2053,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				} else {
 					// Checking ETEConnectionFlow
-					// Because of the parser rule ETEConnectionFlow, we know that the segment.getContext() is null.
+					// Because of the parser rule ETEConnectionFlow, we know
+					// that the segment.getContext() is null.
 					if (!(segment.getFlowElement() instanceof Connection)) {
 						error(segment, "Expected Connection, found "
 								+ getEClassDisplayName(segment.getFlowElement().eClass()) + '.');
@@ -2026,16 +2066,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks legality rule 1 in section 10.3 (End-To-End Flows) on page 191.
-	 * "The flow specifications identified by the flow_path_subcomponent_flow_identifier
-	 * must be flow paths, if present."
+	 * "The flow specifications identified by the
+	 * flow_path_subcomponent_flow_identifier must be flow paths, if present."
 	 *
 	 * Checks legality rule 2 in section 10.3 (End-To-End Flows) on page 191.
-	 * "The start_subcomponent_flow_identifier must refer to a flow path or  flow source,
-	 * or to a data component."
+	 * "The start_subcomponent_flow_identifier must refer to a flow path or flow
+	 * source, or to a data component."
 	 *
 	 * Checks legality rule 3 in section 10.3 (End-To-End Flows) on page 191.
-	 * "The end_subcomponent_flow_identifier must refer to a flow path or a flow sink, or
-	 * to a data component."
+	 * "The end_subcomponent_flow_identifier must refer to a flow path or a flow
+	 * sink, or to a data component."
 	 */
 	@SuppressWarnings("incomplete-switch")
 	private void checkEndToEndFlowSegments(EndToEndFlow flow) {
@@ -2046,30 +2086,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (i == 0) {
 					// first element of an ETEF
 					if (((FlowSpecification) segment.getFlowElement()).getKind() == FlowKind.SINK) {
-						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-								+ segment.getFlowElement().getName()
-								+ "'.  First segment of end-to-end flow cannot refer to a flow sink.");
+						error(segment,
+								"Illegal reference to '" + segment.getContext().getName() + '.'
+										+ segment.getFlowElement().getName()
+										+ "'.  First segment of end-to-end flow cannot refer to a flow sink.");
 					}
 				} else if (i == flow.getOwnedEndToEndFlowSegments().size() - 1) {
 					// last element of ETEF
 					if (((FlowSpecification) segment.getFlowElement()).getKind() == FlowKind.SOURCE) {
-						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-								+ segment.getFlowElement().getName()
-								+ "'.  Last segment of end-to-end flow cannot refer to a flow source.");
+						error(segment,
+								"Illegal reference to '" + segment.getContext().getName() + '.'
+										+ segment.getFlowElement().getName()
+										+ "'.  Last segment of end-to-end flow cannot refer to a flow source.");
 					}
 				} else {
 					// an intermediate ETEF
 					switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
 					case SOURCE:
 						error(segment,
-								"Illegal reference to '"
-										+ segment.getContext().getName()
-										+ '.'
-										+ segment.getFlowElement().getName()
-										+ "'.  Cannot refer to a flow source except for the first segment of an end-to-end flow.");
+								"Illegal reference to '" + segment.getContext().getName() + '.'
+										+ segment.getFlowElement()
+												.getName()
+								+ "'.  Cannot refer to a flow source except for the first segment of an end-to-end flow.");
 					case SINK:
-						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-								+ segment.getFlowElement().getName()
+						error(segment,
+								"Illegal reference to '" + segment.getContext().getName() + '.'
+										+ segment.getFlowElement()
+												.getName()
 								+ "'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
 					}
 				}
@@ -2084,13 +2127,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Context cxt = null;
 			EndToEndFlowElement flowElement = flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 			if (i % 2 == 1 && flowElement instanceof Connection && !flowElement.eIsProxy()) {
-				// for connection (every even element) check that it matches up with the preceding flow specification
+				// for connection (every even element) check that it matches up
+				// with the preceding flow specification
 				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllSource();
 				cxt = connection.getAllSourceContext();
 				boolean didReverse = false;
-				if (i > 0
-						&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
+				if (i > 0 && flow.getOwnedEndToEndFlowSegments().get(i - 1)
+						.getFlowElement() instanceof FlowSpecification) {
 					FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedEndToEndFlowSegments()
 							.get(i - 1).getFlowElement();
 					FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
@@ -2103,8 +2147,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
 								error(flow.getOwnedEndToEndFlowSegments().get(i),
-										"The source of connection '"
-												+ connection.getName()
+										"The source of connection '" + connection.getName()
 												+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
 												+ flow.getOwnedEndToEndFlowSegments().get(i - 1).getContext().getName()
 												+ '.' + previousFlowSegment.getName() + '\'');
@@ -2113,6 +2156,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					}
+				} else if (i > 0
+						&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Subcomponent) {
+					Subcomponent previousFlowSegment = (Subcomponent) flow.getOwnedEndToEndFlowSegments().get(i - 1)
+							.getFlowElement();
+					if (connection.isBidirectional()) {
+						ce = connection.getAllSource();
+						cxt = connection.getAllSourceContext();
+						if (cxt == null && !ce.equals(previousFlowSegment)) {
+							error(flow.getOwnedEndToEndFlowSegments().get(i),
+									"The source of connection '" + connection.getName()
+											+ "' does not match the out flow feature of the preceding subcomponent '"
+											+ previousFlowSegment.getName() + '\'');
+							didReverse = true;
+						} else {
+							didReverse = false;
+						}
+					}
+
 				}
 				if (didReverse) {
 					ce = connection.getAllSource();
@@ -2132,12 +2193,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (ce instanceof Feature) {
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
 								error(flow.getOwnedEndToEndFlowSegments().get(i),
-										"The destination of connection '"
-												+ connection.getName()
+										"The destination of connection '" + connection.getName()
 												+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
 												+ flow.getOwnedEndToEndFlowSegments().get(i + 1).getContext().getName()
 												+ '.' + nextFlowSegment.getName() + '\'');
 							}
+						}
+					} else if (felem instanceof Subcomponent) {
+						Subcomponent nextFlowSegment = (Subcomponent) felem;
+						if (cxt == null && !ce.equals(nextFlowSegment)) {
+							error(flow.getOwnedEndToEndFlowSegments().get(i),
+									"The destination of connection '" + connection.getName()
+											+ "' does not match the out flow feature of the succeeding subcomponent '"
+											+ nextFlowSegment.getName() + '\'');
 						}
 					}
 				}
@@ -2147,19 +2215,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks legality rule 4 in section 10.3 (End-To-End Flows) on page 191.
-	 * "If an end-to-end flow is referenced in an end-to-end flow declaration, then its
-	 * first and last subcomponent flow must name the same port as the preceding or
-	 * succeeding connection."
+	 * "If an end-to-end flow is referenced in an end-to-end flow declaration,
+	 * then its first and last subcomponent flow must name the same port as the
+	 * preceding or succeeding connection."
 	 *
-	 * Checks a proposed legality rule for end-to-end flows.
-	 * "If the start_subcomponent_flow_identifier or flow_path_subcomponent_flow_identifier
-	 * refers to an end-to-end flow, then the referenced flow's last subcomponent flow
-	 * cannot be a flow sink."
+	 * Checks a proposed legality rule for end-to-end flows. "If the
+	 * start_subcomponent_flow_identifier or
+	 * flow_path_subcomponent_flow_identifier refers to an end-to-end flow, then
+	 * the referenced flow's last subcomponent flow cannot be a flow sink."
 	 *
-	 * Checks a proposed legality rule for end-to-end flows.
-	 * "If the end_subcomponent_flow_identifier or flow_path_subcomponent_flow_identifier
-	 * refers to an end-to-end flow, then the referenced flows's first subcomponent flow
-	 * cannot be a flow source."
+	 * Checks a proposed legality rule for end-to-end flows. "If the
+	 * end_subcomponent_flow_identifier or
+	 * flow_path_subcomponent_flow_identifier refers to an end-to-end flow, then
+	 * the referenced flows's first subcomponent flow cannot be a flow source."
 	 */
 	private void checkNestedEndToEndFlows(EndToEndFlow flow) {
 		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
@@ -2169,21 +2237,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				EndToEndFlow referencedFlow = (EndToEndFlow) segment.getFlowElement();
 				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
 					if (referencedFlow.getOwnedEndToEndFlowSegments()
-							.get(referencedFlow.getOwnedEndToEndFlowSegments().size() - 1).getFlowElement() instanceof FlowSpecification) {
+							.get(referencedFlow.getOwnedEndToEndFlowSegments().size() - 1)
+							.getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification referencedEndFlowSpec = (FlowSpecification) referencedFlow
 								.getOwnedEndToEndFlowSegments()
 								.get(referencedFlow.getOwnedEndToEndFlowSegments().size() - 1).getFlowElement();
 						if (referencedEndFlowSpec.getKind() == FlowKind.SINK) {
 							error(segment, "The last subcomponent flow of '" + referencedFlow.getName()
 									+ "' cannot be a flow sink.");
-						} else if (referencedEndFlowSpec.getKind() == FlowKind.PATH
-								&& flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement() instanceof Connection) {
+						} else if (referencedEndFlowSpec.getKind() == FlowKind.PATH && flow
+								.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement() instanceof Connection) {
 							Connection nextConnection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i + 1)
 									.getFlowElement();
 							if (referencedEndFlowSpec.getAllOutEnd().getFeature() != nextConnection.getAllSource()) {
 								error(segment,
-										"The last subcomponent flow of '"
-												+ referencedFlow.getName()
+										"The last subcomponent flow of '" + referencedFlow.getName()
 												+ "' does not name the same feature as the source of the succeeding connection '"
 												+ nextConnection.getName() + "'.");
 							}
@@ -2191,21 +2259,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 				if (i > 0) {
-					if (referencedFlow.getOwnedEndToEndFlowSegments().get(0).getFlowElement() instanceof FlowSpecification) {
+					if (referencedFlow.getOwnedEndToEndFlowSegments().get(0)
+							.getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification referencedStartFlowSpec = (FlowSpecification) referencedFlow
 								.getOwnedEndToEndFlowSegments().get(0).getFlowElement();
 						if (referencedStartFlowSpec.getKind() == FlowKind.SOURCE) {
 							error(segment, "The first subcomponent flow of '" + referencedFlow.getName()
 									+ "' cannot be a flow source.");
-						} else if (referencedStartFlowSpec.getKind() == FlowKind.PATH
-								&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Connection) {
+						} else if (referencedStartFlowSpec.getKind() == FlowKind.PATH && flow
+								.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Connection) {
 							Connection previousConnection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i - 1)
 									.getFlowElement();
 							if (referencedStartFlowSpec.getAllInEnd().getFeature() != previousConnection
 									.getAllDestination()) {
 								error(segment,
-										"The first subcomponent flow of '"
-												+ referencedFlow.getName()
+										"The first subcomponent flow of '" + referencedFlow.getName()
 												+ "' does not name the same feature as the destination of the preceding connection '"
 												+ previousConnection.getName() + "'.");
 							}
@@ -2218,9 +2286,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks legality rule 5 in section 10.3 (End-To-End Flows) on page 192.
-	 * "In case of a mode specific end-to-end flow declarations, the named connections
-	 * and the subcomponents of the named flow specifications must be declared for the
-	 * modes listed in the in modes statement."
+	 * "In case of a mode specific end-to-end flow declarations, the named
+	 * connections and the subcomponents of the named flow specifications must
+	 * be declared for the modes listed in the in modes statement."
 	 */
 	private void checkEndToEndFlowModes(EndToEndFlow flow) {
 		EList<Mode> neededModes = flow.getAllInModes();
@@ -2323,7 +2391,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
 					if (dupesInClassifier.size() > 1) {
 						for (NamedElement dupeNe : dupesInClassifier) {
-							error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+							error(dupeNe,
+									"Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
 						}
 						continue;
 					}
@@ -2335,20 +2404,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 					NamedElement duplicated = null;
 					duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
-					if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
-							.eClass().equals(duplicated.eClass()))
-							|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+					if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature)
+							|| (duplicated instanceof AbstractPrototype && ne instanceof Prototype))
+							&& !ne.eClass().equals(duplicated.eClass()))
+							|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype)
+									|| (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
 						error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
 								+ "' previously defined in " + duplicated.getContainingClassifier().getName());
-					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
-							.getRefined() != null))
-							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
-									.getRefined() != null))) {
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null)
+							&& (duplicated instanceof Feature && ((Feature) duplicated).getRefined() != null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null)
+									&& (duplicated instanceof Prototype
+											&& ((Prototype) duplicated).getRefined() != null))) {
 						continue;
-					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
-							.getRefined() == null))
-							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
-									.getRefined() == null))) {
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null)
+							&& (duplicated instanceof Feature && ((Feature) duplicated).getRefined() == null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null)
+									&& (duplicated instanceof Prototype
+											&& ((Prototype) duplicated).getRefined() == null))) {
 						continue;
 					} else {
 						postRefineableErrorWithFix(ne, duplicated);
@@ -2457,13 +2530,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
 							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
 				} else if (ne instanceof Connection && duplicated instanceof Connection) {
-					error(ne, "Connection '" + ne.getName() + "' has previously been defined in '"
-							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
-							+ "Maybe you forgot 'refined to'");
+					error(ne,
+							"Connection '" + ne.getName() + "' has previously been defined in '"
+									+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+									+ "Maybe you forgot 'refined to'");
 				} else if (ne instanceof EndToEndFlow && duplicated instanceof EndToEndFlow) {
-					error(ne, "End to end flow '" + ne.getName() + "' has previously been defined in '"
-							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
-							+ "Maybe you forgot 'refined to'");
+					error(ne,
+							"End to end flow '" + ne.getName() + "' has previously been defined in '"
+									+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+									+ "Maybe you forgot 'refined to'");
 				} else if (ne instanceof SubprogramCallSequence) {
 					error(ne, "Idenitifer '" + ne.getName() + "' has previously been defined in '"
 							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
@@ -2474,7 +2549,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
 							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
 				} else {
-					// least helpful catch all error in case something was overlooked
+					// least helpful catch all error in case something was
+					// overlooked
 					error(ne,
 							"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
 									+ duplicated.getContainingClassifier().getQualifiedName() + "' or in type '"
@@ -2659,20 +2735,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 				NamedElement duplicated = null;
 				duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
-				if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
-						.eClass().equals(duplicated.eClass()))
-						|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+				if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature)
+						|| (duplicated instanceof AbstractPrototype && ne instanceof Prototype))
+						&& !ne.eClass().equals(duplicated.eClass()))
+						|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype)
+								|| (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
 					error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
 							+ "' previously defined in " + duplicated.getContainingClassifier().getName());
-				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
-						.getRefined() != null))
-						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
-								.getRefined() != null))) {
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null)
+						&& (duplicated instanceof Feature && ((Feature) duplicated).getRefined() != null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null)
+								&& (duplicated instanceof Prototype
+										&& ((Prototype) duplicated).getRefined() != null))) {
 					continue;
-				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
-						.getRefined() == null))
-						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
-								.getRefined() == null))) {
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null)
+						&& (duplicated instanceof Feature && ((Feature) duplicated).getRefined() == null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null)
+								&& (duplicated instanceof Prototype
+										&& ((Prototype) duplicated).getRefined() == null))) {
 					continue;
 				} else {
 					postRefineableErrorWithFix(ne, duplicated);
@@ -2706,8 +2786,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkComponentImplementationInPackageSection(ComponentImplementation componentImplementation) {
 		if (componentImplementation.getOwner() instanceof PublicPackageSection
 				&& ((AadlPackage) componentImplementation.getElementRoot()).getPrivateSection() != null
-				&& ((AadlPackage) componentImplementation.getElementRoot()).getPrivateSection().findNamedElement(
-						componentImplementation.getName()) instanceof ComponentImplementation) {
+				&& ((AadlPackage) componentImplementation.getElementRoot()).getPrivateSection()
+						.findNamedElement(componentImplementation.getName()) instanceof ComponentImplementation) {
 			for (EObject child : componentImplementation.getOwnedElements()) {
 				if (child instanceof ClassifierFeature && !(child instanceof ModeFeature)) {
 					error("When a component implementation is declared in both the public section and the private"
@@ -2819,8 +2899,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(typeOfChild)) {
 			return;
 		}
-		for (ComponentType currentType = typeOfChild; currentType != null && !isAncestor; currentType = currentType
-				.getExtended()) {
+		for (ComponentType currentType = typeOfChild; currentType != null
+				&& !isAncestor; currentType = currentType.getExtended()) {
 			if (currentType.equals(typeOfParent)) {
 				isAncestor = true;
 			}
@@ -2840,7 +2920,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkRealizationCategory(Realization realization) {
 		ComponentType type = realization.getImplemented();
 		if (Aadl2Util.isNull(type)) {
-			return; // unresolved type. has been reported already as such. no need to check category
+			return; // unresolved type. has been reported already as such. no
+					// need to check category
 		}
 		ComponentImplementation implementation = (ComponentImplementation) realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory())) {
@@ -2887,8 +2968,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (hasExtendCycles(componentImplementation.getType())) {
 				return;
 			}
-			for (ComponentType currentType = componentImplementation.getType(); currentType != null && !typeHasModes; currentType = currentType
-					.getExtended()) {
+			for (ComponentType currentType = componentImplementation.getType(); currentType != null
+					&& !typeHasModes; currentType = currentType.getExtended()) {
 				if (!currentType.getOwnedModes().isEmpty()) {
 					typeHasModes = true;
 				}
@@ -3055,17 +3136,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(componentImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parent = componentImplementation.getExtended(); parent instanceof AbstractImplementation; parent = parent
-				.getExtended()) {
+		for (ComponentImplementation parent = componentImplementation
+				.getExtended(); parent instanceof AbstractImplementation; parent = parent.getExtended()) {
 			for (Subcomponent subcomponent : parent.getOwnedSubcomponents()) {
 				categoriesOfInheritedSubcomponents.add(subcomponent.getCategory());
 			}
 		}
 		for (ComponentCategory subcomponentCategory : categoriesOfInheritedSubcomponents) {
 			if (!acceptableSubcomponentCategories.contains(subcomponentCategory)) {
-				error(componentImplementation.getOwnedExtension(), "A " + implementationCategory.getName()
-						+ " implementation cannot extend an abstract implementation that contains a "
-						+ subcomponentCategory.getName() + " subcomponent.");
+				error(componentImplementation.getOwnedExtension(),
+						"A " + implementationCategory.getName()
+								+ " implementation cannot extend an abstract implementation that contains a "
+								+ subcomponentCategory.getName() + " subcomponent.");
 			}
 		}
 	}
@@ -3113,7 +3195,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							dimensionSize = ((IntegerLiteral) cv).getValue();
 						}
 					} else if (asp instanceof Property) {
-						error(dimension, "Array size cannot be a property if implementation reference list is defined.");
+						error(dimension,
+								"Array size cannot be a property if implementation reference list is defined.");
 						return;
 					}
 				}
@@ -3149,8 +3232,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks legality rule 8 in section 4.6 (Abstract Components) on page 53.
 	 * "If an abstract component implementation is refined to a concrete
 	 * category, the subcomponents of the abstract component implementation must
-	 * be acceptable for the concrete component implementation."
-	 * Note: this also covers rule L5 in section 4.6.
+	 * be acceptable for the concrete component implementation." Note: this also
+	 * covers rule L5 in section 4.6.
 	 */
 	private void checkSubcomponentsHierarchy(Subcomponent subcomponent) {
 		if (subcomponent.getCategory().equals(ComponentCategory.ABSTRACT)) {
@@ -3168,8 +3251,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (hasExtendCycles(refinedSubcomponent.getClassifier())) {
 				return;
 			}
-			for (ComponentImplementation impl = (ComponentImplementation) refinedSubcomponent.getClassifier(); impl instanceof AbstractImplementation; impl = impl
-					.getExtended()) {
+			for (ComponentImplementation impl = (ComponentImplementation) refinedSubcomponent
+					.getClassifier(); impl instanceof AbstractImplementation; impl = impl.getExtended()) {
 				for (Subcomponent nestedSubcomponent : impl.getOwnedSubcomponents()) {
 					categoriesOfNestedSubcomponents.add(nestedSubcomponent.getCategory());
 				}
@@ -3189,9 +3272,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (refinedSubcomponent.getClassifier() instanceof AbstractType) {
 			abstractType = (AbstractType) refinedSubcomponent.getClassifier();
 		} else if (refinedSubcomponent.getClassifier() instanceof AbstractImplementation &&
-		// This second part of this if expression will not be false for
-		// semantically correct models.
-				((AbstractImplementation) refinedSubcomponent.getClassifier()).getOwnedRealization().getImplemented() instanceof AbstractType) {
+				// This second part of this if expression will not be false for
+				// semantically correct models.
+		((AbstractImplementation) refinedSubcomponent.getClassifier()).getOwnedRealization()
+				.getImplemented() instanceof AbstractType) {
 			abstractType = ((AbstractImplementation) refinedSubcomponent.getClassifier()).getType();
 		} else {
 			abstractType = null;
@@ -3222,15 +3306,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the category of the prototype is identical to the category of
-	 * the specified component classifier.
-	 * Rule L2 in section 4.7 (revised AADLV2)
-	 * "The component category of the optional component classifier reference in the component prototype declaration must match
-	 * the category in the prototype declaration."
+	 * the specified component classifier. Rule L2 in section 4.7 (revised
+	 * AADLV2) "The component category of the optional component classifier
+	 * reference in the component prototype declaration must match the category
+	 * in the prototype declaration."
 	 */
 	private void checkComponentPrototypeCategory(ComponentPrototype prototype) {
-		if (prototype.getConstrainingClassifier() != null
-				&& !getComponentPrototypeCategory(prototype)
-						.equals(prototype.getConstrainingClassifier().getCategory())) {
+		if (prototype.getConstrainingClassifier() != null && !getComponentPrototypeCategory(prototype)
+				.equals(prototype.getConstrainingClassifier().getCategory())) {
 
 			String changeFrom = getComponentPrototypeCategory(prototype).getName();
 			String changeTo = prototype.getConstrainingClassifier().getCategory().getName();
@@ -3245,8 +3328,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56. "The
 	 * component category declared in the component prototype binding must match
-	 * the component category of the prototype, or the declared category component category
-	 * of the prototype must be abstract."
+	 * the component category of the prototype, or the declared category
+	 * component category of the prototype must be abstract."
 	 */
 	private void checkComponentPrototypeBindingCategory(ComponentPrototypeBinding binding) {
 		if (binding.getFormal() instanceof ComponentPrototype) {
@@ -3268,8 +3351,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 10 in section 4.7 (Prototypes) on page 56. "(L10)	The component category of the classifier reference
-	 * or prototype reference in a prototype binding declaration must match the category of the prototype."
+	 * Checks legality rule 10 in section 4.7 (Prototypes) on page 56. "(L10)
+	 * The component category of the classifier reference or prototype reference
+	 * in a prototype binding declaration must match the category of the
+	 * prototype."
 	 */
 	private void checkComponentPrototypeActualComponentCategory(ComponentPrototypeActual actual) {
 		if (actual.eIsProxy()) {
@@ -3278,12 +3363,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			SubcomponentType st = actual.getSubcomponentType();
 			if (st == null) {
 				error(actual, "The classifier or prototype of the prototype actual could not be found.");
-			} else if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
-					&& !actual.getCategory().equals(
-							st instanceof ComponentClassifier ? ((ComponentClassifier) st).getCategory()
-									: getComponentPrototypeCategory((ComponentPrototype) st))) {
-				ComponentCategory componentCategory = st instanceof ComponentClassifier ? ((ComponentClassifier) st)
-						.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st);
+			} else if (!actual.getCategory().equals(ComponentCategory.ABSTRACT) && !actual.getCategory()
+					.equals(st instanceof ComponentClassifier ? ((ComponentClassifier) st).getCategory()
+							: getComponentPrototypeCategory((ComponentPrototype) st))) {
+				ComponentCategory componentCategory = st instanceof ComponentClassifier
+						? ((ComponentClassifier) st).getCategory()
+						: getComponentPrototypeCategory((ComponentPrototype) st);
 				String changeFrom = actual.getCategory().getName();
 				String changeTo = componentCategory.getName();
 				String offset = "" + findKeywordOffset(actual, changeFrom);
@@ -3305,9 +3390,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Peter is going to change the wording of this to make parts of it less
 	 * restrictive.
 	 *
-	 * Checks legality rule 11 in section 4.7 (Prototypes) on page 57.
-	 * "(L11)	If a direction is specified for an abstract feature in a prototype declaration,
-	 * then the direction of the prototype actual must match that declared in the prototype."
+	 * Checks legality rule 11 in section 4.7 (Prototypes) on page 57. "(L11) If
+	 * a direction is specified for an abstract feature in a prototype
+	 * declaration, then the direction of the prototype actual must match that
+	 * declared in the prototype."
 	 */
 	private void checkFeaturePrototypeBindingDirection(FeaturePrototypeBinding binding) {
 		if (binding.getFormal() instanceof FeaturePrototype) {
@@ -3324,7 +3410,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					String changeFrom = actualDirection.toString();
 					String changeTo = formalDirection.toString();
 					error("The direction specified in the binding is inconsistent with the direction of the formal prototype.",
-							binding, null, PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL, changeFrom, changeTo);
+							binding, null, PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL, changeFrom,
+							changeTo);
 				}
 			}
 		}
@@ -3402,8 +3489,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkCategoryOfRefinedComponentPrototype(ComponentPrototype prototype) {
 		if (prototype.getRefined() != null && prototype.getRefined() instanceof ComponentPrototype) {
-			ComponentCategory refinedPrototypeCategory = getComponentPrototypeCategory((ComponentPrototype) prototype
-					.getRefined());
+			ComponentCategory refinedPrototypeCategory = getComponentPrototypeCategory(
+					(ComponentPrototype) prototype.getRefined());
 			if (!refinedPrototypeCategory.equals(ComponentCategory.ABSTRACT)
 					&& !refinedPrototypeCategory.equals(getComponentPrototypeCategory(prototype))) {
 
@@ -3475,8 +3562,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(dataType)) {
 			return;
 		}
-		for (ComponentType parentType = dataType.getExtended(); parentType instanceof AbstractType; parentType = parentType
-				.getExtended()) {
+		for (ComponentType parentType = dataType
+				.getExtended(); parentType instanceof AbstractType; parentType = parentType.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty()) {
 				parentHasFlowSpecs = true;
 			}
@@ -3497,8 +3584,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModes) {
-			error("A data type cannot extend an abstract type that contains modes.", dataType.getOwnedExtension(),
-					null, GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
+			error("A data type cannot extend an abstract type that contains modes.", dataType.getOwnedExtension(), null,
+					GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModeTransitions) {
 			error("A data type cannot extend an abstract type that contains a mode transition.",
@@ -3522,8 +3609,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(dataImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = dataImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = dataImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!parentImplementation.getOwnedFlowImplementations().isEmpty()) {
 				parentHasFlowImpl = true;
 			}
@@ -3555,6 +3643,163 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+	private void checkDataSizeProperty(DataImplementation dataImplementation) {
+		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
+				MemoryProperties.DATA_SIZE);
+		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
+		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
+				0.0);
+		if (implementationSize == 0.0){
+			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
+					MemoryProperties.SOURCE_DATA_SIZE);
+			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
+					0.0);	}
+		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
+		if (implementationSize == 0.0 || sum == 0.0) return;
+		if (sum > implementationSize) {
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
+					+ " Bytes) is smaller than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
+					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
+		} else if (sum < implementationSize) {
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
+					+ " Bytes) is larger than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
+					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
+		}
+		// try {
+		// LongWithUnits implementationSize = new
+		// LongWithUnits((IntegerLiteral)PropertyUtils.getSimplePropertyValue(dataImplementation,
+		// dataSizeProperty));
+		// List<Optional<LongWithUnits>> subcomponentSizes =
+		// getSizesForSubcomponents(dataImplementation,
+		// dataSizeProperty).collect(Collectors.toList());
+		// Optional<LongWithUnits> optionalSum =
+		// subcomponentSizes.stream().filter(subcomponentSize ->
+		// subcomponentSize.isPresent()).map(subcomponentSize ->
+		// subcomponentSize.get()).reduce((a, b) -> a.add(b));
+		// if (optionalSum.isPresent()) {
+		// LongWithUnits sum = optionalSum.get();
+		// if (subcomponentSizes.stream().anyMatch(subcomponentSize ->
+		// !subcomponentSize.isPresent())) {
+		// if (sum.isGreaterThan(implementationSize)) {
+		// error("Data size of \"" + dataImplementation.getName() + "\" (" +
+		// implementationSize + ") is smaller than the sum of its subcomponents
+		// (" + sum +").",
+		// dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name());
+		// }
+		// } else if (!implementationSize.equals(sum)) {
+		// error("Data size of \"" + dataImplementation.getName() + "\" (" +
+		// implementationSize + ") does not match the sum of its subcomponents
+		// (" + sum + ").",
+		// dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name());
+		// }
+		// }
+		// } catch (PropertyIsModalException | PropertyNotPresentException e) {
+		// //Do not report any errors in this case.
+		// }
+	}
+
+	private static Stream<Optional<LongWithUnits>> getSizesForSubcomponents(DataImplementation dataImplementation,
+			Property dataSizeProperty) {
+		return dataImplementation.getAllSubcomponents().stream()
+				.filter(subcomponent -> subcomponent instanceof DataSubcomponent)
+				.<Optional<LongWithUnits>> flatMap(dataSubcomponent -> {
+					try {
+						return Stream.of(Optional.of(new LongWithUnits((IntegerLiteral) PropertyUtils
+								.getSimplePropertyValue(dataSubcomponent, dataSizeProperty))));
+					} catch (PropertyNotPresentException e) {
+						ComponentImplementation subcomponentClassifier = dataSubcomponent.getComponentImplementation();
+						if (subcomponentClassifier instanceof DataImplementation) {
+							return getSizesForSubcomponents((DataImplementation) subcomponentClassifier,
+									dataSizeProperty);
+						} else {
+							return Stream.of(Optional.empty());
+						}
+					}
+				});
+	}
+
+	private static class LongWithUnits {
+		private final long value;
+		private final UnitLiteral unit;
+
+		public LongWithUnits(IntegerLiteral integerLiteral) {
+			value = integerLiteral.getValue();
+			unit = integerLiteral.getUnit();
+		}
+
+		private LongWithUnits(long value, UnitLiteral unit) {
+			this.value = value;
+			this.unit = unit;
+		}
+
+		public LongWithUnits add(LongWithUnits other) {
+			if (unit == other.unit) {
+				return new LongWithUnits(value + other.value, unit);
+			} else {
+				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+				LongWithUnits thisConverted = convertTo(targetUnit);
+				LongWithUnits otherConverted = other.convertTo(targetUnit);
+				return new LongWithUnits(thisConverted.value + otherConverted.value, targetUnit);
+			}
+		}
+
+		public boolean isGreaterThan(LongWithUnits other) {
+			if (unit == other.unit) {
+				return value > other.value;
+			} else {
+				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+				LongWithUnits thisConverted = convertTo(targetUnit);
+				LongWithUnits otherConverted = other.convertTo(targetUnit);
+				return thisConverted.value > otherConverted.value;
+			}
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof LongWithUnits) {
+				LongWithUnits other = (LongWithUnits) obj;
+				if (unit == other.unit) {
+					return value == other.value;
+				} else {
+					UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+					LongWithUnits thisConverted = convertTo(targetUnit);
+					LongWithUnits otherConverted = other.convertTo(targetUnit);
+					return thisConverted.value == otherConverted.value;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String toString() {
+			return value + " " + unit.getName();
+		}
+
+		private static UnitLiteral getTargetUnit(UnitLiteral a, UnitLiteral b) {
+			final EList<EnumerationLiteral> unitLiterals = ((UnitsType) a.getOwner()).getOwnedLiterals();
+			if (unitLiterals.indexOf(a) < unitLiterals.indexOf(b)) {
+				return a;
+			} else {
+				return b;
+			}
+		}
+
+		private LongWithUnits convertTo(UnitLiteral targetUnit) {
+			if (unit == targetUnit) {
+				return this;
+			} else {
+				long currentValue = value;
+				UnitLiteral currentUnit = unit;
+				while (currentUnit != targetUnit) {
+					currentValue = currentValue * ((IntegerLiteral) currentUnit.getFactor()).getValue();
+					currentUnit = currentUnit.getBaseUnit();
+				}
+				return new LongWithUnits(currentValue, currentUnit);
+			}
+		}
+	}
+
 	/**
 	 * Checks legality rule 4 in section 5.5 (Thread Groups) on page 95.
 	 * "A thread group must not contain a subprogam calls subclause." This rule
@@ -3567,8 +3812,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(threadGroupImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = threadGroupImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = threadGroupImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!((AbstractImplementation) parentImplementation).getOwnedSubprogramCallSequences().isEmpty()) {
 				parentHasCallSequence = true;
 			}
@@ -3585,13 +3831,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * This rule is partly checked by the parser. This method checks for
 	 * inherited members from an AbstractImplementation.
 	 */
-	private void checkForInheritedCallSequenceFromAbstractImplementation(ProcessorImplementation processorImplementation) {
+	private void checkForInheritedCallSequenceFromAbstractImplementation(
+			ProcessorImplementation processorImplementation) {
 		boolean parentHasCallSequence = false;
 		if (hasExtendCycles(processorImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = processorImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = processorImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!((AbstractImplementation) parentImplementation).getOwnedSubprogramCallSequences().isEmpty()) {
 				parentHasCallSequence = true;
 			}
@@ -3614,8 +3862,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(virtualProcessorImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = virtualProcessorImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = virtualProcessorImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!((AbstractImplementation) parentImplementation).getOwnedSubprogramCallSequences().isEmpty()) {
 				parentHasCallSequence = true;
 			}
@@ -3638,8 +3887,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(memoryType)) {
 			return;
 		}
-		for (ComponentType parentType = memoryType.getExtended(); parentType instanceof AbstractType; parentType = parentType
-				.getExtended()) {
+		for (ComponentType parentType = memoryType
+				.getExtended(); parentType instanceof AbstractType; parentType = parentType.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty()) {
 				parentHasFlowSpec = true;
 			}
@@ -3668,8 +3917,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(memoryImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = memoryImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = memoryImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!parentImplementation.getOwnedFlowImplementations().isEmpty()) {
 				parentHasFlowImpl = true;
 			}
@@ -3705,8 +3955,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(busType)) {
 			return;
 		}
-		for (ComponentType parentType = busType.getExtended(); parentType instanceof AbstractType; parentType = parentType
-				.getExtended()) {
+		for (ComponentType parentType = busType
+				.getExtended(); parentType instanceof AbstractType; parentType = parentType.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty()) {
 				parentHasFlowSpec = true;
 			}
@@ -3727,7 +3977,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * parser. This method checks for inherited members from an
 	 * AbstractImplementation.
 	 */
-	private void checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(BusImplementation busImplementation) {
+	private void checkForInheritedConnectionsFlowsAndCallsFromAbstractImplementation(
+			BusImplementation busImplementation) {
 		boolean parentHasConnections = false;
 		boolean parentHasFlowImpl = false;
 		boolean parentHasETEFlow = false;
@@ -3735,8 +3986,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(busImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = busImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = busImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!parentImplementation.getOwnedConnections().isEmpty()) {
 				parentHasConnections = true;
 			}
@@ -3779,8 +4031,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(virtualBusType)) {
 			return;
 		}
-		for (ComponentType parentType = virtualBusType.getExtended(); parentType instanceof AbstractType; parentType = parentType
-				.getExtended()) {
+		for (ComponentType parentType = virtualBusType
+				.getExtended(); parentType instanceof AbstractType; parentType = parentType.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty()) {
 				parentHasFlowSpec = true;
 			}
@@ -3810,8 +4062,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(virtualBusImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = virtualBusImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = virtualBusImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!parentImplementation.getOwnedConnections().isEmpty()) {
 				parentHasConnections = true;
 			}
@@ -3854,8 +4107,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (hasExtendCycles(deviceImplementation)) {
 			return;
 		}
-		for (ComponentImplementation parentImplementation = deviceImplementation.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
-				.getExtended()) {
+		for (ComponentImplementation parentImplementation = deviceImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+						.getExtended()) {
 			if (!((AbstractImplementation) parentImplementation).getOwnedSubprogramCallSequences().isEmpty()) {
 				parentHasCallSequence = true;
 			}
@@ -3902,8 +4156,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			ComponentType componentType = (ComponentType) e;
 			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType)
 					&& !(componentType instanceof DataType) && !(componentType instanceof MemoryType)
-					&& !(componentType instanceof BusType)
-					&&
+					&& !(componentType instanceof BusType) &&
 					// JD : allow for system type as well
 					!(componentType instanceof SystemType) && !(componentType instanceof DeviceType)
 					&& !(componentType instanceof ProcessorType)) {
@@ -3914,9 +4167,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if (feature instanceof FeatureGroup) {
-				// feature array can either be on the feature group declaration or on
-				// on features inside the feature group type of the feature group.
-				// Having it on both would lead to a multi-dimensional feature array.
+				// feature array can either be on the feature group declaration
+				// or on
+				// on features inside the feature group type of the feature
+				// group.
+				// Having it on both would lead to a multi-dimensional feature
+				// array.
 				FeatureGroup fg = (FeatureGroup) feature;
 				if (!fg.getArrayDimensions().isEmpty()) {
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
@@ -3972,7 +4228,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (containsNonSubprogramGroupFeatures(((FeatureGroup) feature).getAllFeatureGroupType())) {
 					return true;
 				}
-			} else if (!(feature instanceof SubprogramAccess || feature instanceof SubprogramGroupAccess || feature instanceof AbstractFeature)) {
+			} else if (!(feature instanceof SubprogramAccess || feature instanceof SubprogramGroupAccess
+					|| feature instanceof AbstractFeature)) {
 				return true;
 			}
 		}
@@ -3991,7 +4248,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			} else if (!(feature instanceof SubprogramAccess || feature instanceof SubprogramGroupAccess
 					|| feature instanceof AbstractFeature || feature instanceof Parameter
-					|| feature instanceof DataAccess || feature instanceof EventPort || feature instanceof EventDataPort)) {
+					|| feature instanceof DataAccess || feature instanceof EventPort
+					|| feature instanceof EventDataPort)) {
 				return true;
 			}
 		}
@@ -4010,8 +4268,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (hasExtendCycles(componentType)) {
 				return;
 			}
-			for (ComponentType parentType = componentType.getExtended(); parentType instanceof AbstractType; parentType = parentType
-					.getExtended()) {
+			for (ComponentType parentType = componentType
+					.getExtended(); parentType instanceof AbstractType; parentType = parentType.getExtended()) {
 				for (Feature inheritedFeature : parentType.getOwnedFeatures()) {
 					if (!inheritedFeature.getArrayDimensions().isEmpty()) {
 						parentHasFeatureArray = true;
@@ -4056,7 +4314,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// !feature.getRefined().getArraySpecification().getSizes().isEmpty())
 		// {
 		// error(feature.getArraySpecification().getSizes().get(0),
-		// "Cannot specify an array dimension size because the refined feature already specified the array dimension size.");
+		// "Cannot specify an array dimension size because the refined feature
+		// already specified the array dimension size.");
 		// }
 	}
 
@@ -4093,10 +4352,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			// For ports and parameters, the directions must be the same value.
 			// All other DirectedFeatures have the option of refining from
 			// IN_OUT to IN or OUT.
-			// in case of a feature group leaving off the direction mean it inherits the original direction.
-			if (!direction.equals(originalDirection)
-					&& ((feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !originalDirection
-							.equals(DirectionType.IN_OUT)))) {
+			// in case of a feature group leaving off the direction mean it
+			// inherits the original direction.
+			if (!direction.equals(originalDirection) && ((feature.getRefined() instanceof Port
+					|| feature.getRefined() instanceof Parameter || !originalDirection.equals(DirectionType.IN_OUT)))) {
 
 				String changeFrom = direction.getName();
 				String changeTo = originalDirection.getName();
@@ -4241,7 +4500,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					continue;
 				}
 
-				// cast to type, if port or access then make sure directions are opposite
+				// cast to type, if port or access then make sure directions are
+				// opposite
 				if (feature instanceof DirectedFeature) {
 					DirectionType directType = ((DirectedFeature) feature).getDirection();
 					DirectionType directTypeInversed = directType.getInverseDirection();
@@ -4301,10 +4561,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		FeatureGroupType extending = (FeatureGroupType) extension.getSpecific();
 		if (!extended.getOwnedFeatures().isEmpty() && extended.getInverse() != null
 				&& !extending.getOwnedFeatures().isEmpty() && extending.getInverse() == null) {
-// XXX: phf commented out because we may allow independnet refinement and then pick up the inverseof from the ancestor
+			// XXX: phf commented out because we may allow independnet
+			// refinement and then pick up the inverseof from the ancestor
 			// warning(extending,
-//					"Must specify inverse because local features are defined and the extended feature group type has an"
-//							+ " 'inverse of' declaration.");
+			// "Must specify inverse because local features are defined and the
+			// extended feature group type has an"
+			// + " 'inverse of' declaration.");
 		}
 	}
 
@@ -4368,12 +4630,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L1 for section 8.4 (Subprogram and
-	 * Subprogram Group Access) "If a subprogram access refers to a component
-	 * classifier or a component prototype, then the category of the classifier
-	 * or prototype must be subprogram." For references to classifiers, the
-	 * meta-model only allows for a subprogram classifier. Therefore, this
-	 * method only checks the prototype reference.
+	 * Checks legality rule L1 for section 8.4 (Subprogram and Subprogram Group
+	 * Access) "If a subprogram access refers to a component classifier or a
+	 * component prototype, then the category of the classifier or prototype
+	 * must be subprogram." For references to classifiers, the meta-model only
+	 * allows for a subprogram classifier. Therefore, this method only checks
+	 * the prototype reference.
 	 */
 	private void checkSubprogramAccessPrototypeReference(SubprogramAccess subprogramAccess) {
 		Prototype sp = subprogramAccess.getPrototype();
@@ -4383,32 +4645,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L2 for section 8.4 (Subprogram and
-	 * Subprogram Group Access) "If a subprogram group access refers to a
-	 * component classifier or a component prototype, then the category of the
-	 * classifier or prototype must be subprogram group." For references to
-	 * classifiers, the meta-model only allows for a subprogram group
-	 * classifier. Therefore, this method only checks the prototype reference.
+	 * Checks legality rule L2 for section 8.4 (Subprogram and Subprogram Group
+	 * Access) "If a subprogram group access refers to a component classifier or
+	 * a component prototype, then the category of the classifier or prototype
+	 * must be subprogram group." For references to classifiers, the meta-model
+	 * only allows for a subprogram group classifier. Therefore, this method
+	 * only checks the prototype reference.
 	 */
 	private void checkSubprogramGroupAccessPrototypeReference(SubprogramGroupAccess subprogramGroupAccess) {
 		Prototype sp = subprogramGroupAccess.getPrototype();
 		if (sp != null && !(sp instanceof SubprogramGroupPrototype)) {
-			error(subprogramGroupAccess, "The category of the referenced component prototype must be subprogram group.");
+			error(subprogramGroupAccess,
+					"The category of the referenced component prototype must be subprogram group.");
 		}
 	}
 
 	/**
-	 * Checks legality rule L3 for section 8.4 (Subprogram and
-	 * Subprogram Group Access) "An abstract feature can be refined into a
-	 * subprogram access or a subprogram group access. In this case, the
+	 * Checks legality rule L3 for section 8.4 (Subprogram and Subprogram Group
+	 * Access) "An abstract feature can be refined into a subprogram access or a
+	 * subprogram group access. In this case, the abstract feature must not have
+	 * a direction specified."
+	 *
+	 * Checks legality rule L4 for section 8.6 (Data Component Access) "An
+	 * abstract feature can be refined into a data access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 *
-	 * Checks legality rule L4 for section 8.6 (Data Component Access)
-	 * "An abstract feature can be refined into a data access. In this case, the
-	 * abstract feature must not have a direction specified."
-	 *
-	 * Checks legality rule L4 for section 8.7 (Bus Component Access)
-	 * "An abstract feature can be refined into a bus access. In this case, the
+	 * Checks legality rule L4 for section 8.7 (Bus Component Access) "An
+	 * abstract feature can be refined into a bus access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 */
 	private void checkForAbstractFeatureDirectionInAccessRefinement(Access access) {
@@ -4419,24 +4682,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L6 for section 8.4 (Subprogram and
-	 * Subprogram Group Access) "A provides subprogram access cannot be refined
-	 * to a requires subprogram access and a requires subprogram access cannot
-	 * be refined to a provides subprogram access. Similarly, a provides
-	 * subprogram group access cannot be refined to a requires subprogram group
-	 * access and a requires subprogram group access cannot be refined to a
-	 * provides subprogram group access."
+	 * Checks legality rule L6 for section 8.4 (Subprogram and Subprogram Group
+	 * Access) "A provides subprogram access cannot be refined to a requires
+	 * subprogram access and a requires subprogram access cannot be refined to a
+	 * provides subprogram access. Similarly, a provides subprogram group access
+	 * cannot be refined to a requires subprogram group access and a requires
+	 * subprogram group access cannot be refined to a provides subprogram group
+	 * access."
 	 *
-	 * Checks legality rule L3 for section 8.6 (Data Component Access)
-	 * "A provides data access cannot be refined to a requires data access and a
+	 * Checks legality rule L3 for section 8.6 (Data Component Access) "A
+	 * provides data access cannot be refined to a requires data access and a
 	 * requires data access cannot be refined to a provides data access."
 	 *
-	 * Checks rule L3 for section 8.7 (Bus Component Access) "A
-	 * provides bus access cannot be refined to a requires bus access and a
-	 * requires bus access cannot be refined to a provides bus access."
+	 * Checks rule L3 for section 8.7 (Bus Component Access) "A provides bus
+	 * access cannot be refined to a requires bus access and a requires bus
+	 * access cannot be refined to a provides bus access."
 	 */
 	private void checkForAccessTypeInAccessRefinement(Access access) {
-		if (access.getRefined() instanceof Access && !access.getKind().equals(((Access) access.getRefined()).getKind())) {
+		if (access.getRefined() instanceof Access
+				&& !access.getKind().equals(((Access) access.getRefined()).getKind())) {
 
 			String changeFrom = access.getKind().getName();
 			String changeTo = ((Access) access.getRefined()).getKind().getName();
@@ -4452,12 +4716,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L1 for section 8.6 (Data Component Access)
-	 * "If a data access refers to a component classifier or a component
-	 * prototype, then the category of the classifier or prototype must be
-	 * data." For references to classifiers, the meta-model only allows for a
-	 * data classifier. Therefore, this method only checks the prototype
-	 * reference.
+	 * Checks legality rule L1 for section 8.6 (Data Component Access) "If a
+	 * data access refers to a component classifier or a component prototype,
+	 * then the category of the classifier or prototype must be data." For
+	 * references to classifiers, the meta-model only allows for a data
+	 * classifier. Therefore, this method only checks the prototype reference.
 	 */
 	private void checkDataAccessPrototypeReference(DataAccess dataAccess) {
 		Prototype dp = dataAccess.getPrototype();
@@ -4532,59 +4795,59 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L13 for section 9.2 (Port Connections)
-	 * "For connections between data ports, event data ports, and data access,
-	 * the data classifier of the source port must match the data type of the
-	 * destination port.  The Classifier_Matching_Rule property specifies the
-	 * rule to be applied to match the data classifier of a connection source
-	 * to the data classifier of a connection destination."
+	 * Checks legality rule L13 for section 9.2 (Port Connections) "For
+	 * connections between data ports, event data ports, and data access, the
+	 * data classifier of the source port must match the data type of the
+	 * destination port. The Classifier_Matching_Rule property specifies the
+	 * rule to be applied to match the data classifier of a connection source to
+	 * the data classifier of a connection destination."
 	 *
-	 * Checks legality rule L14 for section 9.2 (Port Connections)
-	 * "The following rules are supported:
+	 * Checks legality rule L14 for section 9.2 (Port Connections) "The
+	 * following rules are supported:
 	 *
 	 * -Classifier_Match: The source data type and data implementation must be
-	 * identical to the data type or data implementation of the destination.
-	 * If the destination classifier is a component type, then any
-	 * implementation of the source matches.  This is the default rule.
+	 * identical to the data type or data implementation of the destination. If
+	 * the destination classifier is a component type, then any implementation
+	 * of the source matches. This is the default rule.
 	 *
 	 * -Equivalence: An indication that the two classifiers of a connection are
 	 * considered to match if they are listed in the
-	 * Supported_Classifier_Equivalence_Matches property.  Acceptable data
+	 * Supported_Classifier_Equivalence_Matches property. Acceptable data
 	 * classifiers matches are specified as
 	 * Supported_Classifier_Equivalence_Matches property with pairs of
-	 * classifier values representing acceptable matches.  Either element of
-	 * the pair can be the source or destination classifier.  Equivalence is
-	 * intended to be used when the data types are considered to be identical,
-	 * i.e., no conversion is necessary.  The
-	 * Supported_Classifier_Equivalence_Matches property is declared globally
-	 * as a property constant.
+	 * classifier values representing acceptable matches. Either element of the
+	 * pair can be the source or destination classifier. Equivalence is intended
+	 * to be used when the data types are considered to be identical, i.e., no
+	 * conversion is necessary. The Supported_Classifier_Equivalence_Matches
+	 * property is declared globally as a property constant.
 	 *
-	 * -Subset: A mapping of (a subset of) data elements of the source port
-	 * data type to all data elements of the destination port data type.
-	 * Acceptable data classifier matches are specified as
+	 * -Subset: A mapping of (a subset of) data elements of the source port data
+	 * type to all data elements of the destination port data type. Acceptable
+	 * data classifier matches are specified as
 	 * Supported_Classifier_Subset_Matches property with pairs of classifier
-	 * values representing acceptable matches.  The first element of each pair
+	 * values representing acceptable matches. The first element of each pair
 	 * specifies the acceptable source classifier, while the second element
-	 * specifies the acceptable destination classifier.  The
+	 * specifies the acceptable destination classifier. The
 	 * Supported_Classifier_Subset_Matches property is declared globally as a
-	 * property constant.  A virtual bus or bus must represent a protocol that
+	 * property constant. A virtual bus or bus must represent a protocol that
 	 * supports subsetting, such as OMG DDS.
 	 *
 	 * -Conversion: A mapping of the source port data type to the destination
 	 * port data type, where the source port data type requires a conversion to
-	 * the destination port data type.  Acceptable data classifier matches are
-	 * specified as Supported_Type_Conversions property with pairs of
-	 * classifier values representing acceptable matches.  The first element of
-	 * each pair specifies the acceptable source classifier, while the second
-	 * element specifies the acceptable destination classifier.  The
+	 * the destination port data type. Acceptable data classifier matches are
+	 * specified as Supported_Type_Conversions property with pairs of classifier
+	 * values representing acceptable matches. The first element of each pair
+	 * specifies the acceptable source classifier, while the second element
+	 * specifies the acceptable destination classifier. The
 	 * Supported_Type_Conversions property may be declared globally as a
-	 * property constant.  A virtual bus or bus must support the conversion
-	 * from the source data classifier to the destination classifier."
+	 * property constant. A virtual bus or bus must support the conversion from
+	 * the source data classifier to the destination classifier."
 	 */
 	private void checkPortConnectionClassifiers(PortConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
-		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort || source instanceof EventDataPort)
+		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort
+				|| source instanceof EventDataPort)
 				&& (destination instanceof DataAccess || destination instanceof DataSubcomponent
 						|| destination instanceof DataPort || destination instanceof EventDataPort)) {
 			Classifier sourceClassifier;
@@ -4619,12 +4882,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (classifierMatchingRuleValue == null
 						|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())
-//						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+				// ||
+				// classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
 				) {
-//					if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-//						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-//								"' instead.");
-//					}
+					// if (classifierMatchingRuleValue != null &&
+					// ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
+					// {
+					// warning(connection, "The classifier matching rule '" +
+					// ModelingProperties.COMPLEMENT + "' is not supported for
+					// port connections. Using rule '" +
+					// ModelingProperties.CLASSIFIER_MATCH +
+					// "' instead.");
+					// }
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
@@ -4642,13 +4911,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
 									sourceClassifier, destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
@@ -4656,16 +4920,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection,
-									sourceClassifier, destinationClassifier)) {
+							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
@@ -4676,13 +4935,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
 									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
@@ -4741,8 +4995,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return false;
 	}
 
-	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection,
-			Classifier source, Classifier destination) {
+	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection, Classifier source,
+			Classifier destination) {
 		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
 				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
 		if (matchesPropertyConstant == null) {
@@ -4828,18 +5082,31 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (classifierMatchingRuleValue == null
 				|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier)) {
-				warning(target,
-						"Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName()
-								+ " does not satisfy 'Classifier Match'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
+						+ refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
 			}
 		} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 			if (!AadlUtil.isokClassifierSubstitutionTypeExtension(originalClassifier, refinedClassifier)) {
-				warning(target,
-						"Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName()
-								+ " does not satisfy 'Type Extension'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
+						+ refinedClassifier.getName() + " does not satisfy 'Type Extension'");
 			}
 		} else if (ModelingProperties.SIGNATURE_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 			info(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
+		}
+	}
+
+	private void checkFeatureConnectionFeatureGroupToFeatureOrAbstract(Connection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		if (source instanceof FeatureGroup
+				&& !(destination instanceof FeatureGroup || destination instanceof AbstractFeature)) {
+			error(connection,
+					"If source is a Feature Group then destination must be either a Feature Group or an Abstract Feature.");
+		}
+		if (destination instanceof FeatureGroup
+				&& !(source instanceof FeatureGroup || source instanceof AbstractFeature)) {
+			error(connection,
+					"If destination is a Feature Group then source must be either a Feature Group or an Abstract Feature.");
 		}
 	}
 
@@ -4873,7 +5140,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
 				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
 				if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					srcDirection = srcDirection.getInverseDirection();
 				}
 			}
@@ -4888,10 +5156,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
-			// between ports of subcomponents
+					// between ports of subcomponents
 					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
 					// from a data subcomponent to a port
-					|| (dstContext == null && destination instanceof DataSubcomponent && srcContext instanceof Subcomponent)
+					|| (dstContext == null && destination instanceof DataSubcomponent
+							&& srcContext instanceof Subcomponent)
 			// from a data subcomponent to a port
 			) {
 				if (!(srcDirection.outgoing() && dstDirection.incoming())) {
@@ -4926,101 +5195,124 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			} else {
-				// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
+				// we have a connection a component implementation going
+				// directly from its incoming feature to an outgoing feature
 				error(connection,
 						"Illegal connection: Cannot directly connect two features of the containing component.");
 			}
 		}
 	}
 
-//
-//	/**
-//	 * Check direction of ConnectionEnd in port connections
-//	 */
-//	private void checkFeatureConnectionDirection(Connection connection) {
-//		ConnectionEnd source = connection.getAllSource();
-//		ConnectionEnd destination = connection.getAllDestination();
-//		if (source instanceof FeatureConnectionEnd && destination instanceof FeatureConnectionEnd) {
-//			DirectionType srcDirection = DirectionType.IN_OUT;
-//			DirectionType dstDirection = DirectionType.IN_OUT;
-//			if (source instanceof DirectedFeature) {
-//				srcDirection = ((DirectedFeature) source).getDirection();
-//			}
-//			if (destination instanceof DirectedFeature) {
-//				dstDirection = ((DirectedFeature) destination).getDirection();
-//			}
-//			Context srcContext = connection.getAllSourceContext();
-//			Context dstContext = connection.getAllDestinationContext();
-//			if (srcContext instanceof FeatureGroup) {
-//				if (((FeatureGroup) srcContext).isInverse()) {
-//					srcDirection = srcDirection.getInverseDirection();
-//				}
-//				FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
-//				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
-//				if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
-//					// feature group type has inverse and feature is defined in the inverse FGT
-//					srcDirection = srcDirection.getInverseDirection();
-//				}
-//			}
-//			if (dstContext instanceof FeatureGroup) {
-//				if (((FeatureGroup) dstContext).isInverse()) {
-//					dstDirection = dstDirection.getInverseDirection();
-//				}
-//				FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup) dstContext).getFeatureType());
-//				FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
-//				if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT) && dstFGT.getInverse() != null) {
-//					dstDirection = dstDirection.getInverseDirection();
-//				}
-//			}
-//			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
-//			// between ports of subcomponents
-//					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
-//					// from a data subcomponent to a port
-//					|| (dstContext == null && destination instanceof DataSubcomponent && srcContext instanceof Subcomponent)
-//			// from a data subcomponent to a port
-//			) {
-//				if (!(srcDirection.outgoing() && dstDirection.incoming())) {
-//					error(connection, "Source must be outgoing and destination incoming.");
-//				}
-//			} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)
-//					|| (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
-//				// going up or down hierarchy
-//				if (!sameDirection(srcDirection, dstDirection)) {
-//					error(connection, "Source feature '" + source.getName() + "' and destination feature '"
-//							+ destination.getName() + "' must have same direction.");
-//				}
-//				if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
-//					if (!(srcDirection.outgoing())) {
-//						error("Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
-//								+ source.getName() + "'.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
-//					}
-//					if (!(dstDirection.outgoing())) {
-//						error("Outgoing connection requires outgoing feature '" + destination.getName() + "'.",
-//								connection, Aadl2Package.eINSTANCE.getConnection_Destination());
-//					}
-//				}
-//				if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
-//					if (!(dstDirection.incoming())) {
-//						error("Incoming connection requires incoming feature '" + dstContext.getName() + "."
-//								+ destination.getName() + "'.", connection,
-//								Aadl2Package.eINSTANCE.getConnection_Destination());
-//					}
-//					if (!(srcDirection.incoming())) {
-//						error("Incoming connection requires incoming feature '" + source.getName() + "'.", connection,
-//								Aadl2Package.eINSTANCE.getConnection_Source());
-//					}
-//				}
-//			} else {
-//
-//				// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
-//				if (!(srcDirection.incoming() && dstDirection.outgoing())) {
-//					error(connection, "Source feature '" + source.getName()
-//							+ "' must be incoming and destination feature '" + destination.getName()
-//							+ "' must be outgoing.");
-//				}
-//			}
-//		}
-//	}
+	//
+	// /**
+	// * Check direction of ConnectionEnd in port connections
+	// */
+	// private void checkFeatureConnectionDirection(Connection connection) {
+	// ConnectionEnd source = connection.getAllSource();
+	// ConnectionEnd destination = connection.getAllDestination();
+	// if (source instanceof FeatureConnectionEnd && destination instanceof
+	// FeatureConnectionEnd) {
+	// DirectionType srcDirection = DirectionType.IN_OUT;
+	// DirectionType dstDirection = DirectionType.IN_OUT;
+	// if (source instanceof DirectedFeature) {
+	// srcDirection = ((DirectedFeature) source).getDirection();
+	// }
+	// if (destination instanceof DirectedFeature) {
+	// dstDirection = ((DirectedFeature) destination).getDirection();
+	// }
+	// Context srcContext = connection.getAllSourceContext();
+	// Context dstContext = connection.getAllDestinationContext();
+	// if (srcContext instanceof FeatureGroup) {
+	// if (((FeatureGroup) srcContext).isInverse()) {
+	// srcDirection = srcDirection.getInverseDirection();
+	// }
+	// FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup)
+	// srcContext).getFeatureType());
+	// FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature)
+	// source).getContainingClassifier();
+	// if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) &&
+	// srcFGT.getInverse() != null) {
+	// // feature group type has inverse and feature is defined in the inverse
+	// FGT
+	// srcDirection = srcDirection.getInverseDirection();
+	// }
+	// }
+	// if (dstContext instanceof FeatureGroup) {
+	// if (((FeatureGroup) dstContext).isInverse()) {
+	// dstDirection = dstDirection.getInverseDirection();
+	// }
+	// FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup)
+	// dstContext).getFeatureType());
+	// FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature)
+	// destination).getContainingClassifier();
+	// if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT) &&
+	// dstFGT.getInverse() != null) {
+	// dstDirection = dstDirection.getInverseDirection();
+	// }
+	// }
+	// if ((srcContext instanceof Subcomponent && dstContext instanceof
+	// Subcomponent)
+	// // between ports of subcomponents
+	// || (srcContext == null && source instanceof DataSubcomponent &&
+	// dstContext instanceof Subcomponent)
+	// // from a data subcomponent to a port
+	// || (dstContext == null && destination instanceof DataSubcomponent &&
+	// srcContext instanceof Subcomponent)
+	// // from a data subcomponent to a port
+	// ) {
+	// if (!(srcDirection.outgoing() && dstDirection.incoming())) {
+	// error(connection, "Source must be outgoing and destination incoming.");
+	// }
+	// } else if ((srcContext instanceof Subcomponent || dstContext instanceof
+	// Subcomponent)
+	// || (srcContext instanceof SubprogramCall || dstContext instanceof
+	// SubprogramCall)) {
+	// // going up or down hierarchy
+	// if (!sameDirection(srcDirection, dstDirection)) {
+	// error(connection, "Source feature '" + source.getName() + "' and
+	// destination feature '"
+	// + destination.getName() + "' must have same direction.");
+	// }
+	// if ((srcContext instanceof Subcomponent) || (srcContext instanceof
+	// SubprogramCall)) {
+	// if (!(srcDirection.outgoing())) {
+	// error("Outgoing connection requires outgoing feature '" +
+	// srcContext.getName() + "."
+	// + source.getName() + "'.", connection,
+	// Aadl2Package.eINSTANCE.getConnection_Source());
+	// }
+	// if (!(dstDirection.outgoing())) {
+	// error("Outgoing connection requires outgoing feature '" +
+	// destination.getName() + "'.",
+	// connection, Aadl2Package.eINSTANCE.getConnection_Destination());
+	// }
+	// }
+	// if ((dstContext instanceof Subcomponent) || (dstContext instanceof
+	// SubprogramCall)) {
+	// if (!(dstDirection.incoming())) {
+	// error("Incoming connection requires incoming feature '" +
+	// dstContext.getName() + "."
+	// + destination.getName() + "'.", connection,
+	// Aadl2Package.eINSTANCE.getConnection_Destination());
+	// }
+	// if (!(srcDirection.incoming())) {
+	// error("Incoming connection requires incoming feature '" +
+	// source.getName() + "'.", connection,
+	// Aadl2Package.eINSTANCE.getConnection_Source());
+	// }
+	// }
+	// } else {
+	//
+	// // we have a connection a component implementation going directly from
+	// its incoming feature to an outgoing feature
+	// if (!(srcDirection.incoming() && dstDirection.outgoing())) {
+	// error(connection, "Source feature '" + source.getName()
+	// + "' must be incoming and destination feature '" + destination.getName()
+	// + "' must be outgoing.");
+	// }
+	// }
+	// }
+	// }
 
 	/**
 	 * @param proto
@@ -5051,44 +5343,39 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check connection ends of port connections
-	 * Section 9.2 Legality rule L5
+	 * Check connection ends of port connections Section 9.2 Legality rule L5
 	 */
 	private void checkPortConnectionEnds(PortConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
 			if (source instanceof EventPort && !(destination instanceof EventPort)) {
-				error(connection, "Source event port '" + source.getName()
-						+ "' must be connected to an event port destination.");
-				return;
-			}
-			if (source instanceof DataPort
-					&& !(destination instanceof EventPort || destination instanceof DataPort
-							|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
 				error(connection,
-						"Source data port '"
-								+ source.getName()
-								+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+						"Source event port '" + source.getName() + "' must be connected to an event port destination.");
 				return;
 			}
-			if (source instanceof EventDataPort
-					&& !(destination instanceof EventPort || destination instanceof DataPort
-							|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)) {
-				error(connection,
-						"Source event data port '"
-								+ source.getName()
-								+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+			if (source instanceof DataPort && !(destination instanceof EventPort || destination instanceof DataPort
+					|| destination instanceof EventDataPort || destination instanceof DataSubcomponent
+					|| destination instanceof DataAccess)) {
+				error(connection, "Source data port '" + source.getName()
+						+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
 				return;
 			}
-			if (source instanceof DataSubcomponent
-					&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
+			if (source instanceof EventDataPort && !(destination instanceof EventPort || destination instanceof DataPort
+					|| destination instanceof EventDataPort || destination instanceof DataSubcomponent
+					|| destination instanceof DataAccess)) {
+				error(connection, "Source event data port '" + source.getName()
+						+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+				return;
+			}
+			if (source instanceof DataSubcomponent && !(destination instanceof EventPort
+					|| destination instanceof DataPort || destination instanceof EventDataPort)) {
 				error(connection, "Source data subcomponent '" + source.getName()
 						+ "' must be connected to an event, data, or event data port destination.");
 				return;
 			}
-			if (source instanceof DataAccess
-					&& !(destination instanceof EventPort || destination instanceof DataPort || destination instanceof EventDataPort)) {
+			if (source instanceof DataAccess && !(destination instanceof EventPort || destination instanceof DataPort
+					|| destination instanceof EventDataPort)) {
 				error(connection, "Source data access feature '" + source.getName()
 						+ "' must be connected to an event, data, or event data port destination.");
 				return;
@@ -5097,10 +5384,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L4 for section 9.3 (Parameter Connections)
-	 * "The data classifier of the source and destination must match.  The matching
-	 * rules as specified by the Classifier_Matching_Rule property apply (see
-	 * Section 9.2 (L13)).  By default the data classifiers must be match."
+	 * Checks legality rule L4 for section 9.3 (Parameter Connections) "The data
+	 * classifier of the source and destination must match. The matching rules
+	 * as specified by the Classifier_Matching_Rule property apply (see Section
+	 * 9.2 (L13)). By default the data classifiers must be match."
 	 */
 	private void checkParameterConnectionClassifiers(ParameterConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
@@ -5136,12 +5423,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (classifierMatchingRuleValue == null
 						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)
-//						||  classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+				// ||
+				// classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
 				) {
-//					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-//						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for parameter connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-//								"' instead.");
-//					}
+					// if (classifierMatchingRuleValue != null &&
+					// classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT))
+					// {
+					// warning(connection, "The classifier matching rule '" +
+					// ModelingProperties.COMPLEMENT + "' is not supported for
+					// parameter connections. Using rule '" +
+					// ModelingProperties.CLASSIFIER_MATCH +
+					// "' instead.");
+					// }
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
@@ -5159,13 +5452,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
 									sourceClassifier, destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
@@ -5173,16 +5461,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.SUBSET)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection,
-									sourceClassifier, destinationClassifier)) {
+							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
@@ -5193,13 +5476,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
 									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
@@ -5214,7 +5492,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
-			// Don't validate if the context or connection end could not be resolved.
+			// Don't validate if the context or connection end could not be
+			// resolved.
 			return;
 		}
 		if (connectionContext == null) {
@@ -5225,7 +5504,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
-			if (!(connectionEnd instanceof Access)) {
+			if (!(connectionEnd instanceof Access || 
+					(connectionEnd instanceof DataSubcomponent&&
+							(connectionContext instanceof DataSubcomponent|| connectionContext instanceof AbstractSubcomponent))
+					)) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid access connection end.", connectedElement,
@@ -5243,7 +5525,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
-			// Don't validate if the context or connection end could not be resolved.
+			// Don't validate if the context or connection end could not be
+			// resolved.
 			return;
 		}
 		if (connectionContext == null) {
@@ -5272,7 +5555,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
-			// Don't validate if the context or connection end could not be resolved.
+			// Don't validate if the context or connection end could not be
+			// resolved.
 			return;
 		}
 		if (connectionContext == null) {
@@ -5300,7 +5584,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
-			// Don't validate if the context or connection end could not be resolved.
+			// Don't validate if the context or connection end could not be
+			// resolved.
 			return;
 		}
 		if (connectionContext == null) {
@@ -5343,7 +5628,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
-			// Don't validate if the context or connection end could not be resolved.
+			// Don't validate if the context or connection end could not be
+			// resolved.
 			return;
 		}
 		if (connectionContext == null) {
@@ -5386,7 +5672,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Context triggerContext = trigger.getContext();
 		TriggerPort triggerPort = trigger.getTriggerPort();
 		if ((triggerContext != null && triggerContext.eIsProxy()) || triggerPort == null || triggerPort.eIsProxy()) {
-			// Don't validate if the context or trigger port could not be resolved.
+			// Don't validate if the context or trigger port could not be
+			// resolved.
 			return;
 		}
 		if (triggerContext instanceof Subcomponent || triggerContext instanceof FeatureGroup
@@ -5415,8 +5702,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check category of source and destination
-	 * Section 9.4 Legality rule L11
+	 * Check category of source and destination Section 9.4 Legality rule L11
 	 */
 	private void checkAccessConnectionCategory(AccessConnection connection) {
 		AccessCategory connectionCategory = connection.getAccessCategory();
@@ -5467,8 +5753,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check provides/requires of access connection ends
-	 * Section 9.4 Legality rules L5, L6, and L7
+	 * Check provides/requires of access connection ends Section 9.4 Legality
+	 * rules L5, L6, and L7
 	 */
 	private void checkAccessConnectionProvidesRequires(AccessConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
@@ -5487,7 +5773,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				FeatureGroupType srcFGT = ((FeatureGroup) srcContext).getAllFeatureGroupType();
 				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Access) source).getContainingClassifier();
 				if (!srcFGT.equals(contsrcFGT) && srcFGT.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					sourceType = sourceType.getInverseType();
 				}
 			}
@@ -5502,7 +5789,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				FeatureGroupType dstFGT = ((FeatureGroup) dstContext).getAllFeatureGroupType();
 				FeatureGroupType contdstFGT = (FeatureGroupType) ((Access) destination).getContainingClassifier();
 				if (!dstFGT.equals(contdstFGT) && dstFGT.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					destinationType = destinationType.getInverseType();
 				}
 			}
@@ -5520,10 +5808,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						"Source and destination of access connections between sibling components cannot both be 'requires'.");
 			}
 		}
-		// Test for the common case of L6 and L7: connection between an access feature in the containing component and an access feature in a subcomponent.
-		else if (source instanceof Access
-				&& destination instanceof Access
-				&& ((srcContext instanceof Subcomponent && (dstContext == null || dstContext instanceof FeatureGroup)) || (dstContext instanceof Subcomponent && (srcContext == null || srcContext instanceof FeatureGroup)))) {
+		// Test for the common case of L6 and L7: connection between an access
+		// feature in the containing component and an access feature in a
+		// subcomponent.
+		else if (source instanceof Access && destination instanceof Access
+				&& ((srcContext instanceof Subcomponent && (dstContext == null || dstContext instanceof FeatureGroup))
+						|| (dstContext instanceof Subcomponent
+								&& (srcContext == null || srcContext instanceof FeatureGroup)))) {
 			if (!sourceType.equals(destinationType)) {
 				error(connection,
 						"Source and destination must both be provides or requires for a connection mapping features up or down the containment hierarchy.");
@@ -5547,16 +5838,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						connection, Aadl2Package.eINSTANCE.getConnection_Source());
 			}
 		}
-		// Test for L7: connection between subcomponent and access feature of subcomponent
-		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
+		// Test for L7: connection between subcomponent and access feature of
+		// subcomponent
+		else if (source instanceof Subcomponent && destination instanceof Access
+				&& dstContext instanceof Subcomponent) {
 			if (!destinationType.equals(AccessType.REQUIRES)) {
 				error('\'' + destination.getName()
 						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
 			}
 		}
-		// Test for L7: connection between access feature of subcomponent and subcomponent
-		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
+		// Test for L7: connection between access feature of subcomponent and
+		// subcomponent
+		else if (destination instanceof Subcomponent && source instanceof Access
+				&& srcContext instanceof Subcomponent) {
 			if (!sourceType.equals(AccessType.REQUIRES)) {
 				error('\'' + source.getName()
 						+ "' must be a requires access feature for a connection to an accessed subcomponent.",
@@ -5566,10 +5861,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L9 for section 9.4 (Access Connections)
-	 * "For access connections the classifier of the provider access must match
-	 * to the classifier of the requires access according to the
-	 * Classifier_Matching_Rules property.  By default the classifiers must be
+	 * Checks legality rule L9 for section 9.4 (Access Connections) "For access
+	 * connections the classifier of the provider access must match to the
+	 * classifier of the requires access according to the
+	 * Classifier_Matching_Rules property. By default the classifiers must be
 	 * the same (see Section 9.1)."
 	 */
 	private void checkAccessConnectionClassifiers(AccessConnection connection) {
@@ -5623,12 +5918,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (classifierMatchingRuleValue == null
 						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)
-//						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+				// ||
+				// classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
 				) {
-//					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-//						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for access connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-//								"' instead.");
-//					}
+					// if (classifierMatchingRuleValue != null &&
+					// classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT))
+					// {
+					// warning(connection, "The classifier matching rule '" +
+					// ModelingProperties.COMPLEMENT + "' is not supported for
+					// access connections. Using rule '" +
+					// ModelingProperties.CLASSIFIER_MATCH +
+					// "' instead.");
+					// }
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
@@ -5636,8 +5937,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 					// first figure out which way to check for type extension
-					// the shared component has to be a type extension of the required access type.
-					// from provides to requires between subcomponents, provides sub to enclosing provides, from enclosing requires to sub requires
+					// the shared component has to be a type extension of the
+					// required access type.
+					// from provides to requires between subcomponents, provides
+					// sub to enclosing provides, from enclosing requires to sub
+					// requires
 					// either can be source or destination.
 					if (AccessType.PROVIDES == srckind && dstkind == AccessType.PROVIDES
 							&& dstCxt instanceof Subcomponent) {
@@ -5651,13 +5955,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						invert = true;
 					}
 					if (invert) {
-						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier, sourceClassifier)) {
+						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier,
+								sourceClassifier)) {
 							warning("Destination classifier " + destinationClassifier.getName() + " connected to "
 									+ sourceClassifier.getName() + " does not satisfy 'Type Extension'", connection,
 									Aadl2Package.eINSTANCE.getConnection_Destination());
 						}
 					} else {
-						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(sourceClassifier, destinationClassifier)) {
+						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(sourceClassifier,
+								destinationClassifier)) {
 							warning("Source classifier " + sourceClassifier.getName() + " connected to "
 									+ destinationClassifier.getName() + " does not satisfy 'Type Extension'",
 									connection, Aadl2Package.eINSTANCE.getConnection_Source());
@@ -5669,13 +5975,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
 									sourceClassifier, destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
@@ -5683,16 +5984,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.SUBSET)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection,
-									sourceClassifier, destinationClassifier)) {
+							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
@@ -5703,13 +5999,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
 									destinationClassifier)) {
 						error(connection,
-								"The types of '"
-										+ source.getName()
-										+ "' and '"
-										+ destination.getName()
-										+ "' ('"
-										+ sourceClassifier.getQualifiedName()
-										+ "' and '"
+								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+										+ sourceClassifier.getQualifiedName() + "' and '"
 										+ destinationClassifier.getQualifiedName()
 										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 										+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
@@ -5720,8 +6011,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks that the feature of a flow is a DataAccess, FeatureGroup, Parameter, or Port.
-	 * Section 10.1 Naming Rule N2.
+	 * Checks that the feature of a flow is a DataAccess, FeatureGroup,
+	 * Parameter, or Port. Section 10.1 Naming Rule N2.
 	 */
 	private void checkFlowFeatureType(FlowEnd flowEnd) {
 		Context flowEndContext = flowEnd.getContext();
@@ -5744,8 +6035,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks the direction of features used in flow specs.
-	 * Section 10.1 Legality Rules L1, L2, L3, L4, L5, L6, L7, L8, L9, and L10
+	 * Checks the direction of features used in flow specs. Section 10.1
+	 * Legality Rules L1, L2, L3, L4, L5, L6, L7, L8, L9, and L10
+	 * 
 	 * @param flow
 	 */
 	private void checkFlowFeatureDirection(FlowSpecification flow) {
@@ -5753,10 +6045,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (inEnd != null) {
 			Context inCxt = inEnd.getContext();
 			Feature inFeature = inEnd.getFeature();
-			if ((inCxt == null || (!inCxt.eIsProxy() && inCxt instanceof FeatureGroup))
-					&& !Aadl2Util.isNull(inFeature)
+			if ((inCxt == null || (!inCxt.eIsProxy() && inCxt instanceof FeatureGroup)) && !Aadl2Util.isNull(inFeature)
 					&& (inFeature instanceof DataAccess || inFeature instanceof AbstractFeature
-							|| inFeature instanceof FeatureGroup || inFeature instanceof Parameter || inFeature instanceof Port)) {
+							|| inFeature instanceof FeatureGroup || inFeature instanceof Parameter
+							|| inFeature instanceof Port)) {
 				boolean oppositeDirection = false;
 				if (inCxt instanceof FeatureGroup) {
 					FeatureGroup fg = (FeatureGroup) inCxt;
@@ -5766,7 +6058,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (!Aadl2Util.isNull(fgt)) {
 						if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
+							// change direction since the FGT is an inverse and
+							// does not have features, i.e., the inEnd points to
+							// a
 							// feature in the inverse of FGT
 							oppositeDirection = !oppositeDirection;
 						}
@@ -5782,7 +6076,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if ((outCxt == null || (!outCxt.eIsProxy() && outCxt instanceof FeatureGroup))
 					&& !Aadl2Util.isNull(outFeature)
 					&& (outFeature instanceof DataAccess || outFeature instanceof AbstractFeature
-							|| outFeature instanceof FeatureGroup || outFeature instanceof Parameter || outFeature instanceof Port)) {
+							|| outFeature instanceof FeatureGroup || outFeature instanceof Parameter
+							|| outFeature instanceof Port)) {
 				boolean oppositeDirection = false;
 				if (outCxt instanceof FeatureGroup) {
 					FeatureGroup fg = (FeatureGroup) outCxt;
@@ -5792,7 +6087,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (!Aadl2Util.isNull(fgt)) {
 						if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
+							// change direction since the FGT is an inverse and
+							// does not have features, i.e., the inEnd points to
+							// a
 							// feature in the inverse of FGT
 							oppositeDirection = !oppositeDirection;
 						}
@@ -5813,10 +6110,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			if (!fDirection.incoming()) {
 				if (report) {
-					error(flow.getInEnd(),
-							'\''
-									+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
-											: "") + inFeature.getName() + "' must be an in or in out feature.");
+					error(flow.getInEnd(), '\''
+							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
+							+ inFeature.getName() + "' must be an in or in out feature.");
 				}
 				return false;
 			} else {
@@ -5836,9 +6132,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
 					error(flow.getInEnd(),
-							'\''
-									+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
-											: "") + inFeature.getName()
+							'\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
+									: "") + inFeature.getName()
 									+ "' must have an access right of Read_Only or Read_Write.");
 				}
 				return false;
@@ -5858,17 +6153,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					return true;
 				}
 				for (Feature f : fgt.getAllFeatures()) {
-					// check to see if there is at least one incoming feature in the feature group
+					// check to see if there is at least one incoming feature in
+					// the feature group
 					if (checkIncomingFeatureDirection(f, flow, inInverseof ? !inverseOf : inverseOf, false)) {
 						return true;
 					}
 				}
 				if (report) {
 					error(flow.getInEnd(),
-							'\''
-									+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
-											: "")
-									+ inFeature.getName()
+							'\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
+									: "") + inFeature.getName()
 									+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
 					return false;
 				}
@@ -5890,9 +6184,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 			if (!fDirection.outgoing()) {
 				if (report) {
-					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "") + outFeature.getName() + "' must be an out or in out feature.");
+					error(flow.getOutEnd(),
+							'\'' + (flow.getOutEnd().getContext() != null
+									? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName()
+							+ "' must be an out or in out feature.");
 				}
 				return false;
 			} else {
@@ -5909,9 +6204,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
-					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "") + outFeature.getName()
+					error(flow.getOutEnd(),
+							'\'' + (flow.getOutEnd().getContext() != null
+									? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName()
 							+ "' must have an access right of Write_Only or Read_Write.");
 				}
 				return false;
@@ -5925,9 +6220,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			boolean outInverseof = ((FeatureGroup) outFeature).isInverse();
 			if (fgt != null) {
 				if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
-					// change direction only if inverse of and no features. Otherwise, we check features in this fgt
+					// change direction only if inverse of and no features.
+					// Otherwise, we check features in this fgt
 					outInverseof = !outInverseof;
-					// set up inverse fgt to be examined for features of the correct direction
+					// set up inverse fgt to be examined for features of the
+					// correct direction
 					fgt = fgt.getInverse();
 				}
 				if (fgt.getAllFeatures().isEmpty()) {
@@ -5940,11 +6237,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (report) {
 					error(flow.getOutEnd(),
-							'\''
-									+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-											: "")
-									+ outFeature.getName()
-									+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
+							'\'' + (flow.getOutEnd().getContext() != null
+									? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName()
+							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
 				}
 				return false;
 			} else {
@@ -5966,6 +6261,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * check that the Meta model names exist
+	 * 
 	 * @param pd
 	 */
 	private void checkAppliesTo(final Property pd) {
@@ -5988,317 +6284,337 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc, pc.getQualifiedName());
 	}
 
-//
-//	/**
-//	 * check property associations for the  element
-//	 * @param element Element. It may not have a Properties object.
-//	 */
-//	private void checkPropertyAssocs(
-//		final NamedElement element, final boolean isSubcomponent) {
-//		final List assocs;
-//		if (element instanceof Classifier) {
-//			/* 15 February 2007: Not sure this what should really be done.
-//			 * This breaks list +=> for one thing.  Taking this out for
-//			 * the moment; it was put in on 6 Feb 2007.
-//			 */
-////			assocs = ((Classifier) element).getAllPropertyAssociations();
-//			assocs = element.getOwnedPropertyAssociations();
-//		} else {
-//			assocs = element.getOwnedPropertyAssociations();
-//		}
-//		if (assocs == null) return;
-//
-//		// map: PropertyDeclaration -> set of mode-binding pairs
-//		final Map propsToModes = new HashMap();
-//		// 2 level map: PropertyDeclaration -> EList of property holders -> set of mode-binding pairs
-//		final Map containedPropsToModes = new HashMap();
-//		for (final Iterator iter = assocs.iterator(); iter.hasNext(); ) {
-//			final PropertyAssociation pa = (PropertyAssociation) iter.next();
-//			// check only if property name was resolved
-//			final Property pd = pa.getProperty();
-//			if (pd != null)	{
-//				/* This is where we should check constant property
-//				 * associations, but it's too much work to do that.
-//				 */
-//				if (pa.isConstant()) {
-//					warning(pa,
-//							"Constant property associations are not checked");
-//				}
-//
-//				/* Check that the association follows the prop's  "applies to".
-//				 */
-//				checkAssociationAppliesTo(element, pa);
-//
-//				/* Check that this PA hasn't already associated a value with
-//				 * the property (modulo modes).
-//				 */
-//				checkUniqueAssociation(element, propsToModes, pa);
-//				checkUniqueContainedAssociation(element, containedPropsToModes, pa);
-//
-//				// Check that the association has good "in modes"
-//				checkInModes(element, pa);
-//
-//				// Check that the association is type correct
-//				typeCheckPropertyValues(pd.getPropertyType(), pd.isList(), pa.getOwnedValues());
-//
-//				// Check "list of" issues
-//				checkListOf(pa);
-//
-//				// Check that Overflow_handling_protocol and Queue_size only
-//				// appear on in event ports and in event data ports
-//				checkPortProperties(element, pa);
-//			}
-//		}
-//	}
-//
-//	private static class ModeBindingPair {
-//		private final Mode mode;
-//		private final ComponentClassifier binding;
-//
-//		public ModeBindingPair(final Mode m, final ComponentClassifier cc) {
-//			mode = m;
-//			binding = cc;
-//		}
-//
-//		public boolean equals(final Object o) {
-//			if (o instanceof ModeBindingPair) {
-//				final ModeBindingPair mbp = (ModeBindingPair) o;
-//				return ((mode == null && mbp.mode == null) || mode.equals(mbp.mode))
-//					&& ((binding == null && mbp.binding == null) || binding.equals(mbp.binding));
-//			} else {
-//				return false;
-//			}
-//		}
-//
-//		public int hashCode() {
-//			final int hc1 = (mode == null) ? 0 : mode.hashCode();
-//			final int hc2 = (binding == null) ? 0 : binding.hashCode();
-//			return hc1 * 13 + hc2;
-//		}
-//
-//		public String toString() {
-//			final String s1 = (mode == null) ? "none" : mode.getName();
-//			final String s2 = (binding == null) ? "none" : binding.getQualifiedName();
-//			return "(" + s1 + ", " + s2 + ")";
-//		}
-//	}
-//
-//	private static final List NULL_LIST = Collections.singletonList(null);
-//
-//	private static Set createPairs(final List modes, final List bindings) {
-//		final Set pairs = new HashSet();
-//
-//		final List modesList = (modes == null || modes.isEmpty()) ? NULL_LIST : modes;
-//		final List bindingsList = (bindings == null || bindings.isEmpty()) ? NULL_LIST : bindings;
-//		for (final Iterator i = modesList.iterator(); i.hasNext();) {
-//			final Mode mode = (Mode) i.next();
-//			for (final Iterator j = bindingsList.iterator(); j.hasNext();) {
-//				final ComponentClassifier binding = (ComponentClassifier) j.next();
-//				pairs.add(new ModeBindingPair(mode, binding));
-//			}
-//		}
-//		return pairs;
-//	}
-//
-//	private void checkUniqueAssociation(
-//			final NamedElement ph, final Map propsToModes, final PropertyAssociation pa) {
-//		if (pa.getAppliesTos() == null || pa.getAppliesTos().size() == 0) {
-//			final Property pd = pa.getProperty();
-//			Set definedInModes = (Set) propsToModes.get(pd);
-//			if (definedInModes == null) {
-//				definedInModes = new HashSet();
-//				propsToModes.put(pd, definedInModes);
-//			}
-//			checkForDuplicateAssociation(ph, pa, definedInModes);
-//		}
-//	}
-//
-//	private void checkUniqueContainedAssociation(
-//			final NamedElement ph,
-//			final Map containedPropsToModes, final PropertyAssociation pa) {
-//		final String appliesTo = unparseContainedAppliesToPath(pa);
-//		if (appliesTo.length() > 0) {
-//			final Property pd = pa.getProperty();
-//			Map subMap = (Map) containedPropsToModes.get(pd);
-//			if (subMap == null) {
-//				subMap = new HashMap();
-//				containedPropsToModes.put(pd, subMap);
-//			}
-//			Set definedInModes = (Set) subMap.get(appliesTo);
-//			if (definedInModes == null) {
-//				definedInModes = new HashSet();
-//				subMap.put(appliesTo, definedInModes);
-//			}
-//			checkForDuplicateAssociation(ph, pa, definedInModes);
-//		}
-//	}
-//
-//	/**
-//	 * @param pa
-//	 * @param definedInModes
-//	 */
-//	private void checkForDuplicateAssociation(
-//			final NamedElement ph,
-//			final PropertyAssociation pa, Set definedInModes) {
-//		final EList inBinding = pa.getInBindings();
-//		final Set pairs = createPairs(inModes, inBinding);
-//		final Set alreadyDefined = new HashSet();
-//		for (final Iterator i = pairs.iterator(); i.hasNext(); ) {
-//			final ModeBindingPair mbp = (ModeBindingPair) i.next();
-//			if (definedInModes.contains(mbp)) {
-//				alreadyDefined.add(mbp);
-//			}
-//		}
-//		definedInModes.addAll(pairs);
-//
-//		if (!alreadyDefined.isEmpty()) {
-//			final String appliesTo = unparseContainedAppliesToPath(pa);
-//			for (final Iterator i = alreadyDefined.iterator(); i.hasNext();) {
-//				final ModeBindingPair mbp = (ModeBindingPair) i.next();
-//				error(ph,
-//						"\"" + ph.getName() + "\" has multiple property associations for \"" +
-//						pa.getProperty().getQualifiedName() + "\"" +
-//						((appliesTo.length() == 0) ? "" : (" applying to " + appliesTo)) +
-//						((mbp.mode == null) ? "" : (" in mode " + mbp.mode.getName())) +
-//						((mbp.binding == null) ? "" : (" in binding " + mbp.binding.getQualifiedName())));
-//			}
-//		}
-//	}
-//
-//	private String unparseContainedAppliesToPath(final PropertyAssociation pa) {
-//		final List appliesTo = pa.getAppliesTos();
-//		final StringBuffer sb = new StringBuffer();
-//		for (final Iterator i = appliesTo.iterator(); i.hasNext();) {
-//			final NamedElement ne = (NamedElement) i.next();
-//			sb.append(ne.getName());
-//			if (i.hasNext()) sb.append('.');
-//		}
-//		return sb.toString();
-//	}
-//
-//	/**
-//	 * Checks legality rule from Section 4.5 Subcomponents:
-//	 *
-//	 * <blockquote>If the subcomponent declaration contains an in_modes
-//	 * statement and any of its property associations also contains an in_modes
-//	 * statement, then the modes named in the property association must be a
-//	 * subset of those named in the subcomponent declaration. </blockquote>
-//	 *
-//	 * @param element
-//	 *            The property holder whose in_modes should be checked. This
-//	 *            method is only interested in SubprogramSubcomponent,
-//	 *            Subcomponent, Connection, and FlowSequence elements.
-//	 *
-//	 * @param pa
-//	 *            The particular property association whose in_modes must be a
-//	 *            subset of the modes in which <code>element</code> exists.
-//	 */
-//	private void checkInModes(final NamedElement element, final PropertyAssociation pa) {
-//		final EList innerModes = pa.getInModes();
-//		if (innerModes != null) {
-//			EList outerModes = null;
-//			if (element instanceof SubprogramSubcomponent) {
-//				/* We need to treat SubprogramSubcomponents specially because
-//				 * the modes they exist in are controlled by the CallSequence.
-//				 */
-//				final SubprogramCallSequence cs = (SubprogramCallSequence) element.eContainer();
-//				outerModes = cs.getInModes();
-//			} else if (element instanceof Subcomponent
-//					|| element instanceof Connection
-//					|| element instanceof FlowElement) {
-//				outerModes = ((ModalElement) element).getInModes();
-//			}
-//
-//			if (outerModes != null) {
-//				// Empty set means that no modes were declared, i.e., all modes
-//				if (!outerModes.isEmpty()
-//						&& !outerModes.containsAll(innerModes)) {
-//					error(pa,
-//							"Property association has more modes than its container");
-//				}
-//			}
-//		}
-//	}
-//
-//	/**
-//	 * Check that non-list properties do not get associated with a list of
-//	 * values:
-//	 *
-//	 * <blockquote>
-//	 * If the property declaration for the associated property name
-//	 * does not contain the reserved words list of, the property_value must be a
-//	 * single_property_value. If the property declaration for the associated
-//	 * property name contains the reserved words list of, the property_value can
-//	 * be a single_property_value, which is interpreted to be a list of one
-//	 * value.
-//	 *
-//	 * The property association operator +=> must only be used if the property
-//	 * declaration for the associated property name contains the reserved words
-//	 * list of.
-//	 * </blockquote>
-//	 *
-//	 * @param pa
-//	 */
-//	private void checkListOf(final PropertyAssociation pa) {
-//		final Property pn = pa.getProperty();
-//		if (pn == null)
-//			return;
-//		final EList value = pa.getOwnedValues();
-//		if (!pn.isList()) {
-//			// Must only have one value associated with the property
-//			if (value == null || value.size() == 0) {
-//				error(pa,
-//						"Scalar properties must have a value");
-//			} else if (value.size() > 1) {
-//				error(pa,
-//						"Scalar properties cannot be associated with a list");
-//			}
-//			if (pa.isAppend()) {
-//				error(pa,
-//						"Cannot append to a scalar property");
-//			}
-//		}
-//	}
-//
-//	/**
-//	 * Checks contraints on the <code>Overflow_Handling_Protocol</code>,
-//	 * <code>Queue_Processing_Protocol</code>, <code>Dequeue_Protocol</code>,
-//	 * <code>Queue_Size</code> properties as specificed in Section 8.1 Ports:
-//	 *
-//	 * <blockquote>The property names Overflow_Handling_Protocol,
-//	 * Queue_Processing_Protocol, Dequeue_Protocol, and Queue_Size
-//	 * may only appear in property associations for in event ports and in event
-//	 * data ports. </blockquote>
-//	 *
-//	 * <p>The <code>applies to</code> clause in the property definition
-//	 * already makes sure they only appear on <code>event port</code>
-//	 * and <code>event data port</code> (and <code>subprogram</code> for all
-//	 * but <code>Dequeue_Protocol</code>).  So here we check that the port
-//	 * is an <code>in port</code>.
-//	 *
-//	 * @param ph
-//	 *            The property holder
-//	 * @param pa
-//	 *            The property association to check
-//	 */
-//	private void checkPortProperties(final NamedElement ph, final PropertyAssociation pa) {
-//		if (ph instanceof EventPort || ph instanceof EventDataPort) {
-//			final Property pd = pa.getProperty();
-//			if (pd == PropertiesLinkingService.getPropertiesLinkingService(ph).findPropertyDefinition(ph,CommunicationProperties.OVERFLOW_HANDLING_PROTOCOL) ||
-//					pd.getName().equalsIgnoreCase(CommunicationProperties.QUEUE_SIZE) ||
-//					pdgetName().equalsIgnoreCase(CommunicationProperties.UE_PROCESSING_PROTOTOCOL) ||
-//					pd == DEQUEUE_PROTOCOL_PD) {
-//				final DirectionType dir = ((Port) ph).getDirection();
-//				if (dir != DirectionType.IN) {
-//					error(pa,
-//							"Property \"" + pd.getName() +
-//							"\" is only allowed on in event ports and in event data ports");
-//				}
-//			}
-//		}
-//	}
-//
-//
+	//
+	// /**
+	// * check property associations for the element
+	// * @param element Element. It may not have a Properties object.
+	// */
+	// private void checkPropertyAssocs(
+	// final NamedElement element, final boolean isSubcomponent) {
+	// final List assocs;
+	// if (element instanceof Classifier) {
+	// /* 15 February 2007: Not sure this what should really be done.
+	// * This breaks list +=> for one thing. Taking this out for
+	// * the moment; it was put in on 6 Feb 2007.
+	// */
+	//// assocs = ((Classifier) element).getAllPropertyAssociations();
+	// assocs = element.getOwnedPropertyAssociations();
+	// } else {
+	// assocs = element.getOwnedPropertyAssociations();
+	// }
+	// if (assocs == null) return;
+	//
+	// // map: PropertyDeclaration -> set of mode-binding pairs
+	// final Map propsToModes = new HashMap();
+	// // 2 level map: PropertyDeclaration -> EList of property holders -> set
+	// of mode-binding pairs
+	// final Map containedPropsToModes = new HashMap();
+	// for (final Iterator iter = assocs.iterator(); iter.hasNext(); ) {
+	// final PropertyAssociation pa = (PropertyAssociation) iter.next();
+	// // check only if property name was resolved
+	// final Property pd = pa.getProperty();
+	// if (pd != null) {
+	// /* This is where we should check constant property
+	// * associations, but it's too much work to do that.
+	// */
+	// if (pa.isConstant()) {
+	// warning(pa,
+	// "Constant property associations are not checked");
+	// }
+	//
+	// /* Check that the association follows the prop's "applies to".
+	// */
+	// checkAssociationAppliesTo(element, pa);
+	//
+	// /* Check that this PA hasn't already associated a value with
+	// * the property (modulo modes).
+	// */
+	// checkUniqueAssociation(element, propsToModes, pa);
+	// checkUniqueContainedAssociation(element, containedPropsToModes, pa);
+	//
+	// // Check that the association has good "in modes"
+	// checkInModes(element, pa);
+	//
+	// // Check that the association is type correct
+	// typeCheckPropertyValues(pd.getPropertyType(), pd.isList(),
+	// pa.getOwnedValues());
+	//
+	// // Check "list of" issues
+	// checkListOf(pa);
+	//
+	// // Check that Overflow_handling_protocol and Queue_size only
+	// // appear on in event ports and in event data ports
+	// checkPortProperties(element, pa);
+	// }
+	// }
+	// }
+	//
+	// private static class ModeBindingPair {
+	// private final Mode mode;
+	// private final ComponentClassifier binding;
+	//
+	// public ModeBindingPair(final Mode m, final ComponentClassifier cc) {
+	// mode = m;
+	// binding = cc;
+	// }
+	//
+	// public boolean equals(final Object o) {
+	// if (o instanceof ModeBindingPair) {
+	// final ModeBindingPair mbp = (ModeBindingPair) o;
+	// return ((mode == null && mbp.mode == null) || mode.equals(mbp.mode))
+	// && ((binding == null && mbp.binding == null) ||
+	// binding.equals(mbp.binding));
+	// } else {
+	// return false;
+	// }
+	// }
+	//
+	// public int hashCode() {
+	// final int hc1 = (mode == null) ? 0 : mode.hashCode();
+	// final int hc2 = (binding == null) ? 0 : binding.hashCode();
+	// return hc1 * 13 + hc2;
+	// }
+	//
+	// public String toString() {
+	// final String s1 = (mode == null) ? "none" : mode.getName();
+	// final String s2 = (binding == null) ? "none" :
+	// binding.getQualifiedName();
+	// return "(" + s1 + ", " + s2 + ")";
+	// }
+	// }
+	//
+	// private static final List NULL_LIST = Collections.singletonList(null);
+	//
+	// private static Set createPairs(final List modes, final List bindings) {
+	// final Set pairs = new HashSet();
+	//
+	// final List modesList = (modes == null || modes.isEmpty()) ? NULL_LIST :
+	// modes;
+	// final List bindingsList = (bindings == null || bindings.isEmpty()) ?
+	// NULL_LIST : bindings;
+	// for (final Iterator i = modesList.iterator(); i.hasNext();) {
+	// final Mode mode = (Mode) i.next();
+	// for (final Iterator j = bindingsList.iterator(); j.hasNext();) {
+	// final ComponentClassifier binding = (ComponentClassifier) j.next();
+	// pairs.add(new ModeBindingPair(mode, binding));
+	// }
+	// }
+	// return pairs;
+	// }
+	//
+	// private void checkUniqueAssociation(
+	// final NamedElement ph, final Map propsToModes, final PropertyAssociation
+	// pa) {
+	// if (pa.getAppliesTos() == null || pa.getAppliesTos().size() == 0) {
+	// final Property pd = pa.getProperty();
+	// Set definedInModes = (Set) propsToModes.get(pd);
+	// if (definedInModes == null) {
+	// definedInModes = new HashSet();
+	// propsToModes.put(pd, definedInModes);
+	// }
+	// checkForDuplicateAssociation(ph, pa, definedInModes);
+	// }
+	// }
+	//
+	// private void checkUniqueContainedAssociation(
+	// final NamedElement ph,
+	// final Map containedPropsToModes, final PropertyAssociation pa) {
+	// final String appliesTo = unparseContainedAppliesToPath(pa);
+	// if (appliesTo.length() > 0) {
+	// final Property pd = pa.getProperty();
+	// Map subMap = (Map) containedPropsToModes.get(pd);
+	// if (subMap == null) {
+	// subMap = new HashMap();
+	// containedPropsToModes.put(pd, subMap);
+	// }
+	// Set definedInModes = (Set) subMap.get(appliesTo);
+	// if (definedInModes == null) {
+	// definedInModes = new HashSet();
+	// subMap.put(appliesTo, definedInModes);
+	// }
+	// checkForDuplicateAssociation(ph, pa, definedInModes);
+	// }
+	// }
+	//
+	// /**
+	// * @param pa
+	// * @param definedInModes
+	// */
+	// private void checkForDuplicateAssociation(
+	// final NamedElement ph,
+	// final PropertyAssociation pa, Set definedInModes) {
+	// final EList inBinding = pa.getInBindings();
+	// final Set pairs = createPairs(inModes, inBinding);
+	// final Set alreadyDefined = new HashSet();
+	// for (final Iterator i = pairs.iterator(); i.hasNext(); ) {
+	// final ModeBindingPair mbp = (ModeBindingPair) i.next();
+	// if (definedInModes.contains(mbp)) {
+	// alreadyDefined.add(mbp);
+	// }
+	// }
+	// definedInModes.addAll(pairs);
+	//
+	// if (!alreadyDefined.isEmpty()) {
+	// final String appliesTo = unparseContainedAppliesToPath(pa);
+	// for (final Iterator i = alreadyDefined.iterator(); i.hasNext();) {
+	// final ModeBindingPair mbp = (ModeBindingPair) i.next();
+	// error(ph,
+	// "\"" + ph.getName() + "\" has multiple property associations for \"" +
+	// pa.getProperty().getQualifiedName() + "\"" +
+	// ((appliesTo.length() == 0) ? "" : (" applying to " + appliesTo)) +
+	// ((mbp.mode == null) ? "" : (" in mode " + mbp.mode.getName())) +
+	// ((mbp.binding == null) ? "" : (" in binding " +
+	// mbp.binding.getQualifiedName())));
+	// }
+	// }
+	// }
+	//
+	// private String unparseContainedAppliesToPath(final PropertyAssociation
+	// pa) {
+	// final List appliesTo = pa.getAppliesTos();
+	// final StringBuffer sb = new StringBuffer();
+	// for (final Iterator i = appliesTo.iterator(); i.hasNext();) {
+	// final NamedElement ne = (NamedElement) i.next();
+	// sb.append(ne.getName());
+	// if (i.hasNext()) sb.append('.');
+	// }
+	// return sb.toString();
+	// }
+	//
+	// /**
+	// * Checks legality rule from Section 4.5 Subcomponents:
+	// *
+	// * <blockquote>If the subcomponent declaration contains an in_modes
+	// * statement and any of its property associations also contains an
+	// in_modes
+	// * statement, then the modes named in the property association must be a
+	// * subset of those named in the subcomponent declaration. </blockquote>
+	// *
+	// * @param element
+	// * The property holder whose in_modes should be checked. This
+	// * method is only interested in SubprogramSubcomponent,
+	// * Subcomponent, Connection, and FlowSequence elements.
+	// *
+	// * @param pa
+	// * The particular property association whose in_modes must be a
+	// * subset of the modes in which <code>element</code> exists.
+	// */
+	// private void checkInModes(final NamedElement element, final
+	// PropertyAssociation pa) {
+	// final EList innerModes = pa.getInModes();
+	// if (innerModes != null) {
+	// EList outerModes = null;
+	// if (element instanceof SubprogramSubcomponent) {
+	// /* We need to treat SubprogramSubcomponents specially because
+	// * the modes they exist in are controlled by the CallSequence.
+	// */
+	// final SubprogramCallSequence cs = (SubprogramCallSequence)
+	// element.eContainer();
+	// outerModes = cs.getInModes();
+	// } else if (element instanceof Subcomponent
+	// || element instanceof Connection
+	// || element instanceof FlowElement) {
+	// outerModes = ((ModalElement) element).getInModes();
+	// }
+	//
+	// if (outerModes != null) {
+	// // Empty set means that no modes were declared, i.e., all modes
+	// if (!outerModes.isEmpty()
+	// && !outerModes.containsAll(innerModes)) {
+	// error(pa,
+	// "Property association has more modes than its container");
+	// }
+	// }
+	// }
+	// }
+	//
+	// /**
+	// * Check that non-list properties do not get associated with a list of
+	// * values:
+	// *
+	// * <blockquote>
+	// * If the property declaration for the associated property name
+	// * does not contain the reserved words list of, the property_value must be
+	// a
+	// * single_property_value. If the property declaration for the associated
+	// * property name contains the reserved words list of, the property_value
+	// can
+	// * be a single_property_value, which is interpreted to be a list of one
+	// * value.
+	// *
+	// * The property association operator +=> must only be used if the property
+	// * declaration for the associated property name contains the reserved
+	// words
+	// * list of.
+	// * </blockquote>
+	// *
+	// * @param pa
+	// */
+	// private void checkListOf(final PropertyAssociation pa) {
+	// final Property pn = pa.getProperty();
+	// if (pn == null)
+	// return;
+	// final EList value = pa.getOwnedValues();
+	// if (!pn.isList()) {
+	// // Must only have one value associated with the property
+	// if (value == null || value.size() == 0) {
+	// error(pa,
+	// "Scalar properties must have a value");
+	// } else if (value.size() > 1) {
+	// error(pa,
+	// "Scalar properties cannot be associated with a list");
+	// }
+	// if (pa.isAppend()) {
+	// error(pa,
+	// "Cannot append to a scalar property");
+	// }
+	// }
+	// }
+	//
+	// /**
+	// * Checks contraints on the <code>Overflow_Handling_Protocol</code>,
+	// * <code>Queue_Processing_Protocol</code>, <code>Dequeue_Protocol</code>,
+	// * <code>Queue_Size</code> properties as specificed in Section 8.1 Ports:
+	// *
+	// * <blockquote>The property names Overflow_Handling_Protocol,
+	// * Queue_Processing_Protocol, Dequeue_Protocol, and Queue_Size
+	// * may only appear in property associations for in event ports and in
+	// event
+	// * data ports. </blockquote>
+	// *
+	// * <p>The <code>applies to</code> clause in the property definition
+	// * already makes sure they only appear on <code>event port</code>
+	// * and <code>event data port</code> (and <code>subprogram</code> for all
+	// * but <code>Dequeue_Protocol</code>). So here we check that the port
+	// * is an <code>in port</code>.
+	// *
+	// * @param ph
+	// * The property holder
+	// * @param pa
+	// * The property association to check
+	// */
+	// private void checkPortProperties(final NamedElement ph, final
+	// PropertyAssociation pa) {
+	// if (ph instanceof EventPort || ph instanceof EventDataPort) {
+	// final Property pd = pa.getProperty();
+	// if (pd ==
+	// PropertiesLinkingService.getPropertiesLinkingService(ph).findPropertyDefinition(ph,CommunicationProperties.OVERFLOW_HANDLING_PROTOCOL)
+	// ||
+	// pd.getName().equalsIgnoreCase(CommunicationProperties.QUEUE_SIZE) ||
+	// pdgetName().equalsIgnoreCase(CommunicationProperties.UE_PROCESSING_PROTOTOCOL)
+	// ||
+	// pd == DEQUEUE_PROTOCOL_PD) {
+	// final DirectionType dir = ((Port) ph).getDirection();
+	// if (dir != DirectionType.IN) {
+	// error(pa,
+	// "Property \"" + pd.getName() +
+	// "\" is only allowed on in event ports and in event data ports");
+	// }
+	// }
+	// }
+	// }
+	//
+	//
 
 	private static FeatureType getFeatureType(Feature feature) {
 		if (feature instanceof DataPort) {
@@ -6565,8 +6881,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (ComponentCategory category : categoriesArray) {
 			categoriesSet.add(category);
 		}
-		categoriesForImplementations
-				.put(ComponentCategory.SUBPROGRAM_GROUP, Collections.unmodifiableSet(categoriesSet));
+		categoriesForImplementations.put(ComponentCategory.SUBPROGRAM_GROUP,
+				Collections.unmodifiableSet(categoriesSet));
 
 		// Thread Implementations
 		categoriesArray = new ComponentCategory[] { ComponentCategory.DATA, ComponentCategory.SUBPROGRAM,
@@ -6669,8 +6985,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getBusAccess(), "a bus access");
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getDataAccess(), "a data access");
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getSubprogramAccess(), "a subprogram access");
-		featureClassNamesWithArticle
-				.put(Aadl2Package.eINSTANCE.getSubprogramGroupAccess(), "a subprogram group access");
+		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getSubprogramGroupAccess(),
+				"a subprogram group access");
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getFeatureGroup(), "a feature group");
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getParameter(), "a parameter");
 		featureClassNamesWithArticle.put(Aadl2Package.eINSTANCE.getDataPort(), "a data port");
@@ -6680,15 +6996,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	private static enum FeatureType {
-		IN_DATA_PORT("an in data port"), OUT_DATA_PORT("an out data port"), IN_OUT_DATA_PORT("an in out data port"), IN_EVENT_PORT(
-				"an in event port"), OUT_EVENT_PORT("an out event port"), IN_OUT_EVENT_PORT("an in out event port"), IN_EVENT_DATA_PORT(
-				"an in event data port"), OUT_EVENT_DATA_PORT("an out event data port"), IN_OUT_EVENT_DATA_PORT(
-				"an in out event data port"), FEATURE_GROUP("a feature group"), PROVIDES_DATA_ACCESS(
-				"a provides data access"), REQUIRES_DATA_ACCESS("a requires data access"), PROVIDES_SUBPROGRAM_ACCESS(
-				"a provides subprogram access"), REQUIRES_SUBPROGRAM_ACCESS("a requires subprogram access"), PROVIDES_SUBPROGRAM_GROUP_ACCESS(
-				"a provides subprogram group access"), REQUIRES_SUBPROGRAM_GROUP_ACCESS(
-				"a requires subprogram group access"), PROVIDES_BUS_ACCESS("a provides bus access"), REQUIRES_BUS_ACCESS(
-				"a requires bus access"), ABSTRACT_FEATURE("an abstract feature"), PARAMETER("a parameter");
+		IN_DATA_PORT("an in data port"), OUT_DATA_PORT("an out data port"), IN_OUT_DATA_PORT(
+				"an in out data port"), IN_EVENT_PORT("an in event port"), OUT_EVENT_PORT(
+						"an out event port"), IN_OUT_EVENT_PORT("an in out event port"), IN_EVENT_DATA_PORT(
+								"an in event data port"), OUT_EVENT_DATA_PORT(
+										"an out event data port"), IN_OUT_EVENT_DATA_PORT(
+												"an in out event data port"), FEATURE_GROUP(
+														"a feature group"), PROVIDES_DATA_ACCESS(
+																"a provides data access"), REQUIRES_DATA_ACCESS(
+																		"a requires data access"), PROVIDES_SUBPROGRAM_ACCESS(
+																				"a provides subprogram access"), REQUIRES_SUBPROGRAM_ACCESS(
+																						"a requires subprogram access"), PROVIDES_SUBPROGRAM_GROUP_ACCESS(
+																								"a provides subprogram group access"), REQUIRES_SUBPROGRAM_GROUP_ACCESS(
+																										"a requires subprogram group access"), PROVIDES_BUS_ACCESS(
+																												"a provides bus access"), REQUIRES_BUS_ACCESS(
+																														"a requires bus access"), ABSTRACT_FEATURE(
+																																"an abstract feature"), PARAMETER(
+																																		"a parameter");
 
 		private final String nameWithIndefiniteArticle;
 
@@ -6739,15 +7063,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check that a number type is well formed.  The range values (if any)
-	 * should be such that the lower bound is not greater than the upper bound.
+	 * Check that a number type is well formed. The range values (if any) should
+	 * be such that the lower bound is not greater than the upper bound.
 	 * Satisfies legality rule from Section 10.1.1:
 	 *
-	 * <blockquote>
-	 * The value of the first numeric literal that appears in a range of a
-	 * number_type must not be greater than the value of the second numeric
-	 * literal.
-	 * </blockquote>
+	 * <blockquote> The value of the first numeric literal that appears in a
+	 * range of a number_type must not be greater than the value of the second
+	 * numeric literal. </blockquote>
 	 */
 	protected void checkNumberType(final NumberType nt) {
 		/*
@@ -6849,7 +7171,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (null == asp)
 			return;
 		if (asp instanceof Property) {
-			propertyType = ((Property) asp).getPropertyType();
+			error(arraySize, "Array size should only be integer or property constant value, not a property value");
+			return;
+			// propertyType = ((Property) asp).getPropertyType();
 		} else if (asp instanceof PropertyConstant) {
 			propertyType = ((PropertyConstant) asp).getPropertyType();
 		}
@@ -6882,22 +7206,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return getNames(findings);
 		}
 		return null;
-//			// workspace is global namespace
-//			String crossRefString = ((NamedElement) context).getName();
-//			List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
-//			EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
-//			for (IEObjectDescription ieObjectDescription : plist) {
-//				String s = ieObjectDescription.getQualifiedName().toString();
-//				if (crossRefString.equalsIgnoreCase(s)) {
-//					if (ieObjectDescription.getEObjectOrProxy() != context){
-//						ielist.add(ieObjectDescription);
-//					}
-//				}
-//			}
-//			if( !ielist.isEmpty())  {
-//				return getNames(ielist);
-//			}
-//		return null;
+		// // workspace is global namespace
+		// String crossRefString = ((NamedElement) context).getName();
+		// List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
+		// EList<IEObjectDescription> plist =
+		// EMFIndexRetrieval.getAllPackagesInWorkspace(context);
+		// for (IEObjectDescription ieObjectDescription : plist) {
+		// String s = ieObjectDescription.getQualifiedName().toString();
+		// if (crossRefString.equalsIgnoreCase(s)) {
+		// if (ieObjectDescription.getEObjectOrProxy() != context){
+		// ielist.add(ieObjectDescription);
+		// }
+		// }
+		// }
+		// if( !ielist.isEmpty()) {
+		// return getNames(ielist);
+		// }
+		// return null;
 	}
 
 	/**
@@ -6957,10 +7282,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Check category of source and destination
-	 * Section 9.5 Legality rules L5-8
+	 * Check category of source and destination Section 9.5 Legality rules L5-8
 	 */
-	private void checkFeatureGroupConnectionDirection(FeatureGroupConnection connection) {
+	private void checkFeatureGroupConnectionDirection(Connection connection) {
 		if (connection.isBidirectional()) {
 			return;
 		}
@@ -7036,7 +7360,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 8 in section 9.5 the endpoints of a directional feature group must be consistent with the direction.
+	 * Checks legality rule 8 in section 9.5 the endpoints of a directional
+	 * feature group must be consistent with the direction.
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir, Connection conn,
 			EStructuralFeature structuralFeature, boolean inverseContext) {
@@ -7061,9 +7386,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				boolean dirEquals = featureDirection.equals(notDir);
 
 				if ((!inverse && dirEquals) || (inverse && !dirEquals)) {
-//					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
-//							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
-//							structuralFeature);
+					// error("Feature " + feature.getName() + " in the
+					// referenced feature group " + featureGroup.getName()
+					// + " must not be " + notDir.getName() + " due to the
+					// direction of the connection", conn,
+					// structuralFeature);
 					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
 							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
 							structuralFeature, MAKE_CONNECTION_BIDIRECTIONAL);
@@ -7074,52 +7401,56 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule L3 for section 9.5 (Feature Group Connections)
-	 * "The following rules are supported for feature group connection declarations
+	 * Checks legality rule L3 for section 9.5 (Feature Group Connections) "The
+	 * following rules are supported for feature group connection declarations
 	 * that represent a connection up or down the containment hierarchy:
 	 *
 	 * -Classifier_Match: The source feature group type must be identical to the
-	 * feature group type of the destination.  This is the default rule.
+	 * feature group type of the destination. This is the default rule.
 	 *
 	 * -Equivalence: An indication that the two classifiers of a connection are
 	 * considered to match if they are listed in the
-	 * Supported_Classifier_Equivalence_Matches property.  Matching feature group
-	 * types are specified by the Supported_Classifier_Equivalence_Matches property
-	 * with pairs of classifier values representing acceptable matches.  Either
-	 * element of the pair can be the source or destination classifier.  Equivalence
-	 * is intended to be used when the feature group types are considered to be
-	 * identical, i.e., their elements match.  The
-	 * Supported_Classifier_Equivalence_Matches property is declared globally as a
-	 * property constant.
+	 * Supported_Classifier_Equivalence_Matches property. Matching feature group
+	 * types are specified by the Supported_Classifier_Equivalence_Matches
+	 * property with pairs of classifier values representing acceptable matches.
+	 * Either element of the pair can be the source or destination classifier.
+	 * Equivalence is intended to be used when the feature group types are
+	 * considered to be identical, i.e., their elements match. The
+	 * Supported_Classifier_Equivalence_Matches property is declared globally as
+	 * a property constant.
 	 *
-	 * -Subset: An indication that the two classifiers of a connection are considered
-	 * to match if the outer feature group has outcoming features that are a subset
-	 * of outgoing features of the inner feature group, and if the inner feature
-	 * group has incoming features that are a subset of incoming features of the
-	 * outer feature group.  The pairs of features are expected to have the same name."
+	 * -Subset: An indication that the two classifiers of a connection are
+	 * considered to match if the outer feature group has outcoming features
+	 * that are a subset of outgoing features of the inner feature group, and if
+	 * the inner feature group has incoming features that are a subset of
+	 * incoming features of the outer feature group. The pairs of features are
+	 * expected to have the same name."
 	 *
-	 * Checks legality rule L4 for section 9.5 (Feature Group Connections)
-	 * "The following rules are supported for feature group connection declarations
-	 * that represent a connection between two subcomponents, i.e., sibling component:
+	 * Checks legality rule L4 for section 9.5 (Feature Group Connections) "The
+	 * following rules are supported for feature group connection declarations
+	 * that represent a connection between two subcomponents, i.e., sibling
+	 * component:
 	 *
-	 * -Classifier_Match: The source feature group type must be the complement of the
-	 * feature group type of the destination.  This is the default rule.
+	 * -Classifier_Match: The source feature group type must be the complement
+	 * of the feature group type of the destination. This is the default rule.
 	 *
 	 * -Complement: An indication that the two classifiers of a connection are
 	 * considered to complement if they are listed in the
-	 * Supported_Classifier_Complement_Matches property.  Matching feature group types
-	 * are specified by the Supported_Classifier_Complement_Matches property with pairs
-	 * of classifier values representing acceptable matches.  Either element of the
-	 * pair can be the source or destination classifier.  Complement is intended to be
-	 * used when the feature group types are considered to be identical, i.e., their
-	 * elements match.  The Supported_Classifier_Complement_Matches property is
-	 * declared globally as a property constant.
+	 * Supported_Classifier_Complement_Matches property. Matching feature group
+	 * types are specified by the Supported_Classifier_Complement_Matches
+	 * property with pairs of classifier values representing acceptable matches.
+	 * Either element of the pair can be the source or destination classifier.
+	 * Complement is intended to be used when the feature group types are
+	 * considered to be identical, i.e., their elements match. The
+	 * Supported_Classifier_Complement_Matches property is declared globally as
+	 * a property constant.
 	 *
-	 * -Subset: An indication that the two classifiers of a connection are considered
-	 * to match if each has incoming features that are a subset of outgoing features
-	 * of the other.  The pairs of features are expected to have the same name."
+	 * -Subset: An indication that the two classifiers of a connection are
+	 * considered to match if each has incoming features that are a subset of
+	 * outgoing features of the other. The pairs of features are expected to
+	 * have the same name."
 	 */
-	private void checkFeatureGroupConnectionClassifiers(FeatureGroupConnection connection) {
+	private void checkFeatureGroupConnectionClassifiers(Connection connection) {
 		if (!(connection.getAllSource() instanceof FeatureGroup)
 				|| !(connection.getAllDestination() instanceof FeatureGroup)) {
 			return;
@@ -7144,7 +7475,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// connection across or through a component
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent
 				|| (srcContext == null || srcContext instanceof FeatureGroup)
-				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
+						&& (dstContext == null || dstContext instanceof FeatureGroup)) {
 			if (classifierMatchingRuleValue == null
 					|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 					|| ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())
@@ -7152,53 +7483,62 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (classifierMatchingRuleValue != null
 						&& ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					warning(connection,
-							"The classifier matching rule '"
-									+ ModelingProperties.EQUIVALENCE
+							"The classifier matching rule '" + ModelingProperties.EQUIVALENCE
 									+ "' is not supported for feature group connections between two subcomponents. Using rule '"
 									+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
 				if (classifierMatchingRuleValue != null
 						&& ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION
-							+ "' is not supported for feature group connections. Using rule '"
-							+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+					warning(connection,
+							"The classifier matching rule '" + ModelingProperties.CONVERSION
+									+ "' is not supported for feature group connections. Using rule '"
+									+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
 				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)) {
 					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
 							+ "' are not inverses of each other.");
 				}
 			}
-//	XXX TODO should have the EQUIVALENCE test for across with inverse
-//			else if (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-//				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType) &&
-//						!classifiersFoundInSupportedClassifierComplementMatchesProperty(connection, sourceType, destinationType)) {
-//					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
-//							"') are not inverse types and they are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES + "'.");
-//				}
-//			}
+			// XXX TODO should have the EQUIVALENCE test for across with inverse
+			// else if
+			// (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
+			// {
+			// if (!testIfFeatureGroupTypesAreInverses(source, sourceType,
+			// destination, destinationType) &&
+			// !classifiersFoundInSupportedClassifierComplementMatchesProperty(connection,
+			// sourceType, destinationType)) {
+			// error(connection, "The types of '" + source.getName() + "' and '"
+			// + destination.getName() + "' ('" + sourceType.getQualifiedName()
+			// + "' and '" + destinationType.getQualifiedName() +
+			// "') are not inverse types and they are not listed as matching
+			// classifiers in the property constant '" +
+			// AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES + "'.");
+			// }
+			// }
 			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)
 						&& !checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType,
 								destination.isInverse())) {
 					error(connection,
-							"The types of '"
-									+ source.getName()
-									+ "' and '"
-									+ destination.getName()
-									+ "' ('"
-									+ sourceType.getQualifiedName()
-									+ "' and '"
-									+ destinationType.getQualifiedName()
+							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+									+ sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName()
 									+ "') are not inverse types and they do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of each feature group must be a"
 									+ " subset of the outgoing features in the opposite feature group.");
 				}
 			}
-			// does not work because of ports in both directions. WOuld have to be subset
-//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-//				if (!testIfFeatureGroupTypeExtension(destinationType, sourceType)) {
-//					error(connection, "The type "+ sourceType.getQualifiedName() +" of '" + source.getName() + "' is not a type extension of type "+ destinationType.getQualifiedName() +" of '" + destination.getName()+"'");
-//				}
-//			}
+			// does not work because of ports in both directions. WOuld have to
+			// be subset
+			// else if
+			// (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
+			// {
+			// if (!testIfFeatureGroupTypeExtension(destinationType,
+			// sourceType)) {
+			// error(connection, "The type "+ sourceType.getQualifiedName() +"
+			// of '" + source.getName() + "' is not a type extension of type "+
+			// destinationType.getQualifiedName() +" of '" +
+			// destination.getName()+"'");
+			// }
+			// }
 
 		} else { // up or down hierarchy
 			boolean cxtFGIsInverse = false;
@@ -7210,18 +7550,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (classifierMatchingRuleValue == null
 					|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 					|| ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())
-//					|| ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
+			// ||
+			// ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 			) {
 				if (classifierMatchingRuleValue != null
 						&& ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION
-							+ "' is not supported for feature group connections. Using rule '"
-							+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+					warning(connection,
+							"The classifier matching rule '" + ModelingProperties.CONVERSION
+									+ "' is not supported for feature group connections. Using rule '"
+									+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
-//				if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-//					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT +
-//							"' is not supported for feature group connections that connect up or down the containment hierarchy. Using rule '" + ModelingProperties.CLASSIFIER_MATCH + "' instead.");
-//				}
+				// if (classifierMatchingRuleValue != null &&
+				// ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
+				// {
+				// warning(connection, "The classifier matching rule '" +
+				// ModelingProperties.COMPLEMENT +
+				// "' is not supported for feature group connections that
+				// connect up or down the containment hierarchy. Using rule '" +
+				// ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+				// }
 				if (sourceType == destinationType) {
 					if (cxtFGIsInverse ? source.isInverse() == destination.isInverse()
 							: source.isInverse() != destination.isInverse()) {
@@ -7233,9 +7580,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (isSameInExtends(sourceType, destinationType)) {
 						if (cxtFGIsInverse ? source.isInverse() == destination.isInverse()
 								: source.isInverse() != destination.isInverse()) {
-							error(connection,
-									"Ancestor feature group types match, but feature group '" + source.getName()
-											+ "' and '" + destination.getName() + "' differ in inverse of.");
+							error(connection, "Ancestor feature group types match, but feature group '"
+									+ source.getName() + "' and '" + destination.getName() + "' differ in inverse of.");
 						} else {
 							warning(connection, "The feature group type of '" + source.getName() + "' and '"
 									+ destination.getName() + "' do not match, but their ancestors do.");
@@ -7250,14 +7596,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceType,
 								destinationType)) {
 					error(connection,
-							"The types of '"
-									+ source.getName()
-									+ "' and '"
-									+ destination.getName()
-									+ "' ('"
-									+ sourceType.getQualifiedName()
-									+ "' and '"
-									+ destinationType.getQualifiedName()
+							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+									+ sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName()
 									+ "') are not identical and they are not listed as matching classifiers in the property constant '"
 									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 				}
@@ -7281,46 +7621,47 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						&& !checkIfFeatureGroupTypesAreUpAndDownSubsets(innerFeatureGroupType,
 								innerFeatureGroup.isInverse(), outerFeatureGroupType, outerFeatureGroup.isInverse())) {
 					error(connection,
-							"The types of '"
-									+ source.getName()
-									+ "' and '"
-									+ destination.getName()
-									+ "' ('"
-									+ sourceType.getQualifiedName()
-									+ "' and '"
-									+ destination.getQualifiedName()
+							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
+									+ sourceType.getQualifiedName() + "' and '" + destination.getQualifiedName()
 									+ "') are not identical and they do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of the inner feature group must be a"
 									+ " subset of the incoming features of the outer feature group and the outgoing features of the outer feature group must be a subset of the outgoing features of the inner feature"
 									+ " group.");
 				}
 			}
 			// works
-//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-//				FeatureGroup innerFeatureGroup;
-//				FeatureGroupType innerFeatureGroupType;
-//				FeatureGroup outerFeatureGroup;
-//				FeatureGroupType outerFeatureGroupType;
-//				if (connection.getAllSourceContext() instanceof Subcomponent) {
-//					innerFeatureGroup = source;
-//					innerFeatureGroupType = sourceType;
-//					outerFeatureGroup = destination;
-//					outerFeatureGroupType = destinationType;
-//				}
-//				else {
-//					outerFeatureGroup = source;
-//					outerFeatureGroupType = sourceType;
-//					innerFeatureGroup = destination;
-//					innerFeatureGroupType = destinationType;
-//				}
-//				if (!testIfFeatureGroupTypeExtension(innerFeatureGroupType, outerFeatureGroupType)) {
-//					error(connection, "The type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName() + "' is not a type extension of type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName()+"'");
-//				}
-//			}
+			// else if
+			// (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
+			// {
+			// FeatureGroup innerFeatureGroup;
+			// FeatureGroupType innerFeatureGroupType;
+			// FeatureGroup outerFeatureGroup;
+			// FeatureGroupType outerFeatureGroupType;
+			// if (connection.getAllSourceContext() instanceof Subcomponent) {
+			// innerFeatureGroup = source;
+			// innerFeatureGroupType = sourceType;
+			// outerFeatureGroup = destination;
+			// outerFeatureGroupType = destinationType;
+			// }
+			// else {
+			// outerFeatureGroup = source;
+			// outerFeatureGroupType = sourceType;
+			// innerFeatureGroup = destination;
+			// innerFeatureGroupType = destinationType;
+			// }
+			// if (!testIfFeatureGroupTypeExtension(innerFeatureGroupType,
+			// outerFeatureGroupType)) {
+			// error(connection, "The type "+
+			// outerFeatureGroupType.getQualifiedName() +" of '" +
+			// outerFeatureGroup.getName() + "' is not a type extension of type
+			// "+ outerFeatureGroupType.getQualifiedName() +" of '" +
+			// outerFeatureGroup.getName()+"'");
+			// }
+			// }
 		}
 	}
 
-	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, Context sourceContext,
-			FeatureGroup destination, Context destinationContext) {
+	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, Context sourceContext, FeatureGroup destination,
+			Context destinationContext) {
 		return isInverse(source, sourceContext) ^ isInverse(destination, destinationContext);
 	}
 
@@ -7417,75 +7758,93 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Complies with the criteria for complementing feature group types specified in legality
-	 *  rules L8 through L12 in section 8.2 (Feature Groups and Feature Group Types)
-	 * "(L8)	The number of feature or feature groups contained in the feature group and
-	 * 			its complement must be identical;
-	 * (L9)		Each of the decalred features or feature groups in a feature group must be a
-	 * 			pair-wise complement with that in the feature group complement, with pairs
-	 * 			determined by declaration order.  In the case of feature group types
-	 * 			extensions, the feature and feature group declarations in the extension are
-	 * 			considered to be declared after the declarations in the feature group type
-	 * 			being extended;
-	 * (L10)	If both feature group types have zero features, then they are considered to
-	 * 			complement each other;
-	 * (L11)	Ports are pair-wise complementary if they satisfy the port connection rules
-	 * 			specified in Section 9.2.1.  This includes appropriate port direction and
-	 * 			matching of data component classifier references according to classifier
-	 * 			matching rules (see Section 9.5 legality rules (L3) and (L4);
-	 * (L12)	Access features are pair-wise complementary if they satisfy the access
-	 * 			connection rules in Section 9.4."
+	 * Complies with the criteria for complementing feature group types
+	 * specified in legality rules L8 through L12 in section 8.2 (Feature Groups
+	 * and Feature Group Types) "(L8) The number of feature or feature groups
+	 * contained in the feature group and its complement must be identical; (L9)
+	 * Each of the decalred features or feature groups in a feature group must
+	 * be a pair-wise complement with that in the feature group complement, with
+	 * pairs determined by declaration order. In the case of feature group types
+	 * extensions, the feature and feature group declarations in the extension
+	 * are considered to be declared after the declarations in the feature group
+	 * type being extended; (L10) If both feature group types have zero
+	 * features, then they are considered to complement each other; (L11) Ports
+	 * are pair-wise complementary if they satisfy the port connection rules
+	 * specified in Section 9.2.1. This includes appropriate port direction and
+	 * matching of data component classifier references according to classifier
+	 * matching rules (see Section 9.5 legality rules (L3) and (L4); (L12)
+	 * Access features are pair-wise complementary if they satisfy the access
+	 * connection rules in Section 9.4."
 	 */
-	// It seems that this method may not be needed anymore. It is left here just in case it will
+	// It seems that this method may not be needed anymore. It is left here just
+	// in case it will
 	// be needed in the future. It is currently incomplete.
-//	private boolean checkIfFeatureGroupTypesComplementEachOther(FeatureGroupType sourceType, boolean isSourceFGInverse, FeatureGroupType destinationType, boolean isDestinationFGInverse) {
-//		EList<Feature> allSourceFeatures = sourceType.getAllFeatures();
-//		EList<Feature> allDestinationFeatures = destinationType.getAllFeatures();
-//		if (allSourceFeatures.size() == 0 && allDestinationFeatures.size() == 0)
-//			return true;
-//		if (allSourceFeatures.size() != allDestinationFeatures.size())
-//			return false;
-//		Iterator<Feature> sourceFeaturesIterator = allSourceFeatures.iterator();
-//		Iterator<Feature> destinationFeaturesIterator = allDestinationFeatures.iterator();
-//		while (sourceFeaturesIterator.hasNext() && destinationFeaturesIterator.hasNext()) {
-//			Feature sourceFeature = sourceFeaturesIterator.next();
-//			Feature destinationFeature = destinationFeaturesIterator.next();
-//			if (sourceFeature instanceof Port && destinationFeature instanceof Port) {
-//				//Check port types
-//				if (sourceFeature instanceof EventPort && !(destinationFeature instanceof EventPort))
-//					return false;
-//
-//				//Check direction
-//				DirectionType sourceDirection = ((Port)sourceFeature).getDirection();
-//				DirectionType destinationDirection = ((Port)destinationFeature).getDirection();
-//				if (isSourceFGInverse)
-//					sourceDirection = sourceDirection.getInverseDirection();
-//				if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
-//					//feature group type has inverse and feature is defined in the inverse FGT
-//					sourceDirection = sourceDirection.getInverseDirection();
-//				}
-//				if (isDestinationFGInverse)
-//					destinationDirection = destinationDirection.getInverseDirection();
-//				if (destinationType != destinationFeature.getContainingClassifier() && destinationType.getInverse() != null) {
-//					//feature group type has inverse and feature is defined in the inverse FGT
-//					destinationDirection = destinationDirection.getInverseDirection();
-//				}
-//				if ((sourceDirection == DirectionType.IN && destinationDirection == DirectionType.IN) || (sourceDirection == DirectionType.OUT && destinationDirection == DirectionType.OUT))
-//					return false;
-//
-//				//Check classifier
-//				ComponentClassifier sourceClassifier = sourceFeature.getAllClassifier();
-//				ComponentClassifier destinationClassifier = destinationFeature.getAllClassifier();
-//				if (sourceClassifier != null && destinationClassifier != null && sourceClassifier != destinationClassifier) {
-//					if ((sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentType) ||
-//							(sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentImplementation)) {
-//						return false;
-//					}
-//				}
-//			}
-//		}
-//		return true;
-//	}
+	// private boolean
+	// checkIfFeatureGroupTypesComplementEachOther(FeatureGroupType sourceType,
+	// boolean isSourceFGInverse, FeatureGroupType destinationType, boolean
+	// isDestinationFGInverse) {
+	// EList<Feature> allSourceFeatures = sourceType.getAllFeatures();
+	// EList<Feature> allDestinationFeatures = destinationType.getAllFeatures();
+	// if (allSourceFeatures.size() == 0 && allDestinationFeatures.size() == 0)
+	// return true;
+	// if (allSourceFeatures.size() != allDestinationFeatures.size())
+	// return false;
+	// Iterator<Feature> sourceFeaturesIterator = allSourceFeatures.iterator();
+	// Iterator<Feature> destinationFeaturesIterator =
+	// allDestinationFeatures.iterator();
+	// while (sourceFeaturesIterator.hasNext() &&
+	// destinationFeaturesIterator.hasNext()) {
+	// Feature sourceFeature = sourceFeaturesIterator.next();
+	// Feature destinationFeature = destinationFeaturesIterator.next();
+	// if (sourceFeature instanceof Port && destinationFeature instanceof Port)
+	// {
+	// //Check port types
+	// if (sourceFeature instanceof EventPort && !(destinationFeature instanceof
+	// EventPort))
+	// return false;
+	//
+	// //Check direction
+	// DirectionType sourceDirection = ((Port)sourceFeature).getDirection();
+	// DirectionType destinationDirection =
+	// ((Port)destinationFeature).getDirection();
+	// if (isSourceFGInverse)
+	// sourceDirection = sourceDirection.getInverseDirection();
+	// if (sourceType != sourceFeature.getContainingClassifier() &&
+	// sourceType.getInverse() != null) {
+	// //feature group type has inverse and feature is defined in the inverse
+	// FGT
+	// sourceDirection = sourceDirection.getInverseDirection();
+	// }
+	// if (isDestinationFGInverse)
+	// destinationDirection = destinationDirection.getInverseDirection();
+	// if (destinationType != destinationFeature.getContainingClassifier() &&
+	// destinationType.getInverse() != null) {
+	// //feature group type has inverse and feature is defined in the inverse
+	// FGT
+	// destinationDirection = destinationDirection.getInverseDirection();
+	// }
+	// if ((sourceDirection == DirectionType.IN && destinationDirection ==
+	// DirectionType.IN) || (sourceDirection == DirectionType.OUT &&
+	// destinationDirection == DirectionType.OUT))
+	// return false;
+	//
+	// //Check classifier
+	// ComponentClassifier sourceClassifier = sourceFeature.getAllClassifier();
+	// ComponentClassifier destinationClassifier =
+	// destinationFeature.getAllClassifier();
+	// if (sourceClassifier != null && destinationClassifier != null &&
+	// sourceClassifier != destinationClassifier) {
+	// if ((sourceClassifier instanceof ComponentType && destinationClassifier
+	// instanceof ComponentType) ||
+	// (sourceClassifier instanceof ComponentImplementation &&
+	// destinationClassifier instanceof ComponentImplementation)) {
+	// return false;
+	// }
+	// }
+	// }
+	// }
+	// return true;
+	// }
 
 	private boolean checkIfFeatureGroupTypesAreUpAndDownSubsets(FeatureGroupType innerType, boolean isInnerFGInverse,
 			FeatureGroupType outerType, boolean isOuterFGInverse) {
@@ -7496,10 +7855,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					innerDirection = innerDirection.getInverseDirection();
 				}
 				if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					innerDirection = innerDirection.getInverseDirection();
 				}
-//				if (innerDirection.incoming()) {
+				// if (innerDirection.incoming()) {
 				// need to find incoming feature in outer feature group
 				boolean matchingFeatureFound = false;
 				for (Feature outerFeature : outerType.getAllFeatures()) {
@@ -7511,11 +7871,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								outerDirection = outerDirection.getInverseDirection();
 							}
 							if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
-								// feature group type has inverse and feature is defined in the inverse FGT
+								// feature group type has inverse and feature is
+								// defined in the inverse FGT
 								outerDirection = outerDirection.getInverseDirection();
 							}
-//								if (!outerDirection.incoming())
-//									return false;
+							// if (!outerDirection.incoming())
+							// return false;
 							if (!innerFeature.eClass().equals(outerFeature.eClass())) {
 								return false;
 							}
@@ -7526,48 +7887,55 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (!matchingFeatureFound) {
 					return false;
-//				}
+					// }
 				}
 			}
 		}
 
-//		for (Feature outerFeature : outerType.getAllFeatures()) {
-//			if (outerFeature instanceof DirectedFeature) {
-//				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
-//				if (isOuterFGInverse)
-//					outerDirection = outerDirection.getInverseDirection();
-//				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
-//					//feature group type has inverse and feature is defined in the inverse FGT
-//					outerDirection = outerDirection.getInverseDirection();
-//				}
-//				if (outerDirection.outgoing()) {
-//					//need to find outgoing feature in inner feature group
-//					boolean matchingFeatureFound = false;
-//					for (Feature innerFeature : innerType.getAllFeatures()) {
-//						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
-//							matchingFeatureFound = true;
-//							if (innerFeature instanceof DirectedFeature) {
-//								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
-//								if (isInnerFGInverse)
-//									innerDirection = innerDirection.getInverseDirection();
-//								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
-//									//feature group type has inverse and feature is defined in the inverse FGT
-//									innerDirection = innerDirection.getInverseDirection();
-//								}
-//								if (!innerDirection.outgoing())
-//									return false;
-//								if (!outerFeature.eClass().equals(innerFeature.eClass()))
-//									return false;
-//							}
-//							else
-//								return false;
-//						}
-//					}
-//					if (!matchingFeatureFound)
-//						return false;
-//				}
-//			}
-//		}
+		// for (Feature outerFeature : outerType.getAllFeatures()) {
+		// if (outerFeature instanceof DirectedFeature) {
+		// DirectionType outerDirection =
+		// ((DirectedFeature)outerFeature).getDirection();
+		// if (isOuterFGInverse)
+		// outerDirection = outerDirection.getInverseDirection();
+		// if (outerType != outerFeature.getContainingClassifier() &&
+		// outerType.getInverse() != null) {
+		// //feature group type has inverse and feature is defined in the
+		// inverse FGT
+		// outerDirection = outerDirection.getInverseDirection();
+		// }
+		// if (outerDirection.outgoing()) {
+		// //need to find outgoing feature in inner feature group
+		// boolean matchingFeatureFound = false;
+		// for (Feature innerFeature : innerType.getAllFeatures()) {
+		// if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName()))
+		// {
+		// matchingFeatureFound = true;
+		// if (innerFeature instanceof DirectedFeature) {
+		// DirectionType innerDirection =
+		// ((DirectedFeature)innerFeature).getDirection();
+		// if (isInnerFGInverse)
+		// innerDirection = innerDirection.getInverseDirection();
+		// if (innerType != innerFeature.getContainingClassifier() &&
+		// innerType.getInverse() != null) {
+		// //feature group type has inverse and feature is defined in the
+		// inverse FGT
+		// innerDirection = innerDirection.getInverseDirection();
+		// }
+		// if (!innerDirection.outgoing())
+		// return false;
+		// if (!outerFeature.eClass().equals(innerFeature.eClass()))
+		// return false;
+		// }
+		// else
+		// return false;
+		// }
+		// }
+		// if (!matchingFeatureFound)
+		// return false;
+		// }
+		// }
+		// }
 
 		return true;
 	}
@@ -7581,7 +7949,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					sourceDirection = sourceDirection.getInverseDirection();
 				}
 				if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					sourceDirection = sourceDirection.getInverseDirection();
 				}
 				if (sourceDirection.incoming()) {
@@ -7598,7 +7967,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								}
 								if (destinationType != destinationFeature.getContainingClassifier()
 										&& destinationType.getInverse() != null) {
-									// feature group type has inverse and feature is defined in the inverse FGT
+									// feature group type has inverse and
+									// feature is defined in the inverse FGT
 									destinationDirection = destinationDirection.getInverseDirection();
 								}
 								if (!destinationDirection.outgoing()) {
@@ -7627,7 +7997,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (destinationType != destinationFeature.getContainingClassifier()
 						&& destinationType.getInverse() != null) {
-					// feature group type has inverse and feature is defined in the inverse FGT
+					// feature group type has inverse and feature is defined in
+					// the inverse FGT
 					destinationDirection = destinationDirection.getInverseDirection();
 				}
 				if (destinationDirection.incoming()) {
@@ -7643,7 +8014,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								}
 								if (sourceType != sourceFeature.getContainingClassifier()
 										&& sourceType.getInverse() != null) {
-									// feature group type has inverse and feature is defined in the inverse FGT
+									// feature group type has inverse and
+									// feature is defined in the inverse FGT
 									sourceDirection = sourceDirection.getInverseDirection();
 								}
 								if (!sourceDirection.outgoing()) {
@@ -7700,8 +8072,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		NamedElement duplicated = (NamedElement) resourceSet.getEObject(URI.createURI(data.get(1)), true);
 
-//		((DataPort) element).setOut(true);
-//		((DataPort) element).setIn(false);
+		// ((DataPort) element).setOut(true);
+		// ((DataPort) element).setIn(false);
 		((Feature) element).setName(null);
 		((Feature) element).setRefined((Feature) duplicated);
 		java.lang.System.out.println(((Feature) element).getRefined());

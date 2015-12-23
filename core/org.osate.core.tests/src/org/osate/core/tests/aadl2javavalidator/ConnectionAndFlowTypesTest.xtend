@@ -1580,11 +1580,11 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					//Tests typeCheckAccessConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in an 'abstract subcomponent' is not a valid access connection end.")
 				]
-				ownedAccessConnections.get(51) => [
-					"aconn52".assertEquals(name)
-					//Tests typeCheckAccessConnectionEnd
-					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' in an 'abstract subcomponent' is not a valid access connection end.")
-				]
+//				ownedAccessConnections.get(51) => [
+//					"aconn52".assertEquals(name)
+//					//Tests typeCheckAccessConnectionEnd
+//					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' in an 'abstract subcomponent' is not a valid access connection end.")
+//				]
 				ownedAccessConnections.get(52) => [
 					"aconn53".assertEquals(name)
 					//Tests typeCheckAccessConnectionEnd

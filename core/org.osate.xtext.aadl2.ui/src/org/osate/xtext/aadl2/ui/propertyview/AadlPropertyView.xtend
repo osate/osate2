@@ -35,18 +35,12 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import com.google.inject.Inject
-import java.io.InputStreamReader
 import java.util.ArrayDeque
 import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import java.util.Map
-import java.util.Set
-import java.util.TreeSet
-import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IAdaptable
-import org.eclipse.core.runtime.Path
-import org.eclipse.core.runtime.Platform
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
@@ -77,12 +71,9 @@ import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
 import org.eclipse.swt.SWT
-import org.eclipse.swt.events.ModifyEvent
-import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
-import org.eclipse.swt.widgets.Combo
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
@@ -137,7 +128,6 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
-import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
@@ -157,7 +147,6 @@ class AadlPropertyView extends ViewPart {
 	
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single AADL element that can have properties."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
-	val static DEFAULT_PROPERTY_GROUP = "All"
 
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
@@ -383,53 +372,6 @@ class AadlPropertyView extends ViewPart {
 					parent.setLayout(treeColumnLayout)
 					return c
 				}
-
-// Don't show property group filter
-//				override createFilterControls(Composite parent) {
-//					val result = super.createFilterControls(parent)
-//
-//					val Map<String, Set<String>> propertyGroups = newLinkedHashMap(
-//						DEFAULT_PROPERTY_GROUP -> new TreeSet())
-//					val propertyGroupCombo = new Combo(parent, SWT.READ_ONLY) => [
-//						add(DEFAULT_PROPERTY_GROUP)
-//						text = DEFAULT_PROPERTY_GROUP
-//					]
-//					propertyGroupCombo.addModifyListener(
-//						new ModifyListener {
-//							override modifyText(ModifyEvent e) {
-//								currentPropertyGroup.clear()
-//								for (s: propertyGroups.get(propertyGroupCombo.text)){
-//									currentPropertyGroup.add(new FilterCriterion(null,s))
-//								}
-//								showOnlyImportedPropertiesAction.checked = false
-//								treeViewer.refresh()
-//							}
-//						})
-//
-//					val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
-//						new Path("resources/AadlPropertyGroups.properties"), null)
-//					val reader = new InputStreamReader(fullPathURI.openStream())
-//					for (line : reader.readLines) {
-//						if (!line.startsWith("#") && line.length > 0) {
-//							val String[] segments = line.split(':')
-//							if (segments.length == 2) {
-//								propertyGroupCombo.add(segments.get(0))
-//								propertyGroups.put(segments.get(0), segments.get(1).split(",").toSet)
-//							}
-//						}
-//					}
-//					reader.close()
-//
-//					if (parent.getLayout() instanceof GridLayout) {
-//
-//						// previous gridLayout was 2 columns, can't change after initialization
-//						val newGridLayout = new GridLayout(3, false)
-//						newGridLayout.marginHeight = 0
-//						newGridLayout.marginWidth = 0
-//						parent.setLayout(newGridLayout)
-//					}
-//					result
-//				}
 			}
 			layout = new GridLayout
 			val gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -969,7 +911,7 @@ class AadlPropertyView extends ViewPart {
 						selectedObject.readOnly[it]
 					}
 					IAdaptable: {
-						val propertySource = selectedObject.getAdapter(IAadlPropertySource) as IAadlPropertySource
+						val propertySource = selectedObject.getAdapter(IAadlPropertySource)
 						if (propertySource != null) {
 							xtextDocument = propertySource.document
 							propertySource.namedElement
@@ -1102,8 +1044,8 @@ class AadlPropertyView extends ViewPart {
 			
 			for (ModelUnit unit: units) {
 				if (unit instanceof PropertySet) {
-					for ( prop: (unit as PropertySet).getOwnedProperties) {
-						importedPropertyGroups.add(new FilterCriterion((unit as PropertySet).getName, (prop as NamedElement).getName))
+					for (prop: unit.ownedProperties) {
+						importedPropertyGroups.add(new FilterCriterion(unit.name, prop.name))
 					}
 				}
 			}
@@ -1118,10 +1060,10 @@ class AadlPropertyView extends ViewPart {
 		}
 		
 		if (selection instanceof PackageSection) {
-			return selection as PackageSection
+			return selection
 		} 
 		else if (selection instanceof Element){
-			var owner = (selection as Element).getOwner()
+			var owner = selection.owner
 			if (owner != null) {
 				getPackageSection(owner)
 			}

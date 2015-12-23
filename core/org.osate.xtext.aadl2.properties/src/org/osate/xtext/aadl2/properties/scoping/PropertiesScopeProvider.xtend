@@ -302,7 +302,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		allInternalFeatures
 	}
 	
-	def private static allMembers(Classifier classifier) {
+	def protected static allMembers(Classifier classifier) {
 		val allMembers = newArrayList
 		allMembers.addAll(classifier.members)
 		if (classifier instanceof BehavioredImplementation) {
