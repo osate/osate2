@@ -155,7 +155,7 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 				String possibleEnd = docText.toLowerCase().substring(possibleEndIndex, possibleEndEnd + i);
 				if (possibleEnd.endsWith(";") || Character.isWhitespace(possibleEnd.charAt(possibleEnd.length() - 1))) {
 					return true;
-				} else if (!possibleEnd.equals(endName)) {
+				} else if (!possibleEnd.equalsIgnoreCase(endName)) {
 					return false;
 				}
 			}

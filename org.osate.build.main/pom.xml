@@ -5,14 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2</artifactId>
-	<version>2.1.2</version>
+	<version>2.2.0</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>0.22.0</tycho.version>
-		<tycho-extras.version>0.22.0</tycho-extras.version>
-		<xtext.version>2.8.3</xtext.version>
+		<tycho.version>0.23.0</tycho.version>
+		<tycho-extras.version>0.23.0</tycho-extras.version>
+		<xtext.version>2.8.4</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<osate.version>2.2.0</osate.version>
 	</properties>
 
 	<profiles>
@@ -207,7 +208,7 @@
 						<artifact>
 							<groupId>org.osate</groupId>
 							<artifactId>osate2-platform</artifactId>
-							<version>2.1.2</version>
+							<version>${osate.version}</version>
 						</artifact>
 					</target>
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
@@ -235,6 +236,16 @@
 						<jgit.ignore>
 							pom.xml
 						</jgit.ignore>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<configuration>
+						<useUIHarness>true</useUIHarness>
+						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
+							access <useUIThread>true</useUIThread> -->
 					</configuration>
 				</plugin>
 			</plugins>

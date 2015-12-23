@@ -14,14 +14,14 @@ property set Deployment_Properties is
 		applies to (thread, thread group, process, system, virtual processor, device);
 	
 	Allowed_Memory_Binding_Class:
-		inherit list of classifier (memory, system, processor)
-		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor);
+		inherit list of classifier (memory, system, processor, virtual processor)
+		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
 	
-	Allowed_Memory_Binding: inherit list of reference (memory, system, processor)
-		applies to (memory, thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor);
+	Allowed_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor)
+		applies to (memory, thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
 	
-	Actual_Memory_Binding: inherit list of reference (memory, system)
-		applies to (memory, thread, thread group, process, system, processor, device, data, data port, event data port, subprogram, subprogram group);
+	Actual_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor)
+		applies to (memory, thread, thread group, process, system, processor, virtual processor, device, data, data port, event data port, subprogram, subprogram group);
 	
 	Allowed_Connection_Binding_Class:
 		inherit list of classifier (processor, virtual processor, bus, virtual bus, device, memory, system)

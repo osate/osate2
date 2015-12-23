@@ -73,6 +73,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -80,7 +81,6 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -1038,6 +1038,70 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		}
 	}
 
+	/**
+	 * return all component instances in the containment structure including the root
+	 * if it is of the specified category
+	 */
+	@Override
+	public EList<ComponentInstance> getAllComponentInstances(ComponentCategory category) {
+		EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
+		doAddComponentInstances(result, category);
+		return result;
+	}
+
+	private void doAddComponentInstances(EList<ComponentInstance> result, ComponentCategory category) {
+		if (this.getCategory() == category)
+			result.add(this);
+		EList<ComponentInstance> children = getComponentInstances();
+		for (Iterator<ComponentInstance> it = children.iterator(); it.hasNext();) {
+			((ComponentInstanceImpl) it.next()).doAddComponentInstances(result, category);
+		}
+	}
+
+	/**
+	 * return all feature instances in the component instance
+	 * For feature groups include only the contained leaf feature instances
+	 */
+	@Override
+	public EList<FeatureInstance> getAllFeatureInstances() {
+		EList<FeatureInstance> result = new BasicEList<FeatureInstance>();
+		for (FeatureInstance fi : this.getFeatureInstances()) {
+			doAddFeatureInstances(result, fi);
+		}
+		return result;
+	}
+
+	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi) {
+		EList<FeatureInstance> children = getFeatureInstances();
+		if (children.isEmpty())
+			result.add(fi);
+		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
+			doAddFeatureInstances(result, fi);
+		}
+	}
+
+	/**
+	 * return all feature instances in the component instance  
+	 * if it is of the specified category. For feature groups recursively traverse all elements of the feature group
+	 */
+	@Override
+	public EList<FeatureInstance> getAllFeatureInstances(FeatureCategory category) {
+		EList<FeatureInstance> result = new BasicEList<FeatureInstance>();
+		for (FeatureInstance fi : this.getFeatureInstances()) {
+			doAddFeatureInstances(result, fi, category);
+		}
+		return result;
+	}
+
+	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi, FeatureCategory category) {
+		if (fi.getCategory() == category)
+			result.add(fi);
+		EList<FeatureInstance> children = getFeatureInstances();
+		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
+			doAddFeatureInstances(result, fi, category);
+		}
+	}
+
 	@Override
 	public boolean isActive(SystemOperationMode som) {
 		if (getInModes().isEmpty()) {
@@ -1056,7 +1120,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public ComponentClassifier getComponentClassifier() {
 		Subcomponent sub = getSubcomponent();
-		if (Aadl2Util.isNull(sub)) {
+		if (sub == null) {
 			return null;
 		}
 		return sub.getClassifier();
@@ -1064,7 +1128,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1080,7 +1144,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1103,7 +1167,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override
