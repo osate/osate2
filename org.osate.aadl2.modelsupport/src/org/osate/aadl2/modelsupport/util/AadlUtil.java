@@ -2087,7 +2087,7 @@ public final class AadlUtil {
 	 */
 	public static AadlPackage findImportedPackage(String name, Namespace context) {
 		EList<ModelUnit> imports;
-		if (name == null) {
+		if (name == null || context == null) {
 			return null;
 		}
 		if (context instanceof PropertySet) {
