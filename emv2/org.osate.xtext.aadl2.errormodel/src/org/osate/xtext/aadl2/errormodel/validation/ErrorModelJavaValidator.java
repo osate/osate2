@@ -252,7 +252,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			triggerName = "event " + ((ErrorBehaviorEvent) ep).getName();
 		} else if (es != null) {
 			triggerTS = es.getTypeSet();
-			triggerName = "state " + ((ErrorBehaviorEvent) ep).getName();
+			triggerName = "state " + es.getName();
 		}
 		TypeSet condTS = conditionElement.getConstraint();
 		if (condTS == null) {
