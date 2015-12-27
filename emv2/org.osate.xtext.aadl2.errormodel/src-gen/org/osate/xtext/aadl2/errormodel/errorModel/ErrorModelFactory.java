@@ -23,15 +23,6 @@ public interface ErrorModelFactory extends EFactory
   ErrorModelFactory eINSTANCE = org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Library</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Library</em>'.
-   * @generated
-   */
-  ErrorModelLibrary createErrorModelLibrary();
-
-  /**
    * Returns a new object of class '<em>Subclause</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -39,6 +30,15 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   ErrorModelSubclause createErrorModelSubclause();
+
+  /**
+   * Returns a new object of class '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Library</em>'.
+   * @generated
+   */
+  ErrorModelLibrary createErrorModelLibrary();
 
   /**
    * Returns a new object of class '<em>Error Types</em>'.
@@ -399,6 +399,15 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   SubcomponentElement createSubcomponentElement();
+
+  /**
+   * Returns a new object of class '<em>EMV2 Root</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EMV2 Root</em>'.
+   * @generated
+   */
+  EMV2Root createEMV2Root();
 
   /**
    * Returns a new object of class '<em>Or Expression</em>'.

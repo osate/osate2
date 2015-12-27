@@ -388,7 +388,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkMultipleUses(EObject useTypesContext) {
+	private void checkMultipleUses(Element useTypesContext) {
 		HashSet<ErrorModelLibrary> etlset = new HashSet<ErrorModelLibrary>();
 		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
 			if (etlset.contains(etl)) {
@@ -400,7 +400,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkMultipleErrorTypesInUsesTypes(EObject useTypesContext) {
+	private void checkMultipleErrorTypesInUsesTypes(Element useTypesContext) {
 		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
 		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
 			EList<ErrorType> typeslist = etl.getTypes();

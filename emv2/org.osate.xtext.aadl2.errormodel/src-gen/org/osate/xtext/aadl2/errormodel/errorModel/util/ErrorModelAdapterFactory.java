@@ -81,14 +81,14 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
     new ErrorModelSwitch<Adapter>()
     {
       @Override
-      public Adapter caseErrorModelLibrary(ErrorModelLibrary object)
-      {
-        return createErrorModelLibraryAdapter();
-      }
-      @Override
       public Adapter caseErrorModelSubclause(ErrorModelSubclause object)
       {
         return createErrorModelSubclauseAdapter();
+      }
+      @Override
+      public Adapter caseErrorModelLibrary(ErrorModelLibrary object)
+      {
+        return createErrorModelLibraryAdapter();
       }
       @Override
       public Adapter caseErrorTypes(ErrorTypes object)
@@ -291,6 +291,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createSubcomponentElementAdapter();
       }
       @Override
+      public Adapter caseEMV2Root(EMV2Root object)
+      {
+        return createEMV2RootAdapter();
+      }
+      @Override
       public Adapter caseOrExpression(OrExpression object)
       {
         return createOrExpressionAdapter();
@@ -321,11 +326,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createNamedElementAdapter();
       }
       @Override
-      public Adapter caseAnnexLibrary(AnnexLibrary object)
-      {
-        return createAnnexLibraryAdapter();
-      }
-      @Override
       public Adapter caseModalElement(ModalElement object)
       {
         return createModalElementAdapter();
@@ -334,6 +334,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAnnexSubclause(AnnexSubclause object)
       {
         return createAnnexSubclauseAdapter();
+      }
+      @Override
+      public Adapter caseAnnexLibrary(AnnexLibrary object)
+      {
+        return createAnnexLibraryAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -358,21 +363,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary <em>Library</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-   * @generated
-   */
-  public Adapter createErrorModelLibraryAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause <em>Subclause</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -383,6 +373,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createErrorModelSubclauseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary <em>Library</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+   * @generated
+   */
+  public Adapter createErrorModelLibraryAdapter()
   {
     return null;
   }
@@ -988,6 +993,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root <em>EMV2 Root</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root
+   * @generated
+   */
+  public Adapter createEMV2RootAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.OrExpression <em>Or Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1078,21 +1098,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.AnnexLibrary <em>Annex Library</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.AnnexLibrary
-   * @generated
-   */
-  public Adapter createAnnexLibraryAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.aadl2.ModalElement <em>Modal Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1118,6 +1123,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAnnexSubclauseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.AnnexLibrary <em>Annex Library</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.AnnexLibrary
+   * @generated
+   */
+  public Adapter createAnnexLibraryAdapter()
   {
     return null;
   }

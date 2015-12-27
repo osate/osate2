@@ -24,6 +24,11 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_a;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_p;
 	protected AbstractElementAlias match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q;
+	protected AbstractElementAlias match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q;
+	protected AbstractElementAlias match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q;
+	protected AbstractElementAlias match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q;
+	protected AbstractElementAlias match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q;
+	protected AbstractElementAlias match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q;
 	protected AbstractElementAlias match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q;
 	protected AbstractElementAlias match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q;
 	protected AbstractElementAlias match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q;
@@ -39,6 +44,11 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_3_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_3_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_3_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_3_8()));
+		match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_8_2()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_8_9()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_10()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_8_11()));
+		match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_9_2()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_9_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_9_6()));
+		match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_10_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_10_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_10_6()));
+		match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_7_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_7_6()));
+		match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationKeyword_11_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_11_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_11_6()));
 		match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_6()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_7()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_8()));
 		match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_9()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_10()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_11()));
 		match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_7_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_7_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_7_6()));
@@ -67,6 +77,16 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 				emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q.equals(syntax))
 				emit_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q.equals(syntax))
+				emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
+				emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q.equals(syntax))
+				emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
+				emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q.equals(syntax))
+				emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q.equals(syntax))
 				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q.equals(syntax))
@@ -124,6 +144,2115 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     name=QEMREF (ambiguity) transformations+=TypeTransformationSet
 	 */
 	protected void emit_EMV2Library___ErrorKeyword_3_0_TypesKeyword_3_1_EndKeyword_3_6_TypesKeyword_3_7_SemicolonKeyword_3_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     (
+	  *         'component' 
+	  *         'error' 
+	  *         'behavior' 
+	  *         'end' 
+	  *         'component' 
+	  *         ';'
+	  *     )?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         (ambiguity) 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     name=QCREF ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     name=QCREF ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     propagations+=ErrorPropagation 'end' 'propagations' ';' (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     propagations+=ErrorPropagation 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 */
+	protected void emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     (
+	  *         'composite' 
+	  *         'error' 
+	  *         'behavior' 
+	  *         'end' 
+	  *         'composite' 
+	  *         ';'
+	  *     )?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (
+	 *         errorDetections+=ErrorDetection 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         transitions+=ErrorBehaviorTransition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTransformation=[TypeTransformationSet|QEMREF] 
+	 *         ';' 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     name=QCREF ('error' 'propagations' 'end' 'propagations' ';')? ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     propagations+=ErrorPropagation 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 */
+	protected void emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('connection' 'error' 'end' 'connection' ';')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (
+	 *         errorDetections+=ErrorDetection 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         events+=ErrorBehaviorEvent 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         transitions+=ErrorBehaviorTransition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTransformation=[TypeTransformationSet|QEMREF] 
+	 *         ';' 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTransformation=[TypeTransformationSet|QEMREF] 
+	 *         ';' 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
+	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
+	 */
+	protected void emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('error' 'propagations' 'end' 'propagations' ';')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (
+	 *         name=QCREF 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         'use' 
+	 *         'transformations' 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         'connection' 
+	 *         'error' 
+	 *         connectionErrorSources+=ConnectionErrorSource
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         paths+=PropagationPath
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         'propagation' 
+	 *         'paths' 
+	 *         points+=PropagationPoint
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'mode' 'mappings' errorStateToModeMappings+=ErrorStateToModeMapping
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'propagations' outgoingPropagationConditions+=OutgoingPropagationCondition
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
+	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
+	 *     name=QCREF (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     name=QCREF (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'mode' 'mappings' errorStateToModeMappings+=ErrorStateToModeMapping
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'propagations' outgoingPropagationConditions+=OutgoingPropagationCondition
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
+	 *     typeEquivalence=[TypeMappingSet|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'mode' 'mappings' errorStateToModeMappings+=ErrorStateToModeMapping
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'propagations' outgoingPropagationConditions+=OutgoingPropagationCondition
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
+	 *     typeMappingSet=[TypeMappingSet|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'mode' 'mappings' errorStateToModeMappings+=ErrorStateToModeMapping
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'propagations' outgoingPropagationConditions+=OutgoingPropagationCondition
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
+	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'mode' 'mappings' errorStateToModeMappings+=ErrorStateToModeMapping
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'propagations' outgoingPropagationConditions+=OutgoingPropagationCondition
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'transitions' transitions+=ErrorBehaviorTransition
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
+	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
+	 */
+	protected void emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('propagation' 'paths' 'end' 'paths' ';')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (
+	 *         errorDetections+=ErrorDetection 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         events+=ErrorBehaviorEvent 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         flows+=ErrorFlow 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         name=QCREF 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         propagations+=ErrorPropagation 
+	 *         'end' 
+	 *         'propagations' 
+	 *         ';' 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         transitions+=ErrorBehaviorTransition 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTransformation=[TypeTransformationSet|QEMREF] 
+	 *         ';' 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTransformation=[TypeTransformationSet|QEMREF] 
+	 *         ';' 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'end' 
+	 *         'subclause' 
+	 *         ';' 
+	 *         (rule end)
+	 *     )
+	 *     (
+	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
+	 *         ';' 
+	 *         ('error' 'propagations' 'end' 'propagations' ';')? 
+	 *         ('component' 'error' 'behavior' 'end' 'component' ';')? 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         (ambiguity) 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
+	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'properties' properties+=ContainedPropertyAssociation
+	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
+	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
+	 */
+	protected void emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -372,30 +372,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @return
 	 */
 	public AnnexLibrary getActualAnnexLibrary(EObject context, String name) {
-		EObject eo = EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(),
+		return (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(),
 				name);
-		if (eo instanceof ErrorModelLibrary) {
-			ErrorModelLibrary dal = (ErrorModelLibrary) eo;
-			if (dal != null) {
-				return dal;// .getParsedAnnexLibrary();
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * name is qualified with annex name
-	 * @param context
-	 * @param name
-	 * @return
-	 */
-	public AnnexSubclause getActualAnnexSubclause(EObject context, String name) {
-		ErrorModelSubclause dasc = (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(context,
-				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), name);
-		if (dasc != null) {
-			return dasc;// .getParsedAnnexSubclause();
-		}
-		return null;
 	}
 
 	/**
@@ -423,6 +401,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 		}
+		// XXX TODO this next code should not return anything that is not already in teh global index 
 		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
 		if (ap == null) {
 			return null;

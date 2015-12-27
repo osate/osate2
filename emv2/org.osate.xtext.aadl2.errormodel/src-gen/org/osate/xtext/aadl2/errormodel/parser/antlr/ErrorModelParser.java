@@ -25,7 +25,7 @@ public class ErrorModelParser extends org.eclipse.xtext.parser.antlr.AbstractAnt
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "EMV2Library";
+		return "EMV2Root";
 	}
 	
 	public ErrorModelGrammarAccess getGrammarAccess() {

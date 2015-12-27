@@ -64,8 +64,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     switch (eClass.getClassifierID())
     {
-      case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
       case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
       case ErrorModelPackage.ERROR_TYPE: return createErrorType();
       case ErrorModelPackage.TYPE_SET: return createTypeSet();
@@ -106,6 +106,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
       case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE: return createQualifiedErrorBehaviorState();
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
+      case ErrorModelPackage.EMV2_ROOT: return createEMV2Root();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
       case ErrorModelPackage.SOR_EXPRESSION: return createSOrExpression();
@@ -120,10 +121,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorModelLibrary createErrorModelLibrary()
+  public ErrorModelSubclause createErrorModelSubclause()
   {
-    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
-    return errorModelLibrary;
+    ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
+    return errorModelSubclause;
   }
 
   /**
@@ -131,10 +132,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorModelSubclause createErrorModelSubclause()
+  public ErrorModelLibrary createErrorModelLibrary()
   {
-    ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
-    return errorModelSubclause;
+    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
+    return errorModelLibrary;
   }
 
   /**
@@ -575,6 +576,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     SubcomponentElementImpl subcomponentElement = new SubcomponentElementImpl();
     return subcomponentElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2Root createEMV2Root()
+  {
+    EMV2RootImpl emv2Root = new EMV2RootImpl();
+    return emv2Root;
   }
 
   /**

@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -213,6 +214,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
 				sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 				return; 
+			case ErrorModelPackage.EMV2_ROOT:
+				sequence_EMV2Root(context, (EMV2Root) semanticObject); 
+				return; 
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE:
 				sequence_ErrorBehaviorState(context, (ErrorBehaviorState) semanticObject); 
 				return; 
@@ -244,8 +248,17 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
-				sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
-				return; 
+				if(context == grammarAccess.getEMV2SubclauseRule()) {
+					sequence_EMV2Subclause(context, (ErrorModelSubclause) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAnnexSubclauseRule() ||
+				   context == grammarAccess.getErrorModelSubclauseRule() ||
+				   context == grammarAccess.getModalElementRule()) {
+					sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.ERROR_PATH:
 				sequence_ErrorPath(context, (ErrorPath) semanticObject); 
 				return; 
@@ -482,6 +495,43 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     )
 	 */
 	protected void sequence_EMV2Library(EObject context, ErrorModelLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (library=EMV2Library | subclauses+=EMV2Subclause*)
+	 */
+	protected void sequence_EMV2Root(EObject context, EMV2Root semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=QCREF 
+	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
+	 *         typeMappingSet=[TypeMappingSet|QEMREF]? 
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
+	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
+	 *         (
+	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
+	 *             events+=ErrorBehaviorEvent* 
+	 *             transitions+=ErrorBehaviorTransition* 
+	 *             outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *             errorDetections+=ErrorDetection* 
+	 *             errorStateToModeMappings+=ErrorStateToModeMapping*
+	 *         )? 
+	 *         states+=CompositeState* 
+	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
+	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
+	 *         properties+=ContainedPropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_EMV2Subclause(EObject context, ErrorModelSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

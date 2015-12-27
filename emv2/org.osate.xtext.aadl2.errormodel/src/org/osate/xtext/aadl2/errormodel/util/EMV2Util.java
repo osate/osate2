@@ -10,6 +10,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -48,6 +49,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -71,6 +73,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class EMV2Util {
 
@@ -95,7 +98,7 @@ public class EMV2Util {
 	 * @param cl classifier
 	 * @return ErrorModelSubclause
 	 */
-	private static void getClassifierEMV2Subclause(Classifier cl, EList<ErrorModelSubclause> result) {
+	private static void getClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) {
 			result.add(ems);
@@ -110,10 +113,10 @@ public class EMV2Util {
 	 * @param cl Component Implementation
 	 * @param result list of EMV2 subclauses
 	 */
-	private static void getAllClassifierEMV2Subclause(Classifier cl, EList<ErrorModelSubclause> result) {
+	private static void getAllClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		if (!Aadl2Util.isNull(cl)) {
 			getClassifierEMV2Subclause(cl, result);
-			getAllClassifierEMV2Subclause(cl.getExtended(), result);
+			getAllClassifierEMV2Subclause((ComponentClassifier)cl.getExtended(), result);
 		}
 	}
 
@@ -123,36 +126,79 @@ public class EMV2Util {
 	 * @param element declarative model element or error annex element or instance object
 	 * @return ErrorModelSubclause
 	 */
-	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(EObject element) {
+	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
 		Classifier cl = null;
 		if (element instanceof InstanceObject) {
 			ComponentInstance ci = ((InstanceObject) element).getComponentInstance();
 			cl = ci.getComponentClassifier();
 		} else if (element != null) {
-			cl = AadlUtil.getContainingClassifier(element);
+			cl = getAssociatedClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
 		if (cl == null)
 			return result;
 		if (cl instanceof ComponentImplementation) {
-			getAllClassifierEMV2Subclause(cl, result);
+			getAllClassifierEMV2Subclause((ComponentImplementation)cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
 		} else {
-			getAllClassifierEMV2Subclause(cl, result);
+			getAllClassifierEMV2Subclause((ComponentImplementation)cl, result);
 		}
 		return result;
+	}
+	
+	/**
+	 * return the classifier that this subclause belongs to.
+	 * The subclause is assumed to have the same name as the classifier.
+	 * @param emsc
+	 * @return
+	 */
+	public static Classifier getAssociatedClassifier(ErrorModelSubclause emsc){
+		if (emsc.getName() == null) return null;
+		return (Classifier)EMFIndexRetrieval.getEObjectOfType(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
+	}
+	
+	/**
+	 * return the component classifier that this subclause element belongs to.
+	 * The subclause can be embedded or separate.
+	 * @param an EObject in a EMV2 subclause
+	 * @return ComponentClassifier
+	 */
+	public static ComponentClassifier getAssociatedClassifier(Element emv2Element){
+		
+		ComponentClassifier cl = (ComponentClassifier)emv2Element.getContainingClassifier();
+		if (cl != null) return cl;
+		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
+		if (emsc.getName() == null) return null;
+		return (ComponentClassifier)EMFIndexRetrieval.getEObjectOfType(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
+	}
+
+
+	/**
+	 * get the separately stored EMV2 subclause, which is assumed to have the name of the classifier
+	 * @param cl Component Classifier
+	 * @return ErrorModelSubclause
+	 */
+	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
+		return (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(cl,
+				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), cl.getQualifiedName());
 	}
 
 	/**
 	 * get the error model subclause for the specified classifier.
+	 * Do it for the sparately stored or embedded subclause
 	 * Does not look in the extends hierarchy
 	 * @param cl CLassifier
 	 * @return
 	 */
-	public static ErrorModelSubclause getOwnEMV2Subclause(Classifier cl) {
+	public static ErrorModelSubclause getOwnEMV2Subclause(ComponentClassifier cl) {
 		if (cl == null) {
 			return null;
 		}
+		// separetely stored EMV2 subclause
+		String qname = cl.getQualifiedName();
+		ErrorModelSubclause emsc = getAssociatedEMV2Subclause(cl);
+		if (emsc != null) return emsc;
+		// embedded EMV2 subclause
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl) {
 			AnnexSubclause actal = ((DefaultAnnexSubclause) al).getParsedAnnexSubclause();
@@ -170,7 +216,7 @@ public class EMV2Util {
 	 * @param cl
 	 * @return
 	 */
-	public static ErrorModelSubclause getExtendsEMV2Subclause(Classifier cl) {
+	public static ErrorModelSubclause getExtendsEMV2Subclause(ComponentClassifier cl) {
 		if (cl == null) {
 			return null;
 		}
@@ -179,7 +225,7 @@ public class EMV2Util {
 			return ems;
 		}
 		if (!Aadl2Util.isNull(cl.getExtended())) {
-			ems = getExtendsEMV2Subclause(cl.getExtended());
+			ems = getExtendsEMV2Subclause((ComponentClassifier)cl.getExtended());
 			if (ems != null) {
 				return ems;
 			}
@@ -305,7 +351,7 @@ public class EMV2Util {
 	}
 
 	public static ErrorPropagation findSubcomponentOrIncomingErrorProparation(Element elem, String name) {
-		Classifier cl = elem.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(elem);
 		if (cl == null)
 			return null;
 		EList<Subcomponent> subs;
@@ -345,7 +391,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorPropagation findErrorPropagation(Element elem, String name, DirectionType dir) {
-		Classifier cl = elem.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(elem);
 		if (cl != null) {
 			return findErrorPropagation(cl, name, dir);
 		}
@@ -564,7 +610,7 @@ public class EMV2Util {
 	 * @return ErrorFlow
 	 */
 	public static ErrorFlow findErrorFlow(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
 			Collection<ErrorFlow> eflist = getAllErrorFlows(cl);
 			return (ErrorFlow) AadlUtil.findNamedElementInList(eflist, name);
@@ -580,7 +626,7 @@ public class EMV2Util {
 	 * ConnectionErrorSource by the specified name was found
 	 */
 	public static ConnectionErrorSource findConnectionErrorSource(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
 			Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
 			return (ConnectionErrorSource) AadlUtil.findNamedElementInList(ceslist, name);
@@ -598,7 +644,7 @@ public class EMV2Util {
 	 * ErrorType by the specified name was found
 	 */
 	public static ErrorType findErrorType(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
 			for(ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl))
 				for(ErrorModelLibrary currLibrary : currSubclause.getUseTypes())
@@ -801,7 +847,7 @@ public class EMV2Util {
 			eplist = new BasicEList<ErrorPropagation>();
 			eplist.add(errorSource.getOutgoing());
 		} else if (errorSource.isAllOutgoing()) {
-			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorSource.getContainingClassifier());
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(getAssociatedClassifier(errorSource));
 		}
 		return eplist;
 	}
@@ -812,7 +858,7 @@ public class EMV2Util {
 			eplist = new BasicEList<ErrorPropagation>();
 			eplist.add(errorPath.getOutgoing());
 		} else if (errorPath.isAllOutgoing()) {
-			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorPath.getContainingClassifier());
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(getAssociatedClassifier(errorPath));
 		}
 		return eplist;
 	}
@@ -913,7 +959,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorBehaviorTransition findErrorBehaviorTransition(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl != null) {
 			// we are not in an error library
 			ErrorBehaviorTransition ebt = findErrorBehaviorTransitioninCEB(cl, name);
@@ -1048,7 +1094,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorBehaviorEvent findErrorBehaviorEvent(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		// we are not in an error library
 		ErrorBehaviorEvent ebt = findErrorBehaviorEventinCEB(cl, name);
 		if (ebt != null) {
@@ -1102,7 +1148,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorDetection findErrorDetection(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
@@ -1143,7 +1189,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
@@ -1865,6 +1911,19 @@ public class EMV2Util {
 		}
 		return (ErrorModelLibrary) container;
 	}
+	/**
+	 * get the enclosing error model subclause.
+	 * Returns null if the element is not in a error model subclause
+	 * @param element
+	 * @return ErrorModelSubclause or null
+	 */
+	public static ErrorModelSubclause getContainingErrorModelSubclause(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof ErrorModelSubclause)) {
+			container = container.eContainer();
+		}
+		return (ErrorModelSubclause) container;
+	}
 
 	/**
 	 * return the feature the error propagation is pointing to or null
@@ -2108,7 +2167,7 @@ public class EMV2Util {
 	 * @param context Type use context
 	 * @return EList<ErrorModelLibrary>
 	 */
-	public static EList<ErrorModelLibrary> getUseTypes(EObject context) {
+	public static EList<ErrorModelLibrary> getUseTypes(Element context) {
 		EObject useTypesContainer = context;
 		while (!(useTypesContainer instanceof ErrorModelLibrary || useTypesContainer instanceof ErrorModelSubclause
 				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet || useTypesContainer instanceof ErrorBehaviorStateMachine)) {

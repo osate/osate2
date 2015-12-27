@@ -78,16 +78,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case ErrorModelPackage.ERROR_MODEL_LIBRARY:
-      {
-        ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)theEObject;
-        T result = caseErrorModelLibrary(errorModelLibrary);
-        if (result == null) result = caseAnnexLibrary(errorModelLibrary);
-        if (result == null) result = caseNamedElement(errorModelLibrary);
-        if (result == null) result = caseElement(errorModelLibrary);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
       {
         ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
@@ -96,6 +86,16 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseNamedElement(errorModelSubclause);
         if (result == null) result = caseElement(errorModelSubclause);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY:
+      {
+        ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)theEObject;
+        T result = caseErrorModelLibrary(errorModelLibrary);
+        if (result == null) result = caseAnnexLibrary(errorModelLibrary);
+        if (result == null) result = caseNamedElement(errorModelLibrary);
+        if (result == null) result = caseElement(errorModelLibrary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -460,6 +460,15 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.EMV2_ROOT:
+      {
+        EMV2Root emv2Root = (EMV2Root)theEObject;
+        T result = caseEMV2Root(emv2Root);
+        if (result == null) result = caseNamedElement(emv2Root);
+        if (result == null) result = caseElement(emv2Root);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ErrorModelPackage.OR_EXPRESSION:
       {
         OrExpression orExpression = (OrExpression)theEObject;
@@ -501,22 +510,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Library</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseErrorModelLibrary(ErrorModelLibrary object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Subclause</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -528,6 +521,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorModelSubclause(ErrorModelSubclause object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Library</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseErrorModelLibrary(ErrorModelLibrary object)
   {
     return null;
   }
@@ -1173,6 +1182,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>EMV2 Root</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EMV2 Root</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEMV2Root(EMV2Root object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Or Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1269,22 +1294,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Annex Library</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Annex Library</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAnnexLibrary(AnnexLibrary object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Modal Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1312,6 +1321,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAnnexSubclause(AnnexSubclause object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAnnexLibrary(AnnexLibrary object)
   {
     return null;
   }
