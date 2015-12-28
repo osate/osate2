@@ -31,16 +31,12 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 			 * this check is not here, then a ClassCastException occurs during
 			 * serialization.
 			 */
-			if (((NamedElement) obj).getName() == null
-					|| EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
-				NamedElement namedElement = (NamedElement) obj;
-				NamedElement root = namedElement.getElementRoot();
-				if (((NamedElement) obj).getName() == null
-						|| !(root instanceof AadlPackage || root instanceof EMV2Root)) {
-					return null;
-				}
-				return getConverter().toQualifiedName(getTheName((NamedElement) obj));
+			NamedElement namedElement = (NamedElement) obj;
+			NamedElement root = namedElement.getElementRoot();
+			if (((NamedElement) obj).getName() == null || !(root instanceof AadlPackage || root instanceof EMV2Root)) {
+				return null;
 			}
+			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
 		}
 		return null;
 	}
