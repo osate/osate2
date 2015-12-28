@@ -22,21 +22,25 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet
-				|| obj instanceof ErrorModelLibrary || obj instanceof ErrorModelSubclause
-				|| obj instanceof ErrorType || obj instanceof TypeSet
-				|| obj instanceof TypeTransformationSet) {
+				|| obj instanceof ErrorModelLibrary || obj instanceof ErrorModelSubclause || obj instanceof ErrorType
+				|| obj instanceof TypeSet || obj instanceof TypeTransformationSet) {
 			/*
-			 * It is important that we return null if obj is not in an AadlPackage or in a EMV2Root.  This happens when serializing an aadl file
-			 * with an error model annex.  See EMV2AnnexUnparser.  If this check is not here, then a ClassCastException occurs
-			 * during serialization.
+			 * It is important that we return null if obj is not in an
+			 * AadlPackage or in a EMV2Root. This happens when serializing an
+			 * aadl file with an error model annex. See EMV2AnnexUnparser. If
+			 * this check is not here, then a ClassCastException occurs during
+			 * serialization.
 			 */
-			if (((NamedElement) obj).getName() == null || EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
-			NamedElement namedElement = (NamedElement) obj;
-			NamedElement root = namedElement.getElementRoot();
-			if (((NamedElement) obj).getName() == null || !(root instanceof AadlPackage || root instanceof EMV2Root)) {
-				return null;
+			if (((NamedElement) obj).getName() == null
+					|| EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
+				NamedElement namedElement = (NamedElement) obj;
+				NamedElement root = namedElement.getElementRoot();
+				if (((NamedElement) obj).getName() == null
+						|| !(root instanceof AadlPackage || root instanceof EMV2Root)) {
+					return null;
+				}
+				return getConverter().toQualifiedName(getTheName((NamedElement) obj));
 			}
-			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
 		}
 		return null;
 	}
@@ -47,9 +51,9 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 			if (namedElement instanceof ErrorModelLibrary || namedElement instanceof ErrorModelSubclause) {
 				return namedElement.getName();
 			}
-			ErrorModelLibrary eml = ((EMV2Root)root).getLibrary();
+			ErrorModelLibrary eml = ((EMV2Root) root).getLibrary();
 			if (eml != null)
-			return root.getName() + "::" + namedElement.getName();
+				return root.getName() + "::" + namedElement.getName();
 		}
 		if (namedElement instanceof ErrorModelLibrary) {
 			return "emv2$" + root.getName();

@@ -168,7 +168,7 @@ public class EMV2Util {
 		ComponentClassifier cl = (ComponentClassifier)emv2Element.getContainingClassifier();
 		if (cl != null) return cl;
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
-		if (emsc.getName() == null) return null;
+		if (emsc == null || emsc.getName() == null) return null;
 		return (ComponentClassifier)EMFIndexRetrieval.getEObjectOfType(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
 
@@ -1068,7 +1068,7 @@ public class EMV2Util {
 
 	/**
 	 * find the error behavior event in the component error behavior looking in all inherited subclauses according to extends and type of implementation
-	 * @param cl
+	 * @param cl ComponentClassifier (May be null)
 	 * @param name
 	 * @return
 	 */

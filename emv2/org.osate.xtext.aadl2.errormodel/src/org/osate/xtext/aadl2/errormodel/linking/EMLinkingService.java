@@ -325,11 +325,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 				searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
 			}  else {
 				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
-		}
+			}
 			if (searchResult == null) {
 					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 			}
-
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType) {
 			searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 
