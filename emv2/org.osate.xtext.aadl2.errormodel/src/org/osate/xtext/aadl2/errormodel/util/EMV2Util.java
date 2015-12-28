@@ -15,6 +15,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexSubclause;
@@ -141,7 +142,7 @@ public class EMV2Util {
 			getAllClassifierEMV2Subclause((ComponentImplementation)cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
 		} else {
-			getAllClassifierEMV2Subclause((ComponentImplementation)cl, result);
+			getAllClassifierEMV2Subclause((ComponentType)cl, result);
 		}
 		return result;
 	}

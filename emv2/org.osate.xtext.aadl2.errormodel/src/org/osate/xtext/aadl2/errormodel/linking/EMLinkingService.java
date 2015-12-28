@@ -83,9 +83,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
 		}
-//		List<EObject> result = super.getLinkedObjects(context, reference, node);
-//		if (!result.isEmpty())
-//			return result;
 		Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
@@ -137,7 +134,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 						cxtElement = ne;
 					}
 				} else {
-					Classifier found = ((ContainmentPathElement) context).getContainingClassifier();
+					Classifier found = EMV2Util.getAssociatedClassifier(((ContainmentPathElement) context));
 					if (found != null) {
 						cxtElement = found;
 					}
@@ -361,7 +358,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (searchResult != null) {
 			return Collections.singletonList(searchResult);
 		}
-		return Collections.<EObject> emptyList();
+
+		List<EObject> res = super.getLinkedObjects(context, reference, node);
+		return res;
+//		return Collections.<EObject> emptyList();
 	}
 
 	/**
