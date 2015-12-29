@@ -48,6 +48,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getWhencondition <em>Whencondition</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getEvolvesReference <em>Evolves Reference</em>}</li>
@@ -267,6 +268,32 @@ public interface ContractualElement extends EObject
    * @generated
    */
   EList<AVariableDeclaration> getConstants();
+
+  /**
+   * Returns the value of the '<em><b>Whencondition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Whencondition</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Whencondition</em>' containment reference.
+   * @see #setWhencondition(WhenCondition)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Whencondition()
+   * @model containment="true"
+   * @generated
+   */
+  WhenCondition getWhencondition();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getWhencondition <em>Whencondition</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Whencondition</em>' containment reference.
+   * @see #getWhencondition()
+   * @generated
+   */
+  void setWhencondition(WhenCondition value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.

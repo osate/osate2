@@ -50,6 +50,7 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
+import org.osate.reqspec.reqSpec.WhenCondition;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,6 +69,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getWhencondition <em>Whencondition</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getEvolvesReference <em>Evolves Reference</em>}</li>
@@ -201,6 +203,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EList<AVariableDeclaration> constants;
+
+  /**
+   * The cached value of the '{@link #getWhencondition() <em>Whencondition</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWhencondition()
+   * @generated
+   * @ordered
+   */
+  protected WhenCondition whencondition;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -573,6 +585,54 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public WhenCondition getWhencondition()
+  {
+    return whencondition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetWhencondition(WhenCondition newWhencondition, NotificationChain msgs)
+  {
+    WhenCondition oldWhencondition = whencondition;
+    whencondition = newWhencondition;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION, oldWhencondition, newWhencondition);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWhencondition(WhenCondition newWhencondition)
+  {
+    if (newWhencondition != whencondition)
+    {
+      NotificationChain msgs = null;
+      if (whencondition != null)
+        msgs = ((InternalEObject)whencondition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION, null, msgs);
+      if (newWhencondition != null)
+        msgs = ((InternalEObject)newWhencondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION, null, msgs);
+      msgs = basicSetWhencondition(newWhencondition, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION, newWhencondition, newWhencondition));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Rationale getRationale()
   {
     return rationale;
@@ -780,6 +840,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return basicSetDescription(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION:
+        return basicSetWhencondition(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return basicSetRationale(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
@@ -820,6 +882,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         return getConstants();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION:
+        return getWhencondition();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
@@ -880,6 +944,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION:
+        setWhencondition((WhenCondition)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((Rationale)newValue);
@@ -950,6 +1017,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         getConstants().clear();
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION:
+        setWhencondition((WhenCondition)null);
+        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((Rationale)null);
         return;
@@ -1006,6 +1076,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return description != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         return constants != null && !constants.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__WHENCONDITION:
+        return whencondition != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return rationale != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:

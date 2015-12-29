@@ -66,7 +66,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		);
 	}
 
-	override void completeRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context,
+	override void completeGlobalRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		// System.out.println("completeRequirement_GoalReference0000" + model.toString);
 		val sysRequirements = model.eContainer as SystemRequirements
@@ -84,7 +84,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		]);
 	}
 
-	override void completeRequirement_RefinesReference(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_RefinesReference(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 
 		val targetComponentClassifier = (model.eContainer as SystemRequirements).target
@@ -110,14 +110,14 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		]);
 	}
 
-	override void completeRequirement_DecomposesReference(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_DecomposesReference(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		completeRequirement_RefinesReference(model, assignment, context, acceptor)
+		completeGlobalRequirement_RefinesReference(model, assignment, context, acceptor)
 	}
 
-	override void completeRequirement_EvolvesReference(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_EvolvesReference(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		completeRequirement_RefinesReference(model, assignment, context, acceptor)
+		completeGlobalRequirement_RefinesReference(model, assignment, context, acceptor)
 	}
 
 	// mnam: Later refine this to customize content assist String
@@ -164,7 +164,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 
 
 
-	override void completeRequirement_QualityCategory(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_QualityCategory(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
@@ -177,7 +177,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 	}
 
 
-	override void completeRequirement_UserCategory(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_UserCategory(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,

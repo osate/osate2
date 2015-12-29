@@ -148,6 +148,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createIncludeGlobalRequirementAdapter();
       }
       @Override
+      public Adapter caseWhenCondition(WhenCondition object)
+      {
+        return createWhenConditionAdapter();
+      }
+      @Override
       public Adapter caseReqPredicate(ReqPredicate object)
       {
         return createReqPredicateAdapter();
@@ -166,6 +171,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
       public Adapter caseValuePredicate(ValuePredicate object)
       {
         return createValuePredicateAdapter();
+      }
+      @Override
+      public Adapter caseDesiredValue(DesiredValue object)
+      {
+        return createDesiredValueAdapter();
       }
       @Override
       public Adapter caseExternalDocument(ExternalDocument object)
@@ -385,6 +395,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.WhenCondition <em>When Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.WhenCondition
+   * @generated
+   */
+  public Adapter createWhenConditionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -440,6 +465,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createValuePredicateAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.DesiredValue <em>Desired Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.DesiredValue
+   * @generated
+   */
+  public Adapter createDesiredValueAdapter()
   {
     return null;
   }

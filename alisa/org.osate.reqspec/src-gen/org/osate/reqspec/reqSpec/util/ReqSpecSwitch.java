@@ -178,6 +178,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ReqSpecPackage.WHEN_CONDITION:
+      {
+        WhenCondition whenCondition = (WhenCondition)theEObject;
+        T result = caseWhenCondition(whenCondition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ReqSpecPackage.REQ_PREDICATE:
       {
         ReqPredicate reqPredicate = (ReqPredicate)theEObject;
@@ -206,6 +213,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
         ValuePredicate valuePredicate = (ValuePredicate)theEObject;
         T result = caseValuePredicate(valuePredicate);
         if (result == null) result = caseReqPredicate(valuePredicate);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.DESIRED_VALUE:
+      {
+        DesiredValue desiredValue = (DesiredValue)theEObject;
+        T result = caseDesiredValue(desiredValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -433,6 +447,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>When Condition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>When Condition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWhenCondition(WhenCondition object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Req Predicate</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -492,6 +522,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseValuePredicate(ValuePredicate object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Desired Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Desired Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDesiredValue(DesiredValue object)
   {
     return null;
   }

@@ -87,6 +87,8 @@ Workflow {
 		registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
 		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
 		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+		registerGeneratedEPackage = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
+		registerGenModelFile = "platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel"
 		registerGeneratedEPackage = "org.osate.alisa.common.common.CommonPackage"
 		registerGenModelFile = "platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel"
 		registerGeneratedEPackage = "org.osate.categories.categories.CategoriesPackage"

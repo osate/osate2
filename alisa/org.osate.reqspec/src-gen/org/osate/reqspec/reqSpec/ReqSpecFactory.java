@@ -144,6 +144,15 @@ public interface ReqSpecFactory extends EFactory
   IncludeGlobalRequirement createIncludeGlobalRequirement();
 
   /**
+   * Returns a new object of class '<em>When Condition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>When Condition</em>'.
+   * @generated
+   */
+  WhenCondition createWhenCondition();
+
+  /**
    * Returns a new object of class '<em>Req Predicate</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -178,6 +187,15 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   ValuePredicate createValuePredicate();
+
+  /**
+   * Returns a new object of class '<em>Desired Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Desired Value</em>'.
+   * @generated
+   */
+  DesiredValue createDesiredValue();
 
   /**
    * Returns a new object of class '<em>External Document</em>'.

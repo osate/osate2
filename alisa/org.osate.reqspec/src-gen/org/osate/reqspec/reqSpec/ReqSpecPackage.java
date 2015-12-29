@@ -245,13 +245,22 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__CONSTANTS = 8;
 
   /**
+   * The feature id for the '<em><b>Whencondition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__WHENCONDITION = 9;
+
+  /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__RATIONALE = 9;
+  int CONTRACTUAL_ELEMENT__RATIONALE = 10;
 
   /**
    * The feature id for the '<em><b>Change Uncertainty</b></em>' containment reference.
@@ -260,7 +269,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 10;
+  int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 11;
 
   /**
    * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
@@ -269,7 +278,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = 11;
+  int CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = 12;
 
   /**
    * The feature id for the '<em><b>Dropped</b></em>' attribute.
@@ -278,7 +287,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DROPPED = 12;
+  int CONTRACTUAL_ELEMENT__DROPPED = 13;
 
   /**
    * The feature id for the '<em><b>Drop Rationale</b></em>' attribute.
@@ -287,7 +296,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 13;
+  int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 14;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -296,7 +305,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 14;
+  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 15;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -305,7 +314,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__ISSUES = 15;
+  int CONTRACTUAL_ELEMENT__ISSUES = 16;
 
   /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
@@ -314,7 +323,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__GOAL_REFERENCE = 16;
+  int CONTRACTUAL_ELEMENT__GOAL_REFERENCE = 17;
 
   /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
@@ -323,7 +332,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 17;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 18;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -782,6 +791,15 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__CONSTANTS = CONTRACTUAL_ELEMENT__CONSTANTS;
 
   /**
+   * The feature id for the '<em><b>Whencondition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__WHENCONDITION = CONTRACTUAL_ELEMENT__WHENCONDITION;
+
+  /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -979,6 +997,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int REQUIREMENT__CONSTANTS = CONTRACTUAL_ELEMENT__CONSTANTS;
+
+  /**
+   * The feature id for the '<em><b>Whencondition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__WHENCONDITION = CONTRACTUAL_ELEMENT__WHENCONDITION;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
@@ -1198,6 +1225,52 @@ public interface ReqSpecPackage extends EPackage
   int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.WhenConditionImpl <em>When Condition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.WhenConditionImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getWhenCondition()
+   * @generated
+   */
+  int WHEN_CONDITION = 12;
+
+  /**
+   * The feature id for the '<em><b>In Mode</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHEN_CONDITION__IN_MODE = 0;
+
+  /**
+   * The feature id for the '<em><b>In Error State</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHEN_CONDITION__IN_ERROR_STATE = 1;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHEN_CONDITION__CONDITION = 2;
+
+  /**
+   * The number of structural features of the '<em>When Condition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHEN_CONDITION_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1205,7 +1278,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqPredicate()
    * @generated
    */
-  int REQ_PREDICATE = 12;
+  int REQ_PREDICATE = 13;
 
   /**
    * The number of structural features of the '<em>Req Predicate</em>' class.
@@ -1224,7 +1297,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInformalPredicate()
    * @generated
    */
-  int INFORMAL_PREDICATE = 13;
+  int INFORMAL_PREDICATE = 14;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1252,7 +1325,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
    * @generated
    */
-  int PREDICATE = 14;
+  int PREDICATE = 15;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1280,7 +1353,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
    * @generated
    */
-  int VALUE_PREDICATE = 15;
+  int VALUE_PREDICATE = 16;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1292,13 +1365,59 @@ public interface ReqSpecPackage extends EPackage
   int VALUE_PREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Desired Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_PREDICATE__DESIRED_VALUE = REQ_PREDICATE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Value Predicate</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALUE_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
+  int VALUE_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.DesiredValueImpl <em>Desired Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.DesiredValueImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getDesiredValue()
+   * @generated
+   */
+  int DESIRED_VALUE = 17;
+
+  /**
+   * The feature id for the '<em><b>Upto</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESIRED_VALUE__UPTO = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESIRED_VALUE__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>Desired Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESIRED_VALUE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
@@ -1308,7 +1427,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 16;
+  int EXTERNAL_DOCUMENT = 18;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1345,7 +1464,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirements()
    * @generated
    */
-  int SYSTEM_REQUIREMENTS = 17;
+  int SYSTEM_REQUIREMENTS = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1472,7 +1591,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGlobalRequirements()
    * @generated
    */
-  int GLOBAL_REQUIREMENTS = 18;
+  int GLOBAL_REQUIREMENTS = 20;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1745,6 +1864,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getContractualElement_Constants();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getWhencondition <em>Whencondition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Whencondition</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getWhencondition()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_Whencondition();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}'.
@@ -2421,6 +2551,49 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getIncludeGlobalRequirement_Self();
 
   /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.WhenCondition <em>When Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>When Condition</em>'.
+   * @see org.osate.reqspec.reqSpec.WhenCondition
+   * @generated
+   */
+  EClass getWhenCondition();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.WhenCondition#getInMode <em>In Mode</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>In Mode</em>'.
+   * @see org.osate.reqspec.reqSpec.WhenCondition#getInMode()
+   * @see #getWhenCondition()
+   * @generated
+   */
+  EReference getWhenCondition_InMode();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.WhenCondition#getInErrorState <em>In Error State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>In Error State</em>'.
+   * @see org.osate.reqspec.reqSpec.WhenCondition#getInErrorState()
+   * @see #getWhenCondition()
+   * @generated
+   */
+  EReference getWhenCondition_InErrorState();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.WhenCondition#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.osate.reqspec.reqSpec.WhenCondition#getCondition()
+   * @see #getWhenCondition()
+   * @generated
+   */
+  EReference getWhenCondition_Condition();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2492,6 +2665,49 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getValuePredicate_Xpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue <em>Desired Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Desired Value</em>'.
+   * @see org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue()
+   * @see #getValuePredicate()
+   * @generated
+   */
+  EReference getValuePredicate_DesiredValue();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.DesiredValue <em>Desired Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Desired Value</em>'.
+   * @see org.osate.reqspec.reqSpec.DesiredValue
+   * @generated
+   */
+  EClass getDesiredValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.DesiredValue#isUpto <em>Upto</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Upto</em>'.
+   * @see org.osate.reqspec.reqSpec.DesiredValue#isUpto()
+   * @see #getDesiredValue()
+   * @generated
+   */
+  EAttribute getDesiredValue_Upto();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.DesiredValue#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see org.osate.reqspec.reqSpec.DesiredValue#getValue()
+   * @see #getDesiredValue()
+   * @generated
+   */
+  EReference getDesiredValue_Value();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
@@ -2725,6 +2941,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference CONTRACTUAL_ELEMENT__CONSTANTS = eINSTANCE.getContractualElement_Constants();
+
+    /**
+     * The meta object literal for the '<em><b>Whencondition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__WHENCONDITION = eINSTANCE.getContractualElement_Whencondition();
 
     /**
      * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
@@ -3239,6 +3463,40 @@ public interface ReqSpecPackage extends EPackage
     EAttribute INCLUDE_GLOBAL_REQUIREMENT__SELF = eINSTANCE.getIncludeGlobalRequirement_Self();
 
     /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.WhenConditionImpl <em>When Condition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.WhenConditionImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getWhenCondition()
+     * @generated
+     */
+    EClass WHEN_CONDITION = eINSTANCE.getWhenCondition();
+
+    /**
+     * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHEN_CONDITION__IN_MODE = eINSTANCE.getWhenCondition_InMode();
+
+    /**
+     * The meta object literal for the '<em><b>In Error State</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHEN_CONDITION__IN_ERROR_STATE = eINSTANCE.getWhenCondition_InErrorState();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHEN_CONDITION__CONDITION = eINSTANCE.getWhenCondition_Condition();
+
+    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3301,6 +3559,40 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference VALUE_PREDICATE__XPRESSION = eINSTANCE.getValuePredicate_Xpression();
+
+    /**
+     * The meta object literal for the '<em><b>Desired Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VALUE_PREDICATE__DESIRED_VALUE = eINSTANCE.getValuePredicate_DesiredValue();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.DesiredValueImpl <em>Desired Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.DesiredValueImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getDesiredValue()
+     * @generated
+     */
+    EClass DESIRED_VALUE = eINSTANCE.getDesiredValue();
+
+    /**
+     * The meta object literal for the '<em><b>Upto</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DESIRED_VALUE__UPTO = eINSTANCE.getDesiredValue_Upto();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DESIRED_VALUE__VALUE = eINSTANCE.getDesiredValue_Value();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.

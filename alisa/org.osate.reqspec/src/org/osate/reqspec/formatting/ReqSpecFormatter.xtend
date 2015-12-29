@@ -53,7 +53,7 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
 		c.setLinewrap(1,2,2).after(systemRequirementsRule);
 		c.setLinewrap(1,2,2).after(globalRequirementsRule);
-		c.setLinewrap(1,2,2).before(requirementRule);
+		c.setLinewrap(1,2,2).before(globalRequirementRule);
 		c.setLinewrap(1,2,2).before(docRequirementRule);
 		c.setLinewrap(1,2,2).before(documentSectionRule);
 		c.setLinewrap(1,2,2).before(goalRule);

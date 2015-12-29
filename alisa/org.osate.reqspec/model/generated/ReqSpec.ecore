@@ -28,6 +28,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AVariableDeclaration"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="whencondition" eType="#//WhenCondition"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="changeUncertainty" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Uncertainty"
@@ -142,6 +144,14 @@
         upperBound="-1" eType="ecore:EEnum platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentCategory"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="self" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhenCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Mode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorState" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqPredicate"/>
   <eClassifiers xsi:type="ecore:EClass" name="InformalPredicate" eSuperTypes="#//ReqPredicate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -152,6 +162,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValuePredicate" eSuperTypes="#//ReqPredicate">
     <eStructuralFeatures xsi:type="ecore:EReference" name="xpression" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="desiredValue" eType="#//DesiredValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DesiredValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upto" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalDocument">

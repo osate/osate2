@@ -89,10 +89,12 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT: return createIncludeGlobalRequirement();
+      case ReqSpecPackage.WHEN_CONDITION: return createWhenCondition();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
       case ReqSpecPackage.PREDICATE: return createPredicate();
       case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
+      case ReqSpecPackage.DESIRED_VALUE: return createDesiredValue();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS: return createSystemRequirements();
       case ReqSpecPackage.GLOBAL_REQUIREMENTS: return createGlobalRequirements();
@@ -238,6 +240,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public WhenCondition createWhenCondition()
+  {
+    WhenConditionImpl whenCondition = new WhenConditionImpl();
+    return whenCondition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ReqPredicate createReqPredicate()
   {
     ReqPredicateImpl reqPredicate = new ReqPredicateImpl();
@@ -275,6 +288,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ValuePredicateImpl valuePredicate = new ValuePredicateImpl();
     return valuePredicate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DesiredValue createDesiredValue()
+  {
+    DesiredValueImpl desiredValue = new DesiredValueImpl();
+    return desiredValue;
   }
 
   /**

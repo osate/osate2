@@ -94,6 +94,8 @@ Warning : 'warning';
 
 Device : 'device';
 
+Downto : 'downto';
+
 Global : 'global';
 
 Impact : 'impact';
@@ -118,6 +120,8 @@ Goals : 'goals';
 
 Group : 'group';
 
+State : 'state';
+
 Value : 'value';
 
 Data : 'data';
@@ -128,6 +132,8 @@ Goal : 'goal';
 
 Info : 'info';
 
+Mode : 'mode';
+
 Null : 'null';
 
 Self : 'self';
@@ -135,6 +141,10 @@ Self : 'self';
 This : 'this';
 
 True : 'true';
+
+Upto : 'upto';
+
+When : 'when';
 
 With : 'with';
 
@@ -175,6 +185,8 @@ EqualsSignGreaterThanSign : '=>';
 GreaterThanSignEqualsSign : '>=';
 
 QuestionMarkColon : '?:';
+
+In : 'in';
 
 VerticalLineVerticalLine : '||';
 
