@@ -30,6 +30,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
@@ -83,7 +84,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
 		}
-		Element cxt = (Element) context;
+		final Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
 			// containment path element
@@ -358,10 +359,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (searchResult != null) {
 			return Collections.singletonList(searchResult);
 		}
+		if (cxt.getElementRoot() instanceof EMV2Root) {
+			List<EObject> res = super.getLinkedObjects(context, reference, node);
+			return res;
+		} else {
+			return Collections.<EObject> emptyList();
 
-		List<EObject> res = super.getLinkedObjects(context, reference, node);
-		return res;
-//		return Collections.<EObject> emptyList();
+		}
 	}
 
 	/**
