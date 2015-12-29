@@ -234,7 +234,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 					}
 				}
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
-				Classifier ns = AadlUtil.getContainingClassifier(context);
+				Classifier ns = EMV2Util.getAssociatedClassifier(cxt);
 				searchResult = ns.findNamedElement(name);
 // checked by validator
 //				if (ne instanceof ModeTransition || ne instanceof EventPort || ne instanceof InternalEvent){
@@ -243,7 +243,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			} else if (context instanceof FeatureorPPReference) {
 				Classifier cl = null;
 				if (context.eContainer() instanceof ErrorPropagation) {
-					cl = AadlUtil.getContainingClassifier(context);
+					cl = EMV2Util.getAssociatedClassifier((Element)context);
 				} else if (context.eContainer() instanceof FeatureorPPReference) {
 					NamedElement fg = ((FeatureorPPReference) context.eContainer()).getFeatureorPP();
 					if (fg instanceof FeatureGroup) {
@@ -261,7 +261,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
-			Classifier ns = AadlUtil.getContainingClassifier(context);
+			Classifier ns = EMV2Util.getAssociatedClassifier((Element)context);
 			NamedElement ne = ns.findNamedElement(name);
 			if (ne instanceof Feature || ne instanceof InternalFeature) {
 				searchResult = ne;
@@ -322,7 +322,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
 				searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
 			}  else {
-				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
+				searchResult = EMV2Util.findIncomingErrorPropagation(EMV2Util.getAssociatedClassifier(cxt), name);
 			}
 			if (searchResult == null) {
 					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
@@ -334,7 +334,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorTransition(cxt, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorFlow() == requiredType) {
-			searchResult = EMV2Util.findErrorFlow(cxt.getContainingClassifier(), name);
+			searchResult = EMV2Util.findErrorFlow(EMV2Util.getAssociatedClassifier(cxt), name);
 
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent() == requiredType) {
 //		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
@@ -346,7 +346,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				} else if (ce instanceof QualifiedErrorBehaviorState) {
 					ns = ((QualifiedErrorBehaviorState) ce).getSubcomponent().getSubcomponent().getAllClassifier();
 				} else {
-					ns = AadlUtil.getContainingClassifier(context);
+					ns = EMV2Util.getAssociatedClassifier(cxt);
 				}
 				if (ns != null) {
 					EObject res = ns.findNamedElement(name);

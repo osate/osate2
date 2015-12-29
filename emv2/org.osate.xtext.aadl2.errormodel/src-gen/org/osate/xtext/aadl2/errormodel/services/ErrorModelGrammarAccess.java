@@ -63,10 +63,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AnnexLibrary");
 		private final RuleCall cErrorModelLibraryParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		////
-		////ErrorModelGrammarRoot : 	 'library' eml=ErrorModelLibrary  
-		////	| emsc=ErrorModelSubclause
-		////;
 		//AnnexLibrary returns aadl2::AnnexLibrary:
 		//	ErrorModelLibrary;
 		@Override public ParserRule getRule() { return rule; }
@@ -5596,10 +5592,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getEMV2RootAccess().getRule();
 	}
 
-	////
-	////ErrorModelGrammarRoot : 	 'library' eml=ErrorModelLibrary  
-	////	| emsc=ErrorModelSubclause
-	////;
 	//AnnexLibrary returns aadl2::AnnexLibrary:
 	//	ErrorModelLibrary;
 	public AnnexLibraryElements getAnnexLibraryAccess() {
