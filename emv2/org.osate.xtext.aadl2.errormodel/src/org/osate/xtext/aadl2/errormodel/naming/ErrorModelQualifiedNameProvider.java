@@ -33,10 +33,11 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 			 */
 			NamedElement namedElement = (NamedElement) obj;
 			NamedElement root = namedElement.getElementRoot();
-			if (((NamedElement) obj).getName() == null || !(root instanceof AadlPackage || root instanceof EMV2Root)) {
+			if (namedElement.getName() == null || !(root instanceof AadlPackage || root instanceof EMV2Root)
+					|| (obj instanceof ErrorModelSubclause && !(root instanceof EMV2Root))) {
 				return null;
 			}
-			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
+			return getConverter().toQualifiedName(getTheName(namedElement));
 		}
 		return null;
 	}
