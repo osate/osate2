@@ -153,9 +153,9 @@ public class EMV2Util {
 	 * @param emsc
 	 * @return
 	 */
-	public static Classifier getAssociatedClassifier(ErrorModelSubclause emsc){
+	public static ComponentClassifier getAssociatedClassifier(ErrorModelSubclause emsc){
 		if (emsc.getName() == null) return null;
-		return (Classifier)EMFIndexRetrieval.getEObjectOfType(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
+		return (ComponentClassifier)EMFIndexRetrieval.getEObjectOfType(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
 	
 	/**

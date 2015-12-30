@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
@@ -28,6 +29,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -144,6 +146,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
+		checkSubclauseAssociationToClassifier(subclause);
 		checkOnePropagationAndContainmentPoint(subclause);
 		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
 		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
@@ -289,6 +292,17 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					+ " have a common error type or type product " + EMV2Util.getPrintName(res));
 		}
 	}
+	
+
+	private void checkSubclauseAssociationToClassifier(ErrorModelSubclause emsc) {
+		if (emsc.eContainer() instanceof EMV2Root) {
+		ComponentClassifier cl = EMV2Util.getAssociatedClassifier(emsc);
+		if (cl == null) {
+			warning(emsc, "EMV2 subclause name '" + emsc.getName() + "' does not identify a component classifier.");
+		}
+		}
+	}
+
 
 	private void checkOnePropagationAndContainmentPoint(ErrorModelSubclause ems) {
 		EList<ErrorPropagation> eps = ems.getPropagations();
