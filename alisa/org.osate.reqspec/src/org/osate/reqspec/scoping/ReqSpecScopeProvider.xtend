@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -42,6 +42,8 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.reqspec.reqSpec.WhenCondition
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 /**
  * This class contains custom scoping description.
@@ -59,15 +61,40 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
-				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
+				Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.allModes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			if (targetClassifier instanceof ComponentImplementation) {
 				new SimpleScope(thescope,
-					Scopes::scopedElementsFor(targetClassifier.allSubcomponents+targetClassifier.allEndToEndFlows,
+					Scopes::scopedElementsFor(targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			} else {
 				return thescope
 			}
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+
+	def scope_Mode(WhenCondition context, EReference reference) {
+		val targetClassifier = targetClassifier(containingRequirement(context))
+		if (targetClassifier != null) {
+			val thescope = new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(targetClassifier.allModes,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			return thescope
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+
+	def scope_ErrorBehaviorState(WhenCondition context, EReference reference) {
+		val targetClassifier = targetClassifier(containingRequirement(context))
+		if (targetClassifier != null) {
+			val states = EMV2Util.getAllErrorBehaviorStates(targetClassifier)
+			val thescope = new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(states,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			return thescope
 		} else {
 			IScope.NULLSCOPE
 		}
@@ -79,49 +106,44 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 //				Aadl2Package.eINSTANCE.property, null)
 //		new SimpleScope(IScope::NULLSCOPE, props,true)
 //	}
-
 	def scope_AVariableDeclaration(AVariableReference context, EReference reference) {
-		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context, IScope.NULLSCOPE)
 		val contract = containingContractualElement(context)
-		switch (contract){
+		switch (contract) {
 			Requirement: return scopeForValCompute(contract, result)
-			Goal: return scopeForVal(contract,result)
+			Goal: return scopeForVal(contract, result)
 		}
 	}
 
-	
 	def scope_AVariableDeclaration(Requirement context, EReference reference) {
-		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context, IScope.NULLSCOPE)
 		return scopeForValCompute(context, result)
 	}
 
-
 	def scope_AVariableDeclaration(Goal context, EReference reference) {
-		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context, IScope.NULLSCOPE)
 		return scopeForVal(context, result)
 	}
-		
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
 // use delegate to get other scopes including the global scope
-		var result = delegateGetScope(context,reference)//IScope.NULLSCOPE
-
+		var result = delegateGetScope(context, reference) // IScope.NULLSCOPE
 		val reqs = containingRequirements(context)
-		if (reqs instanceof SystemRequirements){
-		val targetComponentClassifier = reqs.target
-		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
-		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
-		// TODO sort in extends hierarchy order
-		for (sr : listAccessibleSystemRequirements) {
-			if (!sr.content.empty) {
-				result = new SimpleScope(result,
-					Scopes::scopedElementsFor(sr.content,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		if (reqs instanceof SystemRequirements) {
+			val targetComponentClassifier = reqs.target
+			val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
+				targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
+				EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
+			].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+			// TODO sort in extends hierarchy order
+			for (sr : listAccessibleSystemRequirements) {
+				if (!sr.content.empty) {
+					result = new SimpleScope(result,
+						Scopes::scopedElementsFor(sr.content,
+							QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				}
 			}
-		}
 		}
 		result
 	}
@@ -132,6 +154,21 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 
 	def scope_Requirement_evolvesReference(Requirement context, EReference reference) {
 		scope_Requirement_refinesReference(context, reference)
+	}
+
+	def scope_Requirement_exception(Requirement context, EReference reference) {
+		val targetClassifier = targetClassifier(context)
+		if (targetClassifier != null) {
+			val exceptionItems = EMV2Util.getAllErrorSources(targetClassifier)
+			+ EMV2Util.getAllErrorPaths(targetClassifier)
+				+ EMV2Util.getAllOutgoingErrorPropagations(targetClassifier)
+			val thescope = new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(exceptionItems,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			return thescope
+		} else {
+			IScope.NULLSCOPE
+		}
 	}
 
 	// Brought from Aadl2JavaValidator
@@ -163,6 +200,5 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		}
 		cls
 	}
-
 
 }
