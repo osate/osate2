@@ -35,10 +35,7 @@ import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSeria
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllContainingClassifierEMV2Subclauses
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllErrorFlows
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPropagationPoints
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatureorPPRefs
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
 
@@ -189,7 +186,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ConditionElement_incoming(Classifier context, EReference reference) {
-		new SimpleScope(context.localDescriptions, true)
+		new SimpleScope(context.localEventandIncomingPropagationDescriptions, true)
 	}
 	
 	def scope_ConditionElement_incoming(ErrorDetection context, EReference reference) {
@@ -200,7 +197,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		} else {
 			emptySet
 		}
-		new SimpleScope(classifier.localDescriptions + subcomponentDescriptions, true)
+		new SimpleScope(classifier.localEventandIncomingPropagationDescriptions + subcomponentDescriptions, true)
 	}
 	
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
@@ -292,16 +289,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
 	}
 	
-	def private static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+	def public static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == requiredDirection]
 		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)])
 	}
 	
-	def private static getPropagationName(ErrorPropagation propagation) {
-		propagation.kind ?: propagation.featureorPPRefs.join(".", [featureorPP.name])
-	}
-	
-	def private static getLocalDescriptions(Classifier classifier) {
+	def public static getLocalEventandIncomingPropagationDescriptions(Classifier classifier) {
 		classifier.allContainingClassifierEMV2Subclauses.map[
 			val eventsDescriptions = events.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			val inPropagations = propagations.filter[!not && direction == DirectionType.IN]

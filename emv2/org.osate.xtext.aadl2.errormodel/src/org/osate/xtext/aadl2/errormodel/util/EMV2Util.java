@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -1479,6 +1481,22 @@ public class EMV2Util {
 
 	public static Collection<ErrorSink> getAllErrorSinks(ComponentInstance ci) {
 		return getAllErrorSinks(ci.getComponentClassifier());
+	}
+
+	
+	/** return the name for an error propagation **/
+	public static String getPropagationName(ErrorPropagation propagation) {
+		String res = propagation.getKind();
+		if (res != null) return res;
+//		Iterator<FeatureorPPReference> it = getFeatureorPPRefs(propagation).iterator();
+//		if (!it.hasNext()) return "<noname>";
+//		res = it.next().getFeatureorPP().getName();
+//		while (it.hasNext()){
+//			res = res + "." + it.next().getFeatureorPP().getName();
+//		}
+//		return res;
+// PHF: the same in Java 8
+		return getFeatureorPPRefs(propagation).stream().map(p->p.getFeatureorPP().getName()).collect(Collectors.joining("."));
 	}
 
 	/**
