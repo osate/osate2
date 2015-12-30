@@ -42,8 +42,13 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import org.osate.reqspec.reqSpec.WhenCondition
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
+import org.eclipse.xtext.resource.EObjectDescription
+import org.osate.aadl2.DirectionType
+import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -161,14 +166,18 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		if (targetClassifier != null) {
 			val exceptionItems = EMV2Util.getAllErrorSources(targetClassifier)
 			+ EMV2Util.getAllErrorPaths(targetClassifier)
-				+ EMV2Util.getAllOutgoingErrorPropagations(targetClassifier)
-			val thescope = new SimpleScope(IScope::NULLSCOPE,
+		val propscope = ErrorModelScopeProvider.scopeForErrorPropagation(targetClassifier,DirectionType.OUT)
+			val thescope = new SimpleScope(propscope,
 				Scopes::scopedElementsFor(exceptionItems,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			return thescope
 		} else {
 			IScope.NULLSCOPE
 		}
+	}
+	
+	def private static getPropagationName(ErrorPropagation propagation) {
+		propagation.kind ?: propagation.featureorPPRefs.join(".", [featureorPP.name])
 	}
 
 	// Brought from Aadl2JavaValidator
