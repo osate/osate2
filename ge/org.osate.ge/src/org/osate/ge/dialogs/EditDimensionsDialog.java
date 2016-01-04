@@ -277,7 +277,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	private static class EditDimensionDialog extends Dialog {
 		private static String unspecifiedTxt = "Unspecified";
 		private static String numberTxt = "Number";
-	    private static String propertyTxt = "Property";
 	    private static String propertyConstantTxt = "Property Constant";
 	    private static String unsupportedTypeTxt = "Unsupported Type";
 	    private final IProject projectContext;
@@ -288,8 +287,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	    private Combo typeCmb;
 	    private Composite numberPane;
 	    private Spinner numberValue;
-	    private Composite propertyPane;
-	    private ComboViewer propertyCmb;
 	    private Composite propertyConstantPane;
 	    private ComboViewer propertyConstantCmb;	    
 	    
@@ -319,7 +316,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		    typeCmb = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		    typeCmb.add(unspecifiedTxt);
 		    typeCmb.add(numberTxt);
-		    typeCmb.add(propertyTxt);
 		    typeCmb.add(propertyConstantTxt);		    
 		    typeCmb.setText(getTypeText(dimension));
 		    typeCmb.addSelectionListener(new SelectionAdapter() {
@@ -354,17 +350,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 					return element.hashCode();
 				}				
 			};
-			
-			// Property Pane
-		    propertyPane = new Composite(detailsPane, SWT.NONE);
-			propertyPane.setLayout(new RowLayout(SWT.HORIZONTAL));
-			propertyCmb = new ComboViewer(propertyPane, SWT.DROP_DOWN | SWT.READ_ONLY);
-			propertyCmb.setContentProvider(new ArrayContentProvider());
-			propertyCmb.setLabelProvider(new ElementLabelProvider());
-			propertyCmb.setSorter(new LabelViewerSorter());
-			propertyCmb.setInput(getValidProperties());
-			propertyCmb.setComparer(namedElementComparer);
-			
+						
 			// Property Constant Pane
 		    propertyConstantPane = new Composite(detailsPane, SWT.NONE);
 			propertyConstantPane.setLayout(new RowLayout(SWT.HORIZONTAL));
@@ -380,8 +366,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 			if(dimSize != null) {
 				if(dimSize.getSizeProperty() == null) {
 					numberValue.setSelection((int)dimSize.getSize());
-				} else if(dimSize.getSizeProperty() instanceof Property) {
-					propertyCmb.setSelection(new StructuredSelection(dimSize.getSizeProperty()));
 				} else if(dimSize.getSizeProperty() instanceof PropertyConstant) {
 					propertyConstantCmb.setSelection(new StructuredSelection(dimSize.getSizeProperty()));
 				}
@@ -391,21 +375,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 
 		    return area;
 		}
-		
-		private List<Property> getValidProperties() {
-			final List<Property> results = new ArrayList<Property>();
-			
-			final XtextResourceSet rs = new XtextResourceSet();
-			for(final IEObjectDescription objDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectContext, Aadl2Factory.eINSTANCE.getAadl2Package().getProperty())) {
-				final Property prop = (Property)rs.getEObject(EcoreUtil.getURI(objDesc.getEObjectOrProxy()), true);
-				if(prop != null && prop.getPropertyType() instanceof AadlInteger) {				
-					results.add(prop);
-				}
-			}
-			
-			return results;
-		}
-		
+
 		private List<PropertyConstant> getValidPropertyConstants() {
 			final XtextResourceSet rs = new XtextResourceSet();
 			final List<PropertyConstant> results = new ArrayList<PropertyConstant>();
@@ -425,8 +395,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 			final StackLayout detailsLayout = (StackLayout)detailsPane.getLayout();
 			if(numberTxt.equals(type)) {
 				detailsLayout.topControl = numberPane;
-			} else if(propertyTxt.equals(type)) {
-				detailsLayout.topControl = propertyPane;
 			} else if(propertyConstantTxt.equals(type)) {
 				detailsLayout.topControl = propertyConstantPane;				
 			} else {
@@ -443,8 +411,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 				return unspecifiedTxt;
 			} else if(size.getSizeProperty() == null) {
 				return numberTxt;
-			} else if(size.getSizeProperty() instanceof Property) {
-				return propertyTxt;
 			} else if(size.getSizeProperty() instanceof PropertyConstant) {
 				return propertyConstantTxt;
 			} else {
@@ -461,13 +427,6 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 				dimension.setSize(null);
 			} else if(numberTxt.equals(type)) {
 				dimension.createSize().setSize(numberValue.getSelection());				
-			} else if(propertyTxt.equals(type)) {
-				final StructuredSelection propSelection = (StructuredSelection)propertyCmb.getSelection();
-				final Property prop = (Property)propSelection.getFirstElement();
-				if(prop != null) {
-					dimension.setSize(null);
-					dimension.createSize().setSizeProperty(prop);
-				}
 			} else if(propertyConstantTxt.equals(type)) {
 				final StructuredSelection propConstSelection = (StructuredSelection)propertyConstantCmb.getSelection();
 				final PropertyConstant propConst = (PropertyConstant)propConstSelection.getFirstElement();
