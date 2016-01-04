@@ -5,24 +5,26 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2015-12-03T22:02:02.528000000"/>
+	<meta name="changed" content="2016-01-04T12:14:26.237000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2015-12-03T22:02:02.528000000">
 	<style type="text/css">
 		@page { margin: 0.79in }
 		p { margin-bottom: 0.08in; line-height: 0.19in }
 		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		p.cjk { font-size: 12pt; so-language: zxx }
 		p.ctl { font-size: 12pt; so-language: zxx }
-		p.list-western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
-		p.list-cjk { font-size: 12pt; so-language: zxx }
-		p.list-ctl { font-family: "Mangal"; font-size: 12pt; so-language: zxx }
 		h1 { margin-bottom: 0.08in }
 		h1.western { font-family: "Liberation Serif", serif; so-language: zxx }
 		h1.cjk { font-family: "Segoe UI"; font-size: 24pt; so-language: zxx }
 		h1.ctl { font-family: "Tahoma"; font-size: 24pt; so-language: zxx }
+		p.list-western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
+		p.list-cjk { font-size: 12pt; so-language: zxx }
+		p.list-ctl { font-family: "Mangal"; font-size: 12pt; so-language: zxx }
 		h2.western { so-language: zxx }
 		h2.cjk { font-family: "SimSun"; so-language: zxx }
 		h2.ctl { font-family: "Mangal"; so-language: zxx }
@@ -47,8 +49,8 @@ Specification for a System</font></h1>
 <p lang="zxx" class="western"><font color="#000000"><span style="font-variant: normal"><span style="font-style: normal">This
 document describes a textual requirement specification notation,
 called </span></span><span style="font-variant: normal"><i>ReqSpec.
-It</i></span><span style="font-variant: normal"><span style="font-style: normal">
-has been derived from the draft Requirements Definition and Analysis
+It</i></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">has
+been derived from the draft Requirements Definition and Analysis
 Language (RDAL) Annex for use with the SAE Architecture Analysis &amp;
 Design Language (AADL). </span></span></font>
 </p>
@@ -85,14 +87,15 @@ system requirement specifications, by annotating an AADL model of the
 system of interest in its operational environment and &ndash; as
 appropriate &ndash; elements of the system architecture. This process
 has been introduced in [Feiler 2015].</font></p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Second,
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">Second,
 it supports the migration of existing stakeholder and system
-requirements documents into a set of </font></font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><i>ReqSpec</i></font></font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">
-files that become annotations to an AADL model of a system. For that
+requirements documents into a set of </span></font></font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>ReqSpec</i></span></font></font></font><font color="#000000"><span lang="zxx">
+</span></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">files
+that become annotations to an AADL model of a system. For that
 purpose we have built a tool to import existing requirements
 documents via the Object Management Group (OMG) Requirements
-Interchange Format (</font></font></font><em><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">ReqIF</font></font></font></em><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">)
-as well as export ReqSpec based modifications.</font></font></font></p>
+Interchange Format (</span></font></font></font><em><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">ReqIF</span></font></font></font></em><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">)
+as well as export ReqSpec based modifications.</span></font></font></font></p>
 <h2 lang="zxx" class="western" style="margin-top: 0.01in; margin-bottom: 0.2in">
 <font color="#000000">Concepts of the ReqSpec Notation</font></h2>
 <p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
@@ -109,7 +112,7 @@ i.e., in terms of document sections, or they can be organized
 according to the architecture structure, i.e., associated with AADL
 component types or implementations. </font></font></font>
 </p>
-<p lang="zxx" class="western" style="line-height: 0.19in; page-break-before: auto">
+<p lang="zxx" class="western" style="line-height: 0.19in; page-break-before: auto; page-break-after: auto">
 <font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Goal
 documents are represented by files with the extension <i>goaldoc</i>
 and requirement documents by files with the extension <i>reqdoc</i>.
@@ -189,6 +192,7 @@ system.</font></p>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Categorylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description )?<span style="letter-spacing: 1.2pt"> </span></span></font>
 <font color="#000000"><span lang="zxx">( ConstantVariable )*</span></font>
+<font color="#000000"><span lang="zxx">( WhenCondition )?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>rationale</b></span><span style="letter-spacing: -0.5pt"> </span>String<span style="letter-spacing: -0.6pt"> </span><span style="letter-spacing: 0.1pt">)?</span></span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>refines</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>&lt;Goal&gt;<span style="letter-spacing: -0.3pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>conflicts</b></span><span style="letter-spacing: -0.4pt"> </span><span style="letter-spacing: 0.1pt"><b>with</b></span><span style="letter-spacing: -0.4pt"> </span>( &lt;Goal&gt;<span style="letter-spacing: -0.5pt"> </span>)+)?<span style="letter-spacing: 1.4pt"> </span></span></font>
@@ -205,8 +209,19 @@ system.</font></p>
 <font color="#000000"><span lang="zxx">TargetClassifier ::= &lt;AADL Component Classifier&gt;</span></font>
 <font color="#000000"><span lang="zxx">TargetElement ::= &lt;ModelElement&gt;</span></font>
 <font color="#000000"><span lang="zxx">DocReference ::= URI to an element in an external document</span></font>
-</pre><p lang="zxx" class="western">
-<font color="#000000">A goal declaration has the following elements:</font></p>
+
+<font color="#000000"><span lang="zxx">WhenCondition ::= </span></font>
+<font color="#000000">  <span lang="zxx"><b>when in modes </b><span style="font-weight: normal">&lt;Mode&gt; ( </span><b>, &lt;M</b><span style="font-weight: normal">ode&gt; )*</span></span></font>
+<font color="#000000">  <span lang="zxx"><span style="font-weight: normal">|</span></span></font>
+<font color="#000000">  <span lang="zxx"><b>when in error state &lt;</b><span style="font-weight: normal">ErrorState&gt; ( </span><b>, </b><span style="font-weight: normal">&lt;ErrorState&gt; )*</span></span></font>
+<font color="#000000">  <span lang="zxx"><span style="font-weight: normal">|</span></span></font>
+<font color="#000000">  <span lang="zxx"><span style="font-weight: normal">&lt;Java like expression&gt;</span></span></font></pre><p lang="zxx" class="western">
+<br/>
+<br/>
+
+</p>
+<p lang="zxx" class="western"><font color="#000000">A goal
+declaration has the following elements:</font></p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Name</i>:
@@ -252,6 +267,11 @@ system.</font></p>
 	once and reference it in the description, predicates, and in
 	verification activities of verification plans expressed in the
 	Verify notation (documented in a separate report).</font></p>
+	<li/>
+<p lang="zxx" class="list-western"><font color="#000000"><i>WhenCondition:
+	</i><span style="font-style: normal">the condition under which the
+	requirement applies. The condition is a set of AADL2 modes
+	(operational modes), EMV2 error behavior states (failure modes).</span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Rationale:
 	</i>the rationale for a stakeholder goal as string.</font></p>
@@ -328,8 +348,7 @@ separated by a dot. </font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( ConstantVariable )*</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal )+</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>issues</b></span><span style="letter-spacing: -0.5pt"> </span>(String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></font>
-<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font>
-</pre><p lang="zxx" class="western">
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font></pre><p lang="zxx" class="western">
 <font color="#000000">A <i>StakeholderGoals</i> declaration has the
 following elements:</font></p>
 <ul>
@@ -418,28 +437,29 @@ other categories as well, e.g., by <i>abstract</i> or <i>device</i>.</font></p>
 <font color="#000000">The System Requirement Construct</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
 <i>SystemRequirement</i> construct represents a system requirement.</font></p>
-<pre lang="zxx" class="western"><font color="#000000">SystemRequirement ::=</font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>requirement</b></span></font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Name (</font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>:</b></span></font></font><span style="letter-spacing: 4.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Title</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>for</b></span></font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">TargetElement )?</font></font><span style="letter-spacing: 1.4pt"> </span></span></font>
-<font color="#000000"><span lang="zxx">[</span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>quality</b></span></font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: -0.3pt">&lt;</span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Qualitylabel&gt;</font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>category</b></span></font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: -0.3pt">&lt;</span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Categorylabel&gt;</font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>description</b></span></font></font><span style="letter-spacing: 4.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Description</font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font><span style="letter-spacing: 1.2pt"> </span></span></font>
-<font color="#000000"><span lang="zxx">( Variable )*</span></font>
-<font color="#000000"><span lang="zxx">( Predicate )?</span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>rationale</b></span></font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String</font></font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">)?</span></font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>mitigates</b></span></font></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Hazard&gt;</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+</font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font><span style="letter-spacing: 1.2pt"> </span></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>refines</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Requirement&gt;</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>decomposes</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Requirement&gt;</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>evolves</b></span></font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( &lt;Requirement&gt;</font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+)?</font></font><span style="letter-spacing: 1.4pt"> </span></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>dropped </b></span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font><span style="letter-spacing: 1.4pt"> </span></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">(</span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>development</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>stakeholder</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Stakeholder&gt;</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+ )?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>see</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>goal</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Goal&gt;</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>see</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>requirement</b></span></font></font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Requirement&gt;</font></font><span style="letter-spacing: -0.4pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+)?</font></font></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>see</b></span></font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>document</b></span></font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">(</font></font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: -0.6pt">DocReference</span></font></font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)+ )?</font></font><span style="letter-spacing: 1.3pt"> </span></span></font>
-<font color="#000000"><span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">( </span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt">(</span></font></font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String)+</font></font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span></font>
-<font color="#000000"><span lang="zxx">( ChangeUncertainty )?</span></font>
-<font color="#000000"><span lang="zxx">]</span></font></pre><p lang="zxx" class="western">
+<pre lang="zxx" class="western"><font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">SystemRequirement ::=</font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt"><b>requirement</b></span><span style="letter-spacing: -0.5pt"> </span>Name (<span style="letter-spacing: -0.2pt"> </span><span style="letter-spacing: 0.1pt"><b>:</b></span><span style="letter-spacing: 4.3pt"> </span>Title<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">(<span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>for</b></span><span style="letter-spacing: -0.2pt"> </span>TargetElement )?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>quality</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Qualitylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Categorylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description<span style="letter-spacing: -0.5pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Variable )*</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( WhenCondition )?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Predicate )?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>rationale</b></span><span style="letter-spacing: -0.5pt"> </span>String<span style="letter-spacing: -0.6pt"> </span><span style="letter-spacing: 0.1pt">)?</span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>mitigates</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>&lt;Hazard&gt;<span style="letter-spacing: -0.3pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>refines</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Requirement&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>decomposes</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Requirement&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>evolves</b></span><span style="letter-spacing: -0.4pt"> </span>( &lt;Requirement&gt;<span style="letter-spacing: -0.5pt"> </span>)+)?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>dropped </b></span>)?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><span style="letter-spacing: 0.1pt"><b>development</b></span><span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>stakeholder</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Stakeholder&gt;<span style="letter-spacing: -0.4pt"> </span>)+ )?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>see</b></span><span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>goal</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Goal&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>see</b></span><span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>requirement</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Requirement&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>see</b></span><span style="letter-spacing: -0.5pt"> </span><span style="letter-spacing: 0.1pt"><b>document</b></span><span style="letter-spacing: -0.5pt"> </span>(<span style="letter-spacing: -0.6pt"> DocReference </span>)+ )?<span style="letter-spacing: 1.3pt"> </span></span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>issues</b></span><span style="letter-spacing: -0.5pt"> </span><span style="letter-spacing: 0.1pt">(</span>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( ChangeUncertainty )?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font></pre><p lang="zxx" class="western">
 <font color="#000000">A SystemRequirement declaration has the
 following elements:</font></p>
 <ul>
@@ -489,6 +509,11 @@ following elements:</font></p>
 	description, predicates, and in verification activities of
 	verification plans expressed in the Verify notation (documented in a
 	separate report).</font></p>
+	<li/>
+<p lang="zxx" class="list-western"><font color="#000000"><i>WhenCondition:
+	</i><span style="font-style: normal">the condition under which the
+	requirement applies. The condition is a set of AADL2 modes
+	(operational modes), EMV2 error behavior states (failure modes).</span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Predicate:
 	</i>a formalized specification of the condition that must be met to
@@ -658,7 +683,7 @@ following elements:</font></p>
 	</i>allows users to record issues that may be encountered as a set
 	of textual notes (Strings).</font></p>
 </ul>
-<h3 class="western" style="margin-left: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="GlobalRequirements"></a>
+<h3 class="western" style="margin-left: 0in; text-indent: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="GlobalRequirements"></a>
 <font color="#000000">The Global Requirements and Requirement
 Constructs</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
@@ -862,17 +887,18 @@ Requirement Predicates</h3>
 several forms:</p>
 <ul>
 	<li/>
-<p lang="zxx" class="list-western">Free form: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 7pt"><span style="letter-spacing: 0.1pt"><b>informal
-	predicate</b></span></font></font></font><font color="#7e0055">
-	</font><font color="#2a00ff"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&quot;informal
-	specification&quot; </font></font></font><font color="#000000">The
-	user informally specifies a predicate as text. This allows users to
-	quickly attempt to specify a predicate without getting hung up about
-	syntax of a particular notation.</font></p>
+<p lang="zxx" class="list-western">Free form: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>informal
+	predicate</b></span></font></font></font><font color="#7e0055"><font size="2" style="font-size: 9pt">
+	</font></font><font color="#2a00ff"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">&quot;informal
+	specification&quot;</font></font></font><font color="#2a00ff"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">
+	</font></font></font><font color="#000000">The user informally
+	specifies a predicate as text. This allows users to quickly attempt
+	to specify a predicate without getting hung up about syntax of a
+	particular notation.</font></p>
 	<li/>
-<p lang="zxx" class="list-western">Value assertion: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 7pt"><span style="letter-spacing: 0.1pt"><b>value
-	predicate</b></span></font></font></font><font color="#7e0055">
-	</font><font color="#000000"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">ActualBudget
+<p lang="zxx" class="list-western">Value assertion: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>value
+	predicate</b></span></font></font></font><font color="#7e0055"><font size="2" style="font-size: 9pt">
+	</font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">ActualBudget
 	&lt;= MaxBudget</font></font></font><font color="#2a00ff"> </font><font color="#000000">The
 	user specifies a predicate on expected values vs. computed values
 	resulting from a verification activity. The expression is typically
@@ -880,10 +906,15 @@ several forms:</p>
 	specify constants.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000">Full
-	predicate expression: </font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 7pt"><span style="letter-spacing: 0.1pt"><b>predicate</b></span></font></font></font><font color="#7e0055">
-	</font><font color="#000000"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;general
-	Xbase like expression&gt; </font></font></font><font color="#000000">Xbase
-	is a Java like expression language used by Xtend. </font>
+	predicate expression: </font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>predicate</b></span></font></font></font><font color="#7e0055"><font size="2" style="font-size: 9pt">
+	</font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">&lt;general
+	</font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">Java
+	</font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">like
+	expression&gt;</font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">
+	</font></font></font><font color="#000000">Java like expression
+	</font><font color="#000000">syntax</font><font color="#000000">
+	</font><font color="#000000">alligns with the Xbase</font><font color="#000000">.
+	</font>
 	</p>
 </ul>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393034"></a><a name="Categories"></a>
@@ -929,21 +960,21 @@ organization. Stakeholders are referenced by qualifying them with the
 organization name.</p>
 <p lang="zxx" class="western">Each organization is declared in a
 separate file with the extension <i>org</i>.</p>
-<pre lang="zxx" class="western">Organization::=
-<span lang="zxx"><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>organization</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Name</font></font></span>
-<span lang="zxx">( Stakeholder )+</span>
+<pre lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">Organization::=</font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>organization</b></span></font><font color="#7e0055"> </font>Name</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Stakeholder )+</span></font></font>
 
-<span lang="zxx">Stakeholder ::=</span>
-<span lang="zxx"><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>stakeholder</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">Name </font></font></span>
-<span lang="zxx">[</span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>full name</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String )?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>title</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String</font></font><font color="#2a00ff"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>description</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String</font></font><font color="#2a00ff"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>role</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String )?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>email</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String</font></font><font color="#2a00ff"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>phone</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">String</font></font><font color="#2a00ff"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span>
-<span lang="zxx"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">( </font></font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt"><span style="letter-spacing: 0.1pt"><b>supervisor</b></span></font></font></font><font color="#7e0055"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">&lt;Stakeholder&gt;</font></font><font color="#2a00ff"> </font><font face="Lucida Console, monospace"><font size="1" style="font-size: 8pt">)?</font></font></span>
-<span lang="zxx">]</span></pre><h2 lang="zxx" class="western">
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Stakeholder ::=</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>stakeholder</b></span></font><font color="#7e0055"> </font>Name </span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>full name</b></span></font><font color="#7e0055"> </font>String )?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>title</b></span></font><font color="#7e0055"> </font>String<font color="#2a00ff"> </font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>description</b></span></font><font color="#7e0055"> </font>String<font color="#2a00ff"> </font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>role</b></span></font><font color="#7e0055"> </font>String )?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>email</b></span></font><font color="#7e0055"> </font>String<font color="#2a00ff"> </font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>phone</b></span></font><font color="#7e0055"> </font>String<font color="#2a00ff"> </font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>supervisor</b></span></font><font color="#7e0055"> </font>&lt;Stakeholder&gt;<font color="#2a00ff"> </font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></pre><h2 lang="zxx" class="western">
 <a name="__RefHeading___Toc436393036"></a><a name="Uncertainty"></a>Change
 Uncertainty</h2>
 <p lang="zxx" class="western">The concept of change uncertainty is
@@ -964,20 +995,32 @@ impact measure called <i>impact</i> as sufficient measures to
 identify high payoff opportunities for reducing requirement change
 and in the context of safety and security hazards for reducing safety
 and security risks.</p>
-<h2 lang="zxx" class="western"><a name="DesignGoals"></a>Design Goals</h2>
-<p lang="zxx" class="western">RDAL distinguishes between verifiable
-and satisfiable requirements. Verifiable requirements must be met
-(true/false result). Satisfiable requirements are quantified and be
-met to a certain degree. In ReqSpec all system and global
-requirements must be verifiable. 
+<h2 lang="zxx" class="western">Satisfiable Requirements</h2>
+<p lang="zxx" class="western">RDAL distinguishes between <i>verifiable</i>
+and <i>satisfiable</i> requirements. Verifiable requirements must be
+met (true/false result). Satisfiable requirements are quantified and
+are expected to be met to a certain degree.  Satisfiable requirements
+are used in design tradeoffs where different architecture design
+decisions result different degrees to which a set of satisfiable
+requirements are met. 
 </p>
-<p lang="zxx" class="western">Satisfiable requirements are used in
-design tradeoffs where different architecture design decisions result
-different degrees to which a set of satisfiable requirements are met.
-For this reason we propose an extension to ReqSpec in the form of
-<i>design goal </i>declarations. Such declarations specify an
-acceptable range of values with the high or low value being the most
-desirable.</p>
+<p lang="zxx" class="western">In Reqspec we support the specification
+of desirable target values that a system design is expected to
+satisfy. We have done so in the context of a <i>value predicate </i><span style="font-style: normal">for
+a requirement. The value predicate specifies the value that must be
+met (</span><i>verifyable </i><span style="font-style: normal">requirement).
+This predicate can be augmented with a desirable target value in the
+form of </span>
+</p>
+<p lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><b>upto
+</b></span></font></font><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><span style="font-weight: normal">&lt;value&gt;</span></span></font></font><span style="font-style: normal"><span style="font-weight: normal">
+</span></span>
+</p>
+<p lang="zxx" class="western"><span style="font-style: normal"><span style="font-weight: normal">or
+</span></span>
+</p>
+<p lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><b>downto
+</b></span></font></font><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><span style="font-weight: normal">&lt;value&gt;</span></span></font></font><span style="font-style: normal"><span style="font-weight: normal">.</span></span></p>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393038"></a><a name="ReqSpecGuidelines"></a>
 Guidelines for Use of ReqSpec</h2>
 <p lang="zxx" class="western">This section provides some general
@@ -1122,7 +1165,7 @@ recorded in two ways:
 	supplier) must meet. 
 	</p>
 </ul>
-<h3 class="western" style="margin-left: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="__RefHeading___Toc436393045"></a><a name="ReqReferences"></a>
+<h3 class="western" style="margin-left: 0in; text-indent: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="__RefHeading___Toc436393045"></a><a name="ReqReferences"></a>
 Requirement References</h3>
 <p lang="zxx" class="western">Requirements (and goals) can be
 referenced by just their name if the context uniquely identifies
@@ -1140,11 +1183,12 @@ system requirements set actually containing the requirement must be
 identified. 
 </p>
 <h2 lang="zxx" class="western">References</h2>
-<p lang="zxx" class="western"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">[FAA
-2009] Federal Aviation Administration. </font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><i>Requirements
-Engineering Management Handbook</i></font></font> <font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">DOT/FAA/AR-08/32.
+<p lang="zxx" class="western"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">[FAA
+2009] Federal Aviation Administration. </span></font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx"><i>Requirements
+Engineering Management Handbook</i></span></font></font><span lang="zxx">
+</span><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">DOT/FAA/AR-08/32.
 2008.
-</font></font><a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf"><font color="#000000"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</font></font></font></a><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">.</font></font></p>
+</span></font></font><a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf"><font color="#000000"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</span></font></font></font></a><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">.</span></font></font></p>
 <p lang="zxx" class="western">[Lamsweerde 2009] Axel van Lamsweerde,
 <i>Requirements Engineering: From System Goals to UML Models to
 Software Specifications</i>, Wiley, 2009.</p>
@@ -1153,20 +1197,21 @@ Software Specifications</i>, Wiley, 2009.</p>
 Multi-Role (JMR) Joint Common Architecture (JCA) Demonstration
 System</i>. Special Report CMU/SEI-2015-SR-031, Software Engineering
 Institute. Oct 2015.</p>
-<p lang="zxx" class="western">[Nolan 2011] Nolan, A.J.; Abrahao, S.;
-Clements, P.; Pickard, A.; <i>Managing requirements uncertainty in
-engine control systems development</i>, Requirements Engineering
-Conference (RE), 2011 19th IEEE International, vol., no., pp.259-264,
-Aug. 29 -Sept. 2 2011. DOI: 10.1109/RE.2011.6051622 URL:
-<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621</a></p>
-<p lang="zxx" class="western" style="margin-top: 0.13in; margin-bottom: 0.13in; line-height: 0.19in">
+<p lang="zxx" class="western"><span lang="zxx">[Nolan 2011] Nolan,
+A.J.; Abrahao, S.; Clements, P.; Pickard, A.; </span><span lang="zxx"><i>Managing
+requirements uncertainty in engine control systems development</i></span><span lang="zxx">,
+Requirements Engineering Conference (RE), 2011 19th IEEE
+International, vol., no., pp.259-264, Aug. 29 -Sept. 2 2011. DOI:
+10.1109/RE.2011.6051622 URL:
+<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621</a></span></p>
+<p lang="zxx" class="western" style="margin-top: 0.13in; line-height: 0.19in">
 <br/>
 <br/>
 
 </p>
 <div title="footer">
 	<p lang="zxx" class="western" align="center" style="margin-top: 0.2in; margin-bottom: 0in">
-	<sdfield type=PAGE subtype=RANDOM format=PAGE>15</sdfield></p>
+	<sdfield type=PAGE subtype=RANDOM format=PAGE>1</sdfield></p>
 </div>
 </body>
 </html>
