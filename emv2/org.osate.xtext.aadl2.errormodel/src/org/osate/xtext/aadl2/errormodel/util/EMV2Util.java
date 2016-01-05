@@ -1499,6 +1499,22 @@ public class EMV2Util {
 		return getFeatureorPPRefs(propagation).stream().map(p->p.getFeatureorPP().getName()).collect(Collectors.joining("."));
 	}
 
+	
+	/** return the name for an error propagation **/
+	public static String getPropagationName(ErrorPropagation propagation) {
+		String res = propagation.getKind();
+		if (res != null) return res;
+//		Iterator<FeatureorPPReference> it = getFeatureorPPRefs(propagation).iterator();
+//		if (!it.hasNext()) return "<noname>";
+//		res = it.next().getFeatureorPP().getName();
+//		while (it.hasNext()){
+//			res = res + "." + it.next().getFeatureorPP().getName();
+//		}
+//		return res;
+// PHF: the same in Java 8
+		return getFeatureorPPRefs(propagation).stream().map(p->p.getFeatureorPP().getName()).collect(Collectors.joining("."));
+	}
+
 	/**
 	 * return type transformation set to be used for connections.
 	 * Looks for use transformations in classifier or inherited from classifiers being extended
