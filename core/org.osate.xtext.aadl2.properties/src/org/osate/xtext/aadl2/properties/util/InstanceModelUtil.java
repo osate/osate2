@@ -1,13 +1,14 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
@@ -479,12 +480,12 @@ public class InstanceModelUtil {
 	 * @return processor instance
 	 */
 	public static Collection<ComponentInstance> getBoundPhysicalProcessors(ComponentInstance componentInstance) {
-		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
 		addBoundProcessors(componentInstance, actualProcs);
 		return actualProcs;
 	}
 
-	protected static void addBoundProcessors(ComponentInstance componentInstance, UniqueEList<ComponentInstance> result) {
+	protected static void addBoundProcessors(ComponentInstance componentInstance, Collection<ComponentInstance> result) {
 		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
@@ -511,7 +512,7 @@ public class InstanceModelUtil {
 	 * @return virtual processor instance
 	 */
 	public static Collection<ComponentInstance> getBoundVirtualProcessors(ComponentInstance componentInstance) {
-		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
 		addBoundVirtualProcessors(componentInstance, actualProcs, false);
 		return actualProcs;
 	}
@@ -522,14 +523,14 @@ public class InstanceModelUtil {
 	 * @return virtual processor instance
 	 */
 	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
-		final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
+		final Collection<ComponentInstance> actualProcs = new ArrayList<ComponentInstance>();
 		addBoundVirtualProcessors(componentInstance, actualProcs, true);
 		return actualProcs;
 	}
 
 	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
-			UniqueEList<ComponentInstance> result, boolean doAll) {
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
+			Collection<ComponentInstance> result, boolean doAll) {
+		Collection<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
 				result.add(boundCompInstance);
@@ -738,13 +739,13 @@ public class InstanceModelUtil {
 	 * @param connectionInstance
 	 * @return list of hardware components involved in connection binding
 	 */
-	public static EList<ComponentInstance> getPhysicalConnectionBinding(ConnectionInstance connectionInstance) {
-		final UniqueEList<ComponentInstance> actualHW = new UniqueEList<ComponentInstance>();
+	public static List<ComponentInstance> getPhysicalConnectionBinding(ConnectionInstance connectionInstance) {
+		final List<ComponentInstance> actualHW = new ArrayList<ComponentInstance>();
 		addPhysicalConnectionBinding(connectionInstance, actualHW);
 		return actualHW;
 	}
 
-	protected static void addPhysicalConnectionBinding(InstanceObject VBorConni, UniqueEList<ComponentInstance> result) {
+	protected static void addPhysicalConnectionBinding(InstanceObject VBorConni, Collection<ComponentInstance> result) {
 		List<ComponentInstance> bindinglist = getConnectionBinding(VBorConni);
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (isVirtualBus(boundCompInstance)) {
@@ -855,7 +856,7 @@ public class InstanceModelUtil {
 	 * @param connectionInstance - the connection instance
 	 * @return the bus bound to the connection.
 	 */
-	public static EList<ComponentInstance> deriveBoundBuses(ConnectionInstance connectionInstance) {
+	public static List<ComponentInstance> deriveBoundBuses(ConnectionInstance connectionInstance) {
 		ComponentInstance srcHW = getHardwareComponent(connectionInstance.getSource());
 		ComponentInstance dstHW = getHardwareComponent(connectionInstance.getDestination());
 		return connectedByBus(srcHW, dstHW);
@@ -869,8 +870,8 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	public static EList<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
-		EList<ComponentInstance> visitedBuses = new UniqueEList<ComponentInstance>();
+	public static List<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
+		List<ComponentInstance> visitedBuses = new ArrayList<ComponentInstance>();
 		return doConnectedByBus(srcHW, dstHW, visitedBuses);
 	}
 
@@ -882,8 +883,8 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	protected static EList<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
-			EList<ComponentInstance> visitedBuses) {
+	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
+			List<ComponentInstance> visitedBuses) {
 		if (srcHW == null || dstHW == null) {
 			return visitedBuses;
 		}
@@ -898,13 +899,13 @@ public class InstanceModelUtil {
 					ComponentInstance curBus = (ComponentInstance) aci.getSource();
 					if (!visitedBuses.contains(curBus)) {
 						if (connectedToBus(dstHW, curBus)) {
-							EList<ComponentInstance> res = new BasicEList<ComponentInstance>();
+							List<ComponentInstance> res = new ArrayList<ComponentInstance>();
 							res.add(curBus);
 							return res;
 						} else {
 							// first check if there is a bus this bus is connected to
 							visitedBuses.add(curBus);
-							EList<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
+							List<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
 							if (res != null) {
 								res.add(0, curBus);
 								return res;
@@ -933,7 +934,7 @@ public class InstanceModelUtil {
 				}
 			}
 		}
-		return null;
+		return visitedBuses;
 	}
 
 	/**
