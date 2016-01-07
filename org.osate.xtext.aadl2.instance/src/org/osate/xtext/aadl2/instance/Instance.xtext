@@ -1,0 +1,155 @@
+grammar org.osate.xtext.aadl2.instance.Instance hidden(WS, SL_COMMENT)
+//with org.eclipse.xtext.common.Terminals
+
+import "http://aadl.info/AADL/2.0/instance" as instance
+import "http://aadl.info/AADL/2.0" as aadl2
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+SystemInstance returns instance::SystemInstance:
+	 'rootinstance' name=ID category=ComponentCategory
+	'of' componentImplementation=[aadl2::ComponentImplementation|FQCREF]
+	featureInstance+=FeatureInstance*
+	componentInstance+=ComponentInstance*
+	modeInstance+=ModeInstance*
+	modeTransitionInstance+=ModeTransitionInstance*
+	flowSpecification+=FlowSpecInstance*
+	endToEndFlow+=EndToEndFlowInstance*
+	connectionInstance+=ConnectionInstance*
+	systemOperationMode+=SystemOperationMode*
+	'end'
+	;
+	
+ComponentInstance returns instance::ComponentInstance:
+	category=ComponentCategory 'instance' name=ID 
+	( '[' index+=INTVALUE+ ']')?
+	'of' subcomponent=[aadl2::Subcomponent|ID]
+	featureInstance+=FeatureInstance*
+	componentInstance+=ComponentInstance*
+	modeInstance+=ModeInstance*
+	modeTransitionInstance+=ModeTransitionInstance*
+	flowSpecification+=FlowSpecInstance*
+	endToEndFlow+=EndToEndFlowInstance*
+	connectionInstance+=ConnectionInstance*
+	( 'in''mode' inMode+=[instance::ModeInstance|ID])?
+	'end'
+	;
+	
+FeatureInstance returns instance::FeatureInstance :
+	category=FeatureCategory 'instance' name=ID  
+	( '[' index=INTVALUE ']')?
+	'of' feature=[aadl2::Feature|ID]
+	direction=DirectionType
+	featureInstance+=FeatureInstance
+	'end'
+	;
+	
+ModeInstance returns instance::ModeInstance :
+	'mode''instance' name=ID
+	'of' mode=[aadl2::Mode|ID]
+	(initial?='initial')? 
+	'end'
+;
+	
+ModeTransitionInstance returns instance::ModeTransitionInstance :
+	'mode''transition''instance' name=ID
+	'of' modeTransition=[aadl2::ModeTransition|ID]
+	'src' source=[instance::ModeInstance|ID]
+	'dst' destination=[instance::ModeInstance|ID]
+	'end'
+;
+
+FlowSpecInstance returns instance::FlowSpecificationInstance:
+	'flowspec''instance' name=ID
+	'of' flowSpecification=[aadl2::FlowSpecification|ID]
+	('src' source=[instance::FeatureInstance|INSTANCEREF])?
+	('dst' destination=[instance::FeatureInstance|INSTANCEREF])?
+	( 'in''mode' inMode+=[instance::ModeInstance|INSTANCEREF])?
+	( 'in''transition' inModeTransition+=[instance::ModeTransitionInstance|ID])?
+	'end'
+;
+
+EndToEndFlowInstance returns instance::EndToEndFlowInstance:
+	'etef''instance' name=ID
+	'of' endToEndFlow=[aadl2::EndToEndFlow|ID]
+	flowElement+=[instance::FlowElementInstance|INSTANCEREF]*
+	( 'in''mode' inMode+=[instance::ModeInstance|INSTANCEREF])?
+	( 'in''som' inSystemOperationMode+=[instance::SystemOperationMode|SOMID])?
+	'end'
+;
+
+SystemOperationMode returns instance::SystemOperationMode:
+	'som' name=SOMID 
+	currentMode+=[instance::ModeInstance|INSTANCEREF]
+	'end'
+;
+
+ConnectionInstance returns instance::ConnectionInstance:
+	kind=ConnectionKind 'connection''instance'
+	'of' connectionReference+=ConnectionReference+
+	'src' source=[instance::ConnectionInstanceEnd|INSTANCEREF]
+	'dst' destination=[instance::ConnectionInstanceEnd|INSTANCEREF]
+	( 'in''som' inSystemOperationMode+=[instance::SystemOperationMode|SOMID])?
+	( 'in''transition' inModeTransition+=[instance::ModeTransitionInstance|INSTANCEREF])?
+	complete?='complete'?
+	bidirectional?='bidirectional'?
+	'end'
+;
+
+ConnectionReference returns instance::ConnectionReference:
+	'of' connection=[aadl2::Connection|ID]
+	'src' source=[instance::ConnectionInstanceEnd|INSTANCEREF]
+	'dst' destination=[instance::ConnectionInstanceEnd|INSTANCEREF]
+	'context' context=[instance::ComponentInstance|INSTANCEREF]
+;
+	
+ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
+	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+	| 'subprogram' 'group' | 'system' | 'threadgroup'
+	| 'thread' | 'virtual' 'bus' | 'virtualprocessor';
+
+FeatureCategory returns instance::FeatureCategory :
+	'eventport' | 'dataport' | 'eventdataport' | 'parameter' | 'busaccess' | 'dataaccess'|'subprogramaccess'|'subprogramgroupaccess' | 'featuregroup'|'abstractfeature'
+;
+
+DirectionType returns aadl2::DirectionType :
+	'in' | 'out' | 'inout'
+;
+
+ConnectionKind returns instance::ConnectionKind:
+	'feature'|'access'|'parameter'|'port'|'modetransition'|'featuregroup'
+;
+
+FQCREF:
+	(ID '::')+ ID ('.' ID)?;
+	
+INSTANCEREF:
+	(ID '.')* ID
+;
+	
+SOMID:
+	(INSTANCEREF '#')* INSTANCEREF
+;
+
+terminal ID:	('a'..'z'
+        |'A'..'Z'
+        ) ( ('_')? ('a'..'z'
+        |'A'..'Z'
+        |'0'..'9'))*;
+
+INTVALUE returns aadl2::Integer:
+	INTEGER_LIT 	
+;
+
+terminal INTEGER_LIT : ( '0'..'9' )+
+	
+;
+
+
+terminal SL_COMMENT:
+	'--' !('\n' | '\r')* ('\r'? '\n')?;
+	
+
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+
+
