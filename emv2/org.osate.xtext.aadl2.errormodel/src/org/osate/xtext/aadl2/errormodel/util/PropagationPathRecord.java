@@ -14,7 +14,11 @@ public class PropagationPathRecord {
 	PropagationPathEnd pathSrc;
 	PropagationPathEnd pathDst;
 	ConnectionInstance conni;
+	
 
+	/**
+	 * propagation path between error propagations of component instances
+	 */
 	public PropagationPathRecord(ComponentInstance srcCI, ErrorPropagation srcEP, ComponentInstance dstCI,
 			ErrorPropagation dstEP, ConnectionInstance conni) {
 		pathSrc = new PropagationPathEnd(srcCI, srcEP);
@@ -22,6 +26,9 @@ public class PropagationPathRecord {
 		this.conni = conni;
 	}
 
+	/**
+	 * propagation path for bindings (no connection instance exists)
+	 */
 	public PropagationPathRecord(ComponentInstance srcCI, ErrorPropagation srcEP, ComponentInstance dstCI,
 			ErrorPropagation dstEP) {
 		pathSrc = new PropagationPathEnd(srcCI, srcEP);
@@ -29,12 +36,20 @@ public class PropagationPathRecord {
 		conni = null;
 	}
 
+	/**
+	 * propagation path for connection bindings (no connection instance exists)
+	 * srcConni is the source
+	 */
 	public PropagationPathRecord(ConnectionInstance srcConni, ComponentInstance dstCI, ErrorPropagation dstEP) {
 		pathSrc = new PropagationPathEnd(srcConni, null);
 		pathDst = new PropagationPathEnd(dstCI, dstEP);
 		conni = null;
 	}
 
+	/**
+	 * propagation path for connection bindings (no connection instance exists)
+	 * dstConni is the destination of the propagation
+	 */
 	public PropagationPathRecord(ComponentInstance srcCI, ErrorPropagation srcEP, ConnectionInstance dstConni) {
 		pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		pathDst = new PropagationPathEnd(dstConni, null);

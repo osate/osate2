@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -80,19 +81,21 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 /**
+ * This class initiates a fault impact analysis starting with error sources.
+ * The level of impact analysis (how deep) can be set as parameter (with a default of 5)
  * @author phf
  */
 public class PropagateErrorSources {
 	protected WriteToFile report;
 	protected AnalysisModel faultModel;
-	protected EList<EObject> visited;
+	protected Collection<EObject> visited;
 	protected int maxLevel = 7;
 	private Map<ComponentInstance, List<String>> alreadyTreated;
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
 		faultModel = new AnalysisModel(root);
-		visited = new UniqueEList<EObject>();
+		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
 	}
@@ -106,7 +109,7 @@ public class PropagateErrorSources {
 		this.maxLevel = maxLevel;
 	}
 
-	public EList<ComponentInstance> getSubcomponents() {
+	public Collection<ComponentInstance> getSubcomponents() {
 		return faultModel.getSubcomponents();
 	}
 
@@ -314,8 +317,6 @@ public class PropagateErrorSources {
 		if (ceslist.isEmpty()) {
 			return;
 		}
-		reportExternalImpactHeading();
-		reportExternalTableHeading();
 		for (ConnectionErrorSource ces : ceslist) {
 			// find connection instances that this connection is part of
 			ErrorPropagation ep = null;

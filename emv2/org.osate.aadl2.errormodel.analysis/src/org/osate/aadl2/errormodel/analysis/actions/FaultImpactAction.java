@@ -33,6 +33,7 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -73,11 +74,17 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		PropagateErrorSources faultimpact = new PropagateErrorSources("FaultImpact", si); // optional third parameter maxLevel
 		faultimpact.reportImpactHeading();
 		faultimpact.reportTableHeading();
-		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
+		Collection<ComponentInstance> cilist = faultimpact.getSubcomponents();
 		for (ComponentInstance componentInstance : cilist) {
 			if (componentInstance != null) {
 				// OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
 				faultimpact.startErrorFlows(componentInstance);
+			}
+		}
+		for (ComponentInstance componentInstance : cilist) {
+			if (componentInstance != null) {
+				// OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
+				faultimpact.startConnectionSourceFlows(componentInstance);
 			}
 		}
 		faultimpact.startExternalFlows(si);

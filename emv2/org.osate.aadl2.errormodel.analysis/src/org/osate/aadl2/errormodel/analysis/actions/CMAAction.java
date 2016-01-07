@@ -97,7 +97,7 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.beginTask("Common Mode Assessment", IProgressMonitor.UNKNOWN);
 
-		AnalysisModel analysisModel = new AnalysisModel(si.getComponentInstance(), false);
+		AnalysisModel analysisModel = new AnalysisModel(si.getComponentInstance());
 
 //		analysisModel.printPropagationPaths();
 

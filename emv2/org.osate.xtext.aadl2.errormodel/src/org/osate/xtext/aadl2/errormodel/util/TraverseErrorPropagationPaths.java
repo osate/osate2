@@ -94,7 +94,7 @@ public class TraverseErrorPropagationPaths {
 		this.maxLevel = maxLevel;
 	}
 
-	public EList<ComponentInstance> getSubcomponents() {
+	public Collection<ComponentInstance> getSubcomponents() {
 		return faultModel.getSubcomponents();
 	}
 

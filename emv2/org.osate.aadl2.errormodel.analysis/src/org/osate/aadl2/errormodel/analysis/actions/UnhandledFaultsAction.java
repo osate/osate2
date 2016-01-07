@@ -33,6 +33,8 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+import java.util.Collection;
+
 /**
  * Also, this class implement the following consistency rule from
  * the official documentation:
@@ -79,7 +81,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 		setCSVLog("UnhandledFaults", si);
 		model = new AnalysisModel(si);
-		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
 		for (PropagationPathRecord path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}
