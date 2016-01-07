@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -271,38 +272,23 @@ public class EMV2Util {
 
 	/**
 	 * Check to see if all NamedElements in the Elist have a unique name.
+	 * Do not account for Error Propagations. They are checked separately.
 	 * this method handles error propagations as well, using their printname.
 	 *
 	 * list can contain object that are not NamedElements.
 	 * @param el EList or NamedElements or other objects
 	 * @return EList of NameElements that are defining a previously defined name
 	 */
-	public static EList<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
-		EList<NamedElement> result = new BasicEList<NamedElement>();
+	public static List<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
+		List<NamedElement> result = new ArrayList<NamedElement>();
 		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
 			for (final Iterator i = el.iterator(); i.hasNext();) {
 				final Object obj = i.next();
-				if (obj instanceof NamedElement) {
+				if (obj instanceof NamedElement&& !(obj instanceof ErrorPropagation)) {
 					final NamedElement lit = (NamedElement) obj;
 					String name = lit.getName();
-
-					/**
-					 * Comment code - JD
-					 */
-					if (obj instanceof ErrorPropagation && !((ErrorPropagation) obj).isNot()) {
-						name = getPrintName((ErrorPropagation) obj);
-					}
-
-					/**
-					 * FIXME-JD
-					 * Does not try to find duplicates for error propagation
-					 */
-					if (obj instanceof ErrorPropagation) {
-						continue;
-					}
-
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
 						if (!seen.add(name)) {

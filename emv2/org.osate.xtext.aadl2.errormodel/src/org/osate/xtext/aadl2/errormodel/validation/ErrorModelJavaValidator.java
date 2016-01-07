@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.errormodel.validation;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -149,18 +150,19 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkSubclauseAssociationToClassifier(subclause);
 		checkOnePropagationAndContainmentPoint(subclause);
 		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
-		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
+		List<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
 		for (NamedElement namedElement : doubles) {
-			error(namedElement, namedElement.getName() + " has duplicate error propagations.");
+			if (!(namedElement instanceof ErrorPropagation))
+			error(namedElement, "Subclause has more than one element with the name '"+namedElement.getName() + "'.");
 		}
-//		 Collection<ErrorPropagation> ins = EMV2Util.getAllIncomingErrorPropagations(subclause.getContainingClassifier());
-//		 for (ErrorPropagation errorPropagation : ins) {
-//				checkTypePropagationAndContainment(errorPropagation);
-//		}
-//		 Collection<ErrorPropagation> outs = EMV2Util.getAllOutgoingErrorPropagations(subclause.getContainingClassifier());
-//		 for (ErrorPropagation errorPropagation : outs) {
-//				checkTypePropagationAndContainment(errorPropagation);
-//		}
+		 Collection<ErrorPropagation> ins = EMV2Util.getAllIncomingErrorPropagations(subclause.getContainingClassifier());
+		 for (ErrorPropagation errorPropagation : ins) {
+				checkTypePropagationAndContainment(errorPropagation);
+		}
+		 Collection<ErrorPropagation> outs = EMV2Util.getAllOutgoingErrorPropagations(subclause.getContainingClassifier());
+		 for (ErrorPropagation errorPropagation : outs) {
+				checkTypePropagationAndContainment(errorPropagation);
+		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -311,13 +313,13 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation ep1 = eps.get(i);
 			for (int k = i + 1; k < epssize; k++) {
 				ErrorPropagation ep2 = eps.get(k);
-				if (EMV2Util.getPrintName(ep1) == EMV2Util.getPrintName(ep2)) {
+				if (EMV2Util.getPrintName(ep1).equalsIgnoreCase(EMV2Util.getPrintName(ep2))) {
 					// uniqueness needs to take into account direction
-					if ((ep1.isNot() && ep2.isNot() || !ep1.isNot() && !ep2.isNot())
+					if (((ep1.isNot() && ep2.isNot()) || (!ep1.isNot() && !ep2.isNot()))
 							&& ep1.getDirection() == ep2.getDirection()) {
 						error(ep2,
 								(ep1.isNot() ? "Error containment " : "Error propagation ")
-										+ EMV2Util.getPrintName(ep2) + " already defined.");
+										+ EMV2Util.getPrintName(ep2) + " can only be declared once [E.7.1 (L1)].");
 					}
 				}
 			}
