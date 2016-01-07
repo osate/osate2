@@ -209,7 +209,7 @@ public class EMV2Util {
 
 	/**
 	 * get the error model subclause for the specified classifier.
-	 * Do it for the separately stored or embedded subclause
+	 * Do it for the separately stored first, if not found then embedded subclause
 	 * Does not look in the extends hierarchy
 	 * @param cl CLassifier
 	 * @return
@@ -219,9 +219,13 @@ public class EMV2Util {
 			return null;
 		}
 		// separately stored EMV2 subclause
-		String qname = cl.getQualifiedName();
 		ErrorModelSubclause emsc = getAssociatedEMV2Subclause(cl);
 		if (emsc != null) return emsc;
+		// embedded EMV2 subclause
+		return getEmbeddedEMV2Subclause(cl);
+	}
+	
+	public static ErrorModelSubclause getEmbeddedEMV2Subclause(ComponentClassifier cl){
 		// embedded EMV2 subclause
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl) {
@@ -231,6 +235,7 @@ public class EMV2Util {
 			}
 		}
 		return null;
+
 	}
 
 	/**

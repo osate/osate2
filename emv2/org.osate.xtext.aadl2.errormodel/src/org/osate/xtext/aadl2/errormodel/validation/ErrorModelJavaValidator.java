@@ -148,6 +148,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 		checkSubclauseAssociationToClassifier(subclause);
+		checkDuplicateSubclause(subclause);
 		checkOnePropagationAndContainmentPoint(subclause);
 		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
 		List<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
@@ -302,6 +303,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (cl == null) {
 			warning(emsc, "EMV2 subclause name '" + emsc.getName() + "' does not identify a component classifier.");
 		}
+		}
+	}
+
+	private void checkDuplicateSubclause(ErrorModelSubclause emsc) {
+		ErrorModelSubclause duplicate = null;
+		ComponentClassifier cl = null;
+		if (emsc.eContainer() instanceof EMV2Root) {
+			cl = EMV2Util.getAssociatedClassifier(emsc);
+			duplicate = EMV2Util.getEmbeddedEMV2Subclause(cl);
+		} else {
+			cl = (ComponentClassifier)emsc.getContainingClassifier();
+			duplicate = EMV2Util.getAssociatedEMV2Subclause(cl);
+		}
+		if (duplicate != null) {
+			error(emsc, "EMV2 subclause for component '" + cl.getName() + "' is both embedded in classifier and declared separately.");
 		}
 	}
 
