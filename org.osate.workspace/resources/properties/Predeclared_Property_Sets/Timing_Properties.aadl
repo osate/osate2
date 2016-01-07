@@ -3,7 +3,6 @@
 --Appendix A: Predeclared Property Sets
 
 property set Timing_Properties is
-	with AADL_Project;
 	
 	Time: type aadlinteger 0 ps .. Max_Time units Time_Units;
 	
@@ -64,7 +63,7 @@ property set Timing_Properties is
 		applies to (process, system);
 		
 	Processor_Capacity: aadlreal units Processor_Speed_Units 
-	        applies to (processor, system);
+	        applies to (processor, virtual processor, system);
 	
 	Period: inherit Time
 		applies to (thread, thread group, process, system, device, virtual processor, virtual bus, bus);
@@ -91,7 +90,7 @@ property set Timing_Properties is
 		applies to (processor, device, system);
 	
 	Process_Swap_Execution_Time: Time_Range
-		applies to (processor);
+		applies to (processor, virtual processor);
 	
 	Reference_Processor: inherit classifier (processor)
 		applies to (subprogram, subprogram group, thread, thread group, process, device, system);

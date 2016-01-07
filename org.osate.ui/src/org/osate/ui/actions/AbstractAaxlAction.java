@@ -589,6 +589,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	}
 
 	protected final synchronized Shell getShell() {
+		if (window== null) return null;
 		return window.getShell();
 	}
 

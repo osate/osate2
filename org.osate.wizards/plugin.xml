@@ -12,8 +12,8 @@
          
          <action
                id="org.osate.wizards.AadlProjectWizard.action"
-               label="New Aadl Project"
-               tooltip="New Aadl Project"
+               label="New AADL Project"
+               tooltip="New AADL Project"
                icon="icons/new_aadl_project.gif"
                class="org.osate.ui.actions.WizardLauncherAction"
                toolbarPath="OSATE-newWizards.toolbar/project.grp">
@@ -22,8 +22,8 @@
          
          <action
                id="org.osate.wizards.PackageWizard.action"
-               label="New Aadl Package"
-               tooltip="New Aadl Package"
+               label="New AADL Package"
+               tooltip="New AADL Package"
                icon="icons/new_package.gif"
                class="org.osate.ui.actions.NewPackageWizardAction"
                toolbarPath="OSATE-newWizards.toolbar/model.grp">
@@ -31,8 +31,8 @@
          
          <action
                id="org.osate.wizards.PropertySetWizard.action"
-               label="New Aadl Property Set"
-               tooltip="New Aadl Property Set"
+               label="New AADL Property Set"
+               tooltip="New AADL Property Set"
                icon="icons/new_ps.gif"
                class="org.osate.ui.actions.NewPropertySetWizardAction"
                toolbarPath="OSATE-newWizards.toolbar/model.grp">

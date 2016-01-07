@@ -41,4 +41,5 @@ public final class ThreadProperties {
 
 	public static final String DISPATCH_PROTOCOL = "Dispatch_Protocol";
 	public static final String PRIORITY = "Priority";
+	public static final String CONCURRENCY_CONTROL_PROTOCOL = "Concurrency_Control_Protocol";
 }

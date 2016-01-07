@@ -74,6 +74,7 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectedFeature;
@@ -132,6 +133,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
+import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 /**
  * This class implements the instantiation of models from a root system impl.
@@ -495,8 +497,8 @@ public class InstantiateModel {
 	 * Fill in modes, transitions, subcomponent instances, features, flow specs.
 	 */
 	protected void populateComponentInstance(ComponentInstance ci, int index) {
-		ComponentImplementation impl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
-		ComponentType type = InstanceUtil.getComponentType(ci, 0, classifierCache);
+		ComponentImplementation impl = getComponentImplementation(ci);
+		ComponentType type = getComponentType(ci);
 		if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 			monitor.subTask("Creating instances in " + ci.getName());
 		}
@@ -675,7 +677,7 @@ public class InstantiateModel {
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
-		ic = getInstantiatedClassifier(newInstance, 0);
+		ic = getInstantiatedClassifier(newInstance);
 		if (ic == null) {
 			cc = null;
 		} else {
@@ -709,7 +711,7 @@ public class InstantiateModel {
 	 * @param ci
 	 */
 	private void instantiateFlowSpecs(ComponentInstance ci) {
-		for (FlowSpecification spec : InstanceUtil.getComponentType(ci, 0, classifierCache).getAllFlowSpecifications()) {
+		for (FlowSpecification spec : getComponentType(ci).getAllFlowSpecifications()) {
 			FlowSpecificationInstance speci = ci.createFlowSpecification();
 			speci.setName(spec.getName());
 			speci.setFlowSpecification(spec);
@@ -772,7 +774,7 @@ public class InstantiateModel {
 	 * Add feature instances to component instance
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) {
-		for (final Feature feature : getInstantiatedClassifier(ci, 0).classifier.getAllFeatures()) {
+		for (final Feature feature : getInstantiatedClassifier(ci).classifier.getAllFeatures()) {
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
@@ -850,8 +852,7 @@ public class InstantiateModel {
 
 		// resolve feature prototype
 		if (feature.getPrototype() instanceof FeaturePrototype) {
-			FeaturePrototypeActual fpa = InstanceUtil.resolveFeaturePrototype(feature.getPrototype(), fi,
-					classifierCache);
+			FeaturePrototypeActual fpa = resolveFeaturePrototype(feature.getPrototype(), fi);
 
 			if (fpa instanceof AccessSpecification) {
 				AccessCategory ac = ((AccessSpecification) fpa).getCategory();
@@ -918,14 +919,14 @@ public class InstantiateModel {
 
 			inverse ^= fg.isInverse();
 
-			InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(fi, 0, classifierCache);
+			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
 			if (ic.classifier == null) {
 				errManager
 						.error(fi,
 								"Could not resolve feature group type of feature group prototype "
 										+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.bindings == InstanceUtil.noBindings) {
+			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
@@ -1381,19 +1382,6 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private long getArraySizeValue(ComponentInstance ci, Property pd) {
-//		PropertyExpression res = ci.getSimplePropertyValue(pd);
-		Subcomponent sub = ci.getSubcomponent();
-		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
-				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
-				if (pe instanceof IntegerLiteral) {
-					return ((IntegerLiteral) pe).getValue();
-				}
-			}
-		}
-		return 0;
-	}
 
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
@@ -1807,39 +1795,54 @@ public class InstantiateModel {
 	}
 
 	// --------------------------------------------------------------------------------------------
-	// Methods related to prototype resolution
+	// Methods related to prototype resolution, wrapped InstanceUtil calls
 	// --------------------------------------------------------------------------------------------
 
-	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index) {
+	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj) {
+		return getInstantiatedClassifier(iobj, 0, classifierCache);
+	}
+
+	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getInstantiatedClassifier(iobj, index, classifierCache);
 	}
 
-	// --------------------------------------------------------------------------------------------
-	// Methods related to arrays
-	// --------------------------------------------------------------------------------------------
-
-	private long getElementCount(ArraySize as, ComponentInstance ci) {
-		long result = 0L;
-		if (as == null) {
-			return result;
-		}
-		if (as.getSizeProperty() == null) {
-			result = as.getSize();
-		} else {
-			ArraySizeProperty asp = as.getSizeProperty();
-			if (asp instanceof PropertyConstant) {
-				PropertyConstant pc = (PropertyConstant) asp;
-				PropertyExpression cv = pc.getConstantValue();
-				if (cv instanceof IntegerLiteral) {
-					result = ((IntegerLiteral) cv).getValue();
-				}
-			} else if (asp instanceof Property) {
-				Property pd = (Property) asp;
-				result = getArraySizeValue(ci, pd);
-			}
-		}
-		return result;
+	protected ComponentType getComponentType(ComponentInstance ci) {
+		return getComponentType(ci, 0, classifierCache);
 	}
+
+	protected ComponentType getComponentType(ComponentInstance ci, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		return InstanceUtil.getComponentType(ci, index, classifierCache);
+	}
+
+	protected ComponentImplementation getComponentImplementation(ComponentInstance ci) {
+		return getComponentImplementation(ci, 0, classifierCache);
+	}
+
+	protected ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		return InstanceUtil.getComponentImplementation(ci, index, classifierCache);
+	}
+
+	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi) {
+		return getFeatureGroupType(fi, 0, classifierCache);
+	}
+
+	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		return InstanceUtil.getFeatureGroupType(fi, index, classifierCache);
+	}
+
+	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi) {
+		return resolveFeaturePrototype(proto, fi, classifierCache);
+	}
+
+	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);
+	}
+
 
 	// --------------------------------------------------------------------------------------------
 	// Methods related to properties
@@ -1863,8 +1866,7 @@ public class InstantiateModel {
 			Element elem = it.next();
 
 			if (elem instanceof ComponentInstance) {
-				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
-						classifierCache);
+				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
 				if (ic != null) {
 					if (ic.classifier.equals(root.getComponentImplementation())) {
 						addUsedProperties(root, ic.classifier, result, false);
@@ -1875,7 +1877,7 @@ public class InstantiateModel {
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
 				if (fi.getFeature() instanceof FeatureGroup) {
-					FeatureGroupType fgt = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+					FeatureGroupType fgt = getFeatureGroupType(fi);
 					addUsedProperties(root, fgt, result);
 				} else {
 					Classifier c = fi.getFeature().getClassifier();

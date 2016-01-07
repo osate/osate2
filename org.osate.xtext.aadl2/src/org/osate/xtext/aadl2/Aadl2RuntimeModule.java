@@ -34,17 +34,25 @@
  */
 package org.osate.xtext.aadl2;
 
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.conversion.IValueConverterService;
-import org.eclipse.xtext.findReferences.IReferenceFinder;
+import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
+import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
+import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.IFragmentProvider;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
+import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
+import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
+import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
-import org.osate.xtext.aadl2.scoping.Aadl2ScopeProviderDelegate;
+import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.validation.Aadl2NamesAreUniqueValidationHelper;
@@ -97,6 +105,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2NamesAreUniqueValidationHelper.class;
 	}
 
+	@SuppressWarnings("restriction")
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer.class;
 	}
@@ -135,14 +144,14 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	}
 
 	@SuppressWarnings("restriction")
-	public Class<? extends IReferenceFinder> bindIReferenceFinder() {
+	public Class<? extends org.eclipse.xtext.findReferences.IReferenceFinder> bindIReferenceFinder() {
 		return Aadl2ReferenceFinder.class;
 	}
 
 	@Override
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-				.to(Aadl2ScopeProviderDelegate.class);
+				.to(Aadl2ImportedNamespaceAwareLocalScopeProvider.class);
 	}
 
 	/**
@@ -154,4 +163,39 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		binder.bind(Boolean.TYPE).annotatedWith(Names.named(LazyURIEncoder.USE_INDEXED_FRAGMENTS_BINDING))
 				.toInstance(Boolean.FALSE);
 	}
+
+	@SuppressWarnings("restriction")
+	@Override
+	public Class<? extends XtextResource> bindXtextResource() {
+		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
+	}
+
+	@SuppressWarnings("restriction")
+	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
+		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
+	}
+
+	@SuppressWarnings("restriction")
+	public Class<? extends org.eclipse.xtext.resource.persistence.IResourceStorageFacade> bindIResourceStorageFacade() {
+		return Aadl2ResourceStorageFacade.class;
+	}
+
+	public Class<? extends AbstractFileSystemAccess2> bindAbstractFileSystemAccess2() {
+		return EclipseResourceFileSystemAccess2.class;
+	}
+
+	// needed for builder participant even though we don't generate anything
+	// builder participant is needed to write bin files
+	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
+		return org.eclipse.xtext.generator.IGenerator.NullGenerator.class;
+	}
+
+	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+		return Aadl2OutputConfigurationProvider.class;
+	}
+
+	public Class<? extends IDerivedStateComputer> bindIDerivedStateComputer() {
+		return Aadl2DerivedStateComputer.class;
+	}
+
 }

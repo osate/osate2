@@ -175,7 +175,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
-		setWindowTitle("New Aadl Package or Property Set");
+		setWindowTitle("New AADL Package or Property Set");
 		setDefaultPageImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif"));
 	}
 
@@ -354,8 +354,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		 * initialObjectType specifies which radio button will be selected when the page is shown.
 		 */
 		public NewModelWizardNewObjectCreationPage(String pageName, ObjectType initialObjectType) {
-			super(pageName, "New Aadl Package or Property Set", null);
-			setDescription("Create a new Aadl Package or Property set.");
+			super(pageName, "New AADL Package or Property Set", null);
+			setDescription("Create a new AADL Package or Property set.");
 			this.initialObjectType = initialObjectType;
 		}
 
@@ -380,15 +380,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 			Group objectTypeGroup = new Group(composite, SWT.NONE);
 			objectTypeGroup.setLayout(new GridLayout());
-			objectTypeGroup.setText("Aadl File Type");
+			objectTypeGroup.setText("AADL File Type");
 			objectTypeGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 			aadlPackageButton = new Button(objectTypeGroup, SWT.RADIO);
-			aadlPackageButton.setText("Aadl Package");
+			aadlPackageButton.setText("AADL Package");
 			aadlPackageButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 			aadlPropertySetButton = new Button(objectTypeGroup, SWT.RADIO);
-			aadlPropertySetButton.setText("Aadl Property Set");
+			aadlPropertySetButton.setText("AADL Property Set");
 			aadlPropertySetButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 			GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
