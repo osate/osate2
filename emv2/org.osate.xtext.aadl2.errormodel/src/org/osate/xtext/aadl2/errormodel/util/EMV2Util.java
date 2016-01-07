@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -81,6 +82,18 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 public class EMV2Util {
 
 	public final static String ErrorModelAnnexName = "EMV2";
+	
+	public static String getLibraryName(ErrorModelLibrary lib){
+		String res = lib.getName();
+		if (res == null){
+			NamedElement root= lib.getElementRoot();
+			if (root instanceof AadlPackage){
+				res = ((AadlPackage)root).getName();
+			}
+			return "";
+		}
+		return res;
+	}
 
 	public static ErrorSource getErrorSource(ComponentInstance ci, ErrorPropagation ep) {
 		Collection<ErrorFlow> flows = getAllErrorFlows(ci);
@@ -104,6 +117,11 @@ public class EMV2Util {
 	private static void getClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) {
+			// see if we are adding the local one. We need to match names since we could have both an embedded one and a separate one.
+			if (result.size()==1&& 
+				ems.getName().equalsIgnoreCase(result.get(0).getName())){
+					return;
+			}
 			result.add(ems);
 		}
 	}
@@ -138,6 +156,8 @@ public class EMV2Util {
 			cl = getAssociatedClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
+		ErrorModelSubclause localemsc = getContainingErrorModelSubclause(element);
+		if (localemsc != null) result.add(localemsc);
 		if (cl == null)
 			return result;
 		if (cl instanceof ComponentImplementation) {
@@ -188,7 +208,7 @@ public class EMV2Util {
 
 	/**
 	 * get the error model subclause for the specified classifier.
-	 * Do it for the sparately stored or embedded subclause
+	 * Do it for the separately stored or embedded subclause
 	 * Does not look in the extends hierarchy
 	 * @param cl CLassifier
 	 * @return
@@ -197,7 +217,7 @@ public class EMV2Util {
 		if (cl == null) {
 			return null;
 		}
-		// separetely stored EMV2 subclause
+		// separately stored EMV2 subclause
 		String qname = cl.getQualifiedName();
 		ErrorModelSubclause emsc = getAssociatedEMV2Subclause(cl);
 		if (emsc != null) return emsc;

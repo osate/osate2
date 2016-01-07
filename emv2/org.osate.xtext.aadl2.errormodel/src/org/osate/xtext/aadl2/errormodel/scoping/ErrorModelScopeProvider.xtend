@@ -266,7 +266,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 */
 	def private static scopeForErrorTypes(Iterable<ErrorModelLibrary> useTypes, Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
 		// XXX TODO 
-		val useTypesPerLib = newHashMap(useTypes.map[getContainerOfType(AadlPackage).name -> elementGetter.apply(it).toSet])
+		val useTypesPerLib = newHashMap(useTypes.map[libraryName -> elementGetter.apply(it).toSet])
 		
 		val contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
 		val partitionResult = (useTypesPerLib.values.flatten + contextErrorTypes.orElse(emptySet)).toSet.groupBy[name.toLowerCase].values.stream.collect(Collectors.partitioningBy[size == 1])
