@@ -283,14 +283,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkTypePropagationAndContainment(ErrorPropagation ep) {
+		ErrorPropagation epopposite;
 		if (!ep.isNot()) {
-			return;
+			epopposite = EMV2Util.findErrorPropagation(ep.getContainingClassifier(),
+					EMV2Util.getPrintName(ep), ep.getDirection());
+		} else {
+			epopposite = EMV2Util.findErrorContainment(ep.getContainingClassifier(),
+					EMV2Util.getPrintName(ep), ep.getDirection());
 		}
-		ErrorPropagation epopposite = EMV2Util.findErrorPropagation(ep.getContainingClassifier(),
-				EMV2Util.getPrintName(ep), ep.getDirection());
 		BasicEList<TypeToken> res = EM2TypeSetUtil.getTypeSetIntersection(ep.getTypeSet(), epopposite.getTypeSet());
 		if (!res.isEmpty()) {
-//				EM2TypeSetUtil.contains(ep.getTypeSet(), epopposite.getTypeSet()) || EM2TypeSetUtil.contains(epopposite.getTypeSet(), ep.getTypeSet())){
 			error(ep, "Error propagation and containment " + EMV2Util.getPrintName(ep)
 					+ " have a common error type or type product " + EMV2Util.getPrintName(res));
 		}
