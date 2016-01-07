@@ -750,7 +750,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			public
 			  abstract a
 			  features
-			    p: in data port [Activate_Entrypoint_Source_Text];
+			    p: in data port [Max_Time];
 			  end a;
 			end testArraySize;
 		''')
@@ -860,7 +860,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 	def void testCheckSubcomponentImplementationReferenceList() {
 		createFiles("ps2.aadl" -> '''
 		property set ps2 is
-			p1: aadlinteger => 2 applies to (all); 
+			const1: constant aadlinteger => 2 ; 
 		end ps2;
 		''', "testcompimplreflist.aadl" -> '''
 		package testcompimplreflist
@@ -873,7 +873,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 					bsub0: bus b2[2] (b2.i, b2.i);
 					bsub1: bus b2[2] (b2.i, b2.i, b2.i);
 					bsub2: bus b2.i[2] (b2.i, b2.i);
-					bsub3: bus b2[ps2::p1] (b2.i, b2.i);
+					bsub3: bus b2[ps2::const1] (b2.i, b2.i);
 					bsub4: bus b2[2] (b1.i, b2.i);
 			end a.i1;
 			bus b1
@@ -912,7 +912,7 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				ownedBusSubcomponents.get(3) =>[
 					"bsub3".assertEquals(name)
 					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
-					arrayDimensions.head.assertError(testFileResult.issues, issueCollection, "Array size cannot be a property if implementation reference list is defined.") 
+//	became a constant				arrayDimensions.head.assertError(testFileResult.issues, issueCollection, "Array size cannot be a property if implementation reference list is defined.") 
 				]
 				ownedBusSubcomponents.get(4) =>[
 					"bsub4".assertEquals(name)

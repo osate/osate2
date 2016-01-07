@@ -90,8 +90,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal integer property value with no units. Returns a given
-	 * default value if no property value exists. Throws an exception if an
-	 * error occurs.
+	 * default value if no property value exists. 
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -141,8 +140,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal real property value with no units. Returns a given
-	 * default value if no property value exists. Throws an exception if an
-	 * error occurs.
+	 * default value if no property value exists. 
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -212,12 +210,28 @@ public class PropertyUtils {
 	 * @throws ClassCastException Thrown if the retrieved value is not a string
 	 *             value.
 	 */
-	public static String getStringValue(final NamedElement ph, final Property pd) {
+	public static String getStringValue(final NamedElement ph, final Property pd) throws InvalidModelException,
+			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
+			PropertyDoesNotApplyToHolderException, PropertyIsListException, ClassCastException {
+		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
+		return ((StringLiteral) pv).getValue();
+	}
+
+	/**
+	 * Get a non-modal string property value. Returns a given
+	 * default value if no property value exists. 
+	 *
+	 * @param ph The property holder from which to retrieve the property value.
+	 * @param pd The property to retrieve.
+	 * @param defaultVal The value to return if the property has no value.
+	 * @return The String value of the property.
+	 */
+	public static String getStringValue(final NamedElement ph, final Property pd, final String defaultvalue) {
 		try {
 			final PropertyExpression pv = getSimplePropertyValue(ph, pd);
 			return ((StringLiteral) pv).getValue();
 		} catch (PropertyLookupException e) {
-			return "";
+			return defaultvalue;
 		}
 	}
 
@@ -312,8 +326,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal numeric property value scaled to the given unit. Returns
-	 * a given default value if no property value exists. Throws an exception if
-	 * an error occurs.
+	 * a given default value if no property value exists. 
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.

@@ -40,22 +40,34 @@ property set Memory_Properties is
 		applies to (memory);
 	
 	Code_Size: Size
-		applies to (data, thread, thread group, process, system, subprogram, processor, device);
+		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, device);
 	
 	Data_Size: Size
-		applies to (data, feature, subprogram, thread, thread group, process, system, processor, device);
+		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, device);
 	
 	Heap_Size: Size
-		applies to (thread, subprogram);
+		applies to (thread, subprogram,thread group, process, system, processor, virtual processor, device);
 	
 	Stack_Size: Size
-		applies to (thread, subprogram, processor, device);
+		applies to (thread, subprogram, processor, virtual processor, device);
+	
+	Source_Code_Size: Size
+		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, device);
+	
+	Source_Data_Size: Size
+		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, device);
+	
+	Source_Heap_Size: Size
+		applies to (thread, subprogram);
+	
+	Source_Stack_Size: Size
+		applies to (thread, subprogram, processor, virtual processor, device);
 	
 	Byte_Count: aadlinteger 0 .. Max_Byte_Count
-		applies to (memory);
+		applies to (memory); -- Deprecated. use memory_size
 	
 	Memory_Size: Size
-		applies to (memory);
+		applies to (memory, system, processor, virtual processor);
 	
 	Word_Size: Size => 8 bits
 		applies to (memory);

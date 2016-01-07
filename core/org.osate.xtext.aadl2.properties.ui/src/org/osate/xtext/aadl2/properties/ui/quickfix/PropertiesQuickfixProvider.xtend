@@ -62,6 +62,9 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
+import org.osate.contribution.sei.names.SEI
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -222,14 +225,122 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 						for (ModalPropertyValue mpv : ownedValues){
 							val ownedVal = mpv.ownedValue
 							switch ownedVal {
-								NumberValue : ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS, AadlProject.B_LITERAL)
+								NumberValue : ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS, ownedVal.unit.name)
 							}
-							
 						}
 				}
 			}
 		)
-		
+	}
+	
+	/**
+	 * QuickFix for changing deprecate Data_Volume to Data_Rate
+	 */
+	@Fix(PropertiesJavaValidator.DATA_VOLUME_DEPRECATED)
+	def public void fixDeprecatedDataVolume(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Data_Volume values with Data_Rate", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						val ownedValues = pa.ownedValues
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, CommunicationProperties.DATA_RATE)
+						for (ModalPropertyValue mpv : ownedValues){
+							val ownedVal = mpv.ownedValue
+							switch ownedVal {
+								NumberValue : ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.DATA_RATE_UNITS, ownedVal.unit.name)
+							}
+						}
+				}
+			}
+		)
+	}
+
+	/**
+	 * QuickFix for changing deprecate SEI::Data_Rate to Data_Rate
+	 */
+	@Fix(PropertiesJavaValidator.SEI_DATA_RATE_DEPRECATED)
+	def public void fixDeprecatedSEIDataRate(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace SEI::Data_Rate with SEI::Message_Rate", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						val ownedValues = pa.ownedValues
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, "SEI::Message_Rate")
+						for (ModalPropertyValue mpv : ownedValues){
+							val ownedVal = mpv.ownedValue
+							switch ownedVal {
+								NumberValue : ownedVal.unit = GetProperties.findUnitLiteral(pa.property,  ownedVal.unit.name)
+							}
+						}
+				}
+			}
+		)
+	}
+
+	/**
+	 * QuickFix for changing deprecate Source_Code_Size to Code_Size
+	 */
+	@Fix(PropertiesJavaValidator.SOURCE_CODE_SIZE_DEPRECATED)
+	def public void fixDeprecatedSourceCodeSize(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Source_Code_Size with Code_Size", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, MemoryProperties.CODE_SIZE)
+				}
+			}
+		)
+	}
+
+	/**
+	 * QuickFix for changing deprecate Source_Data_Size to Data_Size
+	 */
+	@Fix(PropertiesJavaValidator.SOURCE_DATA_SIZE_DEPRECATED)
+	def public void fixDeprecatedSourceDataSize(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Source_Data_Size with Data_Size", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, MemoryProperties.DATA_SIZE)
+				}
+			}
+		)
+	}
+
+	/**
+	 * QuickFix for changing deprecate Source_Heap_Size to Heap_Size
+	 */
+	@Fix(PropertiesJavaValidator.SOURCE_HEAP_SIZE_DEPRECATED)
+	def public void fixDeprecatedSourceHeapSize(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Source_Heap_Size with Heap_Size", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, MemoryProperties.HEAP_SIZE)
+				}
+			}
+		)
+	}
+
+	/**
+	 * QuickFix for changing deprecate Source_Stack_Size to Stack_Size
+	 */
+	@Fix(PropertiesJavaValidator.SOURCE_STACK_SIZE_DEPRECATED)
+	def public void fixDeprecatedSourceStackSize(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Source_Stack_Size with Stack_Size", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, MemoryProperties.STACK_SIZE)
+				}
+			}
+		)
 	}
 	
 	

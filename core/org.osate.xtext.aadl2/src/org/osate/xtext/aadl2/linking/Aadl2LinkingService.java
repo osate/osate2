@@ -210,10 +210,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
+			if (context instanceof ModeTransitionTrigger){
 			ModeTransitionTrigger trigger = (ModeTransitionTrigger) context;
 			TriggerPort triggerPort = findElementInContext(trigger, trigger.getContext(), name, TriggerPort.class);
 			if (triggerPort != null) {
 				return Collections.singletonList((EObject) triggerPort);
+			}
 			}
 			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {

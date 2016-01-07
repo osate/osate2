@@ -47,6 +47,7 @@ public final class MemoryProperties {
 	public static final String DATA_SIZE = "Data_Size";
 	public static final String CODE_SIZE = "Code_Size";
 	public static final String STACK_SIZE = "Stack_Size";
+	public static final String HEAP_SIZE = "Heap_Size";
 	public static final String MEMORY_SIZE = "Memory_Size";
 
 	/**
@@ -56,9 +57,10 @@ public final class MemoryProperties {
 	 * The change has been discussed and approved during the
 	 * April 14 AADL committee meeting.
 	 */
-	public static final String SOURCE_DATA_SIZE = DATA_SIZE;
-	public static final String SOURCE_CODE_SIZE = CODE_SIZE;
-	public static final String SOURCE_STACK_SIZE = STACK_SIZE;
+	public static final String SOURCE_DATA_SIZE = "Source_Data_Size";
+	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
+	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";
+	public static final String SOURCE_HEAP_SIZE = "Source_Heap_Size";
 	public static final String BYTE_COUNT = "Byte_Count";
 
 	/**

@@ -457,6 +457,33 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 */
 	EList<ComponentInstance> getAllComponentInstances();
 
+	/**
+	 * Return all component instances of the specified category in the containment structure rooted at
+	 * this component, including this component.  This method is sensitive to the
+	 * {@link SystemInstance#setCurrentSystemOperationMode(SystemOperationMode) current system
+	 * operation mode}. The assumption is that this component instance
+	 * {{@link #exists() exists in the current system operation mode} if it is being queried.
+	 * If this object is not part of a system instance, then
+	 * all the component instances are returned.  If this object is part of a system
+	 * instance and the current SOM is set, then this method only returns those
+	 * component instances that exist in the current SOM.  If the current SOM
+	 * is not set, then it returns all the component instances.
+	 * @return
+	 */
+	EList<ComponentInstance> getAllComponentInstances(ComponentCategory category);
+
 	ComponentClassifier getComponentClassifier();
+
+	/**
+	 * return all leaf feature instances in the component instance.  
+	 * For feature groups recursively traverse all elements of the feature group
+	 */
+	EList<FeatureInstance> getAllFeatureInstances();
+
+	/**
+	 * return all feature instances in the component instance  
+	 * if it is of the specified category. For feature groups recursively traverse all elements of the feature group
+	 */
+	EList<FeatureInstance> getAllFeatureInstances(FeatureCategory category);
 
 } // ComponentInstance

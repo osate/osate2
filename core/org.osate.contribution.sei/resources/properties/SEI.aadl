@@ -91,6 +91,7 @@ property set SEI is
   
   -- Data_Rate in the SAVI context. From the original POC demo
    Data_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
+   Message_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
   
   --  The next properties are used for the Value-Driven Incremental Development plug-in
   nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 
