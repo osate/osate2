@@ -76,5 +76,5 @@ from {
 checkrule CheckActivityCalls for 
 	VerificationActivity activity
 from {
-  empty |- activity: var PropertyType type
+//  empty |- activity: var PropertyType type
 }
