@@ -109,7 +109,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 		setCSVLog("Consistency", si);
 		model = new AnalysisModel(si);
-		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
 		for (PropagationPathRecord path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}

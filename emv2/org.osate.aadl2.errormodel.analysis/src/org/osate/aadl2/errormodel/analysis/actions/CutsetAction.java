@@ -40,6 +40,7 @@ package org.osate.aadl2.errormodel.analysis.actions;
  *
  */
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -281,7 +282,7 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 //			OsateDebug.osateDebug("SELECTED" + s);
 //		}
 
-		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
 
 		for (PropagationPathRecord ppr : pathlist) {
 			if (isAnalyzed(ppr.getSrcCI())) {
