@@ -58,7 +58,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * I could serialize models that contain properties applied to ErrorSources.
 	 */
 	override scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allErrorFlows.scopeFor
+		context.associatedClassifier.allErrorFlows.scopeFor
 	}
 
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
@@ -190,7 +190,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ConditionElement_incoming(ErrorDetection context, EReference reference) {
-		val classifier = context.getContainerOfType(Classifier)
+		val classifier = context.associatedClassifier
 		val subcomponentDescriptions = if (classifier instanceof ComponentImplementation) {
 			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
 			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
@@ -265,6 +265,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * scope and then have the validator place errors on ambiguous simple names and warnings on unnecessary qualified names.
 	 */
 	def private static scopeForErrorTypes(Iterable<ErrorModelLibrary> useTypes, Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
+		// XXX TODO 
 		val useTypesPerLib = newHashMap(useTypes.map[getContainerOfType(AadlPackage).name -> elementGetter.apply(it).toSet])
 		
 		val contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
