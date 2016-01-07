@@ -153,12 +153,6 @@ public class VerifyTypeSystem extends CommonTypeSystem {
   }
   
   protected Result<Boolean> checkActivityCallsInternal(final RuleApplicationTrace _trace_, final VerificationActivity activity) throws RuleFailedException {
-    /* empty |- activity: var PropertyType type */
-    PropertyType type = null;
-    Result<PropertyType> result = typeInternal(emptyEnvironment(), _trace_, activity);
-    checkAssignableTo(result.getFirst(), PropertyType.class);
-    type = (PropertyType) result.getFirst();
-    
     return new Result<Boolean>(true);
   }
   
