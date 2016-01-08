@@ -61,7 +61,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Override
 	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
-		return (eObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE || eObject instanceof Connection || eObject instanceof PropertyAssociation);
+		return (eObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE || eObject instanceof Connection
+				|| eObject instanceof PropertyAssociation);
 	}
 
 	@Check(CheckType.FAST)
@@ -150,13 +151,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		for (NamedElement namedElement : doubles) {
 			error(namedElement, namedElement.getName() + " has duplicate error propagations.");
 		}
-		 Collection<ErrorPropagation> ins = EMV2Util.getAllIncomingErrorPropagations(subclause.getContainingClassifier());
-		 for (ErrorPropagation errorPropagation : ins) {
-				checkTypePropagationAndContainment(errorPropagation);
+		Collection<ErrorPropagation> ins = EMV2Util
+				.getAllIncomingErrorPropagations(subclause.getContainingClassifier());
+		for (ErrorPropagation errorPropagation : ins) {
+			checkTypePropagationAndContainment(errorPropagation);
 		}
-		 Collection<ErrorPropagation> outs = EMV2Util.getAllOutgoingErrorPropagations(subclause.getContainingClassifier());
-		 for (ErrorPropagation errorPropagation : outs) {
-				checkTypePropagationAndContainment(errorPropagation);
+		Collection<ErrorPropagation> outs = EMV2Util
+				.getAllOutgoingErrorPropagations(subclause.getContainingClassifier());
+		for (ErrorPropagation errorPropagation : outs) {
+			checkTypePropagationAndContainment(errorPropagation);
 		}
 	}
 
@@ -232,7 +235,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
 		EList<NamedElement> cl = recoverEvent.getEventInitiator();
 		for (NamedElement namedElement : cl) {
-			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port || namedElement instanceof InternalFeature)) {
+			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port
+					|| namedElement instanceof InternalFeature)) {
 				error(recoverEvent, "Recover event trigger reference '" + namedElement.getName()
 						+ "' is not a port, component internal self event, or mode transition.");
 			}
@@ -262,9 +266,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
 		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
-			error(conditionElement, "Condition type constraint " + EMV2Util.getPrintName(condTS)
-					+ "is not contained in type set " + EMV2Util.getPrintName(triggerTS) + "of referenced "
-					+ triggerName);
+			error(conditionElement,
+					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
+							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
 		}
 	}
 
@@ -278,13 +282,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkTypePropagationAndContainment(ErrorPropagation ep) {
 		ErrorPropagation epopposite;
-		if (!ep.isNot()) {
-			epopposite = EMV2Util.findErrorPropagation(ep.getContainingClassifier(),
+		if (ep.isNot()) return; // do it only for propagation, so we do not get double messages.
+		epopposite = EMV2Util.findErrorContainment(ep.getContainingClassifier(),
 					EMV2Util.getPrintName(ep), ep.getDirection());
-		} else {
-			epopposite = EMV2Util.findErrorContainment(ep.getContainingClassifier(),
-					EMV2Util.getPrintName(ep), ep.getDirection());
-		}
+		if (epopposite == null) return;
 		BasicEList<TypeToken> res = EM2TypeSetUtil.getTypeSetIntersection(ep.getTypeSet(), epopposite.getTypeSet());
 		if (!res.isEmpty()) {
 			error(ep, "Error propagation and containment " + EMV2Util.getPrintName(ep)
@@ -303,9 +304,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					// uniqueness needs to take into account direction
 					if ((ep1.isNot() && ep2.isNot() || !ep1.isNot() && !ep2.isNot())
 							&& ep1.getDirection() == ep2.getDirection()) {
-						error(ep2,
-								(ep1.isNot() ? "Error containment " : "Error propagation ")
-										+ EMV2Util.getPrintName(ep2) + " already defined.");
+						error(ep2, (ep1.isNot() ? "Error containment " : "Error propagation ")
+								+ EMV2Util.getPrintName(ep2) + " already defined.");
 					}
 				}
 			}
@@ -317,7 +317,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
 			if (!(epd.equals(DirectionType.OUT))) {
-				error(errorSource, EMV2Util.getPrintName(ep) + " of error source is not an outgoing propagation point.");
+				error(errorSource,
+						EMV2Util.getPrintName(ep) + " of error source is not an outgoing propagation point.");
 			}
 		}
 	}
@@ -337,16 +338,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
 			if (!(epd.equals(DirectionType.IN))) {
-				error(errorPath, "Source " + EMV2Util.getPrintName(ep)
-						+ " of error path is not an incoming propagation point.");
+				error(errorPath,
+						"Source " + EMV2Util.getPrintName(ep) + " of error path is not an incoming propagation point.");
 			}
 		}
 		ep = errorPath.getOutgoing();
 		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
 			if (!(epd.equals(DirectionType.OUT))) {
-				error(errorPath, "Target " + EMV2Util.getPrintName(ep)
-						+ " of error path is not an outgoing propagation point.");
+				error(errorPath,
+						"Target " + EMV2Util.getPrintName(ep) + " of error path is not an outgoing propagation point.");
 			}
 		}
 	}
@@ -408,8 +409,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			EList<ErrorType> typeslist = etl.getTypes();
 			for (ErrorType errorTypes : typeslist) {
 				if (etlset.containsKey(errorTypes.getName())) {
-					ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary((Element) etlset.get(errorTypes
-							.getName()));
+					ErrorModelLibrary eml = EMV2Util
+							.getContainingErrorModelLibrary((Element) etlset.get(errorTypes.getName()));
 					error(useTypesContext,
 							"Error type or type set " + errorTypes.getName() + " in library "
 									+ EMV2Util.getPrintName(etl) + " already exists in error type library "
@@ -421,8 +422,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			EList<TypeSet> typesetlist = etl.getTypesets();
 			for (TypeSet typeset : typesetlist) {
 				if (etlset.containsKey(typeset.getName())) {
-					ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary((Element) etlset.get(typeset
-							.getName()));
+					ErrorModelLibrary eml = EMV2Util
+							.getContainingErrorModelLibrary((Element) etlset.get(typeset.getName()));
 					error(useTypesContext,
 							"Error type or type set " + typeset.getName() + " in library " + EMV2Util.getPrintName(etl)
 									+ " already exists in error type library " + EMV2Util.getPrintName(eml));
@@ -444,18 +445,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 		for (ErrorBehaviorState oep : ebsm.getStates()) {
 			if (etlset.containsKey(oep.getName())) {
-				error(oep,
-						"error behavior state " + oep.getName() + " previously defined as "
-								+ etlset.get(oep.getName()).eClass().getName());
+				error(oep, "error behavior state " + oep.getName() + " previously defined as "
+						+ etlset.get(oep.getName()).eClass().getName());
 			} else {
 				etlset.put(oep.getName(), oep);
 			}
 		}
 		for (ErrorBehaviorTransition oep : ebsm.getTransitions()) {
 			if (etlset.containsKey(oep.getName())) {
-				error(oep,
-						"error behavior transition " + oep.getName() + " previously defined as "
-								+ etlset.get(oep.getName()).eClass().getName());
+				error(oep, "error behavior transition " + oep.getName() + " previously defined as "
+						+ etlset.get(oep.getName()).eClass().getName());
 			} else {
 				etlset.put(oep.getName(), oep);
 			}
@@ -484,7 +483,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			searchResult = AadlUtil.getContainingClassifier(ep).findNamedElement(ep.getName());
 		}
 		if (searchResult != null) {
-			error(ep, "Propagation point " + ep.getName() + " conflicts with feature in component type " + cl.getName());
+			error(ep,
+					"Propagation point " + ep.getName() + " conflicts with feature in component type " + cl.getName());
 		}
 	}
 
@@ -499,7 +499,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl, Hashtable<String, EObject> types) {
+	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl,
+			Hashtable<String, EObject> types) {
 		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()) {
 			if (types.containsKey(ebsm.getName())) {
 				error(ebsm, "Error behavior state machine identifier " + ebsm.getName()
@@ -729,9 +730,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			return;
 		}
 		if (ebsTS == null && srcTS != null) {
-			error(opc, "Error state " + ebs.getName()
-					+ " does not have a type set declared but the outgoing propagation condition has type token "
-					+ EMV2Util.getPrintName(srcTS));
+			error(opc,
+					"Error state " + ebs.getName()
+							+ " does not have a type set declared but the outgoing propagation condition has type token "
+							+ EMV2Util.getPrintName(srcTS));
 		} else if (!EM2TypeSetUtil.contains(ebsTS, srcTS)) {
 			error(opc, "Outgoing condition state type set " + EMV2Util.getPrintName(srcTS)
 					+ " is not contained in type set of error behavior state \'" + ebs.getName() + "\'");
@@ -787,9 +789,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorPropagation epout = ef.getOutgoing();
 		if (epout != null) {
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(), ef.getTypeTokenConstraint())) {
-				error(ef, "Error source type constraint " + EMV2Util.getPrintName(ef.getTypeTokenConstraint())
-						+ " is not contained in type set of outgoing propagation " + EMV2Util.getPrintName(epout)
-						+ EMV2Util.getPrintName(epout.getTypeSet()));
+				error(ef,
+						"Error source type constraint " + EMV2Util.getPrintName(ef.getTypeTokenConstraint())
+								+ " is not contained in type set of outgoing propagation "
+								+ EMV2Util.getPrintName(epout) + EMV2Util.getPrintName(epout.getTypeSet()));
 			}
 		} else {
 			// check containment for all of the outgoing propagation points
@@ -814,9 +817,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorPropagation ep = ef.getIncoming();
 		if (ep != null) {
 			if (!EM2TypeSetUtil.contains(ep.getTypeSet(), ef.getTypeTokenConstraint())) {
-				error(ef,
-						"Type token constraint is not contained in type set of incoming propagation \""
-								+ EMV2Util.getPrintName(ep) + "\"");
+				error(ef, "Type token constraint is not contained in type set of incoming propagation \""
+						+ EMV2Util.getPrintName(ep) + "\"");
 			}
 		} else {
 			// check containment for all of the incoming propagation points
@@ -835,12 +837,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorPropagation epin = ef.getIncoming();
 		ErrorPropagation epout = ef.getOutgoing();
 		if (ef.getTypeTokenConstraint() != null) {
-			// check that incoming flow type constraint is contained in that of in prop
+			// check that incoming flow type constraint is contained in that of
+			// in prop
 			if (epin != null) {
 				if (!EM2TypeSetUtil.contains(epin.getTypeSet(), ef.getTypeTokenConstraint())) {
-					error(ef,
-							"Type token constraint is not contained in type set of incoming propagation "
-									+ EMV2Util.getPrintName(epin));
+					error(ef, "Type token constraint is not contained in type set of incoming propagation "
+							+ EMV2Util.getPrintName(epin));
 				}
 			} else {
 				// check containment for all of the incoming propagation points
@@ -858,9 +860,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			// check that outoging flow type token is contained in that of prop
 			if (epout != null) {
 				if (!EM2TypeSetUtil.contains(epout.getTypeSet(), ef.getTargetToken())) {
-					error(ef,
-							"Target token is not contained in type set of outgoing propagation "
-									+ EMV2Util.getPrintName(epout));
+					error(ef, "Target token is not contained in type set of outgoing propagation "
+							+ EMV2Util.getPrintName(epout));
 				}
 			} else {
 				// check containment for all of the outgoing propagation points
@@ -868,9 +869,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
 				for (ErrorPropagation errorPropagation : eps) {
 					if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(), ef.getTargetToken())) {
-						error(ef,
-								"Target token is not contained in type set of outgoing propagation "
-										+ EMV2Util.getPrintName(errorPropagation));
+						error(ef, "Target token is not contained in type set of outgoing propagation "
+								+ EMV2Util.getPrintName(errorPropagation));
 					}
 				}
 			}
@@ -885,7 +885,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(epout));
 					}
 				} else {
-					// check containment for all of the outgoing propagation points
+					// check containment for all of the outgoing propagation
+					// points
 					Classifier cl = ef.getContainingClassifier();
 					Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
 					for (ErrorPropagation errorPropagation : eps) {
@@ -907,7 +908,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 										+ EMV2Util.getPrintName(epout));
 					}
 				} else if (epout == null && epin != null) {
-					// check containment for all of the outgoing propagation points against one incoming
+					// check containment for all of the outgoing propagation
+					// points against one incoming
 					Classifier cl = ef.getContainingClassifier();
 					Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
 					for (ErrorPropagation allepout : eps) {
@@ -919,7 +921,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						}
 					}
 				} else if (epout != null && epin == null) {
-					// check containment for all of the outgoing propagation points against one incoming
+					// check containment for all of the outgoing propagation
+					// points against one incoming
 					Classifier cl = ef.getContainingClassifier();
 					Collection<ErrorPropagation> eps = EMV2Util.getAllIncomingErrorPropagations(cl);
 					for (ErrorPropagation errorPropagation : eps) {
@@ -931,16 +934,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						}
 					}
 				} else if (epout == null && epin == null) {
-					// check containment for all of the outgoing propagation points against one incoming
+					// check containment for all of the outgoing propagation
+					// points against one incoming
 					Classifier cl = ef.getContainingClassifier();
 					Collection<ErrorPropagation> epsin = EMV2Util.getAllIncomingErrorPropagations(cl);
 					Collection<ErrorPropagation> epsout = EMV2Util.getAllOutgoingErrorPropagations(cl);
 					for (ErrorPropagation allepout : epsout) {
 						for (ErrorPropagation allepin : epsin) {
 							if (!EM2TypeSetUtil.contains(allepout.getTypeSet(), allepin.getTypeSet())) {
-								error(ef, "Incoming error propagation " + EMV2Util.getPrintName(epin)
-										+ " constraint is not contained in type set of outgoing propagation "
-										+ EMV2Util.getPrintName(epout));
+								error(ef,
+										"Incoming error propagation " + EMV2Util.getPrintName(epin)
+												+ " constraint is not contained in type set of outgoing propagation "
+												+ EMV2Util.getPrintName(epout));
 							}
 						}
 					}
@@ -995,12 +1000,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					TypeToken mappedtt = EM2TypeSetUtil.mapTypeToken(srcprop.getTypeSet(), typeEquivalence);
 					if (mappedtt != null) {
 						if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), mappedtt)) {
-							error(conn,
-									"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
-											+ EMV2Util.getPrintName(srcprop.getTypeSet())
-											+ " has error types not handled by incoming propagation "
-											+ EMV2Util.getPrintName(dstprop)
-											+ EMV2Util.getPrintName(dstprop.getTypeSet()));
+							error(conn, "Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+									+ EMV2Util.getPrintName(srcprop.getTypeSet())
+									+ " has error types not handled by incoming propagation "
+									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 						}
 					}
 				} else {
@@ -1021,18 +1024,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		// TODO comment out once we handle this consistency check at the instance level
+		// TODO comment out once we handle this consistency check at the
+		// instance level
 		if (srcCxt instanceof Subcomponent && dstCxt instanceof Subcomponent) {
 			// only when going across
 			if (srccontain == null && dstcontain != null) {
-				warning(conn, "No outgoing containment from " + srcCxt.getName() + " for incoming containment "
-						+ EMV2Util.getPrintName(dstcontain) + EMV2Util.getPrintName(dstcontain.getTypeSet())
-						+ ". Check for Unhandled Faults.");
+				warning(conn,
+						"No outgoing containment from " + srcCxt.getName() + " for incoming containment "
+								+ EMV2Util.getPrintName(dstcontain) + EMV2Util.getPrintName(dstcontain.getTypeSet())
+								+ ". Check for Unhandled Faults.");
 			}
 			if (srcprop != null && dstprop == null) {
-				warning(conn, "No incoming error propagation from " + dstCxt.getName() + " for outgoing propagation "
-						+ EMV2Util.getPrintName(srcprop) + EMV2Util.getPrintName(srcprop.getTypeSet())
-						+ ". Check for Unhandled Faults.");
+				warning(conn,
+						"No incoming error propagation from " + dstCxt.getName() + " for outgoing propagation "
+								+ EMV2Util.getPrintName(srcprop) + EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ ". Check for Unhandled Faults.");
 			}
 		}
 
@@ -1071,18 +1077,17 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
-			// TODO comment out once we handle this consistency check at the instance level
+			// TODO comment out once we handle this consistency check at the
+			// instance level
 			if (srcCxt instanceof Subcomponent && dstCxt instanceof Subcomponent) {
 				// only when going across
 				if (srccontain == null && dstcontain != null) {
-					warning(conn,
-							"No outgoing containment for incoming containment " + EMV2Util.getPrintName(dstcontain)
-									+ EMV2Util.getPrintName(dstcontain.getTypeSet()));
+					warning(conn, "No outgoing containment for incoming containment "
+							+ EMV2Util.getPrintName(dstcontain) + EMV2Util.getPrintName(dstcontain.getTypeSet()));
 				}
 				if (srcprop != null && dstprop == null) {
-					warning(conn,
-							"No incoming error propagation for outgoing propagation " + EMV2Util.getPrintName(srcprop)
-									+ EMV2Util.getPrintName(srcprop.getTypeSet()));
+					warning(conn, "No incoming error propagation for outgoing propagation "
+							+ EMV2Util.getPrintName(srcprop) + EMV2Util.getPrintName(srcprop.getTypeSet()));
 				}
 			}
 
