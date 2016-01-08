@@ -29,7 +29,7 @@ public class AgeImageProvider extends AbstractImageProvider implements
 
 					final String imagePath = ce.getAttribute("path");
 					final URI imageUri = getCompleteImagePath(imagePlugin, imagePath);
-					if(CommonPlugin.resolve(imageUri).isFile()) {
+					if(CommonPlugin.asLocalURI(imageUri).isFile()) {
 						addImageFilePath(imageId, imageUri.toString());
 					}
 				}
@@ -38,6 +38,6 @@ public class AgeImageProvider extends AbstractImageProvider implements
 	}
 
 	private static URI getCompleteImagePath(final String imagePlugin, final String imagePath) {
-		return URI.createPlatformPluginURI(imagePlugin + imagePath, true);
+		return URI.createPlatformPluginURI("/" + imagePlugin + "/" + imagePath, true);
 	}
 }
