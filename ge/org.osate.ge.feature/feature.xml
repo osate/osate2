@@ -2,23 +2,22 @@
 <feature
       id="org.osate.ge.feature"
       label="Open Source AADL Tool Environment Graphical Editor"
-      version="2.2.0"
+      version="2.2.0.qualifier"
       plugin="org.osate.ge">
-
-   <copyright url="http://www.aadl.info/wiki">
-      Copyright 2014 all OSATE contributors.
-   </copyright>
 
    <description>
       Graphical Editor for AADL
    </description>
+
+   <copyright url="http://www.aadl.info/wiki">
+      Copyright 2014 all OSATE contributors.
+   </copyright>
 
    <license url="OSATELicense.html">
       OSATE License
 
 Use of the Open Source AADL Tool Environment (OSATE) is subject
 to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
-   
    </license>
 
    <requires>
