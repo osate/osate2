@@ -41,8 +41,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="result" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ValDeclaration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyValues" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ValDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="phaseCategory" unique="false"

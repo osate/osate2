@@ -694,13 +694,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Assignment cParametersAssignment_6_0 = (Assignment)cGroup_6.eContents().get(0);
-		private final CrossReference cParametersValDeclarationCrossReference_6_0_0 = (CrossReference)cParametersAssignment_6_0.eContents().get(0);
-		private final RuleCall cParametersValDeclarationIDTerminalRuleCall_6_0_0_1 = (RuleCall)cParametersValDeclarationCrossReference_6_0_0.eContents().get(1);
+		private final RuleCall cParametersAExpressionParserRuleCall_6_0_0 = (RuleCall)cParametersAssignment_6_0.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cGroup_6.eContents().get(1);
 		private final Keyword cCommaKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Assignment cParametersAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final CrossReference cParametersValDeclarationCrossReference_6_1_1_0 = (CrossReference)cParametersAssignment_6_1_1.eContents().get(0);
-		private final RuleCall cParametersValDeclarationIDTerminalRuleCall_6_1_1_0_1 = (RuleCall)cParametersValDeclarationCrossReference_6_1_1_0.eContents().get(1);
+		private final RuleCall cParametersAExpressionParserRuleCall_6_1_1_0 = (RuleCall)cParametersAssignment_6_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Keyword cPropertyKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
@@ -740,22 +738,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_9_2 = (Keyword)cGroup_9.eContents().get(2);
 		
 		//VerificationActivity:
-		//	name=ID (":" title=STRING)? //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-		//	":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-		//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::ValDeclaration] (","
-		//	parameters+=[common::ValDeclaration])*)? ")" ("property" "values" "(" (propertyValues+=[common::ValDeclaration] (","
-		//	propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase" phaseCategory+=[categories::PhaseCategory]+)? &
-		//	("category" userCategory+=[categories::UserCategory]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-		//	"]")?;
+		//	name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])*
+		//	"=")? method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+		//	"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+		//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
+		//	phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
+		//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID (":" title=STRING)? //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-		//":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::ValDeclaration] (","
-		//parameters+=[common::ValDeclaration])*)? ")" ("property" "values" "(" (propertyValues+=[common::ValDeclaration] (","
-		//propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase" phaseCategory+=[categories::PhaseCategory]+)? &
-		//("category" userCategory+=[categories::UserCategory]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-		//"]")?
+		//name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
+		//method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+		//"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+		//(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
+		//phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
+		//timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -776,7 +772,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_1_1_0() { return cTitleSTRINGTerminalRuleCall_1_1_0; }
 
-		////	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 		//":"
 		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
 
@@ -819,35 +814,30 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_4_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_4_0_1; }
 
+		////	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 		//"("
 		public Keyword getLeftParenthesisKeyword_5() { return cLeftParenthesisKeyword_5; }
 
-		//(parameters+=[common::ValDeclaration] ("," parameters+=[common::ValDeclaration])*)?
+		//(parameters+=AExpression ("," parameters+=AExpression)*)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//parameters+=[common::ValDeclaration]
+		//parameters+=AExpression
 		public Assignment getParametersAssignment_6_0() { return cParametersAssignment_6_0; }
 
-		//[common::ValDeclaration]
-		public CrossReference getParametersValDeclarationCrossReference_6_0_0() { return cParametersValDeclarationCrossReference_6_0_0; }
+		//AExpression
+		public RuleCall getParametersAExpressionParserRuleCall_6_0_0() { return cParametersAExpressionParserRuleCall_6_0_0; }
 
-		//ID
-		public RuleCall getParametersValDeclarationIDTerminalRuleCall_6_0_0_1() { return cParametersValDeclarationIDTerminalRuleCall_6_0_0_1; }
-
-		//("," parameters+=[common::ValDeclaration])*
+		//("," parameters+=AExpression)*
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
 		//","
 		public Keyword getCommaKeyword_6_1_0() { return cCommaKeyword_6_1_0; }
 
-		//parameters+=[common::ValDeclaration]
+		//parameters+=AExpression
 		public Assignment getParametersAssignment_6_1_1() { return cParametersAssignment_6_1_1; }
 
-		//[common::ValDeclaration]
-		public CrossReference getParametersValDeclarationCrossReference_6_1_1_0() { return cParametersValDeclarationCrossReference_6_1_1_0; }
-
-		//ID
-		public RuleCall getParametersValDeclarationIDTerminalRuleCall_6_1_1_0_1() { return cParametersValDeclarationIDTerminalRuleCall_6_1_1_0_1; }
+		//AExpression
+		public RuleCall getParametersAExpressionParserRuleCall_6_1_1_0() { return cParametersAExpressionParserRuleCall_6_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
@@ -1915,13 +1905,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationActivity:
-	//	name=ID (":" title=STRING)? //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	//	":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-	//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::ValDeclaration] (","
-	//	parameters+=[common::ValDeclaration])*)? ")" ("property" "values" "(" (propertyValues+=[common::ValDeclaration] (","
-	//	propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase" phaseCategory+=[categories::PhaseCategory]+)? &
-	//	("category" userCategory+=[categories::UserCategory]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-	//	"]")?;
+	//	name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])*
+	//	"=")? method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+	//	"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+	//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
+	//	phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
+	//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}

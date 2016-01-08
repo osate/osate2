@@ -1268,15 +1268,20 @@ ruleVerificationActivity returns [EObject current=null]
     }
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getParametersAExpressionParserRuleCall_6_0_0()); 
+	    }
+		lv_parameters_10_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
-        }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_6_0_0()); 
-	}
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_10_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )(	otherlv_11=',' 
@@ -1285,15 +1290,20 @@ ruleVerificationActivity returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getParametersAExpressionParserRuleCall_6_1_1_0()); 
+	    }
+		lv_parameters_12_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
-        }
-	otherlv_12=RULE_ID
-	{
-		newLeafNode(otherlv_12, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_6_1_1_0()); 
-	}
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_12_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))*)?	otherlv_13=')' 

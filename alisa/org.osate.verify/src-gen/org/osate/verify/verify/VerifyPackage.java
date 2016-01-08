@@ -336,7 +336,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__METHOD = 3;
 
   /**
-   * The feature id for the '<em><b>Parameters</b></em>' reference list.
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1334,10 +1334,10 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_Method();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Parameters</em>'.
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
    * @see org.osate.verify.verify.VerificationActivity#getParameters()
    * @see #getVerificationActivity()
    * @generated
@@ -2189,7 +2189,7 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__METHOD = eINSTANCE.getVerificationActivity_Method();
 
     /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

@@ -21,11 +21,13 @@ import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
+import com.rockwellcollins.atc.resolute.resolute.NestedDotID
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
-import com.rockwellcollins.atc.resolute.resolute.NestedDotID
+import com.rockwellcollins.atc.resolute.resolute.ThisExpr
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.BooleanLiteral
@@ -35,6 +37,8 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.alisa.common.common.APropertyReference
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.ValDeclaration
@@ -52,6 +56,7 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
@@ -61,61 +66,7 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.verify.verify.AgreeMethod
-import com.rockwellcollins.atc.agree.analysis.AgreeUtils
-import com.rockwellcollins.atc.agree.analysis.AgreeException
-import com.rockwellcollins.atc.agree.analysis.ast.AgreeProgram
-import com.rockwellcollins.atc.agree.analysis.ast.AgreeASTBuilder
-import jkind.lustre.Program
-import org.eclipse.xtext.util.Pair
-import java.util.List
-import jkind.api.results.CompositeAnalysisResult
-import com.rockwellcollins.atc.agree.analysis.ConsistencyResult
-import jkind.api.results.JRealizabilityResult
-import jkind.api.results.AnalysisResult
-import org.osate.aadl2.ComponentImplementation
-import java.util.HashMap
-import com.rockwellcollins.atc.agree.analysis.AgreeLayout
-import java.util.ArrayList
-import jkind.lustre.Node
-import com.rockwellcollins.atc.agree.analysis.AgreeRenaming
-import jkind.api.results.JKindResult
-import java.util.Map
-import java.util.Collections
-import jkind.lustre.VarDecl
-import com.rockwellcollins.atc.agree.analysis.ast.AgreeVar
-import com.rockwellcollins.atc.agree.analysis.AgreeLayout.SigType
-import org.osate.aadl2.FeatureGroup
-import com.rockwellcollins.atc.agree.agree.Arg
-import com.rockwellcollins.atc.agree.agree.AssertStatement
-import com.rockwellcollins.atc.agree.agree.AssumeStatement
-import com.rockwellcollins.atc.agree.agree.LemmaStatement
-import org.osate.aadl2.DataPort
-import com.rockwellcollins.atc.agree.agree.GuaranteeStatement
-import org.osate.aadl2.EventDataPort
-import org.osate.aadl2.ComponentType
-import com.rockwellcollins.atc.agree.agree.PropertyStatement
-import com.rockwellcollins.atc.agree.analysis.ast.AgreeNode
-import com.rockwellcollins.atc.agree.analysis.ast.AgreeStatement
-import java.util.ArrayDeque
-import java.util.Queue
-import com.rockwellcollins.atc.agree.analysis.handlers.VerifySingleHandler
-import org.eclipse.xtext.ui.editor.utils.EditorUtils
-import org.eclipse.xtext.resource.XtextResource
-import org.eclipse.xtext.util.concurrent.IUnitOfWork
-import org.osate.aadl2.Element
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.Status
-import org.eclipse.ui.handlers.IHandlerService
-import org.eclipse.core.resources.WorkspaceJob
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.xtext.ui.editor.XtextEditor
-import org.eclipse.ui.handlers.IHandlerActivation
-import org.eclipse.emf.ecore.util.EcoreUtil
-import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
-import com.rockwellcollins.atc.resolute.resolute.ThisExpr
-import org.osate.aadl2.instance.SystemInstance
-import org.osate.verify.verify.MethodKind
+import org.osate.aadl2.PropertyConstant
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -264,8 +215,7 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
 		}
-		// The parameters are objects from the Properties Meta model.
-		var EList<EObject> parameters
+		//actualParameters are those specified as part of the method call in the verification activity
 		var Iterable actualParameters
 		if (verificationResult instanceof VerificationActivityResult) {
 			actualParameters = verificationResult.target.parameters
@@ -275,6 +225,7 @@ class AssureProcessor implements IAssureProcessor {
 			actualParameters = method.precondition.parameters
 		}
 
+		// the actual parameters can be fewer than the formal parameters. i.e., the last few may be optional
 		if (actualParameters.size < method.params.size) {
 			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
 				null)
@@ -282,41 +233,49 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		val nbParams = method.params.size
 		var i = 0
-
-		parameters = new BasicEList(actualParameters.size)
+		// actualParameterObjects is the list of objects actually passed to the call.
+		// This means actual parameter values that are references to "val" are resolved to the value object
+		// In this context we also convert from StringLiteral to String if String is expected.
+		// Same for RealLiteral, IntegerLiteral, and BooleanLiteral.
+		var List<Object> actualParameterObjects = new ArrayList(actualParameters.size)
 
 		for (ap : actualParameters) {
-			var EObject actual
-			var String typeName
-			var Object pi
+			var Object actual
+			var Object dereferencedActual = ap
+			// first handle references to formal parameters, as used in precondition and validation calls
 			if (ap instanceof FormalParameter) {
 				val varesult = verificationResult.eContainer as VerificationActivityResult
 				val aps = varesult.target.parameters
 				val idx = method.params.indexOf(ap)
 				if (idx >= 0) {
-					pi = aps.get(idx)
+					dereferencedActual = aps.get(idx)
 				} else {
 					setToError(verificationResult,
 						"Referenced formal parameter '" + ap.name + " of method '" + method.name +
 							"' does not have an actual value", null)
 					return
 				}
-			} else {
-				pi = ap
 			}
-			if (pi instanceof ValDeclaration) {
-				typeName = pi.type
-				actual = pi.right
-			} else if (pi instanceof AVariableReference) {
+			// the first case is if we allow a ValDeclaration reference directly, not as part of an AExpression
+			if (dereferencedActual instanceof ValDeclaration) {
+				actual = dereferencedActual.right
+			} else if (dereferencedActual instanceof AVariableReference) {
 				// handle Val reference if AExpression is used
-				val pari = pi.variable
+				val pari = dereferencedActual.variable
 				if (pari instanceof ValDeclaration) {
-					typeName = pari.type
 					actual = pari.right
 				}
+			} else if (dereferencedActual instanceof APropertyReference) {
+				// handle property or property constant reference
+				val pari = dereferencedActual.property
+				if (pari instanceof PropertyConstant) {
+					actual = pari.constantValue
+				} else if (pari instanceof org.osate.aadl2.Property){
+						
+				}
 			} else {
-				// the other types if AExpression is used
-				actual = pi as EObject
+				// the value literal object as found in AExpression
+				actual = dereferencedActual as EObject
 			}
 
 			// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
@@ -328,16 +287,33 @@ class AssureProcessor implements IAssureProcessor {
 						actual = convertValueToUnit(actual, formalParam.unit)
 					}
 				}
+				switch (actual){
+					RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double")) actual = actual.value
+					IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long")) actual = actual.value
+					StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) actual = actual.value
+					BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) actual = actual.isValue
+				}
+				
 				val paramType = formalParam.parameterType
-				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
+				var typeName = actual.getClass.name
+				val idx = typeName.lastIndexOf('.')
+				if (idx >=0) typeName = typeName.substring(idx+1)
+				if (typeName != null && paramType != null && 
+					! (typeName.equalsIgnoreCase(paramType)
+						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("aadlreal")
+						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("aadlinteger")
+						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("aadlstring")
+						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("aadlboolean")
+					)
+				) {
 					setToError(verificationResult,
 						"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
 							typeName, null)
 					return
 				}
-			}
-			parameters.add(actual)
+			actualParameterObjects.add(actual)
 			i = i + 1
+			}
 		}
 		if (verificationResult instanceof VerificationActivityResult) {
 			checkProperties(target, verificationResult)
@@ -348,13 +324,13 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					executeJavaMethod(verificationResult, methodtype, target, parameters)
+					executeJavaMethod(verificationResult, methodtype, target, actualParameterObjects)
 					verificationResult.eResource.save(null)
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
-						dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
+						dispatchVerificationMethod(methodtype, instanceroot, actualParameterObjects) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
 						addMarkersAsResult(verificationResult, target, res, method)
 					} else {
@@ -367,7 +343,7 @@ class AssureProcessor implements IAssureProcessor {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype, targetComponent, parameters)
+					val provecall = createWrapperProveCall(methodtype, targetComponent, actualParameterObjects)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -446,7 +422,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
-		EList<EObject> parameters) {
+		List<Object> parameters) {
 		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 		if (res != null) {
 			if (res instanceof Boolean) {
@@ -466,7 +442,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, EList<EObject> params) {
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, List<Object> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
@@ -495,7 +471,7 @@ class AssureProcessor implements IAssureProcessor {
 		te
 	}
 
-	def addParams(FnCallExpr call, EList<EObject> params) {
+	def addParams(FnCallExpr call, List<Object> params) {
 		for (p : params) {
 			if (p instanceof RealLiteral) {
 				val realval = ResoluteFactory.eINSTANCE.createRealExpr
@@ -517,7 +493,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def createWrapperFnCall(ResoluteMethod vr, EList<EObject> params) {
+	def createWrapperFnCall(ResoluteMethod vr, List<Object> params) {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr

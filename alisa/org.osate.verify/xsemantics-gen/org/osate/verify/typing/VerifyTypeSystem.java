@@ -16,7 +16,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.NonListType;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
+import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.typing.CommonTypeSystem;
 import org.osate.verify.verify.FormalParameter;
@@ -107,15 +109,15 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     }
   }
   
-  public Result<Boolean> assignablesequence(final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Result<Boolean> assignablesequence(final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     return assignablesequence(new RuleEnvironment(), null, owner, formalParams, actuals);
   }
   
-  public Result<Boolean> assignablesequence(final RuleEnvironment _environment_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Result<Boolean> assignablesequence(final RuleEnvironment _environment_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     return assignablesequence(_environment_, null, owner, formalParams, actuals);
   }
   
-  public Result<Boolean> assignablesequence(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Result<Boolean> assignablesequence(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     try {
     	return assignablesequenceInternal(_environment_, _trace_, owner, formalParams, actuals);
     } catch (Exception _e_assignablesequence) {
@@ -123,15 +125,15 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     }
   }
   
-  public Boolean assignablesequenceSucceeded(final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Boolean assignablesequenceSucceeded(final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     return assignablesequenceSucceeded(new RuleEnvironment(), null, owner, formalParams, actuals);
   }
   
-  public Boolean assignablesequenceSucceeded(final RuleEnvironment _environment_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Boolean assignablesequenceSucceeded(final RuleEnvironment _environment_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     return assignablesequenceSucceeded(_environment_, null, owner, formalParams, actuals);
   }
   
-  public Boolean assignablesequenceSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  public Boolean assignablesequenceSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     try {
     	assignablesequenceInternal(_environment_, _trace_, owner, formalParams, actuals);
     	return true;
@@ -191,7 +193,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
   
-  protected Result<Boolean> assignablesequenceInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<ValDeclaration> actuals) {
+  protected Result<Boolean> assignablesequenceInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final List<FormalParameter> formalParams, final List<PropertyExpression> actuals) {
     try {
     	checkParamsNotNull(owner, formalParams, actuals);
     	return assignablesequenceDispatcher.invoke(_environment_, _trace_, owner, formalParams, actuals);
@@ -232,7 +234,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     final VerificationMethod method = activity.getMethod();
     /* G |- activity ~> method.params << activity.parameters */
     EList<FormalParameter> _params = method.getParams();
-    EList<ValDeclaration> _parameters = activity.getParameters();
+    EList<PropertyExpression> _parameters = activity.getParameters();
     assignablesequenceInternal(G, _trace_, activity, _params, _parameters);
     return new Result<PropertyType>(type);
   }

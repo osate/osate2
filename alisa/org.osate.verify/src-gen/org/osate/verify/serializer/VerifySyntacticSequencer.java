@@ -329,7 +329,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
-	 *     parameters+=[ValDeclaration|ID] ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
+	 *     parameters+=AExpression ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
 	 *     propertyValues+=[ValDeclaration|ID] ')' (ambiguity) (rule end)
 	 */
 	protected void emit_VerificationActivity___LeftSquareBracketKeyword_9_0_RightSquareBracketKeyword_9_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -346,11 +346,11 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'weight' weight=INT
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) ('[' ']')? (rule end)
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'category' userCategory+=[UserCategory|ID]
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'phase' phaseCategory+=[PhaseCategory|ID]
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'weight' weight=INT
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) ('[' ']')? (rule end)
+	 *     parameters+=AExpression ')' (ambiguity) '[' 'category' userCategory+=[UserCategory|ID]
+	 *     parameters+=AExpression ')' (ambiguity) '[' 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     parameters+=AExpression ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
+	 *     parameters+=AExpression ')' (ambiguity) '[' 'weight' weight=INT
+	 *     parameters+=AExpression ')' (ambiguity) ('[' ']')? (rule end)
 	 */
 	protected void emit_VerificationActivity___PropertyKeyword_8_0_ValuesKeyword_8_1_LeftParenthesisKeyword_8_2_RightParenthesisKeyword_8_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

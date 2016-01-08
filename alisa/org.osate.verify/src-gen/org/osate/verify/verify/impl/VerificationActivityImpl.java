@@ -28,9 +28,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.PropertyExpression;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -127,14 +130,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getParameters()
    * @generated
    * @ordered
    */
-  protected EList<ValDeclaration> parameters;
+  protected EList<PropertyExpression> parameters;
 
   /**
    * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
@@ -325,11 +328,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ValDeclaration> getParameters()
+  public EList<PropertyExpression> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      parameters = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
     return parameters;
   }
@@ -457,6 +460,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
+        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return basicSetTimeout(null, msgs);
     }
@@ -524,7 +529,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends ValDeclaration>)newValue);
+        getParameters().addAll((Collection<? extends PropertyExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();

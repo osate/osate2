@@ -82,11 +82,11 @@ VAReference returns ArgumentExpr:
 
 VerificationActivity:
 	name=ID (':' title=STRING)? 
-//	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
-	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+//	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+	'(' (parameters+=AExpression (',' parameters+=AExpression)*)? ')' 
 	(
 		'property' 'values' '(' 
 		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 

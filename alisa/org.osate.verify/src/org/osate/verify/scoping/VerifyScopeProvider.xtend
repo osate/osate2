@@ -40,6 +40,7 @@ import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -53,6 +54,13 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	@Inject ICommonGlobalReferenceFinder refFinder
 
 	def scope_ValDeclaration(VerificationActivity context, EReference reference) {
+		val claim = getContainingClaim(context)
+		var req = claim.requirement
+		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		return scopeForVal(req, result)
+	}
+
+	def scope_AVariableReference_variable(AVariableReference context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
 		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)

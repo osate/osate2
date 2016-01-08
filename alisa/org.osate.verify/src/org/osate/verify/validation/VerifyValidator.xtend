@@ -72,8 +72,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
-		val VerificationMethod vm = method.eContainer as VerificationMethod
-		val result = VerificationMethodDispatchers.eInstance.methodExists(method, vm.params)
+		val result = VerificationMethodDispatchers.eInstance.methodExists(method)
 		if (result != null) {
 			warning("Could not find method: " + result, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)

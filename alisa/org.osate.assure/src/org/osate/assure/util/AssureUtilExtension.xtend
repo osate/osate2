@@ -1276,21 +1276,17 @@ class AssureUtilExtension {
 	def static int  numberVerificationResults(AssuranceCaseResult ac){
 		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
 	}
+	
 
-	def static Object convertToJavaObjects(EObject actual) {
-		switch (actual) {
-			IntegerLiteral: return actual.scaledValue
-			RealLiteral: return actual.scaledValue
-			StringLiteral: return actual.value
-			BooleanLiteral: return actual.isValue
-		}
-	}
-
+	/**
+	 * convert to target unit. If target unit is null or number value has no unit return the original
+	 */
 	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
-		val value = numberValue.scaledValue;
 		val unit = numberValue.getUnit();
+		if (unit == null || target == null) return numberValue 
+		val value = numberValue.scaledValue;
 		var factor = 1.0
-		if (unit != null) factor = unit.getAbsoluteFactor(target);
+		factor = unit.getAbsoluteFactor(target);
 		val result = value * factor;
 		val resultValue = numberValue.cloneNumber();
 		resultValue.setUnit(target);

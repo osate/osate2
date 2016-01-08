@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.PropertyExpression;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -149,20 +150,20 @@ public interface VerificationActivity extends EObject
   void setMethod(VerificationMethod value);
 
   /**
-   * Returns the value of the '<em><b>Parameters</b></em>' reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
+   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
+   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' reference list.
+   * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Parameters()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  EList<ValDeclaration> getParameters();
+  EList<PropertyExpression> getParameters();
 
   /**
    * Returns the value of the '<em><b>Property Values</b></em>' reference list.

@@ -63,7 +63,7 @@ from {
 }
 
 rule Assignable derives
-  G |- VerificationActivity owner ~> FormalParameter formal <- ValDeclaration actual
+  G |- VerificationActivity owner ~> FormalParameter formal <- AExpression actual
 from {
 	var PropertyType formalType
 	var PropertyType actualType

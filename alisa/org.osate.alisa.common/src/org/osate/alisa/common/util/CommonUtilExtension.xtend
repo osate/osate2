@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -39,6 +39,7 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.PropertyConstant
 
 class CommonUtilExtension {
 
@@ -66,41 +67,42 @@ class CommonUtilExtension {
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
 			if(decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration){
+			if (decl instanceof ComputeDeclaration) {
 				return decl.name
-			} else 
-			if (decl instanceof ValDeclaration) {
+			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
 				if(x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
-					if (pd instanceof Property){
-					try {
-						val pval = target.getSimplePropertyValue(pd)
-						return pval.toString
-					} catch (PropertyLookupException e) {
-						return pd.qualifiedName()
+					if (pd instanceof Property) {
+						try {
+							val pval = target.getSimplePropertyValue(pd)
+							return pval.toString
+						} catch (PropertyLookupException e) {
+							return pd.qualifiedName()
+						}
+					} else if (pd instanceof PropertyConstant){
+						val actual = pd.constantValue
+						return actual.toString
 					}
-					}
-					
-					}
-					}
+
+				}
+			}
 			if(decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration){
+			if (decl instanceof ComputeDeclaration) {
 				return decl.name
-			} else 
-			if (decl instanceof ValDeclaration) {
+			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
-				if(x == null|| x instanceof NullLiteral) return "TBD"
+				if(x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
-					if (pd instanceof Property){
-					try {
-						val pval = target.getSimplePropertyValue(pd)
-						return pval.toString
-					} catch (PropertyLookupException e) {
-						return pd.qualifiedName()
-					}
+					if (pd instanceof Property) {
+						try {
+							val pval = target.getSimplePropertyValue(pd)
+							return pval.toString
+						} catch (PropertyLookupException e) {
+							return pd.qualifiedName()
+						}
 					}
 				}
 				return x?.toString ?: ""
@@ -123,7 +125,6 @@ class CommonUtilExtension {
 //		}
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
-	
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
 		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target
@@ -181,18 +182,19 @@ class CommonUtilExtension {
 
 	def static ConnectionInstance findConnectionInstance(ComponentInstance ci, String name) {
 		for (ei : ci.connectionInstances) {
-			for(connref:ei.connectionReferences){
+			for (connref : ei.connectionReferences) {
 				val conn = connref.connection
-				if(conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent && 
-				name.equalsIgnoreCase(conn.name)) return ei
+				if(conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent &&
+					name.equalsIgnoreCase(conn.name)) return ei
 			}
 		}
 		return null
 	}
 
 	def static getCrossConnections(ComponentImplementation ci) {
-	   ci.allConnections.filter[conn|conn.source.context instanceof Subcomponent && 
-	   	conn.destination.context instanceof Subcomponent]
+		ci.allConnections.filter [ conn |
+			conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent
+		]
 	}
 
 	def static findElementInstance(ComponentInstance io, String elementName) {

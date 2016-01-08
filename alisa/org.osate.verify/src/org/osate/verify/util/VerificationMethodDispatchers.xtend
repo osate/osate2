@@ -30,10 +30,15 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.StringLiteral;
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 import org.osate.aadl2.StringLiteral
 import org.eclipse.emf.ecore.EObject
+import org.osate.verify.verify.VerificationMethod
 
 class VerificationMethodDispatchers {
 
@@ -45,7 +50,7 @@ class VerificationMethodDispatchers {
 	 * If the methodID does not match it returns null
 	 * If the method is successful it returns the Eclipse Marker type as string
 	 */
-	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<EObject> parameters) {
+	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<Object> parameters) {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis",
 			case "MaxFlowLatencyAnalysis",
@@ -80,12 +85,13 @@ class VerificationMethodDispatchers {
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<EObject> parameters) {
+	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<Object> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1)
 			return null;
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
+		val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).params
 
 		try {
 			val workspaceRoot = ResourcesPlugin.workspace.root
@@ -118,10 +124,15 @@ class VerificationMethodDispatchers {
 
 			val newClasses = newArrayList()
 			newClasses.add(ComponentInstance)
-
-			for (o : parameters) {
-				newClasses.add(o.class as Class<?>)
+			for (par : formalparameters) {
+				val pt = par.parameterType
+				val cl = forName(pt);
+				newClasses.add(cl);
 			}
+
+//			for (o : parameters) {
+//				newClasses.add(o.class as Class<?>)
+//			}
 			val method = clazz.getMethod(methodName, newClasses)
 			val objects = new ArrayList()
 			objects.add(target)
@@ -139,10 +150,11 @@ class VerificationMethodDispatchers {
 
 	// Method returns null if Java method was found.
 	// Otherwise it returns an error message
-	def String methodExists(JavaMethod vm, EList<FormalParameter> parameters) {
+	def String methodExists(JavaMethod vm) {
+		 val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).params
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1){
-			return "Java method '"+vm.methodPath+"' is missing Class"
+			throw new IllegalArgumentException("Java method '"+vm.methodPath+"' is missing Class")
 		}
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
@@ -152,9 +164,9 @@ class VerificationMethodDispatchers {
 
 			val projects = model.javaProjects.filter[findType(className) != null].toSet
 			if (projects.isEmpty) {
-				return 'No such method: ' + vm.methodPath
+				throw new IllegalArgumentException('No such method: ' + vm.methodPath)
 			} else if (projects.size > 1) {
-				return 'Multiple methods found for ' + vm.methodPath
+				throw new IllegalArgumentException('Multiple methods found for ' + vm.methodPath)
 			}
 			var changed = true
 			while (changed) {
@@ -175,15 +187,14 @@ class VerificationMethodDispatchers {
 			val clazz = Class.forName(className, true, loader);
 			val newClasses = newArrayList()
 			newClasses.add(ComponentInstance)
-			for (o : parameters) {
-				val pt = o.parameterType
-//				val x = pt.type
-				val cl = forName(pt);//x.qualifiedName)
+			for (par : parameters) {
+				val pt = par.parameterType
+				val cl = forName(pt);
 				newClasses.add(cl);
 			}
 
 			val method = clazz.getMethod(methodName, newClasses)
-			if(method == null) return "Method " + methodName + " not found in class instance"
+			if(method == null) throw new IllegalArgumentException( "Method " + methodName + " not found in class instance")
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException) {
 				return e.targetException.toString
@@ -200,26 +211,23 @@ class VerificationMethodDispatchers {
 			case byte.name: return typeof(byte)
 			case char.name: return typeof(char)
 			case short.name: return typeof(short)
-			case int.name: return (int)
-			case float.name: return (float)
-			case long.name: return (long)
-			case double.name: return (double)
+			case int.name: return typeof(int)
+			case float.name: return typeof(float)
+			case long.name: return typeof(long)
+			case double.name: return typeof(double)
+			case "String": return typeof(String)
+			case "Double": return typeof(Double)
+			case "Long": return typeof(Long)
+			case "aadlreal": return typeof(RealLiteral)
+			case "RealLiteral": return typeof(RealLiteral)
+			case "aadlinteger": return typeof(IntegerLiteral)
+			case "IntegerLiteral": return typeof(IntegerLiteral)
+			case "aadlstring": return typeof(StringLiteral)
+			case "StringLIteral": return typeof(StringLiteral)
+			case "aadlboolean": return typeof(BooleanLiteral)
+			case "BooleanLiteral": return typeof(BooleanLiteral)
 			default: return Class.forName(name)
 		}
 	}
-//	def Class forQName(String name) throws ClassNotFoundException {
-//		switch (name) {
-//			case typeof(void).name: return typeof(void)
-//			case typeof(boolean).name: return typeof(boolean)
-//			case typeof(byte).name: return typeof(byte)
-//			case typeof(char).name: return typeof(char)
-//			case typeof(short).name: return typeof(short)
-//			case typeof(int).name: return typeof(int)
-//			case typeof(float).name: return typeof(float)
-//			case typeof(long).name: return typeof(long)
-//			case typeof(double).name: return typeof(double)
-//			default: return Class.forName(name)
-//		}
-//	}
 
 }
