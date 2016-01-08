@@ -27,8 +27,8 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.alisa.common.validation.CommonValidator
 import org.osate.reqspec.reqSpec.SystemRequirements
-import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
@@ -37,7 +37,6 @@ import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
-import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
@@ -49,7 +48,7 @@ import static org.osate.verify.util.VerifyUtilExtension.*
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends VerifyTypeSystemValidator {
+class VerifyValidator extends CommonValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_METHOD_REFERENCE = "org.osate.verify.incorrectMethodReference"

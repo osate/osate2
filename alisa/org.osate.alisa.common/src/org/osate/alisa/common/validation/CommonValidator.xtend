@@ -19,7 +19,6 @@
  */
 package org.osate.alisa.common.validation
 
-import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator
 
 //import org.eclipse.xtext.validation.Check
 
@@ -28,7 +27,7 @@ import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator
  *
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class CommonValidator extends CommonTypeSystemValidator {
+class CommonValidator extends AbstractCommonValidator {
 
 //  public static val INVALID_NAME = 'invalidName'
 //
