@@ -9,7 +9,9 @@
 package org.osate.ge.diagrams.common;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -71,6 +73,8 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerCreateConnectionFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerCreateFeature;
 import org.osate.ge.diagrams.common.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.diagrams.common.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
@@ -112,14 +116,19 @@ import org.osate.ge.diagrams.type.features.RenameFlowSpecificationFeature;
 import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
+import org.osate.ge.ext.ExtensionPaletteEntry;
+import org.osate.ge.ext.annotations.GetPaletteEntries;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.ExtensionService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
 	private IEclipseContext context;
 	private ConnectionService connectionService;
+	private Collection<ICreateFeature> extCreateFeatures = new ArrayList<>(); // Collection of create features created from extensions
+	private Collection<ICreateConnectionFeature> extCreateConnectionFeatures = new ArrayList<>(); // Collection of create connection features created from extensions
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -127,7 +136,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	public void initialize(final IEclipseContext context) {
 		this.context = context;
-		this.connectionService = context.get(ConnectionService.class);
+		this.connectionService = Objects.requireNonNull(context.get(ConnectionService.class), "unable to get connection service");		
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -159,9 +168,33 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
+		
+		// Add features based on the pictogram handlers
+		final ExtensionService extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
+		// TODO: Should this be done on the fly or...
+		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+			// Create features based on palette entries
+			// TODO: Add them to a list that is added to 
+			
+			//extCreateFeatures - PictogramHandlerCreateFeature
+			//extCreateConnectionFeatures
+			
+			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, context, null);
+			for(final ExtensionPaletteEntry entry : extPaletteEntries) {
+				switch(entry.getType()) {
+				case CREATE_SHAPE:
+					extCreateFeatures.add(new PictogramHandlerCreateFeature(extService, this, entry, pictogramHandler));
+					break;
+					
+				case CREATE_CONNECTION:
+					extCreateConnectionFeatures.add(new PictogramHandlerCreateConnectionFeature(extService, this, entry, pictogramHandler));
+					break;
+				}
+			}
+			
+		}
+		
 	}
-
-	
 
 	private IEclipseContext getContext() {
 		return context;
@@ -421,7 +454,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final IContext ctx = new CreateContext();
 		final List<ICreateFeature> features = new ArrayList<>();
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
-		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);		
+		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
+		
+		// Add extension create features based on availability
+		for(final ICreateFeature feature : extCreateFeatures) {
+			addIfAvailable(features, feature, ctx);	
+		}
+		
 		return features.toArray(new ICreateFeature[0]);
 	}
 	
@@ -447,10 +486,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 				}
 			}
 		}
-
+		
 		final ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
 		for (ICreateConnectionFeature element : a) {
 			retList.add(element);
+		}
+		
+		// Add extension create connection features based on availability
+		for(final ICreateConnectionFeature feature : extCreateConnectionFeatures) {
+			if(feature.isAvailable(null)) {
+				retList.add(feature);
+			}
 		}
 
 		return retList.toArray(ret);

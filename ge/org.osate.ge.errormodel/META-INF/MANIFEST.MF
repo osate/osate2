@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.osate.ge.errormodel;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.osate.ge,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.graphiti.mm

@@ -19,6 +19,11 @@ public interface ExtensionRegistryService {
     Collection<Object> getTools();
 
 	/**
+	 * Pictogram handlers are extension which control aspects of handling a pictogram, e.g., creating and refreshing pictograms. 
+	 */
+    Collection<Object> getPictogramHandlers();
+    
+	/**
 	 * Style factories create styles.  
 	 * The following annotations are used with style factories:
 	 * Activate - Required

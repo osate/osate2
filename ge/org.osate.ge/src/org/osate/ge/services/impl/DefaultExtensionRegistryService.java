@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -17,6 +16,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.services.ExtensionRegistryService;
+
 /**
  * Instantiates extensions which are registered via extension points.
  */
@@ -29,16 +29,19 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
+	private static final String PICTOGRAM_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.pictogramHandlers";
 	private static final String STYLE_EXTENSION_POINT_ID = "org.osate.ge.styles";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	
 	private final Collection<Object> tools;
+	private final Collection<Object> pictogramHandlers;
 	private final Map<String, Object> styleFactoryMap; // Mapping from style id's to style factories.
 	private final List<Category> categories;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
 		tools = instantiateTools(registry);
+		pictogramHandlers = instantiatePictogramHandlers(registry);
 		styleFactoryMap = instantiateStyles(registry);
 		categories = instantiateCategories(registry);
 	}
@@ -47,6 +50,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	public Collection<Object> getTools() {
 		return tools;
 	}
+	
+	@Override
+	public Collection<Object> getPictogramHandlers() {
+    	return pictogramHandlers;
+    }
 	
 	@Override
 	public Object getStyleFactory(final String styleId) {
@@ -60,6 +68,10 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
 		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
+	}
+	
+	private static Collection<Object> instantiatePictogramHandlers(final IExtensionRegistry registry) {
+		return instantiateSimpleExtensions(registry, PICTOGRAM_HANDLERS_EXTENSION_POINT_ID, "handler");
 	}
 
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
