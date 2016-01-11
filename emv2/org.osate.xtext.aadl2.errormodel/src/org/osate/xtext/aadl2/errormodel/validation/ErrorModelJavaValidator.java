@@ -1042,7 +1042,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			}
 		}
 
-		if (conn.isBidirectional()) {
+		if (conn.isAllBidirectional()) {
 			// check for error flow in the opposite direction
 			if (srccl != null) {
 				dstprop = EMV2Util.findIncomingErrorPropagation(srccl, srcname);
