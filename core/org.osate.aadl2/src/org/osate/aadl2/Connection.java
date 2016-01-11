@@ -245,4 +245,10 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 */
 	public NamedElement getAllDstContextComponent();
 
+	/**
+	 * Return if the connection is bidirectional. If the connection is refined this information must be
+	 * retrieved from the refined connection.
+	 */
+	public boolean isAllBidirectional();
+
 } // Connection

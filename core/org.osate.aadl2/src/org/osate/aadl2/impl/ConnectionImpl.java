@@ -226,8 +226,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**
@@ -332,12 +332,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
 			if (destination != null) {
-				msgs = ((InternalEObject) destination).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONNECTION__DESTINATION, null, msgs);
+				msgs = ((InternalEObject) destination).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
 			}
 			if (newDestination != null) {
-				msgs = ((InternalEObject) newDestination).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONNECTION__DESTINATION, null, msgs);
+				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
 			}
 			msgs = basicSetDestination(newDestination, msgs);
 			if (msgs != null) {
@@ -401,19 +401,20 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null) {
-				msgs = ((InternalEObject) source).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONNECTION__SOURCE, null, msgs);
+				msgs = ((InternalEObject) source).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
 			}
 			if (newSource != null) {
-				msgs = ((InternalEObject) newSource).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONNECTION__SOURCE, null, msgs);
+				msgs = ((InternalEObject) newSource).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
 			}
 			msgs = basicSetSource(newSource, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE, newSource, newSource));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE, newSource,
+					newSource));
 		}
 	}
 
@@ -493,7 +494,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		Connection oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__REFINED, oldRefined,
+					refined));
 		}
 	}
 
@@ -876,6 +878,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			return conn.getContainingComponentImpl();
 		}
 		return dcxt;
+	}
+
+	@Override
+	public boolean isAllBidirectional() {
+		return getRootConnection().isBidirectional();
 	}
 
 } // ConnectionImpl

@@ -48,7 +48,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -77,7 +76,6 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
@@ -1182,10 +1180,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if ((!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 				// if the spec has a context, but the impl doesn't: flow spec
 				// picks an element from a FG
-				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
+		(outContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context (FG), but the spec doesn't (feature
 				// is FG)
-				(outContextName != null && Aadl2Util.isNull(specContext)) ||
+		(outContextName != null && Aadl2Util.isNull(specContext)) ||
 				// if the context names don't match
 				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
 			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
@@ -1362,7 +1360,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return;
 					}
 					if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
-						if (connection.isBidirectional()) {
+						if (connection.isAllBidirectional()) {
 							didReverse = true;
 							ce = connection.getAllDestination();
 							cxt = connection.getAllDestinationContext();
@@ -1384,7 +1382,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							return;
 						}
 						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
-							if (connection.isBidirectional()) {
+							if (connection.isAllBidirectional()) {
 								didReverse = true;
 								ce = connection.getAllDestination();
 								cxt = connection.getAllDestinationContext();
@@ -2142,7 +2140,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return;
 					}
 					if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
-						if (connection.isBidirectional()) {
+						if (connection.isAllBidirectional()) {
 							ce = connection.getAllDestination();
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
@@ -2160,7 +2158,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Subcomponent) {
 					Subcomponent previousFlowSegment = (Subcomponent) flow.getOwnedEndToEndFlowSegments().get(i - 1)
 							.getFlowElement();
-					if (connection.isBidirectional()) {
+					if (connection.isAllBidirectional()) {
 						ce = connection.getAllSource();
 						cxt = connection.getAllSourceContext();
 						if (cxt == null && !ce.equals(previousFlowSegment)) {
@@ -3649,21 +3647,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
 		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
 				0.0);
-		if (implementationSize == 0.0){
+		if (implementationSize == 0.0) {
 			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
 					MemoryProperties.SOURCE_DATA_SIZE);
-			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
-					0.0);	}
+			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes, 0.0);
+		}
 		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
-		if (implementationSize == 0.0 || sum == 0.0) return;
+		if (implementationSize == 0.0 || sum == 0.0)
+			return;
 		if (sum > implementationSize) {
-			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
-					+ " Bytes) is smaller than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
-					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long) implementationSize
+					+ " Bytes) is smaller than the sum of its subcomponents (" + (long) sum + " Bytes).",
+					dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name(), DATA_SIZE_INCONSISTENT);
 		} else if (sum < implementationSize) {
-			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long)implementationSize
-					+ " Bytes) is larger than the sum of its subcomponents (" + (long)sum + " Bytes).", dataImplementation,
-					Aadl2Package.eINSTANCE.getNamedElement_Name(),DATA_SIZE_INCONSISTENT);
+			error("Data size of \"" + dataImplementation.getName() + "\" (" + (long) implementationSize
+					+ " Bytes) is larger than the sum of its subcomponents (" + (long) sum + " Bytes).",
+					dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name(), DATA_SIZE_INCONSISTENT);
 		}
 		// try {
 		// LongWithUnits implementationSize = new
@@ -5504,10 +5503,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
-			if (!(connectionEnd instanceof Access || 
-					(connectionEnd instanceof DataSubcomponent&&
-							(connectionContext instanceof DataSubcomponent|| connectionContext instanceof AbstractSubcomponent))
-					)) {
+			if (!(connectionEnd instanceof Access
+					|| (connectionEnd instanceof DataSubcomponent && (connectionContext instanceof DataSubcomponent
+							|| connectionContext instanceof AbstractSubcomponent)))) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid access connection end.", connectedElement,
@@ -7285,7 +7283,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Check category of source and destination Section 9.5 Legality rules L5-8
 	 */
 	private void checkFeatureGroupConnectionDirection(Connection connection) {
-		if (connection.isBidirectional()) {
+		if (connection.isAllBidirectional()) {
 			return;
 		}
 		ConnectionEnd source = connection.getAllSource();
