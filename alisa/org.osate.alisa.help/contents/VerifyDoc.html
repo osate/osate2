@@ -5,11 +5,13 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-01-08T12:25:25.379000000"/>
+	<meta name="changed" content="2016-01-10T23:43:51.505000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-01-08T12:25:25.379000000">
 	<meta name="created" content="2009-04-16T11:32:02.640000000">
 	<meta name="changed" content="2015-12-03T19:50:41.608000000">
 	<style type="text/css">
@@ -287,11 +289,11 @@ A claim declaration consists of the following:
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Actual
 	parameter list: </span></i><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">comma
-	separated list of zero or more actual parameter values. </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">Acceptable
-	parameter values are references to </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>val</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">
-	variables, integers and reals with or without measurement unit,
-	strings, and booleans. You can also specify In the future general
-	expressions will be supported.</span></span></span></p>
+	separated list of zero or more actual parameter values. Acceptable
+	parameter values are references to </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>val</b></span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">variables,
+	integers and reals with or without measurement unit, strings, and
+	booleans. In the future general expressions will be supported.</span></span></span></p>
 	<li/>
 <p lang="zxx"><i><span style="font-weight: normal">Property
 	value list:</span></i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">optional
@@ -325,12 +327,12 @@ A claim declaration consists of the following:
 	activities</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">as
 	evidence.</span></span></p>
 </ul>
-<p lang="zxx"><span style="font-variant: normal"><span style="font-style: normal">Note:
+<p lang="zxx" style="font-variant: normal; font-style: normal">Note:
 The intent of result parameters is to provide access to computed
 results from the execution of a verification method. These results
 can then be evaluated by the predicate specified as part of the
 requirement declaration. This predicate evaluation will be supported
-in the near future.</span></span></p>
+in the near future.</p>
 <h2 lang="zxx" class="western"><a name="Argument"></a>Argument
 Expression</h2>
 <p lang="zxx">The argument expression of a claim assertion specifies
@@ -493,15 +495,19 @@ The verification method registry consists of:</p>
 <p lang="zxx"><em><span lang="zxx">FormalParameter list:</span></em><span lang="zxx">
 	optional comma separated list of formal parameter specifications.
 	The formal parameter specification consists of a type an identifier
-	as name and an optional specification of expected unit for the
-	value. </span><span lang="zxx">The following types are currently
+	as name and an optional specification of expected </span><span lang="zxx">measurement
+	</span><span lang="zxx">unit for the value. </span><span lang="zxx">The
+	actual value will be converted into the expected unit. This feature
+	is useful when the method expectes a value without a measurement
+	unit. </span><span lang="zxx">The following types are currently
 	supported: Java types String, Boolean, Double, double, Long, long;
 	AADL property types StringLiteral, BooleanLiteral, RealLiteral (with
-	a double value and an optional unit), IntegerLiteral.</span><span lang="zxx">
-	The unit can refer to any of the AADL property units. </span><span lang="zxx">The
-	specified type must be the type/class name of the Java method
-	without package qualification. NOTE: the first parameter is assumed
-	to be ComponentInstance and does not have to be specified.</span></p>
+	a double value and an optional </span><span lang="zxx">measurement
+	</span><span lang="zxx">unit), IntegerLiteral. The unit can refer to
+	any of the AADL property units. The specified type must be the
+	type/class name of the Java method without package qualification.
+	NOTE: the first parameter is assumed to be ComponentInstance and
+	does not have to be specified.</span></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">Property list:</span></em><span lang="zxx">
 	optional comma separated list of AADL property definition
@@ -653,7 +659,7 @@ plugin for OSATE. </span>
 </p>
 <div title="footer">
 	<p lang="zxx" align="center" style="margin-top: 0.2in; margin-bottom: 0in">
-	<sdfield type=PAGE subtype=RANDOM format=PAGE>7</sdfield></p>
+	<sdfield type=PAGE subtype=RANDOM format=PAGE>9</sdfield></p>
 </div>
 </body>
 </html>
