@@ -39,19 +39,19 @@ import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.GlobalConstants
+import org.osate.reqspec.reqSpec.GlobalRequirements
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.IncludeGlobalRequirement
 import org.osate.reqspec.reqSpec.ReqDocument
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.Requirements
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.reqSpec.GlobalRequirements
-import org.osate.reqspec.reqSpec.Requirements
-import org.osate.reqspec.reqSpec.IncludeGlobalRequirement
 
 /**
  * Custom validation rules. 
@@ -81,6 +81,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val GOALDOC_FILE_EXT = "goaldoc"
   public static val CONSTANTS_FILE_EXT = "constants"
   public static val INCORRECT_GLOBAL_REQUIREMENT_INCLUDE = "org.osate.reqspec.validation.incorrect.global.requirement.include"
+  public static val DUPLICATE_GLOBALREQUIREMENTS = 'org.osate.reqspec.validation.duplicate.globalrequirements'
 
 
 	@Check//(CheckType.EXPENSIVE)
@@ -163,6 +164,18 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 @Inject ICommonGlobalReferenceFinder refFinder
 
+//	@Check(CheckType.FAST)
+//	def void checkDuplicateGlobalReq(GlobalRequirements globalReqs) {
+//		val dupes = refFinder.getDuplicates(globalReqs)
+//		if (dupes.size > 0) {
+//			val node = NodeModelUtils.getNode(globalReqs);
+//			error("Duplicate Global Requirements name '" + globalReqs.name + "'",  
+//				ReqSpecPackage.Literals.REQUIREMENTS__NAME, DUPLICATE_GLOBALREQUIREMENTS,
+//				"" + node.offset, "" + node.length)
+//		}
+//	}
+
+
 	@Check(CheckType.NORMAL)
 	def void checkDuplicateStakeholderGoals(StakeholderGoals shg) {
 		val dupes = refFinder.getDuplicates(shg)
@@ -174,7 +187,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			}
 	}
 	
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	def void checkDuplicateRequirements(Requirements sysReq) {
 		val dupes = refFinder.getDuplicates(sysReq)
 			if (dupes.size > 0) {

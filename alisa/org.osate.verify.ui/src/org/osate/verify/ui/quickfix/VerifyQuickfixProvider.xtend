@@ -19,9 +19,9 @@
 */
 package org.osate.verify.ui.quickfix
 
+import java.util.ArrayList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
@@ -81,6 +81,58 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 						val Claim claim = verifyFactory.createClaim
 						claim.requirement = req
 						verificationPlan.claim.add(claim)
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for adding claims for multiple requirements
+	 * The issue data array is expected to hold URIs
+	 *
+	 * issue.getData(): the URIs of the requirements
+	 * 
+	 */
+	@Fix(VerifyValidator.MISSING_CLAIM_FOR_MULTIPLE_REQ)
+	def public void fixMissingClaimForMultipleRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(issue, "Add a claim for each missing requirement", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() 
+						issue.data.forEach[reqURI|
+							val req = resourceSet.getEObject(URI.createURI(reqURI), true) as Requirement
+							val verificationPlan = element as VerificationPlan
+							val Claim claim = verifyFactory.createClaim
+							claim.requirement = req
+							verificationPlan.claim.add(claim)
+						]
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for organizing claims when multiples are missing requirements
+	 * The issue data array is expected to hold URIs
+	 *
+	 * issue.getData(): the URIs of the missing requirements
+	 * 
+	 */
+	@Fix(VerifyValidator.MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS)
+	def public void fixOrganizeClaimsMissingRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(issue, "Add claims for missing requirements", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() 
+						val vp = element as VerificationPlan
+						val claims = vp.claim
+						issue.data.forEach[reqURI|
+							val req = resourceSet.getEObject(URI.createURI(reqURI), true) as Requirement
+							val verificationPlan = element as VerificationPlan
+							val Claim claim = verifyFactory.createClaim
+							claim.requirement = req
+							verificationPlan.claim.add(claim)
+						]
 					}
 				});
 	}

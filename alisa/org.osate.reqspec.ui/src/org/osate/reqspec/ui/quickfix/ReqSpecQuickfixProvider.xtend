@@ -271,4 +271,26 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 				});
 	}
 
+//	/**
+//	 * QuickFix for removing a duplicated GlobalRequirements
+//	 * The issue data array is expected to have two elements:
+//	 *
+//	 * issue.getData()[0]: The offset of the GlobalRequirements
+//	 * issue.getData()[1]: The length of the GlobalRequirements
+//	 * 
+//	 */
+//	@Fix(ReqSpecValidator.DUPLICATE_GLOBALREQUIREMENTS)
+//	def public void fixDuplicateReqSpecContainer(Issue issue, IssueResolutionAcceptor acceptor) {
+//		val offset = Integer.parseInt(issue.getData().get(0))
+//		val length = Integer.parseInt(issue.getData().get(1))
+//
+//		acceptor.accept(issue, "Remove Global Requirements", null, null, 
+//			new IModification() {
+//				override public void apply(IModificationContext context) throws Exception {
+//					context.getXtextDocument().replace(offset, length, "")
+//			}
+//		});
+//	}
+
+
 }
