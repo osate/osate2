@@ -1031,15 +1031,18 @@ ruleVerificationActivityResult returns [EObject current=null]
     }
 )(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityResultRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getTargetVerificationActivityCrossReference_2_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityResultAccess().getTargetReferenceQualifiedVAReferenceParserRuleCall_2_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_targetReference_2_0=ruleQualifiedVAReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationActivityResultRule());
+	        }
+       		set(
+       			$current, 
+       			"targetReference",
+        		lv_targetReference_2_0, 
+        		"QualifiedVAReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1802,6 +1805,76 @@ ruleMetrics returns [EObject current=null]
 
 )
 ))?)
+;
+
+
+
+
+
+// Entry rule entryRuleQualifiedVAReference
+entryRuleQualifiedVAReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getQualifiedVAReferenceRule()); }
+	 iv_ruleQualifiedVAReference=ruleQualifiedVAReference 
+	 { $current=$iv_ruleQualifiedVAReference.current; } 
+	 EOF 
+;
+
+// Rule QualifiedVAReference
+ruleQualifiedVAReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getQualifiedVAReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanCrossReference_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='#' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getQualifiedVAReferenceAccess().getNumberSignKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getQualifiedVAReferenceRule());
+	        }
+        }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getQualifiedVAReferenceAccess().getClaimRequirementCrossReference_2_0()); 
+	}
+
+)
+)	otherlv_3='.' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getQualifiedVAReferenceAccess().getFullStopKeyword_3());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getQualifiedVAReferenceRule());
+	        }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityCrossReference_4_0()); 
+	}
+
+)
+))
 ;
 
 

@@ -100,4 +100,10 @@ class VerifyUtilExtension {
 		return intersects(va.phaseCategory,filter.phaseCategory,filter.anyDevelopmentPhase) 
 		&& intersects(va.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
+	
+	def static String constructVerificationActivityReference(VerificationActivity va){
+		val claim = va.containingClaim
+		val plan = va.containingVerificationPlan
+		return plan.name+"#"+claim.requirement.name+"."+va.name;
+	}
 }

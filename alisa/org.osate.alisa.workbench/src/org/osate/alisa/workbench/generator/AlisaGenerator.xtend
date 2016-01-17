@@ -377,7 +377,7 @@ class AlisaGenerator implements IGenerator {
 	def doGenerate(VerificationActivity va) {
 		'''
 			«IF va.evaluateVerificationActivityFilter(filter) && va.evaluateVerificationMethodFilter(filter) »
-				verification «va.fullyQualifiedName»
+				verification «va.constructVerificationActivityReference»
 				[
 					executionstate todo
 					resultstate tbd

@@ -92,7 +92,7 @@ ValidationResult returns VerificationResult:
 
 // result of executing a verification activity
 VerificationActivityResult returns VerificationResult:
-	'verification' {VerificationActivityResult}	target=[Verify::VerificationActivity|QualifiedName]
+	'verification' {VerificationActivityResult}	targetReference=QualifiedVAReference//target=[Verify::VerificationActivity|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
@@ -163,4 +163,20 @@ enum  VerificationExecutionState:
 	| COMPLETED='completed' // completed. verification result is valid
 ;
 
+QualifiedVAReference:
+	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' claim=[ReqSpec::Requirement | ID]
+	"." verificationActivity=[Verify::VerificationActivity|ID]
+	//sub=ClaimReference
+;
+//ClaimReference:
+//	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
+//;
+//
+//VAReference:
+//	verificationActivity=[Verify::VerificationActivity|ID]
+//;
+//
+//NestedDotID:
+//	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
+//;
 

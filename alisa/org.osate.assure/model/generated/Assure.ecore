@@ -101,6 +101,11 @@
     <eLiterals name="REDO" value="2" literal="redo"/>
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVAReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="claim" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivity" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
   </eClassifiers>
@@ -108,7 +113,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedVAReference"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" eType="#//VerificationResult"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="validationResult" eType="#//VerificationResult"

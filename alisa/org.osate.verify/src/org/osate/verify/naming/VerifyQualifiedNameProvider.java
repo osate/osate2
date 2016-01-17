@@ -19,21 +19,16 @@ package org.osate.verify.naming;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.osate.verify.verify.Claim;
+import org.osate.verify.verify.VerificationActivity;
 
 public class VerifyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	// Enable to limit indexing to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
-//		if (obj instanceof Claim) {
-//			QualifiedName res = getFullyQualifiedName(obj.eContainer());
-		// Requirement comes back as proxy 
-//			res.append("reqname for claim");
-//			return res;
-//		}
-//		if (obj instanceof VerificationActivity){
-//			QualifiedName res = super.getFullyQualifiedName(obj);
-//			return res;
-//		}
+		if (obj instanceof Claim || obj instanceof VerificationActivity){
+			return null;
+		}
 		return super.getFullyQualifiedName(obj);
 	}
 }

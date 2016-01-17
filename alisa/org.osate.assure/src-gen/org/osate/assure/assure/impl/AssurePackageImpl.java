@@ -40,6 +40,7 @@ import org.osate.assure.assure.ElseType;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
@@ -132,6 +133,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * @generated
    */
   private EClass metricsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedVAReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -787,6 +795,46 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getQualifiedVAReference()
+  {
+    return qualifiedVAReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedVAReference_VerificationPlan()
+  {
+    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedVAReference_Claim()
+  {
+    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedVAReference_VerificationActivity()
+  {
+    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPreconditionResult()
   {
     return preconditionResultEClass;
@@ -837,7 +885,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivityResult_Target()
+  public EReference getVerificationActivityResult_TargetReference()
   {
     return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(0);
   }
@@ -986,6 +1034,11 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(metricsEClass, METRICS__WEIGHT);
     createEAttribute(metricsEClass, METRICS__EXECUTION_TIME);
 
+    qualifiedVAReferenceEClass = createEClass(QUALIFIED_VA_REFERENCE);
+    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN);
+    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__CLAIM);
+    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY);
+
     preconditionResultEClass = createEClass(PRECONDITION_RESULT);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
 
@@ -993,7 +1046,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(validationResultEClass, VALIDATION_RESULT__TARGET);
 
     verificationActivityResultEClass = createEClass(VERIFICATION_ACTIVITY_RESULT);
-    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__TARGET);
+    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE);
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT);
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT);
 
@@ -1119,6 +1172,11 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ExecutionTime(), theAadl2Package.getInteger(), "executionTime", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(qualifiedVAReferenceEClass, QualifiedVAReference.class, "QualifiedVAReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getQualifiedVAReference_VerificationPlan(), theVerifyPackage.getVerificationPlan(), null, "verificationPlan", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedVAReference_Claim(), theReqSpecPackage.getRequirement(), null, "claim", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedVAReference_VerificationActivity(), theVerifyPackage.getVerificationActivity(), null, "verificationActivity", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationMethod(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1126,7 +1184,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getValidationResult_Target(), theVerifyPackage.getVerificationMethod(), null, "target", null, 0, 1, ValidationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationActivityResultEClass, VerificationActivityResult.class, "VerificationActivityResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVerificationActivityResult_Target(), theVerifyPackage.getVerificationActivity(), null, "target", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivityResult_TargetReference(), this.getQualifiedVAReference(), null, "targetReference", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivityResult_PreconditionResult(), this.getVerificationResult(), null, "preconditionResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivityResult_ValidationResult(), this.getVerificationResult(), null, "validationResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

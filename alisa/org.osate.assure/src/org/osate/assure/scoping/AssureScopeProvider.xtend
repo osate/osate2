@@ -75,4 +75,16 @@ class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
 		return IScope::NULLSCOPE
 	}
 
+
+//	def scope_QualifiedVAReference_requirement(QualifiedVAReference context, EReference reference) {
+//		var result = delegateGetScope(context, reference)
+//		val forSystemRequirements = (containingVerificationPlan(context)).getRequirements
+//		if (!forSystemRequirements.content.empty) {
+//			result = new SimpleScope(result,
+//				Scopes::scopedElementsFor(forSystemRequirements.content,
+//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+//		}
+//		return result
+//	}
+
 }

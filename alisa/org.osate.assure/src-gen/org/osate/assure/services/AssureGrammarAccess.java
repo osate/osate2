@@ -671,9 +671,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cVerificationActivityResultAction_1 = (Action)cGroup.eContents().get(1);
-		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetVerificationActivityCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationActivityCrossReference_2_0.eContents().get(1);
+		private final Assignment cTargetReferenceAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTargetReferenceQualifiedVAReferenceParserRuleCall_2_0 = (RuleCall)cTargetReferenceAssignment_2.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cExecutionstateKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cExecutionStateAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -706,16 +705,18 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// result of executing a verification activity
 		//VerificationActivityResult returns VerificationResult:
-		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
-		//	message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
+		//	"verification" {VerificationActivityResult} targetReference= //target=[Verify::VerificationActivity|QualifiedName]
+		//	QualifiedVAReference "[" "executionstate" executionState=VerificationExecutionState "resultstate"
+		//	resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+		//	resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message" message=STRING)?
+		//	preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
-		//message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]"
+		//"verification" {VerificationActivityResult} targetReference= //target=[Verify::VerificationActivity|QualifiedName]
+		//QualifiedVAReference "[" "executionstate" executionState=VerificationExecutionState "resultstate"
+		//resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+		//resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message" message=STRING)?
+		//preconditionResult=PreconditionResult? validationResult=ValidationResult? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -724,14 +725,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//{VerificationActivityResult}
 		public Action getVerificationActivityResultAction_1() { return cVerificationActivityResultAction_1; }
 
-		//target=[Verify::VerificationActivity|QualifiedName]
-		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
+		//targetReference= //target=[Verify::VerificationActivity|QualifiedName]
+		//QualifiedVAReference
+		public Assignment getTargetReferenceAssignment_2() { return cTargetReferenceAssignment_2; }
 
-		//[Verify::VerificationActivity|QualifiedName]
-		public CrossReference getTargetVerificationActivityCrossReference_2_0() { return cTargetVerificationActivityCrossReference_2_0; }
-
-		//QualifiedName
-		public RuleCall getTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1; }
+		////target=[Verify::VerificationActivity|QualifiedName]
+		//QualifiedVAReference
+		public RuleCall getTargetReferenceQualifiedVAReferenceParserRuleCall_2_0() { return cTargetReferenceQualifiedVAReferenceParserRuleCall_2_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -1242,6 +1242,76 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//AInt
 		public RuleCall getExecutionTimeAIntParserRuleCall_11_1_0() { return cExecutionTimeAIntParserRuleCall_11_1_0; }
 	}
+
+	public class QualifiedVAReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedVAReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVerificationPlanAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cVerificationPlanVerificationPlanCrossReference_0_0 = (CrossReference)cVerificationPlanAssignment_0.eContents().get(0);
+		private final RuleCall cVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cVerificationPlanVerificationPlanCrossReference_0_0.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cClaimAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cClaimRequirementCrossReference_2_0 = (CrossReference)cClaimAssignment_2.eContents().get(0);
+		private final RuleCall cClaimRequirementIDTerminalRuleCall_2_0_1 = (RuleCall)cClaimRequirementCrossReference_2_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cVerificationActivityAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cVerificationActivityVerificationActivityCrossReference_4_0 = (CrossReference)cVerificationActivityAssignment_4.eContents().get(0);
+		private final RuleCall cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1 = (RuleCall)cVerificationActivityVerificationActivityCrossReference_4_0.eContents().get(1);
+		
+		////sub=ClaimReference
+		////ClaimReference:
+		////	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
+		////;
+		////
+		////VAReference:
+		////	verificationActivity=[Verify::VerificationActivity|ID]
+		////;
+		////
+		////NestedDotID:
+		////	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
+		////;
+		//QualifiedVAReference:
+		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
+		//	verificationActivity=[Verify::VerificationActivity];
+		@Override public ParserRule getRule() { return rule; }
+
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
+		//verificationActivity=[Verify::VerificationActivity]
+		public Group getGroup() { return cGroup; }
+
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName]
+		public Assignment getVerificationPlanAssignment_0() { return cVerificationPlanAssignment_0; }
+
+		//[Verify::VerificationPlan|QualifiedName]
+		public CrossReference getVerificationPlanVerificationPlanCrossReference_0_0() { return cVerificationPlanVerificationPlanCrossReference_0_0; }
+
+		//QualifiedName
+		public RuleCall getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1() { return cVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1; }
+
+		//"#"
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
+
+		//claim=[ReqSpec::Requirement]
+		public Assignment getClaimAssignment_2() { return cClaimAssignment_2; }
+
+		//[ReqSpec::Requirement]
+		public CrossReference getClaimRequirementCrossReference_2_0() { return cClaimRequirementCrossReference_2_0; }
+
+		//ID
+		public RuleCall getClaimRequirementIDTerminalRuleCall_2_0_1() { return cClaimRequirementIDTerminalRuleCall_2_0_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+
+		//verificationActivity=[Verify::VerificationActivity]
+		public Assignment getVerificationActivityAssignment_4() { return cVerificationActivityAssignment_4; }
+
+		//[Verify::VerificationActivity]
+		public CrossReference getVerificationActivityVerificationActivityCrossReference_4_0() { return cVerificationActivityVerificationActivityCrossReference_4_0; }
+
+		//ID
+		public RuleCall getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1() { return cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1; }
+	}
 	
 	
 	public class ElseTypeElements extends AbstractEnumRuleElementFinder {
@@ -1415,6 +1485,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final MetricsElements pMetrics;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
 	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
+	private final QualifiedVAReferenceElements pQualifiedVAReference;
 	
 	private final Grammar grammar;
 
@@ -1440,6 +1511,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMetrics = new MetricsElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
 		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
+		this.pQualifiedVAReference = new QualifiedVAReferenceElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1544,10 +1616,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// result of executing a verification activity
 	//VerificationActivityResult returns VerificationResult:
-	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
-	//	message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
+	//	"verification" {VerificationActivityResult} targetReference= //target=[Verify::VerificationActivity|QualifiedName]
+	//	QualifiedVAReference "[" "executionstate" executionState=VerificationExecutionState "resultstate"
+	//	resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+	//	resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message" message=STRING)?
+	//	preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -1643,6 +1716,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public EnumRule getVerificationExecutionStateRule() {
 		return getVerificationExecutionStateAccess().getRule();
+	}
+
+	////sub=ClaimReference
+	////ClaimReference:
+	////	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
+	////;
+	////
+	////VAReference:
+	////	verificationActivity=[Verify::VerificationActivity|ID]
+	////;
+	////
+	////NestedDotID:
+	////	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
+	////;
+	//QualifiedVAReference:
+	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
+	//	verificationActivity=[Verify::VerificationActivity];
+	public QualifiedVAReferenceElements getQualifiedVAReferenceAccess() {
+		return pQualifiedVAReference;
+	}
+	
+	public ParserRule getQualifiedVAReferenceRule() {
+		return getQualifiedVAReferenceAccess().getRule();
 	}
 
 	//Description:

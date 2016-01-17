@@ -90,6 +90,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/weight"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/executionTime"/>
     </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedVAReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/verificationPlan"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/claim"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/verificationActivity"/>
+    </genClasses>
     <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/target"/>
     </genClasses>
@@ -97,7 +102,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ValidationResult/target"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationActivityResult">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/targetReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/preconditionResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/validationResult"/>
     </genClasses>

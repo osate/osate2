@@ -24,10 +24,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.assure.assure.AssurePackage;
+import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationResult;
-
-import org.osate.verify.verify.VerificationActivity;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +36,7 @@ import org.osate.verify.verify.VerificationActivity;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTargetReference <em>Target Reference</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getValidationResult <em>Validation Result</em>}</li>
  * </ul>
@@ -47,14 +46,14 @@ import org.osate.verify.verify.VerificationActivity;
 public class VerificationActivityResultImpl extends VerificationResultImpl implements VerificationActivityResult
 {
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The cached value of the '{@link #getTargetReference() <em>Target Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getTargetReference()
    * @generated
    * @ordered
    */
-  protected VerificationActivity target;
+  protected QualifiedVAReference targetReference;
 
   /**
    * The cached value of the '{@link #getPreconditionResult() <em>Precondition Result</em>}' containment reference.
@@ -102,19 +101,9 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity getTarget()
+  public QualifiedVAReference getTargetReference()
   {
-    if (target != null && target.eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (VerificationActivity)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET, oldTarget, target));
-      }
-    }
-    return target;
+    return targetReference;
   }
 
   /**
@@ -122,22 +111,37 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity basicGetTarget()
+  public NotificationChain basicSetTargetReference(QualifiedVAReference newTargetReference, NotificationChain msgs)
   {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(VerificationActivity newTarget)
-  {
-    VerificationActivity oldTarget = target;
-    target = newTarget;
+    QualifiedVAReference oldTargetReference = targetReference;
+    targetReference = newTargetReference;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET, oldTarget, target));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE, oldTargetReference, newTargetReference);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetReference(QualifiedVAReference newTargetReference)
+  {
+    if (newTargetReference != targetReference)
+    {
+      NotificationChain msgs = null;
+      if (targetReference != null)
+        msgs = ((InternalEObject)targetReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE, null, msgs);
+      if (newTargetReference != null)
+        msgs = ((InternalEObject)newTargetReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE, null, msgs);
+      msgs = basicSetTargetReference(newTargetReference, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE, newTargetReference, newTargetReference));
   }
 
   /**
@@ -246,6 +250,8 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE:
+        return basicSetTargetReference(null, msgs);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return basicSetPreconditionResult(null, msgs);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
@@ -264,9 +270,8 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE:
+        return getTargetReference();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return getPreconditionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
@@ -285,8 +290,8 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
-        setTarget((VerificationActivity)newValue);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE:
+        setTargetReference((QualifiedVAReference)newValue);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         setPreconditionResult((VerificationResult)newValue);
@@ -308,8 +313,8 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
-        setTarget((VerificationActivity)null);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE:
+        setTargetReference((QualifiedVAReference)null);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         setPreconditionResult((VerificationResult)null);
@@ -331,8 +336,8 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
-        return target != null;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE:
+        return targetReference != null;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return preconditionResult != null;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:

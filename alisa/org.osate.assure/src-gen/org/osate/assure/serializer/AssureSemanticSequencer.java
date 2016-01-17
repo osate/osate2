@@ -19,11 +19,14 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -55,6 +58,7 @@ import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
@@ -104,6 +108,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
+				return; 
+			case AssurePackage.QUALIFIED_VA_REFERENCE:
+				sequence_QualifiedVAReference(context, (QualifiedVAReference) semanticObject); 
 				return; 
 			case AssurePackage.SUBSYSTEM_RESULT:
 				sequence_SubsystemResult(context, (SubsystemResult) semanticObject); 
@@ -269,6 +276,28 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (verificationPlan=[VerificationPlan|QualifiedName] claim=[Requirement|ID] verificationActivity=[VerificationActivity|ID])
+	 */
+	protected void sequence_QualifiedVAReference(EObject context, QualifiedVAReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__CLAIM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__CLAIM));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.getVerificationPlan());
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getClaimRequirementIDTerminalRuleCall_2_0_1(), semanticObject.getClaim());
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1(), semanticObject.getVerificationActivity());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         targetSystem=[Subcomponent|ID] 
@@ -312,7 +341,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         target=[VerificationActivity|QualifiedName] 
+	 *         targetReference=QualifiedVAReference 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 

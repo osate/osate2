@@ -729,6 +729,52 @@ public interface AssurePackage extends EPackage
   int METRICS_FEATURE_COUNT = 11;
 
   /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl <em>Qualified VA Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.QualifiedVAReferenceImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getQualifiedVAReference()
+   * @generated
+   */
+  int QUALIFIED_VA_REFERENCE = 10;
+
+  /**
+   * The feature id for the '<em><b>Verification Plan</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN = 0;
+
+  /**
+   * The feature id for the '<em><b>Claim</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_VA_REFERENCE__CLAIM = 1;
+
+  /**
+   * The feature id for the '<em><b>Verification Activity</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY = 2;
+
+  /**
+   * The number of structural features of the '<em>Qualified VA Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_VA_REFERENCE_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -736,7 +782,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getPreconditionResult()
    * @generated
    */
-  int PRECONDITION_RESULT = 10;
+  int PRECONDITION_RESULT = 11;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -818,7 +864,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getValidationResult()
    * @generated
    */
-  int VALIDATION_RESULT = 11;
+  int VALIDATION_RESULT = 12;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -900,7 +946,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationActivityResult()
    * @generated
    */
-  int VERIFICATION_ACTIVITY_RESULT = 12;
+  int VERIFICATION_ACTIVITY_RESULT = 13;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -957,13 +1003,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
+   * The feature id for the '<em><b>Target Reference</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__TARGET = VERIFICATION_RESULT_FEATURE_COUNT + 0;
+  int VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE = VERIFICATION_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Precondition Result</b></em>' containment reference.
@@ -1000,7 +1046,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
    * @generated
    */
-  int ELSE_TYPE = 13;
+  int ELSE_TYPE = 14;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -1010,7 +1056,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 14;
+  int VERIFICATION_RESULT_STATE = 15;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -1020,7 +1066,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 15;
+  int VERIFICATION_EXECUTION_STATE = 16;
 
 
   /**
@@ -1608,6 +1654,49 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_ExecutionTime();
 
   /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.QualifiedVAReference <em>Qualified VA Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Qualified VA Reference</em>'.
+   * @see org.osate.assure.assure.QualifiedVAReference
+   * @generated
+   */
+  EClass getQualifiedVAReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.QualifiedVAReference#getVerificationPlan <em>Verification Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Verification Plan</em>'.
+   * @see org.osate.assure.assure.QualifiedVAReference#getVerificationPlan()
+   * @see #getQualifiedVAReference()
+   * @generated
+   */
+  EReference getQualifiedVAReference_VerificationPlan();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.QualifiedVAReference#getClaim <em>Claim</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Claim</em>'.
+   * @see org.osate.assure.assure.QualifiedVAReference#getClaim()
+   * @see #getQualifiedVAReference()
+   * @generated
+   */
+  EReference getQualifiedVAReference_Claim();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.QualifiedVAReference#getVerificationActivity <em>Verification Activity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Verification Activity</em>'.
+   * @see org.osate.assure.assure.QualifiedVAReference#getVerificationActivity()
+   * @see #getQualifiedVAReference()
+   * @generated
+   */
+  EReference getQualifiedVAReference_VerificationActivity();
+
+  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1660,15 +1749,15 @@ public interface AssurePackage extends EPackage
   EClass getVerificationActivityResult();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getTargetReference <em>Target Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.assure.assure.VerificationActivityResult#getTarget()
+   * @return the meta object for the containment reference '<em>Target Reference</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getTargetReference()
    * @see #getVerificationActivityResult()
    * @generated
    */
-  EReference getVerificationActivityResult_Target();
+  EReference getVerificationActivityResult_TargetReference();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}'.
@@ -2198,6 +2287,40 @@ public interface AssurePackage extends EPackage
     EAttribute METRICS__EXECUTION_TIME = eINSTANCE.getMetrics_ExecutionTime();
 
     /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl <em>Qualified VA Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.QualifiedVAReferenceImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getQualifiedVAReference()
+     * @generated
+     */
+    EClass QUALIFIED_VA_REFERENCE = eINSTANCE.getQualifiedVAReference();
+
+    /**
+     * The meta object literal for the '<em><b>Verification Plan</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN = eINSTANCE.getQualifiedVAReference_VerificationPlan();
+
+    /**
+     * The meta object literal for the '<em><b>Claim</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_VA_REFERENCE__CLAIM = eINSTANCE.getQualifiedVAReference_Claim();
+
+    /**
+     * The meta object literal for the '<em><b>Verification Activity</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY = eINSTANCE.getQualifiedVAReference_VerificationActivity();
+
+    /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2244,12 +2367,12 @@ public interface AssurePackage extends EPackage
     EClass VERIFICATION_ACTIVITY_RESULT = eINSTANCE.getVerificationActivityResult();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Target Reference</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY_RESULT__TARGET = eINSTANCE.getVerificationActivityResult_Target();
+    EReference VERIFICATION_ACTIVITY_RESULT__TARGET_REFERENCE = eINSTANCE.getVerificationActivityResult_TargetReference();
 
     /**
      * The meta object literal for the '<em><b>Precondition Result</b></em>' containment reference feature.

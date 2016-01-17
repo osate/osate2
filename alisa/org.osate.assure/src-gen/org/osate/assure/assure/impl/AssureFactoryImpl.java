@@ -88,6 +88,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.ELSE_RESULT: return createElseResult();
       case AssurePackage.THEN_RESULT: return createThenResult();
       case AssurePackage.METRICS: return createMetrics();
+      case AssurePackage.QUALIFIED_VA_REFERENCE: return createQualifiedVAReference();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
@@ -246,6 +247,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     MetricsImpl metrics = new MetricsImpl();
     return metrics;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedVAReference createQualifiedVAReference()
+  {
+    QualifiedVAReferenceImpl qualifiedVAReference = new QualifiedVAReferenceImpl();
+    return qualifiedVAReference;
   }
 
   /**

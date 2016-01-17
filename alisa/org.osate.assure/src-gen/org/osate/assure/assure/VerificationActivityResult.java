@@ -15,7 +15,6 @@
  */
 package org.osate.assure.assure;
 
-import org.osate.verify.verify.VerificationActivity;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +25,7 @@ import org.osate.verify.verify.VerificationActivity;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getTargetReference <em>Target Reference</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getValidationResult <em>Validation Result</em>}</li>
  * </ul>
@@ -38,30 +37,30 @@ import org.osate.verify.verify.VerificationActivity;
 public interface VerificationActivityResult extends VerificationResult
 {
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>Target Reference</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>Target Reference</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(VerificationActivity)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_Target()
-   * @model
+   * @return the value of the '<em>Target Reference</em>' containment reference.
+   * @see #setTargetReference(QualifiedVAReference)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_TargetReference()
+   * @model containment="true"
    * @generated
    */
-  VerificationActivity getTarget();
+  QualifiedVAReference getTargetReference();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getTargetReference <em>Target Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>Target Reference</em>' containment reference.
+   * @see #getTargetReference()
    * @generated
    */
-  void setTarget(VerificationActivity value);
+  void setTargetReference(QualifiedVAReference value);
 
   /**
    * Returns the value of the '<em><b>Precondition Result</b></em>' containment reference.
