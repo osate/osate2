@@ -46,7 +46,7 @@ SubsystemResult:
 
 // Result of meeting a requirement
 ClaimResult:
-	'claim' target=[ReqSpec::Requirement|QualifiedName]
+	'claim' targetReference=QualifiedClaimReference//target=[ReqSpec::Requirement|QualifiedName]
 	'['
 	metrics=Metrics
 	('for' modelElement=[aadl2::NamedElement|ID])?
@@ -162,6 +162,8 @@ enum  VerificationExecutionState:
 	| REDO='redo' // invalidated while in progress. redo verification.
 	| COMPLETED='completed' // completed. verification result is valid
 ;
+
+QualifiedVerificationPlanElementReference: QualifiedClaimReference | QualifiedVAReference;
 
 QualifiedClaimReference:
 	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' requirement=NestedClaimReference

@@ -22,7 +22,8 @@ package org.osate.assure.ui.views;
 	import org.eclipse.swt.graphics.Point;
 	import org.eclipse.swt.widgets.Event;
 	import org.eclipse.swt.widgets.Listener;
-import org.osate.assure.assure.ClaimResult;
+	import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.util.AssureUtilExtension;
 
 
 	public class AssureTooltipListener implements Listener {
@@ -46,7 +47,7 @@ import org.osate.assure.assure.ClaimResult;
 	            ViewerCell cell = treeViewer.getCell(new Point(event.x, event.y));
 	            if (cell != null && cell.getElement() instanceof ClaimResult) {
 	                ClaimResult claim = (ClaimResult) cell.getElement();
-	                tooltip = claim.getTarget().getTitle();
+	                tooltip = AssureUtilExtension.getTarget(claim).getTitle();
 	            }
 	            break;
 

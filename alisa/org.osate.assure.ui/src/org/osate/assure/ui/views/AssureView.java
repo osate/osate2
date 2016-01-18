@@ -194,7 +194,7 @@ import com.google.inject.Inject;
 
 	                    if (ar instanceof ClaimResult){
 	                    	final ClaimResult claim = (ClaimResult) ar;
-	                    	EObject location = claim.getTarget();
+	                    	EObject location = AssureUtilExtension.getTarget(claim);
 //	                    if (claim instanceof FailResult) {
 //	                        manager.add(createHyperlinkAction("Open Failure Location", location));
 //	                    } else if (location instanceof ProveStatement) { 

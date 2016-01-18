@@ -510,15 +510,18 @@ ruleClaimResult returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getClaimResultRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getClaimResultAccess().getTargetRequirementCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getClaimResultAccess().getTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_targetReference_1_0=ruleQualifiedClaimReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getClaimResultRule());
+	        }
+       		set(
+       			$current, 
+       			"targetReference",
+        		lv_targetReference_1_0, 
+        		"QualifiedClaimReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1805,6 +1808,66 @@ ruleMetrics returns [EObject current=null]
 
 )
 ))?)
+;
+
+
+
+
+
+
+
+// Entry rule entryRuleQualifiedClaimReference
+entryRuleQualifiedClaimReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getQualifiedClaimReferenceRule()); }
+	 iv_ruleQualifiedClaimReference=ruleQualifiedClaimReference 
+	 { $current=$iv_ruleQualifiedClaimReference.current; } 
+	 EOF 
+;
+
+// Rule QualifiedClaimReference
+ruleQualifiedClaimReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getQualifiedClaimReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanCrossReference_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='#' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getQualifiedClaimReferenceAccess().getNumberSignKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0()); 
+	    }
+		lv_requirement_2_0=ruleNestedClaimReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getQualifiedClaimReferenceRule());
+	        }
+       		set(
+       			$current, 
+       			"requirement",
+        		lv_requirement_2_0, 
+        		"NestedClaimReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

@@ -41,7 +41,9 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
+import org.osate.assure.assure.QualifiedVerificationPlanElementReference;
 import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
@@ -134,6 +136,20 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * @generated
    */
   private EClass metricsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedVerificationPlanElementReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedClaimReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -443,7 +459,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClaimResult_Target()
+  public EReference getClaimResult_TargetReference()
   {
     return (EReference)claimResultEClass.getEStructuralFeatures().get(0);
   }
@@ -803,6 +819,46 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getQualifiedVerificationPlanElementReference()
+  {
+    return qualifiedVerificationPlanElementReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedVerificationPlanElementReference_VerificationPlan()
+  {
+    return (EReference)qualifiedVerificationPlanElementReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedVerificationPlanElementReference_Requirement()
+  {
+    return (EReference)qualifiedVerificationPlanElementReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getQualifiedClaimReference()
+  {
+    return qualifiedClaimReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getQualifiedVAReference()
   {
     return qualifiedVAReferenceEClass;
@@ -813,29 +869,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getQualifiedVAReference_VerificationPlan()
-  {
-    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getQualifiedVAReference_Requirement()
-  {
-    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getQualifiedVAReference_VerificationActivity()
   {
-    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(2);
+    return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1029,7 +1065,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__SUBSYSTEM_RESULT);
 
     claimResultEClass = createEClass(CLAIM_RESULT);
-    createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
+    createEReference(claimResultEClass, CLAIM_RESULT__TARGET_REFERENCE);
     createEReference(claimResultEClass, CLAIM_RESULT__MODEL_ELEMENT);
     createEAttribute(claimResultEClass, CLAIM_RESULT__MESSAGE);
     createEReference(claimResultEClass, CLAIM_RESULT__SUB_CLAIM_RESULT);
@@ -1072,9 +1108,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(metricsEClass, METRICS__WEIGHT);
     createEAttribute(metricsEClass, METRICS__EXECUTION_TIME);
 
+    qualifiedVerificationPlanElementReferenceEClass = createEClass(QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE);
+    createEReference(qualifiedVerificationPlanElementReferenceEClass, QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN);
+    createEReference(qualifiedVerificationPlanElementReferenceEClass, QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT);
+
+    qualifiedClaimReferenceEClass = createEClass(QUALIFIED_CLAIM_REFERENCE);
+
     qualifiedVAReferenceEClass = createEClass(QUALIFIED_VA_REFERENCE);
-    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN);
-    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__REQUIREMENT);
     createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY);
 
     nestedClaimReferenceEClass = createEClass(NESTED_CLAIM_REFERENCE);
@@ -1126,10 +1166,10 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     AlisaPackage theAlisaPackage = (AlisaPackage)EPackage.Registry.INSTANCE.getEPackage(AlisaPackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-    ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     ResultsPackage theResultsPackage = (ResultsPackage)EPackage.Registry.INSTANCE.getEPackage(ResultsPackage.eNS_URI);
     VerifyPackage theVerifyPackage = (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
+    ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
 
     // Create type parameters
 
@@ -1145,6 +1185,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     verificationExprEClass.getESuperTypes().add(this.getAssureResult());
     elseResultEClass.getESuperTypes().add(this.getVerificationExpr());
     thenResultEClass.getESuperTypes().add(this.getVerificationExpr());
+    qualifiedClaimReferenceEClass.getESuperTypes().add(this.getQualifiedVerificationPlanElementReference());
+    qualifiedVAReferenceEClass.getESuperTypes().add(this.getQualifiedVerificationPlanElementReference());
     preconditionResultEClass.getESuperTypes().add(this.getVerificationResult());
     validationResultEClass.getESuperTypes().add(this.getVerificationResult());
     verificationActivityResultEClass.getESuperTypes().add(this.getVerificationResult());
@@ -1171,7 +1213,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getSubsystemResult_SubsystemResult(), this.getSubsystemResult(), null, "subsystemResult", null, 0, -1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClaimResult_TargetReference(), this.getQualifiedClaimReference(), null, "targetReference", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_ModelElement(), theAadl2Package.getNamedElement(), null, "modelElement", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaimResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_SubClaimResult(), this.getClaimResult(), null, "subClaimResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1214,9 +1256,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ExecutionTime(), theAadl2Package.getInteger(), "executionTime", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(qualifiedVerificationPlanElementReferenceEClass, QualifiedVerificationPlanElementReference.class, "QualifiedVerificationPlanElementReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getQualifiedVerificationPlanElementReference_VerificationPlan(), theVerifyPackage.getVerificationPlan(), null, "verificationPlan", null, 0, 1, QualifiedVerificationPlanElementReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedVerificationPlanElementReference_Requirement(), this.getNestedClaimReference(), null, "requirement", null, 0, 1, QualifiedVerificationPlanElementReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(qualifiedClaimReferenceEClass, QualifiedClaimReference.class, "QualifiedClaimReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(qualifiedVAReferenceEClass, QualifiedVAReference.class, "QualifiedVAReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getQualifiedVAReference_VerificationPlan(), theVerifyPackage.getVerificationPlan(), null, "verificationPlan", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getQualifiedVAReference_Requirement(), this.getNestedClaimReference(), null, "requirement", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQualifiedVAReference_VerificationActivity(), theVerifyPackage.getVerificationActivity(), null, "verificationActivity", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nestedClaimReferenceEClass, NestedClaimReference.class, "NestedClaimReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

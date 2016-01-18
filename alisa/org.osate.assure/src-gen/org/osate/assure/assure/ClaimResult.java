@@ -19,8 +19,6 @@ import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.NamedElement;
 
-import org.osate.reqspec.reqSpec.Requirement;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Claim Result</b></em>'.
@@ -30,7 +28,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getTargetReference <em>Target Reference</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
@@ -44,30 +42,30 @@ import org.osate.reqspec.reqSpec.Requirement;
 public interface ClaimResult extends AssureResult
 {
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>Target Reference</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>Target Reference</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(Requirement)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Target()
-   * @model
+   * @return the value of the '<em>Target Reference</em>' containment reference.
+   * @see #setTargetReference(QualifiedClaimReference)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_TargetReference()
+   * @model containment="true"
    * @generated
    */
-  Requirement getTarget();
+  QualifiedClaimReference getTargetReference();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getTargetReference <em>Target Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>Target Reference</em>' containment reference.
+   * @see #getTargetReference()
    * @generated
    */
-  void setTarget(Requirement value);
+  void setTargetReference(QualifiedClaimReference value);
 
   /**
    * Returns the value of the '<em><b>Model Element</b></em>' reference.

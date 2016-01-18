@@ -28,7 +28,8 @@
         eType="#//SubsystemResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClaimResult" eSuperTypes="#//AssureResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedClaimReference"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subClaimResult" upperBound="-1"
@@ -101,10 +102,13 @@
     <eLiterals name="REDO" value="2" literal="redo"/>
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVAReference">
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVerificationPlanElementReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="#//NestedClaimReference"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedClaimReference" eSuperTypes="#//QualifiedVerificationPlanElementReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedVAReference" eSuperTypes="#//QualifiedVerificationPlanElementReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivity" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NestedClaimReference">

@@ -343,7 +343,7 @@ class AlisaGenerator implements IGenerator {
 		val claimassert = if(claim.assert != null) claim.assert.generate else ''''''
 		if(claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
 		'''
-		claim «claim.requirement.fullyQualifiedName»
+		claim «claim.constructClaimReference»
 		[
 			tbdcount 0
 			«IF forTargetElement != null»

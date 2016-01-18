@@ -88,6 +88,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.ELSE_RESULT: return createElseResult();
       case AssurePackage.THEN_RESULT: return createThenResult();
       case AssurePackage.METRICS: return createMetrics();
+      case AssurePackage.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE: return createQualifiedVerificationPlanElementReference();
+      case AssurePackage.QUALIFIED_CLAIM_REFERENCE: return createQualifiedClaimReference();
       case AssurePackage.QUALIFIED_VA_REFERENCE: return createQualifiedVAReference();
       case AssurePackage.NESTED_CLAIM_REFERENCE: return createNestedClaimReference();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
@@ -248,6 +250,28 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     MetricsImpl metrics = new MetricsImpl();
     return metrics;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedVerificationPlanElementReference createQualifiedVerificationPlanElementReference()
+  {
+    QualifiedVerificationPlanElementReferenceImpl qualifiedVerificationPlanElementReference = new QualifiedVerificationPlanElementReferenceImpl();
+    return qualifiedVerificationPlanElementReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedClaimReference createQualifiedClaimReference()
+  {
+    QualifiedClaimReferenceImpl qualifiedClaimReference = new QualifiedClaimReferenceImpl();
+    return qualifiedClaimReference;
   }
 
   /**

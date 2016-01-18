@@ -126,6 +126,24 @@ public interface AssureFactory extends EFactory
   Metrics createMetrics();
 
   /**
+   * Returns a new object of class '<em>Qualified Verification Plan Element Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Verification Plan Element Reference</em>'.
+   * @generated
+   */
+  QualifiedVerificationPlanElementReference createQualifiedVerificationPlanElementReference();
+
+  /**
+   * Returns a new object of class '<em>Qualified Claim Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Claim Reference</em>'.
+   * @generated
+   */
+  QualifiedClaimReference createQualifiedClaimReference();
+
+  /**
    * Returns a new object of class '<em>Qualified VA Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

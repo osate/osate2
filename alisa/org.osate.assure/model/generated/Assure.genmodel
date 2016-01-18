@@ -48,7 +48,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//SubsystemResult/subsystemResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ClaimResult">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/targetReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/modelElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/subClaimResult"/>
@@ -90,9 +90,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/weight"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/executionTime"/>
     </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedVerificationPlanElementReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVerificationPlanElementReference/verificationPlan"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVerificationPlanElementReference/requirement"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//QualifiedClaimReference"/>
     <genClasses ecoreClass="Assure.ecore#//QualifiedVAReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/verificationPlan"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/requirement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//QualifiedVAReference/verificationActivity"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//NestedClaimReference">

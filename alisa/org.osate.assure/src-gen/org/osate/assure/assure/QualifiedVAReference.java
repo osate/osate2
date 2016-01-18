@@ -15,10 +15,7 @@
  */
 package org.osate.assure.assure;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.osate.verify.verify.VerificationActivity;
-import org.osate.verify.verify.VerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,8 +26,6 @@ import org.osate.verify.verify.VerificationPlan;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.QualifiedVAReference#getVerificationPlan <em>Verification Plan</em>}</li>
- *   <li>{@link org.osate.assure.assure.QualifiedVAReference#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.assure.assure.QualifiedVAReference#getVerificationActivity <em>Verification Activity</em>}</li>
  * </ul>
  *
@@ -38,60 +33,8 @@ import org.osate.verify.verify.VerificationPlan;
  * @model
  * @generated
  */
-public interface QualifiedVAReference extends EObject
+public interface QualifiedVAReference extends QualifiedVerificationPlanElementReference
 {
-  /**
-   * Returns the value of the '<em><b>Verification Plan</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Verification Plan</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Verification Plan</em>' reference.
-   * @see #setVerificationPlan(VerificationPlan)
-   * @see org.osate.assure.assure.AssurePackage#getQualifiedVAReference_VerificationPlan()
-   * @model
-   * @generated
-   */
-  VerificationPlan getVerificationPlan();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.QualifiedVAReference#getVerificationPlan <em>Verification Plan</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Verification Plan</em>' reference.
-   * @see #getVerificationPlan()
-   * @generated
-   */
-  void setVerificationPlan(VerificationPlan value);
-
-  /**
-   * Returns the value of the '<em><b>Requirement</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' containment reference.
-   * @see #setRequirement(NestedClaimReference)
-   * @see org.osate.assure.assure.AssurePackage#getQualifiedVAReference_Requirement()
-   * @model containment="true"
-   * @generated
-   */
-  NestedClaimReference getRequirement();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.QualifiedVAReference#getRequirement <em>Requirement</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' containment reference.
-   * @see #getRequirement()
-   * @generated
-   */
-  void setRequirement(NestedClaimReference value);
-
   /**
    * Returns the value of the '<em><b>Verification Activity</b></em>' reference.
    * <!-- begin-user-doc -->

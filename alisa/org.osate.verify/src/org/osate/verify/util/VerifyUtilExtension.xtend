@@ -103,12 +103,17 @@ class VerifyUtilExtension {
 		&& intersects(va.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
 	
-	// Deal with qualified verification activity references	(see Assure grammar)
+	// Deal with qualified verification activity and claim references	(see Assure grammar)
 
 	def static String constructVerificationActivityReference(VerificationActivity va){
 		val claim = va.containingClaim
 		val plan = va.containingVerificationPlan
-		return plan.name+"#"+claim.constructClaimReferencePath+"#"+va.name;
+		return plan.name+"#"+claim.constructClaimReferencePath+"#"+va.name
+	}
+
+	def static String constructClaimReference(Claim claim){
+		val plan = claim.containingVerificationPlan
+		return plan.name+"#"+claim.constructClaimReferencePath
 	}
 	
 	def static String constructClaimReferencePath(Claim claim){

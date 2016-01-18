@@ -35,9 +35,8 @@ import org.osate.aadl2.NamedElement;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.VerificationExpr;
-
-import org.osate.reqspec.reqSpec.Requirement;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +46,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTargetReference <em>Target Reference</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
@@ -59,14 +58,14 @@ import org.osate.reqspec.reqSpec.Requirement;
 public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
 {
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The cached value of the '{@link #getTargetReference() <em>Target Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getTargetReference()
    * @generated
    * @ordered
    */
-  protected Requirement target;
+  protected QualifiedClaimReference targetReference;
 
   /**
    * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
@@ -144,19 +143,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement getTarget()
+  public QualifiedClaimReference getTargetReference()
   {
-    if (target != null && target.eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (Requirement)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CLAIM_RESULT__TARGET, oldTarget, target));
-      }
-    }
-    return target;
+    return targetReference;
   }
 
   /**
@@ -164,22 +153,37 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement basicGetTarget()
+  public NotificationChain basicSetTargetReference(QualifiedClaimReference newTargetReference, NotificationChain msgs)
   {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(Requirement newTarget)
-  {
-    Requirement oldTarget = target;
-    target = newTarget;
+    QualifiedClaimReference oldTargetReference = targetReference;
+    targetReference = newTargetReference;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGET, oldTarget, target));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGET_REFERENCE, oldTargetReference, newTargetReference);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetReference(QualifiedClaimReference newTargetReference)
+  {
+    if (newTargetReference != targetReference)
+    {
+      NotificationChain msgs = null;
+      if (targetReference != null)
+        msgs = ((InternalEObject)targetReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__TARGET_REFERENCE, null, msgs);
+      if (newTargetReference != null)
+        msgs = ((InternalEObject)newTargetReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__TARGET_REFERENCE, null, msgs);
+      msgs = basicSetTargetReference(newTargetReference, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGET_REFERENCE, newTargetReference, newTargetReference));
   }
 
   /**
@@ -286,6 +290,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
+      case AssurePackage.CLAIM_RESULT__TARGET_REFERENCE:
+        return basicSetTargetReference(null, msgs);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return ((InternalEList<?>)getSubClaimResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
@@ -304,9 +310,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
+      case AssurePackage.CLAIM_RESULT__TARGET_REFERENCE:
+        return getTargetReference();
       case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
         if (resolve) return getModelElement();
         return basicGetModelElement();
@@ -331,8 +336,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__TARGET:
-        setTarget((Requirement)newValue);
+      case AssurePackage.CLAIM_RESULT__TARGET_REFERENCE:
+        setTargetReference((QualifiedClaimReference)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
         setModelElement((NamedElement)newValue);
@@ -362,8 +367,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__TARGET:
-        setTarget((Requirement)null);
+      case AssurePackage.CLAIM_RESULT__TARGET_REFERENCE:
+        setTargetReference((QualifiedClaimReference)null);
         return;
       case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
         setModelElement((NamedElement)null);
@@ -391,8 +396,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__TARGET:
-        return target != null;
+      case AssurePackage.CLAIM_RESULT__TARGET_REFERENCE:
+        return targetReference != null;
       case AssurePackage.CLAIM_RESULT__MODEL_ELEMENT:
         return modelElement != null;
       case AssurePackage.CLAIM_RESULT__MESSAGE:

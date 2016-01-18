@@ -207,7 +207,7 @@ public class AssureExportHandler extends AbstractHandler {
 	}
 
 	private void exportClaim(BasicNode parent, ClaimResult cr) {
-		Requirement requirement = cr.getTarget();
+		Requirement requirement = AssureUtilExtension.getTarget(cr);
 
 		Goal subgoal = DcaseFactory.eINSTANCE.createGoal();
 		subgoal.setName("Requirement " + AssureUtilExtension.getName(cr));
@@ -355,13 +355,7 @@ public class AssureExportHandler extends AbstractHandler {
 	}
 
 	private Claim getClaim(ClaimResult cr) {
-		for (VerificationExpr verificationExpr : cr.getVerificationActivityResult()) {
-			if (verificationExpr instanceof VerificationActivityResult) {
-				return VerifyUtilExtension.getContainingClaim(((VerificationActivityResult) verificationExpr)
-						.getTarget());
-			}
-		}
-		return null;
+		return AssureUtilExtension.findClaim(cr.getTargetReference());
 	}
 
 	private String getArgument(Claim claim) {

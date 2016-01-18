@@ -295,9 +295,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ClaimResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cClaimKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cTargetRequirementCrossReference_1_0 = (CrossReference)cTargetAssignment_1.eContents().get(0);
-		private final RuleCall cTargetRequirementQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cTargetRequirementCrossReference_1_0.eContents().get(1);
+		private final Assignment cTargetReferenceAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0 = (RuleCall)cTargetReferenceAssignment_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cMetricsAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cMetricsMetricsParserRuleCall_3_0 = (RuleCall)cMetricsAssignment_3.eContents().get(0);
@@ -318,25 +317,26 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Result of meeting a requirement
 		//ClaimResult:
-		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
-		//	("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+		//	"claim" targetReference= //target=[ReqSpec::Requirement|QualifiedName]
+		//	QualifiedClaimReference "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])? ("message" message=STRING)?
+		//	subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
-		//("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
+		//"claim" targetReference= //target=[ReqSpec::Requirement|QualifiedName]
+		//QualifiedClaimReference "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])? ("message" message=STRING)?
+		//subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
 		public Keyword getClaimKeyword_0() { return cClaimKeyword_0; }
 
-		//target=[ReqSpec::Requirement|QualifiedName]
-		public Assignment getTargetAssignment_1() { return cTargetAssignment_1; }
+		//targetReference= //target=[ReqSpec::Requirement|QualifiedName]
+		//QualifiedClaimReference
+		public Assignment getTargetReferenceAssignment_1() { return cTargetReferenceAssignment_1; }
 
-		//[ReqSpec::Requirement|QualifiedName]
-		public CrossReference getTargetRequirementCrossReference_1_0() { return cTargetRequirementCrossReference_1_0; }
-
-		//QualifiedName
-		public RuleCall getTargetRequirementQualifiedNameParserRuleCall_1_0_1() { return cTargetRequirementQualifiedNameParserRuleCall_1_0_1; }
+		////target=[ReqSpec::Requirement|QualifiedName]
+		//QualifiedClaimReference
+		public RuleCall getTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0() { return cTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
@@ -1243,6 +1243,62 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getExecutionTimeAIntParserRuleCall_11_1_0() { return cExecutionTimeAIntParserRuleCall_11_1_0; }
 	}
 
+	public class QualifiedVerificationPlanElementReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedVerificationPlanElementReference");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cQualifiedClaimReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cQualifiedVAReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//QualifiedVerificationPlanElementReference:
+		//	QualifiedClaimReference | QualifiedVAReference;
+		@Override public ParserRule getRule() { return rule; }
+
+		//QualifiedClaimReference | QualifiedVAReference
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//QualifiedClaimReference
+		public RuleCall getQualifiedClaimReferenceParserRuleCall_0() { return cQualifiedClaimReferenceParserRuleCall_0; }
+
+		//QualifiedVAReference
+		public RuleCall getQualifiedVAReferenceParserRuleCall_1() { return cQualifiedVAReferenceParserRuleCall_1; }
+	}
+
+	public class QualifiedClaimReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedClaimReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVerificationPlanAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cVerificationPlanVerificationPlanCrossReference_0_0 = (CrossReference)cVerificationPlanAssignment_0.eContents().get(0);
+		private final RuleCall cVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cVerificationPlanVerificationPlanCrossReference_0_0.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cRequirementAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cRequirementNestedClaimReferenceParserRuleCall_2_0 = (RuleCall)cRequirementAssignment_2.eContents().get(0);
+		
+		//QualifiedClaimReference:
+		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference;
+		@Override public ParserRule getRule() { return rule; }
+
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference
+		public Group getGroup() { return cGroup; }
+
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName]
+		public Assignment getVerificationPlanAssignment_0() { return cVerificationPlanAssignment_0; }
+
+		//[Verify::VerificationPlan|QualifiedName]
+		public CrossReference getVerificationPlanVerificationPlanCrossReference_0_0() { return cVerificationPlanVerificationPlanCrossReference_0_0; }
+
+		//QualifiedName
+		public RuleCall getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1() { return cVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1; }
+
+		//"#"
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
+
+		//requirement=NestedClaimReference
+		public Assignment getRequirementAssignment_2() { return cRequirementAssignment_2; }
+
+		//NestedClaimReference
+		public RuleCall getRequirementNestedClaimReferenceParserRuleCall_2_0() { return cRequirementNestedClaimReferenceParserRuleCall_2_0; }
+	}
+
 	public class QualifiedVAReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedVAReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1258,12 +1314,12 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1 = (RuleCall)cVerificationActivityVerificationActivityCrossReference_4_0.eContents().get(1);
 		
 		//QualifiedVAReference:
-		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
-		//	NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity];
+		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference "#"
+		//	verificationActivity=[Verify::VerificationActivity];
 		@Override public ParserRule getRule() { return rule; }
 
-		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
-		//NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity]
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference "#"
+		//verificationActivity=[Verify::VerificationActivity]
 		public Group getGroup() { return cGroup; }
 
 		//verificationPlan=[Verify::VerificationPlan|QualifiedName]
@@ -1278,11 +1334,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"#"
 		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
 
-		//requirement= //[ReqSpec::Requirement | ID]
-		//NestedClaimReference
+		//requirement=NestedClaimReference
 		public Assignment getRequirementAssignment_2() { return cRequirementAssignment_2; }
 
-		////[ReqSpec::Requirement | ID]
 		//NestedClaimReference
 		public RuleCall getRequirementNestedClaimReferenceParserRuleCall_2_0() { return cRequirementNestedClaimReferenceParserRuleCall_2_0; }
 
@@ -1511,6 +1565,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final MetricsElements pMetrics;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
 	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
+	private final QualifiedVerificationPlanElementReferenceElements pQualifiedVerificationPlanElementReference;
+	private final QualifiedClaimReferenceElements pQualifiedClaimReference;
 	private final QualifiedVAReferenceElements pQualifiedVAReference;
 	private final NestedClaimReferenceElements pNestedClaimReference;
 	
@@ -1538,6 +1594,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMetrics = new MetricsElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
 		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
+		this.pQualifiedVerificationPlanElementReference = new QualifiedVerificationPlanElementReferenceElements();
+		this.pQualifiedClaimReference = new QualifiedClaimReferenceElements();
 		this.pQualifiedVAReference = new QualifiedVAReferenceElements();
 		this.pNestedClaimReference = new NestedClaimReferenceElements();
 	}
@@ -1606,8 +1664,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Result of meeting a requirement
 	//ClaimResult:
-	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
-	//	("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+	//	"claim" targetReference= //target=[ReqSpec::Requirement|QualifiedName]
+	//	QualifiedClaimReference "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])? ("message" message=STRING)?
+	//	subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -1746,9 +1805,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExecutionStateAccess().getRule();
 	}
 
+	//QualifiedVerificationPlanElementReference:
+	//	QualifiedClaimReference | QualifiedVAReference;
+	public QualifiedVerificationPlanElementReferenceElements getQualifiedVerificationPlanElementReferenceAccess() {
+		return pQualifiedVerificationPlanElementReference;
+	}
+	
+	public ParserRule getQualifiedVerificationPlanElementReferenceRule() {
+		return getQualifiedVerificationPlanElementReferenceAccess().getRule();
+	}
+
+	//QualifiedClaimReference:
+	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference;
+	public QualifiedClaimReferenceElements getQualifiedClaimReferenceAccess() {
+		return pQualifiedClaimReference;
+	}
+	
+	public ParserRule getQualifiedClaimReferenceRule() {
+		return getQualifiedClaimReferenceAccess().getRule();
+	}
+
 	//QualifiedVAReference:
-	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
-	//	NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity];
+	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement=NestedClaimReference "#"
+	//	verificationActivity=[Verify::VerificationActivity];
 	public QualifiedVAReferenceElements getQualifiedVAReferenceAccess() {
 		return pQualifiedVAReference;
 	}

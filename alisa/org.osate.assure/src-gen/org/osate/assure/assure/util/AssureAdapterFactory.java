@@ -138,6 +138,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createMetricsAdapter();
       }
       @Override
+      public Adapter caseQualifiedVerificationPlanElementReference(QualifiedVerificationPlanElementReference object)
+      {
+        return createQualifiedVerificationPlanElementReferenceAdapter();
+      }
+      @Override
+      public Adapter caseQualifiedClaimReference(QualifiedClaimReference object)
+      {
+        return createQualifiedClaimReferenceAdapter();
+      }
+      @Override
       public Adapter caseQualifiedVAReference(QualifiedVAReference object)
       {
         return createQualifiedVAReferenceAdapter();
@@ -330,6 +340,36 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMetricsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.QualifiedVerificationPlanElementReference <em>Qualified Verification Plan Element Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.QualifiedVerificationPlanElementReference
+   * @generated
+   */
+  public Adapter createQualifiedVerificationPlanElementReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.QualifiedClaimReference <em>Qualified Claim Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.QualifiedClaimReference
+   * @generated
+   */
+  public Adapter createQualifiedClaimReferenceAdapter()
   {
     return null;
   }

@@ -59,6 +59,7 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
@@ -112,6 +113,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
+				return; 
+			case AssurePackage.QUALIFIED_CLAIM_REFERENCE:
+				sequence_QualifiedClaimReference(context, (QualifiedClaimReference) semanticObject); 
 				return; 
 			case AssurePackage.QUALIFIED_VA_REFERENCE:
 				sequence_QualifiedVAReference(context, (QualifiedVAReference) semanticObject); 
@@ -194,7 +198,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         target=[Requirement|QualifiedName] 
+	 *         targetReference=QualifiedClaimReference 
 	 *         metrics=Metrics 
 	 *         modelElement=[NamedElement|ID]? 
 	 *         message=STRING? 
@@ -289,14 +293,33 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (verificationPlan=[VerificationPlan|QualifiedName] requirement=NestedClaimReference)
+	 */
+	protected void sequence_QualifiedClaimReference(EObject context, QualifiedClaimReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.getVerificationPlan());
+		feeder.accept(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0(), semanticObject.getRequirement());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (verificationPlan=[VerificationPlan|QualifiedName] requirement=NestedClaimReference verificationActivity=[VerificationActivity|ID])
 	 */
 	protected void sequence_QualifiedVAReference(EObject context, QualifiedVAReference semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN));
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__REQUIREMENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__REQUIREMENT));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__VERIFICATION_PLAN));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VERIFICATION_PLAN_ELEMENT_REFERENCE__REQUIREMENT));
 			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY));
 		}

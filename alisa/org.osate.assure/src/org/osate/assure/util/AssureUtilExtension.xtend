@@ -79,6 +79,9 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.assure.assure.QualifiedClaimReference
+import org.osate.verify.verify.VerificationPlan
+import org.osate.assure.assure.QualifiedVerificationPlanElementReference
 
 class AssureUtilExtension {
 
@@ -142,12 +145,12 @@ class AssureUtilExtension {
 // Deal with qualified verification activity references	
 // reference string constructor is in VerifyUtilExtension
 
-	def static QualifiedVAReference getQualifiedVAReference(NestedClaimReference refObject) {
+	def static VerificationPlan findVerificationPlan(NestedClaimReference refObject) {
 		var EObject result = refObject
-		while (!(result instanceof QualifiedVAReference)) {
+		while (!(result instanceof QualifiedVerificationPlanElementReference)) {
 			result = result.eContainer
 		}
-		return result as QualifiedVAReference
+		return (result as QualifiedVerificationPlanElementReference).verificationPlan
 	}
 	
 	def static findClaim(QualifiedVAReference qva){
@@ -164,6 +167,16 @@ class AssureUtilExtension {
 			}
 		}
 		return null
+	}
+	
+	def static findClaim(QualifiedClaimReference qc){
+		return getReferencedClaim(qc.requirement, qc.verificationPlan.claim)
+	}
+	
+	def static getTarget(ClaimResult cr){
+		var qualreqref=cr.targetReference.requirement
+		while (qualreqref.sub != null) qualreqref = qualreqref.sub
+		return qualreqref.requirement
 	}
 
 	/*

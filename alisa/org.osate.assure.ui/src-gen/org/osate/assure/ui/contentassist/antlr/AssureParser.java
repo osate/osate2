@@ -51,6 +51,7 @@ public class AssureParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getAssureResultAccess().getAlternatives(), "rule__AssureResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
+					put(grammarAccess.getQualifiedVerificationPlanElementReferenceAccess().getAlternatives(), "rule__QualifiedVerificationPlanElementReference__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_2(), "rule__ValDeclaration__Alternatives_2");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_2(), "rule__ComputeDeclaration__Alternatives_2");
@@ -110,6 +111,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getGroup_9(), "rule__Metrics__Group_9__0");
 					put(grammarAccess.getMetricsAccess().getGroup_10(), "rule__Metrics__Group_10__0");
 					put(grammarAccess.getMetricsAccess().getGroup_11(), "rule__Metrics__Group_11__0");
+					put(grammarAccess.getQualifiedClaimReferenceAccess().getGroup(), "rule__QualifiedClaimReference__Group__0");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getGroup(), "rule__QualifiedVAReference__Group__0");
 					put(grammarAccess.getNestedClaimReferenceAccess().getGroup(), "rule__NestedClaimReference__Group__0");
 					put(grammarAccess.getNestedClaimReferenceAccess().getGroup_1(), "rule__NestedClaimReference__Group_1__0");
@@ -213,7 +215,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubsystemResultAccess().getMessageAssignment_6_1(), "rule__SubsystemResult__MessageAssignment_6_1");
 					put(grammarAccess.getSubsystemResultAccess().getClaimResultAssignment_7(), "rule__SubsystemResult__ClaimResultAssignment_7");
 					put(grammarAccess.getSubsystemResultAccess().getSubsystemResultAssignment_8(), "rule__SubsystemResult__SubsystemResultAssignment_8");
-					put(grammarAccess.getClaimResultAccess().getTargetAssignment_1(), "rule__ClaimResult__TargetAssignment_1");
+					put(grammarAccess.getClaimResultAccess().getTargetReferenceAssignment_1(), "rule__ClaimResult__TargetReferenceAssignment_1");
 					put(grammarAccess.getClaimResultAccess().getMetricsAssignment_3(), "rule__ClaimResult__MetricsAssignment_3");
 					put(grammarAccess.getClaimResultAccess().getModelElementAssignment_4_1(), "rule__ClaimResult__ModelElementAssignment_4_1");
 					put(grammarAccess.getClaimResultAccess().getMessageAssignment_5_1(), "rule__ClaimResult__MessageAssignment_5_1");
@@ -263,6 +265,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getValidationfailCountAssignment_9_1(), "rule__Metrics__ValidationfailCountAssignment_9_1");
 					put(grammarAccess.getMetricsAccess().getWeightAssignment_10_1(), "rule__Metrics__WeightAssignment_10_1");
 					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_11_1(), "rule__Metrics__ExecutionTimeAssignment_11_1");
+					put(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedClaimReference__VerificationPlanAssignment_0");
+					put(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementAssignment_2(), "rule__QualifiedClaimReference__RequirementAssignment_2");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedVAReference__VerificationPlanAssignment_0");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getRequirementAssignment_2(), "rule__QualifiedVAReference__RequirementAssignment_2");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityAssignment_4(), "rule__QualifiedVAReference__VerificationActivityAssignment_4");
