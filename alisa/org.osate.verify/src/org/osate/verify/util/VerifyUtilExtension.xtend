@@ -30,7 +30,10 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.reqspec.reqSpec.Requirement
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.UnitLiteral
 
 class VerifyUtilExtension {
 
@@ -122,6 +125,25 @@ class VerifyUtilExtension {
 			return constructClaimReferencePath(parent)+"."+claim.requirement.name
 		}
 		return claim.requirement.name
+	}
+
+	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
+		val value = numberValue.scaledValue;
+		val unit = numberValue.getUnit();
+		var factor = 1.0
+		if (unit != null) factor = unit.getAbsoluteFactor(target);
+		val result = value * factor;
+		val resultValue = numberValue.cloneNumber();
+		resultValue.setUnit(target);
+		setValue(resultValue, result);
+		return resultValue;
+	}
+	
+	def static void setValue(NumberValue numberValue, double value) {
+		switch (numberValue) {
+			RealLiteral: numberValue.setValue(value)
+			IntegerLiteral: numberValue.setValue((value as long))
+		}
 	}
 	
 }

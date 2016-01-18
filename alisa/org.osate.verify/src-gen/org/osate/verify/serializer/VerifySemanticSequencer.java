@@ -232,7 +232,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         requirement=[Requirement|QualifiedName] 
+	 *         requirement=[Requirement|QualifiedName]? 
 	 *         title=STRING? 
 	 *         activities+=VerificationActivity* 
 	 *         assert=ArgumentExpr? 

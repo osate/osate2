@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.aadl2.NumberValue
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
@@ -56,8 +57,10 @@ class VerifyValidator extends AbstractVerifyValidator {
 	public static val CLAIM_MISSING_REQUIREMENT = "org.osate.verify.claimMissingRequirement"
 	public static val CLAIM_INVALID_REQUIREMENT = "org.osate.verify.claimInvalidRequirement"
 	public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
+	public static val MISSING_CLAIM_FOR_MULTIPLE_REQ = "org.osate.verify.missingClaimForMultipleReq"
 	public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
 	public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
+	public static val MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS = "org.osate.verify.missingRequirementsForMultipleClaims"
 
 	override protected List<EPackage> getEPackages() {
 	    val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -101,23 +104,63 @@ class VerifyValidator extends AbstractVerifyValidator {
 				VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISSING_METHOD_REFERENCE)
 		}
 	}
+	
+	@Check(CheckType.NORMAL)
+	def checkVerificationActivityParams(VerificationActivity va) {
+		val actualParameters = va.parameters
+		val method = va.method
+		val expectedParms = method.params
+		if ((expectedParms?.size != actualParameters?.size)) {
+			warning("The number of actual parameters differs from the number of formal parameters for verification activity",
+					va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
+		} 
+	}
 
-	@Check
-	def checkInvalidRequirementForClaim(Claim cl) {
-		if (cl.requirement == null) {
-			warning('Claim is missing requirement', VerifyPackage.Literals.CLAIM__REQUIREMENT,
-				CLAIM_MISSING_REQUIREMENT)
-		} else {
-			val sysreqs = containingVerificationPlan(cl).requirements
-			if (!sysreqs.content.contains(cl.requirement)) {
-				error(
-					'Requirement ' + cl.requirement.name + ' does not exist in ' + sysreqs.name + '.',
-					cl,
-					VerifyPackage.Literals.CLAIM__REQUIREMENT,
-					CLAIM_INVALID_REQUIREMENT
-				)
+	@Check(CheckType.FAST)
+	def checkMultipleInvalidRequirementsForClaims(VerificationPlan vp) {
+		
+		val claims = vp.claim
+		claims.forEach[EcoreUtil.resolveAll(it)]
+		val sysreqs = vp.requirements
+		val sysreqsContent = sysreqs.content
+		val vpURI = EcoreUtil.getURI(vp).toString()
+		val claimsRequirements = claims.map[requirement].toSet
+		val requirementsWithoutClaims = sysreqsContent.filter[!claimsRequirements.contains(it)]		
+		val organizeClaims = requirementsWithoutClaims.size > 0
+		
+		val claimsMissingRequirements = claims.filter[it.requirement == null]
+		val missingReqURIs = new ArrayList<String>()
+		requirementsWithoutClaims.forEach[req |
+			missingReqURIs.add(EcoreUtil.getURI(req).toString())
+		]
+		
+		val claimsRequirementsUnresolved = claims.filter[claim | claim?.requirement != null  && claim.requirement.eIsProxy] 
+		val claimsWithMissingReqs = new ArrayList<Claim>()
+
+		claimsMissingRequirements.forEach[cl |
+			if (!organizeClaims) {
+				error('Claim is missing requirement', cl, null, CLAIM_MISSING_REQUIREMENT, vpURI)
+			} else {
+				claimsWithMissingReqs.add(cl)
 			}
-		}
+		]
+		claimsRequirementsUnresolved.forEach[cl |
+			if (!organizeClaims) {
+				var reqName = cl.requirement.name?:""
+				if (reqName.length > 0) reqName = reqName + " "
+				error('Requirement ' + reqName + 'does not exist in ' + sysreqs.name + '.',
+						cl, VerifyPackage.Literals.CLAIM__REQUIREMENT, CLAIM_INVALID_REQUIREMENT, vpURI)
+			} else {
+				claimsWithMissingReqs.add(cl)
+			}
+		]
+		
+		if (claimsWithMissingReqs.size > 0){
+			val String[] uris = missingReqURIs
+			
+			error('Claims with missing or unresolved Requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
+						MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS , uris )
+		}	
 	}
 
 	@Check(CheckType.NORMAL)
@@ -131,6 +174,23 @@ class VerifyValidator extends AbstractVerifyValidator {
 			}
 		]
 	}
+	@Check(CheckType.NORMAL)
+	def checkClaimsForMultipleRequirement(VerificationPlan vp) {
+		val systemRequirements = vp.requirements
+		val requirements = systemRequirements.content
+		val List<String> missingRequirements = new ArrayList<String>
+		requirements.forEach [ req |
+			if (!vp.claim.exists[claim|claim.requirement === req]) {
+				missingRequirements.add(EcoreUtil.getURI(req).toString())
+			}
+		]
+		if (missingRequirements.size > 1){
+			error('Missing claims for multiple requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
+					MISSING_CLAIM_FOR_MULTIPLE_REQ, missingRequirements)
+			
+		}
+	}
+	
 
 	@Check(CheckType.FAST)
 	def void checkFileTypeContents(Verification verification) {

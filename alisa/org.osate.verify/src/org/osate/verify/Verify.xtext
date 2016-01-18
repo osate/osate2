@@ -24,7 +24,7 @@ VerificationPlan returns VerificationPlan:
 
 
 Claim:
-	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
+	{Claim}'claim' requirement=[ReqSpec::Requirement|QualifiedName]?  (':' title=STRING)?
 	'['
 	(
 		  ('activities' activities += VerificationActivity*)?
