@@ -1846,20 +1846,25 @@ ruleQualifiedVAReference returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getQualifiedVAReferenceRule());
+		{ 
+	        newCompositeNode(grammarAccess.getQualifiedVAReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0()); 
+	    }
+		lv_requirement_2_0=ruleNestedClaimReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getQualifiedVAReferenceRule());
 	        }
-        }
-	otherlv_2=RULE_ID
-	{
-		newLeafNode(otherlv_2, grammarAccess.getQualifiedVAReferenceAccess().getClaimRequirementCrossReference_2_0()); 
-	}
+       		set(
+       			$current, 
+       			"requirement",
+        		lv_requirement_2_0, 
+        		"NestedClaimReference");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
-)	otherlv_3='.' 
+)	otherlv_3='#' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getQualifiedVAReferenceAccess().getFullStopKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getQualifiedVAReferenceAccess().getNumberSignKeyword_3());
     }
 (
 (
@@ -1875,6 +1880,62 @@ ruleQualifiedVAReference returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleNestedClaimReference
+entryRuleNestedClaimReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getNestedClaimReferenceRule()); }
+	 iv_ruleNestedClaimReference=ruleNestedClaimReference 
+	 { $current=$iv_ruleNestedClaimReference.current; } 
+	 EOF 
+;
+
+// Rule NestedClaimReference
+ruleNestedClaimReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getNestedClaimReferenceRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getNestedClaimReferenceAccess().getRequirementRequirementCrossReference_0_0()); 
+	}
+
+)
+)(	otherlv_1='.' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getNestedClaimReferenceAccess().getFullStopKeyword_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNestedClaimReferenceAccess().getSubNestedClaimReferenceParserRuleCall_1_1_0()); 
+	    }
+		lv_sub_2_0=ruleNestedClaimReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNestedClaimReferenceRule());
+	        }
+       		set(
+       			$current, 
+       			"sub",
+        		lv_sub_2_0, 
+        		"NestedClaimReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
 ;
 
 

@@ -111,6 +111,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getGroup_10(), "rule__Metrics__Group_10__0");
 					put(grammarAccess.getMetricsAccess().getGroup_11(), "rule__Metrics__Group_11__0");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getGroup(), "rule__QualifiedVAReference__Group__0");
+					put(grammarAccess.getNestedClaimReferenceAccess().getGroup(), "rule__NestedClaimReference__Group__0");
+					put(grammarAccess.getNestedClaimReferenceAccess().getGroup_1(), "rule__NestedClaimReference__Group_1__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
@@ -262,8 +264,10 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getWeightAssignment_10_1(), "rule__Metrics__WeightAssignment_10_1");
 					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_11_1(), "rule__Metrics__ExecutionTimeAssignment_11_1");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedVAReference__VerificationPlanAssignment_0");
-					put(grammarAccess.getQualifiedVAReferenceAccess().getClaimAssignment_2(), "rule__QualifiedVAReference__ClaimAssignment_2");
+					put(grammarAccess.getQualifiedVAReferenceAccess().getRequirementAssignment_2(), "rule__QualifiedVAReference__RequirementAssignment_2");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityAssignment_4(), "rule__QualifiedVAReference__VerificationActivityAssignment_4");
+					put(grammarAccess.getNestedClaimReferenceAccess().getRequirementAssignment_0(), "rule__NestedClaimReference__RequirementAssignment_0");
+					put(grammarAccess.getNestedClaimReferenceAccess().getSubAssignment_1_1(), "rule__NestedClaimReference__SubAssignment_1_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");

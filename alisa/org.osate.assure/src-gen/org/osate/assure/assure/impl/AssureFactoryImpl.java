@@ -89,6 +89,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.THEN_RESULT: return createThenResult();
       case AssurePackage.METRICS: return createMetrics();
       case AssurePackage.QUALIFIED_VA_REFERENCE: return createQualifiedVAReference();
+      case AssurePackage.NESTED_CLAIM_REFERENCE: return createNestedClaimReference();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
@@ -258,6 +259,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     QualifiedVAReferenceImpl qualifiedVAReference = new QualifiedVAReferenceImpl();
     return qualifiedVAReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NestedClaimReference createNestedClaimReference()
+  {
+    NestedClaimReferenceImpl nestedClaimReference = new NestedClaimReferenceImpl();
+    return nestedClaimReference;
   }
 
   /**

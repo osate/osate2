@@ -30,6 +30,7 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.osate.reqspec.reqSpec.Requirement
 
 class VerifyUtilExtension {
 
@@ -77,6 +78,7 @@ class VerifyUtilExtension {
 	def static getContainingVerificationMethod(EObject sh) {
 		sh.getContainerOfType(VerificationMethod)
 	}
+
 	
 
 	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {
@@ -101,9 +103,20 @@ class VerifyUtilExtension {
 		&& intersects(va.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
 	
+	// Deal with qualified verification activity references	(see Assure grammar)
+
 	def static String constructVerificationActivityReference(VerificationActivity va){
 		val claim = va.containingClaim
 		val plan = va.containingVerificationPlan
-		return plan.name+"#"+claim.requirement.name+"."+va.name;
+		return plan.name+"#"+claim.constructClaimReferencePath+"#"+va.name;
 	}
+	
+	def static String constructClaimReferencePath(Claim claim){
+		val parent = claim.eContainer
+		if (parent instanceof Claim){
+			return constructClaimReferencePath(parent)+"."+claim.requirement.name
+		}
+		return claim.requirement.name
+	}
+	
 }

@@ -39,6 +39,7 @@ import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.ElseType;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
+import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
@@ -140,6 +141,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * @generated
    */
   private EClass qualifiedVAReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass nestedClaimReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -815,7 +823,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getQualifiedVAReference_Claim()
+  public EReference getQualifiedVAReference_Requirement()
   {
     return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(1);
   }
@@ -828,6 +836,36 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
   public EReference getQualifiedVAReference_VerificationActivity()
   {
     return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNestedClaimReference()
+  {
+    return nestedClaimReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNestedClaimReference_Requirement()
+  {
+    return (EReference)nestedClaimReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNestedClaimReference_Sub()
+  {
+    return (EReference)nestedClaimReferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1036,8 +1074,12 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     qualifiedVAReferenceEClass = createEClass(QUALIFIED_VA_REFERENCE);
     createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN);
-    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__CLAIM);
+    createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__REQUIREMENT);
     createEReference(qualifiedVAReferenceEClass, QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY);
+
+    nestedClaimReferenceEClass = createEClass(NESTED_CLAIM_REFERENCE);
+    createEReference(nestedClaimReferenceEClass, NESTED_CLAIM_REFERENCE__REQUIREMENT);
+    createEReference(nestedClaimReferenceEClass, NESTED_CLAIM_REFERENCE__SUB);
 
     preconditionResultEClass = createEClass(PRECONDITION_RESULT);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
@@ -1174,8 +1216,12 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     initEClass(qualifiedVAReferenceEClass, QualifiedVAReference.class, "QualifiedVAReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getQualifiedVAReference_VerificationPlan(), theVerifyPackage.getVerificationPlan(), null, "verificationPlan", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getQualifiedVAReference_Claim(), theReqSpecPackage.getRequirement(), null, "claim", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedVAReference_Requirement(), this.getNestedClaimReference(), null, "requirement", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQualifiedVAReference_VerificationActivity(), theVerifyPackage.getVerificationActivity(), null, "verificationActivity", null, 0, 1, QualifiedVAReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(nestedClaimReferenceEClass, NestedClaimReference.class, "NestedClaimReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNestedClaimReference_Requirement(), theReqSpecPackage.getRequirement(), null, "requirement", null, 0, 1, NestedClaimReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNestedClaimReference_Sub(), this.getNestedClaimReference(), null, "sub", null, 0, 1, NestedClaimReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationMethod(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

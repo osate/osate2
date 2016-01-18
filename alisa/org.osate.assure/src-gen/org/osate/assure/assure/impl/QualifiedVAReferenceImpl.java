@@ -16,6 +16,7 @@
 package org.osate.assure.assure.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -24,9 +25,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.assure.assure.AssurePackage;
+import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
-
-import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationPlan;
@@ -40,7 +40,7 @@ import org.osate.verify.verify.VerificationPlan;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl#getVerificationPlan <em>Verification Plan</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl#getClaim <em>Claim</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.QualifiedVAReferenceImpl#getVerificationActivity <em>Verification Activity</em>}</li>
  * </ul>
  *
@@ -59,14 +59,14 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
   protected VerificationPlan verificationPlan;
 
   /**
-   * The cached value of the '{@link #getClaim() <em>Claim</em>}' reference.
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getClaim()
+   * @see #getRequirement()
    * @generated
    * @ordered
    */
-  protected Requirement claim;
+  protected NestedClaimReference requirement;
 
   /**
    * The cached value of the '{@link #getVerificationActivity() <em>Verification Activity</em>}' reference.
@@ -147,19 +147,9 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement getClaim()
+  public NestedClaimReference getRequirement()
   {
-    if (claim != null && claim.eIsProxy())
-    {
-      InternalEObject oldClaim = (InternalEObject)claim;
-      claim = (Requirement)eResolveProxy(oldClaim);
-      if (claim != oldClaim)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM, oldClaim, claim));
-      }
-    }
-    return claim;
+    return requirement;
   }
 
   /**
@@ -167,22 +157,37 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement basicGetClaim()
+  public NotificationChain basicSetRequirement(NestedClaimReference newRequirement, NotificationChain msgs)
   {
-    return claim;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setClaim(Requirement newClaim)
-  {
-    Requirement oldClaim = claim;
-    claim = newClaim;
+    NestedClaimReference oldRequirement = requirement;
+    requirement = newRequirement;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM, oldClaim, claim));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT, oldRequirement, newRequirement);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequirement(NestedClaimReference newRequirement)
+  {
+    if (newRequirement != requirement)
+    {
+      NotificationChain msgs = null;
+      if (requirement != null)
+        msgs = ((InternalEObject)requirement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT, null, msgs);
+      if (newRequirement != null)
+        msgs = ((InternalEObject)newRequirement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT, null, msgs);
+      msgs = basicSetRequirement(newRequirement, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT, newRequirement, newRequirement));
   }
 
   /**
@@ -234,6 +239,22 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT:
+        return basicSetRequirement(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -241,9 +262,8 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN:
         if (resolve) return getVerificationPlan();
         return basicGetVerificationPlan();
-      case AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM:
-        if (resolve) return getClaim();
-        return basicGetClaim();
+      case AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT:
+        return getRequirement();
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY:
         if (resolve) return getVerificationActivity();
         return basicGetVerificationActivity();
@@ -264,8 +284,8 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN:
         setVerificationPlan((VerificationPlan)newValue);
         return;
-      case AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM:
-        setClaim((Requirement)newValue);
+      case AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT:
+        setRequirement((NestedClaimReference)newValue);
         return;
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY:
         setVerificationActivity((VerificationActivity)newValue);
@@ -287,8 +307,8 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN:
         setVerificationPlan((VerificationPlan)null);
         return;
-      case AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM:
-        setClaim((Requirement)null);
+      case AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT:
+        setRequirement((NestedClaimReference)null);
         return;
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY:
         setVerificationActivity((VerificationActivity)null);
@@ -309,8 +329,8 @@ public class QualifiedVAReferenceImpl extends MinimalEObjectImpl.Container imple
     {
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN:
         return verificationPlan != null;
-      case AssurePackage.QUALIFIED_VA_REFERENCE__CLAIM:
-        return claim != null;
+      case AssurePackage.QUALIFIED_VA_REFERENCE__REQUIREMENT:
+        return requirement != null;
       case AssurePackage.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY:
         return verificationActivity != null;
     }

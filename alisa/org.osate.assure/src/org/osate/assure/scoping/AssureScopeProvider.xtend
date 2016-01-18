@@ -31,6 +31,9 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ModelResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.assure.assure.QualifiedVAReference
+import org.osate.assure.assure.NestedClaimReference
 
 /**
  * This class contains custom scoping description.
@@ -76,15 +79,27 @@ class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 
-//	def scope_QualifiedVAReference_requirement(QualifiedVAReference context, EReference reference) {
-//		var result = delegateGetScope(context, reference)
-//		val forSystemRequirements = (containingVerificationPlan(context)).getRequirements
-//		if (!forSystemRequirements.content.empty) {
-//			result = new SimpleScope(result,
-//				Scopes::scopedElementsFor(forSystemRequirements.content,
-//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-//		}
-//		return result
-//	}
+	def scope_NestedClaimReference_requirement(NestedClaimReference context, EReference reference) {
+		var result = IScope.NULLSCOPE// delegateGetScope(context, reference)
+		val forSystemRequirements = context.qualifiedVAReference.verificationPlan.getRequirements
+		if (!forSystemRequirements.content.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(forSystemRequirements.content,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+		return result
+	}
+
+	def scope_QualifiedVAReference_verificationActivity(QualifiedVAReference context, EReference reference) {
+		var result = IScope.NULLSCOPE//delegateGetScope(context, reference)
+		val claim = context.findClaim
+		val vas= claim.activities
+		if (!vas.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(vas,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+		return result
+	}
 
 }

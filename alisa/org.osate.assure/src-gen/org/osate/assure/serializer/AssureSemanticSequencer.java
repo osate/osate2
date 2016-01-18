@@ -57,6 +57,7 @@ import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
+import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
@@ -105,6 +106,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case AssurePackage.MODEL_RESULT:
 				sequence_ModelResult(context, (ModelResult) semanticObject); 
+				return; 
+			case AssurePackage.NESTED_CLAIM_REFERENCE:
+				sequence_NestedClaimReference(context, (NestedClaimReference) semanticObject); 
 				return; 
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
@@ -259,6 +263,15 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (requirement=[Requirement|ID] sub=NestedClaimReference?)
+	 */
+	protected void sequence_NestedClaimReference(EObject context, NestedClaimReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         target=[VerificationMethod|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
@@ -276,21 +289,21 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verificationPlan=[VerificationPlan|QualifiedName] claim=[Requirement|ID] verificationActivity=[VerificationActivity|ID])
+	 *     (verificationPlan=[VerificationPlan|QualifiedName] requirement=NestedClaimReference verificationActivity=[VerificationActivity|ID])
 	 */
 	protected void sequence_QualifiedVAReference(EObject context, QualifiedVAReference semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN));
-			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__CLAIM) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__CLAIM));
+			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__REQUIREMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__REQUIREMENT));
 			if(transientValues.isValueTransient(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AssurePackage.Literals.QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1(), semanticObject.getVerificationPlan());
-		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getClaimRequirementIDTerminalRuleCall_2_0_1(), semanticObject.getClaim());
+		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0(), semanticObject.getRequirement());
 		feeder.accept(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1(), semanticObject.getVerificationActivity());
 		feeder.finish();
 	}

@@ -35,14 +35,13 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
-import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.ComponentCategory
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
@@ -60,7 +59,9 @@ import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
+import org.osate.assure.assure.NestedClaimReference
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
@@ -69,14 +70,15 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.verify.verify.Claim
+import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.assure.services.AssureGrammarAccess.SubsystemResultElements
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.Subcomponent
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 class AssureUtilExtension {
 
@@ -137,6 +139,33 @@ class AssureUtilExtension {
 		return result as ClaimResult
 	}
 
+// Deal with qualified verification activity references	
+// reference string constructor is in VerifyUtilExtension
+
+	def static QualifiedVAReference getQualifiedVAReference(NestedClaimReference refObject) {
+		var EObject result = refObject
+		while (!(result instanceof QualifiedVAReference)) {
+			result = result.eContainer
+		}
+		return result as QualifiedVAReference
+	}
+	
+	def static findClaim(QualifiedVAReference qva){
+		return getReferencedClaim(qva.requirement, qva.verificationPlan.claim)
+	}
+	
+	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims){
+		for (cl : claims){
+			if (cl.requirement.name.equalsIgnoreCase(cref.requirement.name)) {
+				if (cref.sub != null && !cl.subclaim.empty){
+					return getReferencedClaim(cref.sub, cl.subclaim)
+				}
+				return cl
+			}
+		}
+		return null
+	}
+
 	/*
 	 * return the model element that is the target of verification
 	 */
@@ -166,6 +195,11 @@ class AssureUtilExtension {
 		} else {
 			si
 		}
+	}
+	
+	def static VerificationActivity getTarget(VerificationActivityResult vares){
+		val vaqref = vares.targetReference
+		return vaqref.verificationActivity
 	}
 
 

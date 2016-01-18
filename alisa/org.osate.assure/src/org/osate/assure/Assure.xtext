@@ -163,20 +163,15 @@ enum  VerificationExecutionState:
 	| COMPLETED='completed' // completed. verification result is valid
 ;
 
+QualifiedClaimReference:
+	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' requirement=NestedClaimReference
+	;
+
 QualifiedVAReference:
-	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' claim=[ReqSpec::Requirement | ID]
-	"." verificationActivity=[Verify::VerificationActivity|ID]
-	//sub=ClaimReference
+	verificationPlan=[Verify::VerificationPlan | QualifiedName] '#' requirement=NestedClaimReference
+	"#" verificationActivity=[Verify::VerificationActivity|ID]
 ;
-//ClaimReference:
-//	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
-//;
-//
-//VAReference:
-//	verificationActivity=[Verify::VerificationActivity|ID]
-//;
-//
-//NestedDotID:
-//	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
-//;
+NestedClaimReference:
+	requirement=[ReqSpec::Requirement|ID] ('.' sub=NestedClaimReference)?
+;
 

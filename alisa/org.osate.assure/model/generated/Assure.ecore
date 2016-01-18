@@ -103,8 +103,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedVAReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="claim" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="#//NestedClaimReference"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivity" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NestedClaimReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sub" eType="#//NestedClaimReference"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>

@@ -439,8 +439,8 @@ public class AssureExportHandler extends AbstractHandler {
 		DcaseLink001 link;
 
 		evidence = DcaseFactory.eINSTANCE.createEvidence();
-		evidence.setName(var.getTarget().getName());
-		evidence.setDesc(var.getTarget().getMethod().getName() + ": " + var.getResultState().getLiteral());
+		evidence.setName(var.getTargetReference().getVerificationActivity().getName());
+		evidence.setDesc(var.getTargetReference().getVerificationActivity().getMethod().getName() + ": " + var.getResultState().getLiteral());
 		evidence.setStatus("[" + var.getResultState().getLiteral() + "]");
 		evidence.setMessage(var.getMessage());
 		model.getRootBasicNode().add(evidence);

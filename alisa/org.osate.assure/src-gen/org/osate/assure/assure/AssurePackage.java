@@ -748,13 +748,13 @@ public interface AssurePackage extends EPackage
   int QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN = 0;
 
   /**
-   * The feature id for the '<em><b>Claim</b></em>' reference.
+   * The feature id for the '<em><b>Requirement</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int QUALIFIED_VA_REFERENCE__CLAIM = 1;
+  int QUALIFIED_VA_REFERENCE__REQUIREMENT = 1;
 
   /**
    * The feature id for the '<em><b>Verification Activity</b></em>' reference.
@@ -775,6 +775,43 @@ public interface AssurePackage extends EPackage
   int QUALIFIED_VA_REFERENCE_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.NestedClaimReferenceImpl <em>Nested Claim Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.NestedClaimReferenceImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getNestedClaimReference()
+   * @generated
+   */
+  int NESTED_CLAIM_REFERENCE = 11;
+
+  /**
+   * The feature id for the '<em><b>Requirement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NESTED_CLAIM_REFERENCE__REQUIREMENT = 0;
+
+  /**
+   * The feature id for the '<em><b>Sub</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NESTED_CLAIM_REFERENCE__SUB = 1;
+
+  /**
+   * The number of structural features of the '<em>Nested Claim Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NESTED_CLAIM_REFERENCE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -782,7 +819,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getPreconditionResult()
    * @generated
    */
-  int PRECONDITION_RESULT = 11;
+  int PRECONDITION_RESULT = 12;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -864,7 +901,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getValidationResult()
    * @generated
    */
-  int VALIDATION_RESULT = 12;
+  int VALIDATION_RESULT = 13;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -946,7 +983,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationActivityResult()
    * @generated
    */
-  int VERIFICATION_ACTIVITY_RESULT = 13;
+  int VERIFICATION_ACTIVITY_RESULT = 14;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -1046,7 +1083,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
    * @generated
    */
-  int ELSE_TYPE = 14;
+  int ELSE_TYPE = 15;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -1056,7 +1093,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 15;
+  int VERIFICATION_RESULT_STATE = 16;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -1066,7 +1103,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 16;
+  int VERIFICATION_EXECUTION_STATE = 17;
 
 
   /**
@@ -1675,15 +1712,15 @@ public interface AssurePackage extends EPackage
   EReference getQualifiedVAReference_VerificationPlan();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.QualifiedVAReference#getClaim <em>Claim</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.QualifiedVAReference#getRequirement <em>Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Claim</em>'.
-   * @see org.osate.assure.assure.QualifiedVAReference#getClaim()
+   * @return the meta object for the containment reference '<em>Requirement</em>'.
+   * @see org.osate.assure.assure.QualifiedVAReference#getRequirement()
    * @see #getQualifiedVAReference()
    * @generated
    */
-  EReference getQualifiedVAReference_Claim();
+  EReference getQualifiedVAReference_Requirement();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.assure.assure.QualifiedVAReference#getVerificationActivity <em>Verification Activity</em>}'.
@@ -1695,6 +1732,38 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EReference getQualifiedVAReference_VerificationActivity();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.NestedClaimReference <em>Nested Claim Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Nested Claim Reference</em>'.
+   * @see org.osate.assure.assure.NestedClaimReference
+   * @generated
+   */
+  EClass getNestedClaimReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.NestedClaimReference#getRequirement <em>Requirement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Requirement</em>'.
+   * @see org.osate.assure.assure.NestedClaimReference#getRequirement()
+   * @see #getNestedClaimReference()
+   * @generated
+   */
+  EReference getNestedClaimReference_Requirement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.NestedClaimReference#getSub <em>Sub</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Sub</em>'.
+   * @see org.osate.assure.assure.NestedClaimReference#getSub()
+   * @see #getNestedClaimReference()
+   * @generated
+   */
+  EReference getNestedClaimReference_Sub();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
@@ -2305,12 +2374,12 @@ public interface AssurePackage extends EPackage
     EReference QUALIFIED_VA_REFERENCE__VERIFICATION_PLAN = eINSTANCE.getQualifiedVAReference_VerificationPlan();
 
     /**
-     * The meta object literal for the '<em><b>Claim</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Requirement</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference QUALIFIED_VA_REFERENCE__CLAIM = eINSTANCE.getQualifiedVAReference_Claim();
+    EReference QUALIFIED_VA_REFERENCE__REQUIREMENT = eINSTANCE.getQualifiedVAReference_Requirement();
 
     /**
      * The meta object literal for the '<em><b>Verification Activity</b></em>' reference feature.
@@ -2319,6 +2388,32 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference QUALIFIED_VA_REFERENCE__VERIFICATION_ACTIVITY = eINSTANCE.getQualifiedVAReference_VerificationActivity();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.NestedClaimReferenceImpl <em>Nested Claim Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.NestedClaimReferenceImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getNestedClaimReference()
+     * @generated
+     */
+    EClass NESTED_CLAIM_REFERENCE = eINSTANCE.getNestedClaimReference();
+
+    /**
+     * The meta object literal for the '<em><b>Requirement</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NESTED_CLAIM_REFERENCE__REQUIREMENT = eINSTANCE.getNestedClaimReference_Requirement();
+
+    /**
+     * The meta object literal for the '<em><b>Sub</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NESTED_CLAIM_REFERENCE__SUB = eINSTANCE.getNestedClaimReference_Sub();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.

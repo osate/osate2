@@ -1250,33 +1250,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cVerificationPlanVerificationPlanCrossReference_0_0 = (CrossReference)cVerificationPlanAssignment_0.eContents().get(0);
 		private final RuleCall cVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cVerificationPlanVerificationPlanCrossReference_0_0.eContents().get(1);
 		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cClaimAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cClaimRequirementCrossReference_2_0 = (CrossReference)cClaimAssignment_2.eContents().get(0);
-		private final RuleCall cClaimRequirementIDTerminalRuleCall_2_0_1 = (RuleCall)cClaimRequirementCrossReference_2_0.eContents().get(1);
-		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cRequirementAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cRequirementNestedClaimReferenceParserRuleCall_2_0 = (RuleCall)cRequirementAssignment_2.eContents().get(0);
+		private final Keyword cNumberSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cVerificationActivityAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final CrossReference cVerificationActivityVerificationActivityCrossReference_4_0 = (CrossReference)cVerificationActivityAssignment_4.eContents().get(0);
 		private final RuleCall cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1 = (RuleCall)cVerificationActivityVerificationActivityCrossReference_4_0.eContents().get(1);
 		
-		////sub=ClaimReference
-		////ClaimReference:
-		////	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
-		////;
-		////
-		////VAReference:
-		////	verificationActivity=[Verify::VerificationActivity|ID]
-		////;
-		////
-		////NestedDotID:
-		////	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
-		////;
 		//QualifiedVAReference:
-		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
-		//	verificationActivity=[Verify::VerificationActivity];
+		//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
+		//	NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity];
 		@Override public ParserRule getRule() { return rule; }
 
-		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
-		//verificationActivity=[Verify::VerificationActivity]
+		//verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
+		//NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity]
 		public Group getGroup() { return cGroup; }
 
 		//verificationPlan=[Verify::VerificationPlan|QualifiedName]
@@ -1291,17 +1278,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"#"
 		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
 
-		//claim=[ReqSpec::Requirement]
-		public Assignment getClaimAssignment_2() { return cClaimAssignment_2; }
+		//requirement= //[ReqSpec::Requirement | ID]
+		//NestedClaimReference
+		public Assignment getRequirementAssignment_2() { return cRequirementAssignment_2; }
 
-		//[ReqSpec::Requirement]
-		public CrossReference getClaimRequirementCrossReference_2_0() { return cClaimRequirementCrossReference_2_0; }
+		////[ReqSpec::Requirement | ID]
+		//NestedClaimReference
+		public RuleCall getRequirementNestedClaimReferenceParserRuleCall_2_0() { return cRequirementNestedClaimReferenceParserRuleCall_2_0; }
 
-		//ID
-		public RuleCall getClaimRequirementIDTerminalRuleCall_2_0_1() { return cClaimRequirementIDTerminalRuleCall_2_0_1; }
-
-		//"."
-		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+		//"#"
+		public Keyword getNumberSignKeyword_3() { return cNumberSignKeyword_3; }
 
 		//verificationActivity=[Verify::VerificationActivity]
 		public Assignment getVerificationActivityAssignment_4() { return cVerificationActivityAssignment_4; }
@@ -1311,6 +1297,46 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1() { return cVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1; }
+	}
+
+	public class NestedClaimReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NestedClaimReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cRequirementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cRequirementRequirementCrossReference_0_0 = (CrossReference)cRequirementAssignment_0.eContents().get(0);
+		private final RuleCall cRequirementRequirementIDTerminalRuleCall_0_0_1 = (RuleCall)cRequirementRequirementCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSubAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cSubNestedClaimReferenceParserRuleCall_1_1_0 = (RuleCall)cSubAssignment_1_1.eContents().get(0);
+		
+		//NestedClaimReference:
+		//	requirement=[ReqSpec::Requirement] ("." sub=NestedClaimReference)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//requirement=[ReqSpec::Requirement] ("." sub=NestedClaimReference)?
+		public Group getGroup() { return cGroup; }
+
+		//requirement=[ReqSpec::Requirement]
+		public Assignment getRequirementAssignment_0() { return cRequirementAssignment_0; }
+
+		//[ReqSpec::Requirement]
+		public CrossReference getRequirementRequirementCrossReference_0_0() { return cRequirementRequirementCrossReference_0_0; }
+
+		//ID
+		public RuleCall getRequirementRequirementIDTerminalRuleCall_0_0_1() { return cRequirementRequirementIDTerminalRuleCall_0_0_1; }
+
+		//("." sub=NestedClaimReference)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+
+		//sub=NestedClaimReference
+		public Assignment getSubAssignment_1_1() { return cSubAssignment_1_1; }
+
+		//NestedClaimReference
+		public RuleCall getSubNestedClaimReferenceParserRuleCall_1_1_0() { return cSubNestedClaimReferenceParserRuleCall_1_1_0; }
 	}
 	
 	
@@ -1486,6 +1512,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
 	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
 	private final QualifiedVAReferenceElements pQualifiedVAReference;
+	private final NestedClaimReferenceElements pNestedClaimReference;
 	
 	private final Grammar grammar;
 
@@ -1512,6 +1539,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
 		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
 		this.pQualifiedVAReference = new QualifiedVAReferenceElements();
+		this.pNestedClaimReference = new NestedClaimReferenceElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1718,27 +1746,25 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExecutionStateAccess().getRule();
 	}
 
-	////sub=ClaimReference
-	////ClaimReference:
-	////	claim=[ReqSpec::Requirement|ID] '.' sub=VAReference
-	////;
-	////
-	////VAReference:
-	////	verificationActivity=[Verify::VerificationActivity|ID]
-	////;
-	////
-	////NestedDotID:
-	////	base=[aadl2::NamedElement | ID] ('.' sub=NestedDotID)?
-	////;
 	//QualifiedVAReference:
-	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" claim=[ReqSpec::Requirement] "."
-	//	verificationActivity=[Verify::VerificationActivity];
+	//	verificationPlan=[Verify::VerificationPlan|QualifiedName] "#" requirement= //[ReqSpec::Requirement | ID]
+	//	NestedClaimReference "#" verificationActivity=[Verify::VerificationActivity];
 	public QualifiedVAReferenceElements getQualifiedVAReferenceAccess() {
 		return pQualifiedVAReference;
 	}
 	
 	public ParserRule getQualifiedVAReferenceRule() {
 		return getQualifiedVAReferenceAccess().getRule();
+	}
+
+	//NestedClaimReference:
+	//	requirement=[ReqSpec::Requirement] ("." sub=NestedClaimReference)?;
+	public NestedClaimReferenceElements getNestedClaimReferenceAccess() {
+		return pNestedClaimReference;
+	}
+	
+	public ParserRule getNestedClaimReferenceRule() {
+		return getNestedClaimReferenceAccess().getRule();
 	}
 
 	//Description:

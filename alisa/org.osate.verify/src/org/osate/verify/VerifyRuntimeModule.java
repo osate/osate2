@@ -36,10 +36,10 @@ public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeM
 		return org.osate.verify.linking.VerifyLinkingService.class;
 	}
 
-//	@Override
-//	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-//		return org.osate.verify.naming.VerifyQualifiedNameProvider.class;
-//	}
+	@Override
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return org.osate.verify.naming.VerifyQualifiedNameProvider.class;
+	}
 
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {

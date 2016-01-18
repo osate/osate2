@@ -135,6 +135,15 @@ public interface AssureFactory extends EFactory
   QualifiedVAReference createQualifiedVAReference();
 
   /**
+   * Returns a new object of class '<em>Nested Claim Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Nested Claim Reference</em>'.
+   * @generated
+   */
+  NestedClaimReference createNestedClaimReference();
+
+  /**
    * Returns a new object of class '<em>Precondition Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

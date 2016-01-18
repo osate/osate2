@@ -143,6 +143,11 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createQualifiedVAReferenceAdapter();
       }
       @Override
+      public Adapter caseNestedClaimReference(NestedClaimReference object)
+      {
+        return createNestedClaimReferenceAdapter();
+      }
+      @Override
       public Adapter casePreconditionResult(PreconditionResult object)
       {
         return createPreconditionResultAdapter();
@@ -340,6 +345,21 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createQualifiedVAReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.NestedClaimReference <em>Nested Claim Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.NestedClaimReference
+   * @generated
+   */
+  public Adapter createNestedClaimReferenceAdapter()
   {
     return null;
   }
