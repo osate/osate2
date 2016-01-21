@@ -147,50 +147,11 @@ public class InstanceValidator extends EObjectValidator {
 	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		switch (classifierID) {
-		case InstancePackage.FEATURE_INSTANCE:
-			return validateFeatureInstance((FeatureInstance) value, diagnostics, context);
-		case InstancePackage.INSTANCE_OBJECT:
-			return validateInstanceObject((InstanceObject) value, diagnostics, context);
-		case InstancePackage.ANNEX_INSTANCE:
-			return validateAnnexInstance((AnnexInstance) value, diagnostics, context);
-		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE:
-			return validatePropertyAssociationInstance((PropertyAssociationInstance) value, diagnostics, context);
-		case InstancePackage.CONNECTION_INSTANCE_END:
-			return validateConnectionInstanceEnd((ConnectionInstanceEnd) value, diagnostics, context);
-		case InstancePackage.CONNECTION_INSTANCE:
-			return validateConnectionInstance((ConnectionInstance) value, diagnostics, context);
-		case InstancePackage.FLOW_ELEMENT_INSTANCE:
-			return validateFlowElementInstance((FlowElementInstance) value, diagnostics, context);
-		case InstancePackage.SYSTEM_OPERATION_MODE:
-			return validateSystemOperationMode((SystemOperationMode) value, diagnostics, context);
-		case InstancePackage.MODE_INSTANCE:
-			return validateModeInstance((ModeInstance) value, diagnostics, context);
-		case InstancePackage.MODE_TRANSITION_INSTANCE:
-			return validateModeTransitionInstance((ModeTransitionInstance) value, diagnostics, context);
-		case InstancePackage.CONNECTION_REFERENCE:
-			return validateConnectionReference((ConnectionReference) value, diagnostics, context);
-		case InstancePackage.COMPONENT_INSTANCE:
-			return validateComponentInstance((ComponentInstance) value, diagnostics, context);
-		case InstancePackage.FLOW_SPECIFICATION_INSTANCE:
-			return validateFlowSpecificationInstance((FlowSpecificationInstance) value, diagnostics, context);
-		case InstancePackage.END_TO_END_FLOW_INSTANCE:
-			return validateEndToEndFlowInstance((EndToEndFlowInstance) value, diagnostics, context);
-		case InstancePackage.SYSTEM_INSTANCE:
-			return validateSystemInstance((SystemInstance) value, diagnostics, context);
-		case InstancePackage.INSTANCE_REFERENCE_VALUE:
-			return validateInstanceReferenceValue((InstanceReferenceValue) value, diagnostics, context);
-		case InstancePackage.CONNECTION_KIND:
-			return validateConnectionKind((ConnectionKind) value, diagnostics, context);
-		case InstancePackage.FEATURE_CATEGORY:
-			return validateFeatureCategory((FeatureCategory) value, diagnostics, context);
-		default:
-			return true;
-		}
+		return true;
 	}
 
 	/**
