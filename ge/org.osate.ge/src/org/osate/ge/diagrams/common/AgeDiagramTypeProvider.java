@@ -17,6 +17,8 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.osate.ge.ext.services.BusinessObjectService;
+import org.osate.ge.ext.services.impl.DefaultBusinessObjectService;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -127,7 +129,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
-		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
+		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);		
 				
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
@@ -159,7 +161,11 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ConnectionCreationService.class, connectionCreationService);
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(ColoringService.class, highlightingHelper);
-		context.set(LabelService.class, labelService);
+		context.set(LabelService.class, labelService);		
+		
+		// Create Public/Extension Services
+		final DefaultBusinessObjectService boService = new DefaultBusinessObjectService(bor, fp);
+		context.set(BusinessObjectService.class, boService);
 		
 		return context;
 	}

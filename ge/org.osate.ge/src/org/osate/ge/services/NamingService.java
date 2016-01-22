@@ -11,6 +11,7 @@ package org.osate.ge.services;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 
+// TODO: Needs review
 public interface NamingService {
 	/**
 	 * Builds an identifier using the specified base that doesn't conflict with identifiers in the specified namespace

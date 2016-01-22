@@ -13,4 +13,5 @@ public interface Names {
 	public static final String PALETTE_ENTRY_CONTEXT = "palette_entry_ctx";
 	public static final String SOURCE_PICTOGRAM_ELEMENT = "src_pe";
 	public static final String TARGET_PICTOGRAM_ELEMENT = "dst_pe";
+	public static final String OWNER_BO = "owner_bo";
 }

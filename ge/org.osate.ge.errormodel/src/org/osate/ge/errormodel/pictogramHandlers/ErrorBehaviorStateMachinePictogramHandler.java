@@ -17,15 +17,15 @@ import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetCreateOwningBusinessObject;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
 import org.osate.ge.ext.services.BusinessObjectService;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeLibraryPictogramHandler {
+public class ErrorBehaviorStateMachinePictogramHandler {
 	@GetPaletteEntries
 	public ExtensionPaletteEntry[] getPaletteEntries() {
 		return new ExtensionPaletteEntry[] { 
-			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Type Library", null, null)
+			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Behavior State Machine", null, null)
 		};
 	}
 	
@@ -44,13 +44,13 @@ public class ErrorTypeLibraryPictogramHandler {
 		final ErrorModelLibrary errorModelLibrary = ErrorModelBusinessObjectHelper.getOrCreateErrorModelLibrary(ownerBo);
 		
 		// Create the ErrorType
-		final ErrorType newErrorType = (ErrorType)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
-		final String newErrorTypeName = ErrorModelNamingHelper.buildUniqueIdentifier(errorModelLibrary, "NewErrorType");
-		newErrorType.setName(newErrorTypeName);
+		final ErrorBehaviorStateMachine newBehavior = (ErrorBehaviorStateMachine)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine());
+		final String newErrorTypeName = ErrorModelNamingHelper.buildUniqueIdentifier(errorModelLibrary, "NewErrorBehaviorStateMachine");
+		newBehavior.setName(newErrorTypeName);
 		
 		// Add the new type to the error model library
-		errorModelLibrary.getTypes().add(newErrorType);
+		errorModelLibrary.getBehaviors().add(newBehavior);
 		
-		return newErrorType;
+		return newBehavior;
 	}
 }

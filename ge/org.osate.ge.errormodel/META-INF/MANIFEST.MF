@@ -6,4 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.osate.ge,
  org.eclipse.core.runtime,
- org.eclipse.graphiti.mm
+ org.eclipse.graphiti.mm,
+ org.osate.aadl2,
+ org.osate.xtext.aadl2.errormodel

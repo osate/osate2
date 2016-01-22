@@ -118,9 +118,11 @@ import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
+import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ExtensionService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
@@ -170,7 +172,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 		
 		// Add features based on the pictogram handlers
+		final BusinessObjectResolutionService bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		final ExtensionService extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
+		final AadlModificationService aadlModService = Objects.requireNonNull(context.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		final DiagramModificationService diagramModService = Objects.requireNonNull(context.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
 		// TODO: Should this be done on the fly or...
 		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
 			// Create features based on palette entries
@@ -182,12 +187,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, context, null);
 			for(final ExtensionPaletteEntry entry : extPaletteEntries) {
 				switch(entry.getType()) {
-				case CREATE_SHAPE:
-					extCreateFeatures.add(new PictogramHandlerCreateFeature(extService, this, entry, pictogramHandler));
+				case CREATE:
+					extCreateFeatures.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, diagramModService, this, entry, pictogramHandler));
 					break;
 					
 				case CREATE_CONNECTION:
-					extCreateConnectionFeatures.add(new PictogramHandlerCreateConnectionFeature(extService, this, entry, pictogramHandler));
+					extCreateConnectionFeatures.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
 					break;
 				}
 			}

@@ -12,6 +12,12 @@
       <handler
             class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeLibraryPictogramHandler">
       </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.TestConnectionHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorStateMachinePictogramHandler">
+      </handler>
    </extension>
    <extension
          point="org.osate.ge.categories">

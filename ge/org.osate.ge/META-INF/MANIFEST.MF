@@ -40,5 +40,6 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultDiagramService.xml,
  components/DefaultSavedAadlPackageService.xml
 Export-Package: org.osate.ge.ext,
- org.osate.ge.ext.annotations
+ org.osate.ge.ext.annotations,
+ org.osate.ge.ext.services
 

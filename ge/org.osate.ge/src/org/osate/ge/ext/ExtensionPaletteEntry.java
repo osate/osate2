@@ -2,7 +2,7 @@ package org.osate.ge.ext;
 
 public interface ExtensionPaletteEntry extends Categorized {
 	enum Type {
-		CREATE_SHAPE,
+		CREATE,
 		CREATE_CONNECTION
 	}
 	
