@@ -205,90 +205,80 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SubsystemResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cSubsystemKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTargetSystemAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetSystemSubcomponentCrossReference_3_0 = (CrossReference)cTargetSystemAssignment_3.eContents().get(0);
-		private final RuleCall cTargetSystemSubcomponentIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetSystemSubcomponentCrossReference_3_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cMetricsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cMetricsMetricsParserRuleCall_5_0 = (RuleCall)cMetricsAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cMessageKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cMessageAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cMessageAssignment_6_1.eContents().get(0);
-		private final Assignment cClaimResultAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cClaimResultClaimResultParserRuleCall_7_0 = (RuleCall)cClaimResultAssignment_7.eContents().get(0);
-		private final Assignment cSubsystemResultAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0 = (RuleCall)cSubsystemResultAssignment_8.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Assignment cTargetSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cTargetSystemSubcomponentCrossReference_1_0 = (CrossReference)cTargetSystemAssignment_1.eContents().get(0);
+		private final RuleCall cTargetSystemSubcomponentIDTerminalRuleCall_1_0_1 = (RuleCall)cTargetSystemSubcomponentCrossReference_1_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cMetricsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cMetricsMetricsParserRuleCall_3_0 = (RuleCall)cMetricsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cMessageKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cMessageAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cMessageAssignment_4_1.eContents().get(0);
+		private final Assignment cClaimResultAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cClaimResultClaimResultParserRuleCall_5_0 = (RuleCall)cClaimResultAssignment_5.eContents().get(0);
+		private final Assignment cSubsystemResultAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_6_0 = (RuleCall)cSubsystemResultAssignment_6.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//SubsystemResult:
-		//	"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message"
-		//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
+		//SubsystemResult: //name=QualifiedName 'for' 
+		//	"subsystem" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message" message=STRING)?
+		//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message" message=STRING)?
-		//claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]"
+		////name=QualifiedName 'for' 
+		//"subsystem" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult*
+		//subsystemResult+=SubsystemResult* "]"
 		public Group getGroup() { return cGroup; }
 
+		////name=QualifiedName 'for' 
 		//"subsystem"
 		public Keyword getSubsystemKeyword_0() { return cSubsystemKeyword_0; }
 
-		//name=QualifiedName
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
-
-		//"for"
-		public Keyword getForKeyword_2() { return cForKeyword_2; }
-
 		//targetSystem=[aadl2::Subcomponent]
-		public Assignment getTargetSystemAssignment_3() { return cTargetSystemAssignment_3; }
+		public Assignment getTargetSystemAssignment_1() { return cTargetSystemAssignment_1; }
 
 		//[aadl2::Subcomponent]
-		public CrossReference getTargetSystemSubcomponentCrossReference_3_0() { return cTargetSystemSubcomponentCrossReference_3_0; }
+		public CrossReference getTargetSystemSubcomponentCrossReference_1_0() { return cTargetSystemSubcomponentCrossReference_1_0; }
 
 		//ID
-		public RuleCall getTargetSystemSubcomponentIDTerminalRuleCall_3_0_1() { return cTargetSystemSubcomponentIDTerminalRuleCall_3_0_1; }
+		public RuleCall getTargetSystemSubcomponentIDTerminalRuleCall_1_0_1() { return cTargetSystemSubcomponentIDTerminalRuleCall_1_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//metrics=Metrics
-		public Assignment getMetricsAssignment_5() { return cMetricsAssignment_5; }
+		public Assignment getMetricsAssignment_3() { return cMetricsAssignment_3; }
 
 		//Metrics
-		public RuleCall getMetricsMetricsParserRuleCall_5_0() { return cMetricsMetricsParserRuleCall_5_0; }
+		public RuleCall getMetricsMetricsParserRuleCall_3_0() { return cMetricsMetricsParserRuleCall_3_0; }
 
 		//("message" message=STRING)?
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"message"
-		public Keyword getMessageKeyword_6_0() { return cMessageKeyword_6_0; }
+		public Keyword getMessageKeyword_4_0() { return cMessageKeyword_4_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_6_1() { return cMessageAssignment_6_1; }
+		public Assignment getMessageAssignment_4_1() { return cMessageAssignment_4_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_6_1_0() { return cMessageSTRINGTerminalRuleCall_6_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_4_1_0() { return cMessageSTRINGTerminalRuleCall_4_1_0; }
 
 		//claimResult+=ClaimResult*
-		public Assignment getClaimResultAssignment_7() { return cClaimResultAssignment_7; }
+		public Assignment getClaimResultAssignment_5() { return cClaimResultAssignment_5; }
 
 		//ClaimResult
-		public RuleCall getClaimResultClaimResultParserRuleCall_7_0() { return cClaimResultClaimResultParserRuleCall_7_0; }
+		public RuleCall getClaimResultClaimResultParserRuleCall_5_0() { return cClaimResultClaimResultParserRuleCall_5_0; }
 
 		//subsystemResult+=SubsystemResult*
-		public Assignment getSubsystemResultAssignment_8() { return cSubsystemResultAssignment_8; }
+		public Assignment getSubsystemResultAssignment_6() { return cSubsystemResultAssignment_6; }
 
 		//SubsystemResult
-		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0; }
+		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_6_0() { return cSubsystemResultSubsystemResultParserRuleCall_6_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
 	}
 
 	public class ClaimResultElements extends AbstractParserRuleElementFinder {
@@ -1651,9 +1641,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelResultAccess().getRule();
 	}
 
-	//SubsystemResult:
-	//	"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message"
-	//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
+	//SubsystemResult: //name=QualifiedName 'for' 
+	//	"subsystem" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message" message=STRING)?
+	//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
 	public SubsystemResultElements getSubsystemResultAccess() {
 		return pSubsystemResult;
 	}

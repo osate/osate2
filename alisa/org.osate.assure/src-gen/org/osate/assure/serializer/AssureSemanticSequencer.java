@@ -334,14 +334,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         targetSystem=[Subcomponent|ID] 
-	 *         metrics=Metrics 
-	 *         message=STRING? 
-	 *         claimResult+=ClaimResult* 
-	 *         subsystemResult+=SubsystemResult*
-	 *     )
+	 *     (targetSystem=[Subcomponent|ID] metrics=Metrics message=STRING? claimResult+=ClaimResult* subsystemResult+=SubsystemResult*)
 	 */
 	protected void sequence_SubsystemResult(EObject context, SubsystemResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

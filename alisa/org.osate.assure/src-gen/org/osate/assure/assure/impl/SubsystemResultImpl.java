@@ -45,7 +45,6 @@ import org.osate.assure.assure.SubsystemResult;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getTargetSystem <em>Target System</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getClaimResult <em>Claim Result</em>}</li>
@@ -56,26 +55,6 @@ import org.osate.assure.assure.SubsystemResult;
  */
 public class SubsystemResultImpl extends AssureResultImpl implements SubsystemResult
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' reference.
    * <!-- begin-user-doc -->
@@ -145,29 +124,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   protected EClass eStaticClass()
   {
     return AssurePackage.Literals.SUBSYSTEM_RESULT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.SUBSYSTEM_RESULT__NAME, oldName, name));
   }
 
   /**
@@ -292,8 +248,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   {
     switch (featureID)
     {
-      case AssurePackage.SUBSYSTEM_RESULT__NAME:
-        return getName();
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
         if (resolve) return getTargetSystem();
         return basicGetTargetSystem();
@@ -318,9 +272,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   {
     switch (featureID)
     {
-      case AssurePackage.SUBSYSTEM_RESULT__NAME:
-        setName((String)newValue);
-        return;
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
         setTargetSystem((Subcomponent)newValue);
         return;
@@ -349,9 +300,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   {
     switch (featureID)
     {
-      case AssurePackage.SUBSYSTEM_RESULT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
         setTargetSystem((Subcomponent)null);
         return;
@@ -378,8 +326,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   {
     switch (featureID)
     {
-      case AssurePackage.SUBSYSTEM_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
         return targetSystem != null;
       case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
@@ -403,9 +349,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", message: ");
+    result.append(" (message: ");
     result.append(message);
     result.append(')');
     return result.toString();

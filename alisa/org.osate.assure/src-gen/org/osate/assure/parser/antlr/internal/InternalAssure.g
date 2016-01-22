@@ -366,70 +366,48 @@ ruleSubsystemResult returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getNameQualifiedNameParserRuleCall_1_0()); 
-	    }
-		lv_name_1_0=ruleQualifiedName		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getSubsystemResultRule());
-	        }
-       		set(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"QualifiedName");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)	otherlv_2='for' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getSubsystemResultAccess().getForKeyword_2());
-    }
-(
-(
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getSubsystemResultRule());
 	        }
         }
-	otherlv_3=RULE_ID
+	otherlv_1=RULE_ID
 	{
-		newLeafNode(otherlv_3, grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_3_0()); 
+		newLeafNode(otherlv_1, grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_1_0()); 
 	}
 
 )
-)	otherlv_4='[' 
+)	otherlv_2='[' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getSubsystemResultAccess().getLeftSquareBracketKeyword_4());
+    	newLeafNode(otherlv_2, grammarAccess.getSubsystemResultAccess().getLeftSquareBracketKeyword_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getMetricsMetricsParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getMetricsMetricsParserRuleCall_3_0()); 
 	    }
-		lv_metrics_5_0=ruleMetrics		{
+		lv_metrics_3_0=ruleMetrics		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubsystemResultRule());
 	        }
        		set(
        			$current, 
        			"metrics",
-        		lv_metrics_5_0, 
+        		lv_metrics_3_0, 
         		"Metrics");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_6='message' 
+)(	otherlv_4='message' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getSubsystemResultAccess().getMessageKeyword_6_0());
+    	newLeafNode(otherlv_4, grammarAccess.getSubsystemResultAccess().getMessageKeyword_4_0());
     }
 (
 (
-		lv_message_7_0=RULE_STRING
+		lv_message_5_0=RULE_STRING
 		{
-			newLeafNode(lv_message_7_0, grammarAccess.getSubsystemResultAccess().getMessageSTRINGTerminalRuleCall_6_1_0()); 
+			newLeafNode(lv_message_5_0, grammarAccess.getSubsystemResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -438,7 +416,7 @@ ruleSubsystemResult returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"message",
-        		lv_message_7_0, 
+        		lv_message_5_0, 
         		"STRING");
 	    }
 
@@ -446,16 +424,16 @@ ruleSubsystemResult returns [EObject current=null]
 ))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getClaimResultClaimResultParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getClaimResultClaimResultParserRuleCall_5_0()); 
 	    }
-		lv_claimResult_8_0=ruleClaimResult		{
+		lv_claimResult_6_0=ruleClaimResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubsystemResultRule());
 	        }
        		add(
        			$current, 
        			"claimResult",
-        		lv_claimResult_8_0, 
+        		lv_claimResult_6_0, 
         		"ClaimResult");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -464,24 +442,24 @@ ruleSubsystemResult returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getSubsystemResultAccess().getSubsystemResultSubsystemResultParserRuleCall_6_0()); 
 	    }
-		lv_subsystemResult_9_0=ruleSubsystemResult		{
+		lv_subsystemResult_7_0=ruleSubsystemResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubsystemResultRule());
 	        }
        		add(
        			$current, 
        			"subsystemResult",
-        		lv_subsystemResult_9_0, 
+        		lv_subsystemResult_7_0, 
         		"SubsystemResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_10=']' 
+)*	otherlv_8=']' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getSubsystemResultAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_8, grammarAccess.getSubsystemResultAccess().getRightSquareBracketKeyword_7());
     }
 )
 ;

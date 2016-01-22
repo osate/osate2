@@ -399,19 +399,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSubsystemResult_Name()
-  {
-    return (EAttribute)subsystemResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getSubsystemResult_TargetSystem()
   {
-    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(1);
+    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -421,7 +411,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getSubsystemResult_Message()
   {
-    return (EAttribute)subsystemResultEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)subsystemResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -431,7 +421,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getSubsystemResult_ClaimResult()
   {
-    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -441,7 +431,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getSubsystemResult_SubsystemResult()
   {
-    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(4);
+    return (EReference)subsystemResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1058,7 +1048,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(modelResultEClass, MODEL_RESULT__SUB_ASSURANCE_CASE);
 
     subsystemResultEClass = createEClass(SUBSYSTEM_RESULT);
-    createEAttribute(subsystemResultEClass, SUBSYSTEM_RESULT__NAME);
     createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__TARGET_SYSTEM);
     createEAttribute(subsystemResultEClass, SUBSYSTEM_RESULT__MESSAGE);
     createEReference(subsystemResultEClass, SUBSYSTEM_RESULT__CLAIM_RESULT);
@@ -1206,7 +1195,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getModelResult_SubAssuranceCase(), this.getAssuranceCaseResult(), null, "subAssuranceCase", null, 0, -1, ModelResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(subsystemResultEClass, SubsystemResult.class, "SubsystemResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getSubsystemResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSubsystemResult_TargetSystem(), theAadl2Package.getSubcomponent(), null, "targetSystem", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSubsystemResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSubsystemResult_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, SubsystemResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

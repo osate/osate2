@@ -78,7 +78,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModelResultAccess().getGroup(), "rule__ModelResult__Group__0");
 					put(grammarAccess.getModelResultAccess().getGroup_6(), "rule__ModelResult__Group_6__0");
 					put(grammarAccess.getSubsystemResultAccess().getGroup(), "rule__SubsystemResult__Group__0");
-					put(grammarAccess.getSubsystemResultAccess().getGroup_6(), "rule__SubsystemResult__Group_6__0");
+					put(grammarAccess.getSubsystemResultAccess().getGroup_4(), "rule__SubsystemResult__Group_4__0");
 					put(grammarAccess.getClaimResultAccess().getGroup(), "rule__ClaimResult__Group__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_4(), "rule__ClaimResult__Group_4__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_5(), "rule__ClaimResult__Group_5__0");
@@ -209,12 +209,11 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModelResultAccess().getClaimResultAssignment_7(), "rule__ModelResult__ClaimResultAssignment_7");
 					put(grammarAccess.getModelResultAccess().getSubsystemResultAssignment_8(), "rule__ModelResult__SubsystemResultAssignment_8");
 					put(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssignment_9(), "rule__ModelResult__SubAssuranceCaseAssignment_9");
-					put(grammarAccess.getSubsystemResultAccess().getNameAssignment_1(), "rule__SubsystemResult__NameAssignment_1");
-					put(grammarAccess.getSubsystemResultAccess().getTargetSystemAssignment_3(), "rule__SubsystemResult__TargetSystemAssignment_3");
-					put(grammarAccess.getSubsystemResultAccess().getMetricsAssignment_5(), "rule__SubsystemResult__MetricsAssignment_5");
-					put(grammarAccess.getSubsystemResultAccess().getMessageAssignment_6_1(), "rule__SubsystemResult__MessageAssignment_6_1");
-					put(grammarAccess.getSubsystemResultAccess().getClaimResultAssignment_7(), "rule__SubsystemResult__ClaimResultAssignment_7");
-					put(grammarAccess.getSubsystemResultAccess().getSubsystemResultAssignment_8(), "rule__SubsystemResult__SubsystemResultAssignment_8");
+					put(grammarAccess.getSubsystemResultAccess().getTargetSystemAssignment_1(), "rule__SubsystemResult__TargetSystemAssignment_1");
+					put(grammarAccess.getSubsystemResultAccess().getMetricsAssignment_3(), "rule__SubsystemResult__MetricsAssignment_3");
+					put(grammarAccess.getSubsystemResultAccess().getMessageAssignment_4_1(), "rule__SubsystemResult__MessageAssignment_4_1");
+					put(grammarAccess.getSubsystemResultAccess().getClaimResultAssignment_5(), "rule__SubsystemResult__ClaimResultAssignment_5");
+					put(grammarAccess.getSubsystemResultAccess().getSubsystemResultAssignment_6(), "rule__SubsystemResult__SubsystemResultAssignment_6");
 					put(grammarAccess.getClaimResultAccess().getTargetReferenceAssignment_1(), "rule__ClaimResult__TargetReferenceAssignment_1");
 					put(grammarAccess.getClaimResultAccess().getMetricsAssignment_3(), "rule__ClaimResult__MetricsAssignment_3");
 					put(grammarAccess.getClaimResultAccess().getModelElementAssignment_4_1(), "rule__ClaimResult__ModelElementAssignment_4_1");

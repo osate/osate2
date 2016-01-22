@@ -255,22 +255,13 @@ public interface AssurePackage extends EPackage
   int SUBSYSTEM_RESULT__METRICS = ASSURE_RESULT__METRICS;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUBSYSTEM_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Target System</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUBSYSTEM_RESULT__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int SUBSYSTEM_RESULT__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -279,7 +270,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBSYSTEM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int SUBSYSTEM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
@@ -288,7 +279,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBSYSTEM_RESULT__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int SUBSYSTEM_RESULT__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Subsystem Result</b></em>' containment reference list.
@@ -297,7 +288,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBSYSTEM_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int SUBSYSTEM_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Subsystem Result</em>' class.
@@ -306,7 +297,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUBSYSTEM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int SUBSYSTEM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -1310,17 +1301,6 @@ public interface AssurePackage extends EPackage
   EClass getSubsystemResult();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.SubsystemResult#getName()
-   * @see #getSubsystemResult()
-   * @generated
-   */
-  EAttribute getSubsystemResult_Name();
-
-  /**
    * Returns the meta object for the reference '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2098,14 +2078,6 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EClass SUBSYSTEM_RESULT = eINSTANCE.getSubsystemResult();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SUBSYSTEM_RESULT__NAME = eINSTANCE.getSubsystemResult_Name();
 
     /**
      * The meta object literal for the '<em><b>Target System</b></em>' reference feature.
