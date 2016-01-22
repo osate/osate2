@@ -16,7 +16,7 @@ AssuranceCaseResult:
 	'['
 	metrics=Metrics
 	('message' message= STRING)?
-	modelResult += ModelResult+
+	modelResult += ModelResult*
 	']'  
 ;
 

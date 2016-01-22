@@ -213,7 +213,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAssuranceCaseResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:89:1: ruleAssuranceCaseResult returns [EObject current=null] : (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )+ otherlv_7= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:89:1: ruleAssuranceCaseResult returns [EObject current=null] : (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )* otherlv_7= ']' ) ;
     public final EObject ruleAssuranceCaseResult() throws RecognitionException {
         EObject current = null;
 
@@ -232,11 +232,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:92:28: ( (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )+ otherlv_7= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:1: (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )+ otherlv_7= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:92:28: ( (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )* otherlv_7= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:1: (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )* otherlv_7= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:1: (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )+ otherlv_7= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:3: otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )+ otherlv_7= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:1: (otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )* otherlv_7= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:93:3: otherlv_0= 'case' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= '[' ( (lv_metrics_3_0= ruleMetrics ) ) (otherlv_4= 'message' ( (lv_message_5_0= RULE_STRING ) ) )? ( (lv_modelResult_6_0= ruleModelResult ) )* otherlv_7= ']'
             {
             otherlv_0=(Token)match(input,17,FOLLOW_17_in_ruleAssuranceCaseResult122); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -373,8 +373,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:159:4: ( (lv_modelResult_6_0= ruleModelResult ) )+
-            int cnt2=0;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:159:4: ( (lv_modelResult_6_0= ruleModelResult ) )*
             loop2:
             do {
                 int alt2=2;
@@ -423,13 +422,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt2 >= 1 ) break loop2;
-            	    if (state.backtracking>0) {state.failed=true; return current;}
-                        EarlyExitException eee =
-                            new EarlyExitException(2, input);
-                        throw eee;
+            	    break loop2;
                 }
-                cnt2++;
             } while (true);
 
             otherlv_7=(Token)match(input,20,FOLLOW_20_in_ruleAssuranceCaseResult247); if (state.failed) return current;
@@ -13446,7 +13440,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     static final String DFA65_acceptS =
         "\1\uffff\1\2\2\uffff\12\1";
     static final String DFA65_specialS =
-        "\1\2\1\uffff\1\1\1\0\12\uffff}>";
+        "\1\1\1\uffff\1\0\1\2\12\uffff}>";
     static final String[] DFA65_transitionS = {
             "\1\1\46\uffff\5\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
             "\6\uffff\2\1\1\uffff\1\1",
@@ -13504,40 +13498,23 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA65_3 = input.LA(1);
-
-                         
-                        int index65_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA65_3>=RULE_STRING && LA65_3<=RULE_REAL_LIT)||LA65_3==50||LA65_3==55||(LA65_3>=73 && LA65_3<=74)||(LA65_3>=77 && LA65_3<=78)||LA65_3==81||(LA65_3>=83 && LA65_3<=85)) ) {s = 1;}
-
-                        else if ( (LA65_3==69) && (synpred5_InternalAssure())) {s = 12;}
-
-                        else if ( (LA65_3==66) && (synpred5_InternalAssure())) {s = 13;}
-
-                         
-                        input.seek(index65_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA65_2 = input.LA(1);
 
                          
                         int index65_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA65_2>=RULE_STRING && LA65_2<=RULE_REAL_LIT)||LA65_2==50||LA65_2==55||LA65_2==65||(LA65_2>=73 && LA65_2<=74)||(LA65_2>=77 && LA65_2<=78)||LA65_2==81||(LA65_2>=83 && LA65_2<=85)) ) {s = 1;}
-
-                        else if ( (LA65_2==64) && (synpred5_InternalAssure())) {s = 10;}
+                        if ( (LA65_2==64) && (synpred5_InternalAssure())) {s = 10;}
 
                         else if ( (LA65_2==70) && (synpred5_InternalAssure())) {s = 11;}
+
+                        else if ( ((LA65_2>=RULE_STRING && LA65_2<=RULE_REAL_LIT)||LA65_2==50||LA65_2==55||LA65_2==65||(LA65_2>=73 && LA65_2<=74)||(LA65_2>=77 && LA65_2<=78)||LA65_2==81||(LA65_2>=83 && LA65_2<=85)) ) {s = 1;}
 
                          
                         input.seek(index65_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
+                    case 1 : 
                         int LA65_0 = input.LA(1);
 
                          
@@ -13566,6 +13543,23 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         input.seek(index65_0);
                         if ( s>=0 ) return s;
                         break;
+                    case 2 : 
+                        int LA65_3 = input.LA(1);
+
+                         
+                        int index65_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA65_3>=RULE_STRING && LA65_3<=RULE_REAL_LIT)||LA65_3==50||LA65_3==55||(LA65_3>=73 && LA65_3<=74)||(LA65_3>=77 && LA65_3<=78)||LA65_3==81||(LA65_3>=83 && LA65_3<=85)) ) {s = 1;}
+
+                        else if ( (LA65_3==69) && (synpred5_InternalAssure())) {s = 12;}
+
+                        else if ( (LA65_3==66) && (synpred5_InternalAssure())) {s = 13;}
+
+                         
+                        input.seek(index65_3);
+                        if ( s>=0 ) return s;
+                        break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
@@ -13583,14 +13577,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     static final String DFA68_maxS =
         "\1\110\2\uffff\1\105\7\uffff";
     static final String DFA68_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\3\1\6";
+        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\6\1\3";
     static final String DFA68_specialS =
         "\13\uffff}>";
     static final String[] DFA68_transitionS = {
             "\1\6\1\uffff\1\3\1\1\1\2\1\4\1\5\1\7\1\10",
             "",
             "",
-            "\1\12\2\uffff\1\11",
+            "\1\11\2\uffff\1\12",
             "",
             "",
             "",
@@ -13639,11 +13633,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleAssuranceCaseResult85 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_17_in_ruleAssuranceCaseResult122 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAssuranceCaseResult143 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleAssuranceCaseResult155 = new BitSet(new long[]{0x0003FF8000280000L});
-    public static final BitSet FOLLOW_ruleMetrics_in_ruleAssuranceCaseResult176 = new BitSet(new long[]{0x0003FF8000280000L});
+    public static final BitSet FOLLOW_18_in_ruleAssuranceCaseResult155 = new BitSet(new long[]{0x0003FF8000380000L});
+    public static final BitSet FOLLOW_ruleMetrics_in_ruleAssuranceCaseResult176 = new BitSet(new long[]{0x0000000000380000L});
     public static final BitSet FOLLOW_19_in_ruleAssuranceCaseResult189 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleAssuranceCaseResult206 = new BitSet(new long[]{0x0003FF8000280000L});
-    public static final BitSet FOLLOW_ruleModelResult_in_ruleAssuranceCaseResult234 = new BitSet(new long[]{0x0003FF8000380000L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleAssuranceCaseResult206 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_ruleModelResult_in_ruleAssuranceCaseResult234 = new BitSet(new long[]{0x0000000000300000L});
     public static final BitSet FOLLOW_20_in_ruleAssuranceCaseResult247 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleModelResult_in_entryRuleModelResult283 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleModelResult293 = new BitSet(new long[]{0x0000000000000002L});

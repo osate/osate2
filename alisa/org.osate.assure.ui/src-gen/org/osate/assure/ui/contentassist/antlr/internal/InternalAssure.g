@@ -2599,16 +2599,9 @@ rule__AssuranceCaseResult__Group__5__Impl
     }
 :
 (
-(
-{ before(grammarAccess.getAssuranceCaseResultAccess().getModelResultAssignment_5()); }
-(rule__AssuranceCaseResult__ModelResultAssignment_5)
-{ after(grammarAccess.getAssuranceCaseResultAccess().getModelResultAssignment_5()); }
-)
-(
 { before(grammarAccess.getAssuranceCaseResultAccess().getModelResultAssignment_5()); }
 (rule__AssuranceCaseResult__ModelResultAssignment_5)*
 { after(grammarAccess.getAssuranceCaseResultAccess().getModelResultAssignment_5()); }
-)
 )
 
 ;

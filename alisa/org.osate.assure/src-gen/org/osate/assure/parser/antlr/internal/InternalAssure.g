@@ -174,7 +174,7 @@ ruleAssuranceCaseResult returns [EObject current=null]
 	    }
 
 )
-)+	otherlv_7=']' 
+)*	otherlv_7=']' 
     {
     	newLeafNode(otherlv_7, grammarAccess.getAssuranceCaseResultAccess().getRightSquareBracketKeyword_6());
     }

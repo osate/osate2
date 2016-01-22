@@ -49,10 +49,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// result for a system in the architecture hierarchy
 		//AssuranceCaseResult:
-		//	"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult+ "]";
+		//	"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult+ "]"
+		//"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -85,7 +85,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getMessageSTRINGTerminalRuleCall_4_1_0() { return cMessageSTRINGTerminalRuleCall_4_1_0; }
 
-		//modelResult+=ModelResult+
+		//modelResult+=ModelResult*
 		public Assignment getModelResultAssignment_5() { return cModelResultAssignment_5; }
 
 		//ModelResult
@@ -1619,7 +1619,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// result for a system in the architecture hierarchy
 	//AssuranceCaseResult:
-	//	"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult+ "]";
+	//	"case" name=QualifiedName "[" metrics=Metrics ("message" message=STRING)? modelResult+=ModelResult* "]";
 	public AssuranceCaseResultElements getAssuranceCaseResultAccess() {
 		return pAssuranceCaseResult;
 	}

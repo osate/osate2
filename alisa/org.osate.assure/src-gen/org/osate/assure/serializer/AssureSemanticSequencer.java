@@ -188,7 +188,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName metrics=Metrics message=STRING? modelResult+=ModelResult+)
+	 *     (name=QualifiedName metrics=Metrics message=STRING? modelResult+=ModelResult*)
 	 */
 	protected void sequence_AssuranceCaseResult(EObject context, AssuranceCaseResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
