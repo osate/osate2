@@ -330,7 +330,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		// Collect flow impls for this flow spec
 		if (subImpl != null) {
 			for (FlowImplementation fl : subImpl.getAllFlowImplementations()) {
-				if (fl.getSpecification() == fs) {
+				if (fl.getSpecification().getName().equalsIgnoreCase(fs.getName())) {
 					flowImpls.add(fl);
 				}
 			}
@@ -932,13 +932,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		boolean match = false;
 
 		while (refIter.hasNext()) {
-			if (refIter.next().getConnection() == connections.get(0)) {
+			String name1 = refIter.next().getConnection().getName();
+			String name2 = connections.get(0).getName();
+			if (name1.equalsIgnoreCase(name2)) {
 				Iterator<Connection> connIter = connections.iterator();
 
 				connIter.next();
 				match = true;
 				while (match && refIter.hasNext() && connIter.hasNext()) {
-					match &= refIter.next().getConnection() == connIter.next();
+					match &= refIter.next().getConnection().getName().equalsIgnoreCase(connIter.next().getName());
 				}
 				if (!refIter.hasNext() && connIter.hasNext()) {
 					match = false;
