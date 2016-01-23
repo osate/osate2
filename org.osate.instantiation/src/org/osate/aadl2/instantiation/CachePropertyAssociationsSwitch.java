@@ -51,6 +51,7 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.impl.EnumerationLiteralImpl;
@@ -60,6 +61,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -312,7 +314,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								} else {
 									// check consistency
 									for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-
 										if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
 											// this comparison return inequality even if the two property values are the same. They are
 											// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to
@@ -320,28 +321,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											// The second issue is that evaluate may return the default value for the property, which may be different from the
 											// assigned value.
 
+											PropertyExpression x1 = newPA.valueInMode(m);
+											PropertyExpression x2 = setPA.valueInMode(m);
 											/*
 											 * JD
 											 * Used to fix bug #158
 											 */
-											if ((newPA.valueInMode(m) instanceof NamedValueImpl)
-													&& (setPA.valueInMode(m) instanceof NamedValueImpl)) {
-
-												NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m);
-												NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m);
-
-												if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl)
-														&& (nvi2.getNamedValue() instanceof EnumerationLiteralImpl)) {
-													EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1
-															.getNamedValue();
-													EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2
-															.getNamedValue();
-													if (ei1.getName() == ei2.getName()) {
-														continue;
-													}
-												}
-											}
-
+											if (isSameValue(x1, x2)) continue;
 											if (!newPA.valueInMode(m).equals(defaultvalue)
 													&& !setPA.valueInMode(m).equals(defaultvalue)) {
 
@@ -375,6 +361,53 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			System.out.println("IllegalStateException raised in cacheConnectionPropertyAssociations");
 
 		}
+	}
+	
+	boolean isSameValue(PropertyExpression pe1, PropertyExpression pe2){
+		if ((pe1 instanceof NamedValueImpl)
+				&& (pe2 instanceof NamedValueImpl)) {
+
+			NamedValueImpl nvi1 = (NamedValueImpl) pe1;
+			NamedValueImpl nvi2 = (NamedValueImpl) pe2;
+
+			if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl)
+					&& (nvi2.getNamedValue() instanceof EnumerationLiteralImpl)) {
+				EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1
+						.getNamedValue();
+				EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2
+						.getNamedValue();
+				return(ei1.getName() == ei2.getName());
+			}
+			if (nvi1.getNamedValue() instanceof PropertyConstant && nvi2.getNamedValue() instanceof PropertyConstant){
+				PropertyConstant pc1 = (PropertyConstant) nvi1.getNamedValue();
+				PropertyConstant pc2 = (PropertyConstant) nvi2.getNamedValue();
+				return(pc1.getName() == pc2.getName());
+			}
+		}
+		if (pe1 instanceof InstanceReferenceValue && pe2 instanceof InstanceReferenceValue){
+			InstanceReferenceValue iref1 = (InstanceReferenceValue)pe1;
+			InstanceReferenceValue iref2 = (InstanceReferenceValue)pe2;
+			return (iref1.getReferencedInstanceObject().getQualifiedName().equals(iref2.getReferencedInstanceObject().getQualifiedName()));
+		}
+		if (pe1 instanceof ListValue && pe2 instanceof ListValue){
+			ListValue l1 = (ListValue) pe1;
+			ListValue l2 = (ListValue) pe2;
+			int s1 = l1.getOwnedListElements().size();
+			int s2 = l2.getOwnedListElements().size();
+			if ( s1 == s2){
+				Iterator<PropertyExpression> it1 = l1.getOwnedListElements().iterator();
+				Iterator<PropertyExpression> it2 = l2.getOwnedListElements().iterator();
+				while (it1.hasNext()){
+					PropertyExpression spe1 = it1.next();
+					PropertyExpression spe2 = it2.next();
+					if (!isSameValue(spe1, spe2)){
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
