@@ -917,7 +917,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		EList<FlowSpecificationInstance> subcil = getFlowSpecifications();
 		for (Iterator<FlowSpecificationInstance> it = subcil.iterator(); it.hasNext();) {
 			FlowSpecificationInstance fi = it.next();
-			if (fi.getFlowSpecification() == flowspec) {
+			if (fi.getFlowSpecification().getName().equalsIgnoreCase(flowspec.getName())) {
 				return fi;
 			}
 		}
