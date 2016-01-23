@@ -61,6 +61,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
 	public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
 	public static val MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS = "org.osate.verify.missingRequirementsForMultipleClaims"
+	public static val MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS = "org.osate.verify.multipleClaimsWithDuplicateRequirements"
 
 	override protected List<EPackage> getEPackages() {
 	    val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -114,6 +115,24 @@ class VerifyValidator extends AbstractVerifyValidator {
 			warning("The number of actual parameters differs from the number of formal parameters for verification activity",
 					va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
 		} 
+	}
+
+	@Check(CheckType.FAST)
+	def checkForDuplicateClaims(VerificationPlan vp) {
+		val claims = vp.claim
+		claims.forEach[EcoreUtil.resolveAll(it)]
+		val vpUri = EcoreUtil.getURI(vp).toString()
+		claims.forEach[claim |
+			val possibleDuplicates = claims.filter[it != claim && it.requirement == claim.requirement]
+			if (possibleDuplicates.size > 0){
+				val duplicateUris = new ArrayList<String>()
+				duplicateUris.add(vpUri)
+				duplicateUris.add(claim.requirement.name)
+				possibleDuplicates.forEach[duplicateUris.add(EcoreUtil.getURI(it).toString())]
+				warning('Multiple Claims with duplicate Requirements', claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
+						MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS, duplicateUris )
+			}
+		]
 	}
 
 	@Check(CheckType.FAST)

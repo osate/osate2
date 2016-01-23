@@ -35,6 +35,7 @@ import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyFactory
 import org.osate.verify.verify.VerifyPackage
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -160,6 +161,37 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 					}
 				});
 	}
+
+	/**
+	 * QuickFix for merging multiple calims with the same requirement
+	 * The issue data array is expected to have multiple elements:
+	 *
+	 * issue.getData()[0]: The uri of the verification plan
+	 * issue.getData()[1]: The name of the requirement duplicate by multiple claims
+	 * issue.getData()[2..n]: The uris of the claims with duplicate requirements as the claim passed as the element
+	 * 
+	 */
+	@Fix(VerifyValidator.MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS)
+	def public void mergeMultipleClaimsWithDuplicateRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+		val vpURI = issue.data.head
+		val reqName = issue.data.get(1)
+		val duplicateClaimUris = issue.data.drop(2)
+		acceptor.accept(issue, "Merge claims for requirement " + reqName + ".", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() 
+						val claim = element as Claim
+						val vp  = resourceSet.getEObject(URI.createURI(vpURI), true) as VerificationPlan
+						val duplicateClaims = duplicateClaimUris.map[resourceSet.getEObject(URI.createURI(it), true) as Claim]
+						val activitiesToMove = duplicateClaims.map[activities].flatten.groupBy[name].values.map[head]
+						vp.claim.removeAll(duplicateClaims)
+						claim.activities.addAll(activitiesToMove.filter[actMov |
+							!claim.activities.exists[it.name == actMov.name]])
+					}
+				}
+		);
+	}
+
 
 
 }
