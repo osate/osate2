@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
-<plugin> <extension
-         point="org.eclipse.core.expressions.propertyTesters">
-      <propertyTester
-            class="org.osate.aadl2.instance.ui.InstanceModelTester"
-            id="org.osate.aadl2.instance.ui.InstanceModelTester"
-            namespace="org.osate.aadl2.instance.ui"
-            properties="isInstanceModel"
-            type="org.eclipse.core.resources.IFile">
-      </propertyTester>
-   </extension>
+<plugin>
          <extension
                point="org.eclipse.ui.commands">
             <command
@@ -34,29 +25,9 @@
                   class="org.osate.aadl2.instance.ui.GenerateTextualInstanceHandler"
                   commandId="org.osate.aadl2.instance.ui.generateTextualInstance">
                <enabledWhen>
-                  <with
-                        variable="selection">
-                     <and>
-                        <count
-                              value="1">
-                        </count>
-                        <iterate
-                              ifEmpty="false"
-                              operator="and">
-                           <instanceof
-                                 value="org.eclipse.core.resources.IFile">
-                           </instanceof>
-                           <test
-                                 property="org.eclipse.core.resources.extension"
-                                 value="aaxl2">
-                           </test>
-                           <test
-                                 forcePluginActivation="true"
-                                 property="org.osate.aadl2.instance.ui.isInstanceModel">
-                           </test>
-                        </iterate>
-                     </and>
-                  </with>
+                  <reference
+                        definitionId="org.osate.core.isInstanceFileSelected">
+                  </reference>
                </enabledWhen>
             </handler>
          </extension>
