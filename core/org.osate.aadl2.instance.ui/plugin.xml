@@ -58,21 +58,6 @@
                      </and>
                   </with>
                </enabledWhen>
-               <enabledWhen>
-                  <with
-                        variable="selection">
-                     <and>
-                        <count
-                              value="1">
-                        </count>
-                     </and>
-                  </with>
-               </enabledWhen>
-               <enabledWhen>
-                  <with
-                        variable="selection">
-                  </with>
-               </enabledWhen>
             </handler>
          </extension>
 
