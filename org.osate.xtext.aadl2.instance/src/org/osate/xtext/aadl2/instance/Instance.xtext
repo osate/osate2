@@ -80,7 +80,7 @@ EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 
 SystemOperationMode returns instance::SystemOperationMode:
 	'som' name=SOMID 
-	currentMode+=[instance::ModeInstance|INSTANCEREF]
+	currentMode+=[instance::ModeInstance|INSTANCEREF]*
 	'end'
 ;
 

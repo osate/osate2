@@ -211,7 +211,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (name=SOMID currentMode+=[ModeInstance|INSTANCEREF])
+	 *     (name=SOMID currentMode+=[ModeInstance|INSTANCEREF]*)
 	 */
 	protected void sequence_SystemOperationMode(EObject context, SystemOperationMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

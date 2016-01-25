@@ -1209,7 +1209,7 @@ ruleSystemOperationMode returns [EObject current=null]
 	    }
 
 )
-)	otherlv_3='end' 
+)*	otherlv_3='end' 
     {
     	newLeafNode(otherlv_3, grammarAccess.getSystemOperationModeAccess().getEndKeyword_3());
     }

@@ -10940,29 +10940,47 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemOperationMode__Group__2__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4117:1: rule__SystemOperationMode__Group__2__Impl : ( ( rule__SystemOperationMode__CurrentModeAssignment_2 ) ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4117:1: rule__SystemOperationMode__Group__2__Impl : ( ( rule__SystemOperationMode__CurrentModeAssignment_2 )* ) ;
     public final void rule__SystemOperationMode__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4121:1: ( ( ( rule__SystemOperationMode__CurrentModeAssignment_2 ) ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4122:1: ( ( rule__SystemOperationMode__CurrentModeAssignment_2 ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4121:1: ( ( ( rule__SystemOperationMode__CurrentModeAssignment_2 )* ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4122:1: ( ( rule__SystemOperationMode__CurrentModeAssignment_2 )* )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4122:1: ( ( rule__SystemOperationMode__CurrentModeAssignment_2 ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4123:1: ( rule__SystemOperationMode__CurrentModeAssignment_2 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4122:1: ( ( rule__SystemOperationMode__CurrentModeAssignment_2 )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4123:1: ( rule__SystemOperationMode__CurrentModeAssignment_2 )*
             {
              before(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2()); 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4124:1: ( rule__SystemOperationMode__CurrentModeAssignment_2 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4124:2: rule__SystemOperationMode__CurrentModeAssignment_2
-            {
-            pushFollow(FOLLOW_rule__SystemOperationMode__CurrentModeAssignment_2_in_rule__SystemOperationMode__Group__2__Impl8298);
-            rule__SystemOperationMode__CurrentModeAssignment_2();
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4124:1: ( rule__SystemOperationMode__CurrentModeAssignment_2 )*
+            loop32:
+            do {
+                int alt32=2;
+                int LA32_0 = input.LA(1);
 
-            state._fsp--;
+                if ( (LA32_0==RULE_ID) ) {
+                    alt32=1;
+                }
 
 
-            }
+                switch (alt32) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4124:2: rule__SystemOperationMode__CurrentModeAssignment_2
+            	    {
+            	    pushFollow(FOLLOW_rule__SystemOperationMode__CurrentModeAssignment_2_in_rule__SystemOperationMode__Group__2__Impl8298);
+            	    rule__SystemOperationMode__CurrentModeAssignment_2();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop32;
+                }
+            } while (true);
 
              after(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2()); 
 
@@ -10996,7 +11014,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4138:1: ( rule__SystemOperationMode__Group__3__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4139:2: rule__SystemOperationMode__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__SystemOperationMode__Group__3__Impl_in_rule__SystemOperationMode__Group__38328);
+            pushFollow(FOLLOW_rule__SystemOperationMode__Group__3__Impl_in_rule__SystemOperationMode__Group__38329);
             rule__SystemOperationMode__Group__3__Impl();
 
             state._fsp--;
@@ -11033,7 +11051,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4151:1: 'end'
             {
              before(grammarAccess.getSystemOperationModeAccess().getEndKeyword_3()); 
-            match(input,39,FOLLOW_39_in_rule__SystemOperationMode__Group__3__Impl8356); 
+            match(input,39,FOLLOW_39_in_rule__SystemOperationMode__Group__3__Impl8357); 
              after(grammarAccess.getSystemOperationModeAccess().getEndKeyword_3()); 
 
             }
@@ -11066,12 +11084,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4176:1: ( rule__ConnectionInstance__Group__0__Impl rule__ConnectionInstance__Group__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4177:2: rule__ConnectionInstance__Group__0__Impl rule__ConnectionInstance__Group__1
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__0__Impl_in_rule__ConnectionInstance__Group__08395);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__0__Impl_in_rule__ConnectionInstance__Group__08396);
             rule__ConnectionInstance__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__1_in_rule__ConnectionInstance__Group__08398);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__1_in_rule__ConnectionInstance__Group__08399);
             rule__ConnectionInstance__Group__1();
 
             state._fsp--;
@@ -11111,7 +11129,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4191:1: ( rule__ConnectionInstance__KindAssignment_0 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4191:2: rule__ConnectionInstance__KindAssignment_0
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__KindAssignment_0_in_rule__ConnectionInstance__Group__0__Impl8425);
+            pushFollow(FOLLOW_rule__ConnectionInstance__KindAssignment_0_in_rule__ConnectionInstance__Group__0__Impl8426);
             rule__ConnectionInstance__KindAssignment_0();
 
             state._fsp--;
@@ -11151,12 +11169,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4205:1: ( rule__ConnectionInstance__Group__1__Impl rule__ConnectionInstance__Group__2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4206:2: rule__ConnectionInstance__Group__1__Impl rule__ConnectionInstance__Group__2
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__1__Impl_in_rule__ConnectionInstance__Group__18455);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__1__Impl_in_rule__ConnectionInstance__Group__18456);
             rule__ConnectionInstance__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__2_in_rule__ConnectionInstance__Group__18458);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__2_in_rule__ConnectionInstance__Group__18459);
             rule__ConnectionInstance__Group__2();
 
             state._fsp--;
@@ -11193,7 +11211,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4219:1: 'connection'
             {
              before(grammarAccess.getConnectionInstanceAccess().getConnectionKeyword_1()); 
-            match(input,50,FOLLOW_50_in_rule__ConnectionInstance__Group__1__Impl8486); 
+            match(input,50,FOLLOW_50_in_rule__ConnectionInstance__Group__1__Impl8487); 
              after(grammarAccess.getConnectionInstanceAccess().getConnectionKeyword_1()); 
 
             }
@@ -11226,12 +11244,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4236:1: ( rule__ConnectionInstance__Group__2__Impl rule__ConnectionInstance__Group__3 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4237:2: rule__ConnectionInstance__Group__2__Impl rule__ConnectionInstance__Group__3
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__2__Impl_in_rule__ConnectionInstance__Group__28517);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__2__Impl_in_rule__ConnectionInstance__Group__28518);
             rule__ConnectionInstance__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__3_in_rule__ConnectionInstance__Group__28520);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__3_in_rule__ConnectionInstance__Group__28521);
             rule__ConnectionInstance__Group__3();
 
             state._fsp--;
@@ -11268,7 +11286,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4250:1: 'instance'
             {
              before(grammarAccess.getConnectionInstanceAccess().getInstanceKeyword_2()); 
-            match(input,40,FOLLOW_40_in_rule__ConnectionInstance__Group__2__Impl8548); 
+            match(input,40,FOLLOW_40_in_rule__ConnectionInstance__Group__2__Impl8549); 
              after(grammarAccess.getConnectionInstanceAccess().getInstanceKeyword_2()); 
 
             }
@@ -11301,12 +11319,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4267:1: ( rule__ConnectionInstance__Group__3__Impl rule__ConnectionInstance__Group__4 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4268:2: rule__ConnectionInstance__Group__3__Impl rule__ConnectionInstance__Group__4
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__3__Impl_in_rule__ConnectionInstance__Group__38579);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__3__Impl_in_rule__ConnectionInstance__Group__38580);
             rule__ConnectionInstance__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__4_in_rule__ConnectionInstance__Group__38582);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__4_in_rule__ConnectionInstance__Group__38583);
             rule__ConnectionInstance__Group__4();
 
             state._fsp--;
@@ -11343,7 +11361,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4281:1: 'of'
             {
              before(grammarAccess.getConnectionInstanceAccess().getOfKeyword_3()); 
-            match(input,38,FOLLOW_38_in_rule__ConnectionInstance__Group__3__Impl8610); 
+            match(input,38,FOLLOW_38_in_rule__ConnectionInstance__Group__3__Impl8611); 
              after(grammarAccess.getConnectionInstanceAccess().getOfKeyword_3()); 
 
             }
@@ -11376,12 +11394,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4298:1: ( rule__ConnectionInstance__Group__4__Impl rule__ConnectionInstance__Group__5 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4299:2: rule__ConnectionInstance__Group__4__Impl rule__ConnectionInstance__Group__5
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__4__Impl_in_rule__ConnectionInstance__Group__48641);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__4__Impl_in_rule__ConnectionInstance__Group__48642);
             rule__ConnectionInstance__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__5_in_rule__ConnectionInstance__Group__48644);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__5_in_rule__ConnectionInstance__Group__48645);
             rule__ConnectionInstance__Group__5();
 
             state._fsp--;
@@ -11424,7 +11442,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4314:1: ( rule__ConnectionInstance__ConnectionReferenceAssignment_4 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4314:2: rule__ConnectionInstance__ConnectionReferenceAssignment_4
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8673);
+            pushFollow(FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8674);
             rule__ConnectionInstance__ConnectionReferenceAssignment_4();
 
             state._fsp--;
@@ -11441,21 +11459,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceAssignment_4()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4319:1: ( rule__ConnectionInstance__ConnectionReferenceAssignment_4 )*
-            loop32:
+            loop33:
             do {
-                int alt32=2;
-                int LA32_0 = input.LA(1);
+                int alt33=2;
+                int LA33_0 = input.LA(1);
 
-                if ( (LA32_0==38) ) {
-                    alt32=1;
+                if ( (LA33_0==38) ) {
+                    alt33=1;
                 }
 
 
-                switch (alt32) {
+                switch (alt33) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4319:2: rule__ConnectionInstance__ConnectionReferenceAssignment_4
             	    {
-            	    pushFollow(FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8685);
+            	    pushFollow(FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8686);
             	    rule__ConnectionInstance__ConnectionReferenceAssignment_4();
 
             	    state._fsp--;
@@ -11465,7 +11483,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop32;
+            	    break loop33;
                 }
             } while (true);
 
@@ -11504,12 +11522,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4334:1: ( rule__ConnectionInstance__Group__5__Impl rule__ConnectionInstance__Group__6 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4335:2: rule__ConnectionInstance__Group__5__Impl rule__ConnectionInstance__Group__6
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__5__Impl_in_rule__ConnectionInstance__Group__58718);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__5__Impl_in_rule__ConnectionInstance__Group__58719);
             rule__ConnectionInstance__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__6_in_rule__ConnectionInstance__Group__58721);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__6_in_rule__ConnectionInstance__Group__58722);
             rule__ConnectionInstance__Group__6();
 
             state._fsp--;
@@ -11546,7 +11564,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4348:1: 'src'
             {
              before(grammarAccess.getConnectionInstanceAccess().getSrcKeyword_5()); 
-            match(input,45,FOLLOW_45_in_rule__ConnectionInstance__Group__5__Impl8749); 
+            match(input,45,FOLLOW_45_in_rule__ConnectionInstance__Group__5__Impl8750); 
              after(grammarAccess.getConnectionInstanceAccess().getSrcKeyword_5()); 
 
             }
@@ -11579,12 +11597,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4365:1: ( rule__ConnectionInstance__Group__6__Impl rule__ConnectionInstance__Group__7 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4366:2: rule__ConnectionInstance__Group__6__Impl rule__ConnectionInstance__Group__7
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__6__Impl_in_rule__ConnectionInstance__Group__68780);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__6__Impl_in_rule__ConnectionInstance__Group__68781);
             rule__ConnectionInstance__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__7_in_rule__ConnectionInstance__Group__68783);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__7_in_rule__ConnectionInstance__Group__68784);
             rule__ConnectionInstance__Group__7();
 
             state._fsp--;
@@ -11624,7 +11642,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4380:1: ( rule__ConnectionInstance__SourceAssignment_6 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4380:2: rule__ConnectionInstance__SourceAssignment_6
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__SourceAssignment_6_in_rule__ConnectionInstance__Group__6__Impl8810);
+            pushFollow(FOLLOW_rule__ConnectionInstance__SourceAssignment_6_in_rule__ConnectionInstance__Group__6__Impl8811);
             rule__ConnectionInstance__SourceAssignment_6();
 
             state._fsp--;
@@ -11664,12 +11682,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4394:1: ( rule__ConnectionInstance__Group__7__Impl rule__ConnectionInstance__Group__8 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4395:2: rule__ConnectionInstance__Group__7__Impl rule__ConnectionInstance__Group__8
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__7__Impl_in_rule__ConnectionInstance__Group__78840);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__7__Impl_in_rule__ConnectionInstance__Group__78841);
             rule__ConnectionInstance__Group__7__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__8_in_rule__ConnectionInstance__Group__78843);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__8_in_rule__ConnectionInstance__Group__78844);
             rule__ConnectionInstance__Group__8();
 
             state._fsp--;
@@ -11706,7 +11724,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4408:1: 'dst'
             {
              before(grammarAccess.getConnectionInstanceAccess().getDstKeyword_7()); 
-            match(input,46,FOLLOW_46_in_rule__ConnectionInstance__Group__7__Impl8871); 
+            match(input,46,FOLLOW_46_in_rule__ConnectionInstance__Group__7__Impl8872); 
              after(grammarAccess.getConnectionInstanceAccess().getDstKeyword_7()); 
 
             }
@@ -11739,12 +11757,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4425:1: ( rule__ConnectionInstance__Group__8__Impl rule__ConnectionInstance__Group__9 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4426:2: rule__ConnectionInstance__Group__8__Impl rule__ConnectionInstance__Group__9
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__8__Impl_in_rule__ConnectionInstance__Group__88902);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__8__Impl_in_rule__ConnectionInstance__Group__88903);
             rule__ConnectionInstance__Group__8__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__9_in_rule__ConnectionInstance__Group__88905);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__9_in_rule__ConnectionInstance__Group__88906);
             rule__ConnectionInstance__Group__9();
 
             state._fsp--;
@@ -11784,7 +11802,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4440:1: ( rule__ConnectionInstance__DestinationAssignment_8 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4440:2: rule__ConnectionInstance__DestinationAssignment_8
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__DestinationAssignment_8_in_rule__ConnectionInstance__Group__8__Impl8932);
+            pushFollow(FOLLOW_rule__ConnectionInstance__DestinationAssignment_8_in_rule__ConnectionInstance__Group__8__Impl8933);
             rule__ConnectionInstance__DestinationAssignment_8();
 
             state._fsp--;
@@ -11824,12 +11842,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4454:1: ( rule__ConnectionInstance__Group__9__Impl rule__ConnectionInstance__Group__10 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4455:2: rule__ConnectionInstance__Group__9__Impl rule__ConnectionInstance__Group__10
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__9__Impl_in_rule__ConnectionInstance__Group__98962);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__9__Impl_in_rule__ConnectionInstance__Group__98963);
             rule__ConnectionInstance__Group__9__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__10_in_rule__ConnectionInstance__Group__98965);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__10_in_rule__ConnectionInstance__Group__98966);
             rule__ConnectionInstance__Group__10();
 
             state._fsp--;
@@ -11867,21 +11885,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getConnectionInstanceAccess().getGroup_9()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4469:1: ( rule__ConnectionInstance__Group_9__0 )?
-            int alt33=2;
-            int LA33_0 = input.LA(1);
+            int alt34=2;
+            int LA34_0 = input.LA(1);
 
-            if ( (LA33_0==30) ) {
-                int LA33_1 = input.LA(2);
+            if ( (LA34_0==30) ) {
+                int LA34_1 = input.LA(2);
 
-                if ( (LA33_1==49) ) {
-                    alt33=1;
+                if ( (LA34_1==49) ) {
+                    alt34=1;
                 }
             }
-            switch (alt33) {
+            switch (alt34) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4469:2: rule__ConnectionInstance__Group_9__0
                     {
-                    pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__0_in_rule__ConnectionInstance__Group__9__Impl8992);
+                    pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__0_in_rule__ConnectionInstance__Group__9__Impl8993);
                     rule__ConnectionInstance__Group_9__0();
 
                     state._fsp--;
@@ -11924,12 +11942,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4483:1: ( rule__ConnectionInstance__Group__10__Impl rule__ConnectionInstance__Group__11 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4484:2: rule__ConnectionInstance__Group__10__Impl rule__ConnectionInstance__Group__11
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__10__Impl_in_rule__ConnectionInstance__Group__109023);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__10__Impl_in_rule__ConnectionInstance__Group__109024);
             rule__ConnectionInstance__Group__10__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__11_in_rule__ConnectionInstance__Group__109026);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__11_in_rule__ConnectionInstance__Group__109027);
             rule__ConnectionInstance__Group__11();
 
             state._fsp--;
@@ -11967,17 +11985,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getConnectionInstanceAccess().getGroup_10()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4498:1: ( rule__ConnectionInstance__Group_10__0 )?
-            int alt34=2;
-            int LA34_0 = input.LA(1);
+            int alt35=2;
+            int LA35_0 = input.LA(1);
 
-            if ( (LA34_0==30) ) {
-                alt34=1;
+            if ( (LA35_0==30) ) {
+                alt35=1;
             }
-            switch (alt34) {
+            switch (alt35) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4498:2: rule__ConnectionInstance__Group_10__0
                     {
-                    pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__0_in_rule__ConnectionInstance__Group__10__Impl9053);
+                    pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__0_in_rule__ConnectionInstance__Group__10__Impl9054);
                     rule__ConnectionInstance__Group_10__0();
 
                     state._fsp--;
@@ -12020,12 +12038,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4512:1: ( rule__ConnectionInstance__Group__11__Impl rule__ConnectionInstance__Group__12 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4513:2: rule__ConnectionInstance__Group__11__Impl rule__ConnectionInstance__Group__12
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__11__Impl_in_rule__ConnectionInstance__Group__119084);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__11__Impl_in_rule__ConnectionInstance__Group__119085);
             rule__ConnectionInstance__Group__11__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__12_in_rule__ConnectionInstance__Group__119087);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__12_in_rule__ConnectionInstance__Group__119088);
             rule__ConnectionInstance__Group__12();
 
             state._fsp--;
@@ -12063,17 +12081,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getConnectionInstanceAccess().getCompleteAssignment_11()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4527:1: ( rule__ConnectionInstance__CompleteAssignment_11 )?
-            int alt35=2;
-            int LA35_0 = input.LA(1);
+            int alt36=2;
+            int LA36_0 = input.LA(1);
 
-            if ( (LA35_0==58) ) {
-                alt35=1;
+            if ( (LA36_0==58) ) {
+                alt36=1;
             }
-            switch (alt35) {
+            switch (alt36) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4527:2: rule__ConnectionInstance__CompleteAssignment_11
                     {
-                    pushFollow(FOLLOW_rule__ConnectionInstance__CompleteAssignment_11_in_rule__ConnectionInstance__Group__11__Impl9114);
+                    pushFollow(FOLLOW_rule__ConnectionInstance__CompleteAssignment_11_in_rule__ConnectionInstance__Group__11__Impl9115);
                     rule__ConnectionInstance__CompleteAssignment_11();
 
                     state._fsp--;
@@ -12116,12 +12134,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4541:1: ( rule__ConnectionInstance__Group__12__Impl rule__ConnectionInstance__Group__13 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4542:2: rule__ConnectionInstance__Group__12__Impl rule__ConnectionInstance__Group__13
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__12__Impl_in_rule__ConnectionInstance__Group__129145);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__12__Impl_in_rule__ConnectionInstance__Group__129146);
             rule__ConnectionInstance__Group__12__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__13_in_rule__ConnectionInstance__Group__129148);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__13_in_rule__ConnectionInstance__Group__129149);
             rule__ConnectionInstance__Group__13();
 
             state._fsp--;
@@ -12159,17 +12177,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getConnectionInstanceAccess().getBidirectionalAssignment_12()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4556:1: ( rule__ConnectionInstance__BidirectionalAssignment_12 )?
-            int alt36=2;
-            int LA36_0 = input.LA(1);
+            int alt37=2;
+            int LA37_0 = input.LA(1);
 
-            if ( (LA36_0==59) ) {
-                alt36=1;
+            if ( (LA37_0==59) ) {
+                alt37=1;
             }
-            switch (alt36) {
+            switch (alt37) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4556:2: rule__ConnectionInstance__BidirectionalAssignment_12
                     {
-                    pushFollow(FOLLOW_rule__ConnectionInstance__BidirectionalAssignment_12_in_rule__ConnectionInstance__Group__12__Impl9175);
+                    pushFollow(FOLLOW_rule__ConnectionInstance__BidirectionalAssignment_12_in_rule__ConnectionInstance__Group__12__Impl9176);
                     rule__ConnectionInstance__BidirectionalAssignment_12();
 
                     state._fsp--;
@@ -12212,7 +12230,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4570:1: ( rule__ConnectionInstance__Group__13__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4571:2: rule__ConnectionInstance__Group__13__Impl
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group__13__Impl_in_rule__ConnectionInstance__Group__139206);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group__13__Impl_in_rule__ConnectionInstance__Group__139207);
             rule__ConnectionInstance__Group__13__Impl();
 
             state._fsp--;
@@ -12249,7 +12267,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4583:1: 'end'
             {
              before(grammarAccess.getConnectionInstanceAccess().getEndKeyword_13()); 
-            match(input,39,FOLLOW_39_in_rule__ConnectionInstance__Group__13__Impl9234); 
+            match(input,39,FOLLOW_39_in_rule__ConnectionInstance__Group__13__Impl9235); 
              after(grammarAccess.getConnectionInstanceAccess().getEndKeyword_13()); 
 
             }
@@ -12282,12 +12300,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4628:1: ( rule__ConnectionInstance__Group_9__0__Impl rule__ConnectionInstance__Group_9__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4629:2: rule__ConnectionInstance__Group_9__0__Impl rule__ConnectionInstance__Group_9__1
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__0__Impl_in_rule__ConnectionInstance__Group_9__09293);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__0__Impl_in_rule__ConnectionInstance__Group_9__09294);
             rule__ConnectionInstance__Group_9__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__1_in_rule__ConnectionInstance__Group_9__09296);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__1_in_rule__ConnectionInstance__Group_9__09297);
             rule__ConnectionInstance__Group_9__1();
 
             state._fsp--;
@@ -12324,7 +12342,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4642:1: 'in'
             {
              before(grammarAccess.getConnectionInstanceAccess().getInKeyword_9_0()); 
-            match(input,30,FOLLOW_30_in_rule__ConnectionInstance__Group_9__0__Impl9324); 
+            match(input,30,FOLLOW_30_in_rule__ConnectionInstance__Group_9__0__Impl9325); 
              after(grammarAccess.getConnectionInstanceAccess().getInKeyword_9_0()); 
 
             }
@@ -12357,12 +12375,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4659:1: ( rule__ConnectionInstance__Group_9__1__Impl rule__ConnectionInstance__Group_9__2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4660:2: rule__ConnectionInstance__Group_9__1__Impl rule__ConnectionInstance__Group_9__2
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__1__Impl_in_rule__ConnectionInstance__Group_9__19355);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__1__Impl_in_rule__ConnectionInstance__Group_9__19356);
             rule__ConnectionInstance__Group_9__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__2_in_rule__ConnectionInstance__Group_9__19358);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__2_in_rule__ConnectionInstance__Group_9__19359);
             rule__ConnectionInstance__Group_9__2();
 
             state._fsp--;
@@ -12399,7 +12417,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4673:1: 'som'
             {
              before(grammarAccess.getConnectionInstanceAccess().getSomKeyword_9_1()); 
-            match(input,49,FOLLOW_49_in_rule__ConnectionInstance__Group_9__1__Impl9386); 
+            match(input,49,FOLLOW_49_in_rule__ConnectionInstance__Group_9__1__Impl9387); 
              after(grammarAccess.getConnectionInstanceAccess().getSomKeyword_9_1()); 
 
             }
@@ -12432,7 +12450,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4690:1: ( rule__ConnectionInstance__Group_9__2__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4691:2: rule__ConnectionInstance__Group_9__2__Impl
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__2__Impl_in_rule__ConnectionInstance__Group_9__29417);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_9__2__Impl_in_rule__ConnectionInstance__Group_9__29418);
             rule__ConnectionInstance__Group_9__2__Impl();
 
             state._fsp--;
@@ -12472,7 +12490,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4704:1: ( rule__ConnectionInstance__InSystemOperationModeAssignment_9_2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4704:2: rule__ConnectionInstance__InSystemOperationModeAssignment_9_2
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__InSystemOperationModeAssignment_9_2_in_rule__ConnectionInstance__Group_9__2__Impl9444);
+            pushFollow(FOLLOW_rule__ConnectionInstance__InSystemOperationModeAssignment_9_2_in_rule__ConnectionInstance__Group_9__2__Impl9445);
             rule__ConnectionInstance__InSystemOperationModeAssignment_9_2();
 
             state._fsp--;
@@ -12512,12 +12530,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4724:1: ( rule__ConnectionInstance__Group_10__0__Impl rule__ConnectionInstance__Group_10__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4725:2: rule__ConnectionInstance__Group_10__0__Impl rule__ConnectionInstance__Group_10__1
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__0__Impl_in_rule__ConnectionInstance__Group_10__09480);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__0__Impl_in_rule__ConnectionInstance__Group_10__09481);
             rule__ConnectionInstance__Group_10__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__1_in_rule__ConnectionInstance__Group_10__09483);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__1_in_rule__ConnectionInstance__Group_10__09484);
             rule__ConnectionInstance__Group_10__1();
 
             state._fsp--;
@@ -12554,7 +12572,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4738:1: 'in'
             {
              before(grammarAccess.getConnectionInstanceAccess().getInKeyword_10_0()); 
-            match(input,30,FOLLOW_30_in_rule__ConnectionInstance__Group_10__0__Impl9511); 
+            match(input,30,FOLLOW_30_in_rule__ConnectionInstance__Group_10__0__Impl9512); 
              after(grammarAccess.getConnectionInstanceAccess().getInKeyword_10_0()); 
 
             }
@@ -12587,12 +12605,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4755:1: ( rule__ConnectionInstance__Group_10__1__Impl rule__ConnectionInstance__Group_10__2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4756:2: rule__ConnectionInstance__Group_10__1__Impl rule__ConnectionInstance__Group_10__2
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__1__Impl_in_rule__ConnectionInstance__Group_10__19542);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__1__Impl_in_rule__ConnectionInstance__Group_10__19543);
             rule__ConnectionInstance__Group_10__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__2_in_rule__ConnectionInstance__Group_10__19545);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__2_in_rule__ConnectionInstance__Group_10__19546);
             rule__ConnectionInstance__Group_10__2();
 
             state._fsp--;
@@ -12629,7 +12647,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4769:1: 'transition'
             {
              before(grammarAccess.getConnectionInstanceAccess().getTransitionKeyword_10_1()); 
-            match(input,44,FOLLOW_44_in_rule__ConnectionInstance__Group_10__1__Impl9573); 
+            match(input,44,FOLLOW_44_in_rule__ConnectionInstance__Group_10__1__Impl9574); 
              after(grammarAccess.getConnectionInstanceAccess().getTransitionKeyword_10_1()); 
 
             }
@@ -12662,7 +12680,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4786:1: ( rule__ConnectionInstance__Group_10__2__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4787:2: rule__ConnectionInstance__Group_10__2__Impl
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__2__Impl_in_rule__ConnectionInstance__Group_10__29604);
+            pushFollow(FOLLOW_rule__ConnectionInstance__Group_10__2__Impl_in_rule__ConnectionInstance__Group_10__29605);
             rule__ConnectionInstance__Group_10__2__Impl();
 
             state._fsp--;
@@ -12702,7 +12720,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4800:1: ( rule__ConnectionInstance__InModeTransitionAssignment_10_2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4800:2: rule__ConnectionInstance__InModeTransitionAssignment_10_2
             {
-            pushFollow(FOLLOW_rule__ConnectionInstance__InModeTransitionAssignment_10_2_in_rule__ConnectionInstance__Group_10__2__Impl9631);
+            pushFollow(FOLLOW_rule__ConnectionInstance__InModeTransitionAssignment_10_2_in_rule__ConnectionInstance__Group_10__2__Impl9632);
             rule__ConnectionInstance__InModeTransitionAssignment_10_2();
 
             state._fsp--;
@@ -12742,12 +12760,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4820:1: ( rule__ConnectionReference__Group__0__Impl rule__ConnectionReference__Group__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4821:2: rule__ConnectionReference__Group__0__Impl rule__ConnectionReference__Group__1
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__0__Impl_in_rule__ConnectionReference__Group__09667);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__0__Impl_in_rule__ConnectionReference__Group__09668);
             rule__ConnectionReference__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__1_in_rule__ConnectionReference__Group__09670);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__1_in_rule__ConnectionReference__Group__09671);
             rule__ConnectionReference__Group__1();
 
             state._fsp--;
@@ -12784,7 +12802,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4834:1: 'of'
             {
              before(grammarAccess.getConnectionReferenceAccess().getOfKeyword_0()); 
-            match(input,38,FOLLOW_38_in_rule__ConnectionReference__Group__0__Impl9698); 
+            match(input,38,FOLLOW_38_in_rule__ConnectionReference__Group__0__Impl9699); 
              after(grammarAccess.getConnectionReferenceAccess().getOfKeyword_0()); 
 
             }
@@ -12817,12 +12835,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4851:1: ( rule__ConnectionReference__Group__1__Impl rule__ConnectionReference__Group__2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4852:2: rule__ConnectionReference__Group__1__Impl rule__ConnectionReference__Group__2
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__1__Impl_in_rule__ConnectionReference__Group__19729);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__1__Impl_in_rule__ConnectionReference__Group__19730);
             rule__ConnectionReference__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__2_in_rule__ConnectionReference__Group__19732);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__2_in_rule__ConnectionReference__Group__19733);
             rule__ConnectionReference__Group__2();
 
             state._fsp--;
@@ -12862,7 +12880,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4866:1: ( rule__ConnectionReference__ConnectionAssignment_1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4866:2: rule__ConnectionReference__ConnectionAssignment_1
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__ConnectionAssignment_1_in_rule__ConnectionReference__Group__1__Impl9759);
+            pushFollow(FOLLOW_rule__ConnectionReference__ConnectionAssignment_1_in_rule__ConnectionReference__Group__1__Impl9760);
             rule__ConnectionReference__ConnectionAssignment_1();
 
             state._fsp--;
@@ -12902,12 +12920,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4880:1: ( rule__ConnectionReference__Group__2__Impl rule__ConnectionReference__Group__3 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4881:2: rule__ConnectionReference__Group__2__Impl rule__ConnectionReference__Group__3
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__2__Impl_in_rule__ConnectionReference__Group__29789);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__2__Impl_in_rule__ConnectionReference__Group__29790);
             rule__ConnectionReference__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__3_in_rule__ConnectionReference__Group__29792);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__3_in_rule__ConnectionReference__Group__29793);
             rule__ConnectionReference__Group__3();
 
             state._fsp--;
@@ -12944,7 +12962,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4894:1: 'src'
             {
              before(grammarAccess.getConnectionReferenceAccess().getSrcKeyword_2()); 
-            match(input,45,FOLLOW_45_in_rule__ConnectionReference__Group__2__Impl9820); 
+            match(input,45,FOLLOW_45_in_rule__ConnectionReference__Group__2__Impl9821); 
              after(grammarAccess.getConnectionReferenceAccess().getSrcKeyword_2()); 
 
             }
@@ -12977,12 +12995,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4911:1: ( rule__ConnectionReference__Group__3__Impl rule__ConnectionReference__Group__4 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4912:2: rule__ConnectionReference__Group__3__Impl rule__ConnectionReference__Group__4
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__3__Impl_in_rule__ConnectionReference__Group__39851);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__3__Impl_in_rule__ConnectionReference__Group__39852);
             rule__ConnectionReference__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__4_in_rule__ConnectionReference__Group__39854);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__4_in_rule__ConnectionReference__Group__39855);
             rule__ConnectionReference__Group__4();
 
             state._fsp--;
@@ -13022,7 +13040,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4926:1: ( rule__ConnectionReference__SourceAssignment_3 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4926:2: rule__ConnectionReference__SourceAssignment_3
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__SourceAssignment_3_in_rule__ConnectionReference__Group__3__Impl9881);
+            pushFollow(FOLLOW_rule__ConnectionReference__SourceAssignment_3_in_rule__ConnectionReference__Group__3__Impl9882);
             rule__ConnectionReference__SourceAssignment_3();
 
             state._fsp--;
@@ -13062,12 +13080,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4940:1: ( rule__ConnectionReference__Group__4__Impl rule__ConnectionReference__Group__5 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4941:2: rule__ConnectionReference__Group__4__Impl rule__ConnectionReference__Group__5
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__4__Impl_in_rule__ConnectionReference__Group__49911);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__4__Impl_in_rule__ConnectionReference__Group__49912);
             rule__ConnectionReference__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__5_in_rule__ConnectionReference__Group__49914);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__5_in_rule__ConnectionReference__Group__49915);
             rule__ConnectionReference__Group__5();
 
             state._fsp--;
@@ -13104,7 +13122,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4954:1: 'dst'
             {
              before(grammarAccess.getConnectionReferenceAccess().getDstKeyword_4()); 
-            match(input,46,FOLLOW_46_in_rule__ConnectionReference__Group__4__Impl9942); 
+            match(input,46,FOLLOW_46_in_rule__ConnectionReference__Group__4__Impl9943); 
              after(grammarAccess.getConnectionReferenceAccess().getDstKeyword_4()); 
 
             }
@@ -13137,12 +13155,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4971:1: ( rule__ConnectionReference__Group__5__Impl rule__ConnectionReference__Group__6 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4972:2: rule__ConnectionReference__Group__5__Impl rule__ConnectionReference__Group__6
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__5__Impl_in_rule__ConnectionReference__Group__59973);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__5__Impl_in_rule__ConnectionReference__Group__59974);
             rule__ConnectionReference__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__6_in_rule__ConnectionReference__Group__59976);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__6_in_rule__ConnectionReference__Group__59977);
             rule__ConnectionReference__Group__6();
 
             state._fsp--;
@@ -13182,7 +13200,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4986:1: ( rule__ConnectionReference__DestinationAssignment_5 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:4986:2: rule__ConnectionReference__DestinationAssignment_5
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__DestinationAssignment_5_in_rule__ConnectionReference__Group__5__Impl10003);
+            pushFollow(FOLLOW_rule__ConnectionReference__DestinationAssignment_5_in_rule__ConnectionReference__Group__5__Impl10004);
             rule__ConnectionReference__DestinationAssignment_5();
 
             state._fsp--;
@@ -13222,12 +13240,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5000:1: ( rule__ConnectionReference__Group__6__Impl rule__ConnectionReference__Group__7 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5001:2: rule__ConnectionReference__Group__6__Impl rule__ConnectionReference__Group__7
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__6__Impl_in_rule__ConnectionReference__Group__610033);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__6__Impl_in_rule__ConnectionReference__Group__610034);
             rule__ConnectionReference__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__7_in_rule__ConnectionReference__Group__610036);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__7_in_rule__ConnectionReference__Group__610037);
             rule__ConnectionReference__Group__7();
 
             state._fsp--;
@@ -13264,7 +13282,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5014:1: 'context'
             {
              before(grammarAccess.getConnectionReferenceAccess().getContextKeyword_6()); 
-            match(input,51,FOLLOW_51_in_rule__ConnectionReference__Group__6__Impl10064); 
+            match(input,51,FOLLOW_51_in_rule__ConnectionReference__Group__6__Impl10065); 
              after(grammarAccess.getConnectionReferenceAccess().getContextKeyword_6()); 
 
             }
@@ -13297,7 +13315,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5031:1: ( rule__ConnectionReference__Group__7__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5032:2: rule__ConnectionReference__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__Group__7__Impl_in_rule__ConnectionReference__Group__710095);
+            pushFollow(FOLLOW_rule__ConnectionReference__Group__7__Impl_in_rule__ConnectionReference__Group__710096);
             rule__ConnectionReference__Group__7__Impl();
 
             state._fsp--;
@@ -13337,7 +13355,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5045:1: ( rule__ConnectionReference__ContextAssignment_7 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5045:2: rule__ConnectionReference__ContextAssignment_7
             {
-            pushFollow(FOLLOW_rule__ConnectionReference__ContextAssignment_7_in_rule__ConnectionReference__Group__7__Impl10122);
+            pushFollow(FOLLOW_rule__ConnectionReference__ContextAssignment_7_in_rule__ConnectionReference__Group__7__Impl10123);
             rule__ConnectionReference__ContextAssignment_7();
 
             state._fsp--;
@@ -13377,12 +13395,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5075:1: ( rule__ComponentCategory__Group_8__0__Impl rule__ComponentCategory__Group_8__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5076:2: rule__ComponentCategory__Group_8__0__Impl rule__ComponentCategory__Group_8__1
             {
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__0__Impl_in_rule__ComponentCategory__Group_8__010168);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__0__Impl_in_rule__ComponentCategory__Group_8__010169);
             rule__ComponentCategory__Group_8__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__1_in_rule__ComponentCategory__Group_8__010171);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__1_in_rule__ComponentCategory__Group_8__010172);
             rule__ComponentCategory__Group_8__1();
 
             state._fsp--;
@@ -13419,7 +13437,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5089:1: 'subprogram'
             {
              before(grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_8_0()); 
-            match(input,15,FOLLOW_15_in_rule__ComponentCategory__Group_8__0__Impl10199); 
+            match(input,15,FOLLOW_15_in_rule__ComponentCategory__Group_8__0__Impl10200); 
              after(grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_8_0()); 
 
             }
@@ -13452,7 +13470,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5106:1: ( rule__ComponentCategory__Group_8__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5107:2: rule__ComponentCategory__Group_8__1__Impl
             {
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__1__Impl_in_rule__ComponentCategory__Group_8__110230);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_8__1__Impl_in_rule__ComponentCategory__Group_8__110231);
             rule__ComponentCategory__Group_8__1__Impl();
 
             state._fsp--;
@@ -13489,7 +13507,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5119:1: 'group'
             {
              before(grammarAccess.getComponentCategoryAccess().getGroupKeyword_8_1()); 
-            match(input,52,FOLLOW_52_in_rule__ComponentCategory__Group_8__1__Impl10258); 
+            match(input,52,FOLLOW_52_in_rule__ComponentCategory__Group_8__1__Impl10259); 
              after(grammarAccess.getComponentCategoryAccess().getGroupKeyword_8_1()); 
 
             }
@@ -13522,12 +13540,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5140:1: ( rule__ComponentCategory__Group_12__0__Impl rule__ComponentCategory__Group_12__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5141:2: rule__ComponentCategory__Group_12__0__Impl rule__ComponentCategory__Group_12__1
             {
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__0__Impl_in_rule__ComponentCategory__Group_12__010293);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__0__Impl_in_rule__ComponentCategory__Group_12__010294);
             rule__ComponentCategory__Group_12__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__1_in_rule__ComponentCategory__Group_12__010296);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__1_in_rule__ComponentCategory__Group_12__010297);
             rule__ComponentCategory__Group_12__1();
 
             state._fsp--;
@@ -13564,7 +13582,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5154:1: 'virtual'
             {
              before(grammarAccess.getComponentCategoryAccess().getVirtualKeyword_12_0()); 
-            match(input,53,FOLLOW_53_in_rule__ComponentCategory__Group_12__0__Impl10324); 
+            match(input,53,FOLLOW_53_in_rule__ComponentCategory__Group_12__0__Impl10325); 
              after(grammarAccess.getComponentCategoryAccess().getVirtualKeyword_12_0()); 
 
             }
@@ -13597,7 +13615,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5171:1: ( rule__ComponentCategory__Group_12__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5172:2: rule__ComponentCategory__Group_12__1__Impl
             {
-            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__1__Impl_in_rule__ComponentCategory__Group_12__110355);
+            pushFollow(FOLLOW_rule__ComponentCategory__Group_12__1__Impl_in_rule__ComponentCategory__Group_12__110356);
             rule__ComponentCategory__Group_12__1__Impl();
 
             state._fsp--;
@@ -13634,7 +13652,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5184:1: 'bus'
             {
              before(grammarAccess.getComponentCategoryAccess().getBusKeyword_12_1()); 
-            match(input,9,FOLLOW_9_in_rule__ComponentCategory__Group_12__1__Impl10383); 
+            match(input,9,FOLLOW_9_in_rule__ComponentCategory__Group_12__1__Impl10384); 
              after(grammarAccess.getComponentCategoryAccess().getBusKeyword_12_1()); 
 
             }
@@ -13667,12 +13685,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5205:1: ( rule__FQCREF__Group__0__Impl rule__FQCREF__Group__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5206:2: rule__FQCREF__Group__0__Impl rule__FQCREF__Group__1
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group__0__Impl_in_rule__FQCREF__Group__010418);
+            pushFollow(FOLLOW_rule__FQCREF__Group__0__Impl_in_rule__FQCREF__Group__010419);
             rule__FQCREF__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__FQCREF__Group__1_in_rule__FQCREF__Group__010421);
+            pushFollow(FOLLOW_rule__FQCREF__Group__1_in_rule__FQCREF__Group__010422);
             rule__FQCREF__Group__1();
 
             state._fsp--;
@@ -13715,7 +13733,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5221:1: ( rule__FQCREF__Group_0__0 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5221:2: rule__FQCREF__Group_0__0
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10450);
+            pushFollow(FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10451);
             rule__FQCREF__Group_0__0();
 
             state._fsp--;
@@ -13732,27 +13750,27 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFQCREFAccess().getGroup_0()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5226:1: ( rule__FQCREF__Group_0__0 )*
-            loop37:
+            loop38:
             do {
-                int alt37=2;
-                int LA37_0 = input.LA(1);
+                int alt38=2;
+                int LA38_0 = input.LA(1);
 
-                if ( (LA37_0==RULE_ID) ) {
-                    int LA37_1 = input.LA(2);
+                if ( (LA38_0==RULE_ID) ) {
+                    int LA38_1 = input.LA(2);
 
-                    if ( (LA37_1==54) ) {
-                        alt37=1;
+                    if ( (LA38_1==54) ) {
+                        alt38=1;
                     }
 
 
                 }
 
 
-                switch (alt37) {
+                switch (alt38) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5226:2: rule__FQCREF__Group_0__0
             	    {
-            	    pushFollow(FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10462);
+            	    pushFollow(FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10463);
             	    rule__FQCREF__Group_0__0();
 
             	    state._fsp--;
@@ -13762,7 +13780,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop37;
+            	    break loop38;
                 }
             } while (true);
 
@@ -13801,12 +13819,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5241:1: ( rule__FQCREF__Group__1__Impl rule__FQCREF__Group__2 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5242:2: rule__FQCREF__Group__1__Impl rule__FQCREF__Group__2
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group__1__Impl_in_rule__FQCREF__Group__110495);
+            pushFollow(FOLLOW_rule__FQCREF__Group__1__Impl_in_rule__FQCREF__Group__110496);
             rule__FQCREF__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__FQCREF__Group__2_in_rule__FQCREF__Group__110498);
+            pushFollow(FOLLOW_rule__FQCREF__Group__2_in_rule__FQCREF__Group__110499);
             rule__FQCREF__Group__2();
 
             state._fsp--;
@@ -13843,7 +13861,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5255:1: RULE_ID
             {
              before(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group__1__Impl10525); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group__1__Impl10526); 
              after(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_1()); 
 
             }
@@ -13876,7 +13894,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5270:1: ( rule__FQCREF__Group__2__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5271:2: rule__FQCREF__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group__2__Impl_in_rule__FQCREF__Group__210554);
+            pushFollow(FOLLOW_rule__FQCREF__Group__2__Impl_in_rule__FQCREF__Group__210555);
             rule__FQCREF__Group__2__Impl();
 
             state._fsp--;
@@ -13914,17 +13932,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFQCREFAccess().getGroup_2()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5284:1: ( rule__FQCREF__Group_2__0 )?
-            int alt38=2;
-            int LA38_0 = input.LA(1);
+            int alt39=2;
+            int LA39_0 = input.LA(1);
 
-            if ( (LA38_0==55) ) {
-                alt38=1;
+            if ( (LA39_0==55) ) {
+                alt39=1;
             }
-            switch (alt38) {
+            switch (alt39) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5284:2: rule__FQCREF__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__FQCREF__Group_2__0_in_rule__FQCREF__Group__2__Impl10581);
+                    pushFollow(FOLLOW_rule__FQCREF__Group_2__0_in_rule__FQCREF__Group__2__Impl10582);
                     rule__FQCREF__Group_2__0();
 
                     state._fsp--;
@@ -13967,12 +13985,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5304:1: ( rule__FQCREF__Group_0__0__Impl rule__FQCREF__Group_0__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5305:2: rule__FQCREF__Group_0__0__Impl rule__FQCREF__Group_0__1
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group_0__0__Impl_in_rule__FQCREF__Group_0__010618);
+            pushFollow(FOLLOW_rule__FQCREF__Group_0__0__Impl_in_rule__FQCREF__Group_0__010619);
             rule__FQCREF__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__FQCREF__Group_0__1_in_rule__FQCREF__Group_0__010621);
+            pushFollow(FOLLOW_rule__FQCREF__Group_0__1_in_rule__FQCREF__Group_0__010622);
             rule__FQCREF__Group_0__1();
 
             state._fsp--;
@@ -14009,7 +14027,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5318:1: RULE_ID
             {
              before(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group_0__0__Impl10648); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group_0__0__Impl10649); 
              after(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_0_0()); 
 
             }
@@ -14042,7 +14060,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5333:1: ( rule__FQCREF__Group_0__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5334:2: rule__FQCREF__Group_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group_0__1__Impl_in_rule__FQCREF__Group_0__110677);
+            pushFollow(FOLLOW_rule__FQCREF__Group_0__1__Impl_in_rule__FQCREF__Group_0__110678);
             rule__FQCREF__Group_0__1__Impl();
 
             state._fsp--;
@@ -14079,7 +14097,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5346:1: '::'
             {
              before(grammarAccess.getFQCREFAccess().getColonColonKeyword_0_1()); 
-            match(input,54,FOLLOW_54_in_rule__FQCREF__Group_0__1__Impl10705); 
+            match(input,54,FOLLOW_54_in_rule__FQCREF__Group_0__1__Impl10706); 
              after(grammarAccess.getFQCREFAccess().getColonColonKeyword_0_1()); 
 
             }
@@ -14112,12 +14130,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5367:1: ( rule__FQCREF__Group_2__0__Impl rule__FQCREF__Group_2__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5368:2: rule__FQCREF__Group_2__0__Impl rule__FQCREF__Group_2__1
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group_2__0__Impl_in_rule__FQCREF__Group_2__010740);
+            pushFollow(FOLLOW_rule__FQCREF__Group_2__0__Impl_in_rule__FQCREF__Group_2__010741);
             rule__FQCREF__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__FQCREF__Group_2__1_in_rule__FQCREF__Group_2__010743);
+            pushFollow(FOLLOW_rule__FQCREF__Group_2__1_in_rule__FQCREF__Group_2__010744);
             rule__FQCREF__Group_2__1();
 
             state._fsp--;
@@ -14154,7 +14172,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5381:1: '.'
             {
              before(grammarAccess.getFQCREFAccess().getFullStopKeyword_2_0()); 
-            match(input,55,FOLLOW_55_in_rule__FQCREF__Group_2__0__Impl10771); 
+            match(input,55,FOLLOW_55_in_rule__FQCREF__Group_2__0__Impl10772); 
              after(grammarAccess.getFQCREFAccess().getFullStopKeyword_2_0()); 
 
             }
@@ -14187,7 +14205,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5398:1: ( rule__FQCREF__Group_2__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5399:2: rule__FQCREF__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__FQCREF__Group_2__1__Impl_in_rule__FQCREF__Group_2__110802);
+            pushFollow(FOLLOW_rule__FQCREF__Group_2__1__Impl_in_rule__FQCREF__Group_2__110803);
             rule__FQCREF__Group_2__1__Impl();
 
             state._fsp--;
@@ -14224,7 +14242,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5411:1: RULE_ID
             {
              before(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_2_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group_2__1__Impl10829); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FQCREF__Group_2__1__Impl10830); 
              after(grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_2_1()); 
 
             }
@@ -14257,12 +14275,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5430:1: ( rule__INSTANCEREF__Group__0__Impl rule__INSTANCEREF__Group__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5431:2: rule__INSTANCEREF__Group__0__Impl rule__INSTANCEREF__Group__1
             {
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group__0__Impl_in_rule__INSTANCEREF__Group__010862);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group__0__Impl_in_rule__INSTANCEREF__Group__010863);
             rule__INSTANCEREF__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group__1_in_rule__INSTANCEREF__Group__010865);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group__1_in_rule__INSTANCEREF__Group__010866);
             rule__INSTANCEREF__Group__1();
 
             state._fsp--;
@@ -14300,27 +14318,27 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getINSTANCEREFAccess().getGroup_0()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5445:1: ( rule__INSTANCEREF__Group_0__0 )*
-            loop39:
+            loop40:
             do {
-                int alt39=2;
-                int LA39_0 = input.LA(1);
+                int alt40=2;
+                int LA40_0 = input.LA(1);
 
-                if ( (LA39_0==RULE_ID) ) {
-                    int LA39_1 = input.LA(2);
+                if ( (LA40_0==RULE_ID) ) {
+                    int LA40_1 = input.LA(2);
 
-                    if ( (LA39_1==55) ) {
-                        alt39=1;
+                    if ( (LA40_1==55) ) {
+                        alt40=1;
                     }
 
 
                 }
 
 
-                switch (alt39) {
+                switch (alt40) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5445:2: rule__INSTANCEREF__Group_0__0
             	    {
-            	    pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__0_in_rule__INSTANCEREF__Group__0__Impl10892);
+            	    pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__0_in_rule__INSTANCEREF__Group__0__Impl10893);
             	    rule__INSTANCEREF__Group_0__0();
 
             	    state._fsp--;
@@ -14330,7 +14348,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop39;
+            	    break loop40;
                 }
             } while (true);
 
@@ -14366,7 +14384,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5459:1: ( rule__INSTANCEREF__Group__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5460:2: rule__INSTANCEREF__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group__1__Impl_in_rule__INSTANCEREF__Group__110923);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group__1__Impl_in_rule__INSTANCEREF__Group__110924);
             rule__INSTANCEREF__Group__1__Impl();
 
             state._fsp--;
@@ -14403,7 +14421,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5472:1: RULE_ID
             {
              before(grammarAccess.getINSTANCEREFAccess().getIDTerminalRuleCall_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group__1__Impl10950); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group__1__Impl10951); 
              after(grammarAccess.getINSTANCEREFAccess().getIDTerminalRuleCall_1()); 
 
             }
@@ -14436,12 +14454,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5491:1: ( rule__INSTANCEREF__Group_0__0__Impl rule__INSTANCEREF__Group_0__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5492:2: rule__INSTANCEREF__Group_0__0__Impl rule__INSTANCEREF__Group_0__1
             {
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__0__Impl_in_rule__INSTANCEREF__Group_0__010983);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__0__Impl_in_rule__INSTANCEREF__Group_0__010984);
             rule__INSTANCEREF__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__1_in_rule__INSTANCEREF__Group_0__010986);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__1_in_rule__INSTANCEREF__Group_0__010987);
             rule__INSTANCEREF__Group_0__1();
 
             state._fsp--;
@@ -14478,7 +14496,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5505:1: RULE_ID
             {
              before(grammarAccess.getINSTANCEREFAccess().getIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group_0__0__Impl11013); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group_0__0__Impl11014); 
              after(grammarAccess.getINSTANCEREFAccess().getIDTerminalRuleCall_0_0()); 
 
             }
@@ -14511,7 +14529,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5520:1: ( rule__INSTANCEREF__Group_0__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5521:2: rule__INSTANCEREF__Group_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__1__Impl_in_rule__INSTANCEREF__Group_0__111042);
+            pushFollow(FOLLOW_rule__INSTANCEREF__Group_0__1__Impl_in_rule__INSTANCEREF__Group_0__111043);
             rule__INSTANCEREF__Group_0__1__Impl();
 
             state._fsp--;
@@ -14548,7 +14566,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5533:1: '.'
             {
              before(grammarAccess.getINSTANCEREFAccess().getFullStopKeyword_0_1()); 
-            match(input,55,FOLLOW_55_in_rule__INSTANCEREF__Group_0__1__Impl11070); 
+            match(input,55,FOLLOW_55_in_rule__INSTANCEREF__Group_0__1__Impl11071); 
              after(grammarAccess.getINSTANCEREFAccess().getFullStopKeyword_0_1()); 
 
             }
@@ -14581,12 +14599,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5554:1: ( rule__SOMID__Group__0__Impl rule__SOMID__Group__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5555:2: rule__SOMID__Group__0__Impl rule__SOMID__Group__1
             {
-            pushFollow(FOLLOW_rule__SOMID__Group__0__Impl_in_rule__SOMID__Group__011105);
+            pushFollow(FOLLOW_rule__SOMID__Group__0__Impl_in_rule__SOMID__Group__011106);
             rule__SOMID__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SOMID__Group__1_in_rule__SOMID__Group__011108);
+            pushFollow(FOLLOW_rule__SOMID__Group__1_in_rule__SOMID__Group__011109);
             rule__SOMID__Group__1();
 
             state._fsp--;
@@ -14624,15 +14642,15 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getSOMIDAccess().getGroup_0()); 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5569:1: ( rule__SOMID__Group_0__0 )*
-            loop40:
+            loop41:
             do {
-                int alt40=2;
-                alt40 = dfa40.predict(input);
-                switch (alt40) {
+                int alt41=2;
+                alt41 = dfa41.predict(input);
+                switch (alt41) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5569:2: rule__SOMID__Group_0__0
             	    {
-            	    pushFollow(FOLLOW_rule__SOMID__Group_0__0_in_rule__SOMID__Group__0__Impl11135);
+            	    pushFollow(FOLLOW_rule__SOMID__Group_0__0_in_rule__SOMID__Group__0__Impl11136);
             	    rule__SOMID__Group_0__0();
 
             	    state._fsp--;
@@ -14642,7 +14660,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop40;
+            	    break loop41;
                 }
             } while (true);
 
@@ -14678,7 +14696,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5583:1: ( rule__SOMID__Group__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5584:2: rule__SOMID__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__SOMID__Group__1__Impl_in_rule__SOMID__Group__111166);
+            pushFollow(FOLLOW_rule__SOMID__Group__1__Impl_in_rule__SOMID__Group__111167);
             rule__SOMID__Group__1__Impl();
 
             state._fsp--;
@@ -14715,7 +14733,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5596:1: ruleINSTANCEREF
             {
              before(grammarAccess.getSOMIDAccess().getINSTANCEREFParserRuleCall_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group__1__Impl11193);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group__1__Impl11194);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -14752,12 +14770,12 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5615:1: ( rule__SOMID__Group_0__0__Impl rule__SOMID__Group_0__1 )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5616:2: rule__SOMID__Group_0__0__Impl rule__SOMID__Group_0__1
             {
-            pushFollow(FOLLOW_rule__SOMID__Group_0__0__Impl_in_rule__SOMID__Group_0__011226);
+            pushFollow(FOLLOW_rule__SOMID__Group_0__0__Impl_in_rule__SOMID__Group_0__011227);
             rule__SOMID__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SOMID__Group_0__1_in_rule__SOMID__Group_0__011229);
+            pushFollow(FOLLOW_rule__SOMID__Group_0__1_in_rule__SOMID__Group_0__011230);
             rule__SOMID__Group_0__1();
 
             state._fsp--;
@@ -14794,7 +14812,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5629:1: ruleINSTANCEREF
             {
              before(grammarAccess.getSOMIDAccess().getINSTANCEREFParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group_0__0__Impl11256);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group_0__0__Impl11257);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -14831,7 +14849,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5644:1: ( rule__SOMID__Group_0__1__Impl )
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5645:2: rule__SOMID__Group_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__SOMID__Group_0__1__Impl_in_rule__SOMID__Group_0__111285);
+            pushFollow(FOLLOW_rule__SOMID__Group_0__1__Impl_in_rule__SOMID__Group_0__111286);
             rule__SOMID__Group_0__1__Impl();
 
             state._fsp--;
@@ -14868,7 +14886,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5657:1: '#'
             {
              before(grammarAccess.getSOMIDAccess().getNumberSignKeyword_0_1()); 
-            match(input,56,FOLLOW_56_in_rule__SOMID__Group_0__1__Impl11313); 
+            match(input,56,FOLLOW_56_in_rule__SOMID__Group_0__1__Impl11314); 
              after(grammarAccess.getSOMIDAccess().getNumberSignKeyword_0_1()); 
 
             }
@@ -14905,7 +14923,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5681:1: RULE_ID
             {
              before(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_111353); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_111354); 
              after(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -14942,7 +14960,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5696:1: ruleComponentCategory
             {
              before(grammarAccess.getSystemInstanceAccess().getCategoryComponentCategoryParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_211384);
+            pushFollow(FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_211385);
             ruleComponentCategory();
 
             state._fsp--;
@@ -14987,7 +15005,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5713:1: ruleFQCREF
             {
              before(grammarAccess.getSystemInstanceAccess().getComponentImplementationComponentImplementationFQCREFParserRuleCall_4_0_1()); 
-            pushFollow(FOLLOW_ruleFQCREF_in_rule__SystemInstance__ComponentImplementationAssignment_411419);
+            pushFollow(FOLLOW_ruleFQCREF_in_rule__SystemInstance__ComponentImplementationAssignment_411420);
             ruleFQCREF();
 
             state._fsp--;
@@ -15032,7 +15050,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5730:1: ruleFeatureInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getFeatureInstanceFeatureInstanceParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__SystemInstance__FeatureInstanceAssignment_511454);
+            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__SystemInstance__FeatureInstanceAssignment_511455);
             ruleFeatureInstance();
 
             state._fsp--;
@@ -15073,7 +15091,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5745:1: ruleComponentInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_611485);
+            pushFollow(FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_611486);
             ruleComponentInstance();
 
             state._fsp--;
@@ -15114,7 +15132,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5760:1: ruleModeInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getModeInstanceModeInstanceParserRuleCall_7_0()); 
-            pushFollow(FOLLOW_ruleModeInstance_in_rule__SystemInstance__ModeInstanceAssignment_711516);
+            pushFollow(FOLLOW_ruleModeInstance_in_rule__SystemInstance__ModeInstanceAssignment_711517);
             ruleModeInstance();
 
             state._fsp--;
@@ -15155,7 +15173,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5775:1: ruleModeTransitionInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getModeTransitionInstanceModeTransitionInstanceParserRuleCall_8_0()); 
-            pushFollow(FOLLOW_ruleModeTransitionInstance_in_rule__SystemInstance__ModeTransitionInstanceAssignment_811547);
+            pushFollow(FOLLOW_ruleModeTransitionInstance_in_rule__SystemInstance__ModeTransitionInstanceAssignment_811548);
             ruleModeTransitionInstance();
 
             state._fsp--;
@@ -15196,7 +15214,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5790:1: ruleFlowSpecInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getFlowSpecificationFlowSpecInstanceParserRuleCall_9_0()); 
-            pushFollow(FOLLOW_ruleFlowSpecInstance_in_rule__SystemInstance__FlowSpecificationAssignment_911578);
+            pushFollow(FOLLOW_ruleFlowSpecInstance_in_rule__SystemInstance__FlowSpecificationAssignment_911579);
             ruleFlowSpecInstance();
 
             state._fsp--;
@@ -15237,7 +15255,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5805:1: ruleEndToEndFlowInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getEndToEndFlowEndToEndFlowInstanceParserRuleCall_10_0()); 
-            pushFollow(FOLLOW_ruleEndToEndFlowInstance_in_rule__SystemInstance__EndToEndFlowAssignment_1011609);
+            pushFollow(FOLLOW_ruleEndToEndFlowInstance_in_rule__SystemInstance__EndToEndFlowAssignment_1011610);
             ruleEndToEndFlowInstance();
 
             state._fsp--;
@@ -15278,7 +15296,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5820:1: ruleConnectionInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getConnectionInstanceConnectionInstanceParserRuleCall_11_0()); 
-            pushFollow(FOLLOW_ruleConnectionInstance_in_rule__SystemInstance__ConnectionInstanceAssignment_1111640);
+            pushFollow(FOLLOW_ruleConnectionInstance_in_rule__SystemInstance__ConnectionInstanceAssignment_1111641);
             ruleConnectionInstance();
 
             state._fsp--;
@@ -15319,7 +15337,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5835:1: ruleSystemOperationMode
             {
              before(grammarAccess.getSystemInstanceAccess().getSystemOperationModeSystemOperationModeParserRuleCall_12_0()); 
-            pushFollow(FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_1211671);
+            pushFollow(FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_1211672);
             ruleSystemOperationMode();
 
             state._fsp--;
@@ -15360,7 +15378,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5850:1: ruleComponentCategory
             {
              before(grammarAccess.getComponentInstanceAccess().getCategoryComponentCategoryParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_011702);
+            pushFollow(FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_011703);
             ruleComponentCategory();
 
             state._fsp--;
@@ -15401,7 +15419,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5865:1: RULE_ID
             {
              before(grammarAccess.getComponentInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_211733); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_211734); 
              after(grammarAccess.getComponentInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -15438,7 +15456,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5880:1: ruleINTVALUE
             {
              before(grammarAccess.getComponentInstanceAccess().getIndexINTVALUEParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleINTVALUE_in_rule__ComponentInstance__IndexAssignment_3_111764);
+            pushFollow(FOLLOW_ruleINTVALUE_in_rule__ComponentInstance__IndexAssignment_3_111765);
             ruleINTVALUE();
 
             state._fsp--;
@@ -15483,7 +15501,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5897:1: RULE_ID
             {
              before(grammarAccess.getComponentInstanceAccess().getSubcomponentSubcomponentIDTerminalRuleCall_5_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__SubcomponentAssignment_511799); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__SubcomponentAssignment_511800); 
              after(grammarAccess.getComponentInstanceAccess().getSubcomponentSubcomponentIDTerminalRuleCall_5_0_1()); 
 
             }
@@ -15524,7 +15542,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5914:1: ruleFeatureInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getFeatureInstanceFeatureInstanceParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__ComponentInstance__FeatureInstanceAssignment_611834);
+            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__ComponentInstance__FeatureInstanceAssignment_611835);
             ruleFeatureInstance();
 
             state._fsp--;
@@ -15565,7 +15583,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5929:1: ruleComponentInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_7_0()); 
-            pushFollow(FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_711865);
+            pushFollow(FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_711866);
             ruleComponentInstance();
 
             state._fsp--;
@@ -15606,7 +15624,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5944:1: ruleModeInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getModeInstanceModeInstanceParserRuleCall_8_0()); 
-            pushFollow(FOLLOW_ruleModeInstance_in_rule__ComponentInstance__ModeInstanceAssignment_811896);
+            pushFollow(FOLLOW_ruleModeInstance_in_rule__ComponentInstance__ModeInstanceAssignment_811897);
             ruleModeInstance();
 
             state._fsp--;
@@ -15647,7 +15665,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5959:1: ruleModeTransitionInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getModeTransitionInstanceModeTransitionInstanceParserRuleCall_9_0()); 
-            pushFollow(FOLLOW_ruleModeTransitionInstance_in_rule__ComponentInstance__ModeTransitionInstanceAssignment_911927);
+            pushFollow(FOLLOW_ruleModeTransitionInstance_in_rule__ComponentInstance__ModeTransitionInstanceAssignment_911928);
             ruleModeTransitionInstance();
 
             state._fsp--;
@@ -15688,7 +15706,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5974:1: ruleFlowSpecInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getFlowSpecificationFlowSpecInstanceParserRuleCall_10_0()); 
-            pushFollow(FOLLOW_ruleFlowSpecInstance_in_rule__ComponentInstance__FlowSpecificationAssignment_1011958);
+            pushFollow(FOLLOW_ruleFlowSpecInstance_in_rule__ComponentInstance__FlowSpecificationAssignment_1011959);
             ruleFlowSpecInstance();
 
             state._fsp--;
@@ -15729,7 +15747,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:5989:1: ruleEndToEndFlowInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getEndToEndFlowEndToEndFlowInstanceParserRuleCall_11_0()); 
-            pushFollow(FOLLOW_ruleEndToEndFlowInstance_in_rule__ComponentInstance__EndToEndFlowAssignment_1111989);
+            pushFollow(FOLLOW_ruleEndToEndFlowInstance_in_rule__ComponentInstance__EndToEndFlowAssignment_1111990);
             ruleEndToEndFlowInstance();
 
             state._fsp--;
@@ -15770,7 +15788,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6004:1: ruleConnectionInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getConnectionInstanceConnectionInstanceParserRuleCall_12_0()); 
-            pushFollow(FOLLOW_ruleConnectionInstance_in_rule__ComponentInstance__ConnectionInstanceAssignment_1212020);
+            pushFollow(FOLLOW_ruleConnectionInstance_in_rule__ComponentInstance__ConnectionInstanceAssignment_1212021);
             ruleConnectionInstance();
 
             state._fsp--;
@@ -15815,7 +15833,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6021:1: RULE_ID
             {
              before(grammarAccess.getComponentInstanceAccess().getInModeModeInstanceIDTerminalRuleCall_13_2_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__InModeAssignment_13_212055); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__InModeAssignment_13_212056); 
              after(grammarAccess.getComponentInstanceAccess().getInModeModeInstanceIDTerminalRuleCall_13_2_0_1()); 
 
             }
@@ -15856,7 +15874,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6038:1: ruleFeatureCategory
             {
              before(grammarAccess.getFeatureInstanceAccess().getCategoryFeatureCategoryParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleFeatureCategory_in_rule__FeatureInstance__CategoryAssignment_012090);
+            pushFollow(FOLLOW_ruleFeatureCategory_in_rule__FeatureInstance__CategoryAssignment_012091);
             ruleFeatureCategory();
 
             state._fsp--;
@@ -15897,7 +15915,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6053:1: RULE_ID
             {
              before(grammarAccess.getFeatureInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FeatureInstance__NameAssignment_212121); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FeatureInstance__NameAssignment_212122); 
              after(grammarAccess.getFeatureInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -15934,7 +15952,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6068:1: ruleINTVALUE
             {
              before(grammarAccess.getFeatureInstanceAccess().getIndexINTVALUEParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleINTVALUE_in_rule__FeatureInstance__IndexAssignment_3_112152);
+            pushFollow(FOLLOW_ruleINTVALUE_in_rule__FeatureInstance__IndexAssignment_3_112153);
             ruleINTVALUE();
 
             state._fsp--;
@@ -15979,7 +15997,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6085:1: RULE_ID
             {
              before(grammarAccess.getFeatureInstanceAccess().getFeatureFeatureIDTerminalRuleCall_5_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FeatureInstance__FeatureAssignment_512187); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FeatureInstance__FeatureAssignment_512188); 
              after(grammarAccess.getFeatureInstanceAccess().getFeatureFeatureIDTerminalRuleCall_5_0_1()); 
 
             }
@@ -16020,7 +16038,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6102:1: ruleDirectionType
             {
              before(grammarAccess.getFeatureInstanceAccess().getDirectionDirectionTypeParserRuleCall_6_0()); 
-            pushFollow(FOLLOW_ruleDirectionType_in_rule__FeatureInstance__DirectionAssignment_612222);
+            pushFollow(FOLLOW_ruleDirectionType_in_rule__FeatureInstance__DirectionAssignment_612223);
             ruleDirectionType();
 
             state._fsp--;
@@ -16061,7 +16079,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6117:1: ruleFeatureInstance
             {
              before(grammarAccess.getFeatureInstanceAccess().getFeatureInstanceFeatureInstanceParserRuleCall_7_0()); 
-            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__FeatureInstance__FeatureInstanceAssignment_712253);
+            pushFollow(FOLLOW_ruleFeatureInstance_in_rule__FeatureInstance__FeatureInstanceAssignment_712254);
             ruleFeatureInstance();
 
             state._fsp--;
@@ -16102,7 +16120,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6132:1: RULE_ID
             {
              before(grammarAccess.getModeInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeInstance__NameAssignment_212284); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeInstance__NameAssignment_212285); 
              after(grammarAccess.getModeInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -16143,7 +16161,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6149:1: RULE_ID
             {
              before(grammarAccess.getModeInstanceAccess().getModeModeIDTerminalRuleCall_4_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeInstance__ModeAssignment_412319); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeInstance__ModeAssignment_412320); 
              after(grammarAccess.getModeInstanceAccess().getModeModeIDTerminalRuleCall_4_0_1()); 
 
             }
@@ -16188,7 +16206,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6168:1: 'initial'
             {
              before(grammarAccess.getModeInstanceAccess().getInitialInitialKeyword_5_0()); 
-            match(input,57,FOLLOW_57_in_rule__ModeInstance__InitialAssignment_512359); 
+            match(input,57,FOLLOW_57_in_rule__ModeInstance__InitialAssignment_512360); 
              after(grammarAccess.getModeInstanceAccess().getInitialInitialKeyword_5_0()); 
 
             }
@@ -16229,7 +16247,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6189:1: RULE_ID
             {
              before(grammarAccess.getModeTransitionInstanceAccess().getNameIDTerminalRuleCall_3_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__NameAssignment_312398); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__NameAssignment_312399); 
              after(grammarAccess.getModeTransitionInstanceAccess().getNameIDTerminalRuleCall_3_0()); 
 
             }
@@ -16270,7 +16288,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6206:1: RULE_ID
             {
              before(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionModeTransitionIDTerminalRuleCall_5_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__ModeTransitionAssignment_512433); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__ModeTransitionAssignment_512434); 
              after(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionModeTransitionIDTerminalRuleCall_5_0_1()); 
 
             }
@@ -16315,7 +16333,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6225:1: RULE_ID
             {
              before(grammarAccess.getModeTransitionInstanceAccess().getSourceModeInstanceIDTerminalRuleCall_7_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__SourceAssignment_712472); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__SourceAssignment_712473); 
              after(grammarAccess.getModeTransitionInstanceAccess().getSourceModeInstanceIDTerminalRuleCall_7_0_1()); 
 
             }
@@ -16360,7 +16378,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6244:1: RULE_ID
             {
              before(grammarAccess.getModeTransitionInstanceAccess().getDestinationModeInstanceIDTerminalRuleCall_9_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__DestinationAssignment_912511); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__DestinationAssignment_912512); 
              after(grammarAccess.getModeTransitionInstanceAccess().getDestinationModeInstanceIDTerminalRuleCall_9_0_1()); 
 
             }
@@ -16401,7 +16419,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6261:1: RULE_ID
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__NameAssignment_212546); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__NameAssignment_212547); 
              after(grammarAccess.getFlowSpecInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -16442,7 +16460,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6278:1: RULE_ID
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getFlowSpecificationFlowSpecificationIDTerminalRuleCall_4_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__FlowSpecificationAssignment_412581); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__FlowSpecificationAssignment_412582); 
              after(grammarAccess.getFlowSpecInstanceAccess().getFlowSpecificationFlowSpecificationIDTerminalRuleCall_4_0_1()); 
 
             }
@@ -16487,7 +16505,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6297:1: ruleINSTANCEREF
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getSourceFeatureInstanceINSTANCEREFParserRuleCall_5_1_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__SourceAssignment_5_112620);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__SourceAssignment_5_112621);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16536,7 +16554,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6316:1: ruleINSTANCEREF
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getDestinationFeatureInstanceINSTANCEREFParserRuleCall_6_1_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__DestinationAssignment_6_112659);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__DestinationAssignment_6_112660);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16585,7 +16603,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6335:1: ruleINSTANCEREF
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getInModeModeInstanceINSTANCEREFParserRuleCall_7_2_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__InModeAssignment_7_212698);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__InModeAssignment_7_212699);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16634,7 +16652,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6354:1: RULE_ID
             {
              before(grammarAccess.getFlowSpecInstanceAccess().getInModeTransitionModeTransitionInstanceIDTerminalRuleCall_8_2_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__InModeTransitionAssignment_8_212737); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FlowSpecInstance__InModeTransitionAssignment_8_212738); 
              after(grammarAccess.getFlowSpecInstanceAccess().getInModeTransitionModeTransitionInstanceIDTerminalRuleCall_8_2_0_1()); 
 
             }
@@ -16675,7 +16693,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6371:1: RULE_ID
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__NameAssignment_212772); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__NameAssignment_212773); 
              after(grammarAccess.getEndToEndFlowInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -16716,7 +16734,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6388:1: RULE_ID
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getEndToEndFlowEndToEndFlowIDTerminalRuleCall_4_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__EndToEndFlowAssignment_412807); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__EndToEndFlowAssignment_412808); 
              after(grammarAccess.getEndToEndFlowInstanceAccess().getEndToEndFlowEndToEndFlowIDTerminalRuleCall_4_0_1()); 
 
             }
@@ -16761,7 +16779,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6407:1: ruleINSTANCEREF
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getFlowElementFlowElementInstanceINSTANCEREFParserRuleCall_5_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__FlowElementAssignment_512846);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__FlowElementAssignment_512847);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16810,7 +16828,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6426:1: ruleINSTANCEREF
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getInModeModeInstanceINSTANCEREFParserRuleCall_6_2_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__InModeAssignment_6_212885);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__InModeAssignment_6_212886);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16859,7 +16877,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6445:1: ruleSOMID
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeSystemOperationModeSOMIDParserRuleCall_7_2_0_1()); 
-            pushFollow(FOLLOW_ruleSOMID_in_rule__EndToEndFlowInstance__InSystemOperationModeAssignment_7_212924);
+            pushFollow(FOLLOW_ruleSOMID_in_rule__EndToEndFlowInstance__InSystemOperationModeAssignment_7_212925);
             ruleSOMID();
 
             state._fsp--;
@@ -16904,7 +16922,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6462:1: ruleSOMID
             {
              before(grammarAccess.getSystemOperationModeAccess().getNameSOMIDParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleSOMID_in_rule__SystemOperationMode__NameAssignment_112959);
+            pushFollow(FOLLOW_ruleSOMID_in_rule__SystemOperationMode__NameAssignment_112960);
             ruleSOMID();
 
             state._fsp--;
@@ -16949,7 +16967,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6479:1: ruleINSTANCEREF
             {
              before(grammarAccess.getSystemOperationModeAccess().getCurrentModeModeInstanceINSTANCEREFParserRuleCall_2_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SystemOperationMode__CurrentModeAssignment_212994);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__SystemOperationMode__CurrentModeAssignment_212995);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -16994,7 +17012,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6496:1: ruleConnectionKind
             {
              before(grammarAccess.getConnectionInstanceAccess().getKindConnectionKindParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleConnectionKind_in_rule__ConnectionInstance__KindAssignment_013029);
+            pushFollow(FOLLOW_ruleConnectionKind_in_rule__ConnectionInstance__KindAssignment_013030);
             ruleConnectionKind();
 
             state._fsp--;
@@ -17035,7 +17053,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6511:1: ruleConnectionReference
             {
              before(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceConnectionReferenceParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleConnectionReference_in_rule__ConnectionInstance__ConnectionReferenceAssignment_413060);
+            pushFollow(FOLLOW_ruleConnectionReference_in_rule__ConnectionInstance__ConnectionReferenceAssignment_413061);
             ruleConnectionReference();
 
             state._fsp--;
@@ -17080,7 +17098,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6528:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionInstanceAccess().getSourceConnectionInstanceEndINSTANCEREFParserRuleCall_6_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__SourceAssignment_613095);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__SourceAssignment_613096);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17129,7 +17147,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6547:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionInstanceAccess().getDestinationConnectionInstanceEndINSTANCEREFParserRuleCall_8_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__DestinationAssignment_813134);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__DestinationAssignment_813135);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17178,7 +17196,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6566:1: ruleSOMID
             {
              before(grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeSystemOperationModeSOMIDParserRuleCall_9_2_0_1()); 
-            pushFollow(FOLLOW_ruleSOMID_in_rule__ConnectionInstance__InSystemOperationModeAssignment_9_213173);
+            pushFollow(FOLLOW_ruleSOMID_in_rule__ConnectionInstance__InSystemOperationModeAssignment_9_213174);
             ruleSOMID();
 
             state._fsp--;
@@ -17227,7 +17245,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6585:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionInstanceAccess().getInModeTransitionModeTransitionInstanceINSTANCEREFParserRuleCall_10_2_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__InModeTransitionAssignment_10_213212);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__InModeTransitionAssignment_10_213213);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17276,7 +17294,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6604:1: 'complete'
             {
              before(grammarAccess.getConnectionInstanceAccess().getCompleteCompleteKeyword_11_0()); 
-            match(input,58,FOLLOW_58_in_rule__ConnectionInstance__CompleteAssignment_1113252); 
+            match(input,58,FOLLOW_58_in_rule__ConnectionInstance__CompleteAssignment_1113253); 
              after(grammarAccess.getConnectionInstanceAccess().getCompleteCompleteKeyword_11_0()); 
 
             }
@@ -17321,7 +17339,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6627:1: 'bidirectional'
             {
              before(grammarAccess.getConnectionInstanceAccess().getBidirectionalBidirectionalKeyword_12_0()); 
-            match(input,59,FOLLOW_59_in_rule__ConnectionInstance__BidirectionalAssignment_1213296); 
+            match(input,59,FOLLOW_59_in_rule__ConnectionInstance__BidirectionalAssignment_1213297); 
              after(grammarAccess.getConnectionInstanceAccess().getBidirectionalBidirectionalKeyword_12_0()); 
 
             }
@@ -17366,7 +17384,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6650:1: RULE_ID
             {
              before(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionIDTerminalRuleCall_1_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ConnectionReference__ConnectionAssignment_113339); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ConnectionReference__ConnectionAssignment_113340); 
              after(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionIDTerminalRuleCall_1_0_1()); 
 
             }
@@ -17411,7 +17429,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6669:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionReferenceAccess().getSourceConnectionInstanceEndINSTANCEREFParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__SourceAssignment_313378);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__SourceAssignment_313379);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17460,7 +17478,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6688:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionReferenceAccess().getDestinationConnectionInstanceEndINSTANCEREFParserRuleCall_5_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__DestinationAssignment_513417);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__DestinationAssignment_513418);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17509,7 +17527,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6707:1: ruleINSTANCEREF
             {
              before(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceINSTANCEREFParserRuleCall_7_0_1()); 
-            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__ContextAssignment_713456);
+            pushFollow(FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__ContextAssignment_713457);
             ruleINSTANCEREF();
 
             state._fsp--;
@@ -17543,23 +17561,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     protected DFA1 dfa1 = new DFA1(this);
-    protected DFA40 dfa40 = new DFA40(this);
+    protected DFA41 dfa41 = new DFA41(this);
     static final String DFA1_eotS =
         "\20\uffff";
     static final String DFA1_eofS =
-        "\10\uffff\1\17\7\uffff";
+        "\10\uffff\1\16\7\uffff";
     static final String DFA1_minS =
         "\1\10\7\uffff\1\46\7\uffff";
     static final String DFA1_maxS =
         "\1\65\7\uffff\1\64\7\uffff";
     static final String DFA1_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\1\13\1\14\1\15"+
-        "\1\16\1\11\1\10";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\1\13\1\14\1\15\1\16\1\10\1\11";
     static final String DFA1_specialS =
         "\20\uffff}>";
     static final String[] DFA1_transitionS = {
-            "\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\15\41\uffff"+
-            "\1\14",
+            "\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\15\41\uffff\1\14",
             "",
             "",
             "",
@@ -17567,7 +17583,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             "",
             "",
             "",
-            "\1\17\1\uffff\1\17\13\uffff\1\16",
+            "\1\16\1\uffff\1\16\13\uffff\1\17",
             "",
             "",
             "",
@@ -17610,55 +17626,54 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             return "564:1: rule__ComponentCategory__Alternatives : ( ( 'abstract' ) | ( 'bus' ) | ( 'data' ) | ( 'device' ) | ( 'memory' ) | ( 'process' ) | ( 'processor' ) | ( 'subprogram' ) | ( ( rule__ComponentCategory__Group_8__0 ) ) | ( 'system' ) | ( 'threadgroup' ) | ( 'thread' ) | ( ( rule__ComponentCategory__Group_12__0 ) ) | ( 'virtualprocessor' ) );";
         }
     }
-    static final String DFA40_eotS =
+    static final String DFA41_eotS =
         "\5\uffff";
-    static final String DFA40_eofS =
-        "\1\uffff\1\3\3\uffff";
-    static final String DFA40_minS =
-        "\2\5\2\uffff\1\5";
-    static final String DFA40_maxS =
-        "\1\5\1\73\2\uffff\1\5";
-    static final String DFA40_acceptS =
-        "\2\uffff\1\1\1\2\1\uffff";
-    static final String DFA40_specialS =
+    static final String DFA41_eofS =
+        "\1\uffff\1\4\3\uffff";
+    static final String DFA41_minS =
+        "\3\5\2\uffff";
+    static final String DFA41_maxS =
+        "\1\5\1\73\1\5\2\uffff";
+    static final String DFA41_acceptS =
+        "\3\uffff\1\1\1\2";
+    static final String DFA41_specialS =
         "\5\uffff}>";
-    static final String[] DFA40_transitionS = {
+    static final String[] DFA41_transitionS = {
             "\1\1",
-            "\1\3\30\uffff\1\3\10\uffff\1\3\17\uffff\1\4\1\2\1\uffff\2"+
-            "\3",
+            "\1\4\30\uffff\1\4\10\uffff\1\4\17\uffff\1\2\1\3\1\uffff\2\4",
+            "\1\1",
             "",
-            "",
-            "\1\1"
+            ""
     };
 
-    static final short[] DFA40_eot = DFA.unpackEncodedString(DFA40_eotS);
-    static final short[] DFA40_eof = DFA.unpackEncodedString(DFA40_eofS);
-    static final char[] DFA40_min = DFA.unpackEncodedStringToUnsignedChars(DFA40_minS);
-    static final char[] DFA40_max = DFA.unpackEncodedStringToUnsignedChars(DFA40_maxS);
-    static final short[] DFA40_accept = DFA.unpackEncodedString(DFA40_acceptS);
-    static final short[] DFA40_special = DFA.unpackEncodedString(DFA40_specialS);
-    static final short[][] DFA40_transition;
+    static final short[] DFA41_eot = DFA.unpackEncodedString(DFA41_eotS);
+    static final short[] DFA41_eof = DFA.unpackEncodedString(DFA41_eofS);
+    static final char[] DFA41_min = DFA.unpackEncodedStringToUnsignedChars(DFA41_minS);
+    static final char[] DFA41_max = DFA.unpackEncodedStringToUnsignedChars(DFA41_maxS);
+    static final short[] DFA41_accept = DFA.unpackEncodedString(DFA41_acceptS);
+    static final short[] DFA41_special = DFA.unpackEncodedString(DFA41_specialS);
+    static final short[][] DFA41_transition;
 
     static {
-        int numStates = DFA40_transitionS.length;
-        DFA40_transition = new short[numStates][];
+        int numStates = DFA41_transitionS.length;
+        DFA41_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA40_transition[i] = DFA.unpackEncodedString(DFA40_transitionS[i]);
+            DFA41_transition[i] = DFA.unpackEncodedString(DFA41_transitionS[i]);
         }
     }
 
-    class DFA40 extends DFA {
+    class DFA41 extends DFA {
 
-        public DFA40(BaseRecognizer recognizer) {
+        public DFA41(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 40;
-            this.eot = DFA40_eot;
-            this.eof = DFA40_eof;
-            this.min = DFA40_min;
-            this.max = DFA40_max;
-            this.accept = DFA40_accept;
-            this.special = DFA40_special;
-            this.transition = DFA40_transition;
+            this.decisionNumber = 41;
+            this.eot = DFA41_eot;
+            this.eof = DFA41_eof;
+            this.min = DFA41_min;
+            this.max = DFA41_max;
+            this.accept = DFA41_accept;
+            this.special = DFA41_special;
+            this.transition = DFA41_transition;
         }
         public String getDescription() {
             return "()* loopback of 5569:1: ( rule__SOMID__Group_0__0 )*";
@@ -18041,204 +18056,204 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     public static final BitSet FOLLOW_rule__SystemOperationMode__Group__0__Impl_in_rule__SystemOperationMode__Group__08146 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__SystemOperationMode__Group__1_in_rule__SystemOperationMode__Group__08149 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_49_in_rule__SystemOperationMode__Group__0__Impl8177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__1__Impl_in_rule__SystemOperationMode__Group__18208 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__1__Impl_in_rule__SystemOperationMode__Group__18208 = new BitSet(new long[]{0x0000008000000020L});
     public static final BitSet FOLLOW_rule__SystemOperationMode__Group__2_in_rule__SystemOperationMode__Group__18211 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SystemOperationMode__NameAssignment_1_in_rule__SystemOperationMode__Group__1__Impl8238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__2__Impl_in_rule__SystemOperationMode__Group__28268 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__2__Impl_in_rule__SystemOperationMode__Group__28268 = new BitSet(new long[]{0x0000008000000020L});
     public static final BitSet FOLLOW_rule__SystemOperationMode__Group__3_in_rule__SystemOperationMode__Group__28271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SystemOperationMode__CurrentModeAssignment_2_in_rule__SystemOperationMode__Group__2__Impl8298 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__3__Impl_in_rule__SystemOperationMode__Group__38328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_rule__SystemOperationMode__Group__3__Impl8356 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__0__Impl_in_rule__ConnectionInstance__Group__08395 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__1_in_rule__ConnectionInstance__Group__08398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__KindAssignment_0_in_rule__ConnectionInstance__Group__0__Impl8425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__1__Impl_in_rule__ConnectionInstance__Group__18455 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__2_in_rule__ConnectionInstance__Group__18458 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_rule__ConnectionInstance__Group__1__Impl8486 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__2__Impl_in_rule__ConnectionInstance__Group__28517 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__3_in_rule__ConnectionInstance__Group__28520 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rule__ConnectionInstance__Group__2__Impl8548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__3__Impl_in_rule__ConnectionInstance__Group__38579 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__4_in_rule__ConnectionInstance__Group__38582 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__ConnectionInstance__Group__3__Impl8610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__4__Impl_in_rule__ConnectionInstance__Group__48641 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__5_in_rule__ConnectionInstance__Group__48644 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8673 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8685 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__5__Impl_in_rule__ConnectionInstance__Group__58718 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__6_in_rule__ConnectionInstance__Group__58721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_rule__ConnectionInstance__Group__5__Impl8749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__6__Impl_in_rule__ConnectionInstance__Group__68780 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__7_in_rule__ConnectionInstance__Group__68783 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__SourceAssignment_6_in_rule__ConnectionInstance__Group__6__Impl8810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__7__Impl_in_rule__ConnectionInstance__Group__78840 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__8_in_rule__ConnectionInstance__Group__78843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_rule__ConnectionInstance__Group__7__Impl8871 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__8__Impl_in_rule__ConnectionInstance__Group__88902 = new BitSet(new long[]{0x0C00008040000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__9_in_rule__ConnectionInstance__Group__88905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__DestinationAssignment_8_in_rule__ConnectionInstance__Group__8__Impl8932 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__9__Impl_in_rule__ConnectionInstance__Group__98962 = new BitSet(new long[]{0x0C00008040000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__10_in_rule__ConnectionInstance__Group__98965 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__0_in_rule__ConnectionInstance__Group__9__Impl8992 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__10__Impl_in_rule__ConnectionInstance__Group__109023 = new BitSet(new long[]{0x0C00008040000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__11_in_rule__ConnectionInstance__Group__109026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__0_in_rule__ConnectionInstance__Group__10__Impl9053 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__11__Impl_in_rule__ConnectionInstance__Group__119084 = new BitSet(new long[]{0x0C00008040000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__12_in_rule__ConnectionInstance__Group__119087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__CompleteAssignment_11_in_rule__ConnectionInstance__Group__11__Impl9114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__12__Impl_in_rule__ConnectionInstance__Group__129145 = new BitSet(new long[]{0x0C00008040000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__13_in_rule__ConnectionInstance__Group__129148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__BidirectionalAssignment_12_in_rule__ConnectionInstance__Group__12__Impl9175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__13__Impl_in_rule__ConnectionInstance__Group__139206 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_rule__ConnectionInstance__Group__13__Impl9234 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__0__Impl_in_rule__ConnectionInstance__Group_9__09293 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__1_in_rule__ConnectionInstance__Group_9__09296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ConnectionInstance__Group_9__0__Impl9324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__1__Impl_in_rule__ConnectionInstance__Group_9__19355 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__2_in_rule__ConnectionInstance__Group_9__19358 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rule__ConnectionInstance__Group_9__1__Impl9386 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__2__Impl_in_rule__ConnectionInstance__Group_9__29417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__InSystemOperationModeAssignment_9_2_in_rule__ConnectionInstance__Group_9__2__Impl9444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__0__Impl_in_rule__ConnectionInstance__Group_10__09480 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__1_in_rule__ConnectionInstance__Group_10__09483 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ConnectionInstance__Group_10__0__Impl9511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__1__Impl_in_rule__ConnectionInstance__Group_10__19542 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__2_in_rule__ConnectionInstance__Group_10__19545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_rule__ConnectionInstance__Group_10__1__Impl9573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__2__Impl_in_rule__ConnectionInstance__Group_10__29604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionInstance__InModeTransitionAssignment_10_2_in_rule__ConnectionInstance__Group_10__2__Impl9631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__0__Impl_in_rule__ConnectionReference__Group__09667 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__1_in_rule__ConnectionReference__Group__09670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__ConnectionReference__Group__0__Impl9698 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__1__Impl_in_rule__ConnectionReference__Group__19729 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__2_in_rule__ConnectionReference__Group__19732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__ConnectionAssignment_1_in_rule__ConnectionReference__Group__1__Impl9759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__2__Impl_in_rule__ConnectionReference__Group__29789 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__3_in_rule__ConnectionReference__Group__29792 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_rule__ConnectionReference__Group__2__Impl9820 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__3__Impl_in_rule__ConnectionReference__Group__39851 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__4_in_rule__ConnectionReference__Group__39854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__SourceAssignment_3_in_rule__ConnectionReference__Group__3__Impl9881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__4__Impl_in_rule__ConnectionReference__Group__49911 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__5_in_rule__ConnectionReference__Group__49914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_rule__ConnectionReference__Group__4__Impl9942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__5__Impl_in_rule__ConnectionReference__Group__59973 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__6_in_rule__ConnectionReference__Group__59976 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__DestinationAssignment_5_in_rule__ConnectionReference__Group__5__Impl10003 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__6__Impl_in_rule__ConnectionReference__Group__610033 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__7_in_rule__ConnectionReference__Group__610036 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rule__ConnectionReference__Group__6__Impl10064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__Group__7__Impl_in_rule__ConnectionReference__Group__710095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ConnectionReference__ContextAssignment_7_in_rule__ConnectionReference__Group__7__Impl10122 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__0__Impl_in_rule__ComponentCategory__Group_8__010168 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__1_in_rule__ComponentCategory__Group_8__010171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_rule__ComponentCategory__Group_8__0__Impl10199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__1__Impl_in_rule__ComponentCategory__Group_8__110230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rule__ComponentCategory__Group_8__1__Impl10258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__0__Impl_in_rule__ComponentCategory__Group_12__010293 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__1_in_rule__ComponentCategory__Group_12__010296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_rule__ComponentCategory__Group_12__0__Impl10324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__1__Impl_in_rule__ComponentCategory__Group_12__110355 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_9_in_rule__ComponentCategory__Group_12__1__Impl10383 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group__0__Impl_in_rule__FQCREF__Group__010418 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group__1_in_rule__FQCREF__Group__010421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10450 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10462 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group__1__Impl_in_rule__FQCREF__Group__110495 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group__2_in_rule__FQCREF__Group__110498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group__1__Impl10525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group__2__Impl_in_rule__FQCREF__Group__210554 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_2__0_in_rule__FQCREF__Group__2__Impl10581 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0__Impl_in_rule__FQCREF__Group_0__010618 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_0__1_in_rule__FQCREF__Group_0__010621 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group_0__0__Impl10648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_0__1__Impl_in_rule__FQCREF__Group_0__110677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_rule__FQCREF__Group_0__1__Impl10705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_2__0__Impl_in_rule__FQCREF__Group_2__010740 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_2__1_in_rule__FQCREF__Group_2__010743 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_rule__FQCREF__Group_2__0__Impl10771 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FQCREF__Group_2__1__Impl_in_rule__FQCREF__Group_2__110802 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group_2__1__Impl10829 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__0__Impl_in_rule__INSTANCEREF__Group__010862 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__1_in_rule__INSTANCEREF__Group__010865 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__0_in_rule__INSTANCEREF__Group__0__Impl10892 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__1__Impl_in_rule__INSTANCEREF__Group__110923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group__1__Impl10950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__0__Impl_in_rule__INSTANCEREF__Group_0__010983 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__1_in_rule__INSTANCEREF__Group_0__010986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group_0__0__Impl11013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__1__Impl_in_rule__INSTANCEREF__Group_0__111042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_rule__INSTANCEREF__Group_0__1__Impl11070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SOMID__Group__0__Impl_in_rule__SOMID__Group__011105 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__SOMID__Group__1_in_rule__SOMID__Group__011108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SOMID__Group_0__0_in_rule__SOMID__Group__0__Impl11135 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__SOMID__Group__1__Impl_in_rule__SOMID__Group__111166 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group__1__Impl11193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SOMID__Group_0__0__Impl_in_rule__SOMID__Group_0__011226 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_rule__SOMID__Group_0__1_in_rule__SOMID__Group_0__011229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group_0__0__Impl11256 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SOMID__Group_0__1__Impl_in_rule__SOMID__Group_0__111285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_rule__SOMID__Group_0__1__Impl11313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_111353 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_211384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFQCREF_in_rule__SystemInstance__ComponentImplementationAssignment_411419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__SystemInstance__FeatureInstanceAssignment_511454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_611485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleModeInstance_in_rule__SystemInstance__ModeInstanceAssignment_711516 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleModeTransitionInstance_in_rule__SystemInstance__ModeTransitionInstanceAssignment_811547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFlowSpecInstance_in_rule__SystemInstance__FlowSpecificationAssignment_911578 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEndToEndFlowInstance_in_rule__SystemInstance__EndToEndFlowAssignment_1011609 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConnectionInstance_in_rule__SystemInstance__ConnectionInstanceAssignment_1111640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_1211671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_011702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_211733 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINTVALUE_in_rule__ComponentInstance__IndexAssignment_3_111764 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__SubcomponentAssignment_511799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__ComponentInstance__FeatureInstanceAssignment_611834 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_711865 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleModeInstance_in_rule__ComponentInstance__ModeInstanceAssignment_811896 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleModeTransitionInstance_in_rule__ComponentInstance__ModeTransitionInstanceAssignment_911927 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFlowSpecInstance_in_rule__ComponentInstance__FlowSpecificationAssignment_1011958 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEndToEndFlowInstance_in_rule__ComponentInstance__EndToEndFlowAssignment_1111989 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConnectionInstance_in_rule__ComponentInstance__ConnectionInstanceAssignment_1212020 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__InModeAssignment_13_212055 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureCategory_in_rule__FeatureInstance__CategoryAssignment_012090 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FeatureInstance__NameAssignment_212121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINTVALUE_in_rule__FeatureInstance__IndexAssignment_3_112152 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FeatureInstance__FeatureAssignment_512187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDirectionType_in_rule__FeatureInstance__DirectionAssignment_612222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__FeatureInstance__FeatureInstanceAssignment_712253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeInstance__NameAssignment_212284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeInstance__ModeAssignment_412319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_57_in_rule__ModeInstance__InitialAssignment_512359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__NameAssignment_312398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__ModeTransitionAssignment_512433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__SourceAssignment_712472 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__DestinationAssignment_912511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__NameAssignment_212546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__FlowSpecificationAssignment_412581 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__SourceAssignment_5_112620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__DestinationAssignment_6_112659 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__InModeAssignment_7_212698 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__InModeTransitionAssignment_8_212737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__NameAssignment_212772 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__EndToEndFlowAssignment_412807 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__FlowElementAssignment_512846 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__InModeAssignment_6_212885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSOMID_in_rule__EndToEndFlowInstance__InSystemOperationModeAssignment_7_212924 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSOMID_in_rule__SystemOperationMode__NameAssignment_112959 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SystemOperationMode__CurrentModeAssignment_212994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConnectionKind_in_rule__ConnectionInstance__KindAssignment_013029 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConnectionReference_in_rule__ConnectionInstance__ConnectionReferenceAssignment_413060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__SourceAssignment_613095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__DestinationAssignment_813134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSOMID_in_rule__ConnectionInstance__InSystemOperationModeAssignment_9_213173 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__InModeTransitionAssignment_10_213212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_rule__ConnectionInstance__CompleteAssignment_1113252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_rule__ConnectionInstance__BidirectionalAssignment_1213296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ConnectionReference__ConnectionAssignment_113339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__SourceAssignment_313378 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__DestinationAssignment_513417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__ContextAssignment_713456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SystemOperationMode__CurrentModeAssignment_2_in_rule__SystemOperationMode__Group__2__Impl8298 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__SystemOperationMode__Group__3__Impl_in_rule__SystemOperationMode__Group__38329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_rule__SystemOperationMode__Group__3__Impl8357 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__0__Impl_in_rule__ConnectionInstance__Group__08396 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__1_in_rule__ConnectionInstance__Group__08399 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__KindAssignment_0_in_rule__ConnectionInstance__Group__0__Impl8426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__1__Impl_in_rule__ConnectionInstance__Group__18456 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__2_in_rule__ConnectionInstance__Group__18459 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rule__ConnectionInstance__Group__1__Impl8487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__2__Impl_in_rule__ConnectionInstance__Group__28518 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__3_in_rule__ConnectionInstance__Group__28521 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__ConnectionInstance__Group__2__Impl8549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__3__Impl_in_rule__ConnectionInstance__Group__38580 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__4_in_rule__ConnectionInstance__Group__38583 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_rule__ConnectionInstance__Group__3__Impl8611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__4__Impl_in_rule__ConnectionInstance__Group__48642 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__5_in_rule__ConnectionInstance__Group__48645 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8674 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__ConnectionReferenceAssignment_4_in_rule__ConnectionInstance__Group__4__Impl8686 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__5__Impl_in_rule__ConnectionInstance__Group__58719 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__6_in_rule__ConnectionInstance__Group__58722 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_rule__ConnectionInstance__Group__5__Impl8750 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__6__Impl_in_rule__ConnectionInstance__Group__68781 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__7_in_rule__ConnectionInstance__Group__68784 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__SourceAssignment_6_in_rule__ConnectionInstance__Group__6__Impl8811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__7__Impl_in_rule__ConnectionInstance__Group__78841 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__8_in_rule__ConnectionInstance__Group__78844 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_rule__ConnectionInstance__Group__7__Impl8872 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__8__Impl_in_rule__ConnectionInstance__Group__88903 = new BitSet(new long[]{0x0C00008040000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__9_in_rule__ConnectionInstance__Group__88906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__DestinationAssignment_8_in_rule__ConnectionInstance__Group__8__Impl8933 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__9__Impl_in_rule__ConnectionInstance__Group__98963 = new BitSet(new long[]{0x0C00008040000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__10_in_rule__ConnectionInstance__Group__98966 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__0_in_rule__ConnectionInstance__Group__9__Impl8993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__10__Impl_in_rule__ConnectionInstance__Group__109024 = new BitSet(new long[]{0x0C00008040000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__11_in_rule__ConnectionInstance__Group__109027 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__0_in_rule__ConnectionInstance__Group__10__Impl9054 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__11__Impl_in_rule__ConnectionInstance__Group__119085 = new BitSet(new long[]{0x0C00008040000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__12_in_rule__ConnectionInstance__Group__119088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__CompleteAssignment_11_in_rule__ConnectionInstance__Group__11__Impl9115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__12__Impl_in_rule__ConnectionInstance__Group__129146 = new BitSet(new long[]{0x0C00008040000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__13_in_rule__ConnectionInstance__Group__129149 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__BidirectionalAssignment_12_in_rule__ConnectionInstance__Group__12__Impl9176 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group__13__Impl_in_rule__ConnectionInstance__Group__139207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_rule__ConnectionInstance__Group__13__Impl9235 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__0__Impl_in_rule__ConnectionInstance__Group_9__09294 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__1_in_rule__ConnectionInstance__Group_9__09297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ConnectionInstance__Group_9__0__Impl9325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__1__Impl_in_rule__ConnectionInstance__Group_9__19356 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__2_in_rule__ConnectionInstance__Group_9__19359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_rule__ConnectionInstance__Group_9__1__Impl9387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_9__2__Impl_in_rule__ConnectionInstance__Group_9__29418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__InSystemOperationModeAssignment_9_2_in_rule__ConnectionInstance__Group_9__2__Impl9445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__0__Impl_in_rule__ConnectionInstance__Group_10__09481 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__1_in_rule__ConnectionInstance__Group_10__09484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ConnectionInstance__Group_10__0__Impl9512 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__1__Impl_in_rule__ConnectionInstance__Group_10__19543 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__2_in_rule__ConnectionInstance__Group_10__19546 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_rule__ConnectionInstance__Group_10__1__Impl9574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__Group_10__2__Impl_in_rule__ConnectionInstance__Group_10__29605 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionInstance__InModeTransitionAssignment_10_2_in_rule__ConnectionInstance__Group_10__2__Impl9632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__0__Impl_in_rule__ConnectionReference__Group__09668 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__1_in_rule__ConnectionReference__Group__09671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_rule__ConnectionReference__Group__0__Impl9699 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__1__Impl_in_rule__ConnectionReference__Group__19730 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__2_in_rule__ConnectionReference__Group__19733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__ConnectionAssignment_1_in_rule__ConnectionReference__Group__1__Impl9760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__2__Impl_in_rule__ConnectionReference__Group__29790 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__3_in_rule__ConnectionReference__Group__29793 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_rule__ConnectionReference__Group__2__Impl9821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__3__Impl_in_rule__ConnectionReference__Group__39852 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__4_in_rule__ConnectionReference__Group__39855 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__SourceAssignment_3_in_rule__ConnectionReference__Group__3__Impl9882 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__4__Impl_in_rule__ConnectionReference__Group__49912 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__5_in_rule__ConnectionReference__Group__49915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_rule__ConnectionReference__Group__4__Impl9943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__5__Impl_in_rule__ConnectionReference__Group__59974 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__6_in_rule__ConnectionReference__Group__59977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__DestinationAssignment_5_in_rule__ConnectionReference__Group__5__Impl10004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__6__Impl_in_rule__ConnectionReference__Group__610034 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__7_in_rule__ConnectionReference__Group__610037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rule__ConnectionReference__Group__6__Impl10065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__Group__7__Impl_in_rule__ConnectionReference__Group__710096 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ConnectionReference__ContextAssignment_7_in_rule__ConnectionReference__Group__7__Impl10123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__0__Impl_in_rule__ComponentCategory__Group_8__010169 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__1_in_rule__ComponentCategory__Group_8__010172 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_rule__ComponentCategory__Group_8__0__Impl10200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_8__1__Impl_in_rule__ComponentCategory__Group_8__110231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rule__ComponentCategory__Group_8__1__Impl10259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__0__Impl_in_rule__ComponentCategory__Group_12__010294 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__1_in_rule__ComponentCategory__Group_12__010297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_rule__ComponentCategory__Group_12__0__Impl10325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ComponentCategory__Group_12__1__Impl_in_rule__ComponentCategory__Group_12__110356 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_9_in_rule__ComponentCategory__Group_12__1__Impl10384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group__0__Impl_in_rule__FQCREF__Group__010419 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group__1_in_rule__FQCREF__Group__010422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10451 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0_in_rule__FQCREF__Group__0__Impl10463 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group__1__Impl_in_rule__FQCREF__Group__110496 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group__2_in_rule__FQCREF__Group__110499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group__1__Impl10526 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group__2__Impl_in_rule__FQCREF__Group__210555 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_2__0_in_rule__FQCREF__Group__2__Impl10582 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_0__0__Impl_in_rule__FQCREF__Group_0__010619 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_0__1_in_rule__FQCREF__Group_0__010622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group_0__0__Impl10649 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_0__1__Impl_in_rule__FQCREF__Group_0__110678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_rule__FQCREF__Group_0__1__Impl10706 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_2__0__Impl_in_rule__FQCREF__Group_2__010741 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_2__1_in_rule__FQCREF__Group_2__010744 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_rule__FQCREF__Group_2__0__Impl10772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FQCREF__Group_2__1__Impl_in_rule__FQCREF__Group_2__110803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FQCREF__Group_2__1__Impl10830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__0__Impl_in_rule__INSTANCEREF__Group__010863 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__1_in_rule__INSTANCEREF__Group__010866 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__0_in_rule__INSTANCEREF__Group__0__Impl10893 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group__1__Impl_in_rule__INSTANCEREF__Group__110924 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group__1__Impl10951 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__0__Impl_in_rule__INSTANCEREF__Group_0__010984 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__1_in_rule__INSTANCEREF__Group_0__010987 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__INSTANCEREF__Group_0__0__Impl11014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__INSTANCEREF__Group_0__1__Impl_in_rule__INSTANCEREF__Group_0__111043 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_rule__INSTANCEREF__Group_0__1__Impl11071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SOMID__Group__0__Impl_in_rule__SOMID__Group__011106 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__SOMID__Group__1_in_rule__SOMID__Group__011109 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SOMID__Group_0__0_in_rule__SOMID__Group__0__Impl11136 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__SOMID__Group__1__Impl_in_rule__SOMID__Group__111167 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group__1__Impl11194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SOMID__Group_0__0__Impl_in_rule__SOMID__Group_0__011227 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_rule__SOMID__Group_0__1_in_rule__SOMID__Group_0__011230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SOMID__Group_0__0__Impl11257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SOMID__Group_0__1__Impl_in_rule__SOMID__Group_0__111286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_rule__SOMID__Group_0__1__Impl11314 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_111354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_211385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFQCREF_in_rule__SystemInstance__ComponentImplementationAssignment_411420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__SystemInstance__FeatureInstanceAssignment_511455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_611486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleModeInstance_in_rule__SystemInstance__ModeInstanceAssignment_711517 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleModeTransitionInstance_in_rule__SystemInstance__ModeTransitionInstanceAssignment_811548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFlowSpecInstance_in_rule__SystemInstance__FlowSpecificationAssignment_911579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEndToEndFlowInstance_in_rule__SystemInstance__EndToEndFlowAssignment_1011610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConnectionInstance_in_rule__SystemInstance__ConnectionInstanceAssignment_1111641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_1211672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_011703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_211734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINTVALUE_in_rule__ComponentInstance__IndexAssignment_3_111765 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__SubcomponentAssignment_511800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__ComponentInstance__FeatureInstanceAssignment_611835 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_711866 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleModeInstance_in_rule__ComponentInstance__ModeInstanceAssignment_811897 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleModeTransitionInstance_in_rule__ComponentInstance__ModeTransitionInstanceAssignment_911928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFlowSpecInstance_in_rule__ComponentInstance__FlowSpecificationAssignment_1011959 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEndToEndFlowInstance_in_rule__ComponentInstance__EndToEndFlowAssignment_1111990 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConnectionInstance_in_rule__ComponentInstance__ConnectionInstanceAssignment_1212021 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__InModeAssignment_13_212056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureCategory_in_rule__FeatureInstance__CategoryAssignment_012091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FeatureInstance__NameAssignment_212122 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINTVALUE_in_rule__FeatureInstance__IndexAssignment_3_112153 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FeatureInstance__FeatureAssignment_512188 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDirectionType_in_rule__FeatureInstance__DirectionAssignment_612223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureInstance_in_rule__FeatureInstance__FeatureInstanceAssignment_712254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeInstance__NameAssignment_212285 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeInstance__ModeAssignment_412320 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_57_in_rule__ModeInstance__InitialAssignment_512360 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__NameAssignment_312399 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__ModeTransitionAssignment_512434 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__SourceAssignment_712473 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ModeTransitionInstance__DestinationAssignment_912512 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__NameAssignment_212547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__FlowSpecificationAssignment_412582 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__SourceAssignment_5_112621 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__DestinationAssignment_6_112660 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__FlowSpecInstance__InModeAssignment_7_212699 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FlowSpecInstance__InModeTransitionAssignment_8_212738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__NameAssignment_212773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__EndToEndFlowInstance__EndToEndFlowAssignment_412808 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__FlowElementAssignment_512847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__EndToEndFlowInstance__InModeAssignment_6_212886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSOMID_in_rule__EndToEndFlowInstance__InSystemOperationModeAssignment_7_212925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSOMID_in_rule__SystemOperationMode__NameAssignment_112960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__SystemOperationMode__CurrentModeAssignment_212995 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConnectionKind_in_rule__ConnectionInstance__KindAssignment_013030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConnectionReference_in_rule__ConnectionInstance__ConnectionReferenceAssignment_413061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__SourceAssignment_613096 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__DestinationAssignment_813135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSOMID_in_rule__ConnectionInstance__InSystemOperationModeAssignment_9_213174 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionInstance__InModeTransitionAssignment_10_213213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_rule__ConnectionInstance__CompleteAssignment_1113253 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_rule__ConnectionInstance__BidirectionalAssignment_1213297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ConnectionReference__ConnectionAssignment_113340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__SourceAssignment_313379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__DestinationAssignment_513418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleINSTANCEREF_in_rule__ConnectionReference__ContextAssignment_713457 = new BitSet(new long[]{0x0000000000000002L});
 
 }
