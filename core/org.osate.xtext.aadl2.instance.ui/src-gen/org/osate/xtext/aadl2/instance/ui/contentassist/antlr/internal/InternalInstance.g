@@ -4121,7 +4121,7 @@ rule__SystemOperationMode__Group__2__Impl
 :
 (
 { before(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2()); }
-(rule__SystemOperationMode__CurrentModeAssignment_2)
+(rule__SystemOperationMode__CurrentModeAssignment_2)*
 { after(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2()); }
 )
 

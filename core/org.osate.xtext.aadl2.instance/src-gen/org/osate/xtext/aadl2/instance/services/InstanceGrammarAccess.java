@@ -48,11 +48,11 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
 		//SystemInstance returns instance::SystemInstance:
-		//	"rootinstance" name=ID category=ComponentCategory "of"
-		//	componentImplementation=[aadl2::ComponentImplementation|FQCREF] featureInstance+=FeatureInstance*
-		//	componentInstance+=ComponentInstance* modeInstance+=ModeInstance* modeTransitionInstance+=ModeTransitionInstance*
-		//	flowSpecification+=FlowSpecInstance* endToEndFlow+=EndToEndFlowInstance* connectionInstance+=ConnectionInstance*
-		//	systemOperationMode+=SystemOperationMode* "end";
+		//	"rootinstance" name=ID category=ComponentCategory "of" componentImplementation=[aadl2::ComponentImplementation|FQCREF]
+		//	featureInstance+=FeatureInstance* componentInstance+=ComponentInstance* modeInstance+=ModeInstance*
+		//	modeTransitionInstance+=ModeTransitionInstance* flowSpecification+=FlowSpecInstance*
+		//	endToEndFlow+=EndToEndFlowInstance* connectionInstance+=ConnectionInstance* systemOperationMode+=SystemOperationMode*
+		//	"end";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"rootinstance" name=ID category=ComponentCategory "of" componentImplementation=[aadl2::ComponentImplementation|FQCREF]
@@ -799,10 +799,10 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEndKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//SystemOperationMode returns instance::SystemOperationMode:
-		//	"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF] "end";
+		//	"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF]* "end";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF] "end"
+		//"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF]* "end"
 		public Group getGroup() { return cGroup; }
 
 		//"som"
@@ -814,7 +814,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//SOMID
 		public RuleCall getNameSOMIDParserRuleCall_1_0() { return cNameSOMIDParserRuleCall_1_0; }
 
-		//currentMode+=[instance::ModeInstance|INSTANCEREF]
+		//currentMode+=[instance::ModeInstance|INSTANCEREF]*
 		public Assignment getCurrentModeAssignment_2() { return cCurrentModeAssignment_2; }
 
 		//[instance::ModeInstance|INSTANCEREF]
@@ -997,8 +997,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ConnectionReference returns instance::ConnectionReference:
 		//	"of" connection=[aadl2::Connection] "src" source=[instance::ConnectionInstanceEnd|INSTANCEREF] "dst"
-		//	destination=[instance::ConnectionInstanceEnd|INSTANCEREF] "context"
-		//	context=[instance::ComponentInstance|INSTANCEREF];
+		//	destination=[instance::ConnectionInstanceEnd|INSTANCEREF] "context" context=[instance::ComponentInstance|INSTANCEREF];
 		@Override public ParserRule getRule() { return rule; }
 
 		//"of" connection=[aadl2::Connection] "src" source=[instance::ConnectionInstanceEnd|INSTANCEREF] "dst"
@@ -1439,11 +1438,11 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//SystemInstance returns instance::SystemInstance:
-	//	"rootinstance" name=ID category=ComponentCategory "of"
-	//	componentImplementation=[aadl2::ComponentImplementation|FQCREF] featureInstance+=FeatureInstance*
-	//	componentInstance+=ComponentInstance* modeInstance+=ModeInstance* modeTransitionInstance+=ModeTransitionInstance*
-	//	flowSpecification+=FlowSpecInstance* endToEndFlow+=EndToEndFlowInstance* connectionInstance+=ConnectionInstance*
-	//	systemOperationMode+=SystemOperationMode* "end";
+	//	"rootinstance" name=ID category=ComponentCategory "of" componentImplementation=[aadl2::ComponentImplementation|FQCREF]
+	//	featureInstance+=FeatureInstance* componentInstance+=ComponentInstance* modeInstance+=ModeInstance*
+	//	modeTransitionInstance+=ModeTransitionInstance* flowSpecification+=FlowSpecInstance*
+	//	endToEndFlow+=EndToEndFlowInstance* connectionInstance+=ConnectionInstance* systemOperationMode+=SystemOperationMode*
+	//	"end";
 	public SystemInstanceElements getSystemInstanceAccess() {
 		return pSystemInstance;
 	}
@@ -1524,7 +1523,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SystemOperationMode returns instance::SystemOperationMode:
-	//	"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF] "end";
+	//	"som" name=SOMID currentMode+=[instance::ModeInstance|INSTANCEREF]* "end";
 	public SystemOperationModeElements getSystemOperationModeAccess() {
 		return pSystemOperationMode;
 	}
@@ -1549,8 +1548,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ConnectionReference returns instance::ConnectionReference:
 	//	"of" connection=[aadl2::Connection] "src" source=[instance::ConnectionInstanceEnd|INSTANCEREF] "dst"
-	//	destination=[instance::ConnectionInstanceEnd|INSTANCEREF] "context"
-	//	context=[instance::ComponentInstance|INSTANCEREF];
+	//	destination=[instance::ConnectionInstanceEnd|INSTANCEREF] "context" context=[instance::ComponentInstance|INSTANCEREF];
 	public ConnectionReferenceElements getConnectionReferenceAccess() {
 		return pConnectionReference;
 	}
