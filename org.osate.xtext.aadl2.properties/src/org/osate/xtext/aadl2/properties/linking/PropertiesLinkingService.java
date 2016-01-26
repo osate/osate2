@@ -517,9 +517,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							.getContainingPropertyAssociation(context);
 					if (containingPropertyAssociation != null) {
 						// need to make sure we look in the correct name space
-						if (containingPropertyAssociation.getOwner() instanceof Classifier) {
-							ns = (Classifier) containingPropertyAssociation.getOwner();
-						} else if (containingPropertyAssociation.getOwner() instanceof Subcomponent) {
+						if (containingPropertyAssociation.getOwner() instanceof Subcomponent) {
 							Subcomponent subcomponent = (Subcomponent) containingPropertyAssociation.getOwner();
 							while (subcomponent.getSubcomponentType() == null && subcomponent.getRefined() != null) {
 								subcomponent = subcomponent.getRefined();
@@ -543,7 +541,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 										(FeatureGroupPrototype) fg.getFeatureType(),
 										AadlUtil.getContainingClassifier(context));
 							}
-						}
+						} else {
+							ns = (Classifier) containingPropertyAssociation.getContainingClassifier();
+						}  
 					}
 					if (ns != null) {
 						res = ns.findNamedElement(name);
