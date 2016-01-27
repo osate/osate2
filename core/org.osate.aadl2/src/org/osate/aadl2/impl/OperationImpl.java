@@ -381,4 +381,10 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		return result;
 	}
 
+	@Override
+	public boolean sameAs(PropertyExpression other) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 } // OperationImpl
