@@ -119,7 +119,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		serializableReferenceService = new DefaultSerializableReferenceService(extensionService);
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
-		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, bor, fp);
+		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
 		final DefaultStyleService styleUtil = new DefaultStyleService(fp, extensionService);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);

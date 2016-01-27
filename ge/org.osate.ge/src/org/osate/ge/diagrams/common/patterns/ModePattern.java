@@ -180,7 +180,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
         // Remove connections related to the initial shape
-		getVisibilityService().ghostConnections(shape);
+		getVisibilityService().ghostOwnedConnections(shape);
 		
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape
@@ -190,7 +190,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 			if(!innerModeShapeName.equals(propertyService.getName(child))) {
 				it.remove();
 			}
-		}		
+		}
 		
 		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);		
 		final int initialModeHeight = 20;

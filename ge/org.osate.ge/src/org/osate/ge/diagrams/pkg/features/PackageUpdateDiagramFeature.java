@@ -114,11 +114,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 			diagram.setName(pkg.getQualifiedName());
 		}
 				
-		// Prune Invalid Generalizations
-		ghostingService.ghostConnections(diagram);
-
-		// Prune Invalid Shapes
-		ghostingService.ghostInvalidChildShapes(diagram);
+		// Ghost children
+		ghostingService.ghostChildren(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();

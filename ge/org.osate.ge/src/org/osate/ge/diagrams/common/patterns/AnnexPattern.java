@@ -1,10 +1,6 @@
 package org.osate.ge.diagrams.common.patterns;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -310,16 +306,9 @@ public class AnnexPattern extends AgePattern {
 	// Refresh
 	private void refresh(final ContainerShape shape) {
 		ghostingService.setIsGhost(shape, false);
-
+		ghostingService.ghostChildShapes(shape);
+		
 		final NamedElement annexElement = (NamedElement)bor.getBusinessObjectForPictogramElement(shape);
-		final Set<Shape> childShapesToGhost = new HashSet<Shape>(shapeService.getNonGhostChildren(shape));
-		final List<Shape> touchedShapes = new ArrayList<>();
-
-		// Ghost Shapes
-		childShapesToGhost.removeAll(touchedShapes);
-		for(final Shape child : childShapesToGhost) {
-			ghostingService.setIsGhost(child, true);
-		}
 
 		// Create label shape
 		labelService.createLabelShape(shape, annexLabelName,  annexElement, getLabelText(getAnnexName(annexElement)));

@@ -14,20 +14,25 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 /**
  * Provides methods for ghosting pictogram. A ghost object is an object that is in the diagram
  * but is hidden because it is not longer valid. Ghosts are purged(deleted) when the diagram is saved.
- * @author philip.alldredge
+ * 
+ * The usual process for refreshing a shape involves ghosting all children and then unghosting children which should be in the diagram.
  *
  */
 public interface GhostingService {
 	void setIsGhost(PictogramElement pe, boolean isGhost);
 	
 	/**
-	 * Ghosts invalid child shapes. An invalid shape is defined as a shape that is not associated with a business object or can not be updated. Deletes transient shapes.
-	 * @param diagram
+	 * Helper method which combines ghostChildShapes() and ghostOwnedConnections()
 	 */
-	void ghostInvalidChildShapes(ContainerShape shape);
+	void ghostChildren(ContainerShape container);
 	
 	/**
-	 * Turns connections owned by the specified shape and any for which an owner cannot be determined into ghosts. Deletes transient connections.
+	 * Ghosts all child shapes and deletes transient shapes.
 	 */
-	void ghostConnections(ContainerShape shape);
+	void ghostChildShapes(ContainerShape shape);
+	
+	/**
+	 * Ghosts all connections owned by the shape and any connections for which an owner cannot be determined. Deletes transient connections
+	 */
+	void ghostOwnedConnections(final ContainerShape shape);
 }

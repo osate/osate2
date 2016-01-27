@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -27,16 +26,15 @@ public interface ShapeCreationService {
 	 * 
 	 * @param shape
 	 * @param features should be a list of features, internal features, or processor features
-	 * @param touchedShapes
 	 */
 	void createUpdateFeatureShapes(ContainerShape shape,
-			List<? extends NamedElement> features, Collection<Shape> touchedShapes);
+			List<? extends NamedElement> features);
 	
-	void createUpdateModeShapes(ContainerShape shape, List<Mode> modes, final Collection<Shape> touchedShapes);
+	void createUpdateModeShapes(ContainerShape shape, List<Mode> modes);
 
 	void createUpdateShapesForElements(ContainerShape shape,
 			List<? extends NamedElement> elements, int startX, boolean incX,
-			int xPadding, int startY, boolean incY, int yPadding, final Collection<Shape> touchedShapes);
+			int xPadding, int startY, boolean incY, int yPadding);
 	
 	PictogramElement createUpdateShapeForElement(ContainerShape shape, NamedElement element);
 	
