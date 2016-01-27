@@ -5,6 +5,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -89,7 +90,7 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 					return newBo == null ? EMPTY : new Object[] { newBo };
 				} finally {
 					eclipseCtx.dispose();
-				}	
+				}
 			}
 			
 		});

@@ -8,4 +8,5 @@ Require-Bundle: org.osate.ge,
  org.eclipse.core.runtime,
  org.eclipse.graphiti.mm,
  org.osate.aadl2,
- org.osate.xtext.aadl2.errormodel
+ org.osate.xtext.aadl2.errormodel,
+ org.eclipse.graphiti

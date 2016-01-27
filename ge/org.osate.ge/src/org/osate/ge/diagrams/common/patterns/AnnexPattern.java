@@ -219,7 +219,7 @@ public class AnnexPattern extends AgePattern {
 	public final PictogramElement add(final IAddContext context) {
 		final NamedElement neNewAnnex = (NamedElement)AadlElementWrapper.unwrap(context.getNewObject());
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		
+
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
 		link(containerShape, new AadlElementWrapper(neNewAnnex));
@@ -306,7 +306,7 @@ public class AnnexPattern extends AgePattern {
 
 		return true;
 	}
-
+	
 	// Refresh
 	private void refresh(final ContainerShape shape) {
 		ghostingService.setIsGhost(shape, false);

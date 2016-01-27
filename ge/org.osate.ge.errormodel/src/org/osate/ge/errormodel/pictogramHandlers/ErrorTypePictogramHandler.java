@@ -3,6 +3,7 @@ package org.osate.ge.errormodel.pictogramHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.AadlPackage;
@@ -22,11 +23,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeLibraryPictogramHandler {
+public class ErrorTypePictogramHandler {
 	@GetPaletteEntries
-	public ExtensionPaletteEntry[] getPaletteEntries() {
+	public ExtensionPaletteEntry[] getPaletteEntries(final BusinessObjectService bos, final IDiagramTypeProvider dtp) {
+		if(!(bos.getBusinessObject(dtp.getDiagram()) instanceof AadlPackage)) {
+			return null;
+		}
+		
 		return new ExtensionPaletteEntry[] { 
-			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Type Library", null, null)
+			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Type", null, null)
 		};
 	}
 	

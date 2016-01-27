@@ -9,7 +9,6 @@
 package org.osate.ge.diagrams.common;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +45,7 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
@@ -65,6 +65,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
@@ -117,7 +118,12 @@ import org.osate.ge.diagrams.type.features.SetAccessFeatureKindFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureDirectionFeature;
 import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.ext.ExtensionPaletteEntry;
+import org.osate.ge.ext.Names;
+import org.osate.ge.ext.ExtensionPaletteEntry.Type;
+import org.osate.ge.ext.annotations.CanRefresh;
+import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
+import org.osate.ge.ext.annotations.Refresh;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
@@ -129,8 +135,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
 	private IEclipseContext context;
 	private ConnectionService connectionService;
-	private Collection<ICreateFeature> extCreateFeatures = new ArrayList<>(); // Collection of create features created from extensions
-	private Collection<ICreateConnectionFeature> extCreateConnectionFeatures = new ArrayList<>(); // Collection of create connection features created from extensions
+	private ExtensionService extService;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -139,6 +144,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public void initialize(final IEclipseContext context) {
 		this.context = context;
 		this.connectionService = Objects.requireNonNull(context.get(ConnectionService.class), "unable to get connection service");		
+		this.extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -170,35 +176,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
-		
-		// Add features based on the pictogram handlers
-		final BusinessObjectResolutionService bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
-		final ExtensionService extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
-		final AadlModificationService aadlModService = Objects.requireNonNull(context.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		final DiagramModificationService diagramModService = Objects.requireNonNull(context.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
-		// TODO: Should this be done on the fly or...
-		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-			// Create features based on palette entries
-			// TODO: Add them to a list that is added to 
-			
-			//extCreateFeatures - PictogramHandlerCreateFeature
-			//extCreateConnectionFeatures
-			
-			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, context, null);
-			for(final ExtensionPaletteEntry entry : extPaletteEntries) {
-				switch(entry.getType()) {
-				case CREATE:
-					extCreateFeatures.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, diagramModService, this, entry, pictogramHandler));
-					break;
-					
-				case CREATE_CONNECTION:
-					extCreateConnectionFeatures.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
-					break;
-				}
-			}
-			
-		}
-		
 	}
 
 	private IEclipseContext getContext() {
@@ -461,9 +438,19 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
 		
-		// Add extension create features based on availability
-		for(final ICreateFeature feature : extCreateFeatures) {
-			addIfAvailable(features, feature, ctx);	
+		// Add extension create features
+		final BusinessObjectResolutionService bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
+		final AadlModificationService aadlModService = Objects.requireNonNull(context.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		final DiagramModificationService diagramModService = Objects.requireNonNull(context.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
+		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, context, null);
+			if(extPaletteEntries != null) {
+				for(final ExtensionPaletteEntry entry : extPaletteEntries) {
+					if(entry.getType() == Type.CREATE) {
+						features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+					}
+				}
+			}
 		}
 		
 		return features.toArray(new ICreateFeature[0]);
@@ -497,10 +484,19 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			retList.add(element);
 		}
 		
-		// Add extension create connection features based on availability
-		for(final ICreateConnectionFeature feature : extCreateConnectionFeatures) {
-			if(feature.isAvailable(null)) {
-				retList.add(feature);
+		// Add extension create connection features
+		final BusinessObjectResolutionService bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
+		final ExtensionService extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
+		final AadlModificationService aadlModService = Objects.requireNonNull(context.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		final DiagramModificationService diagramModService = Objects.requireNonNull(context.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
+		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, context, null);
+			if(extPaletteEntries != null) {
+				for(final ExtensionPaletteEntry entry : extPaletteEntries) {
+					if(entry.getType() == Type.CREATE_CONNECTION) {
+						retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+					}
+				}
 			}
 		}
 
@@ -746,5 +742,32 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		} finally {
 			childCtx.dispose();
 		}
+	}
+	
+	/**
+	 * Refreshes a parsed annex element
+	 * @param parsedAnnexElement
+	 * @return whether the parsed element was refreshed. Returns false if the annex library does not have specialized handling or if the parsed annex element was null
+	 */
+	public boolean refreshParsedAnnexElement(final ContainerShape container, final NamedElement parsedAnnexElement) {
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		try {
+			eclipseCtx.set(Names.CONTAINER, container);
+			eclipseCtx.set(Names.BUSINESS_OBJECT, parsedAnnexElement);
+
+			// Call the appropriate extension to refresh the annex element's pictogram
+			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+				final boolean canRefreshAnnex = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanRefresh.class, eclipseCtx, false);
+				if(canRefreshAnnex) {
+					ContextInjectionFactory.invoke(pictogramHandler, Refresh.class, eclipseCtx);
+					return true;
+				}
+			}
+			
+		} finally {
+			eclipseCtx.dispose();
+		}
+		
+		return false;
 	}
 }

@@ -67,6 +67,7 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.ListValue;
@@ -79,6 +80,7 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeFeatureProvider;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlArrayService;
@@ -382,7 +384,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			
 			// Annex Subclauses
 			if(classifier instanceof Classifier) {
-				shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), 25, true, 30, 25, true, 20, touchedShapes);			
+				updateAnnexSubclauses(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), touchedShapes);		
 			}
 		}
 
@@ -454,6 +456,29 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			refreshBindingIndicators(shape, (ComponentImplementation)bo);
 		}
 	}	
+	
+	private void updateAnnexSubclauses(final ContainerShape container, final Collection<AnnexSubclause> elements, final Collection<Shape> touchedShapes) {
+		// Create/update shapes for annex subclause
+		for(final AnnexSubclause subclause : elements) {
+			final NamedElement parsedAnnexSubclause = getParsedAnnexSubclause(subclause);
+			final boolean specializedHandling = parsedAnnexSubclause != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(container, parsedAnnexSubclause);
+			
+			if(!specializedHandling) {
+				final PictogramElement newPe = shapeCreationService.createUpdateShapeForElement(container, subclause);
+				if(newPe instanceof Shape) {
+					touchedShapes.add((Shape)newPe);
+				}
+			}
+		}
+	}
+	
+	private NamedElement getParsedAnnexSubclause(final AnnexSubclause annexSubclause) {
+		if(annexSubclause instanceof DefaultAnnexSubclause) {
+			return ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
+		}
+		
+		return null;
+	}
 	
 	// Starting Binding Handling
 	// The Binding Tracker class is used to track information regarding a particular binding(such as actual_connection_binding). The data is built each time a classifier is refreshed.

@@ -93,8 +93,8 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 	
 	@Override
-	public void createUpdateShapeForElement(final ContainerShape container, final NamedElement element) {
-		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, element);
+	public PictogramElement createUpdateShapeForElement(final ContainerShape container, final NamedElement element) {
+		PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, element);
 		if(pictogramElement == null) {					
 			final AddContext addContext = new AddContext();
 			addContext.setNewObject(new AadlElementWrapper(element));
@@ -104,7 +104,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			
 			final IAddFeature addFeature = fp.getAddFeature(addContext);
 			if(addFeature != null && addFeature.canAdd(addContext)) {			
-				addFeature.add(addContext);
+				pictogramElement = addFeature.add(addContext);
 			}
 		} else {				
 			final UpdateContext updateContext = new UpdateContext(pictogramElement);
@@ -115,6 +115,8 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 				updateFeature.update(updateContext);
 			}
 		}
+		
+		return pictogramElement;
 	}
 	
 	@Override

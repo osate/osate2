@@ -36,6 +36,7 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
@@ -46,6 +47,7 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeFeatureProvider;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -260,8 +262,22 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		// Create shapes for annex libraries
 		for(final NamedElement el : elements) {
 			if(el instanceof AnnexLibrary) {
-				shapeCreationService.createUpdateShapeForElement(diagram, el);				
+				final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(el);
+				final boolean specializedHandling = parsedAnnexLibrary != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(diagram, parsedAnnexLibrary);
+
+				// Create the generic shape if specialized handling wasn't used
+				if(!specializedHandling) {
+					shapeCreationService.createUpdateShapeForElement(diagram, el);
+				}
 			}
 		}
+	}
+	
+	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
+		if(annexLibrary instanceof DefaultAnnexLibrary) {
+			return ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
+		}
+		
+		return null;
 	}
 }
