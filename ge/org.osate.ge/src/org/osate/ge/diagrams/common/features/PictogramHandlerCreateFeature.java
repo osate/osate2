@@ -1,7 +1,6 @@
 package org.osate.ge.diagrams.common.features;
 
 import java.util.Objects;
-
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -9,9 +8,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.Names;
@@ -65,9 +62,9 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 			eclipseCtx.dispose();
 		}
 	}
-
+	
 	@Override
-	public Object[] create(final ICreateContext context) {
+	public Object[] create(final ICreateContext context) {		
 		final Object ownerBo = getOwnerBo(context.getTargetContainer());
 		if(ownerBo == null) {
 			return EMPTY;

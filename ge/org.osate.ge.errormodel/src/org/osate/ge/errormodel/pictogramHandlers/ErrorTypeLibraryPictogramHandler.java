@@ -1,6 +1,7 @@
 package org.osate.ge.errormodel.pictogramHandlers;
 
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
