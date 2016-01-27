@@ -117,7 +117,9 @@ import org.osate.ge.ext.Categories;
  */
 public class ClassifierPattern extends AgePattern implements Categorized {
 	public static String BINDING_CONNECTION_TYPE = "generic_binding";
-	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
+	private static final int classifierMinimumWidth = 300;
+	private static final int classifierMinimumHeight = 325;
+	private static final LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";
 	private static final String subcomponentTypeLabelShapeName = "subcomponent_type_label";
 	private final GhostingService ghostingService;
@@ -806,8 +808,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final int newSize[] = layoutService.getMinimumSize(shape);
 			
 			// Enforce a minimum size for classifiers
-			newSize[0] = Math.max(newSize[0], 300);
-			newSize[1] = Math.max(newSize[1], 325);
+			newSize[0] = Math.max(newSize[0], classifierMinimumWidth);
+			newSize[1] = Math.max(newSize[1], classifierMinimumHeight);
 			
 			if(classifier instanceof FeatureGroupType) { // Use a rectangle for feature group types because the feature group shape is not ideal as a container for features.
 				ga = gaService.createRectangle(shape);
@@ -1100,9 +1102,13 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	}
 	
 	@Override
-	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
+	public IResizeConfiguration getResizeConfiguration(final IResizeShapeContext context) {
 		final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
-		conf.setMinimumSize(layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+		if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Classifier) {
+			conf.setMinimumSize(classifierMinimumWidth, classifierMinimumHeight);
+		} else {
+			conf.setMinimumSize(layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+		}
 		return conf;		
 	}
 	

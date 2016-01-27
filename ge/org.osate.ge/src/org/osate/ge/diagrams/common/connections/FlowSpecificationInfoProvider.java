@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
@@ -47,7 +48,7 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
 			while(temp != null) {
 				final Object tempBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp);
-				if(tempBo instanceof Subcomponent || tempBo instanceof ComponentType) {
+				if(tempBo instanceof Subcomponent || tempBo instanceof ComponentType || tempBo instanceof ComponentImplementation) {
 					return temp;
 				}
 				temp = temp.getContainer();
