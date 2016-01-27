@@ -11,7 +11,17 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorModelBusinessObjectHelper {
-	public static Object getOwnerBusinessObjectForErrorModelElement(final ContainerShape container, final BusinessObjectService boService) {
+	/**
+	 * Returns the business object to be used as an owner for a error model library element. 
+	 * Attempts to return one of the following based on availability:
+	 * ErrorModelLibrary (Parsed Annex)
+	 * DefaultAnnexLibrary (Unparsed Annex)
+	 * AadlPackage 
+	 * @param container
+	 * @param boService
+	 * @return
+	 */
+	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final ContainerShape container, final BusinessObjectService boService) {
 		final AadlPackage pkg = (AadlPackage)boService.getBusinessObject(container);
 		if(pkg.getPublicSection() == null) {
 			return null;

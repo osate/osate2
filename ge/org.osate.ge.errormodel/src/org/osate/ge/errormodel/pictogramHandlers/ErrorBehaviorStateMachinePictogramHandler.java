@@ -36,7 +36,7 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 
 	@GetCreateOwningBusinessObject
 	public Object getOwnerBusinessObject(final @Named(Names.CONTAINER) ContainerShape container, final BusinessObjectService boService) {
-		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelElement(container, boService);
+		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(container, boService);
 	}
 	
 	@CreateBusinessObject

@@ -3,13 +3,12 @@ package org.osate.ge.diagrams.common.features;
 import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.aadl2.Element;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.Names;
@@ -66,53 +65,41 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 	
 	@Override
 	public Object[] create(final ICreateContext context) {		
-		final Object ownerBo = getOwnerBo(context.getTargetContainer());
+		final EObject ownerBo = getOwnerBo(context.getTargetContainer());
 		if(ownerBo == null) {
 			return EMPTY;
 		}
-		
-		// TODO: Support non elements
-		if(!(ownerBo instanceof Element)) {
-			return EMPTY;
-		}
-		
-		// TODO: Remove references to "Element"
-		aadlModService.modify((Element)ownerBo, new AbstractModifier<Element, Object>() {
+
+		// Modify the AADL model
+		return aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object[]>() {
 			@Override
-			public Object modify(Resource resource, Element ownerBo) {
-				// TODO: Adjust... Include container business object in context
+			public Object[] modify(Resource resource, EObject ownerBo) {
 				final IEclipseContext eclipseCtx = extService.createChildContext();
 				try {
 					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);
 					final Object newBo = ContextInjectionFactory.invoke(handler, CreateBusinessObject.class, eclipseCtx);
-					// TODO: Verify that BO array is supposed to be returned
 					return newBo == null ? EMPTY : new Object[] { newBo };
 				} finally {
 					eclipseCtx.dispose();
 				}
-			}
-			
+			}			
 		});
-		
-		// TODO: Return appropriate value
-		
-		return EMPTY;
 	}
 	
-	private Object getOwnerBo(final PictogramElement container) {
+	private EObject getOwnerBo(final PictogramElement container) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.CONTAINER, container);
-			final Object ownerBo = ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
+			final EObject ownerBo = (EObject) ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
 			if(ownerBo != null) {
-				return ownerBo;
+				return (EObject)ownerBo;
 			}
 		} finally {
 			eclipseCtx.dispose();
 		}
 		
-		return bor.getBusinessObjectForPictogramElement(container);
+		return (EObject)bor.getBusinessObjectForPictogramElement(container);
 	}
 }

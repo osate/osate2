@@ -39,7 +39,6 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
@@ -59,8 +58,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	}
 	
 	@Override
-	public <E extends Element, R> R modify(final E element, final Modifier<E, R> modifier) {
-		if(element == null) {
+	public <E extends EObject, R> R modify(final E bo, final Modifier<E, R> modifier) {
+		if(bo == null) {
 			return null;
 		}
 
@@ -70,16 +69,17 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			@Override
 			public void run() {
 				final R modifierResult;
-				if(!(element.eResource() instanceof XtextResource)) {
+				if(!(bo.eResource() instanceof XtextResource)) {
 					throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
 				}
 
 				// Try to get the Xtext document	
-				final NamedElement root = element.getElementRoot();
-				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root);
+				final Object root = bo.eResource() == null ? null : bo.eResource().getContents().get(0);
+				System.err.println(root);
+				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root instanceof NamedElement ? (NamedElement)root : null);
 				if(doc == null) {
-					final XtextResource res = (XtextResource)element.eResource();
-					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, false);
+					final XtextResource res = (XtextResource)bo.eResource();
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, bo, modifier, false);
 					modifierResult = modifySafelyResult.modifierResult;
 					
 					if(modifySafelyResult.modificationSuccessful) {
@@ -106,25 +106,25 @@ public class DefaultAadlModificationService implements AadlModificationService {
 					}
 				} else {
 					// Determine what the root actual/parsed annex element is if the element is in an annex
-					final EObject parsedAnnexRoot = getParsedAnnexRoot(element);
+					final EObject parsedAnnexRoot = getParsedAnnexRoot(bo);
 					
 					// If the element which needs to be edited is in an annex, modify the default annex element. This is needed because objects inside of annexes 
 					// may not have unique URI's
-					final EObject elementToModify = parsedAnnexRoot == null ? element : parsedAnnexRoot.eContainer();
-					final URI modificationElementUri = EcoreUtil.getURI(elementToModify);
+					final EObject objectToModify = parsedAnnexRoot == null ? bo : parsedAnnexRoot.eContainer();
+					final URI modificationObjectUri = EcoreUtil.getURI(objectToModify);
 					final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
 						@SuppressWarnings("unchecked")
 						@Override
 						public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
-							final EObject elementToModify = res.getResourceSet().getEObject(modificationElementUri, true);
-							if(elementToModify == null) {
+							final EObject objectToModify = res.getResourceSet().getEObject(modificationObjectUri, true);
+							if(objectToModify == null) {
 								return null;
 							}
 							
-							if(parsedAnnexRoot != null && (elementToModify instanceof DefaultAnnexLibrary || elementToModify instanceof DefaultAnnexSubclause)) {
-								return modifyAnnexInXtextDocument(res, elementToModify, element, modifier);
+							if(parsedAnnexRoot != null && (objectToModify instanceof DefaultAnnexLibrary || objectToModify instanceof DefaultAnnexSubclause)) {
+								return modifyAnnexInXtextDocument(res, objectToModify, bo, modifier);
 							} else {
-								return modifySafely(res, (E)elementToModify, modifier, false);
+								return modifySafely(res, (E)objectToModify, modifier, false);
 							}
 						}
 					});
