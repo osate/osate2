@@ -11,7 +11,6 @@ package org.osate.ge.services;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -36,7 +35,7 @@ public interface ShapeCreationService {
 			List<? extends NamedElement> elements, int startX, boolean incX,
 			int xPadding, int startY, boolean incY, int yPadding);
 	
-	PictogramElement createUpdateShapeForElement(ContainerShape shape, NamedElement element);
+	void createUpdateShapeForElement(ContainerShape shape, NamedElement element);
 	
 	/**
 	 * Create a shape for the specified element in the specified container if one does not exist. Otherwise, it sets the shapes position.

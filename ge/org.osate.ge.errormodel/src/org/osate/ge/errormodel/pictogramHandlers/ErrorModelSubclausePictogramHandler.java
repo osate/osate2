@@ -15,7 +15,6 @@ public class ErrorModelSubclausePictogramHandler {
 
 	@Refresh
 	public void refresh(final @Named(Names.CONTAINER) ContainerShape container, final @Named(Names.BUSINESS_OBJECT) ErrorModelSubclause subclause) {
-		System.err.println("SC-REFRESH: " + container);
 		// TODO
 	}
 }
