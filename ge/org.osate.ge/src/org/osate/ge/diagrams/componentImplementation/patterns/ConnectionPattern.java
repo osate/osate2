@@ -425,7 +425,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	 				diagramMod.markOpenRelatedDiagramsAsDirty(getComponentImplementation((Shape)startContainer));
 	 			}	 			
 	 			
-	 			// Remove instead of delete. If there are any refinees then there will be an error in the resulting AADL model. Refactoring would be ideal but may 
+	 			// Remove instead of delete. If there are any refines then there will be an error in the resulting AADL model. Refactoring would be ideal but may 
 	 			// not always be what the user wants.
 				//EcoreUtil.delete(aadlConnection);
 	 			EcoreUtil.remove(aadlConnection);

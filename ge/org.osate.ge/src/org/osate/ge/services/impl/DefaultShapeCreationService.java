@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IAddFeature;
@@ -42,17 +41,17 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 
 	@Override
-	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends NamedElement> features, final Collection<Shape> touchedShapes) {	
-		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5, touchedShapes);
+	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends NamedElement> features) {	
+		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5);
 	}
 
 	@Override
-	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes, final Collection<Shape> touchedShapes) {
-		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5, touchedShapes);
+	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes) {
+		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5);
 	}
 	
 	@Override
-	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final Collection<Shape> touchedShapes) {
+	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
 		int childX = startX;
 		int childY = startY;
 
@@ -84,10 +83,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 					updateFeature.update(updateContext);
 				}
-			}
-
-			if(touchedShapes != null && pictogramElement instanceof Shape) {
-				touchedShapes.add((Shape)pictogramElement);
 			}
 		}
 	}

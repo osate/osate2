@@ -8,9 +8,7 @@
 package org.osate.ge.diagrams.componentImplementation.patterns;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -186,24 +184,13 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y) {
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
-		ghostingService.ghostInvalidChildShapes(shape);				
-		ghostingService.ghostConnections(shape);
+		ghostingService.ghostChildren(shape);
 		
-		final List<Shape> touchedShapes = new ArrayList<Shape>();
-		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
-		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
-
 		final List<SubprogramCall> subprogramCalls = cs.getOwnedSubprogramCalls();
 
 		// Create/Update subprogram call shapes
-		shapeCreationService.createUpdateShapesForElements(shape, subprogramCalls, 25, true, 30, 25, true, 20, touchedShapes);
-		
-		// Ghost children that haven't been updated
-		childShapesToGhost.removeAll(touchedShapes);
-		for(final Shape child : childShapesToGhost) {
-			ghostingService.setIsGhost(child, true);
-		}
-		
+		shapeCreationService.createUpdateShapesForElements(shape, subprogramCalls, 25, true, 30, 25, true, 20);
+	
 		// Create connections to represent the order of the subprogram calls
 		connectionCreationService.createUpdateConnections(shape, getSubprogramCallOrders(subprogramCalls));
 

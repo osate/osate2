@@ -9,7 +9,6 @@
 package org.osate.ge.diagrams.common.patterns;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -340,11 +339,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		final int depthLevel = getDepthLevel(shape);
 		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
 		
-		// Remove invalid child shapes
-		ghostingService.ghostInvalidChildShapes(shape);
-		
-		// Ghost all invalid connections owned by the shape
-		ghostingService.ghostConnections(shape);
+		// Ghost children
+		ghostingService.ghostChildren(shape);
 		
 		// Ghost descendant connections if contents should not be shown. Flow specs will be unghosted when they are updated.
 		if(!showContents) {
@@ -352,46 +348,36 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		}
 		
 		final Classifier classifier = getClassifier(shape);
-		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
-		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
-
-		final List<Shape> touchedShapes = new ArrayList<Shape>();
 		if(classifier != null) {
-			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(classifier), touchedShapes);
+			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(classifier));
 		}
 		
 		if(showContents) {
 			// Create component implementation specific shapes
 			if(classifier instanceof ComponentImplementation) {
 				final ComponentImplementation ci = (ComponentImplementation)classifier;
-				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci), touchedShapes);
-				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci), touchedShapes);
-				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20, touchedShapes);		
+				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci));
+				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci));
+				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
 			}
 			
 			if(classifier instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)classifier;
-				shapeCreationService.createUpdateShapesForElements(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20, touchedShapes);
+				shapeCreationService.createUpdateShapesForElements(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
 			}
 			
 			// Create/Update Modes and Mode Transitions
 			if(classifier instanceof ComponentClassifier) {
 				final ComponentClassifier cc = (ComponentClassifier)classifier;			
-				shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes(), touchedShapes);
+				shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes());
 			}
 			
 			// Annex Subclauses
 			if(classifier instanceof Classifier) {
-				shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), 25, true, 30, 25, true, 20, touchedShapes);			
+				shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), 25, true, 30, 25, true, 20);			
 			}
 		}
 
-		// Ghost child shapes that were not updated. This is done before updating connections because the connections may refer to invisible or ghosted shapes
-		childShapesToGhost.removeAll(touchedShapes);
-		for(final Shape child : childShapesToGhost) {
-			ghostingService.setIsGhost(child, true);
-		}
-		
 		if(showContents) {
 			// Create mode transitions
 			if(classifier instanceof ComponentClassifier) {

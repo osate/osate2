@@ -1,10 +1,5 @@
 package org.osate.ge.diagrams.componentImplementation.patterns;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
@@ -210,24 +205,14 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	private void refresh(final ContainerShape shape, final SubprogramCall call, final int x, final int y) {
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
-		ghostingService.ghostInvalidChildShapes(shape);
+		ghostingService.ghostChildShapes(shape);
 		
-		final List<Shape> touchedShapes = new ArrayList<Shape>();
-		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
-		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
-
 		// Create/Update feature shapes
 		final SubprogramType subprogramType = getSubprogramType(call);
 		if(subprogramType != null) {
-			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(subprogramType), touchedShapes);
+			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(subprogramType));
 		}
 
-		// Ghost children that haven't been updated
-		childShapesToGhost.removeAll(touchedShapes);
-		for(final Shape child : childShapesToGhost) {
-			ghostingService.setIsGhost(child, true);
-		}
-		
 		// Create labels
         labelService.createLabelShape(shape, nameShapeName, call, getName(call));
         labelService.createLabelShape(shape, subprogramReferenceShapeName, call, getSubprogramReferenceString(call));

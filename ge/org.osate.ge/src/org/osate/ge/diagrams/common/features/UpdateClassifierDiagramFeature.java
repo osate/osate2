@@ -92,7 +92,7 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		styleService.refreshStyles();
 				
 		// Remove shapes that are invalid
-		ghostingService.ghostInvalidChildShapes(diagram);
+		ghostingService.ghostChildShapes(diagram);
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = shapeService.getDescendantShapeByElementQualifiedName(diagram, classifier);

@@ -10,11 +10,8 @@ package org.osate.ge.diagrams.common.patterns;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -416,9 +413,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         	propertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
-        	ghostingService.ghostInvalidChildShapes(featureShape);
-        }
-        
+        	ghostingService.ghostChildShapes(featureShape);
+        }        
        
         // Set the feature shape as an inner shape
         propertyUtil.setIsInnerShape(featureShape, true);
@@ -458,11 +454,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			if(fgt == null) {
 				featureShape.getChildren().clear();
 			} else {				
-		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be turned into a ghost even though
-		        // it has a valid business object associated with it.
-		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
-		        featureShapeChildrenToGhost.addAll(shapeService.getNonGhostChildren(featureShape));
-		        
 		        // Create shapes for each of the children if the feature group is not part of a subcomponent
 		        final Subcomponent sc = shapeService.getClosestBusinessObjectOfType(shape, Subcomponent.class);
 
@@ -487,28 +478,19 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 					}
 
 			        if(showChild) {
-						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByReference(featureShape, childFeature);
-						
 						// Get existing shape instead of always creating
+						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByReference(featureShape, childFeature);						
 						if(childFeatureContainer == null) {
 				        	// Create the container shape
 				        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
 				        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
-				        } else {
-							// Remove the shape from the list of shapes to remove
-							featureShapeChildrenToGhost.remove(childFeatureContainer);
-				        }
+				        } 
 						
 				        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
 				        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
 				        childY += childFeatureGa.getHeight() + 5;
 				        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
 			        }
-				}
-				
-				// Remove children of the feature shape that were not updated
-				for(final Shape featureShapeChild : featureShapeChildrenToGhost) {
-					ghostingService.setIsGhost(featureShapeChild, true);
 				}
 			}
 			
