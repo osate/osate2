@@ -442,13 +442,16 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			refreshBindingIndicators(shape, (ComponentImplementation)bo);
 		}
 	}	
-	
-	private void updateAnnexSubclauses(final ContainerShape container, final Collection<AnnexSubclause> elements) {
-		// Create/update shapes for annex subclause
-		for(final AnnexSubclause subclause : elements) {
+
+	/**
+	 * Creates and updates pictogram elements for annex subclauses
+	 * If specialized handling for the parsed pictogram element is implemented, then it is used. Otherwise, generic annex handling is used.
+	 * @param subclauses a collection containing the default annex subclauses 
+	 */
+	private void updateAnnexSubclauses(final ContainerShape container, final Collection<AnnexSubclause> subclauses) {
+		for(final AnnexSubclause subclause : subclauses) {
 			final NamedElement parsedAnnexSubclause = getParsedAnnexSubclause(subclause);
-			final boolean specializedHandling = parsedAnnexSubclause != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(container, parsedAnnexSubclause);
-			
+			final boolean specializedHandling = parsedAnnexSubclause != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(container, parsedAnnexSubclause);			
 			if(!specializedHandling) {
 				shapeCreationService.createUpdateShapeForElement(container, subclause);
 			}

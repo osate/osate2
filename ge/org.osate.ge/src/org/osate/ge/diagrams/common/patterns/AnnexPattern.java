@@ -60,7 +60,7 @@ import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.ImageHelper;
 
 /**
- * Pattern for handling AnnexLibraries and AnnexSubclauses
+ * Pattern for generic handling of AnnexLibrary and AnnexSubclause objects. Not used if specialized annex handling support is implemented by an extension.
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";

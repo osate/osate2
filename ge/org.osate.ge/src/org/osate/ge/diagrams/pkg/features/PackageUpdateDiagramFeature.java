@@ -255,6 +255,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		connectionCreationService.createUpdateConnection(diagram, generalization);
 	}
 	
+	/**
+	 * Creates and updates pictogram elements for annex libraries
+	 * If specialized handling for the parsed pictogram element is implemented, then it is used. Otherwise, generic annex handling is used.
+	 * @param elements is a collection which contains default annex libraries
+	 */
 	private void updateAnnexLibraries(final Diagram diagram, final Set<NamedElement> elements) {
 		// Create shapes for annex libraries
 		for(final NamedElement el : elements) {

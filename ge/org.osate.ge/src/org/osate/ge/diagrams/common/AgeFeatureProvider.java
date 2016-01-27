@@ -121,7 +121,6 @@ import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.ExtensionPaletteEntry.Type;
 import org.osate.ge.ext.annotations.CanRefresh;
-import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
 import org.osate.ge.ext.annotations.Refresh;
 import org.osate.ge.services.AadlModificationService;
@@ -745,9 +744,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	/**
-	 * Refreshes a parsed annex element
+	 * Calls extensions to perform a specialized refresh for a parsed annex element.
 	 * @param parsedAnnexElement
-	 * @return whether the parsed element was refreshed. Returns false if the annex library does not have specialized handling or if the parsed annex element was null
+	 * @return whether the parsed element was refreshed. Returns false if an extension which provided specialized handling of the annex element could not be found.
 	 */
 	public boolean refreshParsedAnnexElement(final ContainerShape container, final NamedElement parsedAnnexElement) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
