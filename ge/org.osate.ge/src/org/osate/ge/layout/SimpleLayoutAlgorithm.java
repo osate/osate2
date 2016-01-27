@@ -13,7 +13,7 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 	
 	@Override
 	public void layout(final List<Shape> shapes, final List<Connection> connections) {
-		layoutShapes(shapes, new ArrayList<>(), new ArrayList<>());
+		layoutShapes(shapes, new ArrayList<>(), new ArrayList<>(), 0, 0);
 	}
 	
 	/**
@@ -23,23 +23,17 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 	 * @param freeNonEdgeShapes an empty list that can be used to store free non-edge shapes
 	 * @return
 	 */
-	private static int[] layoutShapes(final List<Shape> shapes, final ArrayList<Shape> freeEdgeShapes, final ArrayList<Shape> freeNonEdgeShapes) {
-		// TOOD: In real testing, shapes are being placed on top of each other
-		final int[] minSize = { 0, 0 };
+	private static int[] layoutShapes(final List<Shape> shapes, final ArrayList<Shape> freeEdgeShapes, final ArrayList<Shape> freeNonEdgeShapes, final int minWidth, final int minHeight) {
+		final int[] minSize = { minWidth, minHeight };
 		final int[] maxLockedNonEdgeSize = { 0, 0 };
 
 		// Layout Children
 		for(final Shape shape : shapes) {
 			if(!shape.isLocked()) {
-				final int[] shapeSize = layoutShapes(shape.getChildren(), freeEdgeShapes, freeNonEdgeShapes);
+				final int[] shapeSize = layoutShapes(shape.getChildren(), freeEdgeShapes, freeNonEdgeShapes, shape.hasMinimumSize() ? shape.getMinimumWidth() : 0, shape.hasMinimumSize() ? shape.getMinimumHeight() : 0);
 				
 				// Handle sizing. Handle resizable flag
 				if(shape.isResizable()) {
-					if(shape.hasMinimumSize()) {
-						shapeSize[0] = Math.max(shapeSize[0], shape.getMinimumWidth());
-						shapeSize[1] = Math.max(shapeSize[1], shape.getMinimumHeight());
-					}
-					
 					shape.setWidth(shapeSize[0]);
 					shape.setHeight(shapeSize[1]);
 				}
@@ -72,9 +66,10 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 		}
 
 		// Position Left Edge Shapes and determine the max width of left edge shapes
-		final int leftStopIndex = Math.min(Math.max(1, freeEdgeShapes.size() / 2), freeEdgeShapes.size());
+		final int leftStopIndex = Math.min(Math.max(1, (freeEdgeShapes.size() + 1) / 2), freeEdgeShapes.size());
 		int leftWidth = 0;
 		int nextY = minChildPadding;
+
 		for(int i = 0; i < leftStopIndex; i++) {
 			final Shape shape = freeEdgeShapes.get(i);
 			shape.setX(0);
@@ -82,7 +77,7 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 			
 			leftWidth = Math.max(leftWidth, shape.getWidth());			
 			minSize[0] = Math.max(minSize[0], shape.getWidth());
-			minSize[1] = Math.max(minSize[1], nextY +  + shape.getHeight() + minChildPadding);
+			minSize[1] = Math.max(minSize[1], nextY + shape.getHeight() + minChildPadding);
 			
 			nextY += shape.getHeight() + minYSpacing;
 		}
@@ -137,12 +132,13 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 		}
 		
 		// Right Edge Shapes
-		nextX = Math.max(nextX, minStartRight);
+		nextX = Math.max(Math.max(nextX, minStartRight), minWidth/2);
 		nextY = minChildPadding;
 		for(int i = leftStopIndex; i < freeEdgeShapes.size(); i++) {
 			final Shape shape = freeEdgeShapes.get(i);
 			shape.setX(nextX);
 			shape.setY(nextY);
+
 			minSize[0] = Math.max(minSize[0], nextX + shape.getWidth());
 			minSize[1] = Math.max(minSize[1], nextY + shape.getHeight() + minChildPadding);
 			
