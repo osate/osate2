@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -120,7 +120,8 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue,
+					value));
 		}
 	}
 
@@ -201,14 +202,14 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		BooleanLiteralImpl other = (BooleanLiteralImpl) pv;
+		BooleanLiteralImpl other = (BooleanLiteralImpl) pe;
 		return value == other.value;
 	}
 

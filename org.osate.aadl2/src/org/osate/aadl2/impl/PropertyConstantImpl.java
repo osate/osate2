@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
@@ -169,8 +170,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 */
 	public PropertyType getPropertyTypeGen() {
 		PropertyType propertyType = basicGetPropertyType();
-		return propertyType != null && ((EObject) propertyType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) propertyType)
-				: propertyType;
+		return propertyType != null && ((EObject) propertyType).eIsProxy()
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
 	}
 
 	/**
@@ -181,8 +182,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
-		return propertyType != null && ((EObject) propertyType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) propertyType)
-				: propertyType;
+		return propertyType != null && ((EObject) propertyType).eIsProxy()
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
 	}
 
 	/**
@@ -248,12 +249,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
 			if (ownedPropertyType != null) {
-				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
 			}
 			if (newOwnedPropertyType != null) {
-				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE, null, msgs);
 			}
 			msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs);
 			if (msgs != null) {
@@ -356,12 +357,12 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		if (newConstantValue != constantValue) {
 			NotificationChain msgs = null;
 			if (constantValue != null) {
-				msgs = ((InternalEObject) constantValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
+				msgs = ((InternalEObject) constantValue).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
 			}
 			if (newConstantValue != null) {
-				msgs = ((InternalEObject) newConstantValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
+				msgs = ((InternalEObject) newConstantValue).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE, null, msgs);
 			}
 			msgs = basicSetConstantValue(newConstantValue, msgs);
 			if (msgs != null) {
@@ -505,6 +506,16 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 			throw new InvalidModelException(this, "Constant value is modal");
 		}
 		return value;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.AbstractNamedValue#sameAs(org.osate.aadl2.AbstractNamedValue)
+	 */
+	@Override
+	public boolean sameAs(AbstractNamedValue namedValue) {
+		return this == namedValue;
 	}
 
 } // PropertyConstantImpl

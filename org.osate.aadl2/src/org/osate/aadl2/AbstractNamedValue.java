@@ -52,4 +52,6 @@ import org.osate.aadl2.parsesupport.AObject;
  * @generated
  */
 public interface AbstractNamedValue extends AObject {
+
+	boolean sameAs(AbstractNamedValue namedValue);
 } // AbstractNamedValue

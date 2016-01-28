@@ -44,7 +44,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
@@ -104,8 +103,8 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 			classifier = (Classifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier, classifier));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
+							oldClassifier, classifier));
 				}
 			}
 		}
@@ -211,18 +210,18 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		ClassifierValueImpl other = (ClassifierValueImpl) pv;
+		ClassifierValueImpl other = (ClassifierValueImpl) pe;
 		if (classifier == null) {
 			return other.classifier == null;
 		} else {
-			return classifier.equals(other.classifier);
+			return classifier == other.classifier;
 		}
 	}
 

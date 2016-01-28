@@ -119,7 +119,7 @@ class ConnectionInfo {
 				}
 			}
 		}
-		bidirectional &= newSeg.isBidirectional();
+		bidirectional &= newSeg.isAllBidirectional();
 		if (dstFi != null) {
 			destinations.add(dstFi);
 			if (dstFi instanceof FeatureInstance) {

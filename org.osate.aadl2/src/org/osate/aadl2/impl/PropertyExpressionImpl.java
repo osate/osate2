@@ -75,4 +75,14 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 		return new EvaluatedProperty(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.PropertyExpression#sameAs(org.osate.aadl2.PropertyExpression)
+	 */
+	@Override
+	public boolean sameAs(PropertyExpression other) {
+		return false;
+	}
+
 } // PropertyExpressionImpl

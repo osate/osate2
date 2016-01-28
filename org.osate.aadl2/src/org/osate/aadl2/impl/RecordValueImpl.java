@@ -45,7 +45,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 
 /**
@@ -112,8 +112,8 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 */
 	@Override
 	public BasicPropertyAssociation createOwnedFieldValue() {
-		BasicPropertyAssociation newOwnedFieldValue = (BasicPropertyAssociation) create(Aadl2Package.eINSTANCE
-				.getBasicPropertyAssociation());
+		BasicPropertyAssociation newOwnedFieldValue = (BasicPropertyAssociation) create(
+				Aadl2Package.eINSTANCE.getBasicPropertyAssociation());
 		getOwnedFieldValues().add(newOwnedFieldValue);
 		return newOwnedFieldValue;
 	}
@@ -201,7 +201,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
+	public boolean sameAs(PropertyExpression pv) {
 		if (this == pv) {
 			return true;
 		}

@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -246,20 +247,20 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;
 			if (defaultValue != null) {
-				msgs = ((InternalEObject) defaultValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
+				msgs = ((InternalEObject) defaultValue).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
 			}
 			if (newDefaultValue != null) {
-				msgs = ((InternalEObject) newDefaultValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
+				msgs = ((InternalEObject) newDefaultValue).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
 			}
 			msgs = basicSetDefaultValue(newDefaultValue, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__DEFAULT_VALUE,
-					newDefaultValue, newDefaultValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__DEFAULT_VALUE, newDefaultValue,
+					newDefaultValue));
 		}
 	}
 
@@ -678,6 +679,16 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			return eProxyURI().toString().hashCode();
 		}
 		return getQualifiedName() != null ? getQualifiedName().hashCode() : super.hashCode();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.AbstractNamedValue#sameAs(org.osate.aadl2.AbstractNamedValue)
+	 */
+	@Override
+	public boolean sameAs(AbstractNamedValue namedValue) {
+		return this == namedValue;
 	}
 
 } // PropertyImpl
