@@ -164,7 +164,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (features.contains(connection.getAllSource()) && subs.contains(connection.getAllSourceContext())) {
 			return false;
 		} else {
-			if (connection.isBidirectional() && features.contains(connection.getAllDestination())
+			if (connection.isAllBidirectional() && features.contains(connection.getAllDestination())
 					&& subs.contains(connection.getAllDestinationContext())) {
 				// we are going the other way on a bi-directional connection
 				return true;
@@ -178,7 +178,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (features.contains(connection.getAllSource())) {
 			return false;
 		} else {
-			if (connection.isBidirectional() && features.contains(connection.getAllDestination())) {
+			if (connection.isAllBidirectional() && features.contains(connection.getAllDestination())) {
 				// we are going the other way on a bi-directional connection
 				return true;
 			}
@@ -293,7 +293,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						for (Connection conn : outgoingConns) {
 							// conn is first segment if it can't continue inside
 							// the subcomponent
-							if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) {
+							if (!(destinationFromInside || conn.isAllBidirectional() && connectedInside)) {
 								prevFi = featurei;
 
 								boolean opposite = isOpposite(feature, sub, conn);
@@ -564,7 +564,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							final ConnectionInfo clone = connInfo.cloneInfo();
 							boolean opposite = false;
 
-							if (nextConn.isBidirectional()) {
+							if (nextConn.isAllBidirectional()) {
 								ConnectionEnd nextDst = nextConn.getAllDestination();
 
 								if (nextDst instanceof Feature) {
@@ -1241,7 +1241,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		EList<Subcomponent> sublist = sub.getAllSubcomponentRefinements();
 		for (Connection conn : connlist) {
 			if (sublist.contains(conn.getAllSource())
-					|| (conn.isBidirectional() && sublist.contains(conn.getAllDestination()))) {
+					|| (conn.isAllBidirectional() && sublist.contains(conn.getAllDestination()))) {
 				result.add(conn);
 			}
 		}
@@ -1264,7 +1264,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		for (Connection conn : connlist) {
 			if (subs.contains(conn.getAllSourceContext())
-					|| conn.isBidirectional() && subs.contains(conn.getAllDestinationContext())) {
+					|| conn.isAllBidirectional() && subs.contains(conn.getAllDestinationContext())) {
 				result.add(conn);
 			}
 		}
@@ -1286,7 +1286,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		for (Connection conn : incomingconnlist) {
 			if (features.contains(conn.getAllSource())
-					|| conn.isBidirectional() && features.contains(conn.getAllDestination())) {
+					|| conn.isAllBidirectional() && features.contains(conn.getAllDestination())) {
 				if (fi.getOwner() instanceof FeatureInstance) {
 					if (parents == null) {
 						Feature parent = ((FeatureInstance) fi.getOwner()).getFeature();
@@ -1294,7 +1294,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					}
 
 					if (parents.contains(conn.getAllSourceContext())
-							|| conn.isBidirectional() && parents.contains(conn.getAllDestinationContext())) {
+							|| conn.isAllBidirectional() && parents.contains(conn.getAllDestinationContext())) {
 						result.add(conn);
 					}
 				} else {
@@ -1321,7 +1321,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		for (Connection conn : conns) {
 			if (features.contains(conn.getAllSource())
-					|| conn.isBidirectional() && features.contains(conn.getAllDestination())) {
+					|| conn.isAllBidirectional() && features.contains(conn.getAllDestination())) {
 				result.add(conn);
 			}
 		}
@@ -1344,7 +1344,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
 		for (Connection conn : conns) {
 			if ((features.contains(conn.getAllSource()) && subs.contains(conn.getAllSourceContext()))
-					|| (conn.isBidirectional() && features.contains(conn.getAllDestination())
+					|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
 							&& subs.contains(conn.getAllDestinationContext()))) {
 				result.add(conn);
 			}
@@ -1366,11 +1366,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		for (Connection conn : conns) {
 			if (features.contains(conn.getAllDestination())
-					|| conn.isBidirectional() && features.contains(conn.getAllSource())) {
+					|| conn.isAllBidirectional() && features.contains(conn.getAllSource())) {
 				return true;
 			}
 			if ((features.contains(conn.getAllDestinationContext())
-					|| conn.isBidirectional() && features.contains(conn.getAllSourceContext()))) {
+					|| conn.isAllBidirectional() && features.contains(conn.getAllSourceContext()))) {
 				return true;
 			}
 		}

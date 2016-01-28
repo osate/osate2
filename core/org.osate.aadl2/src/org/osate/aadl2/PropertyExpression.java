@@ -69,4 +69,11 @@ public interface PropertyExpression extends Element {
 	 */
 	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
 
+	/**
+	 * Compare to another expression
+	 * 
+	 * @param other The expression to compare with
+	 * @return If the expressions represent the same value
+	 */
+	boolean sameAs(PropertyExpression other);
 } // PropertyExpression

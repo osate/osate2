@@ -1701,7 +1701,7 @@ public class GetProperties {
 	}
 
 	public static double getMessageRatePerSecond(NamedElement ne) {
-		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE );
+		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
 		if (dr == null) {
 			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.MESSAGE_RATE);
 		}
@@ -1711,9 +1711,10 @@ public class GetProperties {
 	}
 
 	/*
-	 * Look for Message_Rate or SEI::Data_Rate first. Then pick up Output_Rate, whose default
-	 * value is 1 per dispatch That rate is converted to persecond using Period.
-	 * If Period is zero then the resulting data rate is zero as well.
+	 * Look for Message_Rate or SEI::Data_Rate first. Then pick up Output_Rate,
+	 * whose default value is 1 per dispatch That rate is converted to persecond
+	 * using Period. If Period is zero then the resulting data rate is zero as
+	 * well.
 	 */
 	public static double getOutgoingMessageRatePerSecond(final NamedElement ne) {
 		double res = GetProperties.getMessageRatePerSecond(ne);
@@ -1722,14 +1723,12 @@ public class GetProperties {
 		}
 		Property outputRate = lookupPropertyDefinition(ne, CommunicationProperties._NAME,
 				CommunicationProperties.OUTPUT_RATE);
-		if (!isAssignedPropertyValue(ne, outputRate))
-			return 0;
 		RecordValue rec = GetProperties.getOutPutRate(ne);
 		if (rec != null) {
 			res = GetProperties.getMaxDataRate(rec);
 			EnumerationLiteral unit = GetProperties.getRateUnit(rec);
+			double period = 0;
 			if (unit == null || unit.getName().equalsIgnoreCase("PerDispatch")) {
-				double period = 0;
 				if (ne instanceof InstanceObject) {
 					period = GetProperties.getPeriodInSeconds(((InstanceObject) ne).getContainingComponentInstance(),
 							0);
@@ -1740,7 +1739,13 @@ public class GetProperties {
 					return 0;
 				res = res / period;
 			}
+			if (res > 0)
+				return res;
 		}
+		double period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
+		if (period == 0)
+			return 0;
+		res = 1 / period;
 		return res;
 	}
 

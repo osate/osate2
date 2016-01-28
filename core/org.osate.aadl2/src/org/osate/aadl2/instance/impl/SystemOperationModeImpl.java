@@ -231,7 +231,7 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 			}
 			name.append(mi.getName());
 			if (it.hasNext()) {
-				name.append(" # ");
+				name.append("#");
 			}
 		}
 		return name.toString();

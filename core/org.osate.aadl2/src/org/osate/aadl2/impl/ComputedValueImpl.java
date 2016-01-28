@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -203,8 +203,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
 	 */
 	@Override
-	public boolean sameAs(PropertyValue other) {
-		// TODO Auto-generated method stub
+	public boolean sameAs(PropertyExpression pe) {
 		return false;
 	}
 
