@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
@@ -42,6 +44,8 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodKind <em>Method Kind</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}</li>
@@ -207,6 +211,50 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(ComponentClassifier)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Target()
+   * @model
+   * @generated
+   */
+  ComponentClassifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(ComponentClassifier value);
+
+  /**
+   * Returns the value of the '<em><b>Component Category</b></em>' attribute list.
+   * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
+   * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Component Category</em>' attribute list.
+   * @see org.osate.aadl2.ComponentCategory
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_ComponentCategory()
+   * @model unique="false"
+   * @generated
+   */
+  EList<ComponentCategory> getComponentCategory();
 
   /**
    * Returns the value of the '<em><b>Method Kind</b></em>' containment reference.

@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_INT", "RULE_ID", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'verification'", "'plan'", "':'", "'for'", "'['", "'issues'", "']'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'fail'", "'timeout'", "'error'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'phase'", "'category'", "'validation'", "'precondition'", "'methods'", "'%'", "'method'", "'properties'", "'returns'", "'boolean'", "'report'", "'quality'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'single'", "'description'", "'this'", "'rationale'", "'target'", "'exception'", "'@'", "'img'", "'/'", "'.'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'{'", "'}'", "'#'", "'true'", "'false'", "'null'", "'::'", "'tbd'", "'warning'", "'info'", "'success'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_INT", "RULE_ID", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'verification'", "'plan'", "':'", "'for'", "'['", "'issues'", "']'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'fail'", "'timeout'", "'error'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'phase'", "'category'", "'validation'", "'precondition'", "'methods'", "'%'", "'method'", "'properties'", "'returns'", "'boolean'", "'report'", "'quality'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'single'", "'description'", "'this'", "'rationale'", "'target'", "'exception'", "'@'", "'img'", "'/'", "'.'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'{'", "'}'", "'#'", "'true'", "'false'", "'null'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'group'", "'system'", "'thread'", "'virtual'", "'::'", "'tbd'", "'warning'", "'info'", "'success'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -88,16 +88,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final int T__42=42;
     public static final int T__43=43;
     public static final int T__91=91;
+    public static final int T__100=100;
     public static final int T__92=92;
     public static final int T__93=93;
+    public static final int T__102=102;
     public static final int T__94=94;
+    public static final int T__101=101;
     public static final int T__90=90;
     public static final int RULE_INT_EXPONENT=10;
     public static final int T__19=19;
     public static final int T__17=17;
     public static final int T__18=18;
+    public static final int T__99=99;
     public static final int T__95=95;
+    public static final int T__96=96;
     public static final int RULE_BASED_INTEGER=12;
+    public static final int T__97=97;
+    public static final int T__98=98;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
@@ -129,10 +136,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final int RULE_ANY_OTHER=16;
     public static final int T__88=88;
     public static final int T__89=89;
+    public static final int T__107=107;
     public static final int T__84=84;
+    public static final int T__104=104;
     public static final int T__85=85;
+    public static final int T__103=103;
     public static final int T__86=86;
+    public static final int T__106=106;
     public static final int T__87=87;
+    public static final int T__105=105;
 
     // delegates
     // delegators
@@ -4930,7 +4942,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationMethodRegistry"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1700:1: ruleVerificationMethodRegistry returns [EObject current=null] : (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1700:1: ruleVerificationMethodRegistry returns [EObject current=null] : (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )? otherlv_8= '[' ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ ) otherlv_11= ']' ) ;
     public final EObject ruleVerificationMethodRegistry() throws RecognitionException {
         EObject current = null;
 
@@ -4940,21 +4952,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         Token lv_title_4_0=null;
         Token otherlv_5=null;
         Token otherlv_8=null;
+        Token otherlv_11=null;
         AntlrDatatypeRuleToken lv_name_2_0 = null;
 
-        EObject lv_description_6_0 = null;
+        AntlrDatatypeRuleToken lv_componentCategory_7_0 = null;
 
-        EObject lv_methods_7_0 = null;
+        EObject lv_description_9_0 = null;
+
+        EObject lv_methods_10_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1703:28: ( (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1703:28: ( (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )? otherlv_8= '[' ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ ) otherlv_11= ']' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )? otherlv_8= '[' ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ ) otherlv_11= ']' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:3: otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? otherlv_5= '[' ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ ) otherlv_8= ']'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:1: (otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )? otherlv_8= '[' ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ ) otherlv_11= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1704:3: otherlv_0= 'verification' otherlv_1= 'methods' ( (lv_name_2_0= ruleQualifiedName ) ) (otherlv_3= ':' ( (lv_title_4_0= RULE_STRING ) ) )? (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )? otherlv_8= '[' ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ ) otherlv_11= ']'
             {
             otherlv_0=(Token)match(input,17,FOLLOW_17_in_ruleVerificationMethodRegistry4017); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -5056,36 +5071,185 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,21,FOLLOW_21_in_ruleVerificationMethodRegistry4099); if (state.failed) return current;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1752:4: (otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ ) )?
+            int alt42=2;
+            int LA42_0 = input.LA(1);
+
+            if ( (LA42_0==20) ) {
+                alt42=1;
+            }
+            switch (alt42) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1752:6: otherlv_5= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ )
+                    {
+                    otherlv_5=(Token)match(input,20,FOLLOW_20_in_ruleVerificationMethodRegistry4100); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_5, grammarAccess.getVerificationMethodRegistryAccess().getForKeyword_4_0());
+                          
+                    }
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:1: ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_7_0= ruleComponentCategory ) )+ )
+                    int alt41=2;
+                    int LA41_0 = input.LA(1);
+
+                    if ( (LA41_0==RULE_ID) ) {
+                        alt41=1;
+                    }
+                    else if ( ((LA41_0>=91 && LA41_0<=98)||(LA41_0>=100 && LA41_0<=102)) ) {
+                        alt41=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 41, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt41) {
+                        case 1 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:2: ( ( ruleAadlClassifierReference ) )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:2: ( ( ruleAadlClassifierReference ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1757:1: ( ruleAadlClassifierReference )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1757:1: ( ruleAadlClassifierReference )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1758:3: ruleAadlClassifierReference
+                            {
+                            if ( state.backtracking==0 ) {
+
+                              			if (current==null) {
+                              	            current = createModelElement(grammarAccess.getVerificationMethodRegistryRule());
+                              	        }
+                                      
+                            }
+                            if ( state.backtracking==0 ) {
+                               
+                              	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getTargetComponentClassifierCrossReference_4_1_0_0()); 
+                              	    
+                            }
+                            pushFollow(FOLLOW_ruleAadlClassifierReference_in_ruleVerificationMethodRegistry4124);
+                            ruleAadlClassifierReference();
+
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+                               
+                              	        afterParserOrEnumRuleCall();
+                              	    
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1772:6: ( (lv_componentCategory_7_0= ruleComponentCategory ) )+
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1772:6: ( (lv_componentCategory_7_0= ruleComponentCategory ) )+
+                            int cnt40=0;
+                            loop40:
+                            do {
+                                int alt40=2;
+                                int LA40_0 = input.LA(1);
+
+                                if ( ((LA40_0>=91 && LA40_0<=98)||(LA40_0>=100 && LA40_0<=102)) ) {
+                                    alt40=1;
+                                }
+
+
+                                switch (alt40) {
+                            	case 1 :
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1773:1: (lv_componentCategory_7_0= ruleComponentCategory )
+                            	    {
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1773:1: (lv_componentCategory_7_0= ruleComponentCategory )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1774:3: lv_componentCategory_7_0= ruleComponentCategory
+                            	    {
+                            	    if ( state.backtracking==0 ) {
+                            	       
+                            	      	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0()); 
+                            	      	    
+                            	    }
+                            	    pushFollow(FOLLOW_ruleComponentCategory_in_ruleVerificationMethodRegistry4151);
+                            	    lv_componentCategory_7_0=ruleComponentCategory();
+
+                            	    state._fsp--;
+                            	    if (state.failed) return current;
+                            	    if ( state.backtracking==0 ) {
+
+                            	      	        if (current==null) {
+                            	      	            current = createModelElementForParent(grammarAccess.getVerificationMethodRegistryRule());
+                            	      	        }
+                            	             		add(
+                            	             			current, 
+                            	             			"componentCategory",
+                            	              		lv_componentCategory_7_0, 
+                            	              		"ComponentCategory");
+                            	      	        afterParserOrEnumRuleCall();
+                            	      	    
+                            	    }
+
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt40 >= 1 ) break loop40;
+                            	    if (state.backtracking>0) {state.failed=true; return current;}
+                                        EarlyExitException eee =
+                                            new EarlyExitException(40, input);
+                                        throw eee;
+                                }
+                                cnt40++;
+                            } while (true);
+
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_8=(Token)match(input,21,FOLLOW_21_in_ruleVerificationMethodRegistry4167); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_5, grammarAccess.getVerificationMethodRegistryAccess().getLeftSquareBracketKeyword_4());
+                  	newLeafNode(otherlv_8, grammarAccess.getVerificationMethodRegistryAccess().getLeftSquareBracketKeyword_5());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:1: ( ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+ )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:2: ( (lv_description_6_0= ruleDescription ) )? ( (lv_methods_7_0= ruleVerificationMethod ) )+
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1794:1: ( ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+ )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1794:2: ( (lv_description_9_0= ruleDescription ) )? ( (lv_methods_10_0= ruleVerificationMethod ) )+
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1756:2: ( (lv_description_6_0= ruleDescription ) )?
-            int alt40=2;
-            int LA40_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1794:2: ( (lv_description_9_0= ruleDescription ) )?
+            int alt43=2;
+            int LA43_0 = input.LA(1);
 
-            if ( (LA40_0==58) ) {
-                alt40=1;
+            if ( (LA43_0==58) ) {
+                alt43=1;
             }
-            switch (alt40) {
+            switch (alt43) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1757:1: (lv_description_6_0= ruleDescription )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1795:1: (lv_description_9_0= ruleDescription )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1757:1: (lv_description_6_0= ruleDescription )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1758:3: lv_description_6_0= ruleDescription
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1795:1: (lv_description_9_0= ruleDescription )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1796:3: lv_description_9_0= ruleDescription
                     {
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_5_0_0()); 
+                      	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_6_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleDescription_in_ruleVerificationMethodRegistry4121);
-                    lv_description_6_0=ruleDescription();
+                    pushFollow(FOLLOW_ruleDescription_in_ruleVerificationMethodRegistry4189);
+                    lv_description_9_0=ruleDescription();
 
                     state._fsp--;
                     if (state.failed) return current;
@@ -5097,7 +5261,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                              		set(
                              			current, 
                              			"description",
-                              		lv_description_6_0, 
+                              		lv_description_9_0, 
                               		"Description");
                       	        afterParserOrEnumRuleCall();
                       	    
@@ -5111,32 +5275,32 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1774:3: ( (lv_methods_7_0= ruleVerificationMethod ) )+
-            int cnt41=0;
-            loop41:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1812:3: ( (lv_methods_10_0= ruleVerificationMethod ) )+
+            int cnt44=0;
+            loop44:
             do {
-                int alt41=2;
-                int LA41_0 = input.LA(1);
+                int alt44=2;
+                int LA44_0 = input.LA(1);
 
-                if ( (LA41_0==46) ) {
-                    alt41=1;
+                if ( (LA44_0==46) ) {
+                    alt44=1;
                 }
 
 
-                switch (alt41) {
+                switch (alt44) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1775:1: (lv_methods_7_0= ruleVerificationMethod )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1813:1: (lv_methods_10_0= ruleVerificationMethod )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1775:1: (lv_methods_7_0= ruleVerificationMethod )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1776:3: lv_methods_7_0= ruleVerificationMethod
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1813:1: (lv_methods_10_0= ruleVerificationMethod )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1814:3: lv_methods_10_0= ruleVerificationMethod
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getMethodsVerificationMethodParserRuleCall_5_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getMethodsVerificationMethodParserRuleCall_6_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleVerificationMethod_in_ruleVerificationMethodRegistry4143);
-            	    lv_methods_7_0=ruleVerificationMethod();
+            	    pushFollow(FOLLOW_ruleVerificationMethod_in_ruleVerificationMethodRegistry4211);
+            	    lv_methods_10_0=ruleVerificationMethod();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -5148,7 +5312,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             		add(
             	             			current, 
             	             			"methods",
-            	              		lv_methods_7_0, 
+            	              		lv_methods_10_0, 
             	              		"VerificationMethod");
             	      	        afterParserOrEnumRuleCall();
             	      	    
@@ -5161,22 +5325,22 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt41 >= 1 ) break loop41;
+            	    if ( cnt44 >= 1 ) break loop44;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(41, input);
+                            new EarlyExitException(44, input);
                         throw eee;
                 }
-                cnt41++;
+                cnt44++;
             } while (true);
 
 
             }
 
-            otherlv_8=(Token)match(input,23,FOLLOW_23_in_ruleVerificationMethodRegistry4157); if (state.failed) return current;
+            otherlv_11=(Token)match(input,23,FOLLOW_23_in_ruleVerificationMethodRegistry4225); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_8, grammarAccess.getVerificationMethodRegistryAccess().getRightSquareBracketKeyword_6());
+                  	newLeafNode(otherlv_11, grammarAccess.getVerificationMethodRegistryAccess().getRightSquareBracketKeyword_7());
                   
             }
 
@@ -5202,7 +5366,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFormalParameter"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1804:1: entryRuleFormalParameter returns [EObject current=null] : iv_ruleFormalParameter= ruleFormalParameter EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1842:1: entryRuleFormalParameter returns [EObject current=null] : iv_ruleFormalParameter= ruleFormalParameter EOF ;
     public final EObject entryRuleFormalParameter() throws RecognitionException {
         EObject current = null;
 
@@ -5210,13 +5374,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1805:2: (iv_ruleFormalParameter= ruleFormalParameter EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1806:2: iv_ruleFormalParameter= ruleFormalParameter EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1843:2: (iv_ruleFormalParameter= ruleFormalParameter EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1844:2: iv_ruleFormalParameter= ruleFormalParameter EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFormalParameterRule()); 
             }
-            pushFollow(FOLLOW_ruleFormalParameter_in_entryRuleFormalParameter4193);
+            pushFollow(FOLLOW_ruleFormalParameter_in_entryRuleFormalParameter4261);
             iv_ruleFormalParameter=ruleFormalParameter();
 
             state._fsp--;
@@ -5224,7 +5388,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleFormalParameter; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleFormalParameter4203); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleFormalParameter4271); if (state.failed) return current;
 
             }
 
@@ -5242,7 +5406,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFormalParameter"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1813:1: ruleFormalParameter returns [EObject current=null] : ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1851:1: ruleFormalParameter returns [EObject current=null] : ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? ) ;
     public final EObject ruleFormalParameter() throws RecognitionException {
         EObject current = null;
 
@@ -5254,19 +5418,19 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1816:28: ( ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1817:1: ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1854:28: ( ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1855:1: ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1817:1: ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1817:2: ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1855:1: ( ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1855:2: ( (lv_parameterType_0_0= RULE_ID ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1817:2: ( (lv_parameterType_0_0= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1818:1: (lv_parameterType_0_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1855:2: ( (lv_parameterType_0_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1856:1: (lv_parameterType_0_0= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1818:1: (lv_parameterType_0_0= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1819:3: lv_parameterType_0_0= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1856:1: (lv_parameterType_0_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1857:3: lv_parameterType_0_0= RULE_ID
             {
-            lv_parameterType_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4245); if (state.failed) return current;
+            lv_parameterType_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4313); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_parameterType_0_0, grammarAccess.getFormalParameterAccess().getParameterTypeIDTerminalRuleCall_0_0()); 
@@ -5290,13 +5454,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1835:2: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1836:1: (lv_name_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1873:2: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1874:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1836:1: (lv_name_1_0= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1837:3: lv_name_1_0= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1874:1: (lv_name_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1875:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4267); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4335); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getFormalParameterAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -5320,28 +5484,28 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1853:2: (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )?
-            int alt42=2;
-            int LA42_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1891:2: (otherlv_2= '%' ( (otherlv_3= RULE_ID ) ) )?
+            int alt45=2;
+            int LA45_0 = input.LA(1);
 
-            if ( (LA42_0==45) ) {
-                alt42=1;
+            if ( (LA45_0==45) ) {
+                alt45=1;
             }
-            switch (alt42) {
+            switch (alt45) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1853:4: otherlv_2= '%' ( (otherlv_3= RULE_ID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1891:4: otherlv_2= '%' ( (otherlv_3= RULE_ID ) )
                     {
-                    otherlv_2=(Token)match(input,45,FOLLOW_45_in_ruleFormalParameter4285); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,45,FOLLOW_45_in_ruleFormalParameter4353); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getFormalParameterAccess().getPercentSignKeyword_2_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1857:1: ( (otherlv_3= RULE_ID ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1858:1: (otherlv_3= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1895:1: ( (otherlv_3= RULE_ID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1896:1: (otherlv_3= RULE_ID )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1858:1: (otherlv_3= RULE_ID )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1859:3: otherlv_3= RULE_ID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1896:1: (otherlv_3= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1897:3: otherlv_3= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5350,7 +5514,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
-                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4305); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFormalParameter4373); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_3, grammarAccess.getFormalParameterAccess().getUnitUnitLiteralCrossReference_2_1_0()); 
@@ -5391,7 +5555,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVerificationMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1878:1: entryRuleVerificationMethod returns [EObject current=null] : iv_ruleVerificationMethod= ruleVerificationMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1916:1: entryRuleVerificationMethod returns [EObject current=null] : iv_ruleVerificationMethod= ruleVerificationMethod EOF ;
     public final EObject entryRuleVerificationMethod() throws RecognitionException {
         EObject current = null;
 
@@ -5399,13 +5563,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1879:2: (iv_ruleVerificationMethod= ruleVerificationMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1880:2: iv_ruleVerificationMethod= ruleVerificationMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1917:2: (iv_ruleVerificationMethod= ruleVerificationMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1918:2: iv_ruleVerificationMethod= ruleVerificationMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getVerificationMethodRule()); 
             }
-            pushFollow(FOLLOW_ruleVerificationMethod_in_entryRuleVerificationMethod4343);
+            pushFollow(FOLLOW_ruleVerificationMethod_in_entryRuleVerificationMethod4411);
             iv_ruleVerificationMethod=ruleVerificationMethod();
 
             state._fsp--;
@@ -5413,7 +5577,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleVerificationMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationMethod4353); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationMethod4421); if (state.failed) return current;
 
             }
 
@@ -5431,7 +5595,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1887:1: ruleVerificationMethod returns [EObject current=null] : (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? otherlv_23= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_33= ']' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1925:1: ruleVerificationMethod returns [EObject current=null] : (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )? otherlv_26= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_36= ']' ) ;
     public final EObject ruleVerificationMethod() throws RecognitionException {
         EObject current = null;
 
@@ -5453,11 +5617,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         Token otherlv_21=null;
         Token lv_title_22_0=null;
         Token otherlv_23=null;
-        Token otherlv_29=null;
-        Token otherlv_30=null;
-        Token otherlv_31=null;
+        Token otherlv_26=null;
         Token otherlv_32=null;
         Token otherlv_33=null;
+        Token otherlv_34=null;
+        Token otherlv_35=null;
+        Token otherlv_36=null;
         EObject lv_params_3_0 = null;
 
         EObject lv_params_5_0 = null;
@@ -5466,37 +5631,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
         EObject lv_resultValues_17_0 = null;
 
-        EObject lv_methodKind_25_0 = null;
+        AntlrDatatypeRuleToken lv_componentCategory_25_0 = null;
 
-        EObject lv_description_26_0 = null;
+        EObject lv_methodKind_28_0 = null;
 
-        EObject lv_precondition_27_0 = null;
+        EObject lv_description_29_0 = null;
 
-        EObject lv_validation_28_0 = null;
+        EObject lv_precondition_30_0 = null;
+
+        EObject lv_validation_31_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1890:28: ( (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? otherlv_23= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_33= ']' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1891:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? otherlv_23= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_33= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1928:28: ( (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )? otherlv_26= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_36= ']' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1929:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )? otherlv_26= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_36= ']' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1891:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? otherlv_23= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_33= ']' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1891:3: otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? otherlv_23= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_33= ']'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1929:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )? otherlv_26= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_36= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1929:3: otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )? (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )? (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )? otherlv_26= '[' ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) ) otherlv_36= ']'
             {
-            otherlv_0=(Token)match(input,46,FOLLOW_46_in_ruleVerificationMethod4390); if (state.failed) return current;
+            otherlv_0=(Token)match(input,46,FOLLOW_46_in_ruleVerificationMethod4458); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getVerificationMethodAccess().getMethodKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1895:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1896:1: (lv_name_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1933:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1934:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1896:1: (lv_name_1_0= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1897:3: lv_name_1_0= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1934:1: (lv_name_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1935:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod4407); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod4475); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getVerificationMethodAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -5520,46 +5687,46 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1913:2: (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )?
-            int alt52=2;
-            int LA52_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1951:2: (otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )? )?
+            int alt55=2;
+            int LA55_0 = input.LA(1);
 
-            if ( (LA52_0==35) ) {
-                alt52=1;
+            if ( (LA55_0==35) ) {
+                alt55=1;
             }
-            switch (alt52) {
+            switch (alt55) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1913:4: otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )?
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1951:4: otherlv_2= '(' ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )? otherlv_6= ')' (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )? (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )? ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )?
                     {
-                    otherlv_2=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4425); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4493); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1917:1: ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )?
-                    int alt44=2;
-                    int LA44_0 = input.LA(1);
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1955:1: ( ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )* )?
+                    int alt47=2;
+                    int LA47_0 = input.LA(1);
 
-                    if ( (LA44_0==RULE_ID) ) {
-                        alt44=1;
+                    if ( (LA47_0==RULE_ID) ) {
+                        alt47=1;
                     }
-                    switch (alt44) {
+                    switch (alt47) {
                         case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1917:2: ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )*
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1955:2: ( (lv_params_3_0= ruleFormalParameter ) ) (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )*
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1917:2: ( (lv_params_3_0= ruleFormalParameter ) )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1918:1: (lv_params_3_0= ruleFormalParameter )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1955:2: ( (lv_params_3_0= ruleFormalParameter ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1956:1: (lv_params_3_0= ruleFormalParameter )
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1918:1: (lv_params_3_0= ruleFormalParameter )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1919:3: lv_params_3_0= ruleFormalParameter
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1956:1: (lv_params_3_0= ruleFormalParameter )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1957:3: lv_params_3_0= ruleFormalParameter
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getParamsFormalParameterParserRuleCall_2_1_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4447);
+                            pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4515);
                             lv_params_3_0=ruleFormalParameter();
 
                             state._fsp--;
@@ -5583,39 +5750,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1935:2: (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )*
-                            loop43:
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1973:2: (otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) ) )*
+                            loop46:
                             do {
-                                int alt43=2;
-                                int LA43_0 = input.LA(1);
+                                int alt46=2;
+                                int LA46_0 = input.LA(1);
 
-                                if ( (LA43_0==34) ) {
-                                    alt43=1;
+                                if ( (LA46_0==34) ) {
+                                    alt46=1;
                                 }
 
 
-                                switch (alt43) {
+                                switch (alt46) {
                             	case 1 :
-                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1935:4: otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1973:4: otherlv_4= ',' ( (lv_params_5_0= ruleFormalParameter ) )
                             	    {
-                            	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4460); if (state.failed) return current;
+                            	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4528); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_4, grammarAccess.getVerificationMethodAccess().getCommaKeyword_2_1_1_0());
                             	          
                             	    }
-                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1939:1: ( (lv_params_5_0= ruleFormalParameter ) )
-                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1940:1: (lv_params_5_0= ruleFormalParameter )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1977:1: ( (lv_params_5_0= ruleFormalParameter ) )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1978:1: (lv_params_5_0= ruleFormalParameter )
                             	    {
-                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1940:1: (lv_params_5_0= ruleFormalParameter )
-                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1941:3: lv_params_5_0= ruleFormalParameter
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1978:1: (lv_params_5_0= ruleFormalParameter )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1979:3: lv_params_5_0= ruleFormalParameter
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getParamsFormalParameterParserRuleCall_2_1_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4481);
+                            	    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4549);
                             	    lv_params_5_0=ruleFormalParameter();
 
                             	    state._fsp--;
@@ -5644,7 +5811,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop43;
+                            	    break loop46;
                                 }
                             } while (true);
 
@@ -5654,51 +5821,51 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4497); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4565); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_6, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_2());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1961:1: (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )?
-                    int alt47=2;
-                    int LA47_0 = input.LA(1);
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1999:1: (otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')' )?
+                    int alt50=2;
+                    int LA50_0 = input.LA(1);
 
-                    if ( (LA47_0==47) ) {
-                        alt47=1;
+                    if ( (LA50_0==47) ) {
+                        alt50=1;
                     }
-                    switch (alt47) {
+                    switch (alt50) {
                         case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1961:3: otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')'
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1999:3: otherlv_7= 'properties' otherlv_8= '(' ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )? otherlv_12= ')'
                             {
-                            otherlv_7=(Token)match(input,47,FOLLOW_47_in_ruleVerificationMethod4510); if (state.failed) return current;
+                            otherlv_7=(Token)match(input,47,FOLLOW_47_in_ruleVerificationMethod4578); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_7, grammarAccess.getVerificationMethodAccess().getPropertiesKeyword_2_3_0());
                                   
                             }
-                            otherlv_8=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4522); if (state.failed) return current;
+                            otherlv_8=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4590); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_8, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_3_1());
                                   
                             }
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1969:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )?
-                            int alt46=2;
-                            int LA46_0 = input.LA(1);
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2007:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )* )?
+                            int alt49=2;
+                            int LA49_0 = input.LA(1);
 
-                            if ( (LA46_0==RULE_ID) ) {
-                                alt46=1;
+                            if ( (LA49_0==RULE_ID) ) {
+                                alt49=1;
                             }
-                            switch (alt46) {
+                            switch (alt49) {
                                 case 1 :
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1969:2: ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )*
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2007:2: ( ( ruleAADLPROPERTYREFERENCE ) ) (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )*
                                     {
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1969:2: ( ( ruleAADLPROPERTYREFERENCE ) )
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1970:1: ( ruleAADLPROPERTYREFERENCE )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2007:2: ( ( ruleAADLPROPERTYREFERENCE ) )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2008:1: ( ruleAADLPROPERTYREFERENCE )
                                     {
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1970:1: ( ruleAADLPROPERTYREFERENCE )
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1971:3: ruleAADLPROPERTYREFERENCE
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2008:1: ( ruleAADLPROPERTYREFERENCE )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2009:3: ruleAADLPROPERTYREFERENCE
                                     {
                                     if ( state.backtracking==0 ) {
 
@@ -5712,7 +5879,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                       	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getPropertiesPropertyCrossReference_2_3_2_0_0()); 
                                       	    
                                     }
-                                    pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4546);
+                                    pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4614);
                                     ruleAADLPROPERTYREFERENCE();
 
                                     state._fsp--;
@@ -5728,32 +5895,32 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                                     }
 
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1984:2: (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )*
-                                    loop45:
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2022:2: (otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) ) )*
+                                    loop48:
                                     do {
-                                        int alt45=2;
-                                        int LA45_0 = input.LA(1);
+                                        int alt48=2;
+                                        int LA48_0 = input.LA(1);
 
-                                        if ( (LA45_0==34) ) {
-                                            alt45=1;
+                                        if ( (LA48_0==34) ) {
+                                            alt48=1;
                                         }
 
 
-                                        switch (alt45) {
+                                        switch (alt48) {
                                     	case 1 :
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1984:4: otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2022:4: otherlv_10= ',' ( ( ruleAADLPROPERTYREFERENCE ) )
                                     	    {
-                                    	    otherlv_10=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4559); if (state.failed) return current;
+                                    	    otherlv_10=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4627); if (state.failed) return current;
                                     	    if ( state.backtracking==0 ) {
 
                                     	          	newLeafNode(otherlv_10, grammarAccess.getVerificationMethodAccess().getCommaKeyword_2_3_2_1_0());
                                     	          
                                     	    }
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1988:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1989:1: ( ruleAADLPROPERTYREFERENCE )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2026:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2027:1: ( ruleAADLPROPERTYREFERENCE )
                                     	    {
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1989:1: ( ruleAADLPROPERTYREFERENCE )
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:1990:3: ruleAADLPROPERTYREFERENCE
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2027:1: ( ruleAADLPROPERTYREFERENCE )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2028:3: ruleAADLPROPERTYREFERENCE
                                     	    {
                                     	    if ( state.backtracking==0 ) {
 
@@ -5767,7 +5934,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                     	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getPropertiesPropertyCrossReference_2_3_2_1_1_0()); 
                                     	      	    
                                     	    }
-                                    	    pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4582);
+                                    	    pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4650);
                                     	    ruleAADLPROPERTYREFERENCE();
 
                                     	    state._fsp--;
@@ -5788,7 +5955,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                     	    break;
 
                                     	default :
-                                    	    break loop45;
+                                    	    break loop48;
                                         }
                                     } while (true);
 
@@ -5798,7 +5965,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_12=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4598); if (state.failed) return current;
+                            otherlv_12=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4666); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_12, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_3_3());
@@ -5810,52 +5977,52 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2007:3: (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )?
-                    int alt50=2;
-                    int LA50_0 = input.LA(1);
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2045:3: (otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')' )?
+                    int alt53=2;
+                    int LA53_0 = input.LA(1);
 
-                    if ( (LA50_0==48) ) {
-                        alt50=1;
+                    if ( (LA53_0==48) ) {
+                        alt53=1;
                     }
-                    switch (alt50) {
+                    switch (alt53) {
                         case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2007:5: otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')'
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2045:5: otherlv_13= 'returns' otherlv_14= '(' ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )? otherlv_18= ')'
                             {
-                            otherlv_13=(Token)match(input,48,FOLLOW_48_in_ruleVerificationMethod4613); if (state.failed) return current;
+                            otherlv_13=(Token)match(input,48,FOLLOW_48_in_ruleVerificationMethod4681); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_13, grammarAccess.getVerificationMethodAccess().getReturnsKeyword_2_4_0());
                                   
                             }
-                            otherlv_14=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4625); if (state.failed) return current;
+                            otherlv_14=(Token)match(input,35,FOLLOW_35_in_ruleVerificationMethod4693); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_14, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_4_1());
                                   
                             }
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2015:1: ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )?
-                            int alt49=2;
-                            int LA49_0 = input.LA(1);
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2053:1: ( ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )* )?
+                            int alt52=2;
+                            int LA52_0 = input.LA(1);
 
-                            if ( (LA49_0==RULE_ID) ) {
-                                alt49=1;
+                            if ( (LA52_0==RULE_ID) ) {
+                                alt52=1;
                             }
-                            switch (alt49) {
+                            switch (alt52) {
                                 case 1 :
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2015:2: ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )*
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2053:2: ( (lv_resultValues_15_0= ruleFormalParameter ) ) (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )*
                                     {
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2015:2: ( (lv_resultValues_15_0= ruleFormalParameter ) )
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2016:1: (lv_resultValues_15_0= ruleFormalParameter )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2053:2: ( (lv_resultValues_15_0= ruleFormalParameter ) )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2054:1: (lv_resultValues_15_0= ruleFormalParameter )
                                     {
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2016:1: (lv_resultValues_15_0= ruleFormalParameter )
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2017:3: lv_resultValues_15_0= ruleFormalParameter
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2054:1: (lv_resultValues_15_0= ruleFormalParameter )
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2055:3: lv_resultValues_15_0= ruleFormalParameter
                                     {
                                     if ( state.backtracking==0 ) {
                                        
                                       	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getResultValuesFormalParameterParserRuleCall_2_4_2_0_0()); 
                                       	    
                                     }
-                                    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4647);
+                                    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4715);
                                     lv_resultValues_15_0=ruleFormalParameter();
 
                                     state._fsp--;
@@ -5879,39 +6046,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                                     }
 
-                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2033:2: (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )*
-                                    loop48:
+                                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2071:2: (otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) ) )*
+                                    loop51:
                                     do {
-                                        int alt48=2;
-                                        int LA48_0 = input.LA(1);
+                                        int alt51=2;
+                                        int LA51_0 = input.LA(1);
 
-                                        if ( (LA48_0==34) ) {
-                                            alt48=1;
+                                        if ( (LA51_0==34) ) {
+                                            alt51=1;
                                         }
 
 
-                                        switch (alt48) {
+                                        switch (alt51) {
                                     	case 1 :
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2033:4: otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2071:4: otherlv_16= ',' ( (lv_resultValues_17_0= ruleFormalParameter ) )
                                     	    {
-                                    	    otherlv_16=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4660); if (state.failed) return current;
+                                    	    otherlv_16=(Token)match(input,34,FOLLOW_34_in_ruleVerificationMethod4728); if (state.failed) return current;
                                     	    if ( state.backtracking==0 ) {
 
                                     	          	newLeafNode(otherlv_16, grammarAccess.getVerificationMethodAccess().getCommaKeyword_2_4_2_1_0());
                                     	          
                                     	    }
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2037:1: ( (lv_resultValues_17_0= ruleFormalParameter ) )
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2038:1: (lv_resultValues_17_0= ruleFormalParameter )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2075:1: ( (lv_resultValues_17_0= ruleFormalParameter ) )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2076:1: (lv_resultValues_17_0= ruleFormalParameter )
                                     	    {
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2038:1: (lv_resultValues_17_0= ruleFormalParameter )
-                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2039:3: lv_resultValues_17_0= ruleFormalParameter
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2076:1: (lv_resultValues_17_0= ruleFormalParameter )
+                                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2077:3: lv_resultValues_17_0= ruleFormalParameter
                                     	    {
                                     	    if ( state.backtracking==0 ) {
                                     	       
                                     	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getResultValuesFormalParameterParserRuleCall_2_4_2_1_1_0()); 
                                     	      	    
                                     	    }
-                                    	    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4681);
+                                    	    pushFollow(FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4749);
                                     	    lv_resultValues_17_0=ruleFormalParameter();
 
                                     	    state._fsp--;
@@ -5940,7 +6107,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                                     	    break;
 
                                     	default :
-                                    	    break loop48;
+                                    	    break loop51;
                                         }
                                     } while (true);
 
@@ -5950,7 +6117,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_18=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4697); if (state.failed) return current;
+                            otherlv_18=(Token)match(input,36,FOLLOW_36_in_ruleVerificationMethod4765); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_18, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_4_3());
@@ -5962,27 +6129,27 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2059:3: ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )?
-                    int alt51=3;
-                    int LA51_0 = input.LA(1);
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2097:3: ( ( (lv_isPredicate_19_0= 'boolean' ) ) | ( (lv_isResultReport_20_0= 'report' ) ) )?
+                    int alt54=3;
+                    int LA54_0 = input.LA(1);
 
-                    if ( (LA51_0==49) ) {
-                        alt51=1;
+                    if ( (LA54_0==49) ) {
+                        alt54=1;
                     }
-                    else if ( (LA51_0==50) ) {
-                        alt51=2;
+                    else if ( (LA54_0==50) ) {
+                        alt54=2;
                     }
-                    switch (alt51) {
+                    switch (alt54) {
                         case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2059:4: ( (lv_isPredicate_19_0= 'boolean' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2097:4: ( (lv_isPredicate_19_0= 'boolean' ) )
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2059:4: ( (lv_isPredicate_19_0= 'boolean' ) )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2060:1: (lv_isPredicate_19_0= 'boolean' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2097:4: ( (lv_isPredicate_19_0= 'boolean' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2098:1: (lv_isPredicate_19_0= 'boolean' )
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2060:1: (lv_isPredicate_19_0= 'boolean' )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2061:3: lv_isPredicate_19_0= 'boolean'
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2098:1: (lv_isPredicate_19_0= 'boolean' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2099:3: lv_isPredicate_19_0= 'boolean'
                             {
-                            lv_isPredicate_19_0=(Token)match(input,49,FOLLOW_49_in_ruleVerificationMethod4718); if (state.failed) return current;
+                            lv_isPredicate_19_0=(Token)match(input,49,FOLLOW_49_in_ruleVerificationMethod4786); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_isPredicate_19_0, grammarAccess.getVerificationMethodAccess().getIsPredicateBooleanKeyword_2_5_0_0());
@@ -6006,15 +6173,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2075:6: ( (lv_isResultReport_20_0= 'report' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2113:6: ( (lv_isResultReport_20_0= 'report' ) )
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2075:6: ( (lv_isResultReport_20_0= 'report' ) )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2076:1: (lv_isResultReport_20_0= 'report' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2113:6: ( (lv_isResultReport_20_0= 'report' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2114:1: (lv_isResultReport_20_0= 'report' )
                             {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2076:1: (lv_isResultReport_20_0= 'report' )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2077:3: lv_isResultReport_20_0= 'report'
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2114:1: (lv_isResultReport_20_0= 'report' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2115:3: lv_isResultReport_20_0= 'report'
                             {
-                            lv_isResultReport_20_0=(Token)match(input,50,FOLLOW_50_in_ruleVerificationMethod4755); if (state.failed) return current;
+                            lv_isResultReport_20_0=(Token)match(input,50,FOLLOW_50_in_ruleVerificationMethod4823); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_isResultReport_20_0, grammarAccess.getVerificationMethodAccess().getIsResultReportReportKeyword_2_5_1_0());
@@ -6046,30 +6213,30 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2090:6: (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )?
-            int alt53=2;
-            int LA53_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2128:6: (otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) ) )?
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA53_0==19) ) {
-                alt53=1;
+            if ( (LA56_0==19) ) {
+                alt56=1;
             }
-            switch (alt53) {
+            switch (alt56) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2090:8: otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2128:8: otherlv_21= ':' ( (lv_title_22_0= RULE_STRING ) )
                     {
-                    otherlv_21=(Token)match(input,19,FOLLOW_19_in_ruleVerificationMethod4785); if (state.failed) return current;
+                    otherlv_21=(Token)match(input,19,FOLLOW_19_in_ruleVerificationMethod4853); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_21, grammarAccess.getVerificationMethodAccess().getColonKeyword_3_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2094:1: ( (lv_title_22_0= RULE_STRING ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2095:1: (lv_title_22_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2132:1: ( (lv_title_22_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2133:1: (lv_title_22_0= RULE_STRING )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2095:1: (lv_title_22_0= RULE_STRING )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2096:3: lv_title_22_0= RULE_STRING
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2133:1: (lv_title_22_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2134:3: lv_title_22_0= RULE_STRING
                     {
-                    lv_title_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleVerificationMethod4802); if (state.failed) return current;
+                    lv_title_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleVerificationMethod4870); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_title_22_0, grammarAccess.getVerificationMethodAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
@@ -6099,84 +6266,233 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_23=(Token)match(input,21,FOLLOW_21_in_ruleVerificationMethod4821); if (state.failed) return current;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2150:4: (otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ ) )?
+            int alt59=2;
+            int LA59_0 = input.LA(1);
+
+            if ( (LA59_0==20) ) {
+                alt59=1;
+            }
+            switch (alt59) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2150:6: otherlv_23= 'for' ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ )
+                    {
+                    otherlv_23=(Token)match(input,20,FOLLOW_20_in_ruleVerificationMethod4890); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_23, grammarAccess.getVerificationMethodAccess().getForKeyword_4_0());
+                          
+                    }
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2154:1: ( ( ( ruleAadlClassifierReference ) ) | ( (lv_componentCategory_25_0= ruleComponentCategory ) )+ )
+                    int alt58=2;
+                    int LA58_0 = input.LA(1);
+
+                    if ( (LA58_0==RULE_ID) ) {
+                        alt58=1;
+                    }
+                    else if ( ((LA58_0>=91 && LA58_0<=98)||(LA58_0>=100 && LA58_0<=102)) ) {
+                        alt58=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 58, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt58) {
+                        case 1 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2154:2: ( ( ruleAadlClassifierReference ) )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2154:2: ( ( ruleAadlClassifierReference ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2155:1: ( ruleAadlClassifierReference )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2155:1: ( ruleAadlClassifierReference )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2156:3: ruleAadlClassifierReference
+                            {
+                            if ( state.backtracking==0 ) {
+
+                              			if (current==null) {
+                              	            current = createModelElement(grammarAccess.getVerificationMethodRule());
+                              	        }
+                                      
+                            }
+                            if ( state.backtracking==0 ) {
+                               
+                              	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getTargetComponentClassifierCrossReference_4_1_0_0()); 
+                              	    
+                            }
+                            pushFollow(FOLLOW_ruleAadlClassifierReference_in_ruleVerificationMethod4914);
+                            ruleAadlClassifierReference();
+
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+                               
+                              	        afterParserOrEnumRuleCall();
+                              	    
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2170:6: ( (lv_componentCategory_25_0= ruleComponentCategory ) )+
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2170:6: ( (lv_componentCategory_25_0= ruleComponentCategory ) )+
+                            int cnt57=0;
+                            loop57:
+                            do {
+                                int alt57=2;
+                                int LA57_0 = input.LA(1);
+
+                                if ( ((LA57_0>=91 && LA57_0<=98)||(LA57_0>=100 && LA57_0<=102)) ) {
+                                    alt57=1;
+                                }
+
+
+                                switch (alt57) {
+                            	case 1 :
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2171:1: (lv_componentCategory_25_0= ruleComponentCategory )
+                            	    {
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2171:1: (lv_componentCategory_25_0= ruleComponentCategory )
+                            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2172:3: lv_componentCategory_25_0= ruleComponentCategory
+                            	    {
+                            	    if ( state.backtracking==0 ) {
+                            	       
+                            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0()); 
+                            	      	    
+                            	    }
+                            	    pushFollow(FOLLOW_ruleComponentCategory_in_ruleVerificationMethod4941);
+                            	    lv_componentCategory_25_0=ruleComponentCategory();
+
+                            	    state._fsp--;
+                            	    if (state.failed) return current;
+                            	    if ( state.backtracking==0 ) {
+
+                            	      	        if (current==null) {
+                            	      	            current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
+                            	      	        }
+                            	             		add(
+                            	             			current, 
+                            	             			"componentCategory",
+                            	              		lv_componentCategory_25_0, 
+                            	              		"ComponentCategory");
+                            	      	        afterParserOrEnumRuleCall();
+                            	      	    
+                            	    }
+
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    if ( cnt57 >= 1 ) break loop57;
+                            	    if (state.backtracking>0) {state.failed=true; return current;}
+                                        EarlyExitException eee =
+                                            new EarlyExitException(57, input);
+                                        throw eee;
+                                }
+                                cnt57++;
+                            } while (true);
+
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_26=(Token)match(input,21,FOLLOW_21_in_ruleVerificationMethod4957); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_23, grammarAccess.getVerificationMethodAccess().getLeftSquareBracketKeyword_4());
+                  	newLeafNode(otherlv_26, grammarAccess.getVerificationMethodAccess().getLeftSquareBracketKeyword_5());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2116:1: ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2118:1: ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2192:1: ( ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2194:1: ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2118:1: ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2119:2: ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?)
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2194:1: ( ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2195:2: ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?)
             {
-            getUnorderedGroupHelper().enter(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2122:2: ( ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?)
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2123:3: ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+ {...}?
+            getUnorderedGroupHelper().enter(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2198:2: ( ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?)
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2199:3: ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+ {...}?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2123:3: ( ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) ) )+
-            int cnt56=0;
-            loop56:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2199:3: ( ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) ) )+
+            int cnt62=0;
+            loop62:
             do {
-                int alt56=7;
-                int LA56_0 = input.LA(1);
+                int alt62=7;
+                int LA62_0 = input.LA(1);
 
-                if ( LA56_0 >=52 && LA56_0<=56 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 0) ) {
-                    alt56=1;
+                if ( LA62_0 >=52 && LA62_0<=56 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0) ) {
+                    alt62=1;
                 }
-                else if ( LA56_0 ==58 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 1) ) {
-                    alt56=2;
+                else if ( LA62_0 ==58 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1) ) {
+                    alt62=2;
                 }
-                else if ( LA56_0 ==43 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 2) ) {
-                    alt56=3;
+                else if ( LA62_0 ==43 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2) ) {
+                    alt62=3;
                 }
-                else if ( LA56_0 ==42 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 3) ) {
-                    alt56=4;
+                else if ( LA62_0 ==42 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 3) ) {
+                    alt62=4;
                 }
-                else if ( LA56_0 ==51 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 4) ) {
-                    alt56=5;
+                else if ( LA62_0 ==51 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 4) ) {
+                    alt62=5;
                 }
-                else if ( LA56_0 ==41 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 5) ) {
-                    alt56=6;
+                else if ( LA62_0 ==41 && getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 5) ) {
+                    alt62=6;
                 }
 
 
-                switch (alt56) {
+                switch (alt62) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2125:4: ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2201:4: ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2125:4: ({...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2126:5: {...}? => ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2201:4: ({...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2202:5: {...}? => ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 0) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 0)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2126:115: ( ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2127:6: ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2202:115: ( ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2203:6: ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 0);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2130:6: ({...}? => ( (lv_methodKind_25_0= ruleMethodKind ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2130:7: {...}? => ( (lv_methodKind_25_0= ruleMethodKind ) )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2206:6: ({...}? => ( (lv_methodKind_28_0= ruleMethodKind ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2206:7: {...}? => ( (lv_methodKind_28_0= ruleMethodKind ) )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2130:16: ( (lv_methodKind_25_0= ruleMethodKind ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2131:1: (lv_methodKind_25_0= ruleMethodKind )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2206:16: ( (lv_methodKind_28_0= ruleMethodKind ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2207:1: (lv_methodKind_28_0= ruleMethodKind )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2131:1: (lv_methodKind_25_0= ruleMethodKind )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2132:3: lv_methodKind_25_0= ruleMethodKind
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2207:1: (lv_methodKind_28_0= ruleMethodKind )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2208:3: lv_methodKind_28_0= ruleMethodKind
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodKindMethodKindParserRuleCall_5_0_0()); 
+            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodKindMethodKindParserRuleCall_6_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleMethodKind_in_ruleVerificationMethod4887);
-            	    lv_methodKind_25_0=ruleMethodKind();
+            	    pushFollow(FOLLOW_ruleMethodKind_in_ruleVerificationMethod5023);
+            	    lv_methodKind_28_0=ruleMethodKind();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -6188,7 +6504,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             		set(
             	             			current, 
             	             			"methodKind",
-            	              		lv_methodKind_25_0, 
+            	              		lv_methodKind_28_0, 
             	              		"MethodKind");
             	      	        afterParserOrEnumRuleCall();
             	      	    
@@ -6202,7 +6518,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6213,39 +6529,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2155:4: ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2231:4: ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2155:4: ({...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2156:5: {...}? => ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2231:4: ({...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2232:5: {...}? => ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 1) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 1)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2156:115: ( ({...}? => ( (lv_description_26_0= ruleDescription ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2157:6: ({...}? => ( (lv_description_26_0= ruleDescription ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2232:115: ( ({...}? => ( (lv_description_29_0= ruleDescription ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2233:6: ({...}? => ( (lv_description_29_0= ruleDescription ) ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 1);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2160:6: ({...}? => ( (lv_description_26_0= ruleDescription ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2160:7: {...}? => ( (lv_description_26_0= ruleDescription ) )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2236:6: ({...}? => ( (lv_description_29_0= ruleDescription ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2236:7: {...}? => ( (lv_description_29_0= ruleDescription ) )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2160:16: ( (lv_description_26_0= ruleDescription ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2161:1: (lv_description_26_0= ruleDescription )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2236:16: ( (lv_description_29_0= ruleDescription ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2237:1: (lv_description_29_0= ruleDescription )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2161:1: (lv_description_26_0= ruleDescription )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2162:3: lv_description_26_0= ruleDescription
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2237:1: (lv_description_29_0= ruleDescription )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2238:3: lv_description_29_0= ruleDescription
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_5_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_6_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleDescription_in_ruleVerificationMethod4962);
-            	    lv_description_26_0=ruleDescription();
+            	    pushFollow(FOLLOW_ruleDescription_in_ruleVerificationMethod5098);
+            	    lv_description_29_0=ruleDescription();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -6257,7 +6573,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             		set(
             	             			current, 
             	             			"description",
-            	              		lv_description_26_0, 
+            	              		lv_description_29_0, 
             	              		"Description");
             	      	        afterParserOrEnumRuleCall();
             	      	    
@@ -6271,7 +6587,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6282,39 +6598,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2185:4: ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2261:4: ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2185:4: ({...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2186:5: {...}? => ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2261:4: ({...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2262:5: {...}? => ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 2) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 2)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2186:115: ( ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2187:6: ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2262:115: ( ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2263:6: ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 2);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2190:6: ({...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2190:7: {...}? => ( (lv_precondition_27_0= ruleVerificationPrecondition ) )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2266:6: ({...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2266:7: {...}? => ( (lv_precondition_30_0= ruleVerificationPrecondition ) )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2190:16: ( (lv_precondition_27_0= ruleVerificationPrecondition ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2191:1: (lv_precondition_27_0= ruleVerificationPrecondition )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2266:16: ( (lv_precondition_30_0= ruleVerificationPrecondition ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2267:1: (lv_precondition_30_0= ruleVerificationPrecondition )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2191:1: (lv_precondition_27_0= ruleVerificationPrecondition )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2192:3: lv_precondition_27_0= ruleVerificationPrecondition
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2267:1: (lv_precondition_30_0= ruleVerificationPrecondition )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2268:3: lv_precondition_30_0= ruleVerificationPrecondition
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getPreconditionVerificationPreconditionParserRuleCall_5_2_0()); 
+            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getPreconditionVerificationPreconditionParserRuleCall_6_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleVerificationPrecondition_in_ruleVerificationMethod5037);
-            	    lv_precondition_27_0=ruleVerificationPrecondition();
+            	    pushFollow(FOLLOW_ruleVerificationPrecondition_in_ruleVerificationMethod5173);
+            	    lv_precondition_30_0=ruleVerificationPrecondition();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -6326,7 +6642,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             		set(
             	             			current, 
             	             			"precondition",
-            	              		lv_precondition_27_0, 
+            	              		lv_precondition_30_0, 
             	              		"VerificationPrecondition");
             	      	        afterParserOrEnumRuleCall();
             	      	    
@@ -6340,7 +6656,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6351,39 +6667,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2215:4: ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2291:4: ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2215:4: ({...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2216:5: {...}? => ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2291:4: ({...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2292:5: {...}? => ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 3) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 3) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 3)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 3)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2216:115: ( ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2217:6: ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2292:115: ( ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2293:6: ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 3);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2220:6: ({...}? => ( (lv_validation_28_0= ruleVerificationValidation ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2220:7: {...}? => ( (lv_validation_28_0= ruleVerificationValidation ) )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 3);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2296:6: ({...}? => ( (lv_validation_31_0= ruleVerificationValidation ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2296:7: {...}? => ( (lv_validation_31_0= ruleVerificationValidation ) )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2220:16: ( (lv_validation_28_0= ruleVerificationValidation ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2221:1: (lv_validation_28_0= ruleVerificationValidation )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2296:16: ( (lv_validation_31_0= ruleVerificationValidation ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2297:1: (lv_validation_31_0= ruleVerificationValidation )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2221:1: (lv_validation_28_0= ruleVerificationValidation )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2222:3: lv_validation_28_0= ruleVerificationValidation
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2297:1: (lv_validation_31_0= ruleVerificationValidation )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2298:3: lv_validation_31_0= ruleVerificationValidation
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getValidationVerificationValidationParserRuleCall_5_3_0()); 
+            	      	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getValidationVerificationValidationParserRuleCall_6_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleVerificationValidation_in_ruleVerificationMethod5112);
-            	    lv_validation_28_0=ruleVerificationValidation();
+            	    pushFollow(FOLLOW_ruleVerificationValidation_in_ruleVerificationMethod5248);
+            	    lv_validation_31_0=ruleVerificationValidation();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -6395,7 +6711,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             		set(
             	             			current, 
             	             			"validation",
-            	              		lv_validation_28_0, 
+            	              		lv_validation_31_0, 
             	              		"VerificationValidation");
             	      	        afterParserOrEnumRuleCall();
             	      	    
@@ -6409,7 +6725,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6420,53 +6736,53 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2245:4: ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2321:4: ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2245:4: ({...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2246:5: {...}? => ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2321:4: ({...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2322:5: {...}? => ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 4) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 4) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 4)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 4)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2246:115: ( ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2247:6: ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2322:115: ( ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2323:6: ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 4);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2250:6: ({...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2250:7: {...}? => (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 4);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2326:6: ({...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2326:7: {...}? => (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2250:16: (otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+ )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2250:18: otherlv_29= 'quality' ( (otherlv_30= RULE_ID ) )+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2326:16: (otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+ )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2326:18: otherlv_32= 'quality' ( (otherlv_33= RULE_ID ) )+
             	    {
-            	    otherlv_29=(Token)match(input,51,FOLLOW_51_in_ruleVerificationMethod5179); if (state.failed) return current;
+            	    otherlv_32=(Token)match(input,51,FOLLOW_51_in_ruleVerificationMethod5315); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	          	newLeafNode(otherlv_29, grammarAccess.getVerificationMethodAccess().getQualityKeyword_5_4_0());
+            	          	newLeafNode(otherlv_32, grammarAccess.getVerificationMethodAccess().getQualityKeyword_6_4_0());
             	          
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2254:1: ( (otherlv_30= RULE_ID ) )+
-            	    int cnt54=0;
-            	    loop54:
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2330:1: ( (otherlv_33= RULE_ID ) )+
+            	    int cnt60=0;
+            	    loop60:
             	    do {
-            	        int alt54=2;
-            	        int LA54_0 = input.LA(1);
+            	        int alt60=2;
+            	        int LA60_0 = input.LA(1);
 
-            	        if ( (LA54_0==RULE_ID) ) {
-            	            alt54=1;
+            	        if ( (LA60_0==RULE_ID) ) {
+            	            alt60=1;
             	        }
 
 
-            	        switch (alt54) {
+            	        switch (alt60) {
             	    	case 1 :
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2255:1: (otherlv_30= RULE_ID )
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2331:1: (otherlv_33= RULE_ID )
             	    	    {
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2255:1: (otherlv_30= RULE_ID )
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2256:3: otherlv_30= RULE_ID
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2331:1: (otherlv_33= RULE_ID )
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2332:3: otherlv_33= RULE_ID
             	    	    {
             	    	    if ( state.backtracking==0 ) {
 
@@ -6475,10 +6791,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    	      	        }
             	    	              
             	    	    }
-            	    	    otherlv_30=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod5199); if (state.failed) return current;
+            	    	    otherlv_33=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod5335); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_30, grammarAccess.getVerificationMethodAccess().getQualityCategoryQualityCategoryCrossReference_5_4_1_0()); 
+            	    	      		newLeafNode(otherlv_33, grammarAccess.getVerificationMethodAccess().getQualityCategoryQualityCategoryCrossReference_6_4_1_0()); 
             	    	      	
             	    	    }
 
@@ -6489,13 +6805,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt54 >= 1 ) break loop54;
+            	    	    if ( cnt60 >= 1 ) break loop60;
             	    	    if (state.backtracking>0) {state.failed=true; return current;}
             	                EarlyExitException eee =
-            	                    new EarlyExitException(54, input);
+            	                    new EarlyExitException(60, input);
             	                throw eee;
             	        }
-            	        cnt54++;
+            	        cnt60++;
             	    } while (true);
 
 
@@ -6504,7 +6820,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6515,53 +6831,53 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 6 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2274:4: ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2350:4: ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2274:4: ({...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2275:5: {...}? => ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2350:4: ({...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2351:5: {...}? => ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) )
             	    {
-            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 5) ) {
+            	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 5) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
-            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 5)");
+            	        throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 5)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2275:115: ( ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2276:6: ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2351:115: ( ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2352:6: ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) )
             	    {
-            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5(), 5);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2279:6: ({...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2279:7: {...}? => (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ )
+            	    getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 5);
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2355:6: ({...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2355:7: {...}? => (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleVerificationMethod", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2279:16: (otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+ )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2279:18: otherlv_31= 'category' ( (otherlv_32= RULE_ID ) )+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2355:16: (otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+ )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2355:18: otherlv_34= 'category' ( (otherlv_35= RULE_ID ) )+
             	    {
-            	    otherlv_31=(Token)match(input,41,FOLLOW_41_in_ruleVerificationMethod5268); if (state.failed) return current;
+            	    otherlv_34=(Token)match(input,41,FOLLOW_41_in_ruleVerificationMethod5404); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	          	newLeafNode(otherlv_31, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_5_0());
+            	          	newLeafNode(otherlv_34, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_6_5_0());
             	          
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2283:1: ( (otherlv_32= RULE_ID ) )+
-            	    int cnt55=0;
-            	    loop55:
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2359:1: ( (otherlv_35= RULE_ID ) )+
+            	    int cnt61=0;
+            	    loop61:
             	    do {
-            	        int alt55=2;
-            	        int LA55_0 = input.LA(1);
+            	        int alt61=2;
+            	        int LA61_0 = input.LA(1);
 
-            	        if ( (LA55_0==RULE_ID) ) {
-            	            alt55=1;
+            	        if ( (LA61_0==RULE_ID) ) {
+            	            alt61=1;
             	        }
 
 
-            	        switch (alt55) {
+            	        switch (alt61) {
             	    	case 1 :
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2284:1: (otherlv_32= RULE_ID )
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2360:1: (otherlv_35= RULE_ID )
             	    	    {
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2284:1: (otherlv_32= RULE_ID )
-            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2285:3: otherlv_32= RULE_ID
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2360:1: (otherlv_35= RULE_ID )
+            	    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2361:3: otherlv_35= RULE_ID
             	    	    {
             	    	    if ( state.backtracking==0 ) {
 
@@ -6570,10 +6886,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    	      	        }
             	    	              
             	    	    }
-            	    	    otherlv_32=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod5288); if (state.failed) return current;
+            	    	    otherlv_35=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationMethod5424); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_32, grammarAccess.getVerificationMethodAccess().getUserCategoryUserCategoryCrossReference_5_5_1_0()); 
+            	    	      		newLeafNode(otherlv_35, grammarAccess.getVerificationMethodAccess().getUserCategoryUserCategoryCrossReference_6_5_1_0()); 
             	    	      	
             	    	    }
 
@@ -6584,13 +6900,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt55 >= 1 ) break loop55;
+            	    	    if ( cnt61 >= 1 ) break loop61;
             	    	    if (state.backtracking>0) {state.failed=true; return current;}
             	                EarlyExitException eee =
-            	                    new EarlyExitException(55, input);
+            	                    new EarlyExitException(61, input);
             	                throw eee;
             	        }
-            	        cnt55++;
+            	        cnt61++;
             	    } while (true);
 
 
@@ -6599,7 +6915,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            	    getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             	    }
 
@@ -6611,18 +6927,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt56 >= 1 ) break loop56;
+            	    if ( cnt62 >= 1 ) break loop62;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(56, input);
+                            new EarlyExitException(62, input);
                         throw eee;
                 }
-                cnt56++;
+                cnt62++;
             } while (true);
 
-            if ( ! getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5()) ) {
+            if ( ! getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6()) ) {
                 if (state.backtracking>0) {state.failed=true; return current;}
-                throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5())");
+                throw new FailedPredicateException(input, "ruleVerificationMethod", "getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6())");
             }
 
             }
@@ -6630,14 +6946,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            getUnorderedGroupHelper().leave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_5());
+            getUnorderedGroupHelper().leave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 
             }
 
-            otherlv_33=(Token)match(input,23,FOLLOW_23_in_ruleVerificationMethod5348); if (state.failed) return current;
+            otherlv_36=(Token)match(input,23,FOLLOW_23_in_ruleVerificationMethod5484); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_33, grammarAccess.getVerificationMethodAccess().getRightSquareBracketKeyword_6());
+                  	newLeafNode(otherlv_36, grammarAccess.getVerificationMethodAccess().getRightSquareBracketKeyword_7());
                   
             }
 
@@ -6663,7 +6979,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleMethodKind"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2323:1: entryRuleMethodKind returns [EObject current=null] : iv_ruleMethodKind= ruleMethodKind EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2399:1: entryRuleMethodKind returns [EObject current=null] : iv_ruleMethodKind= ruleMethodKind EOF ;
     public final EObject entryRuleMethodKind() throws RecognitionException {
         EObject current = null;
 
@@ -6671,13 +6987,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2324:2: (iv_ruleMethodKind= ruleMethodKind EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2325:2: iv_ruleMethodKind= ruleMethodKind EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2400:2: (iv_ruleMethodKind= ruleMethodKind EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2401:2: iv_ruleMethodKind= ruleMethodKind EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getMethodKindRule()); 
             }
-            pushFollow(FOLLOW_ruleMethodKind_in_entryRuleMethodKind5384);
+            pushFollow(FOLLOW_ruleMethodKind_in_entryRuleMethodKind5520);
             iv_ruleMethodKind=ruleMethodKind();
 
             state._fsp--;
@@ -6685,7 +7001,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleMethodKind; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodKind5394); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodKind5530); if (state.failed) return current;
 
             }
 
@@ -6703,7 +7019,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMethodKind"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2332:1: ruleMethodKind returns [EObject current=null] : (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2408:1: ruleMethodKind returns [EObject current=null] : (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod ) ;
     public final EObject ruleMethodKind() throws RecognitionException {
         EObject current = null;
 
@@ -6721,55 +7037,55 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2335:28: ( (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2336:1: (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2411:28: ( (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2412:1: (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2336:1: (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod )
-            int alt57=5;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2412:1: (this_ResoluteMethod_0= ruleResoluteMethod | this_JavaMethod_1= ruleJavaMethod | this_ManualMethod_2= ruleManualMethod | this_PluginMethod_3= rulePluginMethod | this_AgreeMethod_4= ruleAgreeMethod )
+            int alt63=5;
             switch ( input.LA(1) ) {
             case 52:
                 {
-                alt57=1;
+                alt63=1;
                 }
                 break;
             case 53:
                 {
-                alt57=2;
+                alt63=2;
                 }
                 break;
             case 54:
                 {
-                alt57=3;
+                alt63=3;
                 }
                 break;
             case 55:
                 {
-                alt57=4;
+                alt63=4;
                 }
                 break;
             case 56:
                 {
-                alt57=5;
+                alt63=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 57, 0, input);
+                    new NoViableAltException("", 63, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt57) {
+            switch (alt63) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2337:5: this_ResoluteMethod_0= ruleResoluteMethod
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2413:5: this_ResoluteMethod_0= ruleResoluteMethod
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getMethodKindAccess().getResoluteMethodParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleResoluteMethod_in_ruleMethodKind5441);
+                    pushFollow(FOLLOW_ruleResoluteMethod_in_ruleMethodKind5577);
                     this_ResoluteMethod_0=ruleResoluteMethod();
 
                     state._fsp--;
@@ -6784,14 +7100,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2347:5: this_JavaMethod_1= ruleJavaMethod
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2423:5: this_JavaMethod_1= ruleJavaMethod
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getMethodKindAccess().getJavaMethodParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleJavaMethod_in_ruleMethodKind5468);
+                    pushFollow(FOLLOW_ruleJavaMethod_in_ruleMethodKind5604);
                     this_JavaMethod_1=ruleJavaMethod();
 
                     state._fsp--;
@@ -6806,14 +7122,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2357:5: this_ManualMethod_2= ruleManualMethod
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2433:5: this_ManualMethod_2= ruleManualMethod
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getMethodKindAccess().getManualMethodParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleManualMethod_in_ruleMethodKind5495);
+                    pushFollow(FOLLOW_ruleManualMethod_in_ruleMethodKind5631);
                     this_ManualMethod_2=ruleManualMethod();
 
                     state._fsp--;
@@ -6828,14 +7144,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2367:5: this_PluginMethod_3= rulePluginMethod
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2443:5: this_PluginMethod_3= rulePluginMethod
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getMethodKindAccess().getPluginMethodParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_rulePluginMethod_in_ruleMethodKind5522);
+                    pushFollow(FOLLOW_rulePluginMethod_in_ruleMethodKind5658);
                     this_PluginMethod_3=rulePluginMethod();
 
                     state._fsp--;
@@ -6850,14 +7166,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2377:5: this_AgreeMethod_4= ruleAgreeMethod
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2453:5: this_AgreeMethod_4= ruleAgreeMethod
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getMethodKindAccess().getAgreeMethodParserRuleCall_4()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAgreeMethod_in_ruleMethodKind5549);
+                    pushFollow(FOLLOW_ruleAgreeMethod_in_ruleMethodKind5685);
                     this_AgreeMethod_4=ruleAgreeMethod();
 
                     state._fsp--;
@@ -6894,7 +7210,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleResoluteMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2393:1: entryRuleResoluteMethod returns [EObject current=null] : iv_ruleResoluteMethod= ruleResoluteMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2469:1: entryRuleResoluteMethod returns [EObject current=null] : iv_ruleResoluteMethod= ruleResoluteMethod EOF ;
     public final EObject entryRuleResoluteMethod() throws RecognitionException {
         EObject current = null;
 
@@ -6902,13 +7218,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2394:2: (iv_ruleResoluteMethod= ruleResoluteMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2395:2: iv_ruleResoluteMethod= ruleResoluteMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2470:2: (iv_ruleResoluteMethod= ruleResoluteMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2471:2: iv_ruleResoluteMethod= ruleResoluteMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getResoluteMethodRule()); 
             }
-            pushFollow(FOLLOW_ruleResoluteMethod_in_entryRuleResoluteMethod5584);
+            pushFollow(FOLLOW_ruleResoluteMethod_in_entryRuleResoluteMethod5720);
             iv_ruleResoluteMethod=ruleResoluteMethod();
 
             state._fsp--;
@@ -6916,7 +7232,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleResoluteMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleResoluteMethod5594); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleResoluteMethod5730); if (state.failed) return current;
 
             }
 
@@ -6934,7 +7250,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleResoluteMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2402:1: ruleResoluteMethod returns [EObject current=null] : (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2478:1: ruleResoluteMethod returns [EObject current=null] : (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) ) ;
     public final EObject ruleResoluteMethod() throws RecognitionException {
         EObject current = null;
 
@@ -6944,23 +7260,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2405:28: ( (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2406:1: (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2481:28: ( (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2482:1: (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2406:1: (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2406:3: otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2482:1: (otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2482:3: otherlv_0= 'resolute' ( (otherlv_1= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,52,FOLLOW_52_in_ruleResoluteMethod5631); if (state.failed) return current;
+            otherlv_0=(Token)match(input,52,FOLLOW_52_in_ruleResoluteMethod5767); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getResoluteMethodAccess().getResoluteKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2410:1: ( (otherlv_1= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2411:1: (otherlv_1= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2486:1: ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2487:1: (otherlv_1= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2411:1: (otherlv_1= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2412:3: otherlv_1= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2487:1: (otherlv_1= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2488:3: otherlv_1= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -6969,7 +7285,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
-            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleResoluteMethod5651); if (state.failed) return current;
+            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleResoluteMethod5787); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_1, grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionCrossReference_1_0()); 
@@ -7004,7 +7320,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleJavaMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2431:1: entryRuleJavaMethod returns [EObject current=null] : iv_ruleJavaMethod= ruleJavaMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2507:1: entryRuleJavaMethod returns [EObject current=null] : iv_ruleJavaMethod= ruleJavaMethod EOF ;
     public final EObject entryRuleJavaMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7012,13 +7328,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2432:2: (iv_ruleJavaMethod= ruleJavaMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2433:2: iv_ruleJavaMethod= ruleJavaMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2508:2: (iv_ruleJavaMethod= ruleJavaMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2509:2: iv_ruleJavaMethod= ruleJavaMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getJavaMethodRule()); 
             }
-            pushFollow(FOLLOW_ruleJavaMethod_in_entryRuleJavaMethod5687);
+            pushFollow(FOLLOW_ruleJavaMethod_in_entryRuleJavaMethod5823);
             iv_ruleJavaMethod=ruleJavaMethod();
 
             state._fsp--;
@@ -7026,7 +7342,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleJavaMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleJavaMethod5697); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleJavaMethod5833); if (state.failed) return current;
 
             }
 
@@ -7044,7 +7360,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleJavaMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2440:1: ruleJavaMethod returns [EObject current=null] : (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2516:1: ruleJavaMethod returns [EObject current=null] : (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) ) ;
     public final EObject ruleJavaMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7055,30 +7371,30 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2443:28: ( (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2444:1: (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2519:28: ( (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2520:1: (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2444:1: (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2444:3: otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2520:1: (otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2520:3: otherlv_0= 'java' ( (lv_methodPath_1_0= ruleQualifiedName ) )
             {
-            otherlv_0=(Token)match(input,53,FOLLOW_53_in_ruleJavaMethod5734); if (state.failed) return current;
+            otherlv_0=(Token)match(input,53,FOLLOW_53_in_ruleJavaMethod5870); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getJavaMethodAccess().getJavaKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2448:1: ( (lv_methodPath_1_0= ruleQualifiedName ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2449:1: (lv_methodPath_1_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2524:1: ( (lv_methodPath_1_0= ruleQualifiedName ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2525:1: (lv_methodPath_1_0= ruleQualifiedName )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2449:1: (lv_methodPath_1_0= ruleQualifiedName )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2450:3: lv_methodPath_1_0= ruleQualifiedName
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2525:1: (lv_methodPath_1_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2526:3: lv_methodPath_1_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleJavaMethod5755);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleJavaMethod5891);
             lv_methodPath_1_0=ruleQualifiedName();
 
             state._fsp--;
@@ -7125,7 +7441,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleManualMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2474:1: entryRuleManualMethod returns [EObject current=null] : iv_ruleManualMethod= ruleManualMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2550:1: entryRuleManualMethod returns [EObject current=null] : iv_ruleManualMethod= ruleManualMethod EOF ;
     public final EObject entryRuleManualMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7133,13 +7449,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2475:2: (iv_ruleManualMethod= ruleManualMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2476:2: iv_ruleManualMethod= ruleManualMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2551:2: (iv_ruleManualMethod= ruleManualMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2552:2: iv_ruleManualMethod= ruleManualMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getManualMethodRule()); 
             }
-            pushFollow(FOLLOW_ruleManualMethod_in_entryRuleManualMethod5791);
+            pushFollow(FOLLOW_ruleManualMethod_in_entryRuleManualMethod5927);
             iv_ruleManualMethod=ruleManualMethod();
 
             state._fsp--;
@@ -7147,7 +7463,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleManualMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleManualMethod5801); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleManualMethod5937); if (state.failed) return current;
 
             }
 
@@ -7165,7 +7481,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleManualMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2483:1: ruleManualMethod returns [EObject current=null] : (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2559:1: ruleManualMethod returns [EObject current=null] : (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) ) ;
     public final EObject ruleManualMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7176,20 +7492,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2486:28: ( (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2487:1: (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2562:28: ( (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2563:1: (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2487:1: (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2487:3: otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2563:1: (otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2563:3: otherlv_0= 'manual' () ( (lv_dialogID_2_0= ruleQualifiedName ) )
             {
-            otherlv_0=(Token)match(input,54,FOLLOW_54_in_ruleManualMethod5838); if (state.failed) return current;
+            otherlv_0=(Token)match(input,54,FOLLOW_54_in_ruleManualMethod5974); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getManualMethodAccess().getManualKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2491:1: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2492:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2567:1: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2568:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -7201,18 +7517,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2497:2: ( (lv_dialogID_2_0= ruleQualifiedName ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2498:1: (lv_dialogID_2_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2573:2: ( (lv_dialogID_2_0= ruleQualifiedName ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2574:1: (lv_dialogID_2_0= ruleQualifiedName )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2498:1: (lv_dialogID_2_0= ruleQualifiedName )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2499:3: lv_dialogID_2_0= ruleQualifiedName
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2574:1: (lv_dialogID_2_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2575:3: lv_dialogID_2_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getManualMethodAccess().getDialogIDQualifiedNameParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleManualMethod5868);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleManualMethod6004);
             lv_dialogID_2_0=ruleQualifiedName();
 
             state._fsp--;
@@ -7259,7 +7575,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePluginMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2523:1: entryRulePluginMethod returns [EObject current=null] : iv_rulePluginMethod= rulePluginMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2599:1: entryRulePluginMethod returns [EObject current=null] : iv_rulePluginMethod= rulePluginMethod EOF ;
     public final EObject entryRulePluginMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7267,13 +7583,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2524:2: (iv_rulePluginMethod= rulePluginMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2525:2: iv_rulePluginMethod= rulePluginMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2600:2: (iv_rulePluginMethod= rulePluginMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2601:2: iv_rulePluginMethod= rulePluginMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getPluginMethodRule()); 
             }
-            pushFollow(FOLLOW_rulePluginMethod_in_entryRulePluginMethod5904);
+            pushFollow(FOLLOW_rulePluginMethod_in_entryRulePluginMethod6040);
             iv_rulePluginMethod=rulePluginMethod();
 
             state._fsp--;
@@ -7281,7 +7597,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_rulePluginMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulePluginMethod5914); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRulePluginMethod6050); if (state.failed) return current;
 
             }
 
@@ -7299,7 +7615,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePluginMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2532:1: rulePluginMethod returns [EObject current=null] : (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2608:1: rulePluginMethod returns [EObject current=null] : (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) ) ;
     public final EObject rulePluginMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7309,25 +7625,25 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2535:28: ( (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2536:1: (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2611:28: ( (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2612:1: (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2536:1: (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2536:3: otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2612:1: (otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2612:3: otherlv_0= 'plugin' ( (lv_methodID_1_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,55,FOLLOW_55_in_rulePluginMethod5951); if (state.failed) return current;
+            otherlv_0=(Token)match(input,55,FOLLOW_55_in_rulePluginMethod6087); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getPluginMethodAccess().getPluginKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2540:1: ( (lv_methodID_1_0= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2541:1: (lv_methodID_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2616:1: ( (lv_methodID_1_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2617:1: (lv_methodID_1_0= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2541:1: (lv_methodID_1_0= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2542:3: lv_methodID_1_0= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2617:1: (lv_methodID_1_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2618:3: lv_methodID_1_0= RULE_ID
             {
-            lv_methodID_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePluginMethod5968); if (state.failed) return current;
+            lv_methodID_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_rulePluginMethod6104); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_methodID_1_0, grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); 
@@ -7374,7 +7690,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAgreeMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2566:1: entryRuleAgreeMethod returns [EObject current=null] : iv_ruleAgreeMethod= ruleAgreeMethod EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2642:1: entryRuleAgreeMethod returns [EObject current=null] : iv_ruleAgreeMethod= ruleAgreeMethod EOF ;
     public final EObject entryRuleAgreeMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7382,13 +7698,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2567:2: (iv_ruleAgreeMethod= ruleAgreeMethod EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2568:2: iv_ruleAgreeMethod= ruleAgreeMethod EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2643:2: (iv_ruleAgreeMethod= ruleAgreeMethod EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2644:2: iv_ruleAgreeMethod= ruleAgreeMethod EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAgreeMethodRule()); 
             }
-            pushFollow(FOLLOW_ruleAgreeMethod_in_entryRuleAgreeMethod6009);
+            pushFollow(FOLLOW_ruleAgreeMethod_in_entryRuleAgreeMethod6145);
             iv_ruleAgreeMethod=ruleAgreeMethod();
 
             state._fsp--;
@@ -7396,7 +7712,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAgreeMethod; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAgreeMethod6019); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAgreeMethod6155); if (state.failed) return current;
 
             }
 
@@ -7414,7 +7730,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAgreeMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2575:1: ruleAgreeMethod returns [EObject current=null] : (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2651:1: ruleAgreeMethod returns [EObject current=null] : (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) ) ;
     public final EObject ruleAgreeMethod() throws RecognitionException {
         EObject current = null;
 
@@ -7425,46 +7741,46 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2578:28: ( (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2579:1: (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2654:28: ( (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2655:1: (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2579:1: (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2579:3: otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2655:1: (otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2655:3: otherlv_0= 'agree' ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) )
             {
-            otherlv_0=(Token)match(input,56,FOLLOW_56_in_ruleAgreeMethod6056); if (state.failed) return current;
+            otherlv_0=(Token)match(input,56,FOLLOW_56_in_ruleAgreeMethod6192); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getAgreeMethodAccess().getAgreeKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2583:1: ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) )
-            int alt58=2;
-            int LA58_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2659:1: ( ( (lv_singleLayer_1_0= 'single' ) ) | ( (lv_all_2_0= 'all' ) ) )
+            int alt64=2;
+            int LA64_0 = input.LA(1);
 
-            if ( (LA58_0==57) ) {
-                alt58=1;
+            if ( (LA64_0==57) ) {
+                alt64=1;
             }
-            else if ( (LA58_0==33) ) {
-                alt58=2;
+            else if ( (LA64_0==33) ) {
+                alt64=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 58, 0, input);
+                    new NoViableAltException("", 64, 0, input);
 
                 throw nvae;
             }
-            switch (alt58) {
+            switch (alt64) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2583:2: ( (lv_singleLayer_1_0= 'single' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2659:2: ( (lv_singleLayer_1_0= 'single' ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2583:2: ( (lv_singleLayer_1_0= 'single' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2584:1: (lv_singleLayer_1_0= 'single' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2659:2: ( (lv_singleLayer_1_0= 'single' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2660:1: (lv_singleLayer_1_0= 'single' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2584:1: (lv_singleLayer_1_0= 'single' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2585:3: lv_singleLayer_1_0= 'single'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2660:1: (lv_singleLayer_1_0= 'single' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2661:3: lv_singleLayer_1_0= 'single'
                     {
-                    lv_singleLayer_1_0=(Token)match(input,57,FOLLOW_57_in_ruleAgreeMethod6075); if (state.failed) return current;
+                    lv_singleLayer_1_0=(Token)match(input,57,FOLLOW_57_in_ruleAgreeMethod6211); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_singleLayer_1_0, grammarAccess.getAgreeMethodAccess().getSingleLayerSingleKeyword_1_0_0());
@@ -7488,15 +7804,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2599:6: ( (lv_all_2_0= 'all' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2675:6: ( (lv_all_2_0= 'all' ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2599:6: ( (lv_all_2_0= 'all' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2600:1: (lv_all_2_0= 'all' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2675:6: ( (lv_all_2_0= 'all' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2676:1: (lv_all_2_0= 'all' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2600:1: (lv_all_2_0= 'all' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2601:3: lv_all_2_0= 'all'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2676:1: (lv_all_2_0= 'all' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2677:3: lv_all_2_0= 'all'
                     {
-                    lv_all_2_0=(Token)match(input,33,FOLLOW_33_in_ruleAgreeMethod6112); if (state.failed) return current;
+                    lv_all_2_0=(Token)match(input,33,FOLLOW_33_in_ruleAgreeMethod6248); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_all_2_0, grammarAccess.getAgreeMethodAccess().getAllAllKeyword_1_1_0());
@@ -7545,7 +7861,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDescription"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2622:1: entryRuleDescription returns [EObject current=null] : iv_ruleDescription= ruleDescription EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2698:1: entryRuleDescription returns [EObject current=null] : iv_ruleDescription= ruleDescription EOF ;
     public final EObject entryRuleDescription() throws RecognitionException {
         EObject current = null;
 
@@ -7553,13 +7869,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2623:2: (iv_ruleDescription= ruleDescription EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2624:2: iv_ruleDescription= ruleDescription EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2699:2: (iv_ruleDescription= ruleDescription EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2700:2: iv_ruleDescription= ruleDescription EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDescriptionRule()); 
             }
-            pushFollow(FOLLOW_ruleDescription_in_entryRuleDescription6162);
+            pushFollow(FOLLOW_ruleDescription_in_entryRuleDescription6298);
             iv_ruleDescription=ruleDescription();
 
             state._fsp--;
@@ -7567,7 +7883,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDescription; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDescription6172); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDescription6308); if (state.failed) return current;
 
             }
 
@@ -7585,7 +7901,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDescription"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2631:1: ruleDescription returns [EObject current=null] : (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2707:1: ruleDescription returns [EObject current=null] : (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) ;
     public final EObject ruleDescription() throws RecognitionException {
         EObject current = null;
 
@@ -7596,43 +7912,43 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2634:28: ( (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2635:1: (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2710:28: ( (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2711:1: (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2635:1: (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2635:3: otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2711:1: (otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2711:3: otherlv_0= 'description' ( (lv_description_1_0= ruleDescriptionElement ) )+
             {
-            otherlv_0=(Token)match(input,58,FOLLOW_58_in_ruleDescription6209); if (state.failed) return current;
+            otherlv_0=(Token)match(input,58,FOLLOW_58_in_ruleDescription6345); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getDescriptionAccess().getDescriptionKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2639:1: ( (lv_description_1_0= ruleDescriptionElement ) )+
-            int cnt59=0;
-            loop59:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2715:1: ( (lv_description_1_0= ruleDescriptionElement ) )+
+            int cnt65=0;
+            loop65:
             do {
-                int alt59=2;
-                int LA59_0 = input.LA(1);
+                int alt65=2;
+                int LA65_0 = input.LA(1);
 
-                if ( (LA59_0==RULE_STRING||LA59_0==RULE_ID||LA59_0==59||LA59_0==64) ) {
-                    alt59=1;
+                if ( (LA65_0==RULE_STRING||LA65_0==RULE_ID||LA65_0==59||LA65_0==64) ) {
+                    alt65=1;
                 }
 
 
-                switch (alt59) {
+                switch (alt65) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2640:1: (lv_description_1_0= ruleDescriptionElement )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2716:1: (lv_description_1_0= ruleDescriptionElement )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2640:1: (lv_description_1_0= ruleDescriptionElement )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2641:3: lv_description_1_0= ruleDescriptionElement
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2716:1: (lv_description_1_0= ruleDescriptionElement )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2717:3: lv_description_1_0= ruleDescriptionElement
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleDescriptionElement_in_ruleDescription6230);
+            	    pushFollow(FOLLOW_ruleDescriptionElement_in_ruleDescription6366);
             	    lv_description_1_0=ruleDescriptionElement();
 
             	    state._fsp--;
@@ -7658,13 +7974,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt59 >= 1 ) break loop59;
+            	    if ( cnt65 >= 1 ) break loop65;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(59, input);
+                            new EarlyExitException(65, input);
                         throw eee;
                 }
-                cnt59++;
+                cnt65++;
             } while (true);
 
 
@@ -7690,7 +8006,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDescriptionElement"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2665:1: entryRuleDescriptionElement returns [EObject current=null] : iv_ruleDescriptionElement= ruleDescriptionElement EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2741:1: entryRuleDescriptionElement returns [EObject current=null] : iv_ruleDescriptionElement= ruleDescriptionElement EOF ;
     public final EObject entryRuleDescriptionElement() throws RecognitionException {
         EObject current = null;
 
@@ -7698,13 +8014,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2666:2: (iv_ruleDescriptionElement= ruleDescriptionElement EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2667:2: iv_ruleDescriptionElement= ruleDescriptionElement EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2742:2: (iv_ruleDescriptionElement= ruleDescriptionElement EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2743:2: iv_ruleDescriptionElement= ruleDescriptionElement EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDescriptionElementRule()); 
             }
-            pushFollow(FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement6267);
+            pushFollow(FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement6403);
             iv_ruleDescriptionElement=ruleDescriptionElement();
 
             state._fsp--;
@@ -7712,7 +8028,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleDescriptionElement; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDescriptionElement6277); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDescriptionElement6413); if (state.failed) return current;
 
             }
 
@@ -7730,7 +8046,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDescriptionElement"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2674:1: ruleDescriptionElement returns [EObject current=null] : ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2750:1: ruleDescriptionElement returns [EObject current=null] : ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) ) ;
     public final EObject ruleDescriptionElement() throws RecognitionException {
         EObject current = null;
 
@@ -7744,51 +8060,51 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2677:28: ( ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2678:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2753:28: ( ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2754:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2678:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) )
-            int alt60=4;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2754:1: ( ( (lv_text_0_0= RULE_STRING ) ) | ( (lv_showValue_1_0= ruleShowValue ) ) | ( (lv_thisTarget_2_0= 'this' ) ) | ( (lv_image_3_0= ruleImageReference ) ) )
+            int alt66=4;
             switch ( input.LA(1) ) {
             case RULE_STRING:
                 {
-                alt60=1;
+                alt66=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt60=2;
+                alt66=2;
                 }
                 break;
             case 59:
                 {
-                alt60=3;
+                alt66=3;
                 }
                 break;
             case 64:
                 {
-                alt60=4;
+                alt66=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 60, 0, input);
+                    new NoViableAltException("", 66, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt60) {
+            switch (alt66) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2678:2: ( (lv_text_0_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2754:2: ( (lv_text_0_0= RULE_STRING ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2678:2: ( (lv_text_0_0= RULE_STRING ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2679:1: (lv_text_0_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2754:2: ( (lv_text_0_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2755:1: (lv_text_0_0= RULE_STRING )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2679:1: (lv_text_0_0= RULE_STRING )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2680:3: lv_text_0_0= RULE_STRING
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2755:1: (lv_text_0_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2756:3: lv_text_0_0= RULE_STRING
                     {
-                    lv_text_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleDescriptionElement6319); if (state.failed) return current;
+                    lv_text_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleDescriptionElement6455); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_text_0_0, grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
@@ -7816,20 +8132,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2697:6: ( (lv_showValue_1_0= ruleShowValue ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2773:6: ( (lv_showValue_1_0= ruleShowValue ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2697:6: ( (lv_showValue_1_0= ruleShowValue ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2698:1: (lv_showValue_1_0= ruleShowValue )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2773:6: ( (lv_showValue_1_0= ruleShowValue ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2774:1: (lv_showValue_1_0= ruleShowValue )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2698:1: (lv_showValue_1_0= ruleShowValue )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2699:3: lv_showValue_1_0= ruleShowValue
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2774:1: (lv_showValue_1_0= ruleShowValue )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2775:3: lv_showValue_1_0= ruleShowValue
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getShowValueShowValueParserRuleCall_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleShowValue_in_ruleDescriptionElement6351);
+                    pushFollow(FOLLOW_ruleShowValue_in_ruleDescriptionElement6487);
                     lv_showValue_1_0=ruleShowValue();
 
                     state._fsp--;
@@ -7857,15 +8173,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2716:6: ( (lv_thisTarget_2_0= 'this' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2792:6: ( (lv_thisTarget_2_0= 'this' ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2716:6: ( (lv_thisTarget_2_0= 'this' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2717:1: (lv_thisTarget_2_0= 'this' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2792:6: ( (lv_thisTarget_2_0= 'this' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2793:1: (lv_thisTarget_2_0= 'this' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2717:1: (lv_thisTarget_2_0= 'this' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2718:3: lv_thisTarget_2_0= 'this'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2793:1: (lv_thisTarget_2_0= 'this' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2794:3: lv_thisTarget_2_0= 'this'
                     {
-                    lv_thisTarget_2_0=(Token)match(input,59,FOLLOW_59_in_ruleDescriptionElement6375); if (state.failed) return current;
+                    lv_thisTarget_2_0=(Token)match(input,59,FOLLOW_59_in_ruleDescriptionElement6511); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_thisTarget_2_0, grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0());
@@ -7889,20 +8205,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2732:6: ( (lv_image_3_0= ruleImageReference ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2808:6: ( (lv_image_3_0= ruleImageReference ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2732:6: ( (lv_image_3_0= ruleImageReference ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2733:1: (lv_image_3_0= ruleImageReference )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2808:6: ( (lv_image_3_0= ruleImageReference ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2809:1: (lv_image_3_0= ruleImageReference )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2733:1: (lv_image_3_0= ruleImageReference )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2734:3: lv_image_3_0= ruleImageReference
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2809:1: (lv_image_3_0= ruleImageReference )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2810:3: lv_image_3_0= ruleImageReference
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getImageImageReferenceParserRuleCall_3_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleImageReference_in_ruleDescriptionElement6415);
+                    pushFollow(FOLLOW_ruleImageReference_in_ruleDescriptionElement6551);
                     lv_image_3_0=ruleImageReference();
 
                     state._fsp--;
@@ -7952,7 +8268,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRationale"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2758:1: entryRuleRationale returns [EObject current=null] : iv_ruleRationale= ruleRationale EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2834:1: entryRuleRationale returns [EObject current=null] : iv_ruleRationale= ruleRationale EOF ;
     public final EObject entryRuleRationale() throws RecognitionException {
         EObject current = null;
 
@@ -7960,13 +8276,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2759:2: (iv_ruleRationale= ruleRationale EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2760:2: iv_ruleRationale= ruleRationale EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2835:2: (iv_ruleRationale= ruleRationale EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2836:2: iv_ruleRationale= ruleRationale EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRationaleRule()); 
             }
-            pushFollow(FOLLOW_ruleRationale_in_entryRuleRationale6451);
+            pushFollow(FOLLOW_ruleRationale_in_entryRuleRationale6587);
             iv_ruleRationale=ruleRationale();
 
             state._fsp--;
@@ -7974,7 +8290,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleRationale; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleRationale6461); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleRationale6597); if (state.failed) return current;
 
             }
 
@@ -7992,7 +8308,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRationale"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2767:1: ruleRationale returns [EObject current=null] : (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2843:1: ruleRationale returns [EObject current=null] : (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) ;
     public final EObject ruleRationale() throws RecognitionException {
         EObject current = null;
 
@@ -8002,25 +8318,25 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2770:28: ( (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2771:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2846:28: ( (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2847:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2771:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2771:3: otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2847:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2847:3: otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) )
             {
-            otherlv_0=(Token)match(input,60,FOLLOW_60_in_ruleRationale6498); if (state.failed) return current;
+            otherlv_0=(Token)match(input,60,FOLLOW_60_in_ruleRationale6634); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getRationaleAccess().getRationaleKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2775:1: ( (lv_text_1_0= RULE_STRING ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2776:1: (lv_text_1_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2851:1: ( (lv_text_1_0= RULE_STRING ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2852:1: (lv_text_1_0= RULE_STRING )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2776:1: (lv_text_1_0= RULE_STRING )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2777:3: lv_text_1_0= RULE_STRING
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2852:1: (lv_text_1_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2853:3: lv_text_1_0= RULE_STRING
             {
-            lv_text_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleRationale6515); if (state.failed) return current;
+            lv_text_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleRationale6651); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_text_1_0, grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); 
@@ -8067,7 +8383,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleResultIssue"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2803:1: entryRuleResultIssue returns [EObject current=null] : iv_ruleResultIssue= ruleResultIssue EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2879:1: entryRuleResultIssue returns [EObject current=null] : iv_ruleResultIssue= ruleResultIssue EOF ;
     public final EObject entryRuleResultIssue() throws RecognitionException {
         EObject current = null;
 
@@ -8075,13 +8391,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2804:2: (iv_ruleResultIssue= ruleResultIssue EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2805:2: iv_ruleResultIssue= ruleResultIssue EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2880:2: (iv_ruleResultIssue= ruleResultIssue EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2881:2: iv_ruleResultIssue= ruleResultIssue EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getResultIssueRule()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_entryRuleResultIssue6558);
+            pushFollow(FOLLOW_ruleResultIssue_in_entryRuleResultIssue6694);
             iv_ruleResultIssue=ruleResultIssue();
 
             state._fsp--;
@@ -8089,7 +8405,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleResultIssue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleResultIssue6568); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleResultIssue6704); if (state.failed) return current;
 
             }
 
@@ -8107,7 +8423,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleResultIssue"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2812:1: ruleResultIssue returns [EObject current=null] : ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2888:1: ruleResultIssue returns [EObject current=null] : ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? ) ;
     public final EObject ruleResultIssue() throws RecognitionException {
         EObject current = null;
 
@@ -8125,24 +8441,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2815:28: ( ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2816:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2891:28: ( ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2892:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2816:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2816:2: ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2892:1: ( ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2892:2: ( (lv_issueType_0_0= ruleResultIssueType ) ) ( (lv_message_1_0= RULE_STRING ) ) (otherlv_2= 'target' ( ( ruleURIID ) ) )? (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )? (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2816:2: ( (lv_issueType_0_0= ruleResultIssueType ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2817:1: (lv_issueType_0_0= ruleResultIssueType )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2892:2: ( (lv_issueType_0_0= ruleResultIssueType ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2893:1: (lv_issueType_0_0= ruleResultIssueType )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2817:1: (lv_issueType_0_0= ruleResultIssueType )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2818:3: lv_issueType_0_0= ruleResultIssueType
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2893:1: (lv_issueType_0_0= ruleResultIssueType )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2894:3: lv_issueType_0_0= ruleResultIssueType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleResultIssueType_in_ruleResultIssue6614);
+            pushFollow(FOLLOW_ruleResultIssueType_in_ruleResultIssue6750);
             lv_issueType_0_0=ruleResultIssueType();
 
             state._fsp--;
@@ -8166,13 +8482,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2834:2: ( (lv_message_1_0= RULE_STRING ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2835:1: (lv_message_1_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2910:2: ( (lv_message_1_0= RULE_STRING ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2911:1: (lv_message_1_0= RULE_STRING )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2835:1: (lv_message_1_0= RULE_STRING )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2836:3: lv_message_1_0= RULE_STRING
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2911:1: (lv_message_1_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2912:3: lv_message_1_0= RULE_STRING
             {
-            lv_message_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleResultIssue6631); if (state.failed) return current;
+            lv_message_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleResultIssue6767); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_message_1_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_1_0()); 
@@ -8196,28 +8512,28 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2852:2: (otherlv_2= 'target' ( ( ruleURIID ) ) )?
-            int alt61=2;
-            int LA61_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2928:2: (otherlv_2= 'target' ( ( ruleURIID ) ) )?
+            int alt67=2;
+            int LA67_0 = input.LA(1);
 
-            if ( (LA61_0==61) ) {
-                alt61=1;
+            if ( (LA67_0==61) ) {
+                alt67=1;
             }
-            switch (alt61) {
+            switch (alt67) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2852:4: otherlv_2= 'target' ( ( ruleURIID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2928:4: otherlv_2= 'target' ( ( ruleURIID ) )
                     {
-                    otherlv_2=(Token)match(input,61,FOLLOW_61_in_ruleResultIssue6649); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,61,FOLLOW_61_in_ruleResultIssue6785); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getResultIssueAccess().getTargetKeyword_2_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2856:1: ( ( ruleURIID ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2857:1: ( ruleURIID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2932:1: ( ( ruleURIID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2933:1: ( ruleURIID )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2857:1: ( ruleURIID )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2858:3: ruleURIID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2933:1: ( ruleURIID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2934:3: ruleURIID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8231,7 +8547,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleURIID_in_ruleResultIssue6672);
+                    pushFollow(FOLLOW_ruleURIID_in_ruleResultIssue6808);
                     ruleURIID();
 
                     state._fsp--;
@@ -8253,30 +8569,30 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2871:4: (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )?
-            int alt62=2;
-            int LA62_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2947:4: (otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) ) )?
+            int alt68=2;
+            int LA68_0 = input.LA(1);
 
-            if ( (LA62_0==62) ) {
-                alt62=1;
+            if ( (LA68_0==62) ) {
+                alt68=1;
             }
-            switch (alt62) {
+            switch (alt68) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2871:6: otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2947:6: otherlv_4= 'exception' ( (lv_exceptionType_5_0= RULE_STRING ) )
                     {
-                    otherlv_4=(Token)match(input,62,FOLLOW_62_in_ruleResultIssue6687); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,62,FOLLOW_62_in_ruleResultIssue6823); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2875:1: ( (lv_exceptionType_5_0= RULE_STRING ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2876:1: (lv_exceptionType_5_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2951:1: ( (lv_exceptionType_5_0= RULE_STRING ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2952:1: (lv_exceptionType_5_0= RULE_STRING )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2876:1: (lv_exceptionType_5_0= RULE_STRING )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2877:3: lv_exceptionType_5_0= RULE_STRING
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2952:1: (lv_exceptionType_5_0= RULE_STRING )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2953:3: lv_exceptionType_5_0= RULE_STRING
                     {
-                    lv_exceptionType_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleResultIssue6704); if (state.failed) return current;
+                    lv_exceptionType_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleResultIssue6840); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_exceptionType_5_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
@@ -8306,47 +8622,47 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2893:4: (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )?
-            int alt64=2;
-            int LA64_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2969:4: (otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']' )?
+            int alt70=2;
+            int LA70_0 = input.LA(1);
 
-            if ( (LA64_0==21) ) {
-                alt64=1;
+            if ( (LA70_0==21) ) {
+                alt70=1;
             }
-            switch (alt64) {
+            switch (alt70) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2893:6: otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2969:6: otherlv_6= '[' ( (lv_issues_7_0= ruleResultIssue ) )* otherlv_8= ']'
                     {
-                    otherlv_6=(Token)match(input,21,FOLLOW_21_in_ruleResultIssue6724); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,21,FOLLOW_21_in_ruleResultIssue6860); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_4_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2897:1: ( (lv_issues_7_0= ruleResultIssue ) )*
-                    loop63:
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2973:1: ( (lv_issues_7_0= ruleResultIssue ) )*
+                    loop69:
                     do {
-                        int alt63=2;
-                        int LA63_0 = input.LA(1);
+                        int alt69=2;
+                        int LA69_0 = input.LA(1);
 
-                        if ( (LA63_0==30||LA63_0==32||(LA63_0>=92 && LA63_0<=95)) ) {
-                            alt63=1;
+                        if ( (LA69_0==30||LA69_0==32||(LA69_0>=104 && LA69_0<=107)) ) {
+                            alt69=1;
                         }
 
 
-                        switch (alt63) {
+                        switch (alt69) {
                     	case 1 :
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2898:1: (lv_issues_7_0= ruleResultIssue )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2974:1: (lv_issues_7_0= ruleResultIssue )
                     	    {
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2898:1: (lv_issues_7_0= ruleResultIssue )
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2899:3: lv_issues_7_0= ruleResultIssue
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2974:1: (lv_issues_7_0= ruleResultIssue )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2975:3: lv_issues_7_0= ruleResultIssue
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_4_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleResultIssue_in_ruleResultIssue6745);
+                    	    pushFollow(FOLLOW_ruleResultIssue_in_ruleResultIssue6881);
                     	    lv_issues_7_0=ruleResultIssue();
 
                     	    state._fsp--;
@@ -8372,11 +8688,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop63;
+                    	    break loop69;
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,23,FOLLOW_23_in_ruleResultIssue6758); if (state.failed) return current;
+                    otherlv_8=(Token)match(input,23,FOLLOW_23_in_ruleResultIssue6894); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_4_2());
@@ -8411,7 +8727,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAPropertyReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2931:1: entryRuleAPropertyReference returns [EObject current=null] : iv_ruleAPropertyReference= ruleAPropertyReference EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3007:1: entryRuleAPropertyReference returns [EObject current=null] : iv_ruleAPropertyReference= ruleAPropertyReference EOF ;
     public final EObject entryRuleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -8419,13 +8735,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2932:2: (iv_ruleAPropertyReference= ruleAPropertyReference EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2933:2: iv_ruleAPropertyReference= ruleAPropertyReference EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3008:2: (iv_ruleAPropertyReference= ruleAPropertyReference EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3009:2: iv_ruleAPropertyReference= ruleAPropertyReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAPropertyReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference6800);
+            pushFollow(FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference6936);
             iv_ruleAPropertyReference=ruleAPropertyReference();
 
             state._fsp--;
@@ -8433,7 +8749,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAPropertyReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAPropertyReference6810); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAPropertyReference6946); if (state.failed) return current;
 
             }
 
@@ -8451,7 +8767,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAPropertyReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2940:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3016:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
     public final EObject ruleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -8460,14 +8776,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2943:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2944:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3019:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3020:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2944:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2944:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3020:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3020:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2944:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2945:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3020:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3021:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -8479,17 +8795,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,63,FOLLOW_63_in_ruleAPropertyReference6856); if (state.failed) return current;
+            otherlv_1=(Token)match(input,63,FOLLOW_63_in_ruleAPropertyReference6992); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2954:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2955:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3030:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3031:1: ( ruleAADLPROPERTYREFERENCE )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2955:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2956:3: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3031:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3032:3: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
 
@@ -8503,7 +8819,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueCrossReference_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference6879);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference7015);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -8542,7 +8858,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAVariableReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2977:1: entryRuleAVariableReference returns [EObject current=null] : iv_ruleAVariableReference= ruleAVariableReference EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3053:1: entryRuleAVariableReference returns [EObject current=null] : iv_ruleAVariableReference= ruleAVariableReference EOF ;
     public final EObject entryRuleAVariableReference() throws RecognitionException {
         EObject current = null;
 
@@ -8550,13 +8866,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2978:2: (iv_ruleAVariableReference= ruleAVariableReference EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2979:2: iv_ruleAVariableReference= ruleAVariableReference EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3054:2: (iv_ruleAVariableReference= ruleAVariableReference EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3055:2: iv_ruleAVariableReference= ruleAVariableReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAVariableReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleAVariableReference_in_entryRuleAVariableReference6915);
+            pushFollow(FOLLOW_ruleAVariableReference_in_entryRuleAVariableReference7051);
             iv_ruleAVariableReference=ruleAVariableReference();
 
             state._fsp--;
@@ -8564,7 +8880,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAVariableReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAVariableReference6925); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAVariableReference7061); if (state.failed) return current;
 
             }
 
@@ -8582,7 +8898,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAVariableReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2986:1: ruleAVariableReference returns [EObject current=null] : ( () ( (otherlv_1= RULE_ID ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3062:1: ruleAVariableReference returns [EObject current=null] : ( () ( (otherlv_1= RULE_ID ) ) ) ;
     public final EObject ruleAVariableReference() throws RecognitionException {
         EObject current = null;
 
@@ -8591,14 +8907,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2989:28: ( ( () ( (otherlv_1= RULE_ID ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2990:1: ( () ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3065:28: ( ( () ( (otherlv_1= RULE_ID ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3066:1: ( () ( (otherlv_1= RULE_ID ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2990:1: ( () ( (otherlv_1= RULE_ID ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2990:2: () ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3066:1: ( () ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3066:2: () ( (otherlv_1= RULE_ID ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2990:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2991:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3066:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3067:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -8610,11 +8926,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2996:2: ( (otherlv_1= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2997:1: (otherlv_1= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3072:2: ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3073:1: (otherlv_1= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2997:1: (otherlv_1= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2998:3: otherlv_1= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3073:1: (otherlv_1= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3074:3: otherlv_1= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -8623,7 +8939,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
-            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAVariableReference6979); if (state.failed) return current;
+            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAVariableReference7115); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_1, grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationCrossReference_1_0()); 
@@ -8658,7 +8974,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleShowValue"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3017:1: entryRuleShowValue returns [EObject current=null] : iv_ruleShowValue= ruleShowValue EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3093:1: entryRuleShowValue returns [EObject current=null] : iv_ruleShowValue= ruleShowValue EOF ;
     public final EObject entryRuleShowValue() throws RecognitionException {
         EObject current = null;
 
@@ -8666,13 +8982,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3018:2: (iv_ruleShowValue= ruleShowValue EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3019:2: iv_ruleShowValue= ruleShowValue EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3094:2: (iv_ruleShowValue= ruleShowValue EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3095:2: iv_ruleShowValue= ruleShowValue EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getShowValueRule()); 
             }
-            pushFollow(FOLLOW_ruleShowValue_in_entryRuleShowValue7015);
+            pushFollow(FOLLOW_ruleShowValue_in_entryRuleShowValue7151);
             iv_ruleShowValue=ruleShowValue();
 
             state._fsp--;
@@ -8680,7 +8996,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleShowValue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleShowValue7025); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleShowValue7161); if (state.failed) return current;
 
             }
 
@@ -8698,7 +9014,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleShowValue"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3026:1: ruleShowValue returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3102:1: ruleShowValue returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? ) ;
     public final EObject ruleShowValue() throws RecognitionException {
         EObject current = null;
 
@@ -8709,17 +9025,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3029:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3030:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3105:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3106:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3030:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3030:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3106:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3106:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3030:2: ( (otherlv_0= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3031:1: (otherlv_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3106:2: ( (otherlv_0= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3107:1: (otherlv_0= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3031:1: (otherlv_0= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3032:3: otherlv_0= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3107:1: (otherlv_0= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3108:3: otherlv_0= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -8728,7 +9044,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleShowValue7070); if (state.failed) return current;
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleShowValue7206); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefAVariableDeclarationCrossReference_0_0()); 
@@ -8740,28 +9056,28 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3043:2: (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )?
-            int alt65=2;
-            int LA65_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3119:2: (otherlv_1= '%' ( (otherlv_2= RULE_ID ) ) )?
+            int alt71=2;
+            int LA71_0 = input.LA(1);
 
-            if ( (LA65_0==45) ) {
-                alt65=1;
+            if ( (LA71_0==45) ) {
+                alt71=1;
             }
-            switch (alt65) {
+            switch (alt71) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3043:4: otherlv_1= '%' ( (otherlv_2= RULE_ID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3119:4: otherlv_1= '%' ( (otherlv_2= RULE_ID ) )
                     {
-                    otherlv_1=(Token)match(input,45,FOLLOW_45_in_ruleShowValue7083); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,45,FOLLOW_45_in_ruleShowValue7219); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
                           
                     }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3047:1: ( (otherlv_2= RULE_ID ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3048:1: (otherlv_2= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3123:1: ( (otherlv_2= RULE_ID ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:1: (otherlv_2= RULE_ID )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3048:1: (otherlv_2= RULE_ID )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3049:3: otherlv_2= RULE_ID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:1: (otherlv_2= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3125:3: otherlv_2= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8770,7 +9086,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
-                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleShowValue7103); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleShowValue7239); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_2, grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_0()); 
@@ -8811,7 +9127,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleImageReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3068:1: entryRuleImageReference returns [EObject current=null] : iv_ruleImageReference= ruleImageReference EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3144:1: entryRuleImageReference returns [EObject current=null] : iv_ruleImageReference= ruleImageReference EOF ;
     public final EObject entryRuleImageReference() throws RecognitionException {
         EObject current = null;
 
@@ -8819,13 +9135,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3069:2: (iv_ruleImageReference= ruleImageReference EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3070:2: iv_ruleImageReference= ruleImageReference EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3145:2: (iv_ruleImageReference= ruleImageReference EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3146:2: iv_ruleImageReference= ruleImageReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getImageReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleImageReference_in_entryRuleImageReference7141);
+            pushFollow(FOLLOW_ruleImageReference_in_entryRuleImageReference7277);
             iv_ruleImageReference=ruleImageReference();
 
             state._fsp--;
@@ -8833,7 +9149,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleImageReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleImageReference7151); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleImageReference7287); if (state.failed) return current;
 
             }
 
@@ -8851,7 +9167,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleImageReference"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3077:1: ruleImageReference returns [EObject current=null] : (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3153:1: ruleImageReference returns [EObject current=null] : (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) ) ;
     public final EObject ruleImageReference() throws RecognitionException {
         EObject current = null;
 
@@ -8862,30 +9178,30 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3080:28: ( (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3081:1: (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3156:28: ( (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3157:1: (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3081:1: (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3081:3: otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3157:1: (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3157:3: otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) )
             {
-            otherlv_0=(Token)match(input,64,FOLLOW_64_in_ruleImageReference7188); if (state.failed) return current;
+            otherlv_0=(Token)match(input,64,FOLLOW_64_in_ruleImageReference7324); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getImageReferenceAccess().getImgKeyword_0());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3085:1: ( (lv_imgfile_1_0= ruleIMGREF ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3086:1: (lv_imgfile_1_0= ruleIMGREF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3161:1: ( (lv_imgfile_1_0= ruleIMGREF ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3162:1: (lv_imgfile_1_0= ruleIMGREF )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3086:1: (lv_imgfile_1_0= ruleIMGREF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3087:3: lv_imgfile_1_0= ruleIMGREF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3162:1: (lv_imgfile_1_0= ruleIMGREF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3163:3: lv_imgfile_1_0= ruleIMGREF
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleIMGREF_in_ruleImageReference7209);
+            pushFollow(FOLLOW_ruleIMGREF_in_ruleImageReference7345);
             lv_imgfile_1_0=ruleIMGREF();
 
             state._fsp--;
@@ -8932,7 +9248,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIMGREF"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3111:1: entryRuleIMGREF returns [String current=null] : iv_ruleIMGREF= ruleIMGREF EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3187:1: entryRuleIMGREF returns [String current=null] : iv_ruleIMGREF= ruleIMGREF EOF ;
     public final String entryRuleIMGREF() throws RecognitionException {
         String current = null;
 
@@ -8940,13 +9256,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3112:2: (iv_ruleIMGREF= ruleIMGREF EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3113:2: iv_ruleIMGREF= ruleIMGREF EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3188:2: (iv_ruleIMGREF= ruleIMGREF EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3189:2: iv_ruleIMGREF= ruleIMGREF EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getIMGREFRule()); 
             }
-            pushFollow(FOLLOW_ruleIMGREF_in_entryRuleIMGREF7246);
+            pushFollow(FOLLOW_ruleIMGREF_in_entryRuleIMGREF7382);
             iv_ruleIMGREF=ruleIMGREF();
 
             state._fsp--;
@@ -8954,7 +9270,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleIMGREF.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIMGREF7257); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIMGREF7393); if (state.failed) return current;
 
             }
 
@@ -8972,7 +9288,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIMGREF"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3120:1: ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3196:1: ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleIMGREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -8984,34 +9300,34 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3123:28: ( ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:1: ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3199:28: ( ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3200:1: ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:1: ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:2: (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3200:1: ( (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3200:2: (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:2: (this_ID_0= RULE_ID kw= '/' )*
-            loop66:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3200:2: (this_ID_0= RULE_ID kw= '/' )*
+            loop72:
             do {
-                int alt66=2;
-                int LA66_0 = input.LA(1);
+                int alt72=2;
+                int LA72_0 = input.LA(1);
 
-                if ( (LA66_0==RULE_ID) ) {
-                    int LA66_1 = input.LA(2);
+                if ( (LA72_0==RULE_ID) ) {
+                    int LA72_1 = input.LA(2);
 
-                    if ( (LA66_1==65) ) {
-                        alt66=1;
+                    if ( (LA72_1==65) ) {
+                        alt72=1;
                     }
 
 
                 }
 
 
-                switch (alt66) {
+                switch (alt72) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3124:7: this_ID_0= RULE_ID kw= '/'
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3200:7: this_ID_0= RULE_ID kw= '/'
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7298); if (state.failed) return current;
+            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7434); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_0);
@@ -9022,7 +9338,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	          newLeafNode(this_ID_0, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
             	          
             	    }
-            	    kw=(Token)match(input,65,FOLLOW_65_in_ruleIMGREF7316); if (state.failed) return current;
+            	    kw=(Token)match(input,65,FOLLOW_65_in_ruleIMGREF7452); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -9034,11 +9350,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop66;
+            	    break loop72;
                 }
             } while (true);
 
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7333); if (state.failed) return current;
+            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7469); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_2);
@@ -9049,14 +9365,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_2, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
                   
             }
-            kw=(Token)match(input,66,FOLLOW_66_in_ruleIMGREF7351); if (state.failed) return current;
+            kw=(Token)match(input,66,FOLLOW_66_in_ruleIMGREF7487); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
                       newLeafNode(kw, grammarAccess.getIMGREFAccess().getFullStopKeyword_2()); 
                   
             }
-            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7366); if (state.failed) return current;
+            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMGREF7502); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_4);
@@ -9090,7 +9406,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3165:1: entryRuleAExpression returns [EObject current=null] : iv_ruleAExpression= ruleAExpression EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3241:1: entryRuleAExpression returns [EObject current=null] : iv_ruleAExpression= ruleAExpression EOF ;
     public final EObject entryRuleAExpression() throws RecognitionException {
         EObject current = null;
 
@@ -9098,13 +9414,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3166:2: (iv_ruleAExpression= ruleAExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3167:2: iv_ruleAExpression= ruleAExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3242:2: (iv_ruleAExpression= ruleAExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3243:2: iv_ruleAExpression= ruleAExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_entryRuleAExpression7411);
+            pushFollow(FOLLOW_ruleAExpression_in_entryRuleAExpression7547);
             iv_ruleAExpression=ruleAExpression();
 
             state._fsp--;
@@ -9112,7 +9428,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAExpression7421); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAExpression7557); if (state.failed) return current;
 
             }
 
@@ -9130,7 +9446,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3174:1: ruleAExpression returns [EObject current=null] : this_AOrExpression_0= ruleAOrExpression ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3250:1: ruleAExpression returns [EObject current=null] : this_AOrExpression_0= ruleAOrExpression ;
     public final EObject ruleAExpression() throws RecognitionException {
         EObject current = null;
 
@@ -9140,15 +9456,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3177:28: (this_AOrExpression_0= ruleAOrExpression )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3179:5: this_AOrExpression_0= ruleAOrExpression
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3253:28: (this_AOrExpression_0= ruleAOrExpression )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3255:5: this_AOrExpression_0= ruleAOrExpression
             {
             if ( state.backtracking==0 ) {
                
                       newCompositeNode(grammarAccess.getAExpressionAccess().getAOrExpressionParserRuleCall()); 
                   
             }
-            pushFollow(FOLLOW_ruleAOrExpression_in_ruleAExpression7467);
+            pushFollow(FOLLOW_ruleAOrExpression_in_ruleAExpression7603);
             this_AOrExpression_0=ruleAOrExpression();
 
             state._fsp--;
@@ -9179,7 +9495,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAOrExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3195:1: entryRuleAOrExpression returns [EObject current=null] : iv_ruleAOrExpression= ruleAOrExpression EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3271:1: entryRuleAOrExpression returns [EObject current=null] : iv_ruleAOrExpression= ruleAOrExpression EOF ;
     public final EObject entryRuleAOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -9187,13 +9503,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3196:2: (iv_ruleAOrExpression= ruleAOrExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3197:2: iv_ruleAOrExpression= ruleAOrExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3272:2: (iv_ruleAOrExpression= ruleAOrExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3273:2: iv_ruleAOrExpression= ruleAOrExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAOrExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression7501);
+            pushFollow(FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression7637);
             iv_ruleAOrExpression=ruleAOrExpression();
 
             state._fsp--;
@@ -9201,7 +9517,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAOrExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAOrExpression7511); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAOrExpression7647); if (state.failed) return current;
 
             }
 
@@ -9219,7 +9535,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAOrExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3204:1: ruleAOrExpression returns [EObject current=null] : (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3280:1: ruleAOrExpression returns [EObject current=null] : (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) ;
     public final EObject ruleAOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -9233,18 +9549,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3207:28: ( (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3208:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3283:28: ( (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3284:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3208:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3209:5: this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3284:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3285:5: this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
                
                       newCompositeNode(grammarAccess.getAOrExpressionAccess().getAAndExpressionParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleAAndExpression_in_ruleAOrExpression7558);
+            pushFollow(FOLLOW_ruleAAndExpression_in_ruleAOrExpression7694);
             this_AAndExpression_0=ruleAAndExpression();
 
             state._fsp--;
@@ -9255,29 +9571,29 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:1: ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
-            loop67:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:1: ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
+            loop73:
             do {
-                int alt67=2;
-                int LA67_0 = input.LA(1);
+                int alt73=2;
+                int LA73_0 = input.LA(1);
 
-                if ( (LA67_0==67) && (synpred4_InternalVerify())) {
-                    alt67=1;
+                if ( (LA73_0==67) && (synpred4_InternalVerify())) {
+                    alt73=1;
                 }
 
 
-                switch (alt67) {
+                switch (alt73) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:3: ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:3: ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3222:6: ( () ( (lv_feature_2_0= ruleOpOr ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3222:7: () ( (lv_feature_2_0= ruleOpOr ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3298:6: ( () ( (lv_feature_2_0= ruleOpOr ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3298:7: () ( (lv_feature_2_0= ruleOpOr ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3222:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3223:5: 
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3298:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3299:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -9289,18 +9605,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3228:2: ( (lv_feature_2_0= ruleOpOr ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3229:1: (lv_feature_2_0= ruleOpOr )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3304:2: ( (lv_feature_2_0= ruleOpOr ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3305:1: (lv_feature_2_0= ruleOpOr )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3229:1: (lv_feature_2_0= ruleOpOr )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3230:3: lv_feature_2_0= ruleOpOr
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3305:1: (lv_feature_2_0= ruleOpOr )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3306:3: lv_feature_2_0= ruleOpOr
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getAOrExpressionAccess().getFeatureOpOrParserRuleCall_1_0_0_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleOpOr_in_ruleAOrExpression7607);
+            	    pushFollow(FOLLOW_ruleOpOr_in_ruleAOrExpression7743);
             	    lv_feature_2_0=ruleOpOr();
 
             	    state._fsp--;
@@ -9330,18 +9646,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3246:4: ( (lv_rightOperand_3_0= ruleAAndExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3247:1: (lv_rightOperand_3_0= ruleAAndExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3322:4: ( (lv_rightOperand_3_0= ruleAAndExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3323:1: (lv_rightOperand_3_0= ruleAAndExpression )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3247:1: (lv_rightOperand_3_0= ruleAAndExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3248:3: lv_rightOperand_3_0= ruleAAndExpression
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3323:1: (lv_rightOperand_3_0= ruleAAndExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3324:3: lv_rightOperand_3_0= ruleAAndExpression
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getAOrExpressionAccess().getRightOperandAAndExpressionParserRuleCall_1_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAAndExpression_in_ruleAOrExpression7630);
+            	    pushFollow(FOLLOW_ruleAAndExpression_in_ruleAOrExpression7766);
             	    lv_rightOperand_3_0=ruleAAndExpression();
 
             	    state._fsp--;
@@ -9356,1339 +9672,6 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	             			"rightOperand",
             	              		lv_rightOperand_3_0, 
             	              		"AAndExpression");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop67;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAOrExpression"
-
-
-    // $ANTLR start "entryRuleOpOr"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3272:1: entryRuleOpOr returns [String current=null] : iv_ruleOpOr= ruleOpOr EOF ;
-    public final String entryRuleOpOr() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleOpOr = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3273:2: (iv_ruleOpOr= ruleOpOr EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3274:2: iv_ruleOpOr= ruleOpOr EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpOrRule()); 
-            }
-            pushFollow(FOLLOW_ruleOpOr_in_entryRuleOpOr7669);
-            iv_ruleOpOr=ruleOpOr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleOpOr.getText(); 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpOr7680); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleOpOr"
-
-
-    // $ANTLR start "ruleOpOr"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3281:1: ruleOpOr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '||' ;
-    public final AntlrDatatypeRuleToken ruleOpOr() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token kw=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3284:28: (kw= '||' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3286:2: kw= '||'
-            {
-            kw=(Token)match(input,67,FOLLOW_67_in_ruleOpOr7717); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                      current.merge(kw);
-                      newLeafNode(kw, grammarAccess.getOpOrAccess().getVerticalLineVerticalLineKeyword()); 
-                  
-            }
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleOpOr"
-
-
-    // $ANTLR start "entryRuleAAndExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3299:1: entryRuleAAndExpression returns [EObject current=null] : iv_ruleAAndExpression= ruleAAndExpression EOF ;
-    public final EObject entryRuleAAndExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAAndExpression = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3300:2: (iv_ruleAAndExpression= ruleAAndExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3301:2: iv_ruleAAndExpression= ruleAAndExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAAndExpressionRule()); 
-            }
-            pushFollow(FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression7756);
-            iv_ruleAAndExpression=ruleAAndExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleAAndExpression; 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAAndExpression7766); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAAndExpression"
-
-
-    // $ANTLR start "ruleAAndExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3308:1: ruleAAndExpression returns [EObject current=null] : (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) ;
-    public final EObject ruleAAndExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_AEqualityExpression_0 = null;
-
-        AntlrDatatypeRuleToken lv_feature_2_0 = null;
-
-        EObject lv_rightOperand_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3311:28: ( (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3312:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3312:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3313:5: this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
-            {
-            if ( state.backtracking==0 ) {
-               
-                      newCompositeNode(grammarAccess.getAAndExpressionAccess().getAEqualityExpressionParserRuleCall_0()); 
-                  
-            }
-            pushFollow(FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7813);
-            this_AEqualityExpression_0=ruleAEqualityExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               
-                      current = this_AEqualityExpression_0; 
-                      afterParserOrEnumRuleCall();
-                  
-            }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:1: ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
-            loop68:
-            do {
-                int alt68=2;
-                int LA68_0 = input.LA(1);
-
-                if ( (LA68_0==68) && (synpred5_InternalVerify())) {
-                    alt68=1;
-                }
-
-
-                switch (alt68) {
-            	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:3: ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3326:6: ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3326:7: () ( (lv_feature_2_0= ruleOpAnd ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3326:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3327:5: 
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
-            	                  current);
-            	          
-            	    }
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3332:2: ( (lv_feature_2_0= ruleOpAnd ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3333:1: (lv_feature_2_0= ruleOpAnd )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3333:1: (lv_feature_2_0= ruleOpAnd )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3334:3: lv_feature_2_0= ruleOpAnd
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getFeatureOpAndParserRuleCall_1_0_0_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleOpAnd_in_ruleAAndExpression7862);
-            	    lv_feature_2_0=ruleOpAnd();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"feature",
-            	              		lv_feature_2_0, 
-            	              		"OpAnd");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3350:4: ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3351:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3351:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3352:3: lv_rightOperand_3_0= ruleAEqualityExpression
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getRightOperandAEqualityExpressionParserRuleCall_1_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7885);
-            	    lv_rightOperand_3_0=ruleAEqualityExpression();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"rightOperand",
-            	              		lv_rightOperand_3_0, 
-            	              		"AEqualityExpression");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop68;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAAndExpression"
-
-
-    // $ANTLR start "entryRuleOpAnd"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3376:1: entryRuleOpAnd returns [String current=null] : iv_ruleOpAnd= ruleOpAnd EOF ;
-    public final String entryRuleOpAnd() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleOpAnd = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3377:2: (iv_ruleOpAnd= ruleOpAnd EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3378:2: iv_ruleOpAnd= ruleOpAnd EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpAndRule()); 
-            }
-            pushFollow(FOLLOW_ruleOpAnd_in_entryRuleOpAnd7924);
-            iv_ruleOpAnd=ruleOpAnd();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleOpAnd.getText(); 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpAnd7935); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleOpAnd"
-
-
-    // $ANTLR start "ruleOpAnd"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3385:1: ruleOpAnd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&&' ;
-    public final AntlrDatatypeRuleToken ruleOpAnd() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token kw=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3388:28: (kw= '&&' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3390:2: kw= '&&'
-            {
-            kw=(Token)match(input,68,FOLLOW_68_in_ruleOpAnd7972); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                      current.merge(kw);
-                      newLeafNode(kw, grammarAccess.getOpAndAccess().getAmpersandAmpersandKeyword()); 
-                  
-            }
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleOpAnd"
-
-
-    // $ANTLR start "entryRuleAEqualityExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3403:1: entryRuleAEqualityExpression returns [EObject current=null] : iv_ruleAEqualityExpression= ruleAEqualityExpression EOF ;
-    public final EObject entryRuleAEqualityExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAEqualityExpression = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3404:2: (iv_ruleAEqualityExpression= ruleAEqualityExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3405:2: iv_ruleAEqualityExpression= ruleAEqualityExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAEqualityExpressionRule()); 
-            }
-            pushFollow(FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression8011);
-            iv_ruleAEqualityExpression=ruleAEqualityExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleAEqualityExpression; 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAEqualityExpression8021); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAEqualityExpression"
-
-
-    // $ANTLR start "ruleAEqualityExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3412:1: ruleAEqualityExpression returns [EObject current=null] : (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) ;
-    public final EObject ruleAEqualityExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_ARelationalExpression_0 = null;
-
-        AntlrDatatypeRuleToken lv_feature_2_0 = null;
-
-        EObject lv_rightOperand_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3415:28: ( (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3416:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3416:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3417:5: this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
-            {
-            if ( state.backtracking==0 ) {
-               
-                      newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getARelationalExpressionParserRuleCall_0()); 
-                  
-            }
-            pushFollow(FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8068);
-            this_ARelationalExpression_0=ruleARelationalExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               
-                      current = this_ARelationalExpression_0; 
-                      afterParserOrEnumRuleCall();
-                  
-            }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:1: ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
-            loop69:
-            do {
-                int alt69=2;
-                int LA69_0 = input.LA(1);
-
-                if ( (LA69_0==69) && (synpred6_InternalVerify())) {
-                    alt69=1;
-                }
-                else if ( (LA69_0==70) && (synpred6_InternalVerify())) {
-                    alt69=1;
-                }
-
-
-                switch (alt69) {
-            	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:3: ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3430:6: ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3430:7: () ( (lv_feature_2_0= ruleOpEquality ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3430:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3431:5: 
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
-            	                  current);
-            	          
-            	    }
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3436:2: ( (lv_feature_2_0= ruleOpEquality ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3437:1: (lv_feature_2_0= ruleOpEquality )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3437:1: (lv_feature_2_0= ruleOpEquality )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3438:3: lv_feature_2_0= ruleOpEquality
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getFeatureOpEqualityParserRuleCall_1_0_0_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleOpEquality_in_ruleAEqualityExpression8117);
-            	    lv_feature_2_0=ruleOpEquality();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"feature",
-            	              		lv_feature_2_0, 
-            	              		"OpEquality");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3454:4: ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3455:1: (lv_rightOperand_3_0= ruleARelationalExpression )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3455:1: (lv_rightOperand_3_0= ruleARelationalExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3456:3: lv_rightOperand_3_0= ruleARelationalExpression
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getRightOperandARelationalExpressionParserRuleCall_1_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8140);
-            	    lv_rightOperand_3_0=ruleARelationalExpression();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"rightOperand",
-            	              		lv_rightOperand_3_0, 
-            	              		"ARelationalExpression");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop69;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleAEqualityExpression"
-
-
-    // $ANTLR start "entryRuleOpEquality"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3480:1: entryRuleOpEquality returns [String current=null] : iv_ruleOpEquality= ruleOpEquality EOF ;
-    public final String entryRuleOpEquality() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleOpEquality = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3481:2: (iv_ruleOpEquality= ruleOpEquality EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3482:2: iv_ruleOpEquality= ruleOpEquality EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpEqualityRule()); 
-            }
-            pushFollow(FOLLOW_ruleOpEquality_in_entryRuleOpEquality8179);
-            iv_ruleOpEquality=ruleOpEquality();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleOpEquality.getText(); 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpEquality8190); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleOpEquality"
-
-
-    // $ANTLR start "ruleOpEquality"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3489:1: ruleOpEquality returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '==' | kw= '!=' ) ;
-    public final AntlrDatatypeRuleToken ruleOpEquality() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token kw=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3492:28: ( (kw= '==' | kw= '!=' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3493:1: (kw= '==' | kw= '!=' )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3493:1: (kw= '==' | kw= '!=' )
-            int alt70=2;
-            int LA70_0 = input.LA(1);
-
-            if ( (LA70_0==69) ) {
-                alt70=1;
-            }
-            else if ( (LA70_0==70) ) {
-                alt70=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return current;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 70, 0, input);
-
-                throw nvae;
-            }
-            switch (alt70) {
-                case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3494:2: kw= '=='
-                    {
-                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpEquality8228); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getEqualsSignEqualsSignKeyword_0()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:2: kw= '!='
-                    {
-                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpEquality8247); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignKeyword_1()); 
-                          
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleOpEquality"
-
-
-    // $ANTLR start "entryRuleARelationalExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3514:1: entryRuleARelationalExpression returns [EObject current=null] : iv_ruleARelationalExpression= ruleARelationalExpression EOF ;
-    public final EObject entryRuleARelationalExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleARelationalExpression = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3515:2: (iv_ruleARelationalExpression= ruleARelationalExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3516:2: iv_ruleARelationalExpression= ruleARelationalExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getARelationalExpressionRule()); 
-            }
-            pushFollow(FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression8287);
-            iv_ruleARelationalExpression=ruleARelationalExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleARelationalExpression; 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleARelationalExpression8297); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleARelationalExpression"
-
-
-    // $ANTLR start "ruleARelationalExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3523:1: ruleARelationalExpression returns [EObject current=null] : (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) ;
-    public final EObject ruleARelationalExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_AOtherOperatorExpression_0 = null;
-
-        AntlrDatatypeRuleToken lv_feature_2_0 = null;
-
-        EObject lv_rightOperand_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3526:28: ( (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3527:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3527:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3528:5: this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
-            {
-            if ( state.backtracking==0 ) {
-               
-                      newCompositeNode(grammarAccess.getARelationalExpressionAccess().getAOtherOperatorExpressionParserRuleCall_0()); 
-                  
-            }
-            pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8344);
-            this_AOtherOperatorExpression_0=ruleAOtherOperatorExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               
-                      current = this_AOtherOperatorExpression_0; 
-                      afterParserOrEnumRuleCall();
-                  
-            }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:1: ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
-            loop71:
-            do {
-                int alt71=2;
-                int LA71_0 = input.LA(1);
-
-                if ( (LA71_0==71) && (synpred7_InternalVerify())) {
-                    alt71=1;
-                }
-                else if ( (LA71_0==72) && (synpred7_InternalVerify())) {
-                    alt71=1;
-                }
-                else if ( (LA71_0==73) && (synpred7_InternalVerify())) {
-                    alt71=1;
-                }
-
-
-                switch (alt71) {
-            	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:3: ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3541:6: ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3541:7: () ( (lv_feature_2_0= ruleOpCompare ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3541:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3542:5: 
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
-            	                  current);
-            	          
-            	    }
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3547:2: ( (lv_feature_2_0= ruleOpCompare ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3548:1: (lv_feature_2_0= ruleOpCompare )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3548:1: (lv_feature_2_0= ruleOpCompare )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3549:3: lv_feature_2_0= ruleOpCompare
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getFeatureOpCompareParserRuleCall_1_0_0_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleOpCompare_in_ruleARelationalExpression8393);
-            	    lv_feature_2_0=ruleOpCompare();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"feature",
-            	              		lv_feature_2_0, 
-            	              		"OpCompare");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3565:4: ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3566:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3566:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3567:3: lv_rightOperand_3_0= ruleAOtherOperatorExpression
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getRightOperandAOtherOperatorExpressionParserRuleCall_1_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8416);
-            	    lv_rightOperand_3_0=ruleAOtherOperatorExpression();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"rightOperand",
-            	              		lv_rightOperand_3_0, 
-            	              		"AOtherOperatorExpression");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop71;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleARelationalExpression"
-
-
-    // $ANTLR start "entryRuleOpCompare"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3591:1: entryRuleOpCompare returns [String current=null] : iv_ruleOpCompare= ruleOpCompare EOF ;
-    public final String entryRuleOpCompare() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleOpCompare = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3592:2: (iv_ruleOpCompare= ruleOpCompare EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3593:2: iv_ruleOpCompare= ruleOpCompare EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpCompareRule()); 
-            }
-            pushFollow(FOLLOW_ruleOpCompare_in_entryRuleOpCompare8455);
-            iv_ruleOpCompare=ruleOpCompare();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleOpCompare.getText(); 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpCompare8466); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleOpCompare"
-
-
-    // $ANTLR start "ruleOpCompare"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3600:1: ruleOpCompare returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' ) ;
-    public final AntlrDatatypeRuleToken ruleOpCompare() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token kw=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3603:28: ( (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3604:1: (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3604:1: (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' )
-            int alt72=4;
-            switch ( input.LA(1) ) {
-            case 71:
-                {
-                alt72=1;
-                }
-                break;
-            case 72:
-                {
-                int LA72_2 = input.LA(2);
-
-                if ( (LA72_2==EOF||(LA72_2>=RULE_STRING && LA72_2<=RULE_REAL_LIT)||LA72_2==35||LA72_2==63||(LA72_2>=80 && LA72_2<=81)||(LA72_2>=84 && LA72_2<=85)||(LA72_2>=87 && LA72_2<=90)) ) {
-                    alt72=4;
-                }
-                else if ( (LA72_2==37) ) {
-                    alt72=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return current;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 72, 2, input);
-
-                    throw nvae;
-                }
-                }
-                break;
-            case 73:
-                {
-                alt72=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return current;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 72, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt72) {
-                case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3605:2: kw= '>='
-                    {
-                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpCompare8504); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignEqualsSignKeyword_0()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3611:6: (kw= '<' kw= '=' )
-                    {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3611:6: (kw= '<' kw= '=' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:2: kw= '<' kw= '='
-                    {
-                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpCompare8524); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_1_0()); 
-                          
-                    }
-                    kw=(Token)match(input,37,FOLLOW_37_in_ruleOpCompare8537); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getEqualsSignKeyword_1_1()); 
-                          
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3625:2: kw= '>'
-                    {
-                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpCompare8557); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignKeyword_2()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3632:2: kw= '<'
-                    {
-                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpCompare8576); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_3()); 
-                          
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-               leaveRule(); 
-            }
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleOpCompare"
-
-
-    // $ANTLR start "entryRuleAOtherOperatorExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3645:1: entryRuleAOtherOperatorExpression returns [EObject current=null] : iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF ;
-    public final EObject entryRuleAOtherOperatorExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleAOtherOperatorExpression = null;
-
-
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3646:2: (iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3647:2: iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAOtherOperatorExpressionRule()); 
-            }
-            pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression8616);
-            iv_ruleAOtherOperatorExpression=ruleAOtherOperatorExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleAOtherOperatorExpression; 
-            }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAOtherOperatorExpression8626); if (state.failed) return current;
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleAOtherOperatorExpression"
-
-
-    // $ANTLR start "ruleAOtherOperatorExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3654:1: ruleAOtherOperatorExpression returns [EObject current=null] : (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) ;
-    public final EObject ruleAOtherOperatorExpression() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_AAdditiveExpression_0 = null;
-
-        AntlrDatatypeRuleToken lv_feature_2_0 = null;
-
-        EObject lv_rightOperand_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3657:28: ( (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3658:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
-            {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3658:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3659:5: this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
-            {
-            if ( state.backtracking==0 ) {
-               
-                      newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getAAdditiveExpressionParserRuleCall_0()); 
-                  
-            }
-            pushFollow(FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8673);
-            this_AAdditiveExpression_0=ruleAAdditiveExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               
-                      current = this_AAdditiveExpression_0; 
-                      afterParserOrEnumRuleCall();
-                  
-            }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
-            loop73:
-            do {
-                int alt73=2;
-                alt73 = dfa73.predict(input);
-                switch (alt73) {
-            	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:3: ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3672:6: ( () ( (lv_feature_2_0= ruleOpOther ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3672:7: () ( (lv_feature_2_0= ruleOpOther ) )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3672:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3673:5: 
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getAOtherOperatorExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
-            	                  current);
-            	          
-            	    }
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3678:2: ( (lv_feature_2_0= ruleOpOther ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3679:1: (lv_feature_2_0= ruleOpOther )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3679:1: (lv_feature_2_0= ruleOpOther )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3680:3: lv_feature_2_0= ruleOpOther
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getFeatureOpOtherParserRuleCall_1_0_0_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression8722);
-            	    lv_feature_2_0=ruleOpOther();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"feature",
-            	              		lv_feature_2_0, 
-            	              		"OpOther");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3696:4: ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3697:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
-            	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3697:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3698:3: lv_rightOperand_3_0= ruleAAdditiveExpression
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getRightOperandAAdditiveExpressionParserRuleCall_1_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8745);
-            	    lv_rightOperand_3_0=ruleAAdditiveExpression();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
-            	      	        }
-            	             		set(
-            	             			current, 
-            	             			"rightOperand",
-            	              		lv_rightOperand_3_0, 
-            	              		"AAdditiveExpression");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -10726,33 +9709,33 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAOtherOperatorExpression"
+    // $ANTLR end "ruleAOrExpression"
 
 
-    // $ANTLR start "entryRuleOpOther"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3722:1: entryRuleOpOther returns [String current=null] : iv_ruleOpOther= ruleOpOther EOF ;
-    public final String entryRuleOpOther() throws RecognitionException {
+    // $ANTLR start "entryRuleOpOr"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3348:1: entryRuleOpOr returns [String current=null] : iv_ruleOpOr= ruleOpOr EOF ;
+    public final String entryRuleOpOr() throws RecognitionException {
         String current = null;
 
-        AntlrDatatypeRuleToken iv_ruleOpOther = null;
+        AntlrDatatypeRuleToken iv_ruleOpOr = null;
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3723:2: (iv_ruleOpOther= ruleOpOther EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3724:2: iv_ruleOpOther= ruleOpOther EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3349:2: (iv_ruleOpOr= ruleOpOr EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3350:2: iv_ruleOpOr= ruleOpOr EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpOtherRule()); 
+               newCompositeNode(grammarAccess.getOpOrRule()); 
             }
-            pushFollow(FOLLOW_ruleOpOther_in_entryRuleOpOther8784);
-            iv_ruleOpOther=ruleOpOther();
+            pushFollow(FOLLOW_ruleOpOr_in_entryRuleOpOr7805);
+            iv_ruleOpOr=ruleOpOr();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleOpOther.getText(); 
+               current =iv_ruleOpOr.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpOther8795); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpOr7816); if (state.failed) return current;
 
             }
 
@@ -10766,12 +9749,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleOpOther"
+    // $ANTLR end "entryRuleOpOr"
 
 
-    // $ANTLR start "ruleOpOther"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3731:1: ruleOpOther returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' ) ;
-    public final AntlrDatatypeRuleToken ruleOpOther() throws RecognitionException {
+    // $ANTLR start "ruleOpOr"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3357:1: ruleOpOr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '||' ;
+    public final AntlrDatatypeRuleToken ruleOpOr() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
         Token kw=null;
@@ -10779,320 +9762,645 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3734:28: ( (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3735:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3360:28: (kw= '||' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3362:2: kw= '||'
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3735:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )
-            int alt76=9;
-            alt76 = dfa76.predict(input);
+            kw=(Token)match(input,67,FOLLOW_67_in_ruleOpOr7853); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current.merge(kw);
+                      newLeafNode(kw, grammarAccess.getOpOrAccess().getVerticalLineVerticalLineKeyword()); 
+                  
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpOr"
+
+
+    // $ANTLR start "entryRuleAAndExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3375:1: entryRuleAAndExpression returns [EObject current=null] : iv_ruleAAndExpression= ruleAAndExpression EOF ;
+    public final EObject entryRuleAAndExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAAndExpression = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3376:2: (iv_ruleAAndExpression= ruleAAndExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3377:2: iv_ruleAAndExpression= ruleAAndExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAAndExpressionRule()); 
+            }
+            pushFollow(FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression7892);
+            iv_ruleAAndExpression=ruleAAndExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAAndExpression; 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAAndExpression7902); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAAndExpression"
+
+
+    // $ANTLR start "ruleAAndExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3384:1: ruleAAndExpression returns [EObject current=null] : (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) ;
+    public final EObject ruleAAndExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AEqualityExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3387:28: ( (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3388:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3388:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3389:5: this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAAndExpressionAccess().getAEqualityExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7949);
+            this_AEqualityExpression_0=ruleAEqualityExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               
+                      current = this_AEqualityExpression_0; 
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:1: ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
+            loop74:
+            do {
+                int alt74=2;
+                int LA74_0 = input.LA(1);
+
+                if ( (LA74_0==68) && (synpred5_InternalVerify())) {
+                    alt74=1;
+                }
+
+
+                switch (alt74) {
+            	case 1 :
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:3: ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3402:6: ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3402:7: () ( (lv_feature_2_0= ruleOpAnd ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3402:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3403:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3408:2: ( (lv_feature_2_0= ruleOpAnd ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3409:1: (lv_feature_2_0= ruleOpAnd )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3409:1: (lv_feature_2_0= ruleOpAnd )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3410:3: lv_feature_2_0= ruleOpAnd
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getFeatureOpAndParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleOpAnd_in_ruleAAndExpression7998);
+            	    lv_feature_2_0=ruleOpAnd();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpAnd");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3426:4: ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3427:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3427:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3428:3: lv_rightOperand_3_0= ruleAEqualityExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getRightOperandAEqualityExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression8021);
+            	    lv_rightOperand_3_0=ruleAEqualityExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AEqualityExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop74;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAAndExpression"
+
+
+    // $ANTLR start "entryRuleOpAnd"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3452:1: entryRuleOpAnd returns [String current=null] : iv_ruleOpAnd= ruleOpAnd EOF ;
+    public final String entryRuleOpAnd() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpAnd = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3453:2: (iv_ruleOpAnd= ruleOpAnd EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3454:2: iv_ruleOpAnd= ruleOpAnd EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpAndRule()); 
+            }
+            pushFollow(FOLLOW_ruleOpAnd_in_entryRuleOpAnd8060);
+            iv_ruleOpAnd=ruleOpAnd();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpAnd.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpAnd8071); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpAnd"
+
+
+    // $ANTLR start "ruleOpAnd"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3461:1: ruleOpAnd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&&' ;
+    public final AntlrDatatypeRuleToken ruleOpAnd() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3464:28: (kw= '&&' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3466:2: kw= '&&'
+            {
+            kw=(Token)match(input,68,FOLLOW_68_in_ruleOpAnd8108); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current.merge(kw);
+                      newLeafNode(kw, grammarAccess.getOpAndAccess().getAmpersandAmpersandKeyword()); 
+                  
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpAnd"
+
+
+    // $ANTLR start "entryRuleAEqualityExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3479:1: entryRuleAEqualityExpression returns [EObject current=null] : iv_ruleAEqualityExpression= ruleAEqualityExpression EOF ;
+    public final EObject entryRuleAEqualityExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAEqualityExpression = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3480:2: (iv_ruleAEqualityExpression= ruleAEqualityExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3481:2: iv_ruleAEqualityExpression= ruleAEqualityExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAEqualityExpressionRule()); 
+            }
+            pushFollow(FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression8147);
+            iv_ruleAEqualityExpression=ruleAEqualityExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAEqualityExpression; 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAEqualityExpression8157); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAEqualityExpression"
+
+
+    // $ANTLR start "ruleAEqualityExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3488:1: ruleAEqualityExpression returns [EObject current=null] : (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) ;
+    public final EObject ruleAEqualityExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_ARelationalExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3491:28: ( (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3492:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3492:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3493:5: this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getARelationalExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8204);
+            this_ARelationalExpression_0=ruleARelationalExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               
+                      current = this_ARelationalExpression_0; 
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:1: ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
+            loop75:
+            do {
+                int alt75=2;
+                int LA75_0 = input.LA(1);
+
+                if ( (LA75_0==69) && (synpred6_InternalVerify())) {
+                    alt75=1;
+                }
+                else if ( (LA75_0==70) && (synpred6_InternalVerify())) {
+                    alt75=1;
+                }
+
+
+                switch (alt75) {
+            	case 1 :
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:3: ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3506:6: ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3506:7: () ( (lv_feature_2_0= ruleOpEquality ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3506:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3507:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3512:2: ( (lv_feature_2_0= ruleOpEquality ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3513:1: (lv_feature_2_0= ruleOpEquality )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3513:1: (lv_feature_2_0= ruleOpEquality )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3514:3: lv_feature_2_0= ruleOpEquality
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getFeatureOpEqualityParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleOpEquality_in_ruleAEqualityExpression8253);
+            	    lv_feature_2_0=ruleOpEquality();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpEquality");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3530:4: ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3531:1: (lv_rightOperand_3_0= ruleARelationalExpression )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3531:1: (lv_rightOperand_3_0= ruleARelationalExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3532:3: lv_rightOperand_3_0= ruleARelationalExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getRightOperandARelationalExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8276);
+            	    lv_rightOperand_3_0=ruleARelationalExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"ARelationalExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop75;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAEqualityExpression"
+
+
+    // $ANTLR start "entryRuleOpEquality"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3556:1: entryRuleOpEquality returns [String current=null] : iv_ruleOpEquality= ruleOpEquality EOF ;
+    public final String entryRuleOpEquality() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpEquality = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3557:2: (iv_ruleOpEquality= ruleOpEquality EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3558:2: iv_ruleOpEquality= ruleOpEquality EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpEqualityRule()); 
+            }
+            pushFollow(FOLLOW_ruleOpEquality_in_entryRuleOpEquality8315);
+            iv_ruleOpEquality=ruleOpEquality();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpEquality.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpEquality8326); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpEquality"
+
+
+    // $ANTLR start "ruleOpEquality"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3565:1: ruleOpEquality returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '==' | kw= '!=' ) ;
+    public final AntlrDatatypeRuleToken ruleOpEquality() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3568:28: ( (kw= '==' | kw= '!=' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3569:1: (kw= '==' | kw= '!=' )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3569:1: (kw= '==' | kw= '!=' )
+            int alt76=2;
+            int LA76_0 = input.LA(1);
+
+            if ( (LA76_0==69) ) {
+                alt76=1;
+            }
+            else if ( (LA76_0==70) ) {
+                alt76=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 76, 0, input);
+
+                throw nvae;
+            }
             switch (alt76) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3736:2: kw= '->'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3570:2: kw= '=='
                     {
-                    kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther8833); if (state.failed) return current;
+                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpEquality8364); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getHyphenMinusGreaterThanSignKeyword_0()); 
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getEqualsSignEqualsSignKeyword_0()); 
                           
                     }
 
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:2: kw= '..<'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3577:2: kw= '!='
                     {
-                    kw=(Token)match(input,75,FOLLOW_75_in_ruleOpOther8852); if (state.failed) return current;
+                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpEquality8383); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopLessThanSignKeyword_1()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3749:6: (kw= '>' kw= '..' )
-                    {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3749:6: (kw= '>' kw= '..' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3750:2: kw= '>' kw= '..'
-                    {
-                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther8872); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_2_0()); 
-                          
-                    }
-                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther8885); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_2_1()); 
-                          
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3763:2: kw= '..'
-                    {
-                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther8905); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_3()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3770:2: kw= '=>'
-                    {
-                    kw=(Token)match(input,77,FOLLOW_77_in_ruleOpOther8924); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_4()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3776:6: (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) )
-                    {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3776:6: (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3777:2: kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' )
-                    {
-                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther8944); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_0()); 
-                          
-                    }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:1: ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' )
-                    int alt74=2;
-                    int LA74_0 = input.LA(1);
-
-                    if ( (LA74_0==73) ) {
-                        int LA74_1 = input.LA(2);
-
-                        if ( (LA74_1==EOF||(LA74_1>=RULE_STRING && LA74_1<=RULE_REAL_LIT)||LA74_1==35||LA74_1==63||(LA74_1>=80 && LA74_1<=81)||(LA74_1>=84 && LA74_1<=85)||(LA74_1>=87 && LA74_1<=90)) ) {
-                            alt74=2;
-                        }
-                        else if ( (LA74_1==73) && (synpred9_InternalVerify())) {
-                            alt74=1;
-                        }
-                        else {
-                            if (state.backtracking>0) {state.failed=true; return current;}
-                            NoViableAltException nvae =
-                                new NoViableAltException("", 74, 1, input);
-
-                            throw nvae;
-                        }
-                    }
-                    else {
-                        if (state.backtracking>0) {state.failed=true; return current;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 74, 0, input);
-
-                        throw nvae;
-                    }
-                    switch (alt74) {
-                        case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:2: ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) )
-                            {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:2: ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:3: ( ( '>' '>' ) )=> (kw= '>' kw= '>' )
-                            {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3786:5: (kw= '>' kw= '>' )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3787:2: kw= '>' kw= '>'
-                            {
-                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther8975); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_0()); 
-                                  
-                            }
-                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther8988); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_1()); 
-                                  
-                            }
-
-                            }
-
-
-                            }
-
-
-                            }
-                            break;
-                        case 2 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3800:2: kw= '>'
-                            {
-                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9009); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_1()); 
-                                  
-                            }
-
-                            }
-                            break;
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 7 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3806:6: (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) )
-                    {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3806:6: (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3807:2: kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' )
-                    {
-                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9031); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_0()); 
-                          
-                    }
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:1: ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' )
-                    int alt75=3;
-                    int LA75_0 = input.LA(1);
-
-                    if ( (LA75_0==72) ) {
-                        int LA75_1 = input.LA(2);
-
-                        if ( (LA75_1==72) && (synpred10_InternalVerify())) {
-                            alt75=1;
-                        }
-                        else if ( (LA75_1==EOF||(LA75_1>=RULE_STRING && LA75_1<=RULE_REAL_LIT)||LA75_1==35||LA75_1==63||(LA75_1>=80 && LA75_1<=81)||(LA75_1>=84 && LA75_1<=85)||(LA75_1>=87 && LA75_1<=90)) ) {
-                            alt75=2;
-                        }
-                        else {
-                            if (state.backtracking>0) {state.failed=true; return current;}
-                            NoViableAltException nvae =
-                                new NoViableAltException("", 75, 1, input);
-
-                            throw nvae;
-                        }
-                    }
-                    else if ( (LA75_0==77) ) {
-                        alt75=3;
-                    }
-                    else {
-                        if (state.backtracking>0) {state.failed=true; return current;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 75, 0, input);
-
-                        throw nvae;
-                    }
-                    switch (alt75) {
-                        case 1 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:2: ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) )
-                            {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:2: ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:3: ( ( '<' '<' ) )=> (kw= '<' kw= '<' )
-                            {
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3816:5: (kw= '<' kw= '<' )
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3817:2: kw= '<' kw= '<'
-                            {
-                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9062); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_0()); 
-                                  
-                            }
-                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9075); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_1()); 
-                                  
-                            }
-
-                            }
-
-
-                            }
-
-
-                            }
-                            break;
-                        case 2 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3830:2: kw= '<'
-                            {
-                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9096); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_1()); 
-                                  
-                            }
-
-                            }
-                            break;
-                        case 3 :
-                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3837:2: kw= '=>'
-                            {
-                            kw=(Token)match(input,77,FOLLOW_77_in_ruleOpOther9115); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                                      current.merge(kw);
-                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_6_1_2()); 
-                                  
-                            }
-
-                            }
-                            break;
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 8 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3844:2: kw= '<>'
-                    {
-                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpOther9136); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignGreaterThanSignKeyword_7()); 
-                          
-                    }
-
-                    }
-                    break;
-                case 9 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3851:2: kw= '?:'
-                    {
-                    kw=(Token)match(input,79,FOLLOW_79_in_ruleOpOther9155); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                              current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getQuestionMarkColonKeyword_8()); 
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignKeyword_1()); 
                           
                     }
 
@@ -11117,33 +10425,33 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleOpOther"
+    // $ANTLR end "ruleOpEquality"
 
 
-    // $ANTLR start "entryRuleAAdditiveExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3864:1: entryRuleAAdditiveExpression returns [EObject current=null] : iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF ;
-    public final EObject entryRuleAAdditiveExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleARelationalExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3590:1: entryRuleARelationalExpression returns [EObject current=null] : iv_ruleARelationalExpression= ruleARelationalExpression EOF ;
+    public final EObject entryRuleARelationalExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAAdditiveExpression = null;
+        EObject iv_ruleARelationalExpression = null;
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3865:2: (iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3866:2: iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3591:2: (iv_ruleARelationalExpression= ruleARelationalExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3592:2: iv_ruleARelationalExpression= ruleARelationalExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAAdditiveExpressionRule()); 
+               newCompositeNode(grammarAccess.getARelationalExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression9195);
-            iv_ruleAAdditiveExpression=ruleAAdditiveExpression();
+            pushFollow(FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression8423);
+            iv_ruleARelationalExpression=ruleARelationalExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAAdditiveExpression; 
+               current =iv_ruleARelationalExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAAdditiveExpression9205); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleARelationalExpression8433); if (state.failed) return current;
 
             }
 
@@ -11157,15 +10465,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAAdditiveExpression"
+    // $ANTLR end "entryRuleARelationalExpression"
 
 
-    // $ANTLR start "ruleAAdditiveExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3873:1: ruleAAdditiveExpression returns [EObject current=null] : (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) ;
-    public final EObject ruleAAdditiveExpression() throws RecognitionException {
+    // $ANTLR start "ruleARelationalExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3599:1: ruleARelationalExpression returns [EObject current=null] : (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) ;
+    public final EObject ruleARelationalExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject this_AMultiplicativeExpression_0 = null;
+        EObject this_AOtherOperatorExpression_0 = null;
 
         AntlrDatatypeRuleToken lv_feature_2_0 = null;
 
@@ -11175,91 +10483,94 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3876:28: ( (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3877:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3602:28: ( (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3603:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3877:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3878:5: this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3603:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3604:5: this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
                
-                      newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getAMultiplicativeExpressionParserRuleCall_0()); 
+                      newCompositeNode(grammarAccess.getARelationalExpressionAccess().getAOtherOperatorExpressionParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9252);
-            this_AMultiplicativeExpression_0=ruleAMultiplicativeExpression();
+            pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8480);
+            this_AOtherOperatorExpression_0=ruleAOtherOperatorExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
                
-                      current = this_AMultiplicativeExpression_0; 
+                      current = this_AOtherOperatorExpression_0; 
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:1: ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:1: ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
             loop77:
             do {
                 int alt77=2;
                 int LA77_0 = input.LA(1);
 
-                if ( (LA77_0==80) && (synpred11_InternalVerify())) {
+                if ( (LA77_0==71) && (synpred7_InternalVerify())) {
                     alt77=1;
                 }
-                else if ( (LA77_0==81) && (synpred11_InternalVerify())) {
+                else if ( (LA77_0==72) && (synpred7_InternalVerify())) {
+                    alt77=1;
+                }
+                else if ( (LA77_0==73) && (synpred7_InternalVerify())) {
                     alt77=1;
                 }
 
 
                 switch (alt77) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:3: ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:3: ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3891:6: ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3891:7: () ( (lv_feature_2_0= ruleOpAdd ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3617:6: ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3617:7: () ( (lv_feature_2_0= ruleOpCompare ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3891:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3892:5: 
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3617:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3618:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
             	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
             	                  current);
             	          
             	    }
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3897:2: ( (lv_feature_2_0= ruleOpAdd ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3898:1: (lv_feature_2_0= ruleOpAdd )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3623:2: ( (lv_feature_2_0= ruleOpCompare ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3624:1: (lv_feature_2_0= ruleOpCompare )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3898:1: (lv_feature_2_0= ruleOpAdd )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3899:3: lv_feature_2_0= ruleOpAdd
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3624:1: (lv_feature_2_0= ruleOpCompare )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3625:3: lv_feature_2_0= ruleOpCompare
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getFeatureOpAddParserRuleCall_1_0_0_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getFeatureOpCompareParserRuleCall_1_0_0_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression9301);
-            	    lv_feature_2_0=ruleOpAdd();
+            	    pushFollow(FOLLOW_ruleOpCompare_in_ruleARelationalExpression8529);
+            	    lv_feature_2_0=ruleOpCompare();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
             	      	        }
             	             		set(
             	             			current, 
             	             			"feature",
             	              		lv_feature_2_0, 
-            	              		"OpAdd");
+            	              		"OpCompare");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -11275,32 +10586,32 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3915:4: ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3916:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3641:4: ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3642:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3916:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3917:3: lv_rightOperand_3_0= ruleAMultiplicativeExpression
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3642:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3643:3: lv_rightOperand_3_0= ruleAOtherOperatorExpression
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getRightOperandAMultiplicativeExpressionParserRuleCall_1_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getRightOperandAOtherOperatorExpressionParserRuleCall_1_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9324);
-            	    lv_rightOperand_3_0=ruleAMultiplicativeExpression();
+            	    pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8552);
+            	    lv_rightOperand_3_0=ruleAOtherOperatorExpression();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
             	      	        }
             	             		set(
             	             			current, 
             	             			"rightOperand",
             	              		lv_rightOperand_3_0, 
-            	              		"AMultiplicativeExpression");
+            	              		"AOtherOperatorExpression");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -11338,33 +10649,33 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAAdditiveExpression"
+    // $ANTLR end "ruleARelationalExpression"
 
 
-    // $ANTLR start "entryRuleOpAdd"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3941:1: entryRuleOpAdd returns [String current=null] : iv_ruleOpAdd= ruleOpAdd EOF ;
-    public final String entryRuleOpAdd() throws RecognitionException {
+    // $ANTLR start "entryRuleOpCompare"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:1: entryRuleOpCompare returns [String current=null] : iv_ruleOpCompare= ruleOpCompare EOF ;
+    public final String entryRuleOpCompare() throws RecognitionException {
         String current = null;
 
-        AntlrDatatypeRuleToken iv_ruleOpAdd = null;
+        AntlrDatatypeRuleToken iv_ruleOpCompare = null;
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3942:2: (iv_ruleOpAdd= ruleOpAdd EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3943:2: iv_ruleOpAdd= ruleOpAdd EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3668:2: (iv_ruleOpCompare= ruleOpCompare EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3669:2: iv_ruleOpCompare= ruleOpCompare EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOpAddRule()); 
+               newCompositeNode(grammarAccess.getOpCompareRule()); 
             }
-            pushFollow(FOLLOW_ruleOpAdd_in_entryRuleOpAdd9363);
-            iv_ruleOpAdd=ruleOpAdd();
+            pushFollow(FOLLOW_ruleOpCompare_in_entryRuleOpCompare8591);
+            iv_ruleOpCompare=ruleOpCompare();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleOpAdd.getText(); 
+               current =iv_ruleOpCompare.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpAdd9374); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpCompare8602); if (state.failed) return current;
 
             }
 
@@ -11378,12 +10689,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleOpAdd"
+    // $ANTLR end "entryRuleOpCompare"
 
 
-    // $ANTLR start "ruleOpAdd"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3950:1: ruleOpAdd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '+' | kw= '-' ) ;
-    public final AntlrDatatypeRuleToken ruleOpAdd() throws RecognitionException {
+    // $ANTLR start "ruleOpCompare"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3676:1: ruleOpCompare returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' ) ;
+    public final AntlrDatatypeRuleToken ruleOpCompare() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
         Token kw=null;
@@ -11391,48 +10702,110 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3953:28: ( (kw= '+' | kw= '-' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3954:1: (kw= '+' | kw= '-' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3679:28: ( (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3680:1: (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3954:1: (kw= '+' | kw= '-' )
-            int alt78=2;
-            int LA78_0 = input.LA(1);
-
-            if ( (LA78_0==80) ) {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3680:1: (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' )
+            int alt78=4;
+            switch ( input.LA(1) ) {
+            case 71:
+                {
                 alt78=1;
-            }
-            else if ( (LA78_0==81) ) {
-                alt78=2;
-            }
-            else {
+                }
+                break;
+            case 72:
+                {
+                int LA78_2 = input.LA(2);
+
+                if ( (LA78_2==EOF||(LA78_2>=RULE_STRING && LA78_2<=RULE_REAL_LIT)||LA78_2==35||LA78_2==63||(LA78_2>=80 && LA78_2<=81)||(LA78_2>=84 && LA78_2<=85)||(LA78_2>=87 && LA78_2<=90)) ) {
+                    alt78=4;
+                }
+                else if ( (LA78_2==37) ) {
+                    alt78=2;
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return current;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 78, 2, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case 73:
+                {
+                alt78=3;
+                }
+                break;
+            default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 78, 0, input);
 
                 throw nvae;
             }
+
             switch (alt78) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3955:2: kw= '+'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3681:2: kw= '>='
                     {
-                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpAdd9412); if (state.failed) return current;
+                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpCompare8640); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpAddAccess().getPlusSignKeyword_0()); 
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignEqualsSignKeyword_0()); 
                           
                     }
 
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:2: kw= '-'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3687:6: (kw= '<' kw= '=' )
                     {
-                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpAdd9431); if (state.failed) return current;
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3687:6: (kw= '<' kw= '=' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3688:2: kw= '<' kw= '='
+                    {
+                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpCompare8660); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
-                              newLeafNode(kw, grammarAccess.getOpAddAccess().getHyphenMinusKeyword_1()); 
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_1_0()); 
+                          
+                    }
+                    kw=(Token)match(input,37,FOLLOW_37_in_ruleOpCompare8673); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getEqualsSignKeyword_1_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3701:2: kw= '>'
+                    {
+                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpCompare8693); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3708:2: kw= '<'
+                    {
+                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpCompare8712); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_3()); 
                           
                     }
 
@@ -11457,33 +10830,33 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleOpAdd"
+    // $ANTLR end "ruleOpCompare"
 
 
-    // $ANTLR start "entryRuleAMultiplicativeExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3975:1: entryRuleAMultiplicativeExpression returns [EObject current=null] : iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF ;
-    public final EObject entryRuleAMultiplicativeExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleAOtherOperatorExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3721:1: entryRuleAOtherOperatorExpression returns [EObject current=null] : iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF ;
+    public final EObject entryRuleAOtherOperatorExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAMultiplicativeExpression = null;
+        EObject iv_ruleAOtherOperatorExpression = null;
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3976:2: (iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3977:2: iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3722:2: (iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3723:2: iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAMultiplicativeExpressionRule()); 
+               newCompositeNode(grammarAccess.getAOtherOperatorExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression9471);
-            iv_ruleAMultiplicativeExpression=ruleAMultiplicativeExpression();
+            pushFollow(FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression8752);
+            iv_ruleAOtherOperatorExpression=ruleAOtherOperatorExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAMultiplicativeExpression; 
+               current =iv_ruleAOtherOperatorExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAMultiplicativeExpression9481); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAOtherOperatorExpression8762); if (state.failed) return current;
 
             }
 
@@ -11497,15 +10870,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAMultiplicativeExpression"
+    // $ANTLR end "entryRuleAOtherOperatorExpression"
 
 
-    // $ANTLR start "ruleAMultiplicativeExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3984:1: ruleAMultiplicativeExpression returns [EObject current=null] : (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) ;
-    public final EObject ruleAMultiplicativeExpression() throws RecognitionException {
+    // $ANTLR start "ruleAOtherOperatorExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3730:1: ruleAOtherOperatorExpression returns [EObject current=null] : (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) ;
+    public final EObject ruleAOtherOperatorExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject this_AUnaryOperation_0 = null;
+        EObject this_AAdditiveExpression_0 = null;
 
         AntlrDatatypeRuleToken lv_feature_2_0 = null;
 
@@ -11515,97 +10888,82 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3987:28: ( (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3988:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3733:28: ( (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3734:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3988:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3989:5: this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3734:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3735:5: this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
                
-                      newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getAUnaryOperationParserRuleCall_0()); 
+                      newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getAAdditiveExpressionParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9528);
-            this_AUnaryOperation_0=ruleAUnaryOperation();
+            pushFollow(FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8809);
+            this_AAdditiveExpression_0=ruleAAdditiveExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
                
-                      current = this_AUnaryOperation_0; 
+                      current = this_AAdditiveExpression_0; 
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:1: ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
             loop79:
             do {
                 int alt79=2;
-                int LA79_0 = input.LA(1);
-
-                if ( (LA79_0==82) && (synpred12_InternalVerify())) {
-                    alt79=1;
-                }
-                else if ( (LA79_0==83) && (synpred12_InternalVerify())) {
-                    alt79=1;
-                }
-                else if ( (LA79_0==65) && (synpred12_InternalVerify())) {
-                    alt79=1;
-                }
-                else if ( (LA79_0==45) && (synpred12_InternalVerify())) {
-                    alt79=1;
-                }
-
-
+                alt79 = dfa79.predict(input);
                 switch (alt79) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:3: ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:3: ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4002:6: ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4002:7: () ( (lv_feature_2_0= ruleOpMulti ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3748:6: ( () ( (lv_feature_2_0= ruleOpOther ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3748:7: () ( (lv_feature_2_0= ruleOpOther ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4002:7: ()
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4003:5: 
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3748:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3749:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
             	              current = forceCreateModelElementAndSet(
-            	                  grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  grammarAccess.getAOtherOperatorExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
             	                  current);
             	          
             	    }
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4008:2: ( (lv_feature_2_0= ruleOpMulti ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4009:1: (lv_feature_2_0= ruleOpMulti )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3754:2: ( (lv_feature_2_0= ruleOpOther ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3755:1: (lv_feature_2_0= ruleOpOther )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4009:1: (lv_feature_2_0= ruleOpMulti )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4010:3: lv_feature_2_0= ruleOpMulti
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3755:1: (lv_feature_2_0= ruleOpOther )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3756:3: lv_feature_2_0= ruleOpOther
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getFeatureOpMultiParserRuleCall_1_0_0_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getFeatureOpOtherParserRuleCall_1_0_0_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression9577);
-            	    lv_feature_2_0=ruleOpMulti();
+            	    pushFollow(FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression8858);
+            	    lv_feature_2_0=ruleOpOther();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
             	      	        }
             	             		set(
             	             			current, 
             	             			"feature",
             	              		lv_feature_2_0, 
-            	              		"OpMulti");
+            	              		"OpOther");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -11621,32 +10979,32 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4026:4: ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4027:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3772:4: ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3773:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4027:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4028:3: lv_rightOperand_3_0= ruleAUnaryOperation
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3773:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3774:3: lv_rightOperand_3_0= ruleAAdditiveExpression
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAUnaryOperationParserRuleCall_1_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getRightOperandAAdditiveExpressionParserRuleCall_1_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9600);
-            	    lv_rightOperand_3_0=ruleAUnaryOperation();
+            	    pushFollow(FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8881);
+            	    lv_rightOperand_3_0=ruleAAdditiveExpression();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
             	      	        }
             	             		set(
             	             			current, 
             	             			"rightOperand",
             	              		lv_rightOperand_3_0, 
-            	              		"AUnaryOperation");
+            	              		"AAdditiveExpression");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -11684,11 +11042,969 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
+    // $ANTLR end "ruleAOtherOperatorExpression"
+
+
+    // $ANTLR start "entryRuleOpOther"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3798:1: entryRuleOpOther returns [String current=null] : iv_ruleOpOther= ruleOpOther EOF ;
+    public final String entryRuleOpOther() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpOther = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3799:2: (iv_ruleOpOther= ruleOpOther EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3800:2: iv_ruleOpOther= ruleOpOther EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpOtherRule()); 
+            }
+            pushFollow(FOLLOW_ruleOpOther_in_entryRuleOpOther8920);
+            iv_ruleOpOther=ruleOpOther();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpOther.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpOther8931); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpOther"
+
+
+    // $ANTLR start "ruleOpOther"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3807:1: ruleOpOther returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' ) ;
+    public final AntlrDatatypeRuleToken ruleOpOther() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3810:28: ( (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3811:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3811:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )
+            int alt82=9;
+            alt82 = dfa82.predict(input);
+            switch (alt82) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:2: kw= '->'
+                    {
+                    kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther8969); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getHyphenMinusGreaterThanSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3819:2: kw= '..<'
+                    {
+                    kw=(Token)match(input,75,FOLLOW_75_in_ruleOpOther8988); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopLessThanSignKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3825:6: (kw= '>' kw= '..' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3825:6: (kw= '>' kw= '..' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3826:2: kw= '>' kw= '..'
+                    {
+                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9008); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_2_0()); 
+                          
+                    }
+                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther9021); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_2_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3839:2: kw= '..'
+                    {
+                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther9041); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3846:2: kw= '=>'
+                    {
+                    kw=(Token)match(input,77,FOLLOW_77_in_ruleOpOther9060); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_4()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3852:6: (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3852:6: (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3853:2: kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' )
+                    {
+                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9080); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_0()); 
+                          
+                    }
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:1: ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' )
+                    int alt80=2;
+                    int LA80_0 = input.LA(1);
+
+                    if ( (LA80_0==73) ) {
+                        int LA80_1 = input.LA(2);
+
+                        if ( (LA80_1==73) && (synpred9_InternalVerify())) {
+                            alt80=1;
+                        }
+                        else if ( (LA80_1==EOF||(LA80_1>=RULE_STRING && LA80_1<=RULE_REAL_LIT)||LA80_1==35||LA80_1==63||(LA80_1>=80 && LA80_1<=81)||(LA80_1>=84 && LA80_1<=85)||(LA80_1>=87 && LA80_1<=90)) ) {
+                            alt80=2;
+                        }
+                        else {
+                            if (state.backtracking>0) {state.failed=true; return current;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 80, 1, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 80, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt80) {
+                        case 1 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:2: ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:2: ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:3: ( ( '>' '>' ) )=> (kw= '>' kw= '>' )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3862:5: (kw= '>' kw= '>' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3863:2: kw= '>' kw= '>'
+                            {
+                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9111); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_0()); 
+                                  
+                            }
+                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9124); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_1()); 
+                                  
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3876:2: kw= '>'
+                            {
+                            kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther9145); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_1()); 
+                                  
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3882:6: (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3882:6: (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3883:2: kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' )
+                    {
+                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9167); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_0()); 
+                          
+                    }
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:1: ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' )
+                    int alt81=3;
+                    int LA81_0 = input.LA(1);
+
+                    if ( (LA81_0==72) ) {
+                        int LA81_1 = input.LA(2);
+
+                        if ( (LA81_1==EOF||(LA81_1>=RULE_STRING && LA81_1<=RULE_REAL_LIT)||LA81_1==35||LA81_1==63||(LA81_1>=80 && LA81_1<=81)||(LA81_1>=84 && LA81_1<=85)||(LA81_1>=87 && LA81_1<=90)) ) {
+                            alt81=2;
+                        }
+                        else if ( (LA81_1==72) && (synpred10_InternalVerify())) {
+                            alt81=1;
+                        }
+                        else {
+                            if (state.backtracking>0) {state.failed=true; return current;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 81, 1, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else if ( (LA81_0==77) ) {
+                        alt81=3;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 81, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt81) {
+                        case 1 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:2: ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:2: ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:3: ( ( '<' '<' ) )=> (kw= '<' kw= '<' )
+                            {
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3892:5: (kw= '<' kw= '<' )
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3893:2: kw= '<' kw= '<'
+                            {
+                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9198); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_0()); 
+                                  
+                            }
+                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9211); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_1()); 
+                                  
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3906:2: kw= '<'
+                            {
+                            kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther9232); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_1()); 
+                                  
+                            }
+
+                            }
+                            break;
+                        case 3 :
+                            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3913:2: kw= '=>'
+                            {
+                            kw=(Token)match(input,77,FOLLOW_77_in_ruleOpOther9251); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_6_1_2()); 
+                                  
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 8 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3920:2: kw= '<>'
+                    {
+                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpOther9272); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignGreaterThanSignKeyword_7()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 9 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3927:2: kw= '?:'
+                    {
+                    kw=(Token)match(input,79,FOLLOW_79_in_ruleOpOther9291); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getQuestionMarkColonKeyword_8()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpOther"
+
+
+    // $ANTLR start "entryRuleAAdditiveExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3940:1: entryRuleAAdditiveExpression returns [EObject current=null] : iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF ;
+    public final EObject entryRuleAAdditiveExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAAdditiveExpression = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3941:2: (iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3942:2: iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAAdditiveExpressionRule()); 
+            }
+            pushFollow(FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression9331);
+            iv_ruleAAdditiveExpression=ruleAAdditiveExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAAdditiveExpression; 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAAdditiveExpression9341); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAAdditiveExpression"
+
+
+    // $ANTLR start "ruleAAdditiveExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3949:1: ruleAAdditiveExpression returns [EObject current=null] : (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) ;
+    public final EObject ruleAAdditiveExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AMultiplicativeExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3952:28: ( (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3953:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3953:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3954:5: this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getAMultiplicativeExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9388);
+            this_AMultiplicativeExpression_0=ruleAMultiplicativeExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               
+                      current = this_AMultiplicativeExpression_0; 
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:1: ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            loop83:
+            do {
+                int alt83=2;
+                int LA83_0 = input.LA(1);
+
+                if ( (LA83_0==80) && (synpred11_InternalVerify())) {
+                    alt83=1;
+                }
+                else if ( (LA83_0==81) && (synpred11_InternalVerify())) {
+                    alt83=1;
+                }
+
+
+                switch (alt83) {
+            	case 1 :
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:3: ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3967:6: ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3967:7: () ( (lv_feature_2_0= ruleOpAdd ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3967:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3968:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3973:2: ( (lv_feature_2_0= ruleOpAdd ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3974:1: (lv_feature_2_0= ruleOpAdd )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3974:1: (lv_feature_2_0= ruleOpAdd )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3975:3: lv_feature_2_0= ruleOpAdd
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getFeatureOpAddParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression9437);
+            	    lv_feature_2_0=ruleOpAdd();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpAdd");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3991:4: ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3992:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3992:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3993:3: lv_rightOperand_3_0= ruleAMultiplicativeExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getRightOperandAMultiplicativeExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9460);
+            	    lv_rightOperand_3_0=ruleAMultiplicativeExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AMultiplicativeExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop83;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAAdditiveExpression"
+
+
+    // $ANTLR start "entryRuleOpAdd"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4017:1: entryRuleOpAdd returns [String current=null] : iv_ruleOpAdd= ruleOpAdd EOF ;
+    public final String entryRuleOpAdd() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpAdd = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4018:2: (iv_ruleOpAdd= ruleOpAdd EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4019:2: iv_ruleOpAdd= ruleOpAdd EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpAddRule()); 
+            }
+            pushFollow(FOLLOW_ruleOpAdd_in_entryRuleOpAdd9499);
+            iv_ruleOpAdd=ruleOpAdd();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpAdd.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpAdd9510); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpAdd"
+
+
+    // $ANTLR start "ruleOpAdd"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4026:1: ruleOpAdd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '+' | kw= '-' ) ;
+    public final AntlrDatatypeRuleToken ruleOpAdd() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4029:28: ( (kw= '+' | kw= '-' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4030:1: (kw= '+' | kw= '-' )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4030:1: (kw= '+' | kw= '-' )
+            int alt84=2;
+            int LA84_0 = input.LA(1);
+
+            if ( (LA84_0==80) ) {
+                alt84=1;
+            }
+            else if ( (LA84_0==81) ) {
+                alt84=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 84, 0, input);
+
+                throw nvae;
+            }
+            switch (alt84) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4031:2: kw= '+'
+                    {
+                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpAdd9548); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpAddAccess().getPlusSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4038:2: kw= '-'
+                    {
+                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpAdd9567); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpAddAccess().getHyphenMinusKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpAdd"
+
+
+    // $ANTLR start "entryRuleAMultiplicativeExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4051:1: entryRuleAMultiplicativeExpression returns [EObject current=null] : iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF ;
+    public final EObject entryRuleAMultiplicativeExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAMultiplicativeExpression = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4052:2: (iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4053:2: iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAMultiplicativeExpressionRule()); 
+            }
+            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression9607);
+            iv_ruleAMultiplicativeExpression=ruleAMultiplicativeExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAMultiplicativeExpression; 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAMultiplicativeExpression9617); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAMultiplicativeExpression"
+
+
+    // $ANTLR start "ruleAMultiplicativeExpression"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4060:1: ruleAMultiplicativeExpression returns [EObject current=null] : (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) ;
+    public final EObject ruleAMultiplicativeExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AUnaryOperation_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4063:28: ( (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4064:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4064:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4065:5: this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getAUnaryOperationParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9664);
+            this_AUnaryOperation_0=ruleAUnaryOperation();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               
+                      current = this_AUnaryOperation_0; 
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:1: ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            loop85:
+            do {
+                int alt85=2;
+                int LA85_0 = input.LA(1);
+
+                if ( (LA85_0==82) && (synpred12_InternalVerify())) {
+                    alt85=1;
+                }
+                else if ( (LA85_0==83) && (synpred12_InternalVerify())) {
+                    alt85=1;
+                }
+                else if ( (LA85_0==65) && (synpred12_InternalVerify())) {
+                    alt85=1;
+                }
+                else if ( (LA85_0==45) && (synpred12_InternalVerify())) {
+                    alt85=1;
+                }
+
+
+                switch (alt85) {
+            	case 1 :
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:3: ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4078:6: ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4078:7: () ( (lv_feature_2_0= ruleOpMulti ) )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4078:7: ()
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4079:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4084:2: ( (lv_feature_2_0= ruleOpMulti ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4085:1: (lv_feature_2_0= ruleOpMulti )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4085:1: (lv_feature_2_0= ruleOpMulti )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4086:3: lv_feature_2_0= ruleOpMulti
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getFeatureOpMultiParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression9713);
+            	    lv_feature_2_0=ruleOpMulti();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpMulti");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4102:4: ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4103:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
+            	    {
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4103:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4104:3: lv_rightOperand_3_0= ruleAUnaryOperation
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAUnaryOperationParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9736);
+            	    lv_rightOperand_3_0=ruleAUnaryOperation();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AUnaryOperation");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop85;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
     // $ANTLR end "ruleAMultiplicativeExpression"
 
 
     // $ANTLR start "entryRuleOpMulti"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4052:1: entryRuleOpMulti returns [String current=null] : iv_ruleOpMulti= ruleOpMulti EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4128:1: entryRuleOpMulti returns [String current=null] : iv_ruleOpMulti= ruleOpMulti EOF ;
     public final String entryRuleOpMulti() throws RecognitionException {
         String current = null;
 
@@ -11696,13 +12012,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4053:2: (iv_ruleOpMulti= ruleOpMulti EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4054:2: iv_ruleOpMulti= ruleOpMulti EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4129:2: (iv_ruleOpMulti= ruleOpMulti EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4130:2: iv_ruleOpMulti= ruleOpMulti EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getOpMultiRule()); 
             }
-            pushFollow(FOLLOW_ruleOpMulti_in_entryRuleOpMulti9639);
+            pushFollow(FOLLOW_ruleOpMulti_in_entryRuleOpMulti9775);
             iv_ruleOpMulti=ruleOpMulti();
 
             state._fsp--;
@@ -11710,7 +12026,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleOpMulti.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpMulti9650); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpMulti9786); if (state.failed) return current;
 
             }
 
@@ -11728,7 +12044,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOpMulti"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4061:1: ruleOpMulti returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '*' | kw= '**' | kw= '/' | kw= '%' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4137:1: ruleOpMulti returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '*' | kw= '**' | kw= '/' | kw= '%' ) ;
     public final AntlrDatatypeRuleToken ruleOpMulti() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -11737,45 +12053,45 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4064:28: ( (kw= '*' | kw= '**' | kw= '/' | kw= '%' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4065:1: (kw= '*' | kw= '**' | kw= '/' | kw= '%' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4140:28: ( (kw= '*' | kw= '**' | kw= '/' | kw= '%' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4141:1: (kw= '*' | kw= '**' | kw= '/' | kw= '%' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4065:1: (kw= '*' | kw= '**' | kw= '/' | kw= '%' )
-            int alt80=4;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4141:1: (kw= '*' | kw= '**' | kw= '/' | kw= '%' )
+            int alt86=4;
             switch ( input.LA(1) ) {
             case 82:
                 {
-                alt80=1;
+                alt86=1;
                 }
                 break;
             case 83:
                 {
-                alt80=2;
+                alt86=2;
                 }
                 break;
             case 65:
                 {
-                alt80=3;
+                alt86=3;
                 }
                 break;
             case 45:
                 {
-                alt80=4;
+                alt86=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 80, 0, input);
+                    new NoViableAltException("", 86, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt80) {
+            switch (alt86) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4066:2: kw= '*'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4142:2: kw= '*'
                     {
-                    kw=(Token)match(input,82,FOLLOW_82_in_ruleOpMulti9688); if (state.failed) return current;
+                    kw=(Token)match(input,82,FOLLOW_82_in_ruleOpMulti9824); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -11786,9 +12102,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:2: kw= '**'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4149:2: kw= '**'
                     {
-                    kw=(Token)match(input,83,FOLLOW_83_in_ruleOpMulti9707); if (state.failed) return current;
+                    kw=(Token)match(input,83,FOLLOW_83_in_ruleOpMulti9843); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -11799,9 +12115,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4080:2: kw= '/'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4156:2: kw= '/'
                     {
-                    kw=(Token)match(input,65,FOLLOW_65_in_ruleOpMulti9726); if (state.failed) return current;
+                    kw=(Token)match(input,65,FOLLOW_65_in_ruleOpMulti9862); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -11812,9 +12128,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4087:2: kw= '%'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4163:2: kw= '%'
                     {
-                    kw=(Token)match(input,45,FOLLOW_45_in_ruleOpMulti9745); if (state.failed) return current;
+                    kw=(Token)match(input,45,FOLLOW_45_in_ruleOpMulti9881); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -11847,7 +12163,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAUnaryOperation"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4100:1: entryRuleAUnaryOperation returns [EObject current=null] : iv_ruleAUnaryOperation= ruleAUnaryOperation EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4176:1: entryRuleAUnaryOperation returns [EObject current=null] : iv_ruleAUnaryOperation= ruleAUnaryOperation EOF ;
     public final EObject entryRuleAUnaryOperation() throws RecognitionException {
         EObject current = null;
 
@@ -11855,13 +12171,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4101:2: (iv_ruleAUnaryOperation= ruleAUnaryOperation EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4102:2: iv_ruleAUnaryOperation= ruleAUnaryOperation EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4177:2: (iv_ruleAUnaryOperation= ruleAUnaryOperation EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4178:2: iv_ruleAUnaryOperation= ruleAUnaryOperation EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAUnaryOperationRule()); 
             }
-            pushFollow(FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation9785);
+            pushFollow(FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation9921);
             iv_ruleAUnaryOperation=ruleAUnaryOperation();
 
             state._fsp--;
@@ -11869,7 +12185,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAUnaryOperation; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAUnaryOperation9795); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAUnaryOperation9931); if (state.failed) return current;
 
             }
 
@@ -11887,7 +12203,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAUnaryOperation"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4109:1: ruleAUnaryOperation returns [EObject current=null] : ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4185:1: ruleAUnaryOperation returns [EObject current=null] : ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) ;
     public final EObject ruleAUnaryOperation() throws RecognitionException {
         EObject current = null;
 
@@ -11901,35 +12217,35 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4112:28: ( ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4188:28: ( ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
-            int alt81=2;
-            int LA81_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
+            int alt87=2;
+            int LA87_0 = input.LA(1);
 
-            if ( ((LA81_0>=80 && LA81_0<=81)||LA81_0==84) ) {
-                alt81=1;
+            if ( ((LA87_0>=80 && LA87_0<=81)||LA87_0==84) ) {
+                alt87=1;
             }
-            else if ( ((LA81_0>=RULE_STRING && LA81_0<=RULE_REAL_LIT)||LA81_0==35||LA81_0==63||LA81_0==85||(LA81_0>=87 && LA81_0<=90)) ) {
-                alt81=2;
+            else if ( ((LA87_0>=RULE_STRING && LA87_0<=RULE_REAL_LIT)||LA87_0==35||LA87_0==63||LA87_0==85||(LA87_0>=87 && LA87_0<=90)) ) {
+                alt87=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 81, 0, input);
+                    new NoViableAltException("", 87, 0, input);
 
                 throw nvae;
             }
-            switch (alt81) {
+            switch (alt87) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:3: () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:3: () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4113:3: ()
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4114:5: 
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4189:3: ()
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4190:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -11941,18 +12257,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4119:2: ( (lv_feature_1_0= ruleOpUnary ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4120:1: (lv_feature_1_0= ruleOpUnary )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4195:2: ( (lv_feature_1_0= ruleOpUnary ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4196:1: (lv_feature_1_0= ruleOpUnary )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4120:1: (lv_feature_1_0= ruleOpUnary )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4121:3: lv_feature_1_0= ruleOpUnary
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4196:1: (lv_feature_1_0= ruleOpUnary )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4197:3: lv_feature_1_0= ruleOpUnary
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getAUnaryOperationAccess().getFeatureOpUnaryParserRuleCall_0_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleOpUnary_in_ruleAUnaryOperation9851);
+                    pushFollow(FOLLOW_ruleOpUnary_in_ruleAUnaryOperation9987);
                     lv_feature_1_0=ruleOpUnary();
 
                     state._fsp--;
@@ -11976,18 +12292,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4137:2: ( (lv_operand_2_0= ruleAUnaryOperation ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4138:1: (lv_operand_2_0= ruleAUnaryOperation )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4213:2: ( (lv_operand_2_0= ruleAUnaryOperation ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4214:1: (lv_operand_2_0= ruleAUnaryOperation )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4138:1: (lv_operand_2_0= ruleAUnaryOperation )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4139:3: lv_operand_2_0= ruleAUnaryOperation
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4214:1: (lv_operand_2_0= ruleAUnaryOperation )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4215:3: lv_operand_2_0= ruleAUnaryOperation
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getAUnaryOperationAccess().getOperandAUnaryOperationParserRuleCall_0_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation9872);
+                    pushFollow(FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation10008);
                     lv_operand_2_0=ruleAUnaryOperation();
 
                     state._fsp--;
@@ -12018,14 +12334,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4157:5: this_APrimaryExpression_3= ruleAPrimaryExpression
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4233:5: this_APrimaryExpression_3= ruleAPrimaryExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getAUnaryOperationAccess().getAPrimaryExpressionParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation9901);
+                    pushFollow(FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation10037);
                     this_APrimaryExpression_3=ruleAPrimaryExpression();
 
                     state._fsp--;
@@ -12062,7 +12378,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOpUnary"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4173:1: entryRuleOpUnary returns [String current=null] : iv_ruleOpUnary= ruleOpUnary EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4249:1: entryRuleOpUnary returns [String current=null] : iv_ruleOpUnary= ruleOpUnary EOF ;
     public final String entryRuleOpUnary() throws RecognitionException {
         String current = null;
 
@@ -12070,13 +12386,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4174:2: (iv_ruleOpUnary= ruleOpUnary EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4175:2: iv_ruleOpUnary= ruleOpUnary EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4250:2: (iv_ruleOpUnary= ruleOpUnary EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4251:2: iv_ruleOpUnary= ruleOpUnary EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getOpUnaryRule()); 
             }
-            pushFollow(FOLLOW_ruleOpUnary_in_entryRuleOpUnary9937);
+            pushFollow(FOLLOW_ruleOpUnary_in_entryRuleOpUnary10073);
             iv_ruleOpUnary=ruleOpUnary();
 
             state._fsp--;
@@ -12084,7 +12400,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleOpUnary.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOpUnary9948); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleOpUnary10084); if (state.failed) return current;
 
             }
 
@@ -12102,7 +12418,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOpUnary"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4182:1: ruleOpUnary returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '!' | kw= '-' | kw= '+' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4258:1: ruleOpUnary returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '!' | kw= '-' | kw= '+' ) ;
     public final AntlrDatatypeRuleToken ruleOpUnary() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12111,40 +12427,40 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4185:28: ( (kw= '!' | kw= '-' | kw= '+' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4186:1: (kw= '!' | kw= '-' | kw= '+' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4261:28: ( (kw= '!' | kw= '-' | kw= '+' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4262:1: (kw= '!' | kw= '-' | kw= '+' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4186:1: (kw= '!' | kw= '-' | kw= '+' )
-            int alt82=3;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4262:1: (kw= '!' | kw= '-' | kw= '+' )
+            int alt88=3;
             switch ( input.LA(1) ) {
             case 84:
                 {
-                alt82=1;
+                alt88=1;
                 }
                 break;
             case 81:
                 {
-                alt82=2;
+                alt88=2;
                 }
                 break;
             case 80:
                 {
-                alt82=3;
+                alt88=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 82, 0, input);
+                    new NoViableAltException("", 88, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt82) {
+            switch (alt88) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4187:2: kw= '!'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4263:2: kw= '!'
                     {
-                    kw=(Token)match(input,84,FOLLOW_84_in_ruleOpUnary9986); if (state.failed) return current;
+                    kw=(Token)match(input,84,FOLLOW_84_in_ruleOpUnary10122); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -12155,9 +12471,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4194:2: kw= '-'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4270:2: kw= '-'
                     {
-                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpUnary10005); if (state.failed) return current;
+                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpUnary10141); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -12168,9 +12484,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4201:2: kw= '+'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4277:2: kw= '+'
                     {
-                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpUnary10024); if (state.failed) return current;
+                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpUnary10160); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -12203,7 +12519,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAPrimaryExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4214:1: entryRuleAPrimaryExpression returns [EObject current=null] : iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4290:1: entryRuleAPrimaryExpression returns [EObject current=null] : iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF ;
     public final EObject entryRuleAPrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -12211,13 +12527,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4215:2: (iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4216:2: iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4291:2: (iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4292:2: iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAPrimaryExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression10064);
+            pushFollow(FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression10200);
             iv_ruleAPrimaryExpression=ruleAPrimaryExpression();
 
             state._fsp--;
@@ -12225,7 +12541,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAPrimaryExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAPrimaryExpression10074); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAPrimaryExpression10210); if (state.failed) return current;
 
             }
 
@@ -12243,7 +12559,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAPrimaryExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4223:1: ruleAPrimaryExpression returns [EObject current=null] : (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4299:1: ruleAPrimaryExpression returns [EObject current=null] : (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression ) ;
     public final EObject ruleAPrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -12259,11 +12575,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4226:28: ( (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4227:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4302:28: ( (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4303:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4227:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression )
-            int alt83=4;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4303:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_APropertyReference_2= ruleAPropertyReference | this_AParenthesizedExpression_3= ruleAParenthesizedExpression )
+            int alt89=4;
             switch ( input.LA(1) ) {
             case RULE_STRING:
             case RULE_INT:
@@ -12274,42 +12590,42 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             case 89:
             case 90:
                 {
-                alt83=1;
+                alt89=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt83=2;
+                alt89=2;
                 }
                 break;
             case 63:
                 {
-                alt83=3;
+                alt89=3;
                 }
                 break;
             case 35:
                 {
-                alt83=4;
+                alt89=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 83, 0, input);
+                    new NoViableAltException("", 89, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt83) {
+            switch (alt89) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4228:5: this_ALiteral_0= ruleALiteral
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4304:5: this_ALiteral_0= ruleALiteral
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getALiteralParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleALiteral_in_ruleAPrimaryExpression10121);
+                    pushFollow(FOLLOW_ruleALiteral_in_ruleAPrimaryExpression10257);
                     this_ALiteral_0=ruleALiteral();
 
                     state._fsp--;
@@ -12324,14 +12640,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4238:5: this_AVariableReference_1= ruleAVariableReference
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4314:5: this_AVariableReference_1= ruleAVariableReference
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAVariableReferenceParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAVariableReference_in_ruleAPrimaryExpression10148);
+                    pushFollow(FOLLOW_ruleAVariableReference_in_ruleAPrimaryExpression10284);
                     this_AVariableReference_1=ruleAVariableReference();
 
                     state._fsp--;
@@ -12346,14 +12662,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4248:5: this_APropertyReference_2= ruleAPropertyReference
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4324:5: this_APropertyReference_2= ruleAPropertyReference
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAPropertyReferenceParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAPropertyReference_in_ruleAPrimaryExpression10175);
+                    pushFollow(FOLLOW_ruleAPropertyReference_in_ruleAPrimaryExpression10311);
                     this_APropertyReference_2=ruleAPropertyReference();
 
                     state._fsp--;
@@ -12368,14 +12684,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4258:5: this_AParenthesizedExpression_3= ruleAParenthesizedExpression
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4334:5: this_AParenthesizedExpression_3= ruleAParenthesizedExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression10202);
+                    pushFollow(FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression10338);
                     this_AParenthesizedExpression_3=ruleAParenthesizedExpression();
 
                     state._fsp--;
@@ -12412,7 +12728,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleALiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4274:1: entryRuleALiteral returns [EObject current=null] : iv_ruleALiteral= ruleALiteral EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4350:1: entryRuleALiteral returns [EObject current=null] : iv_ruleALiteral= ruleALiteral EOF ;
     public final EObject entryRuleALiteral() throws RecognitionException {
         EObject current = null;
 
@@ -12420,13 +12736,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4275:2: (iv_ruleALiteral= ruleALiteral EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4276:2: iv_ruleALiteral= ruleALiteral EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4351:2: (iv_ruleALiteral= ruleALiteral EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4352:2: iv_ruleALiteral= ruleALiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getALiteralRule()); 
             }
-            pushFollow(FOLLOW_ruleALiteral_in_entryRuleALiteral10237);
+            pushFollow(FOLLOW_ruleALiteral_in_entryRuleALiteral10373);
             iv_ruleALiteral=ruleALiteral();
 
             state._fsp--;
@@ -12434,7 +12750,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleALiteral; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleALiteral10247); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleALiteral10383); if (state.failed) return current;
 
             }
 
@@ -12452,7 +12768,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleALiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4283:1: ruleALiteral returns [EObject current=null] : (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4359:1: ruleALiteral returns [EObject current=null] : (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm ) ;
     public final EObject ruleALiteral() throws RecognitionException {
         EObject current = null;
 
@@ -12474,66 +12790,66 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4286:28: ( (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4287:1: (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4362:28: ( (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4363:1: (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4287:1: (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm )
-            int alt84=7;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4363:1: (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm )
+            int alt90=7;
             switch ( input.LA(1) ) {
             case 85:
                 {
-                alt84=1;
+                alt90=1;
                 }
                 break;
             case 87:
                 {
-                alt84=2;
+                alt90=2;
                 }
                 break;
             case 88:
             case 89:
                 {
-                alt84=3;
+                alt90=3;
                 }
                 break;
             case RULE_REAL_LIT:
                 {
-                alt84=4;
+                alt90=4;
                 }
                 break;
             case RULE_INT:
                 {
-                alt84=5;
+                alt90=5;
                 }
                 break;
             case 90:
                 {
-                alt84=6;
+                alt90=6;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt84=7;
+                alt90=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 84, 0, input);
+                    new NoViableAltException("", 90, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt84) {
+            switch (alt90) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4288:5: this_ASetTerm_0= ruleASetTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4364:5: this_ASetTerm_0= ruleASetTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getASetTermParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleASetTerm_in_ruleALiteral10294);
+                    pushFollow(FOLLOW_ruleASetTerm_in_ruleALiteral10430);
                     this_ASetTerm_0=ruleASetTerm();
 
                     state._fsp--;
@@ -12548,14 +12864,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4298:5: this_AListTerm_1= ruleAListTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4374:5: this_AListTerm_1= ruleAListTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getAListTermParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAListTerm_in_ruleALiteral10321);
+                    pushFollow(FOLLOW_ruleAListTerm_in_ruleALiteral10457);
                     this_AListTerm_1=ruleAListTerm();
 
                     state._fsp--;
@@ -12570,14 +12886,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4308:5: this_ABooleanLiteral_2= ruleABooleanLiteral
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4384:5: this_ABooleanLiteral_2= ruleABooleanLiteral
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getABooleanLiteralParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleABooleanLiteral_in_ruleALiteral10348);
+                    pushFollow(FOLLOW_ruleABooleanLiteral_in_ruleALiteral10484);
                     this_ABooleanLiteral_2=ruleABooleanLiteral();
 
                     state._fsp--;
@@ -12592,14 +12908,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4318:5: this_ARealTerm_3= ruleARealTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4394:5: this_ARealTerm_3= ruleARealTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getARealTermParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleARealTerm_in_ruleALiteral10375);
+                    pushFollow(FOLLOW_ruleARealTerm_in_ruleALiteral10511);
                     this_ARealTerm_3=ruleARealTerm();
 
                     state._fsp--;
@@ -12614,14 +12930,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4328:5: this_AIntegerTerm_4= ruleAIntegerTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4404:5: this_AIntegerTerm_4= ruleAIntegerTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getAIntegerTermParserRuleCall_4()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAIntegerTerm_in_ruleALiteral10402);
+                    pushFollow(FOLLOW_ruleAIntegerTerm_in_ruleALiteral10538);
                     this_AIntegerTerm_4=ruleAIntegerTerm();
 
                     state._fsp--;
@@ -12636,14 +12952,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4338:5: this_ANullLiteral_5= ruleANullLiteral
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4414:5: this_ANullLiteral_5= ruleANullLiteral
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getANullLiteralParserRuleCall_5()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleANullLiteral_in_ruleALiteral10429);
+                    pushFollow(FOLLOW_ruleANullLiteral_in_ruleALiteral10565);
                     this_ANullLiteral_5=ruleANullLiteral();
 
                     state._fsp--;
@@ -12658,14 +12974,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4348:5: this_StringTerm_6= ruleStringTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4424:5: this_StringTerm_6= ruleStringTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getALiteralAccess().getStringTermParserRuleCall_6()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStringTerm_in_ruleALiteral10456);
+                    pushFollow(FOLLOW_ruleStringTerm_in_ruleALiteral10592);
                     this_StringTerm_6=ruleStringTerm();
 
                     state._fsp--;
@@ -12702,7 +13018,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAIntegerTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4364:1: entryRuleAIntegerTerm returns [EObject current=null] : iv_ruleAIntegerTerm= ruleAIntegerTerm EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4440:1: entryRuleAIntegerTerm returns [EObject current=null] : iv_ruleAIntegerTerm= ruleAIntegerTerm EOF ;
     public final EObject entryRuleAIntegerTerm() throws RecognitionException {
         EObject current = null;
 
@@ -12710,13 +13026,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4365:2: (iv_ruleAIntegerTerm= ruleAIntegerTerm EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4366:2: iv_ruleAIntegerTerm= ruleAIntegerTerm EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4441:2: (iv_ruleAIntegerTerm= ruleAIntegerTerm EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4442:2: iv_ruleAIntegerTerm= ruleAIntegerTerm EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAIntegerTermRule()); 
             }
-            pushFollow(FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm10491);
+            pushFollow(FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm10627);
             iv_ruleAIntegerTerm=ruleAIntegerTerm();
 
             state._fsp--;
@@ -12724,7 +13040,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAIntegerTerm; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAIntegerTerm10501); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAIntegerTerm10637); if (state.failed) return current;
 
             }
 
@@ -12742,7 +13058,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAIntegerTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4373:1: ruleAIntegerTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4449:1: ruleAIntegerTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? ) ;
     public final EObject ruleAIntegerTerm() throws RecognitionException {
         EObject current = null;
 
@@ -12753,24 +13069,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4376:28: ( ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4377:1: ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4452:28: ( ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4453:1: ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4377:1: ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4377:2: ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4453:1: ( ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4453:2: ( (lv_value_0_0= ruleAInt ) ) ( (otherlv_1= RULE_ID ) )?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4377:2: ( (lv_value_0_0= ruleAInt ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4378:1: (lv_value_0_0= ruleAInt )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4453:2: ( (lv_value_0_0= ruleAInt ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4454:1: (lv_value_0_0= ruleAInt )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4378:1: (lv_value_0_0= ruleAInt )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4379:3: lv_value_0_0= ruleAInt
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4454:1: (lv_value_0_0= ruleAInt )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4455:3: lv_value_0_0= ruleAInt
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getAIntegerTermAccess().getValueAIntParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAInt_in_ruleAIntegerTerm10547);
+            pushFollow(FOLLOW_ruleAInt_in_ruleAIntegerTerm10683);
             lv_value_0_0=ruleAInt();
 
             state._fsp--;
@@ -12794,19 +13110,19 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4395:2: ( (otherlv_1= RULE_ID ) )?
-            int alt85=2;
-            int LA85_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4471:2: ( (otherlv_1= RULE_ID ) )?
+            int alt91=2;
+            int LA91_0 = input.LA(1);
 
-            if ( (LA85_0==RULE_ID) ) {
-                alt85=1;
+            if ( (LA91_0==RULE_ID) ) {
+                alt91=1;
             }
-            switch (alt85) {
+            switch (alt91) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4396:1: (otherlv_1= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4472:1: (otherlv_1= RULE_ID )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4396:1: (otherlv_1= RULE_ID )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4397:3: otherlv_1= RULE_ID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4472:1: (otherlv_1= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4473:3: otherlv_1= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -12815,7 +13131,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
-                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAIntegerTerm10567); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAIntegerTerm10703); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_1, grammarAccess.getAIntegerTermAccess().getUnitUnitLiteralCrossReference_1_0()); 
@@ -12853,7 +13169,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAInt"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4416:1: entryRuleAInt returns [String current=null] : iv_ruleAInt= ruleAInt EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4492:1: entryRuleAInt returns [String current=null] : iv_ruleAInt= ruleAInt EOF ;
     public final String entryRuleAInt() throws RecognitionException {
         String current = null;
 
@@ -12861,13 +13177,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4417:2: (iv_ruleAInt= ruleAInt EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4418:2: iv_ruleAInt= ruleAInt EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4493:2: (iv_ruleAInt= ruleAInt EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4494:2: iv_ruleAInt= ruleAInt EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAIntRule()); 
             }
-            pushFollow(FOLLOW_ruleAInt_in_entryRuleAInt10605);
+            pushFollow(FOLLOW_ruleAInt_in_entryRuleAInt10741);
             iv_ruleAInt=ruleAInt();
 
             state._fsp--;
@@ -12875,7 +13191,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAInt.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAInt10616); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAInt10752); if (state.failed) return current;
 
             }
 
@@ -12893,7 +13209,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAInt"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4425:1: ruleAInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_INT_0= RULE_INT ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4501:1: ruleAInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_INT_0= RULE_INT ;
     public final AntlrDatatypeRuleToken ruleAInt() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12902,10 +13218,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4428:28: (this_INT_0= RULE_INT )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4429:5: this_INT_0= RULE_INT
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4504:28: (this_INT_0= RULE_INT )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4505:5: this_INT_0= RULE_INT
             {
-            this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAInt10655); if (state.failed) return current;
+            this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAInt10791); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_INT_0);
@@ -12936,7 +13252,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleARealTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4444:1: entryRuleARealTerm returns [EObject current=null] : iv_ruleARealTerm= ruleARealTerm EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4520:1: entryRuleARealTerm returns [EObject current=null] : iv_ruleARealTerm= ruleARealTerm EOF ;
     public final EObject entryRuleARealTerm() throws RecognitionException {
         EObject current = null;
 
@@ -12944,13 +13260,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4445:2: (iv_ruleARealTerm= ruleARealTerm EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4446:2: iv_ruleARealTerm= ruleARealTerm EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4521:2: (iv_ruleARealTerm= ruleARealTerm EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4522:2: iv_ruleARealTerm= ruleARealTerm EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getARealTermRule()); 
             }
-            pushFollow(FOLLOW_ruleARealTerm_in_entryRuleARealTerm10699);
+            pushFollow(FOLLOW_ruleARealTerm_in_entryRuleARealTerm10835);
             iv_ruleARealTerm=ruleARealTerm();
 
             state._fsp--;
@@ -12958,7 +13274,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleARealTerm; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleARealTerm10709); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleARealTerm10845); if (state.failed) return current;
 
             }
 
@@ -12976,7 +13292,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleARealTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4453:1: ruleARealTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4529:1: ruleARealTerm returns [EObject current=null] : ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? ) ;
     public final EObject ruleARealTerm() throws RecognitionException {
         EObject current = null;
 
@@ -12987,24 +13303,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4456:28: ( ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4457:1: ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4532:28: ( ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4533:1: ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4457:1: ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4457:2: ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4533:1: ( ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4533:2: ( (lv_value_0_0= ruleAReal ) ) ( (otherlv_1= RULE_ID ) )?
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4457:2: ( (lv_value_0_0= ruleAReal ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4458:1: (lv_value_0_0= ruleAReal )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4533:2: ( (lv_value_0_0= ruleAReal ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4534:1: (lv_value_0_0= ruleAReal )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4458:1: (lv_value_0_0= ruleAReal )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4459:3: lv_value_0_0= ruleAReal
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4534:1: (lv_value_0_0= ruleAReal )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4535:3: lv_value_0_0= ruleAReal
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getARealTermAccess().getValueARealParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAReal_in_ruleARealTerm10755);
+            pushFollow(FOLLOW_ruleAReal_in_ruleARealTerm10891);
             lv_value_0_0=ruleAReal();
 
             state._fsp--;
@@ -13028,19 +13344,19 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4475:2: ( (otherlv_1= RULE_ID ) )?
-            int alt86=2;
-            int LA86_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4551:2: ( (otherlv_1= RULE_ID ) )?
+            int alt92=2;
+            int LA92_0 = input.LA(1);
 
-            if ( (LA86_0==RULE_ID) ) {
-                alt86=1;
+            if ( (LA92_0==RULE_ID) ) {
+                alt92=1;
             }
-            switch (alt86) {
+            switch (alt92) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4476:1: (otherlv_1= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4552:1: (otherlv_1= RULE_ID )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4476:1: (otherlv_1= RULE_ID )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4477:3: otherlv_1= RULE_ID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4552:1: (otherlv_1= RULE_ID )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4553:3: otherlv_1= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -13049,7 +13365,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
-                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleARealTerm10775); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleARealTerm10911); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_1, grammarAccess.getARealTermAccess().getUnitUnitLiteralCrossReference_1_0()); 
@@ -13087,7 +13403,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAReal"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4496:1: entryRuleAReal returns [String current=null] : iv_ruleAReal= ruleAReal EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4572:1: entryRuleAReal returns [String current=null] : iv_ruleAReal= ruleAReal EOF ;
     public final String entryRuleAReal() throws RecognitionException {
         String current = null;
 
@@ -13095,13 +13411,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4497:2: (iv_ruleAReal= ruleAReal EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4498:2: iv_ruleAReal= ruleAReal EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4573:2: (iv_ruleAReal= ruleAReal EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4574:2: iv_ruleAReal= ruleAReal EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getARealRule()); 
             }
-            pushFollow(FOLLOW_ruleAReal_in_entryRuleAReal10813);
+            pushFollow(FOLLOW_ruleAReal_in_entryRuleAReal10949);
             iv_ruleAReal=ruleAReal();
 
             state._fsp--;
@@ -13109,7 +13425,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAReal.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAReal10824); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAReal10960); if (state.failed) return current;
 
             }
 
@@ -13127,7 +13443,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAReal"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4505:1: ruleAReal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_REAL_LIT_0= RULE_REAL_LIT ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4581:1: ruleAReal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_REAL_LIT_0= RULE_REAL_LIT ;
     public final AntlrDatatypeRuleToken ruleAReal() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -13136,10 +13452,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4508:28: (this_REAL_LIT_0= RULE_REAL_LIT )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4509:5: this_REAL_LIT_0= RULE_REAL_LIT
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4584:28: (this_REAL_LIT_0= RULE_REAL_LIT )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4585:5: this_REAL_LIT_0= RULE_REAL_LIT
             {
-            this_REAL_LIT_0=(Token)match(input,RULE_REAL_LIT,FOLLOW_RULE_REAL_LIT_in_ruleAReal10863); if (state.failed) return current;
+            this_REAL_LIT_0=(Token)match(input,RULE_REAL_LIT,FOLLOW_RULE_REAL_LIT_in_ruleAReal10999); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_REAL_LIT_0);
@@ -13170,7 +13486,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumAlt"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4526:1: entryRuleNumAlt returns [EObject current=null] : iv_ruleNumAlt= ruleNumAlt EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4602:1: entryRuleNumAlt returns [EObject current=null] : iv_ruleNumAlt= ruleNumAlt EOF ;
     public final EObject entryRuleNumAlt() throws RecognitionException {
         EObject current = null;
 
@@ -13178,13 +13494,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4527:2: (iv_ruleNumAlt= ruleNumAlt EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4528:2: iv_ruleNumAlt= ruleNumAlt EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4603:2: (iv_ruleNumAlt= ruleNumAlt EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4604:2: iv_ruleNumAlt= ruleNumAlt EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNumAltRule()); 
             }
-            pushFollow(FOLLOW_ruleNumAlt_in_entryRuleNumAlt10909);
+            pushFollow(FOLLOW_ruleNumAlt_in_entryRuleNumAlt11045);
             iv_ruleNumAlt=ruleNumAlt();
 
             state._fsp--;
@@ -13192,7 +13508,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleNumAlt; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumAlt10919); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNumAlt11055); if (state.failed) return current;
 
             }
 
@@ -13210,7 +13526,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumAlt"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4535:1: ruleNumAlt returns [EObject current=null] : (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4611:1: ruleNumAlt returns [EObject current=null] : (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm ) ;
     public final EObject ruleNumAlt() throws RecognitionException {
         EObject current = null;
 
@@ -13222,36 +13538,36 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4538:28: ( (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4539:1: (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4614:28: ( (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4615:1: (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4539:1: (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm )
-            int alt87=2;
-            int LA87_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4615:1: (this_ARealTerm_0= ruleARealTerm | this_AIntegerTerm_1= ruleAIntegerTerm )
+            int alt93=2;
+            int LA93_0 = input.LA(1);
 
-            if ( (LA87_0==RULE_REAL_LIT) ) {
-                alt87=1;
+            if ( (LA93_0==RULE_REAL_LIT) ) {
+                alt93=1;
             }
-            else if ( (LA87_0==RULE_INT) ) {
-                alt87=2;
+            else if ( (LA93_0==RULE_INT) ) {
+                alt93=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 87, 0, input);
+                    new NoViableAltException("", 93, 0, input);
 
                 throw nvae;
             }
-            switch (alt87) {
+            switch (alt93) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4540:5: this_ARealTerm_0= ruleARealTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4616:5: this_ARealTerm_0= ruleARealTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getNumAltAccess().getARealTermParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleARealTerm_in_ruleNumAlt10966);
+                    pushFollow(FOLLOW_ruleARealTerm_in_ruleNumAlt11102);
                     this_ARealTerm_0=ruleARealTerm();
 
                     state._fsp--;
@@ -13266,14 +13582,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4550:5: this_AIntegerTerm_1= ruleAIntegerTerm
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4626:5: this_AIntegerTerm_1= ruleAIntegerTerm
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getNumAltAccess().getAIntegerTermParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleAIntegerTerm_in_ruleNumAlt10993);
+                    pushFollow(FOLLOW_ruleAIntegerTerm_in_ruleNumAlt11129);
                     this_AIntegerTerm_1=ruleAIntegerTerm();
 
                     state._fsp--;
@@ -13310,7 +13626,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleASetTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4566:1: entryRuleASetTerm returns [EObject current=null] : iv_ruleASetTerm= ruleASetTerm EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4642:1: entryRuleASetTerm returns [EObject current=null] : iv_ruleASetTerm= ruleASetTerm EOF ;
     public final EObject entryRuleASetTerm() throws RecognitionException {
         EObject current = null;
 
@@ -13318,13 +13634,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4567:2: (iv_ruleASetTerm= ruleASetTerm EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4568:2: iv_ruleASetTerm= ruleASetTerm EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4643:2: (iv_ruleASetTerm= ruleASetTerm EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4644:2: iv_ruleASetTerm= ruleASetTerm EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getASetTermRule()); 
             }
-            pushFollow(FOLLOW_ruleASetTerm_in_entryRuleASetTerm11028);
+            pushFollow(FOLLOW_ruleASetTerm_in_entryRuleASetTerm11164);
             iv_ruleASetTerm=ruleASetTerm();
 
             state._fsp--;
@@ -13332,7 +13648,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleASetTerm; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleASetTerm11038); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleASetTerm11174); if (state.failed) return current;
 
             }
 
@@ -13350,7 +13666,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleASetTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4575:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4651:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
     public final EObject ruleASetTerm() throws RecognitionException {
         EObject current = null;
 
@@ -13365,14 +13681,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4578:28: ( ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4579:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4654:28: ( ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4655:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4579:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4579:2: () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4655:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4655:2: () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4579:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4580:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4655:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4656:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -13384,35 +13700,35 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,85,FOLLOW_85_in_ruleASetTerm11084); if (state.failed) return current;
+            otherlv_1=(Token)match(input,85,FOLLOW_85_in_ruleASetTerm11220); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4589:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
-            int alt89=2;
-            int LA89_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4665:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
+            int alt95=2;
+            int LA95_0 = input.LA(1);
 
-            if ( ((LA89_0>=RULE_STRING && LA89_0<=RULE_REAL_LIT)||LA89_0==35||LA89_0==63||(LA89_0>=80 && LA89_0<=81)||(LA89_0>=84 && LA89_0<=85)||(LA89_0>=87 && LA89_0<=90)) ) {
-                alt89=1;
+            if ( ((LA95_0>=RULE_STRING && LA95_0<=RULE_REAL_LIT)||LA95_0==35||LA95_0==63||(LA95_0>=80 && LA95_0<=81)||(LA95_0>=84 && LA95_0<=85)||(LA95_0>=87 && LA95_0<=90)) ) {
+                alt95=1;
             }
-            switch (alt89) {
+            switch (alt95) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4589:2: ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )*
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4665:2: ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )*
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4589:2: ( (lv_elements_2_0= ruleAExpression ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4590:1: (lv_elements_2_0= ruleAExpression )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4665:2: ( (lv_elements_2_0= ruleAExpression ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4666:1: (lv_elements_2_0= ruleAExpression )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4590:1: (lv_elements_2_0= ruleAExpression )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4591:3: lv_elements_2_0= ruleAExpression
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4666:1: (lv_elements_2_0= ruleAExpression )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4667:3: lv_elements_2_0= ruleAExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getASetTermAccess().getElementsAExpressionParserRuleCall_2_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAExpression_in_ruleASetTerm11106);
+                    pushFollow(FOLLOW_ruleAExpression_in_ruleASetTerm11242);
                     lv_elements_2_0=ruleAExpression();
 
                     state._fsp--;
@@ -13436,39 +13752,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4607:2: (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )*
-                    loop88:
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4683:2: (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )*
+                    loop94:
                     do {
-                        int alt88=2;
-                        int LA88_0 = input.LA(1);
+                        int alt94=2;
+                        int LA94_0 = input.LA(1);
 
-                        if ( (LA88_0==34) ) {
-                            alt88=1;
+                        if ( (LA94_0==34) ) {
+                            alt94=1;
                         }
 
 
-                        switch (alt88) {
+                        switch (alt94) {
                     	case 1 :
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4607:4: otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4683:4: otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,34,FOLLOW_34_in_ruleASetTerm11119); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,34,FOLLOW_34_in_ruleASetTerm11255); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getASetTermAccess().getCommaKeyword_2_1_0());
                     	          
                     	    }
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4611:1: ( (lv_elements_4_0= ruleAExpression ) )
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4612:1: (lv_elements_4_0= ruleAExpression )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4687:1: ( (lv_elements_4_0= ruleAExpression ) )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4688:1: (lv_elements_4_0= ruleAExpression )
                     	    {
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4612:1: (lv_elements_4_0= ruleAExpression )
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4613:3: lv_elements_4_0= ruleAExpression
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4688:1: (lv_elements_4_0= ruleAExpression )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4689:3: lv_elements_4_0= ruleAExpression
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getASetTermAccess().getElementsAExpressionParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleAExpression_in_ruleASetTerm11140);
+                    	    pushFollow(FOLLOW_ruleAExpression_in_ruleASetTerm11276);
                     	    lv_elements_4_0=ruleAExpression();
 
                     	    state._fsp--;
@@ -13497,7 +13813,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop88;
+                    	    break loop94;
                         }
                     } while (true);
 
@@ -13507,7 +13823,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,86,FOLLOW_86_in_ruleASetTerm11156); if (state.failed) return current;
+            otherlv_5=(Token)match(input,86,FOLLOW_86_in_ruleASetTerm11292); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getASetTermAccess().getRightCurlyBracketKeyword_3());
@@ -13536,7 +13852,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAListTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4641:1: entryRuleAListTerm returns [EObject current=null] : iv_ruleAListTerm= ruleAListTerm EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4717:1: entryRuleAListTerm returns [EObject current=null] : iv_ruleAListTerm= ruleAListTerm EOF ;
     public final EObject entryRuleAListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -13544,13 +13860,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4642:2: (iv_ruleAListTerm= ruleAListTerm EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4643:2: iv_ruleAListTerm= ruleAListTerm EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4718:2: (iv_ruleAListTerm= ruleAListTerm EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4719:2: iv_ruleAListTerm= ruleAListTerm EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAListTermRule()); 
             }
-            pushFollow(FOLLOW_ruleAListTerm_in_entryRuleAListTerm11192);
+            pushFollow(FOLLOW_ruleAListTerm_in_entryRuleAListTerm11328);
             iv_ruleAListTerm=ruleAListTerm();
 
             state._fsp--;
@@ -13558,7 +13874,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAListTerm; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAListTerm11202); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAListTerm11338); if (state.failed) return current;
 
             }
 
@@ -13576,7 +13892,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAListTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4650:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4726:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' ) ;
     public final EObject ruleAListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -13592,14 +13908,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4653:28: ( ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4654:1: ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4729:28: ( ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4730:1: ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4654:1: ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4654:2: () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4730:1: ( () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4730:2: () otherlv_1= '#' otherlv_2= '[' ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= ']'
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4654:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4655:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4730:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4731:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -13611,41 +13927,41 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,87,FOLLOW_87_in_ruleAListTerm11248); if (state.failed) return current;
+            otherlv_1=(Token)match(input,87,FOLLOW_87_in_ruleAListTerm11384); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignKeyword_1());
                   
             }
-            otherlv_2=(Token)match(input,21,FOLLOW_21_in_ruleAListTerm11260); if (state.failed) return current;
+            otherlv_2=(Token)match(input,21,FOLLOW_21_in_ruleAListTerm11396); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_2());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4668:1: ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )?
-            int alt91=2;
-            int LA91_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4744:1: ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )* )?
+            int alt97=2;
+            int LA97_0 = input.LA(1);
 
-            if ( ((LA91_0>=RULE_STRING && LA91_0<=RULE_REAL_LIT)||LA91_0==35||LA91_0==63||(LA91_0>=80 && LA91_0<=81)||(LA91_0>=84 && LA91_0<=85)||(LA91_0>=87 && LA91_0<=90)) ) {
-                alt91=1;
+            if ( ((LA97_0>=RULE_STRING && LA97_0<=RULE_REAL_LIT)||LA97_0==35||LA97_0==63||(LA97_0>=80 && LA97_0<=81)||(LA97_0>=84 && LA97_0<=85)||(LA97_0>=87 && LA97_0<=90)) ) {
+                alt97=1;
             }
-            switch (alt91) {
+            switch (alt97) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4668:2: ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4744:2: ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )*
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4668:2: ( (lv_elements_3_0= ruleAExpression ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4669:1: (lv_elements_3_0= ruleAExpression )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4744:2: ( (lv_elements_3_0= ruleAExpression ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4745:1: (lv_elements_3_0= ruleAExpression )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4669:1: (lv_elements_3_0= ruleAExpression )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4670:3: lv_elements_3_0= ruleAExpression
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4745:1: (lv_elements_3_0= ruleAExpression )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4746:3: lv_elements_3_0= ruleAExpression
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getAListTermAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleAExpression_in_ruleAListTerm11282);
+                    pushFollow(FOLLOW_ruleAExpression_in_ruleAListTerm11418);
                     lv_elements_3_0=ruleAExpression();
 
                     state._fsp--;
@@ -13669,39 +13985,39 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4686:2: (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )*
-                    loop90:
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4762:2: (otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    loop96:
                     do {
-                        int alt90=2;
-                        int LA90_0 = input.LA(1);
+                        int alt96=2;
+                        int LA96_0 = input.LA(1);
 
-                        if ( (LA90_0==34) ) {
-                            alt90=1;
+                        if ( (LA96_0==34) ) {
+                            alt96=1;
                         }
 
 
-                        switch (alt90) {
+                        switch (alt96) {
                     	case 1 :
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4686:4: otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4762:4: otherlv_4= ',' ( (lv_elements_5_0= ruleAExpression ) )
                     	    {
-                    	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleAListTerm11295); if (state.failed) return current;
+                    	    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleAListTerm11431); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_4, grammarAccess.getAListTermAccess().getCommaKeyword_3_1_0());
                     	          
                     	    }
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4690:1: ( (lv_elements_5_0= ruleAExpression ) )
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4691:1: (lv_elements_5_0= ruleAExpression )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4766:1: ( (lv_elements_5_0= ruleAExpression ) )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4767:1: (lv_elements_5_0= ruleAExpression )
                     	    {
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4691:1: (lv_elements_5_0= ruleAExpression )
-                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4692:3: lv_elements_5_0= ruleAExpression
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4767:1: (lv_elements_5_0= ruleAExpression )
+                    	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4768:3: lv_elements_5_0= ruleAExpression
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getAListTermAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleAExpression_in_ruleAListTerm11316);
+                    	    pushFollow(FOLLOW_ruleAExpression_in_ruleAListTerm11452);
                     	    lv_elements_5_0=ruleAExpression();
 
                     	    state._fsp--;
@@ -13730,7 +14046,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop90;
+                    	    break loop96;
                         }
                     } while (true);
 
@@ -13740,7 +14056,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,23,FOLLOW_23_in_ruleAListTerm11332); if (state.failed) return current;
+            otherlv_6=(Token)match(input,23,FOLLOW_23_in_ruleAListTerm11468); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getAListTermAccess().getRightSquareBracketKeyword_4());
@@ -13769,7 +14085,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAParenthesizedExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4720:1: entryRuleAParenthesizedExpression returns [EObject current=null] : iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4796:1: entryRuleAParenthesizedExpression returns [EObject current=null] : iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF ;
     public final EObject entryRuleAParenthesizedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13777,13 +14093,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4721:2: (iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4722:2: iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4797:2: (iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4798:2: iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAParenthesizedExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression11368);
+            pushFollow(FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression11504);
             iv_ruleAParenthesizedExpression=ruleAParenthesizedExpression();
 
             state._fsp--;
@@ -13791,7 +14107,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAParenthesizedExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAParenthesizedExpression11378); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAParenthesizedExpression11514); if (state.failed) return current;
 
             }
 
@@ -13809,7 +14125,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAParenthesizedExpression"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4729:1: ruleAParenthesizedExpression returns [EObject current=null] : (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4805:1: ruleAParenthesizedExpression returns [EObject current=null] : (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' ) ;
     public final EObject ruleAParenthesizedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -13821,13 +14137,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4732:28: ( (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4733:1: (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4808:28: ( (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4809:1: (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4733:1: (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4733:3: otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4809:1: (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4809:3: otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')'
             {
-            otherlv_0=(Token)match(input,35,FOLLOW_35_in_ruleAParenthesizedExpression11415); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_35_in_ruleAParenthesizedExpression11551); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
@@ -13838,7 +14154,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getAParenthesizedExpressionAccess().getAExpressionParserRuleCall_1()); 
                   
             }
-            pushFollow(FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression11437);
+            pushFollow(FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression11573);
             this_AExpression_1=ruleAExpression();
 
             state._fsp--;
@@ -13849,7 +14165,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            otherlv_2=(Token)match(input,36,FOLLOW_36_in_ruleAParenthesizedExpression11448); if (state.failed) return current;
+            otherlv_2=(Token)match(input,36,FOLLOW_36_in_ruleAParenthesizedExpression11584); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2());
@@ -13878,7 +14194,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleABooleanLiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4758:1: entryRuleABooleanLiteral returns [EObject current=null] : iv_ruleABooleanLiteral= ruleABooleanLiteral EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4834:1: entryRuleABooleanLiteral returns [EObject current=null] : iv_ruleABooleanLiteral= ruleABooleanLiteral EOF ;
     public final EObject entryRuleABooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -13886,13 +14202,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4759:2: (iv_ruleABooleanLiteral= ruleABooleanLiteral EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4760:2: iv_ruleABooleanLiteral= ruleABooleanLiteral EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4835:2: (iv_ruleABooleanLiteral= ruleABooleanLiteral EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4836:2: iv_ruleABooleanLiteral= ruleABooleanLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getABooleanLiteralRule()); 
             }
-            pushFollow(FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral11484);
+            pushFollow(FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral11620);
             iv_ruleABooleanLiteral=ruleABooleanLiteral();
 
             state._fsp--;
@@ -13900,7 +14216,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleABooleanLiteral; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleABooleanLiteral11494); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleABooleanLiteral11630); if (state.failed) return current;
 
             }
 
@@ -13918,7 +14234,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleABooleanLiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4767:1: ruleABooleanLiteral returns [EObject current=null] : ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4843:1: ruleABooleanLiteral returns [EObject current=null] : ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) ) ;
     public final EObject ruleABooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -13928,14 +14244,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4770:28: ( ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4771:1: ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4846:28: ( ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4847:1: ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4771:1: ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4771:2: () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4847:1: ( () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4847:2: () ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4771:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4772:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4847:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4848:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -13947,34 +14263,34 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4777:2: ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' )
-            int alt92=2;
-            int LA92_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4853:2: ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' )
+            int alt98=2;
+            int LA98_0 = input.LA(1);
 
-            if ( (LA92_0==88) ) {
-                alt92=1;
+            if ( (LA98_0==88) ) {
+                alt98=1;
             }
-            else if ( (LA92_0==89) ) {
-                alt92=2;
+            else if ( (LA98_0==89) ) {
+                alt98=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 92, 0, input);
+                    new NoViableAltException("", 98, 0, input);
 
                 throw nvae;
             }
-            switch (alt92) {
+            switch (alt98) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4777:3: ( (lv_value_1_0= 'true' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4853:3: ( (lv_value_1_0= 'true' ) )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4777:3: ( (lv_value_1_0= 'true' ) )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4778:1: (lv_value_1_0= 'true' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4853:3: ( (lv_value_1_0= 'true' ) )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4854:1: (lv_value_1_0= 'true' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4778:1: (lv_value_1_0= 'true' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4779:3: lv_value_1_0= 'true'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4854:1: (lv_value_1_0= 'true' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4855:3: lv_value_1_0= 'true'
                     {
-                    lv_value_1_0=(Token)match(input,88,FOLLOW_88_in_ruleABooleanLiteral11547); if (state.failed) return current;
+                    lv_value_1_0=(Token)match(input,88,FOLLOW_88_in_ruleABooleanLiteral11683); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_value_1_0, grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0());
@@ -13998,9 +14314,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4793:7: otherlv_2= 'false'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4869:7: otherlv_2= 'false'
                     {
-                    otherlv_2=(Token)match(input,89,FOLLOW_89_in_ruleABooleanLiteral11578); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,89,FOLLOW_89_in_ruleABooleanLiteral11714); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_1());
@@ -14035,7 +14351,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleANullLiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4805:1: entryRuleANullLiteral returns [EObject current=null] : iv_ruleANullLiteral= ruleANullLiteral EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4881:1: entryRuleANullLiteral returns [EObject current=null] : iv_ruleANullLiteral= ruleANullLiteral EOF ;
     public final EObject entryRuleANullLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -14043,13 +14359,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4806:2: (iv_ruleANullLiteral= ruleANullLiteral EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4807:2: iv_ruleANullLiteral= ruleANullLiteral EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4882:2: (iv_ruleANullLiteral= ruleANullLiteral EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4883:2: iv_ruleANullLiteral= ruleANullLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getANullLiteralRule()); 
             }
-            pushFollow(FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral11615);
+            pushFollow(FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral11751);
             iv_ruleANullLiteral=ruleANullLiteral();
 
             state._fsp--;
@@ -14057,7 +14373,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleANullLiteral; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleANullLiteral11625); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleANullLiteral11761); if (state.failed) return current;
 
             }
 
@@ -14075,7 +14391,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleANullLiteral"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4814:1: ruleANullLiteral returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4890:1: ruleANullLiteral returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
     public final EObject ruleANullLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -14084,14 +14400,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4817:28: ( ( () otherlv_1= 'null' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4818:1: ( () otherlv_1= 'null' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4893:28: ( ( () otherlv_1= 'null' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4894:1: ( () otherlv_1= 'null' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4818:1: ( () otherlv_1= 'null' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4818:2: () otherlv_1= 'null'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4894:1: ( () otherlv_1= 'null' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4894:2: () otherlv_1= 'null'
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4818:2: ()
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4819:5: 
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4894:2: ()
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4895:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -14103,7 +14419,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,90,FOLLOW_90_in_ruleANullLiteral11671); if (state.failed) return current;
+            otherlv_1=(Token)match(input,90,FOLLOW_90_in_ruleANullLiteral11807); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getANullLiteralAccess().getNullKeyword_1());
@@ -14132,7 +14448,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4836:1: entryRuleStringTerm returns [EObject current=null] : iv_ruleStringTerm= ruleStringTerm EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4912:1: entryRuleStringTerm returns [EObject current=null] : iv_ruleStringTerm= ruleStringTerm EOF ;
     public final EObject entryRuleStringTerm() throws RecognitionException {
         EObject current = null;
 
@@ -14140,13 +14456,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4837:2: (iv_ruleStringTerm= ruleStringTerm EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4838:2: iv_ruleStringTerm= ruleStringTerm EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4913:2: (iv_ruleStringTerm= ruleStringTerm EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4914:2: iv_ruleStringTerm= ruleStringTerm EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getStringTermRule()); 
             }
-            pushFollow(FOLLOW_ruleStringTerm_in_entryRuleStringTerm11707);
+            pushFollow(FOLLOW_ruleStringTerm_in_entryRuleStringTerm11843);
             iv_ruleStringTerm=ruleStringTerm();
 
             state._fsp--;
@@ -14154,7 +14470,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleStringTerm; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStringTerm11717); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleStringTerm11853); if (state.failed) return current;
 
             }
 
@@ -14172,7 +14488,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringTerm"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4845:1: ruleStringTerm returns [EObject current=null] : ( (lv_value_0_0= ruleNoQuoteString ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4921:1: ruleStringTerm returns [EObject current=null] : ( (lv_value_0_0= ruleNoQuoteString ) ) ;
     public final EObject ruleStringTerm() throws RecognitionException {
         EObject current = null;
 
@@ -14182,21 +14498,21 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4848:28: ( ( (lv_value_0_0= ruleNoQuoteString ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4849:1: ( (lv_value_0_0= ruleNoQuoteString ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4924:28: ( ( (lv_value_0_0= ruleNoQuoteString ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4925:1: ( (lv_value_0_0= ruleNoQuoteString ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4849:1: ( (lv_value_0_0= ruleNoQuoteString ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4850:1: (lv_value_0_0= ruleNoQuoteString )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4925:1: ( (lv_value_0_0= ruleNoQuoteString ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4926:1: (lv_value_0_0= ruleNoQuoteString )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4850:1: (lv_value_0_0= ruleNoQuoteString )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4851:3: lv_value_0_0= ruleNoQuoteString
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4926:1: (lv_value_0_0= ruleNoQuoteString )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4927:3: lv_value_0_0= ruleNoQuoteString
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleNoQuoteString_in_ruleStringTerm11762);
+            pushFollow(FOLLOW_ruleNoQuoteString_in_ruleStringTerm11898);
             lv_value_0_0=ruleNoQuoteString();
 
             state._fsp--;
@@ -14240,7 +14556,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNoQuoteString"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4875:1: entryRuleNoQuoteString returns [String current=null] : iv_ruleNoQuoteString= ruleNoQuoteString EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4951:1: entryRuleNoQuoteString returns [String current=null] : iv_ruleNoQuoteString= ruleNoQuoteString EOF ;
     public final String entryRuleNoQuoteString() throws RecognitionException {
         String current = null;
 
@@ -14248,13 +14564,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4876:2: (iv_ruleNoQuoteString= ruleNoQuoteString EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4877:2: iv_ruleNoQuoteString= ruleNoQuoteString EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4952:2: (iv_ruleNoQuoteString= ruleNoQuoteString EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4953:2: iv_ruleNoQuoteString= ruleNoQuoteString EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNoQuoteStringRule()); 
             }
-            pushFollow(FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString11798);
+            pushFollow(FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString11934);
             iv_ruleNoQuoteString=ruleNoQuoteString();
 
             state._fsp--;
@@ -14262,7 +14578,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleNoQuoteString.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNoQuoteString11809); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNoQuoteString11945); if (state.failed) return current;
 
             }
 
@@ -14280,7 +14596,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNoQuoteString"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4884:1: ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4960:1: ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
     public final AntlrDatatypeRuleToken ruleNoQuoteString() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -14289,10 +14605,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4887:28: (this_STRING_0= RULE_STRING )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4888:5: this_STRING_0= RULE_STRING
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4963:28: (this_STRING_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4964:5: this_STRING_0= RULE_STRING
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleNoQuoteString11848); if (state.failed) return current;
+            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleNoQuoteString11984); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_STRING_0);
@@ -14322,8 +14638,496 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleNoQuoteString"
 
 
+    // $ANTLR start "entryRuleComponentCategory"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4979:1: entryRuleComponentCategory returns [String current=null] : iv_ruleComponentCategory= ruleComponentCategory EOF ;
+    public final String entryRuleComponentCategory() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleComponentCategory = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4980:2: (iv_ruleComponentCategory= ruleComponentCategory EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4981:2: iv_ruleComponentCategory= ruleComponentCategory EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getComponentCategoryRule()); 
+            }
+            pushFollow(FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory12029);
+            iv_ruleComponentCategory=ruleComponentCategory();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleComponentCategory.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleComponentCategory12040); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleComponentCategory"
+
+
+    // $ANTLR start "ruleComponentCategory"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4988:1: ruleComponentCategory returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) ) ;
+    public final AntlrDatatypeRuleToken ruleComponentCategory() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4991:28: ( (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4992:1: (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4992:1: (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) )
+            int alt99=14;
+            alt99 = dfa99.predict(input);
+            switch (alt99) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4993:2: kw= 'abstract'
+                    {
+                    kw=(Token)match(input,91,FOLLOW_91_in_ruleComponentCategory12078); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getAbstractKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5000:2: kw= 'bus'
+                    {
+                    kw=(Token)match(input,92,FOLLOW_92_in_ruleComponentCategory12097); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getBusKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5007:2: kw= 'data'
+                    {
+                    kw=(Token)match(input,93,FOLLOW_93_in_ruleComponentCategory12116); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getDataKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5014:2: kw= 'device'
+                    {
+                    kw=(Token)match(input,94,FOLLOW_94_in_ruleComponentCategory12135); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getDeviceKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5021:2: kw= 'memory'
+                    {
+                    kw=(Token)match(input,95,FOLLOW_95_in_ruleComponentCategory12154); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getMemoryKeyword_4()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5028:2: kw= 'process'
+                    {
+                    kw=(Token)match(input,96,FOLLOW_96_in_ruleComponentCategory12173); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessKeyword_5()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 7 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5035:2: kw= 'processor'
+                    {
+                    kw=(Token)match(input,97,FOLLOW_97_in_ruleComponentCategory12192); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessorKeyword_6()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 8 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5042:2: kw= 'subprogram'
+                    {
+                    kw=(Token)match(input,98,FOLLOW_98_in_ruleComponentCategory12211); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_7()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 9 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5048:6: (kw= 'subprogram' kw= 'group' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5048:6: (kw= 'subprogram' kw= 'group' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5049:2: kw= 'subprogram' kw= 'group'
+                    {
+                    kw=(Token)match(input,98,FOLLOW_98_in_ruleComponentCategory12231); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_8_0()); 
+                          
+                    }
+                    kw=(Token)match(input,99,FOLLOW_99_in_ruleComponentCategory12244); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getGroupKeyword_8_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 10 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5062:2: kw= 'system'
+                    {
+                    kw=(Token)match(input,100,FOLLOW_100_in_ruleComponentCategory12264); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSystemKeyword_9()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 11 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5068:6: (kw= 'thread' kw= 'group' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5068:6: (kw= 'thread' kw= 'group' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5069:2: kw= 'thread' kw= 'group'
+                    {
+                    kw=(Token)match(input,101,FOLLOW_101_in_ruleComponentCategory12284); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_10_0()); 
+                          
+                    }
+                    kw=(Token)match(input,99,FOLLOW_99_in_ruleComponentCategory12297); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getGroupKeyword_10_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 12 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5082:2: kw= 'thread'
+                    {
+                    kw=(Token)match(input,101,FOLLOW_101_in_ruleComponentCategory12317); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_11()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 13 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5088:6: (kw= 'virtual' kw= 'bus' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5088:6: (kw= 'virtual' kw= 'bus' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5089:2: kw= 'virtual' kw= 'bus'
+                    {
+                    kw=(Token)match(input,102,FOLLOW_102_in_ruleComponentCategory12337); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_12_0()); 
+                          
+                    }
+                    kw=(Token)match(input,92,FOLLOW_92_in_ruleComponentCategory12350); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getBusKeyword_12_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 14 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5101:6: (kw= 'virtual' kw= 'processor' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5101:6: (kw= 'virtual' kw= 'processor' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5102:2: kw= 'virtual' kw= 'processor'
+                    {
+                    kw=(Token)match(input,102,FOLLOW_102_in_ruleComponentCategory12371); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_13_0()); 
+                          
+                    }
+                    kw=(Token)match(input,97,FOLLOW_97_in_ruleComponentCategory12384); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessorKeyword_13_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleComponentCategory"
+
+
+    // $ANTLR start "entryRuleAadlClassifierReference"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5121:1: entryRuleAadlClassifierReference returns [String current=null] : iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF ;
+    public final String entryRuleAadlClassifierReference() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleAadlClassifierReference = null;
+
+
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5122:2: (iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5123:2: iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); 
+            }
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference12426);
+            iv_ruleAadlClassifierReference=ruleAadlClassifierReference();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAadlClassifierReference.getText(); 
+            }
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAadlClassifierReference12437); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAadlClassifierReference"
+
+
+    // $ANTLR start "ruleAadlClassifierReference"
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5130:1: ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )+ (kw= '.' this_ID_4= RULE_ID )? ) ;
+    public final AntlrDatatypeRuleToken ruleAadlClassifierReference() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token this_ID_0=null;
+        Token kw=null;
+        Token this_ID_2=null;
+        Token this_ID_4=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5133:28: ( (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )+ (kw= '.' this_ID_4= RULE_ID )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5134:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )+ (kw= '.' this_ID_4= RULE_ID )? )
+            {
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5134:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )+ (kw= '.' this_ID_4= RULE_ID )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5134:6: this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )+ (kw= '.' this_ID_4= RULE_ID )?
+            {
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAadlClassifierReference12477); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              		current.merge(this_ID_0);
+                  
+            }
+            if ( state.backtracking==0 ) {
+               
+                  newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
+                  
+            }
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5141:1: (kw= '::' this_ID_2= RULE_ID )+
+            int cnt100=0;
+            loop100:
+            do {
+                int alt100=2;
+                int LA100_0 = input.LA(1);
+
+                if ( (LA100_0==103) ) {
+                    alt100=1;
+                }
+
+
+                switch (alt100) {
+            	case 1 :
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5142:2: kw= '::' this_ID_2= RULE_ID
+            	    {
+            	    kw=(Token)match(input,103,FOLLOW_103_in_ruleAadlClassifierReference12496); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	              current.merge(kw);
+            	              newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
+            	          
+            	    }
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAadlClassifierReference12511); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      		current.merge(this_ID_2);
+            	          
+            	    }
+            	    if ( state.backtracking==0 ) {
+            	       
+            	          newLeafNode(this_ID_2, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
+            	          
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt100 >= 1 ) break loop100;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(100, input);
+                        throw eee;
+                }
+                cnt100++;
+            } while (true);
+
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5154:3: (kw= '.' this_ID_4= RULE_ID )?
+            int alt101=2;
+            int LA101_0 = input.LA(1);
+
+            if ( (LA101_0==66) ) {
+                alt101=1;
+            }
+            switch (alt101) {
+                case 1 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5155:2: kw= '.' this_ID_4= RULE_ID
+                    {
+                    kw=(Token)match(input,66,FOLLOW_66_in_ruleAadlClassifierReference12532); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
+                          
+                    }
+                    this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAadlClassifierReference12547); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      		current.merge(this_ID_4);
+                          
+                    }
+                    if ( state.backtracking==0 ) {
+                       
+                          newLeafNode(this_ID_4, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAadlClassifierReference"
+
+
     // $ANTLR start "entryRuleAADLPROPERTYREFERENCE"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4907:1: entryRuleAADLPROPERTYREFERENCE returns [String current=null] : iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5175:1: entryRuleAADLPROPERTYREFERENCE returns [String current=null] : iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF ;
     public final String entryRuleAADLPROPERTYREFERENCE() throws RecognitionException {
         String current = null;
 
@@ -14331,13 +15135,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4908:2: (iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4909:2: iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5176:2: (iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5177:2: iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCERule()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE11897);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE12595);
             iv_ruleAADLPROPERTYREFERENCE=ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -14345,7 +15149,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAADLPROPERTYREFERENCE.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE11908); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE12606); if (state.failed) return current;
 
             }
 
@@ -14363,7 +15167,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAADLPROPERTYREFERENCE"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4916:1: ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5184:1: ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? ) ;
     public final AntlrDatatypeRuleToken ruleAADLPROPERTYREFERENCE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -14374,13 +15178,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4919:28: ( (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4920:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5187:28: ( (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5188:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4920:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4920:6: this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )?
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5188:1: (this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )? )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5188:6: this_ID_0= RULE_ID (kw= '::' this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE11948); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE12646); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -14391,25 +15195,25 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4927:1: (kw= '::' this_ID_2= RULE_ID )?
-            int alt93=2;
-            int LA93_0 = input.LA(1);
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5195:1: (kw= '::' this_ID_2= RULE_ID )?
+            int alt102=2;
+            int LA102_0 = input.LA(1);
 
-            if ( (LA93_0==91) ) {
-                alt93=1;
+            if ( (LA102_0==103) ) {
+                alt102=1;
             }
-            switch (alt93) {
+            switch (alt102) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4928:2: kw= '::' this_ID_2= RULE_ID
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5196:2: kw= '::' this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,91,FOLLOW_91_in_ruleAADLPROPERTYREFERENCE11967); if (state.failed) return current;
+                    kw=(Token)match(input,103,FOLLOW_103_in_ruleAADLPROPERTYREFERENCE12665); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
                           
                     }
-                    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE11982); if (state.failed) return current;
+                    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE12680); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_ID_2);
@@ -14449,7 +15253,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleURIID"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4948:1: entryRuleURIID returns [String current=null] : iv_ruleURIID= ruleURIID EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5216:1: entryRuleURIID returns [String current=null] : iv_ruleURIID= ruleURIID EOF ;
     public final String entryRuleURIID() throws RecognitionException {
         String current = null;
 
@@ -14457,13 +15261,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4949:2: (iv_ruleURIID= ruleURIID EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4950:2: iv_ruleURIID= ruleURIID EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5217:2: (iv_ruleURIID= ruleURIID EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5218:2: iv_ruleURIID= ruleURIID EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getURIIDRule()); 
             }
-            pushFollow(FOLLOW_ruleURIID_in_entryRuleURIID12030);
+            pushFollow(FOLLOW_ruleURIID_in_entryRuleURIID12728);
             iv_ruleURIID=ruleURIID();
 
             state._fsp--;
@@ -14471,7 +15275,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleURIID.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleURIID12041); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleURIID12739); if (state.failed) return current;
 
             }
 
@@ -14489,7 +15293,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleURIID"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4957:1: ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5225:1: ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
     public final AntlrDatatypeRuleToken ruleURIID() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -14498,10 +15302,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4960:28: (this_STRING_0= RULE_STRING )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4961:5: this_STRING_0= RULE_STRING
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5228:28: (this_STRING_0= RULE_STRING )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5229:5: this_STRING_0= RULE_STRING
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleURIID12080); if (state.failed) return current;
+            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleURIID12778); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_STRING_0);
@@ -14532,7 +15336,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4976:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5244:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -14540,13 +15344,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4977:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4978:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5245:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5246:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName12125);
+            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName12823);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
@@ -14554,7 +15358,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedName.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName12136); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName12834); if (state.failed) return current;
 
             }
 
@@ -14572,7 +15376,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4985:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5253:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -14583,13 +15387,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4988:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4989:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5256:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5257:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4989:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4989:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5257:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5257:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName12176); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName12874); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -14600,29 +15404,29 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4996:1: (kw= '.' this_ID_2= RULE_ID )*
-            loop94:
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5264:1: (kw= '.' this_ID_2= RULE_ID )*
+            loop103:
             do {
-                int alt94=2;
-                int LA94_0 = input.LA(1);
+                int alt103=2;
+                int LA103_0 = input.LA(1);
 
-                if ( (LA94_0==66) ) {
-                    alt94=1;
+                if ( (LA103_0==66) ) {
+                    alt103=1;
                 }
 
 
-                switch (alt94) {
+                switch (alt103) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4997:2: kw= '.' this_ID_2= RULE_ID
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5265:2: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,66,FOLLOW_66_in_ruleQualifiedName12195); if (state.failed) return current;
+            	    kw=(Token)match(input,66,FOLLOW_66_in_ruleQualifiedName12893); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
             	              newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	          
             	    }
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName12210); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName12908); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -14638,7 +15442,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop94;
+            	    break loop103;
                 }
             } while (true);
 
@@ -14665,7 +15469,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleResultIssueType"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5017:1: ruleResultIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5285:1: ruleResultIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) ;
     public final Enumerator ruleResultIssueType() throws RecognitionException {
         Enumerator current = null;
 
@@ -14678,58 +15482,58 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5019:28: ( ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5020:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5287:28: ( ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5288:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5020:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
-            int alt95=6;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5288:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
+            int alt104=6;
             switch ( input.LA(1) ) {
-            case 92:
+            case 104:
                 {
-                alt95=1;
+                alt104=1;
                 }
                 break;
             case 32:
                 {
-                alt95=2;
+                alt104=2;
                 }
                 break;
-            case 93:
+            case 105:
                 {
-                alt95=3;
+                alt104=3;
                 }
                 break;
-            case 94:
+            case 106:
                 {
-                alt95=4;
+                alt104=4;
                 }
                 break;
-            case 95:
+            case 107:
                 {
-                alt95=5;
+                alt104=5;
                 }
                 break;
             case 30:
                 {
-                alt95=6;
+                alt104=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 95, 0, input);
+                    new NoViableAltException("", 104, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt95) {
+            switch (alt104) {
                 case 1 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5020:2: (enumLiteral_0= 'tbd' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5288:2: (enumLiteral_0= 'tbd' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5020:2: (enumLiteral_0= 'tbd' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5020:4: enumLiteral_0= 'tbd'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5288:2: (enumLiteral_0= 'tbd' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5288:4: enumLiteral_0= 'tbd'
                     {
-                    enumLiteral_0=(Token)match(input,92,FOLLOW_92_in_ruleResultIssueType12271); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,104,FOLLOW_104_in_ruleResultIssueType12969); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -14743,12 +15547,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5026:6: (enumLiteral_1= 'error' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5294:6: (enumLiteral_1= 'error' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5026:6: (enumLiteral_1= 'error' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5026:8: enumLiteral_1= 'error'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5294:6: (enumLiteral_1= 'error' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5294:8: enumLiteral_1= 'error'
                     {
-                    enumLiteral_1=(Token)match(input,32,FOLLOW_32_in_ruleResultIssueType12288); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,32,FOLLOW_32_in_ruleResultIssueType12986); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -14762,12 +15566,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5032:6: (enumLiteral_2= 'warning' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5300:6: (enumLiteral_2= 'warning' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5032:6: (enumLiteral_2= 'warning' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5032:8: enumLiteral_2= 'warning'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5300:6: (enumLiteral_2= 'warning' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5300:8: enumLiteral_2= 'warning'
                     {
-                    enumLiteral_2=(Token)match(input,93,FOLLOW_93_in_ruleResultIssueType12305); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,105,FOLLOW_105_in_ruleResultIssueType13003); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -14781,12 +15585,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5038:6: (enumLiteral_3= 'info' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5306:6: (enumLiteral_3= 'info' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5038:6: (enumLiteral_3= 'info' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5038:8: enumLiteral_3= 'info'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5306:6: (enumLiteral_3= 'info' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5306:8: enumLiteral_3= 'info'
                     {
-                    enumLiteral_3=(Token)match(input,94,FOLLOW_94_in_ruleResultIssueType12322); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,106,FOLLOW_106_in_ruleResultIssueType13020); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -14800,12 +15604,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5044:6: (enumLiteral_4= 'success' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5312:6: (enumLiteral_4= 'success' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5044:6: (enumLiteral_4= 'success' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5044:8: enumLiteral_4= 'success'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5312:6: (enumLiteral_4= 'success' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5312:8: enumLiteral_4= 'success'
                     {
-                    enumLiteral_4=(Token)match(input,95,FOLLOW_95_in_ruleResultIssueType12339); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,107,FOLLOW_107_in_ruleResultIssueType13037); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -14819,12 +15623,12 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5050:6: (enumLiteral_5= 'fail' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5318:6: (enumLiteral_5= 'fail' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5050:6: (enumLiteral_5= 'fail' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5050:8: enumLiteral_5= 'fail'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5318:6: (enumLiteral_5= 'fail' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:5318:8: enumLiteral_5= 'fail'
                     {
-                    enumLiteral_5=(Token)match(input,30,FOLLOW_30_in_ruleResultIssueType12356); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,30,FOLLOW_30_in_ruleResultIssueType13054); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
@@ -14926,24 +15730,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred4_InternalVerify
     public final void synpred4_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:3: ( ( () ( ( ruleOpOr ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:4: ( () ( ( ruleOpOr ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:3: ( ( () ( ( ruleOpOr ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:4: ( () ( ( ruleOpOr ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:4: ( () ( ( ruleOpOr ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:5: () ( ( ruleOpOr ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:4: ( () ( ( ruleOpOr ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:5: () ( ( ruleOpOr ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3217:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3218:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3293:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3294:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3218:2: ( ( ruleOpOr ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3219:1: ( ruleOpOr )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3294:2: ( ( ruleOpOr ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3295:1: ( ruleOpOr )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3219:1: ( ruleOpOr )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3220:1: ruleOpOr
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3295:1: ( ruleOpOr )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3296:1: ruleOpOr
         {
-        pushFollow(FOLLOW_ruleOpOr_in_synpred4_InternalVerify7577);
+        pushFollow(FOLLOW_ruleOpOr_in_synpred4_InternalVerify7713);
         ruleOpOr();
 
         state._fsp--;
@@ -14964,24 +15768,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred5_InternalVerify
     public final void synpred5_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:3: ( ( () ( ( ruleOpAnd ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:4: ( () ( ( ruleOpAnd ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:3: ( ( () ( ( ruleOpAnd ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:4: ( () ( ( ruleOpAnd ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:4: ( () ( ( ruleOpAnd ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:5: () ( ( ruleOpAnd ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:4: ( () ( ( ruleOpAnd ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:5: () ( ( ruleOpAnd ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3321:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3322:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3397:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3398:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3322:2: ( ( ruleOpAnd ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3323:1: ( ruleOpAnd )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3398:2: ( ( ruleOpAnd ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3399:1: ( ruleOpAnd )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3323:1: ( ruleOpAnd )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3324:1: ruleOpAnd
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3399:1: ( ruleOpAnd )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3400:1: ruleOpAnd
         {
-        pushFollow(FOLLOW_ruleOpAnd_in_synpred5_InternalVerify7832);
+        pushFollow(FOLLOW_ruleOpAnd_in_synpred5_InternalVerify7968);
         ruleOpAnd();
 
         state._fsp--;
@@ -15002,24 +15806,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred6_InternalVerify
     public final void synpred6_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:3: ( ( () ( ( ruleOpEquality ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:4: ( () ( ( ruleOpEquality ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:3: ( ( () ( ( ruleOpEquality ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:4: ( () ( ( ruleOpEquality ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:4: ( () ( ( ruleOpEquality ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:5: () ( ( ruleOpEquality ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:4: ( () ( ( ruleOpEquality ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:5: () ( ( ruleOpEquality ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3425:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3426:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3501:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3502:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3426:2: ( ( ruleOpEquality ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3427:1: ( ruleOpEquality )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3502:2: ( ( ruleOpEquality ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3503:1: ( ruleOpEquality )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3427:1: ( ruleOpEquality )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3428:1: ruleOpEquality
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3503:1: ( ruleOpEquality )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3504:1: ruleOpEquality
         {
-        pushFollow(FOLLOW_ruleOpEquality_in_synpred6_InternalVerify8087);
+        pushFollow(FOLLOW_ruleOpEquality_in_synpred6_InternalVerify8223);
         ruleOpEquality();
 
         state._fsp--;
@@ -15040,24 +15844,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred7_InternalVerify
     public final void synpred7_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:3: ( ( () ( ( ruleOpCompare ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:4: ( () ( ( ruleOpCompare ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:3: ( ( () ( ( ruleOpCompare ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:4: ( () ( ( ruleOpCompare ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:4: ( () ( ( ruleOpCompare ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:5: () ( ( ruleOpCompare ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:4: ( () ( ( ruleOpCompare ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:5: () ( ( ruleOpCompare ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3536:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3537:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3612:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3613:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3537:2: ( ( ruleOpCompare ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3538:1: ( ruleOpCompare )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3613:2: ( ( ruleOpCompare ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3614:1: ( ruleOpCompare )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3538:1: ( ruleOpCompare )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3539:1: ruleOpCompare
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3614:1: ( ruleOpCompare )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3615:1: ruleOpCompare
         {
-        pushFollow(FOLLOW_ruleOpCompare_in_synpred7_InternalVerify8363);
+        pushFollow(FOLLOW_ruleOpCompare_in_synpred7_InternalVerify8499);
         ruleOpCompare();
 
         state._fsp--;
@@ -15078,24 +15882,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred8_InternalVerify
     public final void synpred8_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:3: ( ( () ( ( ruleOpOther ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:4: ( () ( ( ruleOpOther ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:3: ( ( () ( ( ruleOpOther ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:4: ( () ( ( ruleOpOther ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:4: ( () ( ( ruleOpOther ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:5: () ( ( ruleOpOther ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:4: ( () ( ( ruleOpOther ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:5: () ( ( ruleOpOther ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3667:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3668:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3743:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3744:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3668:2: ( ( ruleOpOther ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3669:1: ( ruleOpOther )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3744:2: ( ( ruleOpOther ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3745:1: ( ruleOpOther )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3669:1: ( ruleOpOther )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3670:1: ruleOpOther
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3745:1: ( ruleOpOther )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3746:1: ruleOpOther
         {
-        pushFollow(FOLLOW_ruleOpOther_in_synpred8_InternalVerify8692);
+        pushFollow(FOLLOW_ruleOpOther_in_synpred8_InternalVerify8828);
         ruleOpOther();
 
         state._fsp--;
@@ -15116,14 +15920,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred9_InternalVerify
     public final void synpred9_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:3: ( ( '>' '>' ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:4: ( '>' '>' )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:3: ( ( '>' '>' ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:4: ( '>' '>' )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3782:4: ( '>' '>' )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3783:2: '>' '>'
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3858:4: ( '>' '>' )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3859:2: '>' '>'
         {
-        match(input,73,FOLLOW_73_in_synpred9_InternalVerify8959); if (state.failed) return ;
-        match(input,73,FOLLOW_73_in_synpred9_InternalVerify8964); if (state.failed) return ;
+        match(input,73,FOLLOW_73_in_synpred9_InternalVerify9095); if (state.failed) return ;
+        match(input,73,FOLLOW_73_in_synpred9_InternalVerify9100); if (state.failed) return ;
 
         }
 
@@ -15134,14 +15938,14 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred10_InternalVerify
     public final void synpred10_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:3: ( ( '<' '<' ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:4: ( '<' '<' )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:3: ( ( '<' '<' ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:4: ( '<' '<' )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3812:4: ( '<' '<' )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3813:2: '<' '<'
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:4: ( '<' '<' )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3889:2: '<' '<'
         {
-        match(input,72,FOLLOW_72_in_synpred10_InternalVerify9046); if (state.failed) return ;
-        match(input,72,FOLLOW_72_in_synpred10_InternalVerify9051); if (state.failed) return ;
+        match(input,72,FOLLOW_72_in_synpred10_InternalVerify9182); if (state.failed) return ;
+        match(input,72,FOLLOW_72_in_synpred10_InternalVerify9187); if (state.failed) return ;
 
         }
 
@@ -15152,24 +15956,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred11_InternalVerify
     public final void synpred11_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:3: ( ( () ( ( ruleOpAdd ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:4: ( () ( ( ruleOpAdd ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:3: ( ( () ( ( ruleOpAdd ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:4: ( () ( ( ruleOpAdd ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:4: ( () ( ( ruleOpAdd ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:5: () ( ( ruleOpAdd ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:4: ( () ( ( ruleOpAdd ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:5: () ( ( ruleOpAdd ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3886:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3887:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3962:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3963:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3887:2: ( ( ruleOpAdd ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:1: ( ruleOpAdd )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3963:2: ( ( ruleOpAdd ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3964:1: ( ruleOpAdd )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3888:1: ( ruleOpAdd )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3889:1: ruleOpAdd
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3964:1: ( ruleOpAdd )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3965:1: ruleOpAdd
         {
-        pushFollow(FOLLOW_ruleOpAdd_in_synpred11_InternalVerify9271);
+        pushFollow(FOLLOW_ruleOpAdd_in_synpred11_InternalVerify9407);
         ruleOpAdd();
 
         state._fsp--;
@@ -15190,24 +15994,24 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred12_InternalVerify
     public final void synpred12_InternalVerify_fragment() throws RecognitionException {   
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:3: ( ( () ( ( ruleOpMulti ) ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:4: ( () ( ( ruleOpMulti ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:3: ( ( () ( ( ruleOpMulti ) ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:4: ( () ( ( ruleOpMulti ) ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:4: ( () ( ( ruleOpMulti ) ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:5: () ( ( ruleOpMulti ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:4: ( () ( ( ruleOpMulti ) ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:5: () ( ( ruleOpMulti ) )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3997:5: ()
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3998:1: 
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4073:5: ()
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4074:1: 
         {
         }
 
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3998:2: ( ( ruleOpMulti ) )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3999:1: ( ruleOpMulti )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4074:2: ( ( ruleOpMulti ) )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4075:1: ( ruleOpMulti )
         {
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:3999:1: ( ruleOpMulti )
-        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4000:1: ruleOpMulti
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4075:1: ( ruleOpMulti )
+        // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:4076:1: ruleOpMulti
         {
-        pushFollow(FOLLOW_ruleOpMulti_in_synpred12_InternalVerify9547);
+        pushFollow(FOLLOW_ruleOpMulti_in_synpred12_InternalVerify9683);
         ruleOpMulti();
 
         state._fsp--;
@@ -15398,21 +16202,22 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     }
 
 
-    protected DFA73 dfa73 = new DFA73(this);
-    protected DFA76 dfa76 = new DFA76(this);
-    static final String DFA73_eotS =
+    protected DFA79 dfa79 = new DFA79(this);
+    protected DFA82 dfa82 = new DFA82(this);
+    protected DFA99 dfa99 = new DFA99(this);
+    static final String DFA79_eotS =
         "\16\uffff";
-    static final String DFA73_eofS =
+    static final String DFA79_eofS =
         "\1\1\15\uffff";
-    static final String DFA73_minS =
+    static final String DFA79_minS =
         "\1\27\1\uffff\2\4\12\uffff";
-    static final String DFA73_maxS =
+    static final String DFA79_maxS =
         "\1\126\1\uffff\2\132\12\uffff";
-    static final String DFA73_acceptS =
+    static final String DFA79_acceptS =
         "\1\uffff\1\2\2\uffff\12\1";
-    static final String DFA73_specialS =
-        "\1\0\1\uffff\1\1\1\2\12\uffff}>";
-    static final String[] DFA73_transitionS = {
+    static final String DFA79_specialS =
+        "\1\2\1\uffff\1\1\1\0\12\uffff}>";
+    static final String[] DFA79_transitionS = {
             "\1\1\12\uffff\1\1\1\uffff\1\1\36\uffff\5\1\1\2\1\3\1\4\1\5"+
             "\1\6\1\7\1\10\1\11\6\uffff\1\1",
             "",
@@ -15432,130 +16237,130 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             ""
     };
 
-    static final short[] DFA73_eot = DFA.unpackEncodedString(DFA73_eotS);
-    static final short[] DFA73_eof = DFA.unpackEncodedString(DFA73_eofS);
-    static final char[] DFA73_min = DFA.unpackEncodedStringToUnsignedChars(DFA73_minS);
-    static final char[] DFA73_max = DFA.unpackEncodedStringToUnsignedChars(DFA73_maxS);
-    static final short[] DFA73_accept = DFA.unpackEncodedString(DFA73_acceptS);
-    static final short[] DFA73_special = DFA.unpackEncodedString(DFA73_specialS);
-    static final short[][] DFA73_transition;
+    static final short[] DFA79_eot = DFA.unpackEncodedString(DFA79_eotS);
+    static final short[] DFA79_eof = DFA.unpackEncodedString(DFA79_eofS);
+    static final char[] DFA79_min = DFA.unpackEncodedStringToUnsignedChars(DFA79_minS);
+    static final char[] DFA79_max = DFA.unpackEncodedStringToUnsignedChars(DFA79_maxS);
+    static final short[] DFA79_accept = DFA.unpackEncodedString(DFA79_acceptS);
+    static final short[] DFA79_special = DFA.unpackEncodedString(DFA79_specialS);
+    static final short[][] DFA79_transition;
 
     static {
-        int numStates = DFA73_transitionS.length;
-        DFA73_transition = new short[numStates][];
+        int numStates = DFA79_transitionS.length;
+        DFA79_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA73_transition[i] = DFA.unpackEncodedString(DFA73_transitionS[i]);
+            DFA79_transition[i] = DFA.unpackEncodedString(DFA79_transitionS[i]);
         }
     }
 
-    class DFA73 extends DFA {
+    class DFA79 extends DFA {
 
-        public DFA73(BaseRecognizer recognizer) {
+        public DFA79(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 73;
-            this.eot = DFA73_eot;
-            this.eof = DFA73_eof;
-            this.min = DFA73_min;
-            this.max = DFA73_max;
-            this.accept = DFA73_accept;
-            this.special = DFA73_special;
-            this.transition = DFA73_transition;
+            this.decisionNumber = 79;
+            this.eot = DFA79_eot;
+            this.eof = DFA79_eof;
+            this.min = DFA79_min;
+            this.max = DFA79_max;
+            this.accept = DFA79_accept;
+            this.special = DFA79_special;
+            this.transition = DFA79_transition;
         }
         public String getDescription() {
-            return "()* loopback of 3667:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*";
+            return "()* loopback of 3743:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA73_0 = input.LA(1);
+                        int LA79_3 = input.LA(1);
 
                          
-                        int index73_0 = input.index();
+                        int index79_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA73_0==EOF||LA73_0==23||LA73_0==34||LA73_0==36||(LA73_0>=67 && LA73_0<=71)||LA73_0==86) ) {s = 1;}
+                        if ( ((LA79_3>=RULE_STRING && LA79_3<=RULE_REAL_LIT)||LA79_3==35||LA79_3==63||(LA79_3>=80 && LA79_3<=81)||(LA79_3>=84 && LA79_3<=85)||(LA79_3>=87 && LA79_3<=90)) ) {s = 1;}
 
-                        else if ( (LA73_0==72) ) {s = 2;}
+                        else if ( (LA79_3==76) && (synpred8_InternalVerify())) {s = 12;}
 
-                        else if ( (LA73_0==73) ) {s = 3;}
-
-                        else if ( (LA73_0==74) && (synpred8_InternalVerify())) {s = 4;}
-
-                        else if ( (LA73_0==75) && (synpred8_InternalVerify())) {s = 5;}
-
-                        else if ( (LA73_0==76) && (synpred8_InternalVerify())) {s = 6;}
-
-                        else if ( (LA73_0==77) && (synpred8_InternalVerify())) {s = 7;}
-
-                        else if ( (LA73_0==78) && (synpred8_InternalVerify())) {s = 8;}
-
-                        else if ( (LA73_0==79) && (synpred8_InternalVerify())) {s = 9;}
+                        else if ( (LA79_3==73) && (synpred8_InternalVerify())) {s = 13;}
 
                          
-                        input.seek(index73_0);
+                        input.seek(index79_3);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA73_2 = input.LA(1);
+                        int LA79_2 = input.LA(1);
 
                          
-                        int index73_2 = input.index();
+                        int index79_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA73_2>=RULE_STRING && LA73_2<=RULE_REAL_LIT)||LA73_2==35||LA73_2==37||LA73_2==63||(LA73_2>=80 && LA73_2<=81)||(LA73_2>=84 && LA73_2<=85)||(LA73_2>=87 && LA73_2<=90)) ) {s = 1;}
+                        if ( (LA79_2==72) && (synpred8_InternalVerify())) {s = 10;}
 
-                        else if ( (LA73_2==72) && (synpred8_InternalVerify())) {s = 10;}
+                        else if ( (LA79_2==77) && (synpred8_InternalVerify())) {s = 11;}
 
-                        else if ( (LA73_2==77) && (synpred8_InternalVerify())) {s = 11;}
+                        else if ( ((LA79_2>=RULE_STRING && LA79_2<=RULE_REAL_LIT)||LA79_2==35||LA79_2==37||LA79_2==63||(LA79_2>=80 && LA79_2<=81)||(LA79_2>=84 && LA79_2<=85)||(LA79_2>=87 && LA79_2<=90)) ) {s = 1;}
 
                          
-                        input.seek(index73_2);
+                        input.seek(index79_2);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA73_3 = input.LA(1);
+                        int LA79_0 = input.LA(1);
 
                          
-                        int index73_3 = input.index();
+                        int index79_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA73_3>=RULE_STRING && LA73_3<=RULE_REAL_LIT)||LA73_3==35||LA73_3==63||(LA73_3>=80 && LA73_3<=81)||(LA73_3>=84 && LA73_3<=85)||(LA73_3>=87 && LA73_3<=90)) ) {s = 1;}
+                        if ( (LA79_0==EOF||LA79_0==23||LA79_0==34||LA79_0==36||(LA79_0>=67 && LA79_0<=71)||LA79_0==86) ) {s = 1;}
 
-                        else if ( (LA73_3==76) && (synpred8_InternalVerify())) {s = 12;}
+                        else if ( (LA79_0==72) ) {s = 2;}
 
-                        else if ( (LA73_3==73) && (synpred8_InternalVerify())) {s = 13;}
+                        else if ( (LA79_0==73) ) {s = 3;}
+
+                        else if ( (LA79_0==74) && (synpred8_InternalVerify())) {s = 4;}
+
+                        else if ( (LA79_0==75) && (synpred8_InternalVerify())) {s = 5;}
+
+                        else if ( (LA79_0==76) && (synpred8_InternalVerify())) {s = 6;}
+
+                        else if ( (LA79_0==77) && (synpred8_InternalVerify())) {s = 7;}
+
+                        else if ( (LA79_0==78) && (synpred8_InternalVerify())) {s = 8;}
+
+                        else if ( (LA79_0==79) && (synpred8_InternalVerify())) {s = 9;}
 
                          
-                        input.seek(index73_3);
+                        input.seek(index79_0);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 73, _s, input);
+                new NoViableAltException(getDescription(), 79, _s, input);
             error(nvae);
             throw nvae;
         }
     }
-    static final String DFA76_eotS =
+    static final String DFA82_eotS =
         "\13\uffff";
-    static final String DFA76_eofS =
+    static final String DFA82_eofS =
         "\13\uffff";
-    static final String DFA76_minS =
+    static final String DFA82_minS =
         "\1\110\2\uffff\1\111\7\uffff";
-    static final String DFA76_maxS =
+    static final String DFA82_maxS =
         "\1\117\2\uffff\1\114\7\uffff";
-    static final String DFA76_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\3\1\6";
-    static final String DFA76_specialS =
+    static final String DFA82_acceptS =
+        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\6\1\3";
+    static final String DFA82_specialS =
         "\13\uffff}>";
-    static final String[] DFA76_transitionS = {
+    static final String[] DFA82_transitionS = {
             "\1\6\1\3\1\1\1\2\1\4\1\5\1\7\1\10",
             "",
             "",
-            "\1\12\2\uffff\1\11",
+            "\1\11\2\uffff\1\12",
             "",
             "",
             "",
@@ -15565,37 +16370,104 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             ""
     };
 
-    static final short[] DFA76_eot = DFA.unpackEncodedString(DFA76_eotS);
-    static final short[] DFA76_eof = DFA.unpackEncodedString(DFA76_eofS);
-    static final char[] DFA76_min = DFA.unpackEncodedStringToUnsignedChars(DFA76_minS);
-    static final char[] DFA76_max = DFA.unpackEncodedStringToUnsignedChars(DFA76_maxS);
-    static final short[] DFA76_accept = DFA.unpackEncodedString(DFA76_acceptS);
-    static final short[] DFA76_special = DFA.unpackEncodedString(DFA76_specialS);
-    static final short[][] DFA76_transition;
+    static final short[] DFA82_eot = DFA.unpackEncodedString(DFA82_eotS);
+    static final short[] DFA82_eof = DFA.unpackEncodedString(DFA82_eofS);
+    static final char[] DFA82_min = DFA.unpackEncodedStringToUnsignedChars(DFA82_minS);
+    static final char[] DFA82_max = DFA.unpackEncodedStringToUnsignedChars(DFA82_maxS);
+    static final short[] DFA82_accept = DFA.unpackEncodedString(DFA82_acceptS);
+    static final short[] DFA82_special = DFA.unpackEncodedString(DFA82_specialS);
+    static final short[][] DFA82_transition;
 
     static {
-        int numStates = DFA76_transitionS.length;
-        DFA76_transition = new short[numStates][];
+        int numStates = DFA82_transitionS.length;
+        DFA82_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA76_transition[i] = DFA.unpackEncodedString(DFA76_transitionS[i]);
+            DFA82_transition[i] = DFA.unpackEncodedString(DFA82_transitionS[i]);
         }
     }
 
-    class DFA76 extends DFA {
+    class DFA82 extends DFA {
 
-        public DFA76(BaseRecognizer recognizer) {
+        public DFA82(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 76;
-            this.eot = DFA76_eot;
-            this.eof = DFA76_eof;
-            this.min = DFA76_min;
-            this.max = DFA76_max;
-            this.accept = DFA76_accept;
-            this.special = DFA76_special;
-            this.transition = DFA76_transition;
+            this.decisionNumber = 82;
+            this.eot = DFA82_eot;
+            this.eof = DFA82_eof;
+            this.min = DFA82_min;
+            this.max = DFA82_max;
+            this.accept = DFA82_accept;
+            this.special = DFA82_special;
+            this.transition = DFA82_transition;
         }
         public String getDescription() {
-            return "3735:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )";
+            return "3811:1: (kw= '->' | kw= '..<' | (kw= '>' kw= '..' ) | kw= '..' | kw= '=>' | (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) ) | (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) ) | kw= '<>' | kw= '?:' )";
+        }
+    }
+    static final String DFA99_eotS =
+        "\22\uffff";
+    static final String DFA99_eofS =
+        "\10\uffff\1\14\1\uffff\1\16\7\uffff";
+    static final String DFA99_minS =
+        "\1\133\7\uffff\1\25\1\uffff\1\25\1\134\6\uffff";
+    static final String DFA99_maxS =
+        "\1\146\7\uffff\1\146\1\uffff\1\146\1\141\6\uffff";
+    static final String DFA99_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10"+
+        "\1\11\1\14\1\13\1\16\1\15";
+    static final String DFA99_specialS =
+        "\22\uffff}>";
+    static final String[] DFA99_transitionS = {
+            "\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\1\12\1\13",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\14\105\uffff\10\14\1\15\3\14",
+            "",
+            "\1\16\105\uffff\10\16\1\17\3\16",
+            "\1\21\4\uffff\1\20",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA99_eot = DFA.unpackEncodedString(DFA99_eotS);
+    static final short[] DFA99_eof = DFA.unpackEncodedString(DFA99_eofS);
+    static final char[] DFA99_min = DFA.unpackEncodedStringToUnsignedChars(DFA99_minS);
+    static final char[] DFA99_max = DFA.unpackEncodedStringToUnsignedChars(DFA99_maxS);
+    static final short[] DFA99_accept = DFA.unpackEncodedString(DFA99_acceptS);
+    static final short[] DFA99_special = DFA.unpackEncodedString(DFA99_specialS);
+    static final short[][] DFA99_transition;
+
+    static {
+        int numStates = DFA99_transitionS.length;
+        DFA99_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA99_transition[i] = DFA.unpackEncodedString(DFA99_transitionS[i]);
+        }
+    }
+
+    class DFA99 extends DFA {
+
+        public DFA99(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 99;
+            this.eot = DFA99_eot;
+            this.eof = DFA99_eof;
+            this.min = DFA99_min;
+            this.max = DFA99_max;
+            this.accept = DFA99_accept;
+            this.special = DFA99_special;
+            this.transition = DFA99_transition;
+        }
+        public String getDescription() {
+            return "4992:1: (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) )";
         }
     }
  
@@ -15743,322 +16615,355 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleVerificationMethodRegistry3980 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_17_in_ruleVerificationMethodRegistry4017 = new BitSet(new long[]{0x0000100000000000L});
     public static final BitSet FOLLOW_44_in_ruleVerificationMethodRegistry4029 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationMethodRegistry4050 = new BitSet(new long[]{0x0000000000280000L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationMethodRegistry4050 = new BitSet(new long[]{0x0000000000380000L});
     public static final BitSet FOLLOW_19_in_ruleVerificationMethodRegistry4063 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleVerificationMethodRegistry4080 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_ruleVerificationMethodRegistry4099 = new BitSet(new long[]{0x0400400000000000L});
-    public static final BitSet FOLLOW_ruleDescription_in_ruleVerificationMethodRegistry4121 = new BitSet(new long[]{0x0400400000000000L});
-    public static final BitSet FOLLOW_ruleVerificationMethod_in_ruleVerificationMethodRegistry4143 = new BitSet(new long[]{0x0400400000800000L});
-    public static final BitSet FOLLOW_23_in_ruleVerificationMethodRegistry4157 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFormalParameter_in_entryRuleFormalParameter4193 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleFormalParameter4203 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4245 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4267 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_45_in_ruleFormalParameter4285 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationMethod_in_entryRuleVerificationMethod4343 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationMethod4353 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_ruleVerificationMethod4390 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod4407 = new BitSet(new long[]{0x0000000800280000L});
-    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4425 = new BitSet(new long[]{0x0000001000000040L});
-    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4447 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4460 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4481 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4497 = new BitSet(new long[]{0x0007800000280000L});
-    public static final BitSet FOLLOW_47_in_ruleVerificationMethod4510 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4522 = new BitSet(new long[]{0x0000001000000040L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4546 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4559 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4582 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4598 = new BitSet(new long[]{0x0007000000280000L});
-    public static final BitSet FOLLOW_48_in_ruleVerificationMethod4613 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4625 = new BitSet(new long[]{0x0000001000000040L});
-    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4647 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4660 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4681 = new BitSet(new long[]{0x0000001400000000L});
-    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4697 = new BitSet(new long[]{0x0006000000280000L});
-    public static final BitSet FOLLOW_49_in_ruleVerificationMethod4718 = new BitSet(new long[]{0x0000000000280000L});
-    public static final BitSet FOLLOW_50_in_ruleVerificationMethod4755 = new BitSet(new long[]{0x0000000000280000L});
-    public static final BitSet FOLLOW_19_in_ruleVerificationMethod4785 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleVerificationMethod4802 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_ruleVerificationMethod4821 = new BitSet(new long[]{0x05F80E0000000000L});
-    public static final BitSet FOLLOW_ruleMethodKind_in_ruleVerificationMethod4887 = new BitSet(new long[]{0x05F80E0000800000L});
-    public static final BitSet FOLLOW_ruleDescription_in_ruleVerificationMethod4962 = new BitSet(new long[]{0x05F80E0000800000L});
-    public static final BitSet FOLLOW_ruleVerificationPrecondition_in_ruleVerificationMethod5037 = new BitSet(new long[]{0x05F80E0000800000L});
-    public static final BitSet FOLLOW_ruleVerificationValidation_in_ruleVerificationMethod5112 = new BitSet(new long[]{0x05F80E0000800000L});
-    public static final BitSet FOLLOW_51_in_ruleVerificationMethod5179 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod5199 = new BitSet(new long[]{0x05F80E0000800040L});
-    public static final BitSet FOLLOW_41_in_ruleVerificationMethod5268 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod5288 = new BitSet(new long[]{0x05F80E0000800040L});
-    public static final BitSet FOLLOW_23_in_ruleVerificationMethod5348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMethodKind_in_entryRuleMethodKind5384 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleMethodKind5394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResoluteMethod_in_ruleMethodKind5441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleJavaMethod_in_ruleMethodKind5468 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleManualMethod_in_ruleMethodKind5495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePluginMethod_in_ruleMethodKind5522 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAgreeMethod_in_ruleMethodKind5549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResoluteMethod_in_entryRuleResoluteMethod5584 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleResoluteMethod5594 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_ruleResoluteMethod5631 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleResoluteMethod5651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleJavaMethod_in_entryRuleJavaMethod5687 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleJavaMethod5697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_ruleJavaMethod5734 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleJavaMethod5755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleManualMethod_in_entryRuleManualMethod5791 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleManualMethod5801 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_ruleManualMethod5838 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleManualMethod5868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePluginMethod_in_entryRulePluginMethod5904 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePluginMethod5914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_rulePluginMethod5951 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_rulePluginMethod5968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAgreeMethod_in_entryRuleAgreeMethod6009 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAgreeMethod6019 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleAgreeMethod6056 = new BitSet(new long[]{0x0200000200000000L});
-    public static final BitSet FOLLOW_57_in_ruleAgreeMethod6075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_ruleAgreeMethod6112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescription_in_entryRuleDescription6162 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDescription6172 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_ruleDescription6209 = new BitSet(new long[]{0x0800000000000050L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription6230 = new BitSet(new long[]{0x0800000000000052L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement6267 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDescriptionElement6277 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleDescriptionElement6319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShowValue_in_ruleDescriptionElement6351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_ruleDescriptionElement6375 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImageReference_in_ruleDescriptionElement6415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRationale_in_entryRuleRationale6451 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleRationale6461 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_ruleRationale6498 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleRationale6515 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_entryRuleResultIssue6558 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleResultIssue6568 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_ruleResultIssue6614 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue6631 = new BitSet(new long[]{0x6000000000200002L});
-    public static final BitSet FOLLOW_61_in_ruleResultIssue6649 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleURIID_in_ruleResultIssue6672 = new BitSet(new long[]{0x4000000000200002L});
-    public static final BitSet FOLLOW_62_in_ruleResultIssue6687 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue6704 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_ruleResultIssue6724 = new BitSet(new long[]{0x0000000140800000L,0x00000000F0000000L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue6745 = new BitSet(new long[]{0x0000000140800000L,0x00000000F0000000L});
-    public static final BitSet FOLLOW_23_in_ruleResultIssue6758 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference6800 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAPropertyReference6810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_ruleAPropertyReference6856 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference6879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAVariableReference_in_entryRuleAVariableReference6915 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAVariableReference6925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAVariableReference6979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShowValue_in_entryRuleShowValue7015 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleShowValue7025 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue7070 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_45_in_ruleShowValue7083 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue7103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImageReference_in_entryRuleImageReference7141 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleImageReference7151 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_64_in_ruleImageReference7188 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleIMGREF_in_ruleImageReference7209 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIMGREF_in_entryRuleIMGREF7246 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIMGREF7257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7298 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleIMGREF7316 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7333 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_66_in_ruleIMGREF7351 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7366 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_entryRuleAExpression7411 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAExpression7421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAOrExpression_in_ruleAExpression7467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression7501 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression7511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression7558 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression7607 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression7630 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr7669 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpOr7680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_67_in_ruleOpOr7717 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression7756 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression7766 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7813 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression7862 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7885 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd7924 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd7935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_68_in_ruleOpAnd7972 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression8011 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression8021 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8068 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000060L});
-    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression8117 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8140 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000060L});
-    public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality8179 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality8190 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleOpEquality8228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_70_in_ruleOpEquality8247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression8287 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression8297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8344 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression8393 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8416 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare8455 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare8466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_ruleOpCompare8504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleOpCompare8524 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_ruleOpCompare8537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleOpCompare8557 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleOpCompare8576 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression8616 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAOtherOperatorExpression8626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8673 = new BitSet(new long[]{0x0000000000000002L,0x000000000000FF00L});
-    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression8722 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8745 = new BitSet(new long[]{0x0000000000000002L,0x000000000000FF00L});
-    public static final BitSet FOLLOW_ruleOpOther_in_entryRuleOpOther8784 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpOther8795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_74_in_ruleOpOther8833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_ruleOpOther8852 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther8872 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_76_in_ruleOpOther8885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_76_in_ruleOpOther8905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_77_in_ruleOpOther8924 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther8944 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther8975 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther8988 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther9009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleOpOther9031 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002100L});
-    public static final BitSet FOLLOW_72_in_ruleOpOther9062 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_72_in_ruleOpOther9075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleOpOther9096 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_77_in_ruleOpOther9115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_78_in_ruleOpOther9136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_79_in_ruleOpOther9155 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression9195 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression9205 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9252 = new BitSet(new long[]{0x0000000000000002L,0x0000000000030000L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression9301 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9324 = new BitSet(new long[]{0x0000000000000002L,0x0000000000030000L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd9363 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd9374 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_80_in_ruleOpAdd9412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_81_in_ruleOpAdd9431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression9471 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression9481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9528 = new BitSet(new long[]{0x0000200000000002L,0x00000000000C0002L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression9577 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9600 = new BitSet(new long[]{0x0000200000000002L,0x00000000000C0002L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti9639 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti9650 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_82_in_ruleOpMulti9688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_83_in_ruleOpMulti9707 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleOpMulti9726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_ruleOpMulti9745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation9785 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation9795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation9851 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation9872 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation9901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary9937 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOpUnary9948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_84_in_ruleOpUnary9986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_81_in_ruleOpUnary10005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_80_in_ruleOpUnary10024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression10064 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAPrimaryExpression10074 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleALiteral_in_ruleAPrimaryExpression10121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAVariableReference_in_ruleAPrimaryExpression10148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAPropertyReference_in_ruleAPrimaryExpression10175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression10202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral10237 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleALiteral10247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleASetTerm_in_ruleALiteral10294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAListTerm_in_ruleALiteral10321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleABooleanLiteral_in_ruleALiteral10348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARealTerm_in_ruleALiteral10375 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleALiteral10402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleANullLiteral_in_ruleALiteral10429 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringTerm_in_ruleALiteral10456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm10491 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAIntegerTerm10501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAInt_in_ruleAIntegerTerm10547 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAIntegerTerm10567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAInt_in_entryRuleAInt10605 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAInt10616 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleAInt10655 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARealTerm_in_entryRuleARealTerm10699 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleARealTerm10709 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAReal_in_ruleARealTerm10755 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleARealTerm10775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAReal_in_entryRuleAReal10813 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAReal10824 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleAReal10863 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumAlt_in_entryRuleNumAlt10909 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumAlt10919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARealTerm_in_ruleNumAlt10966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleNumAlt10993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleASetTerm_in_entryRuleASetTerm11028 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleASetTerm11038 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_85_in_ruleASetTerm11084 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007F30000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm11106 = new BitSet(new long[]{0x0000000400000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_34_in_ruleASetTerm11119 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm11140 = new BitSet(new long[]{0x0000000400000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_86_in_ruleASetTerm11156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAListTerm_in_entryRuleAListTerm11192 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAListTerm11202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_87_in_ruleAListTerm11248 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_ruleAListTerm11260 = new BitSet(new long[]{0x80000008008000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm11282 = new BitSet(new long[]{0x0000000400800000L});
-    public static final BitSet FOLLOW_34_in_ruleAListTerm11295 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm11316 = new BitSet(new long[]{0x0000000400800000L});
-    public static final BitSet FOLLOW_23_in_ruleAListTerm11332 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression11368 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression11378 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_ruleAParenthesizedExpression11415 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression11437 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_ruleAParenthesizedExpression11448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral11484 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral11494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_88_in_ruleABooleanLiteral11547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_89_in_ruleABooleanLiteral11578 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral11615 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleANullLiteral11625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_90_in_ruleANullLiteral11671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm11707 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm11717 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm11762 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString11798 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString11809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString11848 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE11897 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE11908 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE11948 = new BitSet(new long[]{0x0000000000000002L,0x0000000008000000L});
-    public static final BitSet FOLLOW_91_in_ruleAADLPROPERTYREFERENCE11967 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE11982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_entryRuleURIID12030 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleURIID12041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleURIID12080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName12125 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName12136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName12176 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_66_in_ruleQualifiedName12195 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName12210 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_92_in_ruleResultIssueType12271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_ruleResultIssueType12288 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_93_in_ruleResultIssueType12305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_94_in_ruleResultIssueType12322 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_95_in_ruleResultIssueType12339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleResultIssueType12356 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleVerificationMethodRegistry4080 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_20_in_ruleVerificationMethodRegistry4100 = new BitSet(new long[]{0x0000000000000040L,0x00000077F8000000L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleVerificationMethodRegistry4124 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_ruleVerificationMethodRegistry4151 = new BitSet(new long[]{0x0000000000200040L,0x00000077F8000000L});
+    public static final BitSet FOLLOW_21_in_ruleVerificationMethodRegistry4167 = new BitSet(new long[]{0x0400400000000000L});
+    public static final BitSet FOLLOW_ruleDescription_in_ruleVerificationMethodRegistry4189 = new BitSet(new long[]{0x0400400000000000L});
+    public static final BitSet FOLLOW_ruleVerificationMethod_in_ruleVerificationMethodRegistry4211 = new BitSet(new long[]{0x0400400000800000L});
+    public static final BitSet FOLLOW_23_in_ruleVerificationMethodRegistry4225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFormalParameter_in_entryRuleFormalParameter4261 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleFormalParameter4271 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4313 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4335 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_45_in_ruleFormalParameter4353 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleFormalParameter4373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationMethod_in_entryRuleVerificationMethod4411 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationMethod4421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_ruleVerificationMethod4458 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod4475 = new BitSet(new long[]{0x0000000800380000L});
+    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4493 = new BitSet(new long[]{0x0000001000000040L});
+    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4515 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4528 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4549 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4565 = new BitSet(new long[]{0x0007800000380000L});
+    public static final BitSet FOLLOW_47_in_ruleVerificationMethod4578 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4590 = new BitSet(new long[]{0x0000001000000040L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4614 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4627 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleVerificationMethod4650 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4666 = new BitSet(new long[]{0x0007000000380000L});
+    public static final BitSet FOLLOW_48_in_ruleVerificationMethod4681 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_ruleVerificationMethod4693 = new BitSet(new long[]{0x0000001000000040L});
+    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4715 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_34_in_ruleVerificationMethod4728 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleFormalParameter_in_ruleVerificationMethod4749 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_36_in_ruleVerificationMethod4765 = new BitSet(new long[]{0x0006000000380000L});
+    public static final BitSet FOLLOW_49_in_ruleVerificationMethod4786 = new BitSet(new long[]{0x0000000000380000L});
+    public static final BitSet FOLLOW_50_in_ruleVerificationMethod4823 = new BitSet(new long[]{0x0000000000380000L});
+    public static final BitSet FOLLOW_19_in_ruleVerificationMethod4853 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleVerificationMethod4870 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_20_in_ruleVerificationMethod4890 = new BitSet(new long[]{0x0000000000000040L,0x00000077F8000000L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleVerificationMethod4914 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_ruleVerificationMethod4941 = new BitSet(new long[]{0x0000000000200040L,0x00000077F8000000L});
+    public static final BitSet FOLLOW_21_in_ruleVerificationMethod4957 = new BitSet(new long[]{0x05F80E0000000000L});
+    public static final BitSet FOLLOW_ruleMethodKind_in_ruleVerificationMethod5023 = new BitSet(new long[]{0x05F80E0000800000L});
+    public static final BitSet FOLLOW_ruleDescription_in_ruleVerificationMethod5098 = new BitSet(new long[]{0x05F80E0000800000L});
+    public static final BitSet FOLLOW_ruleVerificationPrecondition_in_ruleVerificationMethod5173 = new BitSet(new long[]{0x05F80E0000800000L});
+    public static final BitSet FOLLOW_ruleVerificationValidation_in_ruleVerificationMethod5248 = new BitSet(new long[]{0x05F80E0000800000L});
+    public static final BitSet FOLLOW_51_in_ruleVerificationMethod5315 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod5335 = new BitSet(new long[]{0x05F80E0000800040L});
+    public static final BitSet FOLLOW_41_in_ruleVerificationMethod5404 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationMethod5424 = new BitSet(new long[]{0x05F80E0000800040L});
+    public static final BitSet FOLLOW_23_in_ruleVerificationMethod5484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodKind_in_entryRuleMethodKind5520 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMethodKind5530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResoluteMethod_in_ruleMethodKind5577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleJavaMethod_in_ruleMethodKind5604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleManualMethod_in_ruleMethodKind5631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePluginMethod_in_ruleMethodKind5658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAgreeMethod_in_ruleMethodKind5685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResoluteMethod_in_entryRuleResoluteMethod5720 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleResoluteMethod5730 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_ruleResoluteMethod5767 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleResoluteMethod5787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleJavaMethod_in_entryRuleJavaMethod5823 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleJavaMethod5833 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_ruleJavaMethod5870 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleJavaMethod5891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleManualMethod_in_entryRuleManualMethod5927 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleManualMethod5937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_ruleManualMethod5974 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleManualMethod6004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePluginMethod_in_entryRulePluginMethod6040 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePluginMethod6050 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_rulePluginMethod6087 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_rulePluginMethod6104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAgreeMethod_in_entryRuleAgreeMethod6145 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAgreeMethod6155 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_ruleAgreeMethod6192 = new BitSet(new long[]{0x0200000200000000L});
+    public static final BitSet FOLLOW_57_in_ruleAgreeMethod6211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_ruleAgreeMethod6248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescription_in_entryRuleDescription6298 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDescription6308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_ruleDescription6345 = new BitSet(new long[]{0x0800000000000050L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription6366 = new BitSet(new long[]{0x0800000000000052L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement6403 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDescriptionElement6413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleDescriptionElement6455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleShowValue_in_ruleDescriptionElement6487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_ruleDescriptionElement6511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImageReference_in_ruleDescriptionElement6551 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRationale_in_entryRuleRationale6587 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleRationale6597 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_ruleRationale6634 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleRationale6651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_entryRuleResultIssue6694 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleResultIssue6704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssueType_in_ruleResultIssue6750 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue6767 = new BitSet(new long[]{0x6000000000200002L});
+    public static final BitSet FOLLOW_61_in_ruleResultIssue6785 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleURIID_in_ruleResultIssue6808 = new BitSet(new long[]{0x4000000000200002L});
+    public static final BitSet FOLLOW_62_in_ruleResultIssue6823 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue6840 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_ruleResultIssue6860 = new BitSet(new long[]{0x0000000140800000L,0x00000F0000000000L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue6881 = new BitSet(new long[]{0x0000000140800000L,0x00000F0000000000L});
+    public static final BitSet FOLLOW_23_in_ruleResultIssue6894 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference6936 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAPropertyReference6946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_63_in_ruleAPropertyReference6992 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference7015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAVariableReference_in_entryRuleAVariableReference7051 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAVariableReference7061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAVariableReference7115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleShowValue_in_entryRuleShowValue7151 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleShowValue7161 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue7206 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_45_in_ruleShowValue7219 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue7239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImageReference_in_entryRuleImageReference7277 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleImageReference7287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_64_in_ruleImageReference7324 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleIMGREF_in_ruleImageReference7345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIMGREF_in_entryRuleIMGREF7382 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIMGREF7393 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7434 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_ruleIMGREF7452 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7469 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_66_in_ruleIMGREF7487 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF7502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_entryRuleAExpression7547 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAExpression7557 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAOrExpression_in_ruleAExpression7603 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression7637 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression7647 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression7694 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression7743 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression7766 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr7805 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpOr7816 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_67_in_ruleOpOr7853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression7892 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression7902 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression7949 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression7998 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression8021 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd8060 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd8071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleOpAnd8108 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression8147 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression8157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8204 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000060L});
+    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression8253 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression8276 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000060L});
+    public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality8315 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality8326 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_69_in_ruleOpEquality8364 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleOpEquality8383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression8423 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression8433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8480 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
+    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression8529 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression8552 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000380L});
+    public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare8591 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare8602 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_71_in_ruleOpCompare8640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleOpCompare8660 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_ruleOpCompare8673 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleOpCompare8693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleOpCompare8712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression8752 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAOtherOperatorExpression8762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8809 = new BitSet(new long[]{0x0000000000000002L,0x000000000000FF00L});
+    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression8858 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression8881 = new BitSet(new long[]{0x0000000000000002L,0x000000000000FF00L});
+    public static final BitSet FOLLOW_ruleOpOther_in_entryRuleOpOther8920 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpOther8931 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_74_in_ruleOpOther8969 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_75_in_ruleOpOther8988 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther9008 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_76_in_ruleOpOther9021 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_76_in_ruleOpOther9041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_77_in_ruleOpOther9060 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther9080 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther9111 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther9124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther9145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleOpOther9167 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002100L});
+    public static final BitSet FOLLOW_72_in_ruleOpOther9198 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_72_in_ruleOpOther9211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleOpOther9232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_77_in_ruleOpOther9251 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_78_in_ruleOpOther9272 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_79_in_ruleOpOther9291 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression9331 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression9341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9388 = new BitSet(new long[]{0x0000000000000002L,0x0000000000030000L});
+    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression9437 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression9460 = new BitSet(new long[]{0x0000000000000002L,0x0000000000030000L});
+    public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd9499 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd9510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_80_in_ruleOpAdd9548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_81_in_ruleOpAdd9567 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression9607 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression9617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9664 = new BitSet(new long[]{0x0000200000000002L,0x00000000000C0002L});
+    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression9713 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression9736 = new BitSet(new long[]{0x0000200000000002L,0x00000000000C0002L});
+    public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti9775 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti9786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_82_in_ruleOpMulti9824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_83_in_ruleOpMulti9843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_ruleOpMulti9862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_ruleOpMulti9881 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation9921 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation9931 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation9987 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation10008 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation10037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary10073 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleOpUnary10084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_84_in_ruleOpUnary10122 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_81_in_ruleOpUnary10141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_80_in_ruleOpUnary10160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression10200 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAPrimaryExpression10210 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleALiteral_in_ruleAPrimaryExpression10257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAVariableReference_in_ruleAPrimaryExpression10284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAPropertyReference_in_ruleAPrimaryExpression10311 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression10338 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral10373 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleALiteral10383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleASetTerm_in_ruleALiteral10430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAListTerm_in_ruleALiteral10457 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleABooleanLiteral_in_ruleALiteral10484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARealTerm_in_ruleALiteral10511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleALiteral10538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleANullLiteral_in_ruleALiteral10565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringTerm_in_ruleALiteral10592 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm10627 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAIntegerTerm10637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAInt_in_ruleAIntegerTerm10683 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAIntegerTerm10703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAInt_in_entryRuleAInt10741 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAInt10752 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAInt10791 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARealTerm_in_entryRuleARealTerm10835 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleARealTerm10845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAReal_in_ruleARealTerm10891 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleARealTerm10911 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAReal_in_entryRuleAReal10949 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAReal10960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleAReal10999 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumAlt_in_entryRuleNumAlt11045 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNumAlt11055 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARealTerm_in_ruleNumAlt11102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleNumAlt11129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleASetTerm_in_entryRuleASetTerm11164 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleASetTerm11174 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_85_in_ruleASetTerm11220 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007F30000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm11242 = new BitSet(new long[]{0x0000000400000000L,0x0000000000400000L});
+    public static final BitSet FOLLOW_34_in_ruleASetTerm11255 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm11276 = new BitSet(new long[]{0x0000000400000000L,0x0000000000400000L});
+    public static final BitSet FOLLOW_86_in_ruleASetTerm11292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAListTerm_in_entryRuleAListTerm11328 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAListTerm11338 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_87_in_ruleAListTerm11384 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_ruleAListTerm11396 = new BitSet(new long[]{0x80000008008000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm11418 = new BitSet(new long[]{0x0000000400800000L});
+    public static final BitSet FOLLOW_34_in_ruleAListTerm11431 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm11452 = new BitSet(new long[]{0x0000000400800000L});
+    public static final BitSet FOLLOW_23_in_ruleAListTerm11468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression11504 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression11514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_ruleAParenthesizedExpression11551 = new BitSet(new long[]{0x80000008000000F0L,0x0000000007B30000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression11573 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_ruleAParenthesizedExpression11584 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral11620 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral11630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_88_in_ruleABooleanLiteral11683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_89_in_ruleABooleanLiteral11714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral11751 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleANullLiteral11761 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_90_in_ruleANullLiteral11807 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm11843 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm11853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm11898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString11934 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString11945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString11984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory12029 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleComponentCategory12040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_91_in_ruleComponentCategory12078 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_ruleComponentCategory12097 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_93_in_ruleComponentCategory12116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_94_in_ruleComponentCategory12135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_95_in_ruleComponentCategory12154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_96_in_ruleComponentCategory12173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_97_in_ruleComponentCategory12192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_98_in_ruleComponentCategory12211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_98_in_ruleComponentCategory12231 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_99_in_ruleComponentCategory12244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_100_in_ruleComponentCategory12264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_101_in_ruleComponentCategory12284 = new BitSet(new long[]{0x0000000000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_99_in_ruleComponentCategory12297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_101_in_ruleComponentCategory12317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_102_in_ruleComponentCategory12337 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_92_in_ruleComponentCategory12350 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_102_in_ruleComponentCategory12371 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
+    public static final BitSet FOLLOW_97_in_ruleComponentCategory12384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference12426 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference12437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference12477 = new BitSet(new long[]{0x0000000000000000L,0x0000008000000000L});
+    public static final BitSet FOLLOW_103_in_ruleAadlClassifierReference12496 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference12511 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000004L});
+    public static final BitSet FOLLOW_66_in_ruleAadlClassifierReference12532 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference12547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE12595 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE12606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE12646 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
+    public static final BitSet FOLLOW_103_in_ruleAADLPROPERTYREFERENCE12665 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE12680 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_entryRuleURIID12728 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleURIID12739 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleURIID12778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName12823 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName12834 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName12874 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
+    public static final BitSet FOLLOW_66_in_ruleQualifiedName12893 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName12908 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
+    public static final BitSet FOLLOW_104_in_ruleResultIssueType12969 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_ruleResultIssueType12986 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_ruleResultIssueType13003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_106_in_ruleResultIssueType13020 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_107_in_ruleResultIssueType13037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleResultIssueType13054 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_28_in_synpred1_InternalVerify1632 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_29_in_synpred2_InternalVerify1904 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_29_in_synpred3_InternalVerify2235 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpOr_in_synpred4_InternalVerify7577 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_synpred5_InternalVerify7832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpEquality_in_synpred6_InternalVerify8087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_synpred7_InternalVerify8363 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpOther_in_synpred8_InternalVerify8692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_synpred9_InternalVerify8959 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_73_in_synpred9_InternalVerify8964 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_synpred10_InternalVerify9046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_72_in_synpred10_InternalVerify9051 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_synpred11_InternalVerify9271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_synpred12_InternalVerify9547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpOr_in_synpred4_InternalVerify7713 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpAnd_in_synpred5_InternalVerify7968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpEquality_in_synpred6_InternalVerify8223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpCompare_in_synpred7_InternalVerify8499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpOther_in_synpred8_InternalVerify8828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_synpred9_InternalVerify9095 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_73_in_synpred9_InternalVerify9100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_synpred10_InternalVerify9182 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_72_in_synpred10_InternalVerify9187 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpAdd_in_synpred11_InternalVerify9407 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpMulti_in_synpred12_InternalVerify9683 = new BitSet(new long[]{0x0000000000000002L});
 
 }

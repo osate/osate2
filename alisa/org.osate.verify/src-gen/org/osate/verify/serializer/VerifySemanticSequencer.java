@@ -410,7 +410,13 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName title=STRING? description=Description? methods+=VerificationMethod+)
+	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)? 
+	 *         description=Description? 
+	 *         methods+=VerificationMethod+
+	 *     )
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -428,6 +434,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *             (isPredicate?='boolean' | isResultReport?='report')?
 	 *         )? 
 	 *         title=STRING? 
+	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)? 
 	 *         methodKind=MethodKind 
 	 *         description=Description? 
 	 *         precondition=VerificationPrecondition? 
