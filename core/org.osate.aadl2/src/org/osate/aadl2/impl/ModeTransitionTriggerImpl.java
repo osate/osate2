@@ -51,11 +51,11 @@ import org.osate.aadl2.TriggerPort;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionTriggerImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionTriggerImpl#getTriggerPort <em>Trigger Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

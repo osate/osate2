@@ -77,6 +77,7 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ClassifierImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ClassifierImpl#getMembers <em>Member</em>}</li>
@@ -92,7 +93,6 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *   <li>{@link org.osate.aadl2.impl.ClassifierImpl#isNoAnnexes <em>No Annexes</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ClassifierImpl#isNoProperties <em>No Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

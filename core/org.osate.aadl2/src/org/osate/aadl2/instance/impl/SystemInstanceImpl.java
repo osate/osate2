@@ -73,11 +73,11 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <em><b>System Instance</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.SystemInstanceImpl#getSystemOperationModes <em>System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.SystemInstanceImpl#getComponentImplementation <em>Component Implementation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -146,7 +146,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	@Override
 	public SystemOperationMode createSystemOperationMode() {
-		SystemOperationMode newSystemOperationMode = (SystemOperationMode) create(InstancePackage.Literals.SYSTEM_OPERATION_MODE);
+		SystemOperationMode newSystemOperationMode = (SystemOperationMode) create(
+				InstancePackage.Literals.SYSTEM_OPERATION_MODE);
 		getSystemOperationModes().add(newSystemOperationMode);
 		return newSystemOperationMode;
 	}
@@ -370,7 +371,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)

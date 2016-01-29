@@ -54,11 +54,11 @@ import org.osate.aadl2.operations.ModalPathOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModalPathImpl#getInModes <em>In Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

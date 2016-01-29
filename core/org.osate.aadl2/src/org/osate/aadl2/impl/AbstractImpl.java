@@ -43,8 +43,6 @@ import org.osate.aadl2.Abstract;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Abstract</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

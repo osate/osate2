@@ -49,10 +49,10 @@ import org.osate.aadl2.PropertyExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComputedValueImpl#getFunction <em>Function</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -199,7 +199,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
 	 */
 	@Override

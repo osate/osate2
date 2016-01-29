@@ -90,13 +90,13 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 	 * @generated
 	 */
 	protected void addOwnedFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FeatureGroupType_ownedFeature_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_ownedFeature_feature",
-						"_UI_FeatureGroupType_type"), Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeature(), false,
-				false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureGroupType_ownedFeature_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_ownedFeature_feature",
+								"_UI_FeatureGroupType_type"),
+						Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeature(), false, false, false, null, null,
+						null));
 	}
 
 	/**
@@ -106,13 +106,12 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 	 * @generated
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FeatureGroupType_extended_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_extended_feature",
-						"_UI_FeatureGroupType_type"), Aadl2Package.eINSTANCE.getFeatureGroupType_Extended(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureGroupType_extended_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_extended_feature",
+								"_UI_FeatureGroupType_type"),
+						Aadl2Package.eINSTANCE.getFeatureGroupType_Extended(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -122,13 +121,12 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 	 * @generated
 	 */
 	protected void addInversePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FeatureGroupType_inverse_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_inverse_feature",
-						"_UI_FeatureGroupType_type"), Aadl2Package.eINSTANCE.getFeatureGroupType_Inverse(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureGroupType_inverse_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_inverse_feature",
+								"_UI_FeatureGroupType_type"),
+						Aadl2Package.eINSTANCE.getFeatureGroupType_Inverse(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -259,13 +257,12 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedParameter(),
 				Aadl2Factory.eINSTANCE.createParameter()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess(),
 				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature(),
 				Aadl2Factory.eINSTANCE.createAbstractFeature()));

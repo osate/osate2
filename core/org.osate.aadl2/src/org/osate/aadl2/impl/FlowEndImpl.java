@@ -50,11 +50,11 @@ import org.osate.aadl2.FlowEnd;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

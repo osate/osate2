@@ -43,8 +43,6 @@ import org.osate.aadl2.SubprogramGroupPrototype;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Subprogram Group Prototype</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedPropertyTypes <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedProperties <em>Owned Property</em>}</li>
@@ -56,7 +57,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.PropertySet#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertySet#getOwnedAnnexSubclauses <em>Owned Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPropertySet()
  * @model
@@ -68,10 +68,10 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * The list contents are of type {@link org.osate.aadl2.PropertyType}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Property Type</em>' containment reference list isn't clear,
@@ -104,10 +104,10 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * The list contents are of type {@link org.osate.aadl2.Property}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Property</em>' containment reference list isn't clear,
@@ -139,10 +139,10 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * The list contents are of type {@link org.osate.aadl2.PropertyConstant}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Property Constant</em>' containment reference list isn't clear,

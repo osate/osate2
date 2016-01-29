@@ -54,10 +54,10 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Prototype#categoryConstraint(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Category Constraint</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -115,15 +115,15 @@ public class PrototypeOperations extends NamedElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(prototype)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"categoryConstraint",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(prototype,
-														context) }), new Object[] { prototype }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "categoryConstraint",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(prototype, context) }),
+								new Object[] { prototype }));
 			}
 			return false;
 		}

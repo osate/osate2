@@ -92,13 +92,12 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalElement_inMode_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+								"_UI_ModalElement_type"),
+						Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -108,13 +107,12 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalPath_inModeOrTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalPath_inModeOrTransition_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
+								"_UI_ModalPath_type"),
+						Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -124,13 +122,13 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_kind_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_kind_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_Kind(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FlowSpecification_kind_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_kind_feature",
+								"_UI_FlowSpecification_type"),
+						Aadl2Package.eINSTANCE.getFlowSpecification_Kind(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -171,13 +169,12 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_FlowSpecification_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_refined_feature",
-						"_UI_FlowSpecification_type"), Aadl2Package.eINSTANCE.getFlowSpecification_Refined(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FlowSpecification_refined_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FlowSpecification_refined_feature",
+								"_UI_FlowSpecification_type"),
+						Aadl2Package.eINSTANCE.getFlowSpecification_Refined(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -260,8 +257,8 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 				|| childFeature == Aadl2Package.eINSTANCE.getFlowSpecification_InEnd();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
-					getFeatureText(childFeature), getTypeText(owner) });
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

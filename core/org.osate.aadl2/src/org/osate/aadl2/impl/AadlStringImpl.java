@@ -43,8 +43,6 @@ import org.osate.aadl2.AadlString;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Aadl String</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

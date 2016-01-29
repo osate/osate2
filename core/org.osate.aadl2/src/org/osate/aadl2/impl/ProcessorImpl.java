@@ -43,8 +43,6 @@ import org.osate.aadl2.Processor;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Processor</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -51,10 +51,10 @@ import org.osate.aadl2.FeatureGroupType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl#getConstrainingFeatureGroupType <em>Constraining Feature Group Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

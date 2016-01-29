@@ -44,8 +44,6 @@ import org.osate.aadl2.BehavioralFeature;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Behavioral Feature</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

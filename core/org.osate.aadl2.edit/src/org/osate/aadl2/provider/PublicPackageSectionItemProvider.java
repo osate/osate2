@@ -85,13 +85,13 @@ public class PublicPackageSectionItemProvider extends PackageSectionItemProvider
 	 * @generated
 	 */
 	protected void addPrivateSectionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PublicPackageSection_privateSection_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PublicPackageSection_privateSection_feature",
-						"_UI_PublicPackageSection_type"), Aadl2Package.eINSTANCE
-						.getPublicPackageSection_PrivateSection(), false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PublicPackageSection_privateSection_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_PublicPackageSection_privateSection_feature", "_UI_PublicPackageSection_type"),
+				Aadl2Package.eINSTANCE.getPublicPackageSection_PrivateSection(), false, false, false, null, null,
+				null));
 	}
 
 	/**

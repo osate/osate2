@@ -61,13 +61,13 @@ import org.osate.aadl2.SubprogramSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DataImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataImplementationImpl#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -168,8 +168,8 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
@@ -183,7 +183,8 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
-					SubprogramSubcomponent.class, this, Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
+					SubprogramSubcomponent.class, this,
+					Aadl2Package.DATA_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
 		return ownedSubprogramSubcomponents;
 	}
@@ -195,8 +196,8 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 */
 	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
-		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramSubcomponent());
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
 		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
 		return newOwnedSubprogramSubcomponent;
 	}

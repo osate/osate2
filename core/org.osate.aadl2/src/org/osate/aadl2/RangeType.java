@@ -48,12 +48,12 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.RangeType#getOwnedNumberType <em>Owned Number Type</em>}</li>
  *   <li>{@link org.osate.aadl2.RangeType#getNumberType <em>Number Type</em>}</li>
  *   <li>{@link org.osate.aadl2.RangeType#getReferencedNumberType <em>Referenced Number Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getRangeType()
  * @model
@@ -64,10 +64,10 @@ public interface RangeType extends NonListType {
 	 * Returns the value of the '<em><b>Owned Number Type</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RangeType#getNumberType() <em>Number Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Number Type</em>' containment reference isn't clear,
@@ -128,10 +128,10 @@ public interface RangeType extends NonListType {
 	 * Returns the value of the '<em><b>Referenced Number Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RangeType#getNumberType() <em>Number Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->

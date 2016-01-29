@@ -49,13 +49,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getAnnexName <em>Annex Name</em>}</li>
  *   <li>{@link org.osate.aadl2.ContainmentPathElement#getPath <em>Path</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getContainmentPathElement()
  * @model

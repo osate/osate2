@@ -88,15 +88,12 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * @generated
 	 */
 	protected void addCurrentModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_SystemOperationMode_currentMode_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_SystemOperationMode_currentMode_feature", "_UI_SystemOperationMode_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.SYSTEM_OPERATION_MODE__CURRENT_MODE, true, false, true, null, null,
-						null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_SystemOperationMode_currentMode_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_SystemOperationMode_currentMode_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_SystemOperationMode_type"), //$NON-NLS-1$
+				InstancePackage.Literals.SYSTEM_OPERATION_MODE__CURRENT_MODE, true, false, true, null, null, null));
 	}
 
 	/**
@@ -119,8 +116,8 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((SystemOperationMode) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_SystemOperationMode_type") : //$NON-NLS-1$
-				getString("_UI_SystemOperationMode_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_SystemOperationMode_type") //$NON-NLS-1$
+				: getString("_UI_SystemOperationMode_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

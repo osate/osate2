@@ -92,8 +92,8 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramSubcomponent());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
+			childrenFeatures
+					.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent());
 		}
 		return childrenFeatures;
@@ -176,9 +176,9 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(),
 				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 	}
 
 }

@@ -48,11 +48,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.EndToEndFlow#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.EndToEndFlow#getOwnedEndToEndFlowSegments <em>Owned End To End Flow Segment</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow()
  * @model
@@ -63,10 +63,10 @@ public interface EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElemen
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Refined</em>' reference isn't clear,

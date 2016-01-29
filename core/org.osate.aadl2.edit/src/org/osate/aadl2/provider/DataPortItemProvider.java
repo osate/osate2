@@ -85,13 +85,13 @@ public class DataPortItemProvider extends PortItemProvider {
 	 * @generated
 	 */
 	protected void addDataFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_DataPort_dataFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataPort_dataFeatureClassifier_feature",
-						"_UI_DataPort_type"), Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataPort_dataFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataPort_dataFeatureClassifier_feature",
+								"_UI_DataPort_type"),
+						Aadl2Package.eINSTANCE.getDataPort_DataFeatureClassifier(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class DataPortItemProvider extends PortItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((DataPort) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_DataPort_type") : getString("_UI_DataPort_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_DataPort_type")
+				: getString("_UI_DataPort_type") + " " + label;
 	}
 
 	/**

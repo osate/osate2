@@ -61,13 +61,13 @@ import org.osate.aadl2.SubprogramType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -125,12 +125,10 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
 						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+								Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
@@ -172,8 +170,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
@@ -200,8 +198,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
-		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramSubcomponent());
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
 		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
 		return newOwnedSubprogramSubcomponent;
 	}

@@ -49,6 +49,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModes <em>Owned Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModeTransitions <em>Owned Mode Transition</em>}</li>
@@ -56,7 +57,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoModes <em>No Modes</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentClassifier()
  * @model abstract="true"
@@ -68,11 +68,11 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * The list contents are of type {@link org.osate.aadl2.Mode}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Mode</em>' containment reference list isn't clear,
@@ -104,11 +104,11 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * The list contents are of type {@link org.osate.aadl2.ModeTransition}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Mode Transition</em>' containment reference list isn't clear,

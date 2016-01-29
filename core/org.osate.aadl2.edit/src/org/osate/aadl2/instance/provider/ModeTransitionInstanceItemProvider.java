@@ -87,15 +87,12 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	 * @generated
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ModeTransitionInstance_destination_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_destination_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__DESTINATION, true, false, true, null, null,
-						null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ModeTransitionInstance_destination_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_destination_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ModeTransitionInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.MODE_TRANSITION_INSTANCE__DESTINATION, true, false, true, null, null, null));
 	}
 
 	/**
@@ -106,12 +103,10 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	 */
 	protected void addModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ModeTransitionInstance_modeTransition_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_modeTransition_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModeTransitionInstance_modeTransition_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+								"_UI_ModeTransitionInstance_modeTransition_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
 						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__MODE_TRANSITION, true, false, true, null,
 						null, null));
 	}
@@ -123,13 +118,12 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	 * @generated
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ModeTransitionInstance_source_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_source_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__SOURCE, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ModeTransitionInstance_source_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_source_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ModeTransitionInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.MODE_TRANSITION_INSTANCE__SOURCE, true, false, true, null, null, null));
 	}
 
 	/**
@@ -152,8 +146,8 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	@Override
 	public String getText(Object object) {
 		String label = ((ModeTransitionInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ModeTransitionInstance_type") : //$NON-NLS-1$
-				getString("_UI_ModeTransitionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ModeTransitionInstance_type") //$NON-NLS-1$
+				: getString("_UI_ModeTransitionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

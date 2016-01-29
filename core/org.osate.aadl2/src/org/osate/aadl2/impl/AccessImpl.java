@@ -54,11 +54,11 @@ import org.osate.aadl2.SubprogramGroupAccess;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.AccessImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessImpl#getCategory <em>Category</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

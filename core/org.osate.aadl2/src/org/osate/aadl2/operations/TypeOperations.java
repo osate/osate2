@@ -50,10 +50,10 @@ import org.osate.aadl2.Type;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Type#conformsTo(org.osate.aadl2.Type) <em>Conforms To</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -100,8 +100,8 @@ public class TypeOperations extends NamedElementOperations {
 	public static boolean conformsTo(Type type, Type other) {
 		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
-					.getEAllOperations().get(13));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(),
+					Aadl2Package.eINSTANCE.getType().getEAllOperations().get(13));
 			try {
 				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
 			} catch (ParserException pe) {

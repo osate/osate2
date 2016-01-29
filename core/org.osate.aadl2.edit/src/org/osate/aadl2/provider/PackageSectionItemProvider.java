@@ -91,13 +91,12 @@ public class PackageSectionItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addImportedUnitPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageSection_importedUnit_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedUnit_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PackageSection_importedUnit_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_importedUnit_feature",
+								"_UI_PackageSection_type"),
+						Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -107,13 +106,13 @@ public class PackageSectionItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addNoAnnexesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageSection_noAnnexes_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noAnnexes_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoAnnexes(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PackageSection_noAnnexes_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noAnnexes_feature",
+								"_UI_PackageSection_type"),
+						Aadl2Package.eINSTANCE.getPackageSection_NoAnnexes(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -123,13 +122,13 @@ public class PackageSectionItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addNoPropertiesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageSection_noProperties_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noProperties_feature",
-						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoProperties(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PackageSection_noProperties_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noProperties_feature",
+								"_UI_PackageSection_type"),
+						Aadl2Package.eINSTANCE.getPackageSection_NoProperties(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -220,9 +219,9 @@ public class PackageSectionItemProvider extends NamespaceItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedPackageRename(),
 				Aadl2Factory.eINSTANCE.createPackageRename()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedComponentTypeRename(),
-				Aadl2Factory.eINSTANCE.createComponentTypeRename()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedComponentTypeRename(),
+						Aadl2Factory.eINSTANCE.createComponentTypeRename()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupType()));
@@ -311,9 +310,9 @@ public class PackageSectionItemProvider extends NamespaceItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier(),
 				Aadl2Factory.eINSTANCE.createVirtualProcessorImplementation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupTypeRename(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupTypeRename()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedFeatureGroupTypeRename(),
+						Aadl2Factory.eINSTANCE.createFeatureGroupTypeRename()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPackageSection_OwnedAnnexLibrary(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary()));

@@ -51,10 +51,10 @@ import org.osate.aadl2.parsesupport.ParseUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RealLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -212,7 +212,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -228,7 +228,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override

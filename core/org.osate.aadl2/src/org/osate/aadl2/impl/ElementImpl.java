@@ -66,11 +66,11 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ElementImpl#getOwnedElements <em>Owned Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ElementImpl#getOwnedComments <em>Owned Comment</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -360,7 +360,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Element#getContainingClassifier()
 	 */
 	@Override
@@ -374,7 +374,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.Element#getContainingComponentImpl()
 	 */
 	@Override

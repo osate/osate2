@@ -47,6 +47,7 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.PortSpecification#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#getCategory <em>Category</em>}</li>
@@ -55,7 +56,6 @@ package org.osate.aadl2;
  *   <li>{@link org.osate.aadl2.PortSpecification#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPortSpecification()
  * @model

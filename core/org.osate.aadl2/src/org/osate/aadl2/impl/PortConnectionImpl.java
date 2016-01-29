@@ -45,8 +45,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Port Connection</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -47,11 +47,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentPrototype#isArray <em>Array</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentPrototype#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentPrototype()
  * @model abstract="true"

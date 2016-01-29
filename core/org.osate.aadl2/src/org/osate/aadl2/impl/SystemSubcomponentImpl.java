@@ -52,11 +52,11 @@ import org.osate.aadl2.SystemSubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SystemSubcomponentImpl#getSystemSubcomponentType <em>System Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements SystemSu
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
-				: subcomponentType;
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
 	}
 
 	/**

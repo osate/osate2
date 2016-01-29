@@ -43,8 +43,6 @@ import org.osate.aadl2.SystemPrototype;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>System Prototype</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

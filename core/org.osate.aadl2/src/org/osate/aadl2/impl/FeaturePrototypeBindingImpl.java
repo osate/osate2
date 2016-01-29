@@ -54,11 +54,11 @@ import org.osate.aadl2.Prototype;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl#getActual <em>Actual</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl#getFormal <em>Formal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -132,12 +132,12 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		if (newActual != actual) {
 			NotificationChain msgs = null;
 			if (actual != null) {
-				msgs = ((InternalEObject) actual).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
+				msgs = ((InternalEObject) actual).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			}
 			if (newActual != null) {
-				msgs = ((InternalEObject) newActual).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
+				msgs = ((InternalEObject) newActual).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			}
 			msgs = basicSetActual(newActual, msgs);
 			if (msgs != null) {

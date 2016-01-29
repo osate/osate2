@@ -52,11 +52,11 @@ import org.osate.aadl2.PropertyExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl#getOwnedValue <em>Owned Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -196,12 +196,12 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
 			if (ownedValue != null) {
-				msgs = ((InternalEObject) ownedValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) ownedValue).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
 			}
 			if (newOwnedValue != null) {
-				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
 			}
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
 			if (msgs != null) {
@@ -300,7 +300,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.BasicPropertyAssociation#getValue()
 	 */
 	@Override

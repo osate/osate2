@@ -44,8 +44,6 @@ import org.osate.aadl2.PropertyOwner;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Owner</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

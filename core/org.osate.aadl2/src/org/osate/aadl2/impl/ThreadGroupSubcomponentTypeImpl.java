@@ -42,13 +42,11 @@ import org.osate.aadl2.ThreadGroupSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Thread Group Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class ThreadGroupSubcomponentTypeImpl extends SubcomponentTypeImpl implements
-		ThreadGroupSubcomponentType {
+public abstract class ThreadGroupSubcomponentTypeImpl extends SubcomponentTypeImpl
+		implements ThreadGroupSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

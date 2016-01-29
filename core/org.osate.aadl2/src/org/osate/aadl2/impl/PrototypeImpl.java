@@ -54,11 +54,11 @@ import org.osate.aadl2.operations.PrototypeOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PrototypeImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PrototypeImpl#getRefined <em>Refined</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -132,7 +132,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 		Prototype oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined,
+					refined));
 		}
 	}
 
@@ -217,8 +218,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**

@@ -45,11 +45,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ConnectedElement#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.ConnectedElement#getConnectionEnd <em>Connection End</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getConnectedElement()
  * @model

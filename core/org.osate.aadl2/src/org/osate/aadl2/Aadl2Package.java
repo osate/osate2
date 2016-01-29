@@ -25325,7 +25325,8 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
+	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT
+			+ 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
@@ -32975,7 +32976,8 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
+	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT
+			+ 1;
 
 	/**
 	 * The number of structural features of the '<em>Virtual Processor Implementation</em>' class.

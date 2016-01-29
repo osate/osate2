@@ -76,6 +76,7 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
@@ -85,7 +86,6 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectionImpl#getRefined <em>Refined</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -581,10 +581,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__IN_MODE:
-			getInModes().clear();
-			getInModes().addAll((Collection<? extends Mode>) newValue);
-			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
@@ -613,9 +609,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.CONNECTION__IN_MODE:
-			getInModes().clear();
-			return;
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			return;

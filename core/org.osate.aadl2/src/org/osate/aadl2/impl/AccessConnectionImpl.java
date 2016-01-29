@@ -48,10 +48,10 @@ import org.osate.aadl2.AccessConnection;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.AccessConnectionImpl#getAccessCategory <em>Access Category</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -51,11 +51,11 @@ import org.osate.aadl2.TypeExtension;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.TypeExtensionImpl#getGeneral <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.TypeExtensionImpl#getExtended <em>Extended</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

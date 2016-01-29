@@ -94,13 +94,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalElement_inMode_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+								"_UI_ModalElement_type"),
+						Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -110,13 +109,13 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_subcomponentType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_subcomponentType_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_SubcomponentType(), false,
-				false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Subcomponent_subcomponentType_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_subcomponentType_feature",
+								"_UI_Subcomponent_type"),
+						Aadl2Package.eINSTANCE.getSubcomponent_SubcomponentType(), false, false, false, null, null,
+						null));
 	}
 
 	/**
@@ -126,13 +125,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_classifier_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Classifier(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Subcomponent_classifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_classifier_feature",
+								"_UI_Subcomponent_type"),
+						Aadl2Package.eINSTANCE.getSubcomponent_Classifier(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -142,13 +140,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_prototype_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Prototype(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Subcomponent_prototype_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_prototype_feature",
+								"_UI_Subcomponent_type"),
+						Aadl2Package.eINSTANCE.getSubcomponent_Prototype(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -158,13 +155,13 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addAllModesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_allModes_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_allModes_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_AllModes(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Subcomponent_allModes_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_allModes_feature",
+								"_UI_Subcomponent_type"),
+						Aadl2Package.eINSTANCE.getSubcomponent_AllModes(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -174,13 +171,12 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Subcomponent_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_refined_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Refined(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Subcomponent_refined_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_refined_feature",
+								"_UI_Subcomponent_type"),
+						Aadl2Package.eINSTANCE.getSubcomponent_Refined(), true, false, true, null, null, null));
 	}
 
 	/**

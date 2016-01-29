@@ -92,12 +92,13 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	 * @generated
 	 */
 	protected void addInheritPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Property_inherit_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Property_inherit_feature", "_UI_Property_type"),
-				Aadl2Package.eINSTANCE.getProperty_Inherit(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Property_inherit_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Property_inherit_feature",
+								"_UI_Property_type"),
+						Aadl2Package.eINSTANCE.getProperty_Inherit(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -107,13 +108,12 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	 * @generated
 	 */
 	protected void addAppliesToMetaclassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Property_appliesToMetaclass_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToMetaclass_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_AppliesToMetaclass(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Property_appliesToMetaclass_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToMetaclass_feature",
+								"_UI_Property_type"),
+						Aadl2Package.eINSTANCE.getProperty_AppliesToMetaclass(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -123,13 +123,12 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	 * @generated
 	 */
 	protected void addAppliesToClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Property_appliesToClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToClassifier_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_AppliesToClassifier(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Property_appliesToClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Property_appliesToClassifier_feature",
+								"_UI_Property_type"),
+						Aadl2Package.eINSTANCE.getProperty_AppliesToClassifier(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -139,13 +138,13 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	 * @generated
 	 */
 	protected void addEmptyListDefaultPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Property_emptyListDefault_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Property_emptyListDefault_feature",
-						"_UI_Property_type"), Aadl2Package.eINSTANCE.getProperty_EmptyListDefault(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Property_emptyListDefault_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Property_emptyListDefault_feature",
+								"_UI_Property_type"),
+						Aadl2Package.eINSTANCE.getProperty_EmptyListDefault(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -199,8 +198,8 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Property) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Property_type") : getString("_UI_Property_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Property_type")
+				: getString("_UI_Property_type") + " " + label;
 	}
 
 	/**
@@ -296,8 +295,8 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 				|| childFeature == Aadl2Package.eINSTANCE.getProperty_AppliesTo();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
-					getFeatureText(childFeature), getTypeText(owner) });
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

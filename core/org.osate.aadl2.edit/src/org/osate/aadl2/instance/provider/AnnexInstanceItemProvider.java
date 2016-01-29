@@ -88,10 +88,9 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	protected void addAnnexSubclausePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_AnnexInstance_annexSubclause_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_AnnexInstance_annexSubclause_feature", "_UI_AnnexInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_AnnexInstance_annexSubclause_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_AnnexInstance_annexSubclause_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_AnnexInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.ANNEX_INSTANCE__ANNEX_SUBCLAUSE, true, false, true, null, null, null));
 	}
 
@@ -104,8 +103,8 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((AnnexInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_AnnexInstance_type") : //$NON-NLS-1$
-				getString("_UI_AnnexInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_AnnexInstance_type") //$NON-NLS-1$
+				: getString("_UI_AnnexInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

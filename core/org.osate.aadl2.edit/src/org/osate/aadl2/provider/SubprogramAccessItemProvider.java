@@ -86,13 +86,12 @@ public class SubprogramAccessItemProvider extends AccessItemProvider {
 	 */
 	protected void addSubprogramFeatureClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_SubprogramAccess_subprogramFeatureClassifier_feature"),
 				getString("_UI_PropertyDescriptor_description",
 						"_UI_SubprogramAccess_subprogramFeatureClassifier_feature", "_UI_SubprogramAccess_type"),
-				Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier(), true, false, true, null,
-				null, null));
+				Aadl2Package.eINSTANCE.getSubprogramAccess_SubprogramFeatureClassifier(), true, false, true, null, null,
+				null));
 	}
 
 	/**

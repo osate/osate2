@@ -50,11 +50,11 @@ import org.osate.aadl2.DefaultAnnexLibrary;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl#getSourceText <em>Source Text</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl#getParsedAnnexLibrary <em>Parsed Annex Library</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -174,12 +174,12 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 		if (newParsedAnnexLibrary != parsedAnnexLibrary) {
 			NotificationChain msgs = null;
 			if (parsedAnnexLibrary != null) {
-				msgs = ((InternalEObject) parsedAnnexLibrary).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.DEFAULT_ANNEX_LIBRARY__PARSED_ANNEX_LIBRARY, null, msgs);
+				msgs = ((InternalEObject) parsedAnnexLibrary).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_LIBRARY__PARSED_ANNEX_LIBRARY, null, msgs);
 			}
 			if (newParsedAnnexLibrary != null) {
-				msgs = ((InternalEObject) newParsedAnnexLibrary).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.DEFAULT_ANNEX_LIBRARY__PARSED_ANNEX_LIBRARY, null, msgs);
+				msgs = ((InternalEObject) newParsedAnnexLibrary).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_LIBRARY__PARSED_ANNEX_LIBRARY, null, msgs);
 			}
 			msgs = basicSetParsedAnnexLibrary(newParsedAnnexLibrary, msgs);
 			if (msgs != null) {

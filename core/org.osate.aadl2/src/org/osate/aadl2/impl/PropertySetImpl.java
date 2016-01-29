@@ -62,6 +62,7 @@ import org.osate.aadl2.PropertyType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedPropertyTypes <em>Owned Property Type</em>}</li>
@@ -70,7 +71,6 @@ import org.osate.aadl2.PropertyType;
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getImportedUnits <em>Imported Unit</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertySetImpl#getOwnedAnnexSubclauses <em>Owned Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -252,8 +252,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 */
 	@Override
 	public PropertyConstant createOwnedPropertyConstant() {
-		PropertyConstant newOwnedPropertyConstant = (PropertyConstant) create(Aadl2Package.eINSTANCE
-				.getPropertyConstant());
+		PropertyConstant newOwnedPropertyConstant = (PropertyConstant) create(
+				Aadl2Package.eINSTANCE.getPropertyConstant());
 		getOwnedPropertyConstants().add(newOwnedPropertyConstant);
 		return newOwnedPropertyConstant;
 	}

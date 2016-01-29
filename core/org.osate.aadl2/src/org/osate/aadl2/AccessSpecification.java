@@ -47,13 +47,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.AccessSpecification#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.AccessSpecification#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.AccessSpecification#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.AccessSpecification#getComponentPrototype <em>Component Prototype</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAccessSpecification()
  * @model

@@ -50,11 +50,11 @@ import org.osate.aadl2.FlowSegment;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowSegmentImpl#getFlowElement <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowSegmentImpl#getContext <em>Context</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

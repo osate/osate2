@@ -84,8 +84,8 @@ public class AbstractItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Abstract) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Abstract_type") : getString("_UI_Abstract_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Abstract_type")
+				: getString("_UI_Abstract_type") + " " + label;
 	}
 
 	/**

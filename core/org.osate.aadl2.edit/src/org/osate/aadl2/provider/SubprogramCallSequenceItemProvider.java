@@ -88,13 +88,12 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalElement_inMode_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+								"_UI_ModalElement_type"),
+						Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -181,9 +180,9 @@ public class SubprogramCallSequenceItemProvider extends BehavioralFeatureItemPro
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedSubprogramCall(),
-				Aadl2Factory.eINSTANCE.createSubprogramCall()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSubprogramCallSequence_OwnedSubprogramCall(),
+						Aadl2Factory.eINSTANCE.createSubprogramCall()));
 	}
 
 }

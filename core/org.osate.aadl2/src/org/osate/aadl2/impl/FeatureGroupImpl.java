@@ -57,13 +57,13 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureType <em>Feature Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#isInverse <em>Inverse</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureGroupType <em>Feature Group Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupImpl#getFeatureGroupPrototype <em>Feature Group Prototype</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -186,8 +186,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	@Override
 	public FeatureGroupType getFeatureGroupType() {
 		EObject featureGroupType = getFeatureType();
-		return (FeatureGroupType) (featureGroupType instanceof FeatureGroupType && !featureGroupType.eIsProxy() ? featureGroupType
-				: null);
+		return (FeatureGroupType) (featureGroupType instanceof FeatureGroupType && !featureGroupType.eIsProxy()
+				? featureGroupType : null);
 	}
 
 	/**

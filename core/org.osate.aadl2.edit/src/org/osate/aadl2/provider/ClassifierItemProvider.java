@@ -95,13 +95,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addClassifierFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_classifierFeature_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_classifierFeature_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_classifierFeature_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_classifierFeature_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(), false, false, false, null, null,
+						null));
 	}
 
 	/**
@@ -111,13 +111,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addInheritedMemberPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_inheritedMember_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_inheritedMember_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_InheritedMember(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_inheritedMember_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_inheritedMember_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_InheritedMember(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -127,13 +126,12 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addGeneralizationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_generalization_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_generalization_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_Generalization(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_generalization_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_generalization_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_Generalization(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -144,13 +142,11 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 */
 	protected void addGeneralPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Classifier_general_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_general_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_general_feature",
-								"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_General(), false, false,
-						false, null, null, null));
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_General(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -160,13 +156,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addNoPropertiesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_noProperties_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noProperties_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoProperties(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_noProperties_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noProperties_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_NoProperties(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -176,13 +172,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addNoPrototypesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_noPrototypes_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noPrototypes_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoPrototypes(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_noPrototypes_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noPrototypes_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_NoPrototypes(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -192,13 +188,13 @@ public class ClassifierItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addNoAnnexesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Classifier_noAnnexes_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noAnnexes_feature",
-						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_NoAnnexes(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Classifier_noAnnexes_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Classifier_noAnnexes_feature",
+								"_UI_Classifier_type"),
+						Aadl2Package.eINSTANCE.getClassifier_NoAnnexes(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

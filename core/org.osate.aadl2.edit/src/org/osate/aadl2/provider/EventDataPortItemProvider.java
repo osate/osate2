@@ -85,13 +85,12 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * @generated
 	 */
 	protected void addDataFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_EventDataPort_dataFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EventDataPort_dataFeatureClassifier_feature",
-						"_UI_EventDataPort_type"), Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier(),
-				true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_EventDataPort_dataFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_EventDataPort_dataFeatureClassifier_feature", "_UI_EventDataPort_type"),
+				Aadl2Package.eINSTANCE.getEventDataPort_DataFeatureClassifier(), true, false, true, null, null, null));
 	}
 
 	/**

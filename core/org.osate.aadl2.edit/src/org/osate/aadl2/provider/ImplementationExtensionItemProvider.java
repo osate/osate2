@@ -84,13 +84,12 @@ public class ImplementationExtensionItemProvider extends GeneralizationItemProvi
 	 * @generated
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ImplementationExtension_extended_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ImplementationExtension_extended_feature",
-						"_UI_ImplementationExtension_type"), Aadl2Package.eINSTANCE
-						.getImplementationExtension_Extended(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ImplementationExtension_extended_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ImplementationExtension_extended_feature",
+								"_UI_ImplementationExtension_type"),
+				Aadl2Package.eINSTANCE.getImplementationExtension_Extended(), true, false, true, null, null, null));
 	}
 
 	/**

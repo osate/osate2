@@ -169,17 +169,17 @@ public class ProcessorImplementationItemProvider extends ComponentImplementation
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createBusSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedMemorySubcomponent(),
-				Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedMemorySubcomponent(),
+						Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedVirtualBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getProcessorImplementation_OwnedVirtualProcessorSubcomponent(),

@@ -45,11 +45,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.EndToEndFlowSegment#getFlowElement <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.EndToEndFlowSegment#getContext <em>Context</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getEndToEndFlowSegment()
  * @model

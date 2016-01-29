@@ -88,13 +88,13 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider {
 	 * @generated
 	 */
 	protected void addReferencedElementTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ListType_referencedElementType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ListType_referencedElementType_feature",
-						"_UI_ListType_type"), Aadl2Package.eINSTANCE.getListType_ReferencedElementType(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ListType_referencedElementType_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ListType_referencedElementType_feature",
+								"_UI_ListType_type"),
+						Aadl2Package.eINSTANCE.getListType_ReferencedElementType(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -105,13 +105,11 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider {
 	 */
 	protected void addElementTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ListType_elementType_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ListType_elementType_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_ListType_elementType_feature",
-								"_UI_ListType_type"), Aadl2Package.eINSTANCE.getListType_ElementType(), true, false,
-						true, null, null, null));
+								"_UI_ListType_type"),
+						Aadl2Package.eINSTANCE.getListType_ElementType(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -164,8 +162,8 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((ListType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ListType_type") : getString("_UI_ListType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_ListType_type")
+				: getString("_UI_ListType_type") + " " + label;
 	}
 
 	/**

@@ -56,11 +56,11 @@ import org.osate.aadl2.parsesupport.ParseUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.MetaclassReferenceImpl#getAnnexName <em>Annex Name</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MetaclassReferenceImpl#getMetaclassNames <em>Metaclass Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

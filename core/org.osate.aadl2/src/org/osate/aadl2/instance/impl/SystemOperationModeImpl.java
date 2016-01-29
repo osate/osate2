@@ -56,10 +56,10 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.SystemOperationModeImpl#getCurrentModes <em>Current Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

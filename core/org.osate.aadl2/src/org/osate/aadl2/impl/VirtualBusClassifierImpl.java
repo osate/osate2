@@ -43,8 +43,6 @@ import org.osate.aadl2.VirtualBusClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Virtual Bus Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

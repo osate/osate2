@@ -60,6 +60,7 @@ import org.osate.aadl2.operations.BehavioredImplementationOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BehavioredImplementationImpl#getMembers <em>Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BehavioredImplementationImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
@@ -67,12 +68,11 @@ import org.osate.aadl2.operations.BehavioredImplementationOperations;
  *   <li>{@link org.osate.aadl2.impl.BehavioredImplementationImpl#getSubprogramCalls <em>Subprogram Call</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BehavioredImplementationImpl#getOwnedSubprogramCallSequences <em>Owned Subprogram Call Sequence</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public abstract class BehavioredImplementationImpl extends ComponentImplementationImpl implements
-		BehavioredImplementation {
+public abstract class BehavioredImplementationImpl extends ComponentImplementationImpl
+		implements BehavioredImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedSubprogramCallSequences() <em>Owned Subprogram Call Sequence</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -217,8 +217,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_ANNEX_SUBCLAUSE,
-			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_PROTOTYPE,
-			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MODE,
+			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_PROTOTYPE, Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MODE,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MODE_TRANSITION,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_CONNECTION,
@@ -260,8 +259,8 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public SubprogramCallSequence createOwnedSubprogramCallSequence() {
-		SubprogramCallSequence newOwnedSubprogramCallSequence = (SubprogramCallSequence) create(Aadl2Package.eINSTANCE
-				.getSubprogramCallSequence());
+		SubprogramCallSequence newOwnedSubprogramCallSequence = (SubprogramCallSequence) create(
+				Aadl2Package.eINSTANCE.getSubprogramCallSequence());
 		getOwnedSubprogramCallSequences().add(newOwnedSubprogramCallSequence);
 		return newOwnedSubprogramCallSequence;
 	}

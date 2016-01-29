@@ -49,10 +49,10 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.InstanceObject#getAnnexInstances <em>Annex Instance</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getInstanceObject()
  * @model abstract="true"

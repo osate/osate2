@@ -42,8 +42,6 @@ import org.osate.aadl2.ProcessorFeature;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Processor Feature</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

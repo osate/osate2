@@ -42,8 +42,6 @@ import org.osate.aadl2.EventSource;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Event Source</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

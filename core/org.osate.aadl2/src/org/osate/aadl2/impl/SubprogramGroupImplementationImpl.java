@@ -62,6 +62,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
@@ -69,12 +70,11 @@ import org.osate.aadl2.SubprogramSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class SubprogramGroupImplementationImpl extends ComponentImplementationImpl implements
-		SubprogramGroupImplementation {
+public class SubprogramGroupImplementationImpl extends ComponentImplementationImpl
+		implements SubprogramGroupImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -184,8 +184,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
-		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramSubcomponent());
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
 		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
 		return newOwnedSubprogramSubcomponent;
 	}
@@ -212,8 +212,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
-		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupSubcomponent());
+		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent());
 		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}
@@ -239,8 +239,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
