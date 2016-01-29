@@ -102,7 +102,7 @@
       <ownedAttribute xmi:id="BehavioredImplementation-subprogramCall" name="subprogramCall" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath">
-      <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
       <ownedOperation xmi:id="ModalPath-getInModes" name="getInModes">
         <ownedParameter xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
