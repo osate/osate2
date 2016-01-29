@@ -62,11 +62,11 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.OperationImpl#getOp <em>Op</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.OperationImpl#getOwnedPropertyExpressions <em>Owned Property Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

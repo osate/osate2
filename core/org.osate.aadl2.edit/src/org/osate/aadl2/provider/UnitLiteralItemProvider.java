@@ -88,13 +88,12 @@ public class UnitLiteralItemProvider extends EnumerationLiteralItemProvider {
 	 * @generated
 	 */
 	protected void addBaseUnitPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_UnitLiteral_baseUnit_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_UnitLiteral_baseUnit_feature",
-						"_UI_UnitLiteral_type"), Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_UnitLiteral_baseUnit_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_UnitLiteral_baseUnit_feature",
+								"_UI_UnitLiteral_type"),
+						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit(), true, false, true, null, null, null));
 	}
 
 	/**

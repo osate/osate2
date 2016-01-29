@@ -60,12 +60,12 @@ import org.osate.aadl2.VirtualBusType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -158,8 +158,8 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}

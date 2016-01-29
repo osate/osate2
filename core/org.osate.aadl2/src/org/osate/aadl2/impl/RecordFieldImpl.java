@@ -43,8 +43,6 @@ import org.osate.aadl2.RecordField;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Record Field</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

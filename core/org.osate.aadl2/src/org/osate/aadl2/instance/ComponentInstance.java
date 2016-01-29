@@ -54,6 +54,7 @@ import org.osate.aadl2.Subcomponent;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getFeatureInstances <em>Feature Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getComponentInstances <em>Component Instance</em>}</li>
@@ -67,7 +68,6 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getSubcomponent <em>Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getIndices <em>Index</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance()
  * @model
@@ -475,13 +475,13 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	ComponentClassifier getComponentClassifier();
 
 	/**
-	 * return all leaf feature instances in the component instance.  
+	 * return all leaf feature instances in the component instance.
 	 * For feature groups recursively traverse all elements of the feature group
 	 */
 	EList<FeatureInstance> getAllFeatureInstances();
 
 	/**
-	 * return all feature instances in the component instance  
+	 * return all feature instances in the component instance
 	 * if it is of the specified category. For feature groups recursively traverse all elements of the feature group
 	 */
 	EList<FeatureInstance> getAllFeatureInstances(FeatureCategory category);

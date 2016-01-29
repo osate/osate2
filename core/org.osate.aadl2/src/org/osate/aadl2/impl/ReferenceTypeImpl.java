@@ -53,10 +53,10 @@ import org.osate.aadl2.ReferenceType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ReferenceTypeImpl#getNamedElementReferences <em>Named Element Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -111,8 +111,8 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 */
 	@Override
 	public MetaclassReference createNamedElementReference() {
-		MetaclassReference newNamedElementReference = (MetaclassReference) create(Aadl2Package.eINSTANCE
-				.getMetaclassReference());
+		MetaclassReference newNamedElementReference = (MetaclassReference) create(
+				Aadl2Package.eINSTANCE.getMetaclassReference());
 		getNamedElementReferences().add(newNamedElementReference);
 		return newNamedElementReference;
 	}

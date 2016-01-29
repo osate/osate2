@@ -57,12 +57,12 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getModeTransition <em>Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getSource <em>Source</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -186,8 +186,8 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION, newDestination, newDestination));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION,
+					newDestination, newDestination));
 		}
 	}
 

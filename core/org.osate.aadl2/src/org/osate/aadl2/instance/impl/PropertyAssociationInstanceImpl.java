@@ -51,10 +51,10 @@ import org.osate.aadl2.instance.PropertyAssociationInstance;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.PropertyAssociationInstanceImpl#getPropertyAssociation <em>Property Association</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -101,8 +101,8 @@ public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl imp
 			if (propertyAssociation != oldPropertyAssociation) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION,
-							oldPropertyAssociation, propertyAssociation));
+							InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, oldPropertyAssociation,
+							propertyAssociation));
 				}
 			}
 		}

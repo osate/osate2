@@ -188,8 +188,7 @@ public class ProcessTypeItemProvider extends ComponentTypeItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessType_OwnedSubprogramAccess(),
 				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessType_OwnedSubprogramGroupAccess(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessType_OwnedSubprogramGroupAccess(),
 				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 	}
 

@@ -52,11 +52,11 @@ import org.osate.aadl2.PortCategory;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.EventDataPortImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EventDataPortImpl#getDataFeatureClassifier <em>Data Feature Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
-				: featureClassifier;
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
 	}
 
 	/**
@@ -155,9 +155,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
-					dataFeatureClassifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER,
+					oldDataFeatureClassifier, dataFeatureClassifier));
 		}
 	}
 

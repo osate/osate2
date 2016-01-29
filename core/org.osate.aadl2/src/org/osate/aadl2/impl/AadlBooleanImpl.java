@@ -43,8 +43,6 @@ import org.osate.aadl2.AadlBoolean;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Aadl Boolean</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

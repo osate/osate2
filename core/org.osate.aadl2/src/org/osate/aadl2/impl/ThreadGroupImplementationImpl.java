@@ -64,6 +64,7 @@ import org.osate.aadl2.ThreadSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
@@ -73,7 +74,6 @@ import org.osate.aadl2.ThreadSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl#getOwnedSubprogramGroupSubcomponents <em>Owned Subprogram Group Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -205,8 +205,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
@@ -232,8 +232,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public ThreadSubcomponent createOwnedThreadSubcomponent() {
-		ThreadSubcomponent newOwnedThreadSubcomponent = (ThreadSubcomponent) create(Aadl2Package.eINSTANCE
-				.getThreadSubcomponent());
+		ThreadSubcomponent newOwnedThreadSubcomponent = (ThreadSubcomponent) create(
+				Aadl2Package.eINSTANCE.getThreadSubcomponent());
 		getOwnedThreadSubcomponents().add(newOwnedThreadSubcomponent);
 		return newOwnedThreadSubcomponent;
 	}
@@ -260,8 +260,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public ThreadGroupSubcomponent createOwnedThreadGroupSubcomponent() {
-		ThreadGroupSubcomponent newOwnedThreadGroupSubcomponent = (ThreadGroupSubcomponent) create(Aadl2Package.eINSTANCE
-				.getThreadGroupSubcomponent());
+		ThreadGroupSubcomponent newOwnedThreadGroupSubcomponent = (ThreadGroupSubcomponent) create(
+				Aadl2Package.eINSTANCE.getThreadGroupSubcomponent());
 		getOwnedThreadGroupSubcomponents().add(newOwnedThreadGroupSubcomponent);
 		return newOwnedThreadGroupSubcomponent;
 	}
@@ -288,8 +288,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
-		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramSubcomponent());
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
 		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
 		return newOwnedSubprogramSubcomponent;
 	}
@@ -316,8 +316,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
-		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupSubcomponent());
+		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent());
 		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}

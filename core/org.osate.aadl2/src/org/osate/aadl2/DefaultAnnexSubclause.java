@@ -48,11 +48,11 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.DefaultAnnexSubclause#getSourceText <em>Source Text</em>}</li>
  *   <li>{@link org.osate.aadl2.DefaultAnnexSubclause#getParsedAnnexSubclause <em>Parsed Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getDefaultAnnexSubclause()
  * @model

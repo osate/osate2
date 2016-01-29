@@ -85,13 +85,13 @@ public class ClassifierFeatureItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addFeaturingClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassifierFeature_featuringClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierFeature_featuringClassifier_feature",
-						"_UI_ClassifierFeature_type"), Aadl2Package.eINSTANCE
-						.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ClassifierFeature_featuringClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_ClassifierFeature_featuringClassifier_feature", "_UI_ClassifierFeature_type"),
+				Aadl2Package.eINSTANCE.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null,
+				null));
 	}
 
 	/**

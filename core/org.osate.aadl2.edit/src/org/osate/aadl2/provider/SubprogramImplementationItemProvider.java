@@ -165,13 +165,13 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 	}
 
 }

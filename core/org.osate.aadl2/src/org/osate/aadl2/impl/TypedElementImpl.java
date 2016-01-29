@@ -50,10 +50,10 @@ import org.osate.aadl2.TypedElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.TypedElementImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -99,8 +99,8 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPED_ELEMENT__TYPE,
-							oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPED_ELEMENT__TYPE, oldType,
+							type));
 				}
 			}
 		}

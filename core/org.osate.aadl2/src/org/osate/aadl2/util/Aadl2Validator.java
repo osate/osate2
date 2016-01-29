@@ -743,7 +743,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated NOT
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return true;
 	}
 
@@ -804,7 +805,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateElement_has_owner(Element element, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateElement_has_owner(Element element, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return element.has_owner(diagnostics, context);
 	}
 
@@ -1758,7 +1760,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateModeFeature(ModeFeature modeFeature, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateModeFeature(ModeFeature modeFeature, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(modeFeature, diagnostics, context)) {
 			return false;
 		}
@@ -1892,7 +1895,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTriggerPort(TriggerPort triggerPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateTriggerPort(TriggerPort triggerPort, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(triggerPort, diagnostics, context)) {
 			return false;
 		}
@@ -2340,7 +2344,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateModeBinding(ModeBinding modeBinding, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateModeBinding(ModeBinding modeBinding, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(modeBinding, diagnostics, context)) {
 			return false;
 		}
@@ -2754,7 +2759,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFlowFeature(FlowFeature flowFeature, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateFlowFeature(FlowFeature flowFeature, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(flowFeature, diagnostics, context)) {
 			return false;
 		}
@@ -3027,7 +3033,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFeatureType(FeatureType featureType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateFeatureType(FeatureType featureType, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(featureType, diagnostics, context);
 	}
 
@@ -3036,7 +3043,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(callContext, diagnostics, context);
 	}
 
@@ -3379,7 +3387,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFlowElement(FlowElement flowElement, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateFlowElement(FlowElement flowElement, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(flowElement, diagnostics, context)) {
 			return false;
 		}
@@ -3425,7 +3434,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRealization(Realization realization, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateRealization(Realization realization, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(realization, diagnostics, context)) {
 			return false;
 		}
@@ -4415,7 +4425,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAadlPackage(AadlPackage aadlPackage, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateAadlPackage(AadlPackage aadlPackage, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(aadlPackage, diagnostics, context)) {
 			return false;
 		}
@@ -4748,7 +4759,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNonListType(NonListType nonListType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateNonListType(NonListType nonListType, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(nonListType, diagnostics, context)) {
 			return false;
 		}
@@ -4794,7 +4806,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePropertySet(PropertySet propertySet, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validatePropertySet(PropertySet propertySet, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(propertySet, diagnostics, context)) {
 			return false;
 		}
@@ -5427,7 +5440,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFlowSegment(FlowSegment flowSegment, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateFlowSegment(FlowSegment flowSegment, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(flowSegment, diagnostics, context)) {
 			return false;
 		}
@@ -5890,7 +5904,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEventSource(EventSource eventSource, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEventSource(EventSource eventSource, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(eventSource, diagnostics, context)) {
 			return false;
 		}
@@ -9362,7 +9377,8 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validateElement_has_owner(virtualProcessorSubcomponentType, diagnostics, context);
 		}
 		if (result || diagnostics != null) {
-			result &= validateNamedElement_has_no_qualified_name(virtualProcessorSubcomponentType, diagnostics, context);
+			result &= validateNamedElement_has_no_qualified_name(virtualProcessorSubcomponentType, diagnostics,
+					context);
 		}
 		if (result || diagnostics != null) {
 			result &= validateNamedElement_has_qualified_name(virtualProcessorSubcomponentType, diagnostics, context);
@@ -10760,9 +10776,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateVirtualProcessorImplementation(
-			VirtualProcessorImplementation virtualProcessorImplementation, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean validateVirtualProcessorImplementation(VirtualProcessorImplementation virtualProcessorImplementation,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(virtualProcessorImplementation, diagnostics, context)) {
 			return false;
 		}
@@ -10774,7 +10789,8 @@ public class Aadl2Validator extends EObjectValidator {
 			result &= validate_EveryReferenceIsContained(virtualProcessorImplementation, diagnostics, context);
 		}
 		if (result || diagnostics != null) {
-			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorImplementation, diagnostics, context);
+			result &= validate_EveryBidirectionalReferenceIsPaired(virtualProcessorImplementation, diagnostics,
+					context);
 		}
 		if (result || diagnostics != null) {
 			result &= validate_EveryProxyResolves(virtualProcessorImplementation, diagnostics, context);
@@ -11193,7 +11209,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateProcessType(ProcessType processType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateProcessType(ProcessType processType, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(processType, diagnostics, context)) {
 			return false;
 		}
@@ -11672,7 +11689,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAadlInteger(AadlInteger aadlInteger, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateAadlInteger(AadlInteger aadlInteger, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(aadlInteger, diagnostics, context)) {
 			return false;
 		}
@@ -11764,7 +11782,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAadlBoolean(AadlBoolean aadlBoolean, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateAadlBoolean(AadlBoolean aadlBoolean, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(aadlBoolean, diagnostics, context)) {
 			return false;
 		}
@@ -11994,7 +12013,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateUnitLiteral(UnitLiteral unitLiteral, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateUnitLiteral(UnitLiteral unitLiteral, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(unitLiteral, diagnostics, context)) {
 			return false;
 		}
@@ -12081,7 +12101,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNumberValue(NumberValue numberValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateNumberValue(NumberValue numberValue, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(numberValue, diagnostics, context)) {
 			return false;
 		}
@@ -12325,7 +12346,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRealLiteral(RealLiteral realLiteral, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateRealLiteral(RealLiteral realLiteral, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(realLiteral, diagnostics, context)) {
 			return false;
 		}
@@ -12405,7 +12427,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRecordValue(RecordValue recordValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateRecordValue(RecordValue recordValue, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(recordValue, diagnostics, context)) {
 			return false;
 		}
@@ -12883,7 +12906,8 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRecordField(RecordField recordField, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateRecordField(RecordField recordField, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(recordField, diagnostics, context)) {
 			return false;
 		}
@@ -13071,12 +13095,15 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	protected int getLowerBound(EObject eObject, EStructuralFeature eStructuralFeature) {
-		try {
-			return Integer
-					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "lowerBound"));
-		} catch (Exception e) {
-			return eStructuralFeature.getLowerBound();
+		String redefinitionDetail = getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "lowerBound");
+		if (redefinitionDetail != null && redefinitionDetail.length() > 0) {
+			try {
+				return Integer.parseInt(redefinitionDetail);
+			} catch (Exception e) {
+				// do nothing
+			}
 		}
+		return eStructuralFeature.getLowerBound();
 	}
 
 	/**
@@ -13085,12 +13112,15 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	protected int getUpperBound(EObject eObject, EStructuralFeature eStructuralFeature) {
-		try {
-			return Integer
-					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "upperBound"));
-		} catch (Exception e) {
-			return eStructuralFeature.getUpperBound();
+		String redefinitionDetail = getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "upperBound");
+		if (redefinitionDetail != null && redefinitionDetail.length() > 0) {
+			try {
+				return Integer.parseInt(redefinitionDetail);
+			} catch (Exception e) {
+				// do nothing
+			}
 		}
+		return eStructuralFeature.getUpperBound();
 	}
 
 	/**
@@ -13125,28 +13155,24 @@ public class Aadl2Validator extends EObjectValidator {
 					if (size < lowerBound) {
 						result = false;
 						if (diagnostics != null) {
-							diagnostics.add(createDiagnostic(
-									Diagnostic.ERROR,
-									EObjectValidator.DIAGNOSTIC_SOURCE,
+							diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 									"_UI_FeatureHasTooFewValues_diagnostic",
 									new Object[] { getFeatureLabel(eStructuralFeature, context),
-											getObjectLabel(eObject, context), size, lowerBound }, new Object[] {
-											eObject, eStructuralFeature }, context));
+											getObjectLabel(eObject, context), size, lowerBound },
+									new Object[] { eObject, eStructuralFeature }, context));
 						}
 					}
 					int upperBound = getUpperBound(eObject, eStructuralFeature);
 					if (upperBound > 0 && size > upperBound) {
 						result = false;
 						if (diagnostics != null) {
-							diagnostics.add(createDiagnostic(
-									Diagnostic.ERROR,
-									EObjectValidator.DIAGNOSTIC_SOURCE,
+							diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 									"_UI_FeatureHasTooManyValues_diagnostic",
 									new Object[] { getFeatureLabel(eStructuralFeature, context),
-											getObjectLabel(eObject, context), size, upperBound }, new Object[] {
-											eObject, eStructuralFeature }, context));
+											getObjectLabel(eObject, context), size, upperBound },
+									new Object[] { eObject, eStructuralFeature }, context));
 						}
 					}
 				} else {
@@ -13156,32 +13182,28 @@ public class Aadl2Validator extends EObjectValidator {
 						if (size > upperBound) {
 							result = false;
 							if (diagnostics != null) {
-								diagnostics.add(createDiagnostic(
-										Diagnostic.ERROR,
-										EObjectValidator.DIAGNOSTIC_SOURCE,
+								diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 										EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 										"_UI_FeatureHasTooManyValues_diagnostic",
 										new Object[] { getFeatureLabel(eStructuralFeature, context),
-												getObjectLabel(eObject, context), size, upperBound }, new Object[] {
-												eObject, eStructuralFeature }, context));
+												getObjectLabel(eObject, context), size, upperBound },
+										new Object[] { eObject, eStructuralFeature }, context));
 							}
 						}
 					}
 				}
 			}
 		} else if (getLowerBound(eObject, eStructuralFeature) >= 1) {
-			if (eStructuralFeature.isUnsettable() ? !eObject.eIsSet(eStructuralFeature) : eObject.eGet(
-					eStructuralFeature, false) == null) {
+			if (eStructuralFeature.isUnsettable() ? !eObject.eIsSet(eStructuralFeature)
+					: eObject.eGet(eStructuralFeature, false) == null) {
 				result = false;
 				if (diagnostics != null) {
-					diagnostics.add(createDiagnostic(
-							Diagnostic.ERROR,
-							EObjectValidator.DIAGNOSTIC_SOURCE,
+					diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 							EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 							"_UI_RequiredFeatureMustBeSet_diagnostic",
 							new Object[] { getFeatureLabel(eStructuralFeature, context),
-									getObjectLabel(eObject, context) }, new Object[] { eObject, eStructuralFeature },
-							context));
+									getObjectLabel(eObject, context) },
+							new Object[] { eObject, eStructuralFeature }, context));
 				}
 			}
 		}

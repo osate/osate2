@@ -86,8 +86,7 @@ public class ProcessSubcomponentItemProvider extends SubcomponentItemProvider {
 	 */
 	protected void addProcessSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ProcessSubcomponent_processSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
 						"_UI_ProcessSubcomponent_processSubcomponentType_feature", "_UI_ProcessSubcomponent_type"),

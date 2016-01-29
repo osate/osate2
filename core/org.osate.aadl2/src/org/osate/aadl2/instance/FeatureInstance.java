@@ -50,6 +50,7 @@ import org.osate.aadl2.FeatureGroupType;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getSrcFlowSpecs <em>Src Flow Spec</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getDstFlowSpecs <em>Dst Flow Spec</em>}</li>
@@ -59,7 +60,6 @@ import org.osate.aadl2.FeatureGroupType;
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getIndex <em>Index</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance()
  * @model

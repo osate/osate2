@@ -49,6 +49,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroupType#getExtended <em>Extended</em>}</li>
@@ -65,7 +66,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.FeatureGroupType#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroupType#getOwnedAbstractFeatures <em>Owned Abstract Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType()
  * @model annotation="http://www.topcased.org/documentation documentation='To be merged with AADLConstructs::Features::FeatureGroupType'"
@@ -77,11 +77,11 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.Feature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -103,10 +103,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * Returns the value of the '<em><b>Extended</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGenerals() <em>General</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extended</em>' reference isn't clear,
@@ -168,10 +168,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGeneralizations() <em>Generalization</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Extension</em>' reference isn't clear,
@@ -214,10 +214,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.BusAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Bus Access</em>' containment reference list isn't clear,
@@ -249,10 +249,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.DataAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Access</em>' containment reference list isn't clear,
@@ -284,10 +284,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.DataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Port</em>' containment reference list isn't clear,
@@ -319,10 +319,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.EventDataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Data Port</em>' containment reference list isn't clear,
@@ -354,10 +354,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.EventPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Port</em>' containment reference list isn't clear,
@@ -389,10 +389,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.FeatureGroup}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Feature Group</em>' containment reference list isn't clear,
@@ -424,10 +424,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.Parameter}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Parameter</em>' containment reference list isn't clear,
@@ -459,10 +459,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Access</em>' containment reference list isn't clear,
@@ -494,10 +494,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Group Access</em>' containment reference list isn't clear,
@@ -529,10 +529,10 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * The list contents are of type {@link org.osate.aadl2.AbstractFeature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Abstract Feature</em>' containment reference list isn't clear,

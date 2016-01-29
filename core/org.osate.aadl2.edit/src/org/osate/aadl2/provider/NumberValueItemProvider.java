@@ -85,13 +85,11 @@ public class NumberValueItemProvider extends PropertyValueItemProvider {
 	 */
 	protected void addUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_NumberValue_unit_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_NumberValue_unit_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_NumberValue_unit_feature",
-								"_UI_NumberValue_type"), Aadl2Package.eINSTANCE.getNumberValue_Unit(), true, false,
-						true, null, null, null));
+								"_UI_NumberValue_type"),
+						Aadl2Package.eINSTANCE.getNumberValue_Unit(), true, false, true, null, null, null));
 	}
 
 	/**

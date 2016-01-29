@@ -48,12 +48,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedDataPorts <em>Owned Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getVirtualBusType()
  * @model
@@ -66,10 +66,10 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.DataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Port</em>' containment reference list isn't clear,
@@ -101,10 +101,10 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.EventDataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Data Port</em>' containment reference list isn't clear,
@@ -136,10 +136,10 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.EventPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Port</em>' containment reference list isn't clear,

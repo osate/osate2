@@ -85,13 +85,12 @@ public class DirectedRelationshipItemProvider extends RelationshipItemProvider {
 	 * @generated
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_DirectedRelationship_source_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DirectedRelationship_source_feature",
-						"_UI_DirectedRelationship_type"), Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
-				false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DirectedRelationship_source_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DirectedRelationship_source_feature",
+								"_UI_DirectedRelationship_type"),
+				Aadl2Package.eINSTANCE.getDirectedRelationship_Source(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -101,13 +100,12 @@ public class DirectedRelationshipItemProvider extends RelationshipItemProvider {
 	 * @generated
 	 */
 	protected void addTargetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_DirectedRelationship_target_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DirectedRelationship_target_feature",
-						"_UI_DirectedRelationship_type"), Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
-				false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DirectedRelationship_target_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DirectedRelationship_target_feature",
+								"_UI_DirectedRelationship_type"),
+				Aadl2Package.eINSTANCE.getDirectedRelationship_Target(), false, false, false, null, null, null));
 	}
 
 	/**

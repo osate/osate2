@@ -89,12 +89,12 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider {
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentTypeRename_category_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentTypeRename_category_feature",
-						"_UI_ComponentTypeRename_type"), Aadl2Package.eINSTANCE.getComponentTypeRename_Category(),
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						"_UI_ComponentTypeRename_type"),
+				Aadl2Package.eINSTANCE.getComponentTypeRename_Category(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -104,13 +104,13 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addRenamedComponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentTypeRename_renamedComponentType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentTypeRename_renamedComponentType_feature",
-						"_UI_ComponentTypeRename_type"), Aadl2Package.eINSTANCE
-						.getComponentTypeRename_RenamedComponentType(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentTypeRename_renamedComponentType_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_ComponentTypeRename_renamedComponentType_feature", "_UI_ComponentTypeRename_type"),
+				Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

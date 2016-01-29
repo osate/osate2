@@ -97,13 +97,11 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 	 */
 	protected void addOwnedElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Element_ownedElement_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Element_ownedElement_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_Element_ownedElement_feature",
-								"_UI_Element_type"), Aadl2Package.eINSTANCE.getElement_OwnedElement(), false, false,
-						false, null, null, null));
+								"_UI_Element_type"),
+						Aadl2Package.eINSTANCE.getElement_OwnedElement(), false, false, false, null, null, null));
 	}
 
 	/**

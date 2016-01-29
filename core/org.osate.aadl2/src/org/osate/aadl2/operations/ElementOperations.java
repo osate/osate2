@@ -59,6 +59,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Element#not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Not own self</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has owner</em>}</li>
@@ -66,7 +67,6 @@ import org.osate.aadl2.util.Aadl2Validator;
  *   <li>{@link org.osate.aadl2.Element#allOwnedElements() <em>All Owned Elements</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#mustBeOwned() <em>Must Be Owned</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -133,15 +133,12 @@ public class ElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(element)) {
 			if (diagnostics != null) {
-				diagnostics
-						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-								Aadl2Validator.ELEMENT__NOT_OWN_SELF, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-										.getString(
-												"_UI_GenericInvariant_diagnostic",
-												new Object[] {
-														"not_own_self",
-														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
-																element, context) }), new Object[] { element }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__NOT_OWN_SELF,
+						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic",
+								new Object[] { "not_own_self",
+										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(element, context) }),
+						new Object[] { element }));
 			}
 			return false;
 		}
@@ -192,15 +189,12 @@ public class ElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(element)) {
 			if (diagnostics != null) {
-				diagnostics
-						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-								Aadl2Validator.ELEMENT__HAS_OWNER, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-										.getString(
-												"_UI_GenericInvariant_diagnostic",
-												new Object[] {
-														"has_owner",
-														org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(
-																element, context) }), new Object[] { element }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__HAS_OWNER,
+						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString("_UI_GenericInvariant_diagnostic",
+								new Object[] { "has_owner",
+										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(element, context) }),
+						new Object[] { element }));
 			}
 			return false;
 		}
@@ -249,8 +243,8 @@ public class ElementOperations {
 	public static EList<Element> allOwnedElements(Element element) {
 		if (ALL_OWNED_ELEMENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
-					.getEAllOperations().get(3));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
+					Aadl2Package.eINSTANCE.getElement().getEAllOperations().get(3));
 			try {
 				ALL_OWNED_ELEMENTS__EOCL_QRY = helper.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -296,8 +290,8 @@ public class ElementOperations {
 	public static boolean mustBeOwned(Element element) {
 		if (MUST_BE_OWNED__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
-					.getEAllOperations().get(4));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(),
+					Aadl2Package.eINSTANCE.getElement().getEAllOperations().get(4));
 			try {
 				MUST_BE_OWNED__EOCL_QRY = helper.createQuery(MUST_BE_OWNED__EOCL_EXP);
 			} catch (ParserException pe) {

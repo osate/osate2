@@ -50,11 +50,11 @@ import org.osate.aadl2.DefaultAnnexSubclause;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl#getSourceText <em>Source Text</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl#getParsedAnnexSubclause <em>Parsed Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -148,7 +148,8 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetParsedAnnexSubclause(AnnexSubclause newParsedAnnexSubclause, NotificationChain msgs) {
+	public NotificationChain basicSetParsedAnnexSubclause(AnnexSubclause newParsedAnnexSubclause,
+			NotificationChain msgs) {
 		AnnexSubclause oldParsedAnnexSubclause = parsedAnnexSubclause;
 		parsedAnnexSubclause = newParsedAnnexSubclause;
 		if (eNotificationRequired()) {
@@ -174,12 +175,14 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 		if (newParsedAnnexSubclause != parsedAnnexSubclause) {
 			NotificationChain msgs = null;
 			if (parsedAnnexSubclause != null) {
-				msgs = ((InternalEObject) parsedAnnexSubclause).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null, msgs);
+				msgs = ((InternalEObject) parsedAnnexSubclause).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null,
+						msgs);
 			}
 			if (newParsedAnnexSubclause != null) {
-				msgs = ((InternalEObject) newParsedAnnexSubclause).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null, msgs);
+				msgs = ((InternalEObject) newParsedAnnexSubclause).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null,
+						msgs);
 			}
 			msgs = basicSetParsedAnnexSubclause(newParsedAnnexSubclause, msgs);
 			if (msgs != null) {

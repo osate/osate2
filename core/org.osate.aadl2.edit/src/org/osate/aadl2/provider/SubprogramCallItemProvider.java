@@ -86,13 +86,13 @@ public class SubprogramCallItemProvider extends BehavioralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addCalledSubprogramPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_SubprogramCall_calledSubprogram_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_calledSubprogram_feature",
-						"_UI_SubprogramCall_type"), Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_SubprogramCall_calledSubprogram_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_calledSubprogram_feature",
+								"_UI_SubprogramCall_type"),
+						Aadl2Package.eINSTANCE.getSubprogramCall_CalledSubprogram(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -102,13 +102,12 @@ public class SubprogramCallItemProvider extends BehavioralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_SubprogramCall_context_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_context_feature",
-						"_UI_SubprogramCall_type"), Aadl2Package.eINSTANCE.getSubprogramCall_Context(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_SubprogramCall_context_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_SubprogramCall_context_feature",
+								"_UI_SubprogramCall_type"),
+						Aadl2Package.eINSTANCE.getSubprogramCall_Context(), true, false, true, null, null, null));
 	}
 
 	/**

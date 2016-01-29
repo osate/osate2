@@ -47,8 +47,6 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Called Subprogram</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -48,10 +48,10 @@ import org.osate.aadl2.SubprogramCallSequence;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.BehavioredImplementation#subprogramCalls() <em>Subprogram Calls</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

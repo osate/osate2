@@ -95,8 +95,8 @@ public class EventPortItemProvider extends PortItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((EventPort) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_EventPort_type") : getString("_UI_EventPort_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_EventPort_type")
+				: getString("_UI_EventPort_type") + " " + label;
 	}
 
 	/**

@@ -84,8 +84,8 @@ public class BusItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Bus) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Bus_type") : getString("_UI_Bus_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Bus_type")
+				: getString("_UI_Bus_type") + " " + label;
 	}
 
 	/**

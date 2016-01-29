@@ -52,6 +52,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.PropertyAssociation#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyAssociation#getAppliesTos <em>Applies To</em>}</li>
@@ -60,7 +61,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  *   <li>{@link org.osate.aadl2.PropertyAssociation#isConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyAssociation#getOwnedValues <em>Owned Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPropertyAssociation()
  * @model

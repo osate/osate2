@@ -64,6 +64,7 @@ import org.osate.aadl2.SystemType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SystemTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SystemTypeImpl#getOwnedBusAccesses <em>Owned Bus Access</em>}</li>
@@ -74,7 +75,6 @@ import org.osate.aadl2.SystemType;
  *   <li>{@link org.osate.aadl2.impl.SystemTypeImpl#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SystemTypeImpl#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -299,8 +299,8 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}
@@ -326,8 +326,8 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}

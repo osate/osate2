@@ -89,12 +89,10 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	 */
 	protected void addComponentImplementationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_SystemInstance_componentImplementation_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+								"_UI_SystemInstance_componentImplementation_feature", "_UI_SystemInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
 						InstancePackage.Literals.SYSTEM_INSTANCE__COMPONENT_IMPLEMENTATION, true, false, true, null,
 						null, null));
 	}
@@ -149,8 +147,8 @@ public class SystemInstanceItemProvider extends ComponentInstanceItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((SystemInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") : //$NON-NLS-1$
-				getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_SystemInstance_type") //$NON-NLS-1$
+				: getString("_UI_SystemInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

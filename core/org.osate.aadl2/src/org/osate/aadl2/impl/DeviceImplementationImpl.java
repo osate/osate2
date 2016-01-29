@@ -62,6 +62,7 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
@@ -69,7 +70,6 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DeviceImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -207,8 +207,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
@@ -235,8 +235,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}

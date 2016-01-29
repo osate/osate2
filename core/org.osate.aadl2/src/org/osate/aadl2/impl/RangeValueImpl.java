@@ -59,12 +59,12 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RangeValueImpl#getMinimum <em>Minimum</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RangeValueImpl#getMaximum <em>Maximum</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RangeValueImpl#getDelta <em>Delta</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -518,7 +518,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMinimumValue()
 	 */
 	@Override
@@ -528,7 +528,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getMaximumValue()
 	 */
 	@Override
@@ -538,7 +538,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.RangeValue#getDeltaValue()
 	 */
 	@Override

@@ -54,12 +54,12 @@ import org.osate.aadl2.PublicPackageSection;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.GlobalNamespaceImpl#getMembers <em>Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GlobalNamespaceImpl#getPackages <em>Package</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GlobalNamespaceImpl#getPropertySets <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

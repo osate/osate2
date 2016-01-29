@@ -77,6 +77,7 @@ import org.osate.aadl2.properties.PropertyEvaluationResult;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PropertyImpl#isInherit <em>Inherit</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyImpl#getDefaultValue <em>Default Value</em>}</li>
@@ -85,7 +86,6 @@ import org.osate.aadl2.properties.PropertyEvaluationResult;
  *   <li>{@link org.osate.aadl2.impl.PropertyImpl#getAppliesTos <em>Applies To</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyImpl#isEmptyListDefault <em>Empty List Default</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -683,7 +683,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.AbstractNamedValue#sameAs(org.osate.aadl2.AbstractNamedValue)
 	 */
 	@Override

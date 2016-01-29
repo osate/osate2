@@ -54,11 +54,11 @@ import org.osate.aadl2.parsesupport.AObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Element#getOwnedElements <em>Owned Element</em>}</li>
  *   <li>{@link org.osate.aadl2.Element#getOwnedComments <em>Owned Comment</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getElement()
  * @model abstract="true"
@@ -89,10 +89,10 @@ public interface Element extends AObject {
 	 * The list contents are of type {@link org.osate.aadl2.Comment}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->

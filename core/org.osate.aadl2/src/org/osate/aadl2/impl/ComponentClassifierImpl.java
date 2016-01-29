@@ -61,6 +61,7 @@ import org.osate.aadl2.NamedElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedMembers <em>Owned Member</em>}</li>
@@ -70,7 +71,6 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoModes <em>No Modes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

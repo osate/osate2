@@ -49,10 +49,10 @@ import org.osate.aadl2.ArraySize;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ArrayDimensionImpl#getSize <em>Size</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,19 +126,20 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 		if (newSize != size) {
 			NotificationChain msgs = null;
 			if (size != null) {
-				msgs = ((InternalEObject) size).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
+				msgs = ((InternalEObject) size).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
 			}
 			if (newSize != null) {
-				msgs = ((InternalEObject) newSize).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
+				msgs = ((InternalEObject) newSize).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
 			}
 			msgs = basicSetSize(newSize, msgs);
 			if (msgs != null) {
 				msgs.dispatch();
 			}
 		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_DIMENSION__SIZE, newSize, newSize));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_DIMENSION__SIZE, newSize,
+					newSize));
 		}
 	}
 

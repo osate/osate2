@@ -85,12 +85,11 @@ public class SystemSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	protected void addSystemSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_SystemSubcomponent_systemSubcomponentType_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_SystemSubcomponent_systemSubcomponentType_feature", "_UI_SystemSubcomponent_type"),
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_SystemSubcomponent_systemSubcomponentType_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_SystemSubcomponent_systemSubcomponentType_feature", "_UI_SystemSubcomponent_type"),
 				Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType(), true, false, true, null, null,
 				null));
 	}

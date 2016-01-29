@@ -87,12 +87,12 @@ public class CommentItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addBodyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Comment_body_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Comment_body_feature", "_UI_Comment_type"),
-				Aadl2Package.eINSTANCE.getComment_Body(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Comment_body_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Comment_body_feature", "_UI_Comment_type"),
+						Aadl2Package.eINSTANCE.getComment_Body(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class CommentItemProvider extends ElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Comment) object).getBody();
-		return label == null || label.length() == 0 ? getString("_UI_Comment_type") : getString("_UI_Comment_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Comment_type")
+				: getString("_UI_Comment_type") + " " + label;
 	}
 
 	/**

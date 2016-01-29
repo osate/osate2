@@ -85,13 +85,12 @@ public class BusSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	protected void addBusSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BusSubcomponent_busSubcomponentType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BusSubcomponent_busSubcomponentType_feature",
-						"_UI_BusSubcomponent_type"), Aadl2Package.eINSTANCE.getBusSubcomponent_BusSubcomponentType(),
-				true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BusSubcomponent_busSubcomponentType_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_BusSubcomponent_busSubcomponentType_feature", "_UI_BusSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getBusSubcomponent_BusSubcomponentType(), true, false, true, null, null, null));
 	}
 
 	/**

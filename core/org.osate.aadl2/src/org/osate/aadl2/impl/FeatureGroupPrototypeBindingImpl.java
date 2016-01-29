@@ -54,11 +54,11 @@ import org.osate.aadl2.Prototype;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl#getActual <em>Actual</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl#getFormal <em>Formal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -132,12 +132,12 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 		if (newActual != actual) {
 			NotificationChain msgs = null;
 			if (actual != null) {
-				msgs = ((InternalEObject) actual).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
+				msgs = ((InternalEObject) actual).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			}
 			if (newActual != null) {
-				msgs = ((InternalEObject) newActual).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
+				msgs = ((InternalEObject) newActual).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL, null, msgs);
 			}
 			msgs = basicSetActual(newActual, msgs);
 			if (msgs != null) {
@@ -156,8 +156,8 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl imple
 	 */
 	@Override
 	public FeatureGroupPrototypeActual createActual() {
-		FeatureGroupPrototypeActual newActual = (FeatureGroupPrototypeActual) create(Aadl2Package.eINSTANCE
-				.getFeatureGroupPrototypeActual());
+		FeatureGroupPrototypeActual newActual = (FeatureGroupPrototypeActual) create(
+				Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual());
 		setActual(newActual);
 		return newActual;
 	}

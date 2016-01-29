@@ -42,12 +42,11 @@ import org.osate.aadl2.SubprogramSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Subprogram Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class SubprogramSubcomponentTypeImpl extends SubcomponentTypeImpl implements SubprogramSubcomponentType {
+public abstract class SubprogramSubcomponentTypeImpl extends SubcomponentTypeImpl
+		implements SubprogramSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

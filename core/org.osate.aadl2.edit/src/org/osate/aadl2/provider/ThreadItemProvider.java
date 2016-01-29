@@ -83,8 +83,8 @@ public class ThreadItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((org.osate.aadl2.Thread) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Thread_type") : getString("_UI_Thread_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Thread_type")
+				: getString("_UI_Thread_type") + " " + label;
 	}
 
 	/**

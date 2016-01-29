@@ -131,8 +131,8 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((DataType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_DataType_type") : getString("_UI_DataType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_DataType_type")
+				: getString("_UI_DataType_type") + " " + label;
 	}
 
 	/**

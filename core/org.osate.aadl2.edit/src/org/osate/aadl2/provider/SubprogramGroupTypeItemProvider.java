@@ -165,13 +165,13 @@ public class SubprogramGroupTypeItemProvider extends ComponentTypeItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramGroupType_OwnedSubprogramAccess(),
-				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSubprogramGroupType_OwnedSubprogramAccess(),
+						Aadl2Factory.eINSTANCE.createSubprogramAccess()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramGroupType_OwnedSubprogramGroupAccess(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSubprogramGroupType_OwnedSubprogramGroupAccess(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 	}
 
 }

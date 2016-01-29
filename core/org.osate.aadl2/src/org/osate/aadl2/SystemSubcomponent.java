@@ -46,10 +46,10 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.SystemSubcomponent#getSystemSubcomponentType <em>System Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getSystemSubcomponent()
  * @model
@@ -61,10 +61,10 @@ public interface SystemSubcomponent extends Subcomponent, org.osate.aadl2.System
 	 * Returns the value of the '<em><b>System Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>System Subcomponent Type</em>' reference isn't clear,

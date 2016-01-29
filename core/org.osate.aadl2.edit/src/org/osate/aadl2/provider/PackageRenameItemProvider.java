@@ -88,13 +88,12 @@ public class PackageRenameItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addRenamedPackagePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageRename_renamedPackage_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renamedPackage_feature",
-						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PackageRename_renamedPackage_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renamedPackage_feature",
+								"_UI_PackageRename_type"),
+						Aadl2Package.eINSTANCE.getPackageRename_RenamedPackage(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -104,13 +103,13 @@ public class PackageRenameItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addRenameAllPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PackageRename_renameAll_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renameAll_feature",
-						"_UI_PackageRename_type"), Aadl2Package.eINSTANCE.getPackageRename_RenameAll(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PackageRename_renameAll_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PackageRename_renameAll_feature",
+								"_UI_PackageRename_type"),
+						Aadl2Package.eINSTANCE.getPackageRename_RenameAll(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

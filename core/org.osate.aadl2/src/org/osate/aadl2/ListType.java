@@ -47,12 +47,12 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ListType#getOwnedElementType <em>Owned Element Type</em>}</li>
  *   <li>{@link org.osate.aadl2.ListType#getReferencedElementType <em>Referenced Element Type</em>}</li>
  *   <li>{@link org.osate.aadl2.ListType#getElementType <em>Element Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getListType()
  * @model
@@ -63,10 +63,10 @@ public interface ListType extends PropertyType {
 	 * Returns the value of the '<em><b>Owned Element Type</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ListType#getElementType() <em>Element Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Element Type</em>' containment reference isn't clear,
@@ -109,10 +109,10 @@ public interface ListType extends PropertyType {
 	 * Returns the value of the '<em><b>Referenced Element Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ListType#getElementType() <em>Element Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->

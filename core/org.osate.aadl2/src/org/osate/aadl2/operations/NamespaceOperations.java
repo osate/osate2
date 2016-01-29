@@ -61,12 +61,12 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Namespace#members_distinguishable(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Members distinguishable</em>}</li>
  *   <li>{@link org.osate.aadl2.Namespace#getNamesOfMember(org.osate.aadl2.NamedElement) <em>Get Names Of Member</em>}</li>
  *   <li>{@link org.osate.aadl2.Namespace#membersAreDistinguishable() <em>Members Are Distinguishable</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -125,15 +125,15 @@ public class NamespaceOperations extends NamedElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(MEMBERS_DISTINGUISHABLE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(namespace)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"members_distinguishable",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namespace,
-														context) }), new Object[] { namespace }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.NAMESPACE__MEMBERS_DISTINGUISHABLE,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "members_distinguishable",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(namespace, context) }),
+								new Object[] { namespace }));
 			}
 			return false;
 		}
@@ -174,8 +174,8 @@ public class NamespaceOperations extends NamedElementOperations {
 	public static EList<String> getNamesOfMember(Namespace namespace, NamedElement element) {
 		if (GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(14));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
+					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations().get(14));
 			try {
 				GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_EXP);
@@ -224,8 +224,8 @@ public class NamespaceOperations extends NamedElementOperations {
 	public static boolean membersAreDistinguishable(Namespace namespace) {
 		if (MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(), Aadl2Package.eINSTANCE.getNamespace()
-					.getEAllOperations().get(15));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
+					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations().get(15));
 			try {
 				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);
 			} catch (ParserException pe) {

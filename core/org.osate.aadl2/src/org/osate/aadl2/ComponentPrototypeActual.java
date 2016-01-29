@@ -50,12 +50,12 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getBindings <em>Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentPrototypeActual#getSubcomponentType <em>Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeActual()
  * @model

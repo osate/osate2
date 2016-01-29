@@ -46,13 +46,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Connection#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.Connection#getRefined <em>Refined</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getConnection()
  * @model abstract="true"
@@ -170,10 +170,10 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Refined</em>' reference isn't clear,

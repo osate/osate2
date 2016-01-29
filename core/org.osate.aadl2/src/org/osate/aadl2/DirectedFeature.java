@@ -47,12 +47,12 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.DirectedFeature#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.DirectedFeature#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getDirectedFeature()
  * @model abstract="true"

@@ -97,13 +97,12 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 * @generated
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentImplementation_type_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_type_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE.getComponentImplementation_Type(),
-				true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentImplementation_type_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_type_feature",
+								"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_Type(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -114,11 +113,10 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 */
 	protected void addOwnedSubcomponentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentImplementation_ownedSubcomponent_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_ComponentImplementation_ownedSubcomponent_feature", "_UI_ComponentImplementation_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_ownedSubcomponent_feature",
+						"_UI_ComponentImplementation_type"),
 				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(), false, false, false, null, null,
 				null));
 	}
@@ -131,12 +129,11 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 */
 	protected void addNoSubcomponentsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentImplementation_noSubcomponents_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noSubcomponents_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_NoSubcomponents(), true, false, false,
+						"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_NoSubcomponents(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -147,13 +144,12 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 * @generated
 	 */
 	protected void addNoCallsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentImplementation_noCalls_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noCalls_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_NoCalls(), true, false, false,
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentImplementation_noCalls_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noCalls_feature",
+								"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_NoCalls(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -165,15 +161,13 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 */
 	protected void addOwnedProcessorFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentImplementation_ownedProcessorFeature_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentImplementation_ownedProcessorFeature_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ComponentImplementation_ownedProcessorFeature_feature",
-								"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedProcessorFeature(), false, false, false, null, null,
-						null));
+								"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorFeature(), false, false, false, null,
+				null, null));
 	}
 
 	/**
@@ -183,16 +177,13 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 * @generated
 	 */
 	protected void addOwnedInternalFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentImplementation_ownedInternalFeature_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_ComponentImplementation_ownedInternalFeature_feature",
-								"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedInternalFeature(), false, false, false, null, null,
-						null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ComponentImplementation_ownedInternalFeature_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentImplementation_ownedInternalFeature_feature", "_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedInternalFeature(), false, false, false, null,
+				null, null));
 	}
 
 	/**
@@ -203,12 +194,11 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 */
 	protected void addNoConnectionsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentImplementation_noConnections_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noConnections_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_NoConnections(), true, false, false,
+						"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_NoConnections(), true, false, false,
 				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -219,13 +209,12 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 * @generated
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ComponentImplementation_extended_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_extended_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_Extended(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentImplementation_extended_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_extended_feature",
+								"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_Extended(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -236,12 +225,12 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 */
 	protected void addOwnedConnectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentImplementation_ownedConnection_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_ownedConnection_feature",
-						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_OwnedConnection(), false, false, false, null, null, null));
+						"_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedConnection(), false, false, false, null, null,
+				null));
 	}
 
 	/**
@@ -348,61 +337,59 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFlowImplementation(),
-				Aadl2Factory.eINSTANCE.createFlowImplementation()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFlowImplementation(),
+						Aadl2Factory.eINSTANCE.createFlowImplementation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedExtension(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedExtension(),
 				Aadl2Factory.eINSTANCE.createImplementationExtension()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization(),
-				Aadl2Factory.eINSTANCE.createRealization()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization(),
+						Aadl2Factory.eINSTANCE.createRealization()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow(),
-				Aadl2Factory.eINSTANCE.createEndToEndFlow()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow(),
+						Aadl2Factory.eINSTANCE.createEndToEndFlow()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent(),
-				Aadl2Factory.eINSTANCE.createAbstractSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent(),
+						Aadl2Factory.eINSTANCE.createAbstractSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),
-				Aadl2Factory.eINSTANCE.createAccessConnection()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),
+						Aadl2Factory.eINSTANCE.createAccessConnection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection(),
-				Aadl2Factory.eINSTANCE.createParameterConnection()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection(),
+						Aadl2Factory.eINSTANCE.createParameterConnection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection(),
-				Aadl2Factory.eINSTANCE.createPortConnection()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection(),
+						Aadl2Factory.eINSTANCE.createPortConnection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection(),
-				Aadl2Factory.eINSTANCE.createFeatureConnection()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection(),
+						Aadl2Factory.eINSTANCE.createFeatureConnection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupConnection()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection(),
+						Aadl2Factory.eINSTANCE.createFeatureGroupConnection()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEventSource(),
-				Aadl2Factory.eINSTANCE.createEventSource()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEventSource(),
+						Aadl2Factory.eINSTANCE.createEventSource()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEventDataSource(),
-				Aadl2Factory.eINSTANCE.createEventDataSource()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEventDataSource(),
+						Aadl2Factory.eINSTANCE.createEventDataSource()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortProxy(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortProxy(),
 				Aadl2Factory.eINSTANCE.createPortProxy()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubprogramProxy(),
-				Aadl2Factory.eINSTANCE.createSubprogramProxy()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubprogramProxy(),
+						Aadl2Factory.eINSTANCE.createSubprogramProxy()));
 	}
 
 }

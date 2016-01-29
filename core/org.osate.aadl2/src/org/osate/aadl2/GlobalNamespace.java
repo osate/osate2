@@ -49,11 +49,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.GlobalNamespace#getPackages <em>Package</em>}</li>
  *   <li>{@link org.osate.aadl2.GlobalNamespace#getPropertySets <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getGlobalNamespace()
  * @model
@@ -65,10 +65,10 @@ public interface GlobalNamespace extends Namespace {
 	 * The list contents are of type {@link org.osate.aadl2.PublicPackageSection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Package</em>' reference list isn't clear,
@@ -90,10 +90,10 @@ public interface GlobalNamespace extends Namespace {
 	 * The list contents are of type {@link org.osate.aadl2.PropertySet}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Property Set</em>' reference list isn't clear,

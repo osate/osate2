@@ -51,10 +51,10 @@ import org.osate.aadl2.FeaturePrototype;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeaturePrototype <em>Feature Prototype</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

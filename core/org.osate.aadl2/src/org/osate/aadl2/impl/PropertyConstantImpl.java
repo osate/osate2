@@ -57,13 +57,13 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getReferencedPropertyType <em>Referenced Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getConstantValue <em>Constant Value</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyConstantImpl#getPropertyType <em>Property Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -510,7 +510,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.AbstractNamedValue#sameAs(org.osate.aadl2.AbstractNamedValue)
 	 */
 	@Override

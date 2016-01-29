@@ -50,10 +50,10 @@ import org.osate.aadl2.PublicPackageSection;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PrivatePackageSectionImpl#getPublicSection <em>Public Section</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -85,8 +85,8 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	@Override
 	public PublicPackageSection getPublicSection() {
 		PublicPackageSection publicSection = basicGetPublicSection();
-		return publicSection != null && ((EObject) publicSection).eIsProxy() ? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection)
-				: publicSection;
+		return publicSection != null && ((EObject) publicSection).eIsProxy()
+				? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection) : publicSection;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
 	@Override

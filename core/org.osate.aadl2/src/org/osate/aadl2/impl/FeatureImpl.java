@@ -67,6 +67,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
@@ -75,7 +76,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -154,8 +154,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
-				: featureClassifier;
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
 	}
 
 	/**
@@ -186,8 +186,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
-		return (basicGetFeatureClassifier() instanceof ComponentClassifier) ? (ComponentClassifier) basicGetFeatureClassifier()
-				: null;
+		return (basicGetFeatureClassifier() instanceof ComponentClassifier)
+				? (ComponentClassifier) basicGetFeatureClassifier() : null;
 	}
 
 	/**
@@ -209,8 +209,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
-		return (basicGetFeatureClassifier() instanceof ComponentPrototype) ? (ComponentPrototype) basicGetFeatureClassifier()
-				: null;
+		return (basicGetFeatureClassifier() instanceof ComponentPrototype)
+				? (ComponentPrototype) basicGetFeatureClassifier() : null;
 	}
 
 	/**
@@ -225,8 +225,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			refined = (Feature) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE__REFINED, oldRefined,
+							refined));
 				}
 			}
 		}
@@ -444,8 +444,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**
@@ -508,8 +508,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	}
 
 	@Override
-	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
-			throws InvalidModelException {
+	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
+			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		Classifier owner = getContainingClassifier();
 
 		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {

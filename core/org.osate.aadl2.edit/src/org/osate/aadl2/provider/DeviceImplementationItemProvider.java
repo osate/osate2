@@ -167,17 +167,17 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createBusSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 
 }
