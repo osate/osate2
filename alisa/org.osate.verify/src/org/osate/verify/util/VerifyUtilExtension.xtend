@@ -82,6 +82,41 @@ class VerifyUtilExtension {
 		sh.getContainerOfType(VerificationMethod)
 	}
 
+	def static ordinal(Integer i){
+		val String[] suffixes =  newArrayOfSize(10)
+		for(var m=0;m<suffixes.length;m++){
+			suffixes.set(m,
+				switch m {
+					case 1 : "st"
+					case 2 : "nd"
+					case 3 : "rd"
+					default : "th"
+				}
+			)
+		}
+//		suffixes.set(0, "th")
+//		suffixes.set(1, "st")
+//		suffixes.set(2, "nd")
+//		suffixes.set(3, "rd")
+//		suffixes.set(4, "th")
+//		suffixes.set(5, "th")
+//		suffixes.set(6, "th")
+//		suffixes.set(7, "th")
+//		suffixes.set(8, "th")
+//		suffixes.set(9, "th")
+		switch (i % 100) {
+			case 11, case 12, case 13 :
+				i + "th"
+			default : {
+				val suffIdx =  i % 10
+				i + suffixes.get(suffIdx)
+			}
+		 }
+	}
+	
+	def static newArrayofSize(int i) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
 	
 
 	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {

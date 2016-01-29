@@ -20,28 +20,29 @@
 package org.osate.verify.validation
 
 import com.google.inject.Inject
+import com.rockwellcollins.atc.resolute.resolute.BaseType
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import org.osate.aadl2.NumberValue
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
+import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
-
-import static org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -62,6 +63,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
 	public static val MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS = "org.osate.verify.missingRequirementsForMultipleClaims"
 	public static val MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS = "org.osate.verify.multipleClaimsWithDuplicateRequirements"
+	public static val METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION = "org.osate.verify.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION"
 
 	override protected List<EPackage> getEPackages() {
 	    val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -210,6 +212,63 @@ class VerifyValidator extends AbstractVerifyValidator {
 		}
 	}
 	
+	@Check(CheckType.FAST)
+	def void checkVerificationMethodForResoluteDefinitionCompliance(VerificationMethod vm) {
+		switch methodKind : vm.methodKind {
+			ResoluteMethod : {
+				val vmName = vm.name
+				val oldVMText = NodeModelUtils.getNode(vm).text
+				val indexOfVmName = oldVMText.indexOf(vmName)
+				val vmNameEnd = indexOfVmName + vmName.length
+				val parenPos = oldVMText.indexOf(")", vmNameEnd)
+				val colonPos = oldVMText.indexOf(":", vmNameEnd)
+				val bracketPos = oldVMText.indexOf("[", vmNameEnd)
+				
+				val possibleEnds = newArrayOfSize(3)
+				possibleEnds.set(0, if (parenPos < 0) Integer.MAX_VALUE else parenPos)
+				possibleEnds.set(1, if (colonPos < 0) Integer.MAX_VALUE else colonPos)
+				possibleEnds.set(2, if (bracketPos < 0) Integer.MAX_VALUE else bracketPos)
+				val changeEnd = possibleEnds.min
+				val adjustment = if (changeEnd == parenPos) 1 else 0
+				val vmParms = vm.params
+				val  methodRefName = methodKind.methodReference.name
+				val methodArgs = methodKind.methodReference.args
+				val methodArgsString = vmName + 
+						methodArgs.filter[it.name != "self"].join(" ( ", ", ", " ) ", [arg | ((arg.type) as BaseType).type + " " + arg.name])
+				if (vmParms.size != methodArgs.filter[it.name != "self"].size ){
+					val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
+					val issueData = newArrayOfSize(2)
+					issueData.set(0, "" + oldVMText)
+					issueData.set(1, "" + newVMText)
+					warning("method " + vm.name + "'s number of parameters does not match the number of arguments for the Resolute method " + methodRefName, 
+						vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
+						METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION, issueData)
+					return
+				}
+				vmParms.forEach[vmParm, j |
+					var i  =
+						switch methodArgs.head.name{
+							case "self": 1
+							default : 0
+						}
+					val baseType = methodArgs.get(j + i).type as BaseType
+					if (vmParm.parameterType != baseType.type){
+						val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
+						val issueData = newArrayOfSize(2)
+						issueData.set(0, "" + oldVMText)
+						issueData.set(1, "" + newVMText)
+						
+						warning("method " + vm.name + 
+							"'s parameters do not match the type of the arguments defined in the Resolute method " + 
+							methodRefName, vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
+							METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION, issueData)
+						return
+					}
+				]
+			}
+		}
+	}
+
 
 	@Check(CheckType.FAST)
 	def void checkFileTypeContents(Verification verification) {

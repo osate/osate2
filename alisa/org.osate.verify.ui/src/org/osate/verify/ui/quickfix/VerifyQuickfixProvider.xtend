@@ -19,7 +19,7 @@
 */
 package org.osate.verify.ui.quickfix
 
-import java.util.ArrayList
+import com.rockwellcollins.atc.resolute.resolute.BaseType
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
@@ -31,11 +31,15 @@ import org.eclipse.xtext.validation.Issue
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.validation.VerifyValidator
 import org.osate.verify.verify.Claim
+import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.Verification
+import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyFactory
 import org.osate.verify.verify.VerifyPackage
-import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.verify.verify.FormalParameter
+import org.osate.verify.verify.impl.FormalParameterImpl
+import org.eclipse.xtext.ui.editor.model.edit.IModification
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -192,6 +196,69 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 		);
 	}
 
+	/**
+	 * QuickFix for fixing parameters that don't match the Resolute definition
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The text of the VerificationMethod
+	 * issue.getData()[1]: The revised text of the VerificationMethod with corrected parameters
+	 * 
+	 */
+	@Fix(VerifyValidator.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
+	def public void fixMethodParmsDoNotMatchResoluteDefinition(Issue issue, IssueResolutionAcceptor acceptor) {
+		val oldVMText = issue.getData().head
+		val newVMText = issue.getData().get(1)
+
+		acceptor.accept(issue, "Change method parameters to match Resolute method parameters", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				val docText = context.xtextDocument.get
+				val vmIndex = docText.indexOf(oldVMText)
+				val newDocText = docText.substring(0, vmIndex) + newVMText + docText.substring(vmIndex + oldVMText.length)
+				context.xtextDocument.set(newDocText)
+			}
+		});
+	}
+
+//	/**
+//	 * QuickFix for changing method parms to match args defined by Resolute Method
+//	 * 
+//	 */
+//	@Fix(VerifyValidator.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
+//	def public void fixMethodParmsToMatchResoluteDefinition(Issue issue, IssueResolutionAcceptor acceptor) {
+//		acceptor.accept(issue, "Change method parameters to match Resolute method parameters", null, null,
+//				new ISemanticModification() {
+//					override apply(EObject element, IModificationContext context) throws Exception {
+//						val resourceSet = element.eResource().getResourceSet() 
+//						val vm = element as VerificationMethod
+//						val ResoluteMethod methodKind =  vm.methodKind as ResoluteMethod
+//						val vmParms = vm.params
+//						val methodReference = methodKind.methodReference 
+//						val refArgs = methodReference.args
+//						if (!vm.params.empty) {
+//							vm.params.removeAll(vmParms)
+//						}
+//						
+////						refArgs.forEach[refArg, j |
+////							val baseType = refArg.type as BaseType
+////							val refArgType = baseType.type
+////							val refArgName = refArg.name
+////							val vmParamsSize = vm.params.size
+////							
+////							if (vmParamsSize < j +1) {
+////								val formalParameter = new FormalParameterImpl
+////								vm.params.add(new FormalParameter)
+////									
+////								
+////							}
+////							vm.params.get
+////						]
+//					
+//						//vm.params = new BasicEList<FormalParameter>				
+//					}
+//				}
+//		);
+//	}
+	 
 
 
 }
