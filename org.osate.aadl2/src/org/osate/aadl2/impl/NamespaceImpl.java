@@ -56,12 +56,12 @@ import org.osate.aadl2.util.Aadl2Util;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getOwnedElements <em>Owned Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getMembers <em>Member</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

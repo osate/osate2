@@ -90,8 +90,7 @@ public class DefaultAnnexSubclauseItemProvider extends AnnexSubclauseItemProvide
 	 */
 	protected void addSourceTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_DefaultAnnexSubclause_sourceText_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_DefaultAnnexSubclause_sourceText_feature",
 						"_UI_DefaultAnnexSubclause_type"),
@@ -186,9 +185,9 @@ public class DefaultAnnexSubclauseItemProvider extends AnnexSubclauseItemProvide
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_ParsedAnnexSubclause(),
-				Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_ParsedAnnexSubclause(),
+						Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));
 	}
 
 }

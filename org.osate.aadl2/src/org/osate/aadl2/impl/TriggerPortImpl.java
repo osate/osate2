@@ -44,8 +44,6 @@ import org.osate.aadl2.TriggerPort;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Trigger Port</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

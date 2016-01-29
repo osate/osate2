@@ -50,12 +50,12 @@ import org.osate.aadl2.Element;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DirectedRelationshipImpl#getSources <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DirectedRelationshipImpl#getRelatedElements <em>Related Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DirectedRelationshipImpl#getTargets <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

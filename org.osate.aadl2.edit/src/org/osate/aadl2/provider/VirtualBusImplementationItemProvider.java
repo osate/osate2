@@ -163,9 +163,9 @@ public class VirtualBusImplementationItemProvider extends ComponentImplementatio
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getVirtualBusImplementation_OwnedVirtualBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 	}
 
 }

@@ -90,10 +90,9 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	protected void addContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionReference_context_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_context_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_ConnectionReference_context_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionReference_context_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionReference_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT, true, false, true, null, null, null));
 	}
 
@@ -104,13 +103,12 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 * @generated
 	 */
 	protected void addConnectionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionReference_connection_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_connection_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionReference_connection_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectionReference_connection_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ConnectionReference_type"), //$NON-NLS-1$
+				InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, true, false, true, null, null, null));
 	}
 
 	/**
@@ -122,10 +120,9 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionReference_source_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_source_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_ConnectionReference_source_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionReference_source_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionReference_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, true, false, true, null, null, null));
 	}
 
@@ -136,13 +133,12 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 * @generated
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionReference_destination_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_destination_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionReference_destination_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectionReference_destination_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ConnectionReference_type"), //$NON-NLS-1$
+				InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, true, false, true, null, null, null));
 	}
 
 	/**
@@ -165,8 +161,8 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	@Override
 	public String getText(Object object) {
 		String label = ((ConnectionReference) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ConnectionReference_type") : //$NON-NLS-1$
-				getString("_UI_ConnectionReference_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ConnectionReference_type") //$NON-NLS-1$
+				: getString("_UI_ConnectionReference_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

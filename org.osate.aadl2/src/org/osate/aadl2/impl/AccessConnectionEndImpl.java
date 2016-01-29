@@ -43,8 +43,6 @@ import org.osate.aadl2.AccessConnectionEnd;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Access Connection End</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

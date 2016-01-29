@@ -70,6 +70,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
@@ -77,7 +78,6 @@ import org.osate.aadl2.properties.PropertyAcc;
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EndToEndFlowImpl#getOwnedEndToEndFlowSegments <em>Owned End To End Flow Segment</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -183,8 +183,8 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**
@@ -275,8 +275,8 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 */
 	@Override
 	public EndToEndFlowSegment createOwnedEndToEndFlowSegment() {
-		EndToEndFlowSegment newOwnedEndToEndFlowSegment = (EndToEndFlowSegment) create(Aadl2Package.eINSTANCE
-				.getEndToEndFlowSegment());
+		EndToEndFlowSegment newOwnedEndToEndFlowSegment = (EndToEndFlowSegment) create(
+				Aadl2Package.eINSTANCE.getEndToEndFlowSegment());
 		getOwnedEndToEndFlowSegments().add(newOwnedEndToEndFlowSegment);
 		return newOwnedEndToEndFlowSegment;
 	}
@@ -357,10 +357,6 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
-			getInModes().clear();
-			getInModes().addAll((Collection<? extends Mode>) newValue);
-			return;
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			getInModeOrTransitions().addAll((Collection<? extends ModeFeature>) newValue);
@@ -384,9 +380,6 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
-			getInModes().clear();
-			return;
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION:
 			getInModeOrTransitions().clear();
 			return;

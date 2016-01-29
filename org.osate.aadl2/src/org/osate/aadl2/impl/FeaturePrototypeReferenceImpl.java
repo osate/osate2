@@ -52,13 +52,13 @@ import org.osate.aadl2.FeaturePrototypeReference;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -254,8 +254,8 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 		boolean oldOut = out;
 		out = newOut;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__OUT,
-					oldOut, out));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__OUT, oldOut,
+					out));
 		}
 	}
 

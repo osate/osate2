@@ -58,6 +58,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Classifier#getClassifierFeatures <em>Classifier Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#getInheritedMembers <em>Inherited Member</em>}</li>
@@ -70,7 +71,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.Classifier#isNoAnnexes <em>No Annexes</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#isNoProperties <em>No Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getClassifier()
  * @model abstract="true"
@@ -83,10 +83,10 @@ public interface Classifier extends Namespace, Type {
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.ClassifierFeature#getFeaturingClassifiers <em>Featuring Classifier</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,10 +107,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.NamedElement}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -130,10 +130,10 @@ public interface Classifier extends Namespace, Type {
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -171,10 +171,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.Prototype}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Prototype</em>' containment reference list isn't clear,
@@ -237,10 +237,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.AnnexSubclause}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Annex Subclause</em>' containment reference list isn't clear,

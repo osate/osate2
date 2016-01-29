@@ -53,11 +53,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Namespace#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.Namespace#getMembers <em>Member</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getNamespace()
  * @model abstract="true"
@@ -87,11 +87,11 @@ public interface Namespace extends NamedElement {
 	 * The list contents are of type {@link org.osate.aadl2.NamedElement}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

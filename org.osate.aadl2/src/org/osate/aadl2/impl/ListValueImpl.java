@@ -54,10 +54,10 @@ import org.osate.aadl2.PropertyExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ListValueImpl#getOwnedListElements <em>Owned List Element</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -200,8 +200,8 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 			return false;
 		}
 		ListValueImpl other = (ListValueImpl) pe;
-		if (ownedListElements == null && other.ownedListElements != null || ownedListElements != null
-				&& other.ownedListElements == null) {
+		if (ownedListElements == null && other.ownedListElements != null
+				|| ownedListElements != null && other.ownedListElements == null) {
 			return false;
 		}
 		if (ownedListElements == other.ownedListElements) {

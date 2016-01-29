@@ -47,12 +47,12 @@ import org.osate.aadl2.UnitsType;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral) <em>Get Scaled Value</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberValue#getScaledValue() <em>Get Scaled Value</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberValue#getScaledValue(java.lang.String) <em>Get Scaled Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

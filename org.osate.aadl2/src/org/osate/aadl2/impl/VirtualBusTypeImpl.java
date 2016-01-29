@@ -60,13 +60,13 @@ import org.osate.aadl2.VirtualBusType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedDataPorts <em>Owned Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

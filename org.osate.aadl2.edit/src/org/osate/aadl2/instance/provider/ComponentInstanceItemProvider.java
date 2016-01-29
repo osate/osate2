@@ -95,12 +95,10 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentInstance_category_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_category_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentInstance_category_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_category_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ComponentInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.COMPONENT_INSTANCE__CATEGORY, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -114,10 +112,9 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentInstance_inMode_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_inMode_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_ComponentInstance_inMode_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_inMode_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ComponentInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.COMPONENT_INSTANCE__IN_MODE, true, false, true, null, null, null));
 	}
 
@@ -128,13 +125,12 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 * @generated
 	 */
 	protected void addSubcomponentPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentInstance_subcomponent_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_subcomponent_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__SUBCOMPONENT, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ComponentInstance_subcomponent_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_subcomponent_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ComponentInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.COMPONENT_INSTANCE__SUBCOMPONENT, true, false, true, null, null, null));
 	}
 
 	/**
@@ -145,12 +141,10 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 */
 	protected void addIndexPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ComponentInstance_index_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_index_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentInstance_index_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_index_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ComponentInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.COMPONENT_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -229,8 +223,8 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 		ComponentInstance ci = (ComponentInstance) object;
 		String label = ci.getFullName();
 		String ctype = ci.getCategory().getName();
-		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
-						" " + label); //$NON-NLS-1$
+		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") //$NON-NLS-1$
+				+ (label == null || label.length() == 0 ? "" : " " + label);
 	}
 
 	/**

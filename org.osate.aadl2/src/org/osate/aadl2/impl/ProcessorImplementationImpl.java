@@ -63,6 +63,7 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ProcessorImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ProcessorImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
@@ -71,7 +72,6 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.ProcessorImplementationImpl#getOwnedVirtualProcessorSubcomponents <em>Owned Virtual Processor Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ProcessorImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -148,7 +148,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 			if (ownedSubcomponents == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
 						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+								Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
@@ -218,8 +219,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public MemorySubcomponent createOwnedMemorySubcomponent() {
-		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(Aadl2Package.eINSTANCE
-				.getMemorySubcomponent());
+		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(
+				Aadl2Package.eINSTANCE.getMemorySubcomponent());
 		getOwnedMemorySubcomponents().add(newOwnedMemorySubcomponent);
 		return newOwnedMemorySubcomponent;
 	}
@@ -246,8 +247,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}
@@ -274,8 +275,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
-		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualProcessorSubcomponent());
+		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent());
 		getOwnedVirtualProcessorSubcomponents().add(newOwnedVirtualProcessorSubcomponent);
 		return newOwnedVirtualProcessorSubcomponent;
 	}
@@ -384,8 +385,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 			return;
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			getOwnedVirtualProcessorSubcomponents().clear();
-			getOwnedVirtualProcessorSubcomponents().addAll(
-					(Collection<? extends VirtualProcessorSubcomponent>) newValue);
+			getOwnedVirtualProcessorSubcomponents()
+					.addAll((Collection<? extends VirtualProcessorSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

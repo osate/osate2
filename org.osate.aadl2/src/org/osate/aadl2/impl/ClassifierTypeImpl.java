@@ -53,10 +53,10 @@ import org.osate.aadl2.MetaclassReference;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ClassifierTypeImpl#getClassifierReferences <em>Classifier Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -111,8 +111,8 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 */
 	@Override
 	public MetaclassReference createClassifierReference() {
-		MetaclassReference newClassifierReference = (MetaclassReference) create(Aadl2Package.eINSTANCE
-				.getMetaclassReference());
+		MetaclassReference newClassifierReference = (MetaclassReference) create(
+				Aadl2Package.eINSTANCE.getMetaclassReference());
 		getClassifierReferences().add(newClassifierReference);
 		return newClassifierReference;
 	}

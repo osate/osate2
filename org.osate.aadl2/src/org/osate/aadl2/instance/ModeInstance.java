@@ -45,6 +45,7 @@ import org.osate.aadl2.Mode;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#getSrcModeTransitions <em>Src Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#getDstModeTransitions <em>Dst Mode Transition</em>}</li>
@@ -53,7 +54,6 @@ import org.osate.aadl2.Mode;
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#isDerived <em>Derived</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#getParents <em>Parent</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getModeInstance()
  * @model

@@ -43,13 +43,11 @@ import org.osate.aadl2.VirtualProcessorClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Virtual Processor Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class VirtualProcessorClassifierImpl extends ComponentClassifierImpl implements
-		VirtualProcessorClassifier {
+public abstract class VirtualProcessorClassifierImpl extends ComponentClassifierImpl
+		implements VirtualProcessorClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

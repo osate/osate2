@@ -51,6 +51,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
@@ -76,7 +77,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedPortProxies <em>Owned Port Proxy</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedSubprogramProxies <em>Owned Subprogram Proxy</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentImplementation()
  * @model abstract="true"
@@ -87,10 +87,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGenerals() <em>General</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Type</em>' reference isn't clear, there really
@@ -181,11 +181,11 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.ProcessorFeature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -208,11 +208,11 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.InternalFeature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -235,10 +235,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.EventSource}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedInternalFeatures() <em>Owned Internal Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Source</em>' containment reference list isn't clear,
@@ -270,10 +270,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.EventDataSource}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedInternalFeatures() <em>Owned Internal Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Data Source</em>' containment reference list isn't clear,
@@ -305,10 +305,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.PortProxy}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorFeatures() <em>Owned Processor Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Port Proxy</em>' containment reference list isn't clear,
@@ -340,10 +340,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramProxy}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorFeatures() <em>Owned Processor Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Proxy</em>' containment reference list isn't clear,
@@ -403,11 +403,11 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.Subcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -429,10 +429,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Extended</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGenerals() <em>General</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extended</em>' reference isn't clear, there
@@ -468,10 +468,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.FlowImplementation}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Flow Implementation</em>' containment
@@ -503,11 +503,11 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.Connection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -529,10 +529,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGeneralizations() <em>Generalization</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Extension</em>' reference isn't clear,
@@ -574,10 +574,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Owned Realization</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGeneralizations() <em>Generalization</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Realization</em>' reference isn't clear,
@@ -620,10 +620,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.AbstractSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Abstract Subcomponent</em>' containment
@@ -655,10 +655,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.AccessConnection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Access Connection</em>' containment reference list isn't clear,
@@ -690,10 +690,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.ParameterConnection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Parameter Connection</em>' containment reference list isn't clear,
@@ -725,10 +725,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.PortConnection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Port Connection</em>' containment reference list isn't clear,
@@ -760,10 +760,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.FeatureConnection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Feature Connection</em>' containment reference list isn't clear,
@@ -795,10 +795,10 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.FeatureGroupConnection}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections() <em>Owned Connection</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Feature Group Connection</em>' containment reference list isn't clear,
@@ -830,11 +830,11 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.EndToEndFlow}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned End To End Flow</em>' containment

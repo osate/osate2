@@ -47,13 +47,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.FeaturePrototype#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototype#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototype#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototype#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeaturePrototype()
  * @model

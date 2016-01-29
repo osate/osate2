@@ -58,11 +58,11 @@ import org.osate.aadl2.PrototypeBinding;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl#getBindings <em>Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl#getFeatureType <em>Feature Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

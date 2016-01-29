@@ -61,13 +61,13 @@ import org.osate.aadl2.Subcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getOwnedMemorySubcomponents <em>Owned Memory Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -194,8 +194,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public MemorySubcomponent createOwnedMemorySubcomponent() {
-		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(Aadl2Package.eINSTANCE
-				.getMemorySubcomponent());
+		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(
+				Aadl2Package.eINSTANCE.getMemorySubcomponent());
 		getOwnedMemorySubcomponents().add(newOwnedMemorySubcomponent);
 		return newOwnedMemorySubcomponent;
 	}

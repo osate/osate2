@@ -49,11 +49,11 @@ import org.osate.aadl2.util.Aadl2Util;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RefinableElementImpl#getRefinedElement <em>Refined Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RefinableElementImpl#getRefinementContext <em>Refinement Context</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -85,8 +85,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
-		return refinementContext != null && ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
-				: refinementContext;
+		return refinementContext != null && ((EObject) refinementContext).eIsProxy()
+				? (Classifier) eResolveProxy((InternalEObject) refinementContext) : refinementContext;
 	}
 
 	/**
@@ -108,8 +108,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**

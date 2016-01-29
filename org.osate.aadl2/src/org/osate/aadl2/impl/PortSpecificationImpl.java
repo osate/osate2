@@ -54,6 +54,7 @@ import org.osate.aadl2.PortSpecification;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PortSpecificationImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortSpecificationImpl#getCategory <em>Category</em>}</li>
@@ -62,7 +63,6 @@ import org.osate.aadl2.PortSpecification;
  *   <li>{@link org.osate.aadl2.impl.PortSpecificationImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortSpecificationImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

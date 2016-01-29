@@ -53,10 +53,10 @@ import org.osate.aadl2.util.Aadl2Util;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NumberValueImpl#getUnit <em>Unit</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -245,7 +245,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	/*
 	 * DB Added for OCL
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
 	 */
 	@Override

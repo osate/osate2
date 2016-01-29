@@ -87,14 +87,13 @@ public class PropertyAssociationInstanceItemProvider extends PropertyAssociation
 	 */
 	protected void addPropertyAssociationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_PropertyAssociationInstance_propertyAssociation_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_PropertyAssociationInstance_propertyAssociation_feature", "_UI_PropertyAssociationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, true, false,
-						true, null, null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PropertyAssociationInstance_propertyAssociation_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+								"_UI_PropertyAssociationInstance_propertyAssociation_feature", //$NON-NLS-1$
+								"_UI_PropertyAssociationInstance_type"), //$NON-NLS-1$
+						InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, true, false, true,
+						null, null, null));
 	}
 
 	/**

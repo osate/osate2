@@ -46,6 +46,7 @@ import org.osate.aadl2.FlowSpecification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getDestination <em>Destination</em>}</li>
@@ -53,7 +54,6 @@ import org.osate.aadl2.FlowSpecification;
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModeTransitions <em>In Mode Transition</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getFlowSpecificationInstance()
  * @model

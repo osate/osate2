@@ -63,6 +63,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ProcessorTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ProcessorTypeImpl#getOwnedDataPorts <em>Owned Data Port</em>}</li>
@@ -72,7 +73,6 @@ import org.osate.aadl2.SubprogramGroupAccess;
  *   <li>{@link org.osate.aadl2.impl.ProcessorTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ProcessorTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -314,8 +314,8 @@ public class ProcessorTypeImpl extends ComponentTypeImpl implements ProcessorTyp
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -341,8 +341,8 @@ public class ProcessorTypeImpl extends ComponentTypeImpl implements ProcessorTyp
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

@@ -43,13 +43,11 @@ import org.osate.aadl2.SubprogramGroupClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Subprogram Group Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class SubprogramGroupClassifierImpl extends ComponentClassifierImpl implements
-		SubprogramGroupClassifier {
+public abstract class SubprogramGroupClassifierImpl extends ComponentClassifierImpl
+		implements SubprogramGroupClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

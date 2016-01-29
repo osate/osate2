@@ -88,15 +88,12 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * @generated
 	 */
 	protected void addFlowElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_EndToEndFlowInstance_flowElement_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_flowElement_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT, true, false, true, null, null,
-						null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_EndToEndFlowInstance_flowElement_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_flowElement_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT, true, false, true, null, null, null));
 	}
 
 	/**
@@ -106,13 +103,12 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_EndToEndFlowInstance_inMode_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_inMode_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_MODE, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_EndToEndFlowInstance_inMode_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_inMode_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_MODE, true, false, true, null, null, null));
 	}
 
 	/**
@@ -122,15 +118,13 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * @generated
 	 */
 	protected void addInSystemOperationModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_EndToEndFlowInstance_inSystemOperationMode_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_inSystemOperationMode_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE, true, false, true,
-						null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_EndToEndFlowInstance_inSystemOperationMode_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_EndToEndFlowInstance_inSystemOperationMode_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE, true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -141,12 +135,10 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 */
 	protected void addEndToEndFlowPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_EndToEndFlowInstance_endToEndFlow_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_endToEndFlow_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_EndToEndFlowInstance_endToEndFlow_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_endToEndFlow_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW, true, false, true, null,
 						null, null));
 	}
@@ -171,8 +163,8 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	@Override
 	public String getText(Object object) {
 		String label = ((EndToEndFlowInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_EndToEndFlowInstance_type") : //$NON-NLS-1$
-				getString("_UI_EndToEndFlowInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_EndToEndFlowInstance_type") //$NON-NLS-1$
+				: getString("_UI_EndToEndFlowInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

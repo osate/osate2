@@ -44,8 +44,6 @@ import org.osate.aadl2.EnumerationLiteral;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Enumeration Literal</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

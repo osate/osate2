@@ -59,12 +59,12 @@ import org.osate.aadl2.SubprogramGroupType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -166,8 +166,8 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -194,8 +194,8 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

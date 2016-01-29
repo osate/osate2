@@ -89,12 +89,12 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 */
 	protected void addSubprogramCallPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_BehavioredImplementation_subprogramCall_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_BehavioredImplementation_subprogramCall_feature",
-						"_UI_BehavioredImplementation_type"), Aadl2Package.eINSTANCE
-						.getBehavioredImplementation_SubprogramCall(), true, false, true, null, null, null));
+						"_UI_BehavioredImplementation_type"),
+				Aadl2Package.eINSTANCE.getBehavioredImplementation_SubprogramCall(), true, false, true, null, null,
+				null));
 	}
 
 	/**
@@ -170,9 +170,9 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getBehavioredImplementation_OwnedSubprogramCallSequence(),
-				Aadl2Factory.eINSTANCE.createSubprogramCallSequence()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getBehavioredImplementation_OwnedSubprogramCallSequence(),
+						Aadl2Factory.eINSTANCE.createSubprogramCallSequence()));
 	}
 
 }

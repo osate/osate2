@@ -62,13 +62,13 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getSpecification <em>Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -251,7 +251,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind,
+					kind));
 		}
 	}
 

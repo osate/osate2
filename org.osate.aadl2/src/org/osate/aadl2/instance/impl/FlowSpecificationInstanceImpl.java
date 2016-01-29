@@ -63,6 +63,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getDestination <em>Destination</em>}</li>
@@ -70,7 +71,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getInModeTransitions <em>In Mode Transition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

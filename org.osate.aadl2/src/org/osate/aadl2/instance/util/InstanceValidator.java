@@ -150,7 +150,8 @@ public class InstanceValidator extends EObjectValidator {
 	 * @generated
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		switch (classifierID) {
 		case InstancePackage.FEATURE_INSTANCE:
 			return validateFeatureInstance((FeatureInstance) value, diagnostics, context);
@@ -751,8 +752,8 @@ public class InstanceValidator extends EObjectValidator {
 			result &= aadl2Validator.validateElement_has_owner(componentInstance, diagnostics, context);
 		}
 		if (result || diagnostics != null) {
-			result &= aadl2Validator
-					.validateNamedElement_has_no_qualified_name(componentInstance, diagnostics, context);
+			result &= aadl2Validator.validateNamedElement_has_no_qualified_name(componentInstance, diagnostics,
+					context);
 		}
 		if (result || diagnostics != null) {
 			result &= aadl2Validator.validateNamedElement_has_qualified_name(componentInstance, diagnostics, context);
@@ -852,8 +853,8 @@ public class InstanceValidator extends EObjectValidator {
 					context);
 		}
 		if (result || diagnostics != null) {
-			result &= aadl2Validator
-					.validateNamedElement_has_qualified_name(endToEndFlowInstance, diagnostics, context);
+			result &= aadl2Validator.validateNamedElement_has_qualified_name(endToEndFlowInstance, diagnostics,
+					context);
 		}
 		return result;
 	}
@@ -1009,12 +1010,15 @@ public class InstanceValidator extends EObjectValidator {
 	 * @generated
 	 */
 	protected int getLowerBound(EObject eObject, EStructuralFeature eStructuralFeature) {
-		try {
-			return Integer
-					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "lowerBound")); //$NON-NLS-1$
-		} catch (Exception e) {
-			return eStructuralFeature.getLowerBound();
+		String redefinitionDetail = getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "lowerBound"); //$NON-NLS-1$
+		if (redefinitionDetail != null && redefinitionDetail.length() > 0) {
+			try {
+				return Integer.parseInt(redefinitionDetail);
+			} catch (Exception e) {
+				// do nothing
+			}
 		}
+		return eStructuralFeature.getLowerBound();
 	}
 
 	/**
@@ -1023,12 +1027,15 @@ public class InstanceValidator extends EObjectValidator {
 	 * @generated
 	 */
 	protected int getUpperBound(EObject eObject, EStructuralFeature eStructuralFeature) {
-		try {
-			return Integer
-					.parseInt(getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "upperBound")); //$NON-NLS-1$
-		} catch (Exception e) {
-			return eStructuralFeature.getUpperBound();
+		String redefinitionDetail = getRedefinitionDetail(eObject.eClass(), eStructuralFeature.getName(), "upperBound"); //$NON-NLS-1$
+		if (redefinitionDetail != null && redefinitionDetail.length() > 0) {
+			try {
+				return Integer.parseInt(redefinitionDetail);
+			} catch (Exception e) {
+				// do nothing
+			}
 		}
+		return eStructuralFeature.getUpperBound();
 	}
 
 	/**
@@ -1063,26 +1070,24 @@ public class InstanceValidator extends EObjectValidator {
 					if (size < lowerBound) {
 						result = false;
 						if (diagnostics != null) {
-							diagnostics.add(createDiagnostic(Diagnostic.ERROR,
-									EObjectValidator.DIAGNOSTIC_SOURCE,
+							diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 									"_UI_FeatureHasTooFewValues_diagnostic", //$NON-NLS-1$
 									new Object[] { getFeatureLabel(eStructuralFeature, context),
-											getObjectLabel(eObject, context), size, lowerBound }, new Object[] {
-											eObject, eStructuralFeature }, context));
+											getObjectLabel(eObject, context), size, lowerBound },
+									new Object[] { eObject, eStructuralFeature }, context));
 						}
 					}
 					int upperBound = getUpperBound(eObject, eStructuralFeature);
 					if (upperBound > 0 && size > upperBound) {
 						result = false;
 						if (diagnostics != null) {
-							diagnostics.add(createDiagnostic(Diagnostic.ERROR,
-									EObjectValidator.DIAGNOSTIC_SOURCE,
+							diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 									EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 									"_UI_FeatureHasTooManyValues_diagnostic", //$NON-NLS-1$
 									new Object[] { getFeatureLabel(eStructuralFeature, context),
-											getObjectLabel(eObject, context), size, upperBound }, new Object[] {
-											eObject, eStructuralFeature }, context));
+											getObjectLabel(eObject, context), size, upperBound },
+									new Object[] { eObject, eStructuralFeature }, context));
 						}
 					}
 				} else {
@@ -1092,31 +1097,28 @@ public class InstanceValidator extends EObjectValidator {
 						if (size > upperBound) {
 							result = false;
 							if (diagnostics != null) {
-								diagnostics.add(createDiagnostic(Diagnostic.ERROR,
-										EObjectValidator.DIAGNOSTIC_SOURCE,
+								diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 										EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 										"_UI_FeatureHasTooManyValues_diagnostic", //$NON-NLS-1$
 										new Object[] { getFeatureLabel(eStructuralFeature, context),
-												getObjectLabel(eObject, context), size, upperBound }, new Object[] {
-												eObject, eStructuralFeature }, context));
+												getObjectLabel(eObject, context), size, upperBound },
+										new Object[] { eObject, eStructuralFeature }, context));
 							}
 						}
 					}
 				}
 			}
 		} else if (getLowerBound(eObject, eStructuralFeature) >= 1) {
-			if (eStructuralFeature.isUnsettable() ? !eObject.eIsSet(eStructuralFeature) : eObject.eGet(
-					eStructuralFeature, false) == null) {
+			if (eStructuralFeature.isUnsettable() ? !eObject.eIsSet(eStructuralFeature)
+					: eObject.eGet(eStructuralFeature, false) == null) {
 				result = false;
 				if (diagnostics != null) {
-					diagnostics.add(createDiagnostic(
-							Diagnostic.ERROR,
-							EObjectValidator.DIAGNOSTIC_SOURCE,
+					diagnostics.add(createDiagnostic(Diagnostic.ERROR, EObjectValidator.DIAGNOSTIC_SOURCE,
 							EObjectValidator.EOBJECT__EVERY_MULTIPCITY_CONFORMS,
 							"_UI_RequiredFeatureMustBeSet_diagnostic", //$NON-NLS-1$
 							new Object[] { getFeatureLabel(eStructuralFeature, context),
-									getObjectLabel(eObject, context) }, new Object[] { eObject, eStructuralFeature },
-							context));
+									getObjectLabel(eObject, context) },
+							new Object[] { eObject, eStructuralFeature }, context));
 				}
 			}
 		}

@@ -63,6 +63,7 @@ import org.osate.aadl2.ThreadGroupType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupTypeImpl#getOwnedDataPorts <em>Owned Data Port</em>}</li>
@@ -72,7 +73,6 @@ import org.osate.aadl2.ThreadGroupType;
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ThreadGroupTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -171,8 +171,8 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-				Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE,
+				OWNED_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -184,10 +184,10 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * @ordered
 	 */
 	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.THREAD_GROUP_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT,
-			Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_DATA_PORT, Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_PORT,
-			Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_ACCESS, Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS,
+			Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE_GROUP, Aadl2Package.THREAD_GROUP_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT, Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_DATA_PORT,
+			Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_PORT, Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_ACCESS,
+			Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
 
 	/**
@@ -315,8 +315,8 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -342,8 +342,8 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

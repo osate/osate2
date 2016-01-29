@@ -48,12 +48,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.DataType#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.DataType#getOwnedDataAccesses <em>Owned Data Access</em>}</li>
  *   <li>{@link org.osate.aadl2.DataType#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getDataType()
  * @model
@@ -65,10 +65,10 @@ public interface DataType extends ComponentType, DataClassifier, CallContext {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Access</em>' containment reference list isn't clear,
@@ -100,10 +100,10 @@ public interface DataType extends ComponentType, DataClassifier, CallContext {
 	 * The list contents are of type {@link org.osate.aadl2.DataAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Access</em>' containment reference list isn't clear,
@@ -135,10 +135,10 @@ public interface DataType extends ComponentType, DataClassifier, CallContext {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Group Access</em>' containment reference list isn't clear,

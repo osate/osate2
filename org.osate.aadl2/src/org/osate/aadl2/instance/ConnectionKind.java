@@ -100,14 +100,15 @@ public enum ConnectionKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MODE_TRANSITION_CONNECTION(4, "modeTransitionConnection", "modeTransitionConnection"), /**
-																							* The '<em><b>Feature Group Connection</b></em>' literal object.
-																							* <!-- begin-user-doc -->
-																							 * <!-- end-user-doc -->
-																							* @see #FEATURE_GROUP_CONNECTION_VALUE
-																							* @generated
-																							* @ordered
-																							*/
+	MODE_TRANSITION_CONNECTION(4, "modeTransitionConnection", "modeTransitionConnection"),
+	/**
+	 * The '<em><b>Feature Group Connection</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FEATURE_GROUP_CONNECTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	FEATURE_GROUP_CONNECTION(5, "featureGroupConnection", "featureGroupConnection"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
@@ -221,6 +222,8 @@ public enum ConnectionKind implements Enumerator {
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ConnectionKind get(String literal) {
@@ -237,6 +240,8 @@ public enum ConnectionKind implements Enumerator {
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ConnectionKind getByName(String name) {
@@ -253,6 +258,8 @@ public enum ConnectionKind implements Enumerator {
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ConnectionKind get(int value) {

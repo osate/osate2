@@ -83,8 +83,8 @@ public class ProcessItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((org.osate.aadl2.Process) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Process_type") : getString("_UI_Process_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Process_type")
+				: getString("_UI_Process_type") + " " + label;
 	}
 
 	/**

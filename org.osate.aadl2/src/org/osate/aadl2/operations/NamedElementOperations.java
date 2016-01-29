@@ -68,6 +68,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.NamedElement#has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has no qualified name</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has qualified name</em>}</li>
@@ -78,7 +79,6 @@ import org.osate.aadl2.util.Aadl2Validator;
  *   <li>{@link org.osate.aadl2.NamedElement#qualifiedName() <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#getPropertyValues(java.lang.String, java.lang.String) <em>Get Property Values</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -137,14 +137,15 @@ public class NamedElementOperations extends ElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(namedElement)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic",
-								new Object[] {
-										"has_no_qualified_name",
-										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namedElement,
-												context) }), new Object[] { namedElement }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "has_no_qualified_name",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(namedElement, context) }),
+								new Object[] { namedElement }));
 			}
 			return false;
 		}
@@ -198,14 +199,15 @@ public class NamedElementOperations extends ElementOperations {
 		}
 		if (!EOCL_ENV.createQuery(HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(namedElement)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.NAMED_ELEMENT__HAS_QUALIFIED_NAME,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE.getString(
-								"_UI_GenericInvariant_diagnostic",
-								new Object[] {
-										"has_qualified_name",
-										org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(namedElement,
-												context) }), new Object[] { namedElement }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.NAMED_ELEMENT__HAS_QUALIFIED_NAME,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "has_qualified_name",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(namedElement, context) }),
+								new Object[] { namedElement }));
 			}
 			return false;
 		}
@@ -256,8 +258,8 @@ public class NamedElementOperations extends ElementOperations {
 	public static EList<Namespace> allNamespaces(NamedElement namedElement) {
 		if (ALL_NAMESPACES__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(8));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(),
+					Aadl2Package.eINSTANCE.getNamedElement().getEAllOperations().get(8));
 			try {
 				ALL_NAMESPACES__EOCL_QRY = helper.createQuery(ALL_NAMESPACES__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -279,9 +281,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * @ordered
 	 */
 	protected static final String IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_EXP = "if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then"
-			+ "  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()"
-			+ "else"
-			+ "  true"
+			+ "  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()" + "else" + "  true"
 			+ "endif";
 
 	/**
@@ -307,8 +307,8 @@ public class NamedElementOperations extends ElementOperations {
 	public static boolean isDistinguishableFrom(NamedElement namedElement, NamedElement n, Namespace ns) {
 		if (IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(9));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(),
+					Aadl2Package.eINSTANCE.getNamedElement().getEAllOperations().get(9));
 			try {
 				IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY = helper
 						.createQuery(IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_EXP);
@@ -356,8 +356,8 @@ public class NamedElementOperations extends ElementOperations {
 	public static String separator(NamedElement namedElement) {
 		if (SEPARATOR__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
-					.getNamedElement().getEAllOperations().get(10));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(),
+					Aadl2Package.eINSTANCE.getNamedElement().getEAllOperations().get(10));
 			try {
 				SEPARATOR__EOCL_QRY = helper.createQuery(SEPARATOR__EOCL_EXP);
 			} catch (ParserException pe) {

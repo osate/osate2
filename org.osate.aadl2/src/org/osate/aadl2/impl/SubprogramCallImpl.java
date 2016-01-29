@@ -57,11 +57,11 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallImpl#getCalledSubprogram <em>Called Subprogram</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallImpl#getContext <em>Context</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

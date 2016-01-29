@@ -45,11 +45,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionInstances <em>Src Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionInstances <em>Dst Connection Instance</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstanceEnd()
  * @model abstract="true"

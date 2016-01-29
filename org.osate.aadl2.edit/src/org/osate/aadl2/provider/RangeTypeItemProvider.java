@@ -89,13 +89,12 @@ public class RangeTypeItemProvider extends NonListTypeItemProvider {
 	 * @generated
 	 */
 	protected void addNumberTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_RangeType_numberType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RangeType_numberType_feature",
-						"_UI_RangeType_type"), Aadl2Package.eINSTANCE.getRangeType_NumberType(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_RangeType_numberType_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_RangeType_numberType_feature",
+								"_UI_RangeType_type"),
+						Aadl2Package.eINSTANCE.getRangeType_NumberType(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -105,13 +104,13 @@ public class RangeTypeItemProvider extends NonListTypeItemProvider {
 	 * @generated
 	 */
 	protected void addReferencedNumberTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_RangeType_referencedNumberType_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RangeType_referencedNumberType_feature",
-						"_UI_RangeType_type"), Aadl2Package.eINSTANCE.getRangeType_ReferencedNumberType(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_RangeType_referencedNumberType_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_RangeType_referencedNumberType_feature",
+								"_UI_RangeType_type"),
+						Aadl2Package.eINSTANCE.getRangeType_ReferencedNumberType(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -164,8 +163,8 @@ public class RangeTypeItemProvider extends NonListTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((RangeType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_RangeType_type") : getString("_UI_RangeType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_RangeType_type")
+				: getString("_UI_RangeType_type") + " " + label;
 	}
 
 	/**

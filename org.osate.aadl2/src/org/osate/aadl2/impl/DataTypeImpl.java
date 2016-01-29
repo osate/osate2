@@ -60,13 +60,13 @@ import org.osate.aadl2.SubprogramGroupAccess;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DataTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataTypeImpl#getOwnedDataAccesses <em>Owned Data Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DataTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -175,8 +175,8 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -228,8 +228,8 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

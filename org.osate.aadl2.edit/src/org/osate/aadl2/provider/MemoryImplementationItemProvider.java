@@ -165,13 +165,13 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createBusSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent(),
-				Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryImplementation_OwnedMemorySubcomponent(),
+						Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
 	}
 
 }

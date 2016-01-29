@@ -96,14 +96,12 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addInSystemOperationModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_inSystemOperationMode_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inSystemOperationMode_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE, true, false, true,
-						null, null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ConnectionInstance_inSystemOperationMode_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+								"_UI_ConnectionInstance_inSystemOperationMode_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
+						InstancePackage.Literals.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE, true, false, true, null,
+						null, null));
 	}
 
 	/**
@@ -113,15 +111,12 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 * @generated
 	 */
 	protected void addInModeTransitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_inModeTransition_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inModeTransition_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITION, true, false, true, null,
-						null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstance_inModeTransition_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inModeTransition_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ConnectionInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITION, true, false, true, null, null, null));
 	}
 
 	/**
@@ -132,12 +127,10 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addCompletePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_complete_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_complete_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ConnectionInstance_complete_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_complete_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_INSTANCE__COMPLETE, true, false, false,
 						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
@@ -150,12 +143,10 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_kind_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_kind_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ConnectionInstance_kind_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_kind_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_INSTANCE__KIND, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -167,13 +158,12 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 * @generated
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_destination_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_destination_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__DESTINATION, true, false, true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstance_destination_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_destination_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ConnectionInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.CONNECTION_INSTANCE__DESTINATION, true, false, true, null, null, null));
 	}
 
 	/**
@@ -184,12 +174,10 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addBidirectionalPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_bidirectional_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_bidirectional_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ConnectionInstance_bidirectional_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_bidirectional_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_INSTANCE__BIDIRECTIONAL, true, false, false,
 						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
@@ -203,10 +191,9 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstance_source_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_source_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_ConnectionInstance_source_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_source_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.CONNECTION_INSTANCE__SOURCE, true, false, true, null, null, null));
 	}
 
@@ -260,8 +247,8 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	@Override
 	public String getText(Object object) {
 		String label = ((ConnectionInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstance_type") : //$NON-NLS-1$
-				getString("_UI_ConnectionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstance_type") //$NON-NLS-1$
+				: getString("_UI_ConnectionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

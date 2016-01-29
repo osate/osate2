@@ -85,13 +85,12 @@ public class GeneralizationItemProvider extends DirectedRelationshipItemProvider
 	 * @generated
 	 */
 	protected void addGeneralPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Generalization_general_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Generalization_general_feature",
-						"_UI_Generalization_type"), Aadl2Package.eINSTANCE.getGeneralization_General(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Generalization_general_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Generalization_general_feature",
+								"_UI_Generalization_type"),
+						Aadl2Package.eINSTANCE.getGeneralization_General(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -101,13 +100,12 @@ public class GeneralizationItemProvider extends DirectedRelationshipItemProvider
 	 * @generated
 	 */
 	protected void addSpecificPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Generalization_specific_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Generalization_specific_feature",
-						"_UI_Generalization_type"), Aadl2Package.eINSTANCE.getGeneralization_Specific(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Generalization_specific_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Generalization_specific_feature",
+								"_UI_Generalization_type"),
+						Aadl2Package.eINSTANCE.getGeneralization_Specific(), true, false, true, null, null, null));
 	}
 
 	/**

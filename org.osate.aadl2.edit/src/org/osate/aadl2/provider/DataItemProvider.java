@@ -84,8 +84,8 @@ public class DataItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Data) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Data_type") : getString("_UI_Data_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Data_type")
+				: getString("_UI_Data_type") + " " + label;
 	}
 
 	/**

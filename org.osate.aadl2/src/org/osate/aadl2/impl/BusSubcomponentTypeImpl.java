@@ -42,8 +42,6 @@ import org.osate.aadl2.BusSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bus Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

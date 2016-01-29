@@ -91,11 +91,12 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Feature_prototype_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Feature_prototype_feature", "_UI_Feature_type"),
-				Aadl2Package.eINSTANCE.getFeature_Prototype(), false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Feature_prototype_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Feature_prototype_feature",
+								"_UI_Feature_type"),
+						Aadl2Package.eINSTANCE.getFeature_Prototype(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -105,13 +106,12 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Feature_featureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureClassifier_feature",
-						"_UI_Feature_type"), Aadl2Package.eINSTANCE.getFeature_FeatureClassifier(), false, false,
-				false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Feature_featureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureClassifier_feature",
+								"_UI_Feature_type"),
+						Aadl2Package.eINSTANCE.getFeature_FeatureClassifier(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -121,11 +121,12 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Feature_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Feature_classifier_feature", "_UI_Feature_type"),
-				Aadl2Package.eINSTANCE.getFeature_Classifier(), false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Feature_classifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Feature_classifier_feature",
+								"_UI_Feature_type"),
+						Aadl2Package.eINSTANCE.getFeature_Classifier(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -135,11 +136,12 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Feature_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Feature_refined_feature", "_UI_Feature_type"),
-				Aadl2Package.eINSTANCE.getFeature_Refined(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Feature_refined_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Feature_refined_feature",
+								"_UI_Feature_type"),
+						Aadl2Package.eINSTANCE.getFeature_Refined(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -181,8 +183,8 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Feature) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Feature_type") : getString("_UI_Feature_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Feature_type")
+				: getString("_UI_Feature_type") + " " + label;
 	}
 
 	/**

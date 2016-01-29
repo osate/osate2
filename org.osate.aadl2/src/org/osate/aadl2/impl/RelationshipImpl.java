@@ -50,10 +50,10 @@ import org.osate.aadl2.Relationship;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RelationshipImpl#getRelatedElements <em>Related Element</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

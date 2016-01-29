@@ -171,25 +171,25 @@ public class ProcessImplementationItemProvider extends ComponentImplementationIt
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedSubprogramGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadSubcomponent(),
-				Aadl2Factory.eINSTANCE.createThreadSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadSubcomponent(),
+						Aadl2Factory.eINSTANCE.createThreadSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createThreadGroupSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getProcessImplementation_OwnedThreadGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE.createThreadGroupSubcomponent()));
 	}
 
 }

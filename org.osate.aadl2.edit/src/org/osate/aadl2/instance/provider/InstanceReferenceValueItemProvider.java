@@ -88,12 +88,11 @@ public class InstanceReferenceValueItemProvider extends PropertyValueItemProvide
 	 */
 	protected void addReferencedInstanceObjectPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_InstanceReferenceValue_referencedInstanceObject_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_InstanceReferenceValue_referencedInstanceObject_feature", "_UI_InstanceReferenceValue_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_InstanceReferenceValue_referencedInstanceObject_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+								"_UI_InstanceReferenceValue_referencedInstanceObject_feature", //$NON-NLS-1$
+								"_UI_InstanceReferenceValue_type"), //$NON-NLS-1$
 						InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT, true, false,
 						true, null, null, null));
 	}

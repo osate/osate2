@@ -47,12 +47,12 @@ import org.osate.aadl2.InternalFeature;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.InternalFeatureImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.InternalFeatureImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.InternalFeatureImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

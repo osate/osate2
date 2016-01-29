@@ -188,9 +188,9 @@ public class ProcessorTypeItemProvider extends ComponentTypeItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessorType_OwnedSubprogramAccess(),
 				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getProcessorType_OwnedSubprogramGroupAccess(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getProcessorType_OwnedSubprogramGroupAccess(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 	}
 
 }

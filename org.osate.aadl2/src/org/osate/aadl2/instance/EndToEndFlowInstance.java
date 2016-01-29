@@ -45,13 +45,13 @@ import org.osate.aadl2.EndToEndFlow;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getFlowElements <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getEndToEndFlow <em>End To End Flow</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getEndToEndFlowInstance()
  * @model

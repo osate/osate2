@@ -43,8 +43,6 @@ import org.osate.aadl2.ParameterConnection;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Parameter Connection</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

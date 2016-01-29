@@ -90,13 +90,13 @@ public class NamedElementItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_NamedElement_name_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature",
-						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE.getNamedElement_Name(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_NamedElement_name_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature",
+								"_UI_NamedElement_type"),
+						Aadl2Package.eINSTANCE.getNamedElement_Name(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -106,13 +106,13 @@ public class NamedElementItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addQualifiedNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_NamedElement_qualifiedName_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_qualifiedName_feature",
-						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE.getNamedElement_QualifiedName(), false, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_NamedElement_qualifiedName_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_qualifiedName_feature",
+								"_UI_NamedElement_type"),
+						Aadl2Package.eINSTANCE.getNamedElement_QualifiedName(), false, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

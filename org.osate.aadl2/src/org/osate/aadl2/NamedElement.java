@@ -284,9 +284,9 @@ public interface NamedElement extends Element {
 	 * @throws PropertyIsListException Thrown if the property is not scalar.
 	 * @see org.osate.aadl2.instance.SystemInstance#setCurrentSystemOperationMode(org.osate.aadl2.instance.SystemOperationMode)
 	 */
-	PropertyExpression getSimplePropertyValue(Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException, PropertyIsListException;
+	PropertyExpression getSimplePropertyValue(Property property)
+			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException;
 
 	/**
 	 * Get the property value for a particular model element and property. The
@@ -445,7 +445,8 @@ public interface NamedElement extends Element {
 	 *                list-valued and the given list does not have exactly 1
 	 *                element, or because of type mismatch issues.
 	 */
-	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl, List<? extends Mode> modes);
+	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl,
+			List<? extends Mode> modes);
 
 	public List<? extends PropertyExpression> getPropertyValueList(final Property property);
 

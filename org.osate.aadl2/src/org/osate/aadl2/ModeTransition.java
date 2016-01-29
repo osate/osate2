@@ -48,12 +48,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ModeTransition#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.ModeTransition#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.ModeTransition#getOwnedTriggers <em>Owned Trigger</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getModeTransition()
  * @model

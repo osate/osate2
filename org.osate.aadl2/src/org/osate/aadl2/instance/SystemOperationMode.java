@@ -46,10 +46,10 @@ import org.osate.aadl2.Mode;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.SystemOperationMode#getCurrentModes <em>Current Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getSystemOperationMode()
  * @model

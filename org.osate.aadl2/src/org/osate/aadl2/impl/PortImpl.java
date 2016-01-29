@@ -47,10 +47,10 @@ import org.osate.aadl2.PortCategory;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PortImpl#getCategory <em>Category</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
