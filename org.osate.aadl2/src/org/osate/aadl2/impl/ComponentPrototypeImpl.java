@@ -53,11 +53,11 @@ import org.osate.aadl2.operations.TypeOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeImpl#isArray <em>Array</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeImpl#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

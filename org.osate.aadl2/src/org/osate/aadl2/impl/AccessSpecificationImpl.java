@@ -54,13 +54,13 @@ import org.osate.aadl2.ComponentPrototype;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getComponentPrototype <em>Component Prototype</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

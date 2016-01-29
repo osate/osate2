@@ -2200,8 +2200,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public DirectionType createDirectionTypeFromString(EDataType eDataType, String initialValue) {
 		DirectionType result = DirectionType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2223,8 +2223,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public PortCategory createPortCategoryFromString(EDataType eDataType, String initialValue) {
 		PortCategory result = PortCategory.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2246,8 +2246,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
 		FlowKind result = FlowKind.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2269,8 +2269,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
 		AccessType result = AccessType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2292,8 +2292,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
 		AccessCategory result = AccessCategory.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2315,8 +2315,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
 		ComponentCategory result = ComponentCategory.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -2338,8 +2338,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public OperationKind createOperationKindFromString(EDataType eDataType, String initialValue) {
 		OperationKind result = OperationKind.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}

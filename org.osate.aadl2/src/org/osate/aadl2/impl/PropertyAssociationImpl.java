@@ -65,6 +65,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PropertyAssociationImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyAssociationImpl#getAppliesTos <em>Applies To</em>}</li>
@@ -73,7 +74,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  *   <li>{@link org.osate.aadl2.impl.PropertyAssociationImpl#isConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PropertyAssociationImpl#getOwnedValues <em>Owned Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

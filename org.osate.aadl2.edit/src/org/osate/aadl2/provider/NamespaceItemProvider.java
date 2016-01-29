@@ -86,13 +86,12 @@ public class NamespaceItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addOwnedMemberPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Namespace_ownedMember_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Namespace_ownedMember_feature",
-						"_UI_Namespace_type"), Aadl2Package.eINSTANCE.getNamespace_OwnedMember(), false, false, false,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Namespace_ownedMember_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Namespace_ownedMember_feature",
+								"_UI_Namespace_type"),
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -102,11 +101,12 @@ public class NamespaceItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addMemberPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Namespace_member_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Namespace_member_feature", "_UI_Namespace_type"),
-				Aadl2Package.eINSTANCE.getNamespace_Member(), false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Namespace_member_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Namespace_member_feature",
+								"_UI_Namespace_type"),
+						Aadl2Package.eINSTANCE.getNamespace_Member(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -118,8 +118,8 @@ public class NamespaceItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Namespace) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Namespace_type") : getString("_UI_Namespace_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Namespace_type")
+				: getString("_UI_Namespace_type") + " " + label;
 	}
 
 	/**

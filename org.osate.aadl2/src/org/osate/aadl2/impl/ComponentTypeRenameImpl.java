@@ -51,11 +51,11 @@ import org.osate.aadl2.ComponentTypeRename;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeRenameImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentTypeRenameImpl#getRenamedComponentType <em>Renamed Component Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

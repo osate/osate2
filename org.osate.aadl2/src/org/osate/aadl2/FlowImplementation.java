@@ -48,12 +48,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getSpecification <em>Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFlowImplementation()
  * @model

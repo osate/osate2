@@ -92,13 +92,12 @@ public class PropertyAssociationItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addPropertyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PropertyAssociation_property_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_property_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Property(),
-				true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PropertyAssociation_property_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_property_feature",
+								"_UI_PropertyAssociation_type"),
+				Aadl2Package.eINSTANCE.getPropertyAssociation_Property(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -108,13 +107,12 @@ public class PropertyAssociationItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addInBindingPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PropertyAssociation_inBinding_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_inBinding_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_InBinding(),
-				true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PropertyAssociation_inBinding_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_inBinding_feature",
+								"_UI_PropertyAssociation_type"),
+				Aadl2Package.eINSTANCE.getPropertyAssociation_InBinding(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -124,13 +122,13 @@ public class PropertyAssociationItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addAppendPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_PropertyAssociation_append_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_append_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Append(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_PropertyAssociation_append_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_append_feature",
+								"_UI_PropertyAssociation_type"),
+						Aadl2Package.eINSTANCE.getPropertyAssociation_Append(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -141,12 +139,12 @@ public class PropertyAssociationItemProvider extends ElementItemProvider {
 	 */
 	protected void addConstantPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_PropertyAssociation_constant_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_PropertyAssociation_constant_feature",
-						"_UI_PropertyAssociation_type"), Aadl2Package.eINSTANCE.getPropertyAssociation_Constant(),
-				true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						"_UI_PropertyAssociation_type"),
+				Aadl2Package.eINSTANCE.getPropertyAssociation_Constant(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

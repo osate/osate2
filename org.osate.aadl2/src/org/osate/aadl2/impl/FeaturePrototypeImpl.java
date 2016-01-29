@@ -52,13 +52,13 @@ import org.osate.aadl2.FeaturePrototype;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#getConstrainingClassifier <em>Constraining Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeaturePrototypeImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

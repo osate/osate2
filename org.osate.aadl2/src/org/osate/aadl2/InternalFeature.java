@@ -45,12 +45,12 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.InternalFeature#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.InternalFeature#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.InternalFeature#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getInternalFeature()
  * @model abstract="true"

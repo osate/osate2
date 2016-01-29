@@ -50,10 +50,10 @@ import org.osate.aadl2.FeatureGroupTypeRename;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl#getRenamedFeatureGroupType <em>Renamed Feature Group Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

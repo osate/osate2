@@ -45,8 +45,6 @@ import org.osate.aadl2.properties.EvaluationContext;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -77,7 +75,7 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.PropertyExpression#sameAs(org.osate.aadl2.PropertyExpression)
 	 */
 	@Override

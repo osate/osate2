@@ -90,12 +90,12 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider {
 	 */
 	protected void addSourceTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_DefaultAnnexLibrary_sourceText_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_DefaultAnnexLibrary_sourceText_feature",
-						"_UI_DefaultAnnexLibrary_type"), Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_SourceText(),
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						"_UI_DefaultAnnexLibrary_type"),
+				Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_SourceText(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -185,8 +185,7 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary()));
 	}
 

@@ -46,11 +46,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.RefinableElement#getRefinementContext <em>Refinement Context</em>}</li>
  *   <li>{@link org.osate.aadl2.RefinableElement#getRefinedElement <em>Refined Element</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getRefinableElement()
  * @model abstract="true"

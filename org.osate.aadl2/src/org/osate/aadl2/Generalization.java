@@ -47,11 +47,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Generalization#getGeneral <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getGeneralization()
  * @model abstract="true"
@@ -62,10 +62,10 @@ public interface Generalization extends DirectedRelationship {
 	 * Returns the value of the '<em><b>General</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.DirectedRelationship#getTargets() <em>Target</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,10 +85,10 @@ public interface Generalization extends DirectedRelationship {
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Classifier#getGeneralizations <em>Generalization</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.DirectedRelationship#getSources() <em>Source</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->

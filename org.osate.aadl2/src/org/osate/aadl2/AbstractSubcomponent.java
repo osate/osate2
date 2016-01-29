@@ -46,10 +46,10 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.AbstractSubcomponent#getAbstractSubcomponentType <em>Abstract Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractSubcomponent()
  * @model
@@ -61,10 +61,10 @@ public interface AbstractSubcomponent extends Subcomponent, Abstract {
 	 * Returns the value of the '<em><b>Abstract Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Abstract Subcomponent Type</em>' reference isn't clear,

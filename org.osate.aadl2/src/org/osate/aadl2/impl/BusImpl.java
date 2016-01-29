@@ -43,8 +43,6 @@ import org.osate.aadl2.Bus;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Bus</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -193,9 +193,9 @@ public class AbstractTypeItemProvider extends ComponentTypeItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getAbstractType_OwnedEventDataPort(),
 				Aadl2Factory.eINSTANCE.createEventDataPort()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getAbstractType_OwnedSubprogramGroupAccess(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getAbstractType_OwnedSubprogramGroupAccess(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
 	}
 
 }

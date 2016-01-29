@@ -49,13 +49,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Feature#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getClassifier <em>Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeature()
  * @model abstract="true"
@@ -66,10 +66,10 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
@@ -109,10 +109,10 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
@@ -133,10 +133,10 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Refined</em>' reference isn't clear,

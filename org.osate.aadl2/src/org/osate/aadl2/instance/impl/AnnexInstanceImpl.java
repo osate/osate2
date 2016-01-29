@@ -51,10 +51,10 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.AnnexInstanceImpl#getAnnexSubclause <em>Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

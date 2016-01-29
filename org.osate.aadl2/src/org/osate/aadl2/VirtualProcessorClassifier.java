@@ -49,7 +49,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface VirtualProcessorClassifier extends ComponentClassifier, VirtualProcessor,
-		VirtualProcessorSubcomponentType {
+public interface VirtualProcessorClassifier
+		extends ComponentClassifier, VirtualProcessor, VirtualProcessorSubcomponentType {
 
 } // VirtualProcessorClassifier

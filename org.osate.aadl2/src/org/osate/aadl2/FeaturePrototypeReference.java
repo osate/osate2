@@ -47,13 +47,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.FeaturePrototypeReference#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototypeReference#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototypeReference#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.FeaturePrototypeReference#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeaturePrototypeReference()
  * @model

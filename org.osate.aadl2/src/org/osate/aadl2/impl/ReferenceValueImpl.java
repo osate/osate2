@@ -53,8 +53,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Reference Value</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

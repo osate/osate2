@@ -64,8 +64,8 @@ import org.osate.aadl2.instance.util.InstanceAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory implements ComposeableAdapterFactory,
-		IChangeNotifier, IDisposable {
+public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
+		implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->

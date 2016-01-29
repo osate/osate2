@@ -98,10 +98,9 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addSrcFlowSpecPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_srcFlowSpec_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_srcFlowSpec_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_FeatureInstance_srcFlowSpec_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_srcFlowSpec_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__SRC_FLOW_SPEC, true, false, true, null, null, null));
 	}
 
@@ -114,10 +113,9 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addDstFlowSpecPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_dstFlowSpec_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_dstFlowSpec_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_FeatureInstance_dstFlowSpec_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_dstFlowSpec_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__DST_FLOW_SPEC, true, false, true, null, null, null));
 	}
 
@@ -129,12 +127,10 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_category_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_category_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureInstance_category_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_category_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__CATEGORY, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -147,12 +143,10 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addDirectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_direction_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_direction_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureInstance_direction_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_direction_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__DIRECTION, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -166,10 +160,9 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_feature_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_feature_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						getResourceLocator(), getString("_UI_FeatureInstance_feature_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_feature_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__FEATURE, true, false, true, null, null, null));
 	}
 
@@ -181,12 +174,10 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addIndexPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureInstance_index_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_index_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureInstance_index_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_FeatureInstance_index_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_FeatureInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.FEATURE_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -260,8 +251,8 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 		FeatureInstance fi = (FeatureInstance) object;
 		String label = fi.getFullName();
 		String ftype = fi.getCategory().getName();
-		return (ftype == null || ftype.length() == 0 ? getString("_UI_FeatureInstance_type") : ftype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
-						" " + label); //$NON-NLS-1$
+		return (ftype == null || ftype.length() == 0 ? getString("_UI_FeatureInstance_type") : ftype + " instance") //$NON-NLS-1$
+				+ (label == null || label.length() == 0 ? "" : " " + label);
 	}
 
 	/**

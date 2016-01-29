@@ -82,6 +82,7 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getArrayDimensions <em>Array Dimension</em>}</li>
@@ -95,7 +96,6 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubcomponentImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -258,8 +258,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		subcomponentType = subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
-				: subcomponentType;
+		subcomponentType = subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
 		return subcomponentType.eIsProxy() ? null : subcomponentType;
 	}
 
@@ -419,8 +419,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	@Override
 	public ComponentImplementationReference createImplementationReference() {
-		ComponentImplementationReference newImplementationReference = (ComponentImplementationReference) create(Aadl2Package.eINSTANCE
-				.getComponentImplementationReference());
+		ComponentImplementationReference newImplementationReference = (ComponentImplementationReference) create(
+				Aadl2Package.eINSTANCE.getComponentImplementationReference());
 		getImplementationReferences().add(newImplementationReference);
 		return newImplementationReference;
 	}
@@ -779,8 +779,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
-		return refinedElement != null && ((EObject) refinedElement).eIsProxy() ? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
-				: refinedElement;
+		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
 	}
 
 	/**

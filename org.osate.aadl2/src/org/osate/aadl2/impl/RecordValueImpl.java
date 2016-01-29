@@ -54,10 +54,10 @@ import org.osate.aadl2.RecordValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RecordValueImpl#getOwnedFieldValues <em>Owned Field Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

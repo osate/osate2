@@ -43,8 +43,6 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Flow Element Instance</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

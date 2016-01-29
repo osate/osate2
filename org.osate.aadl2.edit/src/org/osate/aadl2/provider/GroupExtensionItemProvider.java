@@ -84,13 +84,12 @@ public class GroupExtensionItemProvider extends GeneralizationItemProvider {
 	 * @generated
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_GroupExtension_extended_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_GroupExtension_extended_feature",
-						"_UI_GroupExtension_type"), Aadl2Package.eINSTANCE.getGroupExtension_Extended(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_GroupExtension_extended_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_GroupExtension_extended_feature",
+								"_UI_GroupExtension_type"),
+						Aadl2Package.eINSTANCE.getGroupExtension_Extended(), true, false, true, null, null, null));
 	}
 
 	/**

@@ -53,10 +53,10 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.InstanceReferenceValueImpl#getReferencedInstanceObject <em>Referenced Instance Object</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

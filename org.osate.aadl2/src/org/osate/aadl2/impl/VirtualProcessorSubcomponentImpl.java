@@ -52,11 +52,11 @@ import org.osate.aadl2.VirtualProcessorSubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl#getVirtualProcessorSubcomponentType <em>Virtual Processor Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,8 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
-				: subcomponentType;
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
 	}
 
 	/**
@@ -124,7 +124,8 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	public VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType() {
 		if (virtualProcessorSubcomponentType != null && ((EObject) virtualProcessorSubcomponentType).eIsProxy()) {
 			InternalEObject oldVirtualProcessorSubcomponentType = (InternalEObject) virtualProcessorSubcomponentType;
-			virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) eResolveProxy(oldVirtualProcessorSubcomponentType);
+			virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) eResolveProxy(
+					oldVirtualProcessorSubcomponentType);
 			if (virtualProcessorSubcomponentType != oldVirtualProcessorSubcomponentType) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
@@ -151,7 +152,8 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
+	public void setVirtualProcessorSubcomponentType(
+			VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
 		VirtualProcessorSubcomponentType oldVirtualProcessorSubcomponentType = virtualProcessorSubcomponentType;
 		virtualProcessorSubcomponentType = newVirtualProcessorSubcomponentType;
 		if (eNotificationRequired()) {

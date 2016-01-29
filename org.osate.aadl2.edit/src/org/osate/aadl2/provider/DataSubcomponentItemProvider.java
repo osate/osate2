@@ -85,15 +85,13 @@ public class DataSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	protected void addDataSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_DataSubcomponent_dataSubcomponentType_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_DataSubcomponent_dataSubcomponentType_feature", "_UI_DataSubcomponent_type"),
-						Aadl2Package.eINSTANCE.getDataSubcomponent_DataSubcomponentType(), true, false, true, null,
-						null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_DataSubcomponent_dataSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_DataSubcomponent_dataSubcomponentType_feature",
+						"_UI_DataSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getDataSubcomponent_DataSubcomponentType(), true, false, true, null, null,
+				null));
 	}
 
 	/**

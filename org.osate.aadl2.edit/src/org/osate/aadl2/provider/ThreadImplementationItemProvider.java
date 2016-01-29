@@ -167,17 +167,17 @@ public class ThreadImplementationItemProvider extends BehavioredImplementationIt
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadImplementation_OwnedSubprogramGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getThreadImplementation_OwnedSubprogramGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadImplementation_OwnedSubprogramSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getThreadImplementation_OwnedSubprogramSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getThreadImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 	}
 
 }

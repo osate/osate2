@@ -62,6 +62,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Classifier#no_cycles_in_generalization(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>No cycles in generalization</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#specialize_type(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Specialize type</em>}</li>
@@ -74,7 +75,6 @@ import org.osate.aadl2.util.Aadl2Validator;
  *   <li>{@link org.osate.aadl2.Classifier#inherit(org.eclipse.emf.common.util.EList) <em>Inherit</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#maySpecializeType(org.osate.aadl2.Classifier) <em>May Specialize Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -133,15 +133,15 @@ public class ClassifierOperations extends NamespaceOperations {
 		}
 		if (!EOCL_ENV.createQuery(NO_CYCLES_IN_GENERALIZATION__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(classifier)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"no_cycles_in_generalization",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(classifier,
-														context) }), new Object[] { classifier }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.CLASSIFIER__NO_CYCLES_IN_GENERALIZATION,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "no_cycles_in_generalization",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(classifier, context) }),
+								new Object[] { classifier }));
 			}
 			return false;
 		}
@@ -193,14 +193,15 @@ public class ClassifierOperations extends NamespaceOperations {
 		}
 		if (!EOCL_ENV.createQuery(SPECIALIZE_TYPE__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(classifier)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE, org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"specialize_type",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(classifier,
-														context) }), new Object[] { classifier }));
+				diagnostics
+						.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.CLASSIFIER__SPECIALIZE_TYPE,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString("_UI_GenericInvariant_diagnostic",
+												new Object[] { "specialize_type",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(classifier, context) }),
+								new Object[] { classifier }));
 			}
 			return false;
 		}
@@ -240,8 +241,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<ClassifierFeature> allFeatures(Classifier classifier) {
 		if (ALL_FEATURES__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(19));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(19));
 			try {
 				ALL_FEATURES__EOCL_QRY = helper.createQuery(ALL_FEATURES__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -287,8 +288,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<NamedElement> inheritedMember(Classifier classifier) {
 		if (INHERITED_MEMBER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(20));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(20));
 			try {
 				INHERITED_MEMBER__EOCL_QRY = helper.createQuery(INHERITED_MEMBER__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -334,8 +335,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<Classifier> parents(Classifier classifier) {
 		if (PARENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(21));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(21));
 			try {
 				PARENTS__EOCL_QRY = helper.createQuery(PARENTS__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -381,8 +382,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<Classifier> allParents(Classifier classifier) {
 		if (ALL_PARENTS__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(22));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(22));
 			try {
 				ALL_PARENTS__EOCL_QRY = helper.createQuery(ALL_PARENTS__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -428,8 +429,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<NamedElement> inheritableMembers(Classifier classifier, Classifier c) {
 		if (INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(23));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(23));
 			try {
 				INHERITABLE_MEMBERS__CLASSIFIER__EOCL_QRY = helper
 						.createQuery(INHERITABLE_MEMBERS__CLASSIFIER__EOCL_EXP);
@@ -478,8 +479,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static boolean hasVisibilityOf(Classifier classifier, NamedElement n) {
 		if (HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(24));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(24));
 			try {
 				HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(HAS_VISIBILITY_OF__NAMED_ELEMENT__EOCL_EXP);
@@ -526,8 +527,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static EList<NamedElement> inherit(Classifier classifier, EList<NamedElement> inhs) {
 		if (INHERIT__ELIST__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(25));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(25));
 			try {
 				INHERIT__ELIST__EOCL_QRY = helper.createQuery(INHERIT__ELIST__EOCL_EXP);
 			} catch (ParserException pe) {
@@ -575,8 +576,8 @@ public class ClassifierOperations extends NamespaceOperations {
 	public static boolean maySpecializeType(Classifier classifier, Classifier c) {
 		if (MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(), Aadl2Package.eINSTANCE.getClassifier()
-					.getEAllOperations().get(26));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getClassifier(),
+					Aadl2Package.eINSTANCE.getClassifier().getEAllOperations().get(26));
 			try {
 				MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_QRY = helper
 						.createQuery(MAY_SPECIALIZE_TYPE__CLASSIFIER__EOCL_EXP);

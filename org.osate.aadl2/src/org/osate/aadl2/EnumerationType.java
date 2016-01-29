@@ -49,10 +49,10 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.EnumerationType#getOwnedLiterals <em>Owned Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getEnumerationType()
  * @model
@@ -64,10 +64,10 @@ public interface EnumerationType extends Namespace, NonListType {
 	 * The list contents are of type {@link org.osate.aadl2.EnumerationLiteral}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Literal</em>' containment reference list isn't clear,

@@ -84,13 +84,13 @@ public class RelationshipItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addRelatedElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Relationship_relatedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Relationship_relatedElement_feature",
-						"_UI_Relationship_type"), Aadl2Package.eINSTANCE.getRelationship_RelatedElement(), false,
-				false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Relationship_relatedElement_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Relationship_relatedElement_feature",
+								"_UI_Relationship_type"),
+						Aadl2Package.eINSTANCE.getRelationship_RelatedElement(), false, false, false, null, null,
+						null));
 	}
 
 	/**

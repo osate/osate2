@@ -86,14 +86,13 @@ public class VirtualProcessorSubcomponentItemProvider extends SubcomponentItemPr
 	 */
 	protected void addVirtualProcessorSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
 						"_UI_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType_feature",
-						"_UI_VirtualProcessorSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType(), true, false, true, null,
-				null, null));
+						"_UI_VirtualProcessorSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType(), true, false,
+				true, null, null, null));
 	}
 
 	/**

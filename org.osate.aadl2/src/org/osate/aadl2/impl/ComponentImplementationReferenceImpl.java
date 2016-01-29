@@ -58,11 +58,11 @@ import org.osate.aadl2.PrototypeBinding;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl#getImplementation <em>Implementation</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentImplementationReferenceImpl#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -147,7 +147,8 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 		implementation = newImplementation;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation, implementation));
+					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation,
+					implementation));
 		}
 	}
 

@@ -43,8 +43,6 @@ import org.osate.aadl2.EndToEndFlowElement;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>End To End Flow Element</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

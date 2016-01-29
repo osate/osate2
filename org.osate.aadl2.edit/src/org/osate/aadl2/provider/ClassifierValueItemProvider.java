@@ -84,13 +84,12 @@ public class ClassifierValueItemProvider extends PropertyOwnerItemProvider {
 	 * @generated
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ClassifierValue_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ClassifierValue_classifier_feature",
-						"_UI_ClassifierValue_type"), Aadl2Package.eINSTANCE.getClassifierValue_Classifier(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ClassifierValue_classifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ClassifierValue_classifier_feature",
+								"_UI_ClassifierValue_type"),
+						Aadl2Package.eINSTANCE.getClassifierValue_Classifier(), true, false, true, null, null, null));
 	}
 
 	/**

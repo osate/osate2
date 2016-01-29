@@ -86,15 +86,13 @@ public class FeatureGroupTypeRenameItemProvider extends NamedElementItemProvider
 	 */
 	protected void addRenamedFeatureGroupTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_FeatureGroupTypeRename_renamedFeatureGroupType_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FeatureGroupTypeRename_renamedFeatureGroupType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_FeatureGroupTypeRename_renamedFeatureGroupType_feature",
-								"_UI_FeatureGroupTypeRename_type"), Aadl2Package.eINSTANCE
-								.getFeatureGroupTypeRename_RenamedFeatureGroupType(), true, false, true, null, null,
-						null));
+								"_UI_FeatureGroupTypeRename_type"),
+				Aadl2Package.eINSTANCE.getFeatureGroupTypeRename_RenamedFeatureGroupType(), true, false, true, null,
+				null, null));
 	}
 
 	/**

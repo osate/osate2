@@ -49,10 +49,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ClassifierFeature#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getClassifierFeature()
  * @model abstract="true"

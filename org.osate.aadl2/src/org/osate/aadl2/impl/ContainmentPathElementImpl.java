@@ -58,13 +58,13 @@ import org.osate.aadl2.NamedElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getAnnexName <em>Annex Name</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getPath <em>Path</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -273,12 +273,12 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		if (newPath != path) {
 			NotificationChain msgs = null;
 			if (path != null) {
-				msgs = ((InternalEObject) path).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+				msgs = ((InternalEObject) path).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
 			}
 			if (newPath != null) {
-				msgs = ((InternalEObject) newPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+				msgs = ((InternalEObject) newPath).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
 			}
 			msgs = basicSetPath(newPath, msgs);
 			if (msgs != null) {
@@ -297,8 +297,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 */
 	@Override
 	public ContainmentPathElement createPath() {
-		ContainmentPathElement newPath = (ContainmentPathElement) create(Aadl2Package.eINSTANCE
-				.getContainmentPathElement());
+		ContainmentPathElement newPath = (ContainmentPathElement) create(
+				Aadl2Package.eINSTANCE.getContainmentPathElement());
 		setPath(newPath);
 		return newPath;
 	}

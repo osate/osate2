@@ -49,11 +49,11 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.NumericRange#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link org.osate.aadl2.NumericRange#getLowerBound <em>Lower Bound</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getNumericRange()
  * @model

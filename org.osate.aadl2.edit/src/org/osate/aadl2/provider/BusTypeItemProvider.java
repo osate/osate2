@@ -132,8 +132,8 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((BusType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_BusType_type") : getString("_UI_BusType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_BusType_type")
+				: getString("_UI_BusType_type") + " " + label;
 	}
 
 	/**

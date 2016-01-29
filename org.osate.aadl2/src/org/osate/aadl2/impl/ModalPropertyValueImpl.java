@@ -54,10 +54,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModalPropertyValueImpl#getOwnedValue <em>Owned Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -131,12 +131,12 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
 			if (ownedValue != null) {
-				msgs = ((InternalEObject) ownedValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) ownedValue).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
 			}
 			if (newOwnedValue != null) {
-				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
 			}
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
 			if (msgs != null) {

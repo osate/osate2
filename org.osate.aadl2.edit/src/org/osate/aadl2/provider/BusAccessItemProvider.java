@@ -85,13 +85,13 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	 * @generated
 	 */
 	protected void addBusFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BusAccess_busFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_busFeatureClassifier_feature",
-						"_UI_BusAccess_type"), Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BusAccess_busFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_busFeatureClassifier_feature",
+								"_UI_BusAccess_type"),
+						Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((BusAccess) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_BusAccess_type") : getString("_UI_BusAccess_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_BusAccess_type")
+				: getString("_UI_BusAccess_type") + " " + label;
 	}
 
 	/**

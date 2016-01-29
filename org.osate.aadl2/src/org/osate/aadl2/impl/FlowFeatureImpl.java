@@ -42,8 +42,6 @@ import org.osate.aadl2.FlowFeature;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Flow Feature</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

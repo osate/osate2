@@ -84,8 +84,8 @@ public class ProcessorItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Processor) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Processor_type") : getString("_UI_Processor_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Processor_type")
+				: getString("_UI_Processor_type") + " " + label;
 	}
 
 	/**

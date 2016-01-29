@@ -1990,8 +1990,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		}
 
 		// Obtain or create and register package
-		Aadl2PackageImpl theAadl2Package = (Aadl2PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Aadl2PackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new Aadl2PackageImpl());
+		Aadl2PackageImpl theAadl2Package = (Aadl2PackageImpl) (EPackage.Registry.INSTANCE
+				.get(eNS_URI) instanceof Aadl2PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new Aadl2PackageImpl());
 
 		isInited = true;
 
@@ -10533,8 +10534,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		// Initialize classes and features; add operations and parameters
 		initEClass(elementEClass, Element.class, "Element", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElement_OwnedElement(), getElement(), null, "ownedElement", null, 0, -1, Element.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getElement_OwnedComment(), getComment(), null, "ownedComment", null, 0, -1, Element.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -10580,8 +10581,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getNamedElement_QualifiedName(), getString(), "qualifiedName", null, 0, 1, NamedElement.class,
 				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getNamedElement_OwnedPropertyAssociation(), getPropertyAssociation(), null,
-				"ownedPropertyAssociation", null, 0, -1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedPropertyAssociation", null, 0, -1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		op = addEOperation(namedElementEClass, ecorePackage.getEBoolean(), "has_no_qualified_name", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
@@ -10632,7 +10633,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getPropertyAssociation_Append(), getBoolean(), "append", null, 1, 1, PropertyAssociation.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getPropertyAssociation_Constant(), getBoolean(), "constant", null, 1, 1,
 				PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -10640,7 +10642,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProperty_Inherit(), getBoolean(), "inherit", null, 1, 1, Property.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getProperty_DefaultValue(), getPropertyExpression(), null, "defaultValue", null, 0, 1,
@@ -10656,7 +10659,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getProperty_EmptyListDefault(), getBoolean(), "emptyListDefault", null, 1, 1, Property.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(basicPropertyEClass, BasicProperty.class, "BasicProperty", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -10679,20 +10683,20 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(propertyTypeEClass, PropertyType.class, "PropertyType", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(abstractNamedValueEClass, AbstractNamedValue.class, "AbstractNamedValue", IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(abstractNamedValueEClass, AbstractNamedValue.class, "AbstractNamedValue", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(arraySizePropertyEClass, ArraySizeProperty.class, "ArraySizeProperty", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(propertyExpressionEClass, PropertyExpression.class, "PropertyExpression", IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(propertyExpressionEClass, PropertyExpression.class, "PropertyExpression", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(metaclassReferenceEClass, MetaclassReference.class, "MetaclassReference", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMetaclassReference_AnnexName(), getString(), "annexName", null, 0, 1,
-				MetaclassReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				MetaclassReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getMetaclassReference_MetaclassName(), getString(), "metaclassName", null, 1, -1,
 				MetaclassReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				!IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -10704,8 +10708,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClassifier_ClassifierFeature(), getClassifierFeature(),
 				getClassifierFeature_FeaturingClassifier(), "classifierFeature", null, 0, -1, Classifier.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_InheritedMember(), getNamedElement(), null, "inheritedMember", null, 0, -1,
 				Classifier.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
@@ -10713,8 +10717,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"generalization", null, 0, -1, Classifier.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_General(), getClassifier(), null, "general", null, 0, -1, Classifier.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_OwnedAnnexSubclause(), getAnnexSubclause(), null, "ownedAnnexSubclause", null, 0,
 				-1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -10725,14 +10729,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getClassifier_NoPrototypes(), getBoolean(), "noPrototypes", null, 1, 1, Classifier.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getClassifier_NoAnnexes(), getBoolean(), "noAnnexes", null, 1, 1, Classifier.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getClassifier_NoProperties(), getBoolean(), "noProperties", null, 1, 1, Classifier.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
-		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "no_cycles_in_generalization", 0, 1,
-				IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "no_cycles_in_generalization", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
 		g1 = createEGenericType(ecorePackage.getEMap());
 		g2 = createEGenericType(ecorePackage.getEJavaObject());
@@ -10741,7 +10748,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		g1.getETypeArguments().add(g2);
 		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "specialize_type", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "specialize_type", 0, 1, IS_UNIQUE,
+				IS_ORDERED);
 		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
 		g1 = createEGenericType(ecorePackage.getEMap());
 		g2 = createEGenericType(ecorePackage.getEJavaObject());
@@ -10772,12 +10780,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(namespaceEClass, Namespace.class, "Namespace", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNamespace_OwnedMember(), getNamedElement(), null, "ownedMember", null, 0, -1,
-				Namespace.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEReference(getNamespace_OwnedMember(), getNamedElement(), null, "ownedMember", null, 0, -1, Namespace.class,
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getNamespace_Member(), getNamedElement(), null, "member", null, 0, -1, Namespace.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 
 		op = addEOperation(namespaceEClass, ecorePackage.getEBoolean(), "members_distinguishable", 0, 1, IS_UNIQUE,
 				IS_ORDERED);
@@ -10803,11 +10811,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(generalizationEClass, Generalization.class, "Generalization", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGeneralization_General(), getClassifier(), null, "general", null, 1, 1, Generalization.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getGeneralization_Specific(), getClassifier(), getClassifier_Generalization(), "specific", null,
-				1, 1, Generalization.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				1, 1, Generalization.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(directedRelationshipEClass, DirectedRelationship.class, "DirectedRelationship", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -10838,8 +10846,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(modeEClass, Mode.class, "Mode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMode_Initial(), getBoolean(), "initial", "false", 1, 1, Mode.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getMode_Derived(), getBoolean(), "derived", "false", 1, 1, Mode.class, IS_TRANSIENT,
-				IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getMode_Derived(), getBoolean(), "derived", "false", 1, 1, Mode.class, IS_TRANSIENT, IS_VOLATILE,
+				!IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(modeFeatureEClass, ModeFeature.class, "ModeFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -10877,9 +10885,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(prototypeBindingEClass, PrototypeBinding.class, "PrototypeBinding", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPrototypeBinding_Formal(), getPrototype(), null, "formal", null, 1, 1,
-				PrototypeBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPrototypeBinding_Formal(), getPrototype(), null, "formal", null, 1, 1, PrototypeBinding.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(containedNamedElementEClass, ContainedNamedElement.class, "ContainedNamedElement", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -10908,15 +10916,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(arrayRangeEClass, ArrayRange.class, "ArrayRange", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getArrayRange_LowerBound(), getInteger(), "lowerBound", null, 1, 1, ArrayRange.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getArrayRange_UpperBound(), getInteger(), "upperBound", null, 1, 1, ArrayRange.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(modalPropertyValueEClass, ModalPropertyValue.class, "ModalPropertyValue", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModalPropertyValue_OwnedValue(), getPropertyExpression(), null, "ownedValue", null, 1, 1,
-				ModalPropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				ModalPropertyValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(behavioralFeatureEClass, BehavioralFeature.class, "BehavioralFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -10951,8 +10961,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 
-		initEClass(componentImplementationEClass, ComponentImplementation.class, "ComponentImplementation",
-				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(componentImplementationEClass, ComponentImplementation.class, "ComponentImplementation", IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponentImplementation_Type(), getComponentType(), null, "type", null, 1, 1,
 				ComponentImplementation.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
@@ -10969,8 +10979,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				-1, ComponentImplementation.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getComponentImplementation_OwnedExtension(), getImplementationExtension(), null,
-				"ownedExtension", null, 0, 1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedExtension", null, 0, 1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getComponentImplementation_OwnedRealization(), getRealization(), null, "ownedRealization", null,
 				1, 1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11016,8 +11026,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getComponentImplementation_OwnedEventDataSource(), getEventDataSource(), null,
 				"ownedEventDataSource", null, 0, -1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getComponentImplementation_OwnedPortProxy(), getPortProxy(), null, "ownedPortProxy", null, 0,
-				-1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getComponentImplementation_OwnedPortProxy(), getPortProxy(), null, "ownedPortProxy", null, 0, -1,
+				ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getComponentImplementation_OwnedSubprogramProxy(), getSubprogramProxy(), null,
 				"ownedSubprogramProxy", null, 0, -1, ComponentImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -11037,12 +11047,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getComponentClassifier_DerivedModes(), getBoolean(), "derivedModes", null, 1, 1,
 				ComponentClassifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getComponentClassifier_NoFlows(), getBoolean(), "noFlows", null, 1, 1,
-				ComponentClassifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getComponentClassifier_NoModes(), getBoolean(), "noModes", null, 1, 1,
-				ComponentClassifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getComponentClassifier_NoFlows(), getBoolean(), "noFlows", null, 1, 1, ComponentClassifier.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
+		initEAttribute(getComponentClassifier_NoModes(), getBoolean(), "noModes", null, 1, 1, ComponentClassifier.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(subcomponentTypeEClass, SubcomponentType.class, "SubcomponentType", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11097,12 +11107,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, -1, ComponentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getComponentType_NoFeatures(), getBoolean(), "noFeatures", null, 1, 1, ComponentType.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(featureEClass, Feature.class, "Feature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeature_Prototype(), getComponentPrototype(), null, "prototype", null, 0, 1, Feature.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getFeature_FeatureClassifier(), getFeatureClassifier(), null, "featureClassifier", null, 0, 1,
 				Feature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
@@ -11110,8 +11121,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 		initEReference(getFeature_Classifier(), getClassifier(), null, "classifier", null, 0, 1, Feature.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 
 		initEClass(featureConnectionEndEClass, FeatureConnectionEnd.class, "FeatureConnectionEnd", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11119,10 +11130,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(connectionEndEClass, ConnectionEnd.class, "ConnectionEnd", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(componentPrototypeEClass, ComponentPrototype.class, "ComponentPrototype", IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(componentPrototypeEClass, ComponentPrototype.class, "ComponentPrototype", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComponentPrototype_Array(), getBoolean(), "array", null, 1, 1, ComponentPrototype.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEReference(getComponentPrototype_ConstrainingClassifier(), getComponentClassifier(), null,
 				"constrainingClassifier", null, 0, 1, ComponentPrototype.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11133,10 +11145,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				FlowSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getFlowSpecification_Kind(), getFlowKind(), "kind", null, 1, 1, FlowSpecification.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getFlowSpecification_OutEnd(), getFlowEnd(), null, "outEnd", null, 0, 1,
-				FlowSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
+		initEReference(getFlowSpecification_OutEnd(), getFlowEnd(), null, "outEnd", null, 0, 1, FlowSpecification.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFlowSpecification_InEnd(), getFlowEnd(), null, "InEnd", null, 0, 1, FlowSpecification.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11181,7 +11194,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(featureGroupEClass, FeatureGroup.class, "FeatureGroup", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureGroup_Inverse(), getBoolean(), "inverse", null, 1, 1, FeatureGroup.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEReference(getFeatureGroup_FeatureType(), getFeatureType(), null, "featureType", null, 0, 1,
 				FeatureGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11269,8 +11283,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(accessEClass, Access.class, "Access", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAccess_Kind(), getAccessType(), "kind", null, 1, 1, Access.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getAccess_Kind(), getAccessType(), "kind", null, 1, 1, Access.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getAccess_Category(), getAccessCategory(), "category", null, 1, 1, Access.class, IS_TRANSIENT,
 				IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
@@ -11295,7 +11309,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(dataSubcomponentTypeEClass, DataSubcomponentType.class, "DataSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(dataPortEClass, DataPort.class, "DataPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(dataPortEClass, DataPort.class, "DataPort", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataPort_DataFeatureClassifier(), getDataSubcomponentType(), null, "dataFeatureClassifier",
 				null, 0, 1, DataPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11341,8 +11356,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractFeature_FeaturePrototype(), getFeaturePrototype(), null, "featurePrototype", null, 0,
-				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(featurePrototypeEClass, FeaturePrototype.class, "FeaturePrototype", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11355,7 +11370,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getFeaturePrototype_In(), getBoolean(), "in", null, 1, 1, FeaturePrototype.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getFeaturePrototype_Out(), getBoolean(), "out", null, 1, 1, FeaturePrototype.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(featureGroupPrototypeEClass, FeatureGroupPrototype.class, "FeatureGroupPrototype", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11378,7 +11394,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				Subcomponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getSubcomponent_AllModes(), getBoolean(), "allModes", null, 1, 1, Subcomponent.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEReference(getSubcomponent_ImplementationReference(), getComponentImplementationReference(), null,
 				"implementationReference", null, 0, -1, Subcomponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11401,10 +11418,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(flowImplementationEClass, FlowImplementation.class, "FlowImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFlowImplementation_Kind(), getFlowKind(), "kind", null, 1, 1, FlowImplementation.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getFlowImplementation_Specification(), getFlowSpecification(), null, "specification", null, 1,
-				1, FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
+		initEReference(getFlowImplementation_Specification(), getFlowSpecification(), null, "specification", null, 1, 1,
+				FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFlowImplementation_OwnedFlowSegment(), getFlowSegment(), null, "ownedFlowSegment", null, 0,
 				-1, FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -11427,16 +11445,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getConnection_Bidirectional(), getBoolean(), "bidirectional", null, 1, 1, Connection.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEReference(getConnection_Refined(), getConnection(), null, "refined", null, 0, 1, Connection.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(connectedElementEClass, ConnectedElement.class, "ConnectedElement", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConnectedElement_Context(), getContext(), null, "context", null, 0, 1,
-				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectedElement_Context(), getContext(), null, "context", null, 0, 1, ConnectedElement.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectedElement_ConnectionEnd(), getConnectionEnd(), null, "connectionEnd", null, 1, 1,
 				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11459,8 +11478,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getEndToEndFlow_OwnedEndToEndFlowSegment(), getEndToEndFlowSegment(), null,
-				"ownedEndToEndFlowSegment", null, 0, -1, EndToEndFlow.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedEndToEndFlowSegment", null, 0, -1, EndToEndFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(endToEndFlowSegmentEClass, EndToEndFlowSegment.class, "EndToEndFlowSegment", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11559,8 +11578,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getDefaultAnnexLibrary_SourceText(), getString(), "sourceText", null, 1, 1,
 				DefaultAnnexLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getDefaultAnnexLibrary_ParsedAnnexLibrary(), getAnnexLibrary(), null, "parsedAnnexLibrary",
-				null, 0, 1, DefaultAnnexLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getDefaultAnnexLibrary_ParsedAnnexLibrary(), getAnnexLibrary(), null, "parsedAnnexLibrary", null,
+				0, 1, DefaultAnnexLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(defaultAnnexSubclauseEClass, DefaultAnnexSubclause.class, "DefaultAnnexSubclause", !IS_ABSTRACT,
@@ -11576,14 +11595,14 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPublicPackageSection_PrivateSection(), getPrivatePackageSection(),
 				getPrivatePackageSection_PublicSection(), "privateSection", null, 0, 1, PublicPackageSection.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 
 		initEClass(packageSectionEClass, PackageSection.class, "PackageSection", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPackageSection_OwnedPackageRename(), getPackageRename(), null, "ownedPackageRename", null, 0,
-				-1, PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				-1, PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPackageSection_OwnedComponentTypeRename(), getComponentTypeRename(), null,
 				"ownedComponentTypeRename", null, 0, -1, PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11593,17 +11612,18 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getPackageSection_OwnedFeatureGroupTypeRename(), getFeatureGroupTypeRename(), null,
 				"ownedFeatureGroupTypeRename", null, 0, -1, PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getPackageSection_OwnedAnnexLibrary(), getAnnexLibrary(), null, "ownedAnnexLibrary", null, 0,
-				-1, PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPackageSection_OwnedAnnexLibrary(), getAnnexLibrary(), null, "ownedAnnexLibrary", null, 0, -1,
+				PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPackageSection_ImportedUnit(), getModelUnit(), null, "importedUnit", null, 0, -1,
 				PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getPackageSection_NoAnnexes(), getBoolean(), "noAnnexes", null, 1, 1, PackageSection.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getPackageSection_NoProperties(), getBoolean(), "noProperties", null, 1, 1,
-				PackageSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
+		initEAttribute(getPackageSection_NoProperties(), getBoolean(), "noProperties", null, 1, 1, PackageSection.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(packageRenameEClass, PackageRename.class, "PackageRename", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11611,13 +11631,14 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				PackageRename.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getPackageRename_RenameAll(), getBoolean(), "renameAll", null, 1, 1, PackageRename.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(aadlPackageEClass, AadlPackage.class, "AadlPackage", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAadlPackage_OwnedPublicSection(), getPublicPackageSection(), null, "ownedPublicSection",
-				null, 0, 1, AadlPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAadlPackage_OwnedPublicSection(), getPublicPackageSection(), null, "ownedPublicSection", null,
+				0, 1, AadlPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAadlPackage_OwnedPrivateSection(), getPrivatePackageSection(), null, "ownedPrivateSection",
 				null, 0, 1, AadlPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -11635,8 +11656,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPrivatePackageSection_PublicSection(), getPublicPackageSection(),
 				getPublicPackageSection_PrivateSection(), "publicSection", null, 0, 1, PrivatePackageSection.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 
 		initEClass(componentTypeRenameEClass, ComponentTypeRename.class, "ComponentTypeRename", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11673,9 +11694,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(featureGroupPrototypeBindingEClass, FeatureGroupPrototypeBinding.class,
 				"FeatureGroupPrototypeBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureGroupPrototypeBinding_Actual(), getFeatureGroupPrototypeActual(), null, "actual",
-				null, 1, 1, FeatureGroupPrototypeBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getFeatureGroupPrototypeBinding_Actual(), getFeatureGroupPrototypeActual(), null, "actual", null,
+				1, 1, FeatureGroupPrototypeBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(featureGroupPrototypeActualEClass, FeatureGroupPrototypeActual.class, "FeatureGroupPrototypeActual",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11698,16 +11719,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(accessSpecificationEClass, AccessSpecification.class, "AccessSpecification", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAccessSpecification_Kind(), getAccessType(), "kind", null, 1, 1, AccessSpecification.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getAccessSpecification_Category(), getAccessCategory(), "category", null, 1, 1,
 				AccessSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAccessSpecification_Classifier(), getComponentClassifier(), null, "classifier", null, 0, 1,
 				AccessSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAccessSpecification_ComponentPrototype(), getComponentPrototype(), null,
-				"componentPrototype", null, 0, 1, AccessSpecification.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAccessSpecification_ComponentPrototype(), getComponentPrototype(), null, "componentPrototype",
+				null, 0, 1, AccessSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(portSpecificationEClass, PortSpecification.class, "PortSpecification", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11724,9 +11746,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, 1, PortSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getPortSpecification_In(), getBoolean(), "in", null, 1, 1, PortSpecification.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 		initEAttribute(getPortSpecification_Out(), getBoolean(), "out", null, 1, 1, PortSpecification.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(featurePrototypeReferenceEClass, FeaturePrototypeReference.class, "FeaturePrototypeReference",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11754,9 +11778,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getSubprogramCall_CalledSubprogram(), getCalledSubprogram(), null, "calledSubprogram", null, 0,
 				1, SubprogramCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getSubprogramCall_Context(), getCallContext(), null, "context", null, 0, 1,
-				SubprogramCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getSubprogramCall_Context(), getCallContext(), null, "context", null, 0, 1, SubprogramCall.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(behavioredImplementationEClass, BehavioredImplementation.class, "BehavioredImplementation",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11764,9 +11788,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				0, -1, BehavioredImplementation.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getBehavioredImplementation_OwnedSubprogramCallSequence(), getSubprogramCallSequence(), null,
-				"ownedSubprogramCallSequence", null, 0, -1, BehavioredImplementation.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				!IS_ORDERED);
+				"ownedSubprogramCallSequence", null, 0, -1, BehavioredImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		addEOperation(behavioredImplementationEClass, getSubprogramCall(), "subprogramCalls", 0, -1, IS_UNIQUE,
 				!IS_ORDERED);
@@ -11795,8 +11818,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"ownedSubprogramGroupAccess", null, 0, -1, AbstractType.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(abstractClassifierEClass, AbstractClassifier.class, "AbstractClassifier", IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(abstractClassifierEClass, AbstractClassifier.class, "AbstractClassifier", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(virtualProcessorSubcomponentTypeEClass, VirtualProcessorSubcomponentType.class,
 				"VirtualProcessorSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11813,8 +11836,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(systemSubcomponentTypeEClass, SystemSubcomponentType.class, "SystemSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(processSubcomponentTypeEClass, ProcessSubcomponentType.class, "ProcessSubcomponentType",
-				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(processSubcomponentTypeEClass, ProcessSubcomponentType.class, "ProcessSubcomponentType", IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(memorySubcomponentTypeEClass, MemorySubcomponentType.class, "MemorySubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -11864,10 +11887,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getAbstractImplementation_OwnedVirtualBusSubcomponent(), getVirtualBusSubcomponent(), null,
 				"ownedVirtualBusSubcomponent", null, 0, -1, AbstractImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAbstractImplementation_OwnedVirtualProcessorSubcomponent(),
-				getVirtualProcessorSubcomponent(), null, "ownedVirtualProcessorSubcomponent", null, 0, -1,
-				AbstractImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAbstractImplementation_OwnedVirtualProcessorSubcomponent(), getVirtualProcessorSubcomponent(),
+				null, "ownedVirtualProcessorSubcomponent", null, 0, -1, AbstractImplementation.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(busSubcomponentEClass, BusSubcomponent.class, "BusSubcomponent", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11953,10 +11976,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(threadGroupSubcomponentEClass, ThreadGroupSubcomponent.class, "ThreadGroupSubcomponent",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getThreadGroupSubcomponent_ThreadGroupSubcomponentType(), getThreadGroupSubcomponentType(),
-				null, "threadGroupSubcomponentType", null, 0, 1, ThreadGroupSubcomponent.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				!IS_ORDERED);
+		initEReference(getThreadGroupSubcomponent_ThreadGroupSubcomponentType(), getThreadGroupSubcomponentType(), null,
+				"threadGroupSubcomponentType", null, 0, 1, ThreadGroupSubcomponent.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(threadGroupEClass, org.osate.aadl2.ThreadGroup.class, "ThreadGroup", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12009,7 +12031,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(busPrototypeEClass, BusPrototype.class, "BusPrototype", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(dataTypeEClass, DataType.class, "DataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(dataTypeEClass, DataType.class, "DataType", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataType_OwnedSubprogramAccess(), getSubprogramAccess(), null, "ownedSubprogramAccess", null,
 				0, -1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12053,8 +12076,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, -1, DeviceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDeviceType_OwnedSubprogramGroupAccess(), getSubprogramGroupAccess(), null,
-				"ownedSubprogramGroupAccess", null, 0, -1, DeviceType.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedSubprogramGroupAccess", null, 0, -1, DeviceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(deviceImplementationEClass, DeviceImplementation.class, "DeviceImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12104,8 +12127,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(subprogramTypeEClass, SubprogramType.class, "SubprogramType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSubprogramType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null, 0,
-				-1, SubprogramType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				-1, SubprogramType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getSubprogramType_OwnedEventPort(), getEventPort(), null, "ownedEventPort", null, 0, -1,
 				SubprogramType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12128,9 +12151,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"ownedDataSubcomponent", null, 0, -1, SubprogramImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getSubprogramImplementation_OwnedSubprogramSubcomponent(), getSubprogramSubcomponent(), null,
-				"ownedSubprogramSubcomponent", null, 0, -1, SubprogramImplementation.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				!IS_ORDERED);
+				"ownedSubprogramSubcomponent", null, 0, -1, SubprogramImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(subprogramPrototypeEClass, SubprogramPrototype.class, "SubprogramPrototype", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12179,8 +12201,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				SystemType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getSystemType_OwnedSubprogramGroupAccess(), getSubprogramGroupAccess(), null,
-				"ownedSubprogramGroupAccess", null, 0, -1, SystemType.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedSubprogramGroupAccess", null, 0, -1, SystemType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getSystemType_OwnedSubprogramAccess(), getSubprogramAccess(), null, "ownedSubprogramAccess",
 				null, 0, -1, SystemType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12283,8 +12305,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getProcessType_OwnedDataPort(), getDataPort(), null, "ownedDataPort", null, 0, -1,
 				ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getProcessType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null, 0,
-				-1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+		initEReference(getProcessType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null, 0, -1,
+				ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getProcessType_OwnedEventPort(), getEventPort(), null, "ownedEventPort", null, 0, -1,
 				ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
@@ -12342,8 +12364,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				null, 0, -1, ThreadType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getThreadType_OwnedSubprogramGroupAccess(), getSubprogramGroupAccess(), null,
-				"ownedSubprogramGroupAccess", null, 0, -1, ThreadType.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				"ownedSubprogramGroupAccess", null, 0, -1, ThreadType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(threadImplementationEClass, ThreadImplementation.class, "ThreadImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12369,8 +12391,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getThreadGroupType_OwnedDataPort(), getDataPort(), null, "ownedDataPort", null, 0, -1,
 				ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getThreadGroupType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null,
-				0, -1, ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getThreadGroupType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null, 0,
+				-1, ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getThreadGroupType_OwnedEventPort(), getEventPort(), null, "ownedEventPort", null, 0, -1,
 				ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
@@ -12378,9 +12400,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getThreadGroupType_OwnedDataAccess(), getDataAccess(), null, "ownedDataAccess", null, 0, -1,
 				ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getThreadGroupType_OwnedSubprogramAccess(), getSubprogramAccess(), null,
-				"ownedSubprogramAccess", null, 0, -1, ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getThreadGroupType_OwnedSubprogramAccess(), getSubprogramAccess(), null, "ownedSubprogramAccess",
+				null, 0, -1, ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getThreadGroupType_OwnedSubprogramGroupAccess(), getSubprogramGroupAccess(), null,
 				"ownedSubprogramGroupAccess", null, 0, -1, ThreadGroupType.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12418,8 +12440,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getVirtualBusType_OwnedEventDataPort(), getEventDataPort(), null, "ownedEventDataPort", null, 0,
-				-1, VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				-1, VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getVirtualBusType_OwnedEventPort(), getEventPort(), null, "ownedEventPort", null, 0, -1,
 				VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12427,9 +12449,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(virtualBusImplementationEClass, VirtualBusImplementation.class, "VirtualBusImplementation",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVirtualBusImplementation_OwnedVirtualBusSubcomponent(), getVirtualBusSubcomponent(), null,
-				"ownedVirtualBusSubcomponent", null, 0, -1, VirtualBusImplementation.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				!IS_ORDERED);
+				"ownedVirtualBusSubcomponent", null, 0, -1, VirtualBusImplementation.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(virtualBusPrototypeEClass, VirtualBusPrototype.class, "VirtualBusPrototype", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12542,7 +12563,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanLiteral_Value(), getBoolean(), "value", null, 1, 1, BooleanLiteral.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(rangeValueEClass, RangeValue.class, "RangeValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12561,7 +12583,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEAttribute(getIntegerLiteral_Base(), getInteger(), "base", null, 0, 1, IntegerLiteral.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getIntegerLiteral_Value(), getInteger(), "value", null, 1, 1, IntegerLiteral.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(realLiteralEClass, RealLiteral.class, "RealLiteral", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12572,20 +12595,21 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOperation_Op(), getOperationKind(), "op", null, 1, 1, Operation.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getOperation_OwnedPropertyExpression(), getPropertyExpression(), null,
-				"ownedPropertyExpression", null, 1, -1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getOperation_OwnedPropertyExpression(), getPropertyExpression(), null, "ownedPropertyExpression",
+				null, 1, -1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(recordValueEClass, RecordValue.class, "RecordValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRecordValue_OwnedFieldValue(), getBasicPropertyAssociation(), null, "ownedFieldValue", null,
-				0, -1, RecordValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				0, -1, RecordValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(computedValueEClass, ComputedValue.class, "ComputedValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComputedValue_Function(), getString(), "function", null, 1, 1, ComputedValue.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+				!IS_ORDERED);
 
 		initEClass(listValueEClass, ListValue.class, "ListValue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12671,7 +12695,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				NumericRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(aadlRealEClass, AadlReal.class, "AadlReal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(aadlRealEClass, AadlReal.class, "AadlReal", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(classifierTypeEClass, ClassifierType.class, "ClassifierType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12685,8 +12710,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				RangeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getRangeType_NumberType(), getNumberType(), null, "numberType", null, 1, 1, RangeType.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 		initEReference(getRangeType_ReferencedNumberType(), getNumberType(), null, "referencedNumberType", null, 0, 1,
 				RangeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12702,11 +12727,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(referenceTypeEClass, ReferenceType.class, "ReferenceType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getReferenceType_NamedElementReference(), getMetaclassReference(), null,
-				"namedElementReference", null, 1, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getReferenceType_NamedElementReference(), getMetaclassReference(), null, "namedElementReference",
+				null, 1, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(listTypeEClass, ListType.class, "ListType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(listTypeEClass, ListType.class, "ListType", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getListType_OwnedElementType(), getPropertyType(), null, "ownedElementType", null, 0, 1,
 				ListType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -12714,8 +12740,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				1, ListType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getListType_ElementType(), getPropertyType(), null, "elementType", null, 1, 1, ListType.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, !IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(flowKindEEnum, FlowKind.class, "FlowKind");
@@ -12841,42 +12867,32 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	protected void createDocumentationAnnotations() {
 		String source = "http://www.topcased.org/documentation";
-		addAnnotation(getElement_OwnedElement(), source, new String[] { "documentation",
-				"The Elements owned by this element." });
-		addAnnotation(getElement_OwnedComment(), source, new String[] { "documentation",
-				"The Comments owned by this element." });
-		addAnnotation(getComment_Body(), source, new String[] { "documentation",
-				"Specifies a string that is the comment" });
-		addAnnotation(
-				stringEDataType,
-				source,
-				new String[] {
-						"documentation",
-						"A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters." });
+		addAnnotation(getElement_OwnedElement(), source,
+				new String[] { "documentation", "The Elements owned by this element." });
+		addAnnotation(getElement_OwnedComment(), source,
+				new String[] { "documentation", "The Comments owned by this element." });
+		addAnnotation(getComment_Body(), source,
+				new String[] { "documentation", "Specifies a string that is the comment" });
+		addAnnotation(stringEDataType, source, new String[] { "documentation",
+				"A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters." });
 		addAnnotation(booleanEDataType, source, new String[] { "documentation",
 				"A Boolean type is used for logical expression, consisting of the predefined values true and false." });
-		addAnnotation(getNamedElement_Name(), source, new String[] { "documentation", "The name of the NamedElement." });
-		addAnnotation(
-				getNamedElement_QualifiedName(),
-				source,
-				new String[] {
-						"documentation",
-						"A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself." });
-		addAnnotation(getTypedElement_Type(), source, new String[] { "documentation", "The type of the TypedElement." });
-		addAnnotation(getNamespace_OwnedMember(), source, new String[] { "documentation",
-				"A collection of NamedElements owned by the Namespace." });
-		addAnnotation(
-				getNamespace_Member(),
-				source,
-				new String[] {
-						"documentation",
-						"A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance." });
-		addAnnotation(integerEDataType, source, new String[] { "documentation",
-				"An integer is a primitive type representing integer values." });
-		addAnnotation(realEDataType, source, new String[] { "documentation",
-				"A real is a primitive type representing real numeric values." });
-		addAnnotation(featureGroupTypeEClass, source, new String[] { "documentation",
-				"To be merged with AADLConstructs::Features::FeatureGroupType" });
+		addAnnotation(getNamedElement_Name(), source,
+				new String[] { "documentation", "The name of the NamedElement." });
+		addAnnotation(getNamedElement_QualifiedName(), source, new String[] { "documentation",
+				"A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself." });
+		addAnnotation(getTypedElement_Type(), source,
+				new String[] { "documentation", "The type of the TypedElement." });
+		addAnnotation(getNamespace_OwnedMember(), source,
+				new String[] { "documentation", "A collection of NamedElements owned by the Namespace." });
+		addAnnotation(getNamespace_Member(), source, new String[] { "documentation",
+				"A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance." });
+		addAnnotation(integerEDataType, source,
+				new String[] { "documentation", "An integer is a primitive type representing integer values." });
+		addAnnotation(realEDataType, source,
+				new String[] { "documentation", "A real is a primitive type representing real numeric values." });
+		addAnnotation(featureGroupTypeEClass, source,
+				new String[] { "documentation", "To be merged with AADLConstructs::Features::FeatureGroupType" });
 	}
 
 	/**
@@ -12887,469 +12903,460 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	protected void createSubsetsAnnotations() {
 		String source = "subsets";
-		addAnnotation(getElement_OwnedComment(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Element/ownedElement") });
+		addAnnotation(getElement_OwnedComment(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
 		addAnnotation(getBasicProperty_ReferencedPropertyType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//BasicProperty/propertyType") });
-		addAnnotation(getBasicProperty_OwnedPropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//BasicProperty/propertyType") });
-		addAnnotation(getClassifier_ClassifierFeature(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/member") });
-		addAnnotation(getClassifier_InheritedMember(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/member") });
-		addAnnotation(getClassifier_Generalization(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Element/ownedElement") });
-		addAnnotation(getClassifier_OwnedAnnexSubclause(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getClassifier_OwnedPrototype(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getBasicProperty_OwnedPropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//BasicProperty/propertyType") });
+		addAnnotation(getClassifier_ClassifierFeature(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
+		addAnnotation(getClassifier_InheritedMember(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
+		addAnnotation(getClassifier_Generalization(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
+		addAnnotation(getClassifier_OwnedAnnexSubclause(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getClassifier_OwnedPrototype(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getNamespace_OwnedMember(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Element/ownedElement"),
 						URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
-		addAnnotation(getGeneralization_General(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//DirectedRelationship/target") });
-		addAnnotation(getGeneralization_Specific(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//DirectedRelationship/source") });
-		addAnnotation(getDirectedRelationship_Source(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Relationship/relatedElement") });
-		addAnnotation(getDirectedRelationship_Target(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Relationship/relatedElement") });
-		addAnnotation(getPrototype_Refined(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getComponentImplementation_Type(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Classifier/general") });
-		addAnnotation(getComponentImplementation_OwnedSubcomponent(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getComponentImplementation_Extended(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Classifier/general") });
-		addAnnotation(getComponentImplementation_OwnedFlowImplementation(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
-		addAnnotation(
-				getComponentImplementation_OwnedConnection(),
-				source,
-				new String[] {},
+		addAnnotation(getGeneralization_General(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//DirectedRelationship/target") });
+		addAnnotation(getGeneralization_Specific(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//DirectedRelationship/source") });
+		addAnnotation(getDirectedRelationship_Source(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Relationship/relatedElement") });
+		addAnnotation(getDirectedRelationship_Target(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Relationship/relatedElement") });
+		addAnnotation(getPrototype_Refined(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
+		addAnnotation(getComponentImplementation_Type(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/general") });
+		addAnnotation(getComponentImplementation_OwnedSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getComponentImplementation_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/general") });
+		addAnnotation(getComponentImplementation_OwnedFlowImplementation(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
+		addAnnotation(getComponentImplementation_OwnedConnection(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
 						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getComponentImplementation_OwnedExtension(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/generalization") });
-		addAnnotation(getComponentImplementation_OwnedRealization(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Classifier/generalization") });
-		addAnnotation(getComponentImplementation_OwnedEndToEndFlow(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getComponentImplementation_OwnedAbstractSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getComponentImplementation_OwnedAccessConnection(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
-		addAnnotation(getComponentImplementation_OwnedParameterConnection(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
-		addAnnotation(getComponentImplementation_OwnedPortConnection(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
-		addAnnotation(getComponentImplementation_OwnedFeatureConnection(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
+		addAnnotation(getComponentImplementation_OwnedRealization(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/generalization") });
+		addAnnotation(getComponentImplementation_OwnedEndToEndFlow(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getComponentImplementation_OwnedAbstractSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getComponentImplementation_OwnedAccessConnection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
+		addAnnotation(getComponentImplementation_OwnedParameterConnection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
+		addAnnotation(getComponentImplementation_OwnedPortConnection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
+		addAnnotation(getComponentImplementation_OwnedFeatureConnection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
 		addAnnotation(getComponentImplementation_OwnedFeatureGroupConnection(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedConnection") });
-		addAnnotation(getComponentImplementation_OwnedProcessorFeature(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember"),
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
-		addAnnotation(getComponentImplementation_OwnedInternalFeature(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember"),
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
-		addAnnotation(getComponentImplementation_OwnedEventSource(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedInternalFeature") });
-		addAnnotation(getComponentImplementation_OwnedEventDataSource(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedInternalFeature") });
+		addAnnotation(getComponentImplementation_OwnedProcessorFeature(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember"),
+						URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
+		addAnnotation(getComponentImplementation_OwnedInternalFeature(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember"),
+						URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature") });
+		addAnnotation(getComponentImplementation_OwnedEventSource(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedInternalFeature") });
+		addAnnotation(getComponentImplementation_OwnedEventDataSource(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedInternalFeature") });
 		addAnnotation(getComponentImplementation_OwnedPortProxy(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedProcessorFeature") });
-		addAnnotation(getComponentImplementation_OwnedSubprogramProxy(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedProcessorFeature") });
-		addAnnotation(getComponentClassifier_OwnedMode(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(
-				getComponentClassifier_OwnedModeTransition(),
-				source,
-				new String[] {},
+		addAnnotation(getComponentImplementation_OwnedSubprogramProxy(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedProcessorFeature") });
+		addAnnotation(getComponentClassifier_OwnedMode(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
 						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getComponentType_OwnedFeature(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getComponentType_Extended(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Classifier/general") });
-		addAnnotation(
-				getComponentType_OwnedFlowSpecification(),
-				source,
-				new String[] {},
+		addAnnotation(getComponentClassifier_OwnedModeTransition(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
 						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getComponentType_OwnedExtension(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Classifier/generalization") });
-		addAnnotation(getComponentType_OwnedFeatureGroup(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getComponentType_OwnedFeature(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getComponentType_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/general") });
+		addAnnotation(getComponentType_OwnedFlowSpecification(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getComponentType_OwnedExtension(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/generalization") });
+		addAnnotation(getComponentType_OwnedFeatureGroup(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getComponentType_OwnedAbstractFeature(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getFeature_Prototype(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getFeature_Prototype(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
 		addAnnotation(getFeature_Refined(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getFeature_Classifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getFlowSpecification_Refined(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getTypeExtension_Extended(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Generalization/general") });
-		addAnnotation(getFeatureGroup_FeatureGroupType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//FeatureGroup/featureType") });
+		addAnnotation(getFeature_Classifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getFlowSpecification_Refined(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
+		addAnnotation(getTypeExtension_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Generalization/general") });
+		addAnnotation(getFeatureGroup_FeatureGroupType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroup/featureType") });
 		addAnnotation(getFeatureGroup_FeatureGroupPrototype(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroup/featureType") });
-		addAnnotation(getFeatureGroupType_OwnedFeature(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getFeatureGroupType_Extended(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Classifier/general") });
-		addAnnotation(getFeatureGroupType_OwnedExtension(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Classifier/generalization") });
-		addAnnotation(getFeatureGroupType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getFeatureGroupType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getFeatureGroupType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedFeature(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getFeatureGroupType_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/general") });
+		addAnnotation(getFeatureGroupType_OwnedExtension(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/generalization") });
+		addAnnotation(getFeatureGroupType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
 		addAnnotation(getFeatureGroupType_OwnedEventDataPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getFeatureGroupType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
 		addAnnotation(getFeatureGroupType_OwnedFeatureGroup(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getFeatureGroupType_OwnedParameter(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedParameter(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
 		addAnnotation(getFeatureGroupType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getFeatureGroupType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
+		addAnnotation(getFeatureGroupType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
 		addAnnotation(getFeatureGroupType_OwnedAbstractFeature(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//FeatureGroupType/ownedFeature") });
-		addAnnotation(getGroupExtension_Extended(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Generalization/general") });
-		addAnnotation(getBusAccess_BusFeatureClassifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getDataAccess_DataFeatureClassifier(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getDataPort_DataFeatureClassifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getGroupExtension_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Generalization/general") });
+		addAnnotation(getBusAccess_BusFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getDataAccess_DataFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getDataPort_DataFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
 		addAnnotation(getEventDataPort_DataFeatureClassifier(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getParameter_DataFeatureClassifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getSubprogramAccess_SubprogramFeatureClassifier(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getParameter_DataFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getSubprogramAccess_SubprogramFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
 		addAnnotation(getSubprogramGroupAccess_SubprogramGroupFeatureClassifier(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
-		addAnnotation(getSubcomponent_Prototype(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getSubcomponent_Refined(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getSubcomponent_Classifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getConnection_Refined(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getImplementationExtension_Extended(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Generalization/general") });
-		addAnnotation(getRealization_Implemented(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Generalization/general") });
-		addAnnotation(getEndToEndFlow_Refined(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RefinableElement/refinedElement") });
-		addAnnotation(getAbstractSubcomponent_AbstractSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getSubcomponent_Prototype(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getSubcomponent_Refined(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
+		addAnnotation(getSubcomponent_Classifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getConnection_Refined(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
+		addAnnotation(getImplementationExtension_Extended(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Generalization/general") });
+		addAnnotation(getRealization_Implemented(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Generalization/general") });
+		addAnnotation(getEndToEndFlow_Refined(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RefinableElement/refinedElement") });
+		addAnnotation(getAbstractSubcomponent_AbstractSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
 		addAnnotation(getPackageSection_OwnedPackageRename(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getPackageSection_OwnedComponentTypeRename(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getPackageSection_OwnedClassifier(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getPackageSection_OwnedFeatureGroupTypeRename(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getPackageSection_OwnedAnnexLibrary(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getAadlPackage_OwnedPublicSection(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//AadlPackage/publicSection"),
-				URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
-		addAnnotation(getAadlPackage_OwnedPrivateSection(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//AadlPackage/privateSection"),
-				URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
+		addAnnotation(getPackageSection_OwnedClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getPackageSection_OwnedFeatureGroupTypeRename(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getPackageSection_OwnedAnnexLibrary(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getAadlPackage_OwnedPublicSection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//AadlPackage/publicSection"),
+						URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
+		addAnnotation(getAadlPackage_OwnedPrivateSection(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//AadlPackage/privateSection"),
+						URI.createURI(eNS_URI).appendFragment("//Element/ownedElement") });
 		addAnnotation(getBehavioredImplementation_SubprogramCall(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
-		addAnnotation(getBehavioredImplementation_OwnedSubprogramCallSequence(), source, new String[] {}, new URI[] {
-				URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
-				URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getAbstractType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getAbstractType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBehavioredImplementation_OwnedSubprogramCallSequence(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Classifier/classifierFeature"),
+						URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getAbstractType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getAbstractType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getAbstractType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getAbstractType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getAbstractType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getAbstractType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getAbstractType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getAbstractType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getAbstractType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getAbstractType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getAbstractImplementation_OwnedBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedDeviceSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedMemorySubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedProcessSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedProcessorSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedSystemSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedSubprogramSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedDeviceSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedMemorySubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedProcessSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedProcessorSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedSystemSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getAbstractImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedThreadSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedThreadSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getAbstractImplementation_OwnedThreadGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getAbstractImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getAbstractImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getAbstractImplementation_OwnedVirtualProcessorSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getBusSubcomponent_BusSubcomponentType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
 		addAnnotation(getDataSubcomponent_DataSubcomponentType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getDeviceSubcomponent_DeviceSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getMemorySubcomponent_MemorySubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getProcessSubcomponent_ProcessSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getProcessorSubcomponent_ProcessorSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getSystemSubcomponent_SystemSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getSubprogramSubcomponent_SubprogramSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getDeviceSubcomponent_DeviceSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getMemorySubcomponent_MemorySubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getProcessSubcomponent_ProcessSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getProcessorSubcomponent_ProcessorSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getSystemSubcomponent_SystemSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getSubprogramSubcomponent_SubprogramSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
 		addAnnotation(getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getThreadSubcomponent_ThreadSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getThreadSubcomponent_ThreadSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
 		addAnnotation(getThreadGroupSubcomponent_ThreadGroupSubcomponentType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getVirtualBusSubcomponent_VirtualBusSubcomponentType(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
+		addAnnotation(getVirtualBusSubcomponent_VirtualBusSubcomponentType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
 		addAnnotation(getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
-		addAnnotation(getBusType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getBusType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getBusType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getBusType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getBusImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getDataType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDataType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBusType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBusType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBusType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBusType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getBusImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDataType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDataType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getDataType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDataImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getDataImplementation_OwnedSubprogramSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getDeviceType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDeviceType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDeviceType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDeviceType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDeviceType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDataImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDataImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDeviceType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDeviceType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDeviceType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDeviceType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getDeviceType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getDeviceType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getDeviceImplementation_OwnedBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getDeviceImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getDeviceImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getMemoryType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getMemoryType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getMemoryType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getMemoryType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getMemoryImplementation_OwnedBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getMemoryImplementation_OwnedMemorySubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDeviceImplementation_OwnedBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDeviceImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getDeviceImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getMemoryType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getMemoryType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getMemoryType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getMemoryType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getMemoryImplementation_OwnedBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getMemoryImplementation_OwnedMemorySubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSubprogramType_OwnedEventDataPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramType_OwnedParameter(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramType_OwnedParameter(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getSubprogramType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSubprogramType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSubprogramImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSubprogramGroupType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSubprogramGroupType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramGroupType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSubprogramGroupType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getSubprogramGroupImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSubprogramGroupImplementation_OwnedDataSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getSystemType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getSystemImplementation_OwnedBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedDeviceSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedMemorySubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedProcessSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedProcessorSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedSubprogramSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getSystemImplementation_OwnedBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedDeviceSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedMemorySubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedProcessSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedProcessorSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSystemImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedSystemSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getSystemImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedSystemSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getSystemImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getSystemImplementation_OwnedVirtualProcessorSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessorType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessorType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessorType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessorType_OwnedBusAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessorType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessorType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessorType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessorType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getProcessorType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessorType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessorImplementation_OwnedBusSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessorImplementation_OwnedMemorySubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getProcessorType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessorImplementation_OwnedBusSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getProcessorImplementation_OwnedMemorySubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getProcessorImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getProcessorImplementation_OwnedVirtualProcessorSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getProcessType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getProcessType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getProcessImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessImplementation_OwnedSubprogramSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getProcessImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getProcessImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getProcessImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessImplementation_OwnedThreadSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getProcessImplementation_OwnedThreadGroupSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getThreadType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadType_OwnedEventDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getProcessImplementation_OwnedThreadSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getProcessImplementation_OwnedThreadGroupSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getThreadType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadType_OwnedEventDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getThreadType_OwnedSubprogramGroupAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getThreadImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getThreadImplementation_OwnedSubprogramSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getThreadImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getThreadGroupType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getThreadImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getThreadGroupType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getThreadGroupType_OwnedEventDataPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadGroupType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadGroupType_OwnedDataAccess(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadGroupType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadGroupType_OwnedDataAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getThreadGroupType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadGroupType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getThreadGroupImplementation_OwnedDataSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getThreadGroupImplementation_OwnedThreadSubcomponent(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getThreadGroupType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getThreadGroupImplementation_OwnedDataSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
+		addAnnotation(getThreadGroupImplementation_OwnedThreadSubcomponent(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getThreadGroupImplementation_OwnedThreadGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getThreadGroupImplementation_OwnedSubprogramSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getThreadGroupImplementation_OwnedSubprogramGroupSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
-		addAnnotation(getVirtualBusType_OwnedDataPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualBusType_OwnedDataPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualBusType_OwnedEventDataPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getVirtualBusType_OwnedEventPort(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualBusType_OwnedEventPort(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualBusImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getVirtualProcessorType_OwnedDataPort(), source, new String[] {},
@@ -13358,10 +13365,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualProcessorType_OwnedEventPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getVirtualProcessorType_OwnedSubprogramAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
-		addAnnotation(getVirtualProcessorType_OwnedSubprogramGroupAccess(), source, new String[] {}, new URI[] { URI
-				.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualProcessorType_OwnedSubprogramAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualProcessorType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent(), source, new String[] {},
@@ -13370,28 +13377,28 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//PropertyConstant/propertyType") });
 		addAnnotation(getPropertyConstant_OwnedPropertyType(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//PropertyConstant/propertyType") });
-		addAnnotation(getPropertySet_OwnedPropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getPropertySet_OwnedProperty(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getPropertySet_OwnedPropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getPropertySet_OwnedProperty(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getPropertySet_OwnedPropertyConstant(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getGlobalNamespace_Package(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/member") });
-		addAnnotation(getGlobalNamespace_PropertySet(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/member") });
-		addAnnotation(getEnumerationType_OwnedLiteral(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getRangeType_OwnedNumberType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RangeType/numberType") });
-		addAnnotation(getRangeType_ReferencedNumberType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//RangeType/numberType") });
-		addAnnotation(getRecordType_OwnedField(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//Namespace/ownedMember") });
-		addAnnotation(getListType_OwnedElementType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ListType/elementType") });
-		addAnnotation(getListType_ReferencedElementType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//ListType/elementType") });
+		addAnnotation(getGlobalNamespace_Package(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
+		addAnnotation(getGlobalNamespace_PropertySet(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/member") });
+		addAnnotation(getEnumerationType_OwnedLiteral(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getRangeType_OwnedNumberType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RangeType/numberType") });
+		addAnnotation(getRangeType_ReferencedNumberType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//RangeType/numberType") });
+		addAnnotation(getRecordType_OwnedField(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Namespace/ownedMember") });
+		addAnnotation(getListType_OwnedElementType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ListType/elementType") });
+		addAnnotation(getListType_ReferencedElementType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ListType/elementType") });
 	}
 
 	/**
@@ -13402,10 +13409,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	protected void createRedefinesAnnotations() {
 		String source = "redefines";
-		addAnnotation(getBasicProperty_PropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//TypedElement/type") });
-		addAnnotation(getPropertyConstant_PropertyType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
-				.appendFragment("//TypedElement/type") });
+		addAnnotation(getBasicProperty_PropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//TypedElement/type") });
+		addAnnotation(getPropertyConstant_PropertyType(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//TypedElement/type") });
 	}
 
 	/**
@@ -13421,56 +13428,56 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(packageSectionEClass, source, new String[] {});
 		addAnnotation(packageSectionEClass, new boolean[] { true }, "name", new String[] { "lowerBound", "1" });
 		addAnnotation(componentPrototypeBindingEClass, source, new String[] {});
-		addAnnotation(componentPrototypeBindingEClass, new boolean[] { true }, "formal", new String[] { "eType",
-				"aadl2::ComponentPrototype" });
+		addAnnotation(componentPrototypeBindingEClass, new boolean[] { true }, "formal",
+				new String[] { "eType", "aadl2::ComponentPrototype" });
 		addAnnotation(featureGroupPrototypeBindingEClass, source, new String[] {});
-		addAnnotation(featureGroupPrototypeBindingEClass, new boolean[] { true }, "formal", new String[] { "eType",
-				"aadl2::FeatureGroupPrototype" });
+		addAnnotation(featureGroupPrototypeBindingEClass, new boolean[] { true }, "formal",
+				new String[] { "eType", "aadl2::FeatureGroupPrototype" });
 		addAnnotation(featurePrototypeBindingEClass, source, new String[] {});
-		addAnnotation(featurePrototypeBindingEClass, new boolean[] { true }, "formal", new String[] { "eType",
-				"aadl2::FeaturePrototype" });
+		addAnnotation(featurePrototypeBindingEClass, new boolean[] { true }, "formal",
+				new String[] { "eType", "aadl2::FeaturePrototype" });
 		addAnnotation(abstractImplementationEClass, source, new String[] {});
-		addAnnotation(abstractImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::AbstractType" });
+		addAnnotation(abstractImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::AbstractType" });
 		addAnnotation(busImplementationEClass, source, new String[] {});
 		addAnnotation(busImplementationEClass, new boolean[] { true }, "type",
 				new String[] { "eType", "aadl2::BusType" });
 		addAnnotation(dataImplementationEClass, source, new String[] {});
-		addAnnotation(dataImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::DataType" });
+		addAnnotation(dataImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::DataType" });
 		addAnnotation(deviceImplementationEClass, source, new String[] {});
-		addAnnotation(deviceImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::DeviceType" });
+		addAnnotation(deviceImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::DeviceType" });
 		addAnnotation(memoryImplementationEClass, source, new String[] {});
-		addAnnotation(memoryImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::MemoryType" });
+		addAnnotation(memoryImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::MemoryType" });
 		addAnnotation(subprogramImplementationEClass, source, new String[] {});
-		addAnnotation(subprogramImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::SubprogramType" });
+		addAnnotation(subprogramImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::SubprogramType" });
 		addAnnotation(subprogramGroupImplementationEClass, source, new String[] {});
-		addAnnotation(subprogramGroupImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::SubprogramGroupType" });
+		addAnnotation(subprogramGroupImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::SubprogramGroupType" });
 		addAnnotation(systemImplementationEClass, source, new String[] {});
-		addAnnotation(systemImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::SystemType" });
+		addAnnotation(systemImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::SystemType" });
 		addAnnotation(processorImplementationEClass, source, new String[] {});
-		addAnnotation(processorImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::ProcessorType" });
+		addAnnotation(processorImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::ProcessorType" });
 		addAnnotation(processImplementationEClass, source, new String[] {});
-		addAnnotation(processImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::ProcessType" });
+		addAnnotation(processImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::ProcessType" });
 		addAnnotation(threadImplementationEClass, source, new String[] {});
-		addAnnotation(threadImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::ThreadType" });
+		addAnnotation(threadImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::ThreadType" });
 		addAnnotation(threadGroupImplementationEClass, source, new String[] {});
-		addAnnotation(threadGroupImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::ThreadGroupType" });
+		addAnnotation(threadGroupImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::ThreadGroupType" });
 		addAnnotation(virtualBusImplementationEClass, source, new String[] {});
-		addAnnotation(virtualBusImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::VirtualBusType" });
+		addAnnotation(virtualBusImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::VirtualBusType" });
 		addAnnotation(virtualProcessorImplementationEClass, source, new String[] {});
-		addAnnotation(virtualProcessorImplementationEClass, new boolean[] { true }, "type", new String[] { "eType",
-				"aadl2::VirtualProcessorType" });
+		addAnnotation(virtualProcessorImplementationEClass, new boolean[] { true }, "type",
+				new String[] { "eType", "aadl2::VirtualProcessorType" });
 		addAnnotation(unitsTypeEClass, source, new String[] {});
 	}
 

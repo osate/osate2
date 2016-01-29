@@ -59,11 +59,11 @@ import org.osate.aadl2.operations.TypeOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RecordTypeImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RecordTypeImpl#getOwnedFields <em>Owned Field</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

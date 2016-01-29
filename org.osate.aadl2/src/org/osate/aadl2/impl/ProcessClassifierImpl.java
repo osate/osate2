@@ -43,8 +43,6 @@ import org.osate.aadl2.ProcessClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Process Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

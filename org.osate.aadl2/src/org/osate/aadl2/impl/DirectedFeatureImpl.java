@@ -49,12 +49,12 @@ import org.osate.aadl2.DirectionType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.DirectedFeatureImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

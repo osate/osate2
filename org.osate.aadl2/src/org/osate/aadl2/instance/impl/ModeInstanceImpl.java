@@ -61,6 +61,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getSrcModeTransitions <em>Src Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getDstModeTransitions <em>Dst Mode Transition</em>}</li>
@@ -69,7 +70,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#isDerived <em>Derived</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getParents <em>Parent</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

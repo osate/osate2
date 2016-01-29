@@ -88,12 +88,12 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider {
 	 */
 	protected void addAccessCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_AccessConnection_accessCategory_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_AccessConnection_accessCategory_feature",
-						"_UI_AccessConnection_type"), Aadl2Package.eINSTANCE.getAccessConnection_AccessCategory(),
-				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						"_UI_AccessConnection_type"),
+				Aadl2Package.eINSTANCE.getAccessConnection_AccessCategory(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -166,8 +166,8 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider {
 				|| childFeature == Aadl2Package.eINSTANCE.getConnection_Source();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
-					getFeatureText(childFeature), getTypeText(owner) });
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

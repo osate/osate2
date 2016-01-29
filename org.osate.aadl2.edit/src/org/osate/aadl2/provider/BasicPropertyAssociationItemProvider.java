@@ -88,13 +88,12 @@ public class BasicPropertyAssociationItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addPropertyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BasicPropertyAssociation_property_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BasicPropertyAssociation_property_feature",
-						"_UI_BasicPropertyAssociation_type"), Aadl2Package.eINSTANCE
-						.getBasicPropertyAssociation_Property(), true, false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BasicPropertyAssociation_property_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_BasicPropertyAssociation_property_feature",
+								"_UI_BasicPropertyAssociation_type"),
+				Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property(), true, false, true, null, null, null));
 	}
 
 	/**

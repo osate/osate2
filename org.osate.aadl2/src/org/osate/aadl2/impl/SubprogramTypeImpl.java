@@ -63,6 +63,7 @@ import org.osate.aadl2.SubprogramType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramTypeImpl#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
@@ -72,7 +73,6 @@ import org.osate.aadl2.SubprogramType;
  *   <li>{@link org.osate.aadl2.impl.SubprogramTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -183,11 +183,10 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE_GROUP, Aadl2Package.SUBPROGRAM_TYPE__OWNED_ABSTRACT_FEATURE,
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT, Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT,
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER, Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS,
-			Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT, Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER,
+			Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS, Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
 
 	/**
@@ -315,8 +314,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -342,8 +341,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

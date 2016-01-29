@@ -60,12 +60,12 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BusImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BusImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BusImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -199,7 +199,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
-					VirtualBusSubcomponent.class, this, Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
+					VirtualBusSubcomponent.class, this,
+					Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
 		return ownedVirtualBusSubcomponents;
 	}
@@ -211,8 +212,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}

@@ -46,10 +46,10 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.SubprogramGroupSubcomponent#getSubprogramGroupSubcomponentType <em>Subprogram Group Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupSubcomponent()
  * @model
@@ -61,10 +61,10 @@ public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnect
 	 * Returns the value of the '<em><b>Subprogram Group Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Subprogram Group Subcomponent Type</em>' reference isn't clear,

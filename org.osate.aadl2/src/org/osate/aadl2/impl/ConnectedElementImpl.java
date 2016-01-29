@@ -50,11 +50,11 @@ import org.osate.aadl2.Context;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ConnectedElementImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ConnectedElementImpl#getConnectionEnd <em>Connection End</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

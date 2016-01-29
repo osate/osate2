@@ -51,11 +51,11 @@ import org.osate.aadl2.parsesupport.ParseUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.IntegerLiteralImpl#getBase <em>Base</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.IntegerLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -307,7 +307,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
 	@Override
@@ -320,7 +320,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -338,7 +338,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override
