@@ -5354,9 +5354,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
-			if (source instanceof EventPort && !(destination instanceof EventPort)) {
+			if (source instanceof EventPort && !(destination instanceof EventPort || destination instanceof EventSource)) {
 				error(connection,
-						"Source event port '" + source.getName() + "' must be connected to an event port destination.");
+						"Source event port '" + source.getName() + "' must be connected to an (internal) event port destination.");
+				return;
+			}
+			if (source instanceof EventSource && !(destination instanceof EventPort )) {
+				error(connection,
+						"Source internal event port '" + source.getName() + "' must be connected to an event port destination.");
 				return;
 			}
 			if (source instanceof DataPort && !(destination instanceof EventPort || destination instanceof DataPort
@@ -5368,9 +5373,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			if (source instanceof EventDataPort && !(destination instanceof EventPort || destination instanceof DataPort
 					|| destination instanceof EventDataPort || destination instanceof DataSubcomponent
-					|| destination instanceof DataAccess)) {
+					|| destination instanceof DataAccess || destination instanceof EventDataSource)) {
 				error(connection, "Source event data port '" + source.getName()
-						+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+						+ "' must be connected to an event, data, or event data port, internal event data port, data subcomponent or data access destination.");
 				return;
 			}
 			if (source instanceof DataSubcomponent && !(destination instanceof EventPort
@@ -5383,6 +5388,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					|| destination instanceof EventDataPort)) {
 				error(connection, "Source data access feature '" + source.getName()
 						+ "' must be connected to an event, data, or event data port destination.");
+				return;
+			}
+			if (source instanceof EventDataSource && !(destination instanceof EventDataPort )) {
+				error(connection,
+						"Source internal event data port '" + source.getName() + "' must be connected to an event data port destination.");
 				return;
 			}
 		}

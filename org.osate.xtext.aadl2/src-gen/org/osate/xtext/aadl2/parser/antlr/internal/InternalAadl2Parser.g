@@ -28773,44 +28773,6 @@ ruleAbstractConnectionEnd returns [EObject current=null]
 
 
 
-// Entry rule entryRuleProcessorConnectionEnd
-entryRuleProcessorConnectionEnd returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getProcessorConnectionEndRule()); }
-	 iv_ruleProcessorConnectionEnd=ruleProcessorConnectionEnd 
-	 { $current=$iv_ruleProcessorConnectionEnd.current; } 
-	 EOF 
-;
-
-// Rule ProcessorConnectionEnd
-ruleProcessorConnectionEnd returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getProcessorConnectionEndAccess().getConnectedElementParserRuleCall_0()); 
-    }
-    this_ConnectedElement_0=ruleConnectedElement
-    {
-        $current = $this_ConnectedElement_0.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getProcessorConnectionEndAccess().getProcessorPortParserRuleCall_1()); 
-    }
-    this_ProcessorPort_1=ruleProcessorPort
-    {
-        $current = $this_ProcessorPort_1.current;
-        afterParserOrEnumRuleCall();
-    }
-)
-;
-
-
-
 
 
 // Entry rule entryRuleAccessConnectionEnd
@@ -28938,9 +28900,9 @@ rulePortConnection returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPortConnectionAccess().getDestinationProcessorConnectionEndParserRuleCall_0_0_5_0()); 
+	        newCompositeNode(grammarAccess.getPortConnectionAccess().getDestinationAbstractConnectionEndParserRuleCall_0_0_5_0()); 
 	    }
-		lv_destination_6_0=ruleProcessorConnectionEnd		{
+		lv_destination_6_0=ruleAbstractConnectionEnd		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPortConnectionRule());
 	        }
@@ -28948,7 +28910,7 @@ rulePortConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_6_0, 
-        		"ProcessorConnectionEnd");
+        		"AbstractConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
