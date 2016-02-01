@@ -5193,6 +5193,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								Aadl2Package.eINSTANCE.getConnection_Source());
 					}
 				}
+			} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
+				// internal event or event data port. One is acceptable, but not both.
+				if (source instanceof InternalFeature && destination instanceof InternalFeature){
+					error(connection,
+							"Cannot connect two internal features of the containing component.");
+				}
 			} else {
 				// we have a connection a component implementation going
 				// directly from its incoming feature to an outgoing feature
