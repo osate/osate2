@@ -4,10 +4,6 @@
 
 property set Timing_Properties is
 	
-	Time: type aadlinteger 0 ps .. Max_Time units Time_Units;
-	
-	Time_Range: type range of Time;
-	
 	Activate_Deadline: Time
 		applies to (thread);
 	
