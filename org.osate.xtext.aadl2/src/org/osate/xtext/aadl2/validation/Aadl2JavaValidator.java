@@ -5390,7 +5390,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						+ "' must be connected to an event, data, or event data port destination.");
 				return;
 			}
-			if (source instanceof EventDataSource && !(destination instanceof EventDataPort )) {
+			if (source instanceof EventDataSource && !(destination instanceof EventDataPort || destination instanceof DataPort)) {
 				error(connection,
 						"Source internal event data port '" + source.getName() + "' must be connected to an event data port destination.");
 				return;
