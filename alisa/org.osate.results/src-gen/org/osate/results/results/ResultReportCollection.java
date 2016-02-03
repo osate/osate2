@@ -27,7 +27,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.ResultReportCollection#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.results.results.ResultReportCollection#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReportCollection#getContent <em>Content</em>}</li>
  * </ul>
  *
@@ -62,32 +61,6 @@ public interface ResultReportCollection extends ResultReport
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Decription</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Decription</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Decription</em>' attribute.
-   * @see #setDecription(String)
-   * @see org.osate.results.results.ResultsPackage#getResultReportCollection_Decription()
-   * @model
-   * @generated
-   */
-  String getDecription();
-
-  /**
-   * Sets the value of the '{@link org.osate.results.results.ResultReportCollection#getDecription <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Decription</em>' attribute.
-   * @see #getDecription()
-   * @generated
-   */
-  void setDecription(String value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

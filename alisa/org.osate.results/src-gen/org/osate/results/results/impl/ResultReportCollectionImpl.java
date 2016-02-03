@@ -43,7 +43,6 @@ import org.osate.results.results.ResultsPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getContent <em>Content</em>}</li>
  * </ul>
  *
@@ -70,26 +69,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getDecription() <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecription()
-   * @generated
-   * @ordered
-   */
-  protected static final String DECRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDecription() <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecription()
-   * @generated
-   * @ordered
-   */
-  protected String decription = DECRIPTION_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -150,29 +129,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDecription()
-  {
-    return decription;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDecription(String newDecription)
-  {
-    String oldDecription = decription;
-    decription = newDecription;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION, oldDecription, decription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ResultReport> getContent()
   {
     if (content == null)
@@ -210,8 +166,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     {
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         return getTitle();
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
-        return getDecription();
       case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
         return getContent();
     }
@@ -231,9 +185,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     {
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         setTitle((String)newValue);
-        return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
-        setDecription((String)newValue);
         return;
       case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
         getContent().clear();
@@ -256,9 +207,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
-        setDecription(DECRIPTION_EDEFAULT);
-        return;
       case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
         getContent().clear();
         return;
@@ -278,8 +226,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     {
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
-        return DECRIPTION_EDEFAULT == null ? decription != null : !DECRIPTION_EDEFAULT.equals(decription);
       case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
         return content != null && !content.isEmpty();
     }
@@ -299,8 +245,6 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (title: ");
     result.append(title);
-    result.append(", decription: ");
-    result.append(decription);
     result.append(')');
     return result.toString();
   }

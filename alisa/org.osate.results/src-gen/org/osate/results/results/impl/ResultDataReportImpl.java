@@ -44,7 +44,6 @@ import org.osate.results.results.ResultsPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getResultData <em>Result Data</em>}</li>
@@ -73,26 +72,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getDecription() <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecription()
-   * @generated
-   * @ordered
-   */
-  protected static final String DECRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDecription() <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecription()
-   * @generated
-   * @ordered
-   */
-  protected String decription = DECRIPTION_EDEFAULT;
 
   /**
    * The default value of the '{@link #getHeading() <em>Heading</em>}' attribute.
@@ -183,29 +162,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDecription()
-  {
-    return decription;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDecription(String newDecription)
-  {
-    String oldDecription = decription;
-    decription = newDecription;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA_REPORT__DECRIPTION, oldDecription, decription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getHeading()
   {
     return heading;
@@ -282,8 +238,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
     {
       case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         return getTitle();
-      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
-        return getDecription();
       case ResultsPackage.RESULT_DATA_REPORT__HEADING:
         return getHeading();
       case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
@@ -307,9 +261,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
     {
       case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         setTitle((String)newValue);
-        return;
-      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
-        setDecription((String)newValue);
         return;
       case ResultsPackage.RESULT_DATA_REPORT__HEADING:
         setHeading((String)newValue);
@@ -339,9 +290,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
       case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
-        setDecription(DECRIPTION_EDEFAULT);
-        return;
       case ResultsPackage.RESULT_DATA_REPORT__HEADING:
         setHeading(HEADING_EDEFAULT);
         return;
@@ -367,8 +315,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
     {
       case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
-        return DECRIPTION_EDEFAULT == null ? decription != null : !DECRIPTION_EDEFAULT.equals(decription);
       case ResultsPackage.RESULT_DATA_REPORT__HEADING:
         return HEADING_EDEFAULT == null ? heading != null : !HEADING_EDEFAULT.equals(heading);
       case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
@@ -392,8 +338,6 @@ public class ResultDataReportImpl extends ResultReportImpl implements ResultData
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (title: ");
     result.append(title);
-    result.append(", decription: ");
-    result.append(decription);
     result.append(", heading: ");
     result.append(heading);
     result.append(')');

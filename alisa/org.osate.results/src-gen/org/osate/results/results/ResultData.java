@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.results.results.ResultData#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.ResultData#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultData#getIntegerValue <em>Integer Value</em>}</li>
  * </ul>
  *
  * @see org.osate.results.results.ResultsPackage#getResultData()
@@ -87,5 +88,31 @@ public interface ResultData extends EObject
    * @generated
    */
   void setValue(String value);
+
+  /**
+   * Returns the value of the '<em><b>Integer Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Integer Value</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Integer Value</em>' attribute.
+   * @see #setIntegerValue(int)
+   * @see org.osate.results.results.ResultsPackage#getResultData_IntegerValue()
+   * @model
+   * @generated
+   */
+  int getIntegerValue();
+
+  /**
+   * Sets the value of the '{@link org.osate.results.results.ResultData#getIntegerValue <em>Integer Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Integer Value</em>' attribute.
+   * @see #getIntegerValue()
+   * @generated
+   */
+  void setIntegerValue(int value);
 
 } // ResultData

@@ -185,9 +185,19 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getResultReport_Description()
+  {
+    return (EAttribute)resultReportEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getResultReport_Issues()
   {
-    return (EReference)resultReportEClass.getEStructuralFeatures().get(2);
+    return (EReference)resultReportEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -215,19 +225,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultReportCollection_Decription()
-  {
-    return (EAttribute)resultReportCollectionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getResultReportCollection_Content()
   {
-    return (EReference)resultReportCollectionEClass.getEStructuralFeatures().get(2);
+    return (EReference)resultReportCollectionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -255,7 +255,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultDataReport_Decription()
+  public EAttribute getResultDataReport_Heading()
   {
     return (EAttribute)resultDataReportEClass.getEStructuralFeatures().get(1);
   }
@@ -265,19 +265,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultDataReport_Heading()
-  {
-    return (EAttribute)resultDataReportEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getResultDataReport_Content()
   {
-    return (EReference)resultDataReportEClass.getEStructuralFeatures().get(3);
+    return (EReference)resultDataReportEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -287,7 +277,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    */
   public EReference getResultDataReport_ResultData()
   {
-    return (EReference)resultDataReportEClass.getEStructuralFeatures().get(4);
+    return (EReference)resultDataReportEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -375,9 +365,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getIssuesReport()
+  public EAttribute getResultData_IntegerValue()
   {
-    return issuesReportEClass;
+    return (EAttribute)resultDataEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -385,9 +375,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIssuesReport_Description()
+  public EClass getIssuesReport()
   {
-    return (EAttribute)issuesReportEClass.getEStructuralFeatures().get(0);
+    return issuesReportEClass;
   }
 
   /**
@@ -423,16 +413,15 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     resultReportEClass = createEClass(RESULT_REPORT);
     createEAttribute(resultReportEClass, RESULT_REPORT__NAME);
     createEReference(resultReportEClass, RESULT_REPORT__TARGET);
+    createEAttribute(resultReportEClass, RESULT_REPORT__DESCRIPTION);
     createEReference(resultReportEClass, RESULT_REPORT__ISSUES);
 
     resultReportCollectionEClass = createEClass(RESULT_REPORT_COLLECTION);
     createEAttribute(resultReportCollectionEClass, RESULT_REPORT_COLLECTION__TITLE);
-    createEAttribute(resultReportCollectionEClass, RESULT_REPORT_COLLECTION__DECRIPTION);
     createEReference(resultReportCollectionEClass, RESULT_REPORT_COLLECTION__CONTENT);
 
     resultDataReportEClass = createEClass(RESULT_DATA_REPORT);
     createEAttribute(resultDataReportEClass, RESULT_DATA_REPORT__TITLE);
-    createEAttribute(resultDataReportEClass, RESULT_DATA_REPORT__DECRIPTION);
     createEAttribute(resultDataReportEClass, RESULT_DATA_REPORT__HEADING);
     createEReference(resultDataReportEClass, RESULT_DATA_REPORT__CONTENT);
     createEReference(resultDataReportEClass, RESULT_DATA_REPORT__RESULT_DATA);
@@ -446,9 +435,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     resultDataEClass = createEClass(RESULT_DATA);
     createEAttribute(resultDataEClass, RESULT_DATA__NAME);
     createEAttribute(resultDataEClass, RESULT_DATA__VALUE);
+    createEAttribute(resultDataEClass, RESULT_DATA__INTEGER_VALUE);
 
     issuesReportEClass = createEClass(ISSUES_REPORT);
-    createEAttribute(issuesReportEClass, ISSUES_REPORT__DESCRIPTION);
   }
 
   /**
@@ -492,16 +481,15 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEClass(resultReportEClass, ResultReport.class, "ResultReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultReport_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReport_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultReport_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReport_Issues(), theCommonPackage.getResultIssue(), null, "issues", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultReportCollectionEClass, ResultReportCollection.class, "ResultReportCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultReportCollection_Title(), theEcorePackage.getEString(), "title", null, 0, 1, ResultReportCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReportCollection_Decription(), theEcorePackage.getEString(), "decription", null, 0, 1, ResultReportCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReportCollection_Content(), this.getResultReport(), null, "content", null, 0, -1, ResultReportCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultDataReportEClass, ResultDataReport.class, "ResultDataReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultDataReport_Title(), theEcorePackage.getEString(), "title", null, 0, 1, ResultDataReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultDataReport_Decription(), theEcorePackage.getEString(), "decription", null, 0, 1, ResultDataReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultDataReport_Heading(), theEcorePackage.getEString(), "heading", null, 0, 1, ResultDataReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultDataReport_Content(), this.getResultContributor(), null, "content", null, 0, -1, ResultDataReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultDataReport_ResultData(), this.getResultData(), null, "resultData", null, 0, -1, ResultDataReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -515,9 +503,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEClass(resultDataEClass, ResultData.class, "ResultData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultData_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultData_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultData_IntegerValue(), theEcorePackage.getEInt(), "integerValue", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(issuesReportEClass, IssuesReport.class, "IssuesReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIssuesReport_Description(), theEcorePackage.getEString(), "description", null, 0, 1, IssuesReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

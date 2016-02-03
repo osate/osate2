@@ -33,6 +33,12 @@ class ResultsUtilExtension {
 		}
 		""
 	} 
+	def static int getResultInteger(ResultDataReport report, String resultName){
+		for (pair : report.resultData){
+			if (pair.name == resultName) return pair.integerValue
+		}
+		0
+	} 
 	
 	def static void addError(ResultIssue holder, String msg, EObject target){
 		holder.addIssue(msg, target,  ResultIssueType.ERROR)
@@ -96,6 +102,13 @@ class ResultsUtilExtension {
 			val resData = ResultsFactory.eINSTANCE.createResultData
 				=> [ name = myname
 					value = myvalue]
+		report.resultData += resData
+	}
+	
+	def static void addResultInteger(ResultDataReport report, String myname, int myvalue){
+			val resData = ResultsFactory.eINSTANCE.createResultData
+				=> [ name = myname
+					integerValue = myvalue]
 		report.resultData += resData
 	}
 }

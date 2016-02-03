@@ -35,6 +35,7 @@ import org.osate.results.results.ResultsPackage;
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getIntegerValue <em>Integer Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,6 +81,26 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * @ordered
    */
   protected String value = VALUE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getIntegerValue() <em>Integer Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIntegerValue()
+   * @generated
+   * @ordered
+   */
+  protected static final int INTEGER_VALUE_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getIntegerValue() <em>Integer Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIntegerValue()
+   * @generated
+   * @ordered
+   */
+  protected int integerValue = INTEGER_VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -153,6 +174,29 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getIntegerValue()
+  {
+    return integerValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIntegerValue(int newIntegerValue)
+  {
+    int oldIntegerValue = integerValue;
+    integerValue = newIntegerValue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA__INTEGER_VALUE, oldIntegerValue, integerValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -162,6 +206,8 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         return getName();
       case ResultsPackage.RESULT_DATA__VALUE:
         return getValue();
+      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
+        return getIntegerValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -181,6 +227,9 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         return;
       case ResultsPackage.RESULT_DATA__VALUE:
         setValue((String)newValue);
+        return;
+      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
+        setIntegerValue((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -202,6 +251,9 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
       case ResultsPackage.RESULT_DATA__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
+      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
+        setIntegerValue(INTEGER_VALUE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -220,6 +272,8 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_DATA__VALUE:
         return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
+        return integerValue != INTEGER_VALUE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -239,6 +293,8 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
     result.append(name);
     result.append(", value: ");
     result.append(value);
+    result.append(", integerValue: ");
+    result.append(integerValue);
     result.append(')');
     return result.toString();
   }
