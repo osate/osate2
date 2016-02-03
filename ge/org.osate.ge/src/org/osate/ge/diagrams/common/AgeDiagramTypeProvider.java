@@ -17,8 +17,10 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.osate.ge.ext.services.BusinessObjectService;
-import org.osate.ge.ext.services.impl.DefaultBusinessObjectService;
+import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.ge.ext.services.ReferenceService;
+import org.osate.ge.ext.services.impl.DefaultPictogramElementService;
+import org.osate.ge.ext.services.impl.DefaultReferenceService;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -164,8 +166,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(LabelService.class, labelService);		
 		
 		// Create Public/Extension Services
-		final DefaultBusinessObjectService boService = new DefaultBusinessObjectService(bor, fp);
-		context.set(BusinessObjectService.class, boService);
+		context.set(PictogramElementService.class, new DefaultPictogramElementService(bor, shapeCreationService, connectionCreationService));
+		context.set(ReferenceService.class, new DefaultReferenceService(serializableReferenceService));
 		
 		return context;
 	}

@@ -269,7 +269,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 
 				// Create the generic shape if specialized handling wasn't used
 				if(!specializedHandling) {
-					shapeCreationService.createUpdateShapeForElement(diagram, el);
+					shapeCreationService.createUpdateShape(diagram, el);
 				}
 			}
 		}

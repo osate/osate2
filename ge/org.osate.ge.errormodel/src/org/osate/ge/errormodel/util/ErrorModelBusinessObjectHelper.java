@@ -5,7 +5,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.ge.ext.services.BusinessObjectService;
+import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -18,11 +19,11 @@ public class ErrorModelBusinessObjectHelper {
 	 * DefaultAnnexLibrary (Unparsed Annex)
 	 * AadlPackage 
 	 * @param container
-	 * @param boService
+	 * @param pes
 	 * @return
 	 */
-	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final ContainerShape container, final BusinessObjectService boService) {
-		final AadlPackage pkg = (AadlPackage)boService.getBusinessObject(container);
+	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final ContainerShape container, final PictogramElementService pes) {
+		final AadlPackage pkg = (AadlPackage)pes.getBusinessObject(container);
 		if(pkg.getPublicSection() == null) {
 			return null;
 		}
@@ -42,7 +43,7 @@ public class ErrorModelBusinessObjectHelper {
 		
 		return pkg;
 	}
-	
+
 	/**
 	 * Gets the existing error model library from the owner business object. If one does not exist, one is created.
 	 * Designed for use in CreateBusinessObject methods

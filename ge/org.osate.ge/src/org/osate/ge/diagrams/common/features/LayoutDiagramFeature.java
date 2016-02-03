@@ -181,7 +181,9 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			if(ageConf.hasMinimumSize()) {
 				newLayoutShape.setMinimumSize(ageConf.getMinimumWidth(), ageConf.getMinimumHeight());
 			}
-		}		
+		} else {
+			newLayoutShape.setMinimumSize(50, 50);
+		}
 
 		shapeMap.put(newLayoutShape, diagramShape);
 		shapeMap.put(diagramShape, newLayoutShape);

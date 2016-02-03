@@ -18,6 +18,7 @@ import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.BuildReference;
 import org.osate.ge.ext.annotations.ResolveReference;
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.SerializableReferenceService;
 
@@ -27,7 +28,8 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	private final IEclipseContext ctx;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private List<Object> referenceHandlers = null;
-
+	private DeclarativeReferenceHandler declarativeReferenceHandler;
+	
 	public DefaultSerializableReferenceService(final ExtensionService extService) {
 		ctx = extService.createChildContext();
 	}
@@ -35,6 +37,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	public void dispose() {
 		// Disposing of the context will dispose of reference handlers
 		ctx.dispose();
+		argCtx.dispose();
 	}
 	
 	/**
@@ -42,8 +45,13 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	 */
 	private void ensureReferenceHandlersHaveBeenInstantiated() {
 		if(referenceHandlers == null) {
-			// Instantiate reference handlers
 			referenceHandlers = new ArrayList<>();
+			
+			// Create the declarative reference handler. It is not registered with plugin.xml because an explicit reference to it is needed
+			this.declarativeReferenceHandler = ContextInjectionFactory.make(DeclarativeReferenceHandler.class, ctx);
+			referenceHandlers.add(declarativeReferenceHandler);
+			
+			// Instantiate other reference handlers
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();	
 			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(REFERENCE_HANDLERS_EXTENSION_POINT_ID), "unable to retrieve reference handlers extension point");
 			for(final IExtension extension : point.getExtensions()) {
@@ -114,5 +122,11 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public AadlPackage getAadlPackage(final String qualifiedName) {
+		Objects.requireNonNull(declarativeReferenceHandler, "declarativeReferenceHandler must not be null");
+		return declarativeReferenceHandler.getAadlPackage(qualifiedName);
 	}
 }

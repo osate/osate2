@@ -18,15 +18,15 @@ import org.osate.ge.ext.annotations.CanCreate;
 import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetCreateOwningBusinessObject;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
-import org.osate.ge.ext.services.BusinessObjectService;
+import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypePictogramHandler {
 	@GetPaletteEntries
-	public ExtensionPaletteEntry[] getPaletteEntries(final BusinessObjectService bos, final IDiagramTypeProvider dtp) {
-		if(!(bos.getBusinessObject(dtp.getDiagram()) instanceof AadlPackage)) {
+	public ExtensionPaletteEntry[] getPaletteEntries(final PictogramElementService pes, final IDiagramTypeProvider dtp) {
+		if(!(pes.getBusinessObject(dtp.getDiagram()) instanceof AadlPackage)) {
 			return null;
 		}
 		
@@ -36,13 +36,13 @@ public class ErrorTypePictogramHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreateShape(final @Named(Names.CONTAINER) ContainerShape container, final BusinessObjectService boService) {
-		return boService.getBusinessObject(container) instanceof AadlPackage && container instanceof Diagram;
+	public boolean canCreateShape(final @Named(Names.CONTAINER) ContainerShape container, final PictogramElementService pes) {
+		return pes.getBusinessObject(container) instanceof AadlPackage && container instanceof Diagram;
 	}
 
 	@GetCreateOwningBusinessObject
-	public Object getOwnerBusinessObject(final @Named(Names.CONTAINER) ContainerShape container, final BusinessObjectService boService) {
-		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(container, boService);
+	public Object getOwnerBusinessObject(final @Named(Names.CONTAINER) ContainerShape container, final PictogramElementService pes) {
+		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(container, pes);
 	}
 	
 	@CreateBusinessObject

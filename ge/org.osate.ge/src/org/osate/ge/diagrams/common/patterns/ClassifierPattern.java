@@ -360,12 +360,12 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 				final ComponentImplementation ci = (ComponentImplementation)classifier;
 				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci));
 				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci));
-				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
+				shapeCreationService.createUpdateShapes(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
 			}
 			
 			if(classifier instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)classifier;
-				shapeCreationService.createUpdateShapesForElements(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
+				shapeCreationService.createUpdateShapes(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
 			}
 			
 			// Create/Update Modes and Mode Transitions
@@ -453,7 +453,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final NamedElement parsedAnnexSubclause = getParsedAnnexSubclause(subclause);
 			final boolean specializedHandling = parsedAnnexSubclause != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(container, parsedAnnexSubclause);			
 			if(!specializedHandling) {
-				shapeCreationService.createUpdateShapeForElement(container, subclause);
+				shapeCreationService.createUpdateShape(container, subclause);
 			}
 		}
 	}

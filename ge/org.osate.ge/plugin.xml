@@ -790,10 +790,4 @@
              plugin="org.osate.aadl2.edit">
        </image>
     </extension>
-    <extension
-          point="org.osate.ge.referenceHandlers">
-       <referenceHandler
-             class="org.osate.ge.services.impl.DeclarativeReferenceHandler">
-       </referenceHandler>
-    </extension>
 </plugin>

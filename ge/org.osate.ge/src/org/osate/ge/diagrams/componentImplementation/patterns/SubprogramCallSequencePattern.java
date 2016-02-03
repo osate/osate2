@@ -189,7 +189,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		final List<SubprogramCall> subprogramCalls = cs.getOwnedSubprogramCalls();
 
 		// Create/Update subprogram call shapes
-		shapeCreationService.createUpdateShapesForElements(shape, subprogramCalls, 25, true, 30, 25, true, 20);
+		shapeCreationService.createUpdateShapes(shape, subprogramCalls, 25, true, 30, 25, true, 20);
 	
 		// Create connections to represent the order of the subprogram calls
 		connectionCreationService.createUpdateConnections(shape, getSubprogramCallOrders(subprogramCalls));

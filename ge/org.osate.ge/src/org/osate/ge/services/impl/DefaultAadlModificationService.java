@@ -75,7 +75,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 				// Try to get the Xtext document	
 				final Object root = bo.eResource() == null ? null : bo.eResource().getContents().get(0);
-				System.err.println(root);
 				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root instanceof NamedElement ? (NamedElement)root : null);
 				if(doc == null) {
 					final XtextResource res = (XtextResource)bo.eResource();
