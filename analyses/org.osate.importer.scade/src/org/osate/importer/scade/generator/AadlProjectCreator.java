@@ -34,6 +34,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
@@ -50,7 +51,7 @@ public class AadlProjectCreator {
 	 * Create all directories required to store the model
 	 * and the necessary files.
 	 * @param outputPath the path that will contain all the model
-	 * and related resources.
+	 * and related resources. 
 	 */
 	public static void createDirectories(String outputPath) {
 		String outputPathFunctional;
@@ -152,9 +153,9 @@ public class AadlProjectCreator {
 						out.write(var);
 						out.write(" : in event data port ");
 						if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
-							out.write("generictype_boolean");
+							out.write("runtime_generic::generictype_boolean");
 						} else {
-							out.write("generictype");
+							out.write("runtime_generic::generictype");
 						}
 						out.write(";\n");
 					}
@@ -184,8 +185,31 @@ public class AadlProjectCreator {
 		}
 
 	}
+	
+	public static String getAadlPackagePrefix (String aadlComponentName, List<Model> models)
+	{
+		String result;
+		result = "";
+		
+		if (models == null)
+		{
+			return result;
+		}
+		
+		for (Model model : models)
+		{
+			for (Component e : model.getComponents()) {
+				if (e.getAadlName().equalsIgnoreCase(aadlComponentName))
+				{
+					result = model.getPackageName() + "::imported::runtime";
+				}
+			}
+		}
+		
+		return result;
+	}
 
-	public static void createAadlRuntime(String outputFile, Model genericModel) {
+	public static void createAadlRuntime(String outputFile, Model genericModel, List<Model> projectModels) {
 		FileWriter fstream;
 		BufferedWriter out;
 		int tmp;
@@ -199,18 +223,25 @@ public class AadlProjectCreator {
 
 			if (genericModel.getPackageName() != null) {
 				aadlPackagePrefix = genericModel.getPackageName() + "::";
-			}
+			} 
 
 			out.write("package " + aadlPackagePrefix + "imported::runtime\n");
 
 			out.write("public\n");
 			out.write("with " + aadlPackagePrefix + "imported::functions;\n");
 			out.write("with SEI;\n");
-			out.write("with Data_Model;\n");
-
-			out.write("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
-
-			out.write("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
+			out.write("with runtime_generic;\n");
+			
+			for (Component e : genericModel.getComponents()) {
+				for (Component ctmp : e.getSubEntities()) {
+					if (ctmp.getType() == ComponentType.BLOCK) {
+						
+						
+						out.write("with " + getAadlPackagePrefix(ctmp.getAadlName(), projectModels)  + ";\n");
+					}
+				}
+			}
+			
 
 			for (Component e : genericModel.getComponents()) {
 				StateMachine stateMachine = null;
@@ -249,7 +280,7 @@ public class AadlProjectCreator {
 					}
 					for (Component e2 : e.getSubEntities()) {
 						String direction = "";
-						String type = "generictype";
+						String type = "runtime_generic::generictype";
 						if ((e2.getType() == ComponentType.EXTERNAL_INPORT)
 								|| (e2.getType() == ComponentType.EXTERNAL_OUTPORT)) {
 							if (e2.getType() == ComponentType.EXTERNAL_INPORT) {
@@ -259,17 +290,17 @@ public class AadlProjectCreator {
 								direction = " out ";
 							}
 							if (e2.getPortType() == PortType.BOOL) {
-								type = "generictype_boolean";
+								type = "runtime_generic::generictype_boolean";
 							}
 
 							out.write("   " + e2.getAadlName() + " : " + direction + " event data port " + type + ";\n");
 						}
 					}
 					for (Component e2 : e.getIncomingDependencies()) {
-						out.write("   from_" + e2.getAadlName() + " : in event data port generictype;\n");
+						out.write("   from_" + e2.getAadlName() + " : in event data port runtime_generic::generictype;\n");
 					}
 					for (Component e2 : e.getOutgoingDependencies()) {
-						out.write("   to_" + e2.getAadlName() + " : out event data port generictype;\n");
+						out.write("   to_" + e2.getAadlName() + " : out event data port runtime_generic::generictype;\n");
 					}
 
 					out.write("end s_" + e.getAadlName() + ";\n\n");
@@ -281,17 +312,7 @@ public class AadlProjectCreator {
 							.size() > 0) || (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
 						out.write("connections\n");
 					}
-					// for (Component e2 : e.getIncomingDependencies())
-					// {
-					// out.write ("   c" + connectionId++
-// +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
-					// }
-					// for (Component e2 : e.getOutgoingDependencies())
-					// {
-					// out.write ("   c" + connectionId++
-// +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-					//
-					// }
+				
 					boolean subcomponentSectionWritten = false;
 					if (e.hasSubcomponents()) {
 						if (!subcomponentSectionWritten) {
@@ -300,7 +321,18 @@ public class AadlProjectCreator {
 						}
 						for (Component ctmp : e.getSubEntities()) {
 							if (ctmp.getType() == ComponentType.BLOCK) {
-								out.write("   " + ctmp.getAadlName() + " : system s_" + ctmp.getAadlName() + ";\n");
+								String componentClassifier;
+								componentClassifier = "";
+								
+								if (projectModels != null)
+								{
+
+									componentClassifier = getAadlPackagePrefix (ctmp.getAadlName(), projectModels) + "::";
+								}
+								componentClassifier += "s_" + ctmp.getAadlName();
+								
+								
+								out.write("   " + ctmp.getAadlName() + " : system " + componentClassifier + ";\n");
 							}
 						}
 					}
@@ -385,14 +417,6 @@ public class AadlProjectCreator {
 					if (stateMachine != null) {
 						Utils.writeBehaviorAnnex(stateMachine, out);
 
-						// if (stateMachine.hasVariables() || stateMachine.nestedStateMachinehasVariables() ||
-// stateMachine.hasNestedStateMachines())
-						// {
-						// out.write ("subcomponents\n");
-						// }
-						//
-						// Utils.writeSubprogramSubcomponents (stateMachine, out, new ArrayList<String>());
-						//
 						/**
 						 * Let's call the other subprogram that contains
 						 * the sub state machines. Then, if these
@@ -445,14 +469,14 @@ public class AadlProjectCreator {
 						out.write("features\n");
 						featuresDeclared = true;
 					}
-					out.write("   " + e.getAadlName() + " : in event data port generictype;\n");
+					out.write("   " + e.getAadlName() + " : in event data port runtime_generic::generictype;\n");
 				}
 				if (e.getType() == Component.ComponentType.EXTERNAL_OUTPORT) {
 					if (!featuresDeclared) {
 						out.write("features\n");
 						featuresDeclared = true;
 					}
-					out.write("   " + e.getAadlName() + " : out event data port generictype;\n");
+					out.write("   " + e.getAadlName() + " : out event data port runtime_generic::generictype;\n");
 				}
 			}
 			out.write("end mainsystem;\n\n\n");
@@ -508,17 +532,20 @@ public class AadlProjectCreator {
 
 	}
 
-	public static void createProject(String outputPath, Model genericModel) {
+	public static void createProject(String outputPath, Model genericModel, List<Model> projectModels) {
 		String outputPathFunctional;
 		String outputPathRuntime;
 		String outputFileFunctional;
 		String outputFileRuntime;
+		String outputFileRuntimeGeneric;
+		
 		String prefix = "";
 		prefix = genericModel.getPackageName() + "-";
 		outputPathFunctional = outputPath + File.separatorChar + "functional";
 		outputPathRuntime = outputPath + File.separatorChar + "runtime";
 		outputFileFunctional = outputPathFunctional + File.separatorChar + prefix + "functional.aadl";
 		outputFileRuntime = outputPathRuntime + File.separatorChar + prefix + "runtime.aadl";
+		outputFileRuntimeGeneric = outputPathRuntime + File.separatorChar + "generic.aadl";
 
 		createDirectories(outputPath);
 
@@ -526,7 +553,35 @@ public class AadlProjectCreator {
 		createAadlFunctions(outputFileFunctional, genericModel);
 
 //		OsateDebug.osateDebug("Create AADL runtime  project in " + outputFileRuntime);
-		createAadlRuntime(outputFileRuntime, genericModel);
+		createAadlRuntime(outputFileRuntime, genericModel, projectModels);
+		
+		createGenericRuntime(outputFileRuntimeGeneric);
+
+	}
+	
+	
+	public static void createGenericRuntime(String outputFile) {
+		FileWriter fstream;
+		BufferedWriter out;
+		try {
+			fstream = new FileWriter(outputFile);
+			out = new BufferedWriter(fstream);
+
+			out.write("package runtime_generic\n");
+			out.write("public\n");
+			out.write("with SEI;\n");
+			out.write("with Data_Model;\n");
+			out.write("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
+			out.write("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
+			out.write("end runtime_generic; \n");
+
+			out.close();
+			fstream.close();
+
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
 

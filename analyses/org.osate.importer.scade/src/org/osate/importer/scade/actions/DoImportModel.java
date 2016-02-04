@@ -146,14 +146,14 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
 						Model genericModel = new Model();
 						FileImport.loadXscadeFile(inputFile, genericModel);
-						AadlProjectCreator.createProject(outputDirectory, genericModel);
+						AadlProjectCreator.createProject(outputDirectory, genericModel, null);
 
 						Utils.refreshWorkspace(monitor);
 						monitor.done();
 						return Status.OK_STATUS;
 					}
 				};
-			}
+			} 
 
 			if (fileSuffix.equalsIgnoreCase("etp")) {
 				aadlGenerator = new Job("SCADE2AADL") {
@@ -166,7 +166,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 						projectModels = FileImport.loadProjectFile(inputFile, workingDirectory);
 
 						for (Model m : projectModels) {
-							AadlProjectCreator.createProject(outputDirectory, m);
+							AadlProjectCreator.createProject(outputDirectory, m, projectModels);
 						}
 
 						Utils.refreshWorkspace(monitor);

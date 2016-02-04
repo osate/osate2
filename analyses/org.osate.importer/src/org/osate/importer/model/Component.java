@@ -51,7 +51,7 @@ public class Component implements Comparable {
 	private List<Connection> 	connections;
 	private List<Component> 	subEntities;
 	private Component 			parent;
-	private List<StateMachine>	stateMachines;
+	private List<StateMachine>	stateMachines; 
 	private PortType			portType;
 	private String				referencedModel;
 	private String				referencedComponent;
