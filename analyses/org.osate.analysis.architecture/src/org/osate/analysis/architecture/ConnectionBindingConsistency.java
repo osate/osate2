@@ -85,7 +85,7 @@ public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgre
     				if ( srcHW == null || dstHW == null) {
     					action.warning(conni, "Connection "+conni.getComponentInstancePath()+" source or destination is not bound to hardware");
     				}
-					EList<ComponentInstance> bindings = InstanceModelUtil.getPhysicalConnectionBinding(conni);
+					List<ComponentInstance> bindings = InstanceModelUtil.getPhysicalConnectionBinding(conni);
     				if (bindings.isEmpty()){
     					action.warning(conni, "Connection "+conni.getComponentInstancePath()+" has no actual connection binding to hardware");
     					List<ComponentInstance> result = InstanceModelUtil.connectedByBus(srcHW, dstHW);

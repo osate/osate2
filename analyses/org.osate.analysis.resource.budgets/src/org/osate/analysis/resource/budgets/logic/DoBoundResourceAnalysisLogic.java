@@ -584,7 +584,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
 			double datasize = GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
-			double srcRate = GetProperties.getOutgoingDataRatePerSecond(fi);
+			double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
 			res = datasize * srcRate;
 			EList fil = fi.getFeatureInstances();
 			if (fil.size() > 0) {
