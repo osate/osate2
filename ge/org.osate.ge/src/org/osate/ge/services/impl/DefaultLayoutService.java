@@ -50,9 +50,9 @@ public class DefaultLayoutService implements LayoutService {
 		// Check if the shape is entirely in the container
 		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final int endX = ga.getX() + containerGa.getWidth();
-		final int endY = ga.getY() + containerGa.getHeight();
-		if(ga.getX() < 0 || ga.getY() < 0 || ga.getWidth() < endX || ga.getHeight() < endY) {
+		final int endX = ga.getX() + ga.getWidth();
+		final int endY = ga.getY() + ga.getHeight();
+		if(ga.getX() < 0 || ga.getY() < 0 || endX > containerGa.getWidth()|| endY > containerGa.getHeight()) {
 			layoutShape = true;
 		}	
 
@@ -77,7 +77,7 @@ public class DefaultLayoutService implements LayoutService {
 			}
 			return true;
 		}		
-		
+
 		return false;
 	}
 	
