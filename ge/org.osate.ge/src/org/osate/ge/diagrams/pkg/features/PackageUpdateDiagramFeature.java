@@ -29,7 +29,6 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -50,7 +49,6 @@ import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeFeatureProvider;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
-import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeCreationService;
@@ -65,18 +63,16 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	private final ShapeCreationService shapeCreationService;
-	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
-			final ShapeCreationService shapeCreationService, final BusinessObjectResolutionService bor) {
+			final ShapeCreationService shapeCreationService) {
 		super(fp);
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
 		this.shapeCreationService = shapeCreationService;
-		this.bor = bor;
 	}
 	
 	@Override
@@ -169,16 +165,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		return false;
 	}
 	
-	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {
-		// Ghost any classifier shapes that are not in the element list. This will ensure that classifiers in other packages are ghosted.
-		for(final Shape childShape : shapeService.getNonGhostChildren(diagram)) {
-			// Check if the shape has a business object and can be updated
-			final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
-			if(bo instanceof Classifier && !elements.contains(bo)) {
-				ghostingService.setIsGhost(childShape, true);
-			}
-		}
-		
+	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {		
 		for(final NamedElement el : elements) {
 			// Add a item for the classifier
 			if(!Aadl2Util.isNull(el) && el instanceof Classifier) {
