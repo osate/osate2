@@ -298,7 +298,7 @@ public class FTAUtils {
 					}
 
 
-					if (refs.size() == 0)
+					if (( EMV2Util.isBinding(remotePropagation) == false) && (refs.size() == 0))
 					{
 						OsateDebug.osateDebug("FTAUtils", "get outgoing kind=" + errorSource.getOutgoing().getKind());
 						throw new UnsupportedOperationException("Error propagation should have incoming reference");
@@ -311,8 +311,8 @@ public class FTAUtils {
 					 * To investigate: we might want to parse flow recursively and not stop with the first one.
 					 */
 
-					if (refs.get(0).getFeatureorPP() == errorSource
-							.getOutgoing().getFeatureorPPRef().getFeatureorPP()) {
+					if ((refs.size() > 0 ) && (refs.get(0).getFeatureorPP() == errorSource
+							.getOutgoing().getFeatureorPPRef().getFeatureorPP())) {
 
 
 						//					System.out.println("Looking for  : "
