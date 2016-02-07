@@ -12,104 +12,110 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalErrorModelLexer extends Lexer {
-    public static final int Or=74;
+    public static final int Or=80;
     public static final int Transitions=8;
-    public static final int EqualsSignGreaterThanSign=71;
-    public static final int Memory=33;
-    public static final int Access=31;
-    public static final int False=43;
-    public static final int States=39;
-    public static final int PlusSignEqualsSignGreaterThanSign=58;
-    public static final int LeftParenthesis=77;
+    public static final int EqualsSignGreaterThanSign=77;
+    public static final int Memory=34;
+    public static final int Access=32;
+    public static final int False=46;
+    public static final int LeftCurlyBracketAsteriskAsterisk=72;
+    public static final int States=41;
+    public static final int PlusSignEqualsSignGreaterThanSign=63;
+    public static final int LeftParenthesis=83;
     public static final int Extends=25;
-    public static final int Repair=37;
-    public static final int ExclamationMark=76;
-    public static final int RULE_ID=99;
-    public static final int RULE_DIGIT=92;
-    public static final int Out=64;
-    public static final int ColonColon=70;
-    public static final int PlusSign=80;
-    public static final int LeftSquareBracket=86;
-    public static final int If=72;
+    public static final int Repair=39;
+    public static final int ExclamationMark=82;
+    public static final int RULE_ID=105;
+    public static final int RULE_DIGIT=98;
+    public static final int Out=69;
+    public static final int ColonColon=76;
+    public static final int PlusSign=86;
+    public static final int LeftSquareBracket=92;
+    public static final int Package=29;
+    public static final int If=78;
     public static final int Processor=15;
-    public static final int Set=65;
+    public static final int Set=70;
     public static final int Propagation=7;
-    public static final int In=73;
-    public static final int RULE_REAL_LIT=95;
+    public static final int In=79;
+    public static final int RULE_REAL_LIT=101;
     public static final int Classifier=9;
     public static final int Detections=11;
     public static final int Bindings=19;
-    public static final int Comma=81;
-    public static final int HyphenMinus=82;
-    public static final int Events=32;
-    public static final int Orless=34;
-    public static final int Paths=46;
-    public static final int RightCurlyBracket=89;
-    public static final int Path=51;
-    public static final int Modes=45;
-    public static final int FullStop=83;
+    public static final int Comma=87;
+    public static final int HyphenMinus=88;
+    public static final int Events=33;
+    public static final int Orless=35;
+    public static final int Paths=49;
+    public static final int RightCurlyBracket=95;
+    public static final int Path=55;
+    public static final int Modes=48;
+    public static final int FullStop=89;
     public static final int Composite=14;
+    public static final int Emv2=53;
     public static final int Reference=16;
-    public static final int Use=66;
+    public static final int Use=71;
     public static final int Connection=10;
-    public static final int Semicolon=85;
-    public static final int Type=55;
-    public static final int RULE_EXPONENT=93;
-    public static final int When=56;
+    public static final int Semicolon=91;
+    public static final int Type=59;
+    public static final int RULE_EXPONENT=99;
+    public static final int When=60;
     public static final int Equivalence=6;
-    public static final int Delta=40;
+    public static final int Delta=43;
     public static final int Propagations=5;
-    public static final int RULE_EXTENDED_DIGIT=96;
-    public static final int Event=42;
-    public static final int HyphenMinusGreaterThanSign=67;
+    public static final int RULE_EXTENDED_DIGIT=102;
+    public static final int Event=45;
+    public static final int HyphenMinusGreaterThanSign=73;
     public static final int Initial=26;
-    public static final int All=60;
-    public static final int Renames=30;
-    public static final int Types=49;
-    public static final int True=54;
-    public static final int RULE_INT_EXPONENT=94;
-    public static final int Ormore=35;
+    public static final int All=65;
+    public static final int Renames=31;
+    public static final int Types=52;
+    public static final int True=58;
+    public static final int RULE_INT_EXPONENT=100;
+    public static final int Ormore=36;
     public static final int Noerror=28;
-    public static final int Sink=53;
-    public static final int FullStopFullStop=69;
+    public static final int Sink=57;
+    public static final int FullStopFullStop=75;
     public static final int Behavior=18;
-    public static final int To=75;
+    public static final int To=81;
     public static final int Applies=22;
-    public static final int RULE_BASED_INTEGER=97;
-    public static final int RightSquareBracket=87;
+    public static final int RULE_BASED_INTEGER=103;
+    public static final int RightSquareBracket=93;
     public static final int Binding=23;
-    public static final int Same=52;
-    public static final int RightParenthesis=78;
-    public static final int Not=63;
-    public static final int State=48;
-    public static final int And=61;
+    public static final int Same=56;
+    public static final int RightParenthesis=84;
+    public static final int Public=38;
+    public static final int AsteriskAsteriskRightCurlyBracket=62;
+    public static final int Not=68;
+    public static final int State=51;
+    public static final int And=66;
     public static final int Transformations=4;
-    public static final int End=62;
+    public static final int End=67;
     public static final int Library=27;
-    public static final int RULE_INTEGER_LIT=91;
+    public static final int RULE_INTEGER_LIT=97;
     public static final int Subclause=17;
     public static final int Constant=20;
-    public static final int RULE_STRING=98;
+    public static final int RULE_STRING=104;
     public static final int Properties=12;
-    public static final int Source=38;
-    public static final int With=57;
-    public static final int RULE_SL_COMMENT=90;
-    public static final int Colon=84;
+    public static final int Source=40;
+    public static final int With=61;
+    public static final int RULE_SL_COMMENT=96;
+    public static final int Colon=90;
     public static final int Component=13;
     public static final int EOF=-1;
-    public static final int Asterisk=79;
-    public static final int Others=36;
-    public static final int RULE_WS=100;
-    public static final int Mode=50;
-    public static final int HyphenMinusLeftSquareBracket=68;
-    public static final int Flows=44;
-    public static final int LeftCurlyBracket=88;
-    public static final int Error=41;
-    public static final int Point=47;
-    public static final int RightSquareBracketHyphenMinusGreaterThanSign=59;
+    public static final int Asterisk=85;
+    public static final int Others=37;
+    public static final int RULE_WS=106;
+    public static final int Mode=54;
+    public static final int HyphenMinusLeftSquareBracket=74;
+    public static final int Flows=47;
+    public static final int LeftCurlyBracket=94;
+    public static final int Error=44;
+    public static final int Point=50;
+    public static final int RightSquareBracketHyphenMinusGreaterThanSign=64;
+    public static final int Annex=42;
     public static final int Mappings=21;
     public static final int Compute=24;
-    public static final int Recover=29;
+    public static final int Recover=30;
 
     // delegates
     // delegators
@@ -2633,13 +2639,95 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "Noerror"
 
+    // $ANTLR start "Package"
+    public final void mPackage() throws RecognitionException {
+        try {
+            int _type = Package;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:69:9: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:69:11: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'E' | 'e' )
+            {
+            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='K'||input.LA(1)=='k' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Package"
+
     // $ANTLR start "Recover"
     public final void mRecover() throws RecognitionException {
         try {
             int _type = Recover;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:69:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:69:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:71:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:71:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2720,8 +2808,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Renames;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:71:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:71:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:73:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:73:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2802,8 +2890,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Access;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:73:8: ( ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:73:10: ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:75:8: ( ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:75:10: ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -2875,8 +2963,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Events;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:75:8: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:75:10: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:77:8: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:77:10: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2948,8 +3036,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Memory;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:77:8: ( ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:77:10: ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:79:8: ( ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:79:10: ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -3021,8 +3109,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Orless;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:79:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:79:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:81:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:81:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3094,8 +3182,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Ormore;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:81:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:81:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:83:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:83:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3167,8 +3255,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Others;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:83:8: ( ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:83:10: ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:85:8: ( ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:85:10: ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3235,13 +3323,86 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "Others"
 
+    // $ANTLR start "Public"
+    public final void mPublic() throws RecognitionException {
+        try {
+            int _type = Public;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:87:8: ( ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:87:10: ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'B' | 'b' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' )
+            {
+            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Public"
+
     // $ANTLR start "Repair"
     public final void mRepair() throws RecognitionException {
         try {
             int _type = Repair;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:85:8: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:85:10: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:89:8: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:89:10: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3313,8 +3474,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Source;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:87:8: ( ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:87:10: ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:91:8: ( ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:91:10: ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3386,8 +3547,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = States;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:89:8: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:89:10: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:93:8: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:93:10: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3454,13 +3615,77 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "States"
 
+    // $ANTLR start "Annex"
+    public final void mAnnex() throws RecognitionException {
+        try {
+            int _type = Annex;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:95:7: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:95:9: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' )
+            {
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Annex"
+
     // $ANTLR start "Delta"
     public final void mDelta() throws RecognitionException {
         try {
             int _type = Delta;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:91:7: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:91:9: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:97:7: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:97:9: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -3523,8 +3748,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Error;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:93:7: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:93:9: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:99:7: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:99:9: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3587,8 +3812,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Event;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:95:7: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:95:9: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:101:7: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:101:9: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3651,8 +3876,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = False;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:97:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:97:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:103:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:103:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -3715,8 +3940,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Flows;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:99:7: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:99:9: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:105:7: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:105:9: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -3779,8 +4004,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Modes;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:101:7: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:101:9: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:107:7: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:107:9: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -3843,8 +4068,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Paths;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:103:7: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:103:9: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:109:7: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:109:9: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -3907,8 +4132,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Point;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:105:7: ( ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:105:9: ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:111:7: ( ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:111:9: ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -3971,8 +4196,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = State;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:107:7: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:107:9: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:113:7: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:113:9: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4035,8 +4260,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Types;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:109:7: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:109:9: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:115:7: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:115:9: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4094,13 +4319,60 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "Types"
 
+    // $ANTLR start "Emv2"
+    public final void mEmv2() throws RecognitionException {
+        try {
+            int _type = Emv2;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:117:6: ( ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'V' | 'v' ) '2' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:117:8: ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'V' | 'v' ) '2'
+            {
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('2'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Emv2"
+
     // $ANTLR start "Mode"
     public final void mMode() throws RecognitionException {
         try {
             int _type = Mode;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:111:6: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:111:8: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:119:6: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:119:8: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4154,8 +4426,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Path;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:113:6: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:113:8: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:121:6: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:121:8: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -4209,8 +4481,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Same;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:115:6: ( ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:115:8: ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:123:6: ( ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:123:8: ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4264,8 +4536,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Sink;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:117:6: ( ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:117:8: ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:125:6: ( ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:125:8: ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4319,8 +4591,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = True;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:119:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:119:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:127:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:127:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4374,8 +4646,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Type;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:121:6: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:121:8: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:129:6: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:129:8: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4429,8 +4701,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = When;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:123:6: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:123:8: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:131:6: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:131:8: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -4484,8 +4756,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = With;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:125:6: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:125:8: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:133:6: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:133:8: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -4534,13 +4806,35 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "With"
 
+    // $ANTLR start "AsteriskAsteriskRightCurlyBracket"
+    public final void mAsteriskAsteriskRightCurlyBracket() throws RecognitionException {
+        try {
+            int _type = AsteriskAsteriskRightCurlyBracket;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:135:35: ( '*' '*' '}' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:135:37: '*' '*' '}'
+            {
+            match('*'); 
+            match('*'); 
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "AsteriskAsteriskRightCurlyBracket"
+
     // $ANTLR start "PlusSignEqualsSignGreaterThanSign"
     public final void mPlusSignEqualsSignGreaterThanSign() throws RecognitionException {
         try {
             int _type = PlusSignEqualsSignGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:127:35: ( '+' '=' '>' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:127:37: '+' '=' '>'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:137:35: ( '+' '=' '>' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:137:37: '+' '=' '>'
             {
             match('+'); 
             match('='); 
@@ -4561,8 +4855,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightSquareBracketHyphenMinusGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:129:46: ( ']' '-' '>' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:129:48: ']' '-' '>'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:139:46: ( ']' '-' '>' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:139:48: ']' '-' '>'
             {
             match(']'); 
             match('-'); 
@@ -4583,8 +4877,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = All;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:131:5: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:131:7: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:141:5: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:141:7: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4629,8 +4923,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = And;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:133:5: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:133:7: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:143:5: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:143:7: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4675,8 +4969,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = End;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:135:5: ( ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:135:7: ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:145:5: ( ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:145:7: ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -4721,8 +5015,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Not;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:137:5: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:137:7: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:147:5: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:147:7: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -4767,8 +5061,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Out;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:139:5: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:139:7: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:149:5: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:149:7: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -4813,8 +5107,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Set;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:141:5: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:141:7: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:151:5: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:151:7: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4859,8 +5153,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Use;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:143:5: ( ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:143:7: ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:153:5: ( ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:153:7: ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -4900,13 +5194,35 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "Use"
 
+    // $ANTLR start "LeftCurlyBracketAsteriskAsterisk"
+    public final void mLeftCurlyBracketAsteriskAsterisk() throws RecognitionException {
+        try {
+            int _type = LeftCurlyBracketAsteriskAsterisk;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:34: ( '{' '*' '*' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:36: '{' '*' '*'
+            {
+            match('{'); 
+            match('*'); 
+            match('*'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "LeftCurlyBracketAsteriskAsterisk"
+
     // $ANTLR start "HyphenMinusGreaterThanSign"
     public final void mHyphenMinusGreaterThanSign() throws RecognitionException {
         try {
             int _type = HyphenMinusGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:145:28: ( '-' '>' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:145:30: '-' '>'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:28: ( '-' '>' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:30: '-' '>'
             {
             match('-'); 
             match('>'); 
@@ -4926,8 +5242,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = HyphenMinusLeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:147:30: ( '-' '[' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:147:32: '-' '['
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:30: ( '-' '[' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:32: '-' '['
             {
             match('-'); 
             match('['); 
@@ -4947,8 +5263,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = FullStopFullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:149:18: ( '.' '.' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:149:20: '.' '.'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:18: ( '.' '.' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:20: '.' '.'
             {
             match('.'); 
             match('.'); 
@@ -4968,8 +5284,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = ColonColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:151:12: ( ':' ':' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:151:14: ':' ':'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:12: ( ':' ':' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:14: ':' ':'
             {
             match(':'); 
             match(':'); 
@@ -4989,8 +5305,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = EqualsSignGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:153:27: ( '=' '>' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:153:29: '=' '>'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:27: ( '=' '>' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:29: '=' '>'
             {
             match('='); 
             match('>'); 
@@ -5010,8 +5326,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = If;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:4: ( ( 'I' | 'i' ) ( 'F' | 'f' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:6: ( 'I' | 'i' ) ( 'F' | 'f' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:4: ( ( 'I' | 'i' ) ( 'F' | 'f' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:6: ( 'I' | 'i' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -5047,8 +5363,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = In;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:4: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:6: ( 'I' | 'i' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:4: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:6: ( 'I' | 'i' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -5084,8 +5400,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Or;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:4: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:6: ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:4: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:6: ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -5121,8 +5437,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = To;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:4: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:6: ( 'T' | 't' ) ( 'O' | 'o' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:4: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:6: ( 'T' | 't' ) ( 'O' | 'o' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5158,8 +5474,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = ExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:17: ( '!' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:19: '!'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:17: ( '!' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:19: '!'
             {
             match('!'); 
 
@@ -5178,8 +5494,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:17: ( '(' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:19: '('
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:17: ( '(' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:19: '('
             {
             match('('); 
 
@@ -5198,8 +5514,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:18: ( ')' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:20: ')'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:18: ( ')' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:20: ')'
             {
             match(')'); 
 
@@ -5218,8 +5534,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Asterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:10: ( '*' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:12: '*'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:10: ( '*' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:12: '*'
             {
             match('*'); 
 
@@ -5238,8 +5554,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = PlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:10: ( '+' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:12: '+'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:10: ( '+' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:12: '+'
             {
             match('+'); 
 
@@ -5258,8 +5574,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:7: ( ',' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:9: ','
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:7: ( ',' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:9: ','
             {
             match(','); 
 
@@ -5278,8 +5594,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = HyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:13: ( '-' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:15: '-'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:13: ( '-' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:15: '-'
             {
             match('-'); 
 
@@ -5298,8 +5614,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:10: ( '.' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:12: '.'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:10: ( '.' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:12: '.'
             {
             match('.'); 
 
@@ -5318,8 +5634,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:7: ( ':' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:9: ':'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:7: ( ':' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:9: ':'
             {
             match(':'); 
 
@@ -5338,8 +5654,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Semicolon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:11: ( ';' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:13: ';'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:11: ( ';' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:13: ';'
             {
             match(';'); 
 
@@ -5358,8 +5674,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:19: ( '[' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:21: '['
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:19: ( '[' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:21: '['
             {
             match('['); 
 
@@ -5378,8 +5694,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:20: ( ']' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:22: ']'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:20: ( ']' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:22: ']'
             {
             match(']'); 
 
@@ -5398,8 +5714,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:18: ( '{' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:20: '{'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:18: ( '{' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:20: '{'
             {
             match('{'); 
 
@@ -5418,8 +5734,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:19: ( '}' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:21: '}'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:19: ( '}' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:21: '}'
             {
             match('}'); 
 
@@ -5438,12 +5754,12 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -5456,7 +5772,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -5476,7 +5792,7 @@ public class InternalErrorModelLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:40: ( ( '\\r' )? '\\n' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -5485,9 +5801,9 @@ public class InternalErrorModelLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:41: ( '\\r' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -5496,7 +5812,7 @@ public class InternalErrorModelLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: '\\r'
+                            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:41: '\\r'
                             {
                             match('\r'); 
 
@@ -5528,10 +5844,10 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:18: ( ( '0' .. '9' )+ )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:20: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:18: ( ( '0' .. '9' )+ )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:20: ( '0' .. '9' )+
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:20: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:20: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -5545,7 +5861,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:21: '0' .. '9'
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:21: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -5575,8 +5891,8 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -5587,7 +5903,7 @@ public class InternalErrorModelLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:36: ( '+' | '-' )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:36: ( '+' | '-' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -5613,7 +5929,7 @@ public class InternalErrorModelLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:47: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:47: ( RULE_DIGIT )+
             int cnt6=0;
             loop6:
             do {
@@ -5627,7 +5943,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:47: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -5655,8 +5971,8 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -5667,7 +5983,7 @@ public class InternalErrorModelLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:40: ( '+' )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:40: ( '+' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -5676,7 +5992,7 @@ public class InternalErrorModelLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:40: '+'
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:40: '+'
                     {
                     match('+'); 
 
@@ -5685,7 +6001,7 @@ public class InternalErrorModelLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:45: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:45: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -5699,7 +6015,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:45: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -5729,10 +6045,10 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:17: ( RULE_DIGIT )+
             int cnt9=0;
             loop9:
             do {
@@ -5746,7 +6062,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -5762,7 +6078,7 @@ public class InternalErrorModelLexer extends Lexer {
                 cnt9++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:29: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:29: ( '_' ( RULE_DIGIT )+ )*
             loop11:
             do {
                 int alt11=2;
@@ -5775,10 +6091,10 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:30: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:34: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:34: ( RULE_DIGIT )+
             	    int cnt10=0;
             	    loop10:
             	    do {
@@ -5792,7 +6108,7 @@ public class InternalErrorModelLexer extends Lexer {
 
             	        switch (alt10) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:34: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -5818,7 +6134,7 @@ public class InternalErrorModelLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:52: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:52: ( RULE_DIGIT )+
             int cnt12=0;
             loop12:
             do {
@@ -5832,7 +6148,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:52: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -5848,7 +6164,7 @@ public class InternalErrorModelLexer extends Lexer {
                 cnt12++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:64: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:64: ( '_' ( RULE_DIGIT )+ )*
             loop14:
             do {
                 int alt14=2;
@@ -5861,10 +6177,10 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:69: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:69: ( RULE_DIGIT )+
             	    int cnt13=0;
             	    loop13:
             	    do {
@@ -5878,7 +6194,7 @@ public class InternalErrorModelLexer extends Lexer {
 
             	        switch (alt13) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:69: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -5903,7 +6219,7 @@ public class InternalErrorModelLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:83: ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:83: ( RULE_EXPONENT )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -5912,7 +6228,7 @@ public class InternalErrorModelLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:83: RULE_EXPONENT
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -5935,8 +6251,8 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:203:21: ( '0' .. '9' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:203:23: '0' .. '9'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:215:21: ( '0' .. '9' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:215:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -5951,8 +6267,8 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:205:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:217:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:217:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -5975,11 +6291,11 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop17:
             do {
                 int alt17=2;
@@ -5992,9 +6308,9 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:52: ( '_' )?
             	    int alt16=2;
             	    int LA16_0 = input.LA(1);
 
@@ -6003,7 +6319,7 @@ public class InternalErrorModelLexer extends Lexer {
             	    }
             	    switch (alt16) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: '_'
+            	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:219:52: '_'
             	            {
             	            match('_'); 
 
@@ -6036,10 +6352,10 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -6057,10 +6373,10 @@ public class InternalErrorModelLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop18:
                     do {
                         int alt18=3;
@@ -6076,7 +6392,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -6092,7 +6408,7 @@ public class InternalErrorModelLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -6117,10 +6433,10 @@ public class InternalErrorModelLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop19:
                     do {
                         int alt19=3;
@@ -6136,7 +6452,7 @@ public class InternalErrorModelLexer extends Lexer {
 
                         switch (alt19) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -6152,7 +6468,7 @@ public class InternalErrorModelLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:221:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -6195,8 +6511,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -6207,7 +6523,7 @@ public class InternalErrorModelLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             loop22:
             do {
                 int alt22=2;
@@ -6220,9 +6536,9 @@ public class InternalErrorModelLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
             	    {
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:32: ( '_' )?
             	    int alt21=2;
             	    int LA21_0 = input.LA(1);
 
@@ -6231,7 +6547,7 @@ public class InternalErrorModelLexer extends Lexer {
             	    }
             	    switch (alt21) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: '_'
+            	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:223:32: '_'
             	            {
             	            match('_'); 
 
@@ -6274,10 +6590,10 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:225:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:225:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:225:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt23=0;
             loop23:
             do {
@@ -6327,8 +6643,8 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
-        int alt24=92;
+        // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Package | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Public | Repair | Source | States | Annex | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Emv2 | Mode | Path | Same | Sink | True | Type | When | With | AsteriskAsteriskRightCurlyBracket | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | LeftCurlyBracketAsteriskAsterisk | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
+        int alt24=98;
         alt24 = dfa24.predict(input);
         switch (alt24) {
             case 1 :
@@ -6507,469 +6823,511 @@ public class InternalErrorModelLexer extends Lexer {
                 }
                 break;
             case 26 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:261: Recover
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:261: Package
+                {
+                mPackage(); 
+
+                }
+                break;
+            case 27 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:269: Recover
                 {
                 mRecover(); 
 
                 }
                 break;
-            case 27 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:269: Renames
+            case 28 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:277: Renames
                 {
                 mRenames(); 
 
                 }
                 break;
-            case 28 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:277: Access
+            case 29 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:285: Access
                 {
                 mAccess(); 
 
                 }
                 break;
-            case 29 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:284: Events
+            case 30 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:292: Events
                 {
                 mEvents(); 
 
                 }
                 break;
-            case 30 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:291: Memory
+            case 31 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:299: Memory
                 {
                 mMemory(); 
 
                 }
                 break;
-            case 31 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:298: Orless
+            case 32 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:306: Orless
                 {
                 mOrless(); 
 
                 }
                 break;
-            case 32 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:305: Ormore
+            case 33 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:313: Ormore
                 {
                 mOrmore(); 
 
                 }
                 break;
-            case 33 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:312: Others
+            case 34 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:320: Others
                 {
                 mOthers(); 
 
                 }
                 break;
-            case 34 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:319: Repair
+            case 35 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:327: Public
+                {
+                mPublic(); 
+
+                }
+                break;
+            case 36 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:334: Repair
                 {
                 mRepair(); 
 
                 }
                 break;
-            case 35 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:326: Source
+            case 37 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:341: Source
                 {
                 mSource(); 
 
                 }
                 break;
-            case 36 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:333: States
+            case 38 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:348: States
                 {
                 mStates(); 
 
                 }
                 break;
-            case 37 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:340: Delta
+            case 39 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:355: Annex
+                {
+                mAnnex(); 
+
+                }
+                break;
+            case 40 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:361: Delta
                 {
                 mDelta(); 
 
                 }
                 break;
-            case 38 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:346: Error
+            case 41 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:367: Error
                 {
                 mError(); 
 
                 }
                 break;
-            case 39 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:352: Event
+            case 42 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:373: Event
                 {
                 mEvent(); 
 
                 }
                 break;
-            case 40 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:358: False
+            case 43 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:379: False
                 {
                 mFalse(); 
 
                 }
                 break;
-            case 41 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:364: Flows
+            case 44 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:385: Flows
                 {
                 mFlows(); 
 
                 }
                 break;
-            case 42 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:370: Modes
+            case 45 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:391: Modes
                 {
                 mModes(); 
 
                 }
                 break;
-            case 43 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:376: Paths
+            case 46 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:397: Paths
                 {
                 mPaths(); 
 
                 }
                 break;
-            case 44 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:382: Point
+            case 47 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:403: Point
                 {
                 mPoint(); 
 
                 }
                 break;
-            case 45 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:388: State
+            case 48 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:409: State
                 {
                 mState(); 
 
                 }
                 break;
-            case 46 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:394: Types
+            case 49 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:415: Types
                 {
                 mTypes(); 
 
                 }
                 break;
-            case 47 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:400: Mode
+            case 50 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:421: Emv2
+                {
+                mEmv2(); 
+
+                }
+                break;
+            case 51 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:426: Mode
                 {
                 mMode(); 
 
                 }
                 break;
-            case 48 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:405: Path
+            case 52 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:431: Path
                 {
                 mPath(); 
 
                 }
                 break;
-            case 49 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:410: Same
+            case 53 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:436: Same
                 {
                 mSame(); 
 
                 }
                 break;
-            case 50 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:415: Sink
+            case 54 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:441: Sink
                 {
                 mSink(); 
 
                 }
                 break;
-            case 51 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:420: True
+            case 55 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:446: True
                 {
                 mTrue(); 
 
                 }
                 break;
-            case 52 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:425: Type
+            case 56 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:451: Type
                 {
                 mType(); 
 
                 }
                 break;
-            case 53 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:430: When
+            case 57 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:456: When
                 {
                 mWhen(); 
 
                 }
                 break;
-            case 54 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:435: With
+            case 58 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:461: With
                 {
                 mWith(); 
 
                 }
                 break;
-            case 55 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:440: PlusSignEqualsSignGreaterThanSign
+            case 59 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:466: AsteriskAsteriskRightCurlyBracket
+                {
+                mAsteriskAsteriskRightCurlyBracket(); 
+
+                }
+                break;
+            case 60 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:500: PlusSignEqualsSignGreaterThanSign
                 {
                 mPlusSignEqualsSignGreaterThanSign(); 
 
                 }
                 break;
-            case 56 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:474: RightSquareBracketHyphenMinusGreaterThanSign
+            case 61 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:534: RightSquareBracketHyphenMinusGreaterThanSign
                 {
                 mRightSquareBracketHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
-            case 57 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:519: All
+            case 62 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:579: All
                 {
                 mAll(); 
 
                 }
                 break;
-            case 58 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:523: And
+            case 63 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:583: And
                 {
                 mAnd(); 
 
                 }
                 break;
-            case 59 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:527: End
+            case 64 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:587: End
                 {
                 mEnd(); 
 
                 }
                 break;
-            case 60 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:531: Not
+            case 65 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:591: Not
                 {
                 mNot(); 
 
                 }
                 break;
-            case 61 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:535: Out
+            case 66 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:595: Out
                 {
                 mOut(); 
 
                 }
                 break;
-            case 62 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:539: Set
+            case 67 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:599: Set
                 {
                 mSet(); 
 
                 }
                 break;
-            case 63 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:543: Use
+            case 68 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:603: Use
                 {
                 mUse(); 
 
                 }
                 break;
-            case 64 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:547: HyphenMinusGreaterThanSign
+            case 69 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:607: LeftCurlyBracketAsteriskAsterisk
+                {
+                mLeftCurlyBracketAsteriskAsterisk(); 
+
+                }
+                break;
+            case 70 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:640: HyphenMinusGreaterThanSign
                 {
                 mHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
-            case 65 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:574: HyphenMinusLeftSquareBracket
+            case 71 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:667: HyphenMinusLeftSquareBracket
                 {
                 mHyphenMinusLeftSquareBracket(); 
 
                 }
                 break;
-            case 66 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:603: FullStopFullStop
+            case 72 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:696: FullStopFullStop
                 {
                 mFullStopFullStop(); 
 
                 }
                 break;
-            case 67 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:620: ColonColon
+            case 73 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:713: ColonColon
                 {
                 mColonColon(); 
 
                 }
                 break;
-            case 68 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:631: EqualsSignGreaterThanSign
+            case 74 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:724: EqualsSignGreaterThanSign
                 {
                 mEqualsSignGreaterThanSign(); 
 
                 }
                 break;
-            case 69 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:657: If
+            case 75 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:750: If
                 {
                 mIf(); 
 
                 }
                 break;
-            case 70 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:660: In
+            case 76 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:753: In
                 {
                 mIn(); 
 
                 }
                 break;
-            case 71 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:663: Or
+            case 77 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:756: Or
                 {
                 mOr(); 
 
                 }
                 break;
-            case 72 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:666: To
+            case 78 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:759: To
                 {
                 mTo(); 
 
                 }
                 break;
-            case 73 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:669: ExclamationMark
+            case 79 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:762: ExclamationMark
                 {
                 mExclamationMark(); 
 
                 }
                 break;
-            case 74 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:685: LeftParenthesis
+            case 80 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:778: LeftParenthesis
                 {
                 mLeftParenthesis(); 
 
                 }
                 break;
-            case 75 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:701: RightParenthesis
+            case 81 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:794: RightParenthesis
                 {
                 mRightParenthesis(); 
 
                 }
                 break;
-            case 76 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:718: Asterisk
+            case 82 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:811: Asterisk
                 {
                 mAsterisk(); 
 
                 }
                 break;
-            case 77 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:727: PlusSign
+            case 83 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:820: PlusSign
                 {
                 mPlusSign(); 
 
                 }
                 break;
-            case 78 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:736: Comma
+            case 84 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:829: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 79 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:742: HyphenMinus
+            case 85 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:835: HyphenMinus
                 {
                 mHyphenMinus(); 
 
                 }
                 break;
-            case 80 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:754: FullStop
+            case 86 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:847: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
-            case 81 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:763: Colon
+            case 87 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:856: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 82 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:769: Semicolon
+            case 88 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:862: Semicolon
                 {
                 mSemicolon(); 
 
                 }
                 break;
-            case 83 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:779: LeftSquareBracket
+            case 89 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:872: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
-            case 84 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:797: RightSquareBracket
+            case 90 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:890: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
-            case 85 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:816: LeftCurlyBracket
+            case 91 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:909: LeftCurlyBracket
                 {
                 mLeftCurlyBracket(); 
 
                 }
                 break;
-            case 86 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:833: RightCurlyBracket
+            case 92 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:926: RightCurlyBracket
                 {
                 mRightCurlyBracket(); 
 
                 }
                 break;
-            case 87 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:851: RULE_SL_COMMENT
+            case 93 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:944: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 88 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:867: RULE_INTEGER_LIT
+            case 94 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:960: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
-            case 89 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:884: RULE_REAL_LIT
+            case 95 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:977: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
-            case 90 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:898: RULE_STRING
+            case 96 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:991: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 91 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:910: RULE_ID
+            case 97 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:1003: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 92 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:918: RULE_WS
+            case 98 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:1011: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -6983,148 +7341,156 @@ public class InternalErrorModelLexer extends Lexer {
 
     protected DFA24 dfa24 = new DFA24(this);
     static final String DFA24_eotS =
-        "\1\uffff\20\43\1\117\1\121\1\43\1\126\1\130\1\132\12\uffff\1\133"+
-        "\3\uffff\2\43\1\140\33\43\1\u0082\1\u0083\2\43\1\u0089\6\43\4\uffff"+
-        "\1\43\12\uffff\3\43\1\uffff\7\43\1\u009c\16\43\1\u00ac\7\43\1\u00b4"+
-        "\1\u00b5\1\43\2\uffff\2\43\1\u00b9\2\43\1\uffff\1\43\1\u00bd\4\43"+
-        "\1\u00c2\1\43\1\u00c4\1\u00c6\2\43\1\u00cb\5\43\1\uffff\15\43\1"+
-        "\u00df\1\u00e0\1\uffff\4\43\1\u00e6\2\43\2\uffff\3\43\1\uffff\3"+
-        "\43\1\uffff\2\43\1\u00f1\1\u00f2\1\uffff\1\43\1\uffff\1\u00f5\1"+
-        "\uffff\3\43\1\u00f9\1\uffff\1\u00fa\2\43\1\u00fe\1\u00ff\6\43\1"+
-        "\u0107\6\43\1\u010f\2\uffff\4\43\1\u0114\1\uffff\10\43\1\u011d\1"+
-        "\u011e\2\uffff\2\43\1\uffff\3\43\2\uffff\2\43\1\u0126\2\uffff\7"+
-        "\43\1\uffff\3\43\1\u0131\1\43\1\u0133\1\u0134\1\uffff\3\43\1\u0138"+
-        "\1\uffff\1\43\1\u013a\3\43\1\u013e\1\u013f\1\u0140\2\uffff\6\43"+
-        "\1\u0147\1\uffff\5\43\1\u014d\2\43\1\u0150\1\u0151\1\uffff\1\43"+
-        "\2\uffff\1\43\1\u0155\1\43\1\uffff\1\u0157\1\uffff\1\u0158\1\u0159"+
-        "\1\u015a\3\uffff\6\43\1\uffff\2\43\1\u0163\2\43\1\uffff\2\43\2\uffff"+
-        "\1\43\1\u0169\1\u016a\1\uffff\1\u016b\4\uffff\4\43\1\u0170\3\43"+
-        "\1\uffff\1\u0174\1\u0175\1\43\1\u0177\1\u0178\3\uffff\3\43\1\u017c"+
-        "\1\uffff\1\43\1\u017e\1\u017f\2\uffff\1\u0180\2\uffff\1\43\1\u0182"+
-        "\1\u0184\1\uffff\1\u0185\3\uffff\1\43\1\uffff\1\u0187\2\uffff\1"+
-        "\43\1\uffff\1\43\1\u018a\1\uffff";
+        "\1\uffff\20\43\1\121\1\123\1\125\1\43\1\130\1\134\1\136\1\140\10"+
+        "\uffff\1\141\3\uffff\2\43\1\146\35\43\1\u008c\1\u008d\2\43\1\u0093"+
+        "\6\43\6\uffff\1\43\14\uffff\3\43\1\uffff\12\43\1\u00a9\16\43\1\u00b9"+
+        "\10\43\1\u00c2\1\u00c3\1\43\2\uffff\2\43\1\u00c7\2\43\1\uffff\1"+
+        "\43\1\u00cb\4\43\1\u00d0\1\43\1\u00d2\1\u00d4\3\43\1\u00da\6\43"+
+        "\1\u00e1\1\uffff\15\43\1\u00f0\1\u00f1\1\uffff\4\43\1\u00f7\3\43"+
+        "\2\uffff\3\43\1\uffff\3\43\1\uffff\2\43\1\u0103\1\u0104\1\uffff"+
+        "\1\43\1\uffff\1\u0107\1\uffff\4\43\1\u010c\1\uffff\1\43\1\u010e"+
+        "\2\43\1\u0112\1\u0113\1\uffff\6\43\1\u011b\6\43\1\u0123\2\uffff"+
+        "\4\43\1\u0128\1\uffff\2\43\1\u012b\6\43\1\u0132\1\u0133\2\uffff"+
+        "\2\43\1\uffff\4\43\1\uffff\1\u013a\1\uffff\2\43\1\u013d\2\uffff"+
+        "\7\43\1\uffff\3\43\1\u0148\1\43\1\u014a\1\u014b\1\uffff\3\43\1\u014f"+
+        "\1\uffff\1\43\1\u0151\1\uffff\3\43\1\u0155\1\u0156\1\u0157\2\uffff"+
+        "\5\43\1\u015d\1\uffff\1\43\1\u015f\1\uffff\5\43\1\u0165\2\43\1\u0168"+
+        "\1\u0169\1\uffff\1\43\2\uffff\1\43\1\u016d\1\43\1\uffff\1\u016f"+
+        "\1\uffff\1\u0170\1\u0171\1\u0172\3\uffff\5\43\1\uffff\1\43\1\uffff"+
+        "\2\43\1\u017b\2\43\1\uffff\2\43\2\uffff\1\43\1\u0181\1\u0182\1\uffff"+
+        "\1\u0183\4\uffff\4\43\1\u0188\3\43\1\uffff\1\u018c\1\u018d\1\43"+
+        "\1\u018f\1\u0190\3\uffff\3\43\1\u0194\1\uffff\1\43\1\u0196\1\u0197"+
+        "\2\uffff\1\u0198\2\uffff\1\43\1\u019a\1\u019c\1\uffff\1\u019d\3"+
+        "\uffff\1\43\1\uffff\1\u019f\2\uffff\1\43\1\uffff\1\43\1\u01a2\1"+
+        "\uffff";
     static final String DFA24_eofS =
-        "\u018b\uffff";
+        "\u01a3\uffff";
     static final String DFA24_minS =
-        "\1\11\1\117\1\101\1\116\1\114\2\105\1\101\1\105\1\101\1\103\1\106"+
-        "\1\111\1\117\1\122\1\101\1\110\1\75\1\55\1\123\1\55\1\56\1\72\12"+
-        "\uffff\1\56\3\uffff\1\101\1\120\1\60\1\117\1\124\1\111\1\125\1\124"+
-        "\1\105\1\122\1\104\1\101\1\115\1\114\1\103\1\102\1\125\1\101\1\115"+
-        "\1\116\1\124\1\110\1\116\1\120\1\115\1\104\1\120\1\103\1\114\1\104"+
-        "\2\60\1\102\1\105\1\60\1\110\1\124\1\114\1\117\1\105\1\124\4\uffff"+
-        "\1\105\12\uffff\1\116\2\105\1\uffff\1\103\1\110\1\116\1\111\1\105"+
-        "\1\116\1\117\1\60\1\123\1\116\1\120\1\105\1\124\1\105\1\117\2\101"+
-        "\1\103\1\122\1\124\1\105\1\113\1\60\1\101\1\104\1\120\1\117\1\105"+
-        "\1\114\1\105\2\60\1\124\2\uffff\2\122\1\60\1\105\1\117\1\uffff\1"+
-        "\105\1\60\1\123\1\127\1\116\1\110\1\60\1\123\2\60\1\101\1\105\1"+
-        "\60\1\124\1\126\1\116\1\124\1\122\1\uffff\1\123\1\105\1\124\1\117"+
+        "\1\11\1\117\1\101\1\115\1\114\2\105\1\101\1\105\1\101\1\103\1\106"+
+        "\1\111\1\117\1\122\1\101\1\110\1\52\1\75\1\55\1\123\1\52\1\55\1"+
+        "\56\1\72\10\uffff\1\56\3\uffff\1\101\1\120\1\60\1\117\1\103\1\102"+
+        "\1\111\1\125\1\124\1\105\1\122\1\126\1\104\1\101\1\115\1\114\1\103"+
+        "\1\102\1\125\1\101\1\115\1\116\1\124\1\110\1\116\1\120\1\115\1\104"+
+        "\1\120\1\103\1\104\1\114\2\60\1\102\1\105\1\60\1\110\1\124\1\114"+
+        "\1\117\1\105\1\124\6\uffff\1\105\14\uffff\1\116\2\105\1\uffff\1"+
+        "\103\1\113\1\110\1\114\1\116\1\111\1\105\1\116\1\117\1\62\1\60\1"+
+        "\123\1\116\1\120\1\105\1\124\1\105\1\117\2\101\1\103\1\122\1\124"+
+        "\1\105\1\113\1\60\1\101\1\104\1\120\1\117\1\105\1\114\2\105\2\60"+
+        "\1\124\2\uffff\2\122\1\60\1\105\1\117\1\uffff\1\105\1\60\1\123\1"+
+        "\127\1\116\1\110\1\60\1\123\2\60\1\101\1\105\1\101\1\60\1\111\1"+
+        "\124\1\126\1\116\1\124\1\122\1\60\1\uffff\1\123\1\105\1\124\1\117"+
         "\1\103\1\101\1\122\1\126\1\115\1\111\1\114\1\103\1\105\2\60\1\uffff"+
-        "\1\126\2\111\1\122\1\60\1\111\1\123\2\uffff\1\111\1\101\1\122\1"+
-        "\uffff\1\123\2\122\1\uffff\1\105\1\123\2\60\1\uffff\1\106\1\uffff"+
-        "\1\60\1\uffff\1\107\1\122\1\123\1\60\1\uffff\1\60\1\101\1\104\2"+
-        "\60\1\111\1\103\1\101\1\116\2\124\1\60\3\105\1\122\1\101\1\105\1"+
-        "\60\2\uffff\1\111\2\116\1\131\1\60\1\uffff\1\105\1\123\1\101\1\122"+
-        "\1\117\1\123\1\105\1\123\2\60\2\uffff\1\117\1\124\1\uffff\1\101"+
-        "\1\124\1\123\2\uffff\1\114\1\123\1\60\2\uffff\1\106\1\124\1\116"+
-        "\1\105\1\111\1\105\1\111\1\uffff\1\116\1\122\1\123\1\60\1\125\2"+
-        "\60\1\uffff\1\117\2\107\1\60\1\uffff\1\123\1\60\1\114\1\131\1\122"+
-        "\3\60\2\uffff\1\122\1\111\1\124\1\111\1\117\1\105\1\60\1\uffff\2"+
+        "\1\126\2\111\1\122\1\60\1\111\1\123\1\130\2\uffff\1\111\1\101\1"+
+        "\122\1\uffff\1\123\2\122\1\uffff\1\105\1\123\2\60\1\uffff\1\106"+
+        "\1\uffff\1\60\1\uffff\1\107\1\122\1\123\1\107\1\60\1\uffff\1\103"+
+        "\1\60\1\101\1\104\2\60\1\uffff\1\111\1\103\1\101\1\116\2\124\1\60"+
+        "\3\105\1\122\1\101\1\105\1\60\2\uffff\1\111\2\116\1\131\1\60\1\uffff"+
+        "\1\105\1\123\1\60\1\101\1\122\1\117\1\123\1\105\1\123\2\60\2\uffff"+
+        "\1\117\1\124\1\uffff\1\101\1\124\1\123\1\105\1\uffff\1\60\1\uffff"+
+        "\1\114\1\123\1\60\2\uffff\1\106\1\124\1\116\1\105\1\111\1\105\1"+
+        "\111\1\uffff\1\116\1\122\1\123\1\60\1\125\2\60\1\uffff\1\117\2\107"+
+        "\1\60\1\uffff\1\123\1\60\1\uffff\1\114\1\131\1\122\3\60\2\uffff"+
+        "\1\122\1\111\1\124\1\111\1\117\1\60\1\uffff\1\105\1\60\1\uffff\2"+
         "\111\1\124\1\116\1\124\1\60\1\117\1\103\2\60\1\uffff\1\123\2\uffff"+
         "\1\122\1\60\1\123\1\uffff\1\60\1\uffff\3\60\3\uffff\1\115\1\117"+
-        "\1\111\1\105\1\122\1\116\1\uffff\1\105\1\117\1\60\1\124\1\105\1"+
-        "\uffff\1\116\1\105\2\uffff\1\105\2\60\1\uffff\1\60\4\uffff\1\101"+
-        "\1\116\1\117\1\123\1\60\1\103\1\122\1\116\1\uffff\2\60\1\123\2\60"+
-        "\3\uffff\1\124\1\123\1\116\1\60\1\uffff\1\105\2\60\2\uffff\1\60"+
-        "\2\uffff\1\111\2\60\1\uffff\1\60\3\uffff\1\117\1\uffff\1\60\2\uffff"+
-        "\1\116\1\uffff\1\123\1\60\1\uffff";
+        "\1\111\1\105\1\122\1\uffff\1\116\1\uffff\1\105\1\117\1\60\1\124"+
+        "\1\105\1\uffff\1\116\1\105\2\uffff\1\105\2\60\1\uffff\1\60\4\uffff"+
+        "\1\101\1\116\1\117\1\123\1\60\1\103\1\122\1\116\1\uffff\2\60\1\123"+
+        "\2\60\3\uffff\1\124\1\123\1\116\1\60\1\uffff\1\105\2\60\2\uffff"+
+        "\1\60\2\uffff\1\111\2\60\1\uffff\1\60\3\uffff\1\117\1\uffff\1\60"+
+        "\2\uffff\1\116\1\uffff\1\123\1\60\1\uffff";
     static final String DFA24_maxS =
-        "\1\175\1\171\1\162\1\170\1\157\2\145\1\165\1\151\1\157\1\160\1"+
-        "\156\1\151\1\157\1\165\1\154\1\151\1\75\1\55\1\163\1\133\1\56\1"+
-        "\72\12\uffff\1\137\3\uffff\1\165\1\160\1\172\1\157\1\164\1\151\1"+
-        "\165\1\164\1\145\1\162\1\144\1\141\1\156\1\164\1\160\1\142\1\165"+
-        "\1\141\1\155\1\156\1\164\1\150\1\156\1\160\1\155\1\144\1\160\1\143"+
-        "\1\154\1\144\2\172\1\142\1\164\1\172\1\150\1\164\1\154\1\157\1\145"+
-        "\1\164\4\uffff\1\145\12\uffff\1\156\2\145\1\uffff\1\160\1\150\1"+
-        "\156\1\151\1\145\1\156\1\157\1\172\2\163\1\160\1\145\1\164\1\145"+
-        "\1\157\2\141\1\143\1\162\1\164\1\145\1\153\1\172\1\141\1\144\1\160"+
-        "\1\157\1\145\1\154\1\145\2\172\1\164\2\uffff\2\162\1\172\1\145\1"+
-        "\157\1\uffff\1\145\1\172\1\163\1\167\1\156\1\150\1\172\1\163\2\172"+
-        "\2\145\1\172\1\164\1\166\1\156\1\164\1\162\1\uffff\1\163\1\145\1"+
-        "\164\1\165\1\143\1\141\1\162\1\166\1\155\1\151\1\154\1\143\1\145"+
-        "\2\172\1\uffff\1\166\2\151\1\162\1\172\1\151\1\163\2\uffff\1\151"+
-        "\1\141\1\162\1\uffff\1\163\2\162\1\uffff\1\145\1\163\2\172\1\uffff"+
-        "\1\151\1\uffff\1\172\1\uffff\1\147\1\162\1\163\1\172\1\uffff\1\172"+
-        "\1\141\1\144\2\172\1\151\1\143\1\141\1\163\2\164\1\172\3\145\1\162"+
-        "\1\141\1\145\1\172\2\uffff\1\151\2\156\1\171\1\172\1\uffff\1\145"+
-        "\1\163\1\141\1\162\1\157\1\163\1\145\1\163\2\172\2\uffff\1\157\1"+
-        "\164\1\uffff\1\141\1\164\1\163\2\uffff\1\154\1\163\1\172\2\uffff"+
-        "\1\146\1\164\1\156\1\145\1\151\1\145\1\151\1\uffff\1\156\1\162\1"+
-        "\163\1\172\1\165\2\172\1\uffff\1\157\2\147\1\172\1\uffff\1\163\1"+
-        "\172\1\154\1\171\1\162\3\172\2\uffff\1\162\1\151\1\164\1\151\1\157"+
-        "\1\145\1\172\1\uffff\2\151\1\164\1\156\1\164\1\172\1\157\1\143\2"+
-        "\172\1\uffff\1\163\2\uffff\1\162\1\172\1\163\1\uffff\1\172\1\uffff"+
-        "\3\172\3\uffff\1\155\1\157\1\151\1\145\1\162\1\156\1\uffff\1\145"+
-        "\1\157\1\172\1\164\1\145\1\uffff\1\156\1\145\2\uffff\1\145\2\172"+
-        "\1\uffff\1\172\4\uffff\1\141\1\156\1\157\1\163\1\172\1\143\1\162"+
-        "\1\156\1\uffff\2\172\1\163\2\172\3\uffff\1\164\1\163\1\156\1\172"+
-        "\1\uffff\1\145\2\172\2\uffff\1\172\2\uffff\1\151\2\172\1\uffff\1"+
-        "\172\3\uffff\1\157\1\uffff\1\172\2\uffff\1\156\1\uffff\1\163\1\172"+
-        "\1\uffff";
+        "\1\175\1\171\1\165\1\170\1\157\2\145\1\165\1\151\1\157\1\160\1"+
+        "\156\1\151\1\157\1\165\1\154\1\151\1\52\1\75\1\55\1\163\1\52\1\133"+
+        "\1\56\1\72\10\uffff\1\137\3\uffff\1\165\1\160\1\172\1\157\1\164"+
+        "\1\142\1\151\1\165\1\164\1\145\1\162\1\166\1\144\1\141\1\156\1\164"+
+        "\1\160\1\142\1\165\1\141\1\155\1\156\1\164\1\150\1\156\1\160\1\155"+
+        "\1\144\1\160\1\143\1\156\1\154\2\172\1\142\1\164\1\172\1\150\1\164"+
+        "\1\154\1\157\1\145\1\164\6\uffff\1\145\14\uffff\1\156\2\145\1\uffff"+
+        "\1\160\1\153\1\150\1\154\1\156\1\151\1\145\1\156\1\157\1\62\1\172"+
+        "\2\163\1\160\1\145\1\164\1\145\1\157\2\141\1\143\1\162\1\164\1\145"+
+        "\1\153\1\172\1\141\1\144\1\160\1\157\1\145\1\154\2\145\2\172\1\164"+
+        "\2\uffff\2\162\1\172\1\145\1\157\1\uffff\1\145\1\172\1\163\1\167"+
+        "\1\156\1\150\1\172\1\163\2\172\2\145\1\141\1\172\1\151\1\164\1\166"+
+        "\1\156\1\164\1\162\1\172\1\uffff\1\163\1\145\1\164\1\165\1\143\1"+
+        "\141\1\162\1\166\1\155\1\151\1\154\1\143\1\145\2\172\1\uffff\1\166"+
+        "\2\151\1\162\1\172\1\151\1\163\1\170\2\uffff\1\151\1\141\1\162\1"+
+        "\uffff\1\163\2\162\1\uffff\1\145\1\163\2\172\1\uffff\1\151\1\uffff"+
+        "\1\172\1\uffff\1\147\1\162\1\163\1\147\1\172\1\uffff\1\143\1\172"+
+        "\1\141\1\144\2\172\1\uffff\1\151\1\143\1\141\1\163\2\164\1\172\3"+
+        "\145\1\162\1\141\1\145\1\172\2\uffff\1\151\2\156\1\171\1\172\1\uffff"+
+        "\1\145\1\163\1\172\1\141\1\162\1\157\1\163\1\145\1\163\2\172\2\uffff"+
+        "\1\157\1\164\1\uffff\1\141\1\164\1\163\1\145\1\uffff\1\172\1\uffff"+
+        "\1\154\1\163\1\172\2\uffff\1\146\1\164\1\156\1\145\1\151\1\145\1"+
+        "\151\1\uffff\1\156\1\162\1\163\1\172\1\165\2\172\1\uffff\1\157\2"+
+        "\147\1\172\1\uffff\1\163\1\172\1\uffff\1\154\1\171\1\162\3\172\2"+
+        "\uffff\1\162\1\151\1\164\1\151\1\157\1\172\1\uffff\1\145\1\172\1"+
+        "\uffff\2\151\1\164\1\156\1\164\1\172\1\157\1\143\2\172\1\uffff\1"+
+        "\163\2\uffff\1\162\1\172\1\163\1\uffff\1\172\1\uffff\3\172\3\uffff"+
+        "\1\155\1\157\1\151\1\145\1\162\1\uffff\1\156\1\uffff\1\145\1\157"+
+        "\1\172\1\164\1\145\1\uffff\1\156\1\145\2\uffff\1\145\2\172\1\uffff"+
+        "\1\172\4\uffff\1\141\1\156\1\157\1\163\1\172\1\143\1\162\1\156\1"+
+        "\uffff\2\172\1\163\2\172\3\uffff\1\164\1\163\1\156\1\172\1\uffff"+
+        "\1\145\2\172\2\uffff\1\172\2\uffff\1\151\2\172\1\uffff\1\172\3\uffff"+
+        "\1\157\1\uffff\1\172\2\uffff\1\156\1\uffff\1\163\1\172\1\uffff";
     static final String DFA24_acceptS =
-        "\27\uffff\1\104\1\111\1\112\1\113\1\114\1\116\1\122\1\123\1\125"+
-        "\1\126\1\uffff\1\132\1\133\1\134\51\uffff\1\67\1\115\1\70\1\124"+
-        "\1\uffff\1\100\1\101\1\127\1\117\1\102\1\120\1\103\1\121\1\130\1"+
-        "\131\3\uffff\1\110\41\uffff\1\106\1\105\5\uffff\1\107\22\uffff\1"+
-        "\73\17\uffff\1\76\7\uffff\1\71\1\72\3\uffff\1\74\3\uffff\1\75\4"+
-        "\uffff\1\77\1\uffff\1\63\1\uffff\1\64\4\uffff\1\60\23\uffff\1\61"+
-        "\1\62\5\uffff\1\57\12\uffff\1\65\1\66\2\uffff\1\56\3\uffff\1\53"+
-        "\1\54\3\uffff\1\47\1\46\7\uffff\1\45\7\uffff\1\55\4\uffff\1\52\10"+
-        "\uffff\1\50\1\51\7\uffff\1\35\12\uffff\1\42\1\uffff\1\43\1\44\3"+
-        "\uffff\1\36\1\uffff\1\34\3\uffff\1\37\1\40\1\41\6\uffff\1\26\5\uffff"+
-        "\1\25\2\uffff\1\32\1\33\3\uffff\1\24\1\uffff\1\23\1\27\1\30\1\31"+
-        "\10\uffff\1\21\5\uffff\1\17\1\20\1\22\4\uffff\1\14\3\uffff\1\12"+
-        "\1\13\1\uffff\1\15\1\16\3\uffff\1\11\1\uffff\1\6\1\7\1\10\1\uffff"+
-        "\1\5\1\uffff\1\4\1\3\1\uffff\1\2\2\uffff\1\1";
+        "\31\uffff\1\112\1\117\1\120\1\121\1\124\1\130\1\131\1\134\1\uffff"+
+        "\1\140\1\141\1\142\53\uffff\1\73\1\122\1\74\1\123\1\75\1\132\1\uffff"+
+        "\1\105\1\133\1\106\1\107\1\135\1\125\1\110\1\126\1\111\1\127\1\136"+
+        "\1\137\3\uffff\1\116\45\uffff\1\114\1\113\5\uffff\1\115\25\uffff"+
+        "\1\100\17\uffff\1\103\10\uffff\1\77\1\76\3\uffff\1\101\3\uffff\1"+
+        "\102\4\uffff\1\104\1\uffff\1\67\1\uffff\1\70\5\uffff\1\64\6\uffff"+
+        "\1\62\16\uffff\1\65\1\66\5\uffff\1\63\13\uffff\1\71\1\72\2\uffff"+
+        "\1\61\4\uffff\1\56\1\uffff\1\57\3\uffff\1\52\1\51\7\uffff\1\50\7"+
+        "\uffff\1\60\4\uffff\1\55\2\uffff\1\47\6\uffff\1\53\1\54\6\uffff"+
+        "\1\43\2\uffff\1\36\12\uffff\1\44\1\uffff\1\45\1\46\3\uffff\1\37"+
+        "\1\uffff\1\35\3\uffff\1\40\1\41\1\42\5\uffff\1\32\1\uffff\1\26\5"+
+        "\uffff\1\25\2\uffff\1\33\1\34\3\uffff\1\24\1\uffff\1\23\1\27\1\30"+
+        "\1\31\10\uffff\1\21\5\uffff\1\17\1\20\1\22\4\uffff\1\14\3\uffff"+
+        "\1\12\1\13\1\uffff\1\15\1\16\3\uffff\1\11\1\uffff\1\6\1\7\1\10\1"+
+        "\uffff\1\5\1\uffff\1\4\1\3\1\uffff\1\2\2\uffff\1\1";
     static final String DFA24_specialS =
-        "\u018b\uffff}>";
+        "\u01a3\uffff}>";
     static final String[] DFA24_transitionS = {
-            "\2\44\2\uffff\1\44\22\uffff\1\44\1\30\1\42\4\uffff\1\42\1\31"+
-            "\1\32\1\33\1\21\1\34\1\24\1\25\1\uffff\12\41\1\26\1\35\1\uffff"+
-            "\1\27\3\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\43\1\13\2\43\1\14"+
-            "\1\11\1\15\1\16\1\2\1\43\1\6\1\7\1\1\1\23\1\43\1\20\3\43\1\36"+
-            "\1\uffff\1\22\3\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\43\1\13\2"+
-            "\43\1\14\1\11\1\15\1\16\1\2\1\43\1\6\1\7\1\1\1\23\1\43\1\20"+
-            "\3\43\1\37\1\uffff\1\40",
+            "\2\44\2\uffff\1\44\22\uffff\1\44\1\32\1\42\4\uffff\1\42\1\33"+
+            "\1\34\1\21\1\22\1\35\1\26\1\27\1\uffff\12\41\1\30\1\36\1\uffff"+
+            "\1\31\3\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\43\1\13\2\43\1\14"+
+            "\1\11\1\15\1\16\1\2\1\43\1\6\1\7\1\1\1\24\1\43\1\20\3\43\1\37"+
+            "\1\uffff\1\23\3\uffff\1\12\1\10\1\4\1\5\1\3\1\17\2\43\1\13\2"+
+            "\43\1\14\1\11\1\15\1\16\1\2\1\43\1\6\1\7\1\1\1\24\1\43\1\20"+
+            "\3\43\1\25\1\uffff\1\40",
             "\1\47\2\uffff\1\45\6\uffff\1\46\25\uffff\1\47\2\uffff\1\45"+
             "\6\uffff\1\46",
-            "\1\51\15\uffff\1\52\2\uffff\1\50\16\uffff\1\51\15\uffff\1"+
-            "\52\2\uffff\1\50",
-            "\1\57\2\uffff\1\53\1\56\3\uffff\1\55\1\uffff\1\54\25\uffff"+
-            "\1\57\2\uffff\1\53\1\56\3\uffff\1\55\1\uffff\1\54",
-            "\1\60\2\uffff\1\61\34\uffff\1\60\2\uffff\1\61",
-            "\1\62\37\uffff\1\62",
-            "\1\63\37\uffff\1\63",
-            "\1\67\3\uffff\1\71\3\uffff\1\70\5\uffff\1\65\4\uffff\1\66"+
-            "\1\64\13\uffff\1\67\3\uffff\1\71\3\uffff\1\70\5\uffff\1\65\4"+
-            "\uffff\1\66\1\64",
-            "\1\72\3\uffff\1\73\33\uffff\1\72\3\uffff\1\73",
-            "\1\74\3\uffff\1\75\11\uffff\1\76\21\uffff\1\74\3\uffff\1\75"+
-            "\11\uffff\1\76",
-            "\1\100\10\uffff\1\101\1\uffff\1\102\1\uffff\1\77\22\uffff"+
-            "\1\100\10\uffff\1\101\1\uffff\1\102\1\uffff\1\77",
-            "\1\104\7\uffff\1\103\27\uffff\1\104\7\uffff\1\103",
-            "\1\105\37\uffff\1\105",
-            "\1\106\37\uffff\1\106",
-            "\1\107\1\uffff\1\110\1\111\34\uffff\1\107\1\uffff\1\110\1"+
-            "\111",
-            "\1\112\12\uffff\1\113\24\uffff\1\112\12\uffff\1\113",
-            "\1\114\1\115\36\uffff\1\114\1\115",
-            "\1\116",
+            "\1\51\15\uffff\1\53\2\uffff\1\50\2\uffff\1\52\13\uffff\1\51"+
+            "\15\uffff\1\53\2\uffff\1\50\2\uffff\1\52",
+            "\1\60\1\61\2\uffff\1\54\1\57\3\uffff\1\56\1\uffff\1\55\24"+
+            "\uffff\1\60\1\61\2\uffff\1\54\1\57\3\uffff\1\56\1\uffff\1\55",
+            "\1\62\2\uffff\1\63\34\uffff\1\62\2\uffff\1\63",
+            "\1\64\37\uffff\1\64",
+            "\1\65\37\uffff\1\65",
+            "\1\71\3\uffff\1\73\3\uffff\1\72\5\uffff\1\67\4\uffff\1\70"+
+            "\1\66\13\uffff\1\71\3\uffff\1\73\3\uffff\1\72\5\uffff\1\67\4"+
+            "\uffff\1\70\1\66",
+            "\1\74\3\uffff\1\75\33\uffff\1\74\3\uffff\1\75",
+            "\1\76\3\uffff\1\77\11\uffff\1\100\21\uffff\1\76\3\uffff\1"+
+            "\77\11\uffff\1\100",
+            "\1\102\10\uffff\1\104\1\uffff\1\103\1\uffff\1\101\22\uffff"+
+            "\1\102\10\uffff\1\104\1\uffff\1\103\1\uffff\1\101",
+            "\1\106\7\uffff\1\105\27\uffff\1\106\7\uffff\1\105",
+            "\1\107\37\uffff\1\107",
+            "\1\110\37\uffff\1\110",
+            "\1\111\1\uffff\1\112\1\113\34\uffff\1\111\1\uffff\1\112\1"+
+            "\113",
+            "\1\114\12\uffff\1\115\24\uffff\1\114\12\uffff\1\115",
+            "\1\116\1\117\36\uffff\1\116\1\117",
             "\1\120",
-            "\1\122\37\uffff\1\122",
-            "\1\125\20\uffff\1\123\34\uffff\1\124",
+            "\1\122",
+            "\1\124",
+            "\1\126\37\uffff\1\126",
             "\1\127",
-            "\1\131",
+            "\1\133\20\uffff\1\131\34\uffff\1\132",
+            "\1\135",
+            "\1\137",
             "",
             "",
             "",
@@ -7133,85 +7499,80 @@ public class InternalErrorModelLexer extends Lexer {
             "",
             "",
             "",
-            "",
-            "",
-            "\1\134\1\uffff\12\41\45\uffff\1\134",
+            "\1\142\1\uffff\12\41\45\uffff\1\142",
             "",
             "",
             "",
-            "\1\135\23\uffff\1\136\13\uffff\1\135\23\uffff\1\136",
-            "\1\137\37\uffff\1\137",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\141\37\uffff\1\141",
-            "\1\142\37\uffff\1\142",
-            "\1\143\37\uffff\1\143",
-            "\1\144\37\uffff\1\144",
+            "\1\143\23\uffff\1\144\13\uffff\1\143\23\uffff\1\144",
             "\1\145\37\uffff\1\145",
-            "\1\146\37\uffff\1\146",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\147\37\uffff\1\147",
-            "\1\150\37\uffff\1\150",
-            "\1\151\37\uffff\1\151",
-            "\1\153\1\152\36\uffff\1\153\1\152",
-            "\1\155\7\uffff\1\154\27\uffff\1\155\7\uffff\1\154",
-            "\1\157\2\uffff\1\156\7\uffff\1\160\1\uffff\1\161\22\uffff"+
-            "\1\157\2\uffff\1\156\7\uffff\1\160\1\uffff\1\161",
+            "\1\150\20\uffff\1\151\16\uffff\1\150\20\uffff\1\151",
+            "\1\152\37\uffff\1\152",
+            "\1\153\37\uffff\1\153",
+            "\1\154\37\uffff\1\154",
+            "\1\155\37\uffff\1\155",
+            "\1\156\37\uffff\1\156",
+            "\1\157\37\uffff\1\157",
+            "\1\160\37\uffff\1\160",
+            "\1\161\37\uffff\1\161",
             "\1\162\37\uffff\1\162",
-            "\1\163\37\uffff\1\163",
-            "\1\164\37\uffff\1\164",
-            "\1\165\37\uffff\1\165",
-            "\1\166\37\uffff\1\166",
-            "\1\167\37\uffff\1\167",
-            "\1\170\37\uffff\1\170",
-            "\1\171\37\uffff\1\171",
-            "\1\172\37\uffff\1\172",
+            "\1\164\1\163\36\uffff\1\164\1\163",
+            "\1\166\7\uffff\1\165\27\uffff\1\166\7\uffff\1\165",
+            "\1\170\2\uffff\1\167\7\uffff\1\171\1\uffff\1\172\22\uffff"+
+            "\1\170\2\uffff\1\167\7\uffff\1\171\1\uffff\1\172",
             "\1\173\37\uffff\1\173",
             "\1\174\37\uffff\1\174",
             "\1\175\37\uffff\1\175",
             "\1\176\37\uffff\1\176",
             "\1\177\37\uffff\1\177",
             "\1\u0080\37\uffff\1\u0080",
-            "\12\43\7\uffff\10\43\1\u0081\21\43\4\uffff\1\43\1\uffff\10"+
-            "\43\1\u0081\21\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0081\37\uffff\1\u0081",
+            "\1\u0082\37\uffff\1\u0082",
+            "\1\u0083\37\uffff\1\u0083",
             "\1\u0084\37\uffff\1\u0084",
-            "\1\u0085\16\uffff\1\u0086\20\uffff\1\u0085\16\uffff\1\u0086",
-            "\12\43\7\uffff\13\43\1\u0087\1\u0088\15\43\4\uffff\1\43\1"+
-            "\uffff\13\43\1\u0087\1\u0088\15\43",
+            "\1\u0085\37\uffff\1\u0085",
+            "\1\u0086\37\uffff\1\u0086",
+            "\1\u0087\37\uffff\1\u0087",
+            "\1\u0089\11\uffff\1\u0088\25\uffff\1\u0089\11\uffff\1\u0088",
             "\1\u008a\37\uffff\1\u008a",
-            "\1\u008b\37\uffff\1\u008b",
-            "\1\u008c\37\uffff\1\u008c",
-            "\1\u008d\37\uffff\1\u008d",
+            "\12\43\7\uffff\10\43\1\u008b\21\43\4\uffff\1\43\1\uffff\10"+
+            "\43\1\u008b\21\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u008e\37\uffff\1\u008e",
-            "\1\u008f\37\uffff\1\u008f",
-            "",
-            "",
-            "",
-            "",
-            "\1\u0090\37\uffff\1\u0090",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u0091\37\uffff\1\u0091",
-            "\1\u0092\37\uffff\1\u0092",
-            "\1\u0093\37\uffff\1\u0093",
-            "",
-            "\1\u0095\14\uffff\1\u0094\22\uffff\1\u0095\14\uffff\1\u0094",
+            "\1\u008f\16\uffff\1\u0090\20\uffff\1\u008f\16\uffff\1\u0090",
+            "\12\43\7\uffff\13\43\1\u0091\1\u0092\15\43\4\uffff\1\43\1"+
+            "\uffff\13\43\1\u0091\1\u0092\15\43",
+            "\1\u0094\37\uffff\1\u0094",
+            "\1\u0095\37\uffff\1\u0095",
             "\1\u0096\37\uffff\1\u0096",
             "\1\u0097\37\uffff\1\u0097",
             "\1\u0098\37\uffff\1\u0098",
             "\1\u0099\37\uffff\1\u0099",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u009a\37\uffff\1\u009a",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u009b\37\uffff\1\u009b",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u009c\37\uffff\1\u009c",
             "\1\u009d\37\uffff\1\u009d",
-            "\1\u009e\4\uffff\1\u009f\32\uffff\1\u009e\4\uffff\1\u009f",
+            "",
+            "\1\u009f\14\uffff\1\u009e\22\uffff\1\u009f\14\uffff\1\u009e",
             "\1\u00a0\37\uffff\1\u00a0",
             "\1\u00a1\37\uffff\1\u00a1",
             "\1\u00a2\37\uffff\1\u00a2",
@@ -7220,11 +7581,10 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\u00a5\37\uffff\1\u00a5",
             "\1\u00a6\37\uffff\1\u00a6",
             "\1\u00a7\37\uffff\1\u00a7",
-            "\1\u00a8\37\uffff\1\u00a8",
-            "\1\u00a9\37\uffff\1\u00a9",
-            "\1\u00aa\37\uffff\1\u00aa",
-            "\1\u00ab\37\uffff\1\u00ab",
+            "\1\u00a8",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00aa\37\uffff\1\u00aa",
+            "\1\u00ab\4\uffff\1\u00ac\32\uffff\1\u00ab\4\uffff\1\u00ac",
             "\1\u00ad\37\uffff\1\u00ad",
             "\1\u00ae\37\uffff\1\u00ae",
             "\1\u00af\37\uffff\1\u00af",
@@ -7232,279 +7592,307 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\u00b1\37\uffff\1\u00b1",
             "\1\u00b2\37\uffff\1\u00b2",
             "\1\u00b3\37\uffff\1\u00b3",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00b4\37\uffff\1\u00b4",
+            "\1\u00b5\37\uffff\1\u00b5",
             "\1\u00b6\37\uffff\1\u00b6",
-            "",
-            "",
             "\1\u00b7\37\uffff\1\u00b7",
             "\1\u00b8\37\uffff\1\u00b8",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00ba\37\uffff\1\u00ba",
             "\1\u00bb\37\uffff\1\u00bb",
-            "",
             "\1\u00bc\37\uffff\1\u00bc",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00bd\37\uffff\1\u00bd",
             "\1\u00be\37\uffff\1\u00be",
             "\1\u00bf\37\uffff\1\u00bf",
             "\1\u00c0\37\uffff\1\u00c0",
             "\1\u00c1\37\uffff\1\u00c1",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\u00c3\37\uffff\1\u00c3",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\22\43\1\u00c5\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u00c5\7\43",
-            "\1\u00c7\3\uffff\1\u00c8\33\uffff\1\u00c7\3\uffff\1\u00c8",
+            "\1\u00c4\37\uffff\1\u00c4",
+            "",
+            "",
+            "\1\u00c5\37\uffff\1\u00c5",
+            "\1\u00c6\37\uffff\1\u00c6",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00c8\37\uffff\1\u00c8",
             "\1\u00c9\37\uffff\1\u00c9",
-            "\12\43\7\uffff\22\43\1\u00ca\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u00ca\7\43",
+            "",
+            "\1\u00ca\37\uffff\1\u00ca",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00cc\37\uffff\1\u00cc",
             "\1\u00cd\37\uffff\1\u00cd",
             "\1\u00ce\37\uffff\1\u00ce",
             "\1\u00cf\37\uffff\1\u00cf",
-            "\1\u00d0\37\uffff\1\u00d0",
-            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00d1\37\uffff\1\u00d1",
-            "\1\u00d2\37\uffff\1\u00d2",
-            "\1\u00d3\37\uffff\1\u00d3",
-            "\1\u00d4\5\uffff\1\u00d5\31\uffff\1\u00d4\5\uffff\1\u00d5",
-            "\1\u00d6\37\uffff\1\u00d6",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\22\43\1\u00d3\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00d3\7\43",
+            "\1\u00d5\3\uffff\1\u00d6\33\uffff\1\u00d5\3\uffff\1\u00d6",
             "\1\u00d7\37\uffff\1\u00d7",
             "\1\u00d8\37\uffff\1\u00d8",
-            "\1\u00d9\37\uffff\1\u00d9",
-            "\1\u00da\37\uffff\1\u00da",
+            "\12\43\7\uffff\22\43\1\u00d9\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00d9\7\43",
             "\1\u00db\37\uffff\1\u00db",
             "\1\u00dc\37\uffff\1\u00dc",
             "\1\u00dd\37\uffff\1\u00dd",
             "\1\u00de\37\uffff\1\u00de",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00df\37\uffff\1\u00df",
+            "\1\u00e0\37\uffff\1\u00e0",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u00e1\37\uffff\1\u00e1",
             "\1\u00e2\37\uffff\1\u00e2",
             "\1\u00e3\37\uffff\1\u00e3",
             "\1\u00e4\37\uffff\1\u00e4",
-            "\12\43\7\uffff\22\43\1\u00e5\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u00e5\7\43",
+            "\1\u00e5\5\uffff\1\u00e6\31\uffff\1\u00e5\5\uffff\1\u00e6",
             "\1\u00e7\37\uffff\1\u00e7",
             "\1\u00e8\37\uffff\1\u00e8",
-            "",
-            "",
             "\1\u00e9\37\uffff\1\u00e9",
             "\1\u00ea\37\uffff\1\u00ea",
             "\1\u00eb\37\uffff\1\u00eb",
-            "",
             "\1\u00ec\37\uffff\1\u00ec",
             "\1\u00ed\37\uffff\1\u00ed",
             "\1\u00ee\37\uffff\1\u00ee",
-            "",
             "\1\u00ef\37\uffff\1\u00ef",
-            "\1\u00f0\37\uffff\1\u00f0",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u00f3\2\uffff\1\u00f4\34\uffff\1\u00f3\2\uffff\1\u00f4",
-            "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "",
-            "\1\u00f6\37\uffff\1\u00f6",
-            "\1\u00f7\37\uffff\1\u00f7",
+            "\1\u00f2\37\uffff\1\u00f2",
+            "\1\u00f3\37\uffff\1\u00f3",
+            "\1\u00f4\37\uffff\1\u00f4",
+            "\1\u00f5\37\uffff\1\u00f5",
+            "\12\43\7\uffff\22\43\1\u00f6\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00f6\7\43",
             "\1\u00f8\37\uffff\1\u00f8",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00f9\37\uffff\1\u00f9",
+            "\1\u00fa\37\uffff\1\u00fa",
             "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u00fb\37\uffff\1\u00fb",
             "\1\u00fc\37\uffff\1\u00fc",
-            "\12\43\7\uffff\22\43\1\u00fd\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u00fd\7\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00fd\37\uffff\1\u00fd",
+            "",
+            "\1\u00fe\37\uffff\1\u00fe",
+            "\1\u00ff\37\uffff\1\u00ff",
             "\1\u0100\37\uffff\1\u0100",
+            "",
             "\1\u0101\37\uffff\1\u0101",
             "\1\u0102\37\uffff\1\u0102",
-            "\1\u0103\4\uffff\1\u0104\32\uffff\1\u0103\4\uffff\1\u0104",
-            "\1\u0105\37\uffff\1\u0105",
-            "\1\u0106\37\uffff\1\u0106",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u0105\2\uffff\1\u0106\34\uffff\1\u0105\2\uffff\1\u0106",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u0108\37\uffff\1\u0108",
             "\1\u0109\37\uffff\1\u0109",
             "\1\u010a\37\uffff\1\u010a",
             "\1\u010b\37\uffff\1\u010b",
-            "\1\u010c\37\uffff\1\u010c",
-            "\1\u010d\37\uffff\1\u010d",
-            "\12\43\7\uffff\22\43\1\u010e\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u010e\7\43",
-            "",
-            "",
-            "\1\u0110\37\uffff\1\u0110",
-            "\1\u0111\37\uffff\1\u0111",
-            "\1\u0112\37\uffff\1\u0112",
-            "\1\u0113\37\uffff\1\u0113",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
+            "\1\u010d\37\uffff\1\u010d",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u010f\37\uffff\1\u010f",
+            "\1\u0110\37\uffff\1\u0110",
+            "\12\43\7\uffff\22\43\1\u0111\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u0111\7\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u0114\37\uffff\1\u0114",
             "\1\u0115\37\uffff\1\u0115",
             "\1\u0116\37\uffff\1\u0116",
-            "\1\u0117\37\uffff\1\u0117",
-            "\1\u0118\37\uffff\1\u0118",
+            "\1\u0117\4\uffff\1\u0118\32\uffff\1\u0117\4\uffff\1\u0118",
             "\1\u0119\37\uffff\1\u0119",
             "\1\u011a\37\uffff\1\u011a",
-            "\1\u011b\37\uffff\1\u011b",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u011c\37\uffff\1\u011c",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "",
-            "",
+            "\1\u011d\37\uffff\1\u011d",
+            "\1\u011e\37\uffff\1\u011e",
             "\1\u011f\37\uffff\1\u011f",
             "\1\u0120\37\uffff\1\u0120",
-            "",
             "\1\u0121\37\uffff\1\u0121",
-            "\1\u0122\37\uffff\1\u0122",
-            "\1\u0123\37\uffff\1\u0123",
+            "\12\43\7\uffff\22\43\1\u0122\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u0122\7\43",
             "",
             "",
             "\1\u0124\37\uffff\1\u0124",
             "\1\u0125\37\uffff\1\u0125",
+            "\1\u0126\37\uffff\1\u0126",
+            "\1\u0127\37\uffff\1\u0127",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "",
-            "\1\u0127\37\uffff\1\u0127",
-            "\1\u0128\37\uffff\1\u0128",
             "\1\u0129\37\uffff\1\u0129",
             "\1\u012a\37\uffff\1\u012a",
-            "\1\u012b\37\uffff\1\u012b",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u012c\37\uffff\1\u012c",
             "\1\u012d\37\uffff\1\u012d",
-            "",
             "\1\u012e\37\uffff\1\u012e",
             "\1\u012f\37\uffff\1\u012f",
             "\1\u0130\37\uffff\1\u0130",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\u0132\37\uffff\1\u0132",
+            "\1\u0131\37\uffff\1\u0131",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
+            "",
+            "\1\u0134\37\uffff\1\u0134",
             "\1\u0135\37\uffff\1\u0135",
+            "",
             "\1\u0136\37\uffff\1\u0136",
             "\1\u0137\37\uffff\1\u0137",
+            "\1\u0138\37\uffff\1\u0138",
+            "\1\u0139\37\uffff\1\u0139",
+            "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u0139\37\uffff\1\u0139",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u013b\37\uffff\1\u013b",
             "\1\u013c\37\uffff\1\u013c",
-            "\1\u013d\37\uffff\1\u013d",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
+            "\1\u013e\37\uffff\1\u013e",
+            "\1\u013f\37\uffff\1\u013f",
+            "\1\u0140\37\uffff\1\u0140",
             "\1\u0141\37\uffff\1\u0141",
             "\1\u0142\37\uffff\1\u0142",
             "\1\u0143\37\uffff\1\u0143",
             "\1\u0144\37\uffff\1\u0144",
+            "",
             "\1\u0145\37\uffff\1\u0145",
             "\1\u0146\37\uffff\1\u0146",
+            "\1\u0147\37\uffff\1\u0147",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0149\37\uffff\1\u0149",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u0148\37\uffff\1\u0148",
-            "\1\u0149\37\uffff\1\u0149",
-            "\1\u014a\37\uffff\1\u014a",
-            "\1\u014b\37\uffff\1\u014b",
             "\1\u014c\37\uffff\1\u014c",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u014d\37\uffff\1\u014d",
             "\1\u014e\37\uffff\1\u014e",
-            "\1\u014f\37\uffff\1\u014f",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u0150\37\uffff\1\u0150",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "\1\u0152\37\uffff\1\u0152",
-            "",
-            "",
             "\1\u0153\37\uffff\1\u0153",
-            "\12\43\7\uffff\22\43\1\u0154\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u0154\7\43",
-            "\1\u0156\37\uffff\1\u0156",
-            "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "",
+            "\1\u0154\37\uffff\1\u0154",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
-            "",
+            "\1\u0158\37\uffff\1\u0158",
+            "\1\u0159\37\uffff\1\u0159",
+            "\1\u015a\37\uffff\1\u015a",
             "\1\u015b\37\uffff\1\u015b",
             "\1\u015c\37\uffff\1\u015c",
-            "\1\u015d\37\uffff\1\u015d",
-            "\1\u015e\37\uffff\1\u015e",
-            "\1\u015f\37\uffff\1\u015f",
-            "\1\u0160\37\uffff\1\u0160",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
+            "\1\u015e\37\uffff\1\u015e",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u0160\37\uffff\1\u0160",
             "\1\u0161\37\uffff\1\u0161",
             "\1\u0162\37\uffff\1\u0162",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0163\37\uffff\1\u0163",
             "\1\u0164\37\uffff\1\u0164",
-            "\1\u0165\37\uffff\1\u0165",
-            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u0166\37\uffff\1\u0166",
             "\1\u0167\37\uffff\1\u0167",
-            "",
-            "",
-            "\1\u0168\37\uffff\1\u0168",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u016a\37\uffff\1\u016a",
             "",
             "",
-            "",
-            "",
-            "\1\u016c\37\uffff\1\u016c",
-            "\1\u016d\37\uffff\1\u016d",
+            "\1\u016b\37\uffff\1\u016b",
+            "\12\43\7\uffff\22\43\1\u016c\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u016c\7\43",
             "\1\u016e\37\uffff\1\u016e",
-            "\1\u016f\37\uffff\1\u016f",
+            "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\u0171\37\uffff\1\u0171",
-            "\1\u0172\37\uffff\1\u0172",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "",
+            "",
             "\1\u0173\37\uffff\1\u0173",
-            "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0174\37\uffff\1\u0174",
+            "\1\u0175\37\uffff\1\u0175",
             "\1\u0176\37\uffff\1\u0176",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0177\37\uffff\1\u0177",
             "",
-            "",
+            "\1\u0178\37\uffff\1\u0178",
             "",
             "\1\u0179\37\uffff\1\u0179",
             "\1\u017a\37\uffff\1\u017a",
-            "\1\u017b\37\uffff\1\u017b",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "",
+            "\1\u017c\37\uffff\1\u017c",
             "\1\u017d\37\uffff\1\u017d",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u017e\37\uffff\1\u017e",
+            "\1\u017f\37\uffff\1\u017f",
             "",
             "",
+            "\1\u0180\37\uffff\1\u0180",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "",
-            "",
-            "\1\u0181\37\uffff\1\u0181",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\22\43\1\u0183\7\43\4\uffff\1\43\1\uffff\22"+
-            "\43\1\u0183\7\43",
             "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
             "",
+            "",
+            "\1\u0184\37\uffff\1\u0184",
+            "\1\u0185\37\uffff\1\u0185",
             "\1\u0186\37\uffff\1\u0186",
+            "\1\u0187\37\uffff\1\u0187",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0189\37\uffff\1\u0189",
+            "\1\u018a\37\uffff\1\u018a",
+            "\1\u018b\37\uffff\1\u018b",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u018e\37\uffff\1\u018e",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "",
+            "",
+            "\1\u0191\37\uffff\1\u0191",
+            "\1\u0192\37\uffff\1\u0192",
+            "\1\u0193\37\uffff\1\u0193",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u0195\37\uffff\1\u0195",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
-            "\1\u0188\37\uffff\1\u0188",
+            "\1\u0199\37\uffff\1\u0199",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\22\43\1\u019b\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u019b\7\43",
             "",
-            "\1\u0189\37\uffff\1\u0189",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "",
+            "",
+            "\1\u019e\37\uffff\1\u019e",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "",
+            "\1\u01a0\37\uffff\1\u01a0",
+            "",
+            "\1\u01a1\37\uffff\1\u01a1",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             ""
     };
@@ -7539,7 +7927,7 @@ public class InternalErrorModelLexer extends Lexer {
             this.transition = DFA24_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
+            return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Subclause | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Package | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Public | Repair | Source | States | Annex | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Emv2 | Mode | Path | Same | Sink | True | Type | When | With | AsteriskAsteriskRightCurlyBracket | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | LeftCurlyBracketAsteriskAsterisk | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  
