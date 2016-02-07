@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -134,8 +132,9 @@ public class EMV2Util {
 			cl = AadlUtil.getContainingClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
-		if (cl == null)
+		if (cl == null) {
 			return result;
+		}
 		if (cl instanceof ComponentImplementation) {
 			getAllClassifierEMV2Subclause(cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
@@ -215,8 +214,7 @@ public class EMV2Util {
 		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
-			for (final Iterator i = el.iterator(); i.hasNext();) {
-				final Object obj = i.next();
+			for (Object obj : el) {
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
 					String name = lit.getName();
@@ -308,8 +306,9 @@ public class EMV2Util {
 
 	public static ErrorPropagation findSubcomponentOrIncomingErrorProparation(Element elem, String name) {
 		Classifier cl = elem.getContainingClassifier();
-		if (cl == null)
+		if (cl == null) {
 			return null;
+		}
 		EList<Subcomponent> subs;
 		int idx = name.indexOf('.');
 		boolean foundSub = false;
@@ -591,9 +590,9 @@ public class EMV2Util {
 	}
 
 	/**
-	 * Find ErrorType with given name by looking through all error types 
+	 * Find ErrorType with given name by looking through all error types
 	 * referenced in all EMV2 subclauses of the supplied element's containing
-	 * classifier 
+	 * classifier
 	 * @param el the element whose classifier we're using
 	 * @param name the name of the Errortype to search for
 	 * @return the specified error type, or null, if either the element's classifier is null or no
@@ -602,13 +601,15 @@ public class EMV2Util {
 	public static ErrorType findErrorType(Element el, String name) {
 		Classifier cl = el.getContainingClassifier();
 		if (cl != null) {
-			for(ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl))
-				for(ErrorModelLibrary currLibrary : currSubclause.getUseTypes())
+			for(ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl)) {
+				for(ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
 					return (ErrorType) AadlUtil.findNamedElementInList(currLibrary.getTypes(), name);
+				}
+			}
 		}
 		return null;
 	}
-	
+
 	/**
 	 * find the error flow whose incoming error propagation point is flowSource
 	 * @param eps List of error propagations
@@ -1436,11 +1437,13 @@ public class EMV2Util {
 		return getAllErrorSinks(ci.getComponentClassifier());
 	}
 
-	
+
 	/** return the name for an error propagation **/
 	public static String getPropagationName(ErrorPropagation propagation) {
 		String res = propagation.getKind();
-		if (res != null) return res;
+		if (res != null) {
+			return res;
+		}
 //		Iterator<FeatureorPPReference> it = getFeatureorPPRefs(propagation).iterator();
 //		if (!it.hasNext()) return "<noname>";
 //		res = it.next().getFeatureorPP().getName();
@@ -1614,8 +1617,9 @@ public class EMV2Util {
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
 
 		BasicEList<ErrorBehaviorTransition> result = new BasicEList<ErrorBehaviorTransition>();
-		if (cl == null)
+		if (cl == null) {
 			return result;
+		}
 		result.addAll(res);
 		result.addAll(unlist);
 		return result;
@@ -1947,7 +1951,7 @@ public class EMV2Util {
 	 */
 	public static boolean isBinding(ErrorPropagation ep) {
 		String s = ep.getKind();
-		return s.equalsIgnoreCase("binding");
+		return (s != null) && (s.equalsIgnoreCase("bindings"));
 	}
 
 	public static String getPrintName(Element el) {
@@ -2593,6 +2597,11 @@ public class EMV2Util {
 			shetl.remove(etl);
 		}
 		return result;
+	}
+
+	public static boolean isProcessor (ErrorPropagation ep)
+	{
+		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
 }
