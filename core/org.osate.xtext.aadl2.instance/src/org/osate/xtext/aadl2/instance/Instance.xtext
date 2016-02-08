@@ -116,8 +116,8 @@ ConnectionReference returns instance::ConnectionReference:
 	
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
-	| 'subprogram' 'group' | 'system' | 'threadgroup'
-	| 'thread' | 'virtual' 'bus' | 'virtualprocessor';
+	| 'subprogram' 'group' | 'system' | 'thread' 'group'
+	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 
 FeatureCategory returns instance::FeatureCategory :
 	'eventport' | 'dataport' | 'eventdataport' | 'parameter' | 'busaccess' | 'dataaccess'|'subprogramaccess'|'subprogramgroupaccess' | 'featuregroup'|'abstractfeature'
