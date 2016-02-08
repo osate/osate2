@@ -3,14 +3,23 @@
  */
 package org.osate.xtext.aadl2.instance;
 
+import org.eclipse.emf.ecore.EPackage;
+import org.osate.aadl2.instance.InstancePackage;
+
+import com.google.inject.Injector;
+
 /**
  * Initialization support for running Xtext languages 
  * without equinox extension registry
  */
 public class InstanceStandaloneSetup extends InstanceStandaloneSetupGenerated{
-
 	public static void doSetup() {
 		new InstanceStandaloneSetup().createInjectorAndDoEMFRegistration();
 	}
+	
+	@Override
+	public void register(Injector injector) {
+		EPackage.Registry.INSTANCE.putIfAbsent("http://aadl.info/AADL/2.0/instance", InstancePackage.eINSTANCE);
+		super.register(injector);
+	}
 }
-
