@@ -3,6 +3,7 @@ package org.osate.aadl2.errormodel.analysis.fta;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Stack;
 
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
@@ -68,7 +69,9 @@ public class FTAUtils {
 
 	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
 			ErrorPropagation errorPropagation, TypeSet typeSet) {
-		return getAllEventsFromPropagationSource(component, errorPropagation, typeSet, new ArrayList<String>());
+		return getAllEventsFromPropagationSource(component, errorPropagation, typeSet, new Stack<Event>());
+
+//		return getAllEventsFromPropagationSourceOld(component, errorPropagation, typeSet, new ArrayList<String>());
 	}
 
 
@@ -80,6 +83,33 @@ public class FTAUtils {
 	 * @return                  - a list of event that has all the error contributors
 	 */
 	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
+			ErrorPropagation errorPropagation, TypeSet typeSet, Stack<Event> history) {
+		List<PropagationPathEnd> propagationSources;
+		List<Event> result;
+
+		result = new ArrayList<Event>();
+
+		propagationSources = currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation);
+
+
+		for (PropagationPathEnd ppe : propagationSources) {
+			ComponentInstance componentSource = ppe.getComponentInstance();
+			ErrorPropagation propagationSource = ppe.getErrorPropagation();
+			ComponentInstance componentDestination = component;
+			ErrorPropagation propagationDestination = errorPropagation;
+		}
+
+		return result;
+	}
+
+	/**
+	 * For one incoming error propagation and one component, returns all the potential
+	 * errors contributors.
+	 * @param component         - the component that has the incoming error propagation
+	 * @param errorPropagation  - the error propagation
+	 * @return                  - a list of event that has all the error contributors
+	 */
+	public static List<Event> getAllEventsFromPropagationSourceOld(ComponentInstance component,
 			ErrorPropagation errorPropagation, TypeSet typeSet, List<String> history) {
 		String strIdentifier;
 		List<PropagationPathEnd> propagationSources;
@@ -173,7 +203,7 @@ public class FTAUtils {
 							if (! history.contains(strIdentifier))
 							{
 								history.add(strIdentifier);
-								for (Event e : getAllEventsFromPropagationSource(remoteComponent, incomingPropagation,
+								for (Event e : getAllEventsFromPropagationSourceOld(remoteComponent, incomingPropagation,
 										errorPath.getTypeTokenConstraint(), history))
 								{
 									subEvents.add (e);
@@ -227,7 +257,7 @@ public class FTAUtils {
 							if (! history.contains(strIdentifier))
 							{
 								history.add(strIdentifier);
-								for (Event e : getAllEventsFromPropagationSource(remoteComponent, incomingPropagation,
+								for (Event e : getAllEventsFromPropagationSourceOld(remoteComponent, incomingPropagation,
 										errorPath.getTypeTokenConstraint(), history))
 								{
 									subEvents.add (e);
