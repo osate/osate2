@@ -1447,13 +1447,19 @@ ruleComponentCategory returns [AntlrDatatypeRuleToken current=new AntlrDatatypeR
         newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSystemKeyword_9()); 
     }
 
-    |
-	kw='threadgroup' 
+    |(
+	kw='thread' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadgroupKeyword_10()); 
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_10_0()); 
     }
 
+	kw='group' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getGroupKeyword_10_1()); 
+    }
+)
     |
 	kw='thread' 
     {
@@ -1474,13 +1480,19 @@ ruleComponentCategory returns [AntlrDatatypeRuleToken current=new AntlrDatatypeR
         newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getBusKeyword_12_1()); 
     }
 )
-    |
-	kw='virtualprocessor' 
+    |(
+	kw='virtual' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualprocessorKeyword_13()); 
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_13_0()); 
     }
-)
+
+	kw='processor' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessorKeyword_13_1()); 
+    }
+))
     ;
 
 

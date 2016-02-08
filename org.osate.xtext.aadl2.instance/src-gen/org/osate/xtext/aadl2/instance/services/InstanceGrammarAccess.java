@@ -1010,20 +1010,24 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSubprogramKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final Keyword cGroupKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
 		private final Keyword cSystemKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
-		private final Keyword cThreadgroupKeyword_10 = (Keyword)cAlternatives.eContents().get(10);
+		private final Group cGroup_10 = (Group)cAlternatives.eContents().get(10);
+		private final Keyword cThreadKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cGroupKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
 		private final Keyword cThreadKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
 		private final Group cGroup_12 = (Group)cAlternatives.eContents().get(12);
 		private final Keyword cVirtualKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
 		private final Keyword cBusKeyword_12_1 = (Keyword)cGroup_12.eContents().get(1);
-		private final Keyword cVirtualprocessorKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
+		private final Group cGroup_13 = (Group)cAlternatives.eContents().get(13);
+		private final Keyword cVirtualKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
+		private final Keyword cProcessorKeyword_13_1 = (Keyword)cGroup_13.eContents().get(1);
 		
 		//ComponentCategory returns aadl2::ComponentCategory:
 		//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
-		//	"system" | "threadgroup" | "thread" | "virtual" "bus" | "virtualprocessor";
+		//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
-		//"system" | "threadgroup" | "thread" | "virtual" "bus" | "virtualprocessor"
+		//"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"abstract"
@@ -1062,8 +1066,14 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//"system"
 		public Keyword getSystemKeyword_9() { return cSystemKeyword_9; }
 
-		//"threadgroup"
-		public Keyword getThreadgroupKeyword_10() { return cThreadgroupKeyword_10; }
+		//"thread" "group"
+		public Group getGroup_10() { return cGroup_10; }
+
+		//"thread"
+		public Keyword getThreadKeyword_10_0() { return cThreadKeyword_10_0; }
+
+		//"group"
+		public Keyword getGroupKeyword_10_1() { return cGroupKeyword_10_1; }
 
 		//"thread"
 		public Keyword getThreadKeyword_11() { return cThreadKeyword_11; }
@@ -1077,8 +1087,14 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//"bus"
 		public Keyword getBusKeyword_12_1() { return cBusKeyword_12_1; }
 
-		//"virtualprocessor"
-		public Keyword getVirtualprocessorKeyword_13() { return cVirtualprocessorKeyword_13; }
+		//"virtual" "processor"
+		public Group getGroup_13() { return cGroup_13; }
+
+		//"virtual"
+		public Keyword getVirtualKeyword_13_0() { return cVirtualKeyword_13_0; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_13_1() { return cProcessorKeyword_13_1; }
 	}
 
 	public class FeatureCategoryElements extends AbstractParserRuleElementFinder {
@@ -1518,7 +1534,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ComponentCategory returns aadl2::ComponentCategory:
 	//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
-	//	"system" | "threadgroup" | "thread" | "virtual" "bus" | "virtualprocessor";
+	//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
 	public ComponentCategoryElements getComponentCategoryAccess() {
 		return pComponentCategory;
 	}
