@@ -708,5 +708,12 @@ public class EMV2Properties {
 //			result = EMV2Properties.getProperty("MILSTD882::QualitativeProbability", ci, target, ts);
 		return result;
 	}
+	
+	public static NamedElement getPropagationElement (ErrorPropagation errorPropagation)
+	{
+		NamedElement el;
+		
+		return errorPropagation.getFeatureorPPRef().getFeatureorPP();
+	}
 
 }

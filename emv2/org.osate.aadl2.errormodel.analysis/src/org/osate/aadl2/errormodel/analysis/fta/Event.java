@@ -13,6 +13,11 @@ public class Event {
 	protected static int generalId = 1;
 	protected String identifier;
 	protected Event parent;
+	
+	public static void init ()
+	{
+		generalId = 0;
+	}
 
 	public Event() {
 		identifier = "event" + generalId;

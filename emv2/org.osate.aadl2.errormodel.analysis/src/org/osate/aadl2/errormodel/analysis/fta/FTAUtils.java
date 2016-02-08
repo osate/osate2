@@ -28,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -45,6 +46,39 @@ public class FTAUtils {
 	public static void init(ComponentInstance root) {
 		currentAnalysisModel = new AnalysisModel(root);
 	}
+	
+	public static String getDescription (ComponentInstance component, NamedElement errorModelArtifact,
+			TypeSet typeSet)
+	{
+		String description;
+		
+		description = "Error on component " + component.getName();
+		
+		if (errorModelArtifact instanceof ErrorSource)
+		{
+			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
+			
+			if (errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP() != null)
+			{
+				NamedElement el = errorSource.getOutgoing().getFeatureorPPRef().getFeatureorPP();
+				description += " from ";
+				description += el.getName();
+			}
+			
+			description += " with types " + EMV2Util.getPrintName(typeSet);
+			
+		}
+		
+		if (errorModelArtifact instanceof ErrorEvent)
+		{
+			ErrorEvent errorEvent = (ErrorEvent) errorModelArtifact;
+			description += " event " + errorEvent.getName();
+			description += " with types " + EMV2Util.getPrintName(typeSet);
+		}
+		
+		return description;
+	}
+	
 
 	/**
 	 * Fill an Event with all the properties from the AADL model. Likely, all the related
@@ -58,16 +92,20 @@ public class FTAUtils {
 	public static void fillProperties(Event event, ComponentInstance component, NamedElement errorModelArtifact,
 			TypeSet typeSet) {
 		String propertyDescription;
-
 		propertyDescription = EMV2Properties.getDescription(errorModelArtifact, component);
-		if (propertyDescription != null) {
+	
+		if (propertyDescription == null) {
+			event.setDescription(getDescription(component, errorModelArtifact, typeSet));
+		}
+		else
+		{
 			event.setDescription(propertyDescription + "(component " + component.getName() + ")");
 		}
 
 		event.setProbability(EMV2Properties.getProbability(component, errorModelArtifact, typeSet));
 	}
 
-	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
+	public static Event getAllEventsFromPropagationSource(ComponentInstance component,
 			ErrorPropagation errorPropagation, TypeSet typeSet) {
 		return getAllEventsFromPropagationSource(component, errorPropagation, typeSet, new Stack<Event>());
 
@@ -82,363 +120,163 @@ public class FTAUtils {
 	 * @param errorPropagation  - the error propagation
 	 * @return                  - a list of event that has all the error contributors
 	 */
-	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
-			ErrorPropagation errorPropagation, TypeSet typeSet, Stack<Event> history) {
+	public static Event getAllEventsFromPropagationSource(ComponentInstance component,
+			ErrorPropagation errorPropagation, TypeSet typeSetToSearch, Stack<Event> history) {
 		List<PropagationPathEnd> propagationSources;
-		List<Event> result;
-
-		result = new ArrayList<Event>();
-
+		Event result;
+		List<Event> subEvents;
+		
+		subEvents = new ArrayList<Event>();
+		
+		if (component.getName().equalsIgnoreCase("engine"))
+		{
+			OsateDebug.osateDebug("FTAUtils" , "engine");
+		}
+		
+		if (errorPropagation.getKind() != null)
+		{
+			throw new UnsupportedOperationException("special kind");
+		}
+		
+		OsateDebug.osateDebug("FTAUtils", "propagation=" + EMV2Util.getPrintName(errorPropagation));
+		OsateDebug.osateDebug("FTAUtils", "types=" + EMV2Util.getPrintName(typeSetToSearch));
+		
 		propagationSources = currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation);
-
-
+		
 		for (PropagationPathEnd ppe : propagationSources) {
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
 			ComponentInstance componentDestination = component;
 			ErrorPropagation propagationDestination = errorPropagation;
+			TypeSet typeSet;
+			
+			/**
+			 * Compute the correct type to search for
+			 */
+			if ((typeSetToSearch != null) && (typeSetToSearch.getTypeTokens().size() > 0)) {
+				typeSet = typeSetToSearch;
+			} else {
+				typeSet = propagationSource.getTypeSet();
+			}
+			
+			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentSource))
+			{
+				/**
+				 * Let's walk through all error path and see which one to browse
+				 */
+				if (ef instanceof ErrorPath)
+				{
+					ErrorPath errorPath = (ErrorPath) ef;
+					OsateDebug.osateDebug("FTAUtils", "==========================");
+					OsateDebug.osateDebug("FTAUtils", "Analyzing propagation: " +  EMV2Util.getPrintName(propagationSource));
+					OsateDebug.osateDebug("FTAUtils", "Analyzing typeset : " +  EMV2Util.getPrintName(typeSet));
+
+					OsateDebug.osateDebug("FTAUtils", "Error Path: " + errorPath.getName());
+					OsateDebug.osateDebug("FTAUtils", "source=" + EMV2Util.getPrintName(errorPath.getIncoming()));
+					OsateDebug.osateDebug("FTAUtils", "dest  =" + EMV2Util.getPrintName(errorPath.getOutgoing()));
+					OsateDebug.osateDebug("FTAUtils", "constraint type=" + EMV2Util.getPrintName(errorPath.getTypeTokenConstraint()));
+					OsateDebug.osateDebug("FTAUtils", "target token=" + EMV2Util.getPrintName(errorPath.getTargetToken()));
+					
+					if (propagationEndsMatches (errorPath.getOutgoing(),propagationSource) == false)
+					{
+						OsateDebug.osateDebug("FTAUtils", "ends do not match on path" + errorPath.getName() + "source=" + EMV2Util.getPropagationName(propagationSource) + ";types2="+EMV2Util.getPropagationName(propagationDestination) );
+						continue;
+					}
+					
+					/**
+					 * If in the path the 
+					 */
+					if (errorPath.getTargetToken() != null)
+					{
+						if (!EM2TypeSetUtil.contains(typeSet,errorPath.getTargetToken()))
+						{
+							OsateDebug.osateDebug("FTAUtils", "types do not match on path " + errorPath.getName() +  ";types1=" + EMV2Util.getPrintName(errorPath.getTargetToken()) + ";types2="+EMV2Util.getPrintName(typeSet));
+							continue;
+						}
+						subEvents.add(getAllEventsFromPropagationSource(componentSource, errorPath.getIncoming(), errorPath.getTypeTokenConstraint(), history));
+
+					}
+					else
+					{
+						if (!EM2TypeSetUtil.contains(errorPath.getTypeTokenConstraint(),typeSet))
+						{
+							OsateDebug.osateDebug("FTAUtils", "types do not match on path " + errorPath.getName() +  ";types1=" + EMV2Util.getPrintName(errorPath.getTypeTokenConstraint()) + ";types2="+EMV2Util.getPrintName(typeSet));
+							continue;
+						}
+						subEvents.add(getAllEventsFromPropagationSource(componentSource, errorPath.getIncoming(), errorPath.getTypeTokenConstraint(), history));
+					}
+				}
+				
+				/**
+				 * If the error source is actually the source
+				 * of the error propagation.
+				 */
+				if (ef instanceof ErrorSource)
+				{
+					ErrorSource errorSource = (ErrorSource) ef;
+				
+
+					if (propagationEndsMatches (propagationSource, errorSource.getOutgoing()))
+					{
+						Event newEvent = new Event();
+						newEvent.setEventType(EventType.EVENT);
+						fillProperties(newEvent, componentDestination, errorSource, typeSet);
+						subEvents.add(newEvent);
+					}
+				}
+			}
+		}
+		
+		/**
+		 * Then, we build the final tree.
+		 */
+		
+		if (subEvents.size() == 1)
+		{
+			result = subEvents.get(0);
+		}
+		else
+		{
+			result = new Event ();
+			
+			result.setDescription("Events from component " + component.getName() + " on " + EMV2Util.getPrintName(errorPropagation));
+			
+			if (subEvents.size() > 1)
+			{
+				result.setEventType(EventType.NORMAL);
+				Event gate = new Event ();
+				gate.setEventType(EventType.OR);
+				gate.getSubEvents().addAll(subEvents);
+				result.getSubEvents().add(gate);
+			}
+			else
+			{
+				result.setEventType(EventType.EVENT);
+			}
 		}
 
 		return result;
 	}
-
-	/**
-	 * For one incoming error propagation and one component, returns all the potential
-	 * errors contributors.
-	 * @param component         - the component that has the incoming error propagation
-	 * @param errorPropagation  - the error propagation
-	 * @return                  - a list of event that has all the error contributors
-	 */
-	public static List<Event> getAllEventsFromPropagationSourceOld(ComponentInstance component,
-			ErrorPropagation errorPropagation, TypeSet typeSet, List<String> history) {
-		String strIdentifier;
-		List<PropagationPathEnd> propagationSources;
-		Event newEvent;
-		List<Event> returnedEvents;
-		String description;
-		TypeSet reportedTypeSet;
-		ComponentInstance remoteComponent;
-		List<Event> subEvents;
-
-		returnedEvents = new ArrayList<Event>();
-
-
-		OsateDebug.osateDebug("[FTAUtils] Try to find on component " + component.getName() + " propagation " + errorPropagation.getName());
-
-		/**
-		 * Right now, the analysis model does not return the source ends for a processor
-		 * error propagation. So, we just add a new event.
-		 */
-		//		if ((errorPropagation.getKind() != null) && (errorPropagation.getKind().equalsIgnoreCase("processor"))) {
-		////			OsateDebug.osateDebug("From Processor");
-		//			newEvent = new Event();
-		//			newEvent.setEventType(EventType.EVENT);
-		//			description = "Processor error";
-		//
-		//			if (typeSet != null) {
-		//				description += " with types " + EMV2Util.getPrintName(typeSet);
-		//			}
-		//
-		//			newEvent.setDescription(description);
-		//			returnedEvents.add(newEvent);
-		//		}
-
-		/**
-		 * We just browse recursively the propagation and eventually reach down
-		 * to the original fault.
-		 */
-		propagationSources = currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation);
-		subEvents = new ArrayList<Event>();
-
-		for (PropagationPathEnd ppe : propagationSources) {
-			ErrorPropagation remotePropagation;
-			remoteComponent = ppe.getComponentInstance();
-			remotePropagation = ppe.getErrorPropagation();
-			newEvent = new Event();
-			description = "Error from component " + remoteComponent.getName();
-
-			if ((EMV2Util.getFeatureorPPRefs(remotePropagation) != null)
-					&& (EMV2Util.getFeatureorPPRefs(remotePropagation).size() > 0)) {
-				description += " on "
-						+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
-			}
-
-			if ((typeSet != null) && (typeSet.getTypeTokens().size() > 0)) {
-				reportedTypeSet = typeSet;
-			} else {
-				reportedTypeSet = remotePropagation.getTypeSet();
-			}
-
-			if (reportedTypeSet.getTypeTokens().size() > 0) {
-				description += " with types " + EMV2Util.getPrintName(reportedTypeSet);
-			}
-			newEvent.setDescription(description);
-			//			OsateDebug.osateDebug("FTAUtils",
-			//					"error on " + description + "Types = " + EMV2Util.getPrintName(reportedTypeSet));
-
-			/**
-			 * We try here to gather potential additional incoming flows. We take
-			 * the flows from the component and see the internal error paths
-			 * and call recursively the same method.
-			 */
-			OsateDebug.osateDebug("FTAUtils", "remote component=" + remoteComponent.getName());
-			Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(remoteComponent);
-
-			for (ErrorFlow ef : errorFlows) {
-				//				OsateDebug.osateDebug("FTAUtils", "flow-id=" + ef.getName());
-
-				if (ef instanceof ErrorPath) {
-					ErrorPath errorPath = (ErrorPath) ef;
-
-
-					if (EMV2Util.isProcessor(errorPropagation) && EMV2Util.isBinding(remotePropagation))
-					{
-						if (EM2TypeSetUtil.contains(errorPath.getTargetToken(), reportedTypeSet)) {
-							ErrorPropagation incomingPropagation = errorPath.getIncoming();
-
-							//						OsateDebug.osateDebug("FTAUtils", "Should consider incoming" + incomingPropagation);
-
-
-							strIdentifier = remoteComponent.getName() + "-path-" + incomingPropagation.getName() + "-" + EMV2Util.getPrintName(errorPath.getTypeTokenConstraint());
-							if (! history.contains(strIdentifier))
-							{
-								history.add(strIdentifier);
-								for (Event e : getAllEventsFromPropagationSourceOld(remoteComponent, incomingPropagation,
-										errorPath.getTypeTokenConstraint(), history))
-								{
-									subEvents.add (e);
-								}
-							}
-							else
-							{
-								OsateDebug.osateDebug("[FTAUtils] loop detected with component during processor binding " + component.getName() + " - str - " + strIdentifier);
-							}
-						}
-						continue;
-					}
-
-
-
-					List<FeatureorPPReference> refs = EMV2Util.getFeatureorPPRefs(remotePropagation);
-
-					if (refs.size() == 0)
-					{
-						throw new UnsupportedOperationException("Error propagation should have incoming reference");
-					}
-
-					/**
-					 * This is a bugfix done for the MoDELS 2015 tutorial. Typially, we want to make
-					 * sure we are looking for the right propagation from the same feature.
-					 *
-					 * To investigate: we might want to parse flow recursively and not stop with the first one.
-					 */
-					if (refs.get(0).getFeatureorPP() == errorPath
-							.getOutgoing().getFeatureorPPRef().getFeatureorPP()) {
-
-
-						//					System.out.println("Looking for  : "
-						//							+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP());
-						//					System.out
-						//							.println("We have      : " + errorPath.getOutgoing().getFeatureorPPRef().getFeatureorPP());
-
-						//					OsateDebug.osateDebug("FTAUtils", "path kind=" + errorPath.getIncoming().getKind());
-						//					OsateDebug.osateDebug("FTAUtils", "report token" + EMV2Util.getPrintName(reportedTypeSet));
-						//
-						//					OsateDebug.osateDebug("FTAUtils",
-						//							"target token" + EMV2Util.getPrintName(errorPath.getTargetToken()));
-
-						if (EM2TypeSetUtil.contains(errorPath.getTargetToken(), reportedTypeSet)) {
-							ErrorPropagation incomingPropagation = errorPath.getIncoming();
-
-							//						OsateDebug.osateDebug("FTAUtils", "Should consider incoming" + incomingPropagation);
-
-
-							strIdentifier = remoteComponent.getName() + "-path-" + incomingPropagation.getName() + "-" + EMV2Util.getPrintName(errorPath.getTypeTokenConstraint());
-							if (! history.contains(strIdentifier))
-							{
-								history.add(strIdentifier);
-								for (Event e : getAllEventsFromPropagationSourceOld(remoteComponent, incomingPropagation,
-										errorPath.getTypeTokenConstraint(), history))
-								{
-									subEvents.add (e);
-								}
-							}
-							else
-							{
-								OsateDebug.osateDebug("[FTAUtils] loop detected with component during port path " + component.getName() + " - str - " + strIdentifier);
-							}
-						}
-					}
-				}
-
-				if (ef instanceof ErrorSource) {
-					ErrorSource errorSource = (ErrorSource) ef;
-					ErrorPropagation outgoing = errorSource.getOutgoing();
-					List<FeatureorPPReference> refs = EMV2Util.getFeatureorPPRefs(remotePropagation);
-
-
-					if (EMV2Util.isBinding(errorSource.getOutgoing()))
-					{
-						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), reportedTypeSet)) {
-							strIdentifier = remoteComponent.getName() + "-source-" + outgoing.getName() + "-" + EMV2Util.getPrintName(errorSource.getTypeTokenConstraint());
-							if (! history.contains(strIdentifier))
-							{
-								String desc;
-								history.add(strIdentifier);
-								Event errorSourceEvent = new Event();
-								errorSourceEvent.setEventType(EventType.NORMAL);
-
-								desc = "Error source from component " + remoteComponent.getName();
-
-								desc += " on "
-										+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
-								errorSourceEvent.setDescription(desc);
-								fillProperties(errorSourceEvent, remoteComponent, remotePropagation, reportedTypeSet);
-
-								subEvents.add(errorSourceEvent);
-							}
-							else
-							{
-								if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), reportedTypeSet)) {
-									strIdentifier = remoteComponent.getName() + "-source-" + outgoing.getName() + "-" + EMV2Util.getPrintName(errorSource.getTypeTokenConstraint());
-									if (! history.contains(strIdentifier))
-									{
-										String desc;
-										history.add(strIdentifier);
-										Event errorSourceEvent = new Event();
-										errorSourceEvent.setEventType(EventType.NORMAL);
-
-										desc = "Error source from component " + remoteComponent.getName();
-
-										desc += " on "
-												+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
-										errorSourceEvent.setDescription(desc);
-										fillProperties(errorSourceEvent, remoteComponent, remotePropagation, reportedTypeSet);
-
-										subEvents.add(errorSourceEvent);
-									}
-									else
-									{
-										OsateDebug.osateDebug("[FTAUtils] loop detected with component " + component.getName());
-									}
-								}
-							}
-						}
-						continue;
-					}
-
-
-					if (( EMV2Util.isBinding(remotePropagation) == false) && (refs.size() == 0))
-					{
-						OsateDebug.osateDebug("FTAUtils", "get outgoing kind=" + errorSource.getOutgoing().getKind());
-						throw new UnsupportedOperationException("Error propagation should have incoming reference");
-					}
-
-					/**
-					 * This is a bugfix done for the MoDELS 2015 tutorial. Typially, we want to make
-					 * sure we are looking for the right propagation from the same feature.
-					 *
-					 * To investigate: we might want to parse flow recursively and not stop with the first one.
-					 */
-
-					if ((refs.size() > 0 ) && (refs.get(0).getFeatureorPP() == errorSource
-							.getOutgoing().getFeatureorPPRef().getFeatureorPP())) {
-
-
-						//					System.out.println("Looking for  : "
-						//							+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP());
-						//					System.out
-						//							.println("We have      : " + errorPath.getOutgoing().getFeatureorPPRef().getFeatureorPP());
-
-						//					OsateDebug.osateDebug("FTAUtils", "path kind=" + errorPath.getIncoming().getKind());
-						//					OsateDebug.osateDebug("FTAUtils", "report token" + EMV2Util.getPrintName(reportedTypeSet));
-						//
-						//					OsateDebug.osateDebug("FTAUtils",
-						//							"target token" + EMV2Util.getPrintName(errorPath.getTargetToken()));
-
-						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), reportedTypeSet)) {
-
-
-							//						OsateDebug.osateDebug("FTAUtils", "Should consider incoming" + incomingPropagation);
-
-
-							strIdentifier = remoteComponent.getName() + "-source-" + outgoing.getName() + "-" + EMV2Util.getPrintName(errorSource.getTypeTokenConstraint());
-							if (! history.contains(strIdentifier))
-							{
-								String desc;
-								history.add(strIdentifier);
-								Event errorSourceEvent = new Event();
-								errorSourceEvent.setEventType(EventType.NORMAL);
-
-								desc = "Error source from component " + remoteComponent.getName();
-
-								desc += " on "
-										+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
-								errorSourceEvent.setDescription(desc);
-								fillProperties(errorSourceEvent, remoteComponent, remotePropagation, reportedTypeSet);
-
-								subEvents.add(errorSourceEvent);
-							}
-							else
-							{
-								if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), reportedTypeSet)) {
-									strIdentifier = remoteComponent.getName() + "-source-" + outgoing.getName() + "-" + EMV2Util.getPrintName(errorSource.getTypeTokenConstraint());
-									if (! history.contains(strIdentifier))
-									{
-										String desc;
-										history.add(strIdentifier);
-										Event errorSourceEvent = new Event();
-										errorSourceEvent.setEventType(EventType.NORMAL);
-
-										desc = "Error source from component " + remoteComponent.getName();
-
-										desc += " on "
-												+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
-										errorSourceEvent.setDescription(desc);
-										fillProperties(errorSourceEvent, remoteComponent, remotePropagation, reportedTypeSet);
-
-										subEvents.add(errorSourceEvent);
-									}
-									else
-									{
-										OsateDebug.osateDebug("[FTAUtils] loop detected with component " + component.getName());
-									}
-								}
-							}
-						}
-					}
-				}
-
-
-				fillProperties(newEvent, remoteComponent, remotePropagation, reportedTypeSet);
-
-				if (subEvents.size() > 0) {
-					if (subEvents.size() == 1) {
-						return subEvents;
-					} else {
-						newEvent.setEventType(EventType.NORMAL);
-						Event orEvent = new Event();
-						orEvent.setEventType(EventType.OR);
-						for (Event ev : subEvents) {
-							orEvent.addSubEvent(ev);
-						}
-						newEvent.addSubEvent(orEvent);
-
-					}
-				} else {
-					newEvent.setEventType(EventType.EVENT);
-
-				}
-
-				returnedEvents.add(newEvent);
-
-				}
-			}
-
-			return returnedEvents;
+	
+	private static boolean propagationEndsMatches (ErrorPropagation propagationSource, ErrorPropagation propagationDestination)
+	{
+		
+		if (EMV2Util.isBinding(propagationSource) && EMV2Util.isProcessor(propagationDestination))
+		{
+			return true;
 		}
+		
+		
+		if (propagationSource.getFeatureorPPRef().getFeatureorPP() == propagationDestination.getFeatureorPPRef().getFeatureorPP())
+		{
+			return true;
+		}
+		
+		return false;
+		
+	}
 
-		public static String getFeatureFromErrorPropagation(ErrorPropagation errorPropagation) {
+	public static String getFeatureFromErrorPropagation(ErrorPropagation errorPropagation) {
 			for (FeatureorPPReference fp : EMV2Util.getFeatureorPPRefs(errorPropagation)) {
 				return fp.getFeatureorPP().getName();
 			}
@@ -455,7 +293,6 @@ public class FTAUtils {
 		 */
 		public static List<Event> processCondition(ComponentInstance component, ConditionExpression condition) {
 			List<Event> returnedEvents;
-			List<Event> contributors;
 
 			returnedEvents = new ArrayList<Event>();
 
@@ -600,32 +437,14 @@ public class FTAUtils {
 						//						OsateDebug.osateDebug("FTAUtils", "ppr path end=" + ppr.getPathSrc().getComponentInstance());
 						//					}
 
-						contributors = getAllEventsFromPropagationSource(component, errorPropagation,
+						Event contributors = getAllEventsFromPropagationSource(component, errorPropagation,
 								conditionElement.getConstraint());
 
 						/**
 						 * We found the contributors (it means that the error paths are defined in the model)
 						 */
-						if (contributors.size() > 0) {
-							/**
-							 * If there is only one path, then, we add it as an event.
-							 *
-							 */
-							if (contributors.size() == 1) {
-								returnedEvents.add(contributors.get(0));
-							} else {
-								/**
-								 * If we have multiple error path leading to this event, then, we created
-								 * an OR gate to OR'ed all the events.
-								 */
-								Event orEvent = new Event();
-								orEvent.setEventType(EventType.OR);
-
-								for (Event ev : contributors) {
-									orEvent.addSubEvent(ev);
-								}
-								returnedEvents.add(orEvent);
-							}
+						if (contributors != null) {
+							returnedEvents.add(contributors);
 
 						} else {
 							/**
