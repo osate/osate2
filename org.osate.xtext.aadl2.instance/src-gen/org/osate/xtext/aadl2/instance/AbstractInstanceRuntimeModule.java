@@ -143,6 +143,11 @@ public abstract class AbstractInstanceRuntimeModule extends org.eclipse.xtext.se
 		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
 	}
 
+	// contributed by org.eclipse.xtext.generator.formatting.FormatterFragment
+	public Class<? extends org.eclipse.xtext.formatting.IFormatter> bindIFormatter() {
+		return org.osate.xtext.aadl2.instance.formatting.InstanceFormatter.class;
+	}
+
 	// contributed by org.eclipse.xtext.generator.formatting2.Formatter2Fragment
 	public Class<? extends org.eclipse.xtext.formatting2.IFormatter2> bindIFormatter2() {
 		return org.osate.xtext.aadl2.instance.formatting2.InstanceFormatter.class;
