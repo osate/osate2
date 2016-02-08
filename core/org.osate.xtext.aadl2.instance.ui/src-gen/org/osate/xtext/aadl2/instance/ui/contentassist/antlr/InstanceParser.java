@@ -71,17 +71,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getINSTANCEREFAccess().getGroup_0(), "rule__INSTANCEREF__Group_0__0");
 					put(grammarAccess.getSOMIDAccess().getGroup(), "rule__SOMID__Group__0");
 					put(grammarAccess.getSOMIDAccess().getGroup_0(), "rule__SOMID__Group_0__0");
+					put(grammarAccess.getSystemInstanceAccess().getCategoryAssignment_0(), "rule__SystemInstance__CategoryAssignment_0");
 					put(grammarAccess.getSystemInstanceAccess().getNameAssignment_1(), "rule__SystemInstance__NameAssignment_1");
-					put(grammarAccess.getSystemInstanceAccess().getCategoryAssignment_2(), "rule__SystemInstance__CategoryAssignment_2");
-					put(grammarAccess.getSystemInstanceAccess().getComponentImplementationAssignment_4(), "rule__SystemInstance__ComponentImplementationAssignment_4");
-					put(grammarAccess.getSystemInstanceAccess().getFeatureInstanceAssignment_5(), "rule__SystemInstance__FeatureInstanceAssignment_5");
-					put(grammarAccess.getSystemInstanceAccess().getComponentInstanceAssignment_6(), "rule__SystemInstance__ComponentInstanceAssignment_6");
-					put(grammarAccess.getSystemInstanceAccess().getModeInstanceAssignment_7(), "rule__SystemInstance__ModeInstanceAssignment_7");
-					put(grammarAccess.getSystemInstanceAccess().getModeTransitionInstanceAssignment_8(), "rule__SystemInstance__ModeTransitionInstanceAssignment_8");
-					put(grammarAccess.getSystemInstanceAccess().getFlowSpecificationAssignment_9(), "rule__SystemInstance__FlowSpecificationAssignment_9");
-					put(grammarAccess.getSystemInstanceAccess().getEndToEndFlowAssignment_10(), "rule__SystemInstance__EndToEndFlowAssignment_10");
-					put(grammarAccess.getSystemInstanceAccess().getConnectionInstanceAssignment_11(), "rule__SystemInstance__ConnectionInstanceAssignment_11");
-					put(grammarAccess.getSystemInstanceAccess().getSystemOperationModeAssignment_12(), "rule__SystemInstance__SystemOperationModeAssignment_12");
+					put(grammarAccess.getSystemInstanceAccess().getComponentImplementationAssignment_3(), "rule__SystemInstance__ComponentImplementationAssignment_3");
+					put(grammarAccess.getSystemInstanceAccess().getSystemOperationModeAssignment_5(), "rule__SystemInstance__SystemOperationModeAssignment_5");
 					put(grammarAccess.getComponentInstanceAccess().getCategoryAssignment_0(), "rule__ComponentInstance__CategoryAssignment_0");
 					put(grammarAccess.getComponentInstanceAccess().getNameAssignment_2(), "rule__ComponentInstance__NameAssignment_2");
 					put(grammarAccess.getComponentInstanceAccess().getIndexAssignment_3_1(), "rule__ComponentInstance__IndexAssignment_3_1");
@@ -119,7 +112,6 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getInModeAssignment_6_2(), "rule__EndToEndFlowInstance__InModeAssignment_6_2");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeAssignment_7_2(), "rule__EndToEndFlowInstance__InSystemOperationModeAssignment_7_2");
 					put(grammarAccess.getSystemOperationModeAccess().getNameAssignment_1(), "rule__SystemOperationMode__NameAssignment_1");
-					put(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2(), "rule__SystemOperationMode__CurrentModeAssignment_2");
 					put(grammarAccess.getConnectionInstanceAccess().getKindAssignment_0(), "rule__ConnectionInstance__KindAssignment_0");
 					put(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceAssignment_4(), "rule__ConnectionInstance__ConnectionReferenceAssignment_4");
 					put(grammarAccess.getConnectionInstanceAccess().getSourceAssignment_6(), "rule__ConnectionInstance__SourceAssignment_6");

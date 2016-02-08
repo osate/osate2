@@ -33,7 +33,8 @@ public class InternalInstanceLexer extends Lexer {
     public static final int T__10=10;
     public static final int T__54=54;
     public static final int T__9=9;
-    public static final int T__8=8;
+    public static final int T__60=60;
+    public static final int T__61=61;
     public static final int RULE_ID=5;
     public static final int T__26=26;
     public static final int T__27=27;
@@ -43,10 +44,12 @@ public class InternalInstanceLexer extends Lexer {
     public static final int T__23=23;
     public static final int T__24=24;
     public static final int T__25=25;
+    public static final int T__62=62;
     public static final int T__20=20;
     public static final int RULE_INTEGER_LIT=4;
     public static final int T__21=21;
-    public static final int RULE_SL_COMMENT=6;
+    public static final int RULE_STRING=6;
+    public static final int RULE_SL_COMMENT=7;
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
@@ -58,7 +61,7 @@ public class InternalInstanceLexer extends Lexer {
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
-    public static final int RULE_WS=7;
+    public static final int RULE_WS=8;
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
@@ -83,36 +86,15 @@ public class InternalInstanceLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g"; }
 
-    // $ANTLR start "T__8"
-    public final void mT__8() throws RecognitionException {
-        try {
-            int _type = T__8;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:11:6: ( 'abstract' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:11:8: 'abstract'
-            {
-            match("abstract"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__8"
-
     // $ANTLR start "T__9"
     public final void mT__9() throws RecognitionException {
         try {
             int _type = T__9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:12:6: ( 'bus' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:12:8: 'bus'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:11:6: ( 'abstract' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:11:8: 'abstract'
             {
-            match("bus"); 
+            match("abstract"); 
 
 
             }
@@ -130,10 +112,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:13:7: ( 'data' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:13:9: 'data'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:12:7: ( 'bus' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:12:9: 'bus'
             {
-            match("data"); 
+            match("bus"); 
 
 
             }
@@ -151,10 +133,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:14:7: ( 'device' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:14:9: 'device'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:13:7: ( 'data' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:13:9: 'data'
             {
-            match("device"); 
+            match("data"); 
 
 
             }
@@ -172,10 +154,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:15:7: ( 'memory' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:15:9: 'memory'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:14:7: ( 'device' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:14:9: 'device'
             {
-            match("memory"); 
+            match("device"); 
 
 
             }
@@ -193,10 +175,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:16:7: ( 'process' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:16:9: 'process'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:15:7: ( 'memory' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:15:9: 'memory'
             {
-            match("process"); 
+            match("memory"); 
 
 
             }
@@ -214,10 +196,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17:7: ( 'processor' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17:9: 'processor'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:16:7: ( 'process' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:16:9: 'process'
             {
-            match("processor"); 
+            match("process"); 
 
 
             }
@@ -235,10 +217,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:18:7: ( 'subprogram' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:18:9: 'subprogram'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17:7: ( 'processor' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17:9: 'processor'
             {
-            match("subprogram"); 
+            match("processor"); 
 
 
             }
@@ -256,10 +238,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:19:7: ( 'system' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:19:9: 'system'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:18:7: ( 'subprogram' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:18:9: 'subprogram'
             {
-            match("system"); 
+            match("subprogram"); 
 
 
             }
@@ -277,10 +259,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:20:7: ( 'threadgroup' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:20:9: 'threadgroup'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:19:7: ( 'system' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:19:9: 'system'
             {
-            match("threadgroup"); 
+            match("system"); 
 
 
             }
@@ -298,10 +280,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:21:7: ( 'thread' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:21:9: 'thread'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:20:7: ( 'threadgroup' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:20:9: 'threadgroup'
             {
-            match("thread"); 
+            match("threadgroup"); 
 
 
             }
@@ -319,10 +301,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:22:7: ( 'virtualprocessor' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:22:9: 'virtualprocessor'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:21:7: ( 'thread' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:21:9: 'thread'
             {
-            match("virtualprocessor"); 
+            match("thread"); 
 
 
             }
@@ -340,10 +322,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:23:7: ( 'eventport' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:23:9: 'eventport'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:22:7: ( 'virtualprocessor' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:22:9: 'virtualprocessor'
             {
-            match("eventport"); 
+            match("virtualprocessor"); 
 
 
             }
@@ -361,10 +343,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:24:7: ( 'dataport' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:24:9: 'dataport'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:23:7: ( 'eventport' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:23:9: 'eventport'
             {
-            match("dataport"); 
+            match("eventport"); 
 
 
             }
@@ -382,10 +364,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:25:7: ( 'eventdataport' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:25:9: 'eventdataport'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:24:7: ( 'dataport' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:24:9: 'dataport'
             {
-            match("eventdataport"); 
+            match("dataport"); 
 
 
             }
@@ -403,10 +385,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:26:7: ( 'parameter' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:26:9: 'parameter'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:25:7: ( 'eventdataport' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:25:9: 'eventdataport'
             {
-            match("parameter"); 
+            match("eventdataport"); 
 
 
             }
@@ -424,10 +406,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:27:7: ( 'busaccess' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:27:9: 'busaccess'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:26:7: ( 'parameter' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:26:9: 'parameter'
             {
-            match("busaccess"); 
+            match("parameter"); 
 
 
             }
@@ -445,10 +427,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:28:7: ( 'dataaccess' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:28:9: 'dataaccess'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:27:7: ( 'busaccess' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:27:9: 'busaccess'
             {
-            match("dataaccess"); 
+            match("busaccess"); 
 
 
             }
@@ -466,10 +448,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:29:7: ( 'subprogramaccess' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:29:9: 'subprogramaccess'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:28:7: ( 'dataaccess' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:28:9: 'dataaccess'
             {
-            match("subprogramaccess"); 
+            match("dataaccess"); 
 
 
             }
@@ -487,10 +469,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:30:7: ( 'subprogramgroupaccess' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:30:9: 'subprogramgroupaccess'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:29:7: ( 'subprogramaccess' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:29:9: 'subprogramaccess'
             {
-            match("subprogramgroupaccess"); 
+            match("subprogramaccess"); 
 
 
             }
@@ -508,10 +490,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:31:7: ( 'featuregroup' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:31:9: 'featuregroup'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:30:7: ( 'subprogramgroupaccess' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:30:9: 'subprogramgroupaccess'
             {
-            match("featuregroup"); 
+            match("subprogramgroupaccess"); 
 
 
             }
@@ -529,10 +511,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:32:7: ( 'abstractfeature' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:32:9: 'abstractfeature'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:31:7: ( 'featuregroup' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:31:9: 'featuregroup'
             {
-            match("abstractfeature"); 
+            match("featuregroup"); 
 
 
             }
@@ -550,10 +532,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:33:7: ( 'in' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:33:9: 'in'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:32:7: ( 'abstractfeature' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:32:9: 'abstractfeature'
             {
-            match("in"); 
+            match("abstractfeature"); 
 
 
             }
@@ -571,10 +553,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:34:7: ( 'out' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:34:9: 'out'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:33:7: ( 'in' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:33:9: 'in'
             {
-            match("out"); 
+            match("in"); 
 
 
             }
@@ -592,10 +574,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:35:7: ( 'inout' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:35:9: 'inout'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:34:7: ( 'out' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:34:9: 'out'
             {
-            match("inout"); 
+            match("out"); 
 
 
             }
@@ -613,10 +595,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:36:7: ( 'feature' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:36:9: 'feature'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:35:7: ( 'inout' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:35:9: 'inout'
             {
-            match("feature"); 
+            match("inout"); 
 
 
             }
@@ -634,10 +616,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:37:7: ( 'access' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:37:9: 'access'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:36:7: ( 'feature' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:36:9: 'feature'
             {
-            match("access"); 
+            match("feature"); 
 
 
             }
@@ -655,10 +637,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:38:7: ( 'port' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:38:9: 'port'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:37:7: ( 'access' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:37:9: 'access'
             {
-            match("port"); 
+            match("access"); 
 
 
             }
@@ -676,10 +658,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:39:7: ( 'modetransition' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:39:9: 'modetransition'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:38:7: ( 'port' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:38:9: 'port'
             {
-            match("modetransition"); 
+            match("port"); 
 
 
             }
@@ -697,10 +679,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:40:7: ( 'rootinstance' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:40:9: 'rootinstance'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:39:7: ( 'modetransition' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:39:9: 'modetransition'
             {
-            match("rootinstance"); 
+            match("modetransition"); 
 
 
             }
@@ -718,11 +700,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:41:7: ( 'of' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:41:9: 'of'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:40:7: ( ':' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:40:9: ':'
             {
-            match("of"); 
-
+            match(':'); 
 
             }
 
@@ -739,11 +720,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:42:7: ( 'end' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:42:9: 'end'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:41:7: ( '{' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:41:9: '{'
             {
-            match("end"); 
-
+            match('{'); 
 
             }
 
@@ -760,11 +740,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:43:7: ( 'instance' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:43:9: 'instance'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:42:7: ( '}' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:42:9: '}'
             {
-            match("instance"); 
-
+            match('}'); 
 
             }
 
@@ -781,10 +760,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:44:7: ( '[' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:44:9: '['
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:43:7: ( 'instance' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:43:9: 'instance'
             {
-            match('['); 
+            match("instance"); 
+
 
             }
 
@@ -801,10 +781,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:45:7: ( ']' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:45:9: ']'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:44:7: ( 'of' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:44:9: 'of'
             {
-            match(']'); 
+            match("of"); 
+
 
             }
 
@@ -821,10 +802,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:46:7: ( 'mode' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:46:9: 'mode'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:45:7: ( 'end' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:45:9: 'end'
             {
-            match("mode"); 
+            match("end"); 
 
 
             }
@@ -842,11 +823,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:47:7: ( 'transition' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:47:9: 'transition'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:46:7: ( '[' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:46:9: '['
             {
-            match("transition"); 
-
+            match('['); 
 
             }
 
@@ -863,11 +843,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:48:7: ( 'src' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:48:9: 'src'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:47:7: ( ']' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:47:9: ']'
             {
-            match("src"); 
-
+            match(']'); 
 
             }
 
@@ -884,10 +863,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:49:7: ( 'dst' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:49:9: 'dst'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:48:7: ( 'mode' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:48:9: 'mode'
             {
-            match("dst"); 
+            match("mode"); 
 
 
             }
@@ -905,10 +884,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:50:7: ( 'flowspec' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:50:9: 'flowspec'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:49:7: ( 'transition' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:49:9: 'transition'
             {
-            match("flowspec"); 
+            match("transition"); 
 
 
             }
@@ -926,10 +905,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:51:7: ( 'etef' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:51:9: 'etef'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:50:7: ( 'src' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:50:9: 'src'
             {
-            match("etef"); 
+            match("src"); 
 
 
             }
@@ -947,10 +926,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:52:7: ( 'som' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:52:9: 'som'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:51:7: ( 'dst' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:51:9: 'dst'
             {
-            match("som"); 
+            match("dst"); 
 
 
             }
@@ -968,10 +947,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:53:7: ( 'connection' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:53:9: 'connection'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:52:7: ( 'flowspec' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:52:9: 'flowspec'
             {
-            match("connection"); 
+            match("flowspec"); 
 
 
             }
@@ -989,10 +968,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:54:7: ( 'context' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:54:9: 'context'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:53:7: ( 'etef' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:53:9: 'etef'
             {
-            match("context"); 
+            match("etef"); 
 
 
             }
@@ -1010,10 +989,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:55:7: ( 'group' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:55:9: 'group'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:54:7: ( 'som' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:54:9: 'som'
             {
-            match("group"); 
+            match("som"); 
 
 
             }
@@ -1031,10 +1010,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:56:7: ( 'virtual' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:56:9: 'virtual'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:55:7: ( 'connection' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:55:9: 'connection'
             {
-            match("virtual"); 
+            match("connection"); 
 
 
             }
@@ -1052,10 +1031,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:57:7: ( '::' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:57:9: '::'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:56:7: ( 'context' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:56:9: 'context'
             {
-            match("::"); 
+            match("context"); 
 
 
             }
@@ -1073,10 +1052,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:58:7: ( '.' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:58:9: '.'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:57:7: ( 'group' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:57:9: 'group'
             {
-            match('.'); 
+            match("group"); 
+
 
             }
 
@@ -1093,10 +1073,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:59:7: ( '#' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:59:9: '#'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:58:7: ( 'virtual' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:58:9: 'virtual'
             {
-            match('#'); 
+            match("virtual"); 
+
 
             }
 
@@ -1113,10 +1094,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:60:7: ( 'initial' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:60:9: 'initial'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:59:7: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:59:9: '::'
             {
-            match("initial"); 
+            match("::"); 
 
 
             }
@@ -1134,11 +1115,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:61:7: ( 'complete' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:61:9: 'complete'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:60:7: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:60:9: '.'
             {
-            match("complete"); 
-
+            match('.'); 
 
             }
 
@@ -1155,8 +1135,70 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:62:7: ( 'bidirectional' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:62:9: 'bidirectional'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:61:7: ( '#' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:61:9: '#'
+            {
+            match('#'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__59"
+
+    // $ANTLR start "T__60"
+    public final void mT__60() throws RecognitionException {
+        try {
+            int _type = T__60;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:62:7: ( 'initial' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:62:9: 'initial'
+            {
+            match("initial"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__60"
+
+    // $ANTLR start "T__61"
+    public final void mT__61() throws RecognitionException {
+        try {
+            int _type = T__61;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:63:7: ( 'complete' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:63:9: 'complete'
+            {
+            match("complete"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__61"
+
+    // $ANTLR start "T__62"
+    public final void mT__62() throws RecognitionException {
+        try {
+            int _type = T__62;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:64:7: ( 'bidirectional' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:64:9: 'bidirectional'
             {
             match("bidirectional"); 
 
@@ -1169,15 +1211,15 @@ public class InternalInstanceLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__59"
+    // $ANTLR end "T__62"
 
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1188,7 +1230,7 @@ public class InternalInstanceLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             loop2:
             do {
                 int alt2=2;
@@ -1201,9 +1243,9 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
             	    {
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:32: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:32: ( '_' )?
             	    int alt1=2;
             	    int LA1_0 = input.LA(1);
 
@@ -1212,7 +1254,7 @@ public class InternalInstanceLexer extends Lexer {
             	    }
             	    switch (alt1) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6719:32: '_'
+            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6314:32: '_'
             	            {
             	            match('_'); 
 
@@ -1255,10 +1297,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6721:18: ( ( '0' .. '9' )+ )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6721:20: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6316:18: ( ( '0' .. '9' )+ )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6316:20: ( '0' .. '9' )+
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6721:20: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6316:20: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -1272,7 +1314,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6721:21: '0' .. '9'
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6316:21: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1299,30 +1341,189 @@ public class InternalInstanceLexer extends Lexer {
     }
     // $ANTLR end "RULE_INTEGER_LIT"
 
+    // $ANTLR start "RULE_STRING"
+    public final void mRULE_STRING() throws RecognitionException {
+        try {
+            int _type = RULE_STRING;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            int alt6=2;
+            int LA6_0 = input.LA(1);
+
+            if ( (LA6_0=='\"') ) {
+                alt6=1;
+            }
+            else if ( (LA6_0=='\'') ) {
+                alt6=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 6, 0, input);
+
+                throw nvae;
+            }
+            switch (alt6) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    {
+                    match('\"'); 
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    loop4:
+                    do {
+                        int alt4=3;
+                        int LA4_0 = input.LA(1);
+
+                        if ( (LA4_0=='\\') ) {
+                            alt4=1;
+                        }
+                        else if ( ((LA4_0>='\u0000' && LA4_0<='!')||(LA4_0>='#' && LA4_0<='[')||(LA4_0>=']' && LA4_0<='\uFFFF')) ) {
+                            alt4=2;
+                        }
+
+
+                        switch (alt4) {
+                    	case 1 :
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    {
+                    	    match('\\'); 
+                    	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+                    	case 2 :
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    {
+                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop4;
+                        }
+                    } while (true);
+
+                    match('\"'); 
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    {
+                    match('\''); 
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    loop5:
+                    do {
+                        int alt5=3;
+                        int LA5_0 = input.LA(1);
+
+                        if ( (LA5_0=='\\') ) {
+                            alt5=1;
+                        }
+                        else if ( ((LA5_0>='\u0000' && LA5_0<='&')||(LA5_0>='(' && LA5_0<='[')||(LA5_0>=']' && LA5_0<='\uFFFF')) ) {
+                            alt5=2;
+                        }
+
+
+                        switch (alt5) {
+                    	case 1 :
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    {
+                    	    match('\\'); 
+                    	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+                    	case 2 :
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6318:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    {
+                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop5;
+                        }
+                    } while (true);
+
+                    match('\''); 
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "RULE_STRING"
+
     // $ANTLR start "RULE_SL_COMMENT"
     public final void mRULE_SL_COMMENT() throws RecognitionException {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:24: (~ ( ( '\\n' | '\\r' ) ) )*
-            loop4:
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            loop7:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( ((LA4_0>='\u0000' && LA4_0<='\t')||(LA4_0>='\u000B' && LA4_0<='\f')||(LA4_0>='\u000E' && LA4_0<='\uFFFF')) ) {
-                    alt4=1;
+                if ( ((LA7_0>='\u0000' && LA7_0<='\t')||(LA7_0>='\u000B' && LA7_0<='\f')||(LA7_0>='\u000E' && LA7_0<='\uFFFF')) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1338,31 +1539,31 @@ public class InternalInstanceLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop7;
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:40: ( ( '\\r' )? '\\n' )?
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:40: ( ( '\\r' )? '\\n' )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-            if ( (LA6_0=='\n'||LA6_0=='\r') ) {
-                alt6=1;
+            if ( (LA9_0=='\n'||LA9_0=='\r') ) {
+                alt9=1;
             }
-            switch (alt6) {
+            switch (alt9) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:41: ( '\\r' )?
-                    int alt5=2;
-                    int LA5_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:41: ( '\\r' )?
+                    int alt8=2;
+                    int LA8_0 = input.LA(1);
 
-                    if ( (LA5_0=='\r') ) {
-                        alt5=1;
+                    if ( (LA8_0=='\r') ) {
+                        alt8=1;
                     }
-                    switch (alt5) {
+                    switch (alt8) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6723:41: '\\r'
+                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6320:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1394,22 +1595,22 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6725:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6725:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6322:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6322:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6725:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            int cnt7=0;
-            loop7:
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:6322:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            int cnt10=0;
+            loop10:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt10=2;
+                int LA10_0 = input.LA(1);
 
-                if ( ((LA7_0>='\t' && LA7_0<='\n')||LA7_0=='\r'||LA7_0==' ') ) {
-                    alt7=1;
+                if ( ((LA10_0>='\t' && LA10_0<='\n')||LA10_0=='\r'||LA10_0==' ') ) {
+                    alt10=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt10) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:
             	    {
@@ -1427,12 +1628,12 @@ public class InternalInstanceLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt10 >= 1 ) break loop10;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(10, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt10++;
             } while (true);
 
 
@@ -1447,397 +1648,418 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | RULE_ID | RULE_INTEGER_LIT | RULE_SL_COMMENT | RULE_WS )
-        int alt8=56;
-        alt8 = dfa8.predict(input);
-        switch (alt8) {
+        // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:8: ( T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | RULE_ID | RULE_INTEGER_LIT | RULE_STRING | RULE_SL_COMMENT | RULE_WS )
+        int alt11=59;
+        alt11 = dfa11.predict(input);
+        switch (alt11) {
             case 1 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:10: T__8
-                {
-                mT__8(); 
-
-                }
-                break;
-            case 2 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:15: T__9
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:10: T__9
                 {
                 mT__9(); 
 
                 }
                 break;
-            case 3 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:20: T__10
+            case 2 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:15: T__10
                 {
                 mT__10(); 
 
                 }
                 break;
-            case 4 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:26: T__11
+            case 3 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:21: T__11
                 {
                 mT__11(); 
 
                 }
                 break;
-            case 5 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:32: T__12
+            case 4 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:27: T__12
                 {
                 mT__12(); 
 
                 }
                 break;
-            case 6 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:38: T__13
+            case 5 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:33: T__13
                 {
                 mT__13(); 
 
                 }
                 break;
-            case 7 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:44: T__14
+            case 6 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:39: T__14
                 {
                 mT__14(); 
 
                 }
                 break;
-            case 8 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:50: T__15
+            case 7 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:45: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
-            case 9 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:56: T__16
+            case 8 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:51: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
-            case 10 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:62: T__17
+            case 9 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:57: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
-            case 11 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:68: T__18
+            case 10 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:63: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
-            case 12 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:74: T__19
+            case 11 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:69: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
-            case 13 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:80: T__20
+            case 12 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:75: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
-            case 14 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:86: T__21
+            case 13 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:81: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
-            case 15 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:92: T__22
+            case 14 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:87: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
-            case 16 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:98: T__23
+            case 15 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:93: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
-            case 17 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:104: T__24
+            case 16 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:99: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
-            case 18 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:110: T__25
+            case 17 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:105: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
-            case 19 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:116: T__26
+            case 18 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:111: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 20 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:122: T__27
+            case 19 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:117: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 21 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:128: T__28
+            case 20 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:123: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 22 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:134: T__29
+            case 21 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:129: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 23 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:140: T__30
+            case 22 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:135: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 24 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:146: T__31
+            case 23 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:141: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 25 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:152: T__32
+            case 24 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:147: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
-            case 26 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:158: T__33
+            case 25 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:153: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
-            case 27 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:164: T__34
+            case 26 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:159: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
-            case 28 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:170: T__35
+            case 27 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:165: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
-            case 29 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:176: T__36
+            case 28 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:171: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
-            case 30 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:182: T__37
+            case 29 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:177: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
-            case 31 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:188: T__38
+            case 30 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:183: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
-            case 32 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:194: T__39
+            case 31 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:189: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
-            case 33 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:200: T__40
+            case 32 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:195: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
-            case 34 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:206: T__41
+            case 33 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:201: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
-            case 35 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:212: T__42
+            case 34 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:207: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 36 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:218: T__43
+            case 35 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:213: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 37 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:224: T__44
+            case 36 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:219: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 38 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:230: T__45
+            case 37 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:225: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 39 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:236: T__46
+            case 38 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:231: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
-            case 40 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:242: T__47
+            case 39 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:237: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
-            case 41 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:248: T__48
+            case 40 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:243: T__48
                 {
                 mT__48(); 
 
                 }
                 break;
-            case 42 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:254: T__49
+            case 41 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:249: T__49
                 {
                 mT__49(); 
 
                 }
                 break;
-            case 43 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:260: T__50
+            case 42 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:255: T__50
                 {
                 mT__50(); 
 
                 }
                 break;
-            case 44 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:266: T__51
+            case 43 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:261: T__51
                 {
                 mT__51(); 
 
                 }
                 break;
-            case 45 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:272: T__52
+            case 44 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:267: T__52
                 {
                 mT__52(); 
 
                 }
                 break;
-            case 46 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:278: T__53
+            case 45 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:273: T__53
                 {
                 mT__53(); 
 
                 }
                 break;
-            case 47 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:284: T__54
+            case 46 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:279: T__54
                 {
                 mT__54(); 
 
                 }
                 break;
-            case 48 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:290: T__55
+            case 47 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:285: T__55
                 {
                 mT__55(); 
 
                 }
                 break;
-            case 49 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:296: T__56
+            case 48 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:291: T__56
                 {
                 mT__56(); 
 
                 }
                 break;
-            case 50 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:302: T__57
+            case 49 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:297: T__57
                 {
                 mT__57(); 
 
                 }
                 break;
-            case 51 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:308: T__58
+            case 50 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:303: T__58
                 {
                 mT__58(); 
 
                 }
                 break;
-            case 52 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:314: T__59
+            case 51 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:309: T__59
                 {
                 mT__59(); 
 
                 }
                 break;
+            case 52 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:315: T__60
+                {
+                mT__60(); 
+
+                }
+                break;
             case 53 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:320: RULE_ID
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:321: T__61
+                {
+                mT__61(); 
+
+                }
+                break;
+            case 54 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:327: T__62
+                {
+                mT__62(); 
+
+                }
+                break;
+            case 55 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:333: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 54 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:328: RULE_INTEGER_LIT
+            case 56 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:341: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
-            case 55 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:345: RULE_SL_COMMENT
+            case 57 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:358: RULE_STRING
+                {
+                mRULE_STRING(); 
+
+                }
+                break;
+            case 58 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:370: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 56 :
-                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:361: RULE_WS
+            case 59 :
+                // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1:386: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -1849,48 +2071,47 @@ public class InternalInstanceLexer extends Lexer {
     }
 
 
-    protected DFA8 dfa8 = new DFA8(this);
-    static final String DFA8_eotS =
-        "\1\uffff\15\25\2\uffff\2\25\7\uffff\30\25\1\122\1\25\1\124\5\25\1\134\3\25\1\140\7\25\1\150\1\151\4\25\1\156\6\25\1\uffff\1\165\1\uffff\7\25\1\uffff\1\25\1\u0081\1\25\1\uffff\1\25\1\u0085\2\25\1\u0088\2\25\2\uffff\4\25\1\uffff\1\u008f\5\25\1\uffff\13\25\1\uffff\3\25\1\uffff\2\25\1\uffff\6\25\1\uffff\2\25\1\u00ae\6\25\1\u00b5\1\25\1\u00b7\4\25\1\u00bc\1\u00bd\4\25\1\u00c2\1\u00c4\6\25\1\uffff\6\25\1\uffff\1\25\1\uffff\4\25\2\uffff\1\25\1\u00d8\2\25\1\uffff\1\25\1\uffff\1\25\1\u00de\2\25\1\u00e2\2\25\1\u00e5\2\25\1\u00e8\1\25\1\u00eb\2\25\1\u00ee\3\25\1\uffff\5\25\1\uffff\3\25\1\uffff\1\u00fa\1\u00fb\1\uffff\2\25\1\uffff\1\u00fe\1\25\1\uffff\1\u0100\1\25\1\uffff\2\25\1\u0104\1\u0105\4\25\1\u010a\2\25\2\uffff\2\25\1\uffff\1\25\1\uffff\1\25\1\u0111\1\25\2\uffff\1\u0115\1\25\1\u0117\1\25\1\uffff\3\25\1\u011c\2\25\1\uffff\3\25\1\uffff\1\u0122\1\uffff\4\25\1\uffff\5\25\1\uffff\2\25\1\u012e\1\u012f\1\25\1\u0131\4\25\1\u0136\2\uffff\1\25\1\uffff\1\u0138\3\25\1\uffff\1\u013c\1\uffff\3\25\1\uffff\1\u0140\1\25\1\u0142\1\uffff\1\25\1\uffff\3\25\1\u0147\1\uffff";
-    static final String DFA8_eofS =
-        "\u0148\uffff";
-    static final String DFA8_minS =
-        "\1\11\1\142\1\151\1\141\1\145\1\141\1\157\1\150\1\151\1\156\1\145\1\156\1\146\1\157\2\uffff\1\157\1\162\7\uffff\1\163\1\143\1\163\1\144\1\164\1\166\1\164\1\155\1\144\1\157\2\162\1\142\1\163\1\143\1\155\1\162\1\141\1\162\1\145\1\144\1\145\1\141\1\157\1\60\1\164\1\60\1\157\1\155\1\157\1\164\1\145\1\60\1\151\1\141\1\151\1\60\1\157\1\145\1\143\1\141\1\164\1\160\1\164\2\60\1\145\1\156\1\164\1\156\1\60\1\146\1\164\1\167\1\165\2\164\1\uffff\1\60\1\uffff\1\164\1\156\1\160\1\165\1\162\1\163\1\143\1\uffff\1\162\1\60\1\143\1\uffff\1\162\1\60\1\145\1\155\1\60\1\162\1\145\2\uffff\1\141\1\163\1\165\1\164\1\uffff\1\60\1\165\1\163\1\164\1\141\1\151\1\uffff\1\151\2\145\1\154\1\160\1\141\1\163\1\143\1\145\1\157\1\143\1\uffff\1\145\1\171\1\162\1\uffff\1\163\1\145\1\uffff\1\157\1\155\1\144\1\151\1\141\1\144\1\uffff\1\162\1\160\1\60\1\156\1\141\1\156\1\143\1\170\1\145\1\60\1\143\1\60\1\145\1\143\1\162\1\143\2\60\1\141\1\163\1\164\1\147\2\60\1\164\1\154\1\157\1\141\2\145\1\uffff\1\143\1\154\1\163\3\164\1\uffff\1\164\1\uffff\1\163\2\164\1\145\2\uffff\1\156\1\60\1\145\1\162\1\uffff\1\162\1\uffff\1\151\1\60\1\162\1\164\1\60\1\143\1\145\1\60\1\164\1\151\1\60\1\145\1\60\1\163\1\151\1\60\2\163\1\162\1\uffff\1\162\1\141\2\157\1\162\1\uffff\1\164\1\141\1\162\1\uffff\2\60\1\uffff\1\141\1\157\1\uffff\1\60\1\145\1\uffff\1\60\1\157\1\uffff\1\163\1\151\2\60\1\155\1\165\1\156\1\157\1\60\1\160\1\157\2\uffff\2\156\1\uffff\1\141\1\uffff\1\156\1\60\1\164\2\uffff\1\60\1\160\1\60\1\143\1\uffff\1\157\1\165\1\143\1\60\1\164\1\141\1\uffff\1\151\1\143\1\162\1\uffff\1\60\1\uffff\1\145\1\162\1\160\1\145\1\uffff\1\165\1\154\1\157\1\143\1\157\1\uffff\1\163\1\164\2\60\1\162\1\60\1\156\1\145\1\165\1\163\1\60\2\uffff\1\145\1\uffff\1\60\1\163\1\160\1\157\1\uffff\1\60\1\uffff\1\163\1\141\1\162\1\uffff\1\60\1\143\1\60\1\uffff\1\143\1\uffff\1\145\2\163\1\60\1\uffff";
-    static final String DFA8_maxS =
-        "\1\172\1\143\1\165\1\163\1\157\1\162\1\171\1\162\1\151\1\166\1\154\1\156\1\165\1\157\2\uffff\1\157\1\162\7\uffff\1\163\1\143\1\163\1\144\1\164\1\166\1\164\1\155\1\144\1\157\2\162\1\142\1\163\1\143\1\155\1\162\1\141\1\162\1\145\1\144\1\145\1\141\1\157\1\172\1\164\1\172\1\157\1\156\1\157\1\164\1\145\1\172\1\151\1\141\1\151\1\172\1\157\1\145\1\143\1\141\1\164\1\160\1\164\2\172\1\145\1\156\1\164\1\156\1\172\1\146\1\164\1\167\1\165\2\164\1\uffff\1\172\1\uffff\2\164\1\160\1\165\1\162\1\163\1\143\1\uffff\1\162\1\172\1\143\1\uffff\1\162\1\172\1\145\1\155\1\172\1\162\1\145\2\uffff\1\141\1\163\1\165\1\164\1\uffff\1\172\1\165\1\163\1\164\1\141\1\151\1\uffff\1\151\2\145\1\154\1\160\1\141\1\163\1\143\1\145\1\157\1\143\1\uffff\1\145\1\171\1\162\1\uffff\1\163\1\145\1\uffff\1\157\1\155\1\144\1\151\1\141\1\160\1\uffff\1\162\1\160\1\172\1\156\1\141\1\156\1\143\1\170\1\145\1\172\1\143\1\172\1\145\1\143\1\162\1\143\2\172\1\141\1\163\1\164\1\147\2\172\1\164\1\154\1\157\1\141\2\145\1\uffff\1\143\1\154\1\163\3\164\1\uffff\1\164\1\uffff\1\163\2\164\1\145\2\uffff\1\156\1\172\1\145\1\162\1\uffff\1\162\1\uffff\1\151\1\172\1\162\1\164\1\172\1\143\1\145\1\172\1\164\1\151\1\172\1\145\1\172\1\163\1\151\1\172\2\163\1\162\1\uffff\1\162\1\141\2\157\1\162\1\uffff\1\164\1\141\1\162\1\uffff\2\172\1\uffff\1\141\1\157\1\uffff\1\172\1\145\1\uffff\1\172\1\157\1\uffff\1\163\1\151\2\172\1\155\1\165\1\156\1\157\1\172\1\160\1\157\2\uffff\2\156\1\uffff\1\141\1\uffff\1\156\1\172\1\164\2\uffff\1\172\1\160\1\172\1\143\1\uffff\1\157\1\165\1\143\1\172\1\164\1\141\1\uffff\1\151\1\143\1\162\1\uffff\1\172\1\uffff\1\145\1\162\1\160\1\145\1\uffff\1\165\1\154\1\157\1\143\1\157\1\uffff\1\163\1\164\2\172\1\162\1\172\1\156\1\145\1\165\1\163\1\172\2\uffff\1\145\1\uffff\1\172\1\163\1\160\1\157\1\uffff\1\172\1\uffff\1\163\1\141\1\162\1\uffff\1\172\1\143\1\172\1\uffff\1\143\1\uffff\1\145\2\163\1\172\1\uffff";
-    static final String DFA8_acceptS =
-        "\16\uffff\1\42\1\43\2\uffff\1\57\1\60\1\61\1\65\1\66\1\67\1\70\71\uffff\1\27\1\uffff\1\37\7\uffff\1\2\3\uffff\1\47\7\uffff\1\46\1\52\4\uffff\1\40\6\uffff\1\30\13\uffff\1\3\3\uffff\1\44\2\uffff\1\34\6\uffff\1\51\36\uffff\1\31\6\uffff\1\55\1\uffff\1\33\4\uffff\1\4\1\5\4\uffff\1\11\1\uffff\1\13\23\uffff\1\6\5\uffff\1\56\3\uffff\1\32\2\uffff\1\62\2\uffff\1\54\2\uffff\1\1\2\uffff\1\16\13\uffff\1\50\1\41\2\uffff\1\63\1\uffff\1\21\3\uffff\1\7\1\20\4\uffff\1\15\6\uffff\1\22\3\uffff\1\10\1\uffff\1\45\4\uffff\1\53\5\uffff\1\12\13\uffff\1\25\1\36\1\uffff\1\64\4\uffff\1\17\1\uffff\1\35\3\uffff\1\26\3\uffff\1\23\1\uffff\1\14\4\uffff\1\24";
-    static final String DFA8_specialS =
-        "\u0148\uffff}>";
-    static final String[] DFA8_transitionS = {
-            "\2\30\2\uffff\1\30\22\uffff\1\30\2\uffff\1\24\11\uffff\1\27\1\23\1\uffff\12\26\1\22\6\uffff\32\25\1\16\1\uffff\1\17\3\uffff\1\1\1\2\1\20\1\3\1\11\1\12\1\21\1\25\1\13\3\25\1\4\1\25\1\14\1\5\1\25\1\15\1\6\1\7\1\25\1\10\4\25",
-            "\1\31\1\32",
-            "\1\34\13\uffff\1\33",
-            "\1\35\3\uffff\1\36\15\uffff\1\37",
-            "\1\40\11\uffff\1\41",
-            "\1\43\15\uffff\1\44\2\uffff\1\42",
-            "\1\50\2\uffff\1\47\2\uffff\1\45\3\uffff\1\46",
-            "\1\51\11\uffff\1\52",
-            "\1\53",
-            "\1\55\5\uffff\1\56\1\uffff\1\54",
-            "\1\57\6\uffff\1\60",
-            "\1\61",
-            "\1\63\16\uffff\1\62",
-            "\1\64",
-            "",
-            "",
-            "\1\65",
+    protected DFA11 dfa11 = new DFA11(this);
+    static final String DFA11_eotS =
+        "\1\uffff\14\26\1\67\4\uffff\2\26\7\uffff\30\26\1\125\1\26\1\127\2\uffff\4\26\1\136\3\26\1\142\7\26\1\152\1\153\4\26\1\160\6\26\1\uffff\1\167\1\uffff\6\26\1\uffff\1\26\1\u0082\1\26\1\uffff\1\26\1\u0086\2\26\1\u0089\2\26\2\uffff\4\26\1\uffff\1\u0090\5\26\1\uffff\12\26\1\uffff\3\26\1\uffff\2\26\1\uffff\6\26\1\uffff\2\26\1\u00ae\5\26\1\u00b4\1\26\1\u00b6\4\26\1\u00bb\1\u00bc\4\26\1\u00c1\1\u00c3\6\26\1\uffff\5\26\1\uffff\1\26\1\uffff\4\26\2\uffff\1\26\1\u00d6\2\26\1\uffff\1\26\1\uffff\1\26\1\u00dc\2\26\1\u00e0\2\26\1\u00e3\1\26\1\u00e5\1\26\1\u00e8\2\26\1\u00eb\3\26\1\uffff\5\26\1\uffff\3\26\1\uffff\1\u00f7\1\u00f8\1\uffff\1\26\1\uffff\1\u00fa\1\26\1\uffff\1\u00fc\1\26\1\uffff\2\26\1\u0100\1\u0101\4\26\1\u0106\2\26\2\uffff\1\26\1\uffff\1\26\1\uffff\1\26\1\u010c\1\26\2\uffff\1\u0110\1\26\1\u0112\1\26\1\uffff\2\26\1\u0116\2\26\1\uffff\3\26\1\uffff\1\u011c\1\uffff\3\26\1\uffff\5\26\1\uffff\2\26\1\u0127\1\26\1\u0129\4\26\1\u012e\1\uffff\1\26\1\uffff\1\u0130\3\26\1\uffff\1\u0134\1\uffff\3\26\1\uffff\1\u0138\1\26\1\u013a\1\uffff\1\26\1\uffff\3\26\1\u013f\1\uffff";
+    static final String DFA11_eofS =
+        "\u0140\uffff";
+    static final String DFA11_minS =
+        "\1\11\1\142\1\151\1\141\1\145\1\141\1\157\1\150\1\151\1\156\1\145\1\156\1\146\1\72\4\uffff\1\157\1\162\7\uffff\1\163\1\143\1\163\1\144\1\164\1\166\1\164\1\155\1\144\1\157\2\162\1\142\1\163\1\143\1\155\1\162\1\141\1\162\1\145\1\144\1\145\1\141\1\157\1\60\1\164\1\60\2\uffff\1\155\1\157\1\164\1\145\1\60\1\151\1\141\1\151\1\60\1\157\1\145\1\143\1\141\1\164\1\160\1\164\2\60\1\145\1\156\1\164\1\156\1\60\1\146\1\164\1\167\1\165\2\164\1\uffff\1\60\1\uffff\1\156\1\160\1\165\1\162\1\163\1\143\1\uffff\1\162\1\60\1\143\1\uffff\1\162\1\60\1\145\1\155\1\60\1\162\1\145\2\uffff\1\141\1\163\1\165\1\164\1\uffff\1\60\1\165\1\163\1\164\1\141\1\151\1\uffff\2\145\1\154\1\160\1\141\1\163\1\143\1\145\1\157\1\143\1\uffff\1\145\1\171\1\162\1\uffff\1\163\1\145\1\uffff\1\157\1\155\1\144\1\151\1\141\1\144\1\uffff\1\162\1\160\1\60\1\156\1\141\1\143\1\170\1\145\1\60\1\143\1\60\1\145\1\143\1\162\1\143\2\60\1\141\1\163\1\164\1\147\2\60\1\164\1\154\1\157\1\141\2\145\1\uffff\1\143\1\154\3\164\1\uffff\1\164\1\uffff\1\163\2\164\1\145\2\uffff\1\156\1\60\1\145\1\162\1\uffff\1\162\1\uffff\1\151\1\60\1\162\1\164\1\60\1\143\1\145\1\60\1\151\1\60\1\145\1\60\1\163\1\151\1\60\2\163\1\162\1\uffff\1\162\1\141\2\157\1\162\1\uffff\1\164\1\141\1\162\1\uffff\2\60\1\uffff\1\157\1\uffff\1\60\1\145\1\uffff\1\60\1\157\1\uffff\1\163\1\151\2\60\1\155\1\165\1\156\1\157\1\60\1\160\1\157\2\uffff\1\156\1\uffff\1\141\1\uffff\1\156\1\60\1\164\2\uffff\1\60\1\160\1\60\1\143\1\uffff\1\157\1\165\1\60\1\164\1\141\1\uffff\1\151\1\143\1\162\1\uffff\1\60\1\uffff\1\145\1\162\1\160\1\uffff\1\165\1\154\1\157\1\143\1\157\1\uffff\1\163\1\164\1\60\1\162\1\60\1\156\1\145\1\165\1\163\1\60\1\uffff\1\145\1\uffff\1\60\1\163\1\160\1\157\1\uffff\1\60\1\uffff\1\163\1\141\1\162\1\uffff\1\60\1\143\1\60\1\uffff\1\143\1\uffff\1\145\2\163\1\60\1\uffff";
+    static final String DFA11_maxS =
+        "\1\175\1\143\1\165\1\163\1\157\1\162\1\171\1\162\1\151\1\166\1\154\1\156\1\165\1\72\4\uffff\1\157\1\162\7\uffff\1\163\1\143\1\163\1\144\1\164\1\166\1\164\1\155\1\144\1\157\2\162\1\142\1\163\1\143\1\155\1\162\1\141\1\162\1\145\1\144\1\145\1\141\1\157\1\172\1\164\1\172\2\uffff\1\156\1\157\1\164\1\145\1\172\1\151\1\141\1\151\1\172\1\157\1\145\1\143\1\141\1\164\1\160\1\164\2\172\1\145\1\156\1\164\1\156\1\172\1\146\1\164\1\167\1\165\2\164\1\uffff\1\172\1\uffff\1\164\1\160\1\165\1\162\1\163\1\143\1\uffff\1\162\1\172\1\143\1\uffff\1\162\1\172\1\145\1\155\1\172\1\162\1\145\2\uffff\1\141\1\163\1\165\1\164\1\uffff\1\172\1\165\1\163\1\164\1\141\1\151\1\uffff\2\145\1\154\1\160\1\141\1\163\1\143\1\145\1\157\1\143\1\uffff\1\145\1\171\1\162\1\uffff\1\163\1\145\1\uffff\1\157\1\155\1\144\1\151\1\141\1\160\1\uffff\1\162\1\160\1\172\1\156\1\141\1\143\1\170\1\145\1\172\1\143\1\172\1\145\1\143\1\162\1\143\2\172\1\141\1\163\1\164\1\147\2\172\1\164\1\154\1\157\1\141\2\145\1\uffff\1\143\1\154\3\164\1\uffff\1\164\1\uffff\1\163\2\164\1\145\2\uffff\1\156\1\172\1\145\1\162\1\uffff\1\162\1\uffff\1\151\1\172\1\162\1\164\1\172\1\143\1\145\1\172\1\151\1\172\1\145\1\172\1\163\1\151\1\172\2\163\1\162\1\uffff\1\162\1\141\2\157\1\162\1\uffff\1\164\1\141\1\162\1\uffff\2\172\1\uffff\1\157\1\uffff\1\172\1\145\1\uffff\1\172\1\157\1\uffff\1\163\1\151\2\172\1\155\1\165\1\156\1\157\1\172\1\160\1\157\2\uffff\1\156\1\uffff\1\141\1\uffff\1\156\1\172\1\164\2\uffff\1\172\1\160\1\172\1\143\1\uffff\1\157\1\165\1\172\1\164\1\141\1\uffff\1\151\1\143\1\162\1\uffff\1\172\1\uffff\1\145\1\162\1\160\1\uffff\1\165\1\154\1\157\1\143\1\157\1\uffff\1\163\1\164\1\172\1\162\1\172\1\156\1\145\1\165\1\163\1\172\1\uffff\1\145\1\uffff\1\172\1\163\1\160\1\157\1\uffff\1\172\1\uffff\1\163\1\141\1\162\1\uffff\1\172\1\143\1\172\1\uffff\1\143\1\uffff\1\145\2\163\1\172\1\uffff";
+    static final String DFA11_acceptS =
+        "\16\uffff\1\37\1\40\1\44\1\45\2\uffff\1\62\1\63\1\67\1\70\1\71\1\72\1\73\33\uffff\1\61\1\36\35\uffff\1\27\1\uffff\1\42\6\uffff\1\2\3\uffff\1\51\7\uffff\1\50\1\54\4\uffff\1\43\6\uffff\1\30\12\uffff\1\3\3\uffff\1\46\2\uffff\1\34\6\uffff\1\53\35\uffff\1\31\5\uffff\1\57\1\uffff\1\33\4\uffff\1\4\1\5\4\uffff\1\11\1\uffff\1\13\22\uffff\1\6\5\uffff\1\60\3\uffff\1\32\2\uffff\1\64\1\uffff\1\56\2\uffff\1\1\2\uffff\1\16\13\uffff\1\52\1\41\1\uffff\1\65\1\uffff\1\21\3\uffff\1\7\1\20\4\uffff\1\15\5\uffff\1\22\3\uffff\1\10\1\uffff\1\47\3\uffff\1\55\5\uffff\1\12\12\uffff\1\25\1\uffff\1\66\4\uffff\1\17\1\uffff\1\35\3\uffff\1\26\3\uffff\1\23\1\uffff\1\14\4\uffff\1\24";
+    static final String DFA11_specialS =
+        "\u0140\uffff}>";
+    static final String[] DFA11_transitionS = {
+            "\2\32\2\uffff\1\32\22\uffff\1\32\1\uffff\1\30\1\25\3\uffff\1\30\5\uffff\1\31\1\24\1\uffff\12\27\1\15\6\uffff\32\26\1\20\1\uffff\1\21\3\uffff\1\1\1\2\1\22\1\3\1\11\1\12\1\23\1\26\1\13\3\26\1\4\1\26\1\14\1\5\2\26\1\6\1\7\1\26\1\10\4\26\1\16\1\uffff\1\17",
+            "\1\33\1\34",
+            "\1\36\13\uffff\1\35",
+            "\1\37\3\uffff\1\40\15\uffff\1\41",
+            "\1\42\11\uffff\1\43",
+            "\1\45\15\uffff\1\46\2\uffff\1\44",
+            "\1\52\2\uffff\1\51\2\uffff\1\47\3\uffff\1\50",
+            "\1\53\11\uffff\1\54",
+            "\1\55",
+            "\1\57\5\uffff\1\60\1\uffff\1\56",
+            "\1\61\6\uffff\1\62",
+            "\1\63",
+            "\1\65\16\uffff\1\64",
             "\1\66",
             "",
             "",
             "",
             "",
-            "",
-            "",
-            "",
-            "\1\67",
             "\1\70",
             "\1\71",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\72",
             "\1\73",
             "\1\74",
@@ -1912,76 +2133,78 @@ public class InternalInstanceLexer extends Lexer {
             "\1\114",
             "\1\115",
             "\1\116",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\10\25\1\121\5\25\1\117\3\25\1\120\7\25",
-            "\1\123",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\125",
-            "\1\127\1\126",
-            "\1\130",
-            "\1\131",
+            "\1\117",
+            "\1\120",
+            "\1\121",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\10\26\1\124\5\26\1\122\3\26\1\123\7\26",
+            "\1\126",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "",
+            "\1\131\1\130",
             "\1\132",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\1\133\31\25",
-            "\1\135",
-            "\1\136",
+            "\1\133",
+            "\1\134",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\1\135\31\26",
             "\1\137",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\140",
             "\1\141",
-            "\1\142",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\143",
             "\1\144",
             "\1\145",
             "\1\146",
             "\1\147",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\152",
-            "\1\153",
+            "\1\150",
+            "\1\151",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\154",
             "\1\155",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\156",
             "\1\157",
-            "\1\160",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\161",
             "\1\162",
             "\1\163",
             "\1\164",
-            "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "",
+            "\1\165",
             "\1\166",
-            "\1\167\5\uffff\1\170",
-            "\1\171",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "\1\170\5\uffff\1\171",
             "\1\172",
             "\1\173",
             "\1\174",
             "\1\175",
-            "",
             "\1\176",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\1\u0080\16\25\1\177\12\25",
-            "\1\u0082",
             "",
+            "\1\177",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\1\u0081\16\26\1\u0080\12\26",
             "\1\u0083",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\23\25\1\u0084\6\25",
-            "\1\u0086",
+            "",
+            "\1\u0084",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\23\26\1\u0085\6\26",
             "\1\u0087",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0089",
+            "\1\u0088",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u008a",
-            "",
-            "",
             "\1\u008b",
+            "",
+            "",
             "\1\u008c",
             "\1\u008d",
             "\1\u008e",
+            "\1\u008f",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0090",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u0091",
             "\1\u0092",
             "\1\u0093",
             "\1\u0094",
-            "",
             "\1\u0095",
+            "",
             "\1\u0096",
             "\1\u0097",
             "\1\u0098",
@@ -2009,221 +2232,212 @@ public class InternalInstanceLexer extends Lexer {
             "",
             "\1\u00ac",
             "\1\u00ad",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u00af",
             "\1\u00b0",
             "\1\u00b1",
             "\1\u00b2",
             "\1\u00b3",
-            "\1\u00b4",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u00b6",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u00b5",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u00b7",
             "\1\u00b8",
             "\1\u00b9",
             "\1\u00ba",
-            "\1\u00bb",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u00bd",
             "\1\u00be",
             "\1\u00bf",
             "\1\u00c0",
-            "\1\u00c1",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\6\25\1\u00c3\23\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\6\26\1\u00c2\23\26",
+            "\1\u00c4",
             "\1\u00c5",
             "\1\u00c6",
             "\1\u00c7",
             "\1\u00c8",
             "\1\u00c9",
-            "\1\u00ca",
             "",
+            "\1\u00ca",
             "\1\u00cb",
             "\1\u00cc",
             "\1\u00cd",
             "\1\u00ce",
+            "",
             "\1\u00cf",
+            "",
             "\1\u00d0",
-            "",
             "\1\u00d1",
-            "",
             "\1\u00d2",
             "\1\u00d3",
+            "",
+            "",
             "\1\u00d4",
-            "\1\u00d5",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\16\26\1\u00d5\13\26",
+            "\1\u00d7",
+            "\1\u00d8",
             "",
-            "",
-            "\1\u00d6",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\16\25\1\u00d7\13\25",
             "\1\u00d9",
+            "",
             "\1\u00da",
-            "",
-            "\1\u00db",
-            "",
-            "\1\u00dc",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\17\25\1\u00dd\12\25",
-            "\1\u00df",
-            "\1\u00e0",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\6\25\1\u00e1\23\25",
-            "\1\u00e3",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\17\26\1\u00db\12\26",
+            "\1\u00dd",
+            "\1\u00de",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\6\26\1\u00df\23\26",
+            "\1\u00e1",
+            "\1\u00e2",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u00e4",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u00e6",
-            "\1\u00e7",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\5\26\1\u00e7\24\26",
             "\1\u00e9",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\5\25\1\u00ea\24\25",
+            "\1\u00ea",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u00ec",
             "\1\u00ed",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\u00ee",
+            "",
             "\1\u00ef",
             "\1\u00f0",
             "\1\u00f1",
-            "",
             "\1\u00f2",
             "\1\u00f3",
+            "",
             "\1\u00f4",
             "\1\u00f5",
             "\1\u00f6",
             "",
-            "\1\u00f7",
-            "\1\u00f8",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\u00f9",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u00fb",
             "",
-            "\1\u00fc",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u00fd",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\u00fe",
             "\1\u00ff",
-            "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0101",
-            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u0102",
             "\1\u0103",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0106",
+            "\1\u0104",
+            "\1\u0105",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u0107",
             "\1\u0108",
+            "",
+            "",
             "\1\u0109",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "",
+            "\1\u010a",
+            "",
             "\1\u010b",
-            "\1\u010c",
-            "",
-            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u010d",
-            "\1\u010e",
-            "",
-            "\1\u010f",
-            "",
-            "\1\u0110",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0112",
             "",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\1\u0113\5\25\1\u0114\23\25",
-            "\1\u0116",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\1\u010e\5\26\1\u010f\23\26",
+            "\1\u0111",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u0113",
+            "",
+            "\1\u0114",
+            "\1\u0115",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u0117",
             "\1\u0118",
             "",
             "\1\u0119",
             "\1\u011a",
             "\1\u011b",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\u011d",
             "\1\u011e",
-            "",
             "\1\u011f",
+            "",
             "\1\u0120",
             "\1\u0121",
-            "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "",
+            "\1\u0122",
             "\1\u0123",
             "\1\u0124",
+            "",
             "\1\u0125",
             "\1\u0126",
-            "",
-            "\1\u0127",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u0128",
-            "\1\u0129",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u012a",
             "\1\u012b",
-            "",
             "\1\u012c",
             "\1\u012d",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0130",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "\1\u012f",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\u0131",
             "\1\u0132",
             "\1\u0133",
-            "\1\u0134",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\u0135",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "",
-            "",
+            "\1\u0136",
             "\1\u0137",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\u0139",
-            "\1\u013a",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
             "\1\u013b",
             "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "",
+            "\1\u013c",
             "\1\u013d",
             "\1\u013e",
-            "\1\u013f",
-            "",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "\1\u0141",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
-            "",
-            "\1\u0143",
-            "",
-            "\1\u0144",
-            "\1\u0145",
-            "\1\u0146",
-            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             ""
     };
 
-    static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
-    static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
-    static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
-    static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
-    static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
-    static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
-    static final short[][] DFA8_transition;
+    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
+    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
+    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
+    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
+    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
+    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
+    static final short[][] DFA11_transition;
 
     static {
-        int numStates = DFA8_transitionS.length;
-        DFA8_transition = new short[numStates][];
+        int numStates = DFA11_transitionS.length;
+        DFA11_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
+            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
         }
     }
 
-    class DFA8 extends DFA {
+    class DFA11 extends DFA {
 
-        public DFA8(BaseRecognizer recognizer) {
+        public DFA11(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 8;
-            this.eot = DFA8_eot;
-            this.eof = DFA8_eof;
-            this.min = DFA8_min;
-            this.max = DFA8_max;
-            this.accept = DFA8_accept;
-            this.special = DFA8_special;
-            this.transition = DFA8_transition;
+            this.decisionNumber = 11;
+            this.eot = DFA11_eot;
+            this.eof = DFA11_eof;
+            this.min = DFA11_min;
+            this.max = DFA11_max;
+            this.accept = DFA11_accept;
+            this.special = DFA11_special;
+            this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | RULE_ID | RULE_INTEGER_LIT | RULE_SL_COMMENT | RULE_WS );";
+            return "1:1: Tokens : ( T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | RULE_ID | RULE_INTEGER_LIT | RULE_STRING | RULE_SL_COMMENT | RULE_WS );";
         }
     }
  

@@ -190,19 +190,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         category=ComponentCategory 
-	 *         componentImplementation=[ComponentImplementation|FQCREF] 
-	 *         featureInstance+=FeatureInstance* 
-	 *         componentInstance+=ComponentInstance* 
-	 *         modeInstance+=ModeInstance* 
-	 *         modeTransitionInstance+=ModeTransitionInstance* 
-	 *         flowSpecification+=FlowSpecInstance* 
-	 *         endToEndFlow+=EndToEndFlowInstance* 
-	 *         connectionInstance+=ConnectionInstance* 
-	 *         systemOperationMode+=SystemOperationMode*
-	 *     )
+	 *     (category=ComponentCategory name=ID componentImplementation=[ComponentImplementation|FQCREF] systemOperationMode+=SystemOperationMode*)
 	 */
 	protected void sequence_SystemInstance(EObject context, SystemInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -211,7 +199,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (name=SOMID currentMode+=[ModeInstance|INSTANCEREF]*)
+	 *     name=STRING
 	 */
 	protected void sequence_SystemOperationMode(EObject context, SystemOperationMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
