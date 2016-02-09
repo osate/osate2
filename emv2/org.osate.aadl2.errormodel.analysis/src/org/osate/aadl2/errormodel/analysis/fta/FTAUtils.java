@@ -85,6 +85,12 @@ public class FTAUtils {
 
 		}
 
+		if (errorModelArtifact instanceof ErrorBehaviorState)
+		{
+			ErrorBehaviorState ebs = (ErrorBehaviorState) errorModelArtifact;
+			description = "component " + component.getName() + " in state " + ebs.getName();
+		}
+
 		return description;
 	}
 
@@ -258,7 +264,7 @@ public class FTAUtils {
 
 					if (propagationEndsMatches (propagationSource, errorSource.getOutgoing()))
 					{
-						if (!EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(),typeToken))
+						if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(),typeToken))
 						{
 							Event newEvent = new Event();
 							newEvent.setEventType(EventType.EVENT);
@@ -273,29 +279,48 @@ public class FTAUtils {
 		/**
 		 * Then, we build the final tree.
 		 */
-
-
-		result = new Event ();
-		String desc = "Events from component " + component.getName() + " on " + EMV2Util.getPrintName(errorPropagation);
-		if (typeToken != null)
+		switch (subEvents.size())
 		{
-			desc += " with types " + EMV2Util.getPrintName(typeToken);
-		}
-		result.setDescription(desc);
+			case 0:
+			{
+				result = new Event ();
+				String desc = "Events from component " + component.getName() + " on " + EMV2Util.getPrintName(errorPropagation);
+				if (typeToken != null)
+				{
+					desc += " with types " + EMV2Util.getPrintName(typeToken);
+				}
+				desc += " (no error source found)";
 
-		result.setEventType(EventType.NORMAL);
+				result.setDescription(desc);
+				result.setEventType(EventType.EVENT);
+				break;
+			}
+			case 1:
+			{
+				result = subEvents.get(0);
+				result.setEventType(EventType.EVENT);
+				break;
+			}
+			default:
+			{
+				result = new Event ();
+				String desc = "Events from component " + component.getName() + " on " + EMV2Util.getPrintName(errorPropagation);
+				if (typeToken != null)
+				{
+					desc += " with types " + EMV2Util.getPrintName(typeToken);
+				}
+				result.setDescription(desc);
 
-		if (subEvents.size() > 0)
-		{
-			Event gate = new Event ();
-			gate.setEventType(EventType.OR);
-			gate.getSubEvents().addAll(subEvents);
-			result.getSubEvents().add(gate);
+				result.setEventType(EventType.NORMAL);
+
+				Event gate = new Event ();
+				gate.setEventType(EventType.OR);
+				gate.getSubEvents().addAll(subEvents);
+				result.getSubEvents().add(gate);
+
+			}
 		}
-		else
-		{
-			result.setEventType(EventType.EVENT);
-		}
+
 		return result;
 	}
 
@@ -459,7 +484,7 @@ public class FTAUtils {
 
 						newEvent = new Event();
 						newEvent.setDescription("Error Propagation on " + EMV2Util.getPrintName(errorPropagation) + "types "
-								+ EMV2Util.getPrintName(errorPropagation.getTypeSet()));
+								+ EMV2Util.getPrintName(conditionElement.getConstraint()));
 						newEvent.setEventType(EventType.EVENT);
 
 						returnedEvents.add(newEvent);
@@ -474,6 +499,7 @@ public class FTAUtils {
 						{
 							Event orGate = new Event();
 							orGate.setEventType(EventType.OR);
+							orGate.setDescription("Occurrence of one of the following events");
 							orGate.getSubEvents().addAll(contributors);
 							newEvent.addSubEvent(orGate);
 							newEvent.setEventType(EventType.NORMAL);
@@ -596,7 +622,6 @@ public class FTAUtils {
 			Event returnedEvent;
 
 			returnedEvent = new Event();
-			returnedEvent.setDescription("component " + component.getName() + " in state " + state.getName());
 			returnedEvent.setEventType(EventType.NORMAL);
 
 			fillProperties(returnedEvent, component, state, state.getTypeSet());
