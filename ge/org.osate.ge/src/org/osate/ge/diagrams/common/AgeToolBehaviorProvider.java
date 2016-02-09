@@ -11,6 +11,7 @@ package org.osate.ge.diagrams.common;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -49,7 +50,13 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerDoubleClickFeature;
 import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Names;
+import org.osate.ge.ext.annotations.CanHandleDoubleClick;
+import org.osate.ge.ext.annotations.CanRefresh;
+import org.osate.ge.ext.annotations.RefreshShape;
+import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.ge.services.ExtensionRegistryService.Category;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
@@ -58,13 +65,15 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
+	private final PictogramElementService pes;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context, final PictogramElementService pes) {
 		super(diagramTypeProvider);
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
+		this.pes = pes;
 	}
 
 	@Override
@@ -115,6 +124,30 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	    if(customFeature.canExecute(context)) {
 	        return customFeature;
 	    }
+	    
+	    // Check pictogram handlers
+	    if(context.getPictogramElements().length == 1) {
+			final IEclipseContext eclipseCtx = extensionService.createChildContext();
+			
+			try {
+				final PictogramElement pe = context.getPictogramElements()[0];
+				eclipseCtx.set(Names.PICTOGRAM_ELEMENT, pe);
+				eclipseCtx.set(Names.BUSINESS_OBJECT, pes.getBusinessObject(pe));
+	
+				// Find the pictogram handler which can be used to handle the double-click
+				for(final Object pictogramHandler : extensionService.getPictogramHandlers()) {
+					final boolean canHandleDoubleClick = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanHandleDoubleClick.class, eclipseCtx, false);
+					if(canHandleDoubleClick) {
+						return new PictogramHandlerDoubleClickFeature(extensionService, pes, getFeatureProvider(), pictogramHandler);
+					}
+					
+				}
+				
+			} finally {
+				eclipseCtx.dispose();
+			}
+	    }
+		
 	    return super.getDoubleClickFeature(context);
 	 }
 	
