@@ -5,11 +5,14 @@ import org.eclipse.xtext.junit4.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.ComponentCategory
+import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.instance.InstanceUiInjectorProvider
 
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.junit.Assert.assertEquals
+import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
@@ -267,6 +270,187 @@ class ParserTest extends OsateTest {
 		testFile(virtualProcessorFileName).resource.contents.head as SystemInstance => [
 			"vpInstance".assertEquals(name)
 			ComponentCategory.VIRTUAL_PROCESSOR.assertEquals(category)
+		]
+	}
+	
+	@Test
+	def void testSubcomponents() {
+		val pkg1FileName = "pkg1.aadl"
+		val si1FileName = "si1.instance"
+		val si2FileName = "si2.instance"
+		val si3FileName = "si3.instance"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s
+				end s;
+				
+				system implementation s.i1
+				subcomponents
+					asub: abstract;
+				end s.i1;
+				
+				system implementation s.i2
+				subcomponents
+					psSub: process ps.i;
+				end s.i2;
+				
+				process ps
+				end ps;
+				
+				process implementation ps.i
+				subcomponents
+					tSub: thread;
+				end ps.i;
+				
+				system implementation s.i3
+				subcomponents
+					aSub1: abstract;
+					aSub2: abstract[3];
+					aSub3: abstract[2][2];
+				end s.i3;
+			end pkg1;
+		''', si1FileName -> '''
+			system si1 : pkg1::s.i1 {
+				abstract asub : pkg1::s.i1.asub[0]
+				som "No Modes"
+			}
+		''', si2FileName -> '''
+			system si2 : pkg1::s.i2 {
+				process psSub : pkg1::s.i2.psSub[0] {
+					thread tSub : pkg1::ps.i.tSub[0]
+				}
+				som "No Modes"
+			}
+		''', si3FileName -> '''
+			system si3 : pkg1::s.i3 {
+				abstract aSub1 : pkg1::s.i3.aSub1[0]
+				abstract aSub2 : pkg1::s.i3.aSub2[1]
+				abstract aSub2 : pkg1::s.i3.aSub2[2]
+				abstract aSub2 : pkg1::s.i3.aSub2[3]
+				abstract aSub3 : pkg1::s.i3.aSub3[1, 1]
+				abstract aSub3 : pkg1::s.i3.aSub3[1, 2]
+				abstract aSub3 : pkg1::s.i3.aSub3[2, 1]
+				abstract aSub3 : pkg1::s.i3.aSub3[2, 2]
+				som "No Modes"
+			}
+		''')
+		suppressSerialization
+		testFile(pkg1FileName)
+		testFile(si1FileName).resource.contents.head as SystemInstance => [
+			"si1".assertEquals(name)
+			1.assertEquals(componentInstances.size)
+			componentInstances.head => [
+				"asub".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i1".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"asub".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				0L.assertEquals(indices.head)
+				componentInstances.empty.assertTrue
+			]
+		]
+		testFile(si2FileName).resource.contents.head as SystemInstance => [
+			"si2".assertEquals(name)
+			1.assertEquals(componentInstances.size)
+			componentInstances.head => [
+				"psSub".assertEquals(name)
+				ComponentCategory.PROCESS.assertEquals(category)
+				"pkg1::s.i2".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"psSub".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				0L.assertEquals(indices.head)
+				1.assertEquals(componentInstances.size)
+				componentInstances.head => [
+					"tSub".assertEquals(name)
+					ComponentCategory.THREAD.assertEquals(category)
+					"pkg1::ps.i".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+					"tSub".assertEquals(subcomponent.name)
+					1.assertEquals(indices.size)
+					0L.assertEquals(indices.head)
+					componentInstances.empty.assertTrue
+				]
+			]
+		]
+		testFile(si3FileName).resource.contents.head as SystemInstance => [
+			"si3".assertEquals(name)
+			8.assertEquals(componentInstances.size)
+			componentInstances.get(0) => [
+				"aSub1".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub1".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				0L.assertEquals(indices.head)
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(1) => [
+				"aSub2".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub2".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				1L.assertEquals(indices.head)
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(2) => [
+				"aSub2".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub2".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				2L.assertEquals(indices.head)
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(3) => [
+				"aSub2".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub2".assertEquals(subcomponent.name)
+				1.assertEquals(indices.size)
+				3L.assertEquals(indices.head)
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(4) => [
+				"aSub3".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub3".assertEquals(subcomponent.name)
+				2.assertEquals(indices.size)
+				1L.assertEquals(indices.get(0))
+				1L.assertEquals(indices.get(1))
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(5) => [
+				"aSub3".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub3".assertEquals(subcomponent.name)
+				2.assertEquals(indices.size)
+				1L.assertEquals(indices.get(0))
+				2L.assertEquals(indices.get(1))
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(6) => [
+				"aSub3".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub3".assertEquals(subcomponent.name)
+				2.assertEquals(indices.size)
+				2L.assertEquals(indices.get(0))
+				1L.assertEquals(indices.get(1))
+				componentInstances.empty.assertTrue
+			]
+			componentInstances.get(7) => [
+				"aSub3".assertEquals(name)
+				ComponentCategory.ABSTRACT.assertEquals(category)
+				"pkg1::s.i3".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub3".assertEquals(subcomponent.name)
+				2.assertEquals(indices.size)
+				2L.assertEquals(indices.get(0))
+				2L.assertEquals(indices.get(0))
+				componentInstances.empty.assertTrue
+			]
 		]
 	}
 }
