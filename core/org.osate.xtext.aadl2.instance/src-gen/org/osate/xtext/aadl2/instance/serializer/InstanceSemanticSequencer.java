@@ -14,14 +14,7 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
-import org.osate.aadl2.instance.ModeInstance;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
@@ -38,27 +31,6 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case InstancePackage.COMPONENT_INSTANCE:
 				sequence_ComponentInstance(context, (ComponentInstance) semanticObject); 
 				return; 
-			case InstancePackage.CONNECTION_INSTANCE:
-				sequence_ConnectionInstance(context, (ConnectionInstance) semanticObject); 
-				return; 
-			case InstancePackage.CONNECTION_REFERENCE:
-				sequence_ConnectionReference(context, (ConnectionReference) semanticObject); 
-				return; 
-			case InstancePackage.END_TO_END_FLOW_INSTANCE:
-				sequence_EndToEndFlowInstance(context, (EndToEndFlowInstance) semanticObject); 
-				return; 
-			case InstancePackage.FEATURE_INSTANCE:
-				sequence_FeatureInstance(context, (FeatureInstance) semanticObject); 
-				return; 
-			case InstancePackage.FLOW_SPECIFICATION_INSTANCE:
-				sequence_FlowSpecInstance(context, (FlowSpecificationInstance) semanticObject); 
-				return; 
-			case InstancePackage.MODE_INSTANCE:
-				sequence_ModeInstance(context, (ModeInstance) semanticObject); 
-				return; 
-			case InstancePackage.MODE_TRANSITION_INSTANCE:
-				sequence_ModeTransitionInstance(context, (ModeTransitionInstance) semanticObject); 
-				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
 				return; 
@@ -74,16 +46,10 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         category=ComponentCategory 
 	 *         name=ID 
-	 *         index+=INTVALUE* 
-	 *         subcomponent=[Subcomponent|ID] 
-	 *         featureInstance+=FeatureInstance* 
-	 *         componentInstance+=ComponentInstance* 
-	 *         modeInstance+=ModeInstance* 
-	 *         modeTransitionInstance+=ModeTransitionInstance* 
-	 *         flowSpecification+=FlowSpecInstance* 
-	 *         endToEndFlow+=EndToEndFlowInstance* 
-	 *         connectionInstance+=ConnectionInstance* 
-	 *         inMode+=[ModeInstance|ID]?
+	 *         subcomponent=[Subcomponent|SUBREF] 
+	 *         index+=LONG 
+	 *         index+=LONG* 
+	 *         componentInstance+=ComponentInstance*
 	 *     )
 	 */
 	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {
@@ -94,103 +60,11 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (
-	 *         kind=ConnectionKind 
-	 *         connectionReference+=ConnectionReference+ 
-	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         inSystemOperationMode+=[SystemOperationMode|SOMID]? 
-	 *         inModeTransition+=[ModeTransitionInstance|INSTANCEREF]? 
-	 *         complete?='complete'? 
-	 *         bidirectional?='bidirectional'?
-	 *     )
-	 */
-	protected void sequence_ConnectionInstance(EObject context, ConnectionInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         connection=[Connection|ID] 
-	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         context=[ComponentInstance|INSTANCEREF]
-	 *     )
-	 */
-	protected void sequence_ConnectionReference(EObject context, ConnectionReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
+	 *         category=ComponentCategory 
 	 *         name=ID 
-	 *         endToEndFlow=[EndToEndFlow|ID] 
-	 *         flowElement+=[FlowElementInstance|INSTANCEREF]* 
-	 *         inMode+=[ModeInstance|INSTANCEREF]? 
-	 *         inSystemOperationMode+=[SystemOperationMode|SOMID]?
+	 *         componentImplementation=[ComponentImplementation|IMPLREF] 
+	 *         (componentInstance+=ComponentInstance | systemOperationMode+=SystemOperationMode)*
 	 *     )
-	 */
-	protected void sequence_EndToEndFlowInstance(EObject context, EndToEndFlowInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         category=FeatureCategory 
-	 *         name=ID 
-	 *         index=INTVALUE? 
-	 *         feature=[Feature|ID] 
-	 *         direction=DirectionType 
-	 *         featureInstance+=FeatureInstance
-	 *     )
-	 */
-	protected void sequence_FeatureInstance(EObject context, FeatureInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         flowSpecification=[FlowSpecification|ID] 
-	 *         source=[FeatureInstance|INSTANCEREF]? 
-	 *         destination=[FeatureInstance|INSTANCEREF]? 
-	 *         inMode+=[ModeInstance|INSTANCEREF]? 
-	 *         inModeTransition+=[ModeTransitionInstance|ID]?
-	 *     )
-	 */
-	protected void sequence_FlowSpecInstance(EObject context, FlowSpecificationInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID mode=[Mode|ID] initial?='initial'?)
-	 */
-	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID modeTransition=[ModeTransition|ID] source=[ModeInstance|ID] destination=[ModeInstance|ID])
-	 */
-	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (category=ComponentCategory name=ID componentImplementation=[ComponentImplementation|FQCREF] systemOperationMode+=SystemOperationMode*)
 	 */
 	protected void sequence_SystemInstance(EObject context, SystemInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

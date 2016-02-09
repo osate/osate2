@@ -3,6 +3,20 @@
  */
 package org.osate.xtext.aadl2.instance.scoping
 
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.InstancePackage
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+
 /**
  * This class contains custom scoping description.
  * 
@@ -10,6 +24,16 @@ package org.osate.xtext.aadl2.instance.scoping
  * on how and when to use it.
  *
  */
-class InstanceScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
-
+class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
+	def IScope scope_ComponentInstance_subcomponent(ComponentInstance context, EReference reference) {
+		val implScope = delegateGetScope(context, InstancePackage.eINSTANCE.systemInstance_ComponentImplementation)
+		val impls = implScope.allElements.map[EObjectOrProxy.resolve(context)].filter(ComponentImplementation)
+		new SimpleScope(impls.map[impl |
+			val pkgName = impl.getContainerOfType(AadlPackage).name
+			impl.ownedSubcomponents.map[sub |
+				val qualifiedName = QualifiedName.create(pkgName, impl.name + "." + sub.name)
+				EObjectDescription.create(qualifiedName, sub)
+			]
+		].flatten)
+	}
 }

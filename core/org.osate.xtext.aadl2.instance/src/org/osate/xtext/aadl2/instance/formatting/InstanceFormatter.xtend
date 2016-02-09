@@ -27,5 +27,7 @@ class InstanceFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement.before(second)
 			c.setLinewrap.before(second)
 		]
+		c.setLinewrap(1).after(systemOperationModeRule)
+		c.setLinewrap(1).after(componentInstanceRule)
 	}
 }
