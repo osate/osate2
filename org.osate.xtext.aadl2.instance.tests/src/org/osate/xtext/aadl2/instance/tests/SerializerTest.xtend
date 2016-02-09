@@ -90,29 +90,52 @@ class SerializerTest extends OsateTest {
 			"pkg1".assertEquals(name)
 			assertSerialize("s.i1", '''
 				system s_i1_Instance : pkg1::s.i1 {
-					abstract aSub : pkg1::s.i1.aSub [ 0 ]
+					abstract aSub : pkg1::s.i1::aSub [ 0 ]
 					som "No Modes"
 				}''')
 			assertSerialize("s.i3", '''
 				system s_i3_Instance : pkg1::s.i3 {
-					process psSub : pkg1::s.i2.psSub [ 0 ] {
-						thread tSub : pkg1::ps.i.tSub [ 0 ]
+					process psSub : pkg1::s.i2::psSub [ 0 ] {
+						thread tSub : pkg1::ps.i::tSub [ 0 ]
 					}
 					som "No Modes"
 				}''')
 			assertSerialize("s.i4", '''
 				system s_i4_Instance : pkg1::s.i4 {
-					abstract aSub1 : pkg1::s.i4.aSub1 [ 0 ]
-					abstract aSub2 : pkg1::s.i4.aSub2 [ 1 ]
-					abstract aSub2 : pkg1::s.i4.aSub2 [ 2 ]
-					abstract aSub2 : pkg1::s.i4.aSub2 [ 3 ]
-					abstract aSub3 : pkg1::s.i4.aSub3 [ 1 , 1 ]
-					abstract aSub3 : pkg1::s.i4.aSub3 [ 1 , 2 ]
-					abstract aSub3 : pkg1::s.i4.aSub3 [ 2 , 1 ]
-					abstract aSub3 : pkg1::s.i4.aSub3 [ 2 , 2 ]
+					abstract aSub1 : pkg1::s.i4::aSub1 [ 0 ]
+					abstract aSub2 : pkg1::s.i4::aSub2 [ 1 ]
+					abstract aSub2 : pkg1::s.i4::aSub2 [ 2 ]
+					abstract aSub2 : pkg1::s.i4::aSub2 [ 3 ]
+					abstract aSub3 : pkg1::s.i4::aSub3 [ 1 , 1 ]
+					abstract aSub3 : pkg1::s.i4::aSub3 [ 1 , 2 ]
+					abstract aSub3 : pkg1::s.i4::aSub3 [ 2 , 1 ]
+					abstract aSub3 : pkg1::s.i4::aSub3 [ 2 , 2 ]
 					som "No Modes"
 				}''')
 		]
+	}
+	
+	@Test
+	def void testNestedPackage() {
+		val pkg1FileName = "a-b-c-d.aadl"
+		createFiles(pkg1FileName -> '''
+			package a::b::c::d
+			public
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					aSub: abstract;
+				end s.i;
+			end a::b::c::d;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : a::b::c::d::s.i {
+				abstract aSub : a::b::c::d::s.i::aSub [ 0 ]
+				som "No Modes"
+			}''')
 	}
 	
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {

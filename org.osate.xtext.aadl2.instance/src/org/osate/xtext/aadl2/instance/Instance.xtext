@@ -27,11 +27,11 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 
 IMPLREF:
-	ID '::' ID '.' ID
+	(ID '::')+ ID '.' ID
 ;
 	
 SUBREF:
-	ID '::' ID '.' ID '.' ID
+	(ID '::')+ ID '.' ID '::' ID
 ;
 	
 terminal ID:	('a'..'z'
