@@ -1108,7 +1108,7 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIMPLREF"
-    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:532:1: ruleIMPLREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:532:1: ruleIMPLREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleIMPLREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1120,42 +1120,77 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:535:28: ( (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:1: (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:535:28: ( ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:1: ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:1: (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:6: this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:1: ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:2: (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1134); 
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:2: (this_ID_0= RULE_ID kw= '::' )+
+            int cnt6=0;
+            loop6:
+            do {
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-            		current.merge(this_ID_0);
-                
-             
-                newLeafNode(this_ID_0, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0()); 
-                
-            kw=(Token)match(input,28,FOLLOW_28_in_ruleIMPLREF1152); 
+                if ( (LA6_0==RULE_ID) ) {
+                    int LA6_1 = input.LA(2);
 
-                    current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getIMPLREFAccess().getColonColonKeyword_1()); 
-                
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1167); 
+                    if ( (LA6_1==28) ) {
+                        alt6=1;
+                    }
+
+
+                }
+
+
+                switch (alt6) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:536:7: this_ID_0= RULE_ID kw= '::'
+            	    {
+            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1135); 
+
+            	    		current.merge(this_ID_0);
+            	        
+            	     
+            	        newLeafNode(this_ID_0, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0_0()); 
+            	        
+            	    kw=(Token)match(input,28,FOLLOW_28_in_ruleIMPLREF1153); 
+
+            	            current.merge(kw);
+            	            newLeafNode(kw, grammarAccess.getIMPLREFAccess().getColonColonKeyword_0_1()); 
+            	        
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt6 >= 1 ) break loop6;
+                        EarlyExitException eee =
+                            new EarlyExitException(6, input);
+                        throw eee;
+                }
+                cnt6++;
+            } while (true);
+
+            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1170); 
 
             		current.merge(this_ID_2);
                 
              
-                newLeafNode(this_ID_2, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_2()); 
+                newLeafNode(this_ID_2, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_1()); 
                 
-            kw=(Token)match(input,29,FOLLOW_29_in_ruleIMPLREF1185); 
+            kw=(Token)match(input,29,FOLLOW_29_in_ruleIMPLREF1188); 
 
                     current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getIMPLREFAccess().getFullStopKeyword_3()); 
+                    newLeafNode(kw, grammarAccess.getIMPLREFAccess().getFullStopKeyword_2()); 
                 
-            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1200); 
+            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleIMPLREF1203); 
 
             		current.merge(this_ID_4);
                 
              
-                newLeafNode(this_ID_4, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_4()); 
+                newLeafNode(this_ID_4, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_3()); 
                 
 
             }
@@ -1190,13 +1225,13 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:579:2: iv_ruleSUBREF= ruleSUBREF EOF
             {
              newCompositeNode(grammarAccess.getSUBREFRule()); 
-            pushFollow(FOLLOW_ruleSUBREF_in_entryRuleSUBREF1246);
+            pushFollow(FOLLOW_ruleSUBREF_in_entryRuleSUBREF1249);
             iv_ruleSUBREF=ruleSUBREF();
 
             state._fsp--;
 
              current =iv_ruleSUBREF.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSUBREF1257); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSUBREF1260); 
 
             }
 
@@ -1214,7 +1249,7 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSUBREF"
-    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:586:1: ruleSUBREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '.' this_ID_6= RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:586:1: ruleSUBREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '::' this_ID_6= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleSUBREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1227,54 +1262,89 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:589:28: ( (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '.' this_ID_6= RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:1: (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '.' this_ID_6= RULE_ID )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:589:28: ( ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '::' this_ID_6= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:1: ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '::' this_ID_6= RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:1: (this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '.' this_ID_6= RULE_ID )
-            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:6: this_ID_0= RULE_ID kw= '::' this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '.' this_ID_6= RULE_ID
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:1: ( (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '::' this_ID_6= RULE_ID )
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:2: (this_ID_0= RULE_ID kw= '::' )+ this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID kw= '::' this_ID_6= RULE_ID
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1297); 
+            // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:2: (this_ID_0= RULE_ID kw= '::' )+
+            int cnt7=0;
+            loop7:
+            do {
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-            		current.merge(this_ID_0);
-                
-             
-                newLeafNode(this_ID_0, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0()); 
-                
-            kw=(Token)match(input,28,FOLLOW_28_in_ruleSUBREF1315); 
+                if ( (LA7_0==RULE_ID) ) {
+                    int LA7_1 = input.LA(2);
 
-                    current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_1()); 
-                
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1330); 
+                    if ( (LA7_1==28) ) {
+                        alt7=1;
+                    }
+
+
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.instance/src-gen/org/osate/xtext/aadl2/instance/parser/antlr/internal/InternalInstance.g:590:7: this_ID_0= RULE_ID kw= '::'
+            	    {
+            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1301); 
+
+            	    		current.merge(this_ID_0);
+            	        
+            	     
+            	        newLeafNode(this_ID_0, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0_0()); 
+            	        
+            	    kw=(Token)match(input,28,FOLLOW_28_in_ruleSUBREF1319); 
+
+            	            current.merge(kw);
+            	            newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_0_1()); 
+            	        
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt7 >= 1 ) break loop7;
+                        EarlyExitException eee =
+                            new EarlyExitException(7, input);
+                        throw eee;
+                }
+                cnt7++;
+            } while (true);
+
+            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1336); 
 
             		current.merge(this_ID_2);
                 
              
-                newLeafNode(this_ID_2, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_2()); 
+                newLeafNode(this_ID_2, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_1()); 
                 
-            kw=(Token)match(input,29,FOLLOW_29_in_ruleSUBREF1348); 
+            kw=(Token)match(input,29,FOLLOW_29_in_ruleSUBREF1354); 
 
                     current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_3()); 
+                    newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_2()); 
                 
-            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1363); 
+            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1369); 
 
             		current.merge(this_ID_4);
                 
              
-                newLeafNode(this_ID_4, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_4()); 
+                newLeafNode(this_ID_4, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_3()); 
                 
-            kw=(Token)match(input,29,FOLLOW_29_in_ruleSUBREF1381); 
+            kw=(Token)match(input,28,FOLLOW_28_in_ruleSUBREF1387); 
 
                     current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_5()); 
+                    newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_4()); 
                 
-            this_ID_6=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1396); 
+            this_ID_6=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSUBREF1402); 
 
             		current.merge(this_ID_6);
                 
              
-                newLeafNode(this_ID_6, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_6()); 
+                newLeafNode(this_ID_6, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_5()); 
                 
 
             }
@@ -1417,19 +1487,19 @@ public class InternalInstanceParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_22_in_ruleComponentCategory1041 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIMPLREF_in_entryRuleIMPLREF1083 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleIMPLREF1094 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1134 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_ruleIMPLREF1152 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1167 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_ruleIMPLREF1185 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSUBREF_in_entryRuleSUBREF1246 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSUBREF1257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1297 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_ruleSUBREF1315 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1330 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_ruleSUBREF1348 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1363 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_ruleSUBREF1381 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1396 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1135 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_ruleIMPLREF1153 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1170 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_ruleIMPLREF1188 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMPLREF1203 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSUBREF_in_entryRuleSUBREF1249 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSUBREF1260 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1301 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_ruleSUBREF1319 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1336 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_ruleSUBREF1354 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1369 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_ruleSUBREF1387 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSUBREF1402 = new BitSet(new long[]{0x0000000000000002L});
 
 }

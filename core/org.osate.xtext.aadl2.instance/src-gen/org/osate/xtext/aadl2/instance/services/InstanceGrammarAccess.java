@@ -318,73 +318,81 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	public class IMPLREFElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IMPLREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cIDTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cColonColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//IMPLREF:
-		//	ID "::" ID "." ID;
+		//	(ID "::")+ ID "." ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID "::" ID "." ID
+		//(ID "::")+ ID "." ID
 		public Group getGroup() { return cGroup; }
 
+		//(ID "::")+
+		public Group getGroup_0() { return cGroup_0; }
+
 		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
 		//"::"
-		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
+		public Keyword getColonColonKeyword_0_1() { return cColonColonKeyword_0_1; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 
 		//"."
-		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_4() { return cIDTerminalRuleCall_4; }
+		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
 	}
 
 	public class SUBREFElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SUBREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cIDTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Keyword cFullStopKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final RuleCall cIDTerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cColonColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cColonColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final RuleCall cIDTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//SUBREF:
-		//	ID "::" ID "." ID "." ID;
+		//	(ID "::")+ ID "." ID "::" ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID "::" ID "." ID "." ID
+		//(ID "::")+ ID "." ID "::" ID
 		public Group getGroup() { return cGroup; }
 
+		//(ID "::")+
+		public Group getGroup_0() { return cGroup_0; }
+
 		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
 		//"::"
-		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
+		public Keyword getColonColonKeyword_0_1() { return cColonColonKeyword_0_1; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 
 		//"."
-		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_4() { return cIDTerminalRuleCall_4; }
+		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
 
-		//"."
-		public Keyword getFullStopKeyword_5() { return cFullStopKeyword_5; }
+		//"::"
+		public Keyword getColonColonKeyword_4() { return cColonColonKeyword_4; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_6() { return cIDTerminalRuleCall_6; }
+		public RuleCall getIDTerminalRuleCall_5() { return cIDTerminalRuleCall_5; }
 	}
 	
 	
@@ -485,7 +493,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IMPLREF:
-	//	ID "::" ID "." ID;
+	//	(ID "::")+ ID "." ID;
 	public IMPLREFElements getIMPLREFAccess() {
 		return pIMPLREF;
 	}
@@ -495,7 +503,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SUBREF:
-	//	ID "::" ID "." ID "." ID;
+	//	(ID "::")+ ID "." ID "::" ID;
 	public SUBREFElements getSUBREFAccess() {
 		return pSUBREF;
 	}

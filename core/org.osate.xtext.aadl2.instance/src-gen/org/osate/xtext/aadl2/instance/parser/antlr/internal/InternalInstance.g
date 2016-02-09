@@ -533,38 +533,38 @@ ruleIMPLREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
+((    this_ID_0=RULE_ID    {
 		$current.merge(this_ID_0);
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0()); 
+    newLeafNode(this_ID_0, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0_0()); 
     }
 
 	kw='::' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getIMPLREFAccess().getColonColonKeyword_1()); 
+        newLeafNode(kw, grammarAccess.getIMPLREFAccess().getColonColonKeyword_0_1()); 
     }
-    this_ID_2=RULE_ID    {
+)+    this_ID_2=RULE_ID    {
 		$current.merge(this_ID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_2()); 
+    newLeafNode(this_ID_2, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_1()); 
     }
 
 	kw='.' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getIMPLREFAccess().getFullStopKeyword_3()); 
+        newLeafNode(kw, grammarAccess.getIMPLREFAccess().getFullStopKeyword_2()); 
     }
     this_ID_4=RULE_ID    {
 		$current.merge(this_ID_4);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_4()); 
+    newLeafNode(this_ID_4, grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_3()); 
     }
 )
     ;
@@ -587,51 +587,51 @@ ruleSUBREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
+((    this_ID_0=RULE_ID    {
 		$current.merge(this_ID_0);
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0()); 
+    newLeafNode(this_ID_0, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0_0()); 
     }
 
 	kw='::' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_1()); 
+        newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_0_1()); 
     }
-    this_ID_2=RULE_ID    {
+)+    this_ID_2=RULE_ID    {
 		$current.merge(this_ID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_2()); 
+    newLeafNode(this_ID_2, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_1()); 
     }
 
 	kw='.' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_3()); 
+        newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_2()); 
     }
     this_ID_4=RULE_ID    {
 		$current.merge(this_ID_4);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_4()); 
+    newLeafNode(this_ID_4, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_3()); 
     }
 
-	kw='.' 
+	kw='::' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getSUBREFAccess().getFullStopKeyword_5()); 
+        newLeafNode(kw, grammarAccess.getSUBREFAccess().getColonColonKeyword_4()); 
     }
     this_ID_6=RULE_ID    {
 		$current.merge(this_ID_6);
     }
 
     { 
-    newLeafNode(this_ID_6, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_6()); 
+    newLeafNode(this_ID_6, grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_5()); 
     }
 )
     ;

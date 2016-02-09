@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalInstanceParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_LONG", "RULE_STRING", "RULE_SL_COMMENT", "RULE_WS", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "':'", "'{'", "'}'", "'['", "']'", "','", "'som'", "'group'", "'virtual'", "'::'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_LONG", "RULE_STRING", "RULE_SL_COMMENT", "RULE_WS", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "':'", "'{'", "'}'", "'['", "']'", "','", "'som'", "'group'", "'virtual'", "'.'", "'::'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=7;
@@ -3434,21 +3434,80 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__0__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1366:1: rule__IMPLREF__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1366:1: rule__IMPLREF__Group__0__Impl : ( ( ( rule__IMPLREF__Group_0__0 ) ) ( ( rule__IMPLREF__Group_0__0 )* ) ) ;
     public final void rule__IMPLREF__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1370:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1371:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1370:1: ( ( ( ( rule__IMPLREF__Group_0__0 ) ) ( ( rule__IMPLREF__Group_0__0 )* ) ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1371:1: ( ( ( rule__IMPLREF__Group_0__0 ) ) ( ( rule__IMPLREF__Group_0__0 )* ) )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1371:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1372:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1371:1: ( ( ( rule__IMPLREF__Group_0__0 ) ) ( ( rule__IMPLREF__Group_0__0 )* ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1372:1: ( ( rule__IMPLREF__Group_0__0 ) ) ( ( rule__IMPLREF__Group_0__0 )* )
             {
-             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group__0__Impl2731); 
-             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1372:1: ( ( rule__IMPLREF__Group_0__0 ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1373:1: ( rule__IMPLREF__Group_0__0 )
+            {
+             before(grammarAccess.getIMPLREFAccess().getGroup_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1374:1: ( rule__IMPLREF__Group_0__0 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1374:2: rule__IMPLREF__Group_0__0
+            {
+            pushFollow(FOLLOW_rule__IMPLREF__Group_0__0_in_rule__IMPLREF__Group__0__Impl2733);
+            rule__IMPLREF__Group_0__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getIMPLREFAccess().getGroup_0()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1377:1: ( ( rule__IMPLREF__Group_0__0 )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1378:1: ( rule__IMPLREF__Group_0__0 )*
+            {
+             before(grammarAccess.getIMPLREFAccess().getGroup_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1379:1: ( rule__IMPLREF__Group_0__0 )*
+            loop7:
+            do {
+                int alt7=2;
+                int LA7_0 = input.LA(1);
+
+                if ( (LA7_0==RULE_ID) ) {
+                    int LA7_1 = input.LA(2);
+
+                    if ( (LA7_1==29) ) {
+                        alt7=1;
+                    }
+
+
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1379:2: rule__IMPLREF__Group_0__0
+            	    {
+            	    pushFollow(FOLLOW_rule__IMPLREF__Group_0__0_in_rule__IMPLREF__Group__0__Impl2745);
+            	    rule__IMPLREF__Group_0__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop7;
+                }
+            } while (true);
+
+             after(grammarAccess.getIMPLREFAccess().getGroup_0()); 
+
+            }
+
 
             }
 
@@ -3471,21 +3530,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1383:1: rule__IMPLREF__Group__1 : rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1390:1: rule__IMPLREF__Group__1 : rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2 ;
     public final void rule__IMPLREF__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1387:1: ( rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1388:2: rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1394:1: ( rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1395:2: rule__IMPLREF__Group__1__Impl rule__IMPLREF__Group__2
             {
-            pushFollow(FOLLOW_rule__IMPLREF__Group__1__Impl_in_rule__IMPLREF__Group__12760);
+            pushFollow(FOLLOW_rule__IMPLREF__Group__1__Impl_in_rule__IMPLREF__Group__12778);
             rule__IMPLREF__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__IMPLREF__Group__2_in_rule__IMPLREF__Group__12763);
+            pushFollow(FOLLOW_rule__IMPLREF__Group__2_in_rule__IMPLREF__Group__12781);
             rule__IMPLREF__Group__2();
 
             state._fsp--;
@@ -3509,21 +3568,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__1__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1395:1: rule__IMPLREF__Group__1__Impl : ( '::' ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1402:1: rule__IMPLREF__Group__1__Impl : ( RULE_ID ) ;
     public final void rule__IMPLREF__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1399:1: ( ( '::' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1400:1: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1406:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1407:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1400:1: ( '::' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1401:1: '::'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1407:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1408:1: RULE_ID
             {
-             before(grammarAccess.getIMPLREFAccess().getColonColonKeyword_1()); 
-            match(input,28,FOLLOW_28_in_rule__IMPLREF__Group__1__Impl2791); 
-             after(grammarAccess.getIMPLREFAccess().getColonColonKeyword_1()); 
+             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_1()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group__1__Impl2808); 
+             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_1()); 
 
             }
 
@@ -3546,21 +3605,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__2"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1414:1: rule__IMPLREF__Group__2 : rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1419:1: rule__IMPLREF__Group__2 : rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3 ;
     public final void rule__IMPLREF__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1418:1: ( rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1419:2: rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1423:1: ( rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1424:2: rule__IMPLREF__Group__2__Impl rule__IMPLREF__Group__3
             {
-            pushFollow(FOLLOW_rule__IMPLREF__Group__2__Impl_in_rule__IMPLREF__Group__22822);
+            pushFollow(FOLLOW_rule__IMPLREF__Group__2__Impl_in_rule__IMPLREF__Group__22837);
             rule__IMPLREF__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__IMPLREF__Group__3_in_rule__IMPLREF__Group__22825);
+            pushFollow(FOLLOW_rule__IMPLREF__Group__3_in_rule__IMPLREF__Group__22840);
             rule__IMPLREF__Group__3();
 
             state._fsp--;
@@ -3584,21 +3643,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__2__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1426:1: rule__IMPLREF__Group__2__Impl : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1431:1: rule__IMPLREF__Group__2__Impl : ( '.' ) ;
     public final void rule__IMPLREF__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1430:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1431:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1435:1: ( ( '.' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1436:1: ( '.' )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1431:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1432:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1436:1: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1437:1: '.'
             {
-             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group__2__Impl2852); 
-             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_2()); 
+             before(grammarAccess.getIMPLREFAccess().getFullStopKeyword_2()); 
+            match(input,28,FOLLOW_28_in_rule__IMPLREF__Group__2__Impl2868); 
+             after(grammarAccess.getIMPLREFAccess().getFullStopKeyword_2()); 
 
             }
 
@@ -3621,22 +3680,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__3"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1443:1: rule__IMPLREF__Group__3 : rule__IMPLREF__Group__3__Impl rule__IMPLREF__Group__4 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1450:1: rule__IMPLREF__Group__3 : rule__IMPLREF__Group__3__Impl ;
     public final void rule__IMPLREF__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1447:1: ( rule__IMPLREF__Group__3__Impl rule__IMPLREF__Group__4 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1448:2: rule__IMPLREF__Group__3__Impl rule__IMPLREF__Group__4
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1454:1: ( rule__IMPLREF__Group__3__Impl )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1455:2: rule__IMPLREF__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__IMPLREF__Group__3__Impl_in_rule__IMPLREF__Group__32881);
+            pushFollow(FOLLOW_rule__IMPLREF__Group__3__Impl_in_rule__IMPLREF__Group__32899);
             rule__IMPLREF__Group__3__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IMPLREF__Group__4_in_rule__IMPLREF__Group__32884);
-            rule__IMPLREF__Group__4();
 
             state._fsp--;
 
@@ -3659,21 +3713,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__IMPLREF__Group__3__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1455:1: rule__IMPLREF__Group__3__Impl : ( '.' ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1461:1: rule__IMPLREF__Group__3__Impl : ( RULE_ID ) ;
     public final void rule__IMPLREF__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1459:1: ( ( '.' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1460:1: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1465:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1466:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1460:1: ( '.' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1461:1: '.'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1466:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1467:1: RULE_ID
             {
-             before(grammarAccess.getIMPLREFAccess().getFullStopKeyword_3()); 
-            match(input,29,FOLLOW_29_in_rule__IMPLREF__Group__3__Impl2912); 
-             after(grammarAccess.getIMPLREFAccess().getFullStopKeyword_3()); 
+             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_3()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group__3__Impl2926); 
+             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_3()); 
 
             }
 
@@ -3695,18 +3749,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     // $ANTLR end "rule__IMPLREF__Group__3__Impl"
 
 
-    // $ANTLR start "rule__IMPLREF__Group__4"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1474:1: rule__IMPLREF__Group__4 : rule__IMPLREF__Group__4__Impl ;
-    public final void rule__IMPLREF__Group__4() throws RecognitionException {
+    // $ANTLR start "rule__IMPLREF__Group_0__0"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1486:1: rule__IMPLREF__Group_0__0 : rule__IMPLREF__Group_0__0__Impl rule__IMPLREF__Group_0__1 ;
+    public final void rule__IMPLREF__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1478:1: ( rule__IMPLREF__Group__4__Impl )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1479:2: rule__IMPLREF__Group__4__Impl
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1490:1: ( rule__IMPLREF__Group_0__0__Impl rule__IMPLREF__Group_0__1 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1491:2: rule__IMPLREF__Group_0__0__Impl rule__IMPLREF__Group_0__1
             {
-            pushFollow(FOLLOW_rule__IMPLREF__Group__4__Impl_in_rule__IMPLREF__Group__42943);
-            rule__IMPLREF__Group__4__Impl();
+            pushFollow(FOLLOW_rule__IMPLREF__Group_0__0__Impl_in_rule__IMPLREF__Group_0__02963);
+            rule__IMPLREF__Group_0__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IMPLREF__Group_0__1_in_rule__IMPLREF__Group_0__02966);
+            rule__IMPLREF__Group_0__1();
 
             state._fsp--;
 
@@ -3725,25 +3784,25 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
         }
         return ;
     }
-    // $ANTLR end "rule__IMPLREF__Group__4"
+    // $ANTLR end "rule__IMPLREF__Group_0__0"
 
 
-    // $ANTLR start "rule__IMPLREF__Group__4__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1485:1: rule__IMPLREF__Group__4__Impl : ( RULE_ID ) ;
-    public final void rule__IMPLREF__Group__4__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IMPLREF__Group_0__0__Impl"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1498:1: rule__IMPLREF__Group_0__0__Impl : ( RULE_ID ) ;
+    public final void rule__IMPLREF__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1489:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1490:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1502:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1503:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1490:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1491:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1503:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1504:1: RULE_ID
             {
-             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_4()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group__4__Impl2970); 
-             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_4()); 
+             before(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMPLREF__Group_0__0__Impl2993); 
+             after(grammarAccess.getIMPLREFAccess().getIDTerminalRuleCall_0_0()); 
 
             }
 
@@ -3762,25 +3821,95 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
         }
         return ;
     }
-    // $ANTLR end "rule__IMPLREF__Group__4__Impl"
+    // $ANTLR end "rule__IMPLREF__Group_0__0__Impl"
+
+
+    // $ANTLR start "rule__IMPLREF__Group_0__1"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1515:1: rule__IMPLREF__Group_0__1 : rule__IMPLREF__Group_0__1__Impl ;
+    public final void rule__IMPLREF__Group_0__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1519:1: ( rule__IMPLREF__Group_0__1__Impl )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1520:2: rule__IMPLREF__Group_0__1__Impl
+            {
+            pushFollow(FOLLOW_rule__IMPLREF__Group_0__1__Impl_in_rule__IMPLREF__Group_0__13022);
+            rule__IMPLREF__Group_0__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IMPLREF__Group_0__1"
+
+
+    // $ANTLR start "rule__IMPLREF__Group_0__1__Impl"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1526:1: rule__IMPLREF__Group_0__1__Impl : ( '::' ) ;
+    public final void rule__IMPLREF__Group_0__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1530:1: ( ( '::' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1531:1: ( '::' )
+            {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1531:1: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1532:1: '::'
+            {
+             before(grammarAccess.getIMPLREFAccess().getColonColonKeyword_0_1()); 
+            match(input,29,FOLLOW_29_in_rule__IMPLREF__Group_0__1__Impl3050); 
+             after(grammarAccess.getIMPLREFAccess().getColonColonKeyword_0_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IMPLREF__Group_0__1__Impl"
 
 
     // $ANTLR start "rule__SUBREF__Group__0"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1512:1: rule__SUBREF__Group__0 : rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1549:1: rule__SUBREF__Group__0 : rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1 ;
     public final void rule__SUBREF__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1516:1: ( rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1517:2: rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1553:1: ( rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1554:2: rule__SUBREF__Group__0__Impl rule__SUBREF__Group__1
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__0__Impl_in_rule__SUBREF__Group__03009);
+            pushFollow(FOLLOW_rule__SUBREF__Group__0__Impl_in_rule__SUBREF__Group__03085);
             rule__SUBREF__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SUBREF__Group__1_in_rule__SUBREF__Group__03012);
+            pushFollow(FOLLOW_rule__SUBREF__Group__1_in_rule__SUBREF__Group__03088);
             rule__SUBREF__Group__1();
 
             state._fsp--;
@@ -3804,21 +3933,80 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__0__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1524:1: rule__SUBREF__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1561:1: rule__SUBREF__Group__0__Impl : ( ( ( rule__SUBREF__Group_0__0 ) ) ( ( rule__SUBREF__Group_0__0 )* ) ) ;
     public final void rule__SUBREF__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1528:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1529:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1565:1: ( ( ( ( rule__SUBREF__Group_0__0 ) ) ( ( rule__SUBREF__Group_0__0 )* ) ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1566:1: ( ( ( rule__SUBREF__Group_0__0 ) ) ( ( rule__SUBREF__Group_0__0 )* ) )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1529:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1530:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1566:1: ( ( ( rule__SUBREF__Group_0__0 ) ) ( ( rule__SUBREF__Group_0__0 )* ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1567:1: ( ( rule__SUBREF__Group_0__0 ) ) ( ( rule__SUBREF__Group_0__0 )* )
             {
-             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__0__Impl3039); 
-             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1567:1: ( ( rule__SUBREF__Group_0__0 ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1568:1: ( rule__SUBREF__Group_0__0 )
+            {
+             before(grammarAccess.getSUBREFAccess().getGroup_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1569:1: ( rule__SUBREF__Group_0__0 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1569:2: rule__SUBREF__Group_0__0
+            {
+            pushFollow(FOLLOW_rule__SUBREF__Group_0__0_in_rule__SUBREF__Group__0__Impl3117);
+            rule__SUBREF__Group_0__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getSUBREFAccess().getGroup_0()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1572:1: ( ( rule__SUBREF__Group_0__0 )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1573:1: ( rule__SUBREF__Group_0__0 )*
+            {
+             before(grammarAccess.getSUBREFAccess().getGroup_0()); 
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1574:1: ( rule__SUBREF__Group_0__0 )*
+            loop8:
+            do {
+                int alt8=2;
+                int LA8_0 = input.LA(1);
+
+                if ( (LA8_0==RULE_ID) ) {
+                    int LA8_1 = input.LA(2);
+
+                    if ( (LA8_1==29) ) {
+                        alt8=1;
+                    }
+
+
+                }
+
+
+                switch (alt8) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1574:2: rule__SUBREF__Group_0__0
+            	    {
+            	    pushFollow(FOLLOW_rule__SUBREF__Group_0__0_in_rule__SUBREF__Group__0__Impl3129);
+            	    rule__SUBREF__Group_0__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop8;
+                }
+            } while (true);
+
+             after(grammarAccess.getSUBREFAccess().getGroup_0()); 
+
+            }
+
 
             }
 
@@ -3841,21 +4029,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1541:1: rule__SUBREF__Group__1 : rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1585:1: rule__SUBREF__Group__1 : rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2 ;
     public final void rule__SUBREF__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1545:1: ( rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1546:2: rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1589:1: ( rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1590:2: rule__SUBREF__Group__1__Impl rule__SUBREF__Group__2
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__1__Impl_in_rule__SUBREF__Group__13068);
+            pushFollow(FOLLOW_rule__SUBREF__Group__1__Impl_in_rule__SUBREF__Group__13162);
             rule__SUBREF__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SUBREF__Group__2_in_rule__SUBREF__Group__13071);
+            pushFollow(FOLLOW_rule__SUBREF__Group__2_in_rule__SUBREF__Group__13165);
             rule__SUBREF__Group__2();
 
             state._fsp--;
@@ -3879,21 +4067,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__1__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1553:1: rule__SUBREF__Group__1__Impl : ( '::' ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1597:1: rule__SUBREF__Group__1__Impl : ( RULE_ID ) ;
     public final void rule__SUBREF__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1557:1: ( ( '::' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1558:1: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1601:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1602:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1558:1: ( '::' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1559:1: '::'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1602:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1603:1: RULE_ID
             {
-             before(grammarAccess.getSUBREFAccess().getColonColonKeyword_1()); 
-            match(input,28,FOLLOW_28_in_rule__SUBREF__Group__1__Impl3099); 
-             after(grammarAccess.getSUBREFAccess().getColonColonKeyword_1()); 
+             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_1()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__1__Impl3192); 
+             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_1()); 
 
             }
 
@@ -3916,21 +4104,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__2"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1572:1: rule__SUBREF__Group__2 : rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1614:1: rule__SUBREF__Group__2 : rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3 ;
     public final void rule__SUBREF__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1576:1: ( rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1577:2: rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1618:1: ( rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1619:2: rule__SUBREF__Group__2__Impl rule__SUBREF__Group__3
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__2__Impl_in_rule__SUBREF__Group__23130);
+            pushFollow(FOLLOW_rule__SUBREF__Group__2__Impl_in_rule__SUBREF__Group__23221);
             rule__SUBREF__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SUBREF__Group__3_in_rule__SUBREF__Group__23133);
+            pushFollow(FOLLOW_rule__SUBREF__Group__3_in_rule__SUBREF__Group__23224);
             rule__SUBREF__Group__3();
 
             state._fsp--;
@@ -3954,21 +4142,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__2__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1584:1: rule__SUBREF__Group__2__Impl : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1626:1: rule__SUBREF__Group__2__Impl : ( '.' ) ;
     public final void rule__SUBREF__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1588:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1589:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1630:1: ( ( '.' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1631:1: ( '.' )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1589:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1590:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1631:1: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1632:1: '.'
             {
-             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__2__Impl3160); 
-             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_2()); 
+             before(grammarAccess.getSUBREFAccess().getFullStopKeyword_2()); 
+            match(input,28,FOLLOW_28_in_rule__SUBREF__Group__2__Impl3252); 
+             after(grammarAccess.getSUBREFAccess().getFullStopKeyword_2()); 
 
             }
 
@@ -3991,21 +4179,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__3"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1601:1: rule__SUBREF__Group__3 : rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1645:1: rule__SUBREF__Group__3 : rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4 ;
     public final void rule__SUBREF__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1605:1: ( rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1606:2: rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1649:1: ( rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1650:2: rule__SUBREF__Group__3__Impl rule__SUBREF__Group__4
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__3__Impl_in_rule__SUBREF__Group__33189);
+            pushFollow(FOLLOW_rule__SUBREF__Group__3__Impl_in_rule__SUBREF__Group__33283);
             rule__SUBREF__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SUBREF__Group__4_in_rule__SUBREF__Group__33192);
+            pushFollow(FOLLOW_rule__SUBREF__Group__4_in_rule__SUBREF__Group__33286);
             rule__SUBREF__Group__4();
 
             state._fsp--;
@@ -4029,21 +4217,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__3__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1613:1: rule__SUBREF__Group__3__Impl : ( '.' ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1657:1: rule__SUBREF__Group__3__Impl : ( RULE_ID ) ;
     public final void rule__SUBREF__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1617:1: ( ( '.' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1618:1: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1661:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1662:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1618:1: ( '.' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1619:1: '.'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1662:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1663:1: RULE_ID
             {
-             before(grammarAccess.getSUBREFAccess().getFullStopKeyword_3()); 
-            match(input,29,FOLLOW_29_in_rule__SUBREF__Group__3__Impl3220); 
-             after(grammarAccess.getSUBREFAccess().getFullStopKeyword_3()); 
+             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_3()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__3__Impl3313); 
+             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_3()); 
 
             }
 
@@ -4066,21 +4254,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__4"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1632:1: rule__SUBREF__Group__4 : rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1674:1: rule__SUBREF__Group__4 : rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5 ;
     public final void rule__SUBREF__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1636:1: ( rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1637:2: rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1678:1: ( rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1679:2: rule__SUBREF__Group__4__Impl rule__SUBREF__Group__5
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__4__Impl_in_rule__SUBREF__Group__43251);
+            pushFollow(FOLLOW_rule__SUBREF__Group__4__Impl_in_rule__SUBREF__Group__43342);
             rule__SUBREF__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SUBREF__Group__5_in_rule__SUBREF__Group__43254);
+            pushFollow(FOLLOW_rule__SUBREF__Group__5_in_rule__SUBREF__Group__43345);
             rule__SUBREF__Group__5();
 
             state._fsp--;
@@ -4104,21 +4292,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__4__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1644:1: rule__SUBREF__Group__4__Impl : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1686:1: rule__SUBREF__Group__4__Impl : ( '::' ) ;
     public final void rule__SUBREF__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1648:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1649:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1690:1: ( ( '::' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1691:1: ( '::' )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1649:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1650:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1691:1: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1692:1: '::'
             {
-             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_4()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__4__Impl3281); 
-             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_4()); 
+             before(grammarAccess.getSUBREFAccess().getColonColonKeyword_4()); 
+            match(input,29,FOLLOW_29_in_rule__SUBREF__Group__4__Impl3373); 
+             after(grammarAccess.getSUBREFAccess().getColonColonKeyword_4()); 
 
             }
 
@@ -4141,22 +4329,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__5"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1661:1: rule__SUBREF__Group__5 : rule__SUBREF__Group__5__Impl rule__SUBREF__Group__6 ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1705:1: rule__SUBREF__Group__5 : rule__SUBREF__Group__5__Impl ;
     public final void rule__SUBREF__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1665:1: ( rule__SUBREF__Group__5__Impl rule__SUBREF__Group__6 )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1666:2: rule__SUBREF__Group__5__Impl rule__SUBREF__Group__6
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1709:1: ( rule__SUBREF__Group__5__Impl )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1710:2: rule__SUBREF__Group__5__Impl
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__5__Impl_in_rule__SUBREF__Group__53310);
+            pushFollow(FOLLOW_rule__SUBREF__Group__5__Impl_in_rule__SUBREF__Group__53404);
             rule__SUBREF__Group__5__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__SUBREF__Group__6_in_rule__SUBREF__Group__53313);
-            rule__SUBREF__Group__6();
 
             state._fsp--;
 
@@ -4179,21 +4362,21 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SUBREF__Group__5__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1673:1: rule__SUBREF__Group__5__Impl : ( '.' ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1716:1: rule__SUBREF__Group__5__Impl : ( RULE_ID ) ;
     public final void rule__SUBREF__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1677:1: ( ( '.' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1678:1: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1720:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1721:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1678:1: ( '.' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1679:1: '.'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1721:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1722:1: RULE_ID
             {
-             before(grammarAccess.getSUBREFAccess().getFullStopKeyword_5()); 
-            match(input,29,FOLLOW_29_in_rule__SUBREF__Group__5__Impl3341); 
-             after(grammarAccess.getSUBREFAccess().getFullStopKeyword_5()); 
+             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_5()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__5__Impl3431); 
+             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_5()); 
 
             }
 
@@ -4215,18 +4398,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     // $ANTLR end "rule__SUBREF__Group__5__Impl"
 
 
-    // $ANTLR start "rule__SUBREF__Group__6"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1692:1: rule__SUBREF__Group__6 : rule__SUBREF__Group__6__Impl ;
-    public final void rule__SUBREF__Group__6() throws RecognitionException {
+    // $ANTLR start "rule__SUBREF__Group_0__0"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1745:1: rule__SUBREF__Group_0__0 : rule__SUBREF__Group_0__0__Impl rule__SUBREF__Group_0__1 ;
+    public final void rule__SUBREF__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1696:1: ( rule__SUBREF__Group__6__Impl )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1697:2: rule__SUBREF__Group__6__Impl
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1749:1: ( rule__SUBREF__Group_0__0__Impl rule__SUBREF__Group_0__1 )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1750:2: rule__SUBREF__Group_0__0__Impl rule__SUBREF__Group_0__1
             {
-            pushFollow(FOLLOW_rule__SUBREF__Group__6__Impl_in_rule__SUBREF__Group__63372);
-            rule__SUBREF__Group__6__Impl();
+            pushFollow(FOLLOW_rule__SUBREF__Group_0__0__Impl_in_rule__SUBREF__Group_0__03472);
+            rule__SUBREF__Group_0__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__SUBREF__Group_0__1_in_rule__SUBREF__Group_0__03475);
+            rule__SUBREF__Group_0__1();
 
             state._fsp--;
 
@@ -4245,25 +4433,25 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
         }
         return ;
     }
-    // $ANTLR end "rule__SUBREF__Group__6"
+    // $ANTLR end "rule__SUBREF__Group_0__0"
 
 
-    // $ANTLR start "rule__SUBREF__Group__6__Impl"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1703:1: rule__SUBREF__Group__6__Impl : ( RULE_ID ) ;
-    public final void rule__SUBREF__Group__6__Impl() throws RecognitionException {
+    // $ANTLR start "rule__SUBREF__Group_0__0__Impl"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1757:1: rule__SUBREF__Group_0__0__Impl : ( RULE_ID ) ;
+    public final void rule__SUBREF__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1707:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1708:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1761:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1762:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1708:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1709:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1762:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1763:1: RULE_ID
             {
-             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_6()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group__6__Impl3399); 
-             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_6()); 
+             before(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SUBREF__Group_0__0__Impl3502); 
+             after(grammarAccess.getSUBREFAccess().getIDTerminalRuleCall_0_0()); 
 
             }
 
@@ -4282,24 +4470,94 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
         }
         return ;
     }
-    // $ANTLR end "rule__SUBREF__Group__6__Impl"
+    // $ANTLR end "rule__SUBREF__Group_0__0__Impl"
+
+
+    // $ANTLR start "rule__SUBREF__Group_0__1"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1774:1: rule__SUBREF__Group_0__1 : rule__SUBREF__Group_0__1__Impl ;
+    public final void rule__SUBREF__Group_0__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1778:1: ( rule__SUBREF__Group_0__1__Impl )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1779:2: rule__SUBREF__Group_0__1__Impl
+            {
+            pushFollow(FOLLOW_rule__SUBREF__Group_0__1__Impl_in_rule__SUBREF__Group_0__13531);
+            rule__SUBREF__Group_0__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SUBREF__Group_0__1"
+
+
+    // $ANTLR start "rule__SUBREF__Group_0__1__Impl"
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1785:1: rule__SUBREF__Group_0__1__Impl : ( '::' ) ;
+    public final void rule__SUBREF__Group_0__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1789:1: ( ( '::' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1790:1: ( '::' )
+            {
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1790:1: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1791:1: '::'
+            {
+             before(grammarAccess.getSUBREFAccess().getColonColonKeyword_0_1()); 
+            match(input,29,FOLLOW_29_in_rule__SUBREF__Group_0__1__Impl3559); 
+             after(grammarAccess.getSUBREFAccess().getColonColonKeyword_0_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SUBREF__Group_0__1__Impl"
 
 
     // $ANTLR start "rule__SystemInstance__CategoryAssignment_0"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1735:1: rule__SystemInstance__CategoryAssignment_0 : ( ruleComponentCategory ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1809:1: rule__SystemInstance__CategoryAssignment_0 : ( ruleComponentCategory ) ;
     public final void rule__SystemInstance__CategoryAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1739:1: ( ( ruleComponentCategory ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1740:1: ( ruleComponentCategory )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1813:1: ( ( ruleComponentCategory ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1814:1: ( ruleComponentCategory )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1740:1: ( ruleComponentCategory )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1741:1: ruleComponentCategory
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1814:1: ( ruleComponentCategory )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1815:1: ruleComponentCategory
             {
              before(grammarAccess.getSystemInstanceAccess().getCategoryComponentCategoryParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_03447);
+            pushFollow(FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_03599);
             ruleComponentCategory();
 
             state._fsp--;
@@ -4327,20 +4585,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemInstance__NameAssignment_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1750:1: rule__SystemInstance__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1824:1: rule__SystemInstance__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__SystemInstance__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1754:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1755:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1828:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1829:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1755:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1756:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1829:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1830:1: RULE_ID
             {
              before(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_13478); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_13630); 
              after(grammarAccess.getSystemInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -4364,24 +4622,24 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemInstance__ComponentImplementationAssignment_3"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1765:1: rule__SystemInstance__ComponentImplementationAssignment_3 : ( ( ruleIMPLREF ) ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1839:1: rule__SystemInstance__ComponentImplementationAssignment_3 : ( ( ruleIMPLREF ) ) ;
     public final void rule__SystemInstance__ComponentImplementationAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1769:1: ( ( ( ruleIMPLREF ) ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1770:1: ( ( ruleIMPLREF ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1843:1: ( ( ( ruleIMPLREF ) ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1844:1: ( ( ruleIMPLREF ) )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1770:1: ( ( ruleIMPLREF ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1771:1: ( ruleIMPLREF )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1844:1: ( ( ruleIMPLREF ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1845:1: ( ruleIMPLREF )
             {
              before(grammarAccess.getSystemInstanceAccess().getComponentImplementationComponentImplementationCrossReference_3_0()); 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1772:1: ( ruleIMPLREF )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1773:1: ruleIMPLREF
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1846:1: ( ruleIMPLREF )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1847:1: ruleIMPLREF
             {
              before(grammarAccess.getSystemInstanceAccess().getComponentImplementationComponentImplementationIMPLREFParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleIMPLREF_in_rule__SystemInstance__ComponentImplementationAssignment_33513);
+            pushFollow(FOLLOW_ruleIMPLREF_in_rule__SystemInstance__ComponentImplementationAssignment_33665);
             ruleIMPLREF();
 
             state._fsp--;
@@ -4413,20 +4671,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemInstance__ComponentInstanceAssignment_5_0"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1784:1: rule__SystemInstance__ComponentInstanceAssignment_5_0 : ( ruleComponentInstance ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1858:1: rule__SystemInstance__ComponentInstanceAssignment_5_0 : ( ruleComponentInstance ) ;
     public final void rule__SystemInstance__ComponentInstanceAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1788:1: ( ( ruleComponentInstance ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1789:1: ( ruleComponentInstance )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1862:1: ( ( ruleComponentInstance ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1863:1: ( ruleComponentInstance )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1789:1: ( ruleComponentInstance )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1790:1: ruleComponentInstance
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1863:1: ( ruleComponentInstance )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1864:1: ruleComponentInstance
             {
              before(grammarAccess.getSystemInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_5_0_0()); 
-            pushFollow(FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_5_03548);
+            pushFollow(FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_5_03700);
             ruleComponentInstance();
 
             state._fsp--;
@@ -4454,20 +4712,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemInstance__SystemOperationModeAssignment_5_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1799:1: rule__SystemInstance__SystemOperationModeAssignment_5_1 : ( ruleSystemOperationMode ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1873:1: rule__SystemInstance__SystemOperationModeAssignment_5_1 : ( ruleSystemOperationMode ) ;
     public final void rule__SystemInstance__SystemOperationModeAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1803:1: ( ( ruleSystemOperationMode ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1804:1: ( ruleSystemOperationMode )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1877:1: ( ( ruleSystemOperationMode ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1878:1: ( ruleSystemOperationMode )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1804:1: ( ruleSystemOperationMode )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1805:1: ruleSystemOperationMode
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1878:1: ( ruleSystemOperationMode )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1879:1: ruleSystemOperationMode
             {
              before(grammarAccess.getSystemInstanceAccess().getSystemOperationModeSystemOperationModeParserRuleCall_5_1_0()); 
-            pushFollow(FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_5_13579);
+            pushFollow(FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_5_13731);
             ruleSystemOperationMode();
 
             state._fsp--;
@@ -4495,20 +4753,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__CategoryAssignment_0"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1814:1: rule__ComponentInstance__CategoryAssignment_0 : ( ruleComponentCategory ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1888:1: rule__ComponentInstance__CategoryAssignment_0 : ( ruleComponentCategory ) ;
     public final void rule__ComponentInstance__CategoryAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1818:1: ( ( ruleComponentCategory ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1819:1: ( ruleComponentCategory )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1892:1: ( ( ruleComponentCategory ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1893:1: ( ruleComponentCategory )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1819:1: ( ruleComponentCategory )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1820:1: ruleComponentCategory
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1893:1: ( ruleComponentCategory )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1894:1: ruleComponentCategory
             {
              before(grammarAccess.getComponentInstanceAccess().getCategoryComponentCategoryParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_03610);
+            pushFollow(FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_03762);
             ruleComponentCategory();
 
             state._fsp--;
@@ -4536,20 +4794,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__NameAssignment_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1829:1: rule__ComponentInstance__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1903:1: rule__ComponentInstance__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__ComponentInstance__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1833:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1834:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1907:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1908:1: ( RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1834:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1835:1: RULE_ID
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1908:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1909:1: RULE_ID
             {
              before(grammarAccess.getComponentInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_13641); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_13793); 
              after(grammarAccess.getComponentInstanceAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -4573,24 +4831,24 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__SubcomponentAssignment_3"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1844:1: rule__ComponentInstance__SubcomponentAssignment_3 : ( ( ruleSUBREF ) ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1918:1: rule__ComponentInstance__SubcomponentAssignment_3 : ( ( ruleSUBREF ) ) ;
     public final void rule__ComponentInstance__SubcomponentAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1848:1: ( ( ( ruleSUBREF ) ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1849:1: ( ( ruleSUBREF ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1922:1: ( ( ( ruleSUBREF ) ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1923:1: ( ( ruleSUBREF ) )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1849:1: ( ( ruleSUBREF ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1850:1: ( ruleSUBREF )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1923:1: ( ( ruleSUBREF ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1924:1: ( ruleSUBREF )
             {
              before(grammarAccess.getComponentInstanceAccess().getSubcomponentSubcomponentCrossReference_3_0()); 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1851:1: ( ruleSUBREF )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1852:1: ruleSUBREF
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1925:1: ( ruleSUBREF )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1926:1: ruleSUBREF
             {
              before(grammarAccess.getComponentInstanceAccess().getSubcomponentSubcomponentSUBREFParserRuleCall_3_0_1()); 
-            pushFollow(FOLLOW_ruleSUBREF_in_rule__ComponentInstance__SubcomponentAssignment_33676);
+            pushFollow(FOLLOW_ruleSUBREF_in_rule__ComponentInstance__SubcomponentAssignment_33828);
             ruleSUBREF();
 
             state._fsp--;
@@ -4622,20 +4880,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__IndexAssignment_5"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1863:1: rule__ComponentInstance__IndexAssignment_5 : ( RULE_LONG ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1937:1: rule__ComponentInstance__IndexAssignment_5 : ( RULE_LONG ) ;
     public final void rule__ComponentInstance__IndexAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1867:1: ( ( RULE_LONG ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1868:1: ( RULE_LONG )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1941:1: ( ( RULE_LONG ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1942:1: ( RULE_LONG )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1868:1: ( RULE_LONG )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1869:1: RULE_LONG
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1942:1: ( RULE_LONG )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1943:1: RULE_LONG
             {
              before(grammarAccess.getComponentInstanceAccess().getIndexLONGTerminalRuleCall_5_0()); 
-            match(input,RULE_LONG,FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_53711); 
+            match(input,RULE_LONG,FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_53863); 
              after(grammarAccess.getComponentInstanceAccess().getIndexLONGTerminalRuleCall_5_0()); 
 
             }
@@ -4659,20 +4917,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__IndexAssignment_6_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1878:1: rule__ComponentInstance__IndexAssignment_6_1 : ( RULE_LONG ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1952:1: rule__ComponentInstance__IndexAssignment_6_1 : ( RULE_LONG ) ;
     public final void rule__ComponentInstance__IndexAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1882:1: ( ( RULE_LONG ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1883:1: ( RULE_LONG )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1956:1: ( ( RULE_LONG ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1957:1: ( RULE_LONG )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1883:1: ( RULE_LONG )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1884:1: RULE_LONG
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1957:1: ( RULE_LONG )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1958:1: RULE_LONG
             {
              before(grammarAccess.getComponentInstanceAccess().getIndexLONGTerminalRuleCall_6_1_0()); 
-            match(input,RULE_LONG,FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_6_13742); 
+            match(input,RULE_LONG,FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_6_13894); 
              after(grammarAccess.getComponentInstanceAccess().getIndexLONGTerminalRuleCall_6_1_0()); 
 
             }
@@ -4696,20 +4954,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ComponentInstance__ComponentInstanceAssignment_8_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1893:1: rule__ComponentInstance__ComponentInstanceAssignment_8_1 : ( ruleComponentInstance ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1967:1: rule__ComponentInstance__ComponentInstanceAssignment_8_1 : ( ruleComponentInstance ) ;
     public final void rule__ComponentInstance__ComponentInstanceAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1897:1: ( ( ruleComponentInstance ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1898:1: ( ruleComponentInstance )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1971:1: ( ( ruleComponentInstance ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1972:1: ( ruleComponentInstance )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1898:1: ( ruleComponentInstance )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1899:1: ruleComponentInstance
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1972:1: ( ruleComponentInstance )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1973:1: ruleComponentInstance
             {
              before(grammarAccess.getComponentInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_8_1_0()); 
-            pushFollow(FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_8_13773);
+            pushFollow(FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_8_13925);
             ruleComponentInstance();
 
             state._fsp--;
@@ -4737,20 +4995,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SystemOperationMode__NameAssignment_1"
-    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1908:1: rule__SystemOperationMode__NameAssignment_1 : ( RULE_STRING ) ;
+    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1982:1: rule__SystemOperationMode__NameAssignment_1 : ( RULE_STRING ) ;
     public final void rule__SystemOperationMode__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1912:1: ( ( RULE_STRING ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1913:1: ( RULE_STRING )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1986:1: ( ( RULE_STRING ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1987:1: ( RULE_STRING )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1913:1: ( RULE_STRING )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1914:1: RULE_STRING
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1987:1: ( RULE_STRING )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:1988:1: RULE_STRING
             {
              before(grammarAccess.getSystemOperationModeAccess().getNameSTRINGTerminalRuleCall_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__SystemOperationMode__NameAssignment_13804); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__SystemOperationMode__NameAssignment_13956); 
              after(grammarAccess.getSystemOperationModeAccess().getNameSTRINGTerminalRuleCall_1_0()); 
 
             }
@@ -4779,13 +5037,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     static final String DFA2_eotS =
         "\22\uffff";
     static final String DFA2_eofS =
-        "\10\uffff\1\15\1\uffff\1\17\7\uffff";
+        "\10\uffff\1\14\1\uffff\1\16\7\uffff";
     static final String DFA2_minS =
         "\1\11\7\uffff\1\4\1\uffff\1\4\1\12\6\uffff";
     static final String DFA2_maxS =
         "\1\33\7\uffff\1\32\1\uffff\1\32\1\17\6\uffff";
     static final String DFA2_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\11\1\10\1\13\1\14\1\15\1\16";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10\1\11\1\14\1\13\1\16\1\15";
     static final String DFA2_specialS =
         "\22\uffff}>";
     static final String[] DFA2_transitionS = {
@@ -4797,10 +5055,10 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             "",
             "",
             "",
-            "\1\15\25\uffff\1\14",
+            "\1\14\25\uffff\1\15",
             "",
-            "\1\17\25\uffff\1\16",
-            "\1\20\4\uffff\1\21",
+            "\1\16\25\uffff\1\17",
+            "\1\21\4\uffff\1\20",
             "",
             "",
             "",
@@ -4962,51 +5220,57 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     public static final BitSet FOLLOW_27_in_rule__ComponentCategory__Group_13__0__Impl2607 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ComponentCategory__Group_13__1__Impl_in_rule__ComponentCategory__Group_13__12638 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_15_in_rule__ComponentCategory__Group_13__1__Impl2666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__0__Impl_in_rule__IMPLREF__Group__02701 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__0__Impl_in_rule__IMPLREF__Group__02701 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__IMPLREF__Group__1_in_rule__IMPLREF__Group__02704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group__0__Impl2731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__1__Impl_in_rule__IMPLREF__Group__12760 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__2_in_rule__IMPLREF__Group__12763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__IMPLREF__Group__1__Impl2791 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__2__Impl_in_rule__IMPLREF__Group__22822 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__3_in_rule__IMPLREF__Group__22825 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group__2__Impl2852 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__3__Impl_in_rule__IMPLREF__Group__32881 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__4_in_rule__IMPLREF__Group__32884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__IMPLREF__Group__3__Impl2912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IMPLREF__Group__4__Impl_in_rule__IMPLREF__Group__42943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group__4__Impl2970 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__0__Impl_in_rule__SUBREF__Group__03009 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__1_in_rule__SUBREF__Group__03012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__0__Impl3039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__1__Impl_in_rule__SUBREF__Group__13068 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__2_in_rule__SUBREF__Group__13071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__SUBREF__Group__1__Impl3099 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__2__Impl_in_rule__SUBREF__Group__23130 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__3_in_rule__SUBREF__Group__23133 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__2__Impl3160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__3__Impl_in_rule__SUBREF__Group__33189 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__4_in_rule__SUBREF__Group__33192 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__SUBREF__Group__3__Impl3220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__4__Impl_in_rule__SUBREF__Group__43251 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__5_in_rule__SUBREF__Group__43254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__4__Impl3281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__5__Impl_in_rule__SUBREF__Group__53310 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__6_in_rule__SUBREF__Group__53313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__SUBREF__Group__5__Impl3341 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SUBREF__Group__6__Impl_in_rule__SUBREF__Group__63372 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__6__Impl3399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_03447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_13478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIMPLREF_in_rule__SystemInstance__ComponentImplementationAssignment_33513 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_5_03548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_5_13579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_03610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_13641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSUBREF_in_rule__ComponentInstance__SubcomponentAssignment_33676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_53711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_6_13742 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_8_13773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__SystemOperationMode__NameAssignment_13804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group_0__0_in_rule__IMPLREF__Group__0__Impl2733 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group_0__0_in_rule__IMPLREF__Group__0__Impl2745 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__1__Impl_in_rule__IMPLREF__Group__12778 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__2_in_rule__IMPLREF__Group__12781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group__1__Impl2808 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__2__Impl_in_rule__IMPLREF__Group__22837 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__3_in_rule__IMPLREF__Group__22840 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__IMPLREF__Group__2__Impl2868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group__3__Impl_in_rule__IMPLREF__Group__32899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group__3__Impl2926 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group_0__0__Impl_in_rule__IMPLREF__Group_0__02963 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group_0__1_in_rule__IMPLREF__Group_0__02966 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__IMPLREF__Group_0__0__Impl2993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IMPLREF__Group_0__1__Impl_in_rule__IMPLREF__Group_0__13022 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__IMPLREF__Group_0__1__Impl3050 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__0__Impl_in_rule__SUBREF__Group__03085 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__1_in_rule__SUBREF__Group__03088 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group_0__0_in_rule__SUBREF__Group__0__Impl3117 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group_0__0_in_rule__SUBREF__Group__0__Impl3129 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__1__Impl_in_rule__SUBREF__Group__13162 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__2_in_rule__SUBREF__Group__13165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__1__Impl3192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__2__Impl_in_rule__SUBREF__Group__23221 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__3_in_rule__SUBREF__Group__23224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__SUBREF__Group__2__Impl3252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__3__Impl_in_rule__SUBREF__Group__33283 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__4_in_rule__SUBREF__Group__33286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__3__Impl3313 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__4__Impl_in_rule__SUBREF__Group__43342 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__5_in_rule__SUBREF__Group__43345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__SUBREF__Group__4__Impl3373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group__5__Impl_in_rule__SUBREF__Group__53404 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group__5__Impl3431 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group_0__0__Impl_in_rule__SUBREF__Group_0__03472 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group_0__1_in_rule__SUBREF__Group_0__03475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SUBREF__Group_0__0__Impl3502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SUBREF__Group_0__1__Impl_in_rule__SUBREF__Group_0__13531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__SUBREF__Group_0__1__Impl3559 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__SystemInstance__CategoryAssignment_03599 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SystemInstance__NameAssignment_13630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIMPLREF_in_rule__SystemInstance__ComponentImplementationAssignment_33665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__SystemInstance__ComponentInstanceAssignment_5_03700 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSystemOperationMode_in_rule__SystemInstance__SystemOperationModeAssignment_5_13731 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentCategory_in_rule__ComponentInstance__CategoryAssignment_03762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ComponentInstance__NameAssignment_13793 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSUBREF_in_rule__ComponentInstance__SubcomponentAssignment_33828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_53863 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_LONG_in_rule__ComponentInstance__IndexAssignment_6_13894 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleComponentInstance_in_rule__ComponentInstance__ComponentInstanceAssignment_8_13925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__SystemOperationMode__NameAssignment_13956 = new BitSet(new long[]{0x0000000000000002L});
 
 }

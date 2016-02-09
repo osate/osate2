@@ -312,26 +312,26 @@ class ParserTest extends OsateTest {
 			end pkg1;
 		''', si1FileName -> '''
 			system si1 : pkg1::s.i1 {
-				abstract asub : pkg1::s.i1.asub[0]
+				abstract asub : pkg1::s.i1::asub[0]
 				som "No Modes"
 			}
 		''', si2FileName -> '''
 			system si2 : pkg1::s.i2 {
-				process psSub : pkg1::s.i2.psSub[0] {
-					thread tSub : pkg1::ps.i.tSub[0]
+				process psSub : pkg1::s.i2::psSub[0] {
+					thread tSub : pkg1::ps.i::tSub[0]
 				}
 				som "No Modes"
 			}
 		''', si3FileName -> '''
 			system si3 : pkg1::s.i3 {
-				abstract aSub1 : pkg1::s.i3.aSub1[0]
-				abstract aSub2 : pkg1::s.i3.aSub2[1]
-				abstract aSub2 : pkg1::s.i3.aSub2[2]
-				abstract aSub2 : pkg1::s.i3.aSub2[3]
-				abstract aSub3 : pkg1::s.i3.aSub3[1, 1]
-				abstract aSub3 : pkg1::s.i3.aSub3[1, 2]
-				abstract aSub3 : pkg1::s.i3.aSub3[2, 1]
-				abstract aSub3 : pkg1::s.i3.aSub3[2, 2]
+				abstract aSub1 : pkg1::s.i3::aSub1[0]
+				abstract aSub2 : pkg1::s.i3::aSub2[1]
+				abstract aSub2 : pkg1::s.i3::aSub2[2]
+				abstract aSub2 : pkg1::s.i3::aSub2[3]
+				abstract aSub3 : pkg1::s.i3::aSub3[1, 1]
+				abstract aSub3 : pkg1::s.i3::aSub3[1, 2]
+				abstract aSub3 : pkg1::s.i3::aSub3[2, 1]
+				abstract aSub3 : pkg1::s.i3::aSub3[2, 2]
 				som "No Modes"
 			}
 		''')
@@ -450,6 +450,40 @@ class ParserTest extends OsateTest {
 				2L.assertEquals(indices.get(0))
 				2L.assertEquals(indices.get(0))
 				componentInstances.empty.assertTrue
+			]
+		]
+	}
+	
+	@Test
+	def void testNestedPackage() {
+		val pkg1FileName = "a-b-c-d.aadl"
+		val si1FileName = "si1.instance"
+		createFiles(pkg1FileName -> '''
+			package a::b::c::d
+			public
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					aSub: abstract;
+				end s.i;
+			end a::b::c::d;
+		''', si1FileName -> '''
+			system si1 : a::b::c::d::s.i {
+				abstract aSub : a::b::c::d::s.i::aSub[0]
+				som "No Modes"
+			}
+		''')
+		suppressSerialization
+		testFile(pkg1FileName)
+		testFile(si1FileName).resource.contents.head as SystemInstance => [
+			"si1".assertEquals(name)
+			"a::b::c::d::s.i".assertEquals(componentImplementation.getQualifiedName)
+			1.assertEquals(componentInstances.size)
+			componentInstances.head => [
+				"a::b::c::d::s.i".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
+				"aSub".assertEquals(subcomponent.name)
 			]
 		]
 	}

@@ -49,7 +49,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentCategoryAccess().getGroup_12(), "rule__ComponentCategory__Group_12__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_13(), "rule__ComponentCategory__Group_13__0");
 					put(grammarAccess.getIMPLREFAccess().getGroup(), "rule__IMPLREF__Group__0");
+					put(grammarAccess.getIMPLREFAccess().getGroup_0(), "rule__IMPLREF__Group_0__0");
 					put(grammarAccess.getSUBREFAccess().getGroup(), "rule__SUBREF__Group__0");
+					put(grammarAccess.getSUBREFAccess().getGroup_0(), "rule__SUBREF__Group_0__0");
 					put(grammarAccess.getSystemInstanceAccess().getCategoryAssignment_0(), "rule__SystemInstance__CategoryAssignment_0");
 					put(grammarAccess.getSystemInstanceAccess().getNameAssignment_1(), "rule__SystemInstance__NameAssignment_1");
 					put(grammarAccess.getSystemInstanceAccess().getComponentImplementationAssignment_3(), "rule__SystemInstance__ComponentImplementationAssignment_3");

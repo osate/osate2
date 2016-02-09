@@ -31,7 +31,8 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		new SimpleScope(impls.map[impl |
 			val pkgName = impl.getContainerOfType(AadlPackage).name
 			impl.ownedSubcomponents.map[sub |
-				val qualifiedName = QualifiedName.create(pkgName, impl.name + "." + sub.name)
+//				val qualifiedName = QualifiedName.create(pkgName.split("::"), impl.name, sub.name)
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, sub.name])
 				EObjectDescription.create(qualifiedName, sub)
 			]
 		].flatten)
