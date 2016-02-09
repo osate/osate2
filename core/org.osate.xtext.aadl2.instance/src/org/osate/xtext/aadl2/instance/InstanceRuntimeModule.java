@@ -7,11 +7,6 @@ package org.osate.xtext.aadl2.instance;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class InstanceRuntimeModule extends org.osate.xtext.aadl2.instance.AbstractInstanceRuntimeModule {
-	@Override
-	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.osate.xtext.aadl2.instance.naming.InstanceQualifiedNameProvider.class;
-	}
-
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter.class;
 	}
