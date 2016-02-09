@@ -76,9 +76,6 @@
         <details key="documentation" value="The Elements owned by this element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The Elements owned by this element."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedComment" ordered="false"
         upperBound="-1" eType="#//Comment" containment="true">
@@ -86,9 +83,6 @@
         <details key="documentation" value="The Comments owned by this element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="subsets" references="#//Element/ownedElement"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The Comments owned by this element."/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Element">
@@ -98,9 +92,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" ordered="false" eType="#//String">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies a string that is the comment&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="Specifies a string that is the comment"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -228,17 +219,11 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The name of the NamedElement.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The name of the NamedElement."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" ordered="false"
         eType="#//String" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyAssociation"
@@ -365,9 +350,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" eType="#//Type">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The type of the TypedElement.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The type of the TypedElement."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -654,9 +636,6 @@
       </eAnnotations>
       <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
@@ -665,9 +644,6 @@
         <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeature" abstract="true" eSuperTypes="#//NamedElement">
@@ -1593,9 +1569,6 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupType" eSuperTypes="#//Classifier #//FeatureType">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="To be merged with AADLConstructs::Features::FeatureGroupType"/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>&#xA;&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>

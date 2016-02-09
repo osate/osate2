@@ -37,7 +37,7 @@
     <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
     <details key="NON_API_INVARIANTS" value="IGNORE"/>
   </genAnnotations>
-  <foreignModel>../../org.osate.aadl2.metamodel/Models/AADL2.EMF.merged.uml</foreignModel>
+  <foreignModel>../../org.osate.aadl2.metamodel.core/Models/AADL2.EMF.merged.uml</foreignModel>
   <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
       resource="XMI" disposableProviderFactory="true" literalsInterface="false" ecorePackage="aadl2.ecore#/"
       operationsPackage="org.osate.aadl2.operations">

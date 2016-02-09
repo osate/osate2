@@ -12806,10 +12806,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createUMLAnnotations();
 		// union
 		createUnionAnnotations();
-		// http://www.topcased.org/documentation
-		createDocumentationAnnotations();
 		// subsets
 		createSubsetsAnnotations();
+		// http://www.topcased.org/documentation
+		createDocumentationAnnotations();
 		// redefines
 		createRedefinesAnnotations();
 		// duplicates
@@ -12867,32 +12867,14 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	protected void createDocumentationAnnotations() {
 		String source = "http://www.topcased.org/documentation";
-		addAnnotation(getElement_OwnedElement(), source,
-				new String[] { "documentation", "The Elements owned by this element." });
-		addAnnotation(getElement_OwnedComment(), source,
-				new String[] { "documentation", "The Comments owned by this element." });
-		addAnnotation(getComment_Body(), source,
-				new String[] { "documentation", "Specifies a string that is the comment" });
 		addAnnotation(stringEDataType, source, new String[] { "documentation",
 				"A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters." });
 		addAnnotation(booleanEDataType, source, new String[] { "documentation",
 				"A Boolean type is used for logical expression, consisting of the predefined values true and false." });
-		addAnnotation(getNamedElement_Name(), source,
-				new String[] { "documentation", "The name of the NamedElement." });
-		addAnnotation(getNamedElement_QualifiedName(), source, new String[] { "documentation",
-				"A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself." });
-		addAnnotation(getTypedElement_Type(), source,
-				new String[] { "documentation", "The type of the TypedElement." });
-		addAnnotation(getNamespace_OwnedMember(), source,
-				new String[] { "documentation", "A collection of NamedElements owned by the Namespace." });
-		addAnnotation(getNamespace_Member(), source, new String[] { "documentation",
-				"A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance." });
 		addAnnotation(integerEDataType, source,
 				new String[] { "documentation", "An integer is a primitive type representing integer values." });
 		addAnnotation(realEDataType, source,
 				new String[] { "documentation", "A real is a primitive type representing real numeric values." });
-		addAnnotation(featureGroupTypeEClass, source,
-				new String[] { "documentation", "To be merged with AADLConstructs::Features::FeatureGroupType" });
 	}
 
 	/**
