@@ -24,6 +24,9 @@
       <handler
             class="org.osate.ge.errormodel.pictogramHandlers.ErrorModelSubclausePictogramHandler">
       </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeLibraryPictogramHandler">
+      </handler>
    </extension>
    <extension
          point="org.osate.ge.categories">

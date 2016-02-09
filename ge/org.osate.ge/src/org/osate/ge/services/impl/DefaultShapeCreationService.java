@@ -98,7 +98,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			addContext.setY(0);
 			
 			final IAddFeature addFeature = fp.getAddFeature(addContext);
-			if(addFeature != null && addFeature.canAdd(addContext)) {			
+			if(addFeature != null && addFeature.canAdd(addContext)) {
 				addFeature.add(addContext);
 			}
 		} else {				

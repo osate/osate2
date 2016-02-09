@@ -13,6 +13,7 @@ public interface PictogramElementService {
 	 */
 	Object getBusinessObject(PictogramElement pe);
 	
+	void refreshShapesForBusinessObject(final ContainerShape container, final Object bo);
 	void refreshShapesForBusinessObjects(final ContainerShape container, final List<?> bos);
 	void refreshConnectionsForBusinessObjects(final ContainerShape ownerShape, final List<?> bos);
 }

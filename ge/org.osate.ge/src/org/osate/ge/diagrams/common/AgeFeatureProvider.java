@@ -474,7 +474,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		if(addCtx instanceof IAddConnectionContext) {
 			// TODO: Support connections
 		} else {
-			final Object pictogramHandler = getRefreshPictogramHandler(addCtx.getTargetContainer(), null);
+			final Object pictogramHandler = getRefreshPictogramHandler(addCtx.getTargetContainer(), null, AadlElementWrapper.unwrap(addCtx.getNewObject()));
 			if(pictogramHandler != null) {
 				return new PictogramHandlerAddFeature(bor, extService, ghostingService, this, pictogramHandler);
 			}
@@ -488,7 +488,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
 		if(pe instanceof Shape) {
 			final Shape container = ((Shape)pe).getContainer();
-			final Object pictogramHandler = getRefreshPictogramHandler(container, pe);
+			final Object pictogramHandler = getRefreshPictogramHandler(container, pe, peService.getBusinessObject(pe));
 			if(pictogramHandler != null) {
 				return new PictogramHandlerUpdateFeature(extService, ghostingService, peService, this, pictogramHandler);
 			}
@@ -499,14 +499,18 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return super.getUpdateFeatureAdditional(updateCtx);
 	}
 	
-	private final Object getRefreshPictogramHandler(final Shape container, final PictogramElement pe) {			
+	private final Object getRefreshPictogramHandler(final Shape container, final PictogramElement pe, final Object bo) {
+		if(bo == null) {
+			return null;
+		}
+		
 		// Check pictogram handlers
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
 			childCtx.set(Names.CONTAINER, container);
 			childCtx.set(Names.PICTOGRAM_ELEMENT, pe);
-			childCtx.set(Names.BUSINESS_OBJECT, peService.getBusinessObject(pe));
-
+			childCtx.set(Names.BUSINESS_OBJECT, bo);
+			
 			// Call the appropriate extension to refresh the annex element's pictogram
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
 				final boolean canRefreshAnnex = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanRefresh.class, childCtx, false);

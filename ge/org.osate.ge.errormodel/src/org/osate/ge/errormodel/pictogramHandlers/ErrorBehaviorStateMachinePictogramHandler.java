@@ -50,10 +50,10 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 	public Object createBusinessObject(@Named(Names.OWNER_BO) Object ownerBo) {		
 		final ErrorModelLibrary errorModelLibrary = ErrorModelBusinessObjectHelper.getOrCreateErrorModelLibrary(ownerBo);
 		
-		// Create the ErrorType
+		// Create the ErrorBehaviorStateMachine
 		final ErrorBehaviorStateMachine newBehavior = (ErrorBehaviorStateMachine)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine());
-		final String newErrorTypeName = ErrorModelNamingHelper.buildUniqueIdentifier(errorModelLibrary, "NewErrorBehaviorStateMachine");
-		newBehavior.setName(newErrorTypeName);
+		final String newName = ErrorModelNamingHelper.buildUniqueIdentifier(errorModelLibrary, "NewErrorBehaviorStateMachine");
+		newBehavior.setName(newName);
 		
 		// Add the new type to the error model library
 		errorModelLibrary.getBehaviors().add(newBehavior);
@@ -79,8 +79,7 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 	}
 	
 	@RefreshGraphics 
-	public void refreshGraphics(@Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape) {
-		
+	public void refreshGraphics(@Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape) {		
         // Recreate the graphics algorithm
 		final IGaService gaService = Graphiti.getGaService();
         final GraphicsAlgorithm ga = gaService.createPlainEllipse(shape);

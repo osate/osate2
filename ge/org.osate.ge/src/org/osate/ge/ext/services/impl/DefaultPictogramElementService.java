@@ -26,6 +26,11 @@ public class DefaultPictogramElementService implements PictogramElementService {
 	}
 
 	@Override
+	public final void refreshShapesForBusinessObject(final ContainerShape container, final Object bo) {
+		shapeCreationService.createUpdateShape(container, bo);
+	}
+	
+	@Override
 	public final void refreshShapesForBusinessObjects(final ContainerShape container, final List<?> bos) {
 		shapeCreationService.createUpdateShapes(container, bos, 0, false, 0, 0, false, 0);
 	}

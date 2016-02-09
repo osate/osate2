@@ -57,7 +57,6 @@ public class PictogramHandlerAddFeature extends AbstractAddFeature {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, AadlElementWrapper.unwrap(context.getNewObject()));
 			
 			final PictogramElement pe = (PictogramElement)ContextInjectionFactory.invoke(handler, RefreshShape.class, eclipseCtx, null);
-			
 			if(pe != null) {
 				eclipseCtx.set(Names.PICTOGRAM_ELEMENT, pe);
 				getFeatureProvider().link(pe, context.getNewObject());

@@ -404,8 +404,6 @@ public class DeclarativeReferenceHandler {
 					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
 				}
-			} else {
-				Log.error("Unhandled case: " + type);
 			}
 		}
 		
