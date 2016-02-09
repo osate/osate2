@@ -5,7 +5,7 @@
    <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
-   <extension-point id="org.osate.ge.referenceHandlers" name="Reference Handlers" schema="schema/org.osate.ge.referenceHandlers.exsd"/>
+   <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
    <extension-point id="org.osate.ge.pictogramHandlers" name="Pictogram Handlers" schema="schema/org.osate.ge.pictogramHandlers.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
@@ -789,5 +789,11 @@
              path="/icons/full/obj16/DefaultAnnexSubclause.gif"
              plugin="org.osate.aadl2.edit">
        </image>
+    </extension>
+    <extension
+          point="org.osate.ge.references">
+       <referenceBuilder
+             class="org.osate.ge.services.impl.DeclarativeReferenceBuilder">
+       </referenceBuilder>
     </extension>
 </plugin>

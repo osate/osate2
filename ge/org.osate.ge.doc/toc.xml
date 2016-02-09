@@ -111,15 +111,18 @@
       <topic label="Extension Points" href="output/ch04s02.html">
          <topic label="Tools" href="output/ch04s02.html#d0e1156"/>
          <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1205">
-            <topic label="Reference Handlers" href="output/ch04s02.html#d0e1211"/>
-            <topic label="Styles" href="output/ch04s02.html#d0e1253"/>
-            <topic label="Categories" href="output/ch04s02.html#d0e1281"/>
-            <topic label="Images" href="output/ch04s02.html#d0e1289"/>
+            <topic label="Reference Builders and Reference Resolvers" href="output/ch04s02.html#d0e1211">
+               <topic label="Reference Builders" href="output/ch04s02.html#d0e1218"/>
+               <topic label="Reference Resolvers" href="output/ch04s02.html#d0e1235"/>
+            </topic>
+            <topic label="Styles" href="output/ch04s02.html#d0e1267"/>
+            <topic label="Categories" href="output/ch04s02.html#d0e1295"/>
+            <topic label="Images" href="output/ch04s02.html#d0e1303"/>
          </topic>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch05.html">
-      <topic label="Build Automatically" href="output/ch05.html#d0e1302"/>
+      <topic label="Build Automatically" href="output/ch05.html#d0e1316"/>
       <topic label="Updating a Diagram" href="output/ch05s02.html"/>
       <topic label="Reporting Bugs" href="output/ch05s03.html"/>
    </topic>

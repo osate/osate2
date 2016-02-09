@@ -4,7 +4,6 @@ import org.osate.aadl2.AadlPackage;
 
 /**
  * Service for referencing business objects using a string value.
- * @author philip.alldredge
  *
  */
 public interface SerializableReferenceService {

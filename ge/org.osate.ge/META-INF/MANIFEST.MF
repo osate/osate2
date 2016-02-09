@@ -38,6 +38,7 @@ Import-Package: org.eclipse.draw2d.graph,
  org.eclipse.ui.views.contentoutline
 Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultDiagramService.xml,
+ components/DefaultReferenceBuilderService.xml,
  components/DefaultSavedAadlPackageService.xml
 Export-Package: org.osate.ge.ext,
  org.osate.ge.ext.annotations,
