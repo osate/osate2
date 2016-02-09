@@ -1941,7 +1941,7 @@ public class EMV2Util {
 	 */
 	public static boolean isAccess(ErrorPropagation ep) {
 		String s = ep.getKind();
-		return s.equalsIgnoreCase("access");
+		return (s!=null) && (s.equalsIgnoreCase("access"));
 	}
 
 	/**
