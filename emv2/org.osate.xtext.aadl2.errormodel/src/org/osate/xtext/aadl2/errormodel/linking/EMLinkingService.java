@@ -29,10 +29,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -205,7 +202,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 							return Collections.singletonList(searchResult);
 						}
 					} else {
-						if (cxtElement instanceof  ContainmentPathElement){
+						if (cxtElement instanceof ContainmentPathElement) {
 							ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(cxtElement);
 							if (ebsm != null) {
 								searchResult = EMV2Util.findErrorBehaviorEvent(ebsm, name);
@@ -221,8 +218,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 									return Collections.singletonList(searchResult);
 								}
 							} else {
-							ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
-							if (eml != null) cxtElement = eml;
+								ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
+								if (eml != null)
+									cxtElement = eml;
 							}
 						}
 						searchResult = findErrorType(cxtElement, name);
@@ -234,7 +232,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 							return Collections.singletonList(searchResult);
 						}
 					}
-				}
+				} // ! null (context)
+					// containment path element
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
@@ -262,6 +261,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 					}
 				}
 			}
+			// end namedElement
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			NamedElement ne = ns.findNamedElement(name);
@@ -321,13 +321,14 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
-				searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
-			}  else {
-				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
-		}
+// XXX allow subcomponent reference in outgoing propagation and transition as well
+//			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
+			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
+//			}  else {
+//				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
+//			}
 			if (searchResult == null) {
-					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
+				searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 			}
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType) {
@@ -409,7 +410,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null) {
 			return eml;
 		}
-		 eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name);
+		eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name);
 		if (eml != null) {
 			return eml;
 		}
