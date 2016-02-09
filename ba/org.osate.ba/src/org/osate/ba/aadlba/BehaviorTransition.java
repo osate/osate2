@@ -44,6 +44,7 @@ public interface BehaviorTransition extends BehaviorNamedElement
 {
   /**
    * Returns the value of the '<em><b>Source State</b></em>' reference.
+   * It is bidirectional and its opposite is '{@link org.osate.ba.aadlba.BehaviorState#getOutgoingTransitions <em>Outgoing Transitions</em>}'.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Source State</em>' reference isn't clear,
@@ -53,7 +54,8 @@ public interface BehaviorTransition extends BehaviorNamedElement
    * @return the value of the '<em>Source State</em>' reference.
    * @see #setSourceState(BehaviorState)
    * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTransition_SourceState()
-   * @model
+   * @see org.osate.ba.aadlba.BehaviorState#getOutgoingTransitions
+   * @model opposite="outgoingTransitions"
    * @generated
    */
   BehaviorState getSourceState();
@@ -96,6 +98,7 @@ public interface BehaviorTransition extends BehaviorNamedElement
 
   /**
    * Returns the value of the '<em><b>Destination State</b></em>' reference.
+   * It is bidirectional and its opposite is '{@link org.osate.ba.aadlba.BehaviorState#getIncomingTransitions <em>Incoming Transitions</em>}'.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Destination State</em>' reference isn't clear,
@@ -105,7 +108,8 @@ public interface BehaviorTransition extends BehaviorNamedElement
    * @return the value of the '<em>Destination State</em>' reference.
    * @see #setDestinationState(BehaviorState)
    * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTransition_DestinationState()
-   * @model
+   * @see org.osate.ba.aadlba.BehaviorState#getIncomingTransitions
+   * @model opposite="incomingTransitions"
    * @generated
    */
   BehaviorState getDestinationState();

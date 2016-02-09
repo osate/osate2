@@ -1014,6 +1014,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       if(ctx.INITIAL() != null)
       {
         bs.setInitial(true) ;
+        ctx.ba.setInitialState(bs);
       }
       
       if(ctx.COMPLETE() != null)

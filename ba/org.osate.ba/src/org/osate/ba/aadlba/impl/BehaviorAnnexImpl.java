@@ -23,10 +23,13 @@ import java.util.Collection ;
 import java.util.HashMap ;
 import java.util.Map ;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
 import org.eclipse.emf.ecore.util.InternalEList ;
 import org.osate.aadl2.Element ;
@@ -54,6 +57,7 @@ import org.osate.ba.utils.AadlBaLocationReference ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getActions <em>Actions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getInitialState <em>Initial State</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,6 +114,16 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * @ordered
    */
   protected EList<BehaviorCondition> conditions;
+
+  /**
+   * The cached value of the '{@link #getInitialState() <em>Initial State</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInitialState()
+   * @generated
+   * @ordered
+   */
+  protected BehaviorState initialState;
 
   /**
    * <!-- begin-user-doc -->
@@ -267,6 +281,49 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  public BehaviorState getInitialState()
+  {
+    if (initialState != null && ((EObject)initialState).eIsProxy())
+    {
+      InternalEObject oldInitialState = (InternalEObject)initialState;
+      initialState = (BehaviorState)eResolveProxy(oldInitialState);
+      if (initialState != oldInitialState)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+      }
+    }
+    return initialState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BehaviorState basicGetInitialState()
+  {
+    return initialState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInitialState(BehaviorState newInitialState)
+  {
+    BehaviorState oldInitialState = initialState;
+    initialState = newInitialState;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -306,6 +363,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
         return getActions();
       case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
         return getConditions();
+      case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
+        if (resolve) return getInitialState();
+        return basicGetInitialState();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -341,6 +401,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
         getConditions().clear();
         getConditions().addAll((Collection<? extends BehaviorCondition>)newValue);
         return;
+      case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
+        setInitialState((BehaviorState)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -370,6 +433,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
       case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
         getConditions().clear();
         return;
+      case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
+        setInitialState((BehaviorState)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -394,6 +460,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
         return actions != null && !actions.isEmpty();
       case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
         return conditions != null && !conditions.isEmpty();
+      case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
+        return initialState != null;
     }
     return super.eIsSet(featureID);
   }

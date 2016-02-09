@@ -41,6 +41,7 @@ import org.osate.ba.utils.AadlBaLocationReference ;
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getActions <em>Actions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getInitialState <em>Initial State</em>}</li>
  * </ul>
  * </p>
  *
@@ -199,6 +200,32 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
    */
   EList<BehaviorCondition> getConditions();
   
+  /**
+   * Returns the value of the '<em><b>Initial State</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Initial State</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Initial State</em>' reference.
+   * @see #setInitialState(BehaviorState)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorAnnex_InitialState()
+   * @model required="true"
+   * @generated
+   */
+  BehaviorState getInitialState();
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorAnnex#getInitialState <em>Initial State</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Initial State</em>' reference.
+   * @see #getInitialState()
+   * @generated
+   */
+  void setInitialState(BehaviorState value);
+
   /**
    * @generated NOT
    */

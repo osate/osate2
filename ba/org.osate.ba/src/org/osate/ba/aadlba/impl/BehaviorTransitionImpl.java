@@ -170,12 +170,37 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSourceState(BehaviorState newSourceState)
+  public NotificationChain basicSetSourceState(BehaviorState newSourceState, NotificationChain msgs)
   {
     BehaviorState oldSourceState = sourceState;
     sourceState = newSourceState;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, sourceState));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, newSourceState);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSourceState(BehaviorState newSourceState)
+  {
+    if (newSourceState != sourceState)
+    {
+      NotificationChain msgs = null;
+      if (sourceState != null)
+        msgs = ((InternalEObject)sourceState).eInverseRemove(this, AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS, BehaviorState.class, msgs);
+      if (newSourceState != null)
+        msgs = ((InternalEObject)newSourceState).eInverseAdd(this, AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS, BehaviorState.class, msgs);
+      msgs = basicSetSourceState(newSourceState, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, newSourceState, newSourceState));
   }
 
   /**
@@ -261,12 +286,37 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDestinationState(BehaviorState newDestinationState)
+  public NotificationChain basicSetDestinationState(BehaviorState newDestinationState, NotificationChain msgs)
   {
     BehaviorState oldDestinationState = destinationState;
     destinationState = newDestinationState;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, destinationState));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, newDestinationState);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDestinationState(BehaviorState newDestinationState)
+  {
+    if (newDestinationState != destinationState)
+    {
+      NotificationChain msgs = null;
+      if (destinationState != null)
+        msgs = ((InternalEObject)destinationState).eInverseRemove(this, AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS, BehaviorState.class, msgs);
+      if (newDestinationState != null)
+        msgs = ((InternalEObject)newDestinationState).eInverseAdd(this, AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS, BehaviorState.class, msgs);
+      msgs = basicSetDestinationState(newDestinationState, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, newDestinationState, newDestinationState));
   }
 
   /**
@@ -341,12 +391,38 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * @generated
    */
   @Override
+  public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+        if (sourceState != null)
+          msgs = ((InternalEObject)sourceState).eInverseRemove(this, AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS, BehaviorState.class, msgs);
+        return basicSetSourceState((BehaviorState)otherEnd, msgs);
+      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+        if (destinationState != null)
+          msgs = ((InternalEObject)destinationState).eInverseRemove(this, AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS, BehaviorState.class, msgs);
+        return basicSetDestinationState((BehaviorState)otherEnd, msgs);
+    }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+        return basicSetSourceState(null, msgs);
       case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
         return basicSetCondition(null, msgs);
+      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+        return basicSetDestinationState(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
