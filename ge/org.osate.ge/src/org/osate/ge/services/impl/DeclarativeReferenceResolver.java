@@ -2,7 +2,6 @@ package org.osate.ge.services.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -37,29 +36,22 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.BuildReference;
 import org.osate.ge.ext.annotations.ResolveReference;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.CachingService.Cache;
@@ -71,8 +63,8 @@ import org.osate.ge.util.Log;
 import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
 
-// Handles references related to the AADL declarative model
-public class DeclarativeReferenceHandler {
+// Handles resolving references related to the AADL declarative model
+public class DeclarativeReferenceResolver {
 	// Cache for items that should not change unless models have changed.
 	private static class DeclarativeCache implements Cache {
 		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
@@ -225,29 +217,10 @@ public class DeclarativeReferenceHandler {
 		}
 	}
 	
-	private final static String TYPE_PACKAGE = "package";
-	private final static String TYPE_CLASSIFIER = "classifier";
-	private final static String TYPE_SUBCOMPONENT = "subcomponent";
-	private final static String TYPE_REALIZATION = "realization";
-	private final static String TYPE_TYPE_EXTENSION = "type_extension";
-	private final static String TYPE_IMPLEMENTATION_EXTENSION = "implementation_extension";
-	private final static String TYPE_GROUP_EXTENSION = "group_extension";
-	private final static String TYPE_FEATURE = "feature";
-	private final static String TYPE_INTERNAL_FEATURE = "internal_feature";
-	private final static String TYPE_PROCESSOR_FEATURE = "processor_feature";
-	private final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
-	private final static String TYPE_CONNECTION = "connection";
-	private final static String TYPE_MODE = "mode";
-	private final static String TYPE_MODE_TRANSITION = "mode_transition";
-	private final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
-	private final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
-	private final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
-	private final static String TYPE_ANNEX_LIBRARY = "annex_library";
-	private final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 	private final DeclarativeCache declarativeCache;
          
 	@Inject
-	public DeclarativeReferenceHandler(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+	public DeclarativeReferenceResolver(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
 		this.declarativeCache = new DeclarativeCache(diagramTypeProvider, cachingService, savedAadlResourceService);		
 		cachingService.registerCache(declarativeCache);
 	}
@@ -255,66 +228,6 @@ public class DeclarativeReferenceHandler {
 	@PreDestroy
 	public void dispose() {
 		declarativeCache.dispose();
-	}
-	
-	@BuildReference
-	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof AadlPackage) {
-			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				
-		} else if(bo instanceof Classifier) {
-			return new String[] {TYPE_CLASSIFIER, ((Classifier)bo).getQualifiedName()};
-		} else if(bo instanceof Subcomponent) {
-			return new String[] {TYPE_SUBCOMPONENT, ((Subcomponent)bo).getQualifiedName()};
-		} else if(bo instanceof Realization) {
-			return new String[] {TYPE_REALIZATION, ((Realization)bo).getSpecific().getQualifiedName()};
-		} else if(bo instanceof TypeExtension) {
-			return new String[] {TYPE_TYPE_EXTENSION, ((TypeExtension)bo).getSpecific().getQualifiedName()};
-		} else if(bo instanceof ImplementationExtension) {
-			return new String[] {TYPE_IMPLEMENTATION_EXTENSION, ((ImplementationExtension)bo).getSpecific().getQualifiedName()};
-		} else if(bo instanceof GroupExtension) {
-			return new String[] {TYPE_GROUP_EXTENSION, ((GroupExtension)bo).getSpecific().getQualifiedName()};
-		} else if(bo instanceof Feature) {
-			return new String[] {TYPE_FEATURE, ((Feature)bo).getQualifiedName()};
-		} else if(bo instanceof InternalFeature) {
-			return new String[] {TYPE_INTERNAL_FEATURE, ((InternalFeature)bo).getQualifiedName()};
-		} else if(bo instanceof ProcessorFeature) {
-			return new String[] {TYPE_PROCESSOR_FEATURE, ((ProcessorFeature)bo).getQualifiedName()};
-		} else if(bo instanceof FlowSpecification) {
-			return new String[] {TYPE_FLOW_SPECIFICATION, ((FlowSpecification)bo).getQualifiedName()};
-		} else if(bo instanceof Connection) {
-			return new String[] {TYPE_CONNECTION, ((Connection)bo).getQualifiedName()};
-		} else if(bo instanceof Mode) {
-			return new String[] {TYPE_MODE, ((Mode)bo).getQualifiedName()};
-		} else if(bo instanceof ModeTransition) {
-			return buildModeTransitionKey((ModeTransition)bo);
-		} else if(bo instanceof SubprogramCallSequence) {
-			return new String[] {TYPE_SUBPROGRAM_CALL_SEQUENCE, ((SubprogramCallSequence)bo).getQualifiedName()};
-		} else if(bo instanceof SubprogramCall) {
-			return new String[] {TYPE_SUBPROGRAM_CALL, ((SubprogramCall)bo).getQualifiedName()};
-		} else if(bo instanceof SubprogramCallOrder) {
-			final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
-			return new String[] {TYPE_SUBPROGRAM_CALL_ORDER, sco.previousSubprogramCall.getQualifiedName(), sco.subprogramCall.getQualifiedName()};
-		} else if(bo instanceof AnnexLibrary) {
-			final AnnexLibrary annexLibrary = (AnnexLibrary)bo;					
-			final AadlPackage annexPkg = getAnnexLibraryPackage(annexLibrary);
-			if(annexPkg == null) {
-				throw new RuntimeException("Unable to retrieve package.");
-			}
-			
-			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new String[] {TYPE_ANNEX_LIBRARY, annexPkg.getQualifiedName(), annexLibrary.getName().toLowerCase(), Integer.toString(index)};
-		} else if(bo instanceof AnnexSubclause) {
-			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
-			if(annexSubclause.getContainingClassifier() == null) {
-				throw new RuntimeException("Unable to retrieve containing classifier.");
-			}
-			
-			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
-			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName().toLowerCase(), Integer.toString(index)};
-		} else {
-			return null;
-		}
 	}
 	
 	@ResolveReference
@@ -328,7 +241,7 @@ public class DeclarativeReferenceHandler {
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0]; 
 		
-		if(type.equals(TYPE_SUBPROGRAM_CALL_ORDER)) {
+		if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_ORDER)) {
 			if(refSegs.length == 3) {
 				final SubprogramCall previousSubprogramCall = getNamedElementByQualifiedName(refSegs[1], SubprogramCall.class);
 				final SubprogramCall subprogramCall = getNamedElementByQualifiedName(refSegs[2], SubprogramCall.class);
@@ -338,66 +251,66 @@ public class DeclarativeReferenceHandler {
 			}			
 		} else { 
 			final String qualifiedName = refSegs[1];
-			if(type.equals(TYPE_PACKAGE)) {
+			if(type.equals(DeclarativeReferenceBuilder.TYPE_PACKAGE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, AadlPackage.class);
-			} else if(type.equals(TYPE_CLASSIFIER)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CLASSIFIER)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Classifier.class);
-			} else if(type.equals(TYPE_SUBCOMPONENT)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBCOMPONENT)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Subcomponent.class);
-			} else if(type.equals(TYPE_FEATURE)){
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FEATURE)){
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Feature.class);
-			} else if(type.equals(TYPE_INTERNAL_FEATURE)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_INTERNAL_FEATURE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, InternalFeature.class);
-			} else if(type.equals(TYPE_PROCESSOR_FEATURE)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_PROCESSOR_FEATURE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, ProcessorFeature.class);
-			} else if(type.equals(TYPE_FLOW_SPECIFICATION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FLOW_SPECIFICATION)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, FlowSpecification.class);
-			} else if(type.equals(TYPE_CONNECTION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CONNECTION)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Connection.class);
-			} else if(type.equals(TYPE_MODE)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, Mode.class);
-			} else if(type.equals(TYPE_SUBPROGRAM_CALL_SEQUENCE)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_SEQUENCE)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCallSequence.class);
-			} else if(type.equals(TYPE_SUBPROGRAM_CALL)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL)) {
 				referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCall.class);
-			} else if(type.equals(TYPE_MODE_TRANSITION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION)) {
 				final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 				if(cc != null) {
 					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-						if(equalsIgnoreCase(refSegs, buildModeTransitionKey(mt))) { 
+						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildModeTransitionKey(mt))) { 
 							referencedObject = mt;
 							break;
 						}
 					}
 				}			
-			} else if(type.equals(TYPE_REALIZATION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_REALIZATION)) {
 				final ComponentImplementation ci = getNamedElementByQualifiedName(qualifiedName, ComponentImplementation.class);
 				if(ci != null) {
 					referencedObject = ci.getOwnedRealization();
 				}
-			} else if(type.equals(TYPE_TYPE_EXTENSION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_TYPE_EXTENSION)) {
 				final ComponentType ct = getNamedElementByQualifiedName(qualifiedName, ComponentType.class);
 				if(ct instanceof ComponentType) {
 					referencedObject = ct.getOwnedExtension();
 				}
-			} else if(type.equals(TYPE_IMPLEMENTATION_EXTENSION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_IMPLEMENTATION_EXTENSION)) {
 				final ComponentImplementation ci = getNamedElementByQualifiedName(qualifiedName, ComponentImplementation.class);
 				if(ci != null) {
 					referencedObject = ci.getOwnedExtension();
 				}
-			} else if(type.equals(TYPE_GROUP_EXTENSION)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_GROUP_EXTENSION)) {
 				final FeatureGroupType fgt = getNamedElementByQualifiedName(qualifiedName, FeatureGroupType.class);
 				if(fgt != null) {
 					referencedObject = fgt.getOwnedExtension();
 				}
-			} else if(type.equals(TYPE_ANNEX_LIBRARY)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_LIBRARY)) {
 				final AadlPackage pkg = getNamedElementByQualifiedName(qualifiedName, AadlPackage.class);
 				if(refSegs.length == 4 && pkg != null) {
 					final String annexName = refSegs[2];
 					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
 				}
-			} else if(type.equals(TYPE_ANNEX_SUBCLAUSE)) {
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_SUBCLAUSE)) {
 				final Classifier classifier = getNamedElementByQualifiedName(qualifiedName, Classifier.class);
 				if(refSegs.length == 4 && classifier != null) {
 					final String annexName = refSegs[2];
@@ -562,27 +475,6 @@ public class DeclarativeReferenceHandler {
 		return null;
 	}
 	
-	private String getNameForSerialization(final NamedElement ne) {
-		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
-	}
-	
-	private String[] buildModeTransitionKey(final ModeTransition mt) {
-		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
-		final String[] key = new String[5 + (triggers.size() * 2)];
-		int index = 0;
-		key[index++] = TYPE_MODE_TRANSITION;
-		key[index++] = mt.getContainingClassifier().getQualifiedName();
-		key[index++] = getNameForSerialization(mt);
-		key[index++] = getNameForSerialization(mt.getSource());
-		key[index++] = getNameForSerialization(mt.getDestination());
-		for(final ModeTransitionTrigger trigger : triggers) {
-			key[index++] = getNameForSerialization(trigger.getContext());
-			key[index++] = getNameForSerialization(trigger.getTriggerPort());
-		}
-
-		return key;
-	}
-	
 	// Helper methods for working with Annexes
 	private AnnexLibrary findAnnexLibrary(final AadlPackage pkg, final String annexName, final int searchIndex) {
 		int currentIndex = 0;
@@ -612,77 +504,5 @@ public class DeclarativeReferenceHandler {
 		}
 		
 		return null;
-	}
-		
-	/**
-	 * Get the package in which the annex library is contained.
-	 * @param annex
-	 * @return
-	 */
-	private AadlPackage getAnnexLibraryPackage(final AnnexLibrary annexLibrary) {
-		for(Element o = annexLibrary.getOwner(); o != null; o = o.getOwner()) {
-			if(o instanceof AadlPackage) {
-				return (AadlPackage)o;
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Returns a 0 based index for referencing an annex library in a list that contains only annex libraries with the same type and owner
-	 * @param annexLibrary
-	 * @return
-	 */
-	private int getAnnexLibraryIndex(final AnnexLibrary annexLibrary) {
-		final String annexName = annexLibrary.getName();
-		if(annexName == null) {
-			return -1;
-		}
-		
-		// Get the Aadl Package
-		Element tmp = annexLibrary.getOwner();
-		while(tmp != null && !(tmp instanceof AadlPackage)) {
-			tmp = tmp.getOwner();
-		}
-		
-		int index = 0;
-		if(tmp instanceof AadlPackage) {
-			for(final AnnexLibrary tmpLibrary : AnnexUtil.getAllDefaultAnnexLibraries((AadlPackage)tmp)) {
-				if(tmpLibrary == annexLibrary) {
-					return index;
-				} else if(annexName.equalsIgnoreCase(tmpLibrary.getName())) {
-					index++;
-				}
-			}
-		}
-
-		return -1;
-	}
-	
-	/**
-	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
-	 * @param annexLibrary
-	 * @return
-	 */
-	private int getAnnexSubclauseIndex(final AnnexSubclause annexSubclause) {
-		final String annexName = annexSubclause.getName();
-		if(annexName == null) {
-			return -1;
-		}
-		
-		// Get the Classifier
-		final Classifier classifier = annexSubclause.getContainingClassifier();
-				
-		int index = 0;
-		for(final AnnexSubclause tmpSubclause : classifier.getOwnedAnnexSubclauses()) {
-			if(tmpSubclause == annexSubclause) {
-				return index;
-			} else if(annexName.equalsIgnoreCase(tmpSubclause.getName())) {
-				index++;
-			}
-		}
-
-		return -1;
 	}
 }

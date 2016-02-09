@@ -40,6 +40,7 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.PrototypeService;
 import org.osate.ge.services.RefactoringService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
@@ -114,7 +115,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), this, context);
-		serializableReferenceService = new DefaultSerializableReferenceService(extensionService);
+		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
