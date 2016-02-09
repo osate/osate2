@@ -296,8 +296,15 @@ ErrorPath returns ErrorPath:
 
 // reference to error propagation  
 ErrorPropagationPoint :
-   PropagationKind | (ID  ('.' ID)*)
+   (ID ".")*(PropagationKind | ID  )
    ;
+//ErrorPropagationPointPath :
+//   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
+//   ;
+//
+//NamedElementReference returns NamedElementReference:
+//	namedElement = [aadl2::NamedElement|ID]
+//;
 
    
 PropagationPoint returns PropagationPoint:

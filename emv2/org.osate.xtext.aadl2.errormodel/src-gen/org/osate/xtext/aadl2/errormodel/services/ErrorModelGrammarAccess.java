@@ -2600,39 +2600,39 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ErrorPropagationPointElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ErrorPropagationPoint");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cPropagationKindParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1_1 = (RuleCall)cGroup_1_1.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final RuleCall cPropagationKindParserRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
 		
 		//// reference to error propagation  
 		//ErrorPropagationPoint:
-		//	PropagationKind | ID ("." ID)*;
+		//	(ID ".")* (PropagationKind | ID);
 		@Override public ParserRule getRule() { return rule; }
 
-		//PropagationKind | ID ("." ID)*
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//(ID ".")* (PropagationKind | ID)
+		public Group getGroup() { return cGroup; }
 
-		//PropagationKind
-		public RuleCall getPropagationKindParserRuleCall_0() { return cPropagationKindParserRuleCall_0; }
-
-		//ID ("." ID)*
-		public Group getGroup_1() { return cGroup_1; }
+		//(ID ".")*
+		public Group getGroup_0() { return cGroup_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_0() { return cIDTerminalRuleCall_1_0; }
-
-		//("." ID)*
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
 		//"."
-		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
+		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
+
+		//PropagationKind | ID
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//PropagationKind
+		public RuleCall getPropagationKindParserRuleCall_1_0() { return cPropagationKindParserRuleCall_1_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_1_1() { return cIDTerminalRuleCall_1_1_1; }
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 
 	public class PropagationPointElements extends AbstractParserRuleElementFinder {
@@ -2645,6 +2645,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPointKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
+		////ErrorPropagationPointPath :
+		////   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
+		////   ;
+		////
+		////NamedElementReference returns NamedElementReference:
+		////	namedElement = [aadl2::NamedElement|ID]
+		////;
 		//PropagationPoint:
 		//	name=ID ":" "propagation" "point" ";";
 		@Override public ParserRule getRule() { return rule; }
@@ -5385,7 +5392,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// reference to error propagation  
 	//ErrorPropagationPoint:
-	//	PropagationKind | ID ("." ID)*;
+	//	(ID ".")* (PropagationKind | ID);
 	public ErrorPropagationPointElements getErrorPropagationPointAccess() {
 		return pErrorPropagationPoint;
 	}
@@ -5394,6 +5401,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPropagationPointAccess().getRule();
 	}
 
+	////ErrorPropagationPointPath :
+	////   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
+	////   ;
+	////
+	////NamedElementReference returns NamedElementReference:
+	////	namedElement = [aadl2::NamedElement|ID]
+	////;
 	//PropagationPoint:
 	//	name=ID ":" "propagation" "point" ";";
 	public PropagationPointElements getPropagationPointAccess() {

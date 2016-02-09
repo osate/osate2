@@ -8312,23 +8312,68 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPropagationPoint"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3274:1: ruleErrorPropagationPoint returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3274:1: ruleErrorPropagationPoint returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) ;
     public final AntlrDatatypeRuleToken ruleErrorPropagationPoint() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
-        Token this_ID_1=null;
+        Token this_ID_0=null;
         Token kw=null;
         Token this_ID_3=null;
-        AntlrDatatypeRuleToken this_PropagationKind_0 = null;
+        AntlrDatatypeRuleToken this_PropagationKind_2 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3278:6: ( (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:1: (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3278:6: ( ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:1: (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:1: ( (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:2: (this_ID_0= RULE_ID kw= FullStop )* (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
+            {
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:2: (this_ID_0= RULE_ID kw= FullStop )*
+            loop90:
+            do {
+                int alt90=2;
+                int LA90_0 = input.LA(1);
+
+                if ( (LA90_0==RULE_ID) ) {
+                    int LA90_2 = input.LA(2);
+
+                    if ( (LA90_2==FullStop) ) {
+                        alt90=1;
+                    }
+
+
+                }
+
+
+                switch (alt90) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3279:7: this_ID_0= RULE_ID kw= FullStop
+            	    {
+            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6820); 
+
+            	    		current.merge(this_ID_0);
+            	        
+            	     
+            	        newLeafNode(this_ID_0, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_0_0()); 
+            	        
+            	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleErrorPropagationPoint6838); 
+
+            	            current.merge(kw);
+            	            newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_0_1()); 
+            	        
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop90;
+                }
+            } while (true);
+
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3292:3: (this_PropagationKind_2= rulePropagationKind | this_ID_3= RULE_ID )
             int alt91=2;
             int LA91_0 = input.LA(1);
 
@@ -8346,18 +8391,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
             switch (alt91) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3280:5: this_PropagationKind_0= rulePropagationKind
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3293:5: this_PropagationKind_2= rulePropagationKind
                     {
                      
-                            newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_0()); 
+                            newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_1_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint6826);
-                    this_PropagationKind_0=rulePropagationKind();
+                    pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint6863);
+                    this_PropagationKind_2=rulePropagationKind();
 
                     state._fsp--;
 
 
-                    		current.merge(this_PropagationKind_0);
+                    		current.merge(this_PropagationKind_2);
                         
                      
                             afterParserOrEnumRuleCall();
@@ -8366,60 +8411,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3291:6: (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3304:10: this_ID_3= RULE_ID
                     {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3291:6: (this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )* )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3291:11: this_ID_1= RULE_ID (kw= FullStop this_ID_3= RULE_ID )*
-                    {
-                    this_ID_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6853); 
+                    this_ID_3=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6889); 
 
-                    		current.merge(this_ID_1);
+                    		current.merge(this_ID_3);
                         
                      
-                        newLeafNode(this_ID_1, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_0()); 
+                        newLeafNode(this_ID_3, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_1()); 
                         
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3298:1: (kw= FullStop this_ID_3= RULE_ID )*
-                    loop90:
-                    do {
-                        int alt90=2;
-                        int LA90_0 = input.LA(1);
-
-                        if ( (LA90_0==FullStop) ) {
-                            alt90=1;
-                        }
-
-
-                        switch (alt90) {
-                    	case 1 :
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3299:2: kw= FullStop this_ID_3= RULE_ID
-                    	    {
-                    	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleErrorPropagationPoint6872); 
-
-                    	            current.merge(kw);
-                    	            newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_1_1_0()); 
-                    	        
-                    	    this_ID_3=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6887); 
-
-                    	    		current.merge(this_ID_3);
-                    	        
-                    	     
-                    	        newLeafNode(this_ID_3, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_1_1()); 
-                    	        
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop90;
-                        }
-                    } while (true);
-
-
-                    }
-
 
                     }
                     break;
+
+            }
+
 
             }
 
@@ -21483,10 +21489,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_Semicolon_in_ruleErrorPath6733 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_entryRuleErrorPropagationPoint6768 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleErrorPropagationPoint6779 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint6826 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6853 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
-        public static final BitSet FOLLOW_FullStop_in_ruleErrorPropagationPoint6872 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6887 = new BitSet(new long[]{0x0000000000000002L,0x0000000000040000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6820 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_FullStop_in_ruleErrorPropagationPoint6838 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint6863 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint6889 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rulePropagationPoint_in_entryRulePropagationPoint6934 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRulePropagationPoint6944 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rulePropagationPoint6986 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});

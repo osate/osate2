@@ -3276,39 +3276,39 @@ ruleErrorPropagationPoint returns [AntlrDatatypeRuleToken current=new AntlrDatat
     }
     @after { leaveRule();
     }:
-(
-    { 
-        newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_0()); 
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
     }
-    this_PropagationKind_0=rulePropagationKind    {
-		$current.merge(this_PropagationKind_0);
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_0_0()); 
+    }
+
+	kw=FullStop 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_0_1()); 
+    }
+)*(
+    { 
+        newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_1_0()); 
+    }
+    this_PropagationKind_2=rulePropagationKind    {
+		$current.merge(this_PropagationKind_2);
     }
 
     { 
         afterParserOrEnumRuleCall();
     }
 
-    |(    this_ID_1=RULE_ID    {
-		$current.merge(this_ID_1);
-    }
-
-    { 
-    newLeafNode(this_ID_1, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_0()); 
-    }
-(
-	kw=FullStop 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_1_1_0()); 
-    }
-    this_ID_3=RULE_ID    {
+    |    this_ID_3=RULE_ID    {
 		$current.merge(this_ID_3);
     }
 
     { 
-    newLeafNode(this_ID_3, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_1_1()); 
+    newLeafNode(this_ID_3, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_1()); 
     }
-)*))
+))
     ;
 
 
