@@ -68,7 +68,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType()
- * @model annotation="http://www.topcased.org/documentation documentation='To be merged with AADLConstructs::Features::FeatureGroupType'"
+ * @model
  * @generated
  */
 public interface FeatureGroupType extends Classifier, FeatureType {

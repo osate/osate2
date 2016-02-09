@@ -69,7 +69,6 @@ public interface TypedElement extends NamedElement {
 	 * @see #setType(Type)
 	 * @see org.osate.aadl2.Aadl2Package#getTypedElement_Type()
 	 * @model ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='The type of the TypedElement.'"
 	 * @generated
 	 */
 	Type getType();

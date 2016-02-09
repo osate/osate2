@@ -77,7 +77,6 @@ public interface Namespace extends NamedElement {
 	 * @return the value of the '<em>Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamespace_Member()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.'"
 	 * @generated
 	 */
 	EList<NamedElement> getMembers();
@@ -102,7 +101,6 @@ public interface Namespace extends NamedElement {
 	 * @return the value of the '<em>Owned Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamespace_OwnedMember()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='A collection of NamedElements owned by the Namespace.'"
 	 * @generated
 	 */
 	EList<NamedElement> getOwnedMembers();
