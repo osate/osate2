@@ -62,11 +62,11 @@ property set AADL_Project is
 
 
 	
-	Time: type aadlinteger 0 ps .. Max_Time units Time_Units;
+	Time: type aadlinteger units Time_Units; --0 ps .. Max_Time units Time_Units;
 	
 	Time_Range: type range of Time;
 	
-	Size: type aadlinteger 0 Bytes .. Max_Memory_Size units Size_Units;
+	Size: type aadlinteger units Size_Units; -- 0 Bytes .. Max_Memory_Size units Size_Units;
 	
 	Size_Range: type range of Size;
 
