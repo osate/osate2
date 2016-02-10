@@ -4595,6 +4595,74 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOperandsConditionTermParserRuleCall_1_2_0() { return cOperandsConditionTermParserRuleCall_1_2_0; }
 	}
 
+	public class AllExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AllExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAllExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cAllKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cOperandsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cOperandsConditionElementParserRuleCall_3_0 = (RuleCall)cOperandsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOperandsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOperandsConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cButKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cCountAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cCountINTVALUEParserRuleCall_6_1_0 = (RuleCall)cCountAssignment_6_1.eContents().get(0);
+		
+		//AllExpression returns ConditionExpression:
+		//	{AllExpression} "all" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")" ("but" count=INTVALUE)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//{AllExpression} "all" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")" ("but" count=INTVALUE)?
+		public Group getGroup() { return cGroup; }
+
+		//{AllExpression}
+		public Action getAllExpressionAction_0() { return cAllExpressionAction_0; }
+
+		//"all"
+		public Keyword getAllKeyword_1() { return cAllKeyword_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+
+		//operands+=ConditionElement
+		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
+
+		//ConditionElement
+		public RuleCall getOperandsConditionElementParserRuleCall_3_0() { return cOperandsConditionElementParserRuleCall_3_0; }
+
+		//("," operands+=ConditionElement)*
+		public Group getGroup_4() { return cGroup_4; }
+
+		//","
+		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
+
+		//operands+=ConditionElement
+		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
+
+		//ConditionElement
+		public RuleCall getOperandsConditionElementParserRuleCall_4_1_0() { return cOperandsConditionElementParserRuleCall_4_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+
+		//("but" count=INTVALUE)?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"but"
+		public Keyword getButKeyword_6_0() { return cButKeyword_6_0; }
+
+		//count=INTVALUE
+		public Assignment getCountAssignment_6_1() { return cCountAssignment_6_1; }
+
+		//INTVALUE
+		public RuleCall getCountINTVALUEParserRuleCall_6_1_0() { return cCountINTVALUEParserRuleCall_6_1_0; }
+	}
+
 	public class OrmoreExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OrmoreExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -4713,16 +4781,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionElementParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cOrmoreExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cOrlessExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cConditionExpressionParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final RuleCall cAllExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
+		private final Keyword cLeftParenthesisKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final RuleCall cConditionExpressionParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//ConditionTerm returns ConditionExpression:
-		//	ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")";
+		//	ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | "(" ConditionExpression ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")"
+		//ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | "(" ConditionExpression ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ConditionElement
@@ -4734,17 +4803,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//OrlessExpression
 		public RuleCall getOrlessExpressionParserRuleCall_2() { return cOrlessExpressionParserRuleCall_2; }
 
+		//AllExpression
+		public RuleCall getAllExpressionParserRuleCall_3() { return cAllExpressionParserRuleCall_3; }
+
 		//"(" ConditionExpression ")"
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		public Keyword getLeftParenthesisKeyword_4_0() { return cLeftParenthesisKeyword_4_0; }
 
 		//ConditionExpression
-		public RuleCall getConditionExpressionParserRuleCall_3_1() { return cConditionExpressionParserRuleCall_3_1; }
+		public RuleCall getConditionExpressionParserRuleCall_4_1() { return cConditionExpressionParserRuleCall_4_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		public Keyword getRightParenthesisKeyword_4_2() { return cRightParenthesisKeyword_4_2; }
 	}
 
 	public class ConditionElementElements extends AbstractParserRuleElementFinder {
@@ -5710,6 +5782,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final ConnectionErrorSourceElements pConnectionErrorSource;
 	private final ConditionExpressionElements pConditionExpression;
 	private final AndExpressionElements pAndExpression;
+	private final AllExpressionElements pAllExpression;
 	private final OrmoreExpressionElements pOrmoreExpression;
 	private final OrlessExpressionElements pOrlessExpression;
 	private final ConditionTermElements pConditionTerm;
@@ -5793,6 +5866,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pConnectionErrorSource = new ConnectionErrorSourceElements();
 		this.pConditionExpression = new ConditionExpressionElements();
 		this.pAndExpression = new AndExpressionElements();
+		this.pAllExpression = new AllExpressionElements();
 		this.pOrmoreExpression = new OrmoreExpressionElements();
 		this.pOrlessExpression = new OrlessExpressionElements();
 		this.pConditionTerm = new ConditionTermElements();
@@ -6458,6 +6532,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndExpressionAccess().getRule();
 	}
 
+	//AllExpression returns ConditionExpression:
+	//	{AllExpression} "all" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")" ("but" count=INTVALUE)?;
+	public AllExpressionElements getAllExpressionAccess() {
+		return pAllExpression;
+	}
+	
+	public ParserRule getAllExpressionRule() {
+		return getAllExpressionAccess().getRule();
+	}
+
 	//OrmoreExpression:
 	//	count=INTVALUE "ormore" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
 	public OrmoreExpressionElements getOrmoreExpressionAccess() {
@@ -6479,7 +6563,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConditionTerm returns ConditionExpression:
-	//	ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")";
+	//	ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | "(" ConditionExpression ")";
 	public ConditionTermElements getConditionTermAccess() {
 		return pConditionTerm;
 	}

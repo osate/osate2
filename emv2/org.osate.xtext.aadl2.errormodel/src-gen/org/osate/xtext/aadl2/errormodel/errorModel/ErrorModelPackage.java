@@ -3740,6 +3740,61 @@ public interface ErrorModelPackage extends EPackage
   int AND_EXPRESSION_FEATURE_COUNT = CONDITION_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl <em>All Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAllExpression()
+   * @generated
+   */
+  int ALL_EXPRESSION = 45;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_EXPRESSION__OWNED_ELEMENT = CONDITION_EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_EXPRESSION__OWNED_COMMENT = CONDITION_EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Operands</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_EXPRESSION__OPERANDS = CONDITION_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_EXPRESSION__COUNT = CONDITION_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>All Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALL_EXPRESSION_FEATURE_COUNT = CONDITION_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SOrExpressionImpl <em>SOr Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3747,7 +3802,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSOrExpression()
    * @generated
    */
-  int SOR_EXPRESSION = 45;
+  int SOR_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3793,7 +3848,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSAndExpression()
    * @generated
    */
-  int SAND_EXPRESSION = 46;
+  int SAND_EXPRESSION = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5834,6 +5889,38 @@ public interface ErrorModelPackage extends EPackage
   EReference getAndExpression_Operands();
 
   /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.AllExpression <em>All Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>All Expression</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.AllExpression
+   * @generated
+   */
+  EClass getAllExpression();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.AllExpression#getOperands <em>Operands</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Operands</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.AllExpression#getOperands()
+   * @see #getAllExpression()
+   * @generated
+   */
+  EReference getAllExpression_Operands();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.AllExpression#getCount <em>Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Count</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.AllExpression#getCount()
+   * @see #getAllExpression()
+   * @generated
+   */
+  EAttribute getAllExpression_Count();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression <em>SOr Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7475,6 +7562,32 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference AND_EXPRESSION__OPERANDS = eINSTANCE.getAndExpression_Operands();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl <em>All Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAllExpression()
+     * @generated
+     */
+    EClass ALL_EXPRESSION = eINSTANCE.getAllExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Operands</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ALL_EXPRESSION__OPERANDS = eINSTANCE.getAllExpression_Operands();
+
+    /**
+     * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ALL_EXPRESSION__COUNT = eINSTANCE.getAllExpression_Count();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SOrExpressionImpl <em>SOr Expression</em>}' class.

@@ -476,6 +476,11 @@ ConditionExpression returns ConditionExpression:
 
 AndExpression returns ConditionExpression:
   ConditionTerm ({AndExpression.operands+=current} 'and' operands+=ConditionTerm)*;
+
+AllExpression returns ConditionExpression:
+  {AllExpression} 'all' '(' operands+=ConditionElement
+	            ( ',' operands+=ConditionElement)* ')' ( 'but' count=INTVALUE)?;
+
   
 OrmoreExpression returns OrmoreExpression: 
 	count=INTVALUE 'ormore' '(' operands+=ConditionElement
@@ -491,6 +496,7 @@ ConditionTerm returns ConditionExpression:
 	  ConditionElement
       |  OrmoreExpression 
       |  OrlessExpression 
+      |  AllExpression
       | '(' ConditionExpression ')'
   ;
   

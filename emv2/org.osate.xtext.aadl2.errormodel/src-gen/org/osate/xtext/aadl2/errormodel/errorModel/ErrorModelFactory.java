@@ -428,6 +428,15 @@ public interface ErrorModelFactory extends EFactory
   AndExpression createAndExpression();
 
   /**
+   * Returns a new object of class '<em>All Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>All Expression</em>'.
+   * @generated
+   */
+  AllExpression createAllExpression();
+
+  /**
    * Returns a new object of class '<em>SOr Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

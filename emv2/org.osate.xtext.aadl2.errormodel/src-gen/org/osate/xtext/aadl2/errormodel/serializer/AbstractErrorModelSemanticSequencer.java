@@ -31,6 +31,7 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -181,6 +182,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case ErrorModelPackage.ALL_EXPRESSION:
+				sequence_AllExpression(context, (AllExpression) semanticObject); 
+				return; 
 			case ErrorModelPackage.AND_EXPRESSION:
 				sequence_AndExpression(context, (AndExpression) semanticObject); 
 				return; 
@@ -418,6 +422,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Constraint:
+	 *     (operands+=ConditionElement operands+=ConditionElement* count=INTVALUE?)
+	 */
+	protected void sequence_AllExpression(EObject context, AllExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Constraint:

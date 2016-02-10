@@ -231,11 +231,14 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getConditionExpressionAccess().getGroup_1(), "rule__ConditionExpression__Group_1__0");
 					put(grammarAccess.getAndExpressionAccess().getGroup(), "rule__AndExpression__Group__0");
 					put(grammarAccess.getAndExpressionAccess().getGroup_1(), "rule__AndExpression__Group_1__0");
+					put(grammarAccess.getAllExpressionAccess().getGroup(), "rule__AllExpression__Group__0");
+					put(grammarAccess.getAllExpressionAccess().getGroup_4(), "rule__AllExpression__Group_4__0");
+					put(grammarAccess.getAllExpressionAccess().getGroup_6(), "rule__AllExpression__Group_6__0");
 					put(grammarAccess.getOrmoreExpressionAccess().getGroup(), "rule__OrmoreExpression__Group__0");
 					put(grammarAccess.getOrmoreExpressionAccess().getGroup_4(), "rule__OrmoreExpression__Group_4__0");
 					put(grammarAccess.getOrlessExpressionAccess().getGroup(), "rule__OrlessExpression__Group__0");
 					put(grammarAccess.getOrlessExpressionAccess().getGroup_4(), "rule__OrlessExpression__Group_4__0");
-					put(grammarAccess.getConditionTermAccess().getGroup_3(), "rule__ConditionTerm__Group_3__0");
+					put(grammarAccess.getConditionTermAccess().getGroup_4(), "rule__ConditionTerm__Group_4__0");
 					put(grammarAccess.getConditionElementAccess().getGroup(), "rule__ConditionElement__Group__0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getGroup(), "rule__OutgoingPropagationCondition__Group__0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getGroup_0(), "rule__OutgoingPropagationCondition__Group_0__0");
@@ -493,6 +496,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getConnectionErrorSourceAccess().getConditionAssignment_7_1(), "rule__ConnectionErrorSource__ConditionAssignment_7_1");
 					put(grammarAccess.getConditionExpressionAccess().getOperandsAssignment_1_2(), "rule__ConditionExpression__OperandsAssignment_1_2");
 					put(grammarAccess.getAndExpressionAccess().getOperandsAssignment_1_2(), "rule__AndExpression__OperandsAssignment_1_2");
+					put(grammarAccess.getAllExpressionAccess().getOperandsAssignment_3(), "rule__AllExpression__OperandsAssignment_3");
+					put(grammarAccess.getAllExpressionAccess().getOperandsAssignment_4_1(), "rule__AllExpression__OperandsAssignment_4_1");
+					put(grammarAccess.getAllExpressionAccess().getCountAssignment_6_1(), "rule__AllExpression__CountAssignment_6_1");
 					put(grammarAccess.getOrmoreExpressionAccess().getCountAssignment_0(), "rule__OrmoreExpression__CountAssignment_0");
 					put(grammarAccess.getOrmoreExpressionAccess().getOperandsAssignment_3(), "rule__OrmoreExpression__OperandsAssignment_3");
 					put(grammarAccess.getOrmoreExpressionAccess().getOperandsAssignment_4_1(), "rule__OrmoreExpression__OperandsAssignment_4_1");

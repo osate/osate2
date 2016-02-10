@@ -306,6 +306,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createAndExpressionAdapter();
       }
       @Override
+      public Adapter caseAllExpression(AllExpression object)
+      {
+        return createAllExpressionAdapter();
+      }
+      @Override
       public Adapter caseSOrExpression(SOrExpression object)
       {
         return createSOrExpressionAdapter();
@@ -1033,6 +1038,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAndExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.AllExpression <em>All Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.AllExpression
+   * @generated
+   */
+  public Adapter createAllExpressionAdapter()
   {
     return null;
   }

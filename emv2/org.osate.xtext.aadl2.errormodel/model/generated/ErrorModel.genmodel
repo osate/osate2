@@ -246,6 +246,10 @@
     <genClasses ecoreClass="ErrorModel.ecore#//AndExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AndExpression/operands"/>
     </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//AllExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AllExpression/operands"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//AllExpression/count"/>
+    </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//SOrExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SOrExpression/operands"/>
     </genClasses>

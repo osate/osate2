@@ -21,8 +21,8 @@ import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ErrorModelGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_a;
-	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_p;
+	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_4_0_a;
+	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_4_0_p;
 	protected AbstractElementAlias match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q;
 	protected AbstractElementAlias match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q;
 	protected AbstractElementAlias match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q;
@@ -42,8 +42,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ErrorModelGrammarAccess) access;
-		match_ConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
-		match_ConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
+		match_ConditionTerm_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
+		match_ConditionTerm_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
 		match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_0_1_2_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_0_1_2_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_0_1_2_8()));
 		match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_1_6_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_1_6_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_1_6_8()));
 		match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_8_2()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_8_9()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_10()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_8_11()));
@@ -99,10 +99,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ConditionTerm_LeftParenthesisKeyword_3_0_a.equals(syntax))
-				emit_ConditionTerm_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ConditionTerm_LeftParenthesisKeyword_3_0_p.equals(syntax))
-				emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_ConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
+				emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
+				emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q.equals(syntax))
 				emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q.equals(syntax))
@@ -142,12 +142,13 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'all' '(' operands+=ConditionElement
 	 *     (rule start) (ambiguity) count=INTVALUE
 	 *     (rule start) (ambiguity) incoming=[EventOrPropagation|ErrorPropagationPoint]
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_ConditionTerm_LeftParenthesisKeyword_3_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -159,7 +160,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

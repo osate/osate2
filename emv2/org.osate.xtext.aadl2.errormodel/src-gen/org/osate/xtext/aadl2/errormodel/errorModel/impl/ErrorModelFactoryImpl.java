@@ -109,6 +109,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.EMV2_ROOT: return createEMV2Root();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
+      case ErrorModelPackage.ALL_EXPRESSION: return createAllExpression();
       case ErrorModelPackage.SOR_EXPRESSION: return createSOrExpression();
       case ErrorModelPackage.SAND_EXPRESSION: return createSAndExpression();
       default:
@@ -609,6 +610,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     AndExpressionImpl andExpression = new AndExpressionImpl();
     return andExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AllExpression createAllExpression()
+  {
+    AllExpressionImpl allExpression = new AllExpressionImpl();
+    return allExpression;
   }
 
   /**
