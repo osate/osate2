@@ -21,12 +21,12 @@ import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
 public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InstanceGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q;
+	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InstanceGrammarAccess) access;
-		match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getLeftCurlyBracketKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_8_2()));
+		match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getLeftCurlyBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_5_2()));
 	}
 	
 	@Override
@@ -41,8 +41,8 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q.equals(syntax))
-				emit_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q.equals(syntax))
+				emit_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -52,9 +52,9 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('{' '}')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     index+=LONG ']' (ambiguity) (rule end)
+	 *     subcomponent=[Subcomponent|SUBREF] (ambiguity) (rule end)
 	 */
-	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

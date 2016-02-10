@@ -12,7 +12,7 @@ SystemInstance returns instance::SystemInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ':' subcomponent=[aadl2::Subcomponent|SUBREF] '[' index+=LONG (',' index+=LONG)* ']' ('{'
+	category=ComponentCategory name=ID ('[' index+=LONG ']')* ':' subcomponent=[aadl2::Subcomponent|SUBREF] ('{'
 		componentInstance+=ComponentInstance*
 	'}')?
 ;

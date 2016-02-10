@@ -41,8 +41,8 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentCategoryAccess().getAlternatives(), "rule__ComponentCategory__Alternatives");
 					put(grammarAccess.getSystemInstanceAccess().getGroup(), "rule__SystemInstance__Group__0");
 					put(grammarAccess.getComponentInstanceAccess().getGroup(), "rule__ComponentInstance__Group__0");
-					put(grammarAccess.getComponentInstanceAccess().getGroup_6(), "rule__ComponentInstance__Group_6__0");
-					put(grammarAccess.getComponentInstanceAccess().getGroup_8(), "rule__ComponentInstance__Group_8__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_2(), "rule__ComponentInstance__Group_2__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_5(), "rule__ComponentInstance__Group_5__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup(), "rule__SystemOperationMode__Group__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_8(), "rule__ComponentCategory__Group_8__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_10(), "rule__ComponentCategory__Group_10__0");
@@ -59,10 +59,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemInstanceAccess().getSystemOperationModeAssignment_5_1(), "rule__SystemInstance__SystemOperationModeAssignment_5_1");
 					put(grammarAccess.getComponentInstanceAccess().getCategoryAssignment_0(), "rule__ComponentInstance__CategoryAssignment_0");
 					put(grammarAccess.getComponentInstanceAccess().getNameAssignment_1(), "rule__ComponentInstance__NameAssignment_1");
-					put(grammarAccess.getComponentInstanceAccess().getSubcomponentAssignment_3(), "rule__ComponentInstance__SubcomponentAssignment_3");
-					put(grammarAccess.getComponentInstanceAccess().getIndexAssignment_5(), "rule__ComponentInstance__IndexAssignment_5");
-					put(grammarAccess.getComponentInstanceAccess().getIndexAssignment_6_1(), "rule__ComponentInstance__IndexAssignment_6_1");
-					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_8_1(), "rule__ComponentInstance__ComponentInstanceAssignment_8_1");
+					put(grammarAccess.getComponentInstanceAccess().getIndexAssignment_2_1(), "rule__ComponentInstance__IndexAssignment_2_1");
+					put(grammarAccess.getComponentInstanceAccess().getSubcomponentAssignment_4(), "rule__ComponentInstance__SubcomponentAssignment_4");
+					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_5_1(), "rule__ComponentInstance__ComponentInstanceAssignment_5_1");
 					put(grammarAccess.getSystemOperationModeAccess().getNameAssignment_1(), "rule__SystemOperationMode__NameAssignment_1");
 				}
 			};

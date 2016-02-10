@@ -43,14 +43,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         category=ComponentCategory 
-	 *         name=ID 
-	 *         subcomponent=[Subcomponent|SUBREF] 
-	 *         index+=LONG 
-	 *         index+=LONG* 
-	 *         componentInstance+=ComponentInstance*
-	 *     )
+	 *     (category=ComponentCategory name=ID index+=LONG* subcomponent=[Subcomponent|SUBREF] componentInstance+=ComponentInstance*)
 	 */
 	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
