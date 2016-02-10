@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
   <uml:Model xmi:id="_0" name="AADLInfrastructure">
-    <ownedComment xmi:id="_ownedComment.0">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_ownedComment.0">
       <body>The AADL infrastructure model library contains general concepts that are not AADL-specific. Most of the classes are simplified versions of classes from the UML Infrastructure library.</body>
     </ownedComment>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
-      <ownedComment xmi:id="Element-_ownedComment.0" annotatedElement="Element">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Element-_ownedComment.0" annotatedElement="Element">
         <body>An element is a constituent of a model.</body>
       </ownedComment>
-      <ownedComment xmi:id="Element-_ownedComment.1" annotatedElement="Element">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Element-_ownedComment.1" annotatedElement="Element">
         <body>An element is a constituent of a model. As such, it has the capability of owning other elements.</body>
       </ownedComment>
-      <ownedRule xmi:id="Element-not_own_self" name="not_own_self" constrainedElement="Element">
-        <ownedComment xmi:id="Element-not_own_self-_ownedComment.0" annotatedElement="Element-not_own_self">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Element-not_own_self" name="not_own_self" constrainedElement="Element">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-not_own_self-_ownedComment.0" annotatedElement="Element-not_own_self">
           <body>An element may not directly or indirectly own itself.</body>
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="Element-not_own_self-_specification">
@@ -20,8 +20,8 @@
           <body>not self.allOwnedElements()->includes(self)</body>
         </specification>
       </ownedRule>
-      <ownedRule xmi:id="Element-has_owner" name="has_owner" constrainedElement="Element">
-        <ownedComment xmi:id="Element-has_owner-_ownedComment.0" annotatedElement="Element-has_owner">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Element-has_owner" name="has_owner" constrainedElement="Element">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-has_owner-_ownedComment.0" annotatedElement="Element-has_owner">
           <body>Elements that must be owned must have an owner.</body>
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="Element-has_owner-_specification">
@@ -29,60 +29,60 @@
           <body>self.mustBeOwned() implies owner->notEmpty()</body>
         </specification>
       </ownedRule>
-      <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" visibility="public" type="Element" isReadOnly="true" aggregation="composite" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
-        <ownedComment xmi:id="Element-ownedElement-_ownedComment.0" annotatedElement="Element-ownedElement">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Element-ownedElement" name="ownedElement" visibility="public" type="Element" isReadOnly="true" aggregation="composite" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-ownedElement-_ownedComment.0" annotatedElement="Element-ownedElement">
           <body>The Elements owned by this element.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RG6AMnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RG6AMnmEeW9N7cxkaeotw">
           <body>The Elements owned by this element.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-ownedElement-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-ownedElement-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Element-ownedComment" name="ownedComment" visibility="public" type="Comment" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_ownedComment_owningElement">
-        <ownedComment xmi:id="Element-ownedComment-_ownedComment.0" annotatedElement="Element-ownedComment">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Element-ownedComment" name="ownedComment" visibility="public" type="Comment" aggregation="composite" subsettedProperty="Element-ownedElement" association="A_ownedComment_owningElement">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-ownedComment-_ownedComment.0" annotatedElement="Element-ownedComment">
           <body>The Comments owned by this element.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RHhEMnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RHhEMnmEeW9N7cxkaeotw">
           <body>The Comments owned by this element.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-ownedComment-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-ownedComment-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="Element-allOwnedElements" name="allOwnedElements" visibility="public" bodyCondition="Element-allOwnedElements-spec" isQuery="true">
-        <ownedComment xmi:id="Element-allOwnedElements-_ownedComment.0" annotatedElement="Element-allOwnedElements">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Element-allOwnedElements" name="allOwnedElements" visibility="public" bodyCondition="Element-allOwnedElements-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-allOwnedElements-_ownedComment.0" annotatedElement="Element-allOwnedElements">
           <body>The query allOwnedElements() gives all of the direct and indirect owned elements of an element.</body>
         </ownedComment>
-        <ownedRule xmi:id="Element-allOwnedElements-spec" name="spec" constrainedElement="Element-allOwnedElements">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Element-allOwnedElements-spec" name="spec" constrainedElement="Element-allOwnedElements">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Element-allOwnedElements-spec-_specification">
             <language>OCL</language>
             <body>ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Element-allOwnedElements-_ownedParameter.0" visibility="public" type="Element" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Element-allOwnedElements-_ownedParameter.0" visibility="public" type="Element" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-allOwnedElements-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Element-allOwnedElements-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Element-mustBeOwned" name="mustBeOwned" visibility="public" bodyCondition="Element-mustBeOwned-spec" isQuery="true">
-        <ownedComment xmi:id="Element-mustBeOwned-_ownedComment.0" annotatedElement="Element-mustBeOwned">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Element-mustBeOwned" name="mustBeOwned" visibility="public" bodyCondition="Element-mustBeOwned-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-mustBeOwned-_ownedComment.0" annotatedElement="Element-mustBeOwned">
           <body>The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.</body>
         </ownedComment>
-        <ownedRule xmi:id="Element-mustBeOwned-spec" name="spec" constrainedElement="Element-mustBeOwned">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Element-mustBeOwned-spec" name="spec" constrainedElement="Element-mustBeOwned">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Element-mustBeOwned-spec-_specification">
             <language>OCL</language>
             <body>true</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Element-mustBeOwned-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Element-mustBeOwned-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_ownedElement_owner" name="A_ownedElement_owner" memberEnd="Element-owner Element-ownedElement">
-      <ownedEnd xmi:id="Element-owner" name="owner" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
-        <ownedComment xmi:id="Element-owner-_ownedComment.0" annotatedElement="Element-owner">
+      <ownedEnd xmi:type="uml:Property" xmi:id="Element-owner" name="owner" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedElement_owner">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Element-owner-_ownedComment.0" annotatedElement="Element-owner">
           <body>The Element that owns this element.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RHhEcnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RHhEcnmEeW9N7cxkaeotw">
           <body>The Element that owns this element.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Element-owner-_lowerValue"/>
@@ -90,22 +90,22 @@
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_ownedComment_owningElement" name="A_ownedComment_owningElement" memberEnd="A_ownedComment_owningElement-owningElement Element-ownedComment">
-      <generalization xmi:id="A_ownedComment_owningElement-_generalization.0" general="A_ownedElement_owner"/>
-      <ownedEnd xmi:id="A_ownedComment_owningElement-owningElement" name="owningElement" visibility="public" type="Element" subsettedProperty="Element-owner" association="A_ownedComment_owningElement">
+      <generalization xmi:type="uml:Generalization" xmi:id="A_ownedComment_owningElement-_generalization.0" general="A_ownedElement_owner"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_ownedComment_owningElement-owningElement" name="owningElement" visibility="public" type="Element" subsettedProperty="Element-owner" association="A_ownedComment_owningElement">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_ownedComment_owningElement-owningElement-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_ownedComment_owningElement-owningElement-_upperValue" value="1"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Comment" name="Comment">
-      <ownedComment xmi:id="Comment-_ownedComment.0" annotatedElement="Comment">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Comment-_ownedComment.0" annotatedElement="Comment">
         <body>A comment is a textual annotation that can be attached to a set of elements.</body>
       </ownedComment>
-      <generalization xmi:id="Comment-_generalization.0" general="Element"/>
-      <ownedAttribute xmi:id="Comment-body" name="body" visibility="public" type="String">
-        <ownedComment xmi:id="Comment-body-_ownedComment.0" annotatedElement="Comment-body">
+      <generalization xmi:type="uml:Generalization" xmi:id="Comment-_generalization.0" general="Element"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Comment-body" name="body" visibility="public" type="String">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Comment-body-_ownedComment.0" annotatedElement="Comment-body">
           <body>Specifies a string that is the comment</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RHhEsnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RHhEsnmEeW9N7cxkaeotw">
           <body>Specifies a string that is the comment</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Comment-body-_lowerValue"/>
@@ -113,131 +113,81 @@
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
-      <ownedComment xmi:id="NamedElement-_ownedComment.0" annotatedElement="NamedElement">
+      <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-_ownedComment.0" annotatedElement="NamedElement">
         <body>A named element is an element in a model that may have a name.</body>
       </ownedComment>
-      <ownedRule xmi:id="NamedElement-has_no_qualified_name" name="has_no_qualified_name" constrainedElement="NamedElement">
-        <ownedComment xmi:id="NamedElement-has_no_qualified_name-_ownedComment.0" annotatedElement="NamedElement-has_no_qualified_name">
-          <body>If there is no name, or one of the containing namespaces has no name, there is no qualified name.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-has_no_qualified_name-_specification">
-          <language>OCL</language>
-          <body>(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()</body>
-        </specification>
-      </ownedRule>
-      <ownedRule xmi:id="NamedElement-has_qualified_name" name="has_qualified_name" constrainedElement="NamedElement">
-        <ownedComment xmi:id="NamedElement-has_qualified_name-_ownedComment.0" annotatedElement="NamedElement-has_qualified_name">
-          <body>When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.</body>
-        </ownedComment>
-        <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-has_qualified_name-_specification">
-          <language>OCL</language>
-          <body>(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;
-implies &#xD;
-self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))</body>
-        </specification>
-      </ownedRule>
-      <generalization xmi:id="NamedElement-_generalization.0" general="Element"/>
-      <ownedAttribute xmi:id="NamedElement-name" name="name" visibility="public" type="String">
-        <ownedComment xmi:id="NamedElement-name-_ownedComment.0" annotatedElement="NamedElement-name">
+      <generalization xmi:type="uml:Generalization" xmi:id="NamedElement-_generalization.0" general="Element"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="NamedElement-name" name="name" visibility="public" type="String">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-name-_ownedComment.0" annotatedElement="NamedElement-name">
           <body>The name of the NamedElement.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIIIMnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIIIMnmEeW9N7cxkaeotw">
           <body>The name of the NamedElement.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-name-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-name-_upperValue" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" visibility="public" type="String" isReadOnly="true" isDerived="true">
-        <ownedComment xmi:id="NamedElement-qualifiedName-_ownedComment.0" annotatedElement="NamedElement-qualifiedName">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="NamedElement-qualifiedName" name="qualifiedName" visibility="public" type="String" isReadOnly="true" isDerived="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-qualifiedName-_ownedComment.0" annotatedElement="NamedElement-qualifiedName">
           <body>A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIIIcnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIIIcnmEeW9N7cxkaeotw">
           <body>A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-qualifiedName-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-qualifiedName-_upperValue" value="1"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="NamedElement-allNamespaces" name="allNamespaces" visibility="public" bodyCondition="NamedElement-allNamespaces-spec" isQuery="true">
-        <ownedComment xmi:id="NamedElement-allNamespaces-_ownedComment.0" annotatedElement="NamedElement-allNamespaces">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="NamedElement-allNamespaces" name="allNamespaces" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-allNamespaces-_ownedComment.0" annotatedElement="NamedElement-allNamespaces">
           <body>The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.</body>
         </ownedComment>
-        <ownedRule xmi:id="NamedElement-allNamespaces-spec" name="spec" constrainedElement="NamedElement-allNamespaces">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-allNamespaces-spec-_specification">
-            <language>OCL</language>
-            <body>if self.namespace->isEmpty() then &#xD;
-  Sequence{}&#xD;
-else&#xD;
-  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;
-endif</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="NamedElement-allNamespaces-_ownedParameter.0" visibility="public" type="Namespace" isOrdered="true" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-allNamespaces-_ownedParameter.0" visibility="public" type="Namespace" isOrdered="true" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-allNamespaces-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="NamedElement-allNamespaces-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="NamedElement-isDistinguishableFrom" name="isDistinguishableFrom" visibility="public" bodyCondition="NamedElement-isDistinguishableFrom-spec" isQuery="true">
-        <ownedComment xmi:id="NamedElement-isDistinguishableFrom-_ownedComment.0" annotatedElement="NamedElement-isDistinguishableFrom">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="NamedElement-isDistinguishableFrom" name="isDistinguishableFrom" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-isDistinguishableFrom-_ownedComment.0" annotatedElement="NamedElement-isDistinguishableFrom">
           <body>The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.</body>
         </ownedComment>
-        <ownedRule xmi:id="NamedElement-isDistinguishableFrom-spec" name="spec" constrainedElement="NamedElement-isDistinguishableFrom">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-isDistinguishableFrom-spec-_specification">
-            <language>OCL</language>
-            <body>if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;
-  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;
-else&#xD;
-  true&#xD;
-endif</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="NamedElement-isDistinguishableFrom-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
-        <ownedParameter xmi:id="NamedElement-isDistinguishableFrom-n" name="n" visibility="public" type="NamedElement" effect="create"/>
-        <ownedParameter xmi:id="NamedElement-isDistinguishableFrom-ns" name="ns" visibility="public" type="Namespace" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-isDistinguishableFrom-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-isDistinguishableFrom-n" name="n" visibility="public" type="NamedElement" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-isDistinguishableFrom-ns" name="ns" visibility="public" type="Namespace" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="NamedElement-separator" name="separator" visibility="public" bodyCondition="NamedElement-separator-spec" isQuery="true">
-        <ownedComment xmi:id="NamedElement-separator-_ownedComment.0" annotatedElement="NamedElement-separator">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="NamedElement-separator" name="separator" visibility="public" bodyCondition="NamedElement-separator-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-separator-_ownedComment.0" annotatedElement="NamedElement-separator">
           <body>The query separator() gives the string that is used to separate names when constructing a qualified name.</body>
         </ownedComment>
-        <ownedRule xmi:id="NamedElement-separator-spec" name="spec" constrainedElement="NamedElement-separator">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="NamedElement-separator-spec" name="spec" constrainedElement="NamedElement-separator">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-separator-spec-_specification">
             <language>OCL</language>
             <body>'.'</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="NamedElement-separator-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-separator-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="NamedElement-qualifiedName.1" name="qualifiedName" visibility="public" bodyCondition="NamedElement-qualifiedName.1-spec" isQuery="true">
-        <ownedComment xmi:id="NamedElement-qualifiedName.1-_ownedComment.0" annotatedElement="NamedElement-qualifiedName.1">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="NamedElement-qualifiedName.1" name="qualifiedName" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-qualifiedName.1-_ownedComment.0" annotatedElement="NamedElement-qualifiedName.1">
           <body>When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.</body>
         </ownedComment>
-        <ownedRule xmi:id="NamedElement-qualifiedName.1-spec" name="spec" constrainedElement="NamedElement-qualifiedName.1 NamedElement-qualifiedName">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-qualifiedName.1-spec-_specification">
-            <language>OCL</language>
-            <body>if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then&#xD;
-  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))&#xD;
-else &#xD;
-  '' &#xD;
-endif</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="NamedElement-qualifiedName.1-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-qualifiedName.1-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="_O_zh0HarEeK2C_3Ts9FVpQ" name="getPropertyValues" visibility="public">
-        <ownedParameter xmi:id="_Syr9kHarEeK2C_3Ts9FVpQ" name="return" visibility="public" direction="return" effect="create">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_O_zh0HarEeK2C_3Ts9FVpQ" name="getPropertyValues" visibility="public">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_Syr9kHarEeK2C_3Ts9FVpQ" name="return" visibility="public" direction="return" effect="create">
           <type xmi:type="uml:Class" href="../Property%20Language/AADLProperties.uml#Expressions-PropertyExpression"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wYXLgHa3EeKJupUQiGe8EA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vNtWQHa3EeKJupUQiGe8EA" value="*"/>
         </ownedParameter>
-        <ownedParameter xmi:id="_-6X54HarEeK2C_3Ts9FVpQ" name="propertySetName" visibility="public" type="String" effect="read"/>
-        <ownedParameter xmi:id="_UA_HQHasEeK2C_3Ts9FVpQ" name="propertyName" visibility="public" type="String" effect="read"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_-6X54HarEeK2C_3Ts9FVpQ" name="propertySetName" visibility="public" type="String" effect="read"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_UA_HQHasEeK2C_3Ts9FVpQ" name="propertyName" visibility="public" type="String" effect="read"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
-      <ownedComment xmi:id="Namespace-_ownedComment.0" annotatedElement="Namespace">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-_ownedComment.0" annotatedElement="Namespace">
         <body>A namespace is an element in a model that contains a set of named elements that can be identified by name.</body>
       </ownedComment>
-      <ownedRule xmi:id="Namespace-members_distinguishable" name="members_distinguishable" constrainedElement="Namespace">
-        <ownedComment xmi:id="Namespace-members_distinguishable-_ownedComment.0" annotatedElement="Namespace-members_distinguishable">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Namespace-members_distinguishable" name="members_distinguishable" constrainedElement="Namespace">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-members_distinguishable-_ownedComment.0" annotatedElement="Namespace-members_distinguishable">
           <body>All the members of a Namespace are distinguishable within it.</body>
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="Namespace-members_distinguishable-_specification">
@@ -245,68 +195,58 @@ endif</body>
           <body>membersAreDistinguishable()</body>
         </specification>
       </ownedRule>
-      <generalization xmi:id="Namespace-_generalization.0" general="NamedElement"/>
-      <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" visibility="public" type="NamedElement" isReadOnly="true" aggregation="composite" isDerived="true" isDerivedUnion="true" subsettedProperty="Element-ownedElement Namespace-member" association="A_ownedMember_namespace">
-        <ownedComment xmi:id="Namespace-ownedMember-_ownedComment.0" annotatedElement="Namespace-ownedMember">
+      <generalization xmi:type="uml:Generalization" xmi:id="Namespace-_generalization.0" general="NamedElement"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Namespace-ownedMember" name="ownedMember" visibility="public" type="NamedElement" isReadOnly="true" aggregation="composite" isDerived="true" isDerivedUnion="true" subsettedProperty="Element-ownedElement Namespace-member" association="A_ownedMember_namespace">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-ownedMember-_ownedComment.0" annotatedElement="Namespace-ownedMember">
           <body>A collection of NamedElements owned by the Namespace.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIIIsnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIIIsnmEeW9N7cxkaeotw">
           <body>A collection of NamedElements owned by the Namespace.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Namespace-ownedMember-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Namespace-ownedMember-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Namespace-member" name="member" visibility="public" type="NamedElement" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_member_namespace">
-        <ownedComment xmi:id="Namespace-member-_ownedComment.0" annotatedElement="Namespace-member">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Namespace-member" name="member" visibility="public" type="NamedElement" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_member_namespace">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-member-_ownedComment.0" annotatedElement="Namespace-member">
           <body>A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIII8nmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIII8nmEeW9N7cxkaeotw">
           <body>A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Namespace-member-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Namespace-member-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="Namespace-getNamesOfMember" name="getNamesOfMember" visibility="public" bodyCondition="Namespace-getNamesOfMember-spec" isQuery="true">
-        <ownedComment xmi:id="Namespace-getNamesOfMember-_ownedComment.0" annotatedElement="Namespace-getNamesOfMember">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Namespace-getNamesOfMember" name="getNamesOfMember" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-getNamesOfMember-_ownedComment.0" annotatedElement="Namespace-getNamesOfMember">
           <body>The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.</body>
         </ownedComment>
-        <ownedRule xmi:id="Namespace-getNamesOfMember-spec" name="spec" constrainedElement="Namespace-getNamesOfMember">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Namespace-getNamesOfMember-spec-_specification">
-            <language>OCL</language>
-            <body>if member->includes(element) then&#xD;
-  Set{}->including(element.name)&#xD;
-else&#xD;
-  Set{}&#xD;
-endif</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Namespace-getNamesOfMember-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Namespace-getNamesOfMember-_ownedParameter.0" visibility="public" type="String" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Namespace-getNamesOfMember-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Namespace-getNamesOfMember-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
-        <ownedParameter xmi:id="Namespace-getNamesOfMember-element" name="element" visibility="public" type="NamedElement" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Namespace-getNamesOfMember-element" name="element" visibility="public" type="NamedElement" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="Namespace-membersAreDistinguishable" name="membersAreDistinguishable" visibility="public" bodyCondition="Namespace-membersAreDistinguishable-spec" isQuery="true">
-        <ownedComment xmi:id="Namespace-membersAreDistinguishable-_ownedComment.0" annotatedElement="Namespace-membersAreDistinguishable">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Namespace-membersAreDistinguishable" name="membersAreDistinguishable" visibility="public" bodyCondition="Namespace-membersAreDistinguishable-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Namespace-membersAreDistinguishable-_ownedComment.0" annotatedElement="Namespace-membersAreDistinguishable">
           <body>The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.</body>
         </ownedComment>
-        <ownedRule xmi:id="Namespace-membersAreDistinguishable-spec" name="spec" constrainedElement="Namespace-membersAreDistinguishable">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Namespace-membersAreDistinguishable-spec" name="spec" constrainedElement="Namespace-membersAreDistinguishable">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Namespace-membersAreDistinguishable-spec-_specification">
             <language>OCL</language>
             <body>self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Namespace-membersAreDistinguishable-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Namespace-membersAreDistinguishable-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_ownedMember_namespace" name="A_ownedMember_namespace" memberEnd="NamedElement-namespace Namespace-ownedMember">
-      <generalization xmi:id="A_ownedMember_namespace-_generalization.0" general="A_ownedElement_owner"/>
-      <generalization xmi:id="A_ownedMember_namespace-_generalization.1" general="A_member_namespace"/>
-      <ownedEnd xmi:id="NamedElement-namespace" name="namespace" visibility="public" type="Namespace" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedMember_namespace">
-        <ownedComment xmi:id="NamedElement-namespace-_ownedComment.0" annotatedElement="NamedElement-namespace">
+      <generalization xmi:type="uml:Generalization" xmi:id="A_ownedMember_namespace-_generalization.0" general="A_ownedElement_owner"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="A_ownedMember_namespace-_generalization.1" general="A_member_namespace"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="NamedElement-namespace" name="namespace" visibility="public" type="Namespace" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_ownedMember_namespace">
+        <ownedComment xmi:type="uml:Comment" xmi:id="NamedElement-namespace-_ownedComment.0" annotatedElement="NamedElement-namespace">
           <body>Specifies the namespace that owns the NamedElement.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIvMMnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIvMMnmEeW9N7cxkaeotw">
           <body>Specifies the namespace that owns the NamedElement.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="NamedElement-namespace-_lowerValue"/>
@@ -314,40 +254,40 @@ endif</body>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_member_namespace" name="A_member_namespace" memberEnd="A_member_namespace-namespace Namespace-member">
-      <ownedEnd xmi:id="A_member_namespace-namespace" name="namespace" visibility="public" type="Namespace" association="A_member_namespace">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_member_namespace-namespace" name="namespace" visibility="public" type="Namespace" association="A_member_namespace">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_member_namespace-namespace-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_member_namespace-namespace-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Type" name="Type" isAbstract="true">
-      <ownedComment xmi:id="Type-_ownedComment.0" annotatedElement="Type">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Type-_ownedComment.0" annotatedElement="Type">
         <body>A type constrains the values represented by a typed element.</body>
       </ownedComment>
-      <generalization xmi:id="Type-_generalization.0" general="NamedElement"/>
-      <ownedOperation xmi:id="Type-conformsTo" name="conformsTo" visibility="public" bodyCondition="Type-conformsTo-spec" isQuery="true">
-        <ownedComment xmi:id="Type-conformsTo-_ownedComment.0" annotatedElement="Type-conformsTo">
+      <generalization xmi:type="uml:Generalization" xmi:id="Type-_generalization.0" general="NamedElement"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Type-conformsTo" name="conformsTo" visibility="public" bodyCondition="Type-conformsTo-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Type-conformsTo-_ownedComment.0" annotatedElement="Type-conformsTo">
           <body>The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.</body>
         </ownedComment>
-        <ownedRule xmi:id="Type-conformsTo-spec" name="spec" constrainedElement="Type-conformsTo">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Type-conformsTo-spec" name="spec" constrainedElement="Type-conformsTo">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Type-conformsTo-spec-_specification">
             <language>OCL</language>
             <body>result = false</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Type-conformsTo-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
-        <ownedParameter xmi:id="Type-conformsTo-other" name="other" visibility="public" type="Type" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Type-conformsTo-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Type-conformsTo-other" name="other" visibility="public" type="Type" effect="create"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="TypedElement" name="TypedElement" isAbstract="true">
-      <ownedComment xmi:id="TypedElement-_ownedComment.0" annotatedElement="TypedElement">
+      <ownedComment xmi:type="uml:Comment" xmi:id="TypedElement-_ownedComment.0" annotatedElement="TypedElement">
         <body>A typed element has a type.</body>
       </ownedComment>
-      <generalization xmi:id="TypedElement-_generalization.0" general="NamedElement"/>
-      <ownedAttribute xmi:id="TypedElement-type" name="type" visibility="public" type="Type" association="A_type_typedElement">
-        <ownedComment xmi:id="TypedElement-type-_ownedComment.0" annotatedElement="TypedElement-type">
+      <generalization xmi:type="uml:Generalization" xmi:id="TypedElement-_generalization.0" general="NamedElement"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="TypedElement-type" name="type" visibility="public" type="Type" association="A_type_typedElement">
+        <ownedComment xmi:type="uml:Comment" xmi:id="TypedElement-type-_ownedComment.0" annotatedElement="TypedElement-type">
           <body>The type of the TypedElement.</body>
         </ownedComment>
-        <ownedComment xmi:id="_8RIvMcnmEeW9N7cxkaeotw">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_8RIvMcnmEeW9N7cxkaeotw">
           <body>The type of the TypedElement.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="TypedElement-type-_lowerValue"/>
@@ -355,18 +295,18 @@ endif</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_type_typedElement" name="A_type_typedElement" memberEnd="A_type_typedElement-typedElement TypedElement-type">
-      <ownedEnd xmi:id="A_type_typedElement-typedElement" name="typedElement" visibility="public" type="TypedElement" association="A_type_typedElement">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_type_typedElement-typedElement" name="typedElement" visibility="public" type="TypedElement" association="A_type_typedElement">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_type_typedElement-typedElement-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_type_typedElement-typedElement-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Relationship" name="Relationship" isAbstract="true">
-      <ownedComment xmi:id="Relationship-_ownedComment.0" annotatedElement="Relationship">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Relationship-_ownedComment.0" annotatedElement="Relationship">
         <body>Relationship is an abstract concept that specifies some kind of relationship between elements.</body>
       </ownedComment>
-      <generalization xmi:id="Relationship-_generalization.0" general="Element"/>
-      <ownedAttribute xmi:id="Relationship-relatedElement" name="relatedElement" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_relatedElement_relationship">
-        <ownedComment xmi:id="Relationship-relatedElement-_ownedComment.0" annotatedElement="Relationship-relatedElement">
+      <generalization xmi:type="uml:Generalization" xmi:id="Relationship-_generalization.0" general="Element"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Relationship-relatedElement" name="relatedElement" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_relatedElement_relationship">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Relationship-relatedElement-_ownedComment.0" annotatedElement="Relationship-relatedElement">
           <body>Specifies the elements related by the Relationship.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Relationship-relatedElement-_lowerValue" value="1"/>
@@ -374,25 +314,25 @@ endif</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_relatedElement_relationship" name="A_relatedElement_relationship" memberEnd="A_relatedElement_relationship-relationship Relationship-relatedElement">
-      <ownedEnd xmi:id="A_relatedElement_relationship-relationship" name="relationship" visibility="public" type="Relationship" association="A_relatedElement_relationship">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_relatedElement_relationship-relationship" name="relationship" visibility="public" type="Relationship" association="A_relatedElement_relationship">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_relatedElement_relationship-relationship-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_relatedElement_relationship-relationship-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DirectedRelationship" name="DirectedRelationship" isAbstract="true">
-      <ownedComment xmi:id="DirectedRelationship-_ownedComment.0" annotatedElement="DirectedRelationship">
+      <ownedComment xmi:type="uml:Comment" xmi:id="DirectedRelationship-_ownedComment.0" annotatedElement="DirectedRelationship">
         <body>A directed relationship represents a relationship between a collection of source model elements and a collection of target model elements.</body>
       </ownedComment>
-      <generalization xmi:id="DirectedRelationship-_generalization.0" general="Relationship"/>
-      <ownedAttribute xmi:id="DirectedRelationship-source" name="source" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Relationship-relatedElement" association="A_source_directedRelationship">
-        <ownedComment xmi:id="DirectedRelationship-source-_ownedComment.0" annotatedElement="DirectedRelationship-source">
+      <generalization xmi:type="uml:Generalization" xmi:id="DirectedRelationship-_generalization.0" general="Relationship"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DirectedRelationship-source" name="source" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Relationship-relatedElement" association="A_source_directedRelationship">
+        <ownedComment xmi:type="uml:Comment" xmi:id="DirectedRelationship-source-_ownedComment.0" annotatedElement="DirectedRelationship-source">
           <body>Specifies the sources of the DirectedRelationship.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="DirectedRelationship-source-_lowerValue" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DirectedRelationship-source-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="DirectedRelationship-target" name="target" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Relationship-relatedElement" association="A_target_directedRelationship">
-        <ownedComment xmi:id="DirectedRelationship-target-_ownedComment.0" annotatedElement="DirectedRelationship-target">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DirectedRelationship-target" name="target" visibility="public" type="Element" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Relationship-relatedElement" association="A_target_directedRelationship">
+        <ownedComment xmi:type="uml:Comment" xmi:id="DirectedRelationship-target-_ownedComment.0" annotatedElement="DirectedRelationship-target">
           <body>Specifies the targets of the DirectedRelationship.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="DirectedRelationship-target-_lowerValue" value="1"/>
@@ -400,32 +340,32 @@ endif</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_source_directedRelationship" name="A_source_directedRelationship" memberEnd="A_source_directedRelationship-relationship DirectedRelationship-source">
-      <ownedEnd xmi:id="A_source_directedRelationship-relationship" name="relationship" visibility="public" type="DirectedRelationship" association="A_source_directedRelationship">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_source_directedRelationship-relationship" name="relationship" visibility="public" type="DirectedRelationship" association="A_source_directedRelationship">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_source_directedRelationship-relationship-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_source_directedRelationship-relationship-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_target_directedRelationship" name="A_target_directedRelationship" memberEnd="A_target_directedRelationship-relationship DirectedRelationship-target">
-      <ownedEnd xmi:id="A_target_directedRelationship-relationship" name="relationship" visibility="public" type="DirectedRelationship" association="A_target_directedRelationship">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_target_directedRelationship-relationship" name="relationship" visibility="public" type="DirectedRelationship" association="A_target_directedRelationship">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_target_directedRelationship-relationship-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_target_directedRelationship-relationship-_upperValue" value="*"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="A_target_directedRelationship-relationship-_defaultValue" value=""/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Generalization" name="Generalization" isAbstract="true">
-      <ownedComment xmi:id="Generalization-_ownedComment.0" annotatedElement="Generalization">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Generalization-_ownedComment.0" annotatedElement="Generalization">
         <body>A generalization is a taxonomic relationship between a more general classifier and a more specific classifier. Each instance of the specific classifier is also an instance of the general classifier. Thus, the specific classifier indirectly has features of the more general classifier.</body>
       </ownedComment>
-      <generalization xmi:id="Generalization-_generalization.0" general="DirectedRelationship"/>
-      <ownedAttribute xmi:id="Generalization-specific" name="specific" visibility="public" type="Classifier" isDerived="true" subsettedProperty="DirectedRelationship-source Element-owner" association="A_generalization_specific">
-        <ownedComment xmi:id="Generalization-specific-_ownedComment.0" annotatedElement="Generalization-specific">
+      <generalization xmi:type="uml:Generalization" xmi:id="Generalization-_generalization.0" general="DirectedRelationship"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Generalization-specific" name="specific" visibility="public" type="Classifier" isDerived="true" subsettedProperty="DirectedRelationship-source Element-owner" association="A_generalization_specific">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Generalization-specific-_ownedComment.0" annotatedElement="Generalization-specific">
           <body>References the specializing classifier in the Generalization relationship. </body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Generalization-specific-_lowerValue" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Generalization-specific-_upperValue" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Generalization-general" name="general" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="DirectedRelationship-target" association="A_general_generalization">
-        <ownedComment xmi:id="Generalization-general-_ownedComment.0" annotatedElement="Generalization-general">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Generalization-general" name="general" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="DirectedRelationship-target" association="A_general_generalization">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Generalization-general-_ownedComment.0" annotatedElement="Generalization-general">
           <body>References the general classifier in the Generalization relationship.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Generalization-general-_lowerValue" value="1"/>
@@ -434,20 +374,20 @@ endif</body>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_generalization_specific" name="A_generalization_specific" memberEnd="Classifier-generalization Generalization-specific"/>
     <packagedElement xmi:type="uml:Association" xmi:id="A_general_generalization" name="A_general_generalization" memberEnd="A_general_generalization-generalization Generalization-general">
-      <ownedEnd xmi:id="A_general_generalization-generalization" name="generalization" visibility="public" type="Generalization" association="A_general_generalization">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_general_generalization-generalization" name="generalization" visibility="public" type="Generalization" association="A_general_generalization">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_general_generalization-generalization-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_general_generalization-generalization-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
-      <ownedComment xmi:id="Classifier-_ownedComment.0" annotatedElement="Classifier">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-_ownedComment.0" annotatedElement="Classifier">
         <body>A classifier is a classification of instances - it describes a set of instances that have features in common.</body>
       </ownedComment>
-      <ownedComment xmi:id="Classifier-_ownedComment.1" annotatedElement="Classifier">
+      <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-_ownedComment.1" annotatedElement="Classifier">
         <body>A classifier can specify a generalization hierarchy by referencing its general classifiers.</body>
       </ownedComment>
-      <ownedRule xmi:id="Classifier-no_cycles_in_generalization" name="no_cycles_in_generalization" constrainedElement="Classifier">
-        <ownedComment xmi:id="Classifier-no_cycles_in_generalization-_ownedComment.0" annotatedElement="Classifier-no_cycles_in_generalization">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-no_cycles_in_generalization" name="no_cycles_in_generalization" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-no_cycles_in_generalization-_ownedComment.0" annotatedElement="Classifier-no_cycles_in_generalization">
           <body>Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.</body>
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-no_cycles_in_generalization-_specification">
@@ -455,8 +395,8 @@ endif</body>
           <body>not self.allParents()->includes(self)</body>
         </specification>
       </ownedRule>
-      <ownedRule xmi:id="Classifier-specialize_type" name="specialize_type" constrainedElement="Classifier">
-        <ownedComment xmi:id="Classifier-specialize_type-_ownedComment.0" annotatedElement="Classifier-specialize_type">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-specialize_type" name="specialize_type" constrainedElement="Classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-specialize_type-_ownedComment.0" annotatedElement="Classifier-specialize_type">
           <body>A classifier may only specialize classifiers of a valid type.</body>
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-specialize_type-_specification">
@@ -464,11 +404,11 @@ endif</body>
           <body>self.parents()->forAll(c | self.maySpecializeType(c))</body>
         </specification>
       </ownedRule>
-      <generalization xmi:id="Classifier-_generalization.0" general="Type"/>
-      <generalization xmi:id="Classifier-_generalization.1" general="Namespace"/>
-      <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" visibility="public" type="ClassifierFeature" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Namespace-member" association="A_classifierFeature_featuringClassifier">
-        <ownedComment xmi:id="Classifier-classifierFeature-_ownedComment.0" annotatedElement="Classifier-classifierFeature">
-          <ownedComment xmi:id="_8DtXMMnmEeW9N7cxkaeotw">
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.0" general="Type"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="Classifier-_generalization.1" general="Namespace"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-classifierFeature" name="classifierFeature" visibility="public" type="ClassifierFeature" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Namespace-member" association="A_classifierFeature_featuringClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-classifierFeature-_ownedComment.0" annotatedElement="Classifier-classifierFeature">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_8DtXMMnmEeW9N7cxkaeotw">
             <body>Specifies each feature defined in the classifier.</body>
           </ownedComment>
           <body>Specifies each feature defined in the classifier.</body>
@@ -476,9 +416,9 @@ endif</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-classifierFeature-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-classifierFeature-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" visibility="public" type="NamedElement" isReadOnly="true" isDerived="true" subsettedProperty="Namespace-member" association="A_classifier_inheritedMember">
-        <ownedComment xmi:id="Classifier-inheritedMember-_ownedComment.0" annotatedElement="Classifier-inheritedMember">
-          <ownedComment xmi:id="_8Dt-QMnmEeW9N7cxkaeotw">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-inheritedMember" name="inheritedMember" visibility="public" type="NamedElement" isReadOnly="true" isDerived="true" subsettedProperty="Namespace-member" association="A_classifier_inheritedMember">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember-_ownedComment.0" annotatedElement="Classifier-inheritedMember">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_8Dt-QMnmEeW9N7cxkaeotw">
             <body>Specifies all elements inherited by this classifier from the general classifiers.</body>
           </ownedComment>
           <body>Specifies all elements inherited by this classifier from the general classifiers.</body>
@@ -486,9 +426,9 @@ endif</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" visibility="public" type="Generalization" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Element-ownedElement" association="A_generalization_specific">
-        <ownedComment xmi:id="Classifier-generalization-_ownedComment.0" annotatedElement="Classifier-generalization">
-          <ownedComment xmi:id="_8Dt-QcnmEeW9N7cxkaeotw">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-generalization" name="generalization" visibility="public" type="Generalization" isReadOnly="true" isDerived="true" isDerivedUnion="true" subsettedProperty="Element-ownedElement" association="A_generalization_specific">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-generalization-_ownedComment.0" annotatedElement="Classifier-generalization">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_8Dt-QcnmEeW9N7cxkaeotw">
             <body>Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy.</body>
           </ownedComment>
           <body>Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy.</body>
@@ -497,9 +437,9 @@ endif</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-generalization-_upperValue" value="*"/>
         <defaultValue xmi:type="uml:LiteralString" xmi:id="Classifier-generalization-_defaultValue" value=""/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="Classifier-general" name="general" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_general_classifier">
-        <ownedComment xmi:id="Classifier-general-_ownedComment.0" annotatedElement="Classifier-general">
-          <ownedComment xmi:id="_8Dt-QsnmEeW9N7cxkaeotw">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-general" name="general" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_general_classifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-general-_ownedComment.0" annotatedElement="Classifier-general">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_8Dt-QsnmEeW9N7cxkaeotw">
             <body>Specifies the more general classifiers in the generalization hierarchy for this Classifier.</body>
           </ownedComment>
           <body>Specifies the more general classifiers in the generalization hierarchy for this Classifier.</body>
@@ -507,167 +447,125 @@ endif</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-general-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-general-_upperValue" value="*"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="Classifier-allFeatures" name="allFeatures" visibility="public" bodyCondition="Classifier-allFeatures-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-allFeatures-_ownedComment.0" annotatedElement="Classifier-allFeatures">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allFeatures" name="allFeatures" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allFeatures-_ownedComment.0" annotatedElement="Classifier-allFeatures">
           <body>The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-allFeatures-spec" name="spec" constrainedElement="Classifier-allFeatures">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allFeatures-spec-_specification">
-            <language>OCL</language>
-            <body>result = member->select(oclIsKindOf(Feature))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-allFeatures-_ownedParameter.0" visibility="public" type="ClassifierFeature" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allFeatures-_ownedParameter.0" visibility="public" type="ClassifierFeature" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allFeatures-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allFeatures-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-inheritedMember.1" name="inheritedMember" visibility="public" bodyCondition="Classifier-inheritedMember.1-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-inheritedMember.1-_ownedComment.0" annotatedElement="Classifier-inheritedMember.1">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritedMember.1" name="inheritedMember" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritedMember.1-_ownedComment.0" annotatedElement="Classifier-inheritedMember.1">
           <body>The inheritedMember association is derived by inheriting the inheritable members of the parents.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-inheritedMember.1-spec" name="spec" constrainedElement="Classifier-inheritedMember.1 Classifier-inheritedMember">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritedMember.1-spec-_specification">
-            <language>OCL</language>
-            <body>result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-inheritedMember.1-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritedMember.1-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritedMember.1-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritedMember.1-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-parents" name="parents" visibility="public" bodyCondition="Classifier-parents-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-parents-_ownedComment.0" annotatedElement="Classifier-parents">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-parents" name="parents" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-parents-_ownedComment.0" annotatedElement="Classifier-parents">
           <body>The query parents() gives all of the immediate ancestors of a generalized Classifier.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-parents-spec" name="spec" constrainedElement="Classifier-parents">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-parents-spec-_specification">
-            <language>OCL</language>
-            <body>result = general</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-parents-_ownedParameter.0" visibility="public" type="Classifier" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-parents-_ownedParameter.0" visibility="public" type="Classifier" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-parents-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-parents-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-allParents" name="allParents" visibility="public" bodyCondition="Classifier-allParents-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-allParents-_ownedComment.0" annotatedElement="Classifier-allParents">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-allParents" name="allParents" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-allParents-_ownedComment.0" annotatedElement="Classifier-allParents">
           <body>The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-allParents-spec" name="spec" constrainedElement="Classifier-allParents">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-allParents-spec-_specification">
-            <language>OCL</language>
-            <body>result = self.parents()->union(self.parents()->collect(p | p.allParents())</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-allParents-_ownedParameter.0" visibility="public" type="Classifier" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-allParents-_ownedParameter.0" visibility="public" type="Classifier" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-allParents-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-allParents-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-inheritableMembers" name="inheritableMembers" visibility="public" bodyCondition="Classifier-inheritableMembers-spec" isQuery="true" precondition="Classifier-inheritableMembers-_ownedRule.0">
-        <ownedComment xmi:id="Classifier-inheritableMembers-_ownedComment.0" annotatedElement="Classifier-inheritableMembers">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inheritableMembers" name="inheritableMembers" visibility="public" bodyCondition="Classifier-inheritableMembers-spec" isQuery="true" precondition="Classifier-inheritableMembers-_ownedRule.0">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inheritableMembers-_ownedComment.0" annotatedElement="Classifier-inheritableMembers">
           <body>The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-inheritableMembers-_ownedRule.0" constrainedElement="Classifier-inheritableMembers">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-_ownedRule.0" constrainedElement="Classifier-inheritableMembers">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-_ownedRule.0-_specification">
             <language>OCL</language>
             <body>c.allParents()->includes(self)</body>
           </specification>
         </ownedRule>
-        <ownedRule xmi:id="Classifier-inheritableMembers-spec" name="spec" constrainedElement="Classifier-inheritableMembers">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inheritableMembers-spec" name="spec" constrainedElement="Classifier-inheritableMembers">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inheritableMembers-spec-_specification">
             <language>OCL</language>
             <body>result = member->select(m | c.hasVisibilityOf(m))</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Classifier-inheritableMembers-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inheritableMembers-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inheritableMembers-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
-        <ownedParameter xmi:id="Classifier-inheritableMembers-c" name="c" visibility="public" type="Classifier" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inheritableMembers-c" name="c" visibility="public" type="Classifier" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-hasVisibilityOf" name="hasVisibilityOf" visibility="public" bodyCondition="Classifier-hasVisibilityOf-spec" isQuery="true" precondition="Classifier-hasVisibilityOf-_ownedRule.0">
-        <ownedComment xmi:id="Classifier-hasVisibilityOf-_ownedComment.0" annotatedElement="Classifier-hasVisibilityOf">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-hasVisibilityOf" name="hasVisibilityOf" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-hasVisibilityOf-_ownedComment.0" annotatedElement="Classifier-hasVisibilityOf">
           <body>The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-hasVisibilityOf-_ownedRule.0" constrainedElement="Classifier-hasVisibilityOf">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-_ownedRule.0-_specification">
-            <language>OCL</language>
-            <body>self.allParents()->collect(c | c.member)->includes(n)</body>
-          </specification>
-        </ownedRule>
-        <ownedRule xmi:id="Classifier-hasVisibilityOf-spec" name="spec" constrainedElement="Classifier-hasVisibilityOf">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-hasVisibilityOf-spec-_specification">
-            <language>OCL</language>
-            <body>result = if (self.inheritedMember->includes (n)) then (n.visibility &lt;> #private) else true</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-hasVisibilityOf-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
-        <ownedParameter xmi:id="Classifier-hasVisibilityOf-n" name="n" visibility="public" type="NamedElement" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-hasVisibilityOf-n" name="n" visibility="public" type="NamedElement" effect="create"/>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-inherit" name="inherit" visibility="public" bodyCondition="Classifier-inherit-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-inherit-_ownedComment.0" annotatedElement="Classifier-inherit">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-inherit" name="inherit" visibility="public" bodyCondition="Classifier-inherit-spec" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-inherit-_ownedComment.0" annotatedElement="Classifier-inherit">
           <body>The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-inherit-spec" name="spec" constrainedElement="Classifier-inherit">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="Classifier-inherit-spec" name="spec" constrainedElement="Classifier-inherit">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-inherit-spec-_specification">
             <language>OCL</language>
             <body>result = inhs</body>
           </specification>
         </ownedRule>
-        <ownedParameter xmi:id="Classifier-inherit-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-_ownedParameter.0" visibility="public" type="NamedElement" direction="return" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
-        <ownedParameter xmi:id="Classifier-inherit-inhs" name="inhs" visibility="public" type="NamedElement" effect="create">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-inherit-inhs" name="inhs" visibility="public" type="NamedElement" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Classifier-inherit-inhs-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Classifier-inherit-inhs-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Classifier-maySpecializeType" name="maySpecializeType" visibility="public" bodyCondition="Classifier-maySpecializeType-spec" isQuery="true">
-        <ownedComment xmi:id="Classifier-maySpecializeType-_ownedComment.0" annotatedElement="Classifier-maySpecializeType">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Classifier-maySpecializeType" name="maySpecializeType" visibility="public" isQuery="true">
+        <ownedComment xmi:type="uml:Comment" xmi:id="Classifier-maySpecializeType-_ownedComment.0" annotatedElement="Classifier-maySpecializeType">
           <body>The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.</body>
         </ownedComment>
-        <ownedRule xmi:id="Classifier-maySpecializeType-spec" name="spec" constrainedElement="Classifier-maySpecializeType">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Classifier-maySpecializeType-spec-_specification">
-            <language>OCL</language>
-            <body>result = self.oclIsKindOf(c.oclType)</body>
-          </specification>
-        </ownedRule>
-        <ownedParameter xmi:id="Classifier-maySpecializeType-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
-        <ownedParameter xmi:id="Classifier-maySpecializeType-c" name="c" visibility="public" type="Classifier" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-_ownedParameter.0" visibility="public" type="Boolean" direction="return" effect="create"/>
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Classifier-maySpecializeType-c" name="c" visibility="public" type="Classifier" effect="create"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_classifier_inheritedMember" name="A_classifier_inheritedMember" memberEnd="A_classifier_inheritedMember-_ownedEnd.0 Classifier-inheritedMember">
-      <generalization xmi:id="A_classifier_inheritedMember-_generalization.0" general="A_member_namespace"/>
-      <ownedEnd xmi:id="A_classifier_inheritedMember-_ownedEnd.0" visibility="public" type="Classifier" redefinedProperty="A_member_namespace-namespace" association="A_classifier_inheritedMember">
+      <generalization xmi:type="uml:Generalization" xmi:id="A_classifier_inheritedMember-_generalization.0" general="A_member_namespace"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_classifier_inheritedMember-_ownedEnd.0" visibility="public" type="Classifier" redefinedProperty="A_member_namespace-namespace" association="A_classifier_inheritedMember">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_classifier_inheritedMember-_ownedEnd.0-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_classifier_inheritedMember-_ownedEnd.0-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_general_classifier" name="A_general_classifier" memberEnd="A_general_classifier-classifier Classifier-general">
-      <ownedEnd xmi:id="A_general_classifier-classifier" name="classifier" visibility="public" type="Classifier" association="A_general_classifier">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_general_classifier-classifier" name="classifier" visibility="public" type="Classifier" association="A_general_classifier">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_general_classifier-classifier-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_general_classifier-classifier-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RefinableElement" name="RefinableElement" isAbstract="true">
-      <ownedComment xmi:id="RefinableElement-_ownedComment.0" annotatedElement="RefinableElement-refinementContext">
+      <ownedComment xmi:type="uml:Comment" xmi:id="RefinableElement-_ownedComment.0" annotatedElement="RefinableElement-refinementContext">
         <body>A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration.</body>
       </ownedComment>
-      <generalization xmi:id="RefinableElement-_generalization.0" general="NamedElement"/>
-      <ownedAttribute xmi:id="RefinableElement-refinementContext" name="refinementContext" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_refinementContext_refinableElement">
-        <ownedComment xmi:id="RefinableElement-refinementContext-_ownedComment.0" annotatedElement="RefinableElement-refinementContext">
+      <generalization xmi:type="uml:Generalization" xmi:id="RefinableElement-_generalization.0" general="NamedElement"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="RefinableElement-refinementContext" name="refinementContext" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_refinementContext_refinableElement">
+        <ownedComment xmi:type="uml:Comment" xmi:id="RefinableElement-refinementContext-_ownedComment.0" annotatedElement="RefinableElement-refinementContext">
           <body>References the contexts that this element may be redefined from.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="RefinableElement-refinementContext-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="RefinableElement-refinementContext-_upperValue" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" visibility="public" type="RefinableElement" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_refiningElement_refinedElement">
-        <ownedComment xmi:id="RefinableElement-refinedElement-_ownedComment.0" annotatedElement="RefinableElement-refinedElement">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="RefinableElement-refinedElement" name="refinedElement" visibility="public" type="RefinableElement" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_refiningElement_refinedElement">
+        <ownedComment xmi:type="uml:Comment" xmi:id="RefinableElement-refinedElement-_ownedComment.0" annotatedElement="RefinableElement-refinedElement">
           <body>The refinable element that is being refined by this element.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="RefinableElement-refinedElement-_lowerValue"/>
@@ -675,24 +573,24 @@ endif</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_refinementContext_refinableElement" name="A_refinementContext_refinableElement" memberEnd="A_refinementContext_refinableElement-_ownedEnd.0 RefinableElement-refinementContext">
-      <ownedEnd xmi:id="A_refinementContext_refinableElement-_ownedEnd.0" name="" visibility="public" type="RefinableElement" association="A_refinementContext_refinableElement">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_refinementContext_refinableElement-_ownedEnd.0" name="" visibility="public" type="RefinableElement" association="A_refinementContext_refinableElement">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_refinementContext_refinableElement-_ownedEnd.0-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_refinementContext_refinableElement-_ownedEnd.0-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_refiningElement_refinedElement" name="A_refiningElement_refinedElement" memberEnd="A_refiningElement_refinedElement-refiningElement RefinableElement-refinedElement">
-      <ownedEnd xmi:id="A_refiningElement_refinedElement-refiningElement" name="refiningElement" visibility="public" type="RefinableElement" association="A_refiningElement_refinedElement">
+      <ownedEnd xmi:type="uml:Property" xmi:id="A_refiningElement_refinedElement-refiningElement" name="refiningElement" visibility="public" type="RefinableElement" association="A_refiningElement_refinedElement">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="A_refiningElement_refinedElement-refiningElement-_lowerValue"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="A_refiningElement_refinedElement-refiningElement-_upperValue" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">
-      <ownedComment xmi:id="ClassifierFeature-_ownedComment.0" annotatedElement="ClassifierFeature">
+      <ownedComment xmi:type="uml:Comment" xmi:id="ClassifierFeature-_ownedComment.0" annotatedElement="ClassifierFeature">
         <body>A classifier feature declares a behavioral or structural characteristic of instances of classifiers.</body>
       </ownedComment>
-      <generalization xmi:id="ClassifierFeature-_generalization.0" general="NamedElement"/>
-      <ownedAttribute xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_classifierFeature_featuringClassifier">
-        <ownedComment xmi:id="ClassifierFeature-featuringClassifier-_ownedComment.0" annotatedElement="ClassifierFeature-featuringClassifier">
+      <generalization xmi:type="uml:Generalization" xmi:id="ClassifierFeature-_generalization.0" general="NamedElement"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" visibility="public" type="Classifier" isReadOnly="true" isDerived="true" isDerivedUnion="true" association="A_classifierFeature_featuringClassifier">
+        <ownedComment xmi:type="uml:Comment" xmi:id="ClassifierFeature-featuringClassifier-_ownedComment.0" annotatedElement="ClassifierFeature-featuringClassifier">
           <body>The Classifiers that have this ClassifierFeature as a feature.</body>
         </ownedComment>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ClassifierFeature-featuringClassifier-_lowerValue"/>
@@ -700,50 +598,50 @@ endif</body>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="A_classifierFeature_featuringClassifier" name="A_classifierFeature_featuringClassifier" memberEnd="Classifier-classifierFeature ClassifierFeature-featuringClassifier">
-      <generalization xmi:id="A_classifierFeature_featuringClassifier-_generalization.0" general="A_member_namespace"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="A_classifierFeature_featuringClassifier-_generalization.0" general="A_member_namespace"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="StructuralFeature" name="StructuralFeature" isAbstract="true">
-      <generalization xmi:id="StructuralFeature-_generalization.0" general="ClassifierFeature"/>
-      <generalization xmi:id="StructuralFeature-_generalization.1" general="RefinableElement"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="StructuralFeature-_generalization.0" general="ClassifierFeature"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="StructuralFeature-_generalization.1" general="RefinableElement"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioralFeature" name="BehavioralFeature" isAbstract="true">
-      <ownedComment xmi:id="BehavioralFeature-_ownedComment.0">
+      <ownedComment xmi:type="uml:Comment" xmi:id="BehavioralFeature-_ownedComment.0">
         <annotatedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#BehavioralFeature"/>
         <body>A behavioral feature is a feature of a classifier that specifies an aspect of the behavior of its instances.</body>
       </ownedComment>
-      <generalization xmi:id="BehavioralFeature-_generalization.0" general="ClassifierFeature"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="BehavioralFeature-_generalization.0" general="ClassifierFeature"/>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
-      <ownedComment xmi:id="_8RPc4MnmEeW9N7cxkaeotw">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_8RPc4MnmEeW9N7cxkaeotw">
         <body>A Boolean type is used for logical expression, consisting of the predefined values true and false.</body>
       </ownedComment>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer">
-      <ownedComment xmi:id="_8RPc4cnmEeW9N7cxkaeotw">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_8RPc4cnmEeW9N7cxkaeotw">
         <body>An integer is a primitive type representing integer values.</body>
       </ownedComment>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="String" name="String">
-      <ownedComment xmi:id="_8RQD8MnmEeW9N7cxkaeotw">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_8RQD8MnmEeW9N7cxkaeotw">
         <body>A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.</body>
       </ownedComment>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Real" name="Real">
-      <ownedComment xmi:id="_8RQD8cnmEeW9N7cxkaeotw">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_8RQD8cnmEeW9N7cxkaeotw">
         <body>A real is a primitive type representing real numeric values.</body>
       </ownedComment>
     </packagedElement>
-    <profileApplication xmi:id="_profileApplication.0">
-      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.0">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
       </eAnnotations>
-      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
     </profileApplication>
-    <profileApplication xmi:id="_profileApplication.1">
-      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.1">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
-      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
   <Ecore:EReference xmi:id="_R4kdECwQEd2YZaDBJp0feQ" base_Property="ClassifierFeature-featuringClassifier" isResolveProxies="false"/>
