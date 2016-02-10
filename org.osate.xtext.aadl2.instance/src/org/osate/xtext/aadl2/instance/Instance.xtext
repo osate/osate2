@@ -7,18 +7,39 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 SystemInstance returns instance::SystemInstance:
 	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|IMPLREF] '{'
-		(componentInstance+=ComponentInstance | systemOperationMode+=SystemOperationMode)*
+		(featureInstance+=FeatureInstance |
+			componentInstance+=ComponentInstance |
+			systemOperationMode+=SystemOperationMode
+		)*
 	'}'
+;
+
+FeatureInstance returns instance::FeatureInstance:
+	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|FEATREF] ('{'
+		featureInstance+=FeatureInstance*
+	'}')?
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
 	category=ComponentCategory name=ID ('[' index+=LONG ']')* ':' subcomponent=[aadl2::Subcomponent|SUBREF] ('{'
-		componentInstance+=ComponentInstance*
+		(featureInstance+=FeatureInstance |
+			componentInstance+=ComponentInstance
+		)*
 	'}')?
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
 	'som' name=STRING
+;
+
+DirectionType returns aadl2::DirectionType:
+	'in' | 'out' | 'in' 'out'
+;
+
+FeatureCategory returns instance::FeatureCategory:
+	'dataPort' | 'eventPort' | 'eventDataPort' | 'parameter' |
+	'busAccess' | 'subprogramAccess' | 'subprogramGroupAccess' |
+	'featureGroup' | 'abstractFeature'
 ;
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
@@ -28,6 +49,10 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 
 IMPLREF:
 	(ID '::')+ ID '.' ID
+;
+
+FEATREF:
+	(ID '::')+ ID '::' ID
 ;
 	
 SUBREF:

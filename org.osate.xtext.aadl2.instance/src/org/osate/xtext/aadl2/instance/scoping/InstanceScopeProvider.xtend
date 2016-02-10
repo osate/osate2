@@ -3,16 +3,20 @@
  */
 package org.osate.xtext.aadl2.instance.scoping
 
+import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.InstancePackage
+import org.osate.aadl2.ComponentType
+import org.osate.aadl2.FeatureGroupType
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -25,13 +29,39 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
  *
  */
 class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
-	def IScope scope_ComponentInstance_subcomponent(ComponentInstance context, EReference reference) {
-		val implScope = delegateGetScope(context, InstancePackage.eINSTANCE.systemInstance_ComponentImplementation)
-		val impls = implScope.allElements.map[EObjectOrProxy.resolve(context)].filter(ComponentImplementation)
+	@Inject
+	ResourceDescriptionsProvider rdp
+	
+	def IScope scope_FeatureInstance_feature(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val typeDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentType)
+		val types = typeDescriptions.map[EObjectOrProxy.resolve(context) as ComponentType]
+		val typeScope = types.map[type |
+			val pkgName = type.getContainerOfType(AadlPackage).name
+			type.ownedFeatures.map[feature |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[type.name, feature.name])
+				EObjectDescription.create(qualifiedName, feature)
+			]
+		]
+		val fgtDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.featureGroupType)
+		val fgts = fgtDescriptions.map[EObjectOrProxy.resolve(context) as FeatureGroupType]
+		val fgtScope = fgts.map[fgt |
+			val pkgName = fgt.getContainerOfType(AadlPackage).name
+			fgt.ownedFeatures.map[feature |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[fgt.name, feature.name])
+				EObjectDescription.create(qualifiedName, feature)
+			]
+		]
+		new SimpleScope((typeScope + fgtScope).flatten)
+	}
+	
+	def IScope scope_ComponentInstance_subcomponent(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
+		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
 		new SimpleScope(impls.map[impl |
 			val pkgName = impl.getContainerOfType(AadlPackage).name
 			impl.ownedSubcomponents.map[sub |
-//				val qualifiedName = QualifiedName.create(pkgName.split("::"), impl.name, sub.name)
 				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, sub.name])
 				EObjectDescription.create(qualifiedName, sub)
 			]

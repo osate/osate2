@@ -6,6 +6,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.ComponentCategory
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
+import org.osate.aadl2.DirectionType
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.instance.FeatureCategory
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.instance.InstanceUiInjectorProvider
@@ -484,6 +488,416 @@ class ParserTest extends OsateTest {
 			componentInstances.head => [
 				"a::b::c::d::s.i".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
 				"aSub".assertEquals(subcomponent.name)
+			]
+		]
+	}
+	
+	@Test
+	def void testFeatures() {
+		val pkg1FileName = "pkg1.aadl"
+		val si1FileName = "si1.instance"
+		val si2FileName = "si2.instance"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				feature group fgt1
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					p: in parameter;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg1: feature group;
+					af: feature;
+				end fgt1;
+				
+				abstract a
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg: feature group;
+					af: feature;
+				end a;
+				
+				subprogram subp
+				features
+					p: in parameter;
+				end subp;
+				
+				system s1
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg1: feature group;
+					fg2: feature group fgt1;
+					af: feature;
+				end s1;
+				
+				system implementation s1.i
+				subcomponents
+					asub: abstract a;
+					subpsub: subprogram subp;
+				end s1.i;
+				
+				system s2
+				features
+					dp1: in data port;
+					dp2: in data port[3];
+				end s2;
+				
+				system implementation s2.i
+				end s2.i;
+			end pkg1;
+		''', si1FileName -> '''
+			system si1 : pkg1::s1.i {
+				in out featureGroup fg1 : pkg1::s1::fg1
+				in out featureGroup fg2 : pkg1::s1::fg2 {
+					in out busAccess ba : pkg1::fgt1::ba
+					in dataPort dp : pkg1::fgt1::dp
+					in eventDataPort edp : pkg1::fgt1::edp
+					out eventPort ep : pkg1::fgt1::ep
+					in out featureGroup fg1 : pkg1::fgt1::fg1
+					in parameter p : pkg1::fgt1::p
+					in out subprogramAccess subpa : pkg1::fgt1::subpa
+					in out subprogramGroupAccess subpga : pkg1::fgt1::subpga
+					in out abstractFeature af : pkg1::fgt1::af
+				}
+				in out abstractFeature af : pkg1::s1::af
+				in out busAccess ba : pkg1::s1::ba
+				in dataPort dp : pkg1::s1::dp
+				in out subprogramGroupAccess subpga : pkg1::s1::subpga
+				in out subprogramAccess subpa : pkg1::s1::subpa
+				out eventPort ep : pkg1::s1::ep
+				in eventDataPort edp : pkg1::s1::edp
+				abstract asub[0] : pkg1::s1.i::asub {
+					in out featureGroup fg : pkg1::a::fg
+					in out abstractFeature af : pkg1::a::af
+					in out busAccess ba : pkg1::a::ba
+					in out subprogramAccess subpa : pkg1::a::subpa
+					in dataPort dp : pkg1::a::dp
+					out eventPort ep : pkg1::a::ep
+					in eventDataPort edp : pkg1::a::edp
+					in out subprogramGroupAccess subpga : pkg1::a::subpga
+				}
+				subprogram subpsub[0] : pkg1::s1.i::subpsub {
+					in parameter p : pkg1::subp::p
+				}
+				som "No Modes"
+			}
+		''', si2FileName -> '''
+			system si2 : pkg1::s2.i {
+				in dataPort dp1 : pkg1::s2::dp1
+				in dataPort dp2[1] : pkg1::s2::dp2
+				in dataPort dp2[2] : pkg1::s2::dp2
+				in dataPort dp2[3] : pkg1::s2::dp2
+				som "No Modes"
+			}
+		''')
+		suppressSerialization
+		testFile(pkg1FileName)
+		testFile(si1FileName).resource.contents.head as SystemInstance => [
+			"si1".assertEquals(name)
+			9.assertEquals(featureInstances.size)
+			featureInstances.get(0) => [
+				"fg1".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.FEATURE_GROUP.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"fg1".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(1) => [
+				"fg2".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.FEATURE_GROUP.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"fg2".assertEquals(feature.name)
+				0.assertEquals(index)
+				9.assertEquals(featureInstances.size)
+				featureInstances.get(0) => [
+					"ba".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.BUS_ACCESS.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"ba".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(1) => [
+					"dp".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.DATA_PORT.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"dp".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(2) => [
+					"edp".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.EVENT_DATA_PORT.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"edp".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(3) => [
+					"ep".assertEquals(name)
+					DirectionType.OUT.assertEquals(direction)
+					FeatureCategory.EVENT_PORT.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"ep".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(4) => [
+					"fg1".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.FEATURE_GROUP.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"fg1".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(5) => [
+					"p".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.PARAMETER.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"p".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(6) => [
+					"subpa".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.SUBPROGRAM_ACCESS.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"subpa".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(7) => [
+					"subpga".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.SUBPROGRAM_GROUP_ACCESS.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"subpga".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(8) => [
+					"af".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.ABSTRACT_FEATURE.assertEquals(category)
+					"pkg1::fgt1".assertEquals(feature.getContainerOfType(FeatureGroupType).getQualifiedName)
+					"af".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+			]
+			featureInstances.get(2) => [
+				"af".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.ABSTRACT_FEATURE.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"af".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(3) => [
+				"ba".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.BUS_ACCESS.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"ba".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(4) => [
+				"dp".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.DATA_PORT.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"dp".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(5) => [
+				"subpga".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.SUBPROGRAM_GROUP_ACCESS.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"subpga".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(6) => [
+				"subpa".assertEquals(name)
+				DirectionType.IN_OUT.assertEquals(direction)
+				FeatureCategory.SUBPROGRAM_ACCESS.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"subpa".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(7) => [
+				"ep".assertEquals(name)
+				DirectionType.OUT.assertEquals(direction)
+				FeatureCategory.EVENT_PORT.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"ep".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(8) => [
+				"edp".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.EVENT_DATA_PORT.assertEquals(category)
+				"pkg1::s1".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"edp".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			componentInstances.get(0) => [
+				"asub".assertEquals(name)
+				8.assertEquals(featureInstances.size)
+				featureInstances.get(0) => [
+					"fg".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.FEATURE_GROUP.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"fg".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(1) => [
+					"af".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.ABSTRACT_FEATURE.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"af".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(2) => [
+					"ba".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.BUS_ACCESS.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"ba".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(3) => [
+					"subpa".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.SUBPROGRAM_ACCESS.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"subpa".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(4) => [
+					"dp".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.DATA_PORT.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"dp".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(5) => [
+					"ep".assertEquals(name)
+					DirectionType.OUT.assertEquals(direction)
+					FeatureCategory.EVENT_PORT.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"ep".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(6) => [
+					"edp".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.EVENT_DATA_PORT.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"edp".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+				featureInstances.get(7) => [
+					"subpga".assertEquals(name)
+					DirectionType.IN_OUT.assertEquals(direction)
+					FeatureCategory.SUBPROGRAM_GROUP_ACCESS.assertEquals(category)
+					"pkg1::a".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"subpga".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+			]
+			componentInstances.get(1) => [
+				"subpsub".assertEquals(name)
+				1.assertEquals(featureInstances.size)
+				featureInstances.head => [
+					"p".assertEquals(name)
+					DirectionType.IN.assertEquals(direction)
+					FeatureCategory.PARAMETER.assertEquals(category)
+					"pkg1::subp".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+					"p".assertEquals(feature.name)
+					0.assertEquals(index)
+					featureInstances.empty.assertTrue
+				]
+			]
+		]
+		testFile(si2FileName).resource.contents.head as SystemInstance => [
+			"si2".assertEquals(name)
+			4.assertEquals(featureInstances.size)
+			featureInstances.get(0) => [
+				"dp1".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.DATA_PORT.assertEquals(category)
+				"pkg1::s2".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"dp1".assertEquals(feature.name)
+				0.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(1) => [
+				"dp2".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.DATA_PORT.assertEquals(category)
+				"pkg1::s2".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"dp2".assertEquals(feature.name)
+				1.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(2) => [
+				"dp2".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.DATA_PORT.assertEquals(category)
+				"pkg1::s2".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"dp2".assertEquals(feature.name)
+				2.assertEquals(index)
+				featureInstances.empty.assertTrue
+			]
+			featureInstances.get(3) => [
+				"dp2".assertEquals(name)
+				DirectionType.IN.assertEquals(direction)
+				FeatureCategory.DATA_PORT.assertEquals(category)
+				"pkg1::s2".assertEquals(feature.getContainerOfType(ComponentType).getQualifiedName)
+				"dp2".assertEquals(feature.name)
+				3.assertEquals(index)
+				featureInstances.empty.assertTrue
 			]
 		]
 	}

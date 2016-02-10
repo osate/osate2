@@ -14,6 +14,7 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -31,6 +32,9 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case InstancePackage.COMPONENT_INSTANCE:
 				sequence_ComponentInstance(context, (ComponentInstance) semanticObject); 
 				return; 
+			case InstancePackage.FEATURE_INSTANCE:
+				sequence_FeatureInstance(context, (FeatureInstance) semanticObject); 
+				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
 				return; 
@@ -43,9 +47,31 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (category=ComponentCategory name=ID index+=LONG* subcomponent=[Subcomponent|SUBREF] componentInstance+=ComponentInstance*)
+	 *     (
+	 *         category=ComponentCategory 
+	 *         name=ID 
+	 *         index+=LONG* 
+	 *         subcomponent=[Subcomponent|SUBREF] 
+	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)*
+	 *     )
 	 */
 	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         direction=DirectionType 
+	 *         category=FeatureCategory 
+	 *         name=ID 
+	 *         index=LONG? 
+	 *         feature=[Feature|FEATREF] 
+	 *         featureInstance+=FeatureInstance*
+	 *     )
+	 */
+	protected void sequence_FeatureInstance(EObject context, FeatureInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -56,7 +82,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         category=ComponentCategory 
 	 *         name=ID 
 	 *         componentImplementation=[ComponentImplementation|IMPLREF] 
-	 *         (componentInstance+=ComponentInstance | systemOperationMode+=SystemOperationMode)*
+	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | systemOperationMode+=SystemOperationMode)*
 	 *     )
 	 */
 	protected void sequence_SystemInstance(EObject context, SystemInstance semanticObject) {
