@@ -260,7 +260,10 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrmoreExpressionAccess().getGroup_4(), "rule__SOrmoreExpression__Group_4__0");
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup(), "rule__SOrlessExpression__Group__0");
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup_4(), "rule__SOrlessExpression__Group_4__0");
-					put(grammarAccess.getSConditionTermAccess().getGroup_3(), "rule__SConditionTerm__Group_3__0");
+					put(grammarAccess.getSAllExpressionAccess().getGroup(), "rule__SAllExpression__Group__0");
+					put(grammarAccess.getSAllExpressionAccess().getGroup_4(), "rule__SAllExpression__Group_4__0");
+					put(grammarAccess.getSAllExpressionAccess().getGroup_6(), "rule__SAllExpression__Group_6__0");
+					put(grammarAccess.getSConditionTermAccess().getGroup_4(), "rule__SConditionTerm__Group_4__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_0(), "rule__SConditionElement__Group_0__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1(), "rule__SConditionElement__Group_1__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1_1(), "rule__SConditionElement__Group_1_1__0");
@@ -542,6 +545,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getCountAssignment_0(), "rule__SOrlessExpression__CountAssignment_0");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_3(), "rule__SOrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__SOrlessExpression__OperandsAssignment_4_1");
+					put(grammarAccess.getSAllExpressionAccess().getOperandsAssignment_3(), "rule__SAllExpression__OperandsAssignment_3");
+					put(grammarAccess.getSAllExpressionAccess().getOperandsAssignment_4_1(), "rule__SAllExpression__OperandsAssignment_4_1");
+					put(grammarAccess.getSAllExpressionAccess().getCountAssignment_6_1(), "rule__SAllExpression__CountAssignment_6_1");
 					put(grammarAccess.getSConditionElementAccess().getQualifiedStateAssignment_0_0(), "rule__SConditionElement__QualifiedStateAssignment_0_0");
 					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_1(), "rule__SConditionElement__ConstraintAssignment_0_1");
 					put(grammarAccess.getSConditionElementAccess().getIncomingAssignment_1_1_0(), "rule__SConditionElement__IncomingAssignment_1_1_0");

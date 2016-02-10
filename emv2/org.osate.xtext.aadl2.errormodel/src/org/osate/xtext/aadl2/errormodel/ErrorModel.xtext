@@ -568,11 +568,17 @@ SOrlessExpression returns OrlessExpression:
 	count=INTVALUE 'orless' '(' operands+=SConditionElement
 	            ( ',' operands+=SConditionElement)* ')'
 ;
+
+SAllExpression returns ConditionExpression:
+  {AllExpression} 'all' '(' operands+=SConditionElement
+	            ( ',' operands+=SConditionElement)* ')' ( 'but' count=INTVALUE)?;
+
   
 SConditionTerm returns ConditionExpression:
 	  SConditionElement
       |  SOrmoreExpression 
       |  SOrlessExpression 
+      |  SAllExpression
       | '(' SConditionExpression ')'
   ;
 

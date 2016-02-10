@@ -7388,6 +7388,112 @@ ruleSOrlessExpression returns [EObject current=null]
 
 
 
+// Entry rule entryRuleSAllExpression
+entryRuleSAllExpression returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getSAllExpressionRule()); }
+	 iv_ruleSAllExpression=ruleSAllExpression 
+	 { $current=$iv_ruleSAllExpression.current; } 
+	 EOF 
+;
+
+// Rule SAllExpression
+ruleSAllExpression returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getSAllExpressionAccess().getAllExpressionAction_0(),
+            $current);
+    }
+)
+	otherlv_1=All
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getSAllExpressionAccess().getAllKeyword_1());
+    }
+
+	otherlv_2=LeftParenthesis
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getSAllExpressionAccess().getLeftParenthesisKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_3_0()); 
+	    }
+		lv_operands_3_0=ruleSConditionElement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSAllExpressionRule());
+	        }
+       		add(
+       			$current, 
+       			"operands",
+        		lv_operands_3_0, 
+        		"SConditionElement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+	otherlv_4=Comma
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getSAllExpressionAccess().getCommaKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_4_1_0()); 
+	    }
+		lv_operands_5_0=ruleSConditionElement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSAllExpressionRule());
+	        }
+       		add(
+       			$current, 
+       			"operands",
+        		lv_operands_5_0, 
+        		"SConditionElement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*
+	otherlv_6=RightParenthesis
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getSAllExpressionAccess().getRightParenthesisKeyword_5());
+    }
+(
+	otherlv_7=But
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getSAllExpressionAccess().getButKeyword_6_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getCountINTVALUEParserRuleCall_6_1_0()); 
+	    }
+		lv_count_8_0=ruleINTVALUE		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSAllExpressionRule());
+	        }
+       		set(
+       			$current, 
+       			"count",
+        		lv_count_8_0, 
+        		"INTVALUE");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
 // Entry rule entryRuleSConditionTerm
 entryRuleSConditionTerm returns [EObject current=null]
 	:
@@ -7432,24 +7538,34 @@ ruleSConditionTerm returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
-    |(
-	otherlv_3=LeftParenthesis
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
-    }
-
+    |
     { 
-        newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionExpressionParserRuleCall_3_1()); 
+        newCompositeNode(grammarAccess.getSConditionTermAccess().getSAllExpressionParserRuleCall_3()); 
     }
-    this_SConditionExpression_4=ruleSConditionExpression
+    this_SAllExpression_3=ruleSAllExpression
     {
-        $current = $this_SConditionExpression_4.current;
+        $current = $this_SAllExpression_3.current;
         afterParserOrEnumRuleCall();
     }
 
-	otherlv_5=RightParenthesis
+    |(
+	otherlv_4=LeftParenthesis
     {
-    	newLeafNode(otherlv_5, grammarAccess.getSConditionTermAccess().getRightParenthesisKeyword_3_2());
+    	newLeafNode(otherlv_4, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionExpressionParserRuleCall_4_1()); 
+    }
+    this_SConditionExpression_5=ruleSConditionExpression
+    {
+        $current = $this_SConditionExpression_5.current;
+        afterParserOrEnumRuleCall();
+    }
+
+	otherlv_6=RightParenthesis
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getSConditionTermAccess().getRightParenthesisKeyword_4_2());
     }
 ))
 ;

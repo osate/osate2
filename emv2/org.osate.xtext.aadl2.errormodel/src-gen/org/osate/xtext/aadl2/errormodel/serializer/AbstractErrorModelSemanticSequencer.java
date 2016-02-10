@@ -183,8 +183,26 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			}
 		else if(semanticObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case ErrorModelPackage.ALL_EXPRESSION:
-				sequence_AllExpression(context, (AllExpression) semanticObject); 
-				return; 
+				if(context == grammarAccess.getAllExpressionRule() ||
+				   context == grammarAccess.getAndExpressionRule() ||
+				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionExpressionRule() ||
+				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionTermRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_AllExpression(context, (AllExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSAllExpressionRule() ||
+				   context == grammarAccess.getSAndExpressionRule() ||
+				   context == grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionRule() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionTermRule()) {
+					sequence_SAllExpression(context, (AllExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.AND_EXPRESSION:
 				sequence_AndExpression(context, (AndExpression) semanticObject); 
 				return; 
@@ -870,6 +888,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RepairEvent(EObject context, RepairEvent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (operands+=SConditionElement operands+=SConditionElement* count=INTVALUE?)
+	 */
+	protected void sequence_SAllExpression(EObject context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
