@@ -61,7 +61,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorPathAccess().getAlternatives_4(), "rule__ErrorPath__Alternatives_4");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_7(), "rule__ErrorPath__Alternatives_7");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_8(), "rule__ErrorPath__Alternatives_8");
-					put(grammarAccess.getErrorPropagationPointAccess().getAlternatives(), "rule__ErrorPropagationPoint__Alternatives");
+					put(grammarAccess.getErrorPropagationPointAccess().getAlternatives_1(), "rule__ErrorPropagationPoint__Alternatives_1");
 					put(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives_2(), "rule__QualifiedPropagationPoint__Alternatives_2");
 					put(grammarAccess.getErrorBehaviorEventAccess().getAlternatives(), "rule__ErrorBehaviorEvent__Alternatives");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_1(), "rule__ErrorBehaviorTransition__Alternatives_1");
@@ -189,8 +189,8 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorSinkAccess().getGroup(), "rule__ErrorSink__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup(), "rule__ErrorPath__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup_8_1(), "rule__ErrorPath__Group_8_1__0");
-					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1(), "rule__ErrorPropagationPoint__Group_1__0");
-					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1_1(), "rule__ErrorPropagationPoint__Group_1_1__0");
+					put(grammarAccess.getErrorPropagationPointAccess().getGroup(), "rule__ErrorPropagationPoint__Group__0");
+					put(grammarAccess.getErrorPropagationPointAccess().getGroup_0(), "rule__ErrorPropagationPoint__Group_0__0");
 					put(grammarAccess.getPropagationPointAccess().getGroup(), "rule__PropagationPoint__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup(), "rule__PropagationPath__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup_0(), "rule__PropagationPath__Group_0__0");

@@ -134,6 +134,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 			errorType = null;
 
 			FTAUtils.init(si);
+			Event.init();
 
 			if (ERROR_STATE_NAME.contains(" ")) {
 				errorStateName = ERROR_STATE_NAME.substring(0, ERROR_STATE_NAME.indexOf(" "));

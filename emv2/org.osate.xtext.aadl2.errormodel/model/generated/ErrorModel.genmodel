@@ -252,6 +252,19 @@
     <genClasses ecoreClass="ErrorModel.ecore#//SAndExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SAndExpression/operands"/>
     </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//ErrorPropagationPointPath">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagationPointPath/namedElementReference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagationPointPath/next"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagationPointPath/propatationKind"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//NamedElementReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//NamedElementReference/namedElement"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//PropagationPointPath">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/subcomponent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/next"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/propagationPoint"/>
+    </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelGrammarRoot">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelGrammarRoot/eml"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelGrammarRoot/emsc"/>

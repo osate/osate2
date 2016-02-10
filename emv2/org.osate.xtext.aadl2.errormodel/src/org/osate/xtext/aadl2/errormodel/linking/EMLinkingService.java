@@ -13,7 +13,6 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainmentPathElement;
@@ -29,15 +28,11 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
@@ -203,7 +198,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 							return Collections.singletonList(searchResult);
 						}
 					} else {
-						if (cxtElement instanceof  ContainmentPathElement){
+						if (cxtElement instanceof ContainmentPathElement) {
 							ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(cxtElement);
 							if (ebsm != null) {
 								searchResult = EMV2Util.findErrorBehaviorEvent(ebsm, name);
@@ -219,8 +214,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 									return Collections.singletonList(searchResult);
 								}
 							} else {
-							ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
-							if (eml != null) cxtElement = eml;
+								ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
+								if (eml != null)
+									cxtElement = eml;
 							}
 						}
 						searchResult = findErrorType(cxtElement, name);
@@ -232,7 +228,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 							return Collections.singletonList(searchResult);
 						}
 					}
-				}
+				} // ! null (context)
+					// containment path element
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
 				Classifier ns = EMV2Util.getAssociatedClassifier(cxt);
 				searchResult = ns.findNamedElement(name);
@@ -243,7 +240,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			} else if (context instanceof FeatureorPPReference) {
 				Classifier cl = null;
 				if (context.eContainer() instanceof ErrorPropagation) {
-					cl = EMV2Util.getAssociatedClassifier((Element)context);
+					cl = EMV2Util.getAssociatedClassifier((Element) context);
 				} else if (context.eContainer() instanceof FeatureorPPReference) {
 					NamedElement fg = ((FeatureorPPReference) context.eContainer()).getFeatureorPP();
 					if (fg instanceof FeatureGroup) {
@@ -260,8 +257,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 					}
 				}
 			}
+			// end namedElement
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
-			Classifier ns = EMV2Util.getAssociatedClassifier((Element)context);
+			Classifier ns = EMV2Util.getAssociatedClassifier((Element) context);
 			NamedElement ne = ns.findNamedElement(name);
 			if (ne instanceof Feature || ne instanceof InternalFeature) {
 				searchResult = ne;
@@ -319,13 +317,14 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
-				searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
-			}  else {
-				searchResult = EMV2Util.findIncomingErrorPropagation(EMV2Util.getAssociatedClassifier(cxt), name);
-			}
+// XXX allow subcomponent reference in outgoing propagation and transition as well
+//			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
+			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
+//			}  else {
+//				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
+//			}
 			if (searchResult == null) {
-					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
+				searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType) {
 			searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
@@ -375,8 +374,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @return
 	 */
 	public AnnexLibrary getActualAnnexLibrary(EObject context, String name) {
-		return (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(),
-				name);
+		return (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context,
+				ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name);
 	}
 
 	/**
@@ -390,7 +389,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null) {
 			return eml;
 		}
-		 eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name);
+		eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name);
 		if (eml != null) {
 			return eml;
 		}
@@ -404,7 +403,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 		}
-		// XXX TODO this next code should not return anything that is not already in teh global index 
+		// XXX TODO this next code should not return anything that is not already in teh global index
 		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
 		if (ap == null) {
 			return null;
