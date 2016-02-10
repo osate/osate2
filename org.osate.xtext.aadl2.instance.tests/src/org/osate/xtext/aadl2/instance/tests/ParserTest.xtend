@@ -287,7 +287,7 @@ class ParserTest extends OsateTest {
 				
 				system implementation s.i1
 				subcomponents
-					asub: abstract;
+					aSub: abstract;
 				end s.i1;
 				
 				system implementation s.i2
@@ -312,26 +312,26 @@ class ParserTest extends OsateTest {
 			end pkg1;
 		''', si1FileName -> '''
 			system si1 : pkg1::s.i1 {
-				abstract asub : pkg1::s.i1::asub[0]
+				abstract aSub[0] : pkg1::s.i1::aSub
 				som "No Modes"
 			}
 		''', si2FileName -> '''
 			system si2 : pkg1::s.i2 {
-				process psSub : pkg1::s.i2::psSub[0] {
-					thread tSub : pkg1::ps.i::tSub[0]
+				process psSub[0] : pkg1::s.i2::psSub {
+					thread tSub[0] : pkg1::ps.i::tSub
 				}
 				som "No Modes"
 			}
 		''', si3FileName -> '''
 			system si3 : pkg1::s.i3 {
-				abstract aSub1 : pkg1::s.i3::aSub1[0]
-				abstract aSub2 : pkg1::s.i3::aSub2[1]
-				abstract aSub2 : pkg1::s.i3::aSub2[2]
-				abstract aSub2 : pkg1::s.i3::aSub2[3]
-				abstract aSub3 : pkg1::s.i3::aSub3[1, 1]
-				abstract aSub3 : pkg1::s.i3::aSub3[1, 2]
-				abstract aSub3 : pkg1::s.i3::aSub3[2, 1]
-				abstract aSub3 : pkg1::s.i3::aSub3[2, 2]
+				abstract aSub1[0] : pkg1::s.i3::aSub1
+				abstract aSub2[1] : pkg1::s.i3::aSub2
+				abstract aSub2[2] : pkg1::s.i3::aSub2
+				abstract aSub2[3] : pkg1::s.i3::aSub2
+				abstract aSub3[1][1] : pkg1::s.i3::aSub3
+				abstract aSub3[1][2] : pkg1::s.i3::aSub3
+				abstract aSub3[2][1] : pkg1::s.i3::aSub3
+				abstract aSub3[2][2] : pkg1::s.i3::aSub3
 				som "No Modes"
 			}
 		''')
@@ -341,10 +341,10 @@ class ParserTest extends OsateTest {
 			"si1".assertEquals(name)
 			1.assertEquals(componentInstances.size)
 			componentInstances.head => [
-				"asub".assertEquals(name)
+				"aSub".assertEquals(name)
 				ComponentCategory.ABSTRACT.assertEquals(category)
 				"pkg1::s.i1".assertEquals(subcomponent.getContainerOfType(ComponentImplementation).getQualifiedName)
-				"asub".assertEquals(subcomponent.name)
+				"aSub".assertEquals(subcomponent.name)
 				1.assertEquals(indices.size)
 				0L.assertEquals(indices.head)
 				componentInstances.empty.assertTrue
@@ -471,7 +471,7 @@ class ParserTest extends OsateTest {
 			end a::b::c::d;
 		''', si1FileName -> '''
 			system si1 : a::b::c::d::s.i {
-				abstract aSub : a::b::c::d::s.i::aSub[0]
+				abstract aSub[0] : a::b::c::d::s.i::aSub
 				som "No Modes"
 			}
 		''')
