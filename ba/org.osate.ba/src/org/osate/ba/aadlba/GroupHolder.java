@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface GroupHolder extends ElementHolder, IndexableElement
+public interface GroupHolder extends ElementHolder, IndexableElement, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

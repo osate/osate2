@@ -20,33 +20,30 @@
 package org.osate.ba.aadlba.impl;
 
 
-import java.util.Collection;
+import java.util.Collection ;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.Feature;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.ClassifierFeature ;
+import org.osate.aadl2.DataAccess ;
+import org.osate.aadl2.Feature ;
 import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ClassifierFeatureHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
 import org.osate.ba.aadlba.DataAccessHolder ;
 import org.osate.ba.aadlba.ElementValues ;
-import org.osate.ba.aadlba.FeatureHolder;
+import org.osate.ba.aadlba.FeatureHolder ;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.ParameterLabel ;
-import org.osate.ba.aadlba.SubprogramHolderProxy;
+import org.osate.ba.aadlba.SubprogramHolderProxy ;
 import org.osate.ba.aadlba.Target ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -466,6 +463,10 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //DataAccessHolderImpl

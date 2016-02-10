@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +32,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues
+public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

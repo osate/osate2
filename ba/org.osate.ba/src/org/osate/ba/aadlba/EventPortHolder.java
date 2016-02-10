@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.EventPort;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.EventPort;
  * @model
  * @generated
  */
-public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, Target
+public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, Target, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

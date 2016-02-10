@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays ;
+import java.util.Collections ;
+import java.util.List ;
 
-import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.common.util.Enumerator ;
 
 /**
  * <!-- begin-user-doc -->

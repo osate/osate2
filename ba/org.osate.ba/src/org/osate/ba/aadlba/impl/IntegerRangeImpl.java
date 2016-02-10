@@ -20,16 +20,15 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.IntegerRange ;
 import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -276,6 +275,10 @@ public class IntegerRangeImpl extends BehaviorElementImpl implements IntegerRang
         return upperIntegerValue != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //IntegerRangeImpl

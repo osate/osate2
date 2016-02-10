@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 
 /**
@@ -32,7 +33,7 @@ import org.osate.aadl2.EnumerationLiteral;
  * @model
  * @generated
  */
-public interface EnumLiteralHolder extends PropertyElementHolder
+public interface EnumLiteralHolder extends PropertyElementHolder, IBAVisitable
 {
 
   /**

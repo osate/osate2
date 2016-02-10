@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.DataPort;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.DataPort ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.DataPortHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +76,10 @@ public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPort
   public DataPort getDataPort()
   {
     return (DataPort) element;
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //DataPortHolderImpl

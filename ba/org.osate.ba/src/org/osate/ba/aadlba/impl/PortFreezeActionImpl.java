@@ -20,9 +20,10 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClass ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.PortFreezeAction ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +55,10 @@ public class PortFreezeActionImpl extends ActualPortHolderImpl implements PortFr
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.PORT_FREEZE_ACTION;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PortFreezeActionImpl

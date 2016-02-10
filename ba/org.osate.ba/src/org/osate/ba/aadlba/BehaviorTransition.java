@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +42,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface BehaviorTransition extends BehaviorNamedElement
+public interface BehaviorTransition extends BehaviorNamedElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Source State</b></em>' reference.

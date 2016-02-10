@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.EventDataPort;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.EventDataPort ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.EventDataPortHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +76,10 @@ public class EventDataPortHolderImpl extends ActualPortHolderImpl implements Eve
   public EventDataPort geteventDataPort()
   {
     return (EventDataPort) element;
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //EventDataPortHolderImpl

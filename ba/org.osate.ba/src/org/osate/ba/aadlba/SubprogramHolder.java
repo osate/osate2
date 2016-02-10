@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Subprogram;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.Subprogram;
  * @model
  * @generated
  */
-public interface SubprogramHolder extends CalledSubprogramHolder
+public interface SubprogramHolder extends CalledSubprogramHolder, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

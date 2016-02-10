@@ -20,10 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClass ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.IterativeVariable ;
 import org.osate.ba.aadlba.IterativeVariableHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +76,10 @@ public class IterativeVariableHolderImpl extends DataHolderImpl implements Itera
   public IterativeVariable getIterativeVariable()
   {
     return (IterativeVariable) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //IterativeVariableHolderImpl

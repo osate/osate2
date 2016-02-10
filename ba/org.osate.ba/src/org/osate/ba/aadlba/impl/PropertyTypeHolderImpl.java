@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.PropertyType;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.PropertyTypeHolder;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.PropertyType ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.PropertyTypeHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +75,10 @@ public class PropertyTypeHolderImpl extends PropertyElementHolderImpl implements
   public PropertyType getPropertyType()
   {
     return (PropertyType) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PropertyTypeHolderImpl

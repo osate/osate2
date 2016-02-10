@@ -21,6 +21,7 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ import org.osate.aadl2.PropertySet;
  * @model
  * @generated
  */
-public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant
+public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.

@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +32,6 @@ import org.osate.aadl2.IntegerLiteral;
  * @model
  * @generated
  */
-public interface BehaviorIntegerLiteral extends IntegerLiteral, NumericLiteral
+public interface BehaviorIntegerLiteral extends IntegerLiteral, NumericLiteral, IBAVisitable
 {
 } // BehaviorIntegerLiteral

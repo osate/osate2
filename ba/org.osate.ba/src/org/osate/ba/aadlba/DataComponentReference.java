@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface DataComponentReference extends ElementValues, Target, ValueVariable, IntegerValueVariable
+public interface DataComponentReference extends ElementValues, Target, ValueVariable, IntegerValueVariable, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Data</b></em>' containment reference list.

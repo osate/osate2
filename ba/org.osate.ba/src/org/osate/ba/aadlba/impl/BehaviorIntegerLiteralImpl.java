@@ -20,12 +20,12 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.impl.IntegerLiteralImpl;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.impl.IntegerLiteralImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -63,5 +63,9 @@ public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements Be
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 } //BehaviorIntegerLiteralImpl

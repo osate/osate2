@@ -26,6 +26,7 @@ import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.Element ;
 import org.osate.ba.texteditor.AadlBaHighlighter ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 
 /**
@@ -49,7 +50,7 @@ import org.osate.ba.utils.AadlBaLocationReference ;
  * @model
  * @generated
  */
-public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
+public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.

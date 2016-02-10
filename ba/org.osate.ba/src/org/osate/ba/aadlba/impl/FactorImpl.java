@@ -20,19 +20,18 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BinaryNumericOperator ;
 import org.osate.ba.aadlba.Factor ;
 import org.osate.ba.aadlba.UnaryBooleanOperator ;
 import org.osate.ba.aadlba.UnaryNumericOperator ;
 import org.osate.ba.aadlba.Value ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -570,6 +569,10 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
     if (unaryBooleanOperatorESet) result.append(unaryBooleanOperator); else result.append("<unset>");
     result.append(')');
     return result.toString();
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //FactorImpl

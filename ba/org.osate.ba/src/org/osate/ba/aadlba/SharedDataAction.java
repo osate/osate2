@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +38,7 @@ package org.osate.ba.aadlba;
  * @model abstract="true"
  * @generated
  */
-public interface SharedDataAction extends CommunicationAction
+public interface SharedDataAction extends CommunicationAction, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Data Access</b></em>' containment reference.

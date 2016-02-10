@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.impl.NamedElementImpl;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.impl.NamedElementImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,6 +56,10 @@ public abstract class BehaviorNamedElementImpl extends NamedElementImpl implemen
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //BehaviorNamedElementImpl

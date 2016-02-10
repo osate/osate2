@@ -19,18 +19,16 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.PropertyElementHolder;
-import org.osate.ba.aadlba.PropertyNameField;
-import org.osate.ba.aadlba.PropertyNameHolder;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.PropertyElementHolder ;
+import org.osate.ba.aadlba.PropertyNameField ;
+import org.osate.ba.aadlba.PropertyNameHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -345,6 +343,10 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
         return isSetField();
     }
     return super.eIsSet(featureID);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PropertyNameHolderImpl

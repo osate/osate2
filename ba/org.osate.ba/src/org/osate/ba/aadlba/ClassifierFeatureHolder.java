@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.ClassifierFeature;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ClassifierFeatureHolder extends ElementHolder
+public interface ClassifierFeatureHolder extends ElementHolder, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

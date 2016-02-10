@@ -19,28 +19,23 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import java.util.Collection;
+import java.util.Collection ;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.Element;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.IndexableElement;
-import org.osate.ba.aadlba.IntegerValue;
-import org.osate.ba.aadlba.PropertyElementHolder;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.Element ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.IndexableElement ;
+import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.aadlba.PropertyElementHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -307,6 +302,10 @@ public abstract class PropertyElementHolderImpl extends BehaviorElementImpl impl
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PropertyElementHolderImpl

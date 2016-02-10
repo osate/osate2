@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +32,6 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface BehaviorActionSet extends BehaviorActionCollection
+public interface BehaviorActionSet extends BehaviorActionCollection, IBAVisitable
 {
 } // BehaviorActionSet

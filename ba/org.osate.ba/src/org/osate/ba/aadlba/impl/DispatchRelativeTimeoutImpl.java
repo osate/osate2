@@ -20,9 +20,10 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClass ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +55,10 @@ public class DispatchRelativeTimeoutImpl extends BehaviorElementImpl implements 
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.DISPATCH_RELATIVE_TIMEOUT;
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //DispatchRelativeTimeoutImpl

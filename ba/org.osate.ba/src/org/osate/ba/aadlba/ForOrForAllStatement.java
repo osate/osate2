@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +40,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface ForOrForAllStatement extends LoopStatement
+public interface ForOrForAllStatement extends LoopStatement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.

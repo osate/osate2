@@ -20,9 +20,10 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClass ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.PortFreshValue ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +55,10 @@ public class PortFreshValueImpl extends ActualPortHolderImpl implements PortFres
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.PORT_FRESH_VALUE;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PortFreshValueImpl

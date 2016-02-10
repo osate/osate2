@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SimpleExpression extends BehaviorElement
+public interface SimpleExpression extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Unary Adding Operator</b></em>' attribute.

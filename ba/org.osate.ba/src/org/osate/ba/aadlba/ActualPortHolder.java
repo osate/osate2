@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Port;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.Port;
  * @model abstract="true"
  * @generated
  */
-public interface ActualPortHolder extends PortHolder
+public interface ActualPortHolder extends PortHolder, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Subcomponent;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.Subcomponent;
  * @model
  * @generated
  */
-public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement
+public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

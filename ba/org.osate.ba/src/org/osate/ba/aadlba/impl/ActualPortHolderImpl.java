@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.Port;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.Port ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.ActualPortHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -78,4 +78,7 @@ public abstract class ActualPortHolderImpl extends PortHolderImpl implements Act
     return (Port) element;
   }
 
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
+  }
 } //ActualPortHolderImpl

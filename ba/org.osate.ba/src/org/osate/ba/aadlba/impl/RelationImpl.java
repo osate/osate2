@@ -20,17 +20,16 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.RelationalOperator ;
 import org.osate.ba.aadlba.SimpleExpression ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -384,6 +383,10 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
     if (relationalOperatorESet) result.append(relationalOperator); else result.append("<unset>");
     result.append(')');
     return result.toString();
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //RelationImpl

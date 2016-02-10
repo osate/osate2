@@ -19,10 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.LowerBound;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.LowerBound ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +54,10 @@ public class LowerBoundImpl extends BehaviorElementImpl implements LowerBound
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.LOWER_BOUND;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //LowerBoundImpl

@@ -19,10 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.UpperBound;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.UpperBound ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +54,10 @@ public class UpperBoundImpl extends BehaviorElementImpl implements UpperBound
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.UPPER_BOUND;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //UpperBoundImpl

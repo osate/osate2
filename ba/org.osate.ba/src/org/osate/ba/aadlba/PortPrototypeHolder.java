@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +32,6 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface PortPrototypeHolder extends PortHolder, PrototypeHolder, Target
+public interface PortPrototypeHolder extends PortHolder, PrototypeHolder, Target, IBAVisitable
 {
 } // PortPrototypeHolder

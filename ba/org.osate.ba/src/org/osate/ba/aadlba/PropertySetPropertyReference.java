@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertySet;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.osate.aadl2.PropertySet;
  * @model
  * @generated
  */
-public interface PropertySetPropertyReference extends PropertyReference
+public interface PropertySetPropertyReference extends PropertyReference, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Property Set</b></em>' reference.
