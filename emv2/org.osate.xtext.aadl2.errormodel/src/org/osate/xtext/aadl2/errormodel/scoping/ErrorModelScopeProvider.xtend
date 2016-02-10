@@ -184,7 +184,9 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def scope_ConditionElement_incoming(ErrorBehaviorStateMachine context, EReference reference) {
 		context.events.scopeFor
 	}
-	
+
+// XXX TODO the scope needs to reflect the change of allowing subcomponent references.
+// when changing this we need to update the scope tests	
 	def scope_ConditionElement_incoming(Classifier context, EReference reference) {
 		new SimpleScope(context.localEventandIncomingPropagationDescriptions, true)
 	}
