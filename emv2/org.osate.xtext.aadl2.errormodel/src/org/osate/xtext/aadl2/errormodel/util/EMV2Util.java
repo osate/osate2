@@ -115,10 +115,6 @@ public class EMV2Util {
 	private static void getClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) {
-			// see if we are adding the local one. We need to match names since we could have both an embedded one and a separate one.
-			if (result.size() == 1 && ems.getName().equalsIgnoreCase(result.get(0).getName())) {
-				return;
-			}
 			result.add(ems);
 		}
 	}
@@ -153,15 +149,16 @@ public class EMV2Util {
 			cl = getAssociatedClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
-		ErrorModelSubclause localemsc = getContainingErrorModelSubclause(element);
-		if (localemsc != null)
-			result.add(localemsc);
-		if (cl == null)
+		if (cl == null) {
+			ErrorModelSubclause localemsc = getContainingErrorModelSubclause(element);
+			if (localemsc != null)
+				result.add(localemsc);
 			return result;
+		}
 		if (cl instanceof ComponentImplementation) {
 			getAllClassifierEMV2Subclause((ComponentImplementation) cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
-		} else {
+		} else if (cl instanceof ComponentType) {
 			getAllClassifierEMV2Subclause((ComponentType) cl, result);
 		}
 		return result;
