@@ -6,6 +6,7 @@ import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.xtext.resource.FileExtensionProvider
@@ -13,7 +14,9 @@ import org.eclipse.xtext.resource.XtextResourceSet
 import org.osate.xtext.aadl2.instance.ui.internal.InstanceActivator
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.copy
+import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
 import static extension org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection
+import static extension org.eclipse.ui.ide.IDE.openEditor
 
 class GenerateTextualInstanceHandler extends AbstractHandler {
 	@Inject
@@ -35,6 +38,9 @@ class GenerateTextualInstanceHandler extends AbstractHandler {
 		val destResource = resourceSetProvider.get.createResource(destUri)
 		destResource.contents += sourceResource.contents.head.copy
 		destResource.save(null)
+		
+		val destFile = sourceFile.workspace.root.getFile(new Path(destUri.toPlatformString(false)))
+		event.activeWorkbenchWindow.activePage.openEditor(destFile)
 		
 		null
 	}
