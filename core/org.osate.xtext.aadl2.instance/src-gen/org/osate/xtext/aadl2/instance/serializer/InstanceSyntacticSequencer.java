@@ -22,11 +22,13 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InstanceGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q;
+	protected AbstractElementAlias match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InstanceGrammarAccess) access;
 		match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getLeftCurlyBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_5_2()));
+		match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFeatureInstanceAccess().getLeftCurlyBracketKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getFeatureInstanceAccess().getRightCurlyBracketKeyword_6_2()));
 	}
 	
 	@Override
@@ -43,6 +45,8 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q.equals(syntax))
 				emit_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q.equals(syntax))
+				emit_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -55,6 +59,17 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     subcomponent=[Subcomponent|SUBREF] (ambiguity) (rule end)
 	 */
 	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_5_0_RightCurlyBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('{' '}')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     feature=[Feature|FEATREF] (ambiguity) (rule end)
+	 */
+	protected void emit_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -138,6 +138,121 @@ class SerializerTest extends OsateTest {
 			}''')
 	}
 	
+	@Test
+	def void testFeatures() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				feature group fgt1
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					p: in parameter;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg1: feature group;
+					af: feature;
+				end fgt1;
+				
+				abstract a
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg: feature group;
+					af: feature;
+				end a;
+				
+				subprogram subp
+				features
+					p: in parameter;
+				end subp;
+				
+				system s1
+				features
+					dp: in data port;
+					ep: out event port;
+					edp: in event data port;
+					ba: provides bus access;
+					subpa: provides subprogram access;
+					subpga: provides subprogram group access;
+					fg1: feature group;
+					fg2: feature group fgt1;
+					af: feature;
+				end s1;
+				
+				system implementation s1.i
+				subcomponents
+					asub: abstract a;
+					subpsub: subprogram subp;
+				end s1.i;
+				
+				system s2
+				features
+					dp1: in data port;
+					dp2: in data port[3];
+				end s2;
+				
+				system implementation s2.i
+				end s2.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			assertSerialize("s1.i", '''
+				system s1_i_Instance : pkg1::s1.i {
+					in out featureGroup fg1 : pkg1::s1::fg1
+					in out featureGroup fg2 : pkg1::s1::fg2 {
+						in out busAccess ba : pkg1::fgt1::ba
+						in dataPort dp : pkg1::fgt1::dp
+						in eventDataPort edp : pkg1::fgt1::edp
+						out eventPort ep : pkg1::fgt1::ep
+						in out featureGroup fg1 : pkg1::fgt1::fg1
+						in parameter p : pkg1::fgt1::p
+						in out subprogramAccess subpa : pkg1::fgt1::subpa
+						in out subprogramGroupAccess subpga : pkg1::fgt1::subpga
+						in out abstractFeature af : pkg1::fgt1::af
+					}
+					in out abstractFeature af : pkg1::s1::af
+					in out busAccess ba : pkg1::s1::ba
+					in dataPort dp : pkg1::s1::dp
+					in out subprogramGroupAccess subpga : pkg1::s1::subpga
+					in out subprogramAccess subpa : pkg1::s1::subpa
+					out eventPort ep : pkg1::s1::ep
+					in eventDataPort edp : pkg1::s1::edp
+					abstract asub [ 0 ] : pkg1::s1.i::asub {
+						in out featureGroup fg : pkg1::a::fg
+						in out abstractFeature af : pkg1::a::af
+						in out busAccess ba : pkg1::a::ba
+						in out subprogramAccess subpa : pkg1::a::subpa
+						in dataPort dp : pkg1::a::dp
+						out eventPort ep : pkg1::a::ep
+						in eventDataPort edp : pkg1::a::edp
+						in out subprogramGroupAccess subpga : pkg1::a::subpga
+					}
+					subprogram subpsub [ 0 ] : pkg1::s1.i::subpsub {
+						in parameter p : pkg1::subp::p
+					}
+					som "No Modes"
+				}''')
+			assertSerialize("s2.i", '''
+				system s2_i_Instance : pkg1::s2.i {
+					in dataPort dp1 : pkg1::s2::dp1
+					in dataPort dp2 [ 1 ] : pkg1::s2::dp2
+					in dataPort dp2 [ 2 ] : pkg1::s2::dp2
+					in dataPort dp2 [ 3 ] : pkg1::s2::dp2
+					som "No Modes"
+				}''')
+		]
+	}
+	
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
 		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
 		impl.assertNotNull

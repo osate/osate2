@@ -29,5 +29,6 @@ class InstanceFormatter extends AbstractDeclarativeFormatter {
 		]
 		c.setLinewrap(1).after(systemOperationModeRule)
 		c.setLinewrap(1).after(componentInstanceRule)
+		c.setLinewrap(1).after(featureInstanceRule)
 	}
 }
