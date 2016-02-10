@@ -70,7 +70,6 @@ import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 		tokenNameToValue.put("Set", "'set'");
 		tokenNameToValue.put("Use", "'use'");
 		tokenNameToValue.put("LeftCurlyBracketAsteriskAsterisk", "'{**'");
-		tokenNameToValue.put("Emv2", "'emv2'");
 		tokenNameToValue.put("Mode", "'mode'");
 		tokenNameToValue.put("Path", "'path'");
 		tokenNameToValue.put("Same", "'same'");
@@ -12632,11 +12631,9 @@ rule__EMV2Library__Group_1__4__Impl
     }
 :
 (
-{ before(grammarAccess.getEMV2LibraryAccess().getEmv2Keyword_1_4()); }
-
-	Emv2 
-
-{ after(grammarAccess.getEMV2LibraryAccess().getEmv2Keyword_1_4()); }
+{ before(grammarAccess.getEMV2LibraryAccess().getIDTerminalRuleCall_1_4()); }
+	RULE_ID
+{ after(grammarAccess.getEMV2LibraryAccess().getIDTerminalRuleCall_1_4()); }
 )
 
 ;
@@ -26268,9 +26265,9 @@ rule__QEMREF__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getQEMREFAccess().getGroup_0()); }
-(rule__QEMREF__Group_0__0)*
-{ after(grammarAccess.getQEMREFAccess().getGroup_0()); }
+{ before(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0()); }
+	RULE_ID
+{ after(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0()); }
 )
 
 ;
@@ -26296,9 +26293,9 @@ rule__QEMREF__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_1()); }
-	RULE_ID
-{ after(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_1()); }
+{ before(grammarAccess.getQEMREFAccess().getGroup_1()); }
+(rule__QEMREF__Group_1__0)*
+{ after(grammarAccess.getQEMREFAccess().getGroup_1()); }
 )
 
 ;
@@ -26311,57 +26308,57 @@ finally {
 
 
 
-rule__QEMREF__Group_0__0
+rule__QEMREF__Group_1__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__QEMREF__Group_0__0__Impl
-	rule__QEMREF__Group_0__1
+	rule__QEMREF__Group_1__0__Impl
+	rule__QEMREF__Group_1__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__QEMREF__Group_0__0__Impl
+rule__QEMREF__Group_1__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0_0()); }
-	RULE_ID
-{ after(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__QEMREF__Group_0__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__QEMREF__Group_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__QEMREF__Group_0__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getQEMREFAccess().getColonColonKeyword_0_1()); }
+{ before(grammarAccess.getQEMREFAccess().getColonColonKeyword_1_0()); }
 
 	ColonColon 
 
-{ after(grammarAccess.getQEMREFAccess().getColonColonKeyword_0_1()); }
+{ after(grammarAccess.getQEMREFAccess().getColonColonKeyword_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__QEMREF__Group_1__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__QEMREF__Group_1__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__QEMREF__Group_1__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_1_1()); }
+	RULE_ID
+{ after(grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_1_1()); }
 )
 
 ;

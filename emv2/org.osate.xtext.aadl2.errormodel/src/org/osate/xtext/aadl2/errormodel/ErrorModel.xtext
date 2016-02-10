@@ -193,7 +193,7 @@ EMV2Library returns ErrorModelLibrary:
 	(transformations+=TypeTransformationSet )*
 	) |
 	(	'package' name=QEMREF 'public'
-  'annex' 'emv2'  '{**' 
+  'annex' ID  '{**' 
 	(
     'error' 'types' 
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
@@ -452,7 +452,7 @@ TransitionBranch returns TransitionBranch:
 ;
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 
-	{BranchValue}
+	{BranchValue} 
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
@@ -599,6 +599,6 @@ terminal INTEGER_LIT : ('0'..'9')+;
 
 
 QEMREF:
-	 (ID '::')* ID ;//('.' ID )?;
+	 ID ('::' ID)* ;//('.' ID )?;
 
 

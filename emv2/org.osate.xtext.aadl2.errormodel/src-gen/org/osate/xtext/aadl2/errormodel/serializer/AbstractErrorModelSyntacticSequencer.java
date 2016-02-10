@@ -63,14 +63,29 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getQEMREFRule())
+		if(ruleCall.getRule() == grammarAccess.getIDRule())
+			return getIDToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getQEMREFRule())
 			return getQEMREFToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
 	/**
+	 * terminal ID:	('a'..'z'
+	 *         |'A'..'Z'
+	 *         ) ( ('_')? ('a'..'z'
+	 *         |'A'..'Z'
+	 *         |'0'..'9'))*;
+	 */
+	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
+	
+	/**
 	 * QEMREF:
-	 * 	 (ID '::')* ID ;
+	 * 	 ID ('::' ID)* ;
 	 */
 	protected String getQEMREFToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
@@ -167,10 +182,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     ('error' 'types' 'end' 'types' ';')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=QEMREF 'public' 'annex' 'emv2' '{**' (ambiguity) '**}' ';' 'end' QEMREF ';' (rule end)
-	 *     name=QEMREF 'public' 'annex' 'emv2' '{**' (ambiguity) behaviors+=ErrorBehaviorStateMachine
-	 *     name=QEMREF 'public' 'annex' 'emv2' '{**' (ambiguity) mappings+=TypeMappingSet
-	 *     name=QEMREF 'public' 'annex' 'emv2' '{**' (ambiguity) transformations+=TypeTransformationSet
+	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) '**}' ';' 'end' QEMREF ';' (rule end)
+	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) behaviors+=ErrorBehaviorStateMachine
+	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) mappings+=TypeMappingSet
+	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) transformations+=TypeTransformationSet
 	 */
 	protected void emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
