@@ -57,7 +57,7 @@ import org.osate.aadl2.Subcomponent;
  *
  * @generated
  */
-public class ComponentImplementationOperations extends ClassifierOperations {
+public class ComponentImplementationOperations extends NamedElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

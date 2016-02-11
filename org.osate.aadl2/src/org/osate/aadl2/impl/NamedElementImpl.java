@@ -40,12 +40,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -236,58 +234,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@Override
-	public boolean has_no_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_no_qualified_name(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_qualified_name(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Namespace getNamespace() {
 		return NamedElementOperations.getNamespace(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Namespace> allNamespaces() {
-		return NamedElementOperations.allNamespaces(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean isDistinguishableFrom(NamedElement n, Namespace ns) {
-		return NamedElementOperations.isDistinguishableFrom(this, n, ns);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String separator() {
-		return NamedElementOperations.separator(this);
 	}
 
 	/**

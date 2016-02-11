@@ -36,11 +36,9 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -170,48 +168,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
-	public boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ElementOperations.not_own_self(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ElementOperations.has_owner(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Element getOwner() {
 		return ElementOperations.getOwner(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Element> allOwnedElements() {
-		return ElementOperations.allOwnedElements(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean mustBeOwned() {
-		return ElementOperations.mustBeOwned(this);
 	}
 
 	/**

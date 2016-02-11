@@ -50,8 +50,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RecordType;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -165,16 +163,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	@Override
 	public BasicProperty createOwnedField() {
 		return createOwnedField(Aadl2Package.eINSTANCE.getBasicProperty());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 	/**

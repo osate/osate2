@@ -35,9 +35,6 @@
  */
 package org.osate.aadl2;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -104,45 +101,6 @@ public interface Namespace extends NamedElement {
 	 * @generated
 	 */
 	EList<NamedElement> getOwnedMembers();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * All the members of a Namespace are distinguishable within it.
-	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
-	 * @param context The cache of context-specific information.
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='membersAreDistinguishable()'"
-	 * @generated
-	 */
-	boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.osate.aadl2.String" ordered="false" elementRequired="true" elementOrdered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if member->includes(element) then\r\n  Set{}->including(element.name)\r\nelse\r\n  Set{}\r\nendif'"
-	 * @generated
-	 */
-	EList<String> getNamesOfMember(NamedElement element);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))'"
-	 * @generated
-	 */
-	boolean membersAreDistinguishable();
 
 	/**
 	 * @author Dio de Niz

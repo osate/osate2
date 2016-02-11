@@ -35,9 +35,6 @@
  */
 package org.osate.aadl2;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.parsesupport.AObject;
 
@@ -118,62 +115,10 @@ public interface Element extends AObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * An element may not directly or indirectly own itself.
-	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
-	 * @param context The cache of context-specific information.
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allOwnedElements()->includes(self)'"
-	 * @generated
-	 */
-	boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Elements that must be owned must have an owner.
-	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
-	 * @param context The cache of context-specific information.
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.mustBeOwned() implies owner->notEmpty()'"
-	 * @generated
-	 */
-	boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model kind="operation" required="true" ordered="false"
 	 * @generated
 	 */
 	Element getOwner();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))'"
-	 * @generated
-	 */
-	EList<Element> allOwnedElements();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='true'"
-	 * @generated
-	 */
-	boolean mustBeOwned();
 
 	/**
 	 * Find the root container of this element

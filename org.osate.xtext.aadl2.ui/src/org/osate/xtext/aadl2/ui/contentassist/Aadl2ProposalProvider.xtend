@@ -231,7 +231,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 			switch proposedObj {
 				case proposedObj == container : false
 				case proposedObj.inverse == null : true
-				case proposedObj.allFeatures().nullOrEmpty : false 
+				case proposedObj.allFeatures.nullOrEmpty : false 
 				default : true
 			}
 		])

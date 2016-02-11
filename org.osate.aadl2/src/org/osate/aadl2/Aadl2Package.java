@@ -43085,7 +43085,6 @@ public interface Aadl2Package extends EPackage {
 	 * @return the meta object for data type '<em>String</em>'.
 	 * @see java.lang.String
 	 * @model instanceClass="java.lang.String"
-	 *        annotation="http://www.topcased.org/documentation documentation='A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.'"
 	 * @generated
 	 */
 	EDataType getString();
@@ -43096,7 +43095,6 @@ public interface Aadl2Package extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Boolean</em>'.
 	 * @model instanceClass="boolean"
-	 *        annotation="http://www.topcased.org/documentation documentation='A Boolean type is used for logical expression, consisting of the predefined values true and false.'"
 	 * @generated
 	 */
 	EDataType getBoolean();
@@ -43107,7 +43105,6 @@ public interface Aadl2Package extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Integer</em>'.
 	 * @model instanceClass="long"
-	 *        annotation="http://www.topcased.org/documentation documentation='An integer is a primitive type representing integer values.'"
 	 * @generated
 	 */
 	EDataType getInteger();
@@ -43118,7 +43115,6 @@ public interface Aadl2Package extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>Real</em>'.
 	 * @model instanceClass="double"
-	 *        annotation="http://www.topcased.org/documentation documentation='A real is a primitive type representing real numeric values.'"
 	 * @generated
 	 */
 	EDataType getReal();
