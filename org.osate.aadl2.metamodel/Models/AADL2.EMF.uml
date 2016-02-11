@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA">
-  <uml:Model xmi:id="_0" name="AADL2">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_0" name="AADL2" URI="http://aadl.info/AADL/2.0">
     <packageMerge xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="uml:Model" href="AADL2.uml#_0"/>
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
-      <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isReadOnly="true" aggregation="composite" isDerived="true"/>
       <ownedOperation xmi:id="Element-getOwner" name="getOwner">
         <ownedParameter xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RefinableElement" name="RefinableElement" isAbstract="true">
-      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" isDerived="true"/>
-      <ownedAttribute xmi:id="RefinableElement-refinementContext" name="refinementContext" isDerived="true"/>
+      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="RefinableElement-refinementContext" name="refinementContext" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
-      <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isDerived="true"/>
+      <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isReadOnly="true" isDerived="true"/>
       <ownedOperation xmi:id="NamedElement-getNamespace" name="getNamespace">
         <ownedParameter xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
-      <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" isDerived="true" aggregation="composite"/>
-      <ownedAttribute xmi:id="Namespace-member" name="member" isDerived="true"/>
+      <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:id="Namespace-member" name="member" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
-      <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-general" name="general" isDerived="true"/>
+      <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Classifier-general" name="general" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">
-      <ownedAttribute xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" isDerived="true"/>
+      <ownedAttribute xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Relationship" name="Relationship" isAbstract="true">
-      <ownedAttribute xmi:id="Relationship-relatedElement" name="relatedElement" isDerived="true"/>
+      <ownedAttribute xmi:id="Relationship-relatedElement" name="relatedElement" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DirectedRelationship" name="DirectedRelationship" isAbstract="true">
-      <ownedAttribute xmi:id="DirectedRelationship-source" name="source" isDerived="true"/>
-      <ownedAttribute xmi:id="DirectedRelationship-target" name="target" isDerived="true"/>
+      <ownedAttribute xmi:id="DirectedRelationship-source" name="source" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="DirectedRelationship-target" name="target" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Generalization" name="Generalization" isAbstract="true">
       <ownedAttribute xmi:id="Generalization-specific" name="specific" isDerived="true"/>
-      <ownedAttribute xmi:id="Generalization-general" name="general" isDerived="true"/>
+      <ownedAttribute xmi:id="Generalization-general" name="general" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="GlobalNamespace" name="GlobalNamespace">
       <ownedAttribute xmi:id="GlobalNamespace-package" name="package"/>
@@ -53,80 +53,80 @@
       <ownedAttribute xmi:id="PackageSection-name" name="name" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PublicPackageSection" name="PublicPackageSection">
-      <ownedAttribute xmi:id="PublicPackageSection-privateSection" name="privateSection" isDerived="true"/>
+      <ownedAttribute xmi:id="PublicPackageSection-privateSection" name="privateSection" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PrivatePackageSection" name="PrivatePackageSection">
-      <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isDerived="true"/>
+      <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Access" name="Access" isAbstract="true">
-      <ownedAttribute xmi:id="Access-category" name="category" isDerived="true"/>
+      <ownedAttribute xmi:id="Access-category" name="category" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Port" name="Port" isAbstract="true">
-      <ownedAttribute xmi:id="Port-category" name="category" isDerived="true"/>
+      <ownedAttribute xmi:id="Port-category" name="category" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroup" name="FeatureGroup">
-      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType"/>
-      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype"/>
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType" isReadOnly="true"/>
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype" isReadOnly="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroupType" name="FeatureGroupType">
       <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentClassifier" name="ComponentClassifier" isAbstract="true">
       <ownedAttribute xmi:id="ComponentClassifier-derivedModes" name="derivedModes"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentType" name="ComponentType" isAbstract="true">
-      <ownedAttribute xmi:id="ComponentType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="ComponentType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
       <ownedAttribute xmi:id="ComponentType-extended" name="extended" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Feature" name="Feature" isAbstract="true">
-      <ownedAttribute xmi:id="Feature-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="Feature-prototype" name="prototype" isDerived="true"/>
-      <ownedAttribute xmi:id="Feature-featureClassifier" name="featureClassifier" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-featureClassifier" name="featureClassifier" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentImplementation" name="ComponentImplementation" isAbstract="true">
       <ownedAttribute xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isReadOnly="true" aggregation="composite" isDerived="true"/>
       <ownedAttribute xmi:id="ComponentImplementation-extended" name="extended" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isDerived="true" aggregation="composite"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedInternalFeature" name="ownedInternalFeature" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedProcessorFeature" name="ownedProcessorFeature" isDerived="true"/>
+      <ownedAttribute xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:id="ComponentImplementation-ownedInternalFeature" name="ownedInternalFeature" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="ComponentImplementation-ownedProcessorFeature" name="ownedProcessorFeature" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
-      <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isReadOnly="true" isDerived="true"/>
       <ownedAttribute xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-subprogramCall" name="subprogramCall" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath">
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath" isAbstract="true">
       <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
       <ownedOperation xmi:id="ModalPath-getInModes" name="getInModes">
         <ownedParameter xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModes-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
         <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="ModalPath-getAllInModeTransitions" name="getAllInModeTransitions">
         <ownedParameter xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement" isAbstract="true">
       <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
         <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -176,26 +176,10 @@
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorImplementation" name="VirtualProcessorImplementation">
       <ownedAttribute xmi:id="VirtualProcessorImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
-      <eAnnotations xmi:id="Boolean-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-        <details xmi:id="Boolean-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
-      </eAnnotations>
-    </packagedElement>
-    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer">
-      <eAnnotations xmi:id="Integer-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-        <details xmi:id="Integer-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="An integer is a primitive type representing integer values."/>
-      </eAnnotations>
-    </packagedElement>
-    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="String" name="String">
-      <eAnnotations xmi:id="String-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-        <details xmi:id="String-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."/>
-      </eAnnotations>
-    </packagedElement>
-    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Real" name="Real">
-      <eAnnotations xmi:id="Real-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
-        <details xmi:id="Real-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="A real is a primitive type representing real numeric values."/>
-      </eAnnotations>
-    </packagedElement>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="String" name="String"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Real" name="Real"/>
     <packagedElement xmi:type="uml:Class" xmi:id="Property" name="Property">
       <ownedAttribute xmi:id="Property-appliesToClassifier" name="appliesToClassifier" isDerived="true"/>
       <ownedAttribute xmi:id="Property-appliesToMetaclass" name="appliesToMetaclass" isDerived="true"/>
@@ -203,24 +187,24 @@
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramType" name="SubprogramType">
       <generalization xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext" isAbstract="true"/>
     <packagedElement xmi:type="uml:Class" xmi:id="ContainedNamedElement" name="ContainedNamedElement">
-      <ownedAttribute xmi:id="ContainedNamedElement-containmentPathElement" name="containmentPathElement" isDerived="true"/>
+      <ownedAttribute xmi:id="ContainedNamedElement-containmentPathElement" name="containmentPathElement" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BasicProperty" name="BasicProperty">
-      <ownedAttribute xmi:id="BasicProperty-propertyType" name="propertyType" isDerived="true"/>
+      <ownedAttribute xmi:id="BasicProperty-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PropertyConstant" name="PropertyConstant">
-      <ownedAttribute xmi:id="PropertyConstant-propertyType" name="propertyType" isDerived="true"/>
+      <ownedAttribute xmi:id="PropertyConstant-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ListType" name="ListType">
-      <ownedAttribute xmi:id="ListType-elementType" name="elementType" isDerived="true"/>
+      <ownedAttribute xmi:id="ListType-elementType" name="elementType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RangeType" name="RangeType">
-      <ownedAttribute xmi:id="RangeType-numberType" name="numberType" isDerived="true"/>
+      <ownedAttribute xmi:id="RangeType-numberType" name="numberType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="NumberType" name="NumberType">
-      <ownedAttribute xmi:id="NumberType-unitsType" name="unitsType" isDerived="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="NumberType" name="NumberType" isAbstract="true">
+      <ownedAttribute xmi:id="NumberType-unitsType" name="unitsType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DirectedFeature" name="DirectedFeature" isAbstract="true">
       <ownedAttribute xmi:id="DirectedFeature-direction" name="direction" isDerived="true"/>
@@ -242,13 +226,13 @@
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
     </profileApplication>
     <profileApplication xmi:id="_profileApplication.1">
       <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
@@ -268,7 +252,7 @@
   <Ecore:EReference xmi:id="_wVJ9kVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-inheritedMember"/>
   <Ecore:EReference xmi:id="_wVJ9klm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-generalization"/>
   <Ecore:EReference xmi:id="_wVJ9k1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-general"/>
-  <Ecore:EReference xmi:id="_wVJ9lFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ClassifierFeature-featuringClassifier"/>
+  <Ecore:EReference xmi:id="_wVJ9lFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ClassifierFeature-featuringClassifier" isResolveProxies="false"/>
   <Ecore:EReference xmi:id="_wVJ9l1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Relationship-relatedElement"/>
   <Ecore:EReference xmi:id="_wVJ9mFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-source"/>
   <Ecore:EReference xmi:id="_wVTukFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-target"/>
@@ -284,37 +268,37 @@
   <Ecore:EReference xmi:id="_wVc4hlm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedConnection"/>
   <Ecore:EReference xmi:id="_wV5kcFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-extended"/>
   <Ecore:EReference xmi:id="_8tGW8FpIEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeature"/>
-  <Standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
-  <Standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
-  <Standard:Metaclass xmi:id="_NFPxoVprEd2djcltMkYjuA" base_Class="NamedElement"/>
-  <Standard:Metaclass xmi:id="_NFPxolprEd2djcltMkYjuA" base_Class="Namespace"/>
-  <Standard:Metaclass xmi:id="_NFPxo1prEd2djcltMkYjuA" base_Class="Classifier"/>
-  <Standard:Metaclass xmi:id="_NFPxpFprEd2djcltMkYjuA" base_Class="ClassifierFeature"/>
-  <Standard:Metaclass xmi:id="_NFPxplprEd2djcltMkYjuA" base_Class="Relationship"/>
-  <Standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
-  <Standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
-  <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
-  <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
-  <Standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
-  <Standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisk1prEd2djcltMkYjuA" base_Class="AbstractImplementation"/>
-  <Standard:Metaclass xmi:id="_NFislVprEd2djcltMkYjuA" base_Class="BusImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisl1prEd2djcltMkYjuA" base_Class="DataImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdkVprEd2djcltMkYjuA" base_Class="DeviceImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdk1prEd2djcltMkYjuA" base_Class="MemoryImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdlVprEd2djcltMkYjuA" base_Class="ProcessImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdl1prEd2djcltMkYjuA" base_Class="ProcessorImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ngFprEd2djcltMkYjuA" base_Class="SubprogramImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nglprEd2djcltMkYjuA" base_Class="SubprogramGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nhFprEd2djcltMkYjuA" base_Class="SystemImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nhlprEd2djcltMkYjuA" base_Class="ThreadImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YgFprEd2djcltMkYjuA" base_Class="ThreadGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YglprEd2djcltMkYjuA" base_Class="VirtualBusImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YhFprEd2djcltMkYjuA" base_Class="VirtualProcessorImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YhVprEd2djcltMkYjuA" base_Class="FeatureGroupType"/>
-  <Standard:Metaclass xmi:id="_NF_Yh1prEd2djcltMkYjuA" base_Class="GlobalNamespace"/>
+  <standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
+  <standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
+  <standard:Metaclass xmi:id="_NFPxoVprEd2djcltMkYjuA" base_Class="NamedElement"/>
+  <standard:Metaclass xmi:id="_NFPxolprEd2djcltMkYjuA" base_Class="Namespace"/>
+  <standard:Metaclass xmi:id="_NFPxo1prEd2djcltMkYjuA" base_Class="Classifier"/>
+  <standard:Metaclass xmi:id="_NFPxpFprEd2djcltMkYjuA" base_Class="ClassifierFeature"/>
+  <standard:Metaclass xmi:id="_NFPxplprEd2djcltMkYjuA" base_Class="Relationship"/>
+  <standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
+  <standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
+  <standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
+  <standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
+  <standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
+  <standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
+  <standard:Metaclass xmi:id="_NFisk1prEd2djcltMkYjuA" base_Class="AbstractImplementation"/>
+  <standard:Metaclass xmi:id="_NFislVprEd2djcltMkYjuA" base_Class="BusImplementation"/>
+  <standard:Metaclass xmi:id="_NFisl1prEd2djcltMkYjuA" base_Class="DataImplementation"/>
+  <standard:Metaclass xmi:id="_NFsdkVprEd2djcltMkYjuA" base_Class="DeviceImplementation"/>
+  <standard:Metaclass xmi:id="_NFsdk1prEd2djcltMkYjuA" base_Class="MemoryImplementation"/>
+  <standard:Metaclass xmi:id="_NFsdlVprEd2djcltMkYjuA" base_Class="ProcessImplementation"/>
+  <standard:Metaclass xmi:id="_NFsdl1prEd2djcltMkYjuA" base_Class="ProcessorImplementation"/>
+  <standard:Metaclass xmi:id="_NF1ngFprEd2djcltMkYjuA" base_Class="SubprogramImplementation"/>
+  <standard:Metaclass xmi:id="_NF1nglprEd2djcltMkYjuA" base_Class="SubprogramGroupImplementation"/>
+  <standard:Metaclass xmi:id="_NF1nhFprEd2djcltMkYjuA" base_Class="SystemImplementation"/>
+  <standard:Metaclass xmi:id="_NF1nhlprEd2djcltMkYjuA" base_Class="ThreadImplementation"/>
+  <standard:Metaclass xmi:id="_NF_YgFprEd2djcltMkYjuA" base_Class="ThreadGroupImplementation"/>
+  <standard:Metaclass xmi:id="_NF_YglprEd2djcltMkYjuA" base_Class="VirtualBusImplementation"/>
+  <standard:Metaclass xmi:id="_NF_YhFprEd2djcltMkYjuA" base_Class="VirtualProcessorImplementation"/>
+  <standard:Metaclass xmi:id="_NF_YhVprEd2djcltMkYjuA" base_Class="FeatureGroupType"/>
+  <standard:Metaclass xmi:id="_NF_Yh1prEd2djcltMkYjuA" base_Class="GlobalNamespace"/>
   <Ecore:EReference xmi:id="_cKPCQF11Ed2aqP4X3Bnz6w" isTransient="true" isVolatile="true" base_Property="BehavioredImplementation-subprogramCall"/>
-  <Standard:Metaclass xmi:id="_k5LIUF11Ed2aqP4X3Bnz6w" base_Class="BehavioredImplementation"/>
+  <standard:Metaclass xmi:id="_k5LIUF11Ed2aqP4X3Bnz6w" base_Class="BehavioredImplementation"/>
   <Ecore:EReference xmi:id="_kXvTkF2TEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-type"/>
   <Ecore:EReference xmi:id="_rrzXEF2TEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="BusImplementation-type"/>
   <Ecore:EReference xmi:id="_N92rAF2UEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="DataImplementation-type"/>
@@ -330,58 +314,55 @@
   <Ecore:EReference xmi:id="_9xDvcF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-type"/>
   <Ecore:EReference xmi:id="_Bjll4F2YEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="DeviceImplementation-type"/>
   <Ecore:EClass xmi:id="__CwukGhxEd21g9MLLnbMJw" xmlName="Package" base_Class="Package" className="AadlPackage"/>
-  <Standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
+  <standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
   <Ecore:EReference xmi:id="_feeQ4P3sEd2Ro5zjTxEQsg" isTransient="true" isVolatile="true" base_Property="Feature-classifier"/>
-  <Standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
-  <Standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
+  <standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
+  <standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
-  <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
-  <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
+  <standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
+  <standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
   <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-prototype"/>
   <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-subcomponentType"/>
-  <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
+  <standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
   <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
   <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
   <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-prototype"/>
   <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-featureClassifier"/>
-  <Standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="ModalPath"/>
+  <standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="ModalPath"/>
   <Ecore:EReference xmi:id="_sb-IwLbPEeCFTe7PfIxrcw" isTransient="true" isVolatile="true" base_Property="ModalPath-inMode"/>
-  <Ecore:EReference xmi:id="_8dymkLbPEeCFTe7PfIxrcw"/>
   <Ecore:EReference xmi:id="_2pccALcUEeCm2_IbD3l0tA" isTransient="true" isVolatile="true" base_Property="Subcomponent-inMode"/>
-  <Standard:Metaclass xmi:id="_gqSIsP5zEeCNbuO0Qm4fmQ" base_Class="Property"/>
+  <standard:Metaclass xmi:id="_gqSIsP5zEeCNbuO0Qm4fmQ" base_Class="Property"/>
   <Ecore:EReference xmi:id="_vn4JYP5zEeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Property-appliesToClassifier"/>
   <Ecore:EReference xmi:id="_3z8L4P5zEeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Property-appliesToMetaclass"/>
-  <Standard:Metaclass xmi:id="_HSZd8P50EeCNbuO0Qm4fmQ" base_Class="RefinableElement"/>
+  <standard:Metaclass xmi:id="_HSZd8P50EeCNbuO0Qm4fmQ" base_Class="RefinableElement"/>
   <Ecore:EReference xmi:id="_Zqt5EP50EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="RefinableElement-refinedElement"/>
   <Ecore:EReference xmi:id="_a3ToAP50EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="RefinableElement-refinementContext"/>
   <Ecore:EAttribute xmi:id="_G8QZYP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="PackageSection-name"/>
   <Ecore:EAttribute xmi:id="_hw3EUP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Access-category"/>
   <Ecore:EAttribute xmi:id="_iqUb4P51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Port-category"/>
-  <Standard:Metaclass xmi:id="_viirgP51EeCNbuO0Qm4fmQ" base_Class="PackageSection"/>
-  <Standard:Metaclass xmi:id="_vijSkP51EeCNbuO0Qm4fmQ" base_Class="Access"/>
-  <Standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
-  <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true"/>
-  <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ"/>
-  <Standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="ModeTransition"/>
-  <Standard:Metaclass xmi:id="_4FrdgGWVEeKn5rvcPbyT8w" base_Class="CallContext"/>
-  <Standard:Metaclass xmi:id="_BcO10GWZEeKn5rvcPbyT8w" base_Class="SubprogramType"/>
+  <standard:Metaclass xmi:id="_viirgP51EeCNbuO0Qm4fmQ" base_Class="PackageSection"/>
+  <standard:Metaclass xmi:id="_vijSkP51EeCNbuO0Qm4fmQ" base_Class="Access"/>
+  <standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
+  <standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="ModeTransition"/>
+  <standard:Metaclass xmi:id="_4FrdgGWVEeKn5rvcPbyT8w" base_Class="CallContext"/>
+  <standard:Metaclass xmi:id="_BcO10GWZEeKn5rvcPbyT8w" base_Class="SubprogramType"/>
   <Ecore:EAttribute xmi:id="_YW234E4fEeOhgd3TaVpFAQ" isTransient="true" isVolatile="true" base_Property="Mode-derived"/>
-  <Standard:Metaclass xmi:id="_62gtgE4gEeOhgd3TaVpFAQ" base_Class="ComponentClassifier"/>
+  <standard:Metaclass xmi:id="_62gtgE4gEeOhgd3TaVpFAQ" base_Class="ComponentClassifier"/>
   <Ecore:EAttribute xmi:id="_210X4E4jEeOhgd3TaVpFAQ" base_Property="ComponentClassifier-derivedModes"/>
   <Ecore:EReference xmi:id="_G4sGQInHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedInternalFeature"/>
   <Ecore:EReference xmi:id="_ICpX8InHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedProcessorFeature"/>
-  <Standard:Metaclass xmi:id="_JGiW0D0REeSdvMOHIJggqw" base_Class="ContainedNamedElement"/>
+  <standard:Metaclass xmi:id="_JGiW0D0REeSdvMOHIJggqw" base_Class="ContainedNamedElement"/>
   <Ecore:EReference xmi:id="_oY8CwD0REeSdvMOHIJggqw" isTransient="true" base_Property="ContainedNamedElement-containmentPathElement"/>
   <Ecore:EReference xmi:id="_d4lBAD9DEeSMi-ARKmUa4A" isTransient="true" isVolatile="true" base_Property="BasicProperty-propertyType"/>
   <Ecore:EReference xmi:id="_fVLh4D9DEeSMi-ARKmUa4A" isTransient="true" isVolatile="true" base_Property="NumberType-unitsType"/>
-  <Standard:Metaclass xmi:id="_kF1NcD9DEeSMi-ARKmUa4A" base_Class="BasicProperty"/>
-  <Standard:Metaclass xmi:id="_lYknsD9DEeSMi-ARKmUa4A" base_Class="NumberType"/>
-  <Standard:Metaclass xmi:id="_cRenkEM5EeSo7dNc7Eb1Kg" base_Class="DirectedFeature"/>
-  <Standard:Metaclass xmi:id="_dhFOQEM5EeSo7dNc7Eb1Kg" base_Class="FeaturePrototype"/>
-  <Standard:Metaclass xmi:id="_e8aj0EM5EeSo7dNc7Eb1Kg" base_Class="FeaturePrototypeReference"/>
-  <Standard:Metaclass xmi:id="_gIptcEM5EeSo7dNc7Eb1Kg" base_Class="PortSpecification"/>
-  <Standard:Metaclass xmi:id="_hdfZcEM5EeSo7dNc7Eb1Kg" base_Class="InternalFeature"/>
-  <Standard:Metaclass xmi:id="_jRwMYEM5EeSo7dNc7Eb1Kg" base_Class="PortProxy"/>
+  <standard:Metaclass xmi:id="_kF1NcD9DEeSMi-ARKmUa4A" base_Class="BasicProperty"/>
+  <standard:Metaclass xmi:id="_lYknsD9DEeSMi-ARKmUa4A" base_Class="NumberType"/>
+  <standard:Metaclass xmi:id="_cRenkEM5EeSo7dNc7Eb1Kg" base_Class="DirectedFeature"/>
+  <standard:Metaclass xmi:id="_dhFOQEM5EeSo7dNc7Eb1Kg" base_Class="FeaturePrototype"/>
+  <standard:Metaclass xmi:id="_e8aj0EM5EeSo7dNc7Eb1Kg" base_Class="FeaturePrototypeReference"/>
+  <standard:Metaclass xmi:id="_gIptcEM5EeSo7dNc7Eb1Kg" base_Class="PortSpecification"/>
+  <standard:Metaclass xmi:id="_hdfZcEM5EeSo7dNc7Eb1Kg" base_Class="InternalFeature"/>
+  <standard:Metaclass xmi:id="_jRwMYEM5EeSo7dNc7Eb1Kg" base_Class="PortProxy"/>
   <Ecore:EAttribute xmi:id="_mmMYoEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="DirectedFeature-direction"/>
   <Ecore:EAttribute xmi:id="_nzhucEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="FeaturePrototype-direction"/>
   <Ecore:EAttribute xmi:id="_o29hYEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="FeaturePrototypeReference-direction"/>
@@ -389,9 +370,9 @@
   <Ecore:EAttribute xmi:id="_rDlJ8EM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="InternalFeature-direction"/>
   <Ecore:EAttribute xmi:id="_s0S5oEM5EeSo7dNc7Eb1Kg" isTransient="true" isVolatile="true" base_Property="PortProxy-direction"/>
   <Ecore:EReference xmi:id="_be2OUEscEeSXJZycUfbgZg" isTransient="true" isVolatile="true" base_Property="PropertyConstant-propertyType"/>
-  <Standard:Metaclass xmi:id="_ctXP4EscEeSXJZycUfbgZg" base_Class="PropertyConstant"/>
-  <Standard:Metaclass xmi:id="_X_NcoEv2EeSNAfeIIJ0qNQ" base_Class="ListType"/>
+  <standard:Metaclass xmi:id="_ctXP4EscEeSXJZycUfbgZg" base_Class="PropertyConstant"/>
+  <standard:Metaclass xmi:id="_X_NcoEv2EeSNAfeIIJ0qNQ" base_Class="ListType"/>
   <Ecore:EReference xmi:id="_feR2QEv2EeSNAfeIIJ0qNQ" isTransient="true" isVolatile="true" base_Property="ListType-elementType"/>
-  <Standard:Metaclass xmi:id="_aZhWADYhEeW7UdyEyvjiPw" base_Class="RangeType"/>
+  <standard:Metaclass xmi:id="_aZhWADYhEeW7UdyEyvjiPw" base_Class="RangeType"/>
   <Ecore:EReference xmi:id="_oipz4DYhEeW7UdyEyvjiPw" isTransient="true" isVolatile="true" base_Property="RangeType-numberType"/>
 </xmi:XMI>

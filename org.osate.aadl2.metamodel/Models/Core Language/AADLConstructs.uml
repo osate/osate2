@@ -435,12 +435,6 @@
         <ownedComment xmi:id="Templates-Prototype-_ownedComment.0">
           <body>A prototype of a classifier.</body>
         </ownedComment>
-        <ownedRule xmi:id="Templates-Prototype-categoryConstraint" name="categoryConstraint">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="Templates-Prototype-categoryConstraint-_specification">
-            <language>OCL</language>
-            <body>self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory</body>
-          </specification>
-        </ownedRule>
         <generalization xmi:id="Templates-Prototype-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
