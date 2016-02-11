@@ -50,8 +50,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -165,16 +163,6 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	@Override
 	public EnumerationLiteral createOwnedLiteral() {
 		return createOwnedLiteral(Aadl2Package.eINSTANCE.getEnumerationLiteral());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 	/**

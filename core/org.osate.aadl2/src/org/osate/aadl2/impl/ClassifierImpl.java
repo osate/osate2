@@ -37,12 +37,10 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 import java.util.ListIterator;
-import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -65,9 +63,6 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.ClassifierOperations;
-import org.osate.aadl2.operations.TypeOperations;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
@@ -601,116 +596,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ClassifierOperations.no_cycles_in_generalization(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ClassifierOperations.specialize_type(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<ClassifierFeature> allFeatures() {
-		return ClassifierOperations.allFeatures(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<NamedElement> inheritedMember() {
-		return ClassifierOperations.inheritedMember(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Classifier> parents() {
-		return ClassifierOperations.parents(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Classifier> allParents() {
-		return ClassifierOperations.allParents(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<NamedElement> inheritableMembers(Classifier c) {
-		return ClassifierOperations.inheritableMembers(this, c);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean hasVisibilityOf(NamedElement n) {
-		return ClassifierOperations.hasVisibilityOf(this, n);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<NamedElement> inherit(EList<NamedElement> inhs) {
-		return ClassifierOperations.inherit(this, inhs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean maySpecializeType(Classifier c) {
-		return ClassifierOperations.maySpecializeType(this, c);
 	}
 
 	/**

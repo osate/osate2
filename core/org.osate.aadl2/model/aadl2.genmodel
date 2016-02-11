@@ -37,7 +37,7 @@
     <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
     <details key="NON_API_INVARIANTS" value="IGNORE"/>
   </genAnnotations>
-  <foreignModel>../../org.osate.aadl2.metamodel.core/Models/AADL2.EMF.merged.uml</foreignModel>
+  <foreignModel>../../org.osate.aadl2.metamodel/Models/AADL2.EMF.merged.uml</foreignModel>
   <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
       resource="XMI" disposableProviderFactory="true" literalsInterface="false" ecorePackage="aadl2.ecore#/"
       operationsPackage="org.osate.aadl2.operations">
@@ -98,47 +98,19 @@
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedElement"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedComment"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/not_own_self">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/not_own_self/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/not_own_self/context"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/has_owner">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/has_owner/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Element/has_owner/context"/>
-      </genOperations>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/getOwner"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/allOwnedElements"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Element/mustBeOwned"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//Comment">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Comment/body"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Type">
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Type/conformsTo">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Type/conformsTo/other"/>
-      </genOperations>
-    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Type"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//NamedElement">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/name"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
           ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/qualifiedName.1"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NamedElement/ownedPropertyAssociation"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/has_no_qualified_name">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_no_qualified_name/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_no_qualified_name/context"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/has_qualified_name">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/context"/>
-      </genOperations>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/getNamespace"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/allNamespaces"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/isDistinguishableFrom">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/isDistinguishableFrom/n"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/isDistinguishableFrom/ns"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/separator"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/qualifiedName"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/getPropertyValues">
         <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/getPropertyValues/propertySetName"/>
@@ -194,7 +166,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/classifierFeature"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
-          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/inheritedMember.1"/>
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/inheritedMember"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/generalization"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
@@ -208,44 +180,12 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noPrototypes"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noAnnexes"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noProperties"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/no_cycles_in_generalization">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/no_cycles_in_generalization/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/no_cycles_in_generalization/context"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/specialize_type">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/specialize_type/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/specialize_type/context"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/allFeatures"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/inheritedMember"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/parents"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/allParents"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/inheritableMembers">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/inheritableMembers/c"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/hasVisibilityOf">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/hasVisibilityOf/n"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/inherit">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/inherit/inhs"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Classifier/maySpecializeType">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Classifier/maySpecializeType/c"/>
-      </genOperations>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Namespace">
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/member"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/members_distinguishable">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/context"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/getNamesOfMember">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Namespace/getNamesOfMember/element"/>
-      </genOperations>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Namespace/membersAreDistinguishable"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ClassifierFeature">
       <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
@@ -282,10 +222,6 @@
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Prototype">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Prototype/refined"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//Prototype/categoryConstraint">
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Prototype/categoryConstraint/diagnostics"/>
-        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//Prototype/categoryConstraint/context"/>
-      </genOperations>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//StructuralFeature"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//RefinableElement">

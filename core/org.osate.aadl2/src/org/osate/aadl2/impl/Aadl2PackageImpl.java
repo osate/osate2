@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -10540,39 +10539,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		EOperation op = addEOperation(elementEClass, ecorePackage.getEBoolean(), "not_own_self", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		EGenericType g1 = createEGenericType(ecorePackage.getEMap());
-		EGenericType g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(elementEClass, ecorePackage.getEBoolean(), "has_owner", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		addEOperation(elementEClass, getElement(), "getOwner", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(elementEClass, getElement(), "allOwnedElements", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(elementEClass, getBoolean(), "mustBeOwned", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
 		initEClass(commentEClass, Comment.class, "Comment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComment_Body(), getString(), "body", null, 0, 1, Comment.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		op = addEOperation(typeEClass, getBoolean(), "conformsTo", 1, 1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getType(), "other", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -10584,40 +10557,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				"ownedPropertyAssociation", null, 0, -1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		op = addEOperation(namedElementEClass, ecorePackage.getEBoolean(), "has_no_qualified_name", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(namedElementEClass, ecorePackage.getEBoolean(), "has_qualified_name", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
 		addEOperation(namedElementEClass, getNamespace(), "getNamespace", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(namedElementEClass, getNamespace(), "allNamespaces", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(namedElementEClass, getBoolean(), "isDistinguishableFrom", 1, 1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getNamedElement(), "n", 1, 1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getNamespace(), "ns", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(namedElementEClass, getString(), "separator", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
 		addEOperation(namedElementEClass, getString(), "qualifiedName", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
-		op = addEOperation(namedElementEClass, getPropertyExpression(), "getPropertyValues", 0, -1, IS_UNIQUE,
-				!IS_ORDERED);
+		EOperation op = addEOperation(namedElementEClass, getPropertyExpression(), "getPropertyValues", 0, -1,
+				IS_UNIQUE, !IS_ORDERED);
 		addEParameter(op, getString(), "propertySetName", 1, 1, IS_UNIQUE, !IS_ORDERED);
 		addEParameter(op, getString(), "propertyName", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
@@ -10738,46 +10683,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 
-		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "no_cycles_in_generalization", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(classifierEClass, ecorePackage.getEBoolean(), "specialize_type", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(classifierEClass, getClassifierFeature(), "allFeatures", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(classifierEClass, getNamedElement(), "inheritedMember", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(classifierEClass, getClassifier(), "parents", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(classifierEClass, getClassifier(), "allParents", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		op = addEOperation(classifierEClass, getNamedElement(), "inheritableMembers", 0, -1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getClassifier(), "c", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		op = addEOperation(classifierEClass, getBoolean(), "hasVisibilityOf", 1, 1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getNamedElement(), "n", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		op = addEOperation(classifierEClass, getNamedElement(), "inherit", 0, -1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getNamedElement(), "inhs", 0, -1, IS_UNIQUE, !IS_ORDERED);
-
-		op = addEOperation(classifierEClass, getBoolean(), "maySpecializeType", 1, 1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getClassifier(), "c", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
 		initEClass(namespaceEClass, Namespace.class, "Namespace", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNamespace_OwnedMember(), getNamedElement(), null, "ownedMember", null, 0, -1, Namespace.class,
@@ -10786,21 +10691,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getNamespace_Member(), getNamedElement(), null, "member", null, 0, -1, Namespace.class,
 				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				IS_DERIVED, !IS_ORDERED);
-
-		op = addEOperation(namespaceEClass, ecorePackage.getEBoolean(), "members_distinguishable", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(namespaceEClass, getString(), "getNamesOfMember", 0, -1, IS_UNIQUE, !IS_ORDERED);
-		addEParameter(op, getNamedElement(), "element", 1, 1, IS_UNIQUE, !IS_ORDERED);
-
-		addEOperation(namespaceEClass, getBoolean(), "membersAreDistinguishable", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
 		initEClass(classifierFeatureEClass, ClassifierFeature.class, "ClassifierFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -10857,16 +10747,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getPrototype_Refined(), getPrototype(), null, "refined", null, 0, 1, Prototype.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		op = addEOperation(prototypeEClass, ecorePackage.getEBoolean(), "categoryConstraint", 0, 1, IS_UNIQUE,
-				IS_ORDERED);
-		addEParameter(op, ecorePackage.getEDiagnosticChain(), "diagnostics", 0, 1, IS_UNIQUE, IS_ORDERED);
-		g1 = createEGenericType(ecorePackage.getEMap());
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		g2 = createEGenericType(ecorePackage.getEJavaObject());
-		g1.getETypeArguments().add(g2);
-		addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(structuralFeatureEClass, StructuralFeature.class, "StructuralFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12808,8 +12688,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createUnionAnnotations();
 		// subsets
 		createSubsetsAnnotations();
-		// http://www.topcased.org/documentation
-		createDocumentationAnnotations();
 		// redefines
 		createRedefinesAnnotations();
 		// duplicates
@@ -12857,24 +12735,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getFeature_FeatureClassifier(), source, new String[] {});
 		addAnnotation(getFeatureGroupType_OwnedFeature(), source, new String[] {});
 		addAnnotation(getSubcomponent_SubcomponentType(), source, new String[] {});
-	}
-
-	/**
-	 * Initializes the annotations for <b>http://www.topcased.org/documentation</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createDocumentationAnnotations() {
-		String source = "http://www.topcased.org/documentation";
-		addAnnotation(stringEDataType, source, new String[] { "documentation",
-				"A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters." });
-		addAnnotation(booleanEDataType, source, new String[] { "documentation",
-				"A Boolean type is used for logical expression, consisting of the predefined values true and false." });
-		addAnnotation(integerEDataType, source,
-				new String[] { "documentation", "An integer is a primitive type representing integer values." });
-		addAnnotation(realEDataType, source,
-				new String[] { "documentation", "A real is a primitive type representing real numeric values." });
 	}
 
 	/**

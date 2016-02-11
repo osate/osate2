@@ -5195,9 +5195,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
 				// internal event or event data port. One is acceptable, but not both.
-				if (source instanceof InternalFeature && destination instanceof InternalFeature){
-					error(connection,
-							"Cannot connect two internal features of the containing component.");
+				if (source instanceof InternalFeature && destination instanceof InternalFeature) {
+					error(connection, "Cannot connect two internal features of the containing component.");
 				}
 			} else {
 				// we have a connection a component implementation going
@@ -5354,14 +5353,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
-			if (source instanceof EventPort && !(destination instanceof EventPort || destination instanceof EventSource)) {
-				error(connection,
-						"Source event port '" + source.getName() + "' must be connected to an (internal) event port destination.");
+			if (source instanceof EventPort
+					&& !(destination instanceof EventPort || destination instanceof EventSource)) {
+				error(connection, "Source event port '" + source.getName()
+						+ "' must be connected to an (internal) event port destination.");
 				return;
 			}
-			if (source instanceof EventSource && !(destination instanceof EventPort )) {
-				error(connection,
-						"Source internal event port '" + source.getName() + "' must be connected to an event port destination.");
+			if (source instanceof EventSource && !(destination instanceof EventPort)) {
+				error(connection, "Source internal event port '" + source.getName()
+						+ "' must be connected to an event port destination.");
 				return;
 			}
 			if (source instanceof DataPort && !(destination instanceof EventPort || destination instanceof DataPort
@@ -5390,9 +5390,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						+ "' must be connected to an event, data, or event data port destination.");
 				return;
 			}
-			if (source instanceof EventDataSource && !(destination instanceof EventDataPort || destination instanceof DataPort)) {
-				error(connection,
-						"Source internal event data port '" + source.getName() + "' must be connected to an event data port destination.");
+			if (source instanceof EventDataSource
+					&& !(destination instanceof EventDataPort || destination instanceof DataPort)) {
+				error(connection, "Source internal event data port '" + source.getName()
+						+ "' must be connected to an event data port destination.");
 				return;
 			}
 		}
@@ -7116,11 +7117,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			 * lower bounds is <= the upper bound.
 			 */
 			if (nt.getUnitsType() != null) {
-				EList<Element> allUTElements = nt.getUnitsType().allOwnedElements();
+				EList<EnumerationLiteral> allUTElements = nt.getUnitsType().getOwnedLiterals();
 				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
 				int i = 0;
-				for (Element elem : allUTElements) {
-					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+				for (EnumerationLiteral elem : allUTElements) {
+					unitNamesAndURIs[i] = elem.getName();
 					i++;
 					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
 					i++;

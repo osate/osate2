@@ -35,10 +35,7 @@
  */
 package org.osate.aadl2.impl;
 
-import java.util.Map;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -46,7 +43,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.PrototypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -135,16 +131,6 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined,
 					refined));
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
 	}
 
 	/**
