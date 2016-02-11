@@ -34,6 +34,7 @@
  */
 package org.osate.xtext.aadl2;
 
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
@@ -51,8 +52,8 @@ import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
-import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
+import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.validation.Aadl2NamesAreUniqueValidationHelper;
@@ -198,4 +199,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2DerivedStateComputer.class;
 	}
 
+	// Suppress usage of generated Aadl2Validator
+	@Override
+	public EValidator.Registry bindEValidatorRegistry() {
+		// return an empty one as opposed to EValidator.Registry.INSTANCE
+		return new org.eclipse.emf.ecore.impl.EValidatorRegistryImpl();
+	}
 }
