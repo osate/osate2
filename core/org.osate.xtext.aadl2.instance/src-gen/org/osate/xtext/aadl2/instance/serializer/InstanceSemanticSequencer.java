@@ -14,6 +14,8 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemInstance;
@@ -31,6 +33,12 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 		if(semanticObject.eClass().getEPackage() == InstancePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case InstancePackage.COMPONENT_INSTANCE:
 				sequence_ComponentInstance(context, (ComponentInstance) semanticObject); 
+				return; 
+			case InstancePackage.CONNECTION_INSTANCE:
+				sequence_ConnectionInstance(context, (ConnectionInstance) semanticObject); 
+				return; 
+			case InstancePackage.CONNECTION_REFERENCE:
+				sequence_ConnectionReference(context, (ConnectionReference) semanticObject); 
 				return; 
 			case InstancePackage.FEATURE_INSTANCE:
 				sequence_FeatureInstance(context, (FeatureInstance) semanticObject); 
@@ -63,11 +71,44 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (
+	 *         complete?='complete'? 
+	 *         kind=ConnectionKind 
+	 *         name=STRING 
+	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         bidirectional?='<->'? 
+	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         connectionReference+=ConnectionReference+
+	 *     )
+	 */
+	protected void sequence_ConnectionInstance(EObject context, ConnectionInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         connection=[Connection|SUBREF] 
+	 *         context=[ComponentInstance|INSTANCEREFWITHPARENT]
+	 *     )
+	 */
+	protected void sequence_ConnectionReference(EObject context, ConnectionReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         direction=DirectionType 
 	 *         category=FeatureCategory 
 	 *         name=ID 
 	 *         index=LONG? 
 	 *         feature=[Feature|FEATREF] 
+	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
+	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         featureInstance+=FeatureInstance*
 	 *     )
 	 */
@@ -82,7 +123,12 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         category=ComponentCategory 
 	 *         name=ID 
 	 *         componentImplementation=[ComponentImplementation|IMPLREF] 
-	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | systemOperationMode+=SystemOperationMode)*
+	 *         (
+	 *             featureInstance+=FeatureInstance | 
+	 *             componentInstance+=ComponentInstance | 
+	 *             connectionInstance+=ConnectionInstance | 
+	 *             systemOperationMode+=SystemOperationMode
+	 *         )*
 	 *     )
 	 */
 	protected void sequence_SystemInstance(EObject context, SystemInstance semanticObject) {

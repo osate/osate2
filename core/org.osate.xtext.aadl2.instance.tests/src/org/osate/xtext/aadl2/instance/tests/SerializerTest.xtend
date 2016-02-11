@@ -253,6 +253,57 @@ class SerializerTest extends OsateTest {
 		]
 	}
 	
+	@Test
+	def void testSimpleAcrossConnection() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					sub1: device dev1;
+					sub2: device dev2;
+				connections
+					conn1: port sub1.op -> sub2.ip;
+					conn2: port sub1.op -> sub2.ip;
+				end s.i;
+				
+				device dev1
+				features
+					op: out data port;
+				end dev1;
+				
+				device dev2
+				features
+					ip: in data port;
+				end dev2;
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			assertSerialize("s.i", '''
+				system s_i_Instance : pkg1::s.i {
+					device sub1 [ 0 ] : pkg1::s.i::sub1 {
+						out dataPort op : pkg1::dev1::op source of ( 1.0 , 1.1 )
+					}
+					device sub2 [ 0 ] : pkg1::s.i::sub2 {
+						in dataPort ip : pkg1::dev2::ip destination of ( 1.0 , 1.1 )
+					}
+					complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
+						sub1[0].op -> sub2[0].ip : pkg1::s.i::conn1 in parent
+					}
+					complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
+						sub1[0].op -> sub2[0].ip : pkg1::s.i::conn2 in parent
+					}
+					som "No Modes"
+				}''')
+		]
+	}
+	
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
 		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
 		impl.assertNotNull
