@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
@@ -17,6 +18,8 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.FeatureInstance
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -66,5 +69,110 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 				EObjectDescription.create(qualifiedName, sub)
 			]
 		].flatten)
+	}
+	
+	def IScope scope_ConnectionInstanceEnd(ComponentInstance context, EReference reference) {
+		val features = context.featureInstances.map[
+			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
+			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
+		]
+		val components = context.componentInstances.map[
+			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponent(newName, it)
+		]
+		new SimpleScope((features + components).flatten)
+	}
+	
+	def private static Iterable<IEObjectDescription> doFeature(String prefix, FeatureInstance feature) {
+		feature.featureInstances.map[
+			val newName = '''«prefix».«name»«IF index != 0»[«index»]«ENDIF»'''
+			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
+		].flatten
+	}
+	
+	def private static Iterable<IEObjectDescription> doComponent(String prefix, ComponentInstance component) {
+		val features = component.featureInstances.map[
+			val newName = '''«prefix».«name»«IF index != 0»[«index»]«ENDIF»'''
+			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
+		]
+		val components = component.componentInstances.map[
+			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponent(newName, it)
+		]
+		(features + components).flatten
+	}
+	
+	def IScope scope_ConnectionReference_connection(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
+		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
+		new SimpleScope(impls.map[impl |
+			val pkgName = impl.getContainerOfType(AadlPackage).name
+			impl.ownedConnections.map[conn |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, conn.name])
+				EObjectDescription.create(qualifiedName, conn)
+			]
+		].flatten)
+	}
+	
+	def IScope scope_ConnectionReference_context(ComponentInstance context, EReference reference) {
+		val components = context.componentInstances.map[
+			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponentOnly(newName, it)
+		].flatten
+		new SimpleScope(components + #[EObjectDescription.create("parent", context)])
+	}
+	
+	def private static Iterable<IEObjectDescription> doComponentOnly(String prefix, ComponentInstance component) {
+		component.componentInstances.map[
+			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponentOnly(newName, it)
+		].flatten
+	}
+	
+	def IScope scope_ConnectionInstanceEnd_srcConnectionInstance(EObject context, EReference reference) {
+		val parent = context.eContainer
+		if (parent instanceof ComponentInstance) {
+			val descriptions = parent.connectionInstances.indexed.map[
+				EObjectDescription.create(key.toString, value)
+			]
+			val parent2 = parent.eContainer
+			new SimpleScope(if (parent2 instanceof ComponentInstance) {
+				descriptions + doConnection(1, parent2)
+			} else {
+				descriptions
+			})
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+	
+	def IScope scope_ConnectionInstanceEnd_dstConnectionInstance(EObject context, EReference reference) {
+		val parent = context.eContainer
+		if (parent instanceof ComponentInstance) {
+			val descriptions = parent.connectionInstances.indexed.map[
+				EObjectDescription.create(key.toString, value)
+			]
+			val parent2 = parent.eContainer
+			new SimpleScope(if (parent2 instanceof ComponentInstance) {
+				descriptions + doConnection(1, parent2)
+			} else {
+				descriptions
+			})
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+	
+	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
+		val descriptions = component.connectionInstances.indexed.map[
+			EObjectDescription.create('''«levelCount».«key»''', value)
+		]
+		val parent = component.eContainer
+		if (parent instanceof ComponentInstance) {
+			descriptions + doConnection(levelCount + 1, parent)
+		} else {
+			descriptions
+		}
 	}
 }

@@ -9,13 +9,16 @@ SystemInstance returns instance::SystemInstance:
 	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|IMPLREF] '{'
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
+			connectionInstance+=ConnectionInstance |
 			systemOperationMode+=SystemOperationMode
 		)*
 	'}'
 ;
 
 FeatureInstance returns instance::FeatureInstance:
-	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|FEATREF] ('{'
+	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|FEATREF]
+	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
+	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		featureInstance+=FeatureInstance*
 	'}')?
 ;
@@ -26,6 +29,16 @@ ComponentInstance returns instance::ComponentInstance:
 			componentInstance+=ComponentInstance
 		)*
 	'}')?
+;
+
+ConnectionInstance returns instance::ConnectionInstance:
+	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] '{'
+		connectionReference+=ConnectionReference+
+	'}'
+;
+
+ConnectionReference returns instance::ConnectionReference:
+	source=[instance::ConnectionInstanceEnd|INSTANCEREF] '->' destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ':' connection=[aadl2::Connection|SUBREF] 'in' context=[instance::ComponentInstance|INSTANCEREFWITHPARENT]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
@@ -47,6 +60,11 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'subprogram' 'group' | 'system' | 'thread' 'group'
 	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 
+ConnectionKind returns instance::ConnectionKind:
+	'featureConnection' | 'accessConnection' | 'parameterConnection' |
+	'portConnection' | 'modeTransitionConnection' | 'featureGroupConnection'
+;
+
 IMPLREF:
 	(ID '::')+ ID '.' ID
 ;
@@ -57,6 +75,18 @@ FEATREF:
 	
 SUBREF:
 	(ID '::')+ ID '.' ID '::' ID
+;
+
+INSTANCEREF:
+	ID ('[' LONG ']')* ('.' ID ('[' LONG ']')*)*
+;
+
+INSTANCEREFWITHPARENT:
+	'parent' | (ID ('[' LONG ']')+ ('.' ID ('[' LONG ']')+)*)
+;
+
+CONNINSTREF:
+	(LONG '.')? LONG
 ;
 	
 terminal ID:	('a'..'z'
