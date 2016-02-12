@@ -52,12 +52,12 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -120,10 +120,10 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			 * If it does not work, try the property mechanism.
 			 */
 
-			// OsateDebug.osateDebug("         behaviorState " + behaviorState);
+			// OsateDebug.osateDebug(" behaviorState " + behaviorState);
 			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,
 					behaviorState, null);
-			// OsateDebug.osateDebug("         PA " + PA);
+			// OsateDebug.osateDebug(" PA " + PA);
 			if (!PA.isEmpty()) {
 				// XXX TODO handle values on subtypes (list > 1)
 				resultProperty = EMV2Properties.getOccurenceValue(PA.get(0));
@@ -165,16 +165,16 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			return handleElement((ConditionElement) cond, root);
 		}
 
-		if (cond instanceof SOrExpression) {
-			SOrExpression sor = (SOrExpression) cond;
+		if (cond instanceof OrExpression) {
+			OrExpression sor = (OrExpression) cond;
 			for (ConditionExpression conditionExpression : sor.getOperands()) {
-				// OsateDebug.osateDebug("      operand=" + conditionExpression);
+				// OsateDebug.osateDebug(" operand=" + conditionExpression);
 				result += handleCondition(conditionExpression, root);
 			}
 		}
 
-		if (cond instanceof SAndExpression) {
-			SAndExpression sae = (SAndExpression) cond;
+		if (cond instanceof AndExpression) {
+			AndExpression sae = (AndExpression) cond;
 			for (ConditionExpression conditionExpression : sae.getOperands()) {
 				tmp = handleCondition(conditionExpression, root);
 				if (result == 0) {

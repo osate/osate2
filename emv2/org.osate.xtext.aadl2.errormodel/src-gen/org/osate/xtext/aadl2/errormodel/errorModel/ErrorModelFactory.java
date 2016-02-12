@@ -437,24 +437,6 @@ public interface ErrorModelFactory extends EFactory
   AllExpression createAllExpression();
 
   /**
-   * Returns a new object of class '<em>SOr Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>SOr Expression</em>'.
-   * @generated
-   */
-  SOrExpression createSOrExpression();
-
-  /**
-   * Returns a new object of class '<em>SAnd Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>SAnd Expression</em>'.
-   * @generated
-   */
-  SAndExpression createSAndExpression();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

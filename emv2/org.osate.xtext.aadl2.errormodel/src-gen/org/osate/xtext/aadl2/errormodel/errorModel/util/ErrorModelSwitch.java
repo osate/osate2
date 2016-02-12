@@ -496,24 +496,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.SOR_EXPRESSION:
-      {
-        SOrExpression sOrExpression = (SOrExpression)theEObject;
-        T result = caseSOrExpression(sOrExpression);
-        if (result == null) result = caseConditionExpression(sOrExpression);
-        if (result == null) result = caseElement(sOrExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.SAND_EXPRESSION:
-      {
-        SAndExpression sAndExpression = (SAndExpression)theEObject;
-        T result = caseSAndExpression(sAndExpression);
-        if (result == null) result = caseConditionExpression(sAndExpression);
-        if (result == null) result = caseElement(sAndExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       default: return defaultCase(theEObject);
     }
   }
@@ -1250,38 +1232,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAllExpression(AllExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>SOr Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>SOr Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSOrExpression(SOrExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>SAnd Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>SAnd Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSAndExpression(SAndExpression object)
   {
     return null;
   }

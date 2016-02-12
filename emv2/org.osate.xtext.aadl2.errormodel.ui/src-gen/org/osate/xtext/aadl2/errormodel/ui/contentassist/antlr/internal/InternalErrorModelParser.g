@@ -25548,11 +25548,11 @@ rule__SConditionExpression__Group_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0()); }
+{ before(grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()); }
 (
 
 )
-{ after(grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0()); }
+{ after(grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()); }
 )
 
 ;
@@ -25705,11 +25705,11 @@ rule__SAndExpression__Group_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0()); }
+{ before(grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()); }
 (
 
 )
-{ after(grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0()); }
+{ after(grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()); }
 )
 
 ;

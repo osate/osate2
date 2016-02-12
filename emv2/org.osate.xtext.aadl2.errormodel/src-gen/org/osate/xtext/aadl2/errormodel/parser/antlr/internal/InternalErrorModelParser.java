@@ -17864,7 +17864,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    {
 
             	            current = forceCreateModelElementAndAdd(
-            	                grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0(),
+            	                grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0(),
             	                current);
             	        
 
@@ -18022,7 +18022,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    {
 
             	            current = forceCreateModelElementAndAdd(
-            	                grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0(),
+            	                grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0(),
             	                current);
             	        
 

@@ -553,11 +553,11 @@ CompositeState returns CompositeState:
 // condition expressions for composite states
 // based on states only  
 SConditionExpression returns ConditionExpression:
-  SAndExpression ( {SOrExpression.operands+=current} 'or' operands+=SAndExpression)*;
+  SAndExpression ( {OrExpression.operands+=current} 'or' operands+=SAndExpression)*;
 
 
 SAndExpression returns ConditionExpression:
-  SConditionTerm ({SAndExpression.operands+=current} 'and' operands+=SConditionTerm)*;
+  SConditionTerm ({AndExpression.operands+=current} 'and' operands+=SConditionTerm)*;
   
 SOrmoreExpression returns OrmoreExpression: 
 	count=INTVALUE 'ormore' '(' operands+=SConditionElement

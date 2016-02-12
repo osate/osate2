@@ -4248,8 +4248,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) 'in' incoming=[ErrorPropagation|ErrorPropagationPoint]
 	 *     (rule start) (ambiguity) count=INTVALUE
 	 *     (rule start) (ambiguity) qualifiedState=QualifiedErrorBehaviorState
-	 *     (rule start) (ambiguity) {SAndExpression.operands+=}
-	 *     (rule start) (ambiguity) {SOrExpression.operands+=}
+	 *     (rule start) (ambiguity) {AndExpression.operands+=}
+	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -4260,8 +4260,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) {SAndExpression.operands+=}
-	 *     (rule start) (ambiguity) {SOrExpression.operands+=}
+	 *     (rule start) (ambiguity) {AndExpression.operands+=}
+	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

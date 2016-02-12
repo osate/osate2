@@ -10,12 +10,12 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.cma.CMAReportEntry.EntryType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -78,8 +78,8 @@ public class CMAUtils {
 
 //		OsateDebug.osateDebug("[CMAUtils] expression " + expression);
 
-		if (expression instanceof SAndExpression) {
-			SAndExpression sand = (SAndExpression) expression;
+		if (expression instanceof AndExpression) {
+			AndExpression sand = (AndExpression) expression;
 			List<ConditionExpression> exprs = sand.getOperands();
 
 			for (ConditionExpression element : exprs) {
@@ -102,7 +102,8 @@ public class CMAUtils {
 			ComponentInstance subcompInstance = findComponentInstance(analysisModel.getRoot().getComponentInstance(),
 					subcomp);
 			if (subcompInstance != null) {
-				result.addAll(processState(analysisModel, subcompInstance, EMV2Util.getState(element), element.getConstraint()));
+				result.addAll(processState(analysisModel, subcompInstance, EMV2Util.getState(element),
+						element.getConstraint()));
 			}
 		}
 
@@ -212,8 +213,8 @@ public class CMAUtils {
 					for (int esInd2 = 0; esInd2 < errorSources.get(secondComponent).size(); esInd2++) {
 						ppe2 = errorSources.get(secondComponent).get(esInd2);
 
-						if (EMV2Util.getFeatureorPPRefs(ppe1.getErrorPropagation()) == 
-								EMV2Util.getFeatureorPPRefs(ppe2.getErrorPropagation())) {
+						if (EMV2Util.getFeatureorPPRefs(ppe1.getErrorPropagation()) == EMV2Util
+								.getFeatureorPPRefs(ppe2.getErrorPropagation())) {
 							foundInOther = true;
 							errorSourcesduplicates.add(ppe1);
 							errorSourcesduplicates.add(ppe2);

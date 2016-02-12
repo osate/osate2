@@ -110,8 +110,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
       case ErrorModelPackage.ALL_EXPRESSION: return createAllExpression();
-      case ErrorModelPackage.SOR_EXPRESSION: return createSOrExpression();
-      case ErrorModelPackage.SAND_EXPRESSION: return createSAndExpression();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -621,28 +619,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     AllExpressionImpl allExpression = new AllExpressionImpl();
     return allExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SOrExpression createSOrExpression()
-  {
-    SOrExpressionImpl sOrExpression = new SOrExpressionImpl();
-    return sOrExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SAndExpression createSAndExpression()
-  {
-    SAndExpressionImpl sAndExpression = new SAndExpressionImpl();
-    return sAndExpression;
   }
 
   /**

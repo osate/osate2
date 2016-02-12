@@ -20,9 +20,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -201,8 +200,8 @@ public class Module {
 		exprs = new ArrayList<Expression>();
 		varsUpdated = new ArrayList<String>();
 
-		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(aadlComponent
-				.getComponentClassifier())) {
+		for (OutgoingPropagationCondition opc : EMV2Util
+				.getAllOutgoingPropagationConditions(aadlComponent.getComponentClassifier())) {
 
 			// OsateDebug.osateDebug("opc=" + opc);
 			if ((opc.getState().getName().equalsIgnoreCase(targetState.getName())) && (opc.getCondition() != null)) {
@@ -215,7 +214,8 @@ public class Module {
 					opc.getOutgoing());
 
 			for (PropagationPathEnd ppe : propagationEnds) {
-				NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP();
+				NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
+						.getFeatureorPP();
 
 				ErrorTypes et = opc.getTypeToken().getType().get(0);
 				// OsateDebug.osateDebug("TYPE" + et.getName() +";state=" + targetState.getName());
@@ -281,17 +281,17 @@ public class Module {
 			res = handleElement((ConditionElement) cond);
 		}
 
-		if (cond instanceof SOrExpression) {
-			SOrExpression sor = (SOrExpression) cond;
-			res = new Or(handleCompositeCondition(sor.getOperands().get(0)), handleCompositeCondition(sor.getOperands()
-					.get(1)));
+		if (cond instanceof OrExpression) {
+			OrExpression sor = (OrExpression) cond;
+			res = new Or(handleCompositeCondition(sor.getOperands().get(0)),
+					handleCompositeCondition(sor.getOperands().get(1)));
 
 		}
 
-		if (cond instanceof SAndExpression) {
-			SAndExpression sae = (SAndExpression) cond;
-			res = new And(handleCompositeCondition(sae.getOperands().get(0)), handleCompositeCondition(sae
-					.getOperands().get(1)));
+		if (cond instanceof AndExpression) {
+			AndExpression sae = (AndExpression) cond;
+			res = new And(handleCompositeCondition(sae.getOperands().get(0)),
+					handleCompositeCondition(sae.getOperands().get(1)));
 
 		}
 		return res;
@@ -315,8 +315,8 @@ public class Module {
 		 * case for the default state that is always associated
 		 * with 0.
 		 */
-		Collection<ErrorBehaviorState> errorStates = EMV2Util.getAllErrorBehaviorStates(aadlComponent
-				.getComponentClassifier());
+		Collection<ErrorBehaviorState> errorStates = EMV2Util
+				.getAllErrorBehaviorStates(aadlComponent.getComponentClassifier());
 
 		int stateIndex = 1;
 		int stateValue;
@@ -334,8 +334,8 @@ public class Module {
 			 * It generates formulas such as
 			 * formula COMPONENT_IS_STATENAME = COMPONENT_STATE_VAR = STATE_VALUE
 			 */
-			Expression fe = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)), new Terminal(""
-					+ stateValue));
+			Expression fe = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)),
+					new Terminal("" + stateValue));
 			Formula f = new Formula(Util.getComponentName(aadlComponent) + "_is_" + state.getName().toLowerCase(), fe);
 			formulas.add(f);
 		}
@@ -348,8 +348,8 @@ public class Module {
 		 * error types propagated. The variable has a value 0 if no error
 		 * is propagated.
 		 */
-		Collection<ErrorPropagation> outprops = EMV2Util.getAllOutgoingErrorPropagations(aadlComponent
-				.getComponentClassifier());
+		Collection<ErrorPropagation> outprops = EMV2Util
+				.getAllOutgoingErrorPropagations(aadlComponent.getComponentClassifier());
 		for (ErrorPropagation ep : outprops) {
 			Map<String, Integer> tmpMap = new HashMap<String, Integer>();
 			int errorVal = 1;
@@ -362,8 +362,8 @@ public class Module {
 				}
 			}
 		}
-		Collection<ErrorPropagation> inprops = EMV2Util.getAllIncomingErrorPropagations(aadlComponent
-				.getComponentClassifier());
+		Collection<ErrorPropagation> inprops = EMV2Util
+				.getAllIncomingErrorPropagations(aadlComponent.getComponentClassifier());
 		for (ErrorPropagation ep : inprops) {
 
 			/**
@@ -379,12 +379,14 @@ public class Module {
 				for (TypeToken tt : ts.getTypeTokens()) {
 					for (ErrorTypes et : tt.getType()) {
 						associatedModel.addErrorType(et.getName());
-						Expression e = new Equal(new Terminal(Util.getComponentIncomingPropagationVariableName(
-								aadlComponent, feature.getName())), new Terminal("" + errorVal++));
+						Expression e = new Equal(new Terminal(
+								Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName())),
+								new Terminal("" + errorVal++));
 
-						Formula f = new Formula(Util.getComponentIncomingPropagationVariableName(aadlComponent,
-								feature.getName())
-								+ "_get_" + et.getName().toLowerCase(), e);
+						Formula f = new Formula(
+								Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName())
+										+ "_get_" + et.getName().toLowerCase(),
+								e);
 						formulas.add(f);
 					}
 
@@ -403,15 +405,15 @@ public class Module {
 		 * For each composite state, we have something like
 		 *
 		 */
-		Collection<CompositeState> compositestates = EMV2Util.getAllCompositeStates(aadlComponent
-				.getComponentClassifier());
+		Collection<CompositeState> compositestates = EMV2Util
+				.getAllCompositeStates(aadlComponent.getComponentClassifier());
 		int n = 0;
 
 		for (CompositeState state : compositestates) {
 			Expression e = handleCompositeCondition(state.getCondition());
 
-			Formula f = new Formula(Util.getComponentName(aadlComponent) + "_is_"
-					+ state.getState().getName().toLowerCase() + n, e);
+			Formula f = new Formula(
+					Util.getComponentName(aadlComponent) + "_is_" + state.getState().getName().toLowerCase() + n, e);
 			formulas.add(f);
 			n++;
 		}
@@ -420,13 +422,13 @@ public class Module {
 		 *
 		 * Then, we generate command for each transition.
 		 */
-		for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(aadlComponent
-				.getComponentClassifier())) {
+		for (ErrorBehaviorTransition trans : EMV2Util
+				.getAllErrorBehaviorTransitions(aadlComponent.getComponentClassifier())) {
 			handleTransition(trans);
 		}
 
-		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(aadlComponent
-				.getComponentClassifier())) {
+		for (OutgoingPropagationCondition opc : EMV2Util
+				.getAllOutgoingPropagationConditions(aadlComponent.getComponentClassifier())) {
 			handleOutgoingPropagationCondition(opc);
 		}
 		return this;
@@ -448,14 +450,15 @@ public class Module {
 		for (PropagationPathEnd ppe : propagationEnds) {
 			command = new Command();
 
-			NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP();
+			NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
+					.getFeatureorPP();
 
 			incomingPropagationName = connectedFeature.getName();
 
 			tmpState = statesMap.get(outgoingPropagation.getState().getName());
 
-			before = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)), new Terminal(""
-					+ tmpState));
+			before = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)),
+					new Terminal("" + tmpState));
 
 			errorValue = associatedModel.getErrorTypeCode(ppe, outgoingPropagation.getTypeToken().getType().get(0));
 			after = new Equal(new Terminal(Util.getComponentIncomingPropagationVariableName(ppe.getComponentInstance(),
@@ -503,8 +506,9 @@ public class Module {
 						errorTypeValue = associatedModel.getErrorTypeCode(ppe, et);
 					}
 				}
-				result = new Equal(new Terminal(Util.getComponentIncomingPropagationVariableName(aadlComponent,
-						EMV2Util.getFeatureorPPRefs(incomingErrorPropagation).get(0).getFeatureorPP().getName())),
+				result = new Equal(
+						new Terminal(Util.getComponentIncomingPropagationVariableName(aadlComponent, EMV2Util
+								.getFeatureorPPRefs(incomingErrorPropagation).get(0).getFeatureorPP().getName())),
 						new Terminal("" + errorTypeValue));
 			}
 		}
@@ -525,8 +529,8 @@ public class Module {
 
 		tmpState = statesMap.get(trans.getSource().getName());
 
-		Expression before = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)), new Terminal(""
-				+ tmpState));
+		Expression before = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)),
+				new Terminal("" + tmpState));
 
 		command = new Command();
 
@@ -545,7 +549,7 @@ public class Module {
 				if (trans.getCondition() instanceof ConditionElement) {
 					ConditionElement conditionElement = (ConditionElement) trans.getCondition();
 					EventOrPropagation event = conditionElement.getIncoming();
-					// OsateDebug.osateDebug("[Utils]    incoming :" + event);
+					// OsateDebug.osateDebug("[Utils] incoming :" + event);
 					if ((event != null) && (event instanceof ErrorEvent)) {
 						/*
 						 * If the probability is 0 and this is just an event, we should not generate anything.
@@ -561,8 +565,8 @@ public class Module {
 				}
 
 				tmpState = statesMap.get(trans.getTarget().getName());
-				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true), new Terminal(
-						"" + tmpState));
+				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true),
+						new Terminal("" + tmpState));
 				Transition transaction = new Transition(after);
 
 				/**
@@ -581,8 +585,8 @@ public class Module {
 			} else {
 
 				tmpState = statesMap.get(trans.getTarget().getName());
-				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true), new Terminal(
-						"" + tmpState));
+				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true),
+						new Terminal("" + tmpState));
 				Transition transaction = new Transition(probability, after);
 
 				/**
@@ -618,8 +622,8 @@ public class Module {
 				probability = Double.parseDouble(tb.getValue().getRealvalue());
 
 				tmpState = statesMap.get(tb.getTarget().getName());
-				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true), new Terminal(
-						"" + tmpState));
+				after = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent), true),
+						new Terminal("" + tmpState));
 				Transition transition = new Transition(mainProbability * probability, after);
 
 				/**

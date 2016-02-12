@@ -64,8 +64,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -195,17 +193,33 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else if(context == grammarAccess.getSAllExpressionRule() ||
 				   context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionTermRule()) {
 					sequence_SAllExpression(context, (AllExpression) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.AND_EXPRESSION:
-				sequence_AndExpression(context, (AndExpression) semanticObject); 
-				return; 
+				if(context == grammarAccess.getAndExpressionRule() ||
+				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionExpressionRule() ||
+				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionTermRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_AndExpression(context, (AndExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSAndExpressionRule() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionRule() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionTermRule()) {
+					sequence_SAndExpression(context, (AndExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.BRANCH_VALUE:
 				sequence_BranchValue(context, (BranchValue) semanticObject); 
 				return; 
@@ -224,10 +238,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionElementRule() ||
 				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionTermRule()) {
 					sequence_SConditionElement(context, (ConditionElement) semanticObject); 
 					return; 
@@ -303,8 +317,24 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_FeatureorPPReference(context, (FeatureorPPReference) semanticObject); 
 				return; 
 			case ErrorModelPackage.OR_EXPRESSION:
-				sequence_ConditionExpression(context, (OrExpression) semanticObject); 
-				return; 
+				if(context == grammarAccess.getAndExpressionRule() ||
+				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionExpressionRule() ||
+				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getConditionTermRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_ConditionExpression(context, (OrExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSAndExpressionRule() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionRule() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionTermRule()) {
+					sequence_SConditionExpression(context, (OrExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.ORLESS_EXPRESSION:
 				if(context == grammarAccess.getAndExpressionRule() ||
 				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
@@ -317,9 +347,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionTermRule() ||
 				   context == grammarAccess.getSOrlessExpressionRule()) {
 					sequence_SOrlessExpression(context, (OrlessExpression) semanticObject); 
@@ -338,9 +368,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getSAndExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getSOrExpressionOperandsAction_1_0() ||
+				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
 				   context == grammarAccess.getSConditionTermRule() ||
 				   context == grammarAccess.getSOrmoreExpressionRule()) {
 					sequence_SOrmoreExpression(context, (OrmoreExpression) semanticObject); 
@@ -367,12 +397,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.REPAIR_EVENT:
 				sequence_RepairEvent(context, (RepairEvent) semanticObject); 
-				return; 
-			case ErrorModelPackage.SAND_EXPRESSION:
-				sequence_SAndExpression(context, (SAndExpression) semanticObject); 
-				return; 
-			case ErrorModelPackage.SOR_EXPRESSION:
-				sequence_SConditionExpression(context, (SOrExpression) semanticObject); 
 				return; 
 			case ErrorModelPackage.SUBCOMPONENT_ELEMENT:
 				sequence_SubcomponentElement(context, (SubcomponentElement) semanticObject); 
@@ -903,9 +927,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (operands+=SAndExpression_SAndExpression_1_0 operands+=SConditionTerm)
+	 *     (operands+=SAndExpression_AndExpression_1_0 operands+=SConditionTerm)
 	 */
-	protected void sequence_SAndExpression(EObject context, SAndExpression semanticObject) {
+	protected void sequence_SAndExpression(EObject context, AndExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -924,9 +948,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (operands+=SConditionExpression_SOrExpression_1_0 operands+=SAndExpression)
+	 *     (operands+=SConditionExpression_OrExpression_1_0 operands+=SAndExpression)
 	 */
-	protected void sequence_SConditionExpression(EObject context, SOrExpression semanticObject) {
+	protected void sequence_SConditionExpression(EObject context, OrExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

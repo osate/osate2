@@ -52,8 +52,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -392,20 +390,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass allExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass sOrExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass sAndExpressionEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -2368,46 +2352,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSOrExpression()
-  {
-    return sOrExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSOrExpression_Operands()
-  {
-    return (EReference)sOrExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSAndExpression()
-  {
-    return sAndExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSAndExpression_Operands()
-  {
-    return (EReference)sAndExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ErrorModelFactory getErrorModelFactory()
   {
     return (ErrorModelFactory)getEFactoryInstance();
@@ -2667,12 +2611,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     allExpressionEClass = createEClass(ALL_EXPRESSION);
     createEReference(allExpressionEClass, ALL_EXPRESSION__OPERANDS);
     createEAttribute(allExpressionEClass, ALL_EXPRESSION__COUNT);
-
-    sOrExpressionEClass = createEClass(SOR_EXPRESSION);
-    createEReference(sOrExpressionEClass, SOR_EXPRESSION__OPERANDS);
-
-    sAndExpressionEClass = createEClass(SAND_EXPRESSION);
-    createEReference(sAndExpressionEClass, SAND_EXPRESSION__OPERANDS);
   }
 
   /**
@@ -2760,8 +2698,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     andExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     allExpressionEClass.getESuperTypes().add(this.getConditionExpression());
-    sOrExpressionEClass.getESuperTypes().add(this.getConditionExpression());
-    sAndExpressionEClass.getESuperTypes().add(this.getConditionExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(errorModelSubclauseEClass, ErrorModelSubclause.class, "ErrorModelSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2998,12 +2934,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(allExpressionEClass, AllExpression.class, "AllExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAllExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAllExpression_Count(), theAadl2Package.getInteger(), "count", null, 0, 1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(sOrExpressionEClass, SOrExpression.class, "SOrExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSOrExpression_Operands(), this.getConditionExpression(), null, "operands", null, 0, -1, SOrExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(sAndExpressionEClass, SAndExpression.class, "SAndExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSAndExpression_Operands(), this.getConditionExpression(), null, "operands", null, 0, -1, SAndExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

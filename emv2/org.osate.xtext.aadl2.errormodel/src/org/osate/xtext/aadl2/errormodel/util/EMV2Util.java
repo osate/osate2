@@ -70,8 +70,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -1344,9 +1342,9 @@ public class EMV2Util {
 			return true;
 		}
 
-		if (ce1 instanceof SAndExpression) {
-			SAndExpression expr1 = (SAndExpression) ce1;
-			SAndExpression expr2 = (SAndExpression) ce2;
+		if (ce1 instanceof AndExpression) {
+			AndExpression expr1 = (AndExpression) ce1;
+			AndExpression expr2 = (AndExpression) ce2;
 			if (expr1.getOperands().size() != expr2.getOperands().size()) {
 				return false;
 			}
@@ -1359,9 +1357,9 @@ public class EMV2Util {
 			return true;
 		}
 
-		if (ce1 instanceof SOrExpression) {
-			SOrExpression expr1 = (SOrExpression) ce1;
-			SOrExpression expr2 = (SOrExpression) ce2;
+		if (ce1 instanceof OrExpression) {
+			OrExpression expr1 = (OrExpression) ce1;
+			OrExpression expr2 = (OrExpression) ce2;
 			if (expr1.getOperands().size() != expr2.getOperands().size()) {
 				return false;
 			}
@@ -1698,14 +1696,14 @@ public class EMV2Util {
 			propagations.add(element);
 		}
 
-		if (ce instanceof SAndExpression) {
-			SAndExpression and = (SAndExpression) ce;
+		if (ce instanceof AndExpression) {
+			AndExpression and = (AndExpression) ce;
 			for (ConditionExpression foobar : and.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
 		}
-		if (ce instanceof SOrExpression) {
-			SOrExpression or = (SOrExpression) ce;
+		if (ce instanceof OrExpression) {
+			OrExpression or = (OrExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}

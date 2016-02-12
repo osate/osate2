@@ -5334,7 +5334,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cSAndExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cSOrExpressionOperandsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cOrExpressionOperandsAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cOrKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsSAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
@@ -5342,20 +5342,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//// condition expressions for composite states
 		//// based on states only  
 		//SConditionExpression returns ConditionExpression:
-		//	SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*;
+		//	SAndExpression ({OrExpression.operands+=current} "or" operands+=SAndExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*
+		//SAndExpression ({OrExpression.operands+=current} "or" operands+=SAndExpression)*
 		public Group getGroup() { return cGroup; }
 
 		//SAndExpression
 		public RuleCall getSAndExpressionParserRuleCall_0() { return cSAndExpressionParserRuleCall_0; }
 
-		//({SOrExpression.operands+=current} "or" operands+=SAndExpression)*
+		//({OrExpression.operands+=current} "or" operands+=SAndExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{SOrExpression.operands+=current}
-		public Action getSOrExpressionOperandsAction_1_0() { return cSOrExpressionOperandsAction_1_0; }
+		//{OrExpression.operands+=current}
+		public Action getOrExpressionOperandsAction_1_0() { return cOrExpressionOperandsAction_1_0; }
 
 		//"or"
 		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
@@ -5372,26 +5372,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cSConditionTermParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cSAndExpressionOperandsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cAndExpressionOperandsAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cAndKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsSConditionTermParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
 		//SAndExpression returns ConditionExpression:
-		//	SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*;
+		//	SConditionTerm ({AndExpression.operands+=current} "and" operands+=SConditionTerm)*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*
+		//SConditionTerm ({AndExpression.operands+=current} "and" operands+=SConditionTerm)*
 		public Group getGroup() { return cGroup; }
 
 		//SConditionTerm
 		public RuleCall getSConditionTermParserRuleCall_0() { return cSConditionTermParserRuleCall_0; }
 
-		//({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*
+		//({AndExpression.operands+=current} "and" operands+=SConditionTerm)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{SAndExpression.operands+=current}
-		public Action getSAndExpressionOperandsAction_1_0() { return cSAndExpressionOperandsAction_1_0; }
+		//{AndExpression.operands+=current}
+		public Action getAndExpressionOperandsAction_1_0() { return cAndExpressionOperandsAction_1_0; }
 
 		//"and"
 		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
@@ -6725,7 +6725,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//// condition expressions for composite states
 	//// based on states only  
 	//SConditionExpression returns ConditionExpression:
-	//	SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*;
+	//	SAndExpression ({OrExpression.operands+=current} "or" operands+=SAndExpression)*;
 	public SConditionExpressionElements getSConditionExpressionAccess() {
 		return pSConditionExpression;
 	}
@@ -6735,7 +6735,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SAndExpression returns ConditionExpression:
-	//	SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*;
+	//	SConditionTerm ({AndExpression.operands+=current} "and" operands+=SConditionTerm)*;
 	public SAndExpressionElements getSAndExpressionAccess() {
 		return pSAndExpression;
 	}
