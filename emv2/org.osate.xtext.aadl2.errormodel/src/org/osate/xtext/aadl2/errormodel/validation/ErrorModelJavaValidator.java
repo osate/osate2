@@ -1052,7 +1052,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (srccontain != null && dstcontain != null) {
 			if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 				error(conn,
-						"vOutgoing containment  " + EMV2Util.getPrintName(srcprop)
+						"Outgoing containment  " + EMV2Util.getPrintName(srcprop)
 								+ EMV2Util.getPrintName(srcprop.getTypeSet())
 								+ " does not contain error types listed by incoming containment "
 								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
@@ -1063,16 +1063,22 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (srcCxt instanceof Subcomponent && dstCxt instanceof Subcomponent) {
 			// only when going across
 			if (srccontain == null && dstcontain != null) {
-				warning(conn,
-						"No outgoing containment from " + srcCxt.getName() + " for incoming containment "
-								+ EMV2Util.getPrintName(dstcontain) + EMV2Util.getPrintName(dstcontain.getTypeSet())
-								+ ". Check for Unhandled Faults.");
+				EList<ErrorModelSubclause> srcsubclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(srccl);
+				if (!srcsubclauses.isEmpty()) {
+					warning(conn,
+							"No outgoing containment from " + srcCxt.getName() + " for incoming containment "
+									+ EMV2Util.getPrintName(dstcontain) + EMV2Util.getPrintName(dstcontain.getTypeSet())
+									+ ". Check for Unhandled Faults.");
+				}
 			}
 			if (srcprop != null && dstprop == null) {
-				warning(conn,
-						"No incoming error propagation from " + dstCxt.getName() + " for outgoing propagation "
-								+ EMV2Util.getPrintName(srcprop) + EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ ". Check for Unhandled Faults.");
+				EList<ErrorModelSubclause> dstsubclauses = EMV2Util.getAllContainingClassifierEMV2Subclauses(dstcl);
+				if (!dstsubclauses.isEmpty()) {
+					warning(conn,
+							"No incoming error propagation from " + dstCxt.getName() + " for outgoing propagation "
+									+ EMV2Util.getPrintName(srcprop) + EMV2Util.getPrintName(srcprop.getTypeSet())
+									+ ". Check for Unhandled Faults.");
+				}
 			}
 		}
 
