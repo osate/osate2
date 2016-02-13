@@ -666,7 +666,28 @@ public class EMV2Util {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Find ErrorType set with given name by looking through all error types
+	 * referenced in all EMV2 subclauses of the supplied element's containing
+	 * classifier
+	 * @param el the element whose classifier we're using
+	 * @param name the name of the ErrorTypeSet to search for
+	 * @return the specified error type set, or null, if either the element's classifier is null or no
+	 * ErrorType by the specified name was found
+	 */
+	public static TypeSet findErrorTypeSet(Element el, String name) {
+		Classifier cl = getAssociatedClassifier(el);
+		if (cl != null) {
+			for (ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl)) {
+				for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
+					return (TypeSet) AadlUtil.findNamedElementInList(currLibrary.getTypesets(), name);
+				}
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * find the error flow whose incoming error propagation point is flowSource
 	 * @param eps List of error propagations
