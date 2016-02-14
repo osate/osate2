@@ -754,10 +754,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			} else if (connInfo.src instanceof ComponentInstance) {
 				error(parentci.getSystemInstance(), "Connection source and destination are components: "
-						+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
+						+ connInfo.src.getInstanceObjectPath() + " => " + dstCi.getInstanceObjectPath());
 			} else {
 				error(parentci.getSystemInstance(), "Connection source is neither a feature nor a component: "
-						+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
+						+ connInfo.src.getInstanceObjectPath() + " => " + dstCi.getInstanceObjectPath());
 			}
 		}
 	}
