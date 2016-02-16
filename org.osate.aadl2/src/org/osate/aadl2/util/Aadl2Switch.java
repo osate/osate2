@@ -162,9 +162,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseAbstractNamedValue(property);
 			}
 			if (result == null) {
-				result = caseArraySizeProperty(property);
-			}
-			if (result == null) {
 				result = caseTypedElement(property);
 			}
 			if (result == null) {
@@ -229,14 +226,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 		case Aadl2Package.ABSTRACT_NAMED_VALUE: {
 			AbstractNamedValue abstractNamedValue = (AbstractNamedValue) theEObject;
 			T result = caseAbstractNamedValue(abstractNamedValue);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Aadl2Package.ARRAY_SIZE_PROPERTY: {
-			ArraySizeProperty arraySizeProperty = (ArraySizeProperty) theEObject;
-			T result = caseArraySizeProperty(arraySizeProperty);
 			if (result == null) {
 				result = defaultCase(theEObject);
 			}
@@ -599,6 +588,14 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null) {
 				result = caseElement(arraySize);
 			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.ARRAY_SIZE_PROPERTY: {
+			ArraySizeProperty arraySizeProperty = (ArraySizeProperty) theEObject;
+			T result = caseArraySizeProperty(arraySizeProperty);
 			if (result == null) {
 				result = defaultCase(theEObject);
 			}

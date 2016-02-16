@@ -791,7 +791,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyExpression()
 	 * @generated
 	 */
-	int PROPERTY_EXPRESSION = 11;
+	int PROPERTY_EXPRESSION = 10;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyOwnerImpl <em>Property Owner</em>}' class.
@@ -801,7 +801,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyOwner()
 	 * @generated
 	 */
-	int PROPERTY_OWNER = 13;
+	int PROPERTY_OWNER = 12;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MetaclassReferenceImpl <em>Metaclass Reference</em>}' class.
@@ -811,7 +811,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMetaclassReference()
 	 * @generated
 	 */
-	int METACLASS_REFERENCE = 12;
+	int METACLASS_REFERENCE = 11;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.NamespaceImpl <em>Namespace</em>}' class.
@@ -821,7 +821,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamespace()
 	 * @generated
 	 */
-	int NAMESPACE = 15;
+	int NAMESPACE = 14;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierImpl <em>Classifier</em>}' class.
@@ -831,7 +831,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifier()
 	 * @generated
 	 */
-	int CLASSIFIER = 14;
+	int CLASSIFIER = 13;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ClassifierFeatureImpl <em>Classifier Feature</em>}' class.
@@ -841,7 +841,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierFeature()
 	 * @generated
 	 */
-	int CLASSIFIER_FEATURE = 16;
+	int CLASSIFIER_FEATURE = 15;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RelationshipImpl <em>Relationship</em>}' class.
@@ -851,7 +851,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRelationship()
 	 * @generated
 	 */
-	int RELATIONSHIP = 19;
+	int RELATIONSHIP = 18;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DirectedRelationshipImpl <em>Directed Relationship</em>}' class.
@@ -861,7 +861,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectedRelationship()
 	 * @generated
 	 */
-	int DIRECTED_RELATIONSHIP = 18;
+	int DIRECTED_RELATIONSHIP = 17;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.GeneralizationImpl <em>Generalization</em>}' class.
@@ -871,7 +871,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGeneralization()
 	 * @generated
 	 */
-	int GENERALIZATION = 17;
+	int GENERALIZATION = 16;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalElementImpl <em>Modal Element</em>}' class.
@@ -881,7 +881,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalElement()
 	 * @generated
 	 */
-	int MODAL_ELEMENT = 21;
+	int MODAL_ELEMENT = 20;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexSubclauseImpl <em>Annex Subclause</em>}' class.
@@ -891,7 +891,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexSubclause()
 	 * @generated
 	 */
-	int ANNEX_SUBCLAUSE = 20;
+	int ANNEX_SUBCLAUSE = 19;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeFeatureImpl <em>Mode Feature</em>}' class.
@@ -901,7 +901,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeFeature()
 	 * @generated
 	 */
-	int MODE_FEATURE = 23;
+	int MODE_FEATURE = 22;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModeImpl <em>Mode</em>}' class.
@@ -911,7 +911,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMode()
 	 * @generated
 	 */
-	int MODE = 22;
+	int MODE = 21;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RefinableElementImpl <em>Refinable Element</em>}' class.
@@ -921,7 +921,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRefinableElement()
 	 * @generated
 	 */
-	int REFINABLE_ELEMENT = 26;
+	int REFINABLE_ELEMENT = 25;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.StructuralFeatureImpl <em>Structural Feature</em>}' class.
@@ -931,7 +931,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStructuralFeature()
 	 * @generated
 	 */
-	int STRUCTURAL_FEATURE = 25;
+	int STRUCTURAL_FEATURE = 24;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeImpl <em>Prototype</em>}' class.
@@ -941,7 +941,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototype()
 	 * @generated
 	 */
-	int PROTOTYPE = 24;
+	int PROTOTYPE = 23;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrototypeBindingImpl <em>Prototype Binding</em>}' class.
@@ -951,7 +951,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrototypeBinding()
 	 * @generated
 	 */
-	int PROTOTYPE_BINDING = 28;
+	int PROTOTYPE_BINDING = 27;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainedNamedElementImpl <em>Contained Named Element</em>}' class.
@@ -961,7 +961,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainedNamedElement()
 	 * @generated
 	 */
-	int CONTAINED_NAMED_ELEMENT = 29;
+	int CONTAINED_NAMED_ELEMENT = 28;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ContainmentPathElementImpl <em>Containment Path Element</em>}' class.
@@ -971,7 +971,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getContainmentPathElement()
 	 * @generated
 	 */
-	int CONTAINMENT_PATH_ELEMENT = 30;
+	int CONTAINMENT_PATH_ELEMENT = 29;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayRangeImpl <em>Array Range</em>}' class.
@@ -981,7 +981,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayRange()
 	 * @generated
 	 */
-	int ARRAY_RANGE = 31;
+	int ARRAY_RANGE = 30;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPropertyValueImpl <em>Modal Property Value</em>}' class.
@@ -991,7 +991,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModalPropertyValue()
 	 * @generated
 	 */
-	int MODAL_PROPERTY_VALUE = 32;
+	int MODAL_PROPERTY_VALUE = 31;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioralFeatureImpl <em>Behavioral Feature</em>}' class.
@@ -1001,7 +1001,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioralFeature()
 	 * @generated
 	 */
-	int BEHAVIORAL_FEATURE = 33;
+	int BEHAVIORAL_FEATURE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArraySizeImpl <em>Array Size</em>}' class.
@@ -1011,7 +1011,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySize()
 	 * @generated
 	 */
-	int ARRAY_SIZE = 35;
+	int ARRAY_SIZE = 34;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ArrayableElementImpl <em>Arrayable Element</em>}' class.
@@ -1451,7 +1451,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getCalledSubprogram()
 	 * @generated
 	 */
-	int CALLED_SUBPROGRAM = 27;
+	int CALLED_SUBPROGRAM = 26;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramClassifierImpl <em>Subprogram Classifier</em>}' class.
@@ -2850,16 +2850,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArraySizeProperty()
 	 * @generated
 	 */
-	int ARRAY_SIZE_PROPERTY = 10;
-
-	/**
-	 * The number of structural features of the '<em>Array Size Property</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARRAY_SIZE_PROPERTY_FEATURE_COUNT = 0;
+	int ARRAY_SIZE_PROPERTY = 35;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4293,7 +4284,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getArrayDimension()
 	 * @generated
 	 */
-	int ARRAY_DIMENSION = 34;
+	int ARRAY_DIMENSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4375,6 +4366,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Array Size Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_SIZE_PROPERTY_FEATURE_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.

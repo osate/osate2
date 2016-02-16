@@ -489,7 +489,6 @@
         </ownedComment>
         <generalization xmi:id="Definitions-Property-_generalization.0" general="Definitions-BasicProperty"/>
         <generalization xmi:id="_6IBSQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <generalization xmi:id="_rzqsULOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
         <ownedAttribute xmi:id="Definitions-Property-inherit" name="inherit" visibility="public">
           <ownedComment xmi:id="Definitions-Property-inherit-_ownedComment.0">
             <body>Specifies if the property value propagates down the containment hierarchy.</body>

@@ -121,7 +121,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue #//ArraySizeProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
     </eAnnotations>
@@ -208,11 +208,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractNamedValue" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Expressions.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArraySizeProperty" abstract="true">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="boolean">
@@ -628,6 +623,11 @@
         <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArraySizeProperty" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayableElement" abstract="true" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

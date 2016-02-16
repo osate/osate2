@@ -145,8 +145,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePropertyType((PropertyType) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_NAMED_VALUE:
 			return validateAbstractNamedValue((AbstractNamedValue) value, diagnostics, context);
-		case Aadl2Package.ARRAY_SIZE_PROPERTY:
-			return validateArraySizeProperty((ArraySizeProperty) value, diagnostics, context);
 		case Aadl2Package.PROPERTY_EXPRESSION:
 			return validatePropertyExpression((PropertyExpression) value, diagnostics, context);
 		case Aadl2Package.METACLASS_REFERENCE:
@@ -197,6 +195,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateArrayDimension((ArrayDimension) value, diagnostics, context);
 		case Aadl2Package.ARRAY_SIZE:
 			return validateArraySize((ArraySize) value, diagnostics, context);
+		case Aadl2Package.ARRAY_SIZE_PROPERTY:
+			return validateArraySizeProperty((ArraySizeProperty) value, diagnostics, context);
 		case Aadl2Package.ARRAYABLE_ELEMENT:
 			return validateArrayableElement((ArrayableElement) value, diagnostics, context);
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
