@@ -2371,33 +2371,13 @@ public final class AadlUtil {
 			result = as.getSize();
 		} else {
 			ArraySizeProperty asp = as.getSizeProperty();
-			if (asp instanceof PropertyConstant) {
-				PropertyConstant pc = (PropertyConstant) asp;
-				PropertyExpression cv = pc.getConstantValue();
-				if (cv instanceof IntegerLiteral) {
-					result = ((IntegerLiteral) cv).getValue();
-				}
-// ** we do not support arrays via properties
-//			} else if (asp instanceof Property) {
-//				Property pd = (Property) asp;
-//				result = getArraySizeValue(ci, pd);
+			PropertyConstant pc = (PropertyConstant) asp;
+			PropertyExpression cv = pc.getConstantValue();
+			if (cv instanceof IntegerLiteral) {
+				result = ((IntegerLiteral) cv).getValue();
 			}
 		}
 		return result;
 	}
-
-//	private static long getArraySizeValue(ComponentInstance ci, Property pd) {
-////		PropertyExpression res = ci.getSimplePropertyValue(pd);
-//		Subcomponent sub = ci.getSubcomponent();
-//		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
-//			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
-//				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
-//				if (pe instanceof IntegerLiteral) {
-//					return ((IntegerLiteral) pe).getValue();
-//				}
-//			}
-//		}
-//		return 0;
-//	}
 
 }

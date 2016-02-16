@@ -67,7 +67,7 @@ import org.osate.aadl2.properties.PropertyEvaluationResult;
  * @model
  * @generated
  */
-public interface Property extends BasicProperty, AbstractNamedValue, ArraySizeProperty {
+public interface Property extends BasicProperty, AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Inherit</b></em>' attribute.
 	 * <!-- begin-user-doc -->

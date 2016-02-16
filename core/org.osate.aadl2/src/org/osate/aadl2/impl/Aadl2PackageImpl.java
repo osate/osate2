@@ -9113,8 +9113,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		abstractNamedValueEClass = createEClass(ABSTRACT_NAMED_VALUE);
 
-		arraySizePropertyEClass = createEClass(ARRAY_SIZE_PROPERTY);
-
 		propertyExpressionEClass = createEClass(PROPERTY_EXPRESSION);
 
 		metaclassReferenceEClass = createEClass(METACLASS_REFERENCE);
@@ -9203,6 +9201,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		arraySizeEClass = createEClass(ARRAY_SIZE);
 		createEAttribute(arraySizeEClass, ARRAY_SIZE__SIZE);
 		createEReference(arraySizeEClass, ARRAY_SIZE__SIZE_PROPERTY);
+
+		arraySizePropertyEClass = createEClass(ARRAY_SIZE_PROPERTY);
 
 		arrayableElementEClass = createEClass(ARRAYABLE_ELEMENT);
 		createEReference(arrayableElementEClass, ARRAYABLE_ELEMENT__ARRAY_DIMENSION);
@@ -10081,7 +10081,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		propertyAssociationEClass.getESuperTypes().add(getElement());
 		propertyEClass.getESuperTypes().add(getBasicProperty());
 		propertyEClass.getESuperTypes().add(getAbstractNamedValue());
-		propertyEClass.getESuperTypes().add(getArraySizeProperty());
 		basicPropertyEClass.getESuperTypes().add(getTypedElement());
 		typedElementEClass.getESuperTypes().add(getNamedElement());
 		propertyTypeEClass.getESuperTypes().add(getType());
@@ -10631,9 +10630,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(abstractNamedValueEClass, AbstractNamedValue.class, "AbstractNamedValue", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(arraySizePropertyEClass, ArraySizeProperty.class, "ArraySizeProperty", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(propertyExpressionEClass, PropertyExpression.class, "PropertyExpression", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 
@@ -10824,6 +10820,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getArraySize_SizeProperty(), getArraySizeProperty(), null, "sizeProperty", null, 0, 1,
 				ArraySize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(arraySizePropertyEClass, ArraySizeProperty.class, "ArraySizeProperty", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(arrayableElementEClass, ArrayableElement.class, "ArrayableElement", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
