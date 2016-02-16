@@ -1360,40 +1360,59 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return;
 					}
 					if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
+						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
 							ce = connection.getAllDestination();
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
-								error(flow.getOwnedFlowSegments().get(i),
-										"The source of connection '" + connection.getName()
-												+ "' does not match the in flow feature '"
-												+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
-												+ inEnd.getFeature().getName() + '\'');
+								noMatch = true;
 							}
+						} else {
+							noMatch = true;
+						}
+						if (noMatch) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The source of connection '" + connection.getName()
+											+ "' does not match the in flow feature '"
+											+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
+											+ inEnd.getFeature().getName() + '\'');
 						}
 					}
 				} else {
-					if (flow.getOwnedFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
-						FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments()
-								.get(i - 1).getFlowElement();
+					FlowElement prevFlowElement = flow.getOwnedFlowSegments().get(i - 1).getFlowElement();
+					if (prevFlowElement instanceof FlowSpecification) {
+						FlowSpecification previousFlowSegment = (FlowSpecification) prevFlowElement;
 						FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
 						if (Aadl2Util.isNull(outEnd)) {
 							return;
 						}
 						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
+							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
 								ce = connection.getAllDestination();
 								cxt = connection.getAllDestinationContext();
 								if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
-									error(flow.getOwnedFlowSegments().get(i),
-											"The source of connection '" + connection.getName()
-													+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
-													+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName()
-													+ '.' + previousFlowSegment.getName() + '\'');
+									noMatch = true;
 								}
+							} else {
+								noMatch = true;
 							}
+							if (noMatch) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The source of connection '" + connection.getName()
+												+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
+												+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
+												+ previousFlowSegment.getName() + '\'');
+							}
+						}
+					} else if (prevFlowElement instanceof Subcomponent) {
+						if (prevFlowElement != cxt) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The source of connection '" + connection.getName()
+											+ "' does not match the preceding subcomponent '"
+											+ ((Subcomponent) prevFlowElement).getName() + '\'');
 						}
 					}
 				}
@@ -1435,6 +1454,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ nextFlowSegment.getName() + '\'');
 							}
 						}
+					} else if (felem instanceof Subcomponent) {
+						if (felem != cxt) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The destination component '" + cxt.getName() + "' of connection '"
+											+ connection.getName() + "' does not match the succeeding subcomponent  '"
+											+ ((Subcomponent) felem).getName() + '\'');
+						}
+
 					}
 				}
 			}
