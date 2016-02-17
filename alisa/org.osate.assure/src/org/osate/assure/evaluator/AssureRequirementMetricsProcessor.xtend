@@ -1,13 +1,12 @@
 package org.osate.assure.evaluator;
 
 import com.google.inject.ImplementedBy
+import com.google.inject.Inject
 import org.eclipse.core.runtime.IProgressMonitor
 import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.assure.assure.Metrics
+import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
-import org.osate.assure.assure.AssureFactory
-import com.google.inject.Inject
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 @ImplementedBy(AssureRequirementMetricsProcessor)
@@ -47,7 +46,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 
 	def dispatch void process(SubsystemResult caseResult) {
 		println("process(SubsystemResult caseResult)")
-//		if(caseResult.metrics == null) caseResult.metrics = assureFactory.createMetrics
+		if(caseResult.metrics == null) caseResult.metrics = assureFactory.createMetrics
 		val targetSystem = caseResult.targetSystem
 		caseResult.metrics.featuresCount = targetSystem.allFeatures.size
 		val sysReqs = reqSpecrefFinder.getSystemRequirements(targetSystem.componentType)
