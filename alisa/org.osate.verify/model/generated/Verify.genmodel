@@ -50,6 +50,8 @@
     <genClasses ecoreClass="Verify.ecore#//VerificationMethodRegistry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethodRegistry/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/componentCategory"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethodRegistry/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethodRegistry/methods"/>
     </genClasses>
@@ -66,6 +68,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isPredicate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isResultReport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/componentCategory"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/methodKind"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/precondition"/>

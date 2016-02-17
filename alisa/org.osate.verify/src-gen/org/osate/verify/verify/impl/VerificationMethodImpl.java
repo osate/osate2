@@ -23,15 +23,19 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
@@ -60,6 +64,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodKind <em>Method Kind</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getPrecondition <em>Precondition</em>}</li>
@@ -181,6 +187,26 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected ComponentClassifier target;
+
+  /**
+   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComponentCategory()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComponentCategory> componentCategory;
 
   /**
    * The cached value of the '{@link #getMethodKind() <em>Method Kind</em>}' containment reference.
@@ -395,6 +421,63 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     title = newTitle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentClassifier getTarget()
+  {
+    if (target != null && ((EObject)target).eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (ComponentClassifier)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentClassifier basicGetTarget()
+  {
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTarget(ComponentClassifier newTarget)
+  {
+    ComponentClassifier oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TARGET, oldTarget, target));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComponentCategory> getComponentCategory()
+  {
+    if (componentCategory == null)
+    {
+      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, VerifyPackage.VERIFICATION_METHOD__COMPONENT_CATEGORY);
+    }
+    return componentCategory;
   }
 
   /**
@@ -667,6 +750,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return isIsResultReport();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
+      case VerifyPackage.VERIFICATION_METHOD__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
+      case VerifyPackage.VERIFICATION_METHOD__COMPONENT_CATEGORY:
+        return getComponentCategory();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
         return getMethodKind();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
@@ -717,6 +805,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__TARGET:
+        setTarget((ComponentClassifier)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
         setMethodKind((MethodKind)newValue);
@@ -773,6 +868,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__TARGET:
+        setTarget((ComponentClassifier)null);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
         setMethodKind((MethodKind)null);
         return;
@@ -819,6 +920,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return isResultReport != IS_RESULT_REPORT_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.VERIFICATION_METHOD__TARGET:
+        return target != null;
+      case VerifyPackage.VERIFICATION_METHOD__COMPONENT_CATEGORY:
+        return componentCategory != null && !componentCategory.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
         return methodKind != null;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
@@ -854,6 +959,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     result.append(isResultReport);
     result.append(", title: ");
     result.append(title);
+    result.append(", componentCategory: ");
+    result.append(componentCategory);
     result.append(')');
     return result.toString();
   }

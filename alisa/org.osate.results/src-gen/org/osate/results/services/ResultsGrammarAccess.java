@@ -71,8 +71,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cDescriptionKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cDecriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cDecriptionSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cDecriptionAssignment_6_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cDescriptionAssignment_6_1.eContents().get(0);
 		private final Assignment cContentAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cContentResultReportParserRuleCall_7_0 = (RuleCall)cContentAssignment_7.eContents().get(0);
 		private final Assignment cIssuesAssignment_8 = (Assignment)cGroup.eContents().get(8);
@@ -82,11 +82,11 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
 		//ResultReportCollection:
 		//	"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-		//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
+		//	[ecore::EObject|URIID] "[" ("description" description=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-		//[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]"
+		//[ecore::EObject|URIID] "[" ("description" description=STRING)? content+=ResultReport* issues+=ResultIssue? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"reports"
@@ -127,17 +127,17 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("description" decription=STRING)?
+		//("description" description=STRING)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"description"
 		public Keyword getDescriptionKeyword_6_0() { return cDescriptionKeyword_6_0; }
 
-		//decription=STRING
-		public Assignment getDecriptionAssignment_6_1() { return cDecriptionAssignment_6_1; }
+		//description=STRING
+		public Assignment getDescriptionAssignment_6_1() { return cDescriptionAssignment_6_1; }
 
 		//STRING
-		public RuleCall getDecriptionSTRINGTerminalRuleCall_6_1_0() { return cDecriptionSTRINGTerminalRuleCall_6_1_0; }
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_1_0() { return cDescriptionSTRINGTerminalRuleCall_6_1_0; }
 
 		//content+=ResultReport*
 		public Assignment getContentAssignment_7() { return cContentAssignment_7; }
@@ -172,8 +172,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cDescriptionKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cDecriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cDecriptionSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cDecriptionAssignment_6_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cDescriptionAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cHeadingKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cHeadingAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -193,12 +193,12 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//// result represents the result data that can be queried
 		//ResultDataReport:
 		//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-		//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+		//	[ecore::EObject|URIID] "[" ("description" description=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
 		//	("results" resultData+=ResultData+)? issues+=ResultIssue* "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-		//[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+		//[ecore::EObject|URIID] "[" ("description" description=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
 		//("results" resultData+=ResultData+)? issues+=ResultIssue* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -240,17 +240,17 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("description" decription=STRING)?
+		//("description" description=STRING)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"description"
 		public Keyword getDescriptionKeyword_6_0() { return cDescriptionKeyword_6_0; }
 
-		//decription=STRING
-		public Assignment getDecriptionAssignment_6_1() { return cDecriptionAssignment_6_1; }
+		//description=STRING
+		public Assignment getDescriptionAssignment_6_1() { return cDescriptionAssignment_6_1; }
 
 		//STRING
-		public RuleCall getDecriptionSTRINGTerminalRuleCall_6_1_0() { return cDecriptionSTRINGTerminalRuleCall_6_1_0; }
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_1_0() { return cDescriptionSTRINGTerminalRuleCall_6_1_0; }
 
 		//("heading" heading=STRING content+=ResultContributor*)?
 		public Group getGroup_7() { return cGroup_7; }
@@ -376,17 +376,20 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueSTRINGTerminalRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Assignment cValueAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
+		private final RuleCall cValueSTRINGTerminalRuleCall_2_0_0 = (RuleCall)cValueAssignment_2_0.eContents().get(0);
+		private final Assignment cIntegerValueAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final RuleCall cIntegerValueINTTerminalRuleCall_2_1_0 = (RuleCall)cIntegerValueAssignment_2_1.eContents().get(0);
 		
 		//// default implementation of result data
 		//// a set of name value pairs with the values expressed as strings
 		//// user can create a subclass of this to provide a specialized representation
 		//ResultData:
-		//	name=ID "=" value=STRING;
+		//	name=ID "=" (value=STRING | integerValue=INT);
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID "=" value=STRING
+		//name=ID "=" (value=STRING | integerValue=INT)
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -398,11 +401,20 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
+		//value=STRING | integerValue=INT
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
 		//value=STRING
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+		public Assignment getValueAssignment_2_0() { return cValueAssignment_2_0; }
 
 		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_2_0() { return cValueSTRINGTerminalRuleCall_2_0; }
+		public RuleCall getValueSTRINGTerminalRuleCall_2_0_0() { return cValueSTRINGTerminalRuleCall_2_0_0; }
+
+		//integerValue=INT
+		public Assignment getIntegerValueAssignment_2_1() { return cIntegerValueAssignment_2_1; }
+
+		//INT
+		public RuleCall getIntegerValueINTTerminalRuleCall_2_1_0() { return cIntegerValueINTTerminalRuleCall_2_1_0; }
 	}
 
 	public class IssuesReportElements extends AbstractParserRuleElementFinder {
@@ -552,7 +564,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
 	//ResultReportCollection:
 	//	"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
+	//	[ecore::EObject|URIID] "[" ("description" description=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
 	public ResultReportCollectionElements getResultReportCollectionAccess() {
 		return pResultReportCollection;
 	}
@@ -566,7 +578,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// result represents the result data that can be queried
 	//ResultDataReport:
 	//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
-	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+	//	[ecore::EObject|URIID] "[" ("description" description=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
 	//	("results" resultData+=ResultData+)? issues+=ResultIssue* "]";
 	public ResultDataReportElements getResultDataReportAccess() {
 		return pResultDataReport;
@@ -596,7 +608,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// a set of name value pairs with the values expressed as strings
 	//// user can create a subclass of this to provide a specialized representation
 	//ResultData:
-	//	name=ID "=" value=STRING;
+	//	name=ID "=" (value=STRING | integerValue=INT);
 	public ResultDataElements getResultDataAccess() {
 		return pResultData;
 	}

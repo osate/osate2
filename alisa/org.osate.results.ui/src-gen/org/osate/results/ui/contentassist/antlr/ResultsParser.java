@@ -50,6 +50,7 @@ public class ResultsParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getResultReportAccess().getAlternatives(), "rule__ResultReport__Alternatives");
+					put(grammarAccess.getResultDataAccess().getAlternatives_2(), "rule__ResultData__Alternatives_2");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_2(), "rule__ValDeclaration__Alternatives_2");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_2(), "rule__ComputeDeclaration__Alternatives_2");
@@ -170,13 +171,13 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultReportCollectionAccess().getNameAssignment_1(), "rule__ResultReportCollection__NameAssignment_1");
 					put(grammarAccess.getResultReportCollectionAccess().getTitleAssignment_2_1(), "rule__ResultReportCollection__TitleAssignment_2_1");
 					put(grammarAccess.getResultReportCollectionAccess().getTargetAssignment_4(), "rule__ResultReportCollection__TargetAssignment_4");
-					put(grammarAccess.getResultReportCollectionAccess().getDecriptionAssignment_6_1(), "rule__ResultReportCollection__DecriptionAssignment_6_1");
+					put(grammarAccess.getResultReportCollectionAccess().getDescriptionAssignment_6_1(), "rule__ResultReportCollection__DescriptionAssignment_6_1");
 					put(grammarAccess.getResultReportCollectionAccess().getContentAssignment_7(), "rule__ResultReportCollection__ContentAssignment_7");
 					put(grammarAccess.getResultReportCollectionAccess().getIssuesAssignment_8(), "rule__ResultReportCollection__IssuesAssignment_8");
 					put(grammarAccess.getResultDataReportAccess().getNameAssignment_1(), "rule__ResultDataReport__NameAssignment_1");
 					put(grammarAccess.getResultDataReportAccess().getTitleAssignment_2_1(), "rule__ResultDataReport__TitleAssignment_2_1");
 					put(grammarAccess.getResultDataReportAccess().getTargetAssignment_4(), "rule__ResultDataReport__TargetAssignment_4");
-					put(grammarAccess.getResultDataReportAccess().getDecriptionAssignment_6_1(), "rule__ResultDataReport__DecriptionAssignment_6_1");
+					put(grammarAccess.getResultDataReportAccess().getDescriptionAssignment_6_1(), "rule__ResultDataReport__DescriptionAssignment_6_1");
 					put(grammarAccess.getResultDataReportAccess().getHeadingAssignment_7_1(), "rule__ResultDataReport__HeadingAssignment_7_1");
 					put(grammarAccess.getResultDataReportAccess().getContentAssignment_7_2(), "rule__ResultDataReport__ContentAssignment_7_2");
 					put(grammarAccess.getResultDataReportAccess().getResultDataAssignment_8_1(), "rule__ResultDataReport__ResultDataAssignment_8_1");
@@ -186,7 +187,8 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultContributorAccess().getIssuesAssignment_4(), "rule__ResultContributor__IssuesAssignment_4");
 					put(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_5(), "rule__ResultContributor__SubcontributorAssignment_5");
 					put(grammarAccess.getResultDataAccess().getNameAssignment_0(), "rule__ResultData__NameAssignment_0");
-					put(grammarAccess.getResultDataAccess().getValueAssignment_2(), "rule__ResultData__ValueAssignment_2");
+					put(grammarAccess.getResultDataAccess().getValueAssignment_2_0(), "rule__ResultData__ValueAssignment_2_0");
+					put(grammarAccess.getResultDataAccess().getIntegerValueAssignment_2_1(), "rule__ResultData__IntegerValueAssignment_2_1");
 					put(grammarAccess.getIssuesReportAccess().getNameAssignment_1(), "rule__IssuesReport__NameAssignment_1");
 					put(grammarAccess.getIssuesReportAccess().getTargetAssignment_2_1(), "rule__IssuesReport__TargetAssignment_2_1");
 					put(grammarAccess.getIssuesReportAccess().getDescriptionAssignment_3_1_1(), "rule__IssuesReport__DescriptionAssignment_3_1_1");

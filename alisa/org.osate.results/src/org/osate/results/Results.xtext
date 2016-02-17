@@ -10,7 +10,7 @@ ResultReportCollection:
 	'reports' name=ID (':' title=STRING)?
 	'for' target=[ecore::EObject|URIID] // system instance or other EObject
 	'['
-	('description' decription=STRING)?
+	('description' description=STRING)?
 	content+=ResultReport*
 	( issues+=ResultIssue*)?
 	']'
@@ -22,7 +22,7 @@ ResultDataReport returns ResultDataReport:
 	'report' name=ID (':' title=STRING)?
 	'for' target=[ecore::EObject|URIID] // system instance or other EObject
 	'['
-	('description' decription=STRING)?
+	('description' description=STRING)?
 	('heading' heading=STRING
 	content+=ResultContributor*)?
 	('results' resultData+=ResultData+)?
@@ -45,8 +45,9 @@ ResultContributor returns ResultContributor:
 // a set of name value pairs with the values expressed as strings
 // user can create a subclass of this to provide a specialized representation
 ResultData:
-	name=ID '=' value=STRING
+	name=ID '=' (value=STRING | integerValue=INT )
 ;
+
 
 IssuesReport returns IssuesReport:
 	'issues' name=ID 

@@ -47,6 +47,7 @@ import org.osate.results.results.ResultsPackage;
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -83,6 +84,26 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
    * @ordered
    */
   protected EObject target;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
@@ -186,6 +207,29 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(String newDescription)
+  {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ResultIssue> getIssues()
   {
     if (issues == null)
@@ -226,6 +270,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
       case ResultsPackage.RESULT_REPORT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ResultsPackage.RESULT_REPORT__DESCRIPTION:
+        return getDescription();
       case ResultsPackage.RESULT_REPORT__ISSUES:
         return getIssues();
     }
@@ -248,6 +294,9 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
         return;
       case ResultsPackage.RESULT_REPORT__TARGET:
         setTarget((EObject)newValue);
+        return;
+      case ResultsPackage.RESULT_REPORT__DESCRIPTION:
+        setDescription((String)newValue);
         return;
       case ResultsPackage.RESULT_REPORT__ISSUES:
         getIssues().clear();
@@ -273,6 +322,9 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
       case ResultsPackage.RESULT_REPORT__TARGET:
         setTarget((EObject)null);
         return;
+      case ResultsPackage.RESULT_REPORT__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
       case ResultsPackage.RESULT_REPORT__ISSUES:
         getIssues().clear();
         return;
@@ -294,6 +346,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_REPORT__TARGET:
         return target != null;
+      case ResultsPackage.RESULT_REPORT__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case ResultsPackage.RESULT_REPORT__ISSUES:
         return issues != null && !issues.isEmpty();
     }
@@ -313,6 +367,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }

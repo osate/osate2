@@ -213,9 +213,9 @@ ruleResultReportCollection returns [EObject current=null]
     }
 (
 (
-		lv_decription_8_0=RULE_STRING
+		lv_description_8_0=RULE_STRING
 		{
-			newLeafNode(lv_decription_8_0, grammarAccess.getResultReportCollectionAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
+			newLeafNode(lv_description_8_0, grammarAccess.getResultReportCollectionAccess().getDescriptionSTRINGTerminalRuleCall_6_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -223,8 +223,8 @@ ruleResultReportCollection returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"decription",
-        		lv_decription_8_0, 
+       			"description",
+        		lv_description_8_0, 
         		"STRING");
 	    }
 
@@ -363,9 +363,9 @@ ruleResultDataReport returns [EObject current=null]
     }
 (
 (
-		lv_decription_8_0=RULE_STRING
+		lv_description_8_0=RULE_STRING
 		{
-			newLeafNode(lv_decription_8_0, grammarAccess.getResultDataReportAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
+			newLeafNode(lv_description_8_0, grammarAccess.getResultDataReportAccess().getDescriptionSTRINGTerminalRuleCall_6_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -373,8 +373,8 @@ ruleResultDataReport returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"decription",
-        		lv_decription_8_0, 
+       			"description",
+        		lv_description_8_0, 
         		"STRING");
 	    }
 
@@ -612,11 +612,11 @@ ruleResultData returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getResultDataAccess().getEqualsSignKeyword_1());
     }
-(
+((
 (
 		lv_value_2_0=RULE_STRING
 		{
-			newLeafNode(lv_value_2_0, grammarAccess.getResultDataAccess().getValueSTRINGTerminalRuleCall_2_0()); 
+			newLeafNode(lv_value_2_0, grammarAccess.getResultDataAccess().getValueSTRINGTerminalRuleCall_2_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -630,7 +630,26 @@ ruleResultData returns [EObject current=null]
 	    }
 
 )
-))
+)
+    |(
+(
+		lv_integerValue_3_0=RULE_INT
+		{
+			newLeafNode(lv_integerValue_3_0, grammarAccess.getResultDataAccess().getIntegerValueINTTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultDataRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"integerValue",
+        		lv_integerValue_3_0, 
+        		"INT");
+	    }
+
+)
+)))
 ;
 
 
