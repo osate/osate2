@@ -69,6 +69,9 @@ property set Timing_Properties is
 	
 	Recover_Execution_Time: Time_Range
 		applies to (thread);
+		
+	Reference_Time: inherit reference (device, processor, bus, system, abstract) 
+	        applies to (device, processor, bus, system, memory, virtual bus, virtual processor);
 	
 	Startup_Deadline: Time
 		applies to (processor, virtual processor, process, system);
