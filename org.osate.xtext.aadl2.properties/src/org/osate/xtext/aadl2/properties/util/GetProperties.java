@@ -46,7 +46,6 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
@@ -81,8 +80,6 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-
-import com.ibm.icu.util.IslamicCalendar.CalculationType;
 
 public class GetProperties {
 	/**
@@ -1173,10 +1170,11 @@ public class GetProperties {
 	}
 
 	public static double getDataSize(final NamedElement ne, UnitLiteral unit) {
-		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
-		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
+		Property DataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
+		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
+				MemoryProperties.SOURCE_DATA_SIZE);
+		double res = PropertyUtils.getScaledNumberValue(ne, DataSize, unit, 0.0);
 		if (res == 0.0) {
-			SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_DATA_SIZE);
 			res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
 		}
 		long mult = 1;
@@ -1188,7 +1186,29 @@ public class GetProperties {
 		}
 		if (ne instanceof DataSubcomponent || ne instanceof DataImplementation) {
 			// mult is one or the array size of the data subcomponent.
-			return sumElementsDataSize(ne, unit) * mult;
+			return sumElementsDataSize(ne, unit, DataSize, SourceDataSize, 0) * mult;
+		}
+		return 0.0;
+	}
+
+	private static double getDataSize(final NamedElement ne, UnitLiteral unit, Property DataSize,
+			Property SourceDataSize, int nesting) {
+		double res = PropertyUtils.getScaledNumberValue(ne, DataSize, unit, 0.0);
+		if (res == 0.0) {
+			res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
+		}
+		long mult = 1;
+		if (ne instanceof DataSubcomponent) {
+			mult = AadlUtil.getMultiplicity(ne);
+		}
+		if (res != 0.0) {
+			return res * mult;
+		}
+		if (nesting > 10)
+			return 0.0;
+		if (ne instanceof DataSubcomponent || ne instanceof DataImplementation) {
+			// mult is one or the array size of the data subcomponent.
+			return sumElementsDataSize(ne, unit, DataSize, SourceDataSize, nesting + 1) * mult;
 		}
 		return 0.0;
 	}
@@ -1199,6 +1219,14 @@ public class GetProperties {
 	 * subcomponent
 	 */
 	public static double sumElementsDataSize(final NamedElement ne, UnitLiteral unit) {
+		Property DataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
+		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
+				MemoryProperties.SOURCE_DATA_SIZE);
+		return sumElementsDataSize(ne, unit, DataSize, SourceDataSize, 0);
+	}
+
+	private static double sumElementsDataSize(final NamedElement ne, UnitLiteral unit, Property DataSize,
+			Property SourceDataSize, int nesting) {
 		double res = 0.0;
 		Classifier cl = null;
 		if (ne instanceof Classifier) {
@@ -1214,11 +1242,13 @@ public class GetProperties {
 			if (cl instanceof FeatureGroupType) {
 				EList<Feature> fl = ((FeatureGroupType) cl).getAllFeatures();
 				for (Feature f : fl) {
-					res = res + getDataSize(f, unit);
+					res = res + getDataSize(f, unit, DataSize, SourceDataSize, nesting);
 				}
 			} else if (cl instanceof DataImplementation) {
 				for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
-					res = res + getDataSize(ds, unit);
+					if (!AadlUtil.isSameOrExtends(cl, ds.getAllClassifier())) {
+						res = res + getDataSize(ds, unit, DataSize, SourceDataSize, nesting);
+					}
 				}
 			}
 		}
