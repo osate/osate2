@@ -3477,4 +3477,33 @@ public class Aadl2Validator extends EObjectValidator {
 		}
 		return result;
 	}
+
+	@Override
+	public boolean validate_EveryDefaultConstraint(EObject object, DiagnosticChain theDiagnostics,
+			Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(object, theDiagnostics, context)) {
+			return false;
+		}
+		boolean result = validate_EveryMultiplicityConforms(object, theDiagnostics, context);
+		if (result || theDiagnostics != null) {
+			result &= validate_EveryReferenceIsContained(object, theDiagnostics, context);
+		}
+		if (result || theDiagnostics != null) {
+			result &= validate_EveryBidirectionalReferenceIsPaired(object, theDiagnostics, context);
+		}
+		if (result || theDiagnostics != null) {
+			result &= validate_EveryDataValueConforms(object, theDiagnostics, context);
+		}
+		if (result || theDiagnostics != null) {
+			result &= validate_UniqueID(object, theDiagnostics, context);
+		}
+		if (result || theDiagnostics != null) {
+			result &= validate_EveryKeyUnique(object, theDiagnostics, context);
+		}
+		if (result || theDiagnostics != null) {
+			result &= validate_EveryMapEntryUnique(object, theDiagnostics, context);
+		}
+		return result;
+	}
+
 } // Aadl2Validator
