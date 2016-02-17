@@ -3,14 +3,11 @@ package org.osate.xtext.aadl2.errormodel.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -48,6 +45,10 @@ public class AnalysisModel {
 	protected Collection<ComponentInstance> subcomponents = new HashSet<ComponentInstance>();
 	// connection instances as source or taraget of a propagation path
 	protected Collection<ConnectionInstance> connections = new ArrayList<ConnectionInstance>();
+
+	public static AnalysisModel createAnalysisModel(ComponentInstance root) {
+		return new AnalysisModel(root);
+	}
 
 	public AnalysisModel(ComponentInstance root) {
 		this(root, PropagationPathLevel.LEAF, true);
@@ -94,7 +95,7 @@ public class AnalysisModel {
 //					|| ci.getCategory() == ComponentCategory.THREAD || ci.getCategory() == ComponentCategory.VIRTUAL_BUS
 //					|| ci.getCategory() == ComponentCategory.THREAD_GROUP
 //					|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				populateBindingPaths(ci);
+			populateBindingPaths(ci);
 //			}
 		}
 	}
@@ -287,8 +288,8 @@ public class AnalysisModel {
 				addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
 			} else {
 				if (srcprop != null && addlSrcEP.size() > 1) {
-					dstprop = addlSrcEP.get(addlSrcEP.size()-1);
-					dstCI = addlSrcCI.get(addlSrcCI.size()-1);
+					dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
+					dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
 				}
 			}
 			break;
@@ -402,8 +403,8 @@ public class AnalysisModel {
 					addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
 				} else {
 					if (srcprop != null && addlSrcEP.size() > 1) {
-						dstprop = addlSrcEP.get(addlSrcEP.size()-1);
-						dstCI = addlSrcCI.get(addlSrcCI.size()-1);
+						dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
+						dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
 					}
 				}
 				break;
@@ -422,7 +423,7 @@ public class AnalysisModel {
 			}
 		}
 	}
-	
+
 	/**
 	 * add a propagation path record only if it does not exist already.
 	 * It also updates the list of "saubcomponent" i.e., component instances involved in propagation paths
@@ -432,12 +433,10 @@ public class AnalysisModel {
 	 * @param dstprop
 	 * @param connectionInstance
 	 */
-	private void addPropagationpathRecord(ComponentInstance srcCI, ErrorPropagation srcprop,
-			ComponentInstance dstCI, ErrorPropagation dstprop, ConnectionInstance connectionInstance)
-	{
+	private void addPropagationpathRecord(ComponentInstance srcCI, ErrorPropagation srcprop, ComponentInstance dstCI,
+			ErrorPropagation dstprop, ConnectionInstance connectionInstance) {
 		if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-			PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,
-					connectionInstance);
+			PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
 			propagationPaths.add(path);
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
@@ -592,7 +591,6 @@ public class AnalysisModel {
 		}
 		return result;
 	}
-
 
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ComponentInstance ci, ErrorPropagation outEP) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
