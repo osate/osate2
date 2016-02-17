@@ -34,35 +34,36 @@ class ResultsUtilExtension {
 		""
 	} 
 	
-	def static void addError(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.ERROR)
+	def static void addError(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.ERROR, diagnosticId)
 	} 
 	
-	def static void addWarning(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.WARNING)
+	def static void addWarning(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.WARNING, diagnosticId)
 	} 
 	
-	def static void addInfo(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.INFO)
+	def static void addInfo(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.INFO, diagnosticId)
 	} 
 	
-	def static void addSuccess(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.SUCCESS)
+	def static void addSuccess(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.SUCCESS, diagnosticId)
 	} 
 	
-	def static void addFail(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.FAIL)
+	def static void addFail(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.FAIL, diagnosticId)
 	} 
 	
-	def static void addTBD(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.TBD)
+	def static void addTBD(ResultIssue holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.TBD, diagnosticId)
 	} 
 	
-	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit){
+	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit, String diagnosticId){
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.target = target
 		issue.message = msg
 		issue.issueType = rit
+		issue.diagnosticId = diagnosticId
 		holder.issues.add(issue)
 	} 
 	

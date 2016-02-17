@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getThenskipCount <em>Thenskip Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getValidationfailCount <em>Validationfail Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesCount <em>Features Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -278,6 +280,58 @@ public interface Metrics extends EObject
    * @generated
    */
   void setValidationfailCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Features Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Features Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Features Count</em>' attribute.
+   * @see #setFeaturesCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_FeaturesCount()
+   * @model
+   * @generated
+   */
+  int getFeaturesCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getFeaturesCount <em>Features Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Features Count</em>' attribute.
+   * @see #getFeaturesCount()
+   * @generated
+   */
+  void setFeaturesCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Features Requirements Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Features Requirements Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Features Requirements Count</em>' attribute.
+   * @see #setFeaturesRequirementsCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_FeaturesRequirementsCount()
+   * @model
+   * @generated
+   */
+  int getFeaturesRequirementsCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getFeaturesRequirementsCount <em>Features Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Features Requirements Count</em>' attribute.
+   * @see #getFeaturesRequirementsCount()
+   * @generated
+   */
+  void setFeaturesRequirementsCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

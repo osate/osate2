@@ -17,29 +17,15 @@ package org.osate.alisa.common.common.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.alisa.common.common.ABinaryOperation;
-import org.osate.alisa.common.common.AExpression;
-import org.osate.alisa.common.common.AListTerm;
-import org.osate.alisa.common.common.ANullLiteral;
-import org.osate.alisa.common.common.APropertyReference;
-import org.osate.alisa.common.common.ASetLiteral;
-import org.osate.alisa.common.common.AUnaryOperation;
-import org.osate.alisa.common.common.AVariableDeclaration;
-import org.osate.alisa.common.common.AVariableReference;
-import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.ComputeDeclaration;
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.ImageReference;
-import org.osate.alisa.common.common.Rationale;
-import org.osate.alisa.common.common.ResultIssue;
-import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.Uncertainty;
-import org.osate.alisa.common.common.ValDeclaration;
+
+import org.osate.alisa.common.common.*;
 
 /**
  * <!-- begin-user-doc -->

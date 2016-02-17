@@ -15,10 +15,18 @@
  */
 package org.osate.alisa.common.serializer;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
+import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
@@ -44,8 +52,6 @@ import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.services.CommonGrammarAccess;
-
-import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer {
@@ -293,7 +299,14 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (issueType=ResultIssueType message=STRING target=[EObject|URIID]? exceptionType=STRING? issues+=ResultIssue*)
+	 *     (
+	 *         issueType=ResultIssueType 
+	 *         message=STRING 
+	 *         target=[EObject|URIID]? 
+	 *         exceptionType=STRING? 
+	 *         diagnosticId=STRING? 
+	 *         issues+=ResultIssue*
+	 *     )
 	 */
 	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -146,6 +146,8 @@ Metrics returns Metrics:
 	('thenskipcount' thenskipCount=INT)?
 	('prefailcount'  preconditionfailCount=INT)?
 	('validfailcount'  validationfailCount=INT)?
+	('featurescount'  featuresCount=INT)?
+	('featuresrequirementscount'  featuresRequirementsCount=INT)?
 	('weight' weight = INT)?
 	('time' executionTime = AInt)?
 ;

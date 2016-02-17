@@ -17,11 +17,16 @@ package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.osate.aadl2.PropertyExpression;
+
 import org.osate.aadl2.impl.PropertyExpressionImpl;
+
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.CommonPackage;
 

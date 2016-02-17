@@ -111,6 +111,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getGroup_9(), "rule__Metrics__Group_9__0");
 					put(grammarAccess.getMetricsAccess().getGroup_10(), "rule__Metrics__Group_10__0");
 					put(grammarAccess.getMetricsAccess().getGroup_11(), "rule__Metrics__Group_11__0");
+					put(grammarAccess.getMetricsAccess().getGroup_12(), "rule__Metrics__Group_12__0");
+					put(grammarAccess.getMetricsAccess().getGroup_13(), "rule__Metrics__Group_13__0");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getGroup(), "rule__QualifiedClaimReference__Group__0");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getGroup(), "rule__QualifiedVAReference__Group__0");
 					put(grammarAccess.getNestedClaimReferenceAccess().getGroup(), "rule__NestedClaimReference__Group__0");
@@ -124,6 +126,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultIssueAccess().getGroup_2(), "rule__ResultIssue__Group_2__0");
 					put(grammarAccess.getResultIssueAccess().getGroup_3(), "rule__ResultIssue__Group_3__0");
 					put(grammarAccess.getResultIssueAccess().getGroup_4(), "rule__ResultIssue__Group_4__0");
+					put(grammarAccess.getResultIssueAccess().getGroup_5(), "rule__ResultIssue__Group_5__0");
 					put(grammarAccess.getValDeclarationAccess().getGroup(), "rule__ValDeclaration__Group__0");
 					put(grammarAccess.getValDeclarationAccess().getGroup_2_0(), "rule__ValDeclaration__Group_2_0__0");
 					put(grammarAccess.getValDeclarationAccess().getGroup_2_0_0(), "rule__ValDeclaration__Group_2_0_0__0");
@@ -262,8 +265,10 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getThenskipCountAssignment_7_1(), "rule__Metrics__ThenskipCountAssignment_7_1");
 					put(grammarAccess.getMetricsAccess().getPreconditionfailCountAssignment_8_1(), "rule__Metrics__PreconditionfailCountAssignment_8_1");
 					put(grammarAccess.getMetricsAccess().getValidationfailCountAssignment_9_1(), "rule__Metrics__ValidationfailCountAssignment_9_1");
-					put(grammarAccess.getMetricsAccess().getWeightAssignment_10_1(), "rule__Metrics__WeightAssignment_10_1");
-					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_11_1(), "rule__Metrics__ExecutionTimeAssignment_11_1");
+					put(grammarAccess.getMetricsAccess().getFeaturesCountAssignment_10_1(), "rule__Metrics__FeaturesCountAssignment_10_1");
+					put(grammarAccess.getMetricsAccess().getFeaturesRequirementsCountAssignment_11_1(), "rule__Metrics__FeaturesRequirementsCountAssignment_11_1");
+					put(grammarAccess.getMetricsAccess().getWeightAssignment_12_1(), "rule__Metrics__WeightAssignment_12_1");
+					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_13_1(), "rule__Metrics__ExecutionTimeAssignment_13_1");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedClaimReference__VerificationPlanAssignment_0");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementAssignment_2(), "rule__QualifiedClaimReference__RequirementAssignment_2");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedVAReference__VerificationPlanAssignment_0");
@@ -283,7 +288,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultIssueAccess().getMessageAssignment_1(), "rule__ResultIssue__MessageAssignment_1");
 					put(grammarAccess.getResultIssueAccess().getTargetAssignment_2_1(), "rule__ResultIssue__TargetAssignment_2_1");
 					put(grammarAccess.getResultIssueAccess().getExceptionTypeAssignment_3_1(), "rule__ResultIssue__ExceptionTypeAssignment_3_1");
-					put(grammarAccess.getResultIssueAccess().getIssuesAssignment_4_1(), "rule__ResultIssue__IssuesAssignment_4_1");
+					put(grammarAccess.getResultIssueAccess().getDiagnosticIdAssignment_4_1(), "rule__ResultIssue__DiagnosticIdAssignment_4_1");
+					put(grammarAccess.getResultIssueAccess().getIssuesAssignment_5_1(), "rule__ResultIssue__IssuesAssignment_5_1");
 					put(grammarAccess.getValDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__ValDeclaration__TypeAssignment_2_0_0_0");
 					put(grammarAccess.getValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__ValDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getValDeclarationAccess().getNameAssignment_2_1(), "rule__ValDeclaration__NameAssignment_2_1");

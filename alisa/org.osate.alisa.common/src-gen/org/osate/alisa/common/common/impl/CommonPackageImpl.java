@@ -21,8 +21,11 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.osate.aadl2.Aadl2Package;
+
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.AListTerm;
@@ -427,9 +430,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getResultIssue_DiagnosticId()
+  {
+    return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getResultIssue_Issues()
   {
-    return (EReference)resultIssueEClass.getEStructuralFeatures().get(4);
+    return (EReference)resultIssueEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -773,6 +786,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(resultIssueEClass, RESULT_ISSUE__MESSAGE);
     createEReference(resultIssueEClass, RESULT_ISSUE__TARGET);
     createEAttribute(resultIssueEClass, RESULT_ISSUE__EXCEPTION_TYPE);
+    createEAttribute(resultIssueEClass, RESULT_ISSUE__DIAGNOSTIC_ID);
     createEReference(resultIssueEClass, RESULT_ISSUE__ISSUES);
 
     aVariableDeclarationEClass = createEClass(AVARIABLE_DECLARATION);
@@ -886,6 +900,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getResultIssue_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultIssue_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultIssue_ExceptionType(), theEcorePackage.getEString(), "exceptionType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultIssue_DiagnosticId(), theEcorePackage.getEString(), "diagnosticId", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultIssue_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aVariableDeclarationEClass, AVariableDeclaration.class, "AVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

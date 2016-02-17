@@ -173,6 +173,11 @@
             description="Execute Verification Activities Affected by Changes"
             name="Verify Evidence Changes">
      </command>
+     <command categoryId="org.osate.assure.category.commands"
+            id="org.osate.assure.commands.AssureRequirementsMetrics"
+            description="Assure Requirements Metrics"
+            name="Assure Requirements Metrics">
+     </command>
     </extension>
     
     
@@ -281,7 +286,20 @@
 				</visibleWhen>
 			</command>
          </menuContribution>
- 
+        <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.osate.assure.commands.AssureRequirementsMetrics" 
+				style="push" tooltip="Assure Requirements Metrics">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
+  
 <!--           <menuContribution locationURI="popup:#TextEditorContext?after=copy">
          	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
          		style="push" tooltip="Verify TBD Evidence (affected by change)">
@@ -384,6 +402,11 @@
       <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.OpenAssureViewHandler" 
             commandId="org.osate.assure.commands.OpenAssureView">
+      </handler>
+
+      <handler
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureRequirementsMetricsHandler" 
+            commandId="org.osate.assure.commands.AssureRequirementsMetrics">
       </handler>
      </extension>  
 

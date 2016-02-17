@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.osate.aadl2.Aadl2Package;
 
 /**
@@ -266,13 +267,22 @@ public interface CommonPackage extends EPackage
   int RESULT_ISSUE__EXCEPTION_TYPE = 3;
 
   /**
+   * The feature id for the '<em><b>Diagnostic Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__DIAGNOSTIC_ID = 4;
+
+  /**
    * The feature id for the '<em><b>Issues</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__ISSUES = 4;
+  int RESULT_ISSUE__ISSUES = 5;
 
   /**
    * The number of structural features of the '<em>Result Issue</em>' class.
@@ -281,7 +291,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE_FEATURE_COUNT = 5;
+  int RESULT_ISSUE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl <em>AVariable Declaration</em>}' class.
@@ -1039,6 +1049,17 @@ public interface CommonPackage extends EPackage
   EAttribute getResultIssue_ExceptionType();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getDiagnosticId <em>Diagnostic Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Diagnostic Id</em>'.
+   * @see org.osate.alisa.common.common.ResultIssue#getDiagnosticId()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_DiagnosticId();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.ResultIssue#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1522,6 +1543,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
+
+    /**
+     * The meta object literal for the '<em><b>Diagnostic Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__DIAGNOSTIC_ID = eINSTANCE.getResultIssue_DiagnosticId();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.

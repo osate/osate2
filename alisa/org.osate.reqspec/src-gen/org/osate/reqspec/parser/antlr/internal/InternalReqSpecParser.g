@@ -6372,32 +6372,55 @@ ruleResultIssue returns [EObject current=null]
 
 )
 ))?(
-	otherlv_6=LeftSquareBracket
+	otherlv_6=DiagnosticId
     {
-    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_4_0());
+    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getDiagnosticIdKeyword_4_0());
+    }
+(
+(
+		lv_diagnosticId_7_0=RULE_STRING
+		{
+			newLeafNode(lv_diagnosticId_7_0, grammarAccess.getResultIssueAccess().getDiagnosticIdSTRINGTerminalRuleCall_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"diagnosticId",
+        		lv_diagnosticId_7_0, 
+        		"STRING");
+	    }
+
+)
+))?(
+	otherlv_8=LeftSquareBracket
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
 	    }
-		lv_issues_7_0=ruleResultIssue		{
+		lv_issues_9_0=ruleResultIssue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
 	        }
        		add(
        			$current, 
        			"issues",
-        		lv_issues_7_0, 
+        		lv_issues_9_0, 
         		"ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*
-	otherlv_8=RightSquareBracket
+	otherlv_10=RightSquareBracket
     {
-    	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_4_2());
+    	newLeafNode(otherlv_10, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
     }
 )?)
 ;

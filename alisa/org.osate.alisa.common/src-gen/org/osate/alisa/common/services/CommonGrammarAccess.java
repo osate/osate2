@@ -15,28 +15,16 @@
  */
 package org.osate.alisa.common.services;
 
+import com.google.inject.Singleton;
+import com.google.inject.Inject;
+
 import java.util.List;
 
-import org.eclipse.xtext.Action;
-import org.eclipse.xtext.Alternatives;
-import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.CrossReference;
-import org.eclipse.xtext.EnumLiteralDeclaration;
-import org.eclipse.xtext.EnumRule;
-import org.eclipse.xtext.Grammar;
-import org.eclipse.xtext.GrammarUtil;
-import org.eclipse.xtext.Group;
-import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.ParserRule;
-import org.eclipse.xtext.RuleCall;
-import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.UnorderedGroup;
-import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
-import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
+import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
+import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 
 @Singleton
 public class CommonGrammarAccess extends AbstractGrammarElementFinder {
@@ -211,19 +199,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cExceptionTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cExceptionTypeAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cIssuesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cIssuesResultIssueParserRuleCall_4_1_0 = (RuleCall)cIssuesAssignment_4_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cDiagnosticIdKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDiagnosticIdAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDiagnosticIdSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cDiagnosticIdAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cLeftSquareBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cIssuesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
 		
 		//// This is similar to diagnostics
 		//ResultIssue:
 		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-		//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+		//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-		//("[" issues+=ResultIssue* "]")?
+		//("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?
 		public Group getGroup() { return cGroup; }
 
 		//issueType=ResultIssueType
@@ -265,20 +257,32 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
 
-		//("[" issues+=ResultIssue* "]")?
+		//("diagnosticId" diagnosticId=STRING)?
 		public Group getGroup_4() { return cGroup_4; }
 
+		//"diagnosticId"
+		public Keyword getDiagnosticIdKeyword_4_0() { return cDiagnosticIdKeyword_4_0; }
+
+		//diagnosticId=STRING
+		public Assignment getDiagnosticIdAssignment_4_1() { return cDiagnosticIdAssignment_4_1; }
+
+		//STRING
+		public RuleCall getDiagnosticIdSTRINGTerminalRuleCall_4_1_0() { return cDiagnosticIdSTRINGTerminalRuleCall_4_1_0; }
+
+		//("[" issues+=ResultIssue* "]")?
+		public Group getGroup_5() { return cGroup_5; }
+
 		//"["
-		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+		public Keyword getLeftSquareBracketKeyword_5_0() { return cLeftSquareBracketKeyword_5_0; }
 
 		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_4_1() { return cIssuesAssignment_4_1; }
+		public Assignment getIssuesAssignment_5_1() { return cIssuesAssignment_5_1; }
 
 		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_4_1_0() { return cIssuesResultIssueParserRuleCall_4_1_0; }
+		public RuleCall getIssuesResultIssueParserRuleCall_5_1_0() { return cIssuesResultIssueParserRuleCall_5_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4_2() { return cRightSquareBracketKeyword_4_2; }
+		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
 	}
 
 	public class ValDeclarationElements extends AbstractParserRuleElementFinder {
@@ -2151,7 +2155,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	//// This is similar to diagnostics
 	//ResultIssue:
 	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;
 	}

@@ -42,6 +42,8 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getThenskipCount <em>Thenskip Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getValidationfailCount <em>Validationfail Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesCount <em>Features Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -229,6 +231,46 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int validationfailCount = VALIDATIONFAIL_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFeaturesCount() <em>Features Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int FEATURES_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getFeaturesCount() <em>Features Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesCount()
+   * @generated
+   * @ordered
+   */
+  protected int featuresCount = FEATURES_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFeaturesRequirementsCount() <em>Features Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesRequirementsCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int FEATURES_REQUIREMENTS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getFeaturesRequirementsCount() <em>Features Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesRequirementsCount()
+   * @generated
+   * @ordered
+   */
+  protected int featuresRequirementsCount = FEATURES_REQUIREMENTS_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -503,6 +545,52 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getFeaturesCount()
+  {
+    return featuresCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeaturesCount(int newFeaturesCount)
+  {
+    int oldFeaturesCount = featuresCount;
+    featuresCount = newFeaturesCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__FEATURES_COUNT, oldFeaturesCount, featuresCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getFeaturesRequirementsCount()
+  {
+    return featuresRequirementsCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeaturesRequirementsCount(int newFeaturesRequirementsCount)
+  {
+    int oldFeaturesRequirementsCount = featuresRequirementsCount;
+    featuresRequirementsCount = newFeaturesRequirementsCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT, oldFeaturesRequirementsCount, featuresRequirementsCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getWeight()
   {
     return weight;
@@ -572,6 +660,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getPreconditionfailCount();
       case AssurePackage.METRICS__VALIDATIONFAIL_COUNT:
         return getValidationfailCount();
+      case AssurePackage.METRICS__FEATURES_COUNT:
+        return getFeaturesCount();
+      case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
+        return getFeaturesRequirementsCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -616,6 +708,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__VALIDATIONFAIL_COUNT:
         setValidationfailCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__FEATURES_COUNT:
+        setFeaturesCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
+        setFeaturesRequirementsCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
@@ -664,6 +762,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__VALIDATIONFAIL_COUNT:
         setValidationfailCount(VALIDATIONFAIL_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__FEATURES_COUNT:
+        setFeaturesCount(FEATURES_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
+        setFeaturesRequirementsCount(FEATURES_REQUIREMENTS_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
@@ -702,6 +806,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return preconditionfailCount != PRECONDITIONFAIL_COUNT_EDEFAULT;
       case AssurePackage.METRICS__VALIDATIONFAIL_COUNT:
         return validationfailCount != VALIDATIONFAIL_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__FEATURES_COUNT:
+        return featuresCount != FEATURES_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
+        return featuresRequirementsCount != FEATURES_REQUIREMENTS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -739,6 +847,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(preconditionfailCount);
     result.append(", validationfailCount: ");
     result.append(validationfailCount);
+    result.append(", featuresCount: ");
+    result.append(featuresCount);
+    result.append(", featuresRequirementsCount: ");
+    result.append(featuresRequirementsCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(", executionTime: ");

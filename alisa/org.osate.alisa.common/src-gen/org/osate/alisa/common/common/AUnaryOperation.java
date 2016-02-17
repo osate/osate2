@@ -16,6 +16,7 @@
 package org.osate.alisa.common.common;
 
 import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.PropertyExpression;
 
 /**

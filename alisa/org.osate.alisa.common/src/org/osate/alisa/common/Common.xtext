@@ -32,6 +32,7 @@ ResultIssue returns ResultIssue:
 	message=STRING
 	('target' target=[ecore::EObject|URIID])?
 	('exception' exceptionType = STRING)?
+	('diagnosticId' diagnosticId = STRING)?
 	('[' issues+=ResultIssue*']')?
 ;
 

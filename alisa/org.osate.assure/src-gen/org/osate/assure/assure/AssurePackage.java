@@ -693,13 +693,31 @@ public interface AssurePackage extends EPackage
   int METRICS__VALIDATIONFAIL_COUNT = 8;
 
   /**
+   * The feature id for the '<em><b>Features Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__FEATURES_COUNT = 9;
+
+  /**
+   * The feature id for the '<em><b>Features Requirements Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__FEATURES_REQUIREMENTS_COUNT = 10;
+
+  /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS__WEIGHT = 9;
+  int METRICS__WEIGHT = 11;
 
   /**
    * The feature id for the '<em><b>Execution Time</b></em>' attribute.
@@ -708,7 +726,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS__EXECUTION_TIME = 10;
+  int METRICS__EXECUTION_TIME = 12;
 
   /**
    * The number of structural features of the '<em>Metrics</em>' class.
@@ -717,7 +735,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 11;
+  int METRICS_FEATURE_COUNT = 13;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVerificationPlanElementReferenceImpl <em>Qualified Verification Plan Element Reference</em>}' class.
@@ -1723,6 +1741,28 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_ValidationfailCount();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getFeaturesCount <em>Features Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Features Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getFeaturesCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_FeaturesCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getFeaturesRequirementsCount <em>Features Requirements Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Features Requirements Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getFeaturesRequirementsCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_FeaturesRequirementsCount();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2404,6 +2444,22 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__VALIDATIONFAIL_COUNT = eINSTANCE.getMetrics_ValidationfailCount();
+
+    /**
+     * The meta object literal for the '<em><b>Features Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__FEATURES_COUNT = eINSTANCE.getMetrics_FeaturesCount();
+
+    /**
+     * The meta object literal for the '<em><b>Features Requirements Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__FEATURES_REQUIREMENTS_COUNT = eINSTANCE.getMetrics_FeaturesRequirementsCount();
 
     /**
      * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.

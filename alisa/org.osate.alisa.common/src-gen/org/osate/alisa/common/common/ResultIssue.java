@@ -16,6 +16,7 @@
 package org.osate.alisa.common.common;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.alisa.common.common.ResultIssue#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ResultIssue#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ResultIssue#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getDiagnosticId <em>Diagnostic Id</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ResultIssue#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -146,6 +148,32 @@ public interface ResultIssue extends EObject
    * @generated
    */
   void setExceptionType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Diagnostic Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Diagnostic Id</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Diagnostic Id</em>' attribute.
+   * @see #setDiagnosticId(String)
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_DiagnosticId()
+   * @model
+   * @generated
+   */
+  String getDiagnosticId();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.ResultIssue#getDiagnosticId <em>Diagnostic Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Diagnostic Id</em>' attribute.
+   * @see #getDiagnosticId()
+   * @generated
+   */
+  void setDiagnosticId(String value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' containment reference list.

@@ -37,6 +37,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/message"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ResultIssue/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/exceptionType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/diagnosticId"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ResultIssue/issues"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AVariableDeclaration">

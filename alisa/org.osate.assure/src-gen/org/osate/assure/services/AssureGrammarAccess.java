@@ -1076,25 +1076,35 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValidationfailCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
 		private final RuleCall cValidationfailCountINTTerminalRuleCall_9_1_0 = (RuleCall)cValidationfailCountAssignment_9_1.eContents().get(0);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cWeightKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cWeightAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_10_1_0 = (RuleCall)cWeightAssignment_10_1.eContents().get(0);
+		private final Keyword cFeaturescountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Assignment cFeaturesCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
+		private final RuleCall cFeaturesCountINTTerminalRuleCall_10_1_0 = (RuleCall)cFeaturesCountAssignment_10_1.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cTimeKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cExecutionTimeAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cExecutionTimeAIntParserRuleCall_11_1_0 = (RuleCall)cExecutionTimeAssignment_11_1.eContents().get(0);
+		private final Keyword cFeaturesrequirementscountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Assignment cFeaturesRequirementsCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
+		private final RuleCall cFeaturesRequirementsCountINTTerminalRuleCall_11_1_0 = (RuleCall)cFeaturesRequirementsCountAssignment_11_1.eContents().get(0);
+		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
+		private final Keyword cWeightKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
+		private final Assignment cWeightAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
+		private final RuleCall cWeightINTTerminalRuleCall_12_1_0 = (RuleCall)cWeightAssignment_12_1.eContents().get(0);
+		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
+		private final Keyword cTimeKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
+		private final Assignment cExecutionTimeAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
+		private final RuleCall cExecutionTimeAIntParserRuleCall_13_1_0 = (RuleCall)cExecutionTimeAssignment_13_1.eContents().get(0);
 		
 		//Metrics:
 		//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-		//	validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
+		//	validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
+		//	featuresRequirementsCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-		//validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
+		//validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
+		//featuresRequirementsCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -1208,29 +1218,53 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getValidationfailCountINTTerminalRuleCall_9_1_0() { return cValidationfailCountINTTerminalRuleCall_9_1_0; }
 
-		//("weight" weight=INT)?
+		//("featurescount" featuresCount=INT)?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//"weight"
-		public Keyword getWeightKeyword_10_0() { return cWeightKeyword_10_0; }
+		//"featurescount"
+		public Keyword getFeaturescountKeyword_10_0() { return cFeaturescountKeyword_10_0; }
 
-		//weight=INT
-		public Assignment getWeightAssignment_10_1() { return cWeightAssignment_10_1; }
+		//featuresCount=INT
+		public Assignment getFeaturesCountAssignment_10_1() { return cFeaturesCountAssignment_10_1; }
 
 		//INT
-		public RuleCall getWeightINTTerminalRuleCall_10_1_0() { return cWeightINTTerminalRuleCall_10_1_0; }
+		public RuleCall getFeaturesCountINTTerminalRuleCall_10_1_0() { return cFeaturesCountINTTerminalRuleCall_10_1_0; }
 
-		//("time" executionTime=AInt)?
+		//("featuresrequirementscount" featuresRequirementsCount=INT)?
 		public Group getGroup_11() { return cGroup_11; }
 
+		//"featuresrequirementscount"
+		public Keyword getFeaturesrequirementscountKeyword_11_0() { return cFeaturesrequirementscountKeyword_11_0; }
+
+		//featuresRequirementsCount=INT
+		public Assignment getFeaturesRequirementsCountAssignment_11_1() { return cFeaturesRequirementsCountAssignment_11_1; }
+
+		//INT
+		public RuleCall getFeaturesRequirementsCountINTTerminalRuleCall_11_1_0() { return cFeaturesRequirementsCountINTTerminalRuleCall_11_1_0; }
+
+		//("weight" weight=INT)?
+		public Group getGroup_12() { return cGroup_12; }
+
+		//"weight"
+		public Keyword getWeightKeyword_12_0() { return cWeightKeyword_12_0; }
+
+		//weight=INT
+		public Assignment getWeightAssignment_12_1() { return cWeightAssignment_12_1; }
+
+		//INT
+		public RuleCall getWeightINTTerminalRuleCall_12_1_0() { return cWeightINTTerminalRuleCall_12_1_0; }
+
+		//("time" executionTime=AInt)?
+		public Group getGroup_13() { return cGroup_13; }
+
 		//"time"
-		public Keyword getTimeKeyword_11_0() { return cTimeKeyword_11_0; }
+		public Keyword getTimeKeyword_13_0() { return cTimeKeyword_13_0; }
 
 		//executionTime=AInt
-		public Assignment getExecutionTimeAssignment_11_1() { return cExecutionTimeAssignment_11_1; }
+		public Assignment getExecutionTimeAssignment_13_1() { return cExecutionTimeAssignment_13_1; }
 
 		//AInt
-		public RuleCall getExecutionTimeAIntParserRuleCall_11_1_0() { return cExecutionTimeAIntParserRuleCall_11_1_0; }
+		public RuleCall getExecutionTimeAIntParserRuleCall_13_1_0() { return cExecutionTimeAIntParserRuleCall_13_1_0; }
 	}
 
 	public class QualifiedVerificationPlanElementReferenceElements extends AbstractParserRuleElementFinder {
@@ -1762,7 +1796,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 	//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-	//	validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
+	//	validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
+	//	featuresRequirementsCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 	public MetricsElements getMetricsAccess() {
 		return pMetrics;
 	}
@@ -1879,7 +1914,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//// This is similar to diagnostics
 	//ResultIssue:
 	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
 	}

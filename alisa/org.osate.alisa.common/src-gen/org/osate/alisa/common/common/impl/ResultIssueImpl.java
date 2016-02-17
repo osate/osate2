@@ -19,14 +19,19 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ResultIssueType;
@@ -43,6 +48,7 @@ import org.osate.alisa.common.common.ResultIssueType;
  *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getDiagnosticId <em>Diagnostic Id</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -119,6 +125,26 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
    * @ordered
    */
   protected String exceptionType = EXCEPTION_TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDiagnosticId() <em>Diagnostic Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDiagnosticId()
+   * @generated
+   * @ordered
+   */
+  protected static final String DIAGNOSTIC_ID_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDiagnosticId() <em>Diagnostic Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDiagnosticId()
+   * @generated
+   * @ordered
+   */
+  protected String diagnosticId = DIAGNOSTIC_ID_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
@@ -268,6 +294,29 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDiagnosticId()
+  {
+    return diagnosticId;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDiagnosticId(String newDiagnosticId)
+  {
+    String oldDiagnosticId = diagnosticId;
+    diagnosticId = newDiagnosticId;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RESULT_ISSUE__DIAGNOSTIC_ID, oldDiagnosticId, diagnosticId));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ResultIssue> getIssues()
   {
     if (issues == null)
@@ -312,6 +361,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
         return basicGetTarget();
       case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         return getExceptionType();
+      case CommonPackage.RESULT_ISSUE__DIAGNOSTIC_ID:
+        return getDiagnosticId();
       case CommonPackage.RESULT_ISSUE__ISSUES:
         return getIssues();
     }
@@ -340,6 +391,9 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
         return;
       case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         setExceptionType((String)newValue);
+        return;
+      case CommonPackage.RESULT_ISSUE__DIAGNOSTIC_ID:
+        setDiagnosticId((String)newValue);
         return;
       case CommonPackage.RESULT_ISSUE__ISSUES:
         getIssues().clear();
@@ -371,6 +425,9 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
       case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         setExceptionType(EXCEPTION_TYPE_EDEFAULT);
         return;
+      case CommonPackage.RESULT_ISSUE__DIAGNOSTIC_ID:
+        setDiagnosticId(DIAGNOSTIC_ID_EDEFAULT);
+        return;
       case CommonPackage.RESULT_ISSUE__ISSUES:
         getIssues().clear();
         return;
@@ -396,6 +453,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
         return target != null;
       case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         return EXCEPTION_TYPE_EDEFAULT == null ? exceptionType != null : !EXCEPTION_TYPE_EDEFAULT.equals(exceptionType);
+      case CommonPackage.RESULT_ISSUE__DIAGNOSTIC_ID:
+        return DIAGNOSTIC_ID_EDEFAULT == null ? diagnosticId != null : !DIAGNOSTIC_ID_EDEFAULT.equals(diagnosticId);
       case CommonPackage.RESULT_ISSUE__ISSUES:
         return issues != null && !issues.isEmpty();
     }
@@ -419,6 +478,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     result.append(message);
     result.append(", exceptionType: ");
     result.append(exceptionType);
+    result.append(", diagnosticId: ");
+    result.append(diagnosticId);
     result.append(')');
     return result.toString();
   }

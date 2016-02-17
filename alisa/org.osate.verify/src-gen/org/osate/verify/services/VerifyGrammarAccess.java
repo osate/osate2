@@ -376,8 +376,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCompositeElseEvidenceExprParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//// Execute as alternative if the first one fails.
-		//// The results of both are reported
-		//ElseEvidenceExpr returns ArgumentExpr:
+		// // The results of both are reported
+		// ElseEvidenceExpr returns
+		//ArgumentExpr:
 		//	SingleElseEvidenceExpr | CompositeElseEvidenceExpr;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -743,16 +744,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VerificationActivity:
 		//	name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])*
-		//	"=")? method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-		//	"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+		//	"=")? method=[VerificationMethod|QualifiedName]
+		//	//	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+		// "("
+		//	(parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
 		//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
 		//	phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
 		//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-		//method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-		//"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+		//method=[VerificationMethod|QualifiedName]
+		////	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+		// "("
+		//(parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
 		//(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
 		//phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
 		//timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?
@@ -819,7 +824,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_4_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_4_0_1; }
 
 		////	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-		//"("
+		// "("
 		public Keyword getLeftParenthesisKeyword_5() { return cLeftParenthesisKeyword_5; }
 
 		//(parameters+=AExpression ("," parameters+=AExpression)*)?
@@ -1679,7 +1684,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAllAllKeyword_1_1_0 = (Keyword)cAllAssignment_1_1.eContents().get(0);
 		
 		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		//
 		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+		//
 		//AgreeMethod:
 		//	"agree" (singleLayer?="single" | all?="all");
 		@Override public ParserRule getRule() { return rule; }
@@ -1846,8 +1853,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Execute as alternative if the first one fails.
-	//// The results of both are reported
-	//ElseEvidenceExpr returns ArgumentExpr:
+	// // The results of both are reported
+	// ElseEvidenceExpr returns
+	//ArgumentExpr:
 	//	SingleElseEvidenceExpr | CompositeElseEvidenceExpr;
 	public ElseEvidenceExprElements getElseEvidenceExprAccess() {
 		return pElseEvidenceExpr;
@@ -1910,8 +1918,10 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationActivity:
 	//	name=ID (":" title=STRING)? ":" (result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])*
-	//	"=")? method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-	//	"(" (parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
+	//	"=")? method=[VerificationMethod|QualifiedName]
+	//	//	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
+	// "("
+	//	(parameters+=AExpression ("," parameters+=AExpression)*)? ")" ("property" "values" "("
 	//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("phase"
 	//	phaseCategory+=[categories::PhaseCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)? & ("timeout"
 	//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
@@ -2032,7 +2042,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+	//
 	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+	//
 	//AgreeMethod:
 	//	"agree" (singleLayer?="single" | all?="all");
 	public AgreeMethodElements getAgreeMethodAccess() {
@@ -2086,7 +2098,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// This is similar to diagnostics
 	//ResultIssue:
 	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
 	}

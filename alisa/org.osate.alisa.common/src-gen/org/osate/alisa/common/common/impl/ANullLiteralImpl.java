@@ -16,7 +16,9 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.osate.aadl2.impl.PropertyExpressionImpl;
+
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.CommonPackage;
 

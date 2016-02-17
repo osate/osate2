@@ -28,6 +28,8 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
+DiagnosticId : 'diagnosticId';
+
 Requirements : 'requirements';
 
 Connections : 'connections';
