@@ -229,6 +229,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			"legalFlowSegmentsTypeTest".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a1.i".assertEquals(name)
+				ownedFlowImplementations.get(0) => [
+					"fpath1".assertEquals(specification.name)
+					ownedFlowSegments.get(0) => [
+						"fconn1".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the in flow feature 'af1'")
+					]
+				]
 				ownedFlowImplementations.get(1) => [
 					"fpath2".assertEquals(specification.name)
 					ownedFlowSegments.get(0) => [
@@ -312,6 +320,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Data Port.Abstract Subcomponent 'dp1.asub2'")
 					]
+					ownedFlowSegments.get(1) => [
+						"fconn2".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn2' does not match the preceding subcomponent 'asub2'")
+					]
 				]
 				ownedFlowImplementations.get(12) => [
 					"fsource9".assertEquals(specification.name)
@@ -347,6 +360,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						"asub2".assertEquals(flowElement.name)
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Event Data Port.Abstract Subcomponent 'edp1.asub2'")
+					]
+					ownedFlowSegments.get(1) => [
+						"fconn2".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn2' does not match the preceding subcomponent 'asub2'")
 					]
 				]
 				ownedFlowImplementations.get(16) => [
@@ -384,6 +402,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Abstract Subcomponent.Abstract Subcomponent 'asub1.asub2'")
 					]
+					ownedFlowSegments.get(1) => [
+						"fconn2".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn2' does not match the preceding subcomponent 'asub2'")
+					]
 				]
 				ownedFlowImplementations.get(21) => [
 					"fsource18".assertEquals(specification.name)
@@ -411,6 +434,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Flow Specification 'call1.fsource23'")
 					]
+					ownedFlowSegments.get(1) => [
+						"fconn2".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn2' does not match the out flow feature of the preceding subcomponent flow specification 'call1.fsource23'")
+					]
 				]
 				ownedFlowImplementations.get(24) => [
 					"fsource21".assertEquals(specification.name)
@@ -419,6 +447,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						"asub3".assertEquals(flowElement.name)
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Abstract Subcomponent 'call1.asub3'")
+					]
+					ownedFlowSegments.get(1) => [
+						"fconn2".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn2' does not match the preceding subcomponent 'asub3'")
 					]
 				]
 			]
@@ -431,6 +464,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						"asub2".assertEquals(flowElement.name)
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Abstract Subcomponent 'param1.asub2'")
+					]
+					ownedFlowSegments.get(1) => [
+						"fconn4".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn4' does not match the preceding subcomponent 'asub2'")
 					]
 				]
 				ownedFlowImplementations.get(1) => [
@@ -458,6 +496,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						"asub2".assertEquals(flowElement.name)
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Abstract Subcomponent 'param1.asub2'")
+					]
+					ownedFlowSegments.get(1) => [
+						"fconn4".assertEquals(flowElement.name)
+						//Tests checkFlowConnectionOrder
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn4' does not match the preceding subcomponent 'asub2'")
 					]
 				]
 			]
