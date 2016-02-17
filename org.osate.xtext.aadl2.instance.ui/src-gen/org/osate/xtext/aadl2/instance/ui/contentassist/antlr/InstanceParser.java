@@ -38,7 +38,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getSystemInstanceAccess().getAlternatives_5(), "rule__SystemInstance__Alternatives_5");
-					put(grammarAccess.getComponentInstanceAccess().getAlternatives_5_1(), "rule__ComponentInstance__Alternatives_5_1");
+					put(grammarAccess.getComponentInstanceAccess().getAlternatives_7_1(), "rule__ComponentInstance__Alternatives_7_1");
 					put(grammarAccess.getConnectionInstanceAccess().getAlternatives_5(), "rule__ConnectionInstance__Alternatives_5");
 					put(grammarAccess.getDirectionTypeAccess().getAlternatives(), "rule__DirectionType__Alternatives");
 					put(grammarAccess.getFeatureCategoryAccess().getAlternatives(), "rule__FeatureCategory__Alternatives");
@@ -56,6 +56,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentInstanceAccess().getGroup(), "rule__ComponentInstance__Group__0");
 					put(grammarAccess.getComponentInstanceAccess().getGroup_2(), "rule__ComponentInstance__Group_2__0");
 					put(grammarAccess.getComponentInstanceAccess().getGroup_5(), "rule__ComponentInstance__Group_5__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_5_4(), "rule__ComponentInstance__Group_5_4__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_6(), "rule__ComponentInstance__Group_6__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_6_4(), "rule__ComponentInstance__Group_6_4__0");
+					put(grammarAccess.getComponentInstanceAccess().getGroup_7(), "rule__ComponentInstance__Group_7__0");
 					put(grammarAccess.getConnectionInstanceAccess().getGroup(), "rule__ConnectionInstance__Group__0");
 					put(grammarAccess.getConnectionReferenceAccess().getGroup(), "rule__ConnectionReference__Group__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup(), "rule__SystemOperationMode__Group__0");
@@ -101,8 +105,12 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentInstanceAccess().getNameAssignment_1(), "rule__ComponentInstance__NameAssignment_1");
 					put(grammarAccess.getComponentInstanceAccess().getIndexAssignment_2_1(), "rule__ComponentInstance__IndexAssignment_2_1");
 					put(grammarAccess.getComponentInstanceAccess().getSubcomponentAssignment_4(), "rule__ComponentInstance__SubcomponentAssignment_4");
-					put(grammarAccess.getComponentInstanceAccess().getFeatureInstanceAssignment_5_1_0(), "rule__ComponentInstance__FeatureInstanceAssignment_5_1_0");
-					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_5_1_1(), "rule__ComponentInstance__ComponentInstanceAssignment_5_1_1");
+					put(grammarAccess.getComponentInstanceAccess().getSrcConnectionInstanceAssignment_5_3(), "rule__ComponentInstance__SrcConnectionInstanceAssignment_5_3");
+					put(grammarAccess.getComponentInstanceAccess().getSrcConnectionInstanceAssignment_5_4_1(), "rule__ComponentInstance__SrcConnectionInstanceAssignment_5_4_1");
+					put(grammarAccess.getComponentInstanceAccess().getDstConnectionInstanceAssignment_6_3(), "rule__ComponentInstance__DstConnectionInstanceAssignment_6_3");
+					put(grammarAccess.getComponentInstanceAccess().getDstConnectionInstanceAssignment_6_4_1(), "rule__ComponentInstance__DstConnectionInstanceAssignment_6_4_1");
+					put(grammarAccess.getComponentInstanceAccess().getFeatureInstanceAssignment_7_1_0(), "rule__ComponentInstance__FeatureInstanceAssignment_7_1_0");
+					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_7_1_1(), "rule__ComponentInstance__ComponentInstanceAssignment_7_1_1");
 					put(grammarAccess.getConnectionInstanceAccess().getCompleteAssignment_0(), "rule__ConnectionInstance__CompleteAssignment_0");
 					put(grammarAccess.getConnectionInstanceAccess().getKindAssignment_1(), "rule__ConnectionInstance__KindAssignment_1");
 					put(grammarAccess.getConnectionInstanceAccess().getNameAssignment_2(), "rule__ConnectionInstance__NameAssignment_2");
