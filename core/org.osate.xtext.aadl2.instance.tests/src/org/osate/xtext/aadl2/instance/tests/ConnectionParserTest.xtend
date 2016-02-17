@@ -126,4 +126,106 @@ class ConnectionParserTest extends OsateTest {
 			]
 		]
 	}
+	
+	@Test
+	def void testAcrossToComponentConnection() {
+		val pkg1FileName = "pkg1.aadl"
+		val si1FileName = "si1.instance"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				processor p
+				features
+					ba: requires bus access;
+				end p;
+				
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					psub: processor p;
+					b1: bus;
+					b2: bus;
+				connections
+					conn1: bus access psub.ba -> b1;
+					conn2: bus access b2 -> psub.ba;
+				end s.i;
+			end pkg1;
+		''', si1FileName -> '''
+			system si1 : pkg1::s.i {
+				bus b1[0] : pkg1::s.i::b1 destination of (0)
+				bus b2[0] : pkg1::s.i::b2 source of (1)
+				processor psub[0] : pkg1::s.i::psub {
+					in out busAccess ba : pkg1::p::ba source of (1.0) destination of (1.1)
+				}
+				complete accessConnection "connName1" : psub[0].ba -> b1[0] {
+					psub[0].ba -> b1[0] : pkg1::s.i::conn1 in parent
+				}
+				complete accessConnection "connName2" : b2[0] -> psub[0].ba {
+					b2[0] -> psub[0].ba : pkg1::s.i::conn2 in parent
+				}
+			}
+		''')
+		suppressSerialization
+		testFile(pkg1FileName)
+		testFile(si1FileName).resource.contents.head as SystemInstance => [si |
+			"si1".assertEquals(si.name)
+			si.componentInstances.get(0) => [
+				"b1".assertEquals(name)
+				srcConnectionInstances.empty.assertTrue
+				1.assertEquals(dstConnectionInstances.size)
+				si.connectionInstances.get(0).assertEquals(dstConnectionInstances.head)
+			]
+			si.componentInstances.get(1) => [
+				"b2".assertEquals(name)
+				1.assertEquals(srcConnectionInstances.size)
+				si.connectionInstances.get(1).assertEquals(srcConnectionInstances.head)
+				dstConnectionInstances.empty.assertTrue
+			]
+			si.componentInstances.get(2) => [
+				"psub".assertEquals(name)
+				featureInstances.head => [
+					"ba".assertEquals(name)
+					1.assertEquals(srcConnectionInstances.size)
+					si.connectionInstances.get(0).assertEquals(srcConnectionInstances.head)
+					1.assertEquals(dstConnectionInstances.size)
+					si.connectionInstances.get(1).assertEquals(dstConnectionInstances.head)
+				]
+			]
+			2.assertEquals(si.connectionInstances.size)
+			si.connectionInstances.get(0) => [
+				"connName1".assertEquals(name)
+				complete.assertTrue
+				ConnectionKind.ACCESS_CONNECTION.assertEquals(kind)
+				bidirectional.assertFalse
+				si.componentInstances.get(2).featureInstances.head.assertEquals(source)
+				si.componentInstances.get(0).assertEquals(destination)
+				1.assertEquals(connectionReferences.size)
+				connectionReferences.head => [
+					si.componentInstances.get(2).featureInstances.head.assertEquals(source)
+					si.componentInstances.get(0).assertEquals(destination)
+					"pkg1::s.i".assertEquals(connection.getContainerOfType(ComponentImplementation).getQualifiedName)
+					"conn1".assertEquals(connection.name)
+					si.assertEquals(context)
+				]
+			]
+			si.connectionInstances.get(1) => [
+				"connName2".assertEquals(name)
+				complete.assertTrue
+				ConnectionKind.ACCESS_CONNECTION.assertEquals(kind)
+				bidirectional.assertFalse
+				si.componentInstances.get(1).assertEquals(source)
+				si.componentInstances.get(2).featureInstances.head.assertEquals(destination)
+				1.assertEquals(connectionReferences.size)
+				connectionReferences.head => [
+					si.componentInstances.get(1).assertEquals(source)
+					si.componentInstances.get(2).featureInstances.head.assertEquals(destination)
+					"pkg1::s.i".assertEquals(connection.getContainerOfType(ComponentImplementation).getQualifiedName)
+					"conn2".assertEquals(connection.name)
+					si.assertEquals(context)
+				]
+			]
+		]
+	}
 }

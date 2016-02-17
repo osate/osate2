@@ -334,21 +334,55 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cSubcomponentSubcomponentCrossReference_4_0 = (CrossReference)cSubcomponentAssignment_4.eContents().get(0);
 		private final RuleCall cSubcomponentSubcomponentSUBREFParserRuleCall_4_0_1 = (RuleCall)cSubcomponentSubcomponentCrossReference_4_0.eContents().get(1);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
-		private final Assignment cFeatureInstanceAssignment_5_1_0 = (Assignment)cAlternatives_5_1.eContents().get(0);
-		private final RuleCall cFeatureInstanceFeatureInstanceParserRuleCall_5_1_0_0 = (RuleCall)cFeatureInstanceAssignment_5_1_0.eContents().get(0);
-		private final Assignment cComponentInstanceAssignment_5_1_1 = (Assignment)cAlternatives_5_1.eContents().get(1);
-		private final RuleCall cComponentInstanceComponentInstanceParserRuleCall_5_1_1_0 = (RuleCall)cComponentInstanceAssignment_5_1_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSourceKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cOfKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Assignment cSrcConnectionInstanceAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
+		private final CrossReference cSrcConnectionInstanceConnectionInstanceCrossReference_5_3_0 = (CrossReference)cSrcConnectionInstanceAssignment_5_3.eContents().get(0);
+		private final RuleCall cSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_3_0_1 = (RuleCall)cSrcConnectionInstanceConnectionInstanceCrossReference_5_3_0.eContents().get(1);
+		private final Group cGroup_5_4 = (Group)cGroup_5.eContents().get(4);
+		private final Keyword cCommaKeyword_5_4_0 = (Keyword)cGroup_5_4.eContents().get(0);
+		private final Assignment cSrcConnectionInstanceAssignment_5_4_1 = (Assignment)cGroup_5_4.eContents().get(1);
+		private final CrossReference cSrcConnectionInstanceConnectionInstanceCrossReference_5_4_1_0 = (CrossReference)cSrcConnectionInstanceAssignment_5_4_1.eContents().get(0);
+		private final RuleCall cSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_4_1_0_1 = (RuleCall)cSrcConnectionInstanceConnectionInstanceCrossReference_5_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5_5 = (Keyword)cGroup_5.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cDestinationKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cOfKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Assignment cDstConnectionInstanceAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final CrossReference cDstConnectionInstanceConnectionInstanceCrossReference_6_3_0 = (CrossReference)cDstConnectionInstanceAssignment_6_3.eContents().get(0);
+		private final RuleCall cDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_3_0_1 = (RuleCall)cDstConnectionInstanceConnectionInstanceCrossReference_6_3_0.eContents().get(1);
+		private final Group cGroup_6_4 = (Group)cGroup_6.eContents().get(4);
+		private final Keyword cCommaKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Assignment cDstConnectionInstanceAssignment_6_4_1 = (Assignment)cGroup_6_4.eContents().get(1);
+		private final CrossReference cDstConnectionInstanceConnectionInstanceCrossReference_6_4_1_0 = (CrossReference)cDstConnectionInstanceAssignment_6_4_1.eContents().get(0);
+		private final RuleCall cDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_4_1_0_1 = (RuleCall)cDstConnectionInstanceConnectionInstanceCrossReference_6_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6_5 = (Keyword)cGroup_6.eContents().get(5);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cLeftCurlyBracketKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Alternatives cAlternatives_7_1 = (Alternatives)cGroup_7.eContents().get(1);
+		private final Assignment cFeatureInstanceAssignment_7_1_0 = (Assignment)cAlternatives_7_1.eContents().get(0);
+		private final RuleCall cFeatureInstanceFeatureInstanceParserRuleCall_7_1_0_0 = (RuleCall)cFeatureInstanceAssignment_7_1_0.eContents().get(0);
+		private final Assignment cComponentInstanceAssignment_7_1_1 = (Assignment)cAlternatives_7_1.eContents().get(1);
+		private final RuleCall cComponentInstanceComponentInstanceParserRuleCall_7_1_1_0 = (RuleCall)cComponentInstanceAssignment_7_1_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
 		
 		//ComponentInstance returns instance::ComponentInstance:
-		//	category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("{"
-		//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?;
+		//	category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("source" "of"
+		//	"(" srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//	srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
+		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
+		//	componentInstance+=ComponentInstance)* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("{"
-		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?
+		//category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("source" "of"
+		//"(" srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
+		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
+		//componentInstance+=ComponentInstance)* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -390,29 +424,109 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//SUBREF
 		public RuleCall getSubcomponentSubcomponentSUBREFParserRuleCall_4_0_1() { return cSubcomponentSubcomponentSUBREFParserRuleCall_4_0_1; }
 
-		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?
+		//("source" "of" "(" srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
+		//"source"
+		public Keyword getSourceKeyword_5_0() { return cSourceKeyword_5_0; }
+
+		//"of"
+		public Keyword getOfKeyword_5_1() { return cOfKeyword_5_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
+
+		//srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF]
+		public Assignment getSrcConnectionInstanceAssignment_5_3() { return cSrcConnectionInstanceAssignment_5_3; }
+
+		//[instance::ConnectionInstance|CONNINSTREF]
+		public CrossReference getSrcConnectionInstanceConnectionInstanceCrossReference_5_3_0() { return cSrcConnectionInstanceConnectionInstanceCrossReference_5_3_0; }
+
+		//CONNINSTREF
+		public RuleCall getSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_3_0_1() { return cSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_3_0_1; }
+
+		//("," srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])*
+		public Group getGroup_5_4() { return cGroup_5_4; }
+
+		//","
+		public Keyword getCommaKeyword_5_4_0() { return cCommaKeyword_5_4_0; }
+
+		//srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF]
+		public Assignment getSrcConnectionInstanceAssignment_5_4_1() { return cSrcConnectionInstanceAssignment_5_4_1; }
+
+		//[instance::ConnectionInstance|CONNINSTREF]
+		public CrossReference getSrcConnectionInstanceConnectionInstanceCrossReference_5_4_1_0() { return cSrcConnectionInstanceConnectionInstanceCrossReference_5_4_1_0; }
+
+		//CONNINSTREF
+		public RuleCall getSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_4_1_0_1() { return cSrcConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_5_4_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_5_5() { return cRightParenthesisKeyword_5_5; }
+
+		//("destination" "of" "(" dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"destination"
+		public Keyword getDestinationKeyword_6_0() { return cDestinationKeyword_6_0; }
+
+		//"of"
+		public Keyword getOfKeyword_6_1() { return cOfKeyword_6_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_6_2() { return cLeftParenthesisKeyword_6_2; }
+
+		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF]
+		public Assignment getDstConnectionInstanceAssignment_6_3() { return cDstConnectionInstanceAssignment_6_3; }
+
+		//[instance::ConnectionInstance|CONNINSTREF]
+		public CrossReference getDstConnectionInstanceConnectionInstanceCrossReference_6_3_0() { return cDstConnectionInstanceConnectionInstanceCrossReference_6_3_0; }
+
+		//CONNINSTREF
+		public RuleCall getDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_3_0_1() { return cDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_3_0_1; }
+
+		//("," dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])*
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
+		//","
+		public Keyword getCommaKeyword_6_4_0() { return cCommaKeyword_6_4_0; }
+
+		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF]
+		public Assignment getDstConnectionInstanceAssignment_6_4_1() { return cDstConnectionInstanceAssignment_6_4_1; }
+
+		//[instance::ConnectionInstance|CONNINSTREF]
+		public CrossReference getDstConnectionInstanceConnectionInstanceCrossReference_6_4_1_0() { return cDstConnectionInstanceConnectionInstanceCrossReference_6_4_1_0; }
+
+		//CONNINSTREF
+		public RuleCall getDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_4_1_0_1() { return cDstConnectionInstanceConnectionInstanceCONNINSTREFParserRuleCall_6_4_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_6_5() { return cRightParenthesisKeyword_6_5; }
+
+		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?
+		public Group getGroup_7() { return cGroup_7; }
+
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
+		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)*
-		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
+		public Alternatives getAlternatives_7_1() { return cAlternatives_7_1; }
 
 		//featureInstance+=FeatureInstance
-		public Assignment getFeatureInstanceAssignment_5_1_0() { return cFeatureInstanceAssignment_5_1_0; }
+		public Assignment getFeatureInstanceAssignment_7_1_0() { return cFeatureInstanceAssignment_7_1_0; }
 
 		//FeatureInstance
-		public RuleCall getFeatureInstanceFeatureInstanceParserRuleCall_5_1_0_0() { return cFeatureInstanceFeatureInstanceParserRuleCall_5_1_0_0; }
+		public RuleCall getFeatureInstanceFeatureInstanceParserRuleCall_7_1_0_0() { return cFeatureInstanceFeatureInstanceParserRuleCall_7_1_0_0; }
 
 		//componentInstance+=ComponentInstance
-		public Assignment getComponentInstanceAssignment_5_1_1() { return cComponentInstanceAssignment_5_1_1; }
+		public Assignment getComponentInstanceAssignment_7_1_1() { return cComponentInstanceAssignment_7_1_1; }
 
 		//ComponentInstance
-		public RuleCall getComponentInstanceComponentInstanceParserRuleCall_5_1_1_0() { return cComponentInstanceComponentInstanceParserRuleCall_5_1_1_0; }
+		public RuleCall getComponentInstanceComponentInstanceParserRuleCall_7_1_1_0() { return cComponentInstanceComponentInstanceParserRuleCall_7_1_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
 	}
 
 	public class ConnectionInstanceElements extends AbstractParserRuleElementFinder {
@@ -1209,8 +1323,12 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentInstance returns instance::ComponentInstance:
-	//	category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("{"
-	//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?;
+	//	category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("source" "of"
+	//	"(" srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+	//	srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
+	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
+	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
+	//	componentInstance+=ComponentInstance)* "}")?;
 	public ComponentInstanceElements getComponentInstanceAccess() {
 		return pComponentInstance;
 	}

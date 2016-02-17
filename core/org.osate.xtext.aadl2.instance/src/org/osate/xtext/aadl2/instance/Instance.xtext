@@ -24,7 +24,9 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=LONG ']')* ':' subcomponent=[aadl2::Subcomponent|SUBREF] ('{'
+	category=ComponentCategory name=ID ('[' index+=LONG ']')* ':' subcomponent=[aadl2::Subcomponent|SUBREF]
+	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
+	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance
 		)*

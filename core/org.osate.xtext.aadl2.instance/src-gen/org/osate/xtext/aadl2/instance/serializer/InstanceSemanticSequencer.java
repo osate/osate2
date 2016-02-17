@@ -60,6 +60,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ID 
 	 *         index+=LONG* 
 	 *         subcomponent=[Subcomponent|SUBREF] 
+	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
+	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)*
 	 *     )
 	 */
