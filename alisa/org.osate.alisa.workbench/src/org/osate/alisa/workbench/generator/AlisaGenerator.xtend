@@ -178,7 +178,7 @@ class AlisaGenerator implements IGenerator {
 		if(APparts.length == 0) return ''''''
 		'''	
 			subsystem «sub.name» 
-			for «sub.name»
+«««			for «sub.name»
 			[
 			tbdcount 0
 			«APparts»
