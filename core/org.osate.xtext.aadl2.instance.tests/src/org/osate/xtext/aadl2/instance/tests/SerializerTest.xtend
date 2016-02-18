@@ -350,6 +350,86 @@ class SerializerTest extends OsateTest {
 		]
 	}
 	
+	@Test
+	def void testUpAndDownAndAcrossConnection() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				thread t1
+				features
+					op: out data port;
+				end t1;
+				
+				process p1
+				features
+					op: out data port;
+				end p1;
+				
+				process implementation p1.i
+				subcomponents
+					t1sub: thread t1;
+				connections
+					p1conn: port t1sub.op -> op;
+				end p1.i;
+				
+				thread t2
+				features
+					ip: in data port;
+				end t2;
+				
+				process p2
+				features
+					ip: in data port;
+				end p2;
+				
+				process implementation p2.i
+				subcomponents
+					t2sub: thread t2;
+				connections
+					p2conn: port ip -> t2sub.ip;
+				end p2.i;
+				
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					p1sub: process p1.i;
+					p2sub: process p2.i;
+				connections
+					conn: port p1sub.op -> p2sub.ip;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			assertSerialize("s.i", '''
+				system s_i_Instance : pkg1::s.i {
+					process p1sub [ 0 ] : pkg1::s.i::p1sub {
+						out dataPort op : pkg1::p1::op
+						thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
+							out dataPort op : pkg1::t1::op source of ( 2.0 )
+						}
+					}
+					process p2sub [ 0 ] : pkg1::s.i::p2sub {
+						in dataPort ip : pkg1::p2::ip
+						thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
+							in dataPort ip : pkg1::t2::ip destination of ( 2.0 )
+						}
+					}
+					complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" :
+					p1sub[0].t1sub[0].op -> p2sub[0].t2sub[0].ip {
+						p1sub[0].t1sub[0].op -> p1sub[0].op : pkg1::p1.i::p1conn in p1sub[0]
+						p1sub[0].op -> p2sub[0].ip : pkg1::s.i::conn in parent
+						p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i::p2conn in p2sub[0]
+					}
+					som "No Modes"
+				}''')
+		]
+	}
+	
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
 		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
 		impl.assertNotNull
