@@ -111,6 +111,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentInstanceAccess().getDstConnectionInstanceAssignment_6_4_1(), "rule__ComponentInstance__DstConnectionInstanceAssignment_6_4_1");
 					put(grammarAccess.getComponentInstanceAccess().getFeatureInstanceAssignment_7_1_0(), "rule__ComponentInstance__FeatureInstanceAssignment_7_1_0");
 					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_7_1_1(), "rule__ComponentInstance__ComponentInstanceAssignment_7_1_1");
+					put(grammarAccess.getComponentInstanceAccess().getConnectionInstanceAssignment_7_1_2(), "rule__ComponentInstance__ConnectionInstanceAssignment_7_1_2");
 					put(grammarAccess.getConnectionInstanceAccess().getCompleteAssignment_0(), "rule__ConnectionInstance__CompleteAssignment_0");
 					put(grammarAccess.getConnectionInstanceAccess().getKindAssignment_1(), "rule__ConnectionInstance__KindAssignment_1");
 					put(grammarAccess.getConnectionInstanceAccess().getNameAssignment_2(), "rule__ConnectionInstance__NameAssignment_2");

@@ -556,6 +556,12 @@ rule__ComponentInstance__Alternatives_7_1
 { after(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_7_1_1()); }
 )
 
+    |(
+{ before(grammarAccess.getComponentInstanceAccess().getConnectionInstanceAssignment_7_1_2()); }
+(rule__ComponentInstance__ConnectionInstanceAssignment_7_1_2)
+{ after(grammarAccess.getComponentInstanceAccess().getConnectionInstanceAssignment_7_1_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -5974,6 +5980,21 @@ rule__ComponentInstance__ComponentInstanceAssignment_7_1_1
 (
 { before(grammarAccess.getComponentInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_7_1_1_0()); }
 	ruleComponentInstance{ after(grammarAccess.getComponentInstanceAccess().getComponentInstanceComponentInstanceParserRuleCall_7_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ComponentInstance__ConnectionInstanceAssignment_7_1_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getComponentInstanceAccess().getConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0()); }
+	ruleConnectionInstance{ after(grammarAccess.getComponentInstanceAccess().getConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0()); }
 )
 
 ;

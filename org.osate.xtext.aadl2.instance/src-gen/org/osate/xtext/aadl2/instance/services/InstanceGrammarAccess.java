@@ -366,6 +366,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFeatureInstanceFeatureInstanceParserRuleCall_7_1_0_0 = (RuleCall)cFeatureInstanceAssignment_7_1_0.eContents().get(0);
 		private final Assignment cComponentInstanceAssignment_7_1_1 = (Assignment)cAlternatives_7_1.eContents().get(1);
 		private final RuleCall cComponentInstanceComponentInstanceParserRuleCall_7_1_1_0 = (RuleCall)cComponentInstanceAssignment_7_1_1.eContents().get(0);
+		private final Assignment cConnectionInstanceAssignment_7_1_2 = (Assignment)cAlternatives_7_1.eContents().get(2);
+		private final RuleCall cConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0 = (RuleCall)cConnectionInstanceAssignment_7_1_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
 		
 		//ComponentInstance returns instance::ComponentInstance:
@@ -374,7 +376,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//	srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
-		//	componentInstance+=ComponentInstance)* "}")?;
+		//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("source" "of"
@@ -382,7 +384,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
-		//componentInstance+=ComponentInstance)* "}")?
+		//componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -504,13 +506,14 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_5() { return cRightParenthesisKeyword_6_5; }
 
-		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)* "}")?
+		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)*
+		//"}")?
 		public Group getGroup_7() { return cGroup_7; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
-		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)*
+		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)*
 		public Alternatives getAlternatives_7_1() { return cAlternatives_7_1; }
 
 		//featureInstance+=FeatureInstance
@@ -524,6 +527,12 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ComponentInstance
 		public RuleCall getComponentInstanceComponentInstanceParserRuleCall_7_1_1_0() { return cComponentInstanceComponentInstanceParserRuleCall_7_1_1_0; }
+
+		//connectionInstance+=ConnectionInstance
+		public Assignment getConnectionInstanceAssignment_7_1_2() { return cConnectionInstanceAssignment_7_1_2; }
+
+		//ConnectionInstance
+		public RuleCall getConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0() { return cConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
@@ -1328,7 +1337,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//	srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("destination" "of" "("
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
-	//	componentInstance+=ComponentInstance)* "}")?;
+	//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)* "}")?;
 	public ComponentInstanceElements getComponentInstanceAccess() {
 		return pComponentInstance;
 	}

@@ -28,7 +28,8 @@ ComponentInstance returns instance::ComponentInstance:
 	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
 	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
-			componentInstance+=ComponentInstance
+			componentInstance+=ComponentInstance |
+			connectionInstance+=ConnectionInstance
 		)*
 	'}')?
 ;

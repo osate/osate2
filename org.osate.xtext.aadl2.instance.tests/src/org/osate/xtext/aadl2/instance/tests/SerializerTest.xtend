@@ -321,11 +321,9 @@ class SerializerTest extends OsateTest {
 				system implementation s.i
 				subcomponents
 					psub: processor p;
-					b1: bus;
-					b2: bus;
+					b: bus;
 				connections
-					conn1: bus access psub.ba -> b1;
-					conn2: bus access b2 -> psub.ba;
+					conn1: bus access psub.ba <-> b;
 				end s.i;
 			end pkg1;
 		''')
@@ -334,16 +332,12 @@ class SerializerTest extends OsateTest {
 			"pkg1".assertEquals(name)
 			assertSerialize("s.i", '''
 				system s_i_Instance : pkg1::s.i {
-					bus b1 [ 0 ] : pkg1::s.i::b1 destination of ( 1 )
-					bus b2 [ 0 ] : pkg1::s.i::b2 source of ( 0 )
+					bus b [ 0 ] : pkg1::s.i::b source of ( 0 )
 					processor psub [ 0 ] : pkg1::s.i::psub {
-						in out busAccess ba : pkg1::p::ba source of ( 1.1 ) destination of ( 1.0 )
+						in out busAccess ba : pkg1::p::ba destination of ( 1.0 )
 					}
-					complete accessConnection "b2 -> psub.ba" : b2[0] -> psub[0].ba {
-						b2[0] -> psub[0].ba : pkg1::s.i::conn2 in parent
-					}
-					complete accessConnection "psub.ba -> b1" : psub[0].ba -> b1[0] {
-						psub[0].ba -> b1[0] : pkg1::s.i::conn1 in parent
+					complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
+						b[0] -> psub[0].ba : pkg1::s.i::conn1 in parent
 					}
 					som "No Modes"
 				}''')
@@ -424,6 +418,112 @@ class SerializerTest extends OsateTest {
 						p1sub[0].t1sub[0].op -> p1sub[0].op : pkg1::p1.i::p1conn in p1sub[0]
 						p1sub[0].op -> p2sub[0].ip : pkg1::s.i::conn in parent
 						p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i::p2conn in p2sub[0]
+					}
+					som "No Modes"
+				}''')
+		]
+	}
+	
+	@Test
+	def void testUpAndDownConnections() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				process p
+				features
+					ip: in data port;
+					op: out data port;
+				end p;
+				
+				system s
+				features
+					ip: in data port;
+					op: out data port;
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					psub: process p;
+				connections
+					conn1: port ip -> psub.ip;
+					conn2: port psub.op -> op;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			assertSerialize("s.i", '''
+				system s_i_Instance : pkg1::s.i {
+					in dataPort ip : pkg1::s::ip source of ( 0 )
+					out dataPort op : pkg1::s::op destination of ( 1 )
+					process psub [ 0 ] : pkg1::s.i::psub {
+						in dataPort ip : pkg1::p::ip destination of ( 1.0 )
+						out dataPort op : pkg1::p::op source of ( 1.1 )
+					}
+					portConnection "ip -> psub.ip" : ip -> psub[0].ip {
+						ip -> psub[0].ip : pkg1::s.i::conn1 in parent
+					}
+					portConnection "psub.op -> op" : psub[0].op -> op {
+						psub[0].op -> op : pkg1::s.i::conn2 in parent
+					}
+					som "No Modes"
+				}''')
+		]
+	}
+	
+	@Test
+	def void testConnectionInSubcomponent() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				thread t1
+				features
+					op: out data port;
+				end t1;
+				
+				thread t2
+				features
+					ip: in data port;
+				end t2;
+				
+				process p
+				end p;
+				
+				process implementation p.i
+				subcomponents
+					t1sub: thread t1;
+					t2sub: thread t2;
+				connections
+					conn1: port t1sub.op -> t2sub.ip;
+				end p.i;
+				
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					psub: process p.i;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			assertSerialize("s.i", '''
+				system s_i_Instance : pkg1::s.i {
+					process psub [ 0 ] : pkg1::s.i::psub {
+						thread t1sub [ 0 ] : pkg1::p.i::t1sub {
+							out dataPort op : pkg1::t1::op source of ( 1.0 )
+						}
+						thread t2sub [ 0 ] : pkg1::p.i::t2sub {
+							in dataPort ip : pkg1::t2::ip destination of ( 1.0 )
+						}
+						complete portConnection "t1sub.op -> t2sub.ip" : t1sub[0].op -> t2sub[0].ip {
+							t1sub[0].op -> t2sub[0].ip : pkg1::p.i::conn1 in parent
+						}
 					}
 					som "No Modes"
 				}''')
