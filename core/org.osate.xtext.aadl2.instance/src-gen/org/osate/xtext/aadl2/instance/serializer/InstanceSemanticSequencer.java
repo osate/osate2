@@ -62,7 +62,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         subcomponent=[Subcomponent|SUBREF] 
 	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
-	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance)*
+	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)*
 	 *     )
 	 */
 	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {

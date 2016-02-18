@@ -704,9 +704,28 @@ ruleComponentInstance returns [EObject current=null]
 	    }
 
 )
-))*	otherlv_24='}' 
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComponentInstanceAccess().getConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0()); 
+	    }
+		lv_connectionInstance_24_0=ruleConnectionInstance		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComponentInstanceRule());
+	        }
+       		add(
+       			$current, 
+       			"connectionInstance",
+        		lv_connectionInstance_24_0, 
+        		"ConnectionInstance");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_25='}' 
     {
-    	newLeafNode(otherlv_24, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_7_2());
+    	newLeafNode(otherlv_25, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_7_2());
     }
 )?)
 ;
