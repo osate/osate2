@@ -258,6 +258,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (
 	 *             targetDescription=STRING | 
@@ -320,6 +321,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
 	 *         qualityCategory+=[QualityCategory|ID]* 
@@ -485,6 +487,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
 	 *         qualityCategory+=[QualityCategory|ID]* 

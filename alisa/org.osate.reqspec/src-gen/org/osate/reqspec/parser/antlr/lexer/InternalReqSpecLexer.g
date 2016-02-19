@@ -44,6 +44,10 @@ Stakeholder : 'stakeholder';
 
 Uncertainty : 'uncertainty';
 
+Assumption : 'assumption';
+
+Constraint : 'constraint';
+
 Decomposes : 'decomposes';
 
 Subprogram : 'subprogram';
@@ -55,6 +59,8 @@ Conflicts : 'conflicts';
 Constants : 'constants';
 
 Exception : 'exception';
+
+Guarantee : 'guarantee';
 
 Mitigates : 'mitigates';
 

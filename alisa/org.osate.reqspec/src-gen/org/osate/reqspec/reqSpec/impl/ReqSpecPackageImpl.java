@@ -17,6 +17,7 @@ package org.osate.reqspec.reqSpec.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -42,6 +43,7 @@ import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
 import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqDocument;
+import org.osate.reqspec.reqSpec.ReqKind;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqRoot;
 import org.osate.reqspec.reqSpec.ReqSpec;
@@ -211,6 +213,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass globalRequirementsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum reqKindEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -936,9 +945,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Computes()
+  public EAttribute getRequirement_ReqKind()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -946,7 +955,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Predicate()
+  public EReference getRequirement_Computes()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(1);
   }
@@ -956,7 +965,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Exception()
+  public EReference getRequirement_Predicate()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(2);
   }
@@ -966,9 +975,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getRequirement_Exception()
+  {
+    return (EReference)requirementEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getRequirement_ExceptionText()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -978,7 +997,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_RefinesReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(4);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -988,7 +1007,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_DecomposesReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(5);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -998,7 +1017,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_DevelopmentStakeholder()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(6);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -1008,7 +1027,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_RequirementReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(7);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -1018,7 +1037,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EAttribute getRequirement_ComponentCategory()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(8);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -1028,7 +1047,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EAttribute getRequirement_Connections()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(9);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -1296,6 +1315,16 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getReqKind()
+  {
+    return reqKindEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ReqSpecFactory getReqSpecFactory()
   {
     return (ReqSpecFactory)getEFactoryInstance();
@@ -1396,6 +1425,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(goalEClass, GOAL__STAKEHOLDER_REFERENCE);
 
     requirementEClass = createEClass(REQUIREMENT);
+    createEAttribute(requirementEClass, REQUIREMENT__REQ_KIND);
     createEReference(requirementEClass, REQUIREMENT__COMPUTES);
     createEReference(requirementEClass, REQUIREMENT__PREDICATE);
     createEReference(requirementEClass, REQUIREMENT__EXCEPTION);
@@ -1442,6 +1472,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__INCLUDE);
 
     globalRequirementsEClass = createEClass(GLOBAL_REQUIREMENTS);
+
+    // Create enums
+    reqKindEEnum = createEEnum(REQ_KIND);
   }
 
   /**
@@ -1572,6 +1605,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getGoal_StakeholderReference(), theOrganizationPackage.getStakeholder(), null, "stakeholderReference", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(requirementEClass, Requirement.class, "Requirement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getRequirement_ReqKind(), this.getReqKind(), "reqKind", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Predicate(), this.getReqPredicate(), null, "predicate", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Exception(), theEcorePackage.getEObject(), null, "exception", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1618,6 +1652,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getSystemRequirements_Include(), this.getIncludeGlobalRequirement(), null, "include", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(globalRequirementsEClass, GlobalRequirements.class, "GlobalRequirements", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    // Initialize enums and add enum literals
+    initEEnum(reqKindEEnum, ReqKind.class, "ReqKind");
+    addEEnumLiteral(reqKindEEnum, ReqKind.ASSUMPTION);
+    addEEnumLiteral(reqKindEEnum, ReqKind.GUARANTEE);
+    addEEnumLiteral(reqKindEEnum, ReqKind.CONSTRAINT);
+    addEEnumLiteral(reqKindEEnum, ReqKind.EXCEPTION);
 
     // Create resource
     createResource(eNS_URI);

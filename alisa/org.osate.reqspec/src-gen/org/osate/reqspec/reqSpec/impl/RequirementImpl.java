@@ -39,6 +39,7 @@ import org.osate.alisa.common.common.AVariableDeclaration;
 
 import org.osate.organization.organization.Stakeholder;
 
+import org.osate.reqspec.reqSpec.ReqKind;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -51,6 +52,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getReqKind <em>Req Kind</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
@@ -67,6 +69,26 @@ import org.osate.reqspec.reqSpec.Requirement;
  */
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
+  /**
+   * The default value of the '{@link #getReqKind() <em>Req Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReqKind()
+   * @generated
+   * @ordered
+   */
+  protected static final ReqKind REQ_KIND_EDEFAULT = ReqKind.ASSUMPTION;
+
+  /**
+   * The cached value of the '{@link #getReqKind() <em>Req Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReqKind()
+   * @generated
+   * @ordered
+   */
+  protected ReqKind reqKind = REQ_KIND_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -206,6 +228,29 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.REQUIREMENT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqKind getReqKind()
+  {
+    return reqKind;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReqKind(ReqKind newReqKind)
+  {
+    ReqKind oldReqKind = reqKind;
+    reqKind = newReqKind == null ? REQ_KIND_EDEFAULT : newReqKind;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__REQ_KIND, oldReqKind, reqKind));
   }
 
   /**
@@ -457,6 +502,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__REQ_KIND:
+        return getReqKind();
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -493,6 +540,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__REQ_KIND:
+        setReqKind((ReqKind)newValue);
+        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
@@ -543,6 +593,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__REQ_KIND:
+        setReqKind(REQ_KIND_EDEFAULT);
+        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         return;
@@ -587,6 +640,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__REQ_KIND:
+        return reqKind != REQ_KIND_EDEFAULT;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -622,7 +677,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (exceptionText: ");
+    result.append(" (reqKind: ");
+    result.append(reqKind);
+    result.append(", exceptionText: ");
     result.append(exceptionText);
     result.append(", componentCategory: ");
     result.append(componentCategory);
