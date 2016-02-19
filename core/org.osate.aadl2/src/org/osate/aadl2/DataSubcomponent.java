@@ -46,26 +46,26 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.DataSubcomponent#getDataSubcomponentType <em>Data Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getDataSubcomponent()
  * @model
  * @generated
  */
-public interface DataSubcomponent extends Subcomponent, AccessConnectionEnd, Data, ParameterConnectionEnd,
-		PortConnectionEnd {
+public interface DataSubcomponent
+		extends Subcomponent, AccessConnectionEnd, Data, ParameterConnectionEnd, PortConnectionEnd {
 
 	/**
 	 * Returns the value of the '<em><b>Data Subcomponent Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Data Subcomponent Type</em>' reference isn't clear,

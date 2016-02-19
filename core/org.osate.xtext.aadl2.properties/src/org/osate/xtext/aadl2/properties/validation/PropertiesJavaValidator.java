@@ -123,7 +123,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public static final String SOURCE_STACK_SIZE_DEPRECATED = "org.osate.xtext.aadl2.properties.source_stack_size_deprecated";
 	public static final String DATA_VOLUME_DEPRECATED = "org.osate.xtext.aadl2.properties.data_volume_deprecated";
 
-	
 	public static final String ARRAY_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.array_range_upper_less_than_lower";
 	public static final String ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_range_upper_greater_than_maximum";
 	public static final String ARRAY_INDEX_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_rindex_greater_than_maximum";
@@ -585,19 +584,16 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 //			if ( "SEI::Data_Rate".equalsIgnoreCase(pa.getProperty().getQualifiedName())) {
 //				warning("SEI::Data_Rate is deprecated. Please use SEI::Message_Rate.", pa, null, SEI_DATA_RATE_DEPRECATED);
 //			} else
-			if ( "Source_Code_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+			if ("Source_Code_Size".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Source_Code_Size is deprecated. Please use Code_Size.", pa, null, SOURCE_CODE_SIZE_DEPRECATED);
-			} else
-			if ( "Source_Data_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+			} else if ("Source_Data_Size".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Source_Data_Size is deprecated. Please use Data_Size.", pa, null, SOURCE_DATA_SIZE_DEPRECATED);
-			} else
-			if ( "Source_Heap_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+			} else if ("Source_Heap_Size".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Source_Heap_Size is deprecated. Please use Heap_Size.", pa, null, SOURCE_HEAP_SIZE_DEPRECATED);
-			} else
-			if ( "Source_Stack_Size".equalsIgnoreCase(pa.getProperty().getName())) {
-				warning("Source_Stack_Size is deprecated. Please use Stack_Size.", pa, null, SOURCE_STACK_SIZE_DEPRECATED);
-			} else
-			if ( "Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
+			} else if ("Source_Stack_Size".equalsIgnoreCase(pa.getProperty().getName())) {
+				warning("Source_Stack_Size is deprecated. Please use Stack_Size.", pa, null,
+						SOURCE_STACK_SIZE_DEPRECATED);
+			} else if ("Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Data_Volume is deprecated. Please use Data_Rate.", pa, null, DATA_VOLUME_DEPRECATED);
 			}
 		}
@@ -899,11 +895,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 
 			if (doQuickFix) {
-				EList<Element> allUTElements = ut.allOwnedElements();
+				EList<EnumerationLiteral> allUTElements = ut.getOwnedLiterals();
 				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
 				int i = 0;
-				for (Element elem : allUTElements) {
-					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+				for (EnumerationLiteral elem : allUTElements) {
+					unitNamesAndURIs[i] = elem.getName();
 					i++;
 					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
 					i++;

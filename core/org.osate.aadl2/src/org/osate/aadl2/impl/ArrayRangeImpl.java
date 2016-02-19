@@ -48,11 +48,11 @@ import org.osate.aadl2.ArrayRange;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ArrayRangeImpl#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ArrayRangeImpl#getUpperBound <em>Upper Bound</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

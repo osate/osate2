@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.impl.PropertyAssociationImpl;
 import org.osate.aadl2.instance.InstancePackage;
@@ -51,10 +50,10 @@ import org.osate.aadl2.instance.PropertyAssociationInstance;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.PropertyAssociationInstanceImpl#getPropertyAssociation <em>Property Association</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -101,8 +100,8 @@ public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl imp
 			if (propertyAssociation != oldPropertyAssociation) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION,
-							oldPropertyAssociation, propertyAssociation));
+							InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, oldPropertyAssociation,
+							propertyAssociation));
 				}
 			}
 		}
@@ -194,14 +193,5 @@ public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl imp
 		}
 		return super.eIsSet(featureID);
 	}
-
-	/**
-	 * The cached environment for evaluating OCL expressions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 } // PropertyAssociationInstanceImpl

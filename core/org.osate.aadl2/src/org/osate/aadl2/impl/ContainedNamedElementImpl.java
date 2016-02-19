@@ -55,11 +55,11 @@ import org.osate.aadl2.ContainmentPathElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ContainedNamedElementImpl#getPath <em>Path</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainedNamedElementImpl#getContainmentPathElements <em>Containment Path Element</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -133,12 +133,12 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 		if (newPath != path) {
 			NotificationChain msgs = null;
 			if (path != null) {
-				msgs = ((InternalEObject) path).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
+				msgs = ((InternalEObject) path).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
 			}
 			if (newPath != null) {
-				msgs = ((InternalEObject) newPath).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
+				msgs = ((InternalEObject) newPath).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
 			}
 			msgs = basicSetPath(newPath, msgs);
 			if (msgs != null) {
@@ -157,8 +157,8 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 */
 	@Override
 	public ContainmentPathElement createPath() {
-		ContainmentPathElement newPath = (ContainmentPathElement) create(Aadl2Package.eINSTANCE
-				.getContainmentPathElement());
+		ContainmentPathElement newPath = (ContainmentPathElement) create(
+				Aadl2Package.eINSTANCE.getContainmentPathElement());
 		setPath(newPath);
 		return newPath;
 	}
@@ -218,6 +218,7 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

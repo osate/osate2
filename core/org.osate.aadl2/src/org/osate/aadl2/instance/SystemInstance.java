@@ -47,11 +47,11 @@ import org.osate.aadl2.Connection;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.SystemInstance#getSystemOperationModes <em>System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.SystemInstance#getComponentImplementation <em>Component Implementation</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getSystemInstance()
  * @model

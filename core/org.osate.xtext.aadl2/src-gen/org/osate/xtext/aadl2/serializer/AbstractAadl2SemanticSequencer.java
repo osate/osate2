@@ -2298,7 +2298,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='<->'? destination=ProcessorConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
+	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='<->'? destination=AbstractConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )

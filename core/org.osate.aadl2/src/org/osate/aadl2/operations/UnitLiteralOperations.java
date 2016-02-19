@@ -46,10 +46,10 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.UnitLiteral#getAbsoluteFactor(org.osate.aadl2.UnitLiteral) <em>Get Absolute Factor</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -75,8 +75,9 @@ public class UnitLiteralOperations extends NamedElementOperations {
 		}
 		UnitLiteral current = unitLiteral;
 		while (current.getBaseUnit() != null && !Aadl2Util.sameUnit(current.getBaseUnit(), current)) {
-			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
+			double val = (current.getFactor() instanceof IntegerLiteral
+					? (double) ((IntegerLiteral) current.getFactor()).getValue()
+					: ((RealLiteral) current.getFactor()).getValue());
 			factor *= val;
 			current = current.getBaseUnit();
 			if (Aadl2Util.sameUnit(current, target)) {
@@ -87,8 +88,9 @@ public class UnitLiteralOperations extends NamedElementOperations {
 		factor = 1.0;
 		current = target;
 		while (current.getBaseUnit() != null && !Aadl2Util.sameUnit(current.getBaseUnit(), current)) {
-			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
+			double val = (current.getFactor() instanceof IntegerLiteral
+					? (double) ((IntegerLiteral) current.getFactor()).getValue()
+					: ((RealLiteral) current.getFactor()).getValue());
 			factor /= val;
 			current = current.getBaseUnit();
 			if (Aadl2Util.sameUnit(current, unitLiteral)) {
@@ -99,8 +101,9 @@ public class UnitLiteralOperations extends NamedElementOperations {
 	}
 
 	public static UnitLiteral getAbsoluteUnit(UnitLiteral lit) {
-		if (lit == null)
+		if (lit == null) {
 			return lit;
+		}
 		while (lit.getBaseUnit() != null) {
 			lit = lit.getBaseUnit();
 		}

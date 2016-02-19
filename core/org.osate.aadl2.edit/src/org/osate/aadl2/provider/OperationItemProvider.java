@@ -90,12 +90,13 @@ public class OperationItemProvider extends PropertyExpressionItemProvider {
 	 * @generated
 	 */
 	protected void addOpPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Operation_op_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Operation_op_feature", "_UI_Operation_type"),
-				Aadl2Package.eINSTANCE.getOperation_Op(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Operation_op_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Operation_op_feature",
+								"_UI_Operation_type"),
+						Aadl2Package.eINSTANCE.getOperation_Op(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -149,8 +150,8 @@ public class OperationItemProvider extends PropertyExpressionItemProvider {
 	public String getText(Object object) {
 		OperationKind labelValue = ((Operation) object).getOp();
 		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ? getString("_UI_Operation_type") : getString("_UI_Operation_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Operation_type")
+				: getString("_UI_Operation_type") + " " + label;
 	}
 
 	/**

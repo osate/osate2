@@ -35,9 +35,6 @@
  */
 package org.osate.aadl2;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
@@ -58,6 +55,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Classifier#getClassifierFeatures <em>Classifier Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#getInheritedMembers <em>Inherited Member</em>}</li>
@@ -70,7 +68,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.Classifier#isNoAnnexes <em>No Annexes</em>}</li>
  *   <li>{@link org.osate.aadl2.Classifier#isNoProperties <em>No Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getClassifier()
  * @model abstract="true"
@@ -83,10 +80,10 @@ public interface Classifier extends Namespace, Type {
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.ClassifierFeature#getFeaturingClassifiers <em>Featuring Classifier</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,10 +104,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.NamedElement}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -130,10 +127,10 @@ public interface Classifier extends Namespace, Type {
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.Generalization#getSpecific <em>Specific</em>}'.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -171,10 +168,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.Prototype}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Prototype</em>' containment reference list isn't clear,
@@ -237,10 +234,10 @@ public interface Classifier extends Namespace, Type {
 	 * The list contents are of type {@link org.osate.aadl2.AnnexSubclause}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Annex Subclause</em>' containment reference list isn't clear,
@@ -364,136 +361,6 @@ public interface Classifier extends Namespace, Type {
 	 * @generated
 	 */
 	void setNoAnnexes(boolean value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
-	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
-	 * @param context The cache of context-specific information.
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allParents()->includes(self)'"
-	 * @generated
-	 */
-	boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * A classifier may only specialize classifiers of a valid type.
-	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
-	 * @param context The cache of context-specific information.
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.parents()->forAll(c | self.maySpecializeType(c))'"
-	 * @generated
-	 */
-	boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='member->select(oclIsKindOf(Feature))'"
-	 * @generated
-	 */
-	EList<ClassifierFeature> allFeatures();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The inheritedMember association is derived by inheriting the inheritable members of the parents.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.inherit(self.parents()->collect(p | p.inheritableMembers(self))'"
-	 * @generated
-	 */
-	EList<NamedElement> inheritedMember();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query parents() gives all of the immediate ancestors of a generalized Classifier.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='general'"
-	 * @generated
-	 */
-	EList<Classifier> parents();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.parents()->union(self.parents()->collect(p | p.allParents())'"
-	 * @generated
-	 */
-	EList<Classifier> allParents();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false" cRequired="true" cOrdered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='member->select(m | c.hasVisibilityOf(m))'"
-	 * @generated
-	 */
-	EList<NamedElement> inheritableMembers(Classifier c);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false" nRequired="true" nOrdered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true'"
-	 * @generated
-	 */
-	boolean hasVisibilityOf(NamedElement n);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model ordered="false" inhsMany="true" inhsOrdered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='inhs'"
-	 * @generated
-	 */
-	EList<NamedElement> inherit(EList<NamedElement> inhs);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
-	 * <p>From package AADLInfrastructure.</p>
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false" cRequired="true" cOrdered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.oclIsKindOf(c.oclType)'"
-	 * @generated
-	 */
-	boolean maySpecializeType(Classifier c);
 
 	/**
 	 * Return a list of classifiers extended by this classifier including itself.

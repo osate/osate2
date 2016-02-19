@@ -39,9 +39,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -54,10 +52,10 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.InstanceReferenceValueImpl#getReferencedInstanceObject <em>Referenced Instance Object</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -199,15 +197,6 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	}
 
 	/**
-	 * The cached environment for evaluating OCL expressions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected static final OCL EOCL_ENV = OCL.newInstance();
-
-	/**
 	 * Instance reference property values are already instaitated, so just
 	 * return self.
 	 */
@@ -221,9 +210,9 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		return (pv instanceof InstanceReferenceValue)
-				&& ((InstanceReferenceValue) pv).getReferencedInstanceObject() == referencedInstanceObject;
+	public boolean sameAs(PropertyExpression pe) {
+		return (pe instanceof InstanceReferenceValue)
+				&& ((InstanceReferenceValue) pe).getReferencedInstanceObject() == referencedInstanceObject;
 	}
 
 } // InstanceReferenceValueImpl

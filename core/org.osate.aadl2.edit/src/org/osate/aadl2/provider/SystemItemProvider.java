@@ -83,8 +83,8 @@ public class SystemItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((org.osate.aadl2.System) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_System_type") : getString("_UI_System_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_System_type")
+				: getString("_UI_System_type") + " " + label;
 	}
 
 	/**

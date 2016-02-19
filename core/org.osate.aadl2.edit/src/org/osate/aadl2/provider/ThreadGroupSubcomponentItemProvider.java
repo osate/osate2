@@ -85,16 +85,14 @@ public class ThreadGroupSubcomponentItemProvider extends SubcomponentItemProvide
 	 * @generated
 	 */
 	protected void addThreadGroupSubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ThreadGroupSubcomponent_threadGroupSubcomponentType_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_ThreadGroupSubcomponent_threadGroupSubcomponentType_feature",
-								"_UI_ThreadGroupSubcomponent_type"), Aadl2Package.eINSTANCE
-								.getThreadGroupSubcomponent_ThreadGroupSubcomponentType(), true, false, true, null,
-						null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ThreadGroupSubcomponent_threadGroupSubcomponentType_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ThreadGroupSubcomponent_threadGroupSubcomponentType_feature",
+						"_UI_ThreadGroupSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getThreadGroupSubcomponent_ThreadGroupSubcomponentType(), true, false, true,
+				null, null, null));
 	}
 
 	/**

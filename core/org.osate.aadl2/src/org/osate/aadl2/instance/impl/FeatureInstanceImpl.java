@@ -78,6 +78,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getSrcFlowSpecs <em>Src Flow Spec</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getDstFlowSpecs <em>Dst Flow Spec</em>}</li>
@@ -87,7 +88,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getIndex <em>Index</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -223,8 +223,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.FEATURE_INSTANCE__FEATURE, oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InstancePackage.FEATURE_INSTANCE__FEATURE,
+							oldFeature, feature));
 				}
 			}
 		}
@@ -250,8 +250,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		Feature oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__FEATURE,
-					oldFeature, feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__FEATURE, oldFeature,
+					feature));
 		}
 	}
 

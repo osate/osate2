@@ -44,8 +44,6 @@ import org.osate.aadl2.FeaturePrototypeActual;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Feature Prototype Actual</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -52,11 +52,11 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl#getSubprogramGroupSubcomponentType <em>Subprogram Group Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,8 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
-				: subcomponentType;
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
 	}
 
 	/**
@@ -124,7 +124,8 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	public SubprogramGroupSubcomponentType getSubprogramGroupSubcomponentType() {
 		if (subprogramGroupSubcomponentType != null && ((EObject) subprogramGroupSubcomponentType).eIsProxy()) {
 			InternalEObject oldSubprogramGroupSubcomponentType = (InternalEObject) subprogramGroupSubcomponentType;
-			subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupSubcomponentType);
+			subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) eResolveProxy(
+					oldSubprogramGroupSubcomponentType);
 			if (subprogramGroupSubcomponentType != oldSubprogramGroupSubcomponentType) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,

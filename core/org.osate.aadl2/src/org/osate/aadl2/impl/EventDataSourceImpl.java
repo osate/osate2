@@ -49,10 +49,10 @@ import org.osate.aadl2.EventDataSource;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.EventDataSourceImpl#getDataClassifier <em>Data Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

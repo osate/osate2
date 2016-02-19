@@ -48,12 +48,12 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.RangeValue#getMinimum <em>Minimum</em>}</li>
  *   <li>{@link org.osate.aadl2.RangeValue#getMaximum <em>Maximum</em>}</li>
  *   <li>{@link org.osate.aadl2.RangeValue#getDelta <em>Delta</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getRangeValue()
  * @model

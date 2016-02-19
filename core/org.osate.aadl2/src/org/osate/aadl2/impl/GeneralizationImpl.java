@@ -53,13 +53,13 @@ import org.osate.aadl2.Generalization;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getGeneral <em>General</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getTargets <em>Target</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getSources <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.GeneralizationImpl#getSpecific <em>Specific</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

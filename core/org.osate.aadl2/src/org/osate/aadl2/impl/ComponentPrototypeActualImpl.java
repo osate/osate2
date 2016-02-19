@@ -59,12 +59,12 @@ import org.osate.aadl2.SubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getBindings <em>Binding</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -47,13 +47,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.AadlPackage#getOwnedPublicSection <em>Owned Public Section</em>}</li>
  *   <li>{@link org.osate.aadl2.AadlPackage#getOwnedPrivateSection <em>Owned Private Section</em>}</li>
  *   <li>{@link org.osate.aadl2.AadlPackage#getPublicSection <em>Public Section</em>}</li>
  *   <li>{@link org.osate.aadl2.AadlPackage#getPrivateSection <em>Private Section</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAadlPackage()
  * @model annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='Package'"
@@ -65,11 +65,11 @@ public interface AadlPackage extends ModelUnit {
 	 * Returns the value of the '<em><b>Owned Public Section</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.AadlPackage#getPublicSection() <em>Public Section</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Public Section</em>' containment reference isn't clear,
@@ -111,11 +111,11 @@ public interface AadlPackage extends ModelUnit {
 	 * Returns the value of the '<em><b>Owned Private Section</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.AadlPackage#getPrivateSection() <em>Private Section</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Element#getOwnedElements() <em>Owned Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Private Section</em>' containment reference isn't clear,

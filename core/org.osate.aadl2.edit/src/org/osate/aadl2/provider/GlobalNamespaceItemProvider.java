@@ -86,13 +86,12 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addPackagePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_GlobalNamespace_package_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_package_feature",
-						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE.getGlobalNamespace_Package(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_GlobalNamespace_package_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_package_feature",
+								"_UI_GlobalNamespace_type"),
+						Aadl2Package.eINSTANCE.getGlobalNamespace_Package(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -102,13 +101,12 @@ public class GlobalNamespaceItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	protected void addPropertySetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_GlobalNamespace_propertySet_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_propertySet_feature",
-						"_UI_GlobalNamespace_type"), Aadl2Package.eINSTANCE.getGlobalNamespace_PropertySet(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_GlobalNamespace_propertySet_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_GlobalNamespace_propertySet_feature",
+								"_UI_GlobalNamespace_type"),
+						Aadl2Package.eINSTANCE.getGlobalNamespace_PropertySet(), true, false, true, null, null, null));
 	}
 
 	/**

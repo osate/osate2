@@ -51,6 +51,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions <em>In Mode Transition</em>}</li>
@@ -61,7 +62,6 @@ import org.osate.aadl2.properties.InvalidModelException;
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getSource <em>Source</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance()
  * @model

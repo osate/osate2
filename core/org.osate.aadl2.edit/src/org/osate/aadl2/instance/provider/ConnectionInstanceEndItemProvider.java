@@ -86,15 +86,13 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 	 * @generated
 	 */
 	protected void addSrcConnectionInstancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstanceEnd_srcConnectionInstance_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstanceEnd_srcConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, true, false, true,
-						null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstanceEnd_srcConnectionInstance_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_ConnectionInstanceEnd_srcConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -104,15 +102,13 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 	 * @generated
 	 */
 	protected void addDstConnectionInstancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ConnectionInstanceEnd_dstConnectionInstance_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstanceEnd_dstConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, true, false, true,
-						null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectionInstanceEnd_dstConnectionInstance_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", //$NON-NLS-1$
+						"_UI_ConnectionInstanceEnd_dstConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$
+				InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -124,8 +120,8 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 	@Override
 	public String getText(Object object) {
 		String label = ((ConnectionInstanceEnd) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstanceEnd_type") : //$NON-NLS-1$
-				getString("_UI_ConnectionInstanceEnd_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstanceEnd_type") //$NON-NLS-1$
+				: getString("_UI_ConnectionInstanceEnd_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

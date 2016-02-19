@@ -52,10 +52,10 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ModalPropertyValue#getOwnedValue <em>Owned Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getModalPropertyValue()
  * @model

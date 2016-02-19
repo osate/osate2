@@ -1360,40 +1360,59 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return;
 					}
 					if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
+						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
 							ce = connection.getAllDestination();
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
-								error(flow.getOwnedFlowSegments().get(i),
-										"The source of connection '" + connection.getName()
-												+ "' does not match the in flow feature '"
-												+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
-												+ inEnd.getFeature().getName() + '\'');
+								noMatch = true;
 							}
+						} else {
+							noMatch = true;
+						}
+						if (noMatch) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The source of connection '" + connection.getName()
+											+ "' does not match the in flow feature '"
+											+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
+											+ inEnd.getFeature().getName() + '\'');
 						}
 					}
 				} else {
-					if (flow.getOwnedFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
-						FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments()
-								.get(i - 1).getFlowElement();
+					FlowElement prevFlowElement = flow.getOwnedFlowSegments().get(i - 1).getFlowElement();
+					if (prevFlowElement instanceof FlowSpecification) {
+						FlowSpecification previousFlowSegment = (FlowSpecification) prevFlowElement;
 						FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
 						if (Aadl2Util.isNull(outEnd)) {
 							return;
 						}
 						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
+							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
 								ce = connection.getAllDestination();
 								cxt = connection.getAllDestinationContext();
 								if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
-									error(flow.getOwnedFlowSegments().get(i),
-											"The source of connection '" + connection.getName()
-													+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
-													+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName()
-													+ '.' + previousFlowSegment.getName() + '\'');
+									noMatch = true;
 								}
+							} else {
+								noMatch = true;
 							}
+							if (noMatch) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The source of connection '" + connection.getName()
+												+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
+												+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
+												+ previousFlowSegment.getName() + '\'');
+							}
+						}
+					} else if (prevFlowElement instanceof Subcomponent) {
+						if (prevFlowElement != cxt) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The source of connection '" + connection.getName()
+											+ "' does not match the preceding subcomponent '"
+											+ ((Subcomponent) prevFlowElement).getName() + '\'');
 						}
 					}
 				}
@@ -1435,6 +1454,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ nextFlowSegment.getName() + '\'');
 							}
 						}
+					} else if (felem instanceof Subcomponent) {
+						if (felem != cxt) {
+							error(flow.getOwnedFlowSegments().get(i),
+									"The destination component '" + cxt.getName() + "' of connection '"
+											+ connection.getName() + "' does not match the succeeding subcomponent  '"
+											+ ((Subcomponent) felem).getName() + '\'');
+						}
+
 					}
 				}
 			}
@@ -5193,6 +5220,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								Aadl2Package.eINSTANCE.getConnection_Source());
 					}
 				}
+			} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
+				// internal event or event data port. One is acceptable, but not both.
+				if (source instanceof InternalFeature && destination instanceof InternalFeature) {
+					error(connection, "Cannot connect two internal features of the containing component.");
+				}
 			} else {
 				// we have a connection a component implementation going
 				// directly from its incoming feature to an outgoing feature
@@ -5348,9 +5380,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
-			if (source instanceof EventPort && !(destination instanceof EventPort)) {
-				error(connection,
-						"Source event port '" + source.getName() + "' must be connected to an event port destination.");
+			if (source instanceof EventPort
+					&& !(destination instanceof EventPort || destination instanceof EventSource)) {
+				error(connection, "Source event port '" + source.getName()
+						+ "' must be connected to an (internal) event port destination.");
+				return;
+			}
+			if (source instanceof EventSource && !(destination instanceof EventPort)) {
+				error(connection, "Source internal event port '" + source.getName()
+						+ "' must be connected to an event port destination.");
 				return;
 			}
 			if (source instanceof DataPort && !(destination instanceof EventPort || destination instanceof DataPort
@@ -5362,9 +5400,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			if (source instanceof EventDataPort && !(destination instanceof EventPort || destination instanceof DataPort
 					|| destination instanceof EventDataPort || destination instanceof DataSubcomponent
-					|| destination instanceof DataAccess)) {
+					|| destination instanceof DataAccess || destination instanceof EventDataSource)) {
 				error(connection, "Source event data port '" + source.getName()
-						+ "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+						+ "' must be connected to an event, data, or event data port, internal event data port, data subcomponent or data access destination.");
 				return;
 			}
 			if (source instanceof DataSubcomponent && !(destination instanceof EventPort
@@ -5377,6 +5415,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					|| destination instanceof EventDataPort)) {
 				error(connection, "Source data access feature '" + source.getName()
 						+ "' must be connected to an event, data, or event data port destination.");
+				return;
+			}
+			if (source instanceof EventDataSource
+					&& !(destination instanceof EventDataPort || destination instanceof DataPort)) {
+				error(connection, "Source internal event data port '" + source.getName()
+						+ "' must be connected to an event data port destination.");
 				return;
 			}
 		}
@@ -7100,11 +7144,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			 * lower bounds is <= the upper bound.
 			 */
 			if (nt.getUnitsType() != null) {
-				EList<Element> allUTElements = nt.getUnitsType().allOwnedElements();
+				EList<EnumerationLiteral> allUTElements = nt.getUnitsType().getOwnedLiterals();
 				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
 				int i = 0;
-				for (Element elem : allUTElements) {
-					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+				for (EnumerationLiteral elem : allUTElements) {
+					unitNamesAndURIs[i] = elem.getName();
 					i++;
 					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
 					i++;

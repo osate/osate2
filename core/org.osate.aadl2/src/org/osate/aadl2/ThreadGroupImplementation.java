@@ -48,6 +48,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ThreadGroupImplementation#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.ThreadGroupImplementation#getOwnedThreadSubcomponents <em>Owned Thread Subcomponent</em>}</li>
@@ -55,7 +56,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ThreadGroupImplementation#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.ThreadGroupImplementation#getOwnedSubprogramGroupSubcomponents <em>Owned Subprogram Group Subcomponent</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation()
  * @model
@@ -67,10 +67,10 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Subcomponent</em>' containment reference list isn't clear,
@@ -102,10 +102,10 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * The list contents are of type {@link org.osate.aadl2.ThreadSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Thread Subcomponent</em>' containment reference list isn't clear,
@@ -137,10 +137,10 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * The list contents are of type {@link org.osate.aadl2.ThreadGroupSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Thread Group Subcomponent</em>' containment reference list isn't clear,
@@ -172,10 +172,10 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Subcomponent</em>' containment reference list isn't clear,
@@ -207,10 +207,10 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list isn't clear,

@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
@@ -74,11 +73,11 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <em><b>Object</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.InstanceObjectImpl#getAnnexInstances <em>Annex Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.InstanceObjectImpl#getOwnedPropertyAssociations <em>Owned Property Association</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -95,7 +94,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected InstanceObjectImpl() {
@@ -104,7 +103,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -148,7 +147,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	@Override
 	public PropertyAssociation createOwnedPropertyAssociation() {
-		PropertyAssociationInstance newOwnedPropertyAssociation = (PropertyAssociationInstance) create(InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE);
+		PropertyAssociationInstance newOwnedPropertyAssociation = (PropertyAssociationInstance) create(
+				InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE);
 		getOwnedPropertyAssociations().add(newOwnedPropertyAssociation);
 		return newOwnedPropertyAssociation;
 	}
@@ -241,15 +241,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	}
 
 	/**
-	 * The cached environment for evaluating OCL expressions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected static final OCL EOCL_ENV = OCL.newInstance();
-
-	/**
 	 * Get the closest component instance that contains this object.
 	 * If the object is a component instance, get its enclosing instance
 	 * @return Closest containing component instance
@@ -282,7 +273,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * construct a string path from the systeminstance as root
-	 * 
+	 *
 	 * @return path as string
 	 */
 	@Override
@@ -298,7 +289,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstancePath()
 	 */
 	@Override
@@ -392,7 +383,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
 	@Override
@@ -420,7 +411,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.impl.NamedElementImpl#acceptsProperty(edu.cmu.
 	 * sei.aadl.aadl2.Property)
@@ -446,8 +437,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
 					ConnectionInstance next;
-					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target : target
-							.getContainingComponentInstance();
+					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
+							: target.getContainingComponentInstance();
 					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
 
 					private boolean advance() {
@@ -508,7 +499,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
 	@Override
@@ -519,7 +510,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return result;
 	}
 
-	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
+	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter,
+			List<InstanceObject> ios) {
 		boolean result = false;
 
 		if (!pathIter.hasNext()) {
@@ -550,7 +542,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

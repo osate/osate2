@@ -32,7 +32,7 @@
        -->
        <topic href="html/plugins/sei.html" label="SEI validation tools">
        </topic>
-       <topic href="html/plugins/functional-importer.html" label="Simulink, SCADE and Lattix Importers/Exporters">
+       <topic href="html/plugins/functional-importer.html" label="Simulink and SCADE bridges">
        </topic>
     </topic>
     

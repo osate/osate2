@@ -77,6 +77,7 @@ import org.osate.aadl2.util.OsateDebug;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getInModeTransitions <em>In Mode Transition</em>}</li>
@@ -87,7 +88,6 @@ import org.osate.aadl2.util.OsateDebug;
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getSource <em>Source</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -398,7 +398,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public ConnectionReference createConnectionReference() {
-		ConnectionReference newConnectionReference = (ConnectionReference) create(InstancePackage.Literals.CONNECTION_REFERENCE);
+		ConnectionReference newConnectionReference = (ConnectionReference) create(
+				InstancePackage.Literals.CONNECTION_REFERENCE);
 		getConnectionReferences().add(newConnectionReference);
 		return newConnectionReference;
 	}
@@ -934,8 +935,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param connCtxt Context of th eendpoint
 	 */
 	@Override
-	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt,
-			final ConnectionEnd connEndPoint, final Context connCtxt) {
+	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
+			final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
 			// lookup subcomponent using the connection src
@@ -955,8 +956,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof Subcomponent) {
 			// lookup feature in the subcomponent
-			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt).findFeatureInstance(
-					(Feature) connEndPoint);
+			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt)
+					.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof FeatureGroup) {
 			// feature in a feature group...
 			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);

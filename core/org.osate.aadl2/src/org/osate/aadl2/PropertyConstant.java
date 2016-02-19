@@ -51,13 +51,13 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getReferencedPropertyType <em>Referenced Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getConstantValue <em>Constant Value</em>}</li>
  *   <li>{@link org.osate.aadl2.PropertyConstant#getPropertyType <em>Property Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPropertyConstant()
  * @model
@@ -68,10 +68,10 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * Returns the value of the '<em><b>Referenced Property Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.PropertyConstant#getPropertyType() <em>Property Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -99,10 +99,10 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * Returns the value of the '<em><b>Property Type</b></em>' reference.
 	 * <p>
 	 * This feature redefines the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.TypedElement#getType() <em>Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Property Type</em>' reference isn't clear,
@@ -123,10 +123,10 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * Returns the value of the '<em><b>Owned Property Type</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.PropertyConstant#getPropertyType() <em>Property Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Property Type</em>' containment reference isn't clear,

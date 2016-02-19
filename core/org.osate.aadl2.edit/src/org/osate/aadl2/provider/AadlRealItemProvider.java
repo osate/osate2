@@ -95,8 +95,8 @@ public class AadlRealItemProvider extends NumberTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((AadlReal) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_AadlReal_type") : getString("_UI_AadlReal_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_AadlReal_type")
+				: getString("_UI_AadlReal_type") + " " + label;
 	}
 
 	/**

@@ -49,11 +49,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.DirectedRelationship#getSources <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.DirectedRelationship#getTargets <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getDirectedRelationship()
  * @model abstract="true"
@@ -65,10 +65,10 @@ public interface DirectedRelationship extends Relationship {
 	 * The list contents are of type {@link org.osate.aadl2.Element}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Relationship#getRelatedElements() <em>Related Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -88,10 +88,10 @@ public interface DirectedRelationship extends Relationship {
 	 * The list contents are of type {@link org.osate.aadl2.Element}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Relationship#getRelatedElements() <em>Related Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

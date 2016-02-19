@@ -3299,32 +3299,6 @@ finally {
 
 
 
-// Entry rule entryRuleProcessorConnectionEnd
-entryRuleProcessorConnectionEnd 
-:
-{ before(grammarAccess.getProcessorConnectionEndRule()); }
-	 ruleProcessorConnectionEnd
-{ after(grammarAccess.getProcessorConnectionEndRule()); } 
-	 EOF 
-;
-
-// Rule ProcessorConnectionEnd
-ruleProcessorConnectionEnd 
-    @init {
-		int stackSize = keepStackSize();
-    }
-    :
-(
-{ before(grammarAccess.getProcessorConnectionEndAccess().getAlternatives()); }
-(rule__ProcessorConnectionEnd__Alternatives)
-{ after(grammarAccess.getProcessorConnectionEndAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 
 
 // Entry rule entryRuleAccessConnectionEnd
@@ -16211,27 +16185,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ProcessorConnectionEnd__Alternatives
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getProcessorConnectionEndAccess().getConnectedElementParserRuleCall_0()); }
-	ruleConnectedElement
-{ after(grammarAccess.getProcessorConnectionEndAccess().getConnectedElementParserRuleCall_0()); }
-)
-
-    |(
-{ before(grammarAccess.getProcessorConnectionEndAccess().getProcessorPortParserRuleCall_1()); }
-	ruleProcessorPort
-{ after(grammarAccess.getProcessorConnectionEndAccess().getProcessorPortParserRuleCall_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 rule__AccessConnectionEnd__Alternatives
     @init {
@@ -137381,8 +137334,8 @@ rule__PortConnection__DestinationAssignment_0_0_5
     }
 :
 (
-{ before(grammarAccess.getPortConnectionAccess().getDestinationProcessorConnectionEndParserRuleCall_0_0_5_0()); }
-	ruleProcessorConnectionEnd{ after(grammarAccess.getPortConnectionAccess().getDestinationProcessorConnectionEndParserRuleCall_0_0_5_0()); }
+{ before(grammarAccess.getPortConnectionAccess().getDestinationAbstractConnectionEndParserRuleCall_0_0_5_0()); }
+	ruleAbstractConnectionEnd{ after(grammarAccess.getPortConnectionAccess().getDestinationAbstractConnectionEndParserRuleCall_0_0_5_0()); }
 )
 
 ;

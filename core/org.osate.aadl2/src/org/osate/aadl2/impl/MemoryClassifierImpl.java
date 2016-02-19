@@ -43,8 +43,6 @@ import org.osate.aadl2.MemoryClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Memory Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

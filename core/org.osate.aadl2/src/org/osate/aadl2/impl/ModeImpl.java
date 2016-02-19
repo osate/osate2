@@ -53,11 +53,11 @@ import org.osate.aadl2.properties.PropertyAcc;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModeImpl#isInitial <em>Initial</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeImpl#isDerived <em>Derived</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -228,8 +228,8 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 
 	// Cannot make this final because I need to override in SystemOperationMode
 	@Override
-	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
-			throws InvalidModelException {
+	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
+			final boolean fromInstanceSlaveCall) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 		final boolean inType = (owner instanceof ComponentType);
 

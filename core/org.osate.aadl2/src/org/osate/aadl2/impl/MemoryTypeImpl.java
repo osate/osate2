@@ -61,6 +61,7 @@ import org.osate.aadl2.MemoryType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.MemoryTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryTypeImpl#getOwnedBusAccesses <em>Owned Bus Access</em>}</li>
@@ -68,7 +69,6 @@ import org.osate.aadl2.MemoryType;
  *   <li>{@link org.osate.aadl2.impl.MemoryTypeImpl#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.MemoryTypeImpl#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

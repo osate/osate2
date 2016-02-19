@@ -46,10 +46,10 @@ import org.osate.aadl2.RefinableElement;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ModalElement#getAllInModes() <em>Get All In Modes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

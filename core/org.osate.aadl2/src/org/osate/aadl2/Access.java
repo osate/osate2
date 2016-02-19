@@ -47,11 +47,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Access#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.Access#getCategory <em>Category</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getAccess()
  * @model abstract="true"

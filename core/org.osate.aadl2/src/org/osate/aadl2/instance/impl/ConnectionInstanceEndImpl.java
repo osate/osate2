@@ -54,11 +54,11 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getSrcConnectionInstances <em>Src Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl#getDstConnectionInstances <em>Dst Connection Instance</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -8,67 +8,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="An element is a constituent of a model.&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="not_own_self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="not self.allOwnedElements()->includes(self)"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="An element may not directly or indirectly own itself."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="has_owner" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.mustBeOwned() implies owner->notEmpty()"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Elements that must be owned must have an owner."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
     <eOperations name="getOwner" ordered="false" lowerBound="1" eType="#//Element"/>
-    <eOperations name="allOwnedElements" ordered="false" upperBound="-1" eType="#//Element">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query allOwnedElements() gives all of the direct and indirect owned elements of an element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="mustBeOwned" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="true"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElement" ordered="false"
         upperBound="-1" eType="#//Element" changeable="false" volatile="true" transient="true"
         derived="true">
@@ -76,9 +16,6 @@
         <details key="documentation" value="The Elements owned by this element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The Elements owned by this element."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedComment" ordered="false"
         upperBound="-1" eType="#//Comment" containment="true">
@@ -86,9 +23,6 @@
         <details key="documentation" value="The Comments owned by this element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="subsets" references="#//Element/ownedElement"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The Comments owned by this element."/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Element">
@@ -99,23 +33,9 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies a string that is the comment&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="Specifies a string that is the comment"/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="String" instanceClassName="java.lang.String">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-    </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="boolean">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
@@ -124,97 +44,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A type constrains the values represented by a typed element.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="conformsTo" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="false"/>
-      </eAnnotations>
-      <eParameters name="other" ordered="false" lowerBound="1" eType="#//Type"/>
-    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A named element is an element in a model that may have a name.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>&#xA;&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="has_no_qualified_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If there is no name, or one of the containing namespaces has no name, there is no qualified name."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="has_qualified_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;&#xA;implies &#xD;&#xA;self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
     <eOperations name="getNamespace" ordered="false" lowerBound="1" eType="#//Namespace"/>
-    <eOperations name="allNamespaces" upperBound="-1" eType="#//Namespace">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if self.namespace->isEmpty() then &#xD;&#xA;  Sequence{}&#xD;&#xA;else&#xD;&#xA;  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;&#xA;endif"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="isDistinguishableFrom" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;&#xA;  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;&#xA;else&#xD;&#xA;  true&#xD;&#xA;endif"/>
-      </eAnnotations>
-      <eParameters name="n" ordered="false" lowerBound="1" eType="#//NamedElement"/>
-      <eParameters name="ns" ordered="false" lowerBound="1" eType="#//Namespace"/>
-    </eOperations>
-    <eOperations name="separator" ordered="false" lowerBound="1" eType="#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query separator() gives the string that is used to separate names when constructing a qualified name.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="'.'"/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="qualifiedName" ordered="false" lowerBound="1" eType="#//String">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then&#xD;&#xA;  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))&#xD;&#xA;else &#xD;&#xA;  '' &#xD;&#xA;endif"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getPropertyValues" ordered="false" upperBound="-1" eType="#//PropertyExpression">
@@ -228,17 +66,11 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The name of the NamedElement.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The name of the NamedElement."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" ordered="false"
         eType="#//String" changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A name which allows the NamedElement to be identified within a hierarchy of nested Namespaces. It is constructed from the names of the containing namespaces starting at the root of the hierarchy and ending with the name of the NamedElement itself."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyAssociation"
@@ -289,7 +121,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue #//ArraySizeProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//BasicProperty #//AbstractNamedValue">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLProperties::Definitions.&lt;/p>"/>
     </eAnnotations>
@@ -366,9 +198,6 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The type of the TypedElement.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="The type of the TypedElement."/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyType" abstract="true" eSuperTypes="#//Type">
@@ -381,9 +210,9 @@
       <details key="documentation" value="&lt;p>From package AADLProperties::Expressions.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArraySizeProperty" abstract="true">
+  <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="boolean">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
+      <details key="documentation" value="&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyExpression" abstract="true"
@@ -418,118 +247,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A classifier is a classification of instances - it describes a set of instances that have features in common.&#xA;A classifier can specify a generalization hierarchy by referencing its general classifiers.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>&#xA;&lt;p>From package AADLProperties::Associations.&lt;/p>&#xA;&lt;p>From package AADLConstructs::Extensibility.&lt;/p>&#xA;&lt;p>From package AADLConstructs::Templates.&lt;/p>&#xA;&lt;p>From package AADLDetails::NoneSupport.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="no_cycles_in_generalization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="not self.allParents()->includes(self)"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="specialize_type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.parents()->forAll(c | self.maySpecializeType(c))"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A classifier may only specialize classifiers of a valid type."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="allFeatures" ordered="false" upperBound="-1" eType="#//ClassifierFeature">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="member->select(oclIsKindOf(Feature))"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="inheritedMember" ordered="false" upperBound="-1" eType="#//NamedElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The inheritedMember association is derived by inheriting the inheritable members of the parents.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.inherit(self.parents()->collect(p | p.inheritableMembers(self))"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="parents" ordered="false" upperBound="-1" eType="#//Classifier">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query parents() gives all of the immediate ancestors of a generalized Classifier.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="general"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="allParents" ordered="false" upperBound="-1" eType="#//Classifier">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.parents()->union(self.parents()->collect(p | p.allParents())"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="inheritableMembers" ordered="false" upperBound="-1" eType="#//NamedElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="member->select(m | c.hasVisibilityOf(m))"/>
-      </eAnnotations>
-      <eParameters name="c" ordered="false" lowerBound="1" eType="#//Classifier"/>
-    </eOperations>
-    <eOperations name="hasVisibilityOf" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if (self.inheritedMember->includes (n)) then (n.visibility &lt;> #private) else true"/>
-      </eAnnotations>
-      <eParameters name="n" ordered="false" lowerBound="1" eType="#//NamedElement"/>
-    </eOperations>
-    <eOperations name="inherit" ordered="false" upperBound="-1" eType="#//NamedElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="inhs"/>
-      </eAnnotations>
-      <eParameters name="inhs" ordered="false" upperBound="-1" eType="#//NamedElement"/>
-    </eOperations>
-    <eOperations name="maySpecializeType" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.oclIsKindOf(c.oclType)"/>
-      </eAnnotations>
-      <eParameters name="c" ordered="false" lowerBound="1" eType="#//Classifier"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifierFeature" ordered="false"
         upperBound="-1" eType="#//ClassifierFeature" changeable="false" volatile="true"
         transient="true" derived="true" eOpposite="#//ClassifierFeature/featuringClassifier">
@@ -607,45 +324,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A namespace is an element in a model that contains a set of named elements that can be identified by name.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>&#xA;&lt;p>From package AADLProperties::PropertySets.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="members_distinguishable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="membersAreDistinguishable()"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="All the members of a Namespace are distinguishable within it."/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
-    <eOperations name="getNamesOfMember" ordered="false" upperBound="-1" eType="#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif"/>
-      </eAnnotations>
-      <eParameters name="element" ordered="false" lowerBound="1" eType="#//NamedElement"/>
-    </eOperations>
-    <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
         transient="true" derived="true">
@@ -654,9 +332,6 @@
       </eAnnotations>
       <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
@@ -665,9 +340,6 @@
         <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance.&#xA;&lt;p>From package AADLInfrastructure.&lt;/p>"/>
       </eAnnotations>
       <eAnnotations source="union"/>
-      <eAnnotations source="http://www.topcased.org/documentation">
-        <details key="documentation" value="A collection of NamedElements identifiable within the Namespace, either by being owned or by being introduced by importing or inheritance."/>
-      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassifierFeature" abstract="true" eSuperTypes="#//NamedElement">
@@ -785,25 +457,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>&#xA;&lt;p>From package AADLDetails::Calls.&lt;/p>"/>
     </eAnnotations>
-    <eOperations name="categoryConstraint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
-        <details key="body" value="self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory"/>
-      </eAnnotations>
-      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
-        </eAnnotations>
-      </eParameters>
-      <eParameters name="context">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="The cache of context-specific information."/>
-        </eAnnotations>
-        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
-        </eGenericType>
-      </eParameters>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Prototype">
       <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
@@ -918,9 +571,6 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="long">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="An integer is a primitive type representing integer values."/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
@@ -942,9 +592,6 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Real" instanceClassName="double">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="A real is a primitive type representing real numeric values."/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLInfrastructure.&lt;/p>"/>
     </eAnnotations>
@@ -976,6 +623,11 @@
         <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArraySizeProperty" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLProperties::Arrays.&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayableElement" abstract="true" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1593,9 +1245,6 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupType" eSuperTypes="#//Classifier #//FeatureType">
-    <eAnnotations source="http://www.topcased.org/documentation">
-      <details key="documentation" value="To be merged with AADLConstructs::Features::FeatureGroupType"/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>&#xA;&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>

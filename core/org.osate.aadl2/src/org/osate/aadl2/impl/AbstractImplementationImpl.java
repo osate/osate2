@@ -72,6 +72,7 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.AbstractImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AbstractImplementationImpl#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
@@ -89,7 +90,6 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.AbstractImplementationImpl#getOwnedVirtualProcessorSubcomponents <em>Owned Virtual Processor Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AbstractImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -326,8 +326,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
-		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDataSubcomponent());
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
 	}
@@ -353,8 +353,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public DeviceSubcomponent createOwnedDeviceSubcomponent() {
-		DeviceSubcomponent newOwnedDeviceSubcomponent = (DeviceSubcomponent) create(Aadl2Package.eINSTANCE
-				.getDeviceSubcomponent());
+		DeviceSubcomponent newOwnedDeviceSubcomponent = (DeviceSubcomponent) create(
+				Aadl2Package.eINSTANCE.getDeviceSubcomponent());
 		getOwnedDeviceSubcomponents().add(newOwnedDeviceSubcomponent);
 		return newOwnedDeviceSubcomponent;
 	}
@@ -380,8 +380,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public MemorySubcomponent createOwnedMemorySubcomponent() {
-		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(Aadl2Package.eINSTANCE
-				.getMemorySubcomponent());
+		MemorySubcomponent newOwnedMemorySubcomponent = (MemorySubcomponent) create(
+				Aadl2Package.eINSTANCE.getMemorySubcomponent());
 		getOwnedMemorySubcomponents().add(newOwnedMemorySubcomponent);
 		return newOwnedMemorySubcomponent;
 	}
@@ -407,8 +407,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public ProcessSubcomponent createOwnedProcessSubcomponent() {
-		ProcessSubcomponent newOwnedProcessSubcomponent = (ProcessSubcomponent) create(Aadl2Package.eINSTANCE
-				.getProcessSubcomponent());
+		ProcessSubcomponent newOwnedProcessSubcomponent = (ProcessSubcomponent) create(
+				Aadl2Package.eINSTANCE.getProcessSubcomponent());
 		getOwnedProcessSubcomponents().add(newOwnedProcessSubcomponent);
 		return newOwnedProcessSubcomponent;
 	}
@@ -435,8 +435,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public ProcessorSubcomponent createOwnedProcessorSubcomponent() {
-		ProcessorSubcomponent newOwnedProcessorSubcomponent = (ProcessorSubcomponent) create(Aadl2Package.eINSTANCE
-				.getProcessorSubcomponent());
+		ProcessorSubcomponent newOwnedProcessorSubcomponent = (ProcessorSubcomponent) create(
+				Aadl2Package.eINSTANCE.getProcessorSubcomponent());
 		getOwnedProcessorSubcomponents().add(newOwnedProcessorSubcomponent);
 		return newOwnedProcessorSubcomponent;
 	}
@@ -462,8 +462,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public SystemSubcomponent createOwnedSystemSubcomponent() {
-		SystemSubcomponent newOwnedSystemSubcomponent = (SystemSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSystemSubcomponent());
+		SystemSubcomponent newOwnedSystemSubcomponent = (SystemSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSystemSubcomponent());
 		getOwnedSystemSubcomponents().add(newOwnedSystemSubcomponent);
 		return newOwnedSystemSubcomponent;
 	}
@@ -490,8 +490,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
-		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramSubcomponent());
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
 		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
 		return newOwnedSubprogramSubcomponent;
 	}
@@ -518,8 +518,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
-		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupSubcomponent());
+		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent());
 		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}
@@ -545,8 +545,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public ThreadSubcomponent createOwnedThreadSubcomponent() {
-		ThreadSubcomponent newOwnedThreadSubcomponent = (ThreadSubcomponent) create(Aadl2Package.eINSTANCE
-				.getThreadSubcomponent());
+		ThreadSubcomponent newOwnedThreadSubcomponent = (ThreadSubcomponent) create(
+				Aadl2Package.eINSTANCE.getThreadSubcomponent());
 		getOwnedThreadSubcomponents().add(newOwnedThreadSubcomponent);
 		return newOwnedThreadSubcomponent;
 	}
@@ -573,8 +573,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public ThreadGroupSubcomponent createOwnedThreadGroupSubcomponent() {
-		ThreadGroupSubcomponent newOwnedThreadGroupSubcomponent = (ThreadGroupSubcomponent) create(Aadl2Package.eINSTANCE
-				.getThreadGroupSubcomponent());
+		ThreadGroupSubcomponent newOwnedThreadGroupSubcomponent = (ThreadGroupSubcomponent) create(
+				Aadl2Package.eINSTANCE.getThreadGroupSubcomponent());
 		getOwnedThreadGroupSubcomponents().add(newOwnedThreadGroupSubcomponent);
 		return newOwnedThreadGroupSubcomponent;
 	}
@@ -601,8 +601,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}
@@ -629,8 +629,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
-		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualProcessorSubcomponent());
+		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent());
 		getOwnedVirtualProcessorSubcomponents().add(newOwnedVirtualProcessorSubcomponent);
 		return newOwnedVirtualProcessorSubcomponent;
 	}
@@ -812,8 +812,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 			return;
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			getOwnedVirtualProcessorSubcomponents().clear();
-			getOwnedVirtualProcessorSubcomponents().addAll(
-					(Collection<? extends VirtualProcessorSubcomponent>) newValue);
+			getOwnedVirtualProcessorSubcomponents()
+					.addAll((Collection<? extends VirtualProcessorSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

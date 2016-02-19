@@ -90,13 +90,12 @@ public class EndToEndFlowItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalElement_inMode_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+								"_UI_ModalElement_type"),
+						Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -106,13 +105,12 @@ public class EndToEndFlowItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalPath_inModeOrTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalPath_inModeOrTransition_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
+								"_UI_ModalPath_type"),
+						Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -152,13 +150,12 @@ public class EndToEndFlowItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_EndToEndFlow_refined_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlow_refined_feature",
-						"_UI_EndToEndFlow_type"), Aadl2Package.eINSTANCE.getEndToEndFlow_Refined(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_EndToEndFlow_refined_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlow_refined_feature",
+								"_UI_EndToEndFlow_type"),
+						Aadl2Package.eINSTANCE.getEndToEndFlow_Refined(), true, false, true, null, null, null));
 	}
 
 	/**

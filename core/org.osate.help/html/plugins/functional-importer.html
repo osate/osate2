@@ -77,16 +77,16 @@ or SCADE model into an AADL model
 </p>
 <p>
 For both importers, the tool will create
-three files: 
+the following files: 
 </p>
 <ol>
-	<li><em>functional.aadl</em> contains a functional view - system components
-	    without a runtime model (processor, etc.).
+	<li><em>functional/<package-name>-functional.aadl</em> contains a functional view using abstract components.
 	</li>
-	<li><em>runtime-generic.aadl</em></li> contains generic runtime components
-	used to deploy the imported architecture.
-	<li><em>runtime.aadl</em></li> contains the full system with all components
-	bound to a single processor.
+	<li><em>functional/<package-name>-runtime.aadl</em> contains the system structure (with subcomponents)
+	using system components.
+	</li>
+	<li><em>functional/runtime_generic.aadl</em> contains generic components used by all mapped components.
+	</li>
 </ol>
 
 <h3>Simulink Mapping Rules</h3>
@@ -126,13 +126,16 @@ three files:
 </ul>
 
 <h3>SCADE Mapping Rules</h3>
+<p>
+It is possible to import a single component (<em>.xscade</em> file) or a complete project (<em>.etp</em> file).
+</p>
+
 <ul>
-	<li>Each component in the diagram is mapped into an AADL system component</li>
-	<li>SCADE component connections is mapped using AADL event data port connections</li>
-	<li>The importer tried to infer the data type and see
-	    if a numeric or boolean value is being used.
+	<li>Each component in the diagram is mapped into an AADL abstract (functional) or system (runtime) component</li>
+	<li>Connections are mapped only for connections internal to a components (a connection from a sub-components to a feature)</li>
+	<li>Inter-components connections are not supported</li>
+	<li>The importer tried to infer the data type and see if a numeric or boolean value is being used.
 	</li>
-	<li>In the <em>runtime.aadl</em> model, all systems are bound to the same processor</li>
 	<li>SCADE state machines are translated into AADL behavior state machine
 		<ul>
 			<li>Inner state machines are embedded</li>

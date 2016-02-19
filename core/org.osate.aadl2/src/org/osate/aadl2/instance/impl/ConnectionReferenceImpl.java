@@ -62,13 +62,13 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getDestination <em>Destination</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -442,12 +442,12 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	public boolean acceptsProperty(Property property) {
 		final boolean result;
 		for (final PropertyOwner propOwner : property.getAppliesTos()) {
-			// OsateDebug.osateDebug("[ConnectionReferenceImpl]   property owner=" + propOwner);
+			// OsateDebug.osateDebug("[ConnectionReferenceImpl] property owner=" + propOwner);
 
 			if (propOwner instanceof MetaclassReference) {
 				if ((((MetaclassReference) propOwner).getMetaclassNames().size() > 0)
 						&& ((MetaclassReference) propOwner).getMetaclassNames().get(0).equals("all")) {
-					// OsateDebug.osateDebug("[ConnectionReferenceImpl]   accept property");
+					// OsateDebug.osateDebug("[ConnectionReferenceImpl] accept property");
 
 					return true;
 				}

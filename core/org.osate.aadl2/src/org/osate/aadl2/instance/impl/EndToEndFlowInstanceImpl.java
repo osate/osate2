@@ -61,13 +61,13 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getFlowElements <em>Flow Element</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getEndToEndFlow <em>End To End Flow</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -150,7 +150,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 
 				/*
 				 * (non-Javadoc)
-				 * 
+				 *
 				 * @see org.eclipse.emf.ecore.util.EObjectEList#isUnique()
 				 */
 				@Override

@@ -22,10 +22,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement">
     <eAnnotations source="duplicates">
-      <eAnnotations source="ownedPropertyAssociation">
-        <details key="lowerBound" value="1"/>
-        <details key="upperBound" value="1"/>
-      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="ownedPropertyAssociation" ordered="false"
           upperBound="-1" eType="#//PropertyAssociationInstance" containment="true">
         <eAnnotations source="redefines" references="aadl2.ecore#//NamedElement/ownedPropertyAssociation"/>

@@ -174,8 +174,9 @@ class PropertiesJavaValidatorTest extends OsateTest {
 				ownedFeatures.head =>[
 					"feat_array".assertEquals(name)
 					//checkPropertySetElementReference
-					arrayDimensions.head.size.assertError(testFileResult.issues, issueCollection, "The referenced property set 'SEI' of property 'nsloc' is not listed in a with clause."
-						, "Array size should only be integer or property constant value, not a property value"
+					arrayDimensions.head.size.assertError(testFileResult.issues, issueCollection, "Couldn't resolve reference to ArraySizeProperty 'SEI::nsloc'."
+					//"The referenced property set 'SEI' of property 'nsloc' is not listed in a with clause."
+					//	, "Array size should only be integer or property constant value, not a property value"
 					)
 				]
 				ownedPropertyAssociations.head => [

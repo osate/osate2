@@ -37,9 +37,7 @@ package org.osate.aadl2;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.InstanceObject;
@@ -145,88 +143,12 @@ public interface NamedElement extends Element {
 	PropertyAssociation createOwnedPropertyAssociation();
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc --> If
-	 * there is no name, or one of the containing namespaces has no name, there
-	 * is no qualified name. (self.name->isEmpty() or
-	 * self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty())
-	 * implies self.qualifiedName->isEmpty()
-	 *
-	 * @param diagnostics The chain of diagnostics to which problems are to be
-	 *            appended.
-	 * @param context The cache of context-specific information. <!--
-	 *            end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()'"
-	 * @generated
-	 */
-	boolean has_no_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-	 * When there is a name, and all of the containing namespaces have a name,
-	 * the qualified name is constructed from the names of the containing
-	 * namespaces. (self.name->notEmpty() and self.allNamespaces()->select(ns |
-	 * ns.name->isEmpty())->isEmpty()) implies self.qualifiedName =
-	 * self.allNamespaces()->iterate(ns: Namespace; result: String = self.name |
-	 * ns.name.concat(self.separator()).concat(result))
-	 *
-	 * @param diagnostics The chain of diagnostics to which problems are to be
-	 *            appended.
-	 * @param context The cache of context-specific information. <!--
-	 *            end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) \r\nimplies \r\nself.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))'"
-	 * @generated
-	 */
-	boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context);
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" required="true" ordered="false"
 	 * @generated
 	 */
 	Namespace getNamespace();
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-	 * The query allNamespaces() gives the sequence of namespaces in which the
-	 * NamedElement is nested, working outwards. if self.namespace->isEmpty()
-	 * then Sequence{} else
-	 * self.namespace.allNamespaces()->prepend(self.namespace) endif <!--
-	 * end-model-doc -->
-	 *
-	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if self.namespace->isEmpty() then \r\n  Sequence{}\r\nelse\r\n  self.namespace.allNamespaces()->prepend(self.namespace)\r\nendif'"
-	 * @generated
-	 */
-	EList<Namespace> allNamespaces();
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-	 * The query isDistinguishableFrom() determines whether two NamedElements
-	 * may logically co-exist within a Namespace. By default, two named elements
-	 * are distinguishable if (a) they have unrelated types or (b) they have
-	 * related types but different names. if self.oclIsKindOf(n.oclType) or
-	 * n.oclIsKindOf(self.oclType) then
-	 * ns.getNamesOfMember(self)->intersection(ns
-	 * .getNamesOfMember(n))->isEmpty() else true endif <!-- end-model-doc -->
-	 *
-	 * @model dataType="org.osate.aadl2.Boolean" required="true"
-	 *        ordered="false" nRequired="true" nOrdered="false"
-	 *        nsRequired="true" nsOrdered="false" annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then\r\n  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()\r\nelse\r\n  true\r\nendif'"
-	 * @generated
-	 */
-	boolean isDistinguishableFrom(NamedElement n, Namespace ns);
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
-	 * The query separator() gives the string that is used to separate names
-	 * when constructing a qualified name. '.' <!-- end-model-doc -->
-	 *
-	 * @model dataType="org.osate.aadl2.String" required="true"
-	 *        ordered="false"
-	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='\'.\''"
-	 * @generated
-	 */
-	String separator();
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
@@ -284,9 +206,9 @@ public interface NamedElement extends Element {
 	 * @throws PropertyIsListException Thrown if the property is not scalar.
 	 * @see org.osate.aadl2.instance.SystemInstance#setCurrentSystemOperationMode(org.osate.aadl2.instance.SystemOperationMode)
 	 */
-	PropertyExpression getSimplePropertyValue(Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException, PropertyIsListException;
+	PropertyExpression getSimplePropertyValue(Property property)
+			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException;
 
 	/**
 	 * Get the property value for a particular model element and property. The
@@ -445,7 +367,8 @@ public interface NamedElement extends Element {
 	 *                list-valued and the given list does not have exactly 1
 	 *                element, or because of type mismatch issues.
 	 */
-	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl, List<? extends Mode> modes);
+	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl,
+			List<? extends Mode> modes);
 
 	public List<? extends PropertyExpression> getPropertyValueList(final Property property);
 

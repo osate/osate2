@@ -51,11 +51,11 @@ import org.osate.aadl2.ArraySizeProperty;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ArraySizeImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ArraySizeImpl#getSizeProperty <em>Size Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

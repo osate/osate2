@@ -61,18 +61,18 @@ import org.osate.aadl2.VirtualProcessorType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl#getOwnedVirtualProcessorSubcomponents <em>Owned Virtual Processor Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class VirtualProcessorImplementationImpl extends ComponentImplementationImpl implements
-		VirtualProcessorImplementation {
+public class VirtualProcessorImplementationImpl extends ComponentImplementationImpl
+		implements VirtualProcessorImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedVirtualBusSubcomponents() <em>Owned Virtual Bus Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -171,8 +171,8 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
-		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualBusSubcomponent());
+		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
 		getOwnedVirtualBusSubcomponents().add(newOwnedVirtualBusSubcomponent);
 		return newOwnedVirtualBusSubcomponent;
 	}
@@ -199,8 +199,8 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	@Override
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
-		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
-				.getVirtualProcessorSubcomponent());
+		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(
+				Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponent());
 		getOwnedVirtualProcessorSubcomponents().add(newOwnedVirtualProcessorSubcomponent);
 		return newOwnedVirtualProcessorSubcomponent;
 	}
@@ -293,8 +293,8 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 			return;
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			getOwnedVirtualProcessorSubcomponents().clear();
-			getOwnedVirtualProcessorSubcomponents().addAll(
-					(Collection<? extends VirtualProcessorSubcomponent>) newValue);
+			getOwnedVirtualProcessorSubcomponents()
+					.addAll((Collection<? extends VirtualProcessorSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

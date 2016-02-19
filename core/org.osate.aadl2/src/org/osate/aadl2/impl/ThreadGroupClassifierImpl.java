@@ -43,8 +43,6 @@ import org.osate.aadl2.ThreadGroupClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Thread Group Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

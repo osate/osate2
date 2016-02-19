@@ -92,12 +92,12 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider {
 	 */
 	protected void addDerivedModesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentClassifier_derivedModes_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassifier_derivedModes_feature",
-						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE.getComponentClassifier_DerivedModes(),
-				true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						"_UI_ComponentClassifier_type"),
+				Aadl2Package.eINSTANCE.getComponentClassifier_DerivedModes(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -108,12 +108,12 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider {
 	 */
 	protected void addNoFlowsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentClassifier_noFlows_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassifier_noFlows_feature",
-						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE.getComponentClassifier_NoFlows(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						"_UI_ComponentClassifier_type"),
+				Aadl2Package.eINSTANCE.getComponentClassifier_NoFlows(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -124,12 +124,12 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider {
 	 */
 	protected void addNoModesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_ComponentClassifier_noModes_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentClassifier_noModes_feature",
-						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE.getComponentClassifier_NoModes(), true,
-				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						"_UI_ComponentClassifier_type"),
+				Aadl2Package.eINSTANCE.getComponentClassifier_NoModes(), true, false, false,
+				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -215,9 +215,9 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider {
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedMode(),
 				Aadl2Factory.eINSTANCE.createMode()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition(),
-				Aadl2Factory.eINSTANCE.createModeTransition()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentClassifier_OwnedModeTransition(),
+						Aadl2Factory.eINSTANCE.createModeTransition()));
 	}
 
 }

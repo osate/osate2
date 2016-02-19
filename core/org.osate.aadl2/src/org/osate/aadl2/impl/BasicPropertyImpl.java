@@ -53,12 +53,12 @@ import org.osate.aadl2.Type;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getReferencedPropertyType <em>Referenced Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getOwnedPropertyType <em>Owned Property Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BasicPropertyImpl#getPropertyType <em>Property Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -141,9 +141,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		PropertyType oldReferencedPropertyType = referencedPropertyType;
 		referencedPropertyType = newReferencedPropertyType;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE, oldReferencedPropertyType,
-					referencedPropertyType));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__REFERENCED_PROPERTY_TYPE,
+					oldReferencedPropertyType, referencedPropertyType));
 		}
 	}
 
@@ -155,8 +154,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	@Override
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
-		return propertyType != null && ((EObject) propertyType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) propertyType)
-				: propertyType;
+		return propertyType != null && ((EObject) propertyType).eIsProxy()
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
 	}
 
 	/**
@@ -222,12 +221,12 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
 			if (ownedPropertyType != null) {
-				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
 			}
 			if (newOwnedPropertyType != null) {
-				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
 			}
 			msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs);
 			if (msgs != null) {

@@ -46,11 +46,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.PackageRename#getRenamedPackage <em>Renamed Package</em>}</li>
  *   <li>{@link org.osate.aadl2.PackageRename#isRenameAll <em>Rename All</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getPackageRename()
  * @model

@@ -183,49 +183,49 @@ public class SystemImplementationItemProvider extends ComponentImplementationIte
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createBusSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedDeviceSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDeviceSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedDeviceSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDeviceSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedMemorySubcomponent(),
-				Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedMemorySubcomponent(),
+						Aadl2Factory.eINSTANCE.createMemorySubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedProcessSubcomponent(),
-				Aadl2Factory.eINSTANCE.createProcessSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedProcessSubcomponent(),
+						Aadl2Factory.eINSTANCE.createProcessSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedProcessorSubcomponent(),
-				Aadl2Factory.eINSTANCE.createProcessorSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedProcessorSubcomponent(),
+						Aadl2Factory.eINSTANCE.createProcessorSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSubprogramSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSubprogramSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSubprogramGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSubprogramGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSystemSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSystemSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedSystemSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSystemSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedVirtualBusSubcomponent(),
-				Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedVirtualBusSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualBusSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSystemImplementation_OwnedVirtualProcessorSubcomponent(),
-				Aadl2Factory.eINSTANCE.createVirtualProcessorSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getSystemImplementation_OwnedVirtualProcessorSubcomponent(),
+						Aadl2Factory.eINSTANCE.createVirtualProcessorSubcomponent()));
 	}
 
 }

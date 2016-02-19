@@ -43,8 +43,6 @@ import org.osate.aadl2.FlowElement;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Flow Element</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

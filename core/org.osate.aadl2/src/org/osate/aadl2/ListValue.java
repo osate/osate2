@@ -50,10 +50,10 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ListValue#getOwnedListElements <em>Owned List Element</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getListValue()
  * @model
@@ -90,6 +90,7 @@ public interface ListValue extends PropertyExpression {
 	 */
 	PropertyExpression createOwnedListElement(EClass eClass);
 
+	@Override
 	boolean sameAs(PropertyExpression pe);
 
 } // ListValue

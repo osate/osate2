@@ -49,12 +49,12 @@ import org.osate.aadl2.RefinableElement;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ModalPath#getInModes() <em>Get In Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.ModalPath#getInModeTransitions() <em>Get In Mode Transitions</em>}</li>
  *   <li>{@link org.osate.aadl2.ModalPath#getAllInModeTransitions() <em>Get All In Mode Transitions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

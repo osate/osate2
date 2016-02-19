@@ -48,6 +48,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.VirtualProcessorType#getOwnedDataPorts <em>Owned Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualProcessorType#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
@@ -55,7 +56,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.VirtualProcessorType#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualProcessorType#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorType()
  * @model
@@ -67,10 +67,10 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * The list contents are of type {@link org.osate.aadl2.DataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Port</em>' containment reference list isn't clear,
@@ -102,10 +102,10 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * The list contents are of type {@link org.osate.aadl2.EventDataPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Data Port</em>' containment reference list isn't clear,
@@ -137,10 +137,10 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * The list contents are of type {@link org.osate.aadl2.EventPort}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Event Port</em>' containment reference list isn't clear,
@@ -172,10 +172,10 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Access</em>' containment reference list isn't clear,
@@ -207,10 +207,10 @@ public interface VirtualProcessorType extends ComponentType, VirtualProcessorCla
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupAccess}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Group Access</em>' containment reference list isn't clear,

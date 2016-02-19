@@ -46,13 +46,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.NumberType#getOwnedUnitsType <em>Owned Units Type</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberType#getReferencedUnitsType <em>Referenced Units Type</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberType#getRange <em>Range</em>}</li>
  *   <li>{@link org.osate.aadl2.NumberType#getUnitsType <em>Units Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getNumberType()
  * @model abstract="true"

@@ -45,10 +45,10 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause <em>Annex Subclause</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getAnnexInstance()
  * @model abstract="true"
