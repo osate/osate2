@@ -131,8 +131,8 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def IScope scope_ConnectionInstanceEnd_srcConnectionInstance(EObject context, EReference reference) {
-		val parent = context.eContainer
-		if (parent instanceof ComponentInstance) {
+		val parent = context.eContainer.getContainerOfType(ComponentInstance)
+		if (parent != null) {
 			val descriptions = parent.connectionInstances.indexed.map[
 				EObjectDescription.create(key.toString, value)
 			]
@@ -148,8 +148,8 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def IScope scope_ConnectionInstanceEnd_dstConnectionInstance(EObject context, EReference reference) {
-		val parent = context.eContainer
-		if (parent instanceof ComponentInstance) {
+		val parent = context.eContainer.getContainerOfType(ComponentInstance)
+		if (parent != null) {
 			val descriptions = parent.connectionInstances.indexed.map[
 				EObjectDescription.create(key.toString, value)
 			]

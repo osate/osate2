@@ -587,6 +587,146 @@ class SerializerTest extends OsateTest {
 			}''')
 	}
 	
+	@Test
+	def void testFeatureGroupConnections() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				feature group fgt1
+				features
+					dp1: out data port;
+					ep1: out event port;
+				end fgt1;
+				
+				feature group fgt2
+				end fgt2;
+				
+				thread t1
+				features
+					fg1: feature group fgt1;
+					fg2: feature group fgt2;
+					fg3: feature group;
+				end t1;
+				
+				process p1
+				features
+					fg4: feature group fgt1;
+					fg5: feature group fgt2;
+					fg6: feature group;
+				end p1;
+				
+				process implementation p1.i
+				subcomponents
+					t1sub: thread t1;
+				connections
+					conn1: feature group t1sub.fg1 -> fg4;
+					conn2: feature group t1sub.fg2 -> fg5;
+					conn3: feature group t1sub.fg3 -> fg6;
+				end p1.i;
+				
+				thread t2
+				features
+					fg7: feature group inverse of fgt1;
+					fg8: feature group inverse of fgt2;
+					fg9: feature group;
+				end t2;
+				
+				process p2
+				features
+					fg10: feature group inverse of fgt1;
+					fg11: feature group inverse of fgt2;
+					fg12: feature group;
+				end p2;
+				
+				process implementation p2.i
+				subcomponents
+					t2sub: thread t2;
+				connections
+					conn4: feature group fg10 -> t2sub.fg7;
+					conn5: feature group fg11 -> t2sub.fg8;
+					conn6: feature group fg12 -> t2sub.fg9;
+				end p2.i;
+				
+				system s
+				end s;
+				
+				system implementation s.i
+				subcomponents
+					p1sub: process p1.i;
+					p2sub: process p2.i;
+				connections
+					conn7: feature group p1sub.fg4 -> p2sub.fg10;
+					conn8: feature group p1sub.fg5 -> p2sub.fg11;
+					conn9: feature group p1sub.fg6 -> p2sub.fg12;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				process p1sub [ 0 ] : pkg1::s.i::p1sub {
+					in out featureGroup fg4 : pkg1::p1::fg4 {
+						out dataPort dp1 : pkg1::fgt1::dp1
+						out eventPort ep1 : pkg1::fgt1::ep1
+					}
+					in out featureGroup fg5 : pkg1::p1::fg5
+					in out featureGroup fg6 : pkg1::p1::fg6
+					thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
+						in out featureGroup fg1 : pkg1::t1::fg1 {
+							out dataPort dp1 : pkg1::fgt1::dp1 source of ( 2.0 )
+							out eventPort ep1 : pkg1::fgt1::ep1 source of ( 2.1 )
+						}
+						in out featureGroup fg2 : pkg1::t1::fg2 source of ( 2.2 )
+						in out featureGroup fg3 : pkg1::t1::fg3 source of ( 2.3 )
+					}
+				}
+				process p2sub [ 0 ] : pkg1::s.i::p2sub {
+					in out featureGroup fg10 : pkg1::p2::fg10 {
+						in dataPort dp1 : pkg1::fgt1::dp1
+						in eventPort ep1 : pkg1::fgt1::ep1
+					}
+					in out featureGroup fg11 : pkg1::p2::fg11
+					in out featureGroup fg12 : pkg1::p2::fg12
+					thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
+						in out featureGroup fg7 : pkg1::t2::fg7 {
+							in dataPort dp1 : pkg1::fgt1::dp1 destination of ( 2.0 )
+							in eventPort ep1 : pkg1::fgt1::ep1 destination of ( 2.1 )
+						}
+						in out featureGroup fg8 : pkg1::t2::fg8 destination of ( 2.2 )
+						in out featureGroup fg9 : pkg1::t2::fg9 destination of ( 2.3 )
+					}
+				}
+				complete portConnection "p1sub.t1sub.fg1.dp1 -> p2sub.t2sub.fg7.dp1" :
+				p1sub[0].t1sub[0].fg1.dp1 -> p2sub[0].t2sub[0].fg7.dp1 {
+					p1sub[0].t1sub[0].fg1.dp1 -> p1sub[0].fg4.dp1 : pkg1::p1.i::conn1 in p1sub[0]
+					p1sub[0].fg4.dp1 -> p2sub[0].fg10.dp1 : pkg1::s.i::conn7 in parent
+					p2sub[0].fg10.dp1 -> p2sub[0].t2sub[0].fg7.dp1 : pkg1::p2.i::conn4 in
+					p2sub[0]
+				}
+				complete portConnection "p1sub.t1sub.fg1.ep1 -> p2sub.t2sub.fg7.ep1" :
+				p1sub[0].t1sub[0].fg1.ep1 -> p2sub[0].t2sub[0].fg7.ep1 {
+					p1sub[0].t1sub[0].fg1.ep1 -> p1sub[0].fg4.ep1 : pkg1::p1.i::conn1 in p1sub[0]
+					p1sub[0].fg4.ep1 -> p2sub[0].fg10.ep1 : pkg1::s.i::conn7 in parent
+					p2sub[0].fg10.ep1 -> p2sub[0].t2sub[0].fg7.ep1 : pkg1::p2.i::conn4 in
+					p2sub[0]
+				}
+				complete featureGroupConnection "p1sub.t1sub.fg2 -> p2sub.t2sub.fg8" :
+				p1sub[0].t1sub[0].fg2 -> p2sub[0].t2sub[0].fg8 {
+					p1sub[0].t1sub[0].fg2 -> p1sub[0].fg5 : pkg1::p1.i::conn2 in p1sub[0]
+					p1sub[0].fg5 -> p2sub[0].fg11 : pkg1::s.i::conn8 in parent
+					p2sub[0].fg11 -> p2sub[0].t2sub[0].fg8 : pkg1::p2.i::conn5 in p2sub[0]
+				}
+				complete featureGroupConnection "p1sub.t1sub.fg3 -> p2sub.t2sub.fg9" :
+				p1sub[0].t1sub[0].fg3 -> p2sub[0].t2sub[0].fg9 {
+					p1sub[0].t1sub[0].fg3 -> p1sub[0].fg6 : pkg1::p1.i::conn3 in p1sub[0]
+					p1sub[0].fg6 -> p2sub[0].fg12 : pkg1::s.i::conn9 in parent
+					p2sub[0].fg12 -> p2sub[0].t2sub[0].fg9 : pkg1::p2.i::conn6 in p2sub[0]
+				}
+				som "No Modes"
+			}''')
+	}
+
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
 		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
 		impl.assertNotNull
