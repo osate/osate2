@@ -283,25 +283,22 @@ class SerializerTest extends OsateTest {
 			end pkg1;
 		''')
 		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
-			assertSerialize("s.i", '''
-				system s_i_Instance : pkg1::s.i {
-					device sub1 [ 0 ] : pkg1::s.i::sub1 {
-						out dataPort op : pkg1::dev1::op source of ( 1.0 , 1.1 )
-					}
-					device sub2 [ 0 ] : pkg1::s.i::sub2 {
-						in dataPort ip : pkg1::dev2::ip destination of ( 1.0 , 1.1 )
-					}
-					complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
-						sub1[0].op -> sub2[0].ip : pkg1::s.i::conn1 in parent
-					}
-					complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
-						sub1[0].op -> sub2[0].ip : pkg1::s.i::conn2 in parent
-					}
-					som "No Modes"
-				}''')
-		]
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				device sub1 [ 0 ] : pkg1::s.i::sub1 {
+					out dataPort op : pkg1::dev1::op source of ( 1.0 , 1.1 )
+				}
+				device sub2 [ 0 ] : pkg1::s.i::sub2 {
+					in dataPort ip : pkg1::dev2::ip destination of ( 1.0 , 1.1 )
+				}
+				complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
+					sub1[0].op -> sub2[0].ip : pkg1::s.i::conn1 in parent
+				}
+				complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
+					sub1[0].op -> sub2[0].ip : pkg1::s.i::conn2 in parent
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	@Test
@@ -328,20 +325,17 @@ class SerializerTest extends OsateTest {
 			end pkg1;
 		''')
 		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
-			assertSerialize("s.i", '''
-				system s_i_Instance : pkg1::s.i {
-					bus b [ 0 ] : pkg1::s.i::b source of ( 0 )
-					processor psub [ 0 ] : pkg1::s.i::psub {
-						in out busAccess ba : pkg1::p::ba destination of ( 1.0 )
-					}
-					complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
-						b[0] -> psub[0].ba : pkg1::s.i::conn1 in parent
-					}
-					som "No Modes"
-				}''')
-		]
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				bus b [ 0 ] : pkg1::s.i::b source of ( 0 )
+				processor psub [ 0 ] : pkg1::s.i::psub {
+					in out busAccess ba : pkg1::p::ba destination of ( 1.0 )
+				}
+				complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
+					b[0] -> psub[0].ba : pkg1::s.i::conn1 in parent
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	@Test
@@ -397,31 +391,28 @@ class SerializerTest extends OsateTest {
 			end pkg1;
 		''')
 		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
-			assertSerialize("s.i", '''
-				system s_i_Instance : pkg1::s.i {
-					process p1sub [ 0 ] : pkg1::s.i::p1sub {
-						out dataPort op : pkg1::p1::op
-						thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
-							out dataPort op : pkg1::t1::op source of ( 2.0 )
-						}
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				process p1sub [ 0 ] : pkg1::s.i::p1sub {
+					out dataPort op : pkg1::p1::op
+					thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
+						out dataPort op : pkg1::t1::op source of ( 2.0 )
 					}
-					process p2sub [ 0 ] : pkg1::s.i::p2sub {
-						in dataPort ip : pkg1::p2::ip
-						thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
-							in dataPort ip : pkg1::t2::ip destination of ( 2.0 )
-						}
+				}
+				process p2sub [ 0 ] : pkg1::s.i::p2sub {
+					in dataPort ip : pkg1::p2::ip
+					thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
+						in dataPort ip : pkg1::t2::ip destination of ( 2.0 )
 					}
-					complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" :
-					p1sub[0].t1sub[0].op -> p2sub[0].t2sub[0].ip {
-						p1sub[0].t1sub[0].op -> p1sub[0].op : pkg1::p1.i::p1conn in p1sub[0]
-						p1sub[0].op -> p2sub[0].ip : pkg1::s.i::conn in parent
-						p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i::p2conn in p2sub[0]
-					}
-					som "No Modes"
-				}''')
-		]
+				}
+				complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" :
+				p1sub[0].t1sub[0].op -> p2sub[0].t2sub[0].ip {
+					p1sub[0].t1sub[0].op -> p1sub[0].op : pkg1::p1.i::p1conn in p1sub[0]
+					p1sub[0].op -> p2sub[0].ip : pkg1::s.i::conn in parent
+					p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i::p2conn in p2sub[0]
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	@Test
@@ -452,25 +443,22 @@ class SerializerTest extends OsateTest {
 			end pkg1;
 		''')
 		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
-			assertSerialize("s.i", '''
-				system s_i_Instance : pkg1::s.i {
-					in dataPort ip : pkg1::s::ip source of ( 0 )
-					out dataPort op : pkg1::s::op destination of ( 1 )
-					process psub [ 0 ] : pkg1::s.i::psub {
-						in dataPort ip : pkg1::p::ip destination of ( 1.0 )
-						out dataPort op : pkg1::p::op source of ( 1.1 )
-					}
-					portConnection "ip -> psub.ip" : ip -> psub[0].ip {
-						ip -> psub[0].ip : pkg1::s.i::conn1 in parent
-					}
-					portConnection "psub.op -> op" : psub[0].op -> op {
-						psub[0].op -> op : pkg1::s.i::conn2 in parent
-					}
-					som "No Modes"
-				}''')
-		]
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				in dataPort ip : pkg1::s::ip source of ( 0 )
+				out dataPort op : pkg1::s::op destination of ( 1 )
+				process psub [ 0 ] : pkg1::s.i::psub {
+					in dataPort ip : pkg1::p::ip destination of ( 1.0 )
+					out dataPort op : pkg1::p::op source of ( 1.1 )
+				}
+				portConnection "ip -> psub.ip" : ip -> psub[0].ip {
+					ip -> psub[0].ip : pkg1::s.i::conn1 in parent
+				}
+				portConnection "psub.op -> op" : psub[0].op -> op {
+					psub[0].op -> op : pkg1::s.i::conn2 in parent
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	@Test
@@ -510,24 +498,93 @@ class SerializerTest extends OsateTest {
 			end pkg1;
 		''')
 		suppressSerialization
-		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
-			"pkg1".assertEquals(name)
-			assertSerialize("s.i", '''
-				system s_i_Instance : pkg1::s.i {
-					process psub [ 0 ] : pkg1::s.i::psub {
-						thread t1sub [ 0 ] : pkg1::p.i::t1sub {
-							out dataPort op : pkg1::t1::op source of ( 1.0 )
-						}
-						thread t2sub [ 0 ] : pkg1::p.i::t2sub {
-							in dataPort ip : pkg1::t2::ip destination of ( 1.0 )
-						}
-						complete portConnection "t1sub.op -> t2sub.ip" : t1sub[0].op -> t2sub[0].ip {
-							t1sub[0].op -> t2sub[0].ip : pkg1::p.i::conn1 in parent
-						}
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				process psub [ 0 ] : pkg1::s.i::psub {
+					thread t1sub [ 0 ] : pkg1::p.i::t1sub {
+						out dataPort op : pkg1::t1::op source of ( 1.0 )
 					}
-					som "No Modes"
-				}''')
-		]
+					thread t2sub [ 0 ] : pkg1::p.i::t2sub {
+						in dataPort ip : pkg1::t2::ip destination of ( 1.0 )
+					}
+					complete portConnection "t1sub.op -> t2sub.ip" : t1sub[0].op -> t2sub[0].ip {
+						t1sub[0].op -> t2sub[0].ip : pkg1::p.i::conn1 in parent
+					}
+				}
+				som "No Modes"
+			}''')
+	}
+	
+	@Test
+	def void testConnectionKinds() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				abstract a1
+				features
+					af1: feature;
+					ba1: provides bus access;
+					ep1: out event port;
+					fg1: feature group;
+				end a1;
+				
+				abstract a2
+				features
+					af2: feature;
+					ba2: requires bus access;
+					ep2: in event port;
+					fg2: feature group;
+				end a2;
+				
+				abstract top
+				end top;
+				
+				abstract implementation top.i
+				subcomponents
+					a1sub: abstract a1;
+					a2sub: abstract a2;
+				connections
+					conn1: feature a1sub.af1 -> a2sub.af2;
+					conn2: bus access a1sub.ba1 -> a2sub.ba2;
+					conn3: port a1sub.ep1 -> a2sub.ep2;
+					conn4: feature group a1sub.fg1 -> a2sub.fg2;
+				end top.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "top.i", '''
+			abstract top_i_Instance : pkg1::top.i {
+				abstract a1sub [ 0 ] : pkg1::top.i::a1sub {
+					in out featureGroup fg1 : pkg1::a1::fg1 source of ( 1.0 )
+					in out abstractFeature af1 : pkg1::a1::af1 source of ( 1.1 )
+					in out busAccess ba1 : pkg1::a1::ba1 source of ( 1.2 )
+					out eventPort ep1 : pkg1::a1::ep1 source of ( 1.3 )
+				}
+				abstract a2sub [ 0 ] : pkg1::top.i::a2sub {
+					in out featureGroup fg2 : pkg1::a2::fg2 destination of ( 1.0 )
+					in out abstractFeature af2 : pkg1::a2::af2 destination of ( 1.1 )
+					in out busAccess ba2 : pkg1::a2::ba2 destination of ( 1.2 )
+					in eventPort ep2 : pkg1::a2::ep2 destination of ( 1.3 )
+				}
+				complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 ->
+				a2sub[0].fg2 {
+					a1sub[0].fg1 -> a2sub[0].fg2 : pkg1::top.i::conn4 in parent
+				}
+				complete featureConnection "a1sub.af1 -> a2sub.af2" : a1sub[0].af1 ->
+				a2sub[0].af2 {
+					a1sub[0].af1 -> a2sub[0].af2 : pkg1::top.i::conn1 in parent
+				}
+				complete accessConnection "a1sub.ba1 -> a2sub.ba2" : a1sub[0].ba1 ->
+				a2sub[0].ba2 {
+					a1sub[0].ba1 -> a2sub[0].ba2 : pkg1::top.i::conn2 in parent
+				}
+				complete portConnection "a1sub.ep1 -> a2sub.ep2" : a1sub[0].ep1 ->
+				a2sub[0].ep2 {
+					a1sub[0].ep1 -> a2sub[0].ep2 : pkg1::top.i::conn3 in parent
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
