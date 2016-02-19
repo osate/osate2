@@ -337,23 +337,30 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-					if (!refs.isEmpty()) {
-						String refname = "";
-						for (FeatureorPPReference FeatureorPPReference : refs) {
-							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-								return null;
-							}
-							refname = refname + (refname.isEmpty() ? "" : ".")
-									+ FeatureorPPReference.getFeatureorPP().getName();
-						}
-						if (refname.equalsIgnoreCase(name)) {
+					if (ep.getKind() != null) {
+						if (ep.getKind().equalsIgnoreCase(name)) {
 							return ep;
 						}
-					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name) && (dir == null || dir.equals(ep.getDirection()))) {
-						return ep;
+					} else {
+						EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
+						if (!refs.isEmpty()) {
+							String refname = "";
+							for (FeatureorPPReference FeatureorPPReference : refs) {
+								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
+									return null;
+								}
+								refname = refname + (refname.isEmpty() ? "" : ".")
+										+ FeatureorPPReference.getFeatureorPP().getName();
+							}
+							if (refname.equalsIgnoreCase(name)) {
+								return ep;
+							}
+						}
+						String kind = ep.getKind();
+						if (kind != null && kind.equalsIgnoreCase(name)
+								&& (dir == null || dir.equals(ep.getDirection()))) {
+							return ep;
+						}
 					}
 				}
 			}
@@ -424,23 +431,30 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (!ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-					if (!refs.isEmpty()) {
-						String refname = "";
-						for (FeatureorPPReference FeatureorPPReference : refs) {
-							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-								return null;
-							}
-							refname = refname + (refname.isEmpty() ? "" : ".")
-									+ FeatureorPPReference.getFeatureorPP().getName();
-						}
-						if (refname.equalsIgnoreCase(name)) {
+					if (ep.getKind() != null) {
+						if (ep.getKind().equalsIgnoreCase(name)) {
 							return ep;
 						}
-					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name) && (dir == null || dir.equals(ep.getDirection()))) {
-						return ep;
+					} else {
+						EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
+						if (!refs.isEmpty()) {
+							String refname = "";
+							for (FeatureorPPReference FeatureorPPReference : refs) {
+								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
+									return null;
+								}
+								refname = refname + (refname.isEmpty() ? "" : ".")
+										+ FeatureorPPReference.getFeatureorPP().getName();
+							}
+							if (refname.equalsIgnoreCase(name)) {
+								return ep;
+							}
+						}
+						String kind = ep.getKind();
+						if (kind != null && kind.equalsIgnoreCase(name)
+								&& (dir == null || dir.equals(ep.getDirection()))) {
+							return ep;
+						}
 					}
 				}
 			}
@@ -666,7 +680,7 @@ public class EMV2Util {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find ErrorType set with given name by looking through all error types
 	 * referenced in all EMV2 subclauses of the supplied element's containing
@@ -687,7 +701,7 @@ public class EMV2Util {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * find the error flow whose incoming error propagation point is flowSource
 	 * @param eps List of error propagations
