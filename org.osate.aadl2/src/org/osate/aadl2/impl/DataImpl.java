@@ -43,8 +43,6 @@ import org.osate.aadl2.Data;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Data</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

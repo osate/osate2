@@ -51,11 +51,11 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl#getSubprogramGroupFeatureClassifier <em>Subprogram Group Feature Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -97,8 +97,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
-				: featureClassifier;
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
 	}
 
 	/**
@@ -123,7 +123,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	public SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier() {
 		if (subprogramGroupFeatureClassifier != null && ((EObject) subprogramGroupFeatureClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramGroupFeatureClassifier = (InternalEObject) subprogramGroupFeatureClassifier;
-			subprogramGroupFeatureClassifier = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupFeatureClassifier);
+			subprogramGroupFeatureClassifier = (SubprogramGroupSubcomponentType) eResolveProxy(
+					oldSubprogramGroupFeatureClassifier);
 			if (subprogramGroupFeatureClassifier != oldSubprogramGroupFeatureClassifier) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
@@ -150,7 +151,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * @generated
 	 */
 	@Override
-	public void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
+	public void setSubprogramGroupFeatureClassifier(
+			SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
 		SubprogramGroupSubcomponentType oldSubprogramGroupFeatureClassifier = subprogramGroupFeatureClassifier;
 		subprogramGroupFeatureClassifier = newSubprogramGroupFeatureClassifier;
 		if (eNotificationRequired()) {

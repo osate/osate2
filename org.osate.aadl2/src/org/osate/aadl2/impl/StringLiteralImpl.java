@@ -39,7 +39,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 
 /**
@@ -48,10 +48,10 @@ import org.osate.aadl2.StringLiteral;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.StringLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -196,14 +196,14 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		StringLiteralImpl other = (StringLiteralImpl) pv;
+		StringLiteralImpl other = (StringLiteralImpl) pe;
 		if (value == null) {
 			return other.value == null;
 		}

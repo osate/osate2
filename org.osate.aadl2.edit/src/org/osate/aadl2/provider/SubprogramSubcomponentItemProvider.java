@@ -86,13 +86,13 @@ public class SubprogramSubcomponentItemProvider extends SubcomponentItemProvider
 	 */
 	protected void addSubprogramSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_SubprogramSubcomponent_subprogramSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
 						"_UI_SubprogramSubcomponent_subprogramSubcomponentType_feature",
-						"_UI_SubprogramSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubprogramSubcomponent_SubprogramSubcomponentType(), true, false, true, null, null, null));
+						"_UI_SubprogramSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getSubprogramSubcomponent_SubprogramSubcomponentType(), true, false, true, null,
+				null, null));
 	}
 
 	/**

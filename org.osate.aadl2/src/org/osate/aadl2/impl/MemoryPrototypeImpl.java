@@ -43,8 +43,6 @@ import org.osate.aadl2.MemoryPrototype;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Memory Prototype</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

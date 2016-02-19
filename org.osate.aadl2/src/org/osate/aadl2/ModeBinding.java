@@ -47,11 +47,11 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ModeBinding#getParentMode <em>Parent Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.ModeBinding#getDerivedMode <em>Derived Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getModeBinding()
  * @model

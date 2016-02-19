@@ -85,13 +85,13 @@ public class ParameterItemProvider extends DirectedFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addDataFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Parameter_dataFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Parameter_dataFeatureClassifier_feature",
-						"_UI_Parameter_type"), Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Parameter_dataFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Parameter_dataFeatureClassifier_feature",
+								"_UI_Parameter_type"),
+						Aadl2Package.eINSTANCE.getParameter_DataFeatureClassifier(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class ParameterItemProvider extends DirectedFeatureItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Parameter) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Parameter_type") : getString("_UI_Parameter_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Parameter_type")
+				: getString("_UI_Parameter_type") + " " + label;
 	}
 
 	/**

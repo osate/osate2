@@ -42,12 +42,11 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Virtual Bus Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImpl implements VirtualBusSubcomponentType {
+public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImpl
+		implements VirtualBusSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -93,8 +93,8 @@ public class VirtualProcessorImplementationItemProvider extends ComponentImpleme
 			super.getChildrenFeatures(object);
 			childrenFeatures
 					.add(Aadl2Package.eINSTANCE.getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent());
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent());
+			childrenFeatures
+					.add(Aadl2Package.eINSTANCE.getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent());
 		}
 		return childrenFeatures;
 	}

@@ -172,21 +172,21 @@ public class ThreadGroupImplementationItemProvider extends ComponentImplementati
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedDataSubcomponent(),
-				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedDataSubcomponent(),
+						Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedThreadSubcomponent(),
-				Aadl2Factory.eINSTANCE.createThreadSubcomponent()));
+		newChildDescriptors
+				.add(createChildParameter(Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedThreadSubcomponent(),
+						Aadl2Factory.eINSTANCE.createThreadSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedThreadGroupSubcomponent(),
-				Aadl2Factory.eINSTANCE.createThreadGroupSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedThreadGroupSubcomponent(),
+						Aadl2Factory.eINSTANCE.createThreadGroupSubcomponent()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedSubprogramSubcomponent(),
-				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
+		newChildDescriptors.add(
+				createChildParameter(Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedSubprogramSubcomponent(),
+						Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getThreadGroupImplementation_OwnedSubprogramGroupSubcomponent(),

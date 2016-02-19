@@ -92,13 +92,12 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalElement_inMode_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
-						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
-				null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalElement_inMode_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
+								"_UI_ModalElement_type"),
+						Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -108,13 +107,12 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModalPath_inModeOrTransition_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
-						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModalPath_inModeOrTransition_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
+								"_UI_ModalPath_type"),
+						Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -124,13 +122,13 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addBidirectionalPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_Connection_bidirectional_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Connection_bidirectional_feature",
-						"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Bidirectional(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Connection_bidirectional_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Connection_bidirectional_feature",
+								"_UI_Connection_type"),
+						Aadl2Package.eINSTANCE.getConnection_Bidirectional(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -141,13 +139,11 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 */
 	protected void addRefinedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Connection_refined_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Connection_refined_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_Connection_refined_feature",
-								"_UI_Connection_type"), Aadl2Package.eINSTANCE.getConnection_Refined(), true, false,
-						true, null, null, null));
+								"_UI_Connection_type"),
+						Aadl2Package.eINSTANCE.getConnection_Refined(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -250,8 +246,8 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 				|| childFeature == Aadl2Package.eINSTANCE.getConnection_Source();
 
 		if (qualify) {
-			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject),
-					getFeatureText(childFeature), getTypeText(owner) });
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
 	}

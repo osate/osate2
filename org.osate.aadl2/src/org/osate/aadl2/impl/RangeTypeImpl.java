@@ -51,12 +51,12 @@ import org.osate.aadl2.RangeType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RangeTypeImpl#getOwnedNumberType <em>Owned Number Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RangeTypeImpl#getNumberType <em>Number Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.RangeTypeImpl#getReferencedNumberType <em>Referenced Number Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -108,8 +108,8 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	@Override
 	public NumberType getNumberType() {
 		NumberType numberType = basicGetNumberType();
-		return numberType != null && ((EObject) numberType).eIsProxy() ? (NumberType) eResolveProxy((InternalEObject) numberType)
-				: numberType;
+		return numberType != null && ((EObject) numberType).eIsProxy()
+				? (NumberType) eResolveProxy((InternalEObject) numberType) : numberType;
 	}
 
 	/**
@@ -210,12 +210,12 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 		if (newOwnedNumberType != ownedNumberType) {
 			NotificationChain msgs = null;
 			if (ownedNumberType != null) {
-				msgs = ((InternalEObject) ownedNumberType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedNumberType).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE, null, msgs);
 			}
 			if (newOwnedNumberType != null) {
-				msgs = ((InternalEObject) newOwnedNumberType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedNumberType).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.RANGE_TYPE__OWNED_NUMBER_TYPE, null, msgs);
 			}
 			msgs = basicSetOwnedNumberType(newOwnedNumberType, msgs);
 			if (msgs != null) {

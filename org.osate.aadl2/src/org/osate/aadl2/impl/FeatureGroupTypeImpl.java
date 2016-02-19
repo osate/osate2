@@ -83,6 +83,7 @@ import org.osate.aadl2.util.OsateDebug;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getClassifierFeatures <em>Classifier Feature</em>}</li>
@@ -103,7 +104,6 @@ import org.osate.aadl2.util.OsateDebug;
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FeatureGroupTypeImpl#getOwnedAbstractFeatures <em>Owned Abstract Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -263,7 +263,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			if (classifierFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
 						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS));
+								this, Aadl2Package.FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE,
+								CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
@@ -327,11 +328,11 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS,
-			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT,
-			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS,
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT,
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT,
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER,
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS,
 			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS,
 			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE };
 
@@ -343,7 +344,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] { Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE };
+	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE };
 
 	/**
 	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
@@ -423,7 +425,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] GENERALIZATION_ESUBSETS = new int[] { Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION };
+	protected static final int[] GENERALIZATION_ESUBSETS = new int[] {
+			Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -433,8 +436,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	@Override
 	public FeatureGroupType getExtended() {
 		FeatureGroupType extended = basicGetExtended();
-		return extended != null && ((EObject) extended).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) extended)
-				: extended;
+		return extended != null && ((EObject) extended).eIsProxy()
+				? (FeatureGroupType) eResolveProxy((InternalEObject) extended) : extended;
 	}
 
 	/**
@@ -544,12 +547,12 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
 			if (ownedExtension != null) {
-				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
+				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
 			}
 			if (newOwnedExtension != null) {
-				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
+				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
 			}
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
 			if (msgs != null) {
@@ -776,8 +779,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 */
 	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
-		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramAccess());
+		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramAccess());
 		getOwnedSubprogramAccesses().add(newOwnedSubprogramAccess);
 		return newOwnedSubprogramAccess;
 	}
@@ -803,8 +806,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 */
 	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
-		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(Aadl2Package.eINSTANCE
-				.getSubprogramGroupAccess());
+		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
+				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
 		getOwnedSubprogramGroupAccesses().add(newOwnedSubprogramGroupAccess);
 		return newOwnedSubprogramGroupAccess;
 	}

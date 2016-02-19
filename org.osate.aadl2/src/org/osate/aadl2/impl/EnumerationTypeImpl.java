@@ -50,8 +50,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Type;
-import org.osate.aadl2.operations.TypeOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,11 +57,11 @@ import org.osate.aadl2.operations.TypeOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.EnumerationTypeImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.EnumerationTypeImpl#getOwnedLiterals <em>Owned Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -165,16 +163,6 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 	@Override
 	public EnumerationLiteral createOwnedLiteral() {
 		return createOwnedLiteral(Aadl2Package.eINSTANCE.getEnumerationLiteral());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean conformsTo(Type other) {
-		return TypeOperations.conformsTo(this, other);
 	}
 
 	/**

@@ -85,13 +85,13 @@ public class DataAccessItemProvider extends AccessItemProvider {
 	 * @generated
 	 */
 	protected void addDataFeatureClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_DataAccess_dataFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataAccess_dataFeatureClassifier_feature",
-						"_UI_DataAccess_type"), Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataAccess_dataFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DataAccess_dataFeatureClassifier_feature",
+								"_UI_DataAccess_type"),
+						Aadl2Package.eINSTANCE.getDataAccess_DataFeatureClassifier(), true, false, true, null, null,
+						null));
 	}
 
 	/**

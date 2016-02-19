@@ -40,12 +40,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -85,12 +83,12 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getQualifiedName <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamedElementImpl#getOwnedPropertyAssociations <em>Owned Property Association</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -224,8 +222,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 */
 	@Override
 	public PropertyAssociation createOwnedPropertyAssociation() {
-		PropertyAssociation newOwnedPropertyAssociation = (PropertyAssociation) create(Aadl2Package.eINSTANCE
-				.getPropertyAssociation());
+		PropertyAssociation newOwnedPropertyAssociation = (PropertyAssociation) create(
+				Aadl2Package.eINSTANCE.getPropertyAssociation());
 		getOwnedPropertyAssociations().add(newOwnedPropertyAssociation);
 		return newOwnedPropertyAssociation;
 	}
@@ -236,58 +234,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@Override
-	public boolean has_no_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_no_qualified_name(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_qualified_name(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Namespace getNamespace() {
 		return NamedElementOperations.getNamespace(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Namespace> allNamespaces() {
-		return NamedElementOperations.allNamespaces(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean isDistinguishableFrom(NamedElement n, Namespace ns) {
-		return NamedElementOperations.isDistinguishableFrom(this, n, ns);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String separator() {
-		return NamedElementOperations.separator(this);
 	}
 
 	/**
@@ -381,8 +329,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		case Aadl2Package.NAMED_ELEMENT__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
-			return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null : !QUALIFIED_NAME_EDEFAULT
-					.equals(getQualifiedName());
+			return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null
+					: !QUALIFIED_NAME_EDEFAULT.equals(getQualifiedName());
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
 			return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
 		}
@@ -436,9 +384,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @throws PropertyIsListException
 	 */
 	@Override
-	public PropertyExpression getSimplePropertyValue(Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException, PropertyIsListException {
+	public PropertyExpression getSimplePropertyValue(Property property)
+			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
 
 		return getNonModalPropertyValue(property);
 	}
@@ -450,9 +398,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @return The property expression or null if the property has no value.
 	 */
 	@Override
-	public PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException {
+	public PropertyExpression getNonModalPropertyValue(final Property property)
+			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException {
 		PropertyAssociation pa = getPropertyValue(property).first();
 
 		if (pa == null) {
@@ -523,14 +471,14 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			throw new IllegalArgumentException("Property property cannot be null.");
 		}
 		if (!acceptsProperty(property)) {
-			throw new PropertyDoesNotApplyToHolderException(this, property, "Property " + property.getName()
-					+ " does not apply to " + getClass().getName());
+			throw new PropertyDoesNotApplyToHolderException(this, property,
+					"Property " + property.getName() + " does not apply to " + getClass().getName());
 		}
 		// Check that we aren't already looking up this property
 		final LinkedList<Property> stack = lookupStack.get();
 		if (stack.contains(property)) {
-			throw new IllegalStateException("Encountered circular dependency on property \"" + property.getName()
-					+ "\"");
+			throw new IllegalStateException(
+					"Encountered circular dependency on property \"" + property.getName() + "\"");
 		}
 		try {
 			stack.addFirst(property);
@@ -613,11 +561,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		final boolean isList = pd.isList();
 		if (!isList) {
 			if (vals.size() == 0) {
-				throw new IllegalArgumentException("Cannot assign an empty list to the non-list property "
-						+ pd.getName());
+				throw new IllegalArgumentException(
+						"Cannot assign an empty list to the non-list property " + pd.getName());
 			} else if (vals.size() > 1) {
-				throw new IllegalArgumentException("Cannot assign a list of values to the non-list property "
-						+ pd.getName());
+				throw new IllegalArgumentException(
+						"Cannot assign a list of values to the non-list property " + pd.getName());
 			}
 		}
 
@@ -709,9 +657,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @return A list of PropertyValues.  This does not return null.
 	 */
 	@Override
-	public final List<PropertyExpression> getPropertyValueList(final Property property) throws InvalidModelException,
-			IllegalArgumentException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
-			PropertyDoesNotApplyToHolderException {
+	public final List<PropertyExpression> getPropertyValueList(final Property property)
+			throws InvalidModelException, IllegalArgumentException, PropertyNotPresentException,
+			PropertyIsModalException, IllegalStateException, PropertyDoesNotApplyToHolderException {
 		try {
 			PropertyExpression pe = getNonModalPropertyValue(property);
 			if (pe instanceof ListValue) {
@@ -754,7 +702,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/*
 	 * DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
 	@Override

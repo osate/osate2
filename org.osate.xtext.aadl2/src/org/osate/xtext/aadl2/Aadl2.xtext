@@ -1786,7 +1786,7 @@ PortConnection returns aadl2::PortConnection:
 	((name=ID ':' 'port' 
 			source=AbstractConnectionEnd
 	('->' | bidirectional?='<->')
-	destination=ProcessorConnectionEnd )
+	destination=AbstractConnectionEnd )
 	|
 	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to' 'port'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?

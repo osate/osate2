@@ -42,7 +42,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -51,11 +51,11 @@ import org.osate.aadl2.parsesupport.ParseUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.IntegerLiteralImpl#getBase <em>Base</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.IntegerLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -163,7 +163,8 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		long oldValue = value;
 		value = newValue;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue,
+					value));
 		}
 	}
 
@@ -306,7 +307,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
 	@Override
@@ -319,7 +320,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -337,7 +338,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override
@@ -352,14 +353,14 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		IntegerLiteralImpl other = (IntegerLiteralImpl) pv;
+		IntegerLiteralImpl other = (IntegerLiteralImpl) pe;
 		return base == other.base && value == other.value;
 	}
 

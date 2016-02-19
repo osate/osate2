@@ -95,8 +95,8 @@ public class UnitsTypeItemProvider extends EnumerationTypeItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((UnitsType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_UnitsType_type") : getString("_UI_UnitsType_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_UnitsType_type")
+				: getString("_UI_UnitsType_type") + " " + label;
 	}
 
 	/**

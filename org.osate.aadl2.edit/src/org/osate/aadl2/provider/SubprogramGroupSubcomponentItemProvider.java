@@ -86,14 +86,13 @@ public class SubprogramGroupSubcomponentItemProvider extends SubcomponentItemPro
 	 */
 	protected void addSubprogramGroupSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType_feature"),
 				getString("_UI_PropertyDescriptor_description",
 						"_UI_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType_feature",
-						"_UI_SubprogramGroupSubcomponent_type"), Aadl2Package.eINSTANCE
-						.getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType(), true, false, true, null,
-				null, null));
+						"_UI_SubprogramGroupSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType(), true, false,
+				true, null, null, null));
 	}
 
 	/**

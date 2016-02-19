@@ -42,8 +42,6 @@ import org.osate.aadl2.DeviceSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Device Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

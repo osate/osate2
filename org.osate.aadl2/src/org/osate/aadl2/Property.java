@@ -53,6 +53,7 @@ import org.osate.aadl2.properties.PropertyEvaluationResult;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Property#isInherit <em>Inherit</em>}</li>
  *   <li>{@link org.osate.aadl2.Property#getDefaultValue <em>Default Value</em>}</li>
@@ -61,13 +62,12 @@ import org.osate.aadl2.properties.PropertyEvaluationResult;
  *   <li>{@link org.osate.aadl2.Property#getAppliesTos <em>Applies To</em>}</li>
  *   <li>{@link org.osate.aadl2.Property#isEmptyListDefault <em>Empty List Default</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getProperty()
  * @model
  * @generated
  */
-public interface Property extends BasicProperty, AbstractNamedValue, ArraySizeProperty {
+public interface Property extends BasicProperty, AbstractNamedValue {
 	/**
 	 * Returns the value of the '<em><b>Inherit</b></em>' attribute.
 	 * <!-- begin-user-doc -->

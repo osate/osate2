@@ -43,8 +43,6 @@ import org.osate.aadl2.VirtualBusPrototype;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Virtual Bus Prototype</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

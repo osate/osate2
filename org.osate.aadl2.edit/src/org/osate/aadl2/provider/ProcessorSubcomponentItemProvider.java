@@ -86,15 +86,13 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider 
 	 */
 	protected void addProcessorSubcomponentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_ProcessorSubcomponent_processorSubcomponentType_feature"),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ProcessorSubcomponent_processorSubcomponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ProcessorSubcomponent_processorSubcomponentType_feature",
-								"_UI_ProcessorSubcomponent_type"), Aadl2Package.eINSTANCE
-								.getProcessorSubcomponent_ProcessorSubcomponentType(), true, false, true, null, null,
-						null));
+								"_UI_ProcessorSubcomponent_type"),
+				Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorSubcomponentType(), true, false, true, null,
+				null, null));
 	}
 
 	/**

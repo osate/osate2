@@ -35,9 +35,6 @@
  */
 package org.osate.aadl2.impl;
 
-import java.util.Map;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -47,7 +44,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
-import org.osate.aadl2.operations.NamespaceOperations;
 import org.osate.aadl2.util.Aadl2Util;
 
 /**
@@ -56,12 +52,12 @@ import org.osate.aadl2.util.Aadl2Util;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getOwnedElements <em>Owned Element</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NamespaceImpl#getMembers <em>Member</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -176,36 +172,6 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @ordered
 	 */
 	protected static final int[] MEMBER_ESUBSETS = new int[] { Aadl2Package.NAMESPACE__OWNED_MEMBER };
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamespaceOperations.members_distinguishable(this, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<String> getNamesOfMember(NamedElement element) {
-		return NamespaceOperations.getNamesOfMember(this, element);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean membersAreDistinguishable() {
-		return NamespaceOperations.membersAreDistinguishable(this);
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -50,13 +50,13 @@ import org.osate.aadl2.PortProxy;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#getDataClassifier <em>Data Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#isIn <em>In</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PortProxyImpl#isOut <em>Out</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

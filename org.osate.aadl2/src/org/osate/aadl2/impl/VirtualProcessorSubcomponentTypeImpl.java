@@ -42,13 +42,11 @@ import org.osate.aadl2.VirtualProcessorSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Virtual Processor Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class VirtualProcessorSubcomponentTypeImpl extends SubcomponentTypeImpl implements
-		VirtualProcessorSubcomponentType {
+public abstract class VirtualProcessorSubcomponentTypeImpl extends SubcomponentTypeImpl
+		implements VirtualProcessorSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

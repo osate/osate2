@@ -84,8 +84,8 @@ public class MemoryItemProvider extends NamedElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Memory) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Memory_type") : getString("_UI_Memory_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Memory_type")
+				: getString("_UI_Memory_type") + " " + label;
 	}
 
 	/**

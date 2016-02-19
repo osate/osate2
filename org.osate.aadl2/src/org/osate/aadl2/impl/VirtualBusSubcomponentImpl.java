@@ -52,11 +52,11 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl#getVirtualBusSubcomponentType <em>Virtual Bus Subcomponent Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,8 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
-				: subcomponentType;
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
 	}
 
 	/**
@@ -156,8 +156,8 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 		virtualBusSubcomponentType = newVirtualBusSubcomponentType;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE,
-					oldVirtualBusSubcomponentType, virtualBusSubcomponentType));
+					Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE, oldVirtualBusSubcomponentType,
+					virtualBusSubcomponentType));
 		}
 	}
 

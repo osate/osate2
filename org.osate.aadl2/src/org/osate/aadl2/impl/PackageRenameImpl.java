@@ -50,11 +50,11 @@ import org.osate.aadl2.PackageRename;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PackageRenameImpl#getRenamedPackage <em>Renamed Package</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.PackageRenameImpl#isRenameAll <em>Rename All</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -172,8 +172,8 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAME_ALL,
-					oldRenameAll, renameAll));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAME_ALL, oldRenameAll,
+					renameAll));
 		}
 	}
 

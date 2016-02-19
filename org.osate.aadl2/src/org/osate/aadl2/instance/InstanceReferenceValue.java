@@ -45,10 +45,10 @@ import org.osate.aadl2.PropertyValue;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.InstanceReferenceValue#getReferencedInstanceObject <em>Referenced Instance Object</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getInstanceReferenceValue()
  * @model

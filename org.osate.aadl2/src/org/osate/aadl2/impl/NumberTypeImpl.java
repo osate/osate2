@@ -52,13 +52,13 @@ import org.osate.aadl2.UnitsType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NumberTypeImpl#getOwnedUnitsType <em>Owned Units Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NumberTypeImpl#getReferencedUnitsType <em>Referenced Units Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NumberTypeImpl#getRange <em>Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.NumberTypeImpl#getUnitsType <em>Units Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -151,12 +151,12 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 		if (newOwnedUnitsType != ownedUnitsType) {
 			NotificationChain msgs = null;
 			if (ownedUnitsType != null) {
-				msgs = ((InternalEObject) ownedUnitsType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedUnitsType).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
 			}
 			if (newOwnedUnitsType != null) {
-				msgs = ((InternalEObject) newOwnedUnitsType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedUnitsType).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
 			}
 			msgs = basicSetOwnedUnitsType(newOwnedUnitsType, msgs);
 			if (msgs != null) {
@@ -233,8 +233,8 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	@Override
 	public UnitsType getUnitsType() {
 		UnitsType unitsType = basicGetUnitsType();
-		return unitsType != null && ((EObject) unitsType).eIsProxy() ? (UnitsType) eResolveProxy((InternalEObject) unitsType)
-				: unitsType;
+		return unitsType != null && ((EObject) unitsType).eIsProxy()
+				? (UnitsType) eResolveProxy((InternalEObject) unitsType) : unitsType;
 	}
 
 	/**
@@ -287,12 +287,12 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 		if (newRange != range) {
 			NotificationChain msgs = null;
 			if (range != null) {
-				msgs = ((InternalEObject) range).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
+				msgs = ((InternalEObject) range).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
 			}
 			if (newRange != null) {
-				msgs = ((InternalEObject) newRange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
+				msgs = ((InternalEObject) newRange).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
 			}
 			msgs = basicSetRange(newRange, msgs);
 			if (msgs != null) {

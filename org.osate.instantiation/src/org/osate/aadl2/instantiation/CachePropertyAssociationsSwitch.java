@@ -53,8 +53,6 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.impl.EnumerationLiteralImpl;
-import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -265,8 +263,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											ListValue lv = (ListValue) mpv.getOwnedValue();
 											for (Element e : lv.getOwnedListElements()) {
 												if (e instanceof ReferenceValue) {
-													PropertyExpression irv = ((ReferenceValue) e).instantiate(conni
-															.getContainingComponentInstance());
+													PropertyExpression irv = ((ReferenceValue) e)
+															.instantiate(conni.getContainingComponentInstance());
 													if (irv != null) {
 														lv.getOwnedListElements().remove(e);
 														lv.getOwnedListElements().add(irv);
@@ -276,8 +274,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 										}
 									}
 									if (elem instanceof ReferenceValue) {
-										PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni
-												.getContainingComponentInstance());
+										PropertyExpression irv = ((ReferenceValue) elem)
+												.instantiate(conni.getContainingComponentInstance());
 										if (irv != null) {
 											EcoreUtil.replace(elem, irv);
 										}
@@ -312,44 +310,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								} else {
 									// check consistency
 									for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-
-										if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
-											// this comparison return inequality even if the two property values are the same. They are
-											// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to
-											// the same literal
-											// The second issue is that evaluate may return the default value for the property, which may be different from the
-											// assigned value.
-
-											/*
-											 * JD
-											 * Used to fix bug #158
-											 */
-											if ((newPA.valueInMode(m) instanceof NamedValueImpl)
-													&& (setPA.valueInMode(m) instanceof NamedValueImpl)) {
-
-												NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m);
-												NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m);
-
-												if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl)
-														&& (nvi2.getNamedValue() instanceof EnumerationLiteralImpl)) {
-													EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1
-															.getNamedValue();
-													EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2
-															.getNamedValue();
-													if (ei1.getName() == ei2.getName()) {
-														continue;
-													}
-												}
-											}
-
-											if (!newPA.valueInMode(m).equals(defaultvalue)
-													&& !setPA.valueInMode(m).equals(defaultvalue)) {
-
-												error(conni, "Value for property "
-														+ setPA.getProperty().getQualifiedName()
-														+ " not consistent along connection");
-												break;
-											}
+										PropertyExpression newVal = newPA.valueInMode(m);
+										PropertyExpression setVal = setPA.valueInMode(m);
+										if (!newVal.sameAs(setVal)) {
+											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+													+ " not consistent along connection");
+											break;
 										}
 									}
 								}
@@ -361,9 +327,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				if (cancelled()) {
 					break;
 				}
-
 			}
-
 		} catch (IllegalStateException e) {
 			// circular dependency
 			// xxx: this is a misleading place to put the marker
@@ -373,8 +337,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());
 			System.out.println("IllegalStateException raised in cacheConnectionPropertyAssociations");
-
 		}
+
 	}
 
 	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
@@ -436,8 +400,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								}
 							}
 						} else {
-							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
-									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
+							List<ModeInstance> holderModes = (io instanceof ComponentInstance)
+									? ((ComponentInstance) io).getModeInstances()
+									: io.getContainingComponentInstance().getModeInstances();
 
 							for (ModeInstance mi : holderModes) {
 								if (mi.getMode() == mode) {

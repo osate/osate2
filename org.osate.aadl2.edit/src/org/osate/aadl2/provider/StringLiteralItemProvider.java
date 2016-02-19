@@ -87,13 +87,13 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * @generated
 	 */
 	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_StringLiteral_value_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_StringLiteral_value_feature",
-						"_UI_StringLiteral_type"), Aadl2Package.eINSTANCE.getStringLiteral_Value(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_StringLiteral_value_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_StringLiteral_value_feature",
+								"_UI_StringLiteral_type"),
+						Aadl2Package.eINSTANCE.getStringLiteral_Value(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

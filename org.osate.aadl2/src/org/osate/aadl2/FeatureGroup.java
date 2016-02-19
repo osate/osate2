@@ -47,13 +47,13 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.FeatureGroup#isInverse <em>Inverse</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureType <em>Feature Type</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureGroupType <em>Feature Group Type</em>}</li>
  *   <li>{@link org.osate.aadl2.FeatureGroup#getFeatureGroupPrototype <em>Feature Group Prototype</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureGroup()
  * @model
@@ -122,10 +122,10 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * Returns the value of the '<em><b>Feature Group Type</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroup#getFeatureType() <em>Feature Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature Group Type</em>' reference isn't clear,
@@ -160,7 +160,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	/*
 	 * Get the feature group type of given feature group or its refinement ancestor, if it has
 	 * one, otherwise null.
-	 * 
+	 *
 	 * @return The FeatureGroupType, or <code>null</code> if none.
 	 */
 	FeatureGroupType getAllFeatureGroupType();
@@ -169,10 +169,10 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * Returns the value of the '<em><b>Feature Group Prototype</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.FeatureGroup#getFeatureType() <em>Feature Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature Group Prototype</em>' reference isn't clear,

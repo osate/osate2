@@ -50,11 +50,11 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.MetaclassReference#getAnnexName <em>Annex Name</em>}</li>
  *   <li>{@link org.osate.aadl2.MetaclassReference#getMetaclassNames <em>Metaclass Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getMetaclassReference()
  * @model
@@ -111,7 +111,7 @@ public interface MetaclassReference extends PropertyOwner {
 
 	/**
 	 * Finds the metaclass that is referenced by the metaclass names.  The returned {@code EClass} represents
-	 * {@code NamedElement} or a subtype of {@code NamedElement}. 
+	 * {@code NamedElement} or a subtype of {@code NamedElement}.
 	 *
 	 * @return An {@code EClass} representing the named metaclass or null if there is no such class.
 	 */
@@ -123,7 +123,7 @@ public interface MetaclassReference extends PropertyOwner {
 	 *   <li> "Metaclass <name> is not a named element"</li>
 	 *   <li> "Metaclass <name> does not exist"</li>
 	 * </ul>
-	 * 
+	 *
 	 * @return a descriptive error message
 	 */
 	String getErrorMessage();

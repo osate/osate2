@@ -51,10 +51,10 @@ import org.osate.aadl2.operations.ModalElementOperations;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModalElementImpl#getInModes <em>In Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

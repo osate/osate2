@@ -49,11 +49,11 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Operation#getOp <em>Op</em>}</li>
  *   <li>{@link org.osate.aadl2.Operation#getOwnedPropertyExpressions <em>Owned Property Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getOperation()
  * @model

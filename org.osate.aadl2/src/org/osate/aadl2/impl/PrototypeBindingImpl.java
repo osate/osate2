@@ -50,10 +50,10 @@ import org.osate.aadl2.PrototypeBinding;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.PrototypeBindingImpl#getFormal <em>Formal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -88,13 +88,13 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider {
 	 * @generated
 	 */
 	protected void addBasePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_IntegerLiteral_base_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_base_feature",
-						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE.getIntegerLiteral_Base(), true, false,
-				false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_IntegerLiteral_base_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_base_feature",
+								"_UI_IntegerLiteral_type"),
+						Aadl2Package.eINSTANCE.getIntegerLiteral_Base(), true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -104,13 +104,13 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider {
 	 * @generated
 	 */
 	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_IntegerLiteral_value_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_value_feature",
-						"_UI_IntegerLiteral_type"), Aadl2Package.eINSTANCE.getIntegerLiteral_Value(), true, false,
-				false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_IntegerLiteral_value_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_IntegerLiteral_value_feature",
+								"_UI_IntegerLiteral_type"),
+						Aadl2Package.eINSTANCE.getIntegerLiteral_Value(), true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**

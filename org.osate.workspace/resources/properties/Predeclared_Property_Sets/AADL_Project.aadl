@@ -59,6 +59,17 @@ property set AADL_Project is
 	Max_Byte_Count: constant aadlinteger => 2#1#e32;
 	
 	Max_Word_Space: constant aadlinteger => 64;
+
+
+	
+	Time: type aadlinteger units Time_Units; --0 ps .. Max_Time units Time_Units;
+	
+	Time_Range: type range of Time;
+	
+	Size: type aadlinteger units Size_Units; -- 0 Bytes .. Max_Memory_Size units Size_Units;
+	
+	Size_Range: type range of Size;
+
 	
 	Size_Units: type units (bits, Bytes => bits * 8, KByte => Bytes * 1000, MByte => KByte * 1000,
 							GByte => MByte * 1000, TByte => GByte * 1000);

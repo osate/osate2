@@ -42,8 +42,6 @@ import org.osate.aadl2.ProcessorSubcomponentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Processor Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

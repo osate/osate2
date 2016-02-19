@@ -47,10 +47,10 @@ package org.osate.aadl2;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Comment#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComment()
  * @model
@@ -69,7 +69,6 @@ public interface Comment extends Element {
 	 * @see #setBody(String)
 	 * @see org.osate.aadl2.Aadl2Package#getComment_Body()
 	 * @model dataType="org.osate.aadl2.String" ordered="false"
-	 *        annotation="http://www.topcased.org/documentation documentation='Specifies a string that is the comment'"
 	 * @generated
 	 */
 	String getBody();

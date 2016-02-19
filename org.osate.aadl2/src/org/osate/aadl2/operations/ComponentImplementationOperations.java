@@ -50,14 +50,14 @@ import org.osate.aadl2.Subcomponent;
  *
  * <p>
  * The following operations are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#getAllSubcomponents() <em>Get All Subcomponents</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class ComponentImplementationOperations extends ClassifierOperations {
+public class ComponentImplementationOperations extends NamedElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

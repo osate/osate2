@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
@@ -51,10 +51,10 @@ import org.osate.aadl2.parsesupport.ParseUtil;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.RealLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -212,7 +212,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -228,7 +228,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override
@@ -242,14 +242,14 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		RealLiteralImpl other = (RealLiteralImpl) pv;
+		RealLiteralImpl other = (RealLiteralImpl) pe;
 		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 

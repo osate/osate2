@@ -48,11 +48,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.BehavioredImplementation#getSubprogramCalls <em>Subprogram Call</em>}</li>
  *   <li>{@link org.osate.aadl2.BehavioredImplementation#getOwnedSubprogramCallSequences <em>Owned Subprogram Call Sequence</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation()
  * @model abstract="true"
@@ -64,10 +64,10 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramCall}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getMembers() <em>Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Subprogram Call</em>' reference list isn't clear,
@@ -89,11 +89,11 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramCallSequence}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Call Sequence</em>' containment reference list isn't clear,

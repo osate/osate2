@@ -53,10 +53,10 @@ import org.osate.aadl2.ArrayableElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ArrayableElementImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

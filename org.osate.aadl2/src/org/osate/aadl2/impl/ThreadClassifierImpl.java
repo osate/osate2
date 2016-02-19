@@ -43,8 +43,6 @@ import org.osate.aadl2.ThreadClassifier;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Thread Classifier</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

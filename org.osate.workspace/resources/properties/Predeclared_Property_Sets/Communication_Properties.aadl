@@ -45,7 +45,7 @@ property set Communication_Properties is
 		Time: IO_Reference_Time;
 	);
 	
-	IO_Reference_Time: type enumeration (Dispatch, Start, Completion, Deadline, NoIO);
+	IO_Reference_Time: type enumeration (Dispatch, Start, Completion, Deadline, NoIO, Dynamic);
 	
 	Output_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
 		applies to (feature);

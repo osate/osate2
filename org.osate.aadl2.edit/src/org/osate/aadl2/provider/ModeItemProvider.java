@@ -88,12 +88,12 @@ public class ModeItemProvider extends ModeFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addInitialPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Mode_initial_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Mode_initial_feature", "_UI_Mode_type"),
-				Aadl2Package.eINSTANCE.getMode_Initial(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Mode_initial_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Mode_initial_feature", "_UI_Mode_type"),
+						Aadl2Package.eINSTANCE.getMode_Initial(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -103,12 +103,12 @@ public class ModeItemProvider extends ModeFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addDerivedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Mode_derived_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Mode_derived_feature", "_UI_Mode_type"),
-				Aadl2Package.eINSTANCE.getMode_Derived(), false, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Mode_derived_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Mode_derived_feature", "_UI_Mode_type"),
+						Aadl2Package.eINSTANCE.getMode_Derived(), false, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class ModeItemProvider extends ModeFeatureItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Mode) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Mode_type") : getString("_UI_Mode_type") + " "
-				+ label;
+		return label == null || label.length() == 0 ? getString("_UI_Mode_type")
+				: getString("_UI_Mode_type") + " " + label;
 	}
 
 	/**

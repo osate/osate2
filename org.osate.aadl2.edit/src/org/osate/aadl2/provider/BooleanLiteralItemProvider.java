@@ -87,13 +87,13 @@ public class BooleanLiteralItemProvider extends PropertyValueItemProvider {
 	 * @generated
 	 */
 	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BooleanLiteral_value_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BooleanLiteral_value_feature",
-						"_UI_BooleanLiteral_type"), Aadl2Package.eINSTANCE.getBooleanLiteral_Value(), true, false,
-				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BooleanLiteral_value_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_BooleanLiteral_value_feature",
+								"_UI_BooleanLiteral_type"),
+						Aadl2Package.eINSTANCE.getBooleanLiteral_Value(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

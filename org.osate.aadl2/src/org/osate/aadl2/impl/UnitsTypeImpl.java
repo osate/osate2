@@ -56,11 +56,11 @@ import org.osate.aadl2.UnitsType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.UnitsTypeImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.UnitsTypeImpl#getOwnedLiterals <em>Owned Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -195,7 +195,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.EnumerationTypeImpl#findLiteral(java.lang.String)
 	 */
 	@Override

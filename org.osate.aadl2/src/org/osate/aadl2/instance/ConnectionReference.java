@@ -45,13 +45,13 @@ import org.osate.aadl2.Connection;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getDestination <em>Destination</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference()
  * @model

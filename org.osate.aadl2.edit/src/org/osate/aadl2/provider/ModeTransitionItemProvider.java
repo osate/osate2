@@ -89,13 +89,12 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModeTransition_source_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_source_feature",
-						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE.getModeTransition_Source(), true, false,
-				true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModeTransition_source_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_source_feature",
+								"_UI_ModeTransition_type"),
+						Aadl2Package.eINSTANCE.getModeTransition_Source(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -105,13 +104,12 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_ModeTransition_destination_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_destination_feature",
-						"_UI_ModeTransition_type"), Aadl2Package.eINSTANCE.getModeTransition_Destination(), true,
-				false, true, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ModeTransition_destination_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ModeTransition_destination_feature",
+								"_UI_ModeTransition_type"),
+						Aadl2Package.eINSTANCE.getModeTransition_Destination(), true, false, true, null, null, null));
 	}
 
 	/**

@@ -49,7 +49,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ThreadGroupClassifier extends ComponentClassifier, org.osate.aadl2.ThreadGroup,
-		ThreadGroupSubcomponentType {
+public interface ThreadGroupClassifier
+		extends ComponentClassifier, org.osate.aadl2.ThreadGroup, ThreadGroupSubcomponentType {
 
 } // ThreadGroupClassifier

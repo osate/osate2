@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,10 +50,10 @@ import org.osate.aadl2.PropertyValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.NamedValueImpl#getNamedValue <em>Named Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -193,14 +193,14 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	}
 
 	@Override
-	public boolean sameAs(PropertyValue pv) {
-		if (this == pv) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-		if (pv == null || getClass() != pv.getClass()) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		NamedValueImpl other = (NamedValueImpl) pv;
-		return namedValue == other.namedValue;
+		NamedValueImpl other = (NamedValueImpl) pe;
+		return namedValue.sameAs(other.namedValue);
 	}
 } // NamedValueImpl

@@ -50,12 +50,12 @@ import org.osate.aadl2.PropertyType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getOwnedElementType <em>Owned Element Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getReferencedElementType <em>Referenced Element Type</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ListTypeImpl#getElementType <em>Element Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -107,8 +107,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	@Override
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();
-		return elementType != null && ((EObject) elementType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) elementType)
-				: elementType;
+		return elementType != null && ((EObject) elementType).eIsProxy()
+				? (PropertyType) eResolveProxy((InternalEObject) elementType) : elementType;
 	}
 
 	/**
@@ -164,12 +164,12 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 		if (newOwnedElementType != ownedElementType) {
 			NotificationChain msgs = null;
 			if (ownedElementType != null) {
-				msgs = ((InternalEObject) ownedElementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedElementType).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
 			}
 			if (newOwnedElementType != null) {
-				msgs = ((InternalEObject) newOwnedElementType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedElementType).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
 			}
 			msgs = basicSetOwnedElementType(newOwnedElementType, msgs);
 			if (msgs != null) {

@@ -57,12 +57,12 @@ import org.osate.aadl2.ModeTransitionTrigger;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeTransitionImpl#getOwnedTriggers <em>Owned Trigger</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -172,8 +172,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			destination = (Mode) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.MODE_TRANSITION__DESTINATION, oldDestination, destination));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_TRANSITION__DESTINATION,
+							oldDestination, destination));
 				}
 			}
 		}
@@ -225,8 +225,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 */
 	@Override
 	public ModeTransitionTrigger createOwnedTrigger() {
-		ModeTransitionTrigger newOwnedTrigger = (ModeTransitionTrigger) create(Aadl2Package.eINSTANCE
-				.getModeTransitionTrigger());
+		ModeTransitionTrigger newOwnedTrigger = (ModeTransitionTrigger) create(
+				Aadl2Package.eINSTANCE.getModeTransitionTrigger());
 		getOwnedTriggers().add(newOwnedTrigger);
 		return newOwnedTrigger;
 	}

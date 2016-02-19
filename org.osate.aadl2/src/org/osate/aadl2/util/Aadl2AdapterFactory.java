@@ -147,11 +147,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseArraySizeProperty(ArraySizeProperty object) {
-			return createArraySizePropertyAdapter();
-		}
-
-		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
@@ -274,6 +269,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseArraySize(ArraySize object) {
 			return createArraySizeAdapter();
+		}
+
+		@Override
+		public Adapter caseArraySizeProperty(ArraySizeProperty object) {
+			return createArraySizePropertyAdapter();
 		}
 
 		@Override

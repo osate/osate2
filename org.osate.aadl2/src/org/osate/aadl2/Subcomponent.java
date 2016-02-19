@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.Subcomponent#getSubcomponentType <em>Subcomponent Type</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getOwnedPrototypeBindings <em>Owned Prototype Binding</em>}</li>
@@ -59,7 +60,6 @@ import org.eclipse.emf.ecore.EClass;
  *   <li>{@link org.osate.aadl2.Subcomponent#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.Subcomponent#getClassifier <em>Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getSubcomponent()
  * @model abstract="true"
@@ -89,10 +89,10 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
@@ -143,10 +143,10 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Subcomponent#getSubcomponentType() <em>Subcomponent Type</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Prototype</em>' reference isn't clear,
@@ -254,10 +254,10 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.RefinableElement#getRefinedElement() <em>Refined Element</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Refined</em>' reference isn't clear,

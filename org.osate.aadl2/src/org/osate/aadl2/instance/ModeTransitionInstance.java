@@ -44,12 +44,12 @@ import org.osate.aadl2.ModeTransition;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getModeTransition <em>Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getSource <em>Source</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getModeTransitionInstance()
  * @model

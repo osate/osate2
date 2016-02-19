@@ -4,10 +4,6 @@
 
 property set Memory_Properties is
 	
-	Size: type aadlinteger 0 Bytes .. Max_Memory_Size units Size_Units;
-	
-	Size_Range: type range of Size;
-	
 	Access_Right: Access_Rights => read_write
 		applies to (data, bus, data access, bus access);
 	

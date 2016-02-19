@@ -51,11 +51,11 @@ import org.osate.aadl2.ModeBinding;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ModeBindingImpl#getParentMode <em>Parent Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ModeBindingImpl#getDerivedMode <em>Derived Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -138,8 +138,8 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 		Mode oldParentMode = parentMode;
 		parentMode = newParentMode;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__PARENT_MODE,
-					oldParentMode, parentMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__PARENT_MODE, oldParentMode,
+					parentMode));
 		}
 	}
 

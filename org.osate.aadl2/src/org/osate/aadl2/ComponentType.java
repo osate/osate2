@@ -49,6 +49,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentType#getOwnedFeatures <em>Owned Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentType#getExtended <em>Extended</em>}</li>
@@ -58,7 +59,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ComponentType#getOwnedAbstractFeatures <em>Owned Abstract Feature</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentType#isNoFeatures <em>No Features</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentType()
  * @model abstract="true"
@@ -99,11 +99,11 @@ public interface ComponentType extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.Feature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -125,10 +125,10 @@ public interface ComponentType extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Extended</b></em>' reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGenerals() <em>General</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extended</em>' reference isn't clear,
@@ -162,11 +162,11 @@ public interface ComponentType extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.FlowSpecification}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
 	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Flow Specification</em>' containment reference list isn't clear,
@@ -197,10 +197,10 @@ public interface ComponentType extends ComponentClassifier {
 	 * Returns the value of the '<em><b>Owned Extension</b></em>' containment reference.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.Classifier#getGeneralizations() <em>Generalization</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Extension</em>' reference isn't clear,
@@ -243,10 +243,10 @@ public interface ComponentType extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.FeatureGroup}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Feature Group</em>' containment reference list isn't clear,
@@ -278,10 +278,10 @@ public interface ComponentType extends ComponentClassifier {
 	 * The list contents are of type {@link org.osate.aadl2.AbstractFeature}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Abstract Feature</em>' containment reference list isn't clear,

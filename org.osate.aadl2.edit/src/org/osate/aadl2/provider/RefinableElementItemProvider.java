@@ -86,13 +86,12 @@ public class RefinableElementItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addRefinementContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_RefinableElement_refinementContext_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinementContext_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinementContext(),
-				false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_RefinableElement_refinementContext_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_RefinableElement_refinementContext_feature", "_UI_RefinableElement_type"),
+				Aadl2Package.eINSTANCE.getRefinableElement_RefinementContext(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -102,13 +101,12 @@ public class RefinableElementItemProvider extends NamedElementItemProvider {
 	 * @generated
 	 */
 	protected void addRefinedElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_RefinableElement_refinedElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinedElement_feature",
-						"_UI_RefinableElement_type"), Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement(),
-				false, false, false, null, null, null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_RefinableElement_refinedElement_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_RefinableElement_refinedElement_feature",
+								"_UI_RefinableElement_type"),
+				Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement(), false, false, false, null, null, null));
 	}
 
 	/**

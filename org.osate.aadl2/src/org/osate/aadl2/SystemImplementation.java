@@ -48,6 +48,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.SystemImplementation#getOwnedBusSubcomponents <em>Owned Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.SystemImplementation#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
@@ -61,7 +62,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.SystemImplementation#getOwnedVirtualBusSubcomponents <em>Owned Virtual Bus Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.SystemImplementation#getOwnedVirtualProcessorSubcomponents <em>Owned Virtual Processor Subcomponent</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.aadl2.Aadl2Package#getSystemImplementation()
  * @model
@@ -73,10 +73,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Bus Subcomponent</em>' containment reference list isn't clear,
@@ -108,10 +108,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Data Subcomponent</em>' containment reference list isn't clear,
@@ -143,10 +143,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.DeviceSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Device Subcomponent</em>' containment reference list isn't clear,
@@ -178,10 +178,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.MemorySubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Memory Subcomponent</em>' containment reference list isn't clear,
@@ -213,10 +213,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.ProcessSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Process Subcomponent</em>' containment reference list isn't clear,
@@ -248,10 +248,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.ProcessorSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Processor Subcomponent</em>' containment reference list isn't clear,
@@ -283,10 +283,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Subcomponent</em>' containment reference list isn't clear,
@@ -318,10 +318,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list isn't clear,
@@ -353,10 +353,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.SystemSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned System Subcomponent</em>' containment reference list isn't clear,
@@ -388,10 +388,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.VirtualBusSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list isn't clear,
@@ -423,10 +423,10 @@ public interface SystemImplementation extends ComponentImplementation, SystemCla
 	 * The list contents are of type {@link org.osate.aadl2.VirtualProcessorSubcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
+	 * </p>
 	 * <ul>
 	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
 	 * </ul>
-	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list isn't clear,
