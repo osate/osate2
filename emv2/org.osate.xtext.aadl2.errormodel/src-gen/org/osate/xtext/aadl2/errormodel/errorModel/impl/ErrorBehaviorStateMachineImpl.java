@@ -5,19 +5,14 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.impl.NamedElementImpl;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -104,7 +99,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * @generated
    * @ordered
    */
-  protected EList<EMV2PropertyAssociation> properties;
+  protected EList<PropertyAssociation> properties;
 
   /**
    * <!-- begin-user-doc -->
@@ -202,11 +197,11 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EMV2PropertyAssociation> getProperties()
+  public EList<PropertyAssociation> getProperties()
   {
     if (properties == null)
     {
-      properties = new EObjectContainmentEList<EMV2PropertyAssociation>(EMV2PropertyAssociation.class, this, ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES);
+      properties = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES);
     }
     return properties;
   }
@@ -292,7 +287,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
         return;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES:
         getProperties().clear();
-        getProperties().addAll((Collection<? extends EMV2PropertyAssociation>)newValue);
+        getProperties().addAll((Collection<? extends PropertyAssociation>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

@@ -34,7 +34,6 @@
 package org.osate.aadl2.errormodel.analysis.actions;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;

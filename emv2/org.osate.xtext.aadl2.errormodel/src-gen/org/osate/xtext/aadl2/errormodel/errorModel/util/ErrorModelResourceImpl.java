@@ -3,7 +3,6 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 /**

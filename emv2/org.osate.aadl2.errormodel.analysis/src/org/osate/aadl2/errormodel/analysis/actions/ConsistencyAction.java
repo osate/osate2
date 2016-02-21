@@ -51,6 +51,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -63,7 +64,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -739,7 +739,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 							se.getSubcomponent();
 							// OsateDebug.osateDebug("se=" + se);
-							EMV2PropertyAssociation PA = EMV2Properties
+							PropertyAssociation PA = EMV2Properties
 									.getOccurenceDistributionProperty(componentInstance, EMV2Util.getState(ce), null);
 							if (PA == null) {
 								warning(componentInstance,
@@ -757,7 +757,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					}
 
 					for (ConditionElement ce : elementsBehavior) {
-						EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,
+						PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,
 								ce.getIncoming(), null);
 						// OsateDebug.osateDebug(" PA " + PA);
 						if (PA == null) {

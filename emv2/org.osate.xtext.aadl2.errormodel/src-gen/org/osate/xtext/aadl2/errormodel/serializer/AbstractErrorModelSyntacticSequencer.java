@@ -3,8 +3,8 @@
  */
 package org.osate.xtext.aadl2.errormodel.serializer;
 
-import com.google.inject.Inject;
 import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -16,6 +16,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
+
+import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSyntacticSequencer {
@@ -228,7 +230,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         name=QCREF 
@@ -281,7 +283,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -344,7 +346,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -412,7 +414,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -480,7 +482,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -548,7 +550,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -616,7 +618,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' (ambiguity) ('composite' 'error' 'behavior' 'end' 'composite' ';')? 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
@@ -649,6 +651,17 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (
+	 *         errorDetections+=ErrorDetection 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
 	 *         'end' 
 	 *         'component' 
@@ -657,7 +670,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -683,7 +696,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         name=QCREF 
@@ -736,7 +749,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
@@ -760,7 +773,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -823,7 +836,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         transitions+=ErrorBehaviorTransition 
@@ -834,7 +847,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -902,7 +915,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -970,7 +983,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -1038,7 +1051,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTransformation=[TypeTransformationSet|QEMREF] 
@@ -1050,7 +1063,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -1118,14 +1131,13 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
-	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
@@ -1136,7 +1148,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
-	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
@@ -1176,7 +1188,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
@@ -1200,7 +1212,18 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         events+=ErrorBehaviorEvent 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -1250,7 +1273,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         name=QCREF 
@@ -1292,7 +1315,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
@@ -1316,7 +1339,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -1366,7 +1389,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         transitions+=ErrorBehaviorTransition 
@@ -1377,7 +1400,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -1423,7 +1446,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -1469,7 +1492,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -1515,7 +1538,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTransformation=[TypeTransformationSet|QEMREF] 
@@ -1541,7 +1564,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -1587,7 +1610,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
@@ -1597,13 +1620,12 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
-	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
-	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
@@ -1670,7 +1692,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -1738,7 +1760,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -1806,7 +1828,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -1874,7 +1896,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -1942,7 +1964,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'detections' errorDetections+=ErrorDetection
 	 *     name=QCREF (ambiguity) 'component' 'error' 'behavior' 'events' events+=ErrorBehaviorEvent
@@ -1999,7 +2021,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
@@ -2023,7 +2045,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         events+=ErrorBehaviorEvent 
@@ -2034,7 +2056,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -2060,7 +2082,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         name=QCREF 
@@ -2082,7 +2104,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         outgoingPropagationConditions+=OutgoingPropagationCondition 
@@ -2106,7 +2128,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -2132,7 +2154,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         transitions+=ErrorBehaviorTransition 
@@ -2143,7 +2165,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -2167,7 +2189,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -2191,7 +2213,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -2215,7 +2237,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTransformation=[TypeTransformationSet|QEMREF] 
@@ -2241,7 +2263,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -2265,17 +2287,17 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
-	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
-	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
-	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 */
 	protected void emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -2346,7 +2368,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         (rule start) 
@@ -2367,7 +2389,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -2427,7 +2449,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -2493,7 +2515,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -2558,7 +2580,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -2623,7 +2645,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -2688,7 +2710,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -2769,7 +2791,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         (rule start) 
@@ -2781,6 +2803,17 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (rule start)
 	 *     )
 	 *     (
+	 *         errorDetections+=ErrorDetection 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         (ambiguity) 
+	 *         ('connection' 'error' 'end' 'connection' ';')? 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
 	 *         'end' 
 	 *         'component' 
@@ -2789,7 +2822,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -2801,7 +2834,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -2823,7 +2856,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -2872,7 +2905,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -2894,7 +2927,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -2949,7 +2982,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -3014,7 +3047,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -3079,7 +3112,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -3101,7 +3134,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3156,7 +3189,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3173,7 +3206,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
-	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
@@ -3184,7 +3216,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
-	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
+	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF]
 	 *     flows+=ErrorFlow 'end' 'propagations' ';' ('component' 'error' 'behavior' 'end' 'component' ';')? (ambiguity) 'connection' 'error' connectionErrorSources+=ConnectionErrorSource
@@ -3244,7 +3276,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         (rule start) 
@@ -3264,7 +3296,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
@@ -3275,7 +3307,18 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
+	 *     )
+	 *     (
+	 *         events+=ErrorBehaviorEvent 
+	 *         'end' 
+	 *         'component' 
+	 *         ';' 
+	 *         ('composite' 'error' 'behavior' 'end' 'composite' ';')? 
+	 *         (ambiguity) 
+	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
+	 *         'properties' 
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -3311,7 +3354,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -3333,7 +3376,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -3369,7 +3412,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -3391,7 +3434,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -3424,7 +3467,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -3467,7 +3510,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -3510,7 +3553,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -3532,7 +3575,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3565,7 +3608,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3585,14 +3628,13 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
-	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) 'propagation' 'paths' points+=PropagationPoint
-	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=EMV2PropertyAssociation
+	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? 'properties' properties+=ContainedPropertyAssociation
 	 *     states+=CompositeState 'end' 'composite' ';' (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
@@ -3649,7 +3691,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         (rule start) 
@@ -3713,7 +3755,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -3778,7 +3820,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -3843,7 +3885,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -3908,7 +3950,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         ('propagation' 'paths' 'end' 'paths' ';')? 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -3974,7 +4016,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         (rule start) 
@@ -3994,7 +4036,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         errorStateToModeMappings+=ErrorStateToModeMapping 
@@ -4005,7 +4047,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         events+=ErrorBehaviorEvent 
@@ -4016,7 +4058,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -4028,7 +4070,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         flows+=ErrorFlow 
@@ -4050,7 +4092,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -4062,7 +4104,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         propagations+=ErrorPropagation 
@@ -4084,7 +4126,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -4095,7 +4137,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeEquivalence=[TypeMappingSet|QEMREF] 
@@ -4116,7 +4158,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         typeMappingSet=[TypeMappingSet|QEMREF] 
@@ -4137,7 +4179,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
@@ -4159,7 +4201,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -4170,7 +4212,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         ('connection' 'error' 'end' 'connection' ';')? 
 	 *         (ambiguity) 
 	 *         'properties' 
-	 *         properties+=EMV2PropertyAssociation
+	 *         properties+=ContainedPropertyAssociation
 	 *     )
 	 *     (
 	 *         useTypes+=[ErrorModelLibrary|QEMREF] 
@@ -4182,16 +4224,16 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *         (ambiguity) 
 	 *         (rule end)
 	 *     )
-	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 *     connectionErrorSources+=ConnectionErrorSource 'end' 'connection' ';' (ambiguity) (rule end)
 	 *     errorDetections+=ErrorDetection 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 *     errorStateToModeMappings+=ErrorStateToModeMapping 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 *     events+=ErrorBehaviorEvent 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 *     outgoingPropagationConditions+=OutgoingPropagationCondition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
-	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 *     states+=CompositeState 'end' 'composite' ';' ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 *     transitions+=ErrorBehaviorTransition 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
-	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
+	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=ContainedPropertyAssociation
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) (rule end)
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 */

@@ -5,19 +5,14 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.impl.AnnexLibraryImpl;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -96,7 +91,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * @generated
    * @ordered
    */
-  protected EList<EMV2PropertyAssociation> properties;
+  protected EList<PropertyAssociation> properties;
 
   /**
    * The cached value of the '{@link #getBehaviors() <em>Behaviors</em>}' containment reference list.
@@ -210,11 +205,11 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EMV2PropertyAssociation> getProperties()
+  public EList<PropertyAssociation> getProperties()
   {
     if (properties == null)
     {
-      properties = new EObjectContainmentEList<EMV2PropertyAssociation>(EMV2PropertyAssociation.class, this, ErrorModelPackage.ERROR_MODEL_LIBRARY__PROPERTIES);
+      properties = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ErrorModelPackage.ERROR_MODEL_LIBRARY__PROPERTIES);
     }
     return properties;
   }
@@ -346,7 +341,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
         return;
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__PROPERTIES:
         getProperties().clear();
-        getProperties().addAll((Collection<? extends EMV2PropertyAssociation>)newValue);
+        getProperties().addAll((Collection<? extends PropertyAssociation>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_LIBRARY__BEHAVIORS:
         getBehaviors().clear();

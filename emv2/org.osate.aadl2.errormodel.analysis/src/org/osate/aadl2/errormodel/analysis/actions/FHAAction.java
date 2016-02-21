@@ -47,6 +47,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
@@ -58,14 +59,12 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -124,15 +123,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ConditionElement condElement = (ConditionElement) trans.getCondition();
 				if (condElement.getIncoming() instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) condElement.getIncoming();
-					EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+					PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent, errorEvent.getTypeSet());
+					PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+					PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
-							errorEvent.getTypeSet());
-					reportHazardProperty(ci, PA, EMV2Util.findMatchingErrorType(PA, Sev),
-							EMV2Util.findMatchingErrorType(PA, Like), errorEvent, errorEvent.getTypeSet(), errorEvent,
-							report);
+					reportHazardProperty(ci, PA, Sev, Like, errorEvent, errorEvent.getTypeSet(), errorEvent, report);
 				}
 				// condElement.getIncoming()
 			}
@@ -141,11 +137,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
-			EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
-			EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
-			reportHazardProperty(ci, PA, EMV2Util.findMatchingErrorType(PA, Sev),
-					EMV2Util.findMatchingErrorType(PA, Like), state, state.getTypeSet(), state, report);
+			PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
+			PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
+			reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state, report);
 		}
 
 		// report all error sources as hazards if they have the property
@@ -155,9 +150,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			EMV2PropertyAssociation HazardPA = null;
-			EMV2PropertyAssociation Sev = null;
-			EMV2PropertyAssociation Like = null;
+			PropertyAssociation HazardPA = null;
+			PropertyAssociation Sev = null;
+			PropertyAssociation Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
 			Element target = null;
@@ -174,7 +169,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = failureMode;
 				localContext = errorSource;
 			}
-			if ((HazardPA == null) || (HazardPA.isEmpty())) {
+			if (HazardPA == null) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) {
@@ -203,14 +198,13 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 //				localContext = null;
 //			}
 			if (HazardPA != null) {
-				reportHazardProperty(ci, HazardPA, EMV2Util.findMatchingErrorType(HazardPA, Sev),
-						EMV2Util.findMatchingErrorType(HazardPA, Like), target, ts, localContext, report);
+				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
 		}
 		for (ErrorPropagation ep : oeplist) {
-			EMV2PropertyAssociation HazardPA = null;
-			EMV2PropertyAssociation Sev = null;
-			EMV2PropertyAssociation Like = null;
+			PropertyAssociation HazardPA = null;
+			PropertyAssociation Sev = null;
+			PropertyAssociation Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
@@ -222,17 +216,16 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			target = ep;
 			localContext = null;
 			if (HazardPA != null) {
-				reportHazardProperty(ci, HazardPA, EMV2Util.findMatchingErrorType(HazardPA, Sev),
-						EMV2Util.findMatchingErrorType(HazardPA, Like), target, ts, localContext, report);
+				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
 		}
 	}
 
-	protected String getEnumerationorIntegerPropertyValue(EMV2PropertyAssociation pa) {
+	protected String getEnumerationorIntegerPropertyValue(PropertyAssociation pa) {
 		if (pa == null) {
 			return "";
 		}
-		for (ModalPropertyValue modalPropertyValue : pa.getOwnedValue()) {
+		for (ModalPropertyValue modalPropertyValue : pa.getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof NamedValue) {
 				AbstractNamedValue eval = ((NamedValue) val).getNamedValue();
@@ -251,10 +244,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, EMV2PropertyAssociation PA, EMV2PropertyAssociation Sev,
-			EMV2PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
+	protected void reportHazardProperty(ComponentInstance ci, PropertyAssociation PA, PropertyAssociation Sev,
+			PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
 
-		ErrorType targetType = EMV2Util.getContainmentErrorType(PA); // type as last element of hazard containment path
 		String targetName;
 
 		if (target == null) {
@@ -270,7 +262,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
 			if (peVal instanceof ListValue) { // it is always a list
 				ListValue lv = (ListValue) peVal;
@@ -282,26 +274,20 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
 						// for all error types/aliases in type set or the element identified in the containment clause
 
-						if (targetType == null) {
-							if (ts != null) {
-								for (TypeToken token : ts.getTypeTokens()) {
-									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-											EMV2Util.getName(token));
-								}
-							} else {
-								// did not have a type set. Let's use fmr (state of type set as failure mode.
-
-								if (localContext == null) {
-									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
-								} else {
-									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
-											EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
-								}
+						if (ts != null) {
+							for (TypeToken token : ts.getTypeTokens()) {
+								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+										EMV2Util.getName(token));
 							}
 						} else {
-							// property points to type
-							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-									EMV2Util.getPrintName(targetType));
+							// did not have a type set. Let's use fmr (state of type set as failure mode.
+
+							if (localContext == null) {
+								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
+							} else {
+								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
+										EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
+							}
 						}
 					}
 				}

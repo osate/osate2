@@ -3,10 +3,9 @@
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.PropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
@@ -367,7 +366,7 @@ public interface ErrorModelSubclause extends EObject, AnnexSubclause
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation}.
+   * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
@@ -379,6 +378,6 @@ public interface ErrorModelSubclause extends EObject, AnnexSubclause
    * @model containment="true"
    * @generated
    */
-  EList<EMV2PropertyAssociation> getProperties();
+  EList<PropertyAssociation> getProperties();
 
 } // ErrorModelSubclause

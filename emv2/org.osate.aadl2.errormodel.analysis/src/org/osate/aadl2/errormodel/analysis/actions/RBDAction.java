@@ -44,8 +44,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -121,12 +121,12 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			 */
 
 			// OsateDebug.osateDebug(" behaviorState " + behaviorState);
-			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,
-					behaviorState, null);
+			PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance, behaviorState,
+					null);
 			// OsateDebug.osateDebug(" PA " + PA);
-			if (!PA.isEmpty()) {
+			if (PA != null) {
 				// XXX TODO handle values on subtypes (list > 1)
-				resultProperty = EMV2Properties.getOccurenceValue(PA.get(0));
+				resultProperty = EMV2Properties.getOccurenceValue(PA);
 			}
 
 			/**

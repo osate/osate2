@@ -737,9 +737,9 @@ ruleErrorModelSubclause returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_10_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropertiesContainedPropertyAssociationParserRuleCall_10_1_0()); 
 	    }
-		lv_properties_75_0=ruleEMV2PropertyAssociation		{
+		lv_properties_75_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
@@ -747,7 +747,7 @@ ruleErrorModelSubclause returns [EObject current=null]
        			$current, 
        			"properties",
         		lv_properties_75_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1388,9 +1388,9 @@ ruleEMV2Subclause returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2SubclauseAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2SubclauseAccess().getPropertiesContainedPropertyAssociationParserRuleCall_12_1_0()); 
 	    }
-		lv_properties_77_0=ruleEMV2PropertyAssociation		{
+		lv_properties_77_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2SubclauseRule());
 	        }
@@ -1398,7 +1398,7 @@ ruleEMV2Subclause returns [EObject current=null]
        			$current, 
        			"properties",
         		lv_properties_77_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1419,281 +1419,6 @@ ruleEMV2Subclause returns [EObject current=null]
     	newLeafNode(otherlv_80, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_15());
     }
 )
-;
-
-
-
-
-
-// Entry rule entryRuleEMV2PropertyAssociation
-entryRuleEMV2PropertyAssociation returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getEMV2PropertyAssociationRule()); }
-	 iv_ruleEMV2PropertyAssociation=ruleEMV2PropertyAssociation 
-	 { $current=$iv_ruleEMV2PropertyAssociation.current; } 
-	 EOF 
-;
-
-// Rule EMV2PropertyAssociation
-ruleEMV2PropertyAssociation returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEMV2PropertyAssociationRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
-	    }
-		ruleQPREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-	otherlv_1=EqualsSignGreaterThanSign
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getEMV2PropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
-    }
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_2_0_0()); 
-	    }
-		lv_ownedValue_2_0=ruleOptionalModalPropertyValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedValue",
-        		lv_ownedValue_2_0, 
-        		"OptionalModalPropertyValue");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(
-	otherlv_3=Comma
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_2_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_2_1_1_0()); 
-	    }
-		lv_ownedValue_4_0=ruleOptionalModalPropertyValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedValue",
-        		lv_ownedValue_4_0, 
-        		"OptionalModalPropertyValue");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*)
-	otherlv_5=Applies
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_3());
-    }
-
-	otherlv_6=To
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_4());
-    }
-((((
-(
-ruleContainmentPath
-)
-)=>
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_5_0_0_0()); 
-	    }
-		lv_appliesTo_7_0=ruleContainmentPath		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
-	        }
-       		add(
-       			$current, 
-       			"appliesTo",
-        		lv_appliesTo_7_0, 
-        		"ContainmentPath");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-	otherlv_8=CommercialAt
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getEMV2PropertyAssociationAccess().getCommercialAtKeyword_5_0_1());
-    }
-)?(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_0()); 
-	    }
-		lv_emv2Path_9_0=ruleEMV2Path		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
-	        }
-       		set(
-       			$current, 
-       			"emv2Path",
-        		lv_emv2Path_9_0, 
-        		"EMV2Path");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-	otherlv_10=Semicolon
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_6());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleEMV2Path
-entryRuleEMV2Path returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getEMV2PathRule()); }
-	 iv_ruleEMV2Path=ruleEMV2Path 
-	 { $current=$iv_ruleEMV2Path.current; } 
-	 EOF 
-;
-
-// Rule EMV2Path
-ruleEMV2Path returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PathAccess().getPaTargetPropagationKindParserRuleCall_0_0_0()); 
-	    }
-		lv_paTarget_0_0=rulePropagationKind		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PathRule());
-	        }
-       		set(
-       			$current, 
-       			"paTarget",
-        		lv_paTarget_0_0, 
-        		"PropagationKind");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(
-	otherlv_1=FullStop
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getEMV2PathAccess().getFullStopKeyword_0_1_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEMV2PathRule());
-	        }
-        }
-	otherlv_2=RULE_ID
-	{
-		newLeafNode(otherlv_2, grammarAccess.getEMV2PathAccess().getErrorTypeErrorTypesCrossReference_0_1_1_0()); 
-	}
-
-)
-))?)
-    |(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PathAccess().getEmv2TargetEMV2PathElementParserRuleCall_1_0()); 
-	    }
-		lv_emv2Target_3_0=ruleEMV2PathElement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PathRule());
-	        }
-       		add(
-       			$current, 
-       			"emv2Target",
-        		lv_emv2Target_3_0, 
-        		"EMV2PathElement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-;
-
-
-
-
-
-// Entry rule entryRuleEMV2PathElement
-entryRuleEMV2PathElement returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getEMV2PathElementRule()); }
-	 iv_ruleEMV2PathElement=ruleEMV2PathElement 
-	 { $current=$iv_ruleEMV2PathElement.current; } 
-	 EOF 
-;
-
-// Rule EMV2PathElement
-ruleEMV2PathElement returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEMV2PathElementRule());
-	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getEMV2PathElementAccess().getNamedElementNamedElementCrossReference_0_0()); 
-	}
-
-)
-)(
-	otherlv_1=FullStop
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getEMV2PathElementAccess().getFullStopKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEMV2PathElementAccess().getPathEMV2PathElementParserRuleCall_1_1_0()); 
-	    }
-		lv_path_2_0=ruleEMV2PathElement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMV2PathElementRule());
-	        }
-       		set(
-       			$current, 
-       			"path",
-        		lv_path_2_0, 
-        		"EMV2PathElement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?)
 ;
 
 
@@ -1870,9 +1595,9 @@ ruleErrorModelLibrary returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelLibraryAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_1_5_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelLibraryAccess().getPropertiesContainedPropertyAssociationParserRuleCall_1_5_1_0()); 
 	    }
-		lv_properties_17_0=ruleEMV2PropertyAssociation		{
+		lv_properties_17_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelLibraryRule());
 	        }
@@ -1880,7 +1605,7 @@ ruleErrorModelLibrary returns [EObject current=null]
        			$current, 
        			"properties",
         		lv_properties_17_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2154,9 +1879,9 @@ ruleEMV2Library returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2LibraryAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_0_1_2_5_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2LibraryAccess().getPropertiesContainedPropertyAssociationParserRuleCall_0_1_2_5_1_0()); 
 	    }
-		lv_properties_19_0=ruleEMV2PropertyAssociation		{
+		lv_properties_19_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2LibraryRule());
 	        }
@@ -2164,7 +1889,7 @@ ruleEMV2Library returns [EObject current=null]
        			$current, 
        			"properties",
         		lv_properties_19_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2431,9 +2156,9 @@ this_ID_30=RULE_ID
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2LibraryAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_1_6_5_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2LibraryAccess().getPropertiesContainedPropertyAssociationParserRuleCall_1_6_5_1_0()); 
 	    }
-		lv_properties_48_0=ruleEMV2PropertyAssociation		{
+		lv_properties_48_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2LibraryRule());
 	        }
@@ -2441,7 +2166,7 @@ this_ID_30=RULE_ID
        			$current, 
        			"properties",
         		lv_properties_48_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5049,9 +4774,9 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesEMV2PropertyAssociationParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0()); 
 	    }
-		lv_properties_20_0=ruleEMV2PropertyAssociation		{
+		lv_properties_20_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorBehaviorStateMachineRule());
 	        }
@@ -5059,7 +4784,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
        			$current, 
        			"properties",
         		lv_properties_20_0, 
-        		"EMV2PropertyAssociation");
+        		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
