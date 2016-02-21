@@ -14,7 +14,6 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
@@ -85,6 +84,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseErrorModelSubclause(ErrorModelSubclause object)
       {
         return createErrorModelSubclauseAdapter();
+      }
+      @Override
+      public Adapter caseEMV2PropertyAssociation(EMV2PropertyAssociation object)
+      {
+        return createEMV2PropertyAssociationAdapter();
       }
       @Override
       public Adapter caseEMV2Path(EMV2Path object)
@@ -307,11 +311,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createEMV2RootAdapter();
       }
       @Override
-      public Adapter caseEMV2PropertyAssociation(EMV2PropertyAssociation object)
-      {
-        return createEMV2PropertyAssociationAdapter();
-      }
-      @Override
       public Adapter caseOrExpression(OrExpression object)
       {
         return createOrExpressionAdapter();
@@ -352,11 +351,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createAnnexLibraryAdapter();
       }
       @Override
-      public Adapter casePropertyAssociation(PropertyAssociation object)
-      {
-        return createPropertyAssociationAdapter();
-      }
-      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -389,6 +383,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createErrorModelSubclauseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation <em>EMV2 Property Association</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
+   * @generated
+   */
+  public Adapter createEMV2PropertyAssociationAdapter()
   {
     return null;
   }
@@ -1054,21 +1063,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation <em>EMV2 Property Association</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
-   * @generated
-   */
-  public Adapter createEMV2PropertyAssociationAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.OrExpression <em>Or Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1184,21 +1178,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAnnexLibraryAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyAssociation <em>Property Association</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.PropertyAssociation
-   * @generated
-   */
-  public Adapter createPropertyAssociationAdapter()
   {
     return null;
   }

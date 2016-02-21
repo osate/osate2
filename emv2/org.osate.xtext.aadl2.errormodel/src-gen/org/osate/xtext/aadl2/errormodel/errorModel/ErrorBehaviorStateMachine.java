@@ -7,7 +7,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
@@ -114,7 +113,7 @@ public interface ErrorBehaviorStateMachine extends EObject, NamedElement
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
@@ -126,6 +125,6 @@ public interface ErrorBehaviorStateMachine extends EObject, NamedElement
    * @model containment="true"
    * @generated
    */
-  EList<PropertyAssociation> getProperties();
+  EList<EMV2PropertyAssociation> getProperties();
 
 } // ErrorBehaviorStateMachine

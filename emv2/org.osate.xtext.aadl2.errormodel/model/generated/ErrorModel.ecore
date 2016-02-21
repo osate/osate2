@@ -33,7 +33,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="paths" upperBound="-1"
         eType="#//PropagationPath" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
+        eType="#//EMV2PropertyAssociation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2PropertyAssociation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValue" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ModalPropertyValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appliesTo" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ContainedNamedElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Path" eType="#//EMV2Path"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2Path">
@@ -57,8 +67,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="typesets" upperBound="-1"
         eType="#//TypeSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
-        containment="true"/>
+        eType="#//EMV2PropertyAssociation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviors" upperBound="-1"
         eType="#//ErrorBehaviorStateMachine" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
@@ -176,8 +185,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//ErrorBehaviorTransition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
-        containment="true"/>
+        eType="#//EMV2PropertyAssociation" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorEvent" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement #//EventOrPropagation"/>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorEvent" eSuperTypes="#//ErrorBehaviorEvent">
@@ -315,10 +323,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subclauses" upperBound="-1"
         eType="#//ErrorModelSubclause" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EMV2PropertyAssociation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EMV2PropertyAssociationth"
-        eType="#//EMV2Path" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrExpression" eSuperTypes="#//ConditionExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"

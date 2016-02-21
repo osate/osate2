@@ -47,8 +47,7 @@ TypeSetElement|TypeToken
 |ConditionElement  | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression
 	|ErrorStateToModeMapping|QualifiedErrorBehaviorState
-| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation
-//| EMV2PropertyAssociationth | EMV2PropertyAssociationthElement | EMV2PropertyAssociation
+| SubcomponentElement | FeatureorPPReference 
 ;
 
 
@@ -161,8 +160,7 @@ EMV2Subclause returns ErrorModelSubclause:
 //;
 
 
-EMV2PropertyAssociation returns aadl2::PropertyAssociation:
-	{EMV2PropertyAssociation}
+EMV2PropertyAssociation returns EMV2PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	'=>' 
 	( 
@@ -171,7 +169,7 @@ EMV2PropertyAssociation returns aadl2::PropertyAssociation:
 	)
 	'applies' 'to' (
 		(=> appliesTo+=ContainmentPath '@' )?
-		EMV2PropertyAssociationth=EMV2Path
+		emv2Path=EMV2Path
 	)
 	';';
 

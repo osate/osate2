@@ -1440,12 +1440,6 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
     }
     @after { leaveRule(); }:
 ((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getEMV2PropertyAssociationAccess().getEMV2PropertyAssociationAction_0(),
-            $current);
-    }
-)(
 (
 		{
 			if ($current==null) {
@@ -1453,7 +1447,7 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getPropertyPropertyCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -1461,60 +1455,60 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
 
 )
 )
-	otherlv_2=EqualsSignGreaterThanSign
+	otherlv_1=EqualsSignGreaterThanSign
     {
-    	newLeafNode(otherlv_2, grammarAccess.getEMV2PropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_2());
+    	newLeafNode(otherlv_1, grammarAccess.getEMV2PropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_2_0_0()); 
 	    }
-		lv_ownedValue_3_0=ruleOptionalModalPropertyValue		{
+		lv_ownedValue_2_0=ruleOptionalModalPropertyValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
 	        }
        		add(
        			$current, 
        			"ownedValue",
-        		lv_ownedValue_3_0, 
+        		lv_ownedValue_2_0, 
         		"OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(
-	otherlv_4=Comma
+	otherlv_3=Comma
     {
-    	newLeafNode(otherlv_4, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_3_1_0());
+    	newLeafNode(otherlv_3, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_2_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_2_1_1_0()); 
 	    }
-		lv_ownedValue_5_0=ruleOptionalModalPropertyValue		{
+		lv_ownedValue_4_0=ruleOptionalModalPropertyValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
 	        }
        		add(
        			$current, 
        			"ownedValue",
-        		lv_ownedValue_5_0, 
+        		lv_ownedValue_4_0, 
         		"OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))*)
-	otherlv_6=Applies
+	otherlv_5=Applies
     {
-    	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_4());
+    	newLeafNode(otherlv_5, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_3());
     }
 
-	otherlv_7=To
+	otherlv_6=To
     {
-    	newLeafNode(otherlv_7, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_4());
     }
 ((((
 (
@@ -1523,48 +1517,48 @@ ruleContainmentPath
 )=>
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_6_0_0_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_5_0_0_0()); 
 	    }
-		lv_appliesTo_8_0=ruleContainmentPath		{
+		lv_appliesTo_7_0=ruleContainmentPath		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
 	        }
        		add(
        			$current, 
        			"appliesTo",
-        		lv_appliesTo_8_0, 
+        		lv_appliesTo_7_0, 
         		"ContainmentPath");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
-	otherlv_9=CommercialAt
+	otherlv_8=CommercialAt
     {
-    	newLeafNode(otherlv_9, grammarAccess.getEMV2PropertyAssociationAccess().getCommercialAtKeyword_6_0_1());
+    	newLeafNode(otherlv_8, grammarAccess.getEMV2PropertyAssociationAccess().getCommercialAtKeyword_5_0_1());
     }
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEMV2PropertyAssociationthEMV2PathParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_0()); 
 	    }
-		lv_EMV2PropertyAssociationth_10_0=ruleEMV2Path		{
+		lv_emv2Path_9_0=ruleEMV2Path		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEMV2PropertyAssociationRule());
 	        }
        		set(
        			$current, 
-       			"EMV2PropertyAssociationth",
-        		lv_EMV2PropertyAssociationth_10_0, 
+       			"emv2Path",
+        		lv_emv2Path_9_0, 
         		"EMV2Path");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))
-	otherlv_11=Semicolon
+	otherlv_10=Semicolon
     {
-    	newLeafNode(otherlv_11, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_10, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_6());
     }
 )
 ;
