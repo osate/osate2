@@ -12,6 +12,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
@@ -86,6 +87,20 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseNamedElement(errorModelSubclause);
         if (result == null) result = caseElement(errorModelSubclause);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.EMV2_PATH:
+      {
+        EMV2Path emv2Path = (EMV2Path)theEObject;
+        T result = caseEMV2Path(emv2Path);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.EMV2_PATH_ELEMENT:
+      {
+        EMV2PathElement emv2PathElement = (EMV2PathElement)theEObject;
+        T result = caseEMV2PathElement(emv2PathElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -469,6 +484,15 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION:
+      {
+        EMV2PropertyAssociation emv2PropertyAssociation = (EMV2PropertyAssociation)theEObject;
+        T result = caseEMV2PropertyAssociation(emv2PropertyAssociation);
+        if (result == null) result = casePropertyAssociation(emv2PropertyAssociation);
+        if (result == null) result = caseElement(emv2PropertyAssociation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ErrorModelPackage.OR_EXPRESSION:
       {
         OrExpression orExpression = (OrExpression)theEObject;
@@ -512,6 +536,38 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorModelSubclause(ErrorModelSubclause object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EMV2 Path</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EMV2 Path</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEMV2Path(EMV2Path object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EMV2 Path Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EMV2 Path Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEMV2PathElement(EMV2PathElement object)
   {
     return null;
   }
@@ -1189,6 +1245,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>EMV2 Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EMV2 Property Association</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEMV2PropertyAssociation(EMV2PropertyAssociation object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Or Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1312,6 +1384,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAnnexLibrary(AnnexLibrary object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Association</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyAssociation(PropertyAssociation object)
   {
     return null;
   }

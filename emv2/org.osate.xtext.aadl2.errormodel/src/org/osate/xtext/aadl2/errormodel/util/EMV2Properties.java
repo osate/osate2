@@ -1,9 +1,10 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AbstractNamedValue;
@@ -21,7 +22,6 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
@@ -29,7 +29,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -67,10 +67,9 @@ public class EMV2Properties {
 		return "";
 	}
 
-	public static PropertyExpression getPropertyValue(ContainedNamedElement containmentPath) {
-		if (containmentPath != null) {
-			for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath)
-					.getOwnedValues()) {
+	public static PropertyExpression getPropertyValue(EMV2PropertyAssociation pa) {
+		if (pa != null) {
+			for (ModalPropertyValue modalPropertyValue : pa.getOwnedValue()) {
 				PropertyExpression val = modalPropertyValue.getOwnedValue();
 				return val;
 			}
@@ -86,10 +85,10 @@ public class EMV2Properties {
 	 * @return
 	 */
 	public static double getProbability(NamedElement ci, NamedElement ne, TypeSet ts) {
-		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(ci, ne, ts);
+		EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(ci, ne, ts);
 		double prob = 0;
-		if (!PA.isEmpty()) {
-			prob = EMV2Properties.getOccurenceValue(PA.get(0));
+		if (PA != null) {
+			prob = EMV2Properties.getOccurenceValue(PA);
 		}
 		return prob;
 	}
@@ -115,14 +114,13 @@ public class EMV2Properties {
 			ts = ((ErrorEvent) element).getTypeSet();
 		}
 
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
+		EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
-		if (PA.isEmpty()) {
+		if (PA == null) {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0))
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue) {
 				RecordValue rv = (RecordValue) val;
@@ -176,14 +174,13 @@ public class EMV2Properties {
 			ts = ((ErrorEvent) element).getTypeSet();
 		}
 
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
+		EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
-		if (PA.isEmpty()) {
+		if (PA == null) {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0))
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue) {
 				RecordValue rv = (RecordValue) val;
@@ -223,12 +220,12 @@ public class EMV2Properties {
 	 * @param ts TypeSet
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getHazardsProperty(NamedElement ci, Element target, TypeSet ts) {
-		EList<ContainedNamedElement> result = getProperty("EMV2::hazards", ci, target, ts);
-		if (result.isEmpty()) {
+	public static EMV2PropertyAssociation getHazardsProperty(NamedElement ci, Element target, TypeSet ts) {
+		EMV2PropertyAssociation result = getProperty("EMV2::hazards", ci, target, ts);
+		if (result == null) {
 			result = getProperty("ARP4761::hazards", ci, target, ts);
 		}
-		if (result.isEmpty()) {
+		if (result == null) {
 			result = getProperty("MILSTD882::hazards", ci, target, ts);
 		}
 		return result;
@@ -246,11 +243,11 @@ public class EMV2Properties {
 	 * @param ts				corresponding typeset or null
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(NamedElement ci, NamedElement target,
+	public static EMV2PropertyAssociation getOccurenceDistributionProperty(NamedElement ci, NamedElement target,
 			TypeSet ts) {
-		EList<ContainedNamedElement> result = getProperty("EMV2::OccurrenceDistribution", ci, target, ts);
+		EMV2PropertyAssociation result = getProperty("EMV2::OccurrenceDistribution", ci, target, ts);
 
-		if (result.size() == 0) {
+		if (result == null) {
 			ComponentCategory cat = null;
 			if (ci instanceof ComponentInstance) {
 				cat = ((ComponentInstance) ci).getComponentClassifier().getCategory();
@@ -282,13 +279,12 @@ public class EMV2Properties {
 	 *
 	 * @param PAContainmentPath string value describing the distribution get from getOccurenceDistributionProperty
 	 */
-	public static String getOccurenceType(final ContainedNamedElement PAContainmentPath) {
-		if (PAContainmentPath == null) {
+	public static String getOccurenceType(final EMV2PropertyAssociation PA) {
+		if (PA == null) {
 			return "unknown_distribution";
 		}
 
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath)
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue) {
 
@@ -315,16 +311,15 @@ public class EMV2Properties {
 	 * Retrieve the value associated with a containment path
 	 * See RDB action to see how it is used.
 	 *
-	 * @param PAContainmentPath value get from getOccurenceDistributionProperty
+	 * @param PA value get from getOccurenceDistributionProperty
 	 */
-	public static double getOccurenceValue(final ContainedNamedElement PAContainmentPath) {
+	public static double getOccurenceValue(final EMV2PropertyAssociation PA) {
 		double result;
 		result = 0;
-		if (PAContainmentPath == null) {
+		if (PA == null) {
 			return 0;
 		}
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath)
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 
 			if (val instanceof RecordValue) {
@@ -352,7 +347,7 @@ public class EMV2Properties {
 	 * @param element declarative model element or error annex element
 	 * @return PS list of ErrorModelLibrary, ErrorBehaviorStateMachine
 	 */
-	public static EList<PropertyAssociation> getPropertyAssociationListInContext(Element element) {
+	public static Collection<EMV2PropertyAssociation> getPropertyAssociationListInContext(Element element) {
 		EObject container = element;
 		while (container != null) {
 //			if (container instanceof ErrorModelSubclause ){
@@ -375,10 +370,10 @@ public class EMV2Properties {
 	 * @param propertyName name of property
 	 * @return EList<PropertyAssociation>
 	 */
-	public static List<PropertyAssociation> getPropertyAssociationsMatchingName(EList<PropertyAssociation> props,
-			String propertyName) {
-		List<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
-		for (PropertyAssociation propertyAssociation : props) {
+	public static Collection<EMV2PropertyAssociation> getPropertyAssociationsMatchingName(
+			Collection<EMV2PropertyAssociation> props, String propertyName) {
+		Collection<EMV2PropertyAssociation> result = new ArrayList<EMV2PropertyAssociation>();
+		for (EMV2PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
@@ -397,23 +392,23 @@ public class EMV2Properties {
 	 * @param ciStack stack of nested CI below the ci of the props; those names may show up in the path
 	 * @return list of paths
 	 */
-	public static EList<ContainedNamedElement> getMatchingPropertiesInList(EList<PropertyAssociation> props,
+	public static EMV2PropertyAssociation getMatchingPropertiesInList(Collection<EMV2PropertyAssociation> props,
 			String propertyName, Element target, Stack<NamedElement> ciStack, TypeSet ts) {
 		if (props.isEmpty()) {
-			return new BasicEList<ContainedNamedElement>();
+			return null;
 		}
-		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
-		for (PropertyAssociation propertyAssociation : props) {
+		Collection<EMV2PropertyAssociation> result = new ArrayList<EMV2PropertyAssociation>();
+		for (EMV2PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
-				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target, ciStack, ts);
+				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, ciStack, ts);
 				if (res != null) {
-					result.add(res);
+					return res;
 				}
 			}
 		}
-		return result;
+		return null;
 	}
 
 	/**
@@ -424,7 +419,7 @@ public class EMV2Properties {
 	 * @param cpes
 	 * @return
 	 */
-	private static boolean matchCIStack(Stack<NamedElement> ciStack, EList<ContainmentPathElement> cpes) {
+	private static boolean matchCIStack(Stack<NamedElement> ciStack, List<ContainmentPathElement> cpes) {
 		if (ciStack == null || ciStack.isEmpty()) {
 			return true;
 		}
@@ -462,10 +457,10 @@ public class EMV2Properties {
 	 * @param ts type set that must contain the last element if it is a type
 	 * @return ContainedNamedElement the containment path that matches
 	 */
-	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation,
+	public static EMV2PropertyAssociation isErrorModelElementProperty(EMV2PropertyAssociation propertyAssociation,
 			Element target, Stack<NamedElement> ciStack, TypeSet ts) {
 		boolean matchStack = false;
-		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
+		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTo();
 		for (ContainedNamedElement containedNamedElement : applies) {
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
 			matchStack = matchCIStack(ciStack, cpes);
@@ -484,20 +479,20 @@ public class EMV2Properties {
 					if (typeelement instanceof ErrorType) {
 						// we refer to a type
 						if ((lastel instanceof ErrorType) && (EM2TypeSetUtil.contains((ErrorType) lastel, ts))) {
-							return containedNamedElement;
+							return propertyAssociation;
 						}
 					} else if (typeelement instanceof TypeSet) {
 						// we refer to a type
 						if (EM2TypeSetUtil.contains((TypeSet) typeelement, ts)) {
 							// skip to next iteration
-							return containedNamedElement;
+							return propertyAssociation;
 						}
 					} else {
 						// last element is not a type or type set
 						// must match target.
 						// Note: property on target matches all targets with types
 						if (typeelement == target) {
-							return containedNamedElement;
+							return propertyAssociation;
 						}
 					}
 				}
@@ -507,11 +502,11 @@ public class EMV2Properties {
 				 * of the path corresponds to the target.
 				 */
 				if (lastel == target) {
-					return containedNamedElement;
+					return propertyAssociation;
 				}
 				if (lastel instanceof ErrorTypes && target instanceof ErrorTypes) {
 					if (EM2TypeSetUtil.contains((ErrorTypes) lastel, (ErrorTypes) target)) {
-						return containedNamedElement;
+						return propertyAssociation;
 					}
 				}
 			}
@@ -525,25 +520,24 @@ public class EMV2Properties {
 	 * @param propertyName
 	 * @param target
 	 * @param ts
-	 * @return EList<ContainedNamedElement>
+	 * @return EMV2PropertyAssociation
 	 */
-	public static EList<ContainedNamedElement> getMatchingErrorModelElementPropertyAssociationsInList(
-			EList<PropertyAssociation> props, String propertyName, Element target, TypeSet ts) {
-		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
+	public static EMV2PropertyAssociation getMatchingErrorModelElementPropertyAssociationsInList(
+			Collection<EMV2PropertyAssociation> props, String propertyName, Element target, TypeSet ts) {
 		if (props == null) {
-			return result;
+			return null;
 		}
-		for (PropertyAssociation propertyAssociation : props) {
+		for (EMV2PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
-				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
+				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
 				if (res != null) {
-					result.add(res);
+					return res;
 				}
 			}
 		}
-		return result;
+		return null;
 	}
 
 	/**
@@ -562,13 +556,13 @@ public class EMV2Properties {
 	 * @param ts Type Set null or any error type in the type set as part of the target error model element
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getProperty(String propertyName, NamedElement ci, Element target,
+	public static EMV2PropertyAssociation getProperty(String propertyName, NamedElement ci, Element target,
 			TypeSet ts) {
-		EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName, ci, target, ts);
-		if (result.isEmpty()) {
+		EMV2PropertyAssociation result = getPropertyInInstanceHierarchy(propertyName, ci, target, ts);
+		if (result == null) {
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
-			EList<PropertyAssociation> props = getPropertyAssociationListInContext(target);
+			Collection<EMV2PropertyAssociation> props = getPropertyAssociationListInContext(target);
 			if (props != null) {
 				result = getMatchingErrorModelElementPropertyAssociationsInList(props, propertyName, target, ts);
 			}
@@ -586,30 +580,29 @@ public class EMV2Properties {
 	 * @param ts
 	 * @return
 	 */
-	private static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName,
-			ComponentInstance ci, Element target, Stack<NamedElement> ciStack, TypeSet ts) {
+	private static EMV2PropertyAssociation getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,
+			Element target, Stack<NamedElement> ciStack, TypeSet ts) {
 		if (ci != null) {
 			if (ci.getContainingComponentInstance() != null) {
 				ciStack.push(ci);
-				EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,
+				EMV2PropertyAssociation result = getPropertyInInstanceHierarchy(propertyName,
 						ci.getContainingComponentInstance(), target, ciStack, ts);
 				ciStack.pop();
-				if (!result.isEmpty()) {
+				if (result != null) {
 					return result;
 				}
 			}
 			// deals with inherited properties by walking subclause inheritance
-			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+			Collection<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
 			for (ErrorModelSubclause ems : emslist) {
-				EList<PropertyAssociation> props = ems.getProperties();
-				EList<ContainedNamedElement> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
-						ts);
-				if (!result.isEmpty()) {
+				Collection<EMV2PropertyAssociation> props = ems.getProperties();
+				EMV2PropertyAssociation result = getMatchingPropertiesInList(props, propertyName, target, ciStack, ts);
+				if (result != null) {
 					return result;
 				}
 			}
 		}
-		return new BasicEList<ContainedNamedElement>();
+		return null;
 	}
 
 	/**
@@ -624,7 +617,7 @@ public class EMV2Properties {
 	 * @return Containmentpath of the PA that matches the parameters.
 	 * we return the path because the PA applies to more than element
 	 */
-	public static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
+	public static EMV2PropertyAssociation getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			Element target, TypeSet ts) {
 		Stack<NamedElement> ciStack = new Stack<NamedElement>();
 		ComponentClassifier cl = null;
@@ -635,7 +628,7 @@ public class EMV2Properties {
 			// look in enclosing component impl first. Then in classifier of subcomponent
 			cl = (ComponentClassifier) ((Subcomponent) ci).getContainingClassifier();
 			ciStack.push(ci);
-			EList<ContainedNamedElement> result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
+			EMV2PropertyAssociation result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
 			if (result != null) {
 				return result;
 			}
@@ -660,16 +653,15 @@ public class EMV2Properties {
 	 * @return Containmentpath of the PA that matches the parameters.
 	 * we return the path because the PA applies to more than element
 	 */
-	public static EList<ContainedNamedElement> getPropertyInClassifier(String propertyName, Classifier cl,
-			Element target, Stack<NamedElement> ciStack, TypeSet ts) {
+	public static EMV2PropertyAssociation getPropertyInClassifier(String propertyName, Classifier cl, Element target,
+			Stack<NamedElement> ciStack, TypeSet ts) {
 		if (cl != null) {
 			// deals with inherited properties by walking subclause inheritance
 			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(cl);
 			for (ErrorModelSubclause ems : emslist) {
-				EList<PropertyAssociation> props = ems.getProperties();
-				EList<ContainedNamedElement> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
-						ts);
-				if (!result.isEmpty()) {
+				Collection<EMV2PropertyAssociation> props = ems.getProperties();
+				EMV2PropertyAssociation result = getMatchingPropertiesInList(props, propertyName, target, ciStack, ts);
+				if (result != null) {
 					return result;
 				}
 			}
@@ -684,13 +676,8 @@ public class EMV2Properties {
 	 * @param ts Typeset
 	 * @return path to element with property
 	 */
-	public static EList<ContainedNamedElement> getSeverityProperty(NamedElement ci, Element target, TypeSet ts) {
-		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Severity", ci, target, ts);
-//		if (result.isEmpty())
-//			result = EMV2Properties.getProperty("ARP4761::FailureConditionClassification", ci, target, ts);
-//		if (result.isEmpty())
-//			result = EMV2Properties.getProperty("MILSTD882::SeverityLevel", ci, target, ts);
-		return result;
+	public static EMV2PropertyAssociation getSeverityProperty(NamedElement ci, Element target, TypeSet ts) {
+		return EMV2Properties.getProperty("EMV2::Severity", ci, target, ts);
 	}
 
 	/**
@@ -700,19 +687,13 @@ public class EMV2Properties {
 	 * @param ts Typeset
 	 * @return path to element with property
 	 */
-	public static EList<ContainedNamedElement> getLikelihoodProperty(NamedElement ci, Element target, TypeSet ts) {
-		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Likelihood", ci, target, ts);
-//		if (result.isEmpty())
-//			result = EMV2Properties.getProperty("ARP4761::QualitativeProbability", ci, target, ts);
-//		if (result.isEmpty())
-//			result = EMV2Properties.getProperty("MILSTD882::QualitativeProbability", ci, target, ts);
-		return result;
+	public static EMV2PropertyAssociation getLikelihoodProperty(NamedElement ci, Element target, TypeSet ts) {
+		return EMV2Properties.getProperty("EMV2::Likelihood", ci, target, ts);
 	}
-	
-	public static NamedElement getPropagationElement (ErrorPropagation errorPropagation)
-	{
+
+	public static NamedElement getPropagationElement(ErrorPropagation errorPropagation) {
 		NamedElement el;
-		
+
 		return errorPropagation.getFeatureorPPRef().getFeatureorPP();
 	}
 

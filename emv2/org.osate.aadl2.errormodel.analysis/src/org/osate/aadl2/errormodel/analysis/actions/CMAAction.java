@@ -33,14 +33,11 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.errormodel.analysis.cma.CMAReport;
@@ -50,6 +47,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -112,16 +110,13 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		 */
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
 
-			List<ContainedNamedElement> severityValues = EMV2Properties.getSeverityProperty(si, state,
-					state.getTypeSet());
-			for (ContainedNamedElement cne : severityValues) {
-				PropertyExpression severityValue = EMV2Properties.getPropertyValue(cne);
-				String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
-				CMAUtils.setCurrentSeverity(sev);
+			EMV2PropertyAssociation severityPA = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
+			PropertyExpression severityValue = EMV2Properties.getPropertyValue(severityPA);
+			String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
+			CMAUtils.setCurrentSeverity(sev);
 //				OsateDebug.osateDebug("[CMAAction] state " + state.getName());
-				report.addEntries(CMAUtils.processState(analysisModel, analysisModel.getRoot().getComponentInstance(),
-						state, state.getTypeSet()));
-			}
+			report.addEntries(CMAUtils.processState(analysisModel, analysisModel.getRoot().getComponentInstance(),
+					state, state.getTypeSet()));
 
 		}
 

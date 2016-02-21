@@ -41,7 +41,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -56,10 +55,10 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -125,17 +124,15 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ConditionElement condElement = (ConditionElement) trans.getCondition();
 				if (condElement.getIncoming() instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) condElement.getIncoming();
-					EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+					EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+					EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
+					EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					for (ContainedNamedElement hazProp : PA) {
-						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
-								EMV2Util.findMatchingErrorType(hazProp, Like), errorEvent, errorEvent.getTypeSet(),
-								errorEvent, report);
-					}
+					reportHazardProperty(ci, PA, EMV2Util.findMatchingErrorType(PA, Sev),
+							EMV2Util.findMatchingErrorType(PA, Like), errorEvent, errorEvent.getTypeSet(), errorEvent,
+							report);
 				}
 				// condElement.getIncoming()
 			}
@@ -144,13 +141,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
-			EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
-			EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
-			for (ContainedNamedElement hazProp : PA) {
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
-						EMV2Util.findMatchingErrorType(hazProp, Like), state, state.getTypeSet(), state, report);
-			}
+			EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
+			EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
+			reportHazardProperty(ci, PA, EMV2Util.findMatchingErrorType(PA, Sev),
+					EMV2Util.findMatchingErrorType(PA, Like), state, state.getTypeSet(), state, report);
 		}
 
 		// report all error sources as hazards if they have the property
@@ -160,9 +155,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			EList<ContainedNamedElement> HazardPA = null;
-			EList<ContainedNamedElement> Sev = null;
-			EList<ContainedNamedElement> Like = null;
+			EMV2PropertyAssociation HazardPA = null;
+			EMV2PropertyAssociation Sev = null;
+			EMV2PropertyAssociation Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
 			Element target = null;
@@ -208,16 +203,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 //				localContext = null;
 //			}
 			if (HazardPA != null) {
-				for (ContainedNamedElement hazProp : HazardPA) {
-					reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
-							EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext, report);
-				}
+				reportHazardProperty(ci, HazardPA, EMV2Util.findMatchingErrorType(HazardPA, Sev),
+						EMV2Util.findMatchingErrorType(HazardPA, Like), target, ts, localContext, report);
 			}
 		}
 		for (ErrorPropagation ep : oeplist) {
-			EList<ContainedNamedElement> HazardPA = null;
-			EList<ContainedNamedElement> Sev = null;
-			EList<ContainedNamedElement> Like = null;
+			EMV2PropertyAssociation HazardPA = null;
+			EMV2PropertyAssociation Sev = null;
+			EMV2PropertyAssociation Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
@@ -229,20 +222,17 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			target = ep;
 			localContext = null;
 			if (HazardPA != null) {
-				for (ContainedNamedElement hazProp : HazardPA) {
-					reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
-							EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext, report);
-				}
+				reportHazardProperty(ci, HazardPA, EMV2Util.findMatchingErrorType(HazardPA, Sev),
+						EMV2Util.findMatchingErrorType(HazardPA, Like), target, ts, localContext, report);
 			}
 		}
 	}
 
-	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath) {
-		if (containmentPath == null) {
+	protected String getEnumerationorIntegerPropertyValue(EMV2PropertyAssociation pa) {
+		if (pa == null) {
 			return "";
 		}
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath)
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : pa.getOwnedValue()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof NamedValue) {
 				AbstractNamedValue eval = ((NamedValue) val).getNamedValue();
@@ -261,11 +251,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, ContainedNamedElement PAContainmentPath,
-			ContainedNamedElement SevContainmentPath, ContainedNamedElement LikeContainmentPath, Element target,
-			TypeSet ts, Element localContext, WriteToFile report) {
+	protected void reportHazardProperty(ComponentInstance ci, EMV2PropertyAssociation PA, EMV2PropertyAssociation Sev,
+			EMV2PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
 
-		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
+		ErrorType targetType = EMV2Util.getContainmentErrorType(PA); // type as last element of hazard containment path
 		String targetName;
 
 		if (target == null) {
@@ -281,16 +270,15 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath)
-				.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValue()) {
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
 			if (peVal instanceof ListValue) { // it is always a list
 				ListValue lv = (ListValue) peVal;
 				for (PropertyExpression pe : lv.getOwnedListElements()) {
 					// OsateDebug.osateDebug ("pe=" + pe);
 					if (pe instanceof RecordValue) {
-						PropertyExpression severityValue = EMV2Properties.getPropertyValue(SevContainmentPath);
-						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(LikeContainmentPath);
+						PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
+						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
 						EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
 						// for all error types/aliases in type set or the element identified in the containment clause
 
@@ -330,7 +318,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		report.addOutputNewline("Component, Error," + " Hazard Description, Crossreference, " + "Functional Failure, " + // "Failure Effect, " +
 				"Operational Phases, Environment," + // " Mishap/Failure Condition,"+
 //				"Effects of Hazard"+ // "Description" old style
-				" Severity, Likelihood," +
+		" Severity, Likelihood," +
 				// "Target Severity, Target Likelihood, Assurance Level, " +
 				"Verification, " + // "Safety Report, " +
 				"Comment");
@@ -419,7 +407,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	 * @param fieldName
 	 * @param report
 	 */
-	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName, WriteToFile report) {
+	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,
+			WriteToFile report) {
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		String text = null;
 		if (xref != null) {

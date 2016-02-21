@@ -193,28 +193,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBranchValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cErrorCodeValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		private final RuleCall cConditionElementParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cAndExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cConditionTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cConditionExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cOrmoreExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
-		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
-		private final RuleCall cErrorStateToModeMappingParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
-		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
-		private final RuleCall cSubcomponentElementParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
-		private final RuleCall cFeatureorPPReferenceParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
+		private final RuleCall cConditionTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cConditionExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cOrmoreExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cOrlessExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cErrorStateToModeMappingParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cSubcomponentElementParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
+		private final RuleCall cFeatureorPPReferenceParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cEMV2PropertyAssociationParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
 		
+		////| EMV2PropertyAssociationth | EMV2PropertyAssociationthElement | EMV2PropertyAssociation
 		//Element returns aadl2::Element:
 		//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
-		//	QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference;
+		//	BranchValue | ErrorCodeValue | ConditionElement | ConditionTerm | ConditionExpression | OrmoreExpression |
+		//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//	| EMV2PropertyAssociation;
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
-		//QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//BranchValue | ErrorCodeValue | ConditionElement | ConditionTerm | ConditionExpression | OrmoreExpression |
+		//OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//| EMV2PropertyAssociation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
@@ -244,35 +244,32 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ConditionElement
 		public RuleCall getConditionElementParserRuleCall_8() { return cConditionElementParserRuleCall_8; }
 
-		//AndExpression
-		public RuleCall getAndExpressionParserRuleCall_9() { return cAndExpressionParserRuleCall_9; }
-
 		//ConditionTerm
-		public RuleCall getConditionTermParserRuleCall_10() { return cConditionTermParserRuleCall_10; }
+		public RuleCall getConditionTermParserRuleCall_9() { return cConditionTermParserRuleCall_9; }
 
 		//ConditionExpression
-		public RuleCall getConditionExpressionParserRuleCall_11() { return cConditionExpressionParserRuleCall_11; }
+		public RuleCall getConditionExpressionParserRuleCall_10() { return cConditionExpressionParserRuleCall_10; }
 
 		//OrmoreExpression
-		public RuleCall getOrmoreExpressionParserRuleCall_12() { return cOrmoreExpressionParserRuleCall_12; }
+		public RuleCall getOrmoreExpressionParserRuleCall_11() { return cOrmoreExpressionParserRuleCall_11; }
 
 		//OrlessExpression
-		public RuleCall getOrlessExpressionParserRuleCall_13() { return cOrlessExpressionParserRuleCall_13; }
-
-		//OutgoingPropagationCondition
-		public RuleCall getOutgoingPropagationConditionParserRuleCall_14() { return cOutgoingPropagationConditionParserRuleCall_14; }
+		public RuleCall getOrlessExpressionParserRuleCall_12() { return cOrlessExpressionParserRuleCall_12; }
 
 		//ErrorStateToModeMapping
-		public RuleCall getErrorStateToModeMappingParserRuleCall_15() { return cErrorStateToModeMappingParserRuleCall_15; }
+		public RuleCall getErrorStateToModeMappingParserRuleCall_13() { return cErrorStateToModeMappingParserRuleCall_13; }
 
 		//QualifiedErrorBehaviorState
-		public RuleCall getQualifiedErrorBehaviorStateParserRuleCall_16() { return cQualifiedErrorBehaviorStateParserRuleCall_16; }
+		public RuleCall getQualifiedErrorBehaviorStateParserRuleCall_14() { return cQualifiedErrorBehaviorStateParserRuleCall_14; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentElementParserRuleCall_17() { return cSubcomponentElementParserRuleCall_17; }
+		public RuleCall getSubcomponentElementParserRuleCall_15() { return cSubcomponentElementParserRuleCall_15; }
 
 		//FeatureorPPReference
-		public RuleCall getFeatureorPPReferenceParserRuleCall_18() { return cFeatureorPPReferenceParserRuleCall_18; }
+		public RuleCall getFeatureorPPReferenceParserRuleCall_16() { return cFeatureorPPReferenceParserRuleCall_16; }
+
+		//EMV2PropertyAssociation
+		public RuleCall getEMV2PropertyAssociationParserRuleCall_17() { return cEMV2PropertyAssociationParserRuleCall_17; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -399,7 +396,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
 		private final Keyword cPropertiesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Assignment cPropertiesAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_10_1_0 = (RuleCall)cPropertiesAssignment_10_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_10_1_0 = (RuleCall)cPropertiesAssignment_10_1.eContents().get(0);
 		
 		////	'**}'
 		//ErrorModelSubclause: //'{**' 
@@ -414,7 +411,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-		//	("properties" properties+=ContainedPropertyAssociation+)?;
+		//	("properties" properties+=EMV2PropertyAssociation+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		////'{**' 
@@ -429,7 +426,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
 
 		////'{**' 
@@ -793,17 +790,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_6() { return cSemicolonKeyword_9_6; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_10() { return cGroup_10; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_10_0() { return cPropertiesKeyword_10_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_10_1() { return cPropertiesAssignment_10_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_10_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_10_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_10_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_10_1_0; }
 	}
 
 	public class EMV2SubclauseElements extends AbstractParserRuleElementFinder {
@@ -933,7 +930,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
 		private final Keyword cPropertiesKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
 		private final Assignment cPropertiesAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_12_1_0 = (RuleCall)cPropertiesAssignment_12_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0 = (RuleCall)cPropertiesAssignment_12_1.eContents().get(0);
 		private final Keyword cEndKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		private final Keyword cSubclauseKeyword_14 = (Keyword)cGroup.eContents().get(14);
 		private final Keyword cSemicolonKeyword_15 = (Keyword)cGroup.eContents().get(15);
@@ -951,7 +948,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-		//	("properties" properties+=ContainedPropertyAssociation+)? //	'**}'
+		//	("properties" properties+=EMV2PropertyAssociation+)? //	'**}'
 		//	"end" "subclause" ";";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -967,7 +964,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-		//("properties" properties+=ContainedPropertyAssociation+)? //	'**}'
+		//("properties" properties+=EMV2PropertyAssociation+)? //	'**}'
 		//"end" "subclause" ";"
 		public Group getGroup() { return cGroup; }
 
@@ -1340,17 +1337,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_6() { return cSemicolonKeyword_11_6; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_12() { return cGroup_12; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_12_0() { return cPropertiesKeyword_12_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_12_1() { return cPropertiesAssignment_12_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_12_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_12_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0; }
 
 		////	'**}'
 		//"end"
@@ -1361,6 +1358,215 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_15() { return cSemicolonKeyword_15; }
+	}
+
+	public class EMV2PropertyAssociationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2PropertyAssociation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cEMV2PropertyAssociationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cPropertyPropertyCrossReference_1_0 = (CrossReference)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyPropertyQPREFParserRuleCall_1_0_1 = (RuleCall)cPropertyPropertyCrossReference_1_0.eContents().get(1);
+		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cOwnedValueAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0 = (RuleCall)cOwnedValueAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cCommaKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0 = (RuleCall)cOwnedValueAssignment_3_1_1.eContents().get(0);
+		private final Keyword cAppliesKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cToKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Group cGroup_6_0 = (Group)cGroup_6.eContents().get(0);
+		private final Assignment cAppliesToAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final RuleCall cAppliesToContainmentPathParserRuleCall_6_0_0_0 = (RuleCall)cAppliesToAssignment_6_0_0.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_6_0_1 = (Keyword)cGroup_6_0.eContents().get(1);
+		private final Assignment cEMV2PropertyAssociationthAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cEMV2PropertyAssociationthEMV2PathParserRuleCall_6_1_0 = (RuleCall)cEMV2PropertyAssociationthAssignment_6_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		////
+		////PropertyAssociation returns aadl2::PropertyAssociation:
+		////	EMV2PropertyAssociation
+		////;
+		//EMV2PropertyAssociation returns aadl2::PropertyAssociation:
+		//	{EMV2PropertyAssociation} property=[aadl2::Property|QPREF] "=>" (ownedValue+=OptionalModalPropertyValue (","
+		//	ownedValue+=OptionalModalPropertyValue)*) "applies" "to" ((=> appliesTo+=ContainmentPath "@")?
+		//	EMV2PropertyAssociationth=EMV2Path) ";";
+		@Override public ParserRule getRule() { return rule; }
+
+		//{EMV2PropertyAssociation} property=[aadl2::Property|QPREF] "=>" (ownedValue+=OptionalModalPropertyValue (","
+		//ownedValue+=OptionalModalPropertyValue)*) "applies" "to" ((=> appliesTo+=ContainmentPath "@")?
+		//EMV2PropertyAssociationth=EMV2Path) ";"
+		public Group getGroup() { return cGroup; }
+
+		//{EMV2PropertyAssociation}
+		public Action getEMV2PropertyAssociationAction_0() { return cEMV2PropertyAssociationAction_0; }
+
+		//property=[aadl2::Property|QPREF]
+		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
+
+		//[aadl2::Property|QPREF]
+		public CrossReference getPropertyPropertyCrossReference_1_0() { return cPropertyPropertyCrossReference_1_0; }
+
+		//QPREF
+		public RuleCall getPropertyPropertyQPREFParserRuleCall_1_0_1() { return cPropertyPropertyQPREFParserRuleCall_1_0_1; }
+
+		//"=>"
+		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
+
+		//ownedValue+=OptionalModalPropertyValue ("," ownedValue+=OptionalModalPropertyValue)*
+		public Group getGroup_3() { return cGroup_3; }
+
+		//ownedValue+=OptionalModalPropertyValue
+		public Assignment getOwnedValueAssignment_3_0() { return cOwnedValueAssignment_3_0; }
+
+		//OptionalModalPropertyValue
+		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0; }
+
+		//("," ownedValue+=OptionalModalPropertyValue)*
+		public Group getGroup_3_1() { return cGroup_3_1; }
+
+		//","
+		public Keyword getCommaKeyword_3_1_0() { return cCommaKeyword_3_1_0; }
+
+		//ownedValue+=OptionalModalPropertyValue
+		public Assignment getOwnedValueAssignment_3_1_1() { return cOwnedValueAssignment_3_1_1; }
+
+		//OptionalModalPropertyValue
+		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0; }
+
+		//"applies"
+		public Keyword getAppliesKeyword_4() { return cAppliesKeyword_4; }
+
+		//"to"
+		public Keyword getToKeyword_5() { return cToKeyword_5; }
+
+		//(=> appliesTo+=ContainmentPath "@")? EMV2PropertyAssociationth=EMV2Path
+		public Group getGroup_6() { return cGroup_6; }
+
+		//(=> appliesTo+=ContainmentPath "@")?
+		public Group getGroup_6_0() { return cGroup_6_0; }
+
+		//=> appliesTo+=ContainmentPath
+		public Assignment getAppliesToAssignment_6_0_0() { return cAppliesToAssignment_6_0_0; }
+
+		//ContainmentPath
+		public RuleCall getAppliesToContainmentPathParserRuleCall_6_0_0_0() { return cAppliesToContainmentPathParserRuleCall_6_0_0_0; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_6_0_1() { return cCommercialAtKeyword_6_0_1; }
+
+		//EMV2PropertyAssociationth=EMV2Path
+		public Assignment getEMV2PropertyAssociationthAssignment_6_1() { return cEMV2PropertyAssociationthAssignment_6_1; }
+
+		//EMV2Path
+		public RuleCall getEMV2PropertyAssociationthEMV2PathParserRuleCall_6_1_0() { return cEMV2PropertyAssociationthEMV2PathParserRuleCall_6_1_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+	}
+
+	public class EMV2PathElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2Path");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cPaTargetAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cPaTargetPropagationKindParserRuleCall_0_0_0 = (RuleCall)cPaTargetAssignment_0_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Assignment cErrorTypeAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final CrossReference cErrorTypeErrorTypesCrossReference_0_1_1_0 = (CrossReference)cErrorTypeAssignment_0_1_1.eContents().get(0);
+		private final RuleCall cErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1 = (RuleCall)cErrorTypeErrorTypesCrossReference_0_1_1_0.eContents().get(1);
+		private final Assignment cEmv2TargetAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cEmv2TargetEMV2PathElementParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
+		
+		////BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
+		////	property=[aadl2::Property|QPREF] 
+		////	'=>' 
+		////	( 
+		////	 ownedValue+=OptionalModalPropertyValue
+		////	( ',' ownedValue+=OptionalModalPropertyValue )*
+		////	)
+		////	'applies' 'to' EMV2PropertyAssociationth=EMV2PropertyAssociationth
+		////	';';
+		//EMV2Path:
+		//	paTarget=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target+=EMV2PathElement;
+		@Override public ParserRule getRule() { return rule; }
+
+		//paTarget=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target+=EMV2PathElement
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//paTarget=PropagationKind ("." errorType=[ErrorTypes])?
+		public Group getGroup_0() { return cGroup_0; }
+
+		//paTarget=PropagationKind
+		public Assignment getPaTargetAssignment_0_0() { return cPaTargetAssignment_0_0; }
+
+		//PropagationKind
+		public RuleCall getPaTargetPropagationKindParserRuleCall_0_0_0() { return cPaTargetPropagationKindParserRuleCall_0_0_0; }
+
+		//("." errorType=[ErrorTypes])?
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_0_1_0() { return cFullStopKeyword_0_1_0; }
+
+		//errorType=[ErrorTypes]
+		public Assignment getErrorTypeAssignment_0_1_1() { return cErrorTypeAssignment_0_1_1; }
+
+		//[ErrorTypes]
+		public CrossReference getErrorTypeErrorTypesCrossReference_0_1_1_0() { return cErrorTypeErrorTypesCrossReference_0_1_1_0; }
+
+		//ID
+		public RuleCall getErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1() { return cErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1; }
+
+		//emv2Target+=EMV2PathElement
+		public Assignment getEmv2TargetAssignment_1() { return cEmv2TargetAssignment_1; }
+
+		//EMV2PathElement
+		public RuleCall getEmv2TargetEMV2PathElementParserRuleCall_1_0() { return cEmv2TargetEMV2PathElementParserRuleCall_1_0; }
+	}
+
+	public class EMV2PathElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2PathElement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNamedElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cNamedElementNamedElementCrossReference_0_0 = (CrossReference)cNamedElementAssignment_0.eContents().get(0);
+		private final RuleCall cNamedElementNamedElementIDTerminalRuleCall_0_0_1 = (RuleCall)cNamedElementNamedElementCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cPathAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cPathEMV2PathElementParserRuleCall_1_1_0 = (RuleCall)cPathAssignment_1_1.eContents().get(0);
+		
+		//EMV2PathElement:
+		//	namedElement=[aadl2::NamedElement] ("." path=EMV2PathElement)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//namedElement=[aadl2::NamedElement] ("." path=EMV2PathElement)?
+		public Group getGroup() { return cGroup; }
+
+		//namedElement=[aadl2::NamedElement]
+		public Assignment getNamedElementAssignment_0() { return cNamedElementAssignment_0; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getNamedElementNamedElementCrossReference_0_0() { return cNamedElementNamedElementCrossReference_0_0; }
+
+		//ID
+		public RuleCall getNamedElementNamedElementIDTerminalRuleCall_0_0_1() { return cNamedElementNamedElementIDTerminalRuleCall_0_0_1; }
+
+		//("." path=EMV2PathElement)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+
+		//path=EMV2PathElement
+		public Assignment getPathAssignment_1_1() { return cPathAssignment_1_1; }
+
+		//EMV2PathElement
+		public RuleCall getPathEMV2PathElementParserRuleCall_1_1_0() { return cPathEMV2PathElementParserRuleCall_1_1_0; }
 	}
 
 	public class ErrorModelLibraryElements extends AbstractParserRuleElementFinder {
@@ -1401,7 +1607,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_5 = (Group)cGroup_1.eContents().get(5);
 		private final Keyword cPropertiesKeyword_1_5_0 = (Keyword)cGroup_1_5.eContents().get(0);
 		private final Assignment cPropertiesAssignment_1_5_1 = (Assignment)cGroup_1_5.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_1_5_1_0 = (RuleCall)cPropertiesAssignment_1_5_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_1_5_1_0 = (RuleCall)cPropertiesAssignment_1_5_1.eContents().get(0);
 		private final Keyword cEndKeyword_1_6 = (Keyword)cGroup_1.eContents().get(6);
 		private final Keyword cTypesKeyword_1_7 = (Keyword)cGroup_1.eContents().get(7);
 		private final Keyword cSemicolonKeyword_1_8 = (Keyword)cGroup_1.eContents().get(8);
@@ -1417,15 +1623,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	{ErrorModelLibrary} //    '{**' 
 		//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-		//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
+		//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
 		//	transformations+=TypeTransformationSet*;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorModelLibrary} //    '{**' 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*
 		public Group getGroup() { return cGroup; }
 
@@ -1434,7 +1640,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")?
 		public Group getGroup_1() { return cGroup_1; }
 
@@ -1528,17 +1734,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeSetDefinition
 		public RuleCall getTypesetsTypeSetDefinitionParserRuleCall_1_4_1_0() { return cTypesetsTypeSetDefinitionParserRuleCall_1_4_1_0; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_1_5() { return cGroup_1_5; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_1_5_0() { return cPropertiesKeyword_1_5_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_1_5_1() { return cPropertiesAssignment_1_5_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_1_5_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_1_5_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_1_5_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_1_5_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_1_6() { return cEndKeyword_1_6; }
@@ -1611,7 +1817,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0_1_2_5 = (Group)cGroup_0_1_2.eContents().get(5);
 		private final Keyword cPropertiesKeyword_0_1_2_5_0 = (Keyword)cGroup_0_1_2_5.eContents().get(0);
 		private final Assignment cPropertiesAssignment_0_1_2_5_1 = (Assignment)cGroup_0_1_2_5.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_0_1_2_5_1_0 = (RuleCall)cPropertiesAssignment_0_1_2_5_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_0_1_2_5_1_0 = (RuleCall)cPropertiesAssignment_0_1_2_5_1.eContents().get(0);
 		private final Keyword cEndKeyword_0_1_2_6 = (Keyword)cGroup_0_1_2.eContents().get(6);
 		private final Keyword cTypesKeyword_0_1_2_7 = (Keyword)cGroup_0_1_2.eContents().get(7);
 		private final Keyword cSemicolonKeyword_0_1_2_8 = (Keyword)cGroup_0_1_2.eContents().get(8);
@@ -1663,7 +1869,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_6_5 = (Group)cGroup_1_6.eContents().get(5);
 		private final Keyword cPropertiesKeyword_1_6_5_0 = (Keyword)cGroup_1_6_5.eContents().get(0);
 		private final Assignment cPropertiesAssignment_1_6_5_1 = (Assignment)cGroup_1_6_5.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_1_6_5_1_0 = (RuleCall)cPropertiesAssignment_1_6_5_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_1_6_5_1_0 = (RuleCall)cPropertiesAssignment_1_6_5_1.eContents().get(0);
 		private final Keyword cEndKeyword_1_6_6 = (Keyword)cGroup_1_6.eContents().get(6);
 		private final Keyword cTypesKeyword_1_6_7 = (Keyword)cGroup_1_6.eContents().get(7);
 		private final Keyword cSemicolonKeyword_1_6_8 = (Keyword)cGroup_1_6.eContents().get(8);
@@ -1683,12 +1889,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	{ErrorModelLibrary} ("library" name=QEMREF //    '{**' 
 		//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-		//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
+		//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
 		//	transformations+=TypeTransformationSet*) | "package" name=QEMREF "public" "annex" ID "{**" ("error" "types" ("use"
 		//	"types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("extends"
 		//	extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")? (types+=TypeDefinition |
-		//	typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end" "types" ";")?
+		//	typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end" "types" ";")?
 		//	behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet* "**}" ";"
 		//	"end" QEMREF ";";
 		@Override public ParserRule getRule() { return rule; }
@@ -1696,19 +1902,19 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//{ErrorModelLibrary} ("library" name=QEMREF //    '{**' 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*)
 		//| "package" name=QEMREF "public" "annex" ID "{**" ("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF]
 		//("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("extends" extends+=[ErrorModelLibrary|QEMREF] (","
 		//extends+=[ErrorModelLibrary|QEMREF])* "with")? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties"
-		//properties+=ContainedPropertyAssociation+)? "end" "types" ";")? behaviors+=ErrorBehaviorStateMachine*
+		//properties+=EMV2PropertyAssociation+)? "end" "types" ";")? behaviors+=ErrorBehaviorStateMachine*
 		//mappings+=TypeMappingSet* transformations+=TypeTransformationSet* "**}" ";" "end" QEMREF ";"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//{ErrorModelLibrary} ("library" name=QEMREF //    '{**' 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*)
 		public Group getGroup_0() { return cGroup_0; }
 
@@ -1718,7 +1924,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"library" name=QEMREF //    '{**' 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
@@ -1733,7 +1939,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")?
 		public Group getGroup_0_1_2() { return cGroup_0_1_2; }
 
@@ -1827,17 +2033,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeSetDefinition
 		public RuleCall getTypesetsTypeSetDefinitionParserRuleCall_0_1_2_4_1_0() { return cTypesetsTypeSetDefinitionParserRuleCall_0_1_2_4_1_0; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_0_1_2_5() { return cGroup_0_1_2_5; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_0_1_2_5_0() { return cPropertiesKeyword_0_1_2_5_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_0_1_2_5_1() { return cPropertiesAssignment_0_1_2_5_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_0_1_2_5_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_0_1_2_5_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_0_1_2_5_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_0_1_2_5_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_0_1_2_6() { return cEndKeyword_0_1_2_6; }
@@ -1869,7 +2075,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"package" name=QEMREF "public" "annex" ID "{**" ("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF]
 		//("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("extends" extends+=[ErrorModelLibrary|QEMREF] (","
 		//extends+=[ErrorModelLibrary|QEMREF])* "with")? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties"
-		//properties+=ContainedPropertyAssociation+)? "end" "types" ";")? behaviors+=ErrorBehaviorStateMachine*
+		//properties+=EMV2PropertyAssociation+)? "end" "types" ";")? behaviors+=ErrorBehaviorStateMachine*
 		//mappings+=TypeMappingSet* transformations+=TypeTransformationSet* "**}" ";" "end" QEMREF ";"
 		public Group getGroup_1() { return cGroup_1; }
 
@@ -1896,7 +2102,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
 		//"types" ";")?
 		public Group getGroup_1_6() { return cGroup_1_6; }
 
@@ -1990,17 +2196,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeSetDefinition
 		public RuleCall getTypesetsTypeSetDefinitionParserRuleCall_1_6_4_1_0() { return cTypesetsTypeSetDefinitionParserRuleCall_1_6_4_1_0; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_1_6_5() { return cGroup_1_6_5; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_1_6_5_0() { return cPropertiesKeyword_1_6_5_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_1_6_5_1() { return cPropertiesAssignment_1_6_5_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_1_6_5_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_1_6_5_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_1_6_5_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_1_6_5_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_1_6_6() { return cEndKeyword_1_6_6; }
@@ -3668,7 +3874,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Keyword cPropertiesKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final Assignment cPropertiesAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cPropertiesAssignment_8_1.eContents().get(0);
+		private final RuleCall cPropertiesEMV2PropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cPropertiesAssignment_8_1.eContents().get(0);
 		private final Keyword cEndKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		private final Keyword cBehaviorKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
@@ -3678,14 +3884,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use"
 		//	"transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)?
 		//	("states" states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-		//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
+		//	properties+=EMV2PropertyAssociation+)? "end" "behavior" ";";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"error" "behavior" name=ID //  ( 'extends' extends=[ErrorBehaviorStateMachine|QEMREF])?
 		//("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use"
 		//"transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)?
 		//("states" states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-		//properties+=ContainedPropertyAssociation+)? "end" "behavior" ";"
+		//properties+=EMV2PropertyAssociation+)? "end" "behavior" ";"
 		public Group getGroup() { return cGroup; }
 
 		//"error"
@@ -3793,17 +3999,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorBehaviorTransition
 		public RuleCall getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0() { return cTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=EMV2PropertyAssociation+)?
 		public Group getGroup_8() { return cGroup_8; }
 
 		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//properties+=EMV2PropertyAssociation+
 		public Assignment getPropertiesAssignment_8_1() { return cPropertiesAssignment_8_1; }
 
-		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0; }
+		//EMV2PropertyAssociation
+		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_8_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_8_1_0; }
 
 		//"end"
 		public Keyword getEndKeyword_9() { return cEndKeyword_9; }
@@ -5811,6 +6017,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final ElementElements pElement;
 	private final ErrorModelSubclauseElements pErrorModelSubclause;
 	private final EMV2SubclauseElements pEMV2Subclause;
+	private final EMV2PropertyAssociationElements pEMV2PropertyAssociation;
+	private final EMV2PathElements pEMV2Path;
+	private final EMV2PathElementElements pEMV2PathElement;
 	private final ErrorModelLibraryElements pErrorModelLibrary;
 	private final EMV2LibraryElements pEMV2Library;
 	private final ErrorTypesElements pErrorTypes;
@@ -5896,6 +6105,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pElement = new ElementElements();
 		this.pErrorModelSubclause = new ErrorModelSubclauseElements();
 		this.pEMV2Subclause = new EMV2SubclauseElements();
+		this.pEMV2PropertyAssociation = new EMV2PropertyAssociationElements();
+		this.pEMV2Path = new EMV2PathElements();
+		this.pEMV2PathElement = new EMV2PathElementElements();
 		this.pErrorModelLibrary = new ErrorModelLibraryElements();
 		this.pEMV2Library = new EMV2LibraryElements();
 		this.pErrorTypes = new ErrorTypesElements();
@@ -6050,11 +6262,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getModalElementAccess().getRule();
 	}
 
+	////| EMV2PropertyAssociationth | EMV2PropertyAssociationthElement | EMV2PropertyAssociation
 	//Element returns aadl2::Element:
 	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-	//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
-	//	QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference;
+	//	BranchValue | ErrorCodeValue | ConditionElement | ConditionTerm | ConditionExpression | OrmoreExpression |
+	//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+	//	| EMV2PropertyAssociation;
 	public ElementElements getElementAccess() {
 		return pElement;
 	}
@@ -6076,7 +6289,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-	//	("properties" properties+=ContainedPropertyAssociation+)?;
+	//	("properties" properties+=EMV2PropertyAssociation+)?;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
 		return pErrorModelSubclause;
 	}
@@ -6098,7 +6311,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
-	//	("properties" properties+=ContainedPropertyAssociation+)? //	'**}'
+	//	("properties" properties+=EMV2PropertyAssociation+)? //	'**}'
 	//	"end" "subclause" ";";
 	public EMV2SubclauseElements getEMV2SubclauseAccess() {
 		return pEMV2Subclause;
@@ -6108,13 +6321,58 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getEMV2SubclauseAccess().getRule();
 	}
 
+	////
+	////PropertyAssociation returns aadl2::PropertyAssociation:
+	////	EMV2PropertyAssociation
+	////;
+	//EMV2PropertyAssociation returns aadl2::PropertyAssociation:
+	//	{EMV2PropertyAssociation} property=[aadl2::Property|QPREF] "=>" (ownedValue+=OptionalModalPropertyValue (","
+	//	ownedValue+=OptionalModalPropertyValue)*) "applies" "to" ((=> appliesTo+=ContainmentPath "@")?
+	//	EMV2PropertyAssociationth=EMV2Path) ";";
+	public EMV2PropertyAssociationElements getEMV2PropertyAssociationAccess() {
+		return pEMV2PropertyAssociation;
+	}
+	
+	public ParserRule getEMV2PropertyAssociationRule() {
+		return getEMV2PropertyAssociationAccess().getRule();
+	}
+
+	////BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
+	////	property=[aadl2::Property|QPREF] 
+	////	'=>' 
+	////	( 
+	////	 ownedValue+=OptionalModalPropertyValue
+	////	( ',' ownedValue+=OptionalModalPropertyValue )*
+	////	)
+	////	'applies' 'to' EMV2PropertyAssociationth=EMV2PropertyAssociationth
+	////	';';
+	//EMV2Path:
+	//	paTarget=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target+=EMV2PathElement;
+	public EMV2PathElements getEMV2PathAccess() {
+		return pEMV2Path;
+	}
+	
+	public ParserRule getEMV2PathRule() {
+		return getEMV2PathAccess().getRule();
+	}
+
+	//EMV2PathElement:
+	//	namedElement=[aadl2::NamedElement] ("." path=EMV2PathElement)?;
+	public EMV2PathElementElements getEMV2PathElementAccess() {
+		return pEMV2PathElement;
+	}
+	
+	public ParserRule getEMV2PathElementRule() {
+		return getEMV2PathElementAccess().getRule();
+	}
+
 	////	'**}'
 	//ErrorModelLibrary:
 	//	{ErrorModelLibrary} //    '{**' 
 	//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 	//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-	//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
+	//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
 	//	transformations+=TypeTransformationSet*;
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
 		return pErrorModelLibrary;
@@ -6128,12 +6386,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	{ErrorModelLibrary} ("library" name=QEMREF //    '{**' 
 	//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 	//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-	//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end"
+	//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
 	//	transformations+=TypeTransformationSet*) | "package" name=QEMREF "public" "annex" ID "{**" ("error" "types" ("use"
 	//	"types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("extends"
 	//	extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")? (types+=TypeDefinition |
-	//	typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end" "types" ";")?
+	//	typesets+=TypeSetDefinition)* ("properties" properties+=EMV2PropertyAssociation+)? "end" "types" ";")?
 	//	behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet* "**}" ";"
 	//	"end" QEMREF ";";
 	public EMV2LibraryElements getEMV2LibraryAccess() {
@@ -6477,7 +6735,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use"
 	//	"transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)?
 	//	("states" states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-	//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
+	//	properties+=EMV2PropertyAssociation+)? "end" "behavior" ";";
 	public ErrorBehaviorStateMachineElements getErrorBehaviorStateMachineAccess() {
 		return pErrorBehaviorStateMachine;
 	}

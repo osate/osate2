@@ -65,6 +65,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
     switch (eClass.getClassifierID())
     {
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
+      case ErrorModelPackage.EMV2_PATH: return createEMV2Path();
+      case ErrorModelPackage.EMV2_PATH_ELEMENT: return createEMV2PathElement();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
       case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
       case ErrorModelPackage.ERROR_TYPE: return createErrorType();
@@ -107,6 +109,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE: return createQualifiedErrorBehaviorState();
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
       case ErrorModelPackage.EMV2_ROOT: return createEMV2Root();
+      case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION: return createEMV2PropertyAssociation();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
       case ErrorModelPackage.ALL_EXPRESSION: return createAllExpression();
@@ -124,6 +127,28 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
     return errorModelSubclause;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2Path createEMV2Path()
+  {
+    EMV2PathImpl emv2Path = new EMV2PathImpl();
+    return emv2Path;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2PathElement createEMV2PathElement()
+  {
+    EMV2PathElementImpl emv2PathElement = new EMV2PathElementImpl();
+    return emv2PathElement;
   }
 
   /**
@@ -586,6 +611,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     EMV2RootImpl emv2Root = new EMV2RootImpl();
     return emv2Root;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2PropertyAssociation createEMV2PropertyAssociation()
+  {
+    EMV2PropertyAssociationImpl emv2PropertyAssociation = new EMV2PropertyAssociationImpl();
+    return emv2PropertyAssociation;
   }
 
   /**

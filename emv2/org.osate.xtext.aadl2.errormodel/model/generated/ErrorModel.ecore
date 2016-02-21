@@ -36,6 +36,17 @@
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2Path">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="paTarget" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="#//ErrorTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Target" upperBound="-1"
+        eType="#//EMV2PathElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2PathElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namedElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="#//EMV2PathElement"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorModelLibrary" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AnnexLibrary">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
@@ -304,6 +315,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subclauses" upperBound="-1"
         eType="#//ErrorModelSubclause" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2PropertyAssociation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="EMV2PropertyAssociationth"
+        eType="#//EMV2Path" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrExpression" eSuperTypes="#//ConditionExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"

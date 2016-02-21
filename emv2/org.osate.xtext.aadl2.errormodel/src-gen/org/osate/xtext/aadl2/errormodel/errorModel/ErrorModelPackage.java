@@ -294,6 +294,89 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 18;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathImpl <em>EMV2 Path</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2Path()
+   * @generated
+   */
+  int EMV2_PATH = 1;
+
+  /**
+   * The feature id for the '<em><b>Pa Target</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH__PA_TARGET = 0;
+
+  /**
+   * The feature id for the '<em><b>Error Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH__ERROR_TYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Emv2 Target</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH__EMV2_TARGET = 2;
+
+  /**
+   * The number of structural features of the '<em>EMV2 Path</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl <em>EMV2 Path Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2PathElement()
+   * @generated
+   */
+  int EMV2_PATH_ELEMENT = 2;
+
+  /**
+   * The feature id for the '<em><b>Named Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_ELEMENT__NAMED_ELEMENT = 0;
+
+  /**
+   * The feature id for the '<em><b>Path</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_ELEMENT__PATH = 1;
+
+  /**
+   * The number of structural features of the '<em>EMV2 Path Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_ELEMENT_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl <em>Library</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -301,7 +384,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorModelLibrary()
    * @generated
    */
-  int ERROR_MODEL_LIBRARY = 1;
+  int ERROR_MODEL_LIBRARY = 3;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -437,7 +520,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorTypes()
    * @generated
    */
-  int ERROR_TYPES = 2;
+  int ERROR_TYPES = 4;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -501,7 +584,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorType()
    * @generated
    */
-  int ERROR_TYPE = 3;
+  int ERROR_TYPE = 5;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -583,7 +666,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeSet()
    * @generated
    */
-  int TYPE_SET = 4;
+  int TYPE_SET = 6;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -665,7 +748,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeToken()
    * @generated
    */
-  int TYPE_TOKEN = 5;
+  int TYPE_TOKEN = 7;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -720,7 +803,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeTransformationSet()
    * @generated
    */
-  int TYPE_TRANSFORMATION_SET = 6;
+  int TYPE_TRANSFORMATION_SET = 8;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -802,7 +885,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeTransformation()
    * @generated
    */
-  int TYPE_TRANSFORMATION = 7;
+  int TYPE_TRANSFORMATION = 9;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -875,7 +958,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeMappingSet()
    * @generated
    */
-  int TYPE_MAPPING_SET = 8;
+  int TYPE_MAPPING_SET = 10;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -957,7 +1040,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeMapping()
    * @generated
    */
-  int TYPE_MAPPING = 9;
+  int TYPE_MAPPING = 11;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1012,7 +1095,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorPropagation()
    * @generated
    */
-  int ERROR_PROPAGATION = 10;
+  int ERROR_PROPAGATION = 12;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1121,7 +1204,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getFeatureorPPReference()
    * @generated
    */
-  int FEATUREOR_PP_REFERENCE = 11;
+  int FEATUREOR_PP_REFERENCE = 13;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1176,7 +1259,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorFlow()
    * @generated
    */
-  int ERROR_FLOW = 12;
+  int ERROR_FLOW = 14;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1249,7 +1332,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorSource()
    * @generated
    */
-  int ERROR_SOURCE = 13;
+  int ERROR_SOURCE = 15;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1376,7 +1459,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorStateOrTypeSet()
    * @generated
    */
-  int ERROR_BEHAVIOR_STATE_OR_TYPE_SET = 14;
+  int ERROR_BEHAVIOR_STATE_OR_TYPE_SET = 16;
 
   /**
    * The number of structural features of the '<em>Error Behavior State Or Type Set</em>' class.
@@ -1395,7 +1478,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorSink()
    * @generated
    */
-  int ERROR_SINK = 15;
+  int ERROR_SINK = 17;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1486,7 +1569,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorPath()
    * @generated
    */
-  int ERROR_PATH = 16;
+  int ERROR_PATH = 18;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1613,7 +1696,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPoint()
    * @generated
    */
-  int PROPAGATION_POINT = 17;
+  int PROPAGATION_POINT = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1677,7 +1760,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPath()
    * @generated
    */
-  int PROPAGATION_PATH = 18;
+  int PROPAGATION_PATH = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1759,7 +1842,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedPropagationPoint()
    * @generated
    */
-  int QUALIFIED_PROPAGATION_POINT = 19;
+  int QUALIFIED_PROPAGATION_POINT = 21;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1823,7 +1906,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorStateMachine()
    * @generated
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE = 20;
+  int ERROR_BEHAVIOR_STATE_MACHINE = 22;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1941,7 +2024,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorEvent()
    * @generated
    */
-  int ERROR_BEHAVIOR_EVENT = 21;
+  int ERROR_BEHAVIOR_EVENT = 23;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2005,7 +2088,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorEvent()
    * @generated
    */
-  int ERROR_EVENT = 22;
+  int ERROR_EVENT = 24;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2087,7 +2170,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getRepairEvent()
    * @generated
    */
-  int REPAIR_EVENT = 23;
+  int REPAIR_EVENT = 25;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2160,7 +2243,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getRecoverEvent()
    * @generated
    */
-  int RECOVER_EVENT = 24;
+  int RECOVER_EVENT = 26;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2242,7 +2325,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorState()
    * @generated
    */
-  int ERROR_BEHAVIOR_STATE = 25;
+  int ERROR_BEHAVIOR_STATE = 27;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2324,7 +2407,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorTransition()
    * @generated
    */
-  int ERROR_BEHAVIOR_TRANSITION = 26;
+  int ERROR_BEHAVIOR_TRANSITION = 28;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2460,7 +2543,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTransitionBranch()
    * @generated
    */
-  int TRANSITION_BRANCH = 27;
+  int TRANSITION_BRANCH = 29;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2533,7 +2616,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getBranchValue()
    * @generated
    */
-  int BRANCH_VALUE = 28;
+  int BRANCH_VALUE = 30;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2597,7 +2680,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConnectionErrorSource()
    * @generated
    */
-  int CONNECTION_ERROR_SOURCE = 29;
+  int CONNECTION_ERROR_SOURCE = 31;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2715,7 +2798,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionExpression()
    * @generated
    */
-  int CONDITION_EXPRESSION = 30;
+  int CONDITION_EXPRESSION = 32;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2752,7 +2835,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrmoreExpression()
    * @generated
    */
-  int ORMORE_EXPRESSION = 31;
+  int ORMORE_EXPRESSION = 33;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2807,7 +2890,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrlessExpression()
    * @generated
    */
-  int ORLESS_EXPRESSION = 32;
+  int ORLESS_EXPRESSION = 34;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2862,7 +2945,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionElement()
    * @generated
    */
-  int CONDITION_ELEMENT = 33;
+  int CONDITION_ELEMENT = 35;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2926,7 +3009,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEventOrPropagation()
    * @generated
    */
-  int EVENT_OR_PROPAGATION = 34;
+  int EVENT_OR_PROPAGATION = 36;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2990,7 +3073,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOutgoingPropagationCondition()
    * @generated
    */
-  int OUTGOING_PROPAGATION_CONDITION = 35;
+  int OUTGOING_PROPAGATION_CONDITION = 37;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3117,7 +3200,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorDetection()
    * @generated
    */
-  int ERROR_DETECTION = 36;
+  int ERROR_DETECTION = 38;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3235,7 +3318,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorCodeValue()
    * @generated
    */
-  int ERROR_CODE_VALUE = 37;
+  int ERROR_CODE_VALUE = 39;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3299,7 +3382,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorStateToModeMapping()
    * @generated
    */
-  int ERROR_STATE_TO_MODE_MAPPING = 38;
+  int ERROR_STATE_TO_MODE_MAPPING = 40;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3363,7 +3446,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeState()
    * @generated
    */
-  int COMPOSITE_STATE = 39;
+  int COMPOSITE_STATE = 41;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3463,7 +3546,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorBehaviorState()
    * @generated
    */
-  int QUALIFIED_ERROR_BEHAVIOR_STATE = 40;
+  int QUALIFIED_ERROR_BEHAVIOR_STATE = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3527,7 +3610,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
    * @generated
    */
-  int SUBCOMPONENT_ELEMENT = 41;
+  int SUBCOMPONENT_ELEMENT = 43;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3573,7 +3656,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2Root()
    * @generated
    */
-  int EMV2_ROOT = 42;
+  int EMV2_ROOT = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3648,6 +3731,160 @@ public interface ErrorModelPackage extends EPackage
   int EMV2_ROOT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PropertyAssociationImpl <em>EMV2 Property Association</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PropertyAssociationImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2PropertyAssociation()
+   * @generated
+   */
+  int EMV2_PROPERTY_ASSOCIATION = 45;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_ELEMENT = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_COMMENT = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__PROPERTY = Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY;
+
+  /**
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO;
+
+  /**
+   * The feature id for the '<em><b>In Binding</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__IN_BINDING = Aadl2Package.PROPERTY_ASSOCIATION__IN_BINDING;
+
+  /**
+   * The feature id for the '<em><b>Append</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPEND = Aadl2Package.PROPERTY_ASSOCIATION__APPEND;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__CONSTANT = Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE;
+
+  /**
+   * The feature id for the '<em><b>EMV2 Property Associationth</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__EMV2_PROPERTY_ASSOCIATIONTH = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__PROPERTY = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__PROPERTY = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 6;
+
+  /**
+   * The number of structural features of the '<em>EMV2 Property Association</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PROPERTY_ASSOCIATION_FEATURE_COUNT = Aadl2Package.PROPERTY_ASSOCIATION_FEATURE_COUNT + 7;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl <em>Or Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3655,7 +3892,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
    * @generated
    */
-  int OR_EXPRESSION = 43;
+  int OR_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3701,7 +3938,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
    * @generated
    */
-  int AND_EXPRESSION = 44;
+  int AND_EXPRESSION = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3747,7 +3984,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAllExpression()
    * @generated
    */
-  int ALL_EXPRESSION = 45;
+  int ALL_EXPRESSION = 48;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4002,6 +4239,81 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getErrorModelSubclause_Properties();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path <em>EMV2 Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EMV2 Path</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
+   * @generated
+   */
+  EClass getEMV2Path();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getPaTarget <em>Pa Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pa Target</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getPaTarget()
+   * @see #getEMV2Path()
+   * @generated
+   */
+  EAttribute getEMV2Path_PaTarget();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getErrorType <em>Error Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Error Type</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getErrorType()
+   * @see #getEMV2Path()
+   * @generated
+   */
+  EReference getEMV2Path_ErrorType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getEmv2Target <em>Emv2 Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Emv2 Target</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getEmv2Target()
+   * @see #getEMV2Path()
+   * @generated
+   */
+  EReference getEMV2Path_Emv2Target();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement <em>EMV2 Path Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EMV2 Path Element</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
+   * @generated
+   */
+  EClass getEMV2PathElement();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getNamedElement <em>Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Named Element</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getNamedElement()
+   * @see #getEMV2PathElement()
+   * @generated
+   */
+  EReference getEMV2PathElement_NamedElement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getPath <em>Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Path</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getPath()
+   * @see #getEMV2PathElement()
+   * @generated
+   */
+  EReference getEMV2PathElement_Path();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary <em>Library</em>}'.
@@ -5755,6 +6067,93 @@ public interface ErrorModelPackage extends EPackage
   EReference getEMV2Root_Subclauses();
 
   /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation <em>EMV2 Property Association</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EMV2 Property Association</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
+   * @generated
+   */
+  EClass getEMV2PropertyAssociation();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getEMV2PropertyAssociationth <em>EMV2 Property Associationth</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>EMV2 Property Associationth</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getEMV2PropertyAssociationth()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_EMV2PropertyAssociationth();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getOwnedValue <em>Owned Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Value</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getOwnedValue()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_OwnedValue();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getAppliesTo <em>Applies To</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Applies To</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getAppliesTo()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_AppliesTo();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_Property();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getProperty()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_Property();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getOwnedValue <em>Owned Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Value</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getOwnedValue()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_OwnedValue();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getAppliesTo <em>Applies To</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Applies To</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation#getAppliesTo()
+   * @see #getEMV2PropertyAssociation()
+   * @generated
+   */
+  EReference getEMV2PropertyAssociation_AppliesTo();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.OrExpression <em>Or Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6004,6 +6403,66 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference ERROR_MODEL_SUBCLAUSE__PROPERTIES = eINSTANCE.getErrorModelSubclause_Properties();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathImpl <em>EMV2 Path</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2Path()
+     * @generated
+     */
+    EClass EMV2_PATH = eINSTANCE.getEMV2Path();
+
+    /**
+     * The meta object literal for the '<em><b>Pa Target</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMV2_PATH__PA_TARGET = eINSTANCE.getEMV2Path_PaTarget();
+
+    /**
+     * The meta object literal for the '<em><b>Error Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PATH__ERROR_TYPE = eINSTANCE.getEMV2Path_ErrorType();
+
+    /**
+     * The meta object literal for the '<em><b>Emv2 Target</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PATH__EMV2_TARGET = eINSTANCE.getEMV2Path_Emv2Target();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl <em>EMV2 Path Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2PathElement()
+     * @generated
+     */
+    EClass EMV2_PATH_ELEMENT = eINSTANCE.getEMV2PathElement();
+
+    /**
+     * The meta object literal for the '<em><b>Named Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PATH_ELEMENT__NAMED_ELEMENT = eINSTANCE.getEMV2PathElement_NamedElement();
+
+    /**
+     * The meta object literal for the '<em><b>Path</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PATH_ELEMENT__PATH = eINSTANCE.getEMV2PathElement_Path();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl <em>Library</em>}' class.
@@ -7392,6 +7851,72 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference EMV2_ROOT__SUBCLAUSES = eINSTANCE.getEMV2Root_Subclauses();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PropertyAssociationImpl <em>EMV2 Property Association</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PropertyAssociationImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2PropertyAssociation()
+     * @generated
+     */
+    EClass EMV2_PROPERTY_ASSOCIATION = eINSTANCE.getEMV2PropertyAssociation();
+
+    /**
+     * The meta object literal for the '<em><b>EMV2 Property Associationth</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__EMV2_PROPERTY_ASSOCIATIONTH = eINSTANCE.getEMV2PropertyAssociation_EMV2PropertyAssociationth();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Value</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = eINSTANCE.getEMV2PropertyAssociation_OwnedValue();
+
+    /**
+     * The meta object literal for the '<em><b>Applies To</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = eINSTANCE.getEMV2PropertyAssociation_AppliesTo();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__PROPERTY = eINSTANCE.getEMV2PropertyAssociation_Property();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__PROPERTY = eINSTANCE.getEMV2PropertyAssociation_Property();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Value</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE = eINSTANCE.getEMV2PropertyAssociation_OwnedValue();
+
+    /**
+     * The meta object literal for the '<em><b>Applies To</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PROPERTY_ASSOCIATION__APPLIES_TO = eINSTANCE.getEMV2PropertyAssociation_AppliesTo();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl <em>Or Expression</em>}' class.

@@ -32,6 +32,24 @@ public interface ErrorModelFactory extends EFactory
   ErrorModelSubclause createErrorModelSubclause();
 
   /**
+   * Returns a new object of class '<em>EMV2 Path</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EMV2 Path</em>'.
+   * @generated
+   */
+  EMV2Path createEMV2Path();
+
+  /**
+   * Returns a new object of class '<em>EMV2 Path Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EMV2 Path Element</em>'.
+   * @generated
+   */
+  EMV2PathElement createEMV2PathElement();
+
+  /**
    * Returns a new object of class '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -408,6 +426,15 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   EMV2Root createEMV2Root();
+
+  /**
+   * Returns a new object of class '<em>EMV2 Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EMV2 Property Association</em>'.
+   * @generated
+   */
+  EMV2PropertyAssociation createEMV2PropertyAssociation();
 
   /**
    * Returns a new object of class '<em>Or Expression</em>'.

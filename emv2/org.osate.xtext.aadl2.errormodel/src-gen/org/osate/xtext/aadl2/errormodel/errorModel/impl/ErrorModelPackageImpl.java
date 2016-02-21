@@ -19,6 +19,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -75,6 +78,20 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass errorModelSubclauseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass emv2PathEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass emv2PathElementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -375,6 +392,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass emv2PropertyAssociationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass orExpressionEClass = null;
 
   /**
@@ -645,6 +669,76 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EReference getErrorModelSubclause_Properties()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(17);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEMV2Path()
+  {
+    return emv2PathEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEMV2Path_PaTarget()
+  {
+    return (EAttribute)emv2PathEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2Path_ErrorType()
+  {
+    return (EReference)emv2PathEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2Path_Emv2Target()
+  {
+    return (EReference)emv2PathEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEMV2PathElement()
+  {
+    return emv2PathElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PathElement_NamedElement()
+  {
+    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PathElement_Path()
+  {
+    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2282,6 +2376,86 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEMV2PropertyAssociation()
+  {
+    return emv2PropertyAssociationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_EMV2PropertyAssociationth()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_OwnedValue()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_AppliesTo()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_Property()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_Property()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_OwnedValue()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PropertyAssociation_AppliesTo()
+  {
+    return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(-1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOrExpression()
   {
     return orExpressionEClass;
@@ -2396,6 +2570,15 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__POINTS);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PATHS);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPERTIES);
+
+    emv2PathEClass = createEClass(EMV2_PATH);
+    createEAttribute(emv2PathEClass, EMV2_PATH__PA_TARGET);
+    createEReference(emv2PathEClass, EMV2_PATH__ERROR_TYPE);
+    createEReference(emv2PathEClass, EMV2_PATH__EMV2_TARGET);
+
+    emv2PathElementEClass = createEClass(EMV2_PATH_ELEMENT);
+    createEReference(emv2PathElementEClass, EMV2_PATH_ELEMENT__NAMED_ELEMENT);
+    createEReference(emv2PathElementEClass, EMV2_PATH_ELEMENT__PATH);
 
     errorModelLibraryEClass = createEClass(ERROR_MODEL_LIBRARY);
     createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__USE_TYPES);
@@ -2602,6 +2785,15 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(emv2RootEClass, EMV2_ROOT__LIBRARY);
     createEReference(emv2RootEClass, EMV2_ROOT__SUBCLAUSES);
 
+    emv2PropertyAssociationEClass = createEClass(EMV2_PROPERTY_ASSOCIATION);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__EMV2_PROPERTY_ASSOCIATIONTH);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__APPLIES_TO);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__PROPERTY);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__PROPERTY);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__OWNED_VALUE);
+    createEReference(emv2PropertyAssociationEClass, EMV2_PROPERTY_ASSOCIATION__APPLIES_TO);
+
     orExpressionEClass = createEClass(OR_EXPRESSION);
     createEReference(orExpressionEClass, OR_EXPRESSION__OPERANDS);
 
@@ -2695,6 +2887,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     qualifiedErrorBehaviorStateEClass.getESuperTypes().add(theAadl2Package.getElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
     emv2RootEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+    emv2PropertyAssociationEClass.getESuperTypes().add(theAadl2Package.getPropertyAssociation());
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     andExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     allExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2719,6 +2912,15 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorModelSubclause_Points(), this.getPropagationPoint(), null, "points", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_Paths(), this.getPropagationPath(), null, "paths", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_Properties(), theAadl2Package.getPropertyAssociation(), null, "properties", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(emv2PathEClass, EMV2Path.class, "EMV2Path", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEMV2Path_PaTarget(), theEcorePackage.getEString(), "paTarget", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2Path_ErrorType(), this.getErrorTypes(), null, "errorType", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2Path_Emv2Target(), this.getEMV2PathElement(), null, "emv2Target", null, 0, -1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(emv2PathElementEClass, EMV2PathElement.class, "EMV2PathElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEMV2PathElement_NamedElement(), theAadl2Package.getNamedElement(), null, "namedElement", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2PathElement_Path(), this.getEMV2PathElement(), null, "path", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorModelLibraryEClass, ErrorModelLibrary.class, "ErrorModelLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorModelLibrary_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2924,6 +3126,15 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(emv2RootEClass, EMV2Root.class, "EMV2Root", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMV2Root_Library(), this.getErrorModelLibrary(), null, "library", null, 0, 1, EMV2Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2Root_Subclauses(), this.getErrorModelSubclause(), null, "subclauses", null, 0, -1, EMV2Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(emv2PropertyAssociationEClass, EMV2PropertyAssociation.class, "EMV2PropertyAssociation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEMV2PropertyAssociation_EMV2PropertyAssociationth(), this.getEMV2Path(), null, "EMV2PropertyAssociationth", null, 0, 1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_OwnedValue(), theAadl2Package.getModalPropertyValue(), null, "ownedValue", null, 1, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_AppliesTo(), theAadl2Package.getContainedNamedElement(), null, "appliesTo", null, 0, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_Property(), theAadl2Package.getProperty(), null, "property", null, 1, 1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_OwnedValue(), theAadl2Package.getModalPropertyValue(), null, "ownedValue", null, 1, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+    initEReference(getEMV2PropertyAssociation_AppliesTo(), theAadl2Package.getContainedNamedElement(), null, "appliesTo", null, 0, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
     initEClass(orExpressionEClass, OrExpression.class, "OrExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOrExpression_Operands(), this.getConditionExpression(), null, "operands", null, 0, -1, OrExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
