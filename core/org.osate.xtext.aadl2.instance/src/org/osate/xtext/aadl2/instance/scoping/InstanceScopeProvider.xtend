@@ -175,4 +175,33 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			descriptions
 		}
 	}
+	
+	def IScope scope_FlowSpecificationInstance_flowSpecification(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val typeDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentType)
+		val types = typeDescriptions.map[EObjectOrProxy.resolve(context) as ComponentType]
+		new SimpleScope(types.map[type |
+			val pkgName = type.getContainerOfType(AadlPackage).name
+			type.ownedFlowSpecifications.map[flow |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[type.name, flow.name])
+				EObjectDescription.create(qualifiedName, flow)
+			]
+		].flatten)
+	}
+	
+	def IScope scope_FlowSpecificationInstance_source(ComponentInstance context, EReference reference) {
+		val features = context.featureInstances.map[
+			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
+			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
+		]
+		new SimpleScope(features.flatten)
+	}
+	
+	def IScope scope_FlowSpecificationInstance_destination(ComponentInstance context, EReference reference) {
+		val features = context.featureInstances.map[
+			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
+			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
+		]
+		new SimpleScope(features.flatten)
+	}
 }
