@@ -7,8 +7,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.osate.aadl2.Aadl2Package;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;

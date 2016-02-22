@@ -3,10 +3,10 @@
  */
 package org.osate.xtext.aadl2.errormodel.parser.antlr;
 
+import com.google.inject.Inject;
+
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
-
-import com.google.inject.Inject;
 
 public class ErrorModelParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
 	

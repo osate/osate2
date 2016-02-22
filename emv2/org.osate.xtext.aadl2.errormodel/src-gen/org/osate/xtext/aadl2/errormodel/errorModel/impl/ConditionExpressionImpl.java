@@ -3,7 +3,9 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.osate.aadl2.impl.ElementImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 

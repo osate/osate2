@@ -3,12 +3,17 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.osate.aadl2.Subcomponent;
+
 import org.osate.aadl2.impl.ElementImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
