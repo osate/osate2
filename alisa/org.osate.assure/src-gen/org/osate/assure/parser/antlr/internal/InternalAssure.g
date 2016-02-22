@@ -1785,15 +1785,37 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_23='weight' 
+))?(	otherlv_23='qualitycategoryrequirementscount' 
     {
-    	newLeafNode(otherlv_23, grammarAccess.getMetricsAccess().getWeightKeyword_12_0());
+    	newLeafNode(otherlv_23, grammarAccess.getMetricsAccess().getQualitycategoryrequirementscountKeyword_12_0());
     }
 (
 (
-		lv_weight_24_0=RULE_INT
+		lv_qualityCategoryRequirementsCount_24_0=RULE_INT
 		{
-			newLeafNode(lv_weight_24_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_12_1_0()); 
+			newLeafNode(lv_qualityCategoryRequirementsCount_24_0, grammarAccess.getMetricsAccess().getQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetricsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"qualityCategoryRequirementsCount",
+        		lv_qualityCategoryRequirementsCount_24_0, 
+        		"INT");
+	    }
+
+)
+))?(	otherlv_25='weight' 
+    {
+    	newLeafNode(otherlv_25, grammarAccess.getMetricsAccess().getWeightKeyword_13_0());
+    }
+(
+(
+		lv_weight_26_0=RULE_INT
+		{
+			newLeafNode(lv_weight_26_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_13_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1802,28 +1824,28 @@ ruleMetrics returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"weight",
-        		lv_weight_24_0, 
+        		lv_weight_26_0, 
         		"INT");
 	    }
 
 )
-))?(	otherlv_25='time' 
+))?(	otherlv_27='time' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getMetricsAccess().getTimeKeyword_13_0());
+    	newLeafNode(otherlv_27, grammarAccess.getMetricsAccess().getTimeKeyword_14_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_13_1_0()); 
+	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_14_1_0()); 
 	    }
-		lv_executionTime_26_0=ruleAInt		{
+		lv_executionTime_28_0=ruleAInt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMetricsRule());
 	        }
        		set(
        			$current, 
        			"executionTime",
-        		lv_executionTime_26_0, 
+        		lv_executionTime_28_0, 
         		"AInt");
 	        afterParserOrEnumRuleCall();
 	    }

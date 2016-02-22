@@ -148,6 +148,7 @@ Metrics returns Metrics:
 	('validfailcount'  validationfailCount=INT)?
 	('featurescount'  featuresCount=INT)?
 	('featuresrequirementscount'  featuresRequirementsCount=INT)?
+	('qualitycategoryrequirementscount'  qualityCategoryRequirementsCount=INT)?
 	('weight' weight = INT)?
 	('time' executionTime = AInt)?
 ;

@@ -44,6 +44,7 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getValidationfailCount <em>Validationfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesCount <em>Features Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -271,6 +272,26 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int featuresRequirementsCount = FEATURES_REQUIREMENTS_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getQualityCategoryRequirementsCount() <em>Quality Category Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualityCategoryRequirementsCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getQualityCategoryRequirementsCount() <em>Quality Category Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualityCategoryRequirementsCount()
+   * @generated
+   * @ordered
+   */
+  protected int qualityCategoryRequirementsCount = QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -591,6 +612,29 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getQualityCategoryRequirementsCount()
+  {
+    return qualityCategoryRequirementsCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setQualityCategoryRequirementsCount(int newQualityCategoryRequirementsCount)
+  {
+    int oldQualityCategoryRequirementsCount = qualityCategoryRequirementsCount;
+    qualityCategoryRequirementsCount = newQualityCategoryRequirementsCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT, oldQualityCategoryRequirementsCount, qualityCategoryRequirementsCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getWeight()
   {
     return weight;
@@ -664,6 +708,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getFeaturesCount();
       case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
         return getFeaturesRequirementsCount();
+      case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
+        return getQualityCategoryRequirementsCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -714,6 +760,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
         setFeaturesRequirementsCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
+        setQualityCategoryRequirementsCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
@@ -768,6 +817,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
         setFeaturesRequirementsCount(FEATURES_REQUIREMENTS_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
+        setQualityCategoryRequirementsCount(QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
@@ -810,6 +862,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return featuresCount != FEATURES_COUNT_EDEFAULT;
       case AssurePackage.METRICS__FEATURES_REQUIREMENTS_COUNT:
         return featuresRequirementsCount != FEATURES_REQUIREMENTS_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
+        return qualityCategoryRequirementsCount != QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -851,6 +905,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(featuresCount);
     result.append(", featuresRequirementsCount: ");
     result.append(featuresRequirementsCount);
+    result.append(", qualityCategoryRequirementsCount: ");
+    result.append(qualityCategoryRequirementsCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(", executionTime: ");
