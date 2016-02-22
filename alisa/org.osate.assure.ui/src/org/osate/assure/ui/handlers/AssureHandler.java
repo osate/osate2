@@ -23,8 +23,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.IAssureProcessor;
+import org.osate.assure.ui.views.AssureProgressView;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
 
@@ -100,6 +104,10 @@ public class AssureHandler extends AlisaHandler {
 		recomputeAllCounts(rootCaseResult);
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
+
+		// Opens Assure Progress View
+		drawProofs(rootCaseResult);
+
 		try {
 			assureProcessor.processCase(rootCaseResult, monitor);
 		} catch (Exception e) {
@@ -115,4 +123,25 @@ public class AssureHandler extends AlisaHandler {
 		return Status.OK_STATUS;
 	}
 
+	private void drawProofs(final AssuranceCaseResult ac) {
+		final IWorkbenchPage page = getWindow().getActivePage();
+
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				displayView(ac, page);
+			}
+		});
+	}
+
+	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
+		try {
+			AssureProgressView view = (AssureProgressView) page.showView(AssureProgressView.ID);
+			view.setProofs(ac);
+			view.setFocus();
+			assureProcessor.setProgressTreeViewer(view.getTreeViewer());
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
+	}
 }

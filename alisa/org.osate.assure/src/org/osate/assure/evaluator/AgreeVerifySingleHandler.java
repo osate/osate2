@@ -33,6 +33,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.util.Pair;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
@@ -43,7 +45,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.alisa.common.common.CommonFactory;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.annexsupport.AnnexUtil;
@@ -98,6 +99,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 	private AnalysisResult jobResult;
 	private VerificationResult verificationResult;
+	private TreeViewer progressTreeViewer;
 
 	private String EMPTY_COMPOSITE_ANALYSIS_NAME = "";
 
@@ -112,8 +114,10 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 	}
 
-	public Object executeSystemInstance(SystemInstance si) {
+	public Object executeSystemInstance(ComponentInstance si, TreeViewer progressTreeViewer) {
 		// window = HandlerUtil.getActiveWorkbenchWindow(event);
+
+		this.progressTreeViewer = progressTreeViewer;
 
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			// private IHandlerActivation terminateActivation;
@@ -132,7 +136,17 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		return null;
 	}
 
-	private IStatus runJobPrivate(SystemInstance si, IProgressMonitor monitor) {
+	private void updateProgress(VerificationResult result) {
+		if (progressTreeViewer != null) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					progressTreeViewer.update(result, null);
+				}
+			});
+		}
+	}
+
+	private IStatus runJobPrivate(ComponentInstance si, IProgressMonitor monitor) {
 		// disableRerunHandler();
 
 		// handlerService = (IHandlerService) getWindow().getService(IHandlerService.class);
@@ -146,7 +160,8 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 			// AnalysisResult result;
 			CompositeAnalysisResult wrapper = new CompositeAnalysisResult(EMPTY_COMPOSITE_ANALYSIS_NAME);
 
-			ComponentImplementation ci = si.getComponentImplementation();
+			// ComponentImplementation ci = si.getComponentImplementation();
+			ComponentImplementation ci = AgreeUtils.getInstanceImplementation(si);
 
 			ComponentType sysType = AgreeUtils.getInstanceType(si);
 			EList<AnnexSubclause> annexSubClauses = AnnexUtil.getAllAnnexSubclauses(sysType,
@@ -322,6 +337,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		}
 
 		verificationResult.eResource().save(null);
+		updateProgress(verificationResult);
 	}
 
 	private AnalysisResult buildAnalysisResult(String name, ComponentInstance ci) {
