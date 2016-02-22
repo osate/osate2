@@ -161,6 +161,10 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		scope_Requirement_refinesReference(context, reference)
 	}
 
+	def scope_Requirement_inheritsReference(Requirement context, EReference reference) {
+		scope_Requirement_refinesReference(context, reference)
+	}
+
 	def scope_Requirement_exception(Requirement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
