@@ -132,11 +132,15 @@ OpUnary:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | APropertyReference | AFeatureCall
+	ALiteral | AVariableReference | APropertyReference | AFunctionCall
 	| AParenthesizedExpression;
 
-AFeatureCall returns aadl2::PropertyExpression:
-	{AFeatureCall} feature=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+AFunctionCall returns aadl2::PropertyExpression:
+	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+;
+
+AThis returns aadl2::PropertyExpression:
+	{AThis} 'this'
 ;
 
 ALiteral returns aadl2::PropertyExpression:
@@ -144,7 +148,7 @@ ALiteral returns aadl2::PropertyExpression:
 	ABooleanLiteral |
 	ARealTerm | AIntegerTerm |  
 	ANullLiteral |
-	StringTerm 
+	StringTerm | AThis
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:

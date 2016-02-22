@@ -19,6 +19,9 @@
  */
 package org.osate.alisa.common.validation
 
+import org.eclipse.xtext.validation.Check
+import org.osate.alisa.common.common.CommonPackage
+import org.osate.alisa.common.common.AFunctionCall
 
 //import org.eclipse.xtext.validation.Check
 
@@ -28,15 +31,16 @@ package org.osate.alisa.common.validation
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CommonValidator extends AbstractCommonValidator {
+  public static val UNSUPPORTED_FUNCTION = 'UnSupportedFunction'
+  
+  public static val SupportedFunctions = #["max", "min", "prev","abs"]
 
-//  public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					MyDslPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	@Check
+	def checkAFeatureCall(AFunctionCall call) {
+		if (!SupportedFunctions.contains(call.function)) {
+			warning('Unsupported function '+call.function, 
+					CommonPackage.Literals.AFUNCTION_CALL__FUNCTION,
+					UNSUPPORTED_FUNCTION)
+		}
+	}
 }

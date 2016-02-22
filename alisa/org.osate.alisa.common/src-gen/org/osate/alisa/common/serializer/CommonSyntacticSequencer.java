@@ -77,10 +77,11 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) 'this' (rule start)
 	 *     (rule start) (ambiguity) '{' '}' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
-	 *     (rule start) (ambiguity) feature=ID
 	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
@@ -102,10 +103,11 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) 'this' ')' (rule start)
 	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
-	 *     (rule start) (ambiguity) feature=ID
 	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString

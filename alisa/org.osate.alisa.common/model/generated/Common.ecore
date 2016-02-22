@@ -72,12 +72,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AFeatureCall" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AFunctionCall" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="function" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functionCallArguments"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AThis" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="ASetLiteral" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
