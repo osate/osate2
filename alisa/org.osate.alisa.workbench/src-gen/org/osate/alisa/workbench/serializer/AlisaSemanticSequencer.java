@@ -31,6 +31,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AFeatureCall;
 import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
@@ -93,6 +94,9 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+				return; 
+			case CommonPackage.AFEATURE_CALL:
+				sequence_AFeatureCall(context, (AFeatureCall) semanticObject); 
 				return; 
 			case CommonPackage.ALIST_TERM:
 				sequence_AListTerm(context, (AListTerm) semanticObject); 

@@ -935,13 +935,23 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AFeatureCall | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
 	
 	public ParserRule getAPrimaryExpressionRule() {
 		return getAPrimaryExpressionAccess().getRule();
+	}
+
+	//AFeatureCall returns aadl2::PropertyExpression:
+	//	{AFeatureCall} feature=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+	public CommonGrammarAccess.AFeatureCallElements getAFeatureCallAccess() {
+		return gaCommon.getAFeatureCallAccess();
+	}
+	
+	public ParserRule getAFeatureCallRule() {
+		return getAFeatureCallAccess().getRule();
 	}
 
 	//ALiteral returns aadl2::PropertyExpression:

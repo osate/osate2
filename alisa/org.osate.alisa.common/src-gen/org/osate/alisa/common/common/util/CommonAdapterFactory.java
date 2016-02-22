@@ -166,6 +166,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAUnaryOperationAdapter();
       }
       @Override
+      public Adapter caseAFeatureCall(AFeatureCall object)
+      {
+        return createAFeatureCallAdapter();
+      }
+      @Override
       public Adapter caseASetLiteral(ASetLiteral object)
       {
         return createASetLiteralAdapter();
@@ -433,6 +438,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAUnaryOperationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AFeatureCall <em>AFeature Call</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.AFeatureCall
+   * @generated
+   */
+  public Adapter createAFeatureCallAdapter()
   {
     return null;
   }

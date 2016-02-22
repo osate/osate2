@@ -132,8 +132,12 @@ OpUnary:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | APropertyReference | 
-	AParenthesizedExpression;
+	ALiteral | AVariableReference | APropertyReference | AFeatureCall
+	| AParenthesizedExpression;
+
+AFeatureCall returns aadl2::PropertyExpression:
+	{AFeatureCall} feature=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+;
 
 ALiteral returns aadl2::PropertyExpression:
 	ASetTerm | AListTerm |

@@ -28,6 +28,7 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AExpression;
+import org.osate.alisa.common.common.AFeatureCall;
 import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
@@ -160,6 +161,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass aUnaryOperationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aFeatureCallEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -680,6 +688,36 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAFeatureCall()
+  {
+    return aFeatureCallEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAFeatureCall_Feature()
+  {
+    return (EAttribute)aFeatureCallEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAFeatureCall_FunctionCallArguments()
+  {
+    return (EReference)aFeatureCallEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getASetLiteral()
   {
     return aSetLiteralEClass;
@@ -822,6 +860,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__FEATURE);
     createEReference(aUnaryOperationEClass, AUNARY_OPERATION__OPERAND);
 
+    aFeatureCallEClass = createEClass(AFEATURE_CALL);
+    createEAttribute(aFeatureCallEClass, AFEATURE_CALL__FEATURE);
+    createEReference(aFeatureCallEClass, AFEATURE_CALL__FUNCTION_CALL_ARGUMENTS);
+
     aSetLiteralEClass = createEClass(ASET_LITERAL);
     createEReference(aSetLiteralEClass, ASET_LITERAL__ELEMENTS);
 
@@ -874,6 +916,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aVariableReferenceEClass.getESuperTypes().add(this.getAExpression());
     aBinaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aFeatureCallEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
@@ -935,6 +978,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(aUnaryOperationEClass, AUnaryOperation.class, "AUnaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAUnaryOperation_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAUnaryOperation_Operand(), theAadl2Package.getPropertyExpression(), null, "operand", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aFeatureCallEClass, AFeatureCall.class, "AFeatureCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAFeatureCall_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, AFeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAFeatureCall_FunctionCallArguments(), theAadl2Package.getPropertyExpression(), null, "functionCallArguments", null, 0, -1, AFeatureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aSetLiteralEClass, ASetLiteral.class, "ASetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getASetLiteral_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, ASetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

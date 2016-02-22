@@ -210,6 +210,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0(), "rule__AMultiplicativeExpression__Group_1_0__0");
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0_0(), "rule__AMultiplicativeExpression__Group_1_0_0__0");
 					put(grammarAccess.getAUnaryOperationAccess().getGroup_0(), "rule__AUnaryOperation__Group_0__0");
+					put(grammarAccess.getAFeatureCallAccess().getGroup(), "rule__AFeatureCall__Group__0");
+					put(grammarAccess.getAFeatureCallAccess().getGroup_4(), "rule__AFeatureCall__Group_4__0");
 					put(grammarAccess.getAIntegerTermAccess().getGroup(), "rule__AIntegerTerm__Group__0");
 					put(grammarAccess.getARealTermAccess().getGroup(), "rule__ARealTerm__Group__0");
 					put(grammarAccess.getANumericRangeTermAccess().getGroup(), "rule__ANumericRangeTerm__Group__0");
@@ -353,6 +355,9 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAssignment_1_1(), "rule__AMultiplicativeExpression__RightOperandAssignment_1_1");
 					put(grammarAccess.getAUnaryOperationAccess().getFeatureAssignment_0_1(), "rule__AUnaryOperation__FeatureAssignment_0_1");
 					put(grammarAccess.getAUnaryOperationAccess().getOperandAssignment_0_2(), "rule__AUnaryOperation__OperandAssignment_0_2");
+					put(grammarAccess.getAFeatureCallAccess().getFeatureAssignment_1(), "rule__AFeatureCall__FeatureAssignment_1");
+					put(grammarAccess.getAFeatureCallAccess().getFunctionCallArgumentsAssignment_3(), "rule__AFeatureCall__FunctionCallArgumentsAssignment_3");
+					put(grammarAccess.getAFeatureCallAccess().getFunctionCallArgumentsAssignment_4_1(), "rule__AFeatureCall__FunctionCallArgumentsAssignment_4_1");
 					put(grammarAccess.getAIntegerTermAccess().getValueAssignment_0(), "rule__AIntegerTerm__ValueAssignment_0");
 					put(grammarAccess.getAIntegerTermAccess().getUnitAssignment_1(), "rule__AIntegerTerm__UnitAssignment_1");
 					put(grammarAccess.getARealTermAccess().getValueAssignment_0(), "rule__ARealTerm__ValueAssignment_0");

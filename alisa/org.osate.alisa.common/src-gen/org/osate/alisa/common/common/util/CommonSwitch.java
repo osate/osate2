@@ -207,6 +207,15 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.AFEATURE_CALL:
+      {
+        AFeatureCall aFeatureCall = (AFeatureCall)theEObject;
+        T result = caseAFeatureCall(aFeatureCall);
+        if (result == null) result = casePropertyExpression(aFeatureCall);
+        if (result == null) result = caseElement(aFeatureCall);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.ASET_LITERAL:
       {
         ASetLiteral aSetLiteral = (ASetLiteral)theEObject;
@@ -474,6 +483,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAUnaryOperation(AUnaryOperation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AFeature Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AFeature Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAFeatureCall(AFeatureCall object)
   {
     return null;
   }

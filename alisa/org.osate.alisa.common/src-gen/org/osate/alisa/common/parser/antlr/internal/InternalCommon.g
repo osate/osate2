@@ -1695,12 +1695,115 @@ ruleAPrimaryExpression returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAFeatureCallParserRuleCall_3()); 
     }
-    this_AParenthesizedExpression_3=ruleAParenthesizedExpression
+    this_AFeatureCall_3=ruleAFeatureCall
     { 
-        $current = $this_AParenthesizedExpression_3.current; 
+        $current = $this_AFeatureCall_3.current; 
         afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_4()); 
+    }
+    this_AParenthesizedExpression_4=ruleAParenthesizedExpression
+    { 
+        $current = $this_AParenthesizedExpression_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleAFeatureCall
+entryRuleAFeatureCall returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAFeatureCallRule()); }
+	 iv_ruleAFeatureCall=ruleAFeatureCall 
+	 { $current=$iv_ruleAFeatureCall.current; } 
+	 EOF 
+;
+
+// Rule AFeatureCall
+ruleAFeatureCall returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getAFeatureCallAccess().getAFeatureCallAction_0(),
+            $current);
+    }
+)(
+(
+		lv_feature_1_0=RULE_ID
+		{
+			newLeafNode(lv_feature_1_0, grammarAccess.getAFeatureCallAccess().getFeatureIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAFeatureCallRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"feature",
+        		lv_feature_1_0, 
+        		"ID");
+	    }
+
+)
+)	otherlv_2='(' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getAFeatureCallAccess().getLeftParenthesisKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAFeatureCallAccess().getFunctionCallArgumentsAExpressionParserRuleCall_3_0()); 
+	    }
+		lv_functionCallArguments_3_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAFeatureCallRule());
+	        }
+       		add(
+       			$current, 
+       			"functionCallArguments",
+        		lv_functionCallArguments_3_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_4=',' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getAFeatureCallAccess().getCommaKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAFeatureCallAccess().getFunctionCallArgumentsAExpressionParserRuleCall_4_1_0()); 
+	    }
+		lv_functionCallArguments_5_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAFeatureCallRule());
+	        }
+       		add(
+       			$current, 
+       			"functionCallArguments",
+        		lv_functionCallArguments_5_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_6=')' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getAFeatureCallAccess().getRightParenthesisKeyword_5());
     }
 )
 ;
