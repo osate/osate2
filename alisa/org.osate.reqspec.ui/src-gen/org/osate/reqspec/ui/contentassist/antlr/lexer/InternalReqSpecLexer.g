@@ -34,6 +34,8 @@ Requirements : 'requirements';
 
 Connections : 'connections';
 
+Consistency : 'consistency';
+
 Description : 'description';
 
 Development : 'development';
@@ -77,6 +79,8 @@ Category : 'category';
 Document : 'document';
 
 Informal : 'informal';
+
+Inherits : 'inherits';
 
 Compute : 'compute';
 

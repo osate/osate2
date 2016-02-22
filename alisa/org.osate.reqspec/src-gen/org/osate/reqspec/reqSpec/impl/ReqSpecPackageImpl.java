@@ -1015,7 +1015,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_DevelopmentStakeholder()
+  public EReference getRequirement_InheritsReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(7);
   }
@@ -1025,7 +1025,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_RequirementReference()
+  public EReference getRequirement_DevelopmentStakeholder()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(8);
   }
@@ -1035,9 +1035,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getRequirement_RequirementReference()
+  {
+    return (EReference)requirementEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getRequirement_ComponentCategory()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(9);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -1047,7 +1057,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EAttribute getRequirement_Connections()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(10);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -1432,6 +1442,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(requirementEClass, REQUIREMENT__EXCEPTION_TEXT);
     createEReference(requirementEClass, REQUIREMENT__REFINES_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__DECOMPOSES_REFERENCE);
+    createEReference(requirementEClass, REQUIREMENT__INHERITS_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__DEVELOPMENT_STAKEHOLDER);
     createEReference(requirementEClass, REQUIREMENT__REQUIREMENT_REFERENCE);
     createEAttribute(requirementEClass, REQUIREMENT__COMPONENT_CATEGORY);
@@ -1612,6 +1623,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getRequirement_ExceptionText(), theEcorePackage.getEString(), "exceptionText", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RefinesReference(), this.getRequirement(), null, "refinesReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_DecomposesReference(), this.getRequirement(), null, "decomposesReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirement_InheritsReference(), this.getRequirement(), null, "inheritsReference", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_DevelopmentStakeholder(), theOrganizationPackage.getStakeholder(), null, "developmentStakeholder", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RequirementReference(), this.getRequirement(), null, "requirementReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1659,6 +1671,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     addEEnumLiteral(reqKindEEnum, ReqKind.GUARANTEE);
     addEEnumLiteral(reqKindEEnum, ReqKind.CONSTRAINT);
     addEEnumLiteral(reqKindEEnum, ReqKind.EXCEPTION);
+    addEEnumLiteral(reqKindEEnum, ReqKind.CONSISTENCY);
 
     // Create resource
     createResource(eNS_URI);

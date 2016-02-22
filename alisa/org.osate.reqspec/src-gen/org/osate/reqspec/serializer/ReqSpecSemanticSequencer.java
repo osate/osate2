@@ -277,6 +277,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         inheritsReference=[Requirement|QualifiedName]? 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
@@ -502,6 +503,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         inheritsReference=[Requirement|QualifiedName]? 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 

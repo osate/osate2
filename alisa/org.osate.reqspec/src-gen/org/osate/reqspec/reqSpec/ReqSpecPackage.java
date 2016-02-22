@@ -1144,13 +1144,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
+   * The feature id for the '<em><b>Inherits Reference</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__INHERITS_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+
+  /**
    * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Requirement Reference</b></em>' reference list.
@@ -1159,7 +1168,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Component Category</b></em>' attribute list.
@@ -1168,7 +1177,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The feature id for the '<em><b>Connections</b></em>' attribute.
@@ -1177,7 +1186,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
+  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1186,7 +1195,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 12;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
@@ -2495,6 +2504,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_DecomposesReference();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Inherits Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getInheritsReference()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_InheritsReference();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3444,6 +3464,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__DECOMPOSES_REFERENCE = eINSTANCE.getRequirement_DecomposesReference();
+
+    /**
+     * The meta object literal for the '<em><b>Inherits Reference</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__INHERITS_REFERENCE = eINSTANCE.getRequirement_InheritsReference();
 
     /**
      * The meta object literal for the '<em><b>Development Stakeholder</b></em>' reference list feature.
