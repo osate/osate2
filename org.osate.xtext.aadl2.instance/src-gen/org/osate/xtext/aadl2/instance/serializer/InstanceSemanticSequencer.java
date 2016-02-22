@@ -17,6 +17,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -42,6 +43,9 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				return; 
 			case InstancePackage.FEATURE_INSTANCE:
 				sequence_FeatureInstance(context, (FeatureInstance) semanticObject); 
+				return; 
+			case InstancePackage.FLOW_SPECIFICATION_INSTANCE:
+				sequence_FlowSpecificationInstance(context, (FlowSpecificationInstance) semanticObject); 
 				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
@@ -122,6 +126,20 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=ID 
+	 *         source=[FeatureInstance|SIMPLEINSTANCEREF]? 
+	 *         destination=[FeatureInstance|SIMPLEINSTANCEREF]? 
+	 *         flowSpecification=[FlowSpecification|FEATREF]
+	 *     )
+	 */
+	protected void sequence_FlowSpecificationInstance(EObject context, FlowSpecificationInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         category=ComponentCategory 
 	 *         name=ID 
 	 *         componentImplementation=[ComponentImplementation|IMPLREF] 
@@ -129,6 +147,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             featureInstance+=FeatureInstance | 
 	 *             componentInstance+=ComponentInstance | 
 	 *             connectionInstance+=ConnectionInstance | 
+	 *             flowSpecification+=FlowSpecificationInstance | 
 	 *             systemOperationMode+=SystemOperationMode
 	 *         )*
 	 *     )

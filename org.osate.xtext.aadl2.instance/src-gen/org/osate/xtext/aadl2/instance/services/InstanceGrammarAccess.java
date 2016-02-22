@@ -36,19 +36,21 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cComponentInstanceComponentInstanceParserRuleCall_5_1_0 = (RuleCall)cComponentInstanceAssignment_5_1.eContents().get(0);
 		private final Assignment cConnectionInstanceAssignment_5_2 = (Assignment)cAlternatives_5.eContents().get(2);
 		private final RuleCall cConnectionInstanceConnectionInstanceParserRuleCall_5_2_0 = (RuleCall)cConnectionInstanceAssignment_5_2.eContents().get(0);
-		private final Assignment cSystemOperationModeAssignment_5_3 = (Assignment)cAlternatives_5.eContents().get(3);
-		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_3_0 = (RuleCall)cSystemOperationModeAssignment_5_3.eContents().get(0);
+		private final Assignment cFlowSpecificationAssignment_5_3 = (Assignment)cAlternatives_5.eContents().get(3);
+		private final RuleCall cFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0 = (RuleCall)cFlowSpecificationAssignment_5_3.eContents().get(0);
+		private final Assignment cSystemOperationModeAssignment_5_4 = (Assignment)cAlternatives_5.eContents().get(4);
+		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_4_0 = (RuleCall)cSystemOperationModeAssignment_5_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SystemInstance returns instance::SystemInstance:
 		//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//	systemOperationMode+=SystemOperationMode)* "}";
+		//	flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}";
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//systemOperationMode+=SystemOperationMode)* "}"
+		//flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -79,7 +81,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//systemOperationMode+=SystemOperationMode)*
+		//flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)*
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//featureInstance+=FeatureInstance
@@ -100,11 +102,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectionInstance
 		public RuleCall getConnectionInstanceConnectionInstanceParserRuleCall_5_2_0() { return cConnectionInstanceConnectionInstanceParserRuleCall_5_2_0; }
 
+		//flowSpecification+=FlowSpecificationInstance
+		public Assignment getFlowSpecificationAssignment_5_3() { return cFlowSpecificationAssignment_5_3; }
+
+		//FlowSpecificationInstance
+		public RuleCall getFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0() { return cFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0; }
+
 		//systemOperationMode+=SystemOperationMode
-		public Assignment getSystemOperationModeAssignment_5_3() { return cSystemOperationModeAssignment_5_3; }
+		public Assignment getSystemOperationModeAssignment_5_4() { return cSystemOperationModeAssignment_5_4; }
 
 		//SystemOperationMode
-		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_3_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_3_0; }
+		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_4_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_4_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
@@ -712,6 +720,85 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getContextComponentInstanceINSTANCEREFWITHPARENTParserRuleCall_6_0_1() { return cContextComponentInstanceINSTANCEREFWITHPARENTParserRuleCall_6_0_1; }
 	}
 
+	public class FlowSpecificationInstanceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSpecificationInstance");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFlowKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cSourceAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cSourceFeatureInstanceCrossReference_3_0 = (CrossReference)cSourceAssignment_3.eContents().get(0);
+		private final RuleCall cSourceFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_3_0_1 = (RuleCall)cSourceFeatureInstanceCrossReference_3_0.eContents().get(1);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cDestinationAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cDestinationFeatureInstanceCrossReference_5_0 = (CrossReference)cDestinationAssignment_5.eContents().get(0);
+		private final RuleCall cDestinationFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_5_0_1 = (RuleCall)cDestinationFeatureInstanceCrossReference_5_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cColonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cFlowSpecificationAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final CrossReference cFlowSpecificationFlowSpecificationCrossReference_8_0 = (CrossReference)cFlowSpecificationAssignment_8.eContents().get(0);
+		private final RuleCall cFlowSpecificationFlowSpecificationFEATREFParserRuleCall_8_0_1 = (RuleCall)cFlowSpecificationFlowSpecificationCrossReference_8_0.eContents().get(1);
+		
+		//FlowSpecificationInstance returns instance::FlowSpecificationInstance:
+		//	"flow" name=ID "(" source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? "->"
+		//	destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ")" ":"
+		//	flowSpecification=[aadl2::FlowSpecification|FEATREF];
+		@Override public ParserRule getRule() { return rule; }
+
+		//"flow" name=ID "(" source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? "->"
+		//destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ")" ":" flowSpecification=[aadl2::FlowSpecification|FEATREF]
+		public Group getGroup() { return cGroup; }
+
+		//"flow"
+		public Keyword getFlowKeyword_0() { return cFlowKeyword_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+
+		//source=[instance::FeatureInstance|SIMPLEINSTANCEREF]?
+		public Assignment getSourceAssignment_3() { return cSourceAssignment_3; }
+
+		//[instance::FeatureInstance|SIMPLEINSTANCEREF]
+		public CrossReference getSourceFeatureInstanceCrossReference_3_0() { return cSourceFeatureInstanceCrossReference_3_0; }
+
+		//SIMPLEINSTANCEREF
+		public RuleCall getSourceFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_3_0_1() { return cSourceFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_3_0_1; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
+
+		//destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]?
+		public Assignment getDestinationAssignment_5() { return cDestinationAssignment_5; }
+
+		//[instance::FeatureInstance|SIMPLEINSTANCEREF]
+		public CrossReference getDestinationFeatureInstanceCrossReference_5_0() { return cDestinationFeatureInstanceCrossReference_5_0; }
+
+		//SIMPLEINSTANCEREF
+		public RuleCall getDestinationFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_5_0_1() { return cDestinationFeatureInstanceSIMPLEINSTANCEREFParserRuleCall_5_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+
+		//":"
+		public Keyword getColonKeyword_7() { return cColonKeyword_7; }
+
+		//flowSpecification=[aadl2::FlowSpecification|FEATREF]
+		public Assignment getFlowSpecificationAssignment_8() { return cFlowSpecificationAssignment_8; }
+
+		//[aadl2::FlowSpecification|FEATREF]
+		public CrossReference getFlowSpecificationFlowSpecificationCrossReference_8_0() { return cFlowSpecificationFlowSpecificationCrossReference_8_0; }
+
+		//FEATREF
+		public RuleCall getFlowSpecificationFlowSpecificationFEATREFParserRuleCall_8_0_1() { return cFlowSpecificationFlowSpecificationFEATREFParserRuleCall_8_0_1; }
+	}
+
 	public class SystemOperationModeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemOperationMode");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1134,6 +1221,66 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_2_2_2() { return cRightSquareBracketKeyword_2_2_2; }
 	}
 
+	public class SIMPLEINSTANCEREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SIMPLEINSTANCEREF");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cLONGTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final RuleCall cLONGTerminalRuleCall_2_2_1 = (RuleCall)cGroup_2_2.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_2_2_2 = (Keyword)cGroup_2_2.eContents().get(2);
+		
+		//SIMPLEINSTANCEREF:
+		//	ID ("[" LONG "]")? ("." ID ("[" LONG "]")?)*;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ID ("[" LONG "]")? ("." ID ("[" LONG "]")?)*
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//("[" LONG "]")?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
+
+		//LONG
+		public RuleCall getLONGTerminalRuleCall_1_1() { return cLONGTerminalRuleCall_1_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_2() { return cRightSquareBracketKeyword_1_2; }
+
+		//("." ID ("[" LONG "]")?)*
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
+
+		//("[" LONG "]")?
+		public Group getGroup_2_2() { return cGroup_2_2; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_2_2_0() { return cLeftSquareBracketKeyword_2_2_0; }
+
+		//LONG
+		public RuleCall getLONGTerminalRuleCall_2_2_1() { return cLONGTerminalRuleCall_2_2_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_2_2_2() { return cRightSquareBracketKeyword_2_2_2; }
+	}
+
 	public class INSTANCEREFWITHPARENTElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "INSTANCEREFWITHPARENT");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1236,6 +1383,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final ComponentInstanceElements pComponentInstance;
 	private final ConnectionInstanceElements pConnectionInstance;
 	private final ConnectionReferenceElements pConnectionReference;
+	private final FlowSpecificationInstanceElements pFlowSpecificationInstance;
 	private final SystemOperationModeElements pSystemOperationMode;
 	private final DirectionTypeElements pDirectionType;
 	private final FeatureCategoryElements pFeatureCategory;
@@ -1245,6 +1393,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final FEATREFElements pFEATREF;
 	private final SUBREFElements pSUBREF;
 	private final INSTANCEREFElements pINSTANCEREF;
+	private final SIMPLEINSTANCEREFElements pSIMPLEINSTANCEREF;
 	private final INSTANCEREFWITHPARENTElements pINSTANCEREFWITHPARENT;
 	private final CONNINSTREFElements pCONNINSTREF;
 	private final TerminalRule tID;
@@ -1263,6 +1412,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pComponentInstance = new ComponentInstanceElements();
 		this.pConnectionInstance = new ConnectionInstanceElements();
 		this.pConnectionReference = new ConnectionReferenceElements();
+		this.pFlowSpecificationInstance = new FlowSpecificationInstanceElements();
 		this.pSystemOperationMode = new SystemOperationModeElements();
 		this.pDirectionType = new DirectionTypeElements();
 		this.pFeatureCategory = new FeatureCategoryElements();
@@ -1272,6 +1422,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFEATREF = new FEATREFElements();
 		this.pSUBREF = new SUBREFElements();
 		this.pINSTANCEREF = new INSTANCEREFElements();
+		this.pSIMPLEINSTANCEREF = new SIMPLEINSTANCEREFElements();
 		this.pINSTANCEREFWITHPARENT = new INSTANCEREFWITHPARENTElements();
 		this.pCONNINSTREF = new CONNINSTREFElements();
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID");
@@ -1307,7 +1458,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//SystemInstance returns instance::SystemInstance:
 	//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 	//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-	//	systemOperationMode+=SystemOperationMode)* "}";
+	//	flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}";
 	public SystemInstanceElements getSystemInstanceAccess() {
 		return pSystemInstance;
 	}
@@ -1367,6 +1518,18 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getConnectionReferenceRule() {
 		return getConnectionReferenceAccess().getRule();
+	}
+
+	//FlowSpecificationInstance returns instance::FlowSpecificationInstance:
+	//	"flow" name=ID "(" source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? "->"
+	//	destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ")" ":"
+	//	flowSpecification=[aadl2::FlowSpecification|FEATREF];
+	public FlowSpecificationInstanceElements getFlowSpecificationInstanceAccess() {
+		return pFlowSpecificationInstance;
+	}
+	
+	public ParserRule getFlowSpecificationInstanceRule() {
+		return getFlowSpecificationInstanceAccess().getRule();
 	}
 
 	//SystemOperationMode returns instance::SystemOperationMode:
@@ -1460,6 +1623,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getINSTANCEREFRule() {
 		return getINSTANCEREFAccess().getRule();
+	}
+
+	//SIMPLEINSTANCEREF:
+	//	ID ("[" LONG "]")? ("." ID ("[" LONG "]")?)*;
+	public SIMPLEINSTANCEREFElements getSIMPLEINSTANCEREFAccess() {
+		return pSIMPLEINSTANCEREF;
+	}
+	
+	public ParserRule getSIMPLEINSTANCEREFRule() {
+		return getSIMPLEINSTANCEREFAccess().getRule();
 	}
 
 	//INSTANCEREFWITHPARENT:

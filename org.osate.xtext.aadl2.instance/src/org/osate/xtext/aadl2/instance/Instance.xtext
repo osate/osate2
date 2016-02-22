@@ -10,6 +10,7 @@ SystemInstance returns instance::SystemInstance:
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
+			flowSpecification+=FlowSpecificationInstance |
 			systemOperationMode+=SystemOperationMode
 		)*
 	'}'
@@ -42,6 +43,10 @@ ConnectionInstance returns instance::ConnectionInstance:
 
 ConnectionReference returns instance::ConnectionReference:
 	source=[instance::ConnectionInstanceEnd|INSTANCEREF] '->' destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ':' connection=[aadl2::Connection|SUBREF] 'in' context=[instance::ComponentInstance|INSTANCEREFWITHPARENT]
+;
+
+FlowSpecificationInstance returns instance::FlowSpecificationInstance:
+	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
@@ -82,6 +87,10 @@ SUBREF:
 
 INSTANCEREF:
 	ID ('[' LONG ']')* ('.' ID ('[' LONG ']')*)*
+;
+
+SIMPLEINSTANCEREF:
+	ID ('[' LONG ']')? ('.' ID ('[' LONG ']')?)*
 ;
 
 INSTANCEREFWITHPARENT:

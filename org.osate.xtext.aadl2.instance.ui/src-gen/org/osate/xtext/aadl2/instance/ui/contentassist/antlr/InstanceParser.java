@@ -62,6 +62,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentInstanceAccess().getGroup_7(), "rule__ComponentInstance__Group_7__0");
 					put(grammarAccess.getConnectionInstanceAccess().getGroup(), "rule__ConnectionInstance__Group__0");
 					put(grammarAccess.getConnectionReferenceAccess().getGroup(), "rule__ConnectionReference__Group__0");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup(), "rule__FlowSpecificationInstance__Group__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup(), "rule__SystemOperationMode__Group__0");
 					put(grammarAccess.getDirectionTypeAccess().getGroup_2(), "rule__DirectionType__Group_2__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_8(), "rule__ComponentCategory__Group_8__0");
@@ -78,6 +79,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getINSTANCEREFAccess().getGroup_1(), "rule__INSTANCEREF__Group_1__0");
 					put(grammarAccess.getINSTANCEREFAccess().getGroup_2(), "rule__INSTANCEREF__Group_2__0");
 					put(grammarAccess.getINSTANCEREFAccess().getGroup_2_2(), "rule__INSTANCEREF__Group_2_2__0");
+					put(grammarAccess.getSIMPLEINSTANCEREFAccess().getGroup(), "rule__SIMPLEINSTANCEREF__Group__0");
+					put(grammarAccess.getSIMPLEINSTANCEREFAccess().getGroup_1(), "rule__SIMPLEINSTANCEREF__Group_1__0");
+					put(grammarAccess.getSIMPLEINSTANCEREFAccess().getGroup_2(), "rule__SIMPLEINSTANCEREF__Group_2__0");
+					put(grammarAccess.getSIMPLEINSTANCEREFAccess().getGroup_2_2(), "rule__SIMPLEINSTANCEREF__Group_2_2__0");
 					put(grammarAccess.getINSTANCEREFWITHPARENTAccess().getGroup_1(), "rule__INSTANCEREFWITHPARENT__Group_1__0");
 					put(grammarAccess.getINSTANCEREFWITHPARENTAccess().getGroup_1_1(), "rule__INSTANCEREFWITHPARENT__Group_1_1__0");
 					put(grammarAccess.getINSTANCEREFWITHPARENTAccess().getGroup_1_2(), "rule__INSTANCEREFWITHPARENT__Group_1_2__0");
@@ -90,7 +95,8 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemInstanceAccess().getFeatureInstanceAssignment_5_0(), "rule__SystemInstance__FeatureInstanceAssignment_5_0");
 					put(grammarAccess.getSystemInstanceAccess().getComponentInstanceAssignment_5_1(), "rule__SystemInstance__ComponentInstanceAssignment_5_1");
 					put(grammarAccess.getSystemInstanceAccess().getConnectionInstanceAssignment_5_2(), "rule__SystemInstance__ConnectionInstanceAssignment_5_2");
-					put(grammarAccess.getSystemInstanceAccess().getSystemOperationModeAssignment_5_3(), "rule__SystemInstance__SystemOperationModeAssignment_5_3");
+					put(grammarAccess.getSystemInstanceAccess().getFlowSpecificationAssignment_5_3(), "rule__SystemInstance__FlowSpecificationAssignment_5_3");
+					put(grammarAccess.getSystemInstanceAccess().getSystemOperationModeAssignment_5_4(), "rule__SystemInstance__SystemOperationModeAssignment_5_4");
 					put(grammarAccess.getFeatureInstanceAccess().getDirectionAssignment_0(), "rule__FeatureInstance__DirectionAssignment_0");
 					put(grammarAccess.getFeatureInstanceAccess().getCategoryAssignment_1(), "rule__FeatureInstance__CategoryAssignment_1");
 					put(grammarAccess.getFeatureInstanceAccess().getNameAssignment_2(), "rule__FeatureInstance__NameAssignment_2");
@@ -123,6 +129,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionReferenceAccess().getDestinationAssignment_2(), "rule__ConnectionReference__DestinationAssignment_2");
 					put(grammarAccess.getConnectionReferenceAccess().getConnectionAssignment_4(), "rule__ConnectionReference__ConnectionAssignment_4");
 					put(grammarAccess.getConnectionReferenceAccess().getContextAssignment_6(), "rule__ConnectionReference__ContextAssignment_6");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getNameAssignment_1(), "rule__FlowSpecificationInstance__NameAssignment_1");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getSourceAssignment_3(), "rule__FlowSpecificationInstance__SourceAssignment_3");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getDestinationAssignment_5(), "rule__FlowSpecificationInstance__DestinationAssignment_5");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getFlowSpecificationAssignment_8(), "rule__FlowSpecificationInstance__FlowSpecificationAssignment_8");
 					put(grammarAccess.getSystemOperationModeAccess().getNameAssignment_1(), "rule__SystemOperationMode__NameAssignment_1");
 				}
 			};
