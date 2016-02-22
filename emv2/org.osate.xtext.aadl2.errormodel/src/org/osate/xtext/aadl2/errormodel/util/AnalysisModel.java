@@ -155,7 +155,7 @@ public class AnalysisModel {
 			OsateDebug.osateDebug("PP src " + propagationPath.getSrcCI().getComponentInstancePath() + ":"
 					+ generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation()) + " dst "
 					+ propagationPath.getDstCI().getComponentInstancePath() + ":"
-					+ generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation())
+					+ generateErrorPropTypeSetText(propagationPath.getPathDst().getErrorPropagation())
 					+ (propagationPath.getConnectionInstance() != null
 							? " conni " + propagationPath.getConnectionInstance().getName() : ""));
 		}
