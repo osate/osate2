@@ -248,7 +248,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
 
 		String targetName;
-
+		if (PA == null)
+			return;
 		if (target == null) {
 			targetName = "";
 		} else {
