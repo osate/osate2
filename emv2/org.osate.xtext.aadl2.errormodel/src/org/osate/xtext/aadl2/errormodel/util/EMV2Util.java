@@ -163,19 +163,6 @@ public class EMV2Util {
 	}
 
 	/**
-	 * return the classifier that this subclause belongs to.
-	 * The subclause is assumed to have the same name as the classifier.
-	 * @param emsc
-	 * @return
-	 */
-	public static ComponentClassifier getAssociatedClassifier(ErrorModelSubclause emsc) {
-		if (emsc.getName() == null)
-			return null;
-		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
-				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
-	}
-
-	/**
 	 * return the component classifier that this subclause element belongs to.
 	 * The subclause can be embedded or separate.
 	 * @param an EObject in a EMV2 subclause
@@ -187,7 +174,7 @@ public class EMV2Util {
 		if (cl != null)
 			return cl;
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
-		if (emsc == null || emsc.getName() == null)
+		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2"))
 			return null;
 		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
 				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
