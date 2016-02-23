@@ -25,6 +25,7 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -58,6 +59,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
@@ -719,8 +721,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				}
 			}
 			String bv = transitionBranch.getValue().getRealvalue();
-			if (bv != null)
+			Property sl = transitionBranch.getValue().getSymboliclabel();
+			if (bv != null) {
 				prob = prob + Double.valueOf(bv);
+			} else if (sl != null) {
+				ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+				PropertyAssociation pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
+				prob = prob + EMV2Properties.getRealValue(pa);
+			}
 		}
 		if (!foundothers && prob != 1) {
 			error(ebt, "Sum of branch probabilities must be 1");

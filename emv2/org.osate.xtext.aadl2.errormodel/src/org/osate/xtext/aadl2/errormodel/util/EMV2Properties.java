@@ -30,6 +30,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -341,6 +342,63 @@ public class EMV2Properties {
 	}
 
 	/**
+	 * 
+	 */
+	public static double getRealValue(final PropertyAssociation PA) {
+		if (PA == null) {
+			return 0.0;
+		}
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+
+			if (val instanceof RealLiteral) {
+				RealLiteral rl = (RealLiteral) val;
+				return rl.getValue();
+			}
+		}
+		return 0.0;
+	}
+
+	public static double getModalRealValue(PropertyAssociation pa, SystemOperationMode som) {
+		if (!pa.isModal()) {
+			PropertyExpression val = pa.getOwnedValues().get(0).getOwnedValue();
+			if (val instanceof RealLiteral) {
+				RealLiteral rl = (RealLiteral) val;
+				return rl.getValue();
+			}
+		} else if (som != null) {
+			PropertyExpression defaultPE = null;
+			// find value in SOM
+			for (ModalPropertyValue mpv : pa.getOwnedValues()) {
+				if (mpv.getInModes() == null || mpv.getInModes().size() == 0) {
+					defaultPE = mpv.getOwnedValue();
+				} else if (mpv.getInModes().contains(som)) {
+					PropertyExpression val = mpv.getOwnedValue();
+					if (val instanceof RealLiteral) {
+						RealLiteral rl = (RealLiteral) val;
+						return rl.getValue();
+					}
+				}
+			}
+			// default
+			if (defaultPE != null) {
+				if (defaultPE instanceof RealLiteral) {
+					RealLiteral rl = (RealLiteral) defaultPE;
+					return rl.getValue();
+				}
+			}
+			// use global default
+			PropertyExpression val = pa.getProperty().getDefaultValue();
+			if (val instanceof RealLiteral) {
+				RealLiteral rl = (RealLiteral) val;
+				return rl.getValue();
+			}
+		}
+		return 0.0;
+
+	}
+
+	/**
 	 * get list of property associations in enclosing object within the error annex that has a properties section.
 	 * ErrorModelLibrary, ErrorBehaviorStateMachine have properties sections
 	 * Note: we assume the PA list in the subclause has been handled.
@@ -618,6 +676,8 @@ public class EMV2Properties {
 	 */
 	public static PropertyAssociation getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			Element target, TypeSet ts) {
+		if (ci == null)
+			return null;
 		Stack<NamedElement> ciStack = new Stack<NamedElement>();
 		ComponentClassifier cl = null;
 		if (ci instanceof ComponentInstance) {
