@@ -173,6 +173,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		for (ErrorPropagation errorPropagation : outs) {
 			checkTypePropagationAndContainment(errorPropagation);
 		}
+		checkUseBehavior(subclause);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -251,6 +252,27 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					|| namedElement instanceof InternalFeature)) {
 				error(recoverEvent, "Recover event trigger reference '" + namedElement.getName()
 						+ "' is not a port, component internal self event, or mode transition.");
+			}
+		}
+	}
+
+	private void checkUseBehavior(ErrorModelSubclause subclause) {
+		// now find it in use behavior clause
+		EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(subclause);
+		ErrorBehaviorStateMachine foundEBMS = null;
+		ComponentClassifier cl = null;
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm != null) {
+				if (foundEBMS != null && foundEBMS != ebsm) {
+					error(cl,
+							"use behavior '" + foundEBMS.getName() + "' of '" + cl.getQualifiedName()
+									+ "' is not the same as use behavior '" + ebsm.getName() + "' of '"
+									+ EMV2Util.getAssociatedClassifier(errorModelSubclause).getQualifiedName() + "'");
+					return;
+				}
+				foundEBMS = ebsm;
+				cl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
 			}
 		}
 	}
