@@ -14,7 +14,6 @@ public class PropagationPathRecord {
 	PropagationPathEnd pathSrc;
 	PropagationPathEnd pathDst;
 	ConnectionInstance conni;
-	
 
 	/**
 	 * propagation path between error propagations of component instances
@@ -54,6 +53,18 @@ public class PropagationPathRecord {
 		pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		pathDst = new PropagationPathEnd(dstConni, null);
 		conni = null;
+	}
+
+	public boolean isConnectionPath() {
+		return this.conni != null;
+	}
+
+	public boolean isComponentBindingPath() {
+		return !isConnectionPath() && pathSrc.getComponentInstance() != null && pathDst.getComponentInstance() != null;
+	}
+
+	public boolean isConnectionBindingPath() {
+		return !isConnectionPath() && !isComponentBindingPath();
 	}
 
 	public ConnectionInstance getConnectionInstance() {
