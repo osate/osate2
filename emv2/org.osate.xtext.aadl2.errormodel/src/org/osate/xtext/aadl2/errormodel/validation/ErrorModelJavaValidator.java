@@ -120,6 +120,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseErrorType(ErrorType et) {
 		checkCyclicExtends(et);
+		checkCyclicRenames(et);
 	}
 
 	@Check(CheckType.FAST)
@@ -626,21 +627,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	// private void checkCyclicExtends(ErrorBehaviorStateMachine origebsm){
-	// ErrorBehaviorStateMachine ebsm = origebsm;
-	// if (ebsm.getExtends() == null) return;
-	// HashSet<ErrorBehaviorStateMachine> result = new
-	// HashSet<ErrorBehaviorStateMachine>();
-	// while (ebsm.getExtends() != null){
-	// result.add(ebsm);
-	// ebsm = ebsm.getExtends();
-	// if (result.contains(ebsm)){
-	// error(origebsm,
-	// "Cycle in extends of error behavior state machine "+origebsm.getName());
-	// return;
-	// }
-	// }
-	// }
+	private void checkCyclicRenames(ErrorType origet) {
+		ErrorType et = origet;
+		if (et.getAliasedType() == null) {
+			return;
+		}
+		HashSet<ErrorType> result = new HashSet<ErrorType>();
+		while (et.getAliasedType() != null) {
+			result.add(et);
+			et = et.getAliasedType();
+			if (result.contains(et)) {
+				error(origet, "Cycle in renames of error type " + origet.getName() + " at type " + et.getName());
+				return;
+			}
+		}
+	}
 
 	private void checkOutgoingTypes(OutgoingPropagationCondition opc) {
 		if (opc.getTypeToken() == null) {
