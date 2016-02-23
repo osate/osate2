@@ -38,6 +38,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 /**
  * This class contains custom scoping description.
@@ -102,7 +103,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_TypeToken_type(ErrorModelSubclause context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes + allTypesets])
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
