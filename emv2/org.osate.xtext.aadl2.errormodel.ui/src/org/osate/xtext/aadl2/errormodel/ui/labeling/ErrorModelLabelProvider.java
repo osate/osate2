@@ -29,6 +29,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -65,13 +66,18 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		return "orless " + ele.getCount();
 	}
 
+	String text(OutgoingPropagationCondition ele) {
+		String s = ele.getName() == null ? "<unnamed>" : ele.getName();
+		return "out propagation " + s + " when";
+	}
+
 	String text(ErrorDetection ele) {
 		String s = ele.getDetectionReportingPort().getName();
 		return "event " + s + " when";
 	}
 
 	String text(ErrorBehaviorTransition ele) {
-		String s = ele.isSteadyState() ? "steady state" : ele.getName();
+		String s = ele.isSteadyState() ? "steady state" : (ele.getName() == null ? "<unnamed>" : ele.getName());
 		return "transition " + s + " when";
 	}
 
