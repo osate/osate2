@@ -65,7 +65,7 @@ class PropertyReferenceTest extends OsateTest {
 					end component;
 					
 					properties
-						ps1::def1 => 0.8 applies to transition2;
+						ps1::def1 => 0.7 applies to transition2;
 				**};
 				end a;
 			end subclause1;
