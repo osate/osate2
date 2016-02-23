@@ -2170,8 +2170,13 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(et)) {
 			return null;
 		}
+		HashSet<ErrorType> result = new HashSet<ErrorType>();
 		while (!Aadl2Util.isNull(et.getAliasedType())) {
+			result.add(et);
 			et = et.getAliasedType();
+			if (result.contains(et)) {
+				return et;
+			}
 		}
 		return et;
 	}
@@ -2185,8 +2190,13 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(typeset)) {
 			return null;
 		}
+		HashSet<TypeSet> result = new HashSet<TypeSet>();
 		while (!Aadl2Util.isNull(typeset.getAliasedType())) {
+			result.add(typeset);
 			typeset = typeset.getAliasedType();
+			if (result.contains(typeset)) {
+				return typeset;
+			}
 		}
 		return typeset;
 	}

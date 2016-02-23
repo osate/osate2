@@ -126,6 +126,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseTypeSet(TypeSet ts) {
 		checkTypeSetUniqueTypes(ts);
+		checkCyclicRenames(ts);
+
 	}
 
 	@Check(CheckType.FAST)
@@ -611,17 +613,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkCyclicExtends(ErrorType origet) {
-		ErrorType et = origet;
+		ErrorType et = EMV2Util.resolveAlias(origet);
 		if (et.getSuperType() == null) {
 			return;
 		}
 		HashSet<ErrorType> result = new HashSet<ErrorType>();
 		while (et.getSuperType() != null) {
 			result.add(et);
-			et = et.getSuperType();
+			ErrorType last = et;
+			et = EMV2Util.resolveAlias(et.getSuperType());
 			if (result.contains(et)) {
-				error(origet,
-						"Cycle in supertype hierarchy of error type " + origet.getName() + " at type " + et.getName());
+				error(origet, "Cycle in supertype hierarchy of error type " + origet.getName() + " at type "
+						+ last.getName());
 				return;
 			}
 		}
@@ -635,9 +638,27 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		HashSet<ErrorType> result = new HashSet<ErrorType>();
 		while (et.getAliasedType() != null) {
 			result.add(et);
+			ErrorType last = et;
 			et = et.getAliasedType();
 			if (result.contains(et)) {
-				error(origet, "Cycle in renames of error type " + origet.getName() + " at type " + et.getName());
+				error(origet, "Cycle in renames of error type " + origet.getName() + " at type " + last.getName());
+				return;
+			}
+		}
+	}
+
+	private void checkCyclicRenames(TypeSet origet) {
+		TypeSet et = origet;
+		if (et.getAliasedType() == null) {
+			return;
+		}
+		HashSet<TypeSet> result = new HashSet<TypeSet>();
+		while (et.getAliasedType() != null) {
+			result.add(et);
+			TypeSet last = et;
+			et = et.getAliasedType();
+			if (result.contains(et)) {
+				error(origet, "Cycle in renames of type set " + origet.getName() + " at type set " + last.getName());
 				return;
 			}
 		}
