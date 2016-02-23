@@ -179,10 +179,6 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 			IScope.NULLSCOPE
 		}
 	}
-	
-	def private static getPropagationName(ErrorPropagation propagation) {
-		propagation.kind ?: propagation.featureorPPRefs.join(".", [featureorPP.name])
-	}
 
 	// Brought from Aadl2JavaValidator
 	def EList<ComponentClassifier> getSelfPlusAncestors(ComponentClassifier cl) {
