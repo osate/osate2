@@ -57,7 +57,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -236,20 +235,14 @@ public class PropagateErrorSources {
 			EMSUtil.unsetAll(ci.getSystemInstance());
 			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
-			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			ErrorBehaviorState failureMode = null;
+			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
 			TypeSet failureTypeSet = null;
-			if (fmr instanceof ErrorBehaviorState) {
-				failureMode = (ErrorBehaviorState) fmr;
+			if (failureMode != null) {
 				failureTypeSet = failureMode.getTypeSet();
 			} else {
 				// reference to named type set
-				if (fmr instanceof TypeSet) {
-					failureTypeSet = (TypeSet) fmr;
-				} else {
-					// or type set constructor
-					failureTypeSet = errorSource.getFailureModeType();
-				}
+				// or type set constructor
+				failureTypeSet = errorSource.getFailureModeType();
 			}
 			String failuremodeDesc = errorSource.getFailureModeDescription();
 			for (ErrorPropagation ep : eplist) {
@@ -409,10 +402,10 @@ public class PropagateErrorSources {
 	 * @param io Instance Object
 	 * @param ep Error Propagation
 	 */
-	public String generateComponentPropagationPointTypeTokenText(ComponentInstance io, ErrorPropagation ep, TypeToken tt) {
-		return (generateComponentInstanceText(io) + (ep != null ? ":" + EMV2Util.getPrintName(ep) : "") + (tt != null ? " "
-				+ EMV2Util.getPrintName(tt)
-				: ""));
+	public String generateComponentPropagationPointTypeTokenText(ComponentInstance io, ErrorPropagation ep,
+			TypeToken tt) {
+		return (generateComponentInstanceText(io) + (ep != null ? ":" + EMV2Util.getPrintName(ep) : "")
+				+ (tt != null ? " " + EMV2Util.getPrintName(tt) : ""));
 	}
 
 	/**
@@ -485,7 +478,8 @@ public class PropagateErrorSources {
 	 * traverse to the destination of the propagation path
 	 * @param conni
 	 */
-	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText) {
+	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth,
+			String entryText) {
 		ErrorModelState st = null;
 		FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
 		if (fi != null) {
@@ -520,8 +514,8 @@ public class PropagateErrorSources {
 		} else {
 			for (PropagationPathRecord path : paths) {
 				ConnectionInstance pathConni = path.getConnectionInstance();
-				TypeMappingSet typeEquivalence = EMV2Util.getAllTypeEquivalenceMapping(ci
-						.getContainingComponentInstance());
+				TypeMappingSet typeEquivalence = EMV2Util
+						.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());
 				TypeToken mappedtt = tt;
 				TypeToken resulttt = tt;
 				TypeToken xformedtt = tt;
@@ -615,7 +609,8 @@ public class PropagateErrorSources {
 	 * traverse through the destination of the connection instance
 	 * @param conni
 	 */
-	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText) {
+	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth,
+			String entryText) {
 		if (ci == null) {
 			return;
 		}
@@ -648,8 +643,8 @@ public class PropagateErrorSources {
 				 * it as an error sink but as an error path and continue
 				 * to trace the flow using this additional error propagation.
 				 */
-				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation(
-						ci, ep);
+				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util
+						.getAdditionalOutgoingPropagation(ci, ep);
 				// process should have returned false, but for safety we check again
 
 				if (additionalPropagations.size() == 0) {
@@ -661,8 +656,8 @@ public class PropagateErrorSources {
 						reportEntry(entryText + maskText, depth);
 						handled = true;
 					} else {
-						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(
-								ef.getTypeTokenConstraint(), tt);
+						Collection<TypeToken> intersection = EM2TypeSetUtil
+								.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
 						for (TypeToken typeToken : intersection) {
 							String maskText = ", " + generateFailureModeText(ci, ep, typeToken) + " [Masked],";
 							reportEntry(entryText + maskText, depth);
@@ -693,8 +688,8 @@ public class PropagateErrorSources {
 				Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll((ErrorPath) ef);
 				ErrorPropagation inep = ((ErrorPath) ef).getIncoming();
 				if (ef.getTypeTokenConstraint() != null ? EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)
-						: (inep != null ? EM2TypeSetUtil.contains(inep.getTypeSet(), tt) : ((ErrorPath) ef)
-								.isAllIncoming())) {
+						: (inep != null ? EM2TypeSetUtil.contains(inep.getTypeSet(), tt)
+								: ((ErrorPath) ef).isAllIncoming())) {
 					TypeToken newtt = EMV2Util.mapToken(tt, ef);
 					for (ErrorPropagation outp : eplist) {
 						traceErrorPaths(ci, outp, newtt, depth + 1,
@@ -729,21 +724,20 @@ public class PropagateErrorSources {
 			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
 			if (!flowlist.isEmpty()) {
 				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource() != null
-							&& flowSpecificationInstance.getSource().getFeature() == EMV2Util
-									.getErrorPropagationFeature(ep, ci)) {
+					if (flowSpecificationInstance.getSource() != null && flowSpecificationInstance.getSource()
+							.getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)) {
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
 						if (outfi != null) {
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
 							if (outp != null) {
 								TypeToken newtt = EMV2Util.mapToken(tt, flowSpecificationInstance);
 								if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)) {
-									traceErrorPaths(ci, outp, newtt, depth + 1, entryText + ", "
-											+ generateFailureModeText(ci, ep, tt) + " [FlowPath]");
+									traceErrorPaths(ci, outp, newtt, depth + 1,
+											entryText + ", " + generateFailureModeText(ci, ep, tt) + " [FlowPath]");
 									handled = true;
 								} else {
-									Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(
-											outp.getTypeSet(), newtt);
+									Collection<TypeToken> intersection = EM2TypeSetUtil
+											.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 									for (TypeToken typeToken : intersection) {
 										traceErrorPaths(ci, outp, typeToken, depth + 1, entryText + ", "
 												+ generateFailureModeText(ci, ep, tt) + " [FlowPath TypeSubset]");
@@ -819,8 +813,8 @@ public class PropagateErrorSources {
 							handled = true;
 						} else {
 							for (TypeToken typeToken : intersection) {
-								traceErrorPaths(ci, outp, typeToken, depth + 1, entryText + ","
-										+ generateFailureModeText(ci, ep, tt) + " [All Out Subtype]");
+								traceErrorPaths(ci, outp, typeToken, depth + 1,
+										entryText + "," + generateFailureModeText(ci, ep, tt) + " [All Out Subtype]");
 								handled = true;
 							}
 						}

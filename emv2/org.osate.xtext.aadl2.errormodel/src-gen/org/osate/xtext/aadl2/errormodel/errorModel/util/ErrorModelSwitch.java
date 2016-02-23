@@ -123,7 +123,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeSet typeSet = (TypeSet)theEObject;
         T result = caseTypeSet(typeSet);
         if (result == null) result = caseErrorTypes(typeSet);
-        if (result == null) result = caseErrorBehaviorStateOrTypeSet(typeSet);
         if (result == null) result = caseNamedElement(typeSet);
         if (result == null) result = caseElement(typeSet);
         if (result == null) result = defaultCase(theEObject);
@@ -205,13 +204,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = caseErrorFlow(errorSource);
         if (result == null) result = caseNamedElement(errorSource);
         if (result == null) result = caseElement(errorSource);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET:
-      {
-        ErrorBehaviorStateOrTypeSet errorBehaviorStateOrTypeSet = (ErrorBehaviorStateOrTypeSet)theEObject;
-        T result = caseErrorBehaviorStateOrTypeSet(errorBehaviorStateOrTypeSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -318,7 +310,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorBehaviorState errorBehaviorState = (ErrorBehaviorState)theEObject;
         T result = caseErrorBehaviorState(errorBehaviorState);
         if (result == null) result = caseNamedElement(errorBehaviorState);
-        if (result == null) result = caseErrorBehaviorStateOrTypeSet(errorBehaviorState);
         if (result == null) result = caseElement(errorBehaviorState);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -720,22 +711,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorSource(ErrorSource object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Error Behavior State Or Type Set</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Error Behavior State Or Type Set</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseErrorBehaviorStateOrTypeSet(ErrorBehaviorStateOrTypeSet object)
   {
     return null;
   }

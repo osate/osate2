@@ -60,7 +60,6 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -149,18 +148,16 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
-			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
+			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
 			PropertyAssociation HazardPA = null;
 			PropertyAssociation Sev = null;
 			PropertyAssociation Like = null;
 			TypeSet ts = null;
-			ErrorBehaviorState failureMode = null;
 			Element target = null;
 			Element localContext = null;
 			// not dealing with type set as failure mode
-			if (fmr instanceof ErrorBehaviorState) {
+			if (failureMode != null) {
 				// state is originating hazard, possibly with a type set
-				failureMode = (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
 				// error source a local context
 				HazardPA = EMV2Properties.getHazardsProperty(ci, failureMode, ts);

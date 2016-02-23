@@ -325,12 +325,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			searchResult = findErrorModelLibrary(context, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorStateOrTypeSet() == requiredType) {
-			searchResult = EMV2Util.findErrorBehaviorState(cxt, name);
-			if (searchResult == null) {
-				searchResult = findTypeSet(cxt, name);
-			}
-
 		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType) {
 			if (reference.getName().equalsIgnoreCase("outgoing")) {
 				searchResult = EMV2Util.findErrorPropagation(cxt, name, DirectionType.OUT);

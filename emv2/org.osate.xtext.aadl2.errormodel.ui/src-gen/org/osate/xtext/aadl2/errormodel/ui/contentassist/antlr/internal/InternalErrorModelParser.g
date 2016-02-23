@@ -917,8 +917,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleErrorSink
 entryRuleErrorSink 
 :
@@ -3329,7 +3327,6 @@ rule__ErrorSource__Alternatives_6_1
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 rule__ErrorSink__Alternatives_4
     @init {
@@ -32227,12 +32224,12 @@ rule__ErrorSource__FailureModeReferenceAssignment_6_1_0_0
     }
 :
 (
-{ before(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0()); }
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0()); }
 (
-{ before(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetIDTerminalRuleCall_6_1_0_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetIDTerminalRuleCall_6_1_0_0_0_1()); }
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateIDTerminalRuleCall_6_1_0_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateIDTerminalRuleCall_6_1_0_0_0_1()); }
 )
-{ after(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0()); }
+{ after(grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0()); }
 )
 
 ;

@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface TypeSet extends ErrorTypes, ErrorBehaviorStateOrTypeSet
+public interface TypeSet extends ErrorTypes
 {
   /**
    * Returns the value of the '<em><b>Type Tokens</b></em>' containment reference list.

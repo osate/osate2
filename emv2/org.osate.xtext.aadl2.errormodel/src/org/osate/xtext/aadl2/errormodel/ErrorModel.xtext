@@ -345,14 +345,12 @@ ErrorSource returns ErrorSource:
   name=ID ':' 'error' 'source' (outgoing=[ErrorPropagation|ErrorPropagationPoint]
   	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
-  	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
+  	('when' (( failureModeReference = [ErrorBehaviorState|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
      ( 'if' condition=CONDITION)?
      ';'
   ;
- 
-ErrorBehaviorStateOrTypeSet: ErrorBehaviorState | TypeSetDefinition;
 
 ErrorSink returns ErrorSink:
   name=ID ':' 'error' 'sink' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?

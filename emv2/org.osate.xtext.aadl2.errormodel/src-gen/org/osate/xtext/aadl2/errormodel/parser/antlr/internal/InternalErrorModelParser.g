@@ -3900,7 +3900,7 @@ ruleErrorSource returns [EObject current=null]
         }
 	otherlv_8=RULE_ID
 	{
-		newLeafNode(otherlv_8, grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0()); 
+		newLeafNode(otherlv_8, grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0()); 
 	}
 
 )
@@ -3990,8 +3990,6 @@ ruleErrorSource returns [EObject current=null]
     }
 )
 ;
-
-
 
 
 

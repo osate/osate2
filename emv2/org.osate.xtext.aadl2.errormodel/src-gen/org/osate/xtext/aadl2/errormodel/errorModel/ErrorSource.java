@@ -87,12 +87,12 @@ public interface ErrorSource extends ErrorFlow
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Failure Mode Reference</em>' reference.
-   * @see #setFailureModeReference(ErrorBehaviorStateOrTypeSet)
+   * @see #setFailureModeReference(ErrorBehaviorState)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource_FailureModeReference()
    * @model
    * @generated
    */
-  ErrorBehaviorStateOrTypeSet getFailureModeReference();
+  ErrorBehaviorState getFailureModeReference();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}' reference.
@@ -102,7 +102,7 @@ public interface ErrorSource extends ErrorFlow
    * @see #getFailureModeReference()
    * @generated
    */
-  void setFailureModeReference(ErrorBehaviorStateOrTypeSet value);
+  void setFailureModeReference(ErrorBehaviorState value);
 
   /**
    * Returns the value of the '<em><b>Failure Mode Type</b></em>' containment reference.

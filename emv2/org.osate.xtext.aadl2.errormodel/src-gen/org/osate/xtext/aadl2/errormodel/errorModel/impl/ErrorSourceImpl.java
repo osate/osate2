@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
@@ -74,7 +74,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * @generated
    * @ordered
    */
-  protected ErrorBehaviorStateOrTypeSet failureModeReference;
+  protected ErrorBehaviorState failureModeReference;
 
   /**
    * The cached value of the '{@link #getFailureModeType() <em>Failure Mode Type</em>}' containment reference.
@@ -218,12 +218,12 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorBehaviorStateOrTypeSet getFailureModeReference()
+  public ErrorBehaviorState getFailureModeReference()
   {
     if (failureModeReference != null && failureModeReference.eIsProxy())
     {
       InternalEObject oldFailureModeReference = (InternalEObject)failureModeReference;
-      failureModeReference = (ErrorBehaviorStateOrTypeSet)eResolveProxy(oldFailureModeReference);
+      failureModeReference = (ErrorBehaviorState)eResolveProxy(oldFailureModeReference);
       if (failureModeReference != oldFailureModeReference)
       {
         if (eNotificationRequired())
@@ -238,7 +238,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorBehaviorStateOrTypeSet basicGetFailureModeReference()
+  public ErrorBehaviorState basicGetFailureModeReference()
   {
     return failureModeReference;
   }
@@ -248,9 +248,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFailureModeReference(ErrorBehaviorStateOrTypeSet newFailureModeReference)
+  public void setFailureModeReference(ErrorBehaviorState newFailureModeReference)
   {
-    ErrorBehaviorStateOrTypeSet oldFailureModeReference = failureModeReference;
+    ErrorBehaviorState oldFailureModeReference = failureModeReference;
     failureModeReference = newFailureModeReference;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE, oldFailureModeReference, failureModeReference));
@@ -411,7 +411,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
         setAllOutgoing((Boolean)newValue);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
-        setFailureModeReference((ErrorBehaviorStateOrTypeSet)newValue);
+        setFailureModeReference((ErrorBehaviorState)newValue);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         setFailureModeType((TypeSet)newValue);
@@ -443,7 +443,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
         setAllOutgoing(ALL_OUTGOING_EDEFAULT);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
-        setFailureModeReference((ErrorBehaviorStateOrTypeSet)null);
+        setFailureModeReference((ErrorBehaviorState)null);
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         setFailureModeType((TypeSet)null);

@@ -149,15 +149,6 @@ public interface ErrorModelFactory extends EFactory
   ErrorSource createErrorSource();
 
   /**
-   * Returns a new object of class '<em>Error Behavior State Or Type Set</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Error Behavior State Or Type Set</em>'.
-   * @generated
-   */
-  ErrorBehaviorStateOrTypeSet createErrorBehaviorStateOrTypeSet();
-
-  /**
    * Returns a new object of class '<em>Error Sink</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

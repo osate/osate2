@@ -3098,8 +3098,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_6_1 = (Alternatives)cGroup_6.eContents().get(1);
 		private final Group cGroup_6_1_0 = (Group)cAlternatives_6_1.eContents().get(0);
 		private final Assignment cFailureModeReferenceAssignment_6_1_0_0 = (Assignment)cGroup_6_1_0.eContents().get(0);
-		private final CrossReference cFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0 = (CrossReference)cFailureModeReferenceAssignment_6_1_0_0.eContents().get(0);
-		private final RuleCall cFailureModeReferenceErrorBehaviorStateOrTypeSetIDTerminalRuleCall_6_1_0_0_0_1 = (RuleCall)cFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0.eContents().get(1);
+		private final CrossReference cFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0 = (CrossReference)cFailureModeReferenceAssignment_6_1_0_0.eContents().get(0);
+		private final RuleCall cFailureModeReferenceErrorBehaviorStateIDTerminalRuleCall_6_1_0_0_0_1 = (RuleCall)cFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0.eContents().get(1);
 		private final Assignment cFailureModeTypeAssignment_6_1_0_1 = (Assignment)cGroup_6_1_0.eContents().get(1);
 		private final RuleCall cFailureModeTypeTypeSetReferenceParserRuleCall_6_1_0_1_0 = (RuleCall)cFailureModeTypeAssignment_6_1_0_1.eContents().get(0);
 		private final Assignment cFailureModeTypeAssignment_6_1_1 = (Assignment)cAlternatives_6_1.eContents().get(1);
@@ -3114,13 +3114,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorSource:
 		//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-		//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
+		//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorState]
 		//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ("if"
 		//	condition=CONDITION)? ";";
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-		//typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
+		//typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorState]
 		//failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ("if"
 		//condition=CONDITION)? ";"
 		public Group getGroup() { return cGroup; }
@@ -3164,28 +3164,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeTokenConstraint
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0; }
 
-		//("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetReference? |
+		//("when" (failureModeReference=[ErrorBehaviorState] failureModeType=TypeSetReference? |
 		//failureModeType=TypeSetConstructor | failureModeDescription=STRING))?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"when"
 		public Keyword getWhenKeyword_6_0() { return cWhenKeyword_6_0; }
 
-		//failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetReference? |
-		//failureModeType=TypeSetConstructor | failureModeDescription=STRING
+		//failureModeReference=[ErrorBehaviorState] failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor |
+		//failureModeDescription=STRING
 		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
 
-		//failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetReference?
+		//failureModeReference=[ErrorBehaviorState] failureModeType=TypeSetReference?
 		public Group getGroup_6_1_0() { return cGroup_6_1_0; }
 
-		//failureModeReference=[ErrorBehaviorStateOrTypeSet]
+		//failureModeReference=[ErrorBehaviorState]
 		public Assignment getFailureModeReferenceAssignment_6_1_0_0() { return cFailureModeReferenceAssignment_6_1_0_0; }
 
-		//[ErrorBehaviorStateOrTypeSet]
-		public CrossReference getFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0() { return cFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0; }
+		//[ErrorBehaviorState]
+		public CrossReference getFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0() { return cFailureModeReferenceErrorBehaviorStateCrossReference_6_1_0_0_0; }
 
 		//ID
-		public RuleCall getFailureModeReferenceErrorBehaviorStateOrTypeSetIDTerminalRuleCall_6_1_0_0_0_1() { return cFailureModeReferenceErrorBehaviorStateOrTypeSetIDTerminalRuleCall_6_1_0_0_0_1; }
+		public RuleCall getFailureModeReferenceErrorBehaviorStateIDTerminalRuleCall_6_1_0_0_0_1() { return cFailureModeReferenceErrorBehaviorStateIDTerminalRuleCall_6_1_0_0_0_1; }
 
 		//failureModeType=TypeSetReference?
 		public Assignment getFailureModeTypeAssignment_6_1_0_1() { return cFailureModeTypeAssignment_6_1_0_1; }
@@ -3219,26 +3219,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
-	}
-
-	public class ErrorBehaviorStateOrTypeSetElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ErrorBehaviorStateOrTypeSet");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cErrorBehaviorStateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTypeSetDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//ErrorBehaviorStateOrTypeSet:
-		//	ErrorBehaviorState | TypeSetDefinition;
-		@Override public ParserRule getRule() { return rule; }
-
-		//ErrorBehaviorState | TypeSetDefinition
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ErrorBehaviorState
-		public RuleCall getErrorBehaviorStateParserRuleCall_0() { return cErrorBehaviorStateParserRuleCall_0; }
-
-		//TypeSetDefinition
-		public RuleCall getTypeSetDefinitionParserRuleCall_1() { return cTypeSetDefinitionParserRuleCall_1; }
 	}
 
 	public class ErrorSinkElements extends AbstractParserRuleElementFinder {
@@ -5835,7 +5815,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final PropagationKindElements pPropagationKind;
 	private final ErrorFlowElements pErrorFlow;
 	private final ErrorSourceElements pErrorSource;
-	private final ErrorBehaviorStateOrTypeSetElements pErrorBehaviorStateOrTypeSet;
 	private final ErrorSinkElements pErrorSink;
 	private final ErrorPathElements pErrorPath;
 	private final ErrorPropagationPointElements pErrorPropagationPoint;
@@ -5920,7 +5899,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPropagationKind = new PropagationKindElements();
 		this.pErrorFlow = new ErrorFlowElements();
 		this.pErrorSource = new ErrorSourceElements();
-		this.pErrorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetElements();
 		this.pErrorSink = new ErrorSinkElements();
 		this.pErrorPath = new ErrorPathElements();
 		this.pErrorPropagationPoint = new ErrorPropagationPointElements();
@@ -6380,7 +6358,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorSource:
 	//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
+	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorState]
 	//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ("if"
 	//	condition=CONDITION)? ";";
 	public ErrorSourceElements getErrorSourceAccess() {
@@ -6389,16 +6367,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getErrorSourceRule() {
 		return getErrorSourceAccess().getRule();
-	}
-
-	//ErrorBehaviorStateOrTypeSet:
-	//	ErrorBehaviorState | TypeSetDefinition;
-	public ErrorBehaviorStateOrTypeSetElements getErrorBehaviorStateOrTypeSetAccess() {
-		return pErrorBehaviorStateOrTypeSet;
-	}
-	
-	public ParserRule getErrorBehaviorStateOrTypeSetRule() {
-		return getErrorBehaviorStateOrTypeSetAccess().getRule();
 	}
 
 	//ErrorSink:

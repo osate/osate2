@@ -56,7 +56,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorFlowAccess().getAlternatives(), "rule__ErrorFlow__Alternatives");
 					put(grammarAccess.getErrorSourceAccess().getAlternatives_4(), "rule__ErrorSource__Alternatives_4");
 					put(grammarAccess.getErrorSourceAccess().getAlternatives_6_1(), "rule__ErrorSource__Alternatives_6_1");
-					put(grammarAccess.getErrorBehaviorStateOrTypeSetAccess().getAlternatives(), "rule__ErrorBehaviorStateOrTypeSet__Alternatives");
 					put(grammarAccess.getErrorSinkAccess().getAlternatives_4(), "rule__ErrorSink__Alternatives_4");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_4(), "rule__ErrorPath__Alternatives_4");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_7(), "rule__ErrorPath__Alternatives_7");

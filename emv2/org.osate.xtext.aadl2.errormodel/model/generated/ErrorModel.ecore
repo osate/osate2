@@ -60,7 +60,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//ErrorType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aliasedType" eType="#//ErrorType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeSet" eSuperTypes="#//ErrorTypes #//ErrorBehaviorStateOrTypeSet">
+  <eClassifiers xsi:type="ecore:EClass" name="TypeSet" eSuperTypes="#//ErrorTypes">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokens" upperBound="-1"
         eType="#//TypeToken" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aliasedType" eType="#//TypeSet"/>
@@ -118,14 +118,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSource" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allOutgoing" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeReference" eType="#//ErrorBehaviorStateOrTypeSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeReference" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeType" eType="#//TypeSet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failureModeDescription"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateOrTypeSet"/>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSink" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//ErrorPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allIncoming" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -183,7 +182,7 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorState" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement #//ErrorBehaviorStateOrTypeSet">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorState" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intial" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//TypeSet"
         containment="true"/>

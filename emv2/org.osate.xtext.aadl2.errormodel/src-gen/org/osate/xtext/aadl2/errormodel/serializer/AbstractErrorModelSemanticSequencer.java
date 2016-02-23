@@ -425,8 +425,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_TypeSetConstructor(context, (TypeSet) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getErrorBehaviorStateOrTypeSetRule() ||
-				   context == grammarAccess.getErrorTypesRule() ||
+				else if(context == grammarAccess.getErrorTypesRule() ||
 				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getTypeSetDefinitionRule()) {
 					sequence_TypeSetDefinition(context, (TypeSet) semanticObject); 
@@ -763,7 +762,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         (
-	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | 
+	 *             (failureModeReference=[ErrorBehaviorState|ID] failureModeType=TypeSetReference?) | 
 	 *             failureModeType=TypeSetConstructor | 
 	 *             failureModeDescription=STRING
 	 *         )? 

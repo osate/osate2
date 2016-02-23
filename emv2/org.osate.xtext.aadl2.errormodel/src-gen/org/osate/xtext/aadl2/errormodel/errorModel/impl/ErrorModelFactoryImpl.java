@@ -78,7 +78,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
       case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
       case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
       case ErrorModelPackage.ERROR_SINK: return createErrorSink();
       case ErrorModelPackage.ERROR_PATH: return createErrorPath();
       case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
@@ -267,17 +266,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorSourceImpl errorSource = new ErrorSourceImpl();
     return errorSource;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorBehaviorStateOrTypeSet createErrorBehaviorStateOrTypeSet()
-  {
-    ErrorBehaviorStateOrTypeSetImpl errorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetImpl();
-    return errorBehaviorStateOrTypeSet;
   }
 
   /**

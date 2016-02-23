@@ -2,6 +2,8 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -21,7 +23,7 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface ErrorBehaviorState extends NamedElement, ErrorBehaviorStateOrTypeSet
+public interface ErrorBehaviorState extends EObject, NamedElement
 {
   /**
    * Returns the value of the '<em><b>Intial</b></em>' attribute.

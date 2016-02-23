@@ -96,7 +96,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/failureModeDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/condition"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateOrTypeSet"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorSink">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSink/incoming"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSink/allIncoming"/>
@@ -250,6 +249,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AllExpression/operands"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//AllExpression/count"/>
     </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateOrTypeSet"/>
     <genClasses ecoreClass="ErrorModel.ecore#//PropertyAssociation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/property"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/ownedValue"/>
