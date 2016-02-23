@@ -76,7 +76,7 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming != null : {
 				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSource case modelContainer.outgoing != null : {
+			ErrorSource case modelContainer.outgoing != null && modelContainer.typeTokenConstraint == model: {
 				filterTypeSetTokenTypes(modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
 			}
 			ErrorSink case modelContainer.incoming != null : {
