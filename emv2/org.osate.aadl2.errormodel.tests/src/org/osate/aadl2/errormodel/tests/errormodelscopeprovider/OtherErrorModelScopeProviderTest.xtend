@@ -234,7 +234,8 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				features
 					p1: out data port;
 					p2: out data port;
-					p5: out data port;
+					p4: in data port;
+					p5: in data port;
 					fg1: feature group fgt1;
 				annex EMV2 {**
 					use types ErrorLibrary;
@@ -247,21 +248,21 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						memory: out propagation {AboveRange};
 						binding: out propagation {AboveRange};
 						
-						p1: in propagation {AboveRange};
+						p4: in propagation {AboveRange};
 						p5: in propagation {AboveRange};
-						fg1.p3: in propagation {AboveRange};
-						fg1.fg2.p4: in propagation {AboveRange};
+						fg1.p4: in propagation {AboveRange};
+						fg1.fg2.p5: in propagation {AboveRange};
 						memory: in propagation {AboveRange};
 						binding: in propagation {AboveRange};
 					flows
 						errSource: error source fg1.p3;
-						errSink: error sink fg1.p3;
-						errPath: error path fg1.p3 -> fg1.p3;
+						errSink: error sink fg1.p4;
+						errPath: error path fg1.p4 -> fg1.p3;
 					end propagations;
 					
 					component error behavior
 					propagations
-						condition1: all -[ p1 ]-> p1;
+						condition1: all -[ p4 ]-> p1;
 					end component;
 				**};
 				end a;
@@ -269,12 +270,14 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				feature group fgt1
 				features
 					p3: out data port;
+					p4: in data port;
 					fg2: feature group fgt2;
 				end fgt1;
 				
 				feature group fgt2
 				features
 					p4: out data port;
+					p5: in data port;
 				end fgt2;
 			end pkg;
 		''')
@@ -285,7 +288,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				"a".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					val outgoingScope = #["p1", "p2", "fg1.p3", "fg1.fg2.p4", "memory", "binding"]
-					val incomingScope = #["p1", "p5", "fg1.p3", "fg1.fg2.p4", "memory", "binding"]
+					val incomingScope = #["p4", "p5", "fg1.p4", "fg1.fg2.p5", "memory", "binding"]
 					flows.get(0) => [
 						"errSource".assertEquals(name)
 						//Tests scope_ErrorSource_outgoing
