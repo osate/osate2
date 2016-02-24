@@ -55,26 +55,26 @@ class EventOrPropagationTest extends OsateTest {
 				abstract a1
 				features
 					dp1: in data port;
-					dp2: in data port;
+					dp2: out data port;
 					dp3: in data port;
-					dp4: in data port;
+					dp4: out data port;
 					dp5: in data port;
-					dp6: in data port;
+					dp6: out data port;
 					dp7: in data port;
-					dp8: in data port;
+					dp8: out data port;
 					fg1: feature group fgt1;
 				annex EMV2 {**
 					use types lib1;
 					
 					error propagations
 						dp1: in propagation {et1};
-						dp2: in propagation {et1};
+						dp2: out propagation {et1};
 						processor: in propagation {et1};
 						memory: out propagation {et1};
 						fg1.dp9: in propagation {et1};
-						fg1.dp10: in propagation {et1};
+						fg1.dp10: out propagation {et1};
 						fg1.fg2.dp11: in propagation {et1};
-						fg1.fg2.dp12: in propagation {et1};
+						fg1.fg2.dp12: out propagation {et1};
 						point1: in propagation {et1};
 						point2: out propagation {et1};
 					end propagations;
@@ -104,7 +104,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp3: in propagation {et1};
-						dp4: in propagation {et1};
+						dp4: out propagation {et1};
 						connection: in propagation {et1};
 						binding: out propagation {et1};
 						es1: in propagation {et1};
@@ -126,7 +126,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp5: in propagation {et1};
-						dp6: in propagation {et1};
+						dp6: out propagation {et1};
 						bindings: in propagation {et1};
 						access: out propagation {et1};
 					end propagations;
@@ -147,7 +147,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp7: in propagation {et1};
-						dp8: in propagation {et1};
+						dp8: out propagation {et1};
 					end propagations;
 					
 					component error behavior
@@ -171,14 +171,14 @@ class EventOrPropagationTest extends OsateTest {
 				feature group fgt1
 				features
 					dp9: in data port;
-					dp10: in data port;
+					dp10: out data port;
 					fg2: feature group fgt2;
 				end fgt1;
 				
 				feature group fgt2
 				features
 					dp11: in data port;
-					dp12: in data port;
+					dp12: out data port;
 				end fgt2;
 			end subclause1;
 		''')
