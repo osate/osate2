@@ -71,6 +71,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/feature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AFunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AFunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AFunctionCall/functionCallArguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AThis"/>
     <genClasses ecoreClass="Common.ecore#//ASetLiteral">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ASetLiteral/elements"/>
     </genClasses>

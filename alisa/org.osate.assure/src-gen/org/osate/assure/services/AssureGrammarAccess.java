@@ -2197,7 +2197,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AFunctionCall | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2206,8 +2206,28 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getAPrimaryExpressionAccess().getRule();
 	}
 
+	//AFunctionCall returns aadl2::PropertyExpression:
+	//	{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
+		return gaCommon.getAFunctionCallAccess();
+	}
+	
+	public ParserRule getAFunctionCallRule() {
+		return getAFunctionCallAccess().getRule();
+	}
+
+	//AThis returns aadl2::PropertyExpression:
+	//	{AThis} "this";
+	public CommonGrammarAccess.AThisElements getAThisAccess() {
+		return gaCommon.getAThisAccess();
+	}
+	
+	public ParserRule getAThisRule() {
+		return getAThisAccess().getRule();
+	}
+
 	//ALiteral returns aadl2::PropertyExpression:
-	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
+	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
 		return gaCommon.getALiteralAccess();
 	}

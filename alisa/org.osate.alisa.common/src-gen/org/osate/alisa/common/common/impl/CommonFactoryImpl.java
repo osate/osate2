@@ -93,6 +93,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
+      case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
+      case CommonPackage.ATHIS: return createAThis();
       case CommonPackage.ASET_LITERAL: return createASetLiteral();
       case CommonPackage.ALIST_TERM: return createAListTerm();
       case CommonPackage.ANULL_LITERAL: return createANullLiteral();
@@ -298,6 +300,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AUnaryOperationImpl aUnaryOperation = new AUnaryOperationImpl();
     return aUnaryOperation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AFunctionCall createAFunctionCall()
+  {
+    AFunctionCallImpl aFunctionCall = new AFunctionCallImpl();
+    return aFunctionCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AThis createAThis()
+  {
+    AThisImpl aThis = new AThisImpl();
+    return aThis;
   }
 
   /**

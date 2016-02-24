@@ -3,8 +3,8 @@
 '#'=82
 '%'=35
 '&&'=18
-'('=93
-')'=94
+'('=90
+')'=91
 '*'=32
 '**'=33
 '+'=30
@@ -15,7 +15,7 @@
 '..'=26
 '..<'=25
 '/'=34
-'::'=96
+'::'=97
 '<'=23
 '<>'=28
 '='=89
@@ -49,7 +49,7 @@
 'issues'=61
 'message'=53
 'model'=54
-'null'=95
+'null'=96
 'ok'=38
 'precondition'=58
 'prefailcount'=75
@@ -65,9 +65,9 @@
 'tbd'=42
 'tbdcount'=68
 'then'=66
-'thenfailed'=97
+'thenfailed'=98
 'thenskipcount'=74
-'this'=98
+'this'=93
 'time'=81
 'timeout'=40
 'timeoutcount'=71
@@ -78,9 +78,9 @@
 'verification'=64
 'warning'=48
 'weight'=80
-'{'=90
+'{'=94
 '||'=17
-'}'=91
+'}'=95
 RULE_ANY_OTHER=16
 RULE_BASED_INTEGER=12
 RULE_DIGIT=8

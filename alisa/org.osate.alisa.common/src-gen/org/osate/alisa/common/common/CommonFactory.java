@@ -171,6 +171,24 @@ public interface CommonFactory extends EFactory
   AUnaryOperation createAUnaryOperation();
 
   /**
+   * Returns a new object of class '<em>AFunction Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AFunction Call</em>'.
+   * @generated
+   */
+  AFunctionCall createAFunctionCall();
+
+  /**
+   * Returns a new object of class '<em>AThis</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AThis</em>'.
+   * @generated
+   */
+  AThis createAThis();
+
+  /**
    * Returns a new object of class '<em>ASet Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
