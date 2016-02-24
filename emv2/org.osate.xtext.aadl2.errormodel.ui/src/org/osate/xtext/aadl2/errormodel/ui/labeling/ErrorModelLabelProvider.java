@@ -19,6 +19,7 @@ package org.osate.xtext.aadl2.errormodel.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.osate.aadl2.Feature;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
@@ -26,10 +27,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -67,7 +70,14 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(OutgoingPropagationCondition ele) {
-		String s = ele.getName() == null ? "<unnamed>" : ele.getName();
+		FeatureorPPReference res = ele.getOutgoing().getFeatureorPPRef();
+		String fname;
+		if (res instanceof Feature) {
+			fname = ((Feature) res).getName();
+		} else {
+			fname = ((PropagationPoint) res).getName();
+		}
+		String s = ele.getName() == null ? fname : ele.getName();
 		return "out propagation " + s + " when";
 	}
 
