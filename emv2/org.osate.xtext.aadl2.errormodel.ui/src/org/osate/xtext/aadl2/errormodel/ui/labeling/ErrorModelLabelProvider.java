@@ -21,6 +21,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.Feature;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -84,6 +85,11 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 	String text(ErrorDetection ele) {
 		String s = ele.getDetectionReportingPort().getName();
 		return "event " + s + " when";
+	}
+
+	String text(CompositeState ele) {
+		String s = ele.getState().getName();
+		return "state " + s + " when";
 	}
 
 	String text(ErrorBehaviorTransition ele) {
