@@ -2574,16 +2574,6 @@ public class EMV2Util {
 		return null;
 	}
 
-	/** flattened list instead of right recursion **/
-	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
-		final EList<FeatureorPPReference> list = new BasicEList<>();
-		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current
-				.getNext()) {
-			list.add(current);
-		}
-		return list;
-	}
-
 	public static EList<SubcomponentElement> getSubcomponents(QualifiedPropagationPoint propagationPoint) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
 		for (QualifiedPropagationPoint current = propagationPoint; current != null; current = current.getNext()) {

@@ -122,23 +122,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 					} else if (ne instanceof ErrorPropagation) {
 						// we resolved previous entry to an error propagation
 						// It may represent the context of the feature, e.g., when both the fg and the feature have an error propagation
-						EList<FeatureorPPReference> flist = EMV2Util.getFeatureorPPRefs((ErrorPropagation) ne);
-						if (!flist.isEmpty()) {
-							FeatureorPPReference fop = flist.get(flist.size() - 1);
-							if (fop.getFeatureorPP() instanceof FeatureGroup) {
-								cxtFGT = ((FeatureGroup) fop.getFeatureorPP()).getAllFeatureGroupType();
-								epFGPrefix = ((FeatureGroup) fop.getFeatureorPP()).getName() + ".";
-								EObject obj = previousContainmentPathElement.eContainer();
-								while (obj instanceof ContainmentPathElement) {
-									NamedElement prevne = ((ContainmentPathElement) obj).getNamedElement();
-									if (prevne instanceof FeatureGroup) {
-										epFGPrefix = ((FeatureGroup) prevne).getName() + "." + epFGPrefix;
-									} else {
-										break;
-									}
-									obj = obj.eContainer();
-								}
-							}
+						Feature f = EMV2Util.getFeature((ErrorPropagation) ne);
+						if (f instanceof FeatureGroup) {
+							cxtFGT = ((FeatureGroup) f).getAllFeatureGroupType();
+							epFGPrefix = EMV2Util.getPropagationName((ErrorPropagation) ne);
 						}
 						cxtElement = ne;
 					} else {
