@@ -68,13 +68,13 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp1: in propagation {et1};
-						dp2: out propagation {et1};
+						dp2: in propagation {et1};
 						processor: in propagation {et1};
 						memory: out propagation {et1};
 						fg1.dp9: in propagation {et1};
-						fg1.dp10: out propagation {et1};
+						fg1.dp10: in propagation {et1};
 						fg1.fg2.dp11: in propagation {et1};
-						fg1.fg2.dp12: out propagation {et1};
+						fg1.fg2.dp12: in propagation {et1};
 						point1: in propagation {et1};
 						point2: out propagation {et1};
 					end propagations;
@@ -104,7 +104,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp3: in propagation {et1};
-						dp4: out propagation {et1};
+						dp4: in propagation {et1};
 						connection: in propagation {et1};
 						binding: out propagation {et1};
 						es1: in propagation {et1};
@@ -126,7 +126,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp5: in propagation {et1};
-						dp6: out propagation {et1};
+						dp6: in propagation {et1};
 						bindings: in propagation {et1};
 						access: out propagation {et1};
 					end propagations;
@@ -147,7 +147,7 @@ class EventOrPropagationTest extends OsateTest {
 					
 					error propagations
 						dp7: in propagation {et1};
-						dp8: out propagation {et1};
+						dp8: in propagation {et1};
 					end propagations;
 					
 					component error behavior
