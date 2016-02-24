@@ -94,6 +94,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//AgreeMethod/singleLayer"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//AgreeMethod/all"/>
     </genClasses>
+    <genClasses ecoreClass="Verify.ecore#//JUnit4Method">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//JUnit4Method/classPath"/>
+    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/successor"/>

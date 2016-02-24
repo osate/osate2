@@ -2458,6 +2458,16 @@ ruleMethodKind returns [EObject current=null]
         $current = $this_AgreeMethod_4.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getMethodKindAccess().getJUnit4MethodParserRuleCall_5()); 
+    }
+    this_JUnit4Method_5=ruleJUnit4Method
+    { 
+        $current = $this_JUnit4Method_5.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -2688,6 +2698,49 @@ ruleAgreeMethod returns [EObject current=null]
 
 )
 )))
+;
+
+
+
+
+
+// Entry rule entryRuleJUnit4Method
+entryRuleJUnit4Method returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getJUnit4MethodRule()); }
+	 iv_ruleJUnit4Method=ruleJUnit4Method 
+	 { $current=$iv_ruleJUnit4Method.current; } 
+	 EOF 
+;
+
+// Rule JUnit4Method
+ruleJUnit4Method returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='junit' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getJUnit4MethodAccess().getJunitKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getJUnit4MethodAccess().getClassPathQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_classPath_1_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getJUnit4MethodRule());
+	        }
+       		set(
+       			$current, 
+       			"classPath",
+        		lv_classPath_1_0, 
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

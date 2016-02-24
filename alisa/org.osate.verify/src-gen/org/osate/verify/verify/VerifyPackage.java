@@ -877,6 +877,34 @@ public interface VerifyPackage extends EPackage
   int AGREE_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.JUnit4MethodImpl <em>JUnit4 Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.JUnit4MethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJUnit4Method()
+   * @generated
+   */
+  int JUNIT4_METHOD = 15;
+
+  /**
+   * The feature id for the '<em><b>Class Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JUNIT4_METHOD__CLASS_PATH = METHOD_KIND_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>JUnit4 Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JUNIT4_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -884,7 +912,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 15;
+  int THEN_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -921,7 +949,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 16;
+  int ELSE_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -976,7 +1004,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 17;
+  int ALL_EXPR = 18;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1004,7 +1032,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 18;
+  int REF_EXPR = 19;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -1032,7 +1060,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 19;
+  int VERIFICATION_VALIDATION = 20;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1069,7 +1097,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 20;
+  int VERIFICATION_PRECONDITION = 21;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1888,6 +1916,27 @@ public interface VerifyPackage extends EPackage
   EAttribute getAgreeMethod_All();
 
   /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.JUnit4Method <em>JUnit4 Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>JUnit4 Method</em>'.
+   * @see org.osate.verify.verify.JUnit4Method
+   * @generated
+   */
+  EClass getJUnit4Method();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.JUnit4Method#getClassPath <em>Class Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Class Path</em>'.
+   * @see org.osate.verify.verify.JUnit4Method#getClassPath()
+   * @see #getJUnit4Method()
+   * @generated
+   */
+  EAttribute getJUnit4Method_ClassPath();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2671,6 +2720,24 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute AGREE_METHOD__ALL = eINSTANCE.getAgreeMethod_All();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.JUnit4MethodImpl <em>JUnit4 Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.JUnit4MethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJUnit4Method()
+     * @generated
+     */
+    EClass JUNIT4_METHOD = eINSTANCE.getJUnit4Method();
+
+    /**
+     * The meta object literal for the '<em><b>Class Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute JUNIT4_METHOD__CLASS_PATH = eINSTANCE.getJUnit4Method_ClassPath();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.

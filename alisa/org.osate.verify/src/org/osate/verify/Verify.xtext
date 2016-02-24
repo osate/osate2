@@ -158,7 +158,7 @@ VerificationMethod:
 	;
 
 MethodKind:
-	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod
+	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod|JUnit4Method
 ;
 	
 	ResoluteMethod:
@@ -179,6 +179,10 @@ MethodKind:
 
 	AgreeMethod:
 		'agree' (singleLayer?='single' | all?='all')
+	;
+
+	JUnit4Method:
+		'junit' classPath=QualifiedName
 	;
 
 	

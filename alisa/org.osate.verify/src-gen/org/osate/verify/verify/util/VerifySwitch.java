@@ -195,6 +195,14 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.JUNIT4_METHOD:
+      {
+        JUnit4Method jUnit4Method = (JUnit4Method)theEObject;
+        T result = caseJUnit4Method(jUnit4Method);
+        if (result == null) result = caseMethodKind(jUnit4Method);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.THEN_EXPR:
       {
         ThenExpr thenExpr = (ThenExpr)theEObject;
@@ -483,6 +491,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAgreeMethod(AgreeMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>JUnit4 Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>JUnit4 Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJUnit4Method(JUnit4Method object)
   {
     return null;
   }

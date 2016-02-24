@@ -59,6 +59,7 @@ import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
+import org.osate.verify.verify.JUnit4Method;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
@@ -185,6 +186,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.FORMAL_PARAMETER:
 				sequence_FormalParameter(context, (FormalParameter) semanticObject); 
 				return; 
+			case VerifyPackage.JUNIT4_METHOD:
+				sequence_JUnit4Method(context, (JUnit4Method) semanticObject); 
+				return; 
 			case VerifyPackage.JAVA_METHOD:
 				sequence_JavaMethod(context, (JavaMethod) semanticObject); 
 				return; 
@@ -276,6 +280,22 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_FormalParameter(EObject context, FormalParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     classPath=QualifiedName
+	 */
+	protected void sequence_JUnit4Method(EObject context, JUnit4Method semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJUnit4MethodAccess().getClassPathQualifiedNameParserRuleCall_1_0(), semanticObject.getClassPath());
+		feeder.finish();
 	}
 	
 	
