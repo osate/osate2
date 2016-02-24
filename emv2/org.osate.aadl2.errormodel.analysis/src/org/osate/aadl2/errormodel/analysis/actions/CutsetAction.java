@@ -64,8 +64,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -206,13 +206,7 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 
 		for (PropagationPathEnd ppe : dests) {
 			report.addOutput("," + ppe.getComponentInstance().getName());
-
-			if (EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).size() > 0) {
-				report.addOutput("/");
-				for (FeatureorPPReference t : EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation())) {
-					report.addOutput(t.getFeatureorPP().getName());
-				}
-			}
+			report.addOutput("/" + ppe.getErrorPropagation().getFeatureorPPRef().getFeatureorPP().getName());
 		}
 
 		report.addOutput("\n");
@@ -304,12 +298,8 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 
 					report.addOutput(" - " + et.getName());
 
-					if (EMV2Util.getFeatureorPPRefs(src.getErrorPropagation()).size() > 0) {
-						report.addOutput(" on ");
-					}
-					for (FeatureorPPReference t : EMV2Util.getFeatureorPPRefs(src.getErrorPropagation())) {
-						report.addOutput(t.getFeatureorPP().getName());
-					}
+					ErrorPropagation ep = src.getErrorPropagation();
+					report.addOutput(" on " + EMV2Util.getPropagationName(ep));
 
 					for (PropagationPathEnd dst : destinations) {
 						report.addOutput(",");

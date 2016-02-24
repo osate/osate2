@@ -82,7 +82,8 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 		}
 
 		if (!(instance.getComponentClassifier() instanceof ComponentImplementation)) {
-			Dialog.showError("Integration Compliance", "You must select a component that is a component implementation");
+			Dialog.showError("Integration Compliance",
+					"You must select a component that is a component implementation");
 			return;
 		}
 
@@ -98,8 +99,7 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 			boolean found = false;
 
 			for (ErrorPropagation epc : EMV2Util.getAllOutgoingErrorPropagations(componentType)) {
-				if (EMV2Util.getFeatureorPPRefs(epi).get(0).getFeatureorPP() == EMV2Util.getFeatureorPPRefs(epc).get(0)
-						.getFeatureorPP()) {
+				if (EMV2Util.getPropagationName(epi).equalsIgnoreCase(EMV2Util.getPropagationName(epc))) {
 					found = true;
 
 					if (!EMV2Util.areEquivalent(epi, epc)) {
@@ -139,8 +139,7 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 			boolean found = false;
 
 			for (ErrorPropagation epc : EMV2Util.getAllIncomingErrorPropagations(componentType)) {
-				if (EMV2Util.getFeatureorPPRefs(epi).get(0).getFeatureorPP() == EMV2Util.getFeatureorPPRefs(epc).get(0)
-						.getFeatureorPP()) {
+				if (EMV2Util.getPropagationName(epi).equalsIgnoreCase(EMV2Util.getPropagationName(epc))) {
 					found = true;
 
 					if (!EMV2Util.areEquivalent(epi, epc)) {
@@ -169,8 +168,8 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 					found = true;
 					if ((typeState.getTypeSet() != null) && (implementationState.getTypeSet() != null)
 							&& (!EM2TypeSetUtil.contains(typeState.getTypeSet(), implementationState.getTypeSet()))) {
-						error(obj, "State " + typeState.getName()
-								+ " does not have the same types between type and impl");
+						error(obj,
+								"State " + typeState.getName() + " does not have the same types between type and impl");
 					}
 				}
 			}
@@ -204,8 +203,8 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 					found = true;
 					if ((typeEvent.getTypeSet() != null) && (implementationEvent.getTypeSet() != null)
 							&& (!EM2TypeSetUtil.contains(typeEvent.getTypeSet(), implementationEvent.getTypeSet()))) {
-						error(obj, "Event " + typeEvent.getName()
-								+ " does not have the same types between type and impl");
+						error(obj,
+								"Event " + typeEvent.getName() + " does not have the same types between type and impl");
 					}
 				}
 			}

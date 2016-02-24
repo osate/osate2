@@ -63,7 +63,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -783,19 +782,20 @@ public class PropagateErrorSources {
 			 */
 			boolean toAnalyze = true;
 
-			for (FeatureorPPReference freftmp : EMV2Util.getFeatureorPPRefs(ep)) {
-				if (freftmp.getFeatureorPP() instanceof Feature) {
-					if (freftmp == fi.getFeature()) {
-						toAnalyze = false;
-					}
-				}
+			Feature f = EMV2Util.getFeature(ep);
+			if (f.getName().equalsIgnoreCase(fi.getFeature().getName())) {
+				toAnalyze = false;
 			}
 
-			if (toAnalyze) {
+			if (toAnalyze)
+
+			{
 				continue;
 			}
 
-			if (fi.getDirection().outgoing()) {
+			if (fi.getDirection().outgoing())
+
+			{
 				ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
 				if (outp != null) {
 					TypeToken newtt = EMV2Util.mapToken(tt, null);

@@ -310,7 +310,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		DirectionType pd = errorPropagation.getDirection();
 		DirectionType portd = EMV2Util.getErrorPropagationFeatureDirection(errorPropagation);
 		if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT)) {
-			error(errorPropagation, "Propagation direction does not match port direction.");
+			error(errorPropagation, "Propagation '" + EMV2Util.getPropagationName(errorPropagation)
+					+ "' direction does not match port direction.");
 		}
 	}
 

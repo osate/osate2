@@ -739,8 +739,8 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 							se.getSubcomponent();
 							// OsateDebug.osateDebug("se=" + se);
-							PropertyAssociation PA = EMV2Properties
-									.getOccurenceDistributionProperty(componentInstance, EMV2Util.getState(ce), null);
+							PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,
+									EMV2Util.getState(ce), null);
 							if (PA == null) {
 								warning(componentInstance,
 										"C13: component " + componentInstance.getName()
@@ -851,9 +851,8 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //							OsateDebug.osateDebug("ep=" + ep);
 //							OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP());
 //							OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP());
-							if ((EMV2Util.getFeatureorPPRefs(ep.getIncoming()).get(0).getFeatureorPP() == srcFeature)
-									&& (EMV2Util.getFeatureorPPRefs(ep.getOutgoing()).get(0)
-											.getFeatureorPP() == dstFeature)) {
+							if ((ep.getIncoming().getFeatureorPPRef().getFeatureorPP() == srcFeature)
+									&& (ep.getOutgoing().getFeatureorPPRef().getFeatureorPP() == dstFeature)) {
 								found = true;
 							}
 						}
@@ -908,7 +907,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation)
 						&& (ef instanceof ErrorSink)) {
 					ErrorSink es = (ErrorSink) ef;
-					Feature src = (Feature) EMV2Util.getFeatureorPPRefs(es.getIncoming()).get(0).getFeatureorPP();
+					Feature src = (Feature) es.getIncoming().getFeatureorPPRef().getFeatureorPP();
 					ComponentImplementation impl = (ComponentImplementation) componentInstance.getComponentClassifier();
 					// OsateDebug.osateDebug("src="+src);
 
@@ -955,9 +954,8 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 										// OsateDebug.osateDebug("ef2 error sink="+ef2);
 
 										ErrorSink es2 = (ErrorSink) ef2;
-										Feature dst = (Feature) EMV2Util.getFeatureorPPRefs(es2.getIncoming()).get(0)
-												.getFeatureorPP();
-												// OsateDebug.osateDebug("src="+src);
+										Feature dst = (Feature) es2.getIncoming().getFeatureorPPRef().getFeatureorPP();
+										// OsateDebug.osateDebug("src="+src);
 
 										// OsateDebug.osateDebug("featureDst="+featureDst);
 										// OsateDebug.osateDebug("dst="+dst);

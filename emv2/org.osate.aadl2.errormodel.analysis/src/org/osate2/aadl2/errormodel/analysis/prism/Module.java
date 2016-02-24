@@ -214,8 +214,7 @@ public class Module {
 					opc.getOutgoing());
 
 			for (PropagationPathEnd ppe : propagationEnds) {
-				NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
-						.getFeatureorPP();
+				NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRef().getFeatureorPP();
 
 				ErrorTypes et = opc.getTypeToken().getType().get(0);
 				// OsateDebug.osateDebug("TYPE" + et.getName() +";state=" + targetState.getName());
@@ -371,30 +370,30 @@ public class Module {
 			 * This variable might be updated/changed by other components connected
 			 * to this incoming propagation.
 			 */
-			for (FeatureorPPReference fr : EMV2Util.getFeatureorPPRefs(ep)) {
-				NamedElement feature = fr.getFeatureorPP();
+			FeatureorPPReference fr = ep.getFeatureorPPRef();
+			NamedElement feature = fr.getFeatureorPP();
 
-				int errorVal = 1;
-				TypeSet ts = ep.getTypeSet();
-				for (TypeToken tt : ts.getTypeTokens()) {
-					for (ErrorTypes et : tt.getType()) {
-						associatedModel.addErrorType(et.getName());
-						Expression e = new Equal(new Terminal(
-								Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName())),
-								new Terminal("" + errorVal++));
+			int errorVal = 1;
+			TypeSet ts = ep.getTypeSet();
+			for (TypeToken tt : ts.getTypeTokens()) {
+				for (ErrorTypes et : tt.getType()) {
+					associatedModel.addErrorType(et.getName());
+					Expression e = new Equal(
+							new Terminal(
+									Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName())),
+							new Terminal("" + errorVal++));
 
-						Formula f = new Formula(
-								Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName())
-										+ "_get_" + et.getName().toLowerCase(),
-								e);
-						formulas.add(f);
-					}
-
-					associatedModel.getGlobals().put(
-							Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName()),
-							errorVal - 1);
-
+					Formula f = new Formula(
+							Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName()) + "_get_"
+									+ et.getName().toLowerCase(),
+							e);
+					formulas.add(f);
 				}
+
+				associatedModel.getGlobals().put(
+						Util.getComponentIncomingPropagationVariableName(aadlComponent, feature.getName()),
+						errorVal - 1);
+
 			}
 		}
 
@@ -450,8 +449,7 @@ public class Module {
 		for (PropagationPathEnd ppe : propagationEnds) {
 			command = new Command();
 
-			NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
-					.getFeatureorPP();
+			NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRef().getFeatureorPP();
 
 			incomingPropagationName = connectedFeature.getName();
 
@@ -495,8 +493,7 @@ public class Module {
 						.getAllPropagationSourceEnds(aadlComponent, incomingErrorPropagation);
 
 				for (PropagationPathEnd ppe : propagationEnds) {
-					NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
-							.getFeatureorPP();
+					NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRef().getFeatureorPP();
 
 					ErrorTypes et = incomingErrorPropagation.getTypeSet().getTypeTokens().get(0).getType().get(0);
 
@@ -507,8 +504,8 @@ public class Module {
 					}
 				}
 				result = new Equal(
-						new Terminal(Util.getComponentIncomingPropagationVariableName(aadlComponent, EMV2Util
-								.getFeatureorPPRefs(incomingErrorPropagation).get(0).getFeatureorPP().getName())),
+						new Terminal(Util.getComponentIncomingPropagationVariableName(aadlComponent,
+								incomingErrorPropagation.getFeatureorPPRef().getFeatureorPP().getName())),
 						new Terminal("" + errorTypeValue));
 			}
 		}

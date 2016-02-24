@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -309,6 +308,16 @@ public class EMV2Util {
 		return null;
 	}
 
+	public static String getPath(FeatureorPPReference ref) {
+		if (ref == null)
+			return "";
+		if (ref.getNext() != null) {
+			return ref.getFeatureorPP().getName() + "." + getPath(ref.getNext());
+		} else {
+			return ref.getFeatureorPP().getName();
+		}
+	}
+
 	/**
 	 * Find error propagation  starting with the specified classifier
 	 * goes up the inheritance hierarchy
@@ -329,23 +338,8 @@ public class EMV2Util {
 							return ep;
 						}
 					} else {
-						EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-						if (!refs.isEmpty()) {
-							String refname = "";
-							for (FeatureorPPReference FeatureorPPReference : refs) {
-								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-									return null;
-								}
-								refname = refname + (refname.isEmpty() ? "" : ".")
-										+ FeatureorPPReference.getFeatureorPP().getName();
-							}
-							if (refname.equalsIgnoreCase(name)) {
-								return ep;
-							}
-						}
-						String kind = ep.getKind();
-						if (kind != null && kind.equalsIgnoreCase(name)
-								&& (dir == null || dir.equals(ep.getDirection()))) {
+						String refname = EMV2Util.getPath(ep.getFeatureorPPRef());
+						if (refname.equalsIgnoreCase(name)) {
 							return ep;
 						}
 					}
@@ -423,23 +417,8 @@ public class EMV2Util {
 							return ep;
 						}
 					} else {
-						EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-						if (!refs.isEmpty()) {
-							String refname = "";
-							for (FeatureorPPReference FeatureorPPReference : refs) {
-								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-									return null;
-								}
-								refname = refname + (refname.isEmpty() ? "" : ".")
-										+ FeatureorPPReference.getFeatureorPP().getName();
-							}
-							if (refname.equalsIgnoreCase(name)) {
-								return ep;
-							}
-						}
-						String kind = ep.getKind();
-						if (kind != null && kind.equalsIgnoreCase(name)
-								&& (dir == null || dir.equals(ep.getDirection()))) {
+						String refname = EMV2Util.getPath(ep.getFeatureorPPRef());
+						if (refname.equalsIgnoreCase(name)) {
 							return ep;
 						}
 					}
@@ -715,23 +694,10 @@ public class EMV2Util {
 	}
 
 	public static boolean areEquivalent(ErrorPropagation ep1, ErrorPropagation ep2) {
-		boolean result = true;
-
-		for (FeatureorPPReference fr1 : getFeatureorPPRefs(ep1)) {
-			boolean found = false;
-			for (FeatureorPPReference fr2 : getFeatureorPPRefs(ep2)) {
-				if (fr1.getFeatureorPP() == fr2.getFeatureorPP()) {
-					if (EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
-							&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet())) {
-						found = true;
-					}
-				}
-			}
-			if (found == false) {
-				result = false;
-			}
-		}
-		return result;
+		String path1 = getPath(ep1.getFeatureorPPRef());
+		String path2 = getPath(ep2.getFeatureorPPRef());
+		return path1.equalsIgnoreCase(path2) && EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
+				&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet());
 	}
 
 	/**
@@ -1524,16 +1490,7 @@ public class EMV2Util {
 		if (res != null) {
 			return res;
 		}
-//		Iterator<FeatureorPPReference> it = getFeatureorPPRefs(propagation).iterator();
-//		if (!it.hasNext()) return "<noname>";
-//		res = it.next().getFeatureorPP().getName();
-//		while (it.hasNext()){
-//			res = res + "." + it.next().getFeatureorPP().getName();
-//		}
-//		return res;
-// PHF: the same in Java 8
-		return getFeatureorPPRefs(propagation).stream().map(p -> p.getFeatureorPP().getName())
-				.collect(Collectors.joining("."));
+		return getPath(propagation.getFeatureorPPRef());
 	}
 
 	/**
@@ -2018,14 +1975,14 @@ public class EMV2Util {
 	 * @return Feature
 	 */
 	public static Feature getFeature(ErrorPropagation ep) {
-		EList<FeatureorPPReference> freflist = getFeatureorPPRefs(ep);
-		if (!freflist.isEmpty()) {
-			FeatureorPPReference fref = freflist.get(freflist.size() - 1);
-			NamedElement f = fref.getFeatureorPP();
-			if (f instanceof Feature) {
-				return (Feature) f;
-			}
+		FeatureorPPReference forppref = ep.getFeatureorPPRef();
+		if (forppref == null)
+			return null;
+		while (forppref.getNext() != null) {
+			forppref = forppref.getNext();
 		}
+		if (forppref.getFeatureorPP() instanceof Feature)
+			return (Feature) forppref.getFeatureorPP();
 		return null;
 	}
 
@@ -2069,21 +2026,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-		String refname = "";
-		if (refs.isEmpty()) {
-			if (ep.getKind() != null) {
-				return ep.getKind();
-			}
-		} else {
-			for (FeatureorPPReference FeatureorPPReference : refs) {
-				if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-					return null;
-				}
-				refname = refname + (refname.isEmpty() ? "" : ".") + FeatureorPPReference.getFeatureorPP().getName();
-			}
-		}
-		return refname;
+		return getPropagationName(ep);
 	}
 
 	public static String getPrintName(TypeSet ts) {
@@ -2537,19 +2480,16 @@ public class EMV2Util {
 		if (ep == null) {
 			return null;
 		}
-
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
+		FeatureorPPReference forppref = ep.getFeatureorPPRef();
+		if (forppref.getFeatureorPP() instanceof PropagationPoint)
 			return null;
-		}
-		InstanceObject container = ci;
-		for (FeatureorPPReference FeatureorPPReference : frefs) {
-			NamedElement ne = FeatureorPPReference.getFeatureorPP();
+		FeatureInstance container = ci.findFeatureInstance((Feature) forppref.getFeatureorPP());
+		while (forppref.getNext() != null) {
+			forppref = forppref.getNext();
+			NamedElement ne = forppref.getFeatureorPP();
 			if (ne instanceof Feature) {
 				Feature fe = (Feature) ne;
-				FeatureInstance fi = (container instanceof ComponentInstance
-						? ((ComponentInstance) container).findFeatureInstance(fe)
-						: ((FeatureInstance) container).findFeatureInstance(fe));
+				FeatureInstance fi = container.findFeatureInstance(fe);
 				if (fi != null) {
 					container = fi;
 				} else {
@@ -2559,7 +2499,7 @@ public class EMV2Util {
 				return null;
 			}
 		}
-		return (FeatureInstance) container;
+		return container;
 	}
 
 	/**
@@ -2569,11 +2509,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static NamedElement getErrorPropagationFeature(ErrorPropagation ep, ComponentInstance ci) {
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
+		Feature f = getFeature(ep);
+		if (f == null) {
 			return ci;
 		}
-		return frefs.get(frefs.size() - 1).getFeatureorPP();
+		return f;
 	}
 
 	/**
@@ -2583,11 +2523,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static DirectionType getErrorPropagationFeatureDirection(ErrorPropagation ep) {
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
+		FeatureorPPReference fref = ep.getFeatureorPPRef();
 		boolean inverse = false;
 		NamedElement f = null;
-		for (int i = 0; i < frefs.size() - 1; i++) {
-			f = frefs.get(i).getFeatureorPP();
+		while (fref != null) {
+			f = fref.getFeatureorPP();
 			if (f instanceof FeatureGroup) {
 				FeatureGroup fg = (FeatureGroup) f;
 				FeatureGroupType fgt = fg.getAllFeatureGroupType();
@@ -2598,6 +2538,7 @@ public class EMV2Util {
 					inverse = !inverse;
 				}
 			}
+			fref = fref.getNext();
 		}
 		if (f instanceof Port) {
 			DirectionType portd = ((Port) f).getDirection();
@@ -2621,30 +2562,19 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(fi.getFeature())) {
 			return false; // not to a feature
 		}
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
-			return false;
-		}
-		for (int i = frefs.size() - 1; i > 0; i--) {
-			FeatureorPPReference fref = frefs.get(i);
-			if (!Aadl2Util.isNull(fref.getFeatureorPP()) && fref.getFeatureorPP() == fi.getFeature()) {
-				return false;
-			}
-		}
-		return false;
+		Feature f = getFeature(ep);
+		return f.getName().equalsIgnoreCase(fi.getFeature().getName());
 	}
 
 	public static PropagationPoint getPropagationPoint(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-		if (!refs.isEmpty()) {
-			FeatureorPPReference ref = refs.get(0);
-			if (ref instanceof PropagationPoint) {
-				return (PropagationPoint) ref;
-			}
+		FeatureorPPReference ref = ep.getFeatureorPPRef();
+		if (ref instanceof PropagationPoint) {
+			return (PropagationPoint) ref;
 		}
 		return null;
 	}
 
+	/** flattened list instead of right recursion **/
 	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
 		final EList<FeatureorPPReference> list = new BasicEList<>();
 		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current

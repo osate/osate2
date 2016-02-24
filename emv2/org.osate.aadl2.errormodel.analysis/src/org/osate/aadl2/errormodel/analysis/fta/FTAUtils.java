@@ -20,7 +20,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -313,13 +312,6 @@ public class FTAUtils {
 
 		return false;
 
-	}
-
-	public static String getFeatureFromErrorPropagation(ErrorPropagation errorPropagation) {
-		for (FeatureorPPReference fp : EMV2Util.getFeatureorPPRefs(errorPropagation)) {
-			return fp.getFeatureorPP().getName();
-		}
-		return "unknown feature";
 	}
 
 	/**
