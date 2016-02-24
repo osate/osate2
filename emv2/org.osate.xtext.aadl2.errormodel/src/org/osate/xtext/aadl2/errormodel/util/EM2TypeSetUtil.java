@@ -83,7 +83,7 @@ public class EM2TypeSetUtil {
 		}
 		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
 		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
-		while (type != null) {
+		while (resolvedtype != null) {
 			if (resolvedtype == resolvedsupertype) {
 				return true;
 			} else {
