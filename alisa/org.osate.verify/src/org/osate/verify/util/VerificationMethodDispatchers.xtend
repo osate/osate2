@@ -148,7 +148,7 @@ class VerificationMethodDispatchers {
 		}
 	}
 
-	// Method returns null if Java method was found.
+	// Method returns null if Java class was found.
 	// Otherwise it returns an error message
 	def String methodExists(JavaMethod vm) {
 		 val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).params
@@ -229,5 +229,43 @@ class VerificationMethodDispatchers {
 			default: return Class.forName(name)
 		}
 	}
+	
+		def String classExists(String className) {
+		try {
+			val workspaceRoot = ResourcesPlugin.workspace.root
+			val model = JavaCore.create(workspaceRoot)
+
+			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			if (projects.isEmpty) {
+				throw new IllegalArgumentException('No such class: ' + className)
+			} else if (projects.size > 1) {
+				throw new IllegalArgumentException('Multiple methods found for ' + className)
+			}
+			var changed = true
+			while (changed) {
+				val referenced = projects.map [ p |
+					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
+					val paths = cpes.map[it.path]
+					paths.map[model.getJavaProject(it.toString)]
+				].flatten
+				changed = projects += referenced
+			}
+			val urls = projects.map [ p |
+				val file = workspaceRoot.getFile(p.outputLocation)
+				new URL(file.locationURI + "/")
+			]
+
+			val parent = class.classLoader
+			val loader = new URLClassLoader(urls, parent);
+			val clazz = Class.forName(className, true, loader);
+		} catch (Exception e) {
+			if (e instanceof InvocationTargetException) {
+				return e.targetException.toString
+			}
+			return e.toString
+		}
+		return null
+	}
+	
 
 }

@@ -43,6 +43,7 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
+import org.osate.verify.verify.JUnit4Method
 
 /**
  * Custom validation rules. 
@@ -52,6 +53,7 @@ import org.osate.verify.verify.VerifyPackage
 class VerifyValidator extends AbstractVerifyValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
+	public static val INCORRECT_CLASS_PATH = "org.osate.verify.incorrectClassPath"
 	public static val INCORRECT_METHOD_REFERENCE = "org.osate.verify.incorrectMethodReference"
 	public static val MISSING_METHOD_REFERENCE = "org.osate.verify.missingMethodReference"
 	public static val INCORRECT_METHOD_ID = "org.osate.verify.incorrectMethodID"
@@ -80,6 +82,15 @@ class VerifyValidator extends AbstractVerifyValidator {
 		if (result != null) {
 			warning("Could not find method: " + result, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
+		}
+	}
+
+	@Check
+	def checkClassPath(JUnit4Method method) {
+		val result = VerificationMethodDispatchers.eInstance.classExists(method.classPath)
+		if (result != null) {
+			warning("Could not find JUnit4 test class: " + result, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH,
+				INCORRECT_CLASS_PATH)
 		}
 	}
 
