@@ -105,10 +105,36 @@ public class EM2TypeSetUtil {
 
 	public static boolean contains(ErrorTypes constraint, TypeSet type) {
 		if (constraint instanceof ErrorType) {
-			return contains(constraint, type);
+			return contains((ErrorType) constraint, type);
 		}
 		if (constraint instanceof TypeSet) {
 			return contains((TypeSet) constraint, type);
+		}
+		return false;
+	}
+
+	public static boolean contains(ErrorType constraint, TypeSet ts) {
+		ts = EMV2Util.resolveAlias(ts);
+		for (TypeToken tselement : ts.getTypeTokens()) {
+			if (!contains(constraint, tselement)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean contains(ErrorType constraint, TypeToken token) {
+		if (constraint == null || token == null) {
+			return false;
+		}
+		if (token.isNoError()) {
+			return false;
+		}
+		EList<ErrorTypes> tsetype = token.getType();
+		for (ErrorTypes errorType : tsetype) {
+			if (contains(constraint, errorType)) {
+				return true;
+			}
 		}
 		return false;
 	}
