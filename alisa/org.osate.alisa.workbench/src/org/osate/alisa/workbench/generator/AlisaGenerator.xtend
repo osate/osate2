@@ -158,10 +158,9 @@ class AlisaGenerator implements IGenerator {
 			}
 		}
 		val APparts = doAssurancePlanParts(mp, myplans, cc)
-		if(APparts.length == 0) return ''''''
+//		if(APparts.length == 0) return ''''''
 		'''	
 			subsystem «sub.name» 
-«««			for «sub.name»
 			[
 			tbdcount 0
 			«APparts»
@@ -171,14 +170,14 @@ class AlisaGenerator implements IGenerator {
 	
 	/**
 	 * sub: system of interest as subcomponent of another system only for global requirements from enclosing case
+	 * Otherwiase it was marked as assume, i.e., local assurance case/verification plans are not executed
 	 */
 	def CharSequence generateSubsystemGlobalOnly(Subcomponent sub,AssurancePlan mp) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		val APparts = doAssurancePlanParts(mp, myplans, sub.allClassifier)
-		if(APparts.length == 0) return ''''''
+//		if(APparts.length == 0) return ''''''
 		'''	
 			subsystem «sub.name» 
-«««			for «sub.name»
 			[
 			tbdcount 0
 			«APparts»
