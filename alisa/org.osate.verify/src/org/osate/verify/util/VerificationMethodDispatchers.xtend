@@ -232,6 +232,17 @@ class VerificationMethodDispatchers {
 	
 		def String classExists(String className) {
 		try {
+			val clazz = findClass(className);
+		} catch (Exception e) {
+			if (e instanceof InvocationTargetException) {
+				return e.targetException.toString
+			}
+			return e.toString
+		}
+		return null
+	}
+	
+		def Class findClass(String className) {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
@@ -258,13 +269,7 @@ class VerificationMethodDispatchers {
 			val parent = class.classLoader
 			val loader = new URLClassLoader(urls, parent);
 			val clazz = Class.forName(className, true, loader);
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				return e.targetException.toString
-			}
-			return e.toString
-		}
-		return null
+			return clazz
 	}
 	
 
