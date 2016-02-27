@@ -1058,8 +1058,13 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			srccl = cimpl;
 		}
 		if (srccl != null) {
-			srcprop = EMV2Util.findOutgoingErrorPropagation(srccl, srcname);
-			srccontain = EMV2Util.findOutgoingErrorContainment(srccl, srcname);
+			if (AadlUtil.isIncomingConnection(conn)) {
+				srcprop = EMV2Util.findIncomingErrorPropagation(srccl, srcname);
+				srccontain = EMV2Util.findIncomingErrorContainment(srccl, srcname);
+			} else {
+				srcprop = EMV2Util.findOutgoingErrorPropagation(srccl, srcname);
+				srccontain = EMV2Util.findOutgoingErrorContainment(srccl, srcname);
+			}
 		}
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
@@ -1075,8 +1080,13 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			dstcl = cimpl;
 		}
 		if (dstcl != null) {
-			dstprop = EMV2Util.findIncomingErrorPropagation(dstcl, dstname);
-			dstcontain = EMV2Util.findIncomingErrorContainment(dstcl, dstname);
+			if (AadlUtil.isOutgoingConnection(conn)) {
+				dstprop = EMV2Util.findOutgoingErrorPropagation(dstcl, dstname);
+				dstcontain = EMV2Util.findOutgoingErrorContainment(dstcl, dstname);
+			} else {
+				dstprop = EMV2Util.findIncomingErrorPropagation(dstcl, dstname);
+				dstcontain = EMV2Util.findIncomingErrorContainment(dstcl, dstname);
+			}
 		}
 		if (srcprop != null && dstprop != null) {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
@@ -1087,17 +1097,17 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					TypeToken mappedtt = EM2TypeSetUtil.mapTypeToken(srcprop.getTypeSet(), typeEquivalence);
 					if (mappedtt != null) {
 						if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), mappedtt)) {
-							error(conn, "Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+							error(conn, "Source propagation  " + EMV2Util.getPrintName(srcprop)
 									+ EMV2Util.getPrintName(srcprop.getTypeSet())
-									+ " has error types not handled by incoming propagation "
+									+ " has error types not handled by destination propagation "
 									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 						}
 					}
 				} else {
 					error(conn,
-							"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+							"Source propagation  " + EMV2Util.getPrintName(srcprop)
 									+ EMV2Util.getPrintName(srcprop.getTypeSet())
-									+ " has error types not handled by incoming propagation "
+									+ " has error types not handled by destination propagation "
 									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
@@ -1105,9 +1115,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (srccontain != null && dstcontain != null) {
 			if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 				error(conn,
-						"Outgoing containment  " + EMV2Util.getPrintName(srcprop)
+						"Source containment  " + EMV2Util.getPrintName(srcprop)
 								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " does not contain error types listed by incoming containment "
+								+ " does not contain error types listed by Source containment "
 								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
@@ -1138,15 +1148,25 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (conn.isAllBidirectional()) {
 			// check for error flow in the opposite direction
 			if (srccl != null) {
-				dstprop = EMV2Util.findIncomingErrorPropagation(srccl, srcname);
-				dstcontain = EMV2Util.findIncomingErrorContainment(srccl, srcname);
+				if (AadlUtil.isIncomingConnection(conn)) {
+					dstprop = EMV2Util.findOutgoingErrorPropagation(srccl, srcname);
+					dstcontain = EMV2Util.findOutgoingErrorContainment(srccl, srcname);
+				} else {
+					dstprop = EMV2Util.findIncomingErrorPropagation(srccl, srcname);
+					dstcontain = EMV2Util.findIncomingErrorContainment(srccl, srcname);
+				}
 			} else {
 				dstprop = null;
 				dstcontain = null;
 			}
 			if (dstcl != null) {
-				srcprop = EMV2Util.findOutgoingErrorPropagation(dstcl, dstname);
-				srccontain = EMV2Util.findOutgoingErrorContainment(dstcl, dstname);
+				if (AadlUtil.isOutgoingConnection(conn)) {
+					srcprop = EMV2Util.findIncomingErrorPropagation(dstcl, dstname);
+					srccontain = EMV2Util.findIncomingErrorContainment(dstcl, dstname);
+				} else {
+					srcprop = EMV2Util.findOutgoingErrorPropagation(dstcl, dstname);
+					srccontain = EMV2Util.findOutgoingErrorContainment(dstcl, dstname);
+				}
 			} else {
 				srcprop = null;
 				srccontain = null;
@@ -1155,18 +1175,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (srcprop != null && dstprop != null) {
 				if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 					error(conn,
-							"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+							"Reverse direction: Destination propagation  " + EMV2Util.getPrintName(srcprop)
 									+ EMV2Util.getPrintName(srcprop.getTypeSet())
-									+ " has error types not handled by incoming propagation "
+									+ " has error types not handled by source propagation "
 									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
 			if (srccontain != null && dstcontain != null) {
 				if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 					error(conn,
-							"Outgoing containment  " + EMV2Util.getPrintName(srcprop)
+							"Reverse direction: Destination containment  " + EMV2Util.getPrintName(srcprop)
 									+ EMV2Util.getPrintName(srcprop.getTypeSet())
-									+ " does not contain error types listed by incoming containment "
+									+ " does not contain error types listed by source containment "
 									+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
