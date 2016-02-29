@@ -31,6 +31,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -771,7 +772,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				prob = prob + Double.valueOf(bv);
 			} else if (sl != null) {
 				ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
-				PropertyAssociation pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
+				EMV2PropertyAssociation pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
 				prob = prob + EMV2Properties.getRealValue(pa);
 			}
 		}

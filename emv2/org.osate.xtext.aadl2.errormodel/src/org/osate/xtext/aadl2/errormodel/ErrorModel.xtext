@@ -33,7 +33,7 @@ ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
 |PropagationPath | PropagationPoint |CompositeState
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation
+|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation 
 ;
 
 ModalElement returns aadl2::ModalElement:
@@ -45,9 +45,9 @@ TypeSetElement|TypeToken
 |TypeTransformation|TypeMapping
 |QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
 |ConditionElement | AndExpression | ConditionTerm
-|ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
+|ConditionExpression|OrmoreExpression|OrlessExpression
 	|ErrorStateToModeMapping|QualifiedErrorBehaviorState
-| SubcomponentElement | FeatureorPPReference  
+| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
 ;
 
 
@@ -97,7 +97,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
 	'end' 'paths' ';'
   )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation)+)?
+ 	(properties+=EMV2PropertyAssociation)+)?
 //	'**}'
 	 ;
 
@@ -149,7 +149,7 @@ EMV2Subclause returns ErrorModelSubclause:
 	'end' 'paths' ';'
   )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation)+)?
+ 	(properties+=EMV2PropertyAssociation)+)?
 //	'**}'
 'end' 'subclause'';'
 	 ;
@@ -165,7 +165,7 @@ ErrorModelLibrary returns ErrorModelLibrary:
     'with')?     
 (((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
      'end' 'types' ';'
 	)?
     (behaviors+=ErrorBehaviorStateMachine )*
@@ -185,7 +185,7 @@ EMV2Library returns ErrorModelLibrary:
     'with')?     
 (((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
      'end' 'types' ';'
 	)?
     (behaviors+=ErrorBehaviorStateMachine )*
@@ -201,7 +201,7 @@ EMV2Library returns ErrorModelLibrary:
     'with')?     
 (((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
      'end' 'types' ';'
 	)?
     (behaviors+=ErrorBehaviorStateMachine )*
@@ -211,6 +211,46 @@ EMV2Library returns ErrorModelLibrary:
 	)
 	 ;
 	
+
+EMV2PropertyAssociation returns EMV2PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' 
+	( 
+	 ownedValues+=OptionalModalPropertyValue
+	( ',' ownedValues+=OptionalModalPropertyValue )*
+	)
+	'applies' 'to' (
+		emv2Path+=EMV2Path ( ',' emv2Path+=EMV2Path)*
+	)
+	';';
+
+BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' 
+	( 
+	 ownedValues+=OptionalModalPropertyValue
+	( ',' ownedValues+=OptionalModalPropertyValue )*
+	)
+	'applies' 'to' (emv2Path+=BasicEMV2Path ( ',' emv2Path+=EMV2Path)*)
+	';';
+	
+EMV2Path returns EMV2Path:
+		(containmentPath=ContainmentPath '@' )?
+			(( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
+			)
+			| emv2Target=EMV2PathElement )
+;
+	
+BasicEMV2Path returns EMV2Path:
+			(( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
+			)
+			| emv2Target=EMV2PathElement )
+;
+
+EMV2PathElement returns EMV2PathElement:
+			namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2PathElement)?
+;
 
 ErrorTypes returns ErrorTypes:
 	TypeDefinition | TypeSetDefinition 
@@ -399,7 +439,7 @@ ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine:
   ( 'states' (states+=ErrorBehaviorState )+ )?
   ( 'transitions' (transitions+=ErrorBehaviorTransition )+ )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
   'end' 'behavior' ';';
   
 ErrorBehaviorEvent returns ErrorBehaviorEvent: 

@@ -39,7 +39,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.errormodel.analysis.cma.CMAReport;
 import org.osate.aadl2.errormodel.analysis.cma.CMAUtils;
@@ -48,6 +47,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -110,7 +110,7 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		 */
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
 
-			PropertyAssociation severityPA = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
+			EMV2PropertyAssociation severityPA = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
 			PropertyExpression severityValue = EMV2Properties.getPropertyValue(severityPA);
 			String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
 			CMAUtils.setCurrentSeverity(sev);

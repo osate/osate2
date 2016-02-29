@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -56,6 +55,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -121,7 +121,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			 */
 
 			// OsateDebug.osateDebug(" behaviorState " + behaviorState);
-			PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance, behaviorState,
+			EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance, behaviorState,
 					null);
 			// OsateDebug.osateDebug(" PA " + PA);
 			if (PA != null) {

@@ -13,6 +13,8 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainmentPathElement;
@@ -25,9 +27,16 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -81,43 +90,47 @@ public class EMLinkingService extends PropertiesLinkingService {
 		final Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
-			// containment path element
 			if (context instanceof ContainmentPathElement) {
+				// containment path element: sequence of subcomponents
+				Classifier cxtClassifier = EMV2Util.getAssociatedClassifier(((ContainmentPathElement) context));
+				if (context.eContainer() instanceof ContainmentPathElement) {
+					// deal with feature groups and features as identifiers of error propagations
+					NamedElement ne = ((ContainmentPathElement) context.eContainer()).getNamedElement();
+					if (ne instanceof Subcomponent) {
+						// use the last component on the path as context for lookup of error model elements
+						ComponentClassifier cxtPathComp = ((Subcomponent) ne).getAllClassifier();
+						if (cxtPathComp != null) {
+							cxtClassifier = cxtPathComp;
+						}
+					}
+				}
+				searchResult = cxtClassifier.findNamedElement(name);
+				if (searchResult != null && searchResult instanceof Subcomponent) {
+					return Collections.singletonList(searchResult);
+				}
+			} else if (context instanceof EMV2PathElement) {
+				// EMV2 model element and optional error type
 				EObject previous = context.eContainer();
-				// the default context element is the ContainmentPathElement
+				// the default context element is the EMV2PathElement
 				// It is used for lookup in an EMV2 library context
 				Element cxtElement = (Element) context;
 				FeatureGroupType cxtFGT = null;
 				String epFGPrefix = "";
-				// set cxtElement to classifier for lookup of first EMV2 element
-				// This will only be set if the 'context' is in an EMV2 subclause
-				// This gets overwritten if the previous element is already an EMV2 element
-				Classifier found = EMV2Util.getAssociatedClassifier(((ContainmentPathElement) context));
-				if (found != null) {
-					cxtElement = found;
-				}
-				if (previous instanceof ContainmentPathElement) {
-					ContainmentPathElement previousContainmentPathElement = (ContainmentPathElement) previous;
+				if (previous instanceof EMV2PathElement) {
 					// deal with feature groups and features as identifiers of error propagations
-					NamedElement ne = previousContainmentPathElement.getNamedElement();
+					NamedElement ne = ((EMV2PathElement) previous).getNamedElement();
 					if (ne instanceof FeatureGroup) {
 						FeatureGroup fg = (FeatureGroup) ne;
 						cxtFGT = fg.getAllFeatureGroupType();
-						EObject obj = previousContainmentPathElement;
-						while (obj instanceof ContainmentPathElement) {
-							NamedElement prevne = ((ContainmentPathElement) obj).getNamedElement();
+						EObject obj = previous;
+						while (obj instanceof EMV2PathElement) {
+							NamedElement prevne = ((EMV2PathElement) obj).getNamedElement();
 							if (prevne instanceof FeatureGroup) {
 								epFGPrefix = ((FeatureGroup) prevne).getName() + "." + epFGPrefix;
 							} else {
 								break;
 							}
 							obj = obj.eContainer();
-						}
-					} else if (ne instanceof Subcomponent) {
-						// use the last component on the path as context for lookup of error model elements
-						ComponentClassifier cxtPathComp = ((Subcomponent) ne).getAllClassifier();
-						if (cxtPathComp != null) {
-							cxtElement = cxtPathComp;
 						}
 					} else if (ne instanceof ErrorPropagation) {
 						// we resolved previous entry to an error propagation
@@ -128,131 +141,101 @@ public class EMLinkingService extends PropertiesLinkingService {
 							epFGPrefix = EMV2Util.getPropagationName((ErrorPropagation) ne);
 						}
 						cxtElement = ne;
-					} else {
+					} else if (!Aadl2Util.isNull(ne)) {
 						cxtElement = ne;
 					}
+				} else {
+					// we are at the top: EMV2Path
+					// need to find the classifier of the containment path as context if it exists
+					EMV2Path emv2path = (EMV2Path) previous;
+					ContainmentPathElement last = EMV2Util.getLast(emv2path.getContainmentPath());
+					if (last != null) {
+						NamedElement ne = last.getNamedElement();
+						if (ne instanceof Subcomponent) {
+							cxtElement = ((Subcomponent) ne).getAllClassifier();
+						}
+					}
 				}
-				// find annex subclause as context for error model identifier lookup
-				if (!Aadl2Util.isNull(cxtElement)) {
-					if (cxtFGT != null) {
-						// if previous element was feature group, look up next feature group in its type
-						// we do not want to return features as they should get resolved to an error propagation
-						searchResult = cxtFGT.findNamedElement(name);
-						if (searchResult != null) {
-							if (searchResult instanceof FeatureGroup) {
-								return Collections.singletonList(searchResult);
-							}
-						}
+				// The find methods understand if they are in a subclause
+				// first we look for error propagations. This may resolve a feature group as propagation point.
+				searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.IN);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorContainment(cxtElement, epFGPrefix + name, DirectionType.OUT);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorContainment(cxtElement, epFGPrefix + name, DirectionType.IN);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorFlow(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorBehaviorEvent(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorBehaviorState(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorBehaviorTransition(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findErrorDetection(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				if (cxtFGT != null) {
+					// if previous element was feature group, look up next feature group in its type
+					// we do not want to return features as they should get resolved to an error propagation
+					searchResult = cxtFGT.findNamedElement(name);
+					if (searchResult != null && (searchResult instanceof FeatureGroup)) {
+						return Collections.singletonList(searchResult);
 					}
-					if (cxtElement instanceof ComponentClassifier) {
-						// we are in a subclause with the enclosing classifier as cxtElement
-						// or we have a subcomponent in the containment path and use the last one for loolup
-						searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.IN);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorFlow(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorBehaviorEvent(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorBehaviorState(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorBehaviorTransition(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findErrorDetection(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						// phf: we do not want to look up error types if the context is not an EMV2 element
-						// while we are in a subclause setting
-//						searchResult = EMV2Util.findErrorType(cxtElement, name);
-//						if (searchResult != null) {
-//							return Collections.singletonList(searchResult);
-//						}
-//						searchResult = EMV2Util.findErrorTypeSet(cxtElement, name);
-//						if (searchResult != null) {
-//							return Collections.singletonList(searchResult);
-//						}
-						// look up subcomponent in classifier of previous subcomponent, or feature group
-						// we do not want to return features as they should get resolved to an error propagation
-						searchResult = ((Classifier) cxtElement).findNamedElement(name);
-						if (searchResult != null
-								&& (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup)) {
-							return Collections.singletonList(searchResult);
-						}
-					} else {
-						// deal with error propagation that is a feature group and we may also have an error propagation that is a feature in this feature group
-						if (cxtFGT != null) {
-							searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name,
-									DirectionType.OUT);
-							if (searchResult != null) {
-								return Collections.singletonList(searchResult);
-							}
-							searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name,
-									DirectionType.IN);
-							if (searchResult != null) {
-								return Collections.singletonList(searchResult);
-							}
-						}
-						if (cxtElement instanceof ContainmentPathElement) {
-							ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(cxtElement);
-							if (ebsm != null) {
-								searchResult = EMV2Util.findErrorBehaviorEvent(ebsm, name);
-								if (searchResult != null) {
-									return Collections.singletonList(searchResult);
-								}
-								searchResult = EMV2Util.findErrorBehaviorState(ebsm, name);
-								if (searchResult != null) {
-									return Collections.singletonList(searchResult);
-								}
-								searchResult = EMV2Util.findErrorBehaviorTransition(ebsm, name);
-								if (searchResult != null) {
-									return Collections.singletonList(searchResult);
-								}
-							} else {
-								// set context to be the error model library for resolving to error types
-								ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
-								if (eml != null)
-									cxtElement = eml;
-							}
-						}
-						// We either have an EMV2 element or an ErrorModel Library as context for looking up types
-						searchResult = findErrorType(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
-						searchResult = findTypeSet(cxtElement, name);
-						if (searchResult != null) {
-							return Collections.singletonList(searchResult);
-						}
+				}
+				// look up feature group in context or enclosing classifier
+				// we do not want to return features as they should get resolved to an error propagation
+				Classifier cl = cxtElement instanceof Classifier ? (Classifier) cxtElement
+						: EMV2Util.getAssociatedClassifier(cxtElement);
+				if (cl != null) {
+					searchResult = cl.findNamedElement(name);
+					if (searchResult != null && searchResult instanceof FeatureGroup) {
+						return Collections.singletonList(searchResult);
 					}
-				} // ! null (context)
-					// containment path element
+				}
+				// We either have an EMV2 element or an ErrorModel Library as context for looking up types
+				searchResult = findErrorType(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				searchResult = findTypeSet(cxtElement, name);
+				if (searchResult != null) {
+					return Collections.singletonList(searchResult);
+				}
+				// EMV2 path element
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
+
 				Classifier ns = EMV2Util.getAssociatedClassifier(cxt);
 				searchResult = ns.findNamedElement(name);
 // checked by validator
@@ -280,39 +263,55 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 			// end namedElement
-		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType)
+
+		{
 			Classifier ns = EMV2Util.getAssociatedClassifier((Element) context);
 			NamedElement ne = ns.findNamedElement(name);
 			if (ne instanceof Feature || ne instanceof InternalFeature) {
 				searchResult = ne;
 			}
-		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType)
+
+		{
 			searchResult = findErrorType(cxt, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getTypeSet() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getTypeSet() == requiredType)
+
+		{
 			searchResult = findTypeSet(cxt, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorTypes() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorTypes() == requiredType)
+
+		{
 			searchResult = findErrorType(cxt, name);
 			if (searchResult == null) {
 				searchResult = findTypeSet(cxt, name);
 			}
 
-		} else if (ErrorModelPackage.eINSTANCE.getPropagationPoint() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getPropagationPoint() == requiredType)
+
+		{
 			ComponentClassifier cl;
 			// find propagation point
 			if (context instanceof QualifiedPropagationPoint) {
 				QualifiedPropagationPoint qpp = (QualifiedPropagationPoint) context;
 				SubcomponentElement sub = qpp.getSubcomponent();
 				cl = sub.getSubcomponent().getAllClassifier();
-				if (!Aadl2Util.isNull(cl)) {
+				if (!Aadl2Util.isNull(cl))
+
+				{
 					searchResult = EMV2Util.findPropagationPoint(cl, name);
 				}
 			}
-		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType)
+
+		{
 			searchResult = findErrorModelLibrary(context, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType)
+
+		{
 			if (reference.getName().equalsIgnoreCase("outgoing")) {
 				searchResult = EMV2Util.findErrorPropagation(cxt, name, DirectionType.OUT);
 			} else if (reference.getName().equalsIgnoreCase("incoming")) {
@@ -321,18 +320,28 @@ public class EMLinkingService extends PropertiesLinkingService {
 				searchResult = EMV2Util.findErrorPropagation(cxt, name, null);
 			}
 
-		} else if (ErrorModelPackage.eINSTANCE.getTypeMappingSet() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getTypeMappingSet() == requiredType)
+
+		{
 			searchResult = findTypeMappingSet(context, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getTypeTransformationSet() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getTypeTransformationSet() == requiredType)
+
+		{
 			searchResult = findTypeTransformationSet(context, name);
-		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine() == requiredType)
+
+		{
 			searchResult = findErrorBehaviorStateMachine(context, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorState() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorState() == requiredType)
+
+		{
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType)
+
+		{
 // XXX allow subcomponent reference in outgoing propagation and transition as well
 //			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
 			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
@@ -342,35 +351,90 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (searchResult == null) {
 				searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 			}
-		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType)
+
+		{
 			searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorTransition() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorTransition() == requiredType)
+
+		{
 			searchResult = EMV2Util.findErrorBehaviorTransition(cxt, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorFlow() == requiredType) {
+		} else if (ErrorModelPackage.eINSTANCE.getErrorFlow() == requiredType)
+
+		{
 			searchResult = EMV2Util.findErrorFlow(EMV2Util.getAssociatedClassifier(cxt), name);
 
-		} else if (Aadl2Package.eINSTANCE.getSubcomponent() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getSubcomponent() == requiredType)
+
+		{
 //		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
 			if (context instanceof SubcomponentElement) {
+
 				EObject ce = context.eContainer().eContainer();
 				Classifier ns;
-				if (ce instanceof QualifiedPropagationPoint) {
+				if (ce instanceof QualifiedPropagationPoint)
+
+				{
 					ns = ((QualifiedPropagationPoint) ce).getSubcomponent().getSubcomponent().getAllClassifier();
-				} else if (ce instanceof QualifiedErrorBehaviorState) {
+				} else if (ce instanceof QualifiedErrorBehaviorState)
+
+				{
 					ns = ((QualifiedErrorBehaviorState) ce).getSubcomponent().getSubcomponent().getAllClassifier();
-				} else {
+				} else
+
+				{
 					ns = EMV2Util.getAssociatedClassifier(cxt);
 				}
-				if (ns != null) {
+				if (ns != null)
+
+				{
 					EObject res = ns.findNamedElement(name);
 					if (res instanceof Subcomponent) {
 						searchResult = res;
 					}
 				}
 			}
+		} else if (Aadl2Package.eINSTANCE.getBasicProperty() == requiredType) {
+			// look for record field definition
+			if (context instanceof BasicPropertyAssociation) {
+				BasicPropertyAssociation bpa = (BasicPropertyAssociation) context;
+				// TODO: Need to check that the type of the record field is
+				// correct for the value.
+				Element parent = bpa.getOwner();
+				while (parent != null
+						&& !(parent instanceof BasicPropertyAssociation || parent instanceof EMV2PropertyAssociation
+								|| parent instanceof Property || parent instanceof PropertyConstant)) {
+					parent = parent.getOwner();
+				}
+				PropertyType propertyType = null;
+				if (parent instanceof BasicPropertyAssociation) {
+					BasicProperty bp = ((BasicPropertyAssociation) parent).getProperty();
+					if (bp != null) {
+						propertyType = bp.getPropertyType();
+					}
+				} else if (parent instanceof EMV2PropertyAssociation) {
+					Property pd = ((EMV2PropertyAssociation) parent).getProperty();
+					if (pd != null) {
+						propertyType = pd.getPropertyType();
+					}
+				} else if (parent instanceof Property) {
+					propertyType = ((Property) parent).getPropertyType();
+				} else if (parent instanceof PropertyConstant) {
+					propertyType = ((PropertyConstant) parent).getPropertyType();
+				}
+				propertyType = AadlUtil.getBasePropertyType(propertyType);
+
+				if (propertyType != null && propertyType instanceof RecordType) {
+					BasicProperty rf = (BasicProperty) ((RecordType) propertyType).findNamedElement(name);
+					if (rf != null) {
+						searchResult = rf;
+					}
+				}
+			}
 		}
+
 		if (searchResult != null) {
 			return Collections.singletonList(searchResult);
 		}
@@ -379,7 +443,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 			return res;
 		} else {
 			return Collections.<EObject> emptyList();
-
 		}
 	}
 

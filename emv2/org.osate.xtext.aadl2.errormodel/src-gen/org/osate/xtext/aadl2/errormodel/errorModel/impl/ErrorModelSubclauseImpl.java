@@ -18,12 +18,11 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.PropertyAssociation;
-
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -250,7 +249,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * @generated
    * @ordered
    */
-  protected EList<PropertyAssociation> properties;
+  protected EList<EMV2PropertyAssociation> properties;
 
   /**
    * <!-- begin-user-doc -->
@@ -661,11 +660,11 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyAssociation> getProperties()
+  public EList<EMV2PropertyAssociation> getProperties()
   {
     if (properties == null)
     {
-      properties = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES);
+      properties = new EObjectContainmentEList<EMV2PropertyAssociation>(EMV2PropertyAssociation.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES);
     }
     return properties;
   }
@@ -839,7 +838,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         getProperties().clear();
-        getProperties().addAll((Collection<? extends PropertyAssociation>)newValue);
+        getProperties().addAll((Collection<? extends EMV2PropertyAssociation>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

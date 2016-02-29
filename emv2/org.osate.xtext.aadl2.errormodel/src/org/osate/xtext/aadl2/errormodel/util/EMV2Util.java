@@ -47,6 +47,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -316,6 +318,22 @@ public class EMV2Util {
 		} else {
 			return ref.getFeatureorPP().getName();
 		}
+	}
+
+	/**
+	 * Find error propagation in classifier hierarchy
+	 * name can be a dotted name
+	 * @param elem the context whose containing classifier is searched hierarchically to find the error propagation
+	 * @param name
+	 * @param dir
+	 * @return
+	 */
+	public static ErrorPropagation findErrorContainment(Element elem, String name, DirectionType dir) {
+		Classifier cl = getAssociatedClassifier(elem);
+		if (cl != null) {
+			return findErrorContainment(cl, name, dir);
+		}
+		return null;
 	}
 
 	/**
@@ -2007,15 +2025,15 @@ public class EMV2Util {
 	}
 
 	public static String getPrintName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getPrintName(ep);
+		}
 		if (el instanceof NamedElement) {
 			NamedElement ne = (NamedElement) el;
 			if (ne.getName() != null) {
 				return ne.getName();
 			}
-		}
-		if (el instanceof ErrorPropagation) {
-			ErrorPropagation ep = (ErrorPropagation) el;
-			return getPrintName(ep);
 		}
 		return "";
 	}
@@ -2027,6 +2045,58 @@ public class EMV2Util {
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
 		return getPropagationName(ep);
+	}
+
+	public static String getPrintNameWithoutType(EMV2Path ep) {
+		if (ep == null)
+			return "";
+		if (ep.getEmv2PropagationKind() != null) {
+			return ep.getEmv2PropagationKind();
+		} else {
+			return getPathNameWithoutType(ep.getEmv2Target());
+		}
+	}
+
+	public static ErrorTypes getErrorType(EMV2Path ep) {
+		if (ep.getErrorType() != null)
+			return ep.getErrorType();
+		EMV2PathElement last = getLast(ep.getEmv2Target());
+		if (last.getNamedElement() instanceof ErrorTypes) {
+			return (ErrorTypes) last.getNamedElement();
+		}
+		return null;
+	}
+
+	public static EMV2PathElement getLast(EMV2PathElement ep) {
+		EMV2PathElement result = ep;
+		while (result.getPath() != null) {
+			result = result.getPath();
+		}
+		return result;
+	}
+
+	public static ContainmentPathElement getLast(ContainedNamedElement ep) {
+		if (ep == null)
+			return null;
+		ContainmentPathElement result = ep.getPath();
+		while (result.getPath() != null) {
+			result = result.getPath();
+		}
+		return result;
+	}
+
+	public static String getPathNameWithoutType(EMV2PathElement ep) {
+		if (ep == null || ep.getNamedElement() instanceof ErrorTypes)
+			return "";
+		String path = getPathNameWithoutType(ep.getPath());
+		String myname = getPrintName(ep.getNamedElement());
+		if (myname == null)
+			return path;
+		if (!path.isEmpty()) {
+			return myname + "." + path;
+		} else {
+			return myname;
+		}
 	}
 
 	public static String getPrintName(TypeSet ts) {

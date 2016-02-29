@@ -59,6 +59,7 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -122,10 +123,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ConditionElement condElement = (ConditionElement) trans.getCondition();
 				if (condElement.getIncoming() instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) condElement.getIncoming();
-					PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent, errorEvent.getTypeSet());
-					PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+					EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
+					EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+							errorEvent.getTypeSet());
+					EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
 					reportHazardProperty(ci, PA, Sev, Like, errorEvent, errorEvent.getTypeSet(), errorEvent, report);
 				}
@@ -136,9 +138,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
-			PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
-			PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
+			EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
+			EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
 			reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state, report);
 		}
 
@@ -149,9 +151,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
-			PropertyAssociation HazardPA = null;
-			PropertyAssociation Sev = null;
-			PropertyAssociation Like = null;
+			EMV2PropertyAssociation HazardPA = null;
+			EMV2PropertyAssociation Sev = null;
+			EMV2PropertyAssociation Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
@@ -199,9 +201,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 		for (ErrorPropagation ep : oeplist) {
-			PropertyAssociation HazardPA = null;
-			PropertyAssociation Sev = null;
-			PropertyAssociation Like = null;
+			EMV2PropertyAssociation HazardPA = null;
+			EMV2PropertyAssociation Sev = null;
+			EMV2PropertyAssociation Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
@@ -241,8 +243,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, PropertyAssociation PA, PropertyAssociation Sev,
-			PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
+	protected void reportHazardProperty(ComponentInstance ci, EMV2PropertyAssociation PA, EMV2PropertyAssociation Sev,
+			EMV2PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
 
 		String targetName;
 		if (PA == null)

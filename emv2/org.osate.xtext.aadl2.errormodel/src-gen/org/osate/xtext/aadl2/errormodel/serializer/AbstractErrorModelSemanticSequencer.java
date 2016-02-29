@@ -37,6 +37,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -250,6 +253,31 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
 				sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 				return; 
+			case ErrorModelPackage.EMV2_PATH:
+				if(context == grammarAccess.getBasicEMV2PathRule()) {
+					sequence_BasicEMV2Path(context, (EMV2Path) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getEMV2PathRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_EMV2Path(context, (EMV2Path) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.EMV2_PATH_ELEMENT:
+				sequence_EMV2PathElement(context, (EMV2PathElement) semanticObject); 
+				return; 
+			case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION:
+				if(context == grammarAccess.getBasicEMV2PropertyAssociationRule()) {
+					sequence_BasicEMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getEMV2PropertyAssociationRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.EMV2_ROOT:
 				sequence_EMV2Root(context, (EMV2Root) semanticObject); 
 				return; 
@@ -484,6 +512,30 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | emv2Target=EMV2PathElement)
+	 */
+	protected void sequence_BasicEMV2Path(EObject context, EMV2Path semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         ownedValues+=OptionalModalPropertyValue 
+	 *         ownedValues+=OptionalModalPropertyValue* 
+	 *         emv2Path+=BasicEMV2Path 
+	 *         emv2Path+=EMV2Path*
+	 *     )
+	 */
+	protected void sequence_BasicEMV2PropertyAssociation(EObject context, EMV2PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (realvalue=REAL_LIT | symboliclabel=[Property|QEMREF] | others?='others')
 	 */
 	protected void sequence_BranchValue(EObject context, BranchValue semanticObject) {
@@ -541,7 +593,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
-	 *             properties+=ContainedPropertyAssociation*
+	 *             properties+=BasicEMV2PropertyAssociation*
 	 *         )? 
 	 *         behaviors+=ErrorBehaviorStateMachine* 
 	 *         mappings+=TypeMappingSet* 
@@ -549,6 +601,39 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     )
 	 */
 	protected void sequence_EMV2Library(EObject context, ErrorModelLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (namedElement=[NamedElement|ID] path=EMV2PathElement?)
+	 */
+	protected void sequence_EMV2PathElement(EObject context, EMV2PathElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (containmentPath=ContainmentPath? ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | emv2Target=EMV2PathElement))
+	 */
+	protected void sequence_EMV2Path(EObject context, EMV2Path semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         ownedValues+=OptionalModalPropertyValue 
+	 *         ownedValues+=OptionalModalPropertyValue* 
+	 *         emv2Path+=EMV2Path 
+	 *         emv2Path+=EMV2Path*
+	 *     )
+	 */
+	protected void sequence_EMV2PropertyAssociation(EObject context, EMV2PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -582,7 +667,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         states+=CompositeState* 
 	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
 	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
-	 *         properties+=ContainedPropertyAssociation*
+	 *         properties+=EMV2PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_EMV2Subclause(EObject context, ErrorModelSubclause semanticObject) {
@@ -608,7 +693,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         events+=ErrorBehaviorEvent* 
 	 *         states+=ErrorBehaviorState* 
 	 *         transitions+=ErrorBehaviorTransition* 
-	 *         properties+=ContainedPropertyAssociation*
+	 *         properties+=BasicEMV2PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_ErrorBehaviorStateMachine(EObject context, ErrorBehaviorStateMachine semanticObject) {
@@ -683,7 +768,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
-	 *             properties+=ContainedPropertyAssociation*
+	 *             properties+=BasicEMV2PropertyAssociation*
 	 *         )? 
 	 *         behaviors+=ErrorBehaviorStateMachine* 
 	 *         mappings+=TypeMappingSet* 
@@ -714,7 +799,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         states+=CompositeState* 
 	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
 	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
-	 *         properties+=ContainedPropertyAssociation*
+	 *         properties+=EMV2PropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_ErrorModelSubclause(EObject context, ErrorModelSubclause semanticObject) {

@@ -66,6 +66,9 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
     {
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
       case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
+      case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION: return createEMV2PropertyAssociation();
+      case ErrorModelPackage.EMV2_PATH: return createEMV2Path();
+      case ErrorModelPackage.EMV2_PATH_ELEMENT: return createEMV2PathElement();
       case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
       case ErrorModelPackage.ERROR_TYPE: return createErrorType();
       case ErrorModelPackage.TYPE_SET: return createTypeSet();
@@ -134,6 +137,39 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
     return errorModelLibrary;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2PropertyAssociation createEMV2PropertyAssociation()
+  {
+    EMV2PropertyAssociationImpl emv2PropertyAssociation = new EMV2PropertyAssociationImpl();
+    return emv2PropertyAssociation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2Path createEMV2Path()
+  {
+    EMV2PathImpl emv2Path = new EMV2PathImpl();
+    return emv2Path;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EMV2PathElement createEMV2PathElement()
+  {
+    EMV2PathElementImpl emv2PathElement = new EMV2PathElementImpl();
+    return emv2PathElement;
   }
 
   /**

@@ -192,6 +192,8 @@ Colon : ':';
 
 Semicolon : ';';
 
+CommercialAt : '@';
+
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';

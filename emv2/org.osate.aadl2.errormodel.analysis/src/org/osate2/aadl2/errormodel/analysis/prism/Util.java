@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -13,6 +12,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -221,7 +221,7 @@ public class Util {
 				ErrorEvent ee = (ErrorEvent) event;
 				// OsateDebug.osateDebug("[Utils] Event kind:" + ee);
 
-				PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, ee, null);
+				EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, ee, null);
 				// OsateDebug.osateDebug("[Utils] PA :" + PA);
 				if (PA != null) {
 					/**
@@ -261,7 +261,7 @@ public class Util {
 				RecoverEvent re = (RecoverEvent) event;
 				// OsateDebug.osateDebug("[Utils] Recover kind:" + re);
 
-				PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, re, null);
+				EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, re, null);
 				// OsateDebug.osateDebug("[Utils] PA :" + PA);
 				if (PA != null) {
 					res = EMV2Properties.getOccurenceValue(PA);

@@ -20,15 +20,16 @@ package org.osate.xtext.aadl2.errormodel.ui.labeling;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -71,7 +72,7 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	String text(OutgoingPropagationCondition ele) {
-		FeatureorPPReference res = ele.getOutgoing().getFeatureorPPRef();
+		NamedElement res = ele.getOutgoing().getFeatureorPPRef().getFeatureorPP();
 		String fname;
 		if (res instanceof Feature) {
 			fname = ((Feature) res).getName();
@@ -95,6 +96,11 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 	String text(ErrorBehaviorTransition ele) {
 		String s = ele.isSteadyState() ? "steady state" : (ele.getName() == null ? "<unnamed>" : ele.getName());
 		return "transition " + s + " when";
+	}
+
+	String text(EMV2PropertyAssociation ele) {
+		String s = ele.getProperty().getName();
+		return "property " + s;
 	}
 
 	String text(ErrorModelLibrary ele) {
