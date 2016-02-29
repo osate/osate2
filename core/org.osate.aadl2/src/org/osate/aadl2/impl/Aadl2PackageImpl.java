@@ -4386,6 +4386,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getAbstractFeature_AbstractFeatureClassifier() {
+		return (EReference) abstractFeatureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSubcomponent() {
 		return subcomponentEClass;
 	}
@@ -9390,6 +9400,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		abstractFeatureEClass = createEClass(ABSTRACT_FEATURE);
 		createEReference(abstractFeatureEClass, ABSTRACT_FEATURE__FEATURE_PROTOTYPE);
+		createEReference(abstractFeatureEClass, ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER);
 
 		featurePrototypeEClass = createEClass(FEATURE_PROTOTYPE);
 		createEAttribute(featurePrototypeEClass, FEATURE_PROTOTYPE__DIRECTION);
@@ -11237,6 +11248,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getAbstractFeature_FeaturePrototype(), getFeaturePrototype(), null, "featurePrototype", null, 0,
 				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAbstractFeature_AbstractFeatureClassifier(), getFeatureClassifier(), null,
+				"abstractFeatureClassifier", null, 0, 1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(featurePrototypeEClass, FeaturePrototype.class, "FeaturePrototype", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -12894,6 +12908,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getSubprogramAccess_SubprogramFeatureClassifier(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
 		addAnnotation(getSubprogramGroupAccess_SubprogramGroupFeatureClassifier(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
+		addAnnotation(getAbstractFeature_AbstractFeatureClassifier(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Feature/featureClassifier") });
 		addAnnotation(getSubcomponent_Prototype(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//Subcomponent/subcomponentType") });
