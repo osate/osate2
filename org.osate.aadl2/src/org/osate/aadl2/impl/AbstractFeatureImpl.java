@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeaturePrototype;
 
 /**
@@ -53,7 +54,9 @@ import org.osate.aadl2.FeaturePrototype;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeaturePrototype <em>Feature Prototype</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getAbstractFeatureClassifier <em>Abstract Feature Classifier</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +71,16 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @ordered
 	 */
 	protected FeaturePrototype featurePrototype;
+
+	/**
+	 * The cached value of the '{@link #getAbstractFeatureClassifier() <em>Abstract Feature Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAbstractFeatureClassifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected FeatureClassifier abstractFeatureClassifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -86,6 +99,31 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractFeature();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public FeatureClassifier getFeatureClassifier() {
+		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public FeatureClassifier basicGetFeatureClassifier() {
+		if (eIsSet(Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER)) {
+			return basicGetAbstractFeatureClassifier();
+		}
+		return super.basicGetFeatureClassifier();
 	}
 
 	/**
@@ -138,6 +176,52 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 */
 	@Override
+	public FeatureClassifier getAbstractFeatureClassifier() {
+		if (abstractFeatureClassifier != null && ((EObject) abstractFeatureClassifier).eIsProxy()) {
+			InternalEObject oldAbstractFeatureClassifier = (InternalEObject) abstractFeatureClassifier;
+			abstractFeatureClassifier = (FeatureClassifier) eResolveProxy(oldAbstractFeatureClassifier);
+			if (abstractFeatureClassifier != oldAbstractFeatureClassifier) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER, oldAbstractFeatureClassifier,
+							abstractFeatureClassifier));
+				}
+			}
+		}
+		return abstractFeatureClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureClassifier basicGetAbstractFeatureClassifier() {
+		return abstractFeatureClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setAbstractFeatureClassifier(FeatureClassifier newAbstractFeatureClassifier) {
+		FeatureClassifier oldAbstractFeatureClassifier = abstractFeatureClassifier;
+		abstractFeatureClassifier = newAbstractFeatureClassifier;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER, oldAbstractFeatureClassifier,
+					abstractFeatureClassifier));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
@@ -145,6 +229,11 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 				return getFeaturePrototype();
 			}
 			return basicGetFeaturePrototype();
+		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
+			if (resolve) {
+				return getAbstractFeatureClassifier();
+			}
+			return basicGetAbstractFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,6 +248,9 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
 			setFeaturePrototype((FeaturePrototype) newValue);
+			return;
+		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
+			setAbstractFeatureClassifier((FeatureClassifier) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -175,6 +267,9 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
 			setFeaturePrototype((FeaturePrototype) null);
 			return;
+		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
+			setAbstractFeatureClassifier((FeatureClassifier) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -187,10 +282,24 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
 			return featurePrototype != null;
+		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
+			return abstractFeatureClassifier != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetFeatureClassifier() {
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER);
 	}
 
 } // AbstractFeatureImpl

@@ -1329,6 +1329,9 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 		case Aadl2Package.ABSTRACT_FEATURE__CLASSIFIER:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getFeature_FeatureClassifier());
 			break;
+		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getFeature_FeatureClassifier());
+			break;
 		}
 	}
 
