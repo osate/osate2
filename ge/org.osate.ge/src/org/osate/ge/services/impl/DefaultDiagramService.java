@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.eclipse.core.resources.IContainer;
@@ -23,6 +24,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -41,23 +43,22 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
+	private final ReferenceBuilderService referenceBuilder;
+	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
-		public DiagramService createService() {
-			return new DefaultDiagramService();
+		public DiagramService createService(final IEclipseContext context) {
+			return new DefaultDiagramService(context.get(ReferenceBuilderService.class));
 		}		
 	}
 	
@@ -131,24 +132,31 @@ public class DefaultDiagramService implements DiagramService {
 			return SelectionHelper.getProject(getDiagram().eResource());
 		}
 	}
+	
+	public DefaultDiagramService(final ReferenceBuilderService referenceBuilder) {
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder service");
+	}
 		
 	@Override
-	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne) {
-		final String aadlElementName = ne.getQualifiedName();
+	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo) {
+		final String boReference = referenceBuilder.getReference(bo);
 		final List<DiagramReference> diagramRefs = findDiagrams();
-		final URI resourceUri = ne.eResource().getURI();
-		final IProject project = SelectionHelper.getProject(resourceUri);
-		
+		final IProject project = referenceBuilder.getProject(bo);
+		if(project == null) {
+			throw new RuntimeException("Unable to get project for business object: " + bo);
+		}
+
 		// Check open diagrams first
 		for(final DiagramReference diagramRef : diagramRefs) {
-			if(diagramRef.isOpen()) {
-				final IFeatureProvider featureProvider = diagramRef.getEditor().getDiagramTypeProvider().getFeatureProvider();
-				if(featureProvider != null) {
-					final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
-					if(bo != null && bo instanceof NamedElement) {
-						final NamedElement tmpEl = (NamedElement)bo;
-						if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
-							return diagramRef;
+			if(project == diagramRef.getProject()) {
+				if(diagramRef.isOpen()) {
+					final IFeatureProvider featureProvider = diagramRef.getEditor().getDiagramTypeProvider().getFeatureProvider();
+					if(featureProvider != null) {
+						final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
+						if(tmpDiagramBo != null) {
+							if(boReference.equalsIgnoreCase(referenceBuilder.getReference(tmpDiagramBo))) {
+								return diagramRef;
+							}
 						}
 					}
 				}
@@ -164,10 +172,9 @@ public class DefaultDiagramService implements DiagramService {
 					if(diagram != null) {
 						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 						if(featureProvider != null) {
-							final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
-							if(bo != null && bo instanceof NamedElement) {
-								final NamedElement tmpEl = (NamedElement)bo;
-								if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
+							final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
+							if(tmpDiagramBo != null) {
+								if(boReference.equalsIgnoreCase(referenceBuilder.getReference(tmpDiagramBo))) {
 									return diagramRef;
 								}
 							}
@@ -181,20 +188,20 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	@Override
-	public void openOrCreateDiagramForRootBusinessObject(final NamedElement element) {
-		if(!openExistingDiagramForRootBusinessObject(element)) {
+	public void openOrCreateDiagramForRootBusinessObject(final Object bo) {
+		if(!openExistingDiagramForRootBusinessObject(bo)) {
 			// If a diagram can not be found, create a new diagram
 			Log.info("Existing diagram not found.");
 				
 			// Create and open the new resource
-			final Resource diagramResource = createNewDiagram(element);
+			final Resource diagramResource = createNewDiagram(bo);
 			openEditor((Diagram)diagramResource.getContents().get(0));
 		}
 	}
 	
-	private boolean openExistingDiagramForRootBusinessObject(final NamedElement element) {
+	private boolean openExistingDiagramForRootBusinessObject(final Object bo) {
 		// Look for an existing diagram
-		final DiagramReference diagramRef = findFirstDiagramByRootBusinessObject(element);
+		final DiagramReference diagramRef = findFirstDiagramByRootBusinessObject(bo);
 		if(diagramRef != null) {
 			if(diagramRef.isOpen()) {
 				Log.info("Existing diagram found. Activating existing editor...");
@@ -223,19 +230,6 @@ public class DefaultDiagramService implements DiagramService {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
 		} catch (PartInitException e) {
 			throw new RuntimeException(e);
-		}
-	}
-	
-	/**
-	 * Determines the diagram type id for the type of diagram used to edit the specified element
-	 * @param element the element for which to lookup the diagram type. AadlPackage, ComplementImplementation, ComponentClassifier, and FeatureGroupType objects are supported
-	 * @return the diagram type id
-	 */
-	private String getDiagramTypeId(final NamedElement element) {
-		if(element instanceof AadlPackage || element instanceof ComponentImplementation || element instanceof ComponentType || element instanceof FeatureGroupType) {
-			return AgeDiagramBehavior.AADL_DIAGRAM_TYPE_ID;
-		} else {
-			throw new RuntimeException("Unexpected named element type: " + element.getClass().getSimpleName());
 		}
 	}
 	
@@ -287,13 +281,13 @@ public class DefaultDiagramService implements DiagramService {
 	
 	/**
 	 * Creates a new diagram for the specified element
-	 * @param namedElement the element for which to create the diagram 
+	 * @param bo is the business object for which to create the diagram 
 	 * @return the new resource containing the created diagram
 	 */
-	private Resource createNewDiagram(final NamedElement namedElement) {
+	private Resource createNewDiagram(final Object bo) {
 		// Determine the diagram type id
-		final String diagramTypeId = getDiagramTypeId(namedElement);
-		Log.info("Creating diagram of type '" + diagramTypeId + "' for model element '" + namedElement.getName() + "'");
+		final String diagramTypeId = AgeDiagramBehavior.AADL_DIAGRAM_TYPE_ID;
+		Log.info("Creating diagram of type '" + diagramTypeId + "' for business object '" + bo + "'");
 		
 		// Get the default resource set to hold the new resource
 		final ResourceSet resourceSet = new ResourceSetImpl();
@@ -308,12 +302,15 @@ public class DefaultDiagramService implements DiagramService {
 	
 			// Create the diagram and its file
 			final IPeService peService = Graphiti.getPeService();
-			final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
+			final Diagram diagram = peService.createDiagram(diagramTypeId, referenceBuilder.getTitle(bo), true);
 			
-			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, new AadlElementWrapper(namedElement));
+			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo instanceof NamedElement ? new AadlElementWrapper((NamedElement)bo) : bo);
 			
 			// Create a resource to hold the diagram
-			final IProject project = SelectionHelper.getProject(namedElement.eResource());
+			final IProject project = referenceBuilder.getProject(bo);
+			if(project == null) {
+				throw new RuntimeException("Unable to get project for business object: " + bo);
+			}
 			final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
 			
 			// Store the diagram in the resource

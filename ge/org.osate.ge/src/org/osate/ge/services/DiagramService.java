@@ -13,7 +13,6 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 /**
@@ -34,15 +33,15 @@ public interface DiagramService {
 		AgeDiagramEditor getEditor();
 	}
 	
-	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne);
+	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo);
 	
 	public List<DiagramReference> findDiagrams();
 	
 	/**
-	 * Opens the first found existing diagram for an element. If a diagram is not found, a diagram of the appropriate type is created.
-	 * @param element the element for which to open/create the diagram
+	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram is create.
+	 * @param bo the business object for which to open/create the diagram
 	 */
-	public void openOrCreateDiagramForRootBusinessObject(final NamedElement element);
+	public void openOrCreateDiagramForRootBusinessObject(final Object bo);
 	
 	/**
 	 * Returns the name of a specified diagram

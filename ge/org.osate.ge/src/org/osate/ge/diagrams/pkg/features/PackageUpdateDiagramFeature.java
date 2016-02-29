@@ -53,9 +53,11 @@ import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
+	private final ReferenceBuilderService refBuilder;
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GhostingService ghostingService;
@@ -63,9 +65,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final ShapeCreationService shapeCreationService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
 			final ShapeCreationService shapeCreationService) {
 		super(fp);
+		this.refBuilder = refBuilder;
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.ghostingService = ghostingService;
@@ -104,10 +107,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 		
 		// Update the diagram's name
-		if(pkg.getQualifiedName() != null) {
-			diagram.setName(pkg.getQualifiedName());
+		final String newTitle = refBuilder.getTitle(pkg);
+		if(newTitle != null) {
+			diagram.setName(newTitle);
 		}
-				
+	
 		// Ghost children
 		ghostingService.ghostChildren(diagram);
 		

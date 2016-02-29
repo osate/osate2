@@ -34,16 +34,19 @@ import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.util.Log;
 
 public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
+	private final ReferenceBuilderService refBuilder;
 	private final StyleService styleService;
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	
 	@Inject
-	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
+	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
 		super(fp);
+		this.refBuilder = refBuilder;
 		this.styleService = styleService;
 		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
@@ -85,8 +88,9 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		
 		// Update the diagram's name
 		final Diagram diagram = getDiagram();
-		if(classifier.getQualifiedName() != null) {
-			diagram.setName(classifier.getQualifiedName());
+		final String newTitle = refBuilder.getTitle(classifier);
+		if(newTitle != null) {
+			diagram.setName(newTitle);
 		}
 		
 		styleService.refreshStyles();
