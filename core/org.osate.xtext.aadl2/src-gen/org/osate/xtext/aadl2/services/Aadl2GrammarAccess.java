@@ -19963,29 +19963,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cInInKeyword_1_0_0 = (Keyword)cInAssignment_1_0.eContents().get(0);
 		private final Assignment cOutAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
 		private final Keyword cOutOutKeyword_1_1_0 = (Keyword)cOutAssignment_1_1.eContents().get(0);
-		private final Keyword cFeatureKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cFeaturePrototypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cFeaturePrototypeFeaturePrototypeCrossReference_3_0 = (CrossReference)cFeaturePrototypeAssignment_3.eContents().get(0);
-		private final RuleCall cFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_3_0_1 = (RuleCall)cFeaturePrototypeFeaturePrototypeCrossReference_3_0.eContents().get(1);
-		private final Assignment cArrayDimensionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_4_0 = (RuleCall)cArrayDimensionAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Keyword cPrototypeKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
+		private final Assignment cFeaturePrototypeAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final CrossReference cFeaturePrototypeFeaturePrototypeCrossReference_2_0_1_0 = (CrossReference)cFeaturePrototypeAssignment_2_0_1.eContents().get(0);
+		private final RuleCall cFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_2_0_1_0_1 = (RuleCall)cFeaturePrototypeFeaturePrototypeCrossReference_2_0_1_0.eContents().get(1);
+		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
+		private final Keyword cFeatureKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cAbstractFeatureClassifierAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final CrossReference cAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0 = (CrossReference)cAbstractFeatureClassifierAssignment_2_1_1.eContents().get(0);
+		private final RuleCall cAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1 = (RuleCall)cAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0.eContents().get(1);
+		private final Assignment cArrayDimensionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_3_0 = (RuleCall)cArrayDimensionAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//AbstractFeature returns aadl2::AbstractFeature:
 		//	(name=ID ":" // default is inout if no direction
-		//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? "feature"
-		//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? ("prototype"
+		//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? | "feature"
+		//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? "feature"
-		//featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
+		//| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? ("prototype"
+		//featurePrototype=[aadl2::FeaturePrototype|QCREF]? | "feature"
+		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -20041,41 +20050,63 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"out"
 		public Keyword getOutOutKeyword_1_1_0() { return cOutOutKeyword_1_1_0; }
 
-		//"feature"
-		public Keyword getFeatureKeyword_2() { return cFeatureKeyword_2; }
+		//"prototype" featurePrototype=[aadl2::FeaturePrototype|QCREF]? | "feature"
+		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//"prototype" featurePrototype=[aadl2::FeaturePrototype|QCREF]?
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//"prototype"
+		public Keyword getPrototypeKeyword_2_0_0() { return cPrototypeKeyword_2_0_0; }
 
 		//featurePrototype=[aadl2::FeaturePrototype|QCREF]?
-		public Assignment getFeaturePrototypeAssignment_3() { return cFeaturePrototypeAssignment_3; }
+		public Assignment getFeaturePrototypeAssignment_2_0_1() { return cFeaturePrototypeAssignment_2_0_1; }
 
 		//[aadl2::FeaturePrototype|QCREF]
-		public CrossReference getFeaturePrototypeFeaturePrototypeCrossReference_3_0() { return cFeaturePrototypeFeaturePrototypeCrossReference_3_0; }
+		public CrossReference getFeaturePrototypeFeaturePrototypeCrossReference_2_0_1_0() { return cFeaturePrototypeFeaturePrototypeCrossReference_2_0_1_0; }
 
 		//QCREF
-		public RuleCall getFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_3_0_1() { return cFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_3_0_1; }
+		public RuleCall getFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_2_0_1_0_1() { return cFeaturePrototypeFeaturePrototypeQCREFParserRuleCall_2_0_1_0_1; }
+
+		//"feature" abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
+		//"feature"
+		public Keyword getFeatureKeyword_2_1_0() { return cFeatureKeyword_2_1_0; }
+
+		//abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?
+		public Assignment getAbstractFeatureClassifierAssignment_2_1_1() { return cAbstractFeatureClassifierAssignment_2_1_1; }
+
+		//[aadl2::FeatureClassifier|QCREF]
+		public CrossReference getAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0() { return cAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0; }
+
+		//QCREF
+		public RuleCall getAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1() { return cAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1; }
 
 		//arrayDimension+=ArrayDimension?
-		public Assignment getArrayDimensionAssignment_4() { return cArrayDimensionAssignment_4; }
+		public Assignment getArrayDimensionAssignment_3() { return cArrayDimensionAssignment_3; }
 
 		//ArrayDimension
-		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0; }
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0; }
 
 		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_5_1() { return cOwnedPropertyAssociationAssignment_5_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
 
 		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0; }
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
 		//";"
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class PortDirectionElements extends AbstractParserRuleElementFinder {
@@ -27930,8 +27961,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//AbstractFeature returns aadl2::AbstractFeature:
 	//	(name=ID ":" // default is inout if no direction
-	//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? "feature"
-	//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? arrayDimension+=ArrayDimension? ("{"
+	//	| refined=[aadl2::AbstractFeature|REFINEDNAME] ":" "refined" "to") (in?="in" | out?="out")? ("prototype"
+	//	featurePrototype=[aadl2::FeaturePrototype|QCREF]? | "feature"
+	//	abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF]?) arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public AbstractFeatureElements getAbstractFeatureAccess() {
 		return pAbstractFeature;

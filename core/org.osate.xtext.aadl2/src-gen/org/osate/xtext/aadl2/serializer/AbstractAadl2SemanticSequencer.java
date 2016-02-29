@@ -1054,7 +1054,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
 	 *         (in?='in' | out?='out')? 
-	 *         featurePrototype=[FeaturePrototype|QCREF]? 
+	 *         (featurePrototype=[FeaturePrototype|QCREF]? | abstractFeatureClassifier=[FeatureClassifier|QCREF]?) 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
