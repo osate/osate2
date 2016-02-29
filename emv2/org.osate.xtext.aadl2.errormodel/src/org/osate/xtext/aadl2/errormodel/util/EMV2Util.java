@@ -2057,6 +2057,16 @@ public class EMV2Util {
 		}
 	}
 
+	public static String getPrintName(EMV2Path ep) {
+		if (ep == null)
+			return "";
+		if (ep.getEmv2PropagationKind() != null) {
+			return ep.getEmv2PropagationKind() + (ep.getErrorType() != null ? "." + ep.getErrorType().getName() : "");
+		} else {
+			return getPathName(ep.getEmv2Target());
+		}
+	}
+
 	public static ErrorTypes getErrorType(EMV2Path ep) {
 		if (ep.getErrorType() != null)
 			return ep.getErrorType();
@@ -2089,6 +2099,20 @@ public class EMV2Util {
 		if (ep == null || ep.getNamedElement() instanceof ErrorTypes)
 			return "";
 		String path = getPathNameWithoutType(ep.getPath());
+		String myname = getPrintName(ep.getNamedElement());
+		if (myname == null)
+			return path;
+		if (!path.isEmpty()) {
+			return myname + "." + path;
+		} else {
+			return myname;
+		}
+	}
+
+	public static String getPathName(EMV2PathElement ep) {
+		if (ep == null)
+			return "";
+		String path = getPathName(ep.getPath());
 		String myname = getPrintName(ep.getNamedElement());
 		if (myname == null)
 			return path;

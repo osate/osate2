@@ -22,15 +22,19 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -69,6 +73,72 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
 		return (eObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE || eObject instanceof Connection
 				|| eObject instanceof PropertyAssociation);
+	}
+
+	// copy of casePropertyAssociation
+	@Check(CheckType.FAST)
+	public void caseEMV2PropertyAssociation(EMV2PropertyAssociation pa) {
+		checkPropertyAssociation(pa);
+	}
+
+	protected void checkPropertyAssociation(EMV2PropertyAssociation pa) {
+		// type check value against type
+		Property pdef = pa.getProperty();
+		checkPropertySetElementReference(pdef, pa);
+		if (Aadl2Util.isNull(pdef)) {
+			return;
+		}
+
+		PropertyType pt = pdef.getPropertyType();
+		if (Aadl2Util.isNull(pt)) {
+			return;
+		}
+
+		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
+		for (ModalPropertyValue modalPropertyValue : pvl) {
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
+		}
+		checkAssociationAppliesTo(pa);
+	}
+
+	private void checkAssociationAppliesTo(final EMV2PropertyAssociation pa) {
+		final Property pn = pa.getProperty();
+		final EList<EMV2Path> appliesTo = pa.getEmv2Path();
+		if (appliesTo == null || appliesTo.size() == 0) {
+			Element element = pa.getOwner();
+			if (element instanceof NamedElement) {
+				final boolean applies = ((NamedElement) element).acceptsProperty(pn);
+				if (!applies) {
+					error(pa, "Property " + pa.getProperty().getQualifiedName() + " does not apply to "
+							+ ((NamedElement) element).getName());
+					// error(pa,
+					// "Property " + pa.getQualifiedName() +
+					// " does not apply to " + element.eClass().getName());
+				}
+			}
+		} else {
+			for (EMV2Path cna : appliesTo) {
+				EMV2PathElement path = cna.getEmv2Target();
+				if (path != null) {
+					// only the last value is interesting to us
+					final EMV2PathElement ph = EMV2Util.getLast(path);
+					NamedElement ne = ph.getNamedElement();
+					if (ne instanceof ErrorTypes) {
+						EObject prev = ph.eContainer();
+						if (prev instanceof EMV2PathElement) {
+							ne = ((EMV2PathElement) prev).getNamedElement();
+						}
+					}
+					if (!Aadl2Util.isNull(ne)) {
+						final boolean applies = ph.getNamedElement().acceptsProperty(pn);
+						if (!applies) {
+							error(pa, "Property " + pa.getProperty().getQualifiedName() + " does not apply to "
+									+ EMV2Util.getPrintName(cna));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Check(CheckType.FAST)
