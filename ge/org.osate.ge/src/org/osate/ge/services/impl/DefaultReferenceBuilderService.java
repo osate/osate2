@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -23,6 +25,8 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.BuildReference;
+import org.osate.ge.ext.annotations.GetProject;
+import org.osate.ge.ext.annotations.GetTitle;
 import org.osate.ge.services.ReferenceBuilderService;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
@@ -33,7 +37,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceBuilderService> {
 		@Override
-		public ReferenceBuilderService createService() {
+		public ReferenceBuilderService createService(final IEclipseContext context) {
 			return new DefaultReferenceBuilderService();
 		}		
 	}
@@ -82,4 +86,41 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 		return null;
 	}
 	
+	@Override
+	public String getTitle(Object bo) {
+		try {
+			// Set context fields
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, null, argCtx, null);
+				if(title != null) {
+					return title;
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public IProject getProject(Object bo) {
+		try {
+			// Set context fields
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, null, argCtx, null);
+				if(project != null) {
+					return project;
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+		
+		return null;
+	}	
 }

@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.services.ExtensionRegistryService;
 
@@ -23,7 +24,7 @@ import org.osate.ge.services.ExtensionRegistryService;
 public class DefaultExtensionRegistryService implements ExtensionRegistryService {
 	public static class ContextFunction extends SimpleServiceContextFunction<ExtensionRegistryService> {
 		@Override
-		public ExtensionRegistryService createService() {
+		public ExtensionRegistryService createService(final IEclipseContext context) {
 			return new DefaultExtensionRegistryService();
 		}		
 	}

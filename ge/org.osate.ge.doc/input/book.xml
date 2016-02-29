@@ -838,10 +838,16 @@
 					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference builder and resolver. A single reference builder/resolver pair may handle multiple types of business objects.</para>					
 					<section>
 						<title>Reference Builders</title>
+						<para>In addition to building references, reference builders may optionally produce a user friendly title for a business object. It may also provide the ability to determine the project to which the business object belongs. The latter capabilities are required when the object may serve as the root business object for a diagram.</para>
 						<para>The DeclarativeReferenceBuilder class may be used as an example of a reference builder.</para>
 						<para>Required Annotations:</para>
 						<itemizedlist>
 							<listitem><para>BuildReference</para></listitem>
+						</itemizedlist>
+						<para>Optional Annotations:</para>
+						<itemizedlist>
+							<listitem><para>GetProject</para></listitem>
+							<listitem><para>GetTitle</para></listitem>
 						</itemizedlist>
 						<para>Supported named parameters:</para>
 						<itemizedlist>

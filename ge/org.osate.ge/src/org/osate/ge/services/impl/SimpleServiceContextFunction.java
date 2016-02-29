@@ -11,12 +11,12 @@ public abstract class SimpleServiceContextFunction<ServiceInterface> extends Con
 	
 	public Object compute(IEclipseContext context, String contextKey) {
 		if(service == null) {
-			service = createService();
+			service = createService(context);
 			context.set(contextKey, service);
 		}
 		
 		return service;
 	}
 	
-	protected abstract ServiceInterface createService();
+	protected abstract ServiceInterface createService(final IEclipseContext context);
 }

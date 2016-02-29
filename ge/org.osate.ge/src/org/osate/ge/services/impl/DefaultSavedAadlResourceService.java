@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,7 +34,7 @@ import org.osate.ge.services.SavedAadlResourceService;
 public class DefaultSavedAadlResourceService implements SavedAadlResourceService {    
 	public static class ContextFunction extends SimpleServiceContextFunction<SavedAadlResourceService> {
 		@Override
-		public SavedAadlResourceService createService() {
+		public SavedAadlResourceService createService(final IEclipseContext context) {
 			return new DefaultSavedAadlResourceService();
 		}		
 	}
