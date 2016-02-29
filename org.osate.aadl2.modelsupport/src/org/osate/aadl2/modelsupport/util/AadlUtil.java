@@ -2380,4 +2380,14 @@ public final class AadlUtil {
 		return result;
 	}
 
+	public static boolean isOutgoingConnection(Connection conn) {
+		return conn.getAllSourceContext() instanceof Subcomponent
+				&& !(conn.getAllDestinationContext() instanceof Subcomponent);
+	}
+
+	public static boolean isIncomingConnection(Connection conn) {
+		return !(conn.getAllSourceContext() instanceof Subcomponent)
+				&& (conn.getAllDestinationContext() instanceof Subcomponent);
+	}
+
 }
