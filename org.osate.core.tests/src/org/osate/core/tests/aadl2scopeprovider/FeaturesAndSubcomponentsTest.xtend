@@ -137,7 +137,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				    subga1: provides subprogram group access subg1;
 				    ba1: provides bus access b1;
 				    da1: provides data access d1;
-				    af1: feature fproto1;
+				    af1: prototype fproto1;
 				  end container;
 				  
 				  abstract implementation container.i
@@ -207,7 +207,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				    subga2: provides subprogram group access subg1;
 				    ba2: provides bus access b1;
 				    da2: provides data access d1;
-				    af2: feature fproto3;
+				    af2: prototype fproto3;
 				  end fgtcontainer;
 				  
 				  abstract a1
