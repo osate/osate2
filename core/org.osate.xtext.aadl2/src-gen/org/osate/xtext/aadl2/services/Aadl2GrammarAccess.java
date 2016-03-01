@@ -25662,24 +25662,25 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPrivateKeyword_39 = (Keyword)cAlternatives.eContents().get(39);
 		private final Keyword cProcessKeyword_40 = (Keyword)cAlternatives.eContents().get(40);
 		private final Keyword cProcessorKeyword_41 = (Keyword)cAlternatives.eContents().get(41);
-		private final Keyword cPrototypesKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
-		private final Keyword cProvidesKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
-		private final Keyword cPublicKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
-		private final Keyword cRefinedKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
-		private final Keyword cRenamesKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
-		private final Keyword cRequiresKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
-		private final Keyword cSelfKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
-		private final Keyword cSetKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
-		private final Keyword cSinkKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
-		private final Keyword cSourceKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
-		private final Keyword cSubcomponentsKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
-		private final Keyword cSubprogramKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
-		private final Keyword cSystemKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
-		private final Keyword cThreadKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
-		private final Keyword cTypeKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
-		private final Keyword cToKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
-		private final Keyword cVirtualKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
-		private final Keyword cWithKeyword_59 = (Keyword)cAlternatives.eContents().get(59);
+		private final Keyword cPrototypeKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
+		private final Keyword cPrototypesKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
+		private final Keyword cProvidesKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
+		private final Keyword cPublicKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
+		private final Keyword cRefinedKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
+		private final Keyword cRenamesKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
+		private final Keyword cRequiresKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
+		private final Keyword cSelfKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
+		private final Keyword cSetKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
+		private final Keyword cSinkKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
+		private final Keyword cSourceKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
+		private final Keyword cSubcomponentsKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
+		private final Keyword cSubprogramKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
+		private final Keyword cSystemKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
+		private final Keyword cThreadKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
+		private final Keyword cTypeKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
+		private final Keyword cToKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
+		private final Keyword cVirtualKeyword_59 = (Keyword)cAlternatives.eContents().get(59);
+		private final Keyword cWithKeyword_60 = (Keyword)cAlternatives.eContents().get(60);
 		
 		////// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'units'
 		//CoreKeyWord:
@@ -25687,16 +25688,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	| "data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" |
 		//	"group" | "implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" |
 		//	"mode" | "modes" | "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" |
-		//	"processor" | "prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" |
-		//	"source" | "subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
+		//	"processor" | "prototype" | "prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" |
+		//	"set" | "sink" | "source" | "subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" |
+		//	"with";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"abstract" | "access" | "annex" | "applies" | "binding" | "bus" | "calls" | "classifier" | "connections" | "constant" |
 		//"data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" | "group"
 		//| "implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" | "mode" |
 		//"modes" | "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" |
-		//"prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" |
-		//"subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with"
+		//"prototype" | "prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" |
+		//"source" | "subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"abstract"
@@ -25825,59 +25827,62 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"processor"
 		public Keyword getProcessorKeyword_41() { return cProcessorKeyword_41; }
 
+		//"prototype"
+		public Keyword getPrototypeKeyword_42() { return cPrototypeKeyword_42; }
+
 		//"prototypes"
-		public Keyword getPrototypesKeyword_42() { return cPrototypesKeyword_42; }
+		public Keyword getPrototypesKeyword_43() { return cPrototypesKeyword_43; }
 
 		//"provides"
-		public Keyword getProvidesKeyword_43() { return cProvidesKeyword_43; }
+		public Keyword getProvidesKeyword_44() { return cProvidesKeyword_44; }
 
 		//"public"
-		public Keyword getPublicKeyword_44() { return cPublicKeyword_44; }
+		public Keyword getPublicKeyword_45() { return cPublicKeyword_45; }
 
 		//"refined"
-		public Keyword getRefinedKeyword_45() { return cRefinedKeyword_45; }
+		public Keyword getRefinedKeyword_46() { return cRefinedKeyword_46; }
 
 		//"renames"
-		public Keyword getRenamesKeyword_46() { return cRenamesKeyword_46; }
+		public Keyword getRenamesKeyword_47() { return cRenamesKeyword_47; }
 
 		//"requires"
-		public Keyword getRequiresKeyword_47() { return cRequiresKeyword_47; }
+		public Keyword getRequiresKeyword_48() { return cRequiresKeyword_48; }
 
 		//"self"
-		public Keyword getSelfKeyword_48() { return cSelfKeyword_48; }
+		public Keyword getSelfKeyword_49() { return cSelfKeyword_49; }
 
 		//"set"
-		public Keyword getSetKeyword_49() { return cSetKeyword_49; }
+		public Keyword getSetKeyword_50() { return cSetKeyword_50; }
 
 		//"sink"
-		public Keyword getSinkKeyword_50() { return cSinkKeyword_50; }
+		public Keyword getSinkKeyword_51() { return cSinkKeyword_51; }
 
 		//"source"
-		public Keyword getSourceKeyword_51() { return cSourceKeyword_51; }
+		public Keyword getSourceKeyword_52() { return cSourceKeyword_52; }
 
 		//"subcomponents"
-		public Keyword getSubcomponentsKeyword_52() { return cSubcomponentsKeyword_52; }
+		public Keyword getSubcomponentsKeyword_53() { return cSubcomponentsKeyword_53; }
 
 		//"subprogram"
-		public Keyword getSubprogramKeyword_53() { return cSubprogramKeyword_53; }
+		public Keyword getSubprogramKeyword_54() { return cSubprogramKeyword_54; }
 
 		//"system"
-		public Keyword getSystemKeyword_54() { return cSystemKeyword_54; }
+		public Keyword getSystemKeyword_55() { return cSystemKeyword_55; }
 
 		//"thread"
-		public Keyword getThreadKeyword_55() { return cThreadKeyword_55; }
+		public Keyword getThreadKeyword_56() { return cThreadKeyword_56; }
 
 		//"type"
-		public Keyword getTypeKeyword_56() { return cTypeKeyword_56; }
+		public Keyword getTypeKeyword_57() { return cTypeKeyword_57; }
 
 		//"to"
-		public Keyword getToKeyword_57() { return cToKeyword_57; }
+		public Keyword getToKeyword_58() { return cToKeyword_58; }
 
 		//"virtual"
-		public Keyword getVirtualKeyword_58() { return cVirtualKeyword_58; }
+		public Keyword getVirtualKeyword_59() { return cVirtualKeyword_59; }
 
 		//"with"
-		public Keyword getWithKeyword_59() { return cWithKeyword_59; }
+		public Keyword getWithKeyword_60() { return cWithKeyword_60; }
 	}
 
 	public class PNAMEElements extends AbstractParserRuleElementFinder {
@@ -28961,8 +28966,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	| "data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" |
 	//	"group" | "implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" |
 	//	"mode" | "modes" | "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" |
-	//	"processor" | "prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" |
-	//	"source" | "subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
+	//	"processor" | "prototype" | "prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" |
+	//	"set" | "sink" | "source" | "subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" |
+	//	"with";
 	public CoreKeyWordElements getCoreKeyWordAccess() {
 		return pCoreKeyWord;
 	}
