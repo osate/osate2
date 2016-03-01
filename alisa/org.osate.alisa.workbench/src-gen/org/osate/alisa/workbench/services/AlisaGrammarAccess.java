@@ -896,7 +896,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AFunctionCall | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}

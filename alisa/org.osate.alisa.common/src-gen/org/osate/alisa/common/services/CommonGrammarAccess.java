@@ -1274,14 +1274,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cALiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAVariableReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cAPropertyReferenceParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAFunctionCallParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cAParenthesizedExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cAModelReferenceParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cAFunctionCallParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cAParenthesizedExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//APrimaryExpression returns aadl2::PropertyExpression:
-		//	ALiteral | AVariableReference | APropertyReference | AFunctionCall | AParenthesizedExpression;
+		//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ALiteral | AVariableReference | APropertyReference | AFunctionCall | AParenthesizedExpression
+		//ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ALiteral
@@ -1293,11 +1294,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//APropertyReference
 		public RuleCall getAPropertyReferenceParserRuleCall_2() { return cAPropertyReferenceParserRuleCall_2; }
 
+		//AModelReference
+		public RuleCall getAModelReferenceParserRuleCall_3() { return cAModelReferenceParserRuleCall_3; }
+
 		//AFunctionCall
-		public RuleCall getAFunctionCallParserRuleCall_3() { return cAFunctionCallParserRuleCall_3; }
+		public RuleCall getAFunctionCallParserRuleCall_4() { return cAFunctionCallParserRuleCall_4; }
 
 		//AParenthesizedExpression
-		public RuleCall getAParenthesizedExpressionParserRuleCall_4() { return cAParenthesizedExpressionParserRuleCall_4; }
+		public RuleCall getAParenthesizedExpressionParserRuleCall_5() { return cAParenthesizedExpressionParserRuleCall_5; }
 	}
 
 	public class AFunctionCallElements extends AbstractParserRuleElementFinder {
@@ -2551,7 +2555,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AFunctionCall | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
 	public APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return pAPrimaryExpression;
 	}

@@ -136,7 +136,7 @@ OpUnary:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | APropertyReference | AFunctionCall
+	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall
 	| AParenthesizedExpression;
 
 AFunctionCall returns aadl2::PropertyExpression:

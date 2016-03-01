@@ -1061,6 +1061,50 @@ ruleAPropertyReference returns [EObject current=null]
 
 
 
+// Entry rule entryRuleAModelReference
+entryRuleAModelReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAModelReferenceRule()); }
+	 iv_ruleAModelReference=ruleAModelReference 
+	 { $current=$iv_ruleAModelReference.current; } 
+	 EOF 
+;
+
+// Rule AModelReference
+ruleAModelReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getAModelReferenceAccess().getAModelReferenceAction_0(),
+            $current);
+    }
+)	otherlv_1='@' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAModelReferenceAccess().getCommercialAtKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAModelReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
 
 
 // Entry rule entryRuleAVariableReference
@@ -2346,21 +2390,31 @@ ruleAPrimaryExpression returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAModelReferenceParserRuleCall_3()); 
     }
-    this_AFunctionCall_3=ruleAFunctionCall
+    this_AModelReference_3=ruleAModelReference
     { 
-        $current = $this_AFunctionCall_3.current; 
+        $current = $this_AModelReference_3.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_4()); 
     }
-    this_AParenthesizedExpression_4=ruleAParenthesizedExpression
+    this_AFunctionCall_4=ruleAFunctionCall
     { 
-        $current = $this_AParenthesizedExpression_4.current; 
+        $current = $this_AFunctionCall_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_5()); 
+    }
+    this_AParenthesizedExpression_5=ruleAParenthesizedExpression
+    { 
+        $current = $this_AParenthesizedExpression_5.current; 
         afterParserOrEnumRuleCall();
     }
 )

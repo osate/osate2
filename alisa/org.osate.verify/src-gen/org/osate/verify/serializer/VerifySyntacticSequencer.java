@@ -135,6 +135,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
 	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
 	 *     (rule start) (ambiguity) 'this' (rule start)
@@ -161,6 +162,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
 	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
 	 *     (rule start) (ambiguity) 'this' ')' (rule start)

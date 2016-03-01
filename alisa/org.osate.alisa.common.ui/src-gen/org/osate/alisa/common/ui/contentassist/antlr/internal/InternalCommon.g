@@ -189,6 +189,32 @@ finally {
 
 
 
+// Entry rule entryRuleAModelReference
+entryRuleAModelReference 
+:
+{ before(grammarAccess.getAModelReferenceRule()); }
+	 ruleAModelReference
+{ after(grammarAccess.getAModelReferenceRule()); } 
+	 EOF 
+;
+
+// Rule AModelReference
+ruleAModelReference
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getAModelReferenceAccess().getGroup()); }
+(rule__AModelReference__Group__0)
+{ after(grammarAccess.getAModelReferenceAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 // Entry rule entryRuleAVariableReference
@@ -1723,15 +1749,21 @@ rule__APrimaryExpression__Alternatives
 )
 
     |(
-{ before(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_3()); }
-	ruleAFunctionCall
-{ after(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_3()); }
+{ before(grammarAccess.getAPrimaryExpressionAccess().getAModelReferenceParserRuleCall_3()); }
+	ruleAModelReference
+{ after(grammarAccess.getAPrimaryExpressionAccess().getAModelReferenceParserRuleCall_3()); }
 )
 
     |(
-{ before(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_4()); }
+{ before(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_4()); }
+	ruleAFunctionCall
+{ after(grammarAccess.getAPrimaryExpressionAccess().getAFunctionCallParserRuleCall_4()); }
+)
+
+    |(
+{ before(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_5()); }
 	ruleAParenthesizedExpression
-{ after(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_4()); }
+{ after(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_5()); }
 )
 
 ;
@@ -2537,6 +2569,101 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+
+
+
+
+
+
+
+rule__AModelReference__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__AModelReference__Group__0__Impl
+	rule__AModelReference__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AModelReference__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAModelReferenceAccess().getAModelReferenceAction_0()); }
+(
+
+)
+{ after(grammarAccess.getAModelReferenceAccess().getAModelReferenceAction_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__AModelReference__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__AModelReference__Group__1__Impl
+	rule__AModelReference__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AModelReference__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAModelReferenceAccess().getCommercialAtKeyword_1()); }
+
+	'@' 
+
+{ after(grammarAccess.getAModelReferenceAccess().getCommercialAtKeyword_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__AModelReference__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__AModelReference__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AModelReference__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_2()); }
+(rule__AModelReference__ModelElementAssignment_2)
+{ after(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -6697,6 +6824,24 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__AModelReference__ModelElementAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_2_0()); }
+(
+{ before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementQualifiedNameParserRuleCall_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementQualifiedNameParserRuleCall_2_0_1()); }
+)
+{ after(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__AVariableReference__VariableAssignment_1
     @init {
