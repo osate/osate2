@@ -179,6 +179,16 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.AMODEL_REFERENCE:
+      {
+        AModelReference aModelReference = (AModelReference)theEObject;
+        T result = caseAModelReference(aModelReference);
+        if (result == null) result = caseAExpression(aModelReference);
+        if (result == null) result = casePropertyExpression(aModelReference);
+        if (result == null) result = caseElement(aModelReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.AVARIABLE_REFERENCE:
       {
         AVariableReference aVariableReference = (AVariableReference)theEObject;
@@ -444,6 +454,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAPropertyReference(APropertyReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAModelReference(AModelReference object)
   {
     return null;
   }

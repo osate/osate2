@@ -413,23 +413,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "APropertyReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAPropertyReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cPropertyAbstractNamedValueCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
 		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_2_0.eContents().get(1);
 		
 		//APropertyReference returns AExpression:
-		//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+		//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		//{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Group getGroup() { return cGroup; }
 
 		//{APropertyReference}
 		public Action getAPropertyReferenceAction_0() { return cAPropertyReferenceAction_0; }
 
-		//"@"
-		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
+		//"#"
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
 
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
@@ -439,6 +439,38 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//AADLPROPERTYREFERENCE
 		public RuleCall getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1() { return cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1; }
+	}
+
+	public class AModelReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAModelReferenceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cModelElementAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cModelElementNamedElementCrossReference_2_0 = (CrossReference)cModelElementAssignment_2.eContents().get(0);
+		private final RuleCall cModelElementNamedElementQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cModelElementNamedElementCrossReference_2_0.eContents().get(1);
+		
+		//AModelReference returns AExpression:
+		//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+		@Override public ParserRule getRule() { return rule; }
+
+		//{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName]
+		public Group getGroup() { return cGroup; }
+
+		//{AModelReference}
+		public Action getAModelReferenceAction_0() { return cAModelReferenceAction_0; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
+
+		//modelElement=[aadl2::NamedElement|QualifiedName]
+		public Assignment getModelElementAssignment_2() { return cModelElementAssignment_2; }
+
+		//[aadl2::NamedElement|QualifiedName]
+		public CrossReference getModelElementNamedElementCrossReference_2_0() { return cModelElementNamedElementCrossReference_2_0; }
+
+		//QualifiedName
+		public RuleCall getModelElementNamedElementQualifiedNameParserRuleCall_2_0_1() { return cModelElementNamedElementQualifiedNameParserRuleCall_2_0_1; }
 	}
 
 	public class AVariableReferenceElements extends AbstractParserRuleElementFinder {
@@ -2054,6 +2086,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ValDeclarationElements pValDeclaration;
 	private final ComputeDeclarationElements pComputeDeclaration;
 	private final APropertyReferenceElements pAPropertyReference;
+	private final AModelReferenceElements pAModelReference;
 	private final AVariableReferenceElements pAVariableReference;
 	private final ShowValueElements pShowValue;
 	private final ImageReferenceElements pImageReference;
@@ -2122,6 +2155,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pValDeclaration = new ValDeclarationElements();
 		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pAPropertyReference = new APropertyReferenceElements();
+		this.pAModelReference = new AModelReferenceElements();
 		this.pAVariableReference = new AVariableReferenceElements();
 		this.pShowValue = new ShowValueElements();
 		this.pImageReference = new ImageReferenceElements();
@@ -2283,13 +2317,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public APropertyReferenceElements getAPropertyReferenceAccess() {
 		return pAPropertyReference;
 	}
 	
 	public ParserRule getAPropertyReferenceRule() {
 		return getAPropertyReferenceAccess().getRule();
+	}
+
+	//AModelReference returns AExpression:
+	//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+	public AModelReferenceElements getAModelReferenceAccess() {
+		return pAModelReference;
+	}
+	
+	public ParserRule getAModelReferenceRule() {
+		return getAModelReferenceAccess().getRule();
 	}
 
 	//AVariableReference returns AExpression:

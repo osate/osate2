@@ -37,6 +37,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AFunctionCall;
 import org.osate.alisa.common.common.AListTerm;
+import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
@@ -89,6 +90,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.ALIST_TERM:
 				sequence_AListTerm(context, (AListTerm) semanticObject); 
+				return; 
+			case CommonPackage.AMODEL_REFERENCE:
+				sequence_AModelReference(context, (AModelReference) semanticObject); 
 				return; 
 			case CommonPackage.ANULL_LITERAL:
 				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
@@ -188,6 +192,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     ((elements+=AExpression elements+=AExpression*)?)
 	 */
 	protected void sequence_AListTerm(EObject context, AListTerm semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     modelElement=[NamedElement|QualifiedName]
+	 */
+	protected void sequence_AModelReference(EObject context, AModelReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

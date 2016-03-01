@@ -562,6 +562,52 @@ public interface CommonPackage extends EPackage
   int APROPERTY_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AModelReferenceImpl <em>AModel Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AModelReferenceImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAModelReference()
+   * @generated
+   */
+  int AMODEL_REFERENCE = 12;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__OWNED_ELEMENT = AEXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Model Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__MODEL_ELEMENT = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>AModel Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl <em>AVariable Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -569,7 +615,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAVariableReference()
    * @generated
    */
-  int AVARIABLE_REFERENCE = 12;
+  int AVARIABLE_REFERENCE = 13;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -615,7 +661,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABinaryOperation()
    * @generated
    */
-  int ABINARY_OPERATION = 13;
+  int ABINARY_OPERATION = 14;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -679,7 +725,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnaryOperation()
    * @generated
    */
-  int AUNARY_OPERATION = 14;
+  int AUNARY_OPERATION = 15;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -734,7 +780,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAFunctionCall()
    * @generated
    */
-  int AFUNCTION_CALL = 15;
+  int AFUNCTION_CALL = 16;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -789,7 +835,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAThis()
    * @generated
    */
-  int ATHIS = 16;
+  int ATHIS = 17;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -826,7 +872,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
    * @generated
    */
-  int ASET_LITERAL = 17;
+  int ASET_LITERAL = 18;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -872,7 +918,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListTerm()
    * @generated
    */
-  int ALIST_TERM = 18;
+  int ALIST_TERM = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -918,7 +964,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
    * @generated
    */
-  int ANULL_LITERAL = 19;
+  int ANULL_LITERAL = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -955,7 +1001,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
    * @generated
    */
-  int RESULT_ISSUE_TYPE = 20;
+  int RESULT_ISSUE_TYPE = 21;
 
 
   /**
@@ -1308,6 +1354,27 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getAPropertyReference_Property();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AModelReference <em>AModel Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AModel Reference</em>'.
+   * @see org.osate.alisa.common.common.AModelReference
+   * @generated
+   */
+  EClass getAModelReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Model Element</em>'.
+   * @see org.osate.alisa.common.common.AModelReference#getModelElement()
+   * @see #getAModelReference()
+   * @generated
+   */
+  EReference getAModelReference_ModelElement();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.AVariableReference <em>AVariable Reference</em>}'.
@@ -1819,6 +1886,24 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference APROPERTY_REFERENCE__PROPERTY = eINSTANCE.getAPropertyReference_Property();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AModelReferenceImpl <em>AModel Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AModelReferenceImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAModelReference()
+     * @generated
+     */
+    EClass AMODEL_REFERENCE = eINSTANCE.getAModelReference();
+
+    /**
+     * The meta object literal for the '<em><b>Model Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AMODEL_REFERENCE__MODEL_ELEMENT = eINSTANCE.getAModelReference_ModelElement();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl <em>AVariable Reference</em>}' class.

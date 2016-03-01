@@ -894,6 +894,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRuleAVariableReference
 entryRuleAVariableReference 
 :
@@ -10436,11 +10438,11 @@ rule__APropertyReference__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ before(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 
-	'@' 
+	'#' 
 
-{ after(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ after(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 )
 
 ;
@@ -10475,6 +10477,7 @@ rule__APropertyReference__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 
@@ -17204,6 +17207,7 @@ rule__APropertyReference__PropertyAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 rule__AVariableReference__VariableAssignment_1
     @init {

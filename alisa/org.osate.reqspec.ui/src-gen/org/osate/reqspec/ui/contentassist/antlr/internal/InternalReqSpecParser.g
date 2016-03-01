@@ -64,7 +64,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("LessThanSign", "'<'");
 		tokenNameToValue.put("EqualsSign", "'='");
 		tokenNameToValue.put("GreaterThanSign", "'>'");
-		tokenNameToValue.put("CommercialAt", "'@'");
 		tokenNameToValue.put("LeftSquareBracket", "'['");
 		tokenNameToValue.put("RightSquareBracket", "']'");
 		tokenNameToValue.put("LeftCurlyBracket", "'{'");
@@ -1028,6 +1027,8 @@ ruleAPropertyReference
 finally {
 	restoreStackSize(stackSize);
 }
+
+
 
 
 
@@ -15823,11 +15824,11 @@ rule__APropertyReference__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ before(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 
-	CommercialAt 
+	NumberSign 
 
-{ after(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ after(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 )
 
 ;
@@ -15862,6 +15863,7 @@ rule__APropertyReference__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 
@@ -28114,6 +28116,7 @@ rule__APropertyReference__PropertyAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 rule__AVariableReference__VariableAssignment_1
     @init {

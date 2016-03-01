@@ -2319,9 +2319,9 @@ ruleAPropertyReference returns [EObject current=null]
             grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
             $current);
     }
-)	otherlv_1='@' 
+)	otherlv_1='#' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
     }
 (
 (
@@ -2340,6 +2340,8 @@ ruleAPropertyReference returns [EObject current=null]
 )
 ))
 ;
+
+
 
 
 

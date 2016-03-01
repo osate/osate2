@@ -6815,9 +6815,9 @@ ruleAPropertyReference returns [EObject current=null]
             $current);
     }
 )
-	otherlv_1=CommercialAt
+	otherlv_1=NumberSign
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
     }
 (
 (
@@ -6836,6 +6836,8 @@ ruleAPropertyReference returns [EObject current=null]
 )
 ))
 ;
+
+
 
 
 

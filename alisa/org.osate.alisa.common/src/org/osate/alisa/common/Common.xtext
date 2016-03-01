@@ -52,7 +52,11 @@ ComputeDeclaration returns AVariableDeclaration:
 
 
 APropertyReference returns AExpression:
-	{APropertyReference} '@' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+	{APropertyReference} '#' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+;
+
+AModelReference returns AExpression:
+	{AModelReference} '@' modelElement=[aadl2::NamedElement|QualifiedName]
 ;
 
 AVariableReference returns AExpression:

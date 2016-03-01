@@ -144,6 +144,15 @@ public interface CommonFactory extends EFactory
   APropertyReference createAPropertyReference();
 
   /**
+   * Returns a new object of class '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AModel Reference</em>'.
+   * @generated
+   */
+  AModelReference createAModelReference();
+
+  /**
    * Returns a new object of class '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

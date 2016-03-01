@@ -90,6 +90,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
+      case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
@@ -267,6 +268,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     APropertyReferenceImpl aPropertyReference = new APropertyReferenceImpl();
     return aPropertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AModelReference createAModelReference()
+  {
+    AModelReferenceImpl aModelReference = new AModelReferenceImpl();
+    return aModelReference;
   }
 
   /**

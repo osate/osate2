@@ -711,13 +711,23 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
 		return gaCommon.getAPropertyReferenceAccess();
 	}
 	
 	public ParserRule getAPropertyReferenceRule() {
 		return getAPropertyReferenceAccess().getRule();
+	}
+
+	//AModelReference returns AExpression:
+	//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+	public CommonGrammarAccess.AModelReferenceElements getAModelReferenceAccess() {
+		return gaCommon.getAModelReferenceAccess();
+	}
+	
+	public ParserRule getAModelReferenceRule() {
+		return getAModelReferenceAccess().getRule();
 	}
 
 	//AVariableReference returns AExpression:
