@@ -2240,7 +2240,7 @@ CoreKeyWord :
 	| 'feature'|'features'|'flow'|'flows'
 	| 'group'|'implementation'|'in'|'inherit'|'initial'| 'internal' |'inverse'|'is'|'list'
 	| 'memory'|'mode'|'modes'|'none'|'of'|'out'|'package'|'parameter'|'path'| 'port'|'private'
-	| 'process'  | 'processor'
+	| 'process'  | 'processor' | 'prototype'
 	|'prototypes'|'provides'|'public'
 	|'refined'|'renames'|'requires'|'self'|'set'|'sink'|'source'
 	|'subcomponents'| 'subprogram'|'system'| 'thread'|'type'|'to'|'virtual'|'with'
