@@ -59,7 +59,6 @@ import org.osate.ge.services.SavedAadlResourceService;
 import org.osate.ge.services.SavedAadlResourceService.AadlPackageReference;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
-import org.osate.ge.util.Log;
 import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
 
@@ -317,8 +316,6 @@ public class DeclarativeReferenceResolver {
 					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
 				}
-			} else {
-				Log.error("Unhandled case: " + type);
 			}
 		}
 		

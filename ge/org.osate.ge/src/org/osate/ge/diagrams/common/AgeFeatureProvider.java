@@ -137,12 +137,15 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.services.ShapeService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
-	private IEclipseContext eclipeContext;
+	private IEclipseContext eclipseContext;
 	private ConnectionService connectionService;
 	private ExtensionService extService;
+	private ReferenceBuilderService refBuilder;
 	private GhostingService ghostingService;
 	private PictogramElementService peService;
 	private BusinessObjectResolutionService bor;
@@ -152,9 +155,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	public void initialize(final IEclipseContext context) {
-		this.eclipeContext = context;
+		this.eclipseContext = context;
 		this.connectionService = Objects.requireNonNull(context.get(ConnectionService.class), "unable to get connection service");		
 		this.extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
+		this.refBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
 		this.peService = Objects.requireNonNull(context.get(PictogramElementService.class), "unable to retrieve pictogram element service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
@@ -192,7 +196,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 
 	private IEclipseContext getContext() {
-		return eclipeContext;
+		return eclipseContext;
 	}
 	
 	/**
@@ -201,7 +205,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * @return
 	 */
 	protected final <T> T make(final Class<T> clazz) {
-		return ContextInjectionFactory.make(clazz, eclipeContext);
+		return ContextInjectionFactory.make(clazz, eclipseContext);
 	}
 	
 	// Don't allow removing, just deleting.
@@ -361,14 +365,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		
 		if(pictogramElement instanceof Diagram) {
-			final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
-			if(bor != null) {
-				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				if(bo instanceof Classifier) {
-					return make(UpdateClassifierDiagramFeature.class);
-				} else if(bo instanceof AadlPackage) {
-					return make(PackageUpdateDiagramFeature.class);
-				}
+			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+			if(bo instanceof Classifier) {
+				return make(UpdateClassifierDiagramFeature.class);
+			} else if(bo instanceof AadlPackage) {
+				return make(PackageUpdateDiagramFeature.class);
 			}
 		}
 		   
@@ -429,16 +430,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	@Override
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
-		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
-		if(bor != null) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
-			if(bo instanceof org.osate.aadl2.Connection) {
-				return make(RenameConnectionFeature.class);
-			} else if(bo instanceof ModeTransition) {
-				return make(RenameModeTransitionFeature.class);
-			} else if(bo instanceof FlowSpecification) {
-				return make(RenameFlowSpecificationFeature.class);
-			}
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
+		if(bo instanceof org.osate.aadl2.Connection) {
+			return make(RenameConnectionFeature.class);
+		} else if(bo instanceof ModeTransition) {
+			return make(RenameModeTransitionFeature.class);
+		} else if(bo instanceof FlowSpecification) {
+			return make(RenameFlowSpecificationFeature.class);
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
@@ -452,23 +450,28 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
 		
 		// Add extension create features
-		final BusinessObjectResolutionService bor = Objects.requireNonNull(eclipeContext.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
-		final AadlModificationService aadlModService = Objects.requireNonNull(eclipeContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		final DiagramModificationService diagramModService = Objects.requireNonNull(eclipeContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
-		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, eclipeContext, null);
-			if(extPaletteEntries != null) {
-				for(final ExtensionPaletteEntry entry : extPaletteEntries) {
-					if(entry.getType() == Type.CREATE) {
-						features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+		final AadlModificationService aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		final ShapeService shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
+
+		final IEclipseContext childCtx = createGetPaletteEntriesContext();
+		try {
+			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+				final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+				if(extPaletteEntries != null) {
+					for(final ExtensionPaletteEntry entry : extPaletteEntries) {
+						if(entry.getType() == Type.CREATE) {
+							features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, entry, pictogramHandler));
+						}
 					}
 				}
-			}
+			}		
+		} finally {
+			childCtx.dispose();
 		}
 		
 		return features.toArray(new ICreateFeature[0]);
 	}
-	
+			
 	@Override
 	protected IAddFeature getAddFeatureAdditional(final IAddContext addCtx) {
 		if(addCtx instanceof IAddConnectionContext) {
@@ -476,7 +479,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		} else {
 			final Object pictogramHandler = getRefreshPictogramHandler(addCtx.getTargetContainer(), null, AadlElementWrapper.unwrap(addCtx.getNewObject()));
 			if(pictogramHandler != null) {
-				return new PictogramHandlerAddFeature(bor, extService, ghostingService, this, pictogramHandler);
+				return new PictogramHandlerAddFeature(extService, ghostingService, this, pictogramHandler);
 			}
 		}
 
@@ -490,7 +493,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			final Shape container = ((Shape)pe).getContainer();
 			final Object pictogramHandler = getRefreshPictogramHandler(container, pe, peService.getBusinessObject(pe));
 			if(pictogramHandler != null) {
-				return new PictogramHandlerUpdateFeature(extService, ghostingService, peService, this, pictogramHandler);
+				return new PictogramHandlerUpdateFeature(extService, refBuilder, ghostingService, peService, this, pictogramHandler);
 			}
 		} else if(pe instanceof Connection) {
 			// TODO: Support connections
@@ -555,17 +558,23 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 		
 		// Add extension create connection features
-		final AadlModificationService aadlModService = Objects.requireNonNull(eclipeContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		final DiagramModificationService diagramModService = Objects.requireNonNull(eclipeContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
-		for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-			final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, eclipeContext, null);
-			if(extPaletteEntries != null) {
-				for(final ExtensionPaletteEntry entry : extPaletteEntries) {
-					if(entry.getType() == Type.CREATE_CONNECTION) {
-						retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+		final AadlModificationService aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		final DiagramModificationService diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
+		
+		final IEclipseContext childCtx = createGetPaletteEntriesContext();
+		try {
+			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
+				final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+				if(extPaletteEntries != null) {
+					for(final ExtensionPaletteEntry entry : extPaletteEntries) {
+						if(entry.getType() == Type.CREATE_CONNECTION) {
+							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+						}
 					}
 				}
-			}
+			}		
+		} finally {
+			childCtx.dispose();
 		}
 
 		return retList.toArray(ret);
@@ -649,7 +658,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
-		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder;
 	}
@@ -838,5 +846,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 		
 		return false;
+	}
+	
+	private IEclipseContext createGetPaletteEntriesContext() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
+		final IEclipseContext childCtx = extService.createChildContext();
+		childCtx.set(Names.DIAGRAM_BO, diagramBo);
+		return childCtx;
 	}
 }

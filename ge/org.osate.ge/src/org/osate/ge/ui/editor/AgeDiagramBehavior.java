@@ -59,7 +59,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
@@ -67,6 +66,7 @@ import org.osate.ge.services.CachingService;
 import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
@@ -266,8 +266,12 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}
 		
 		final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-		if(bo instanceof Element) {
-			if(((Element)bo).eResource() == resource) {
+		if(bo != null) {
+			// Invalidate the cache
+			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull((ReferenceBuilderService)getAdapter(ReferenceBuilderService.class), "unable to retrieve reference builder service");
+			final Resource diagramBoResource = referenceBuilder.getResource(bo);
+
+			if(diagramBoResource == resource) {
 				update();
 			}
 		}

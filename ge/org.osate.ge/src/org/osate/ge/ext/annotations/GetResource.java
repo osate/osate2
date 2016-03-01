@@ -15,11 +15,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called to get the project for a business object
+ * Use this annotation to tag methods called to get the resource for a business object
  * This annotation must not be applied to more than one method per class.
  */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GetProject {
+public @interface GetResource {
 }

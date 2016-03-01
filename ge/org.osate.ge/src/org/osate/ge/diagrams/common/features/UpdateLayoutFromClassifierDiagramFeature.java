@@ -29,7 +29,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -89,7 +88,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
     	}
     	
     	final Shape shape = (Shape)customContext.getPictogramElements()[0];
-    	final Object bo = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);
+    	final Object bo = bor.getBusinessObjectForPictogramElement(pe);
     	return bo instanceof Subcomponent && subcomponentService.getComponentClassifier(shape, (Subcomponent)bo) != null;
 	}
 	

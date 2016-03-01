@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.inject.Named;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -21,15 +20,18 @@ import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.BuildReference;
 import org.osate.ge.ext.annotations.GetProject;
+import org.osate.ge.ext.annotations.GetResource;
 import org.osate.ge.ext.annotations.GetTitle;
 import org.osate.ge.ext.annotations.ResolveReference;
 import org.osate.ge.ext.services.ReferenceService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorModelReferenceHandler {
 	private final static String TYPE_BEHAVIOR_STATE_MACHINE = "emv2.behavior";
 	private final static String TYPE_ERROR_TYPE_LIBRARY = "emv2.etl";
+	private final static String TYPE_ERROR_TYPE = "emv2.et";
 	
 	@BuildReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -39,7 +41,9 @@ public class ErrorModelReferenceHandler {
 				final AadlPackage pkg = (AadlPackage)el.getElementRoot();
 				if(bo instanceof ErrorBehaviorStateMachine) {
 					return new String[] {TYPE_BEHAVIOR_STATE_MACHINE, pkg.getQualifiedName().toLowerCase(), ((ErrorBehaviorStateMachine)bo).getQualifiedName().toLowerCase()};				
-				} 
+				} else if(bo instanceof ErrorType) {
+					return new String[] {TYPE_ERROR_TYPE, pkg.getQualifiedName().toLowerCase(), ((ErrorType)bo).getQualifiedName().toLowerCase()};				
+				}  
 			}
 		} else if(bo instanceof ErrorTypeLibrary) {
 			final ErrorTypeLibrary etl = (ErrorTypeLibrary)bo;
@@ -77,6 +81,11 @@ public class ErrorModelReferenceHandler {
 		return null;
 	}
 	
+	@GetResource
+	public Resource getResource(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+		return typeLib.getErrorModelLibrary().eResource();
+	}
+	
 	@ResolveReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] ref, final ReferenceService refService) {
 		Objects.requireNonNull(ref, "ref must not be null");
@@ -97,7 +106,7 @@ public class ErrorModelReferenceHandler {
 		if(type.equals(TYPE_ERROR_TYPE_LIBRARY)) {
 			final Optional<ErrorModelLibrary> errorModelLibrary = pkg.getOwnedPublicSection().getOwnedAnnexLibraries().stream(). // Get annex libraries
 					filter(lib -> lib instanceof DefaultAnnexLibrary && ((DefaultAnnexLibrary)lib).getParsedAnnexLibrary() instanceof ErrorModelLibrary). // Filter non EMV2 Libraries
-					map(lib -> ((ErrorModelLibrary)((DefaultAnnexLibrary)lib).getParsedAnnexLibrary())). // Get behaviors as stream
+					map(lib -> ((ErrorModelLibrary)((DefaultAnnexLibrary)lib).getParsedAnnexLibrary())). // Get parsed annex library
 					findAny();
 			
 			if(errorModelLibrary.isPresent()) {
@@ -127,7 +136,20 @@ public class ErrorModelReferenceHandler {
 			}
 			
 			return null;
-		} 
+		} else if(type.equals(TYPE_ERROR_TYPE)) {
+			final Optional<ErrorType> errorType = pkg.getOwnedPublicSection().getOwnedAnnexLibraries().stream(). // Get annex libraries
+					filter(lib -> lib instanceof DefaultAnnexLibrary && ((DefaultAnnexLibrary)lib).getParsedAnnexLibrary() instanceof ErrorModelLibrary). // Filter non EMV2 Libraries
+					map(lib -> ((ErrorModelLibrary)((DefaultAnnexLibrary)lib).getParsedAnnexLibrary()).getTypes().stream()). // Get types as stream
+					reduce(Stream.empty(), (a, b) -> Stream.concat(a, b)). // Combine streams
+					filter(b -> qualifiedName.equalsIgnoreCase(b.getQualifiedName())). // Filter behaviors by name
+					findAny();
+			
+			if(errorType.isPresent()) {
+				return errorType.get();
+			}
+			
+			return null;
+		}
 		
 		return null;
 	}

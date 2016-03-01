@@ -30,7 +30,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorStateMachinePictogramHandler {
 	@GetPaletteEntries
-	public ExtensionPaletteEntry[] getPaletteEntries() {
+	public ExtensionPaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		return new ExtensionPaletteEntry[] { 
 			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Behavior State Machine", null, null)
 		};
@@ -68,7 +68,7 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 
 	@RefreshShape
 	public ContainerShape refreshChildren(final @Named(Names.CONTAINER) ContainerShape container, @Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape, 
-			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine behavior, final PictogramElementService pes) {
+			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine behavior) {
         // Create the container shape
 		if(shape == null) {
 			final IPeCreateService peCreateService = Graphiti.getPeCreateService();

@@ -10,7 +10,6 @@ package org.osate.ge.services;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.Element;
 
 /**
  * Service providing a mechanism for making changes to the model

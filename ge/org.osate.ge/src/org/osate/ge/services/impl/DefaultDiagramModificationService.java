@@ -130,7 +130,6 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			// Mark as dirty if the diagram contains a shape whose BO is in the relevant element list
     			final List<Classifier> relevantClassifiers = getSelfAndSpecificClassifiers(c);
     			final Set<AadlPackage> relevantPackages = getPackages(relevantClassifiers);
-    			//final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
     			
     			for(final DiagramReference tmpDiagramReference : getDiagramReferences()) {
     				if(tmpDiagramReference.isOpen()) {

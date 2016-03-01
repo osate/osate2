@@ -2,11 +2,6 @@ package org.osate.ge.services.impl;
 
 import java.util.List;
 import javax.inject.Named;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -32,9 +27,7 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.BuildReference;
-import org.osate.ge.ext.annotations.GetProject;
 import org.osate.ge.ext.annotations.GetTitle;
-import org.osate.ge.ui.util.SelectionHelper;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
@@ -217,24 +210,6 @@ public class DeclarativeReferenceBuilder {
 			return ((NamedElement) bo).getQualifiedName();
 		}
 		
-		return null;
-	}
-	
-	/**
-	 * Handles retrieving the IProject of any EObject
-	 * @param bo
-	 * @return
-	 */
-	@GetProject
-	public IProject getProject(final @Named(Names.BUSINESS_OBJECT) EObject bo) {
-		final Resource resource = ((EObject)bo).eResource();
-		if(resource != null) {
-			final URI uri = resource.getURI();
-			if(uri != null) {
-				return SelectionHelper.getProject(uri);
-			}
-		}
-
 		return null;
 	}
 }

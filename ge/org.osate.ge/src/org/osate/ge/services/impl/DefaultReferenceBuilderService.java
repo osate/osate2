@@ -23,11 +23,16 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.BuildReference;
 import org.osate.ge.ext.annotations.GetProject;
+import org.osate.ge.ext.annotations.GetResource;
 import org.osate.ge.ext.annotations.GetTitle;
 import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.ui.util.SelectionHelper;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
@@ -107,6 +112,17 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	
 	@Override
 	public IProject getProject(Object bo) {
+		// Handle EObject instances without delegating to specialized handlers
+		if(bo instanceof EObject) {
+			final Resource resource = ((EObject)bo).eResource();
+			if(resource != null) {
+				final URI uri = resource.getURI();
+				if(uri != null) {
+					return SelectionHelper.getProject(uri);
+				}
+			}
+		}
+		
 		try {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
@@ -122,5 +138,29 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 		}
 		
 		return null;
-	}	
+	}
+	
+	@Override
+	public Resource getResource(Object bo) {
+		// Handle EObject instances without delegating to specialized handlers
+		if(bo instanceof EObject) {
+			return ((EObject)bo).eResource();
+		}
+		
+		try {
+			// Set context fields
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetResource.class, null, argCtx, null);
+				if(res!= null) {
+					return res;
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+		
+		return null;
+	}
 }

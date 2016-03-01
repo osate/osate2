@@ -64,7 +64,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 				addContext.setX(childX);
 				addContext.setY(childY);
 				final IAddFeature feature = fp.getAddFeature(addContext);
-				
 				if(feature != null && feature.canAdd(addContext)) {
 					pictogramElement = feature.add(addContext);
 					if(incX) {

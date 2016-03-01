@@ -3,46 +3,40 @@ package org.osate.ge.diagrams.common.features;
 import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.ext.Categorized;
-import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.CanCreate;
-import org.osate.ge.ext.annotations.CreateBusinessObject;
-import org.osate.ge.ext.annotations.GetCreateOwningBusinessObject;
 import org.osate.ge.ext.annotations.RefreshShape;
 import org.osate.ge.ext.annotations.RefreshGraphics;
 import org.osate.ge.ext.services.PictogramElementService;
-import org.osate.ge.services.AadlModificationService;
-import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.services.ReferenceBuilderService;
 
 // IUpdateFeature implementation that delegates behavior to a pictogram handler
-public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature {
+public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature {
 	private final ExtensionService extService;
+	private final ReferenceBuilderService refBuilder;
 	private final GhostingService ghostingService;
 	private final PictogramElementService peService;
 	private final Object handler;
 	
-	public PictogramHandlerUpdateFeature(final ExtensionService extService, final GhostingService ghostingService, final PictogramElementService peService, final IFeatureProvider fp, final Object pictogramHandler) {
+	public PictogramHandlerUpdateFeature(final ExtensionService extService, final ReferenceBuilderService refBuilder, final GhostingService ghostingService, final PictogramElementService peService, final IFeatureProvider fp, final Object pictogramHandler) {
 		super(fp);
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 		this.ghostingService = Objects.requireNonNull(ghostingService, "ghostingService must not be null");
 		this.peService = Objects.requireNonNull(peService, "peService must not be null");
 		this.handler = Objects.requireNonNull(pictogramHandler, "pictogramHandler must not be null");
@@ -55,8 +49,12 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature {
 	}
 
 	@Override
-	public IReason updateNeeded(IUpdateContext context) {
-		return Reason.createFalseReason();
+	public IReason updateNeeded(final IUpdateContext context) {
+		if(context.getPictogramElement() instanceof Diagram) {
+			return Reason.createTrueReason();
+		} else {
+			return Reason.createFalseReason();
+		}
 	}
 
 	@Override
@@ -68,6 +66,17 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature {
 		
 		if(pe.getGraphicsAlgorithm() == null) {
 			return false;
+		}
+		
+		// Special handling for diagrams
+		final boolean isDiagram = pe instanceof Diagram;
+		if(isDiagram) {
+			// Update the diagram's name
+			final Diagram diagram = (Diagram)pe;
+			final String newTitle = refBuilder.getTitle(bo);
+			if(newTitle != null) {
+				diagram.setName(newTitle);
+			}
 		}
 		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
@@ -88,10 +97,16 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature {
 			getFeatureProvider().link(pe, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 			
 			// Refresh the children
+			if(pe instanceof ContainerShape) {
+				ghostingService.ghostChildren((ContainerShape)pe);
+			}
+			
 			ContextInjectionFactory.invoke(handler, RefreshShape.class, eclipseCtx, null);
 			
 			// Refresh Graphics Algorithm
-			ContextInjectionFactory.invoke(handler, RefreshGraphics.class, eclipseCtx, null);
+			if(!isDiagram) {
+				ContextInjectionFactory.invoke(handler, RefreshGraphics.class, eclipseCtx, null);
+			}
 			
 			// Set the position of the refreshed graphics algorithm
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
@@ -104,5 +119,32 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature {
 		} finally {
 			eclipseCtx.dispose();
 		}
+	}
+	
+	// ICustomUndoRedoFeature
+	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+	
+	@Override
+	public void preUndo(IContext context) {
+	}
+
+	@Override
+	public void postUndo(IContext context) {
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		return false;
+	}
+
+	@Override
+	public void preRedo(IContext context) {
+	}
+
+	@Override
+	public void postRedo(IContext context) {
 	}
 }

@@ -4,7 +4,9 @@ import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -19,7 +21,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ExtensionService;
 
 // ICreateConnectionFeature implementation that delegates behavior to a pictogram handler
-public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConnectionFeature implements Categorized {
+public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConnectionFeature implements Categorized, ICustomUndoRedoFeature {
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
@@ -86,5 +88,32 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 			eclipseCtx.dispose();
 			throw ex;
 		}		
+	}
+	
+	// ICustomUndoRedoFeature
+	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+	
+	@Override
+	public void preUndo(IContext context) {
+	}
+
+	@Override
+	public void postUndo(IContext context) {
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		return false;
+	}
+
+	@Override
+	public void preRedo(IContext context) {
+	}
+
+	@Override
+	public void postRedo(IContext context) {
 	}
 }

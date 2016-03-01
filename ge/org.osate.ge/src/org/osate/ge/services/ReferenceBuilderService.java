@@ -9,12 +9,14 @@
 package org.osate.ge.services;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * Service for building string references to business objects
  */
 public interface ReferenceBuilderService {
-	String getReference(final Object bo);
-	String getTitle(final Object bo);
-	IProject getProject(final Object bo);
+	String getReference(Object bo);
+	String getTitle(Object bo);
+	IProject getProject(Object bo);
+	Resource getResource(Object bo);
 }
