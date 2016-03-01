@@ -34,11 +34,11 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.SubcomponentService;
-import org.osate.ge.services.DiagramService.DiagramReference;
+import org.osate.ge.services.InternalDiagramService.DiagramReference;
 
 /**
  * Updates a subcomponent shape to duplicate the layout of the classifier diagram associated with the subcomponent's classifier.
@@ -46,7 +46,7 @@ import org.osate.ge.services.DiagramService.DiagramReference;
  *
  */
 public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeature {
-	private final DiagramService diagramService;
+	private final InternalDiagramService diagramService;
 	private final SubcomponentService subcomponentService;
 	private final PropertyService propertyService;
 	private final ShapeService shapeService;
@@ -54,7 +54,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public UpdateLayoutFromClassifierDiagramFeature(final DiagramService diagramService, final SubcomponentService subcomponentService, 
+	public UpdateLayoutFromClassifierDiagramFeature(final InternalDiagramService diagramService, final SubcomponentService subcomponentService, 
 			final PropertyService propertyService, final ShapeService shapeService, final ConnectionService connectionService, 
 			final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);

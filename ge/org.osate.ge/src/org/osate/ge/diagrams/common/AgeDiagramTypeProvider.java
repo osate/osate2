@@ -17,6 +17,7 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.osate.ge.ext.services.DiagramService;
 import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.ge.ext.services.ReferenceService;
 import org.osate.ge.ext.services.impl.DefaultPictogramElementService;
@@ -31,7 +32,7 @@ import org.osate.ge.services.ComponentImplementationService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.SavedAadlResourceService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
@@ -107,12 +108,12 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final CachingService cachingService = new DefaultCachingService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
-		final DiagramService diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
+		final InternalDiagramService internalDiagramService = Objects.requireNonNull(context.get(InternalDiagramService.class), "Unable to retrieve InternalDiagramService");
 		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);		
-		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
+		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(internalDiagramService, ghostPurger, bor);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
@@ -164,7 +165,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ConnectionCreationService.class, connectionCreationService);
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(ColoringService.class, highlightingHelper);
-		context.set(LabelService.class, labelService);		
+		context.set(LabelService.class, labelService);
+		context.set(DiagramService.class, internalDiagramService);
 		
 		// Create Public/Extension Services
 		context.set(PictogramElementService.class, new DefaultPictogramElementService(bor, shapeCreationService, connectionCreationService));

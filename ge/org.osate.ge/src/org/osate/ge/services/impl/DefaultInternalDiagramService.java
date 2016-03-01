@@ -45,20 +45,20 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
-public class DefaultDiagramService implements DiagramService {
+public class DefaultInternalDiagramService implements InternalDiagramService {
 	private final ReferenceBuilderService referenceBuilder;
 	
-	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
+	public static class ContextFunction extends SimpleServiceContextFunction<InternalDiagramService> {
 		@Override
-		public DiagramService createService(final IEclipseContext context) {
-			return new DefaultDiagramService(context.get(ReferenceBuilderService.class));
+		public InternalDiagramService createService(final IEclipseContext context) {
+			return new DefaultInternalDiagramService(context.get(ReferenceBuilderService.class));
 		}		
 	}
 	
@@ -133,7 +133,7 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 	
-	public DefaultDiagramService(final ReferenceBuilderService referenceBuilder) {
+	public DefaultInternalDiagramService(final ReferenceBuilderService referenceBuilder) {
 		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder service");
 	}
 		
@@ -188,7 +188,7 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	@Override
-	public void openOrCreateDiagramForRootBusinessObject(final Object bo) {
+	public void openOrCreateDiagramBusinessObject(final Object bo) {
 		if(!openExistingDiagramForRootBusinessObject(bo)) {
 			// If a diagram can not be found, create a new diagram
 			Log.info("Existing diagram not found.");

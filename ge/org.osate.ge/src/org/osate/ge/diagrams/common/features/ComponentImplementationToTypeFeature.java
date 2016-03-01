@@ -16,16 +16,16 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 
 import javax.inject.Inject;
 
 public class ComponentImplementationToTypeFeature extends AbstractCustomFeature {
-	private final DiagramService diagramService;
+	private final InternalDiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentImplementationToTypeFeature(final IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
+	public ComponentImplementationToTypeFeature(final IFeatureProvider fp, final InternalDiagramService diagramService,final BusinessObjectResolutionService bor)  {
 		super(fp);
 		this.diagramService = diagramService;
 		this.bor = bor;
@@ -68,7 +68,7 @@ public class ComponentImplementationToTypeFeature extends AbstractCustomFeature 
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final ComponentImplementation compImpl = (ComponentImplementation)bo;
 		final Classifier componentType = compImpl.getType();
-		diagramService.openOrCreateDiagramForRootBusinessObject(componentType);
+		diagramService.openOrCreateDiagramBusinessObject(componentType);
 	}
 
 }

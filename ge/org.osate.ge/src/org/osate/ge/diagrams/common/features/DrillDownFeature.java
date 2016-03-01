@@ -25,7 +25,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.SubcomponentService;
 
 /**
@@ -35,11 +35,11 @@ import org.osate.ge.services.SubcomponentService;
  */
 public class DrillDownFeature extends AbstractCustomFeature {
 	private final SubcomponentService subcomponentService;
-	private final DiagramService diagramService;
+	private final InternalDiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final DiagramService diagramService, final BusinessObjectResolutionService bor) {
+	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final InternalDiagramService diagramService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.subcomponentService = subcomponentService;
 		this.diagramService = diagramService;
@@ -96,7 +96,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
 				} else {
 					element = (NamedElement)bo;
 				}
-				diagramService.openOrCreateDiagramForRootBusinessObject(element);
+				diagramService.openOrCreateDiagramBusinessObject(element);
 			}
 		}
 	}

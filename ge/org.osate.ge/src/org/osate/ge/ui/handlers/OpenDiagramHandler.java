@@ -18,7 +18,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.ge.Activator;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
@@ -38,11 +38,11 @@ public class OpenDiagramHandler extends AbstractHandler {
 			if(classifier == null) {
 				//Open top level even when element is not selected
 				final AadlPackage pkg = getSelectedPackage();
-				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForRootBusinessObject(pkg);
+				final InternalDiagramService diagramService = (InternalDiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(InternalDiagramService.class);
+				diagramService.openOrCreateDiagramBusinessObject(pkg);
 			} else {
-				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForRootBusinessObject(classifier);
+				final InternalDiagramService diagramService = (InternalDiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(InternalDiagramService.class);
+				diagramService.openOrCreateDiagramBusinessObject(classifier);
 			}
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {

@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.osate.ge.ext.services.DiagramService;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 /**
@@ -20,7 +21,7 @@ import org.osate.ge.ui.editor.AgeDiagramEditor;
  * @author philip.alldredge
  *
  */
-public interface DiagramService {
+public interface InternalDiagramService extends DiagramService {
 	public static interface DiagramReference {
 		boolean isOpen();
 		Diagram getDiagram();
@@ -41,7 +42,7 @@ public interface DiagramService {
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram is create.
 	 * @param bo the business object for which to open/create the diagram
 	 */
-	public void openOrCreateDiagramForRootBusinessObject(final Object bo);
+	public void openOrCreateDiagramBusinessObject(final Object bo);
 	
 	/**
 	 * Returns the name of a specified diagram

@@ -6,19 +6,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105
  *******************************************************************************/
-package org.osate.ge.ext.annotations;
+package org.osate.ge.ext.services;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * This annotation must not be applied to more than one method per class.
- */
-@Documented
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CanCreateConnection {
+public interface DiagramService {
+	/**
+	 * Opens the diagram which is linked to the specified business object. If a diagram is not found, it is created.
+	 * @param bo
+	 */
+	void openOrCreateDiagramBusinessObject(Object bo);
 }

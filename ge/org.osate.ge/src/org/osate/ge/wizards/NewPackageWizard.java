@@ -87,7 +87,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.InternalDiagramService;
 import org.osate.ge.services.impl.DefaultNamingService;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
@@ -213,10 +213,10 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 			final Resource pkgResource = resourceSet.getResource(uri, true);
 			if (pkgResource.getContents().size() > 0 && pkgResource.getContents().get(0) instanceof NamedElement) {
 				// Open the diagram
-				final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getService(DiagramService.class);
+				final InternalDiagramService diagramService = (InternalDiagramService) PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getService(InternalDiagramService.class);
 				diagramService
-						.openOrCreateDiagramForRootBusinessObject((NamedElement) pkgResource.getContents().get(0));
+						.openOrCreateDiagramBusinessObject((NamedElement) pkgResource.getContents().get(0));
 			} else {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
 						"Unable to retrieve package from resource.", null);

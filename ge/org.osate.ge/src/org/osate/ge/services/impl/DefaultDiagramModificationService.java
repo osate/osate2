@@ -37,8 +37,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramModificationService;
-import org.osate.ge.services.DiagramService;
-import org.osate.ge.services.DiagramService.DiagramReference;
+import org.osate.ge.services.InternalDiagramService;
+import org.osate.ge.services.InternalDiagramService.DiagramReference;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.util.Log;
 
@@ -47,11 +47,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 		void onDiagram(final Diagram diagram);
 	}
 	
-	private final DiagramService diagramService;
+	private final InternalDiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	private final GhostPurger ghostPurger;
 	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final InternalDiagramService diagramService, final GhostPurger ghostPurger, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
 		this.ghostPurger = ghostPurger;
 		this.bor = bor;

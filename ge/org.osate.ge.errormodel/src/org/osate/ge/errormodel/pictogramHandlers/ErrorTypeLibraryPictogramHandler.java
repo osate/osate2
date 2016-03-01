@@ -14,6 +14,7 @@ import org.osate.ge.ext.annotations.CanRefresh;
 import org.osate.ge.ext.annotations.HandleDoubleClick;
 import org.osate.ge.ext.annotations.RefreshGraphics;
 import org.osate.ge.ext.annotations.RefreshShape;
+import org.osate.ge.ext.services.DiagramService;
 import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
@@ -54,9 +55,7 @@ public class ErrorTypeLibraryPictogramHandler {
 	}
 	
 	@HandleDoubleClick
-	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		System.err.println("DOUBLECLICK");
-		// TODO: Open a custom diagram
-		//diagramService.openOrCreateDiagramForRootBusinessObject(element);
+	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final DiagramService diagramService) {
+		diagramService.openOrCreateDiagramBusinessObject(typeLib);
 	}
 }
