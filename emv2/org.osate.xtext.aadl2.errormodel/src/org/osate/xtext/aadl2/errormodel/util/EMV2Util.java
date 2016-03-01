@@ -2667,6 +2667,19 @@ public class EMV2Util {
 		}
 		return null;
 	}
+	
+	/**
+	 * for compatibility reasons.
+	 * The path is now right recursive and most code interprets that path.
+	 */
+	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
+		final EList<FeatureorPPReference> list = new BasicEList<>();
+		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current
+				.getNext()) {
+			list.add(current);
+		}
+		return list;
+	}
 
 	public static EList<SubcomponentElement> getSubcomponents(QualifiedPropagationPoint propagationPoint) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
