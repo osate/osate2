@@ -179,6 +179,16 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.AMODEL_REFERENCE:
+      {
+        AModelReference aModelReference = (AModelReference)theEObject;
+        T result = caseAModelReference(aModelReference);
+        if (result == null) result = caseAExpression(aModelReference);
+        if (result == null) result = casePropertyExpression(aModelReference);
+        if (result == null) result = caseElement(aModelReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.AVARIABLE_REFERENCE:
       {
         AVariableReference aVariableReference = (AVariableReference)theEObject;
@@ -204,6 +214,24 @@ public class CommonSwitch<T> extends Switch<T>
         T result = caseAUnaryOperation(aUnaryOperation);
         if (result == null) result = casePropertyExpression(aUnaryOperation);
         if (result == null) result = caseElement(aUnaryOperation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.AFUNCTION_CALL:
+      {
+        AFunctionCall aFunctionCall = (AFunctionCall)theEObject;
+        T result = caseAFunctionCall(aFunctionCall);
+        if (result == null) result = casePropertyExpression(aFunctionCall);
+        if (result == null) result = caseElement(aFunctionCall);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ATHIS:
+      {
+        AThis aThis = (AThis)theEObject;
+        T result = caseAThis(aThis);
+        if (result == null) result = casePropertyExpression(aThis);
+        if (result == null) result = caseElement(aThis);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -431,6 +459,22 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAModelReference(AModelReference object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -474,6 +518,38 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAUnaryOperation(AUnaryOperation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AFunction Call</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AFunction Call</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAFunctionCall(AFunctionCall object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AThis</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AThis</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAThis(AThis object)
   {
     return null;
   }

@@ -1610,12 +1610,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cManualMethodParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cPluginMethodParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cAgreeMethodParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cJUnit4MethodParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//MethodKind:
-		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod;
+		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod
+		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ResoluteMethod
@@ -1632,6 +1633,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//AgreeMethod
 		public RuleCall getAgreeMethodParserRuleCall_4() { return cAgreeMethodParserRuleCall_4; }
+
+		//JUnit4Method
+		public RuleCall getJUnit4MethodParserRuleCall_5() { return cJUnit4MethodParserRuleCall_5; }
 	}
 
 	public class ResoluteMethodElements extends AbstractParserRuleElementFinder {
@@ -1748,8 +1752,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cAllAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
 		private final Keyword cAllAllKeyword_1_1_0 = (Keyword)cAllAssignment_1_1.eContents().get(0);
 		
-		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		//AgreeMethod:
 		//	"agree" (singleLayer?="single" | all?="all");
 		@Override public ParserRule getRule() { return rule; }
@@ -1774,6 +1776,32 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"all"
 		public Keyword getAllAllKeyword_1_1_0() { return cAllAllKeyword_1_1_0; }
+	}
+
+	public class JUnit4MethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JUnit4Method");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cJunitKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cClassPathAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cClassPathQualifiedNameParserRuleCall_1_0 = (RuleCall)cClassPathAssignment_1.eContents().get(0);
+		
+		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+		//JUnit4Method:
+		//	"junit" classPath=QualifiedName;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"junit" classPath=QualifiedName
+		public Group getGroup() { return cGroup; }
+
+		//"junit"
+		public Keyword getJunitKeyword_0() { return cJunitKeyword_0; }
+
+		//classPath=QualifiedName
+		public Assignment getClassPathAssignment_1() { return cClassPathAssignment_1; }
+
+		//QualifiedName
+		public RuleCall getClassPathQualifiedNameParserRuleCall_1_0() { return cClassPathQualifiedNameParserRuleCall_1_0; }
 	}
 	
 	
@@ -1800,6 +1828,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final ManualMethodElements pManualMethod;
 	private final PluginMethodElements pPluginMethod;
 	private final AgreeMethodElements pAgreeMethod;
+	private final JUnit4MethodElements pJUnit4Method;
 	
 	private final Grammar grammar;
 
@@ -1833,6 +1862,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pManualMethod = new ManualMethodElements();
 		this.pPluginMethod = new PluginMethodElements();
 		this.pAgreeMethod = new AgreeMethodElements();
+		this.pJUnit4Method = new JUnit4MethodElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -2055,7 +2085,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MethodKind:
-	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod;
+	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method;
 	public MethodKindElements getMethodKindAccess() {
 		return pMethodKind;
 	}
@@ -2104,8 +2134,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getPluginMethodAccess().getRule();
 	}
 
-	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 	//AgreeMethod:
 	//	"agree" (singleLayer?="single" | all?="all");
 	public AgreeMethodElements getAgreeMethodAccess() {
@@ -2114,6 +2142,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getAgreeMethodRule() {
 		return getAgreeMethodAccess().getRule();
+	}
+
+	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+	//JUnit4Method:
+	//	"junit" classPath=QualifiedName;
+	public JUnit4MethodElements getJUnit4MethodAccess() {
+		return pJUnit4Method;
+	}
+	
+	public ParserRule getJUnit4MethodRule() {
+		return getJUnit4MethodAccess().getRule();
 	}
 
 	//Description:
@@ -2199,13 +2239,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
 		return gaCommon.getAPropertyReferenceAccess();
 	}
 	
 	public ParserRule getAPropertyReferenceRule() {
 		return getAPropertyReferenceAccess().getRule();
+	}
+
+	//AModelReference returns AExpression:
+	//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+	public CommonGrammarAccess.AModelReferenceElements getAModelReferenceAccess() {
+		return gaCommon.getAModelReferenceAccess();
+	}
+	
+	public ParserRule getAModelReferenceRule() {
+		return getAModelReferenceAccess().getRule();
 	}
 
 	//AVariableReference returns AExpression:
@@ -2423,7 +2473,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2432,8 +2482,28 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getAPrimaryExpressionAccess().getRule();
 	}
 
+	//AFunctionCall returns aadl2::PropertyExpression:
+	//	{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
+		return gaCommon.getAFunctionCallAccess();
+	}
+	
+	public ParserRule getAFunctionCallRule() {
+		return getAFunctionCallAccess().getRule();
+	}
+
+	//AThis returns aadl2::PropertyExpression:
+	//	{AThis} "this";
+	public CommonGrammarAccess.AThisElements getAThisAccess() {
+		return gaCommon.getAThisAccess();
+	}
+	
+	public ParserRule getAThisRule() {
+		return getAThisAccess().getRule();
+	}
+
 	//ALiteral returns aadl2::PropertyExpression:
-	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
+	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
 		return gaCommon.getALiteralAccess();
 	}

@@ -171,6 +171,15 @@ public interface VerifyFactory extends EFactory
   AgreeMethod createAgreeMethod();
 
   /**
+   * Returns a new object of class '<em>JUnit4 Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>JUnit4 Method</em>'.
+   * @generated
+   */
+  JUnit4Method createJUnit4Method();
+
+  /**
    * Returns a new object of class '<em>Then Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -67,6 +67,9 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.aadl2.PropertyConstant
+import org.junit.runner.JUnitCore
+import org.junit.runner.Result
+import org.osate.verify.verify.JUnit4Method
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -404,7 +407,20 @@ class AssureProcessor implements IAssureProcessor {
 //							}
 //						}
 //					}
-				case ManualMethod: {
+				JUnit4Method: {
+					val test = VerificationMethodDispatchers.eInstance.findClass(methodtype.classPath); 
+					val junit = new JUnitCore(); 
+					val result = junit.run(test);
+						if (result.failureCount == 0) {
+							setToSuccess(verificationResult)
+						} else {
+							val proveri = CommonFactory.eINSTANCE.createResultIssue
+							result.doJUnitResults(proveri)
+							setToFail(verificationResult, proveri.issues)
+						}
+					verificationResult.eResource.save(null)
+				}
+				ManualMethod: {
 					verificationResult.eResource.save(null)
 				}
 			} // end switch on method

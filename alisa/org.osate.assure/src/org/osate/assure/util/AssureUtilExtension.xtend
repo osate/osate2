@@ -82,6 +82,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.assure.assure.QualifiedClaimReference
 import org.osate.verify.verify.VerificationPlan
 import org.osate.assure.assure.QualifiedVerificationPlanElementReference
+import org.junit.runner.Result
 
 class AssureUtilExtension {
 
@@ -389,6 +390,15 @@ class AssureUtilExtension {
 				else
 					ri.addFailIssue(subclaim.location, subclaim.text, diagnosticId)
 			subclaim.doResoluteResults(subri, diagnosticId)
+		]
+	}
+
+
+
+	def static void doJUnitResults(Result rr, ResultIssue ri) {
+		val failist = rr.failures
+		failist.forEach [ failed |
+					ri.addFailIssue(null, failed.message)
 		]
 	}
 

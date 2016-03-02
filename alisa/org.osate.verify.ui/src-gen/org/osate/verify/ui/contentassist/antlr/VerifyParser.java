@@ -150,6 +150,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getManualMethodAccess().getGroup(), "rule__ManualMethod__Group__0");
 					put(grammarAccess.getPluginMethodAccess().getGroup(), "rule__PluginMethod__Group__0");
 					put(grammarAccess.getAgreeMethodAccess().getGroup(), "rule__AgreeMethod__Group__0");
+					put(grammarAccess.getJUnit4MethodAccess().getGroup(), "rule__JUnit4Method__Group__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
@@ -167,6 +168,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0(), "rule__ComputeDeclaration__Group_2_0__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0_0(), "rule__ComputeDeclaration__Group_2_0_0__0");
 					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
+					put(grammarAccess.getAModelReferenceAccess().getGroup(), "rule__AModelReference__Group__0");
 					put(grammarAccess.getAVariableReferenceAccess().getGroup(), "rule__AVariableReference__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
@@ -210,6 +212,9 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0(), "rule__AMultiplicativeExpression__Group_1_0__0");
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0_0(), "rule__AMultiplicativeExpression__Group_1_0_0__0");
 					put(grammarAccess.getAUnaryOperationAccess().getGroup_0(), "rule__AUnaryOperation__Group_0__0");
+					put(grammarAccess.getAFunctionCallAccess().getGroup(), "rule__AFunctionCall__Group__0");
+					put(grammarAccess.getAFunctionCallAccess().getGroup_4(), "rule__AFunctionCall__Group_4__0");
+					put(grammarAccess.getAThisAccess().getGroup(), "rule__AThis__Group__0");
 					put(grammarAccess.getAIntegerTermAccess().getGroup(), "rule__AIntegerTerm__Group__0");
 					put(grammarAccess.getARealTermAccess().getGroup(), "rule__ARealTerm__Group__0");
 					put(grammarAccess.getANumericRangeTermAccess().getGroup(), "rule__ANumericRangeTerm__Group__0");
@@ -311,6 +316,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPluginMethodAccess().getMethodIDAssignment_1(), "rule__PluginMethod__MethodIDAssignment_1");
 					put(grammarAccess.getAgreeMethodAccess().getSingleLayerAssignment_1_0(), "rule__AgreeMethod__SingleLayerAssignment_1_0");
 					put(grammarAccess.getAgreeMethodAccess().getAllAssignment_1_1(), "rule__AgreeMethod__AllAssignment_1_1");
+					put(grammarAccess.getJUnit4MethodAccess().getClassPathAssignment_1(), "rule__JUnit4Method__ClassPathAssignment_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");
@@ -333,6 +339,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__ComputeDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_1(), "rule__ComputeDeclaration__NameAssignment_2_1");
 					put(grammarAccess.getAPropertyReferenceAccess().getPropertyAssignment_2(), "rule__APropertyReference__PropertyAssignment_2");
+					put(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_2(), "rule__AModelReference__ModelElementAssignment_2");
 					put(grammarAccess.getAVariableReferenceAccess().getVariableAssignment_1(), "rule__AVariableReference__VariableAssignment_1");
 					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");
 					put(grammarAccess.getShowValueAccess().getUnitAssignment_1_1(), "rule__ShowValue__UnitAssignment_1_1");
@@ -353,6 +360,9 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAssignment_1_1(), "rule__AMultiplicativeExpression__RightOperandAssignment_1_1");
 					put(grammarAccess.getAUnaryOperationAccess().getFeatureAssignment_0_1(), "rule__AUnaryOperation__FeatureAssignment_0_1");
 					put(grammarAccess.getAUnaryOperationAccess().getOperandAssignment_0_2(), "rule__AUnaryOperation__OperandAssignment_0_2");
+					put(grammarAccess.getAFunctionCallAccess().getFunctionAssignment_1(), "rule__AFunctionCall__FunctionAssignment_1");
+					put(grammarAccess.getAFunctionCallAccess().getFunctionCallArgumentsAssignment_3(), "rule__AFunctionCall__FunctionCallArgumentsAssignment_3");
+					put(grammarAccess.getAFunctionCallAccess().getFunctionCallArgumentsAssignment_4_1(), "rule__AFunctionCall__FunctionCallArgumentsAssignment_4_1");
 					put(grammarAccess.getAIntegerTermAccess().getValueAssignment_0(), "rule__AIntegerTerm__ValueAssignment_0");
 					put(grammarAccess.getAIntegerTermAccess().getUnitAssignment_1(), "rule__AIntegerTerm__UnitAssignment_1");
 					put(grammarAccess.getARealTermAccess().getValueAssignment_0(), "rule__ARealTerm__ValueAssignment_0");

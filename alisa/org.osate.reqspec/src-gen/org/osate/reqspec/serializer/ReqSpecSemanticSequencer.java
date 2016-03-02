@@ -34,10 +34,13 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AFunctionCall;
 import org.osate.alisa.common.common.AListTerm;
+import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.AThis;
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -99,8 +102,14 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
+			case CommonPackage.AFUNCTION_CALL:
+				sequence_AFunctionCall(context, (AFunctionCall) semanticObject); 
+				return; 
 			case CommonPackage.ALIST_TERM:
 				sequence_AListTerm(context, (AListTerm) semanticObject); 
+				return; 
+			case CommonPackage.AMODEL_REFERENCE:
+				sequence_AModelReference(context, (AModelReference) semanticObject); 
 				return; 
 			case CommonPackage.ANULL_LITERAL:
 				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
@@ -110,6 +119,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.ASET_LITERAL:
 				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
+				return; 
+			case CommonPackage.ATHIS:
+				sequence_AThis(context, (AThis) semanticObject); 
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
@@ -258,6 +270,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (
 	 *             targetDescription=STRING | 
@@ -276,6 +289,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         inheritsReference=[Requirement|QualifiedName]? 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
@@ -320,6 +334,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
 	 *         qualityCategory+=[QualityCategory|ID]* 
@@ -485,6 +500,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
 	 *         qualityCategory+=[QualityCategory|ID]* 
@@ -499,6 +515,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         inheritsReference=[Requirement|QualifiedName]? 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 

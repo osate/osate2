@@ -52,7 +52,11 @@ ComputeDeclaration returns AVariableDeclaration:
 
 
 APropertyReference returns AExpression:
-	{APropertyReference} '@' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+	{APropertyReference} '#' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+;
+
+AModelReference returns AExpression:
+	{AModelReference} '@' modelElement=[aadl2::NamedElement|QualifiedName]
 ;
 
 AVariableReference returns AExpression:
@@ -132,15 +136,23 @@ OpUnary:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | APropertyReference | 
-	AParenthesizedExpression;
+	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall
+	| AParenthesizedExpression;
+
+AFunctionCall returns aadl2::PropertyExpression:
+	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+;
+
+AThis returns aadl2::PropertyExpression:
+	{AThis} 'this'
+;
 
 ALiteral returns aadl2::PropertyExpression:
 	ASetTerm | AListTerm |
 	ABooleanLiteral |
 	ARealTerm | AIntegerTerm |  
 	ANullLiteral |
-	StringTerm 
+	StringTerm | AThis
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:

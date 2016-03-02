@@ -136,8 +136,14 @@ Goal returns Goal:
 	)
 	 ']';
 
+
+enum ReqKind:
+	ASSUMPTION='assumption'| GUARANTEE='guarantee'|CONSTRAINT='constraint'|EXCEPTION='exception' | CONSISTENCY='consistency'
+;
+
+
 SystemRequirement returns Requirement:
-	'requirement'  name=ID   
+	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
 	(':'  title=STRING)? 
 	( 'for'  (
 		targetElement=[aadl2::NamedElement|ID] )
@@ -155,6 +161,7 @@ SystemRequirement returns Requirement:
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('inherits' inheritsReference=[Requirement|QualifiedName])? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
@@ -166,7 +173,7 @@ SystemRequirement returns Requirement:
 	']';
 	
 GlobalRequirement returns Requirement:
-	'requirement'  name=ID   
+	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
 	(':'  title=STRING)? 
 	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
 '['	(
@@ -193,7 +200,7 @@ GlobalRequirement returns Requirement:
 	']';
 	
 DocRequirement returns Requirement:
-	'requirement'  name=ID   
+	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
 	(':'  title=STRING)? 
 	( 'for'  ( targetDescription=STRING |
 		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
@@ -212,6 +219,7 @@ DocRequirement returns Requirement:
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('inherits' inheritsReference=[Requirement|QualifiedName])? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?

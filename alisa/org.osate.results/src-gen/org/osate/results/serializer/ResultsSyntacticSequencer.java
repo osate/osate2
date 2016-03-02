@@ -78,12 +78,15 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) 'this' (rule start)
 	 *     (rule start) (ambiguity) '{' '}' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
@@ -102,12 +105,15 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) 'this' ')' (rule start)
 	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString

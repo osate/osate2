@@ -92,6 +92,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.MANUAL_METHOD: return createManualMethod();
       case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
       case VerifyPackage.AGREE_METHOD: return createAgreeMethod();
+      case VerifyPackage.JUNIT4_METHOD: return createJUnit4Method();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
@@ -266,6 +267,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     AgreeMethodImpl agreeMethod = new AgreeMethodImpl();
     return agreeMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JUnit4Method createJUnit4Method()
+  {
+    JUnit4MethodImpl jUnit4Method = new JUnit4MethodImpl();
+    return jUnit4Method;
   }
 
   /**

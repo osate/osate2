@@ -562,6 +562,52 @@ public interface CommonPackage extends EPackage
   int APROPERTY_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AModelReferenceImpl <em>AModel Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AModelReferenceImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAModelReference()
+   * @generated
+   */
+  int AMODEL_REFERENCE = 12;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__OWNED_ELEMENT = AEXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Model Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__MODEL_ELEMENT = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>AModel Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl <em>AVariable Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -569,7 +615,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAVariableReference()
    * @generated
    */
-  int AVARIABLE_REFERENCE = 12;
+  int AVARIABLE_REFERENCE = 13;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -615,7 +661,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABinaryOperation()
    * @generated
    */
-  int ABINARY_OPERATION = 13;
+  int ABINARY_OPERATION = 14;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -679,7 +725,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnaryOperation()
    * @generated
    */
-  int AUNARY_OPERATION = 14;
+  int AUNARY_OPERATION = 15;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -727,6 +773,98 @@ public interface CommonPackage extends EPackage
   int AUNARY_OPERATION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AFunctionCallImpl <em>AFunction Call</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AFunctionCallImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAFunctionCall()
+   * @generated
+   */
+  int AFUNCTION_CALL = 16;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AFUNCTION_CALL__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AFUNCTION_CALL__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AFUNCTION_CALL__FUNCTION = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Function Call Arguments</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>AFunction Call</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AFUNCTION_CALL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AThisImpl <em>AThis</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AThisImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAThis()
+   * @generated
+   */
+  int ATHIS = 17;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATHIS__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATHIS__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The number of structural features of the '<em>AThis</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATHIS_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -734,7 +872,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
    * @generated
    */
-  int ASET_LITERAL = 15;
+  int ASET_LITERAL = 18;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -780,7 +918,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListTerm()
    * @generated
    */
-  int ALIST_TERM = 16;
+  int ALIST_TERM = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -826,7 +964,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
    * @generated
    */
-  int ANULL_LITERAL = 17;
+  int ANULL_LITERAL = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -863,7 +1001,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
    * @generated
    */
-  int RESULT_ISSUE_TYPE = 18;
+  int RESULT_ISSUE_TYPE = 21;
 
 
   /**
@@ -1218,6 +1356,27 @@ public interface CommonPackage extends EPackage
   EReference getAPropertyReference_Property();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AModelReference <em>AModel Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AModel Reference</em>'.
+   * @see org.osate.alisa.common.common.AModelReference
+   * @generated
+   */
+  EClass getAModelReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Model Element</em>'.
+   * @see org.osate.alisa.common.common.AModelReference#getModelElement()
+   * @see #getAModelReference()
+   * @generated
+   */
+  EReference getAModelReference_ModelElement();
+
+  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.AVariableReference <em>AVariable Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1312,6 +1471,48 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getAUnaryOperation_Operand();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AFunctionCall <em>AFunction Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AFunction Call</em>'.
+   * @see org.osate.alisa.common.common.AFunctionCall
+   * @generated
+   */
+  EClass getAFunctionCall();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AFunctionCall#getFunction <em>Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Function</em>'.
+   * @see org.osate.alisa.common.common.AFunctionCall#getFunction()
+   * @see #getAFunctionCall()
+   * @generated
+   */
+  EAttribute getAFunctionCall_Function();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.AFunctionCall#getFunctionCallArguments <em>Function Call Arguments</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Function Call Arguments</em>'.
+   * @see org.osate.alisa.common.common.AFunctionCall#getFunctionCallArguments()
+   * @see #getAFunctionCall()
+   * @generated
+   */
+  EReference getAFunctionCall_FunctionCallArguments();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AThis <em>AThis</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AThis</em>'.
+   * @see org.osate.alisa.common.common.AThis
+   * @generated
+   */
+  EClass getAThis();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
@@ -1687,6 +1888,24 @@ public interface CommonPackage extends EPackage
     EReference APROPERTY_REFERENCE__PROPERTY = eINSTANCE.getAPropertyReference_Property();
 
     /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AModelReferenceImpl <em>AModel Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AModelReferenceImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAModelReference()
+     * @generated
+     */
+    EClass AMODEL_REFERENCE = eINSTANCE.getAModelReference();
+
+    /**
+     * The meta object literal for the '<em><b>Model Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AMODEL_REFERENCE__MODEL_ELEMENT = eINSTANCE.getAModelReference_ModelElement();
+
+    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl <em>AVariable Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1763,6 +1982,42 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference AUNARY_OPERATION__OPERAND = eINSTANCE.getAUnaryOperation_Operand();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AFunctionCallImpl <em>AFunction Call</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AFunctionCallImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAFunctionCall()
+     * @generated
+     */
+    EClass AFUNCTION_CALL = eINSTANCE.getAFunctionCall();
+
+    /**
+     * The meta object literal for the '<em><b>Function</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AFUNCTION_CALL__FUNCTION = eINSTANCE.getAFunctionCall_Function();
+
+    /**
+     * The meta object literal for the '<em><b>Function Call Arguments</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS = eINSTANCE.getAFunctionCall_FunctionCallArguments();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AThisImpl <em>AThis</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AThisImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAThis()
+     * @generated
+     */
+    EClass ATHIS = eINSTANCE.getAThis();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.

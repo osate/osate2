@@ -144,6 +144,15 @@ public interface CommonFactory extends EFactory
   APropertyReference createAPropertyReference();
 
   /**
+   * Returns a new object of class '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AModel Reference</em>'.
+   * @generated
+   */
+  AModelReference createAModelReference();
+
+  /**
    * Returns a new object of class '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -169,6 +178,24 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   AUnaryOperation createAUnaryOperation();
+
+  /**
+   * Returns a new object of class '<em>AFunction Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AFunction Call</em>'.
+   * @generated
+   */
+  AFunctionCall createAFunctionCall();
+
+  /**
+   * Returns a new object of class '<em>AThis</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AThis</em>'.
+   * @generated
+   */
+  AThis createAThis();
 
   /**
    * Returns a new object of class '<em>ASet Literal</em>'.

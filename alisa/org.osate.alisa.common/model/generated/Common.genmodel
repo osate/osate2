@@ -59,6 +59,9 @@
     <genClasses ecoreClass="Common.ecore#//APropertyReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/property"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AModelReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/modelElement"/>
+    </genClasses>
     <genClasses ecoreClass="Common.ecore#//AVariableReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/variable"/>
     </genClasses>
@@ -71,6 +74,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/feature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AFunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AFunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AFunctionCall/functionCallArguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AThis"/>
     <genClasses ecoreClass="Common.ecore#//ASetLiteral">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ASetLiteral/elements"/>
     </genClasses>
