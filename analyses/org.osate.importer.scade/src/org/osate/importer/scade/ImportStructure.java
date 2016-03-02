@@ -1,31 +1,31 @@
 /*
  * Copyright 2014 Carnegie Mellon University
- * 
+ *
 
- * Any opinions, findings and conclusions or recommendations expressed in this 
- * Material are those of the author(s) and do not necessarily reflect the 
- * views of the United States Department of Defense. 
+ * Any opinions, findings and conclusions or recommendations expressed in this
+ * Material are those of the author(s) and do not necessarily reflect the
+ * views of the United States Department of Defense.
 
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN �AS-IS� BASIS. CARNEGIE MELLON 
- * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
- * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
- * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
- * THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF 
- * ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT 
+ * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+ * INSTITUTE MATERIAL IS FURNISHED ON AN �AS-IS� BASIS. CARNEGIE MELLON
+ * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+ * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR
+ * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF
+ * THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF
+ * ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT
  * INFRINGEMENT.
- * 
- * This Material has been approved for public release and unlimited 
- * distribution except as restricted below. 
- * 
- * This Material is provided to you under the terms and conditions of the 
- * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is 
- * provided with this Content and is also available at 
+ *
+ * This Material has been approved for public release and unlimited
+ * distribution except as restricted below.
+ *
+ * This Material is provided to you under the terms and conditions of the
+ * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is
+ * provided with this Content and is also available at
  * http://www.eclipse.org/legal/epl-v10.html.
- * 
- * Carnegie Mellon is registered in the U.S. Patent and Trademark 
- * Office by Carnegie Mellon University. 
- * 
+ *
+ * Carnegie Mellon is registered in the U.S. Patent and Trademark
+ * Office by Carnegie Mellon University.
+ *
  */
 
 package org.osate.importer.scade;
@@ -110,7 +110,18 @@ public class ImportStructure {
 							 * We use 4 times parent because the data nodes is located 4 levels
 							 * up from the operator node.
 							 */
-							Node dataNode = operator.getParentNode().getParentNode().getParentNode().getParentNode();
+							Node dataNode;
+							dataNode = operator;
+							while (dataNode.getParentNode() != null)
+							{
+								dataNode = dataNode.getParentNode();
+							}
+//							OsateDebug.osateDebug("Import SCADE", "parent0" + operator.getParentNode());
+//
+//							OsateDebug.osateDebug("Import SCADE", "parent1" + operator.getParentNode().getParentNode());
+//							OsateDebug.osateDebug("Import SCADE", "parent2" + operator.getParentNode().getParentNode().getParentNode());
+//							OsateDebug.osateDebug("Import SCADE", "parent3" + operator.getParentNode().getParentNode().getParentNode().getParentNode());
+//							Node dataNode = operator.getParentNode().getParentNode().getParentNode().getParentNode();
 
 							/**
 							 * Here, we retrieved all the components that use this variable.
@@ -201,7 +212,7 @@ public class ImportStructure {
 	 * Process the call parameters. This is the variables passed to the called
 	 * block.
 	 * @param currentNode     - the current node that contains all parameters
-	 * @param operator        - the current operator that initiate the call 
+	 * @param operator        - the current operator that initiate the call
 	 * @param mainComponent   - the main component that contain the component added
 	 * @param calledComponent - the component that is called
 	 */
@@ -243,7 +254,7 @@ public class ImportStructure {
 	 * local SCADE variable. This function returns the human-readable
 	 * name in the SCADE model from the name of the internal variable
 	 * name. It will retrieve the name of the port according
-	 * to the name of the local variable. 
+	 * to the name of the local variable.
 	 * @param varName         - name of the local variable (such as _v2 or _l2, etc.)
 	 * @param operator        - the operator that contains the call containing
 	 * @param calledComponent - the component that was called
@@ -270,7 +281,7 @@ public class ImportStructure {
 	 * local SCADE variable. This function returns the human-readable
 	 * name in the SCADE model from the name of the internal variable
 	 * name. It will retrieve the name of the port according
-	 * to the name of the local variable. 
+	 * to the name of the local variable.
 	 * @param varName         - name of the local variable (such as _v2 or _l2, etc.)
 	 * @param operator        - the operator that contains the call containing
 	 * @param calledComponent - the component that was called
@@ -291,7 +302,7 @@ public class ImportStructure {
 	}
 
 	/**
-	 * Try to find a node with the name constvarref and 
+	 * Try to find a node with the name constvarref and
 	 * return the value of the name attribute.
 	 * @param node - The XML node with the constvarref name
 	 * @return     - Value of the name attribute.
@@ -317,7 +328,7 @@ public class ImportStructure {
 	}
 
 	/**
-	 * Try to find a node with the name varref and 
+	 * Try to find a node with the name varref and
 	 * return the value of the name attribute.
 	 * @param node - The XML node with the varref name
 	 * @return     - Value of the name attribute.

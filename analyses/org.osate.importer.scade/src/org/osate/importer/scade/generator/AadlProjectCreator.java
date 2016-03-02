@@ -1,31 +1,31 @@
 /*
  * Copyright 2014 Carnegie Mellon University
- * 
+ *
 
- * Any opinions, findings and conclusions or recommendations expressed in this 
- * Material are those of the author(s) and do not necessarily reflect the 
- * views of the United States Department of Defense. 
+ * Any opinions, findings and conclusions or recommendations expressed in this
+ * Material are those of the author(s) and do not necessarily reflect the
+ * views of the United States Department of Defense.
 
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN �AS-IS� BASIS. CARNEGIE MELLON 
- * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
- * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
- * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
- * THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF 
- * ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT 
+ * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING
+ * INSTITUTE MATERIAL IS FURNISHED ON AN �AS-IS� BASIS. CARNEGIE MELLON
+ * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+ * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR
+ * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF
+ * THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF
+ * ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT
  * INFRINGEMENT.
- * 
- * This Material has been approved for public release and unlimited 
- * distribution except as restricted below. 
- * 
- * This Material is provided to you under the terms and conditions of the 
- * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is 
- * provided with this Content and is also available at 
+ *
+ * This Material has been approved for public release and unlimited
+ * distribution except as restricted below.
+ *
+ * This Material is provided to you under the terms and conditions of the
+ * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is
+ * provided with this Content and is also available at
  * http://www.eclipse.org/legal/epl-v10.html.
- * 
- * Carnegie Mellon is registered in the U.S. Patent and Trademark 
- * Office by Carnegie Mellon University. 
- * 
+ *
+ * Carnegie Mellon is registered in the U.S. Patent and Trademark
+ * Office by Carnegie Mellon University.
+ *
  */
 
 package org.osate.importer.scade.generator;
@@ -51,7 +51,7 @@ public class AadlProjectCreator {
 	 * Create all directories required to store the model
 	 * and the necessary files.
 	 * @param outputPath the path that will contain all the model
-	 * and related resources. 
+	 * and related resources.
 	 */
 	public static void createDirectories(String outputPath) {
 		String outputPathFunctional;
@@ -185,17 +185,17 @@ public class AadlProjectCreator {
 		}
 
 	}
-	
+
 	public static String getAadlPackagePrefix (String aadlComponentName, List<Model> models)
 	{
 		String result;
 		result = "";
-		
+
 		if (models == null)
 		{
 			return result;
 		}
-		
+
 		for (Model model : models)
 		{
 			for (Component e : model.getComponents()) {
@@ -205,7 +205,7 @@ public class AadlProjectCreator {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -223,7 +223,7 @@ public class AadlProjectCreator {
 
 			if (genericModel.getPackageName() != null) {
 				aadlPackagePrefix = genericModel.getPackageName() + "::";
-			} 
+			}
 
 			out.write("package " + aadlPackagePrefix + "imported::runtime\n");
 
@@ -231,17 +231,20 @@ public class AadlProjectCreator {
 			out.write("with " + aadlPackagePrefix + "imported::functions;\n");
 			out.write("with SEI;\n");
 			out.write("with runtime_generic;\n");
-			
+
 			for (Component e : genericModel.getComponents()) {
 				for (Component ctmp : e.getSubEntities()) {
 					if (ctmp.getType() == ComponentType.BLOCK) {
-						
-						
-						out.write("with " + getAadlPackagePrefix(ctmp.getAadlName(), projectModels)  + ";\n");
+
+						String withClause = getAadlPackagePrefix(ctmp.getAadlName(), projectModels);
+						if (withClause.length() > 0)
+						{
+							out.write("with " + getAadlPackagePrefix(ctmp.getAadlName(), projectModels)  + ";\n");
+						}
 					}
 				}
 			}
-			
+
 
 			for (Component e : genericModel.getComponents()) {
 				StateMachine stateMachine = null;
@@ -312,7 +315,7 @@ public class AadlProjectCreator {
 							.size() > 0) || (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
 						out.write("connections\n");
 					}
-				
+
 					boolean subcomponentSectionWritten = false;
 					if (e.hasSubcomponents()) {
 						if (!subcomponentSectionWritten) {
@@ -323,15 +326,15 @@ public class AadlProjectCreator {
 							if (ctmp.getType() == ComponentType.BLOCK) {
 								String componentClassifier;
 								componentClassifier = "";
-								
+
 								if (projectModels != null)
 								{
 
 									componentClassifier = getAadlPackagePrefix (ctmp.getAadlName(), projectModels) + "::";
 								}
 								componentClassifier += "s_" + ctmp.getAadlName();
-								
-								
+
+
 								out.write("   " + ctmp.getAadlName() + " : system " + componentClassifier + ";\n");
 							}
 						}
@@ -421,7 +424,7 @@ public class AadlProjectCreator {
 						 * Let's call the other subprogram that contains
 						 * the sub state machines. Then, if these
 						 * state machines share data, we need to
-						 * add data components and connect them. 
+						 * add data components and connect them.
 						 */
 
 						// if (sm.hasNestedStateMachines())
@@ -438,7 +441,7 @@ public class AadlProjectCreator {
 						// }
 
 						/**
-						 * 
+						 *
 						 * Connect the data components shared among the different subprograms
 						 * using data access connections.
 						 */
@@ -538,7 +541,7 @@ public class AadlProjectCreator {
 		String outputFileFunctional;
 		String outputFileRuntime;
 		String outputFileRuntimeGeneric;
-		
+
 		String prefix = "";
 		prefix = genericModel.getPackageName() + "-";
 		outputPathFunctional = outputPath + File.separatorChar + "functional";
@@ -554,12 +557,12 @@ public class AadlProjectCreator {
 
 //		OsateDebug.osateDebug("Create AADL runtime  project in " + outputFileRuntime);
 		createAadlRuntime(outputFileRuntime, genericModel, projectModels);
-		
+
 		createGenericRuntime(outputFileRuntimeGeneric);
 
 	}
-	
-	
+
+
 	public static void createGenericRuntime(String outputFile) {
 		FileWriter fstream;
 		BufferedWriter out;
