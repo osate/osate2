@@ -33,7 +33,7 @@ import org.osate.alisa.common.common.AFunctionCall
 class CommonValidator extends AbstractCommonValidator {
   public static val UNSUPPORTED_FUNCTION = 'UnSupportedFunction'
   
-  public static val SupportedFunctions = #["max", "min", "prev","abs","roundup","round","rounddown"]
+  public static val SupportedFunctions = #["max", "min", "prev","abs","sum","roundup","round","rounddown"]
 
 	@Check
 	def checkAFeatureCall(AFunctionCall call) {
