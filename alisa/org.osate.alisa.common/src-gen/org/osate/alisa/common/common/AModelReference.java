@@ -15,7 +15,6 @@
  */
 package org.osate.alisa.common.common;
 
-import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +25,7 @@ import org.osate.aadl2.NamedElement;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAModelReference()
@@ -36,29 +35,29 @@ import org.osate.aadl2.NamedElement;
 public interface AModelReference extends AExpression
 {
   /**
-   * Returns the value of the '<em><b>Model Element</b></em>' reference.
+   * Returns the value of the '<em><b>Next</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Model Element</em>' reference isn't clear,
+   * If the meaning of the '<em>Next</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Model Element</em>' reference.
-   * @see #setModelElement(NamedElement)
-   * @see org.osate.alisa.common.common.CommonPackage#getAModelReference_ModelElement()
-   * @model
+   * @return the value of the '<em>Next</em>' containment reference.
+   * @see #setNext(NestedModelElement)
+   * @see org.osate.alisa.common.common.CommonPackage#getAModelReference_Next()
+   * @model containment="true"
    * @generated
    */
-  NamedElement getModelElement();
+  NestedModelElement getNext();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Model Element</em>' reference.
-   * @see #getModelElement()
+   * @param value the new value of the '<em>Next</em>' containment reference.
+   * @see #getNext()
    * @generated
    */
-  void setModelElement(NamedElement value);
+  void setNext(NestedModelElement value);
 
 } // AModelReference

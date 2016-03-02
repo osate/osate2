@@ -85,17 +85,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.RESULT_ISSUE: return createResultIssue();
       case CommonPackage.AVARIABLE_DECLARATION: return createAVariableDeclaration();
       case CommonPackage.AEXPRESSION: return createAExpression();
+      case CommonPackage.NESTED_MODEL_ELEMENT: return createNestedModelElement();
+      case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
+      case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
-      case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
-      case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
-      case CommonPackage.ATHIS: return createAThis();
       case CommonPackage.ASET_LITERAL: return createASetLiteral();
       case CommonPackage.ALIST_TERM: return createAListTerm();
       case CommonPackage.ANULL_LITERAL: return createANullLiteral();
@@ -220,6 +220,39 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public NestedModelElement createNestedModelElement()
+  {
+    NestedModelElementImpl nestedModelElement = new NestedModelElementImpl();
+    return nestedModelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AModelReference createAModelReference()
+  {
+    AModelReferenceImpl aModelReference = new AModelReferenceImpl();
+    return aModelReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public APropertyReference createAPropertyReference()
+  {
+    APropertyReferenceImpl aPropertyReference = new APropertyReferenceImpl();
+    return aPropertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ShowValue createShowValue()
   {
     ShowValueImpl showValue = new ShowValueImpl();
@@ -264,28 +297,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public APropertyReference createAPropertyReference()
-  {
-    APropertyReferenceImpl aPropertyReference = new APropertyReferenceImpl();
-    return aPropertyReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AModelReference createAModelReference()
-  {
-    AModelReferenceImpl aModelReference = new AModelReferenceImpl();
-    return aModelReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AVariableReference createAVariableReference()
   {
     AVariableReferenceImpl aVariableReference = new AVariableReferenceImpl();
@@ -323,17 +334,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AFunctionCallImpl aFunctionCall = new AFunctionCallImpl();
     return aFunctionCall;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AThis createAThis()
-  {
-    AThisImpl aThis = new AThisImpl();
-    return aThis;
   }
 
   /**

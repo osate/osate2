@@ -42,7 +42,7 @@ class CommonProposalProvider extends AbstractCommonProposalProvider {
 
 
 
-	override void completeAPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override void completeAModelOrPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
 			[description | model.propertyUsedIn(context.currentModel)]
 		);

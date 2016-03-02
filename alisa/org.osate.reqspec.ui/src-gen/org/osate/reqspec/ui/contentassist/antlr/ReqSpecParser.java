@@ -69,6 +69,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_2(), "rule__ValDeclaration__Alternatives_2");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_2(), "rule__ComputeDeclaration__Alternatives_2");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getAlternatives(), "rule__AModelOrPropertyReference__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
 					put(grammarAccess.getOpCompareAccess().getAlternatives(), "rule__OpCompare__Alternatives");
 					put(grammarAccess.getOpOtherAccess().getAlternatives(), "rule__OpOther__Alternatives");
@@ -214,8 +215,15 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getGroup(), "rule__ComputeDeclaration__Group__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0(), "rule__ComputeDeclaration__Group_2_0__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0_0(), "rule__ComputeDeclaration__Group_2_0_0__0");
-					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0(), "rule__AModelOrPropertyReference__Group_0__0");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1(), "rule__AModelOrPropertyReference__Group_0_1__0");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1_0(), "rule__AModelOrPropertyReference__Group_0_1_0__0");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1_0_0(), "rule__AModelOrPropertyReference__Group_0_1_0_0__0");
+					put(grammarAccess.getNestedModelelementAccess().getGroup(), "rule__NestedModelelement__Group__0");
+					put(grammarAccess.getNestedModelelementAccess().getGroup_1(), "rule__NestedModelelement__Group_1__0");
 					put(grammarAccess.getAModelReferenceAccess().getGroup(), "rule__AModelReference__Group__0");
+					put(grammarAccess.getAModelReferenceAccess().getGroup_2(), "rule__AModelReference__Group_2__0");
+					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
 					put(grammarAccess.getAVariableReferenceAccess().getGroup(), "rule__AVariableReference__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
@@ -261,7 +269,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAUnaryOperationAccess().getGroup_0(), "rule__AUnaryOperation__Group_0__0");
 					put(grammarAccess.getAFunctionCallAccess().getGroup(), "rule__AFunctionCall__Group__0");
 					put(grammarAccess.getAFunctionCallAccess().getGroup_4(), "rule__AFunctionCall__Group_4__0");
-					put(grammarAccess.getAThisAccess().getGroup(), "rule__AThis__Group__0");
 					put(grammarAccess.getAIntegerTermAccess().getGroup(), "rule__AIntegerTerm__Group__0");
 					put(grammarAccess.getARealTermAccess().getGroup(), "rule__ARealTerm__Group__0");
 					put(grammarAccess.getANumericRangeTermAccess().getGroup(), "rule__ANumericRangeTerm__Group__0");
@@ -270,8 +277,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getASetTermAccess().getGroup_2(), "rule__ASetTerm__Group_2__0");
 					put(grammarAccess.getASetTermAccess().getGroup_2_1(), "rule__ASetTerm__Group_2_1__0");
 					put(grammarAccess.getAListTermAccess().getGroup(), "rule__AListTerm__Group__0");
-					put(grammarAccess.getAListTermAccess().getGroup_3(), "rule__AListTerm__Group_3__0");
-					put(grammarAccess.getAListTermAccess().getGroup_3_1(), "rule__AListTerm__Group_3_1__0");
+					put(grammarAccess.getAListTermAccess().getGroup_2(), "rule__AListTerm__Group_2__0");
+					put(grammarAccess.getAListTermAccess().getGroup_2_1(), "rule__AListTerm__Group_2_1__0");
 					put(grammarAccess.getAParenthesizedExpressionAccess().getGroup(), "rule__AParenthesizedExpression__Group__0");
 					put(grammarAccess.getABooleanLiteralAccess().getGroup(), "rule__ABooleanLiteral__Group__0");
 					put(grammarAccess.getANullLiteralAccess().getGroup(), "rule__ANullLiteral__Group__0");
@@ -481,8 +488,11 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__ComputeDeclaration__TypeAssignment_2_0_0_0");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__ComputeDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_1(), "rule__ComputeDeclaration__NameAssignment_2_1");
+					put(grammarAccess.getAModelOrPropertyReferenceAccess().getPropertyAssignment_0_1_1(), "rule__AModelOrPropertyReference__PropertyAssignment_0_1_1");
+					put(grammarAccess.getNestedModelelementAccess().getModelElementAssignment_0(), "rule__NestedModelelement__ModelElementAssignment_0");
+					put(grammarAccess.getNestedModelelementAccess().getNextAssignment_1_1(), "rule__NestedModelelement__NextAssignment_1_1");
+					put(grammarAccess.getAModelReferenceAccess().getNextAssignment_2_1(), "rule__AModelReference__NextAssignment_2_1");
 					put(grammarAccess.getAPropertyReferenceAccess().getPropertyAssignment_2(), "rule__APropertyReference__PropertyAssignment_2");
-					put(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_2(), "rule__AModelReference__ModelElementAssignment_2");
 					put(grammarAccess.getAVariableReferenceAccess().getVariableAssignment_1(), "rule__AVariableReference__VariableAssignment_1");
 					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");
 					put(grammarAccess.getShowValueAccess().getUnitAssignment_1_1(), "rule__ShowValue__UnitAssignment_1_1");
@@ -515,8 +525,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getANumericRangeTermAccess().getDeltaAssignment_3_1(), "rule__ANumericRangeTerm__DeltaAssignment_3_1");
 					put(grammarAccess.getASetTermAccess().getElementsAssignment_2_0(), "rule__ASetTerm__ElementsAssignment_2_0");
 					put(grammarAccess.getASetTermAccess().getElementsAssignment_2_1_1(), "rule__ASetTerm__ElementsAssignment_2_1_1");
-					put(grammarAccess.getAListTermAccess().getElementsAssignment_3_0(), "rule__AListTerm__ElementsAssignment_3_0");
-					put(grammarAccess.getAListTermAccess().getElementsAssignment_3_1_1(), "rule__AListTerm__ElementsAssignment_3_1_1");
+					put(grammarAccess.getAListTermAccess().getElementsAssignment_2_0(), "rule__AListTerm__ElementsAssignment_2_0");
+					put(grammarAccess.getAListTermAccess().getElementsAssignment_2_1_1(), "rule__AListTerm__ElementsAssignment_2_1_1");
 					put(grammarAccess.getABooleanLiteralAccess().getValueAssignment_1_0(), "rule__ABooleanLiteral__ValueAssignment_1_0");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup_7(), "rule__StakeholderGoals__UnorderedGroup_7");

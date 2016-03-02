@@ -409,27 +409,163 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_2_1_0() { return cNameIDTerminalRuleCall_2_1_0; }
 	}
 
+	public class AModelOrPropertyReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelOrPropertyReference");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final RuleCall cAModelReferenceParserRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Group cGroup_0_1_0 = (Group)cGroup_0_1.eContents().get(0);
+		private final Group cGroup_0_1_0_0 = (Group)cGroup_0_1_0.eContents().get(0);
+		private final Action cAPropertyReferenceModelElementReferenceAction_0_1_0_0_0 = (Action)cGroup_0_1_0_0.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_0_1_0_0_1 = (Keyword)cGroup_0_1_0_0.eContents().get(1);
+		private final Assignment cPropertyAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final CrossReference cPropertyAbstractNamedValueCrossReference_0_1_1_0 = (CrossReference)cPropertyAssignment_0_1_1.eContents().get(0);
+		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_0_1_1_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_0_1_1_0.eContents().get(1);
+		private final RuleCall cAPropertyReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//AModelOrPropertyReference returns AExpression:
+		//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
+		@Override public ParserRule getRule() { return rule; }
+
+		//AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
+		public Group getGroup_0() { return cGroup_0; }
+
+		//AModelReference
+		public RuleCall getAModelReferenceParserRuleCall_0_0() { return cAModelReferenceParserRuleCall_0_0; }
+
+		//(=> ({APropertyReference.modelElementReference=current} "@")
+		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//=> ({APropertyReference.modelElementReference=current} "@")
+		public Group getGroup_0_1_0() { return cGroup_0_1_0; }
+
+		//{APropertyReference.modelElementReference=current} "@"
+		public Group getGroup_0_1_0_0() { return cGroup_0_1_0_0; }
+
+		//{APropertyReference.modelElementReference=current}
+		public Action getAPropertyReferenceModelElementReferenceAction_0_1_0_0_0() { return cAPropertyReferenceModelElementReferenceAction_0_1_0_0_0; }
+
+		//"@"
+		public Keyword getCommercialAtKeyword_0_1_0_0_1() { return cCommercialAtKeyword_0_1_0_0_1; }
+
+		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		public Assignment getPropertyAssignment_0_1_1() { return cPropertyAssignment_0_1_1; }
+
+		//[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		public CrossReference getPropertyAbstractNamedValueCrossReference_0_1_1_0() { return cPropertyAbstractNamedValueCrossReference_0_1_1_0; }
+
+		//AADLPROPERTYREFERENCE
+		public RuleCall getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_0_1_1_0_1() { return cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_0_1_1_0_1; }
+
+		//APropertyReference
+		public RuleCall getAPropertyReferenceParserRuleCall_1() { return cAPropertyReferenceParserRuleCall_1; }
+	}
+
+	public class NestedModelelementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NestedModelelement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cModelElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cModelElementNamedElementCrossReference_0_0 = (CrossReference)cModelElementAssignment_0.eContents().get(0);
+		private final RuleCall cModelElementNamedElementIDTerminalRuleCall_0_0_1 = (RuleCall)cModelElementNamedElementCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cNextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cNextNestedModelelementParserRuleCall_1_1_0 = (RuleCall)cNextAssignment_1_1.eContents().get(0);
+		
+		//NestedModelelement returns NestedModelElement:
+		//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?
+		public Group getGroup() { return cGroup; }
+
+		//modelElement=[aadl2::NamedElement]
+		public Assignment getModelElementAssignment_0() { return cModelElementAssignment_0; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getModelElementNamedElementCrossReference_0_0() { return cModelElementNamedElementCrossReference_0_0; }
+
+		//ID
+		public RuleCall getModelElementNamedElementIDTerminalRuleCall_0_0_1() { return cModelElementNamedElementIDTerminalRuleCall_0_0_1; }
+
+		//("." next=NestedModelelement)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+
+		//next=NestedModelelement
+		public Assignment getNextAssignment_1_1() { return cNextAssignment_1_1; }
+
+		//NestedModelelement
+		public RuleCall getNextNestedModelelementParserRuleCall_1_1_0() { return cNextNestedModelelementParserRuleCall_1_1_0; }
+	}
+
+	public class AModelReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cAModelReferenceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cThisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cNextAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cNextNestedModelelementParserRuleCall_2_1_0 = (RuleCall)cNextAssignment_2_1.eContents().get(0);
+		
+		//AModelReference:
+		//	{AModelReference} "this" ("." next=NestedModelelement)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//{AModelReference} "this" ("." next=NestedModelelement)?
+		public Group getGroup() { return cGroup; }
+
+		//{AModelReference}
+		public Action getAModelReferenceAction_0() { return cAModelReferenceAction_0; }
+
+		//"this"
+		public Keyword getThisKeyword_1() { return cThisKeyword_1; }
+
+		//("." next=NestedModelelement)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//next=NestedModelelement
+		public Assignment getNextAssignment_2_1() { return cNextAssignment_2_1; }
+
+		//NestedModelelement
+		public RuleCall getNextNestedModelelementParserRuleCall_2_1_0() { return cNextNestedModelelementParserRuleCall_2_1_0; }
+	}
+
 	public class APropertyReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "APropertyReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAPropertyReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cPropertyAbstractNamedValueCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
 		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_2_0.eContents().get(1);
 		
-		//APropertyReference returns AExpression:
-		//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+		//APropertyReference:
+		//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		//{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Group getGroup() { return cGroup; }
 
 		//{APropertyReference}
 		public Action getAPropertyReferenceAction_0() { return cAPropertyReferenceAction_0; }
 
-		//"#"
-		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
+		//"@"
+		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
 
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
@@ -439,38 +575,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//AADLPROPERTYREFERENCE
 		public RuleCall getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1() { return cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1; }
-	}
-
-	public class AModelReferenceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelReference");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAModelReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cModelElementAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cModelElementNamedElementCrossReference_2_0 = (CrossReference)cModelElementAssignment_2.eContents().get(0);
-		private final RuleCall cModelElementNamedElementQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cModelElementNamedElementCrossReference_2_0.eContents().get(1);
-		
-		//AModelReference returns AExpression:
-		//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
-		@Override public ParserRule getRule() { return rule; }
-
-		//{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName]
-		public Group getGroup() { return cGroup; }
-
-		//{AModelReference}
-		public Action getAModelReferenceAction_0() { return cAModelReferenceAction_0; }
-
-		//"@"
-		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
-
-		//modelElement=[aadl2::NamedElement|QualifiedName]
-		public Assignment getModelElementAssignment_2() { return cModelElementAssignment_2; }
-
-		//[aadl2::NamedElement|QualifiedName]
-		public CrossReference getModelElementNamedElementCrossReference_2_0() { return cModelElementNamedElementCrossReference_2_0; }
-
-		//QualifiedName
-		public RuleCall getModelElementNamedElementQualifiedNameParserRuleCall_2_0_1() { return cModelElementNamedElementQualifiedNameParserRuleCall_2_0_1; }
 	}
 
 	public class AVariableReferenceElements extends AbstractParserRuleElementFinder {
@@ -1273,16 +1377,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cALiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAVariableReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAPropertyReferenceParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAModelReferenceParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cAFunctionCallParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cAParenthesizedExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cAModelOrPropertyReferenceParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cAFunctionCallParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cAParenthesizedExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//APrimaryExpression returns aadl2::PropertyExpression:
-		//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
+		//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | AParenthesizedExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression
+		//ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | AParenthesizedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ALiteral
@@ -1291,17 +1394,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//AVariableReference
 		public RuleCall getAVariableReferenceParserRuleCall_1() { return cAVariableReferenceParserRuleCall_1; }
 
-		//APropertyReference
-		public RuleCall getAPropertyReferenceParserRuleCall_2() { return cAPropertyReferenceParserRuleCall_2; }
-
-		//AModelReference
-		public RuleCall getAModelReferenceParserRuleCall_3() { return cAModelReferenceParserRuleCall_3; }
+		//AModelOrPropertyReference
+		public RuleCall getAModelOrPropertyReferenceParserRuleCall_2() { return cAModelOrPropertyReferenceParserRuleCall_2; }
 
 		//AFunctionCall
-		public RuleCall getAFunctionCallParserRuleCall_4() { return cAFunctionCallParserRuleCall_4; }
+		public RuleCall getAFunctionCallParserRuleCall_3() { return cAFunctionCallParserRuleCall_3; }
 
 		//AParenthesizedExpression
-		public RuleCall getAParenthesizedExpressionParserRuleCall_5() { return cAParenthesizedExpressionParserRuleCall_5; }
+		public RuleCall getAParenthesizedExpressionParserRuleCall_4() { return cAParenthesizedExpressionParserRuleCall_4; }
 	}
 
 	public class AFunctionCallElements extends AbstractParserRuleElementFinder {
@@ -1360,26 +1460,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
-	public class AThisElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AThis");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAThisAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cThisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//AThis returns aadl2::PropertyExpression:
-		//	{AThis} "this";
-		@Override public ParserRule getRule() { return rule; }
-
-		//{AThis} "this"
-		public Group getGroup() { return cGroup; }
-
-		//{AThis}
-		public Action getAThisAction_0() { return cAThisAction_0; }
-
-		//"this"
-		public Keyword getThisKeyword_1() { return cThisKeyword_1; }
-	}
-
 	public class ALiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ALiteral");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1390,13 +1470,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAIntegerTermParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cANullLiteralParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cStringTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cAThisParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		
+		////AThis returns aadl2::PropertyExpression:
+		////	{AThis} 'this'
+		////;
 		//ALiteral returns aadl2::PropertyExpression:
-		//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis;
+		//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis
+		//ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ASetTerm
@@ -1419,9 +1501,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//StringTerm
 		public RuleCall getStringTermParserRuleCall_6() { return cStringTermParserRuleCall_6; }
-
-		//AThis
-		public RuleCall getAThisParserRuleCall_7() { return cAThisParserRuleCall_7; }
 	}
 
 	public class AIntegerTermElements extends AbstractParserRuleElementFinder {
@@ -1597,7 +1676,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ASetTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cASetLiteralAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cNumberSignLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cElementsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final RuleCall cElementsAExpressionParserRuleCall_2_0_0 = (RuleCall)cElementsAssignment_2_0.eContents().get(0);
@@ -1607,20 +1686,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsAExpressionParserRuleCall_2_1_1_0 = (RuleCall)cElementsAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//ASetTerm returns aadl2::PropertyExpression: //	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-		//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+		//ASetTerm returns aadl2::PropertyExpression:
+		//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 		@Override public ParserRule getRule() { return rule; }
 
-		////	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-		//{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}"
+		//{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}"
 		public Group getGroup() { return cGroup; }
 
-		////	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
 		//{ASetLiteral}
 		public Action getASetLiteralAction_0() { return cASetLiteralAction_0; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+		//"#{"
+		public Keyword getNumberSignLeftCurlyBracketKeyword_1() { return cNumberSignLeftCurlyBracketKeyword_1; }
 
 		//(elements+=AExpression ("," elements+=AExpression)*)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1651,56 +1728,52 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AListTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAListTermAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Assignment cElementsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final RuleCall cElementsAExpressionParserRuleCall_3_0_0 = (RuleCall)cElementsAssignment_3_0.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
-		private final Keyword cCommaKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cElementsAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cElementsAExpressionParserRuleCall_3_1_1_0 = (RuleCall)cElementsAssignment_3_1_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cNumberSignLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cElementsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cElementsAExpressionParserRuleCall_2_0_0 = (RuleCall)cElementsAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cElementsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cElementsAExpressionParserRuleCall_2_1_1_0 = (RuleCall)cElementsAssignment_2_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//AListTerm returns aadl2::PropertyExpression:
-		//	{AListTerm} "#" "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+		//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AListTerm} "#" "[" (elements+=AExpression ("," elements+=AExpression)*)? "]"
+		//{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//{AListTerm}
 		public Action getAListTermAction_0() { return cAListTermAction_0; }
 
-		//"#"
-		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
+		//"#["
+		public Keyword getNumberSignLeftSquareBracketKeyword_1() { return cNumberSignLeftSquareBracketKeyword_1; }
 
 		//(elements+=AExpression ("," elements+=AExpression)*)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//elements+=AExpression
-		public Assignment getElementsAssignment_3_0() { return cElementsAssignment_3_0; }
+		public Assignment getElementsAssignment_2_0() { return cElementsAssignment_2_0; }
 
 		//AExpression
-		public RuleCall getElementsAExpressionParserRuleCall_3_0_0() { return cElementsAExpressionParserRuleCall_3_0_0; }
+		public RuleCall getElementsAExpressionParserRuleCall_2_0_0() { return cElementsAExpressionParserRuleCall_2_0_0; }
 
 		//("," elements+=AExpression)*
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//","
-		public Keyword getCommaKeyword_3_1_0() { return cCommaKeyword_3_1_0; }
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
 
 		//elements+=AExpression
-		public Assignment getElementsAssignment_3_1_1() { return cElementsAssignment_3_1_1; }
+		public Assignment getElementsAssignment_2_1_1() { return cElementsAssignment_2_1_1; }
 
 		//AExpression
-		public RuleCall getElementsAExpressionParserRuleCall_3_1_1_0() { return cElementsAExpressionParserRuleCall_3_1_1_0; }
+		public RuleCall getElementsAExpressionParserRuleCall_2_1_1_0() { return cElementsAExpressionParserRuleCall_2_1_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
 	public class AParenthesizedExpressionElements extends AbstractParserRuleElementFinder {
@@ -2089,8 +2162,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ResultIssueTypeElements unknownRuleResultIssueType;
 	private final ValDeclarationElements pValDeclaration;
 	private final ComputeDeclarationElements pComputeDeclaration;
-	private final APropertyReferenceElements pAPropertyReference;
+	private final AModelOrPropertyReferenceElements pAModelOrPropertyReference;
+	private final NestedModelelementElements pNestedModelelement;
 	private final AModelReferenceElements pAModelReference;
+	private final APropertyReferenceElements pAPropertyReference;
 	private final AVariableReferenceElements pAVariableReference;
 	private final ShowValueElements pShowValue;
 	private final ImageReferenceElements pImageReference;
@@ -2114,7 +2189,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final OpUnaryElements pOpUnary;
 	private final APrimaryExpressionElements pAPrimaryExpression;
 	private final AFunctionCallElements pAFunctionCall;
-	private final AThisElements pAThis;
 	private final ALiteralElements pALiteral;
 	private final AIntegerTermElements pAIntegerTerm;
 	private final AIntElements pAInt;
@@ -2158,8 +2232,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
 		this.pValDeclaration = new ValDeclarationElements();
 		this.pComputeDeclaration = new ComputeDeclarationElements();
-		this.pAPropertyReference = new APropertyReferenceElements();
+		this.pAModelOrPropertyReference = new AModelOrPropertyReferenceElements();
+		this.pNestedModelelement = new NestedModelelementElements();
 		this.pAModelReference = new AModelReferenceElements();
+		this.pAPropertyReference = new APropertyReferenceElements();
 		this.pAVariableReference = new AVariableReferenceElements();
 		this.pShowValue = new ShowValueElements();
 		this.pImageReference = new ImageReferenceElements();
@@ -2183,7 +2259,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pOpUnary = new OpUnaryElements();
 		this.pAPrimaryExpression = new APrimaryExpressionElements();
 		this.pAFunctionCall = new AFunctionCallElements();
-		this.pAThis = new AThisElements();
 		this.pALiteral = new ALiteralElements();
 		this.pAIntegerTerm = new AIntegerTermElements();
 		this.pAInt = new AIntElements();
@@ -2320,24 +2395,45 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getComputeDeclarationAccess().getRule();
 	}
 
-	//APropertyReference returns AExpression:
-	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
-	public APropertyReferenceElements getAPropertyReferenceAccess() {
-		return pAPropertyReference;
+	//AModelOrPropertyReference returns AExpression:
+	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
+	public AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
+		return pAModelOrPropertyReference;
 	}
 	
-	public ParserRule getAPropertyReferenceRule() {
-		return getAPropertyReferenceAccess().getRule();
+	public ParserRule getAModelOrPropertyReferenceRule() {
+		return getAModelOrPropertyReferenceAccess().getRule();
 	}
 
-	//AModelReference returns AExpression:
-	//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+	//NestedModelelement returns NestedModelElement:
+	//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
+	public NestedModelelementElements getNestedModelelementAccess() {
+		return pNestedModelelement;
+	}
+	
+	public ParserRule getNestedModelelementRule() {
+		return getNestedModelelementAccess().getRule();
+	}
+
+	//AModelReference:
+	//	{AModelReference} "this" ("." next=NestedModelelement)?;
 	public AModelReferenceElements getAModelReferenceAccess() {
 		return pAModelReference;
 	}
 	
 	public ParserRule getAModelReferenceRule() {
 		return getAModelReferenceAccess().getRule();
+	}
+
+	//APropertyReference:
+	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	public APropertyReferenceElements getAPropertyReferenceAccess() {
+		return pAPropertyReference;
+	}
+	
+	public ParserRule getAPropertyReferenceRule() {
+		return getAPropertyReferenceAccess().getRule();
 	}
 
 	//AVariableReference returns AExpression:
@@ -2555,7 +2651,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | AParenthesizedExpression;
 	public APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return pAPrimaryExpression;
 	}
@@ -2574,18 +2670,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getAFunctionCallAccess().getRule();
 	}
 
-	//AThis returns aadl2::PropertyExpression:
-	//	{AThis} "this";
-	public AThisElements getAThisAccess() {
-		return pAThis;
-	}
-	
-	public ParserRule getAThisRule() {
-		return getAThisAccess().getRule();
-	}
-
+	////AThis returns aadl2::PropertyExpression:
+	////	{AThis} 'this'
+	////;
 	//ALiteral returns aadl2::PropertyExpression:
-	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis;
+	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
 	public ALiteralElements getALiteralAccess() {
 		return pALiteral;
 	}
@@ -2657,8 +2746,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getNumAltAccess().getRule();
 	}
 
-	//ASetTerm returns aadl2::PropertyExpression: //	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+	//ASetTerm returns aadl2::PropertyExpression:
+	//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 	public ASetTermElements getASetTermAccess() {
 		return pASetTerm;
 	}
@@ -2668,7 +2757,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AListTerm returns aadl2::PropertyExpression:
-	//	{AListTerm} "#" "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+	//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 	public AListTermElements getAListTermAccess() {
 		return pAListTerm;
 	}

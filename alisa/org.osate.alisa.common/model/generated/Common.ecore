@@ -42,6 +42,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NestedModelElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//NestedModelElement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AModelReference" eSuperTypes="#//AExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//NestedModelElement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="APropertyReference" eSuperTypes="#//AExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementReference"
+        eType="#//AModelReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AbstractNamedValue"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ShowValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//AVariableDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
@@ -54,12 +68,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration" eSuperTypes="#//AVariableDeclaration"/>
-  <eClassifiers xsi:type="ecore:EClass" name="APropertyReference" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AbstractNamedValue"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AModelReference" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AVariableReference" eSuperTypes="#//AExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//AVariableDeclaration"/>
   </eClassifiers>
@@ -81,7 +89,6 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AThis" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="ASetLiteral" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"

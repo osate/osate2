@@ -34,7 +34,6 @@ import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
-import org.osate.alisa.common.common.AThis;
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.AVariableReference;
@@ -44,6 +43,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ResultIssueType;
@@ -113,6 +113,27 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass nestedModelElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aModelReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aPropertyReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass showValueEClass = null;
 
   /**
@@ -141,20 +162,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass aPropertyReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass aModelReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass aVariableReferenceEClass = null;
 
   /**
@@ -177,13 +184,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass aFunctionCallEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass aThisEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -514,6 +514,86 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getNestedModelElement()
+  {
+    return nestedModelElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNestedModelElement_ModelElement()
+  {
+    return (EReference)nestedModelElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNestedModelElement_Next()
+  {
+    return (EReference)nestedModelElementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAModelReference()
+  {
+    return aModelReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAModelReference_Next()
+  {
+    return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAPropertyReference()
+  {
+    return aPropertyReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAPropertyReference_ModelElementReference()
+  {
+    return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAPropertyReference_Property()
+  {
+    return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getShowValue()
   {
     return showValueEClass;
@@ -587,46 +667,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EClass getComputeDeclaration()
   {
     return computeDeclarationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAPropertyReference()
-  {
-    return aPropertyReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAPropertyReference_Property()
-  {
-    return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAModelReference()
-  {
-    return aModelReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAModelReference_ModelElement()
-  {
-    return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -754,16 +794,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAThis()
-  {
-    return aThisEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getASetLiteral()
   {
     return aSetLiteralEClass;
@@ -879,6 +909,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     aExpressionEClass = createEClass(AEXPRESSION);
 
+    nestedModelElementEClass = createEClass(NESTED_MODEL_ELEMENT);
+    createEReference(nestedModelElementEClass, NESTED_MODEL_ELEMENT__MODEL_ELEMENT);
+    createEReference(nestedModelElementEClass, NESTED_MODEL_ELEMENT__NEXT);
+
+    aModelReferenceEClass = createEClass(AMODEL_REFERENCE);
+    createEReference(aModelReferenceEClass, AMODEL_REFERENCE__NEXT);
+
+    aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
+    createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE);
+    createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__PROPERTY);
+
     showValueEClass = createEClass(SHOW_VALUE);
     createEReference(showValueEClass, SHOW_VALUE__REF);
     createEReference(showValueEClass, SHOW_VALUE__UNIT);
@@ -890,12 +931,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(valDeclarationEClass, VAL_DECLARATION__RIGHT);
 
     computeDeclarationEClass = createEClass(COMPUTE_DECLARATION);
-
-    aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
-    createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__PROPERTY);
-
-    aModelReferenceEClass = createEClass(AMODEL_REFERENCE);
-    createEReference(aModelReferenceEClass, AMODEL_REFERENCE__MODEL_ELEMENT);
 
     aVariableReferenceEClass = createEClass(AVARIABLE_REFERENCE);
     createEReference(aVariableReferenceEClass, AVARIABLE_REFERENCE__VARIABLE);
@@ -912,8 +947,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aFunctionCallEClass = createEClass(AFUNCTION_CALL);
     createEAttribute(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION);
     createEReference(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS);
-
-    aThisEClass = createEClass(ATHIS);
 
     aSetLiteralEClass = createEClass(ASET_LITERAL);
     createEReference(aSetLiteralEClass, ASET_LITERAL__ELEMENTS);
@@ -961,15 +994,14 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Add supertypes to classes
     aExpressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aModelReferenceEClass.getESuperTypes().add(this.getAExpression());
+    aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
     valDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
     computeDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
-    aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
-    aModelReferenceEClass.getESuperTypes().add(this.getAExpression());
     aVariableReferenceEClass.getESuperTypes().add(this.getAExpression());
     aBinaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aFunctionCallEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aThisEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
@@ -1005,6 +1037,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(aExpressionEClass, AExpression.class, "AExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(nestedModelElementEClass, NestedModelElement.class, "NestedModelElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNestedModelElement_ModelElement(), theAadl2Package.getNamedElement(), null, "modelElement", null, 0, 1, NestedModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNestedModelElement_Next(), this.getNestedModelElement(), null, "next", null, 0, 1, NestedModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aModelReferenceEClass, AModelReference.class, "AModelReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAModelReference_Next(), this.getNestedModelElement(), null, "next", null, 0, 1, AModelReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAPropertyReference_ModelElementReference(), this.getAModelReference(), null, "modelElementReference", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAPropertyReference_Property(), theAadl2Package.getAbstractNamedValue(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getShowValue_Ref(), this.getAVariableDeclaration(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getShowValue_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1016,12 +1059,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getValDeclaration_Right(), theAadl2Package.getPropertyExpression(), null, "right", null, 0, 1, ValDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAPropertyReference_Property(), theAadl2Package.getAbstractNamedValue(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(aModelReferenceEClass, AModelReference.class, "AModelReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAModelReference_ModelElement(), theAadl2Package.getNamedElement(), null, "modelElement", null, 0, 1, AModelReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aVariableReferenceEClass, AVariableReference.class, "AVariableReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAVariableReference_Variable(), this.getAVariableDeclaration(), null, "variable", null, 0, 1, AVariableReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1038,8 +1075,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(aFunctionCallEClass, AFunctionCall.class, "AFunctionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAFunctionCall_Function(), theEcorePackage.getEString(), "function", null, 0, 1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAFunctionCall_FunctionCallArguments(), theAadl2Package.getPropertyExpression(), null, "functionCallArguments", null, 0, -1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(aThisEClass, AThis.class, "AThis", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(aSetLiteralEClass, ASetLiteral.class, "ASetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getASetLiteral_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, ASetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

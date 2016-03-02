@@ -50,13 +50,21 @@ ComputeDeclaration returns AVariableDeclaration:
 	 'compute' (=> (type=ID name=ID) | name=ID) 
 ;
 
-
-APropertyReference returns AExpression:
-	{APropertyReference} '#' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+AModelOrPropertyReference returns AExpression:
+	(AModelReference (=>({APropertyReference.modelElementReference=current} '@') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
+		) | APropertyReference
 ;
 
-AModelReference returns AExpression:
-	{AModelReference} '@' modelElement=[aadl2::NamedElement|QualifiedName]
+NestedModelelement returns NestedModelElement:
+	modelElement=[aadl2::NamedElement|ID] ('.' next=NestedModelelement)?
+;
+
+AModelReference returns AModelReference:
+	{AModelReference} 'this' ('.' next=NestedModelelement)?
+;
+
+APropertyReference returns APropertyReference:
+	{APropertyReference}'@' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 ;
 
 AVariableReference returns AExpression:
@@ -136,23 +144,23 @@ OpUnary:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall
+	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall 
 	| AParenthesizedExpression;
 
 AFunctionCall returns aadl2::PropertyExpression:
 	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
 ;
 
-AThis returns aadl2::PropertyExpression:
-	{AThis} 'this'
-;
+//AThis returns aadl2::PropertyExpression:
+//	{AThis} 'this'
+//;
 
 ALiteral returns aadl2::PropertyExpression:
 	ASetTerm | AListTerm |
 	ABooleanLiteral |
 	ARealTerm | AIntegerTerm |  
 	ANullLiteral |
-	StringTerm | AThis
+	StringTerm 
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:
@@ -182,12 +190,11 @@ NumAlt  returns aadl2::PropertyExpression:
 ;
 
 ASetTerm returns aadl2::PropertyExpression:
-//	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+	{ASetLiteral}  '#{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
 ;
 
 AListTerm returns aadl2::PropertyExpression:
-	{AListTerm} '#' '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+	{AListTerm} '#[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
 ;
 
 

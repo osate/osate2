@@ -16,6 +16,7 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.AbstractNamedValue;
 
+import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;
 
@@ -36,6 +38,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl#getModelElementReference <em>Model Element Reference</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl#getProperty <em>Property</em>}</li>
  * </ul>
  *
@@ -43,6 +46,16 @@ import org.osate.alisa.common.common.CommonPackage;
  */
 public class APropertyReferenceImpl extends AExpressionImpl implements APropertyReference
 {
+  /**
+   * The cached value of the '{@link #getModelElementReference() <em>Model Element Reference</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModelElementReference()
+   * @generated
+   * @ordered
+   */
+  protected AModelReference modelElementReference;
+
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
    * <!-- begin-user-doc -->
@@ -72,6 +85,54 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
   protected EClass eStaticClass()
   {
     return CommonPackage.Literals.APROPERTY_REFERENCE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AModelReference getModelElementReference()
+  {
+    return modelElementReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetModelElementReference(AModelReference newModelElementReference, NotificationChain msgs)
+  {
+    AModelReference oldModelElementReference = modelElementReference;
+    modelElementReference = newModelElementReference;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE, oldModelElementReference, newModelElementReference);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModelElementReference(AModelReference newModelElementReference)
+  {
+    if (newModelElementReference != modelElementReference)
+    {
+      NotificationChain msgs = null;
+      if (modelElementReference != null)
+        msgs = ((InternalEObject)modelElementReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE, null, msgs);
+      if (newModelElementReference != null)
+        msgs = ((InternalEObject)newModelElementReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE, null, msgs);
+      msgs = basicSetModelElementReference(newModelElementReference, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE, newModelElementReference, newModelElementReference));
   }
 
   /**
@@ -123,10 +184,28 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE:
+        return basicSetModelElementReference(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
+      case CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE:
+        return getModelElementReference();
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
         if (resolve) return getProperty();
         return basicGetProperty();
@@ -144,6 +223,9 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
   {
     switch (featureID)
     {
+      case CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE:
+        setModelElementReference((AModelReference)newValue);
+        return;
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
         setProperty((AbstractNamedValue)newValue);
         return;
@@ -161,6 +243,9 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
   {
     switch (featureID)
     {
+      case CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE:
+        setModelElementReference((AModelReference)null);
+        return;
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
         setProperty((AbstractNamedValue)null);
         return;
@@ -178,6 +263,8 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
   {
     switch (featureID)
     {
+      case CommonPackage.APROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE:
+        return modelElementReference != null;
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
         return property != null;
     }

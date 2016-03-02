@@ -41,7 +41,6 @@ import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
-import org.osate.alisa.common.common.AThis;
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -49,6 +48,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
@@ -98,13 +98,35 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
-				sequence_APropertyReference(context, (APropertyReference) semanticObject); 
-				return; 
+				if(context == grammarAccess.getAAdditiveExpressionRule() ||
+				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAAndExpressionRule() ||
+				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAEqualityExpressionRule() ||
+				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAExpressionRule() ||
+				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
+				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAOrExpressionRule() ||
+				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAOtherOperatorExpressionRule() ||
+				   context == grammarAccess.getAOtherOperatorExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAParenthesizedExpressionRule() ||
+				   context == grammarAccess.getAPrimaryExpressionRule() ||
+				   context == grammarAccess.getARelationalExpressionRule() ||
+				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAUnaryOperationRule()) {
+					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAPropertyReferenceRule()) {
+					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.ASET_LITERAL:
 				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ATHIS:
-				sequence_AThis(context, (AThis) semanticObject); 
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
@@ -123,6 +145,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.NESTED_MODEL_ELEMENT:
+				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
@@ -198,7 +223,19 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     modelElement=[NamedElement|QualifiedName]
+	 *     (
+	 *         (modelElementReference=AModelOrPropertyReference_APropertyReference_0_1_0_0_0 property=[AbstractNamedValue|AADLPROPERTYREFERENCE]) | 
+	 *         property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     )
+	 */
+	protected void sequence_AModelOrPropertyReference_APropertyReference(EObject context, APropertyReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (next=NestedModelelement?)
 	 */
 	protected void sequence_AModelReference(EObject context, AModelReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -246,15 +283,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     ((elements+=AExpression elements+=AExpression*)?)
 	 */
 	protected void sequence_ASetTerm(EObject context, ASetLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {AThis}
-	 */
-	protected void sequence_AThis(EObject context, AThis semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -317,6 +345,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0(), semanticObject.getImgfile());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (modelElement=[NamedElement|ID] next=NestedModelelement?)
+	 */
+	protected void sequence_NestedModelelement(EObject context, NestedModelElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

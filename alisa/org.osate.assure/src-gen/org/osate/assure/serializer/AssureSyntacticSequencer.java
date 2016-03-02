@@ -84,15 +84,15 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
-	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
+	 *     (rule start) (ambiguity) '#[' ']' (rule start)
+	 *     (rule start) (ambiguity) '#[' elements+=AExpression
+	 *     (rule start) (ambiguity) '#{' '}' (rule start)
+	 *     (rule start) (ambiguity) '#{' elements+=AExpression
+	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) 'this' (rule start)
-	 *     (rule start) (ambiguity) '{' '}' (rule start)
-	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
@@ -101,6 +101,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -111,15 +112,15 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
-	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '@' modelElement=[NamedElement|QualifiedName]
+	 *     (rule start) (ambiguity) '#[' ']' ')' (rule start)
+	 *     (rule start) (ambiguity) '#[' elements+=AExpression
+	 *     (rule start) (ambiguity) '#{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '#{' elements+=AExpression
+	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
 	 *     (rule start) (ambiguity) 'this' ')' (rule start)
-	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '{' elements+=AExpression
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
@@ -128,6 +129,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

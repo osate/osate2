@@ -2229,24 +2229,45 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getComputeDeclarationAccess().getRule();
 	}
 
-	//APropertyReference returns AExpression:
-	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
-	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
-		return gaCommon.getAPropertyReferenceAccess();
+	//AModelOrPropertyReference returns AExpression:
+	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
+	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
+		return gaCommon.getAModelOrPropertyReferenceAccess();
 	}
 	
-	public ParserRule getAPropertyReferenceRule() {
-		return getAPropertyReferenceAccess().getRule();
+	public ParserRule getAModelOrPropertyReferenceRule() {
+		return getAModelOrPropertyReferenceAccess().getRule();
 	}
 
-	//AModelReference returns AExpression:
-	//	{AModelReference} "@" modelElement=[aadl2::NamedElement|QualifiedName];
+	//NestedModelelement returns NestedModelElement:
+	//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
+	public CommonGrammarAccess.NestedModelelementElements getNestedModelelementAccess() {
+		return gaCommon.getNestedModelelementAccess();
+	}
+	
+	public ParserRule getNestedModelelementRule() {
+		return getNestedModelelementAccess().getRule();
+	}
+
+	//AModelReference:
+	//	{AModelReference} "this" ("." next=NestedModelelement)?;
 	public CommonGrammarAccess.AModelReferenceElements getAModelReferenceAccess() {
 		return gaCommon.getAModelReferenceAccess();
 	}
 	
 	public ParserRule getAModelReferenceRule() {
 		return getAModelReferenceAccess().getRule();
+	}
+
+	//APropertyReference:
+	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
+		return gaCommon.getAPropertyReferenceAccess();
+	}
+	
+	public ParserRule getAPropertyReferenceRule() {
+		return getAPropertyReferenceAccess().getRule();
 	}
 
 	//AVariableReference returns AExpression:
@@ -2464,7 +2485,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | APropertyReference | AModelReference | AFunctionCall | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2483,18 +2504,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getAFunctionCallAccess().getRule();
 	}
 
-	//AThis returns aadl2::PropertyExpression:
-	//	{AThis} "this";
-	public CommonGrammarAccess.AThisElements getAThisAccess() {
-		return gaCommon.getAThisAccess();
-	}
-	
-	public ParserRule getAThisRule() {
-		return getAThisAccess().getRule();
-	}
-
+	////AThis returns aadl2::PropertyExpression:
+	////	{AThis} 'this'
+	////;
 	//ALiteral returns aadl2::PropertyExpression:
-	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm | AThis;
+	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
 		return gaCommon.getALiteralAccess();
 	}
@@ -2566,8 +2580,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getNumAltAccess().getRule();
 	}
 
-	//ASetTerm returns aadl2::PropertyExpression: //	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+	//ASetTerm returns aadl2::PropertyExpression:
+	//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 	public CommonGrammarAccess.ASetTermElements getASetTermAccess() {
 		return gaCommon.getASetTermAccess();
 	}
@@ -2577,7 +2591,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AListTerm returns aadl2::PropertyExpression:
-	//	{AListTerm} "#" "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+	//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 	public CommonGrammarAccess.AListTermElements getAListTermAccess() {
 		return gaCommon.getAListTermAccess();
 	}

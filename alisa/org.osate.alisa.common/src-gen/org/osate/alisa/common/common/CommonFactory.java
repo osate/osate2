@@ -99,6 +99,33 @@ public interface CommonFactory extends EFactory
   AExpression createAExpression();
 
   /**
+   * Returns a new object of class '<em>Nested Model Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Nested Model Element</em>'.
+   * @generated
+   */
+  NestedModelElement createNestedModelElement();
+
+  /**
+   * Returns a new object of class '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AModel Reference</em>'.
+   * @generated
+   */
+  AModelReference createAModelReference();
+
+  /**
+   * Returns a new object of class '<em>AProperty Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AProperty Reference</em>'.
+   * @generated
+   */
+  APropertyReference createAPropertyReference();
+
+  /**
    * Returns a new object of class '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -135,24 +162,6 @@ public interface CommonFactory extends EFactory
   ComputeDeclaration createComputeDeclaration();
 
   /**
-   * Returns a new object of class '<em>AProperty Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AProperty Reference</em>'.
-   * @generated
-   */
-  APropertyReference createAPropertyReference();
-
-  /**
-   * Returns a new object of class '<em>AModel Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AModel Reference</em>'.
-   * @generated
-   */
-  AModelReference createAModelReference();
-
-  /**
    * Returns a new object of class '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -187,15 +196,6 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   AFunctionCall createAFunctionCall();
-
-  /**
-   * Returns a new object of class '<em>AThis</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AThis</em>'.
-   * @generated
-   */
-  AThis createAThis();
 
   /**
    * Returns a new object of class '<em>ASet Literal</em>'.

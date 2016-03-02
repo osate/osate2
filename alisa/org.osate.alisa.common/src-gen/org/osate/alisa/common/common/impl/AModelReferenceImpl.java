@@ -16,17 +16,16 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.NamedElement;
-
 import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.NestedModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +35,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getModelElement <em>Model Element</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getNext <em>Next</em>}</li>
  * </ul>
  *
  * @generated
@@ -44,14 +43,14 @@ import org.osate.alisa.common.common.CommonPackage;
 public class AModelReferenceImpl extends AExpressionImpl implements AModelReference
 {
   /**
-   * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
+   * The cached value of the '{@link #getNext() <em>Next</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getModelElement()
+   * @see #getNext()
    * @generated
    * @ordered
    */
-  protected NamedElement modelElement;
+  protected NestedModelElement next;
 
   /**
    * <!-- begin-user-doc -->
@@ -79,19 +78,9 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement getModelElement()
+  public NestedModelElement getNext()
   {
-    if (modelElement != null && ((EObject)modelElement).eIsProxy())
-    {
-      InternalEObject oldModelElement = (InternalEObject)modelElement;
-      modelElement = (NamedElement)eResolveProxy(oldModelElement);
-      if (modelElement != oldModelElement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
-      }
-    }
-    return modelElement;
+    return next;
   }
 
   /**
@@ -99,22 +88,53 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement basicGetModelElement()
+  public NotificationChain basicSetNext(NestedModelElement newNext, NotificationChain msgs)
   {
-    return modelElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setModelElement(NamedElement newModelElement)
-  {
-    NamedElement oldModelElement = modelElement;
-    modelElement = newModelElement;
+    NestedModelElement oldNext = next;
+    next = newNext;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__NEXT, oldNext, newNext);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNext(NestedModelElement newNext)
+  {
+    if (newNext != next)
+    {
+      NotificationChain msgs = null;
+      if (next != null)
+        msgs = ((InternalEObject)next).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__NEXT, null, msgs);
+      if (newNext != null)
+        msgs = ((InternalEObject)newNext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__NEXT, null, msgs);
+      msgs = basicSetNext(newNext, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__NEXT, newNext, newNext));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.AMODEL_REFERENCE__NEXT:
+        return basicSetNext(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -127,9 +147,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
-        if (resolve) return getModelElement();
-        return basicGetModelElement();
+      case CommonPackage.AMODEL_REFERENCE__NEXT:
+        return getNext();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -144,8 +163,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
-        setModelElement((NamedElement)newValue);
+      case CommonPackage.AMODEL_REFERENCE__NEXT:
+        setNext((NestedModelElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -161,8 +180,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
-        setModelElement((NamedElement)null);
+      case CommonPackage.AMODEL_REFERENCE__NEXT:
+        setNext((NestedModelElement)null);
         return;
     }
     super.eUnset(featureID);
@@ -178,8 +197,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
-        return modelElement != null;
+      case CommonPackage.AMODEL_REFERENCE__NEXT:
+        return next != null;
     }
     return super.eIsSet(featureID);
   }

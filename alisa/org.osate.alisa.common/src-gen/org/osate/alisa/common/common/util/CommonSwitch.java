@@ -139,6 +139,33 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.NESTED_MODEL_ELEMENT:
+      {
+        NestedModelElement nestedModelElement = (NestedModelElement)theEObject;
+        T result = caseNestedModelElement(nestedModelElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.AMODEL_REFERENCE:
+      {
+        AModelReference aModelReference = (AModelReference)theEObject;
+        T result = caseAModelReference(aModelReference);
+        if (result == null) result = caseAExpression(aModelReference);
+        if (result == null) result = casePropertyExpression(aModelReference);
+        if (result == null) result = caseElement(aModelReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.APROPERTY_REFERENCE:
+      {
+        APropertyReference aPropertyReference = (APropertyReference)theEObject;
+        T result = caseAPropertyReference(aPropertyReference);
+        if (result == null) result = caseAExpression(aPropertyReference);
+        if (result == null) result = casePropertyExpression(aPropertyReference);
+        if (result == null) result = caseElement(aPropertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
@@ -166,26 +193,6 @@ public class CommonSwitch<T> extends Switch<T>
         ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
         T result = caseComputeDeclaration(computeDeclaration);
         if (result == null) result = caseAVariableDeclaration(computeDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.APROPERTY_REFERENCE:
-      {
-        APropertyReference aPropertyReference = (APropertyReference)theEObject;
-        T result = caseAPropertyReference(aPropertyReference);
-        if (result == null) result = caseAExpression(aPropertyReference);
-        if (result == null) result = casePropertyExpression(aPropertyReference);
-        if (result == null) result = caseElement(aPropertyReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.AMODEL_REFERENCE:
-      {
-        AModelReference aModelReference = (AModelReference)theEObject;
-        T result = caseAModelReference(aModelReference);
-        if (result == null) result = caseAExpression(aModelReference);
-        if (result == null) result = casePropertyExpression(aModelReference);
-        if (result == null) result = caseElement(aModelReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -223,15 +230,6 @@ public class CommonSwitch<T> extends Switch<T>
         T result = caseAFunctionCall(aFunctionCall);
         if (result == null) result = casePropertyExpression(aFunctionCall);
         if (result == null) result = caseElement(aFunctionCall);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.ATHIS:
-      {
-        AThis aThis = (AThis)theEObject;
-        T result = caseAThis(aThis);
-        if (result == null) result = casePropertyExpression(aThis);
-        if (result == null) result = caseElement(aThis);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -379,6 +377,54 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Nested Model Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Nested Model Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNestedModelElement(NestedModelElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAModelReference(AModelReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAPropertyReference(APropertyReference object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -443,38 +489,6 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAPropertyReference(APropertyReference object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>AModel Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAModelReference(AModelReference object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -534,22 +548,6 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAFunctionCall(AFunctionCall object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>AThis</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>AThis</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAThis(AThis object)
   {
     return null;
   }

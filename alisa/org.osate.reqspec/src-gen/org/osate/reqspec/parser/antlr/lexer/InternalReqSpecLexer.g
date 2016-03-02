@@ -176,6 +176,10 @@ Val : 'val';
 
 ExclamationMarkEqualsSign : '!=';
 
+NumberSignLeftSquareBracket : '#[';
+
+NumberSignLeftCurlyBracket : '#{';
+
 AmpersandAmpersand : '&&';
 
 AsteriskAsterisk : '**';
@@ -235,8 +239,6 @@ CommercialAt : '@';
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
-
-LeftCurlyBracket : '{';
 
 RightCurlyBracket : '}';
 

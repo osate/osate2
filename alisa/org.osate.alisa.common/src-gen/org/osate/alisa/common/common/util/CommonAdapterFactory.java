@@ -126,6 +126,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAExpressionAdapter();
       }
       @Override
+      public Adapter caseNestedModelElement(NestedModelElement object)
+      {
+        return createNestedModelElementAdapter();
+      }
+      @Override
+      public Adapter caseAModelReference(AModelReference object)
+      {
+        return createAModelReferenceAdapter();
+      }
+      @Override
+      public Adapter caseAPropertyReference(APropertyReference object)
+      {
+        return createAPropertyReferenceAdapter();
+      }
+      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
@@ -146,16 +161,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createComputeDeclarationAdapter();
       }
       @Override
-      public Adapter caseAPropertyReference(APropertyReference object)
-      {
-        return createAPropertyReferenceAdapter();
-      }
-      @Override
-      public Adapter caseAModelReference(AModelReference object)
-      {
-        return createAModelReferenceAdapter();
-      }
-      @Override
       public Adapter caseAVariableReference(AVariableReference object)
       {
         return createAVariableReferenceAdapter();
@@ -174,11 +179,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAFunctionCall(AFunctionCall object)
       {
         return createAFunctionCallAdapter();
-      }
-      @Override
-      public Adapter caseAThis(AThis object)
-      {
-        return createAThisAdapter();
       }
       @Override
       public Adapter caseASetLiteral(ASetLiteral object)
@@ -333,6 +333,51 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.NestedModelElement <em>Nested Model Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.NestedModelElement
+   * @generated
+   */
+  public Adapter createNestedModelElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AModelReference <em>AModel Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.AModelReference
+   * @generated
+   */
+  public Adapter createAModelReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.APropertyReference
+   * @generated
+   */
+  public Adapter createAPropertyReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -393,36 +438,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.APropertyReference
-   * @generated
-   */
-  public Adapter createAPropertyReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AModelReference <em>AModel Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.AModelReference
-   * @generated
-   */
-  public Adapter createAModelReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AVariableReference <em>AVariable Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -478,21 +493,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAFunctionCallAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AThis <em>AThis</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.AThis
-   * @generated
-   */
-  public Adapter createAThisAdapter()
   {
     return null;
   }

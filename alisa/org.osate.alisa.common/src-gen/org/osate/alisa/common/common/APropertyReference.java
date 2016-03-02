@@ -26,6 +26,7 @@ import org.osate.aadl2.AbstractNamedValue;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.alisa.common.common.APropertyReference#getModelElementReference <em>Model Element Reference</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.APropertyReference#getProperty <em>Property</em>}</li>
  * </ul>
  *
@@ -35,6 +36,32 @@ import org.osate.aadl2.AbstractNamedValue;
  */
 public interface APropertyReference extends AExpression
 {
+  /**
+   * Returns the value of the '<em><b>Model Element Reference</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Model Element Reference</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Model Element Reference</em>' containment reference.
+   * @see #setModelElementReference(AModelReference)
+   * @see org.osate.alisa.common.common.CommonPackage#getAPropertyReference_ModelElementReference()
+   * @model containment="true"
+   * @generated
+   */
+  AModelReference getModelElementReference();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.APropertyReference#getModelElementReference <em>Model Element Reference</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Model Element Reference</em>' containment reference.
+   * @see #getModelElementReference()
+   * @generated
+   */
+  void setModelElementReference(AModelReference value);
+
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.
    * <!-- begin-user-doc -->
