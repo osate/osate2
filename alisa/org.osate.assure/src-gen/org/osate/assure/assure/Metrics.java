@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesCount <em>Features Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -359,6 +360,32 @@ public interface Metrics extends EObject
    * @generated
    */
   void setQualityCategoryRequirementsCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Requirements Without Plan Claim Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirements Without Plan Claim Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirements Without Plan Claim Count</em>' attribute.
+   * @see #setRequirementsWithoutPlanClaimCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_RequirementsWithoutPlanClaimCount()
+   * @model
+   * @generated
+   */
+  int getRequirementsWithoutPlanClaimCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirements Without Plan Claim Count</em>' attribute.
+   * @see #getRequirementsWithoutPlanClaimCount()
+   * @generated
+   */
+  void setRequirementsWithoutPlanClaimCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.
