@@ -38,8 +38,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
-import org.osate.categories.categories.PhaseCategory;
-import org.osate.categories.categories.UserCategory;
+import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -59,8 +58,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPropertyValues <em>Property Values</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPhaseCategory <em>Phase Category</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getUserCategory <em>User Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getWeight <em>Weight</em>}</li>
  * </ul>
@@ -150,24 +148,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected EList<ValDeclaration> propertyValues;
 
   /**
-   * The cached value of the '{@link #getPhaseCategory() <em>Phase Category</em>}' reference list.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPhaseCategory()
+   * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected EList<PhaseCategory> phaseCategory;
-
-  /**
-   * The cached value of the '{@link #getUserCategory() <em>User Category</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUserCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<UserCategory> userCategory;
+  protected EList<Category> category;
 
   /**
    * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' containment reference.
@@ -356,27 +344,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PhaseCategory> getPhaseCategory()
+  public EList<Category> getCategory()
   {
-    if (phaseCategory == null)
+    if (category == null)
     {
-      phaseCategory = new EObjectResolvingEList<PhaseCategory>(PhaseCategory.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PHASE_CATEGORY);
+      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY);
     }
-    return phaseCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<UserCategory> getUserCategory()
-  {
-    if (userCategory == null)
-    {
-      userCategory = new EObjectResolvingEList<UserCategory>(UserCategory.class, this, VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY);
-    }
-    return userCategory;
+    return category;
   }
 
   /**
@@ -491,10 +465,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getParameters();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return getPropertyValues();
-      case VerifyPackage.VERIFICATION_ACTIVITY__PHASE_CATEGORY:
-        return getPhaseCategory();
-      case VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY:
-        return getUserCategory();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        return getCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
       case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:
@@ -535,13 +507,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         getPropertyValues().clear();
         getPropertyValues().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__PHASE_CATEGORY:
-        getPhaseCategory().clear();
-        getPhaseCategory().addAll((Collection<? extends PhaseCategory>)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY:
-        getUserCategory().clear();
-        getUserCategory().addAll((Collection<? extends UserCategory>)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends Category>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((IntegerLiteral)newValue);
@@ -581,11 +549,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__PHASE_CATEGORY:
-        getPhaseCategory().clear();
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY:
-        getUserCategory().clear();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        getCategory().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((IntegerLiteral)null);
@@ -619,10 +584,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return parameters != null && !parameters.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return propertyValues != null && !propertyValues.isEmpty();
-      case VerifyPackage.VERIFICATION_ACTIVITY__PHASE_CATEGORY:
-        return phaseCategory != null && !phaseCategory.isEmpty();
-      case VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY:
-        return userCategory != null && !userCategory.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        return category != null && !category.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:

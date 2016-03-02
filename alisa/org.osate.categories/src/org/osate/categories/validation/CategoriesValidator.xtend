@@ -26,9 +26,7 @@ import org.eclipse.xtext.validation.CheckType
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.categories.categories.Category
-import org.osate.categories.categories.PhaseCategory
-import org.osate.categories.categories.QualityCategory
-import org.osate.categories.categories.UserCategory
+import org.osate.categories.categories.Categories
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -45,19 +43,14 @@ class CategoriesValidator extends AbstractCategoriesValidator {
 
 	@Check(CheckType.FAST)
 	def void checkDuplicateCategoryNames(Category category){
-		val categoryType = 
-		switch category{
-			UserCategory : "category"
-			QualityCategory : "quality"
-			PhaseCategory : "phase"
-		}
+		val categories = category.eContainer as Categories
 		
 		val dupes = refFinder.getDuplicates(category)
 		if (dupes.size > 0) {
 			val node = NodeModelUtils.getNode(category);
-			warning("Duplicate " + categoryType + " name '" + category.name + "'",  
+			warning("Duplicate " + categories.name + " name '" + category.name + "'",  
 				category, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, DUPLICATE_CATEGORY, 
-				categoryType, "" + node.offset, "" + node.length)
+				categories.name, "" + node.offset, "" + node.length)
 		}
 	}
 }

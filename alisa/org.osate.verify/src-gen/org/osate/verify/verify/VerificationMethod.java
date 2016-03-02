@@ -25,8 +25,7 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.QualityCategory;
-import org.osate.categories.categories.UserCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,8 +49,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getQualityCategory <em>Quality Category</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getUserCategory <em>User Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod()
@@ -361,35 +359,19 @@ public interface VerificationMethod extends EObject
   void setValidation(VerificationCondition value);
 
   /**
-   * Returns the value of the '<em><b>Quality Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.QualityCategory}.
+   * Returns the value of the '<em><b>Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Quality Category</em>' reference list isn't clear,
+   * If the meaning of the '<em>Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Quality Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_QualityCategory()
+   * @return the value of the '<em>Category</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Category()
    * @model
    * @generated
    */
-  EList<QualityCategory> getQualityCategory();
-
-  /**
-   * Returns the value of the '<em><b>User Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>User Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_UserCategory()
-   * @model
-   * @generated
-   */
-  EList<UserCategory> getUserCategory();
+  EList<Category> getCategory();
 
 } // VerificationMethod

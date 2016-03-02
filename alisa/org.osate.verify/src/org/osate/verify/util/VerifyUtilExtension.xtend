@@ -123,22 +123,19 @@ class VerifyUtilExtension {
 		if (filter == null) return true
 		val req = claim.requirement
 		if (Aadl2Util.isNull(req)) return false
-		return  intersects(req.qualityCategory,filter.qualityCategory,filter.anyQualityAttribute)
-		&& intersects(req.userCategory,filter.userCategory,filter.anyUserSelection)
+		return  intersects(req.category,filter.category,filter.anyCategory)
 	}
 
 	def static evaluateVerificationMethodFilter(VerificationActivity va, CategoryFilter filter) {
 		if (filter == null) return true
 		val vm = va.method
 		if (vm == null ) return false
-		return  intersects(vm.qualityCategory,filter.qualityCategory,filter.anyQualityAttribute)
-		&& intersects(vm.userCategory,filter.userCategory,filter.anyUserSelection)
+		return  intersects(vm.category,filter.category,filter.anyCategory)
 	}
 	
 	def static evaluateVerificationActivityFilter(VerificationActivity va, CategoryFilter filter) {
 		if (filter == null) return true
-		return intersects(va.phaseCategory,filter.phaseCategory,filter.anyDevelopmentPhase) 
-		&& intersects(va.userCategory,filter.userCategory,filter.anyUserSelection)
+		return intersects(va.category,filter.category,filter.anyCategory) 
 	}
 	
 	// Deal with qualified verification activity and claim references	(see Assure grammar)

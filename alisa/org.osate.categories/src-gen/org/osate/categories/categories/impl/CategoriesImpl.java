@@ -17,6 +17,7 @@ package org.osate.categories.categories.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -24,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -41,6 +43,7 @@ import org.osate.categories.categories.Category;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesImpl#getCategory <em>Category</em>}</li>
  * </ul>
  *
@@ -48,6 +51,26 @@ import org.osate.categories.categories.Category;
  */
 public class CategoriesImpl extends MinimalEObjectImpl.Container implements Categories
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -77,6 +100,29 @@ public class CategoriesImpl extends MinimalEObjectImpl.Container implements Cate
   protected EClass eStaticClass()
   {
     return CategoriesPackage.Literals.CATEGORIES;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES__NAME, oldName, name));
   }
 
   /**
@@ -119,6 +165,8 @@ public class CategoriesImpl extends MinimalEObjectImpl.Container implements Cate
   {
     switch (featureID)
     {
+      case CategoriesPackage.CATEGORIES__NAME:
+        return getName();
       case CategoriesPackage.CATEGORIES__CATEGORY:
         return getCategory();
     }
@@ -136,6 +184,9 @@ public class CategoriesImpl extends MinimalEObjectImpl.Container implements Cate
   {
     switch (featureID)
     {
+      case CategoriesPackage.CATEGORIES__NAME:
+        setName((String)newValue);
+        return;
       case CategoriesPackage.CATEGORIES__CATEGORY:
         getCategory().clear();
         getCategory().addAll((Collection<? extends Category>)newValue);
@@ -154,6 +205,9 @@ public class CategoriesImpl extends MinimalEObjectImpl.Container implements Cate
   {
     switch (featureID)
     {
+      case CategoriesPackage.CATEGORIES__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case CategoriesPackage.CATEGORIES__CATEGORY:
         getCategory().clear();
         return;
@@ -171,10 +225,29 @@ public class CategoriesImpl extends MinimalEObjectImpl.Container implements Cate
   {
     switch (featureID)
     {
+      case CategoriesPackage.CATEGORIES__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CategoriesPackage.CATEGORIES__CATEGORY:
         return category != null && !category.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //CategoriesImpl

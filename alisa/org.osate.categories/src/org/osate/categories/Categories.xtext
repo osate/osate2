@@ -2,26 +2,13 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-CategoriesDefinitions :  userCategories=UserCategories? & phaseCategories=PhaseCategories? 
-	& qualityCategories=QualityCategories? //&  categoryFilters=CategoryFilters?
+CategoriesDefinitions :  categories+=Categories*
 ;
 
 
-UserCategories returns Categories:
-	{UserCategories}'category'  
-	'[' category += UserCategory+
-	']'
-;
-
-QualityCategories returns Categories:
-	{QualityCategories}'quality'
-	'[' category += QualityCategory+
-	']'
-;
-
-PhaseCategories returns Categories:
-	{PhaseCategories}'phase'  
-	'[' category += PhaseCategory+
+Categories returns Categories:
+	name=ID  
+	'[' category += Category+
 	']'
 ;
 
@@ -32,23 +19,10 @@ PhaseCategories returns Categories:
 /**
  * user selection  indicates a user defined selection categories  
  */
-UserCategory returns Category:
-	{UserCategory} name = ID  
+Category returns Category:
+	name = ID  
 ;
 
-/**
- * quality attribute indicates a quality attribute 
- */
-QualityCategory returns Category:
-	{QualityCategory} name = ID  
-;
-
-/**
- * phase category indicates a development phase 
- */
-PhaseCategory returns Category:
-	{PhaseCategory} name = ID  
-;
 
 //
 //CategoryFilters returns CategoryFilters:
@@ -58,9 +32,7 @@ PhaseCategory returns Category:
 //
 CategoryFilter returns CategoryFilter:
 	name=ID '['
-	('category' userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)?
-	&('quality' qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)?
-	&('phase' phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
+	category+=[Category|CatRef]* anyCategory?='any'?
 	']'
 ;
 
@@ -68,6 +40,6 @@ CategoryFilter returns CategoryFilter:
 
 // Category reference. Currently it is only a single ID
 CatRef:
-	ID //('.' ID)?
+	ID '.' ID
 	;	
 

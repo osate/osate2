@@ -210,22 +210,13 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__TARGET_ELEMENT = 4;
 
   /**
-   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__QUALITY_CATEGORY = 5;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACTUAL_ELEMENT__USER_CATEGORY = 6;
+  int CONTRACTUAL_ELEMENT__CATEGORY = 5;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -234,7 +225,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DESCRIPTION = 7;
+  int CONTRACTUAL_ELEMENT__DESCRIPTION = 6;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -243,7 +234,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__CONSTANTS = 8;
+  int CONTRACTUAL_ELEMENT__CONSTANTS = 7;
 
   /**
    * The feature id for the '<em><b>Whencondition</b></em>' containment reference.
@@ -252,7 +243,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__WHENCONDITION = 9;
+  int CONTRACTUAL_ELEMENT__WHENCONDITION = 8;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
@@ -261,7 +252,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__RATIONALE = 10;
+  int CONTRACTUAL_ELEMENT__RATIONALE = 9;
 
   /**
    * The feature id for the '<em><b>Change Uncertainty</b></em>' containment reference.
@@ -270,7 +261,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 11;
+  int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 10;
 
   /**
    * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
@@ -279,7 +270,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = 12;
+  int CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = 11;
 
   /**
    * The feature id for the '<em><b>Dropped</b></em>' attribute.
@@ -288,7 +279,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DROPPED = 13;
+  int CONTRACTUAL_ELEMENT__DROPPED = 12;
 
   /**
    * The feature id for the '<em><b>Drop Rationale</b></em>' attribute.
@@ -297,7 +288,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 14;
+  int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 13;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -306,7 +297,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 15;
+  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 14;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -315,7 +306,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__ISSUES = 16;
+  int CONTRACTUAL_ELEMENT__ISSUES = 15;
 
   /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
@@ -324,7 +315,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__GOAL_REFERENCE = 17;
+  int CONTRACTUAL_ELEMENT__GOAL_REFERENCE = 16;
 
   /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
@@ -333,7 +324,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 18;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 17;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -756,22 +747,13 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
 
   /**
-   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GOAL__QUALITY_CATEGORY = CONTRACTUAL_ELEMENT__QUALITY_CATEGORY;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GOAL__USER_CATEGORY = CONTRACTUAL_ELEMENT__USER_CATEGORY;
+  int GOAL__CATEGORY = CONTRACTUAL_ELEMENT__CATEGORY;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -964,22 +946,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
 
   /**
-   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__QUALITY_CATEGORY = CONTRACTUAL_ELEMENT__QUALITY_CATEGORY;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__USER_CATEGORY = CONTRACTUAL_ELEMENT__USER_CATEGORY;
+  int REQUIREMENT__CATEGORY = CONTRACTUAL_ELEMENT__CATEGORY;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -1851,26 +1824,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getContractualElement_TargetElement();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getQualityCategory <em>Quality Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Quality Category</em>'.
-   * @see org.osate.reqspec.reqSpec.ContractualElement#getQualityCategory()
+   * @return the meta object for the reference list '<em>Category</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getCategory()
    * @see #getContractualElement()
    * @generated
    */
-  EReference getContractualElement_QualityCategory();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getUserCategory <em>User Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Category</em>'.
-   * @see org.osate.reqspec.reqSpec.ContractualElement#getUserCategory()
-   * @see #getContractualElement()
-   * @generated
-   */
-  EReference getContractualElement_UserCategory();
+  EReference getContractualElement_Category();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}'.
@@ -2972,20 +2934,12 @@ public interface ReqSpecPackage extends EPackage
     EReference CONTRACTUAL_ELEMENT__TARGET_ELEMENT = eINSTANCE.getContractualElement_TargetElement();
 
     /**
-     * The meta object literal for the '<em><b>Quality Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONTRACTUAL_ELEMENT__QUALITY_CATEGORY = eINSTANCE.getContractualElement_QualityCategory();
-
-    /**
-     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACTUAL_ELEMENT__USER_CATEGORY = eINSTANCE.getContractualElement_UserCategory();
+    EReference CONTRACTUAL_ELEMENT__CATEGORY = eINSTANCE.getContractualElement_Category();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.

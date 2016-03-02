@@ -432,7 +432,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=AExpression parameters+=AExpression*)? 
 	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
-	 *         (phaseCategory+=[PhaseCategory|ID]* userCategory+=[UserCategory|ID]* timeout=AIntegerTerm? weight=INT?)?
+	 *         (category+=[Category|CatRef]* timeout=AIntegerTerm? weight=INT?)?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
@@ -471,8 +471,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         precondition=VerificationPrecondition? 
 	 *         validation=VerificationValidation? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]*
+	 *         category+=[Category|CatRef]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {

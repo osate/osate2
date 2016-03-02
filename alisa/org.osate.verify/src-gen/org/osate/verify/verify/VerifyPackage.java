@@ -354,22 +354,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 5;
 
   /**
-   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PHASE_CATEGORY = 6;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY__USER_CATEGORY = 7;
+  int VERIFICATION_ACTIVITY__CATEGORY = 6;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' containment reference.
@@ -378,7 +369,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 8;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 7;
 
   /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -387,7 +378,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__WEIGHT = 9;
+  int VERIFICATION_ACTIVITY__WEIGHT = 8;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -396,7 +387,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 10;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -682,22 +673,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__VALIDATION = 12;
 
   /**
-   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__QUALITY_CATEGORY = 13;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD__USER_CATEGORY = 14;
+  int VERIFICATION_METHOD__CATEGORY = 13;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -706,7 +688,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 15;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 14;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
@@ -1420,26 +1402,15 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_PropertyValues();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Phase Category</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getPhaseCategory()
+   * @return the meta object for the reference list '<em>Category</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getCategory()
    * @see #getVerificationActivity()
    * @generated
    */
-  EReference getVerificationActivity_PhaseCategory();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Category</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getUserCategory()
-   * @see #getVerificationActivity()
-   * @generated
-   */
-  EReference getVerificationActivity_UserCategory();
+  EReference getVerificationActivity_Category();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
@@ -1768,26 +1739,15 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Validation();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getQualityCategory <em>Quality Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Quality Category</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getQualityCategory()
+   * @return the meta object for the reference list '<em>Category</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getCategory()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_QualityCategory();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getUserCategory <em>User Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Category</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getUserCategory()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_UserCategory();
+  EReference getVerificationMethod_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.MethodKind <em>Method Kind</em>}'.
@@ -2334,20 +2294,12 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__PROPERTY_VALUES = eINSTANCE.getVerificationActivity_PropertyValues();
 
     /**
-     * The meta object literal for the '<em><b>Phase Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY__PHASE_CATEGORY = eINSTANCE.getVerificationActivity_PhaseCategory();
-
-    /**
-     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_ACTIVITY__USER_CATEGORY = eINSTANCE.getVerificationActivity_UserCategory();
+    EReference VERIFICATION_ACTIVITY__CATEGORY = eINSTANCE.getVerificationActivity_Category();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' containment reference feature.
@@ -2598,20 +2550,12 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_METHOD__VALIDATION = eINSTANCE.getVerificationMethod_Validation();
 
     /**
-     * The meta object literal for the '<em><b>Quality Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__QUALITY_CATEGORY = eINSTANCE.getVerificationMethod_QualityCategory();
-
-    /**
-     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__USER_CATEGORY = eINSTANCE.getVerificationMethod_UserCategory();
+    EReference VERIFICATION_METHOD__CATEGORY = eINSTANCE.getVerificationMethod_Category();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.

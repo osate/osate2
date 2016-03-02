@@ -29,12 +29,6 @@ import org.osate.categories.categories.CategoriesFactory;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.Category;
 import org.osate.categories.categories.CategoryFilter;
-import org.osate.categories.categories.PhaseCategories;
-import org.osate.categories.categories.PhaseCategory;
-import org.osate.categories.categories.QualityCategories;
-import org.osate.categories.categories.QualityCategory;
-import org.osate.categories.categories.UserCategories;
-import org.osate.categories.categories.UserCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -71,48 +65,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * @generated
    */
   private EClass categoryFilterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass userCategoriesEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass qualityCategoriesEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass phaseCategoriesEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass userCategoryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass qualityCategoryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass phaseCategoryEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -195,29 +147,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_UserCategories()
+  public EReference getCategoriesDefinitions_Categories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCategoriesDefinitions_PhaseCategories()
-  {
-    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCategoriesDefinitions_QualityCategories()
-  {
-    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -235,9 +167,19 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getCategories_Name()
+  {
+    return (EAttribute)categoriesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getCategories_Category()
   {
-    return (EReference)categoriesEClass.getEStructuralFeatures().get(0);
+    return (EReference)categoriesEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -285,7 +227,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoryFilter_UserCategory()
+  public EReference getCategoryFilter_Category()
   {
     return (EReference)categoryFilterEClass.getEStructuralFeatures().get(1);
   }
@@ -295,109 +237,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCategoryFilter_AnyUserSelection()
+  public EAttribute getCategoryFilter_AnyCategory()
   {
     return (EAttribute)categoryFilterEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCategoryFilter_QualityCategory()
-  {
-    return (EReference)categoryFilterEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getCategoryFilter_AnyQualityAttribute()
-  {
-    return (EAttribute)categoryFilterEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCategoryFilter_PhaseCategory()
-  {
-    return (EReference)categoryFilterEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getCategoryFilter_AnyDevelopmentPhase()
-  {
-    return (EAttribute)categoryFilterEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getUserCategories()
-  {
-    return userCategoriesEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getQualityCategories()
-  {
-    return qualityCategoriesEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPhaseCategories()
-  {
-    return phaseCategoriesEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getUserCategory()
-  {
-    return userCategoryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getQualityCategory()
-  {
-    return qualityCategoryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPhaseCategory()
-  {
-    return phaseCategoryEClass;
   }
 
   /**
@@ -431,11 +273,10 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     // Create classes and their features
     categoriesDefinitionsEClass = createEClass(CATEGORIES_DEFINITIONS);
-    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__USER_CATEGORIES);
-    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__PHASE_CATEGORIES);
-    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__QUALITY_CATEGORIES);
+    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__CATEGORIES);
 
     categoriesEClass = createEClass(CATEGORIES);
+    createEAttribute(categoriesEClass, CATEGORIES__NAME);
     createEReference(categoriesEClass, CATEGORIES__CATEGORY);
 
     categoryEClass = createEClass(CATEGORY);
@@ -443,24 +284,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     categoryFilterEClass = createEClass(CATEGORY_FILTER);
     createEAttribute(categoryFilterEClass, CATEGORY_FILTER__NAME);
-    createEReference(categoryFilterEClass, CATEGORY_FILTER__USER_CATEGORY);
-    createEAttribute(categoryFilterEClass, CATEGORY_FILTER__ANY_USER_SELECTION);
-    createEReference(categoryFilterEClass, CATEGORY_FILTER__QUALITY_CATEGORY);
-    createEAttribute(categoryFilterEClass, CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE);
-    createEReference(categoryFilterEClass, CATEGORY_FILTER__PHASE_CATEGORY);
-    createEAttribute(categoryFilterEClass, CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE);
-
-    userCategoriesEClass = createEClass(USER_CATEGORIES);
-
-    qualityCategoriesEClass = createEClass(QUALITY_CATEGORIES);
-
-    phaseCategoriesEClass = createEClass(PHASE_CATEGORIES);
-
-    userCategoryEClass = createEClass(USER_CATEGORY);
-
-    qualityCategoryEClass = createEClass(QUALITY_CATEGORY);
-
-    phaseCategoryEClass = createEClass(PHASE_CATEGORY);
+    createEReference(categoryFilterEClass, CATEGORY_FILTER__CATEGORY);
+    createEAttribute(categoryFilterEClass, CATEGORY_FILTER__ANY_CATEGORY);
   }
 
   /**
@@ -495,20 +320,13 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    userCategoriesEClass.getESuperTypes().add(this.getCategories());
-    qualityCategoriesEClass.getESuperTypes().add(this.getCategories());
-    phaseCategoriesEClass.getESuperTypes().add(this.getCategories());
-    userCategoryEClass.getESuperTypes().add(this.getCategory());
-    qualityCategoryEClass.getESuperTypes().add(this.getCategory());
-    phaseCategoryEClass.getESuperTypes().add(this.getCategory());
 
     // Initialize classes and features; add operations and parameters
     initEClass(categoriesDefinitionsEClass, CategoriesDefinitions.class, "CategoriesDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCategoriesDefinitions_UserCategories(), this.getCategories(), null, "userCategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoriesDefinitions_PhaseCategories(), this.getCategories(), null, "phaseCategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoriesDefinitions_QualityCategories(), this.getCategories(), null, "qualityCategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCategoriesDefinitions_Categories(), this.getCategories(), null, "categories", null, 0, -1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(categoriesEClass, Categories.class, "Categories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCategories_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Categories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategories_Category(), this.getCategory(), null, "category", null, 0, -1, Categories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -516,24 +334,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     initEClass(categoryFilterEClass, CategoryFilter.class, "CategoryFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCategoryFilter_Name(), theEcorePackage.getEString(), "name", null, 0, 1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoryFilter_UserCategory(), this.getUserCategory(), null, "userCategory", null, 0, -1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCategoryFilter_AnyUserSelection(), theEcorePackage.getEBoolean(), "anyUserSelection", null, 0, 1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoryFilter_QualityCategory(), this.getQualityCategory(), null, "qualityCategory", null, 0, -1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCategoryFilter_AnyQualityAttribute(), theEcorePackage.getEBoolean(), "anyQualityAttribute", null, 0, 1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoryFilter_PhaseCategory(), this.getPhaseCategory(), null, "phaseCategory", null, 0, -1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCategoryFilter_AnyDevelopmentPhase(), theEcorePackage.getEBoolean(), "anyDevelopmentPhase", null, 0, 1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(userCategoriesEClass, UserCategories.class, "UserCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(qualityCategoriesEClass, QualityCategories.class, "QualityCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(phaseCategoriesEClass, PhaseCategories.class, "PhaseCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(userCategoryEClass, UserCategory.class, "UserCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(qualityCategoryEClass, QualityCategory.class, "QualityCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(phaseCategoryEClass, PhaseCategory.class, "PhaseCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCategoryFilter_Category(), this.getCategory(), null, "category", null, 0, -1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCategoryFilter_AnyCategory(), theEcorePackage.getEBoolean(), "anyCategory", null, 0, 1, CategoryFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

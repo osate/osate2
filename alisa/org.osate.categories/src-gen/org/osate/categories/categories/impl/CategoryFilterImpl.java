@@ -29,10 +29,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.categories.categories.CategoriesPackage;
+import org.osate.categories.categories.Category;
 import org.osate.categories.categories.CategoryFilter;
-import org.osate.categories.categories.PhaseCategory;
-import org.osate.categories.categories.QualityCategory;
-import org.osate.categories.categories.UserCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,12 +41,8 @@ import org.osate.categories.categories.UserCategory;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#getUserCategory <em>User Category</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#isAnyUserSelection <em>Any User Selection</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#getQualityCategory <em>Quality Category</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#isAnyQualityAttribute <em>Any Quality Attribute</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#getPhaseCategory <em>Phase Category</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#isAnyDevelopmentPhase <em>Any Development Phase</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoryFilterImpl#isAnyCategory <em>Any Category</em>}</li>
  * </ul>
  *
  * @generated
@@ -76,94 +70,34 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getUserCategory() <em>User Category</em>}' reference list.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUserCategory()
+   * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected EList<UserCategory> userCategory;
+  protected EList<Category> category;
 
   /**
-   * The default value of the '{@link #isAnyUserSelection() <em>Any User Selection</em>}' attribute.
+   * The default value of the '{@link #isAnyCategory() <em>Any Category</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isAnyUserSelection()
+   * @see #isAnyCategory()
    * @generated
    * @ordered
    */
-  protected static final boolean ANY_USER_SELECTION_EDEFAULT = false;
+  protected static final boolean ANY_CATEGORY_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isAnyUserSelection() <em>Any User Selection</em>}' attribute.
+   * The cached value of the '{@link #isAnyCategory() <em>Any Category</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isAnyUserSelection()
+   * @see #isAnyCategory()
    * @generated
    * @ordered
    */
-  protected boolean anyUserSelection = ANY_USER_SELECTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getQualityCategory() <em>Quality Category</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getQualityCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<QualityCategory> qualityCategory;
-
-  /**
-   * The default value of the '{@link #isAnyQualityAttribute() <em>Any Quality Attribute</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAnyQualityAttribute()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean ANY_QUALITY_ATTRIBUTE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isAnyQualityAttribute() <em>Any Quality Attribute</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAnyQualityAttribute()
-   * @generated
-   * @ordered
-   */
-  protected boolean anyQualityAttribute = ANY_QUALITY_ATTRIBUTE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getPhaseCategory() <em>Phase Category</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPhaseCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<PhaseCategory> phaseCategory;
-
-  /**
-   * The default value of the '{@link #isAnyDevelopmentPhase() <em>Any Development Phase</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAnyDevelopmentPhase()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean ANY_DEVELOPMENT_PHASE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isAnyDevelopmentPhase() <em>Any Development Phase</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAnyDevelopmentPhase()
-   * @generated
-   * @ordered
-   */
-  protected boolean anyDevelopmentPhase = ANY_DEVELOPMENT_PHASE_EDEFAULT;
+  protected boolean anyCategory = ANY_CATEGORY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -214,13 +148,13 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<UserCategory> getUserCategory()
+  public EList<Category> getCategory()
   {
-    if (userCategory == null)
+    if (category == null)
     {
-      userCategory = new EObjectResolvingEList<UserCategory>(UserCategory.class, this, CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY);
+      category = new EObjectResolvingEList<Category>(Category.class, this, CategoriesPackage.CATEGORY_FILTER__CATEGORY);
     }
-    return userCategory;
+    return category;
   }
 
   /**
@@ -228,9 +162,9 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isAnyUserSelection()
+  public boolean isAnyCategory()
   {
-    return anyUserSelection;
+    return anyCategory;
   }
 
   /**
@@ -238,86 +172,12 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAnyUserSelection(boolean newAnyUserSelection)
+  public void setAnyCategory(boolean newAnyCategory)
   {
-    boolean oldAnyUserSelection = anyUserSelection;
-    anyUserSelection = newAnyUserSelection;
+    boolean oldAnyCategory = anyCategory;
+    anyCategory = newAnyCategory;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION, oldAnyUserSelection, anyUserSelection));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<QualityCategory> getQualityCategory()
-  {
-    if (qualityCategory == null)
-    {
-      qualityCategory = new EObjectResolvingEList<QualityCategory>(QualityCategory.class, this, CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY);
-    }
-    return qualityCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isAnyQualityAttribute()
-  {
-    return anyQualityAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAnyQualityAttribute(boolean newAnyQualityAttribute)
-  {
-    boolean oldAnyQualityAttribute = anyQualityAttribute;
-    anyQualityAttribute = newAnyQualityAttribute;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE, oldAnyQualityAttribute, anyQualityAttribute));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<PhaseCategory> getPhaseCategory()
-  {
-    if (phaseCategory == null)
-    {
-      phaseCategory = new EObjectResolvingEList<PhaseCategory>(PhaseCategory.class, this, CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY);
-    }
-    return phaseCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isAnyDevelopmentPhase()
-  {
-    return anyDevelopmentPhase;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAnyDevelopmentPhase(boolean newAnyDevelopmentPhase)
-  {
-    boolean oldAnyDevelopmentPhase = anyDevelopmentPhase;
-    anyDevelopmentPhase = newAnyDevelopmentPhase;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE, oldAnyDevelopmentPhase, anyDevelopmentPhase));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORY_FILTER__ANY_CATEGORY, oldAnyCategory, anyCategory));
   }
 
   /**
@@ -332,18 +192,10 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
     {
       case CategoriesPackage.CATEGORY_FILTER__NAME:
         return getName();
-      case CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY:
-        return getUserCategory();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION:
-        return isAnyUserSelection();
-      case CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY:
-        return getQualityCategory();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE:
-        return isAnyQualityAttribute();
-      case CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY:
-        return getPhaseCategory();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE:
-        return isAnyDevelopmentPhase();
+      case CategoriesPackage.CATEGORY_FILTER__CATEGORY:
+        return getCategory();
+      case CategoriesPackage.CATEGORY_FILTER__ANY_CATEGORY:
+        return isAnyCategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -362,26 +214,12 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
       case CategoriesPackage.CATEGORY_FILTER__NAME:
         setName((String)newValue);
         return;
-      case CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY:
-        getUserCategory().clear();
-        getUserCategory().addAll((Collection<? extends UserCategory>)newValue);
+      case CategoriesPackage.CATEGORY_FILTER__CATEGORY:
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends Category>)newValue);
         return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION:
-        setAnyUserSelection((Boolean)newValue);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY:
-        getQualityCategory().clear();
-        getQualityCategory().addAll((Collection<? extends QualityCategory>)newValue);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE:
-        setAnyQualityAttribute((Boolean)newValue);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY:
-        getPhaseCategory().clear();
-        getPhaseCategory().addAll((Collection<? extends PhaseCategory>)newValue);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE:
-        setAnyDevelopmentPhase((Boolean)newValue);
+      case CategoriesPackage.CATEGORY_FILTER__ANY_CATEGORY:
+        setAnyCategory((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -400,23 +238,11 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
       case CategoriesPackage.CATEGORY_FILTER__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY:
-        getUserCategory().clear();
+      case CategoriesPackage.CATEGORY_FILTER__CATEGORY:
+        getCategory().clear();
         return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION:
-        setAnyUserSelection(ANY_USER_SELECTION_EDEFAULT);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY:
-        getQualityCategory().clear();
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE:
-        setAnyQualityAttribute(ANY_QUALITY_ATTRIBUTE_EDEFAULT);
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY:
-        getPhaseCategory().clear();
-        return;
-      case CategoriesPackage.CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE:
-        setAnyDevelopmentPhase(ANY_DEVELOPMENT_PHASE_EDEFAULT);
+      case CategoriesPackage.CATEGORY_FILTER__ANY_CATEGORY:
+        setAnyCategory(ANY_CATEGORY_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -434,18 +260,10 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
     {
       case CategoriesPackage.CATEGORY_FILTER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY:
-        return userCategory != null && !userCategory.isEmpty();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION:
-        return anyUserSelection != ANY_USER_SELECTION_EDEFAULT;
-      case CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY:
-        return qualityCategory != null && !qualityCategory.isEmpty();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE:
-        return anyQualityAttribute != ANY_QUALITY_ATTRIBUTE_EDEFAULT;
-      case CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY:
-        return phaseCategory != null && !phaseCategory.isEmpty();
-      case CategoriesPackage.CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE:
-        return anyDevelopmentPhase != ANY_DEVELOPMENT_PHASE_EDEFAULT;
+      case CategoriesPackage.CATEGORY_FILTER__CATEGORY:
+        return category != null && !category.isEmpty();
+      case CategoriesPackage.CATEGORY_FILTER__ANY_CATEGORY:
+        return anyCategory != ANY_CATEGORY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -463,12 +281,8 @@ public class CategoryFilterImpl extends MinimalEObjectImpl.Container implements 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", anyUserSelection: ");
-    result.append(anyUserSelection);
-    result.append(", anyQualityAttribute: ");
-    result.append(anyQualityAttribute);
-    result.append(", anyDevelopmentPhase: ");
-    result.append(anyDevelopmentPhase);
+    result.append(", anyCategory: ");
+    result.append(anyCategory);
     result.append(')');
     return result.toString();
   }

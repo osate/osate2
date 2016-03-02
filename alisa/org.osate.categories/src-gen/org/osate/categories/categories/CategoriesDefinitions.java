@@ -15,6 +15,8 @@
  */
 package org.osate.categories.categories;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,9 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getUserCategories <em>User Categories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getPhaseCategories <em>Phase Categories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getQualityCategories <em>Quality Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getCategories <em>Categories</em>}</li>
  * </ul>
  *
  * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions()
@@ -38,81 +38,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface CategoriesDefinitions extends EObject
 {
   /**
-   * Returns the value of the '<em><b>User Categories</b></em>' containment reference.
+   * Returns the value of the '<em><b>Categories</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.categories.categories.Categories}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>User Categories</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Categories</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>User Categories</em>' containment reference.
-   * @see #setUserCategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_UserCategories()
+   * @return the value of the '<em>Categories</em>' containment reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Categories()
    * @model containment="true"
    * @generated
    */
-  Categories getUserCategories();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getUserCategories <em>User Categories</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>User Categories</em>' containment reference.
-   * @see #getUserCategories()
-   * @generated
-   */
-  void setUserCategories(Categories value);
-
-  /**
-   * Returns the value of the '<em><b>Phase Categories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Phase Categories</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Phase Categories</em>' containment reference.
-   * @see #setPhaseCategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_PhaseCategories()
-   * @model containment="true"
-   * @generated
-   */
-  Categories getPhaseCategories();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getPhaseCategories <em>Phase Categories</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Phase Categories</em>' containment reference.
-   * @see #getPhaseCategories()
-   * @generated
-   */
-  void setPhaseCategories(Categories value);
-
-  /**
-   * Returns the value of the '<em><b>Quality Categories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Quality Categories</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Quality Categories</em>' containment reference.
-   * @see #setQualityCategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_QualityCategories()
-   * @model containment="true"
-   * @generated
-   */
-  Categories getQualityCategories();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getQualityCategories <em>Quality Categories</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Quality Categories</em>' containment reference.
-   * @see #getQualityCategories()
-   * @generated
-   */
-  void setQualityCategories(Categories value);
+  EList<Categories> getCategories();
 
 } // CategoriesDefinitions

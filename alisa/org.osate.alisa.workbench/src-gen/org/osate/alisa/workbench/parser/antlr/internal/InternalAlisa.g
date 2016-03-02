@@ -658,24 +658,26 @@ ruleAssuranceTask returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
         }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getAssuranceTaskAccess().getUserCategoryUserCategoryCrossReference_6_1_1_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getCategoryCategoryCrossReference_6_1_1_0()); 
+	    }
+		ruleCatRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )+(
 (
-		lv_anyUserSelection_11_0=	'any' 
+		lv_anyCategory_11_0=	'any' 
     {
-        newLeafNode(lv_anyUserSelection_11_0, grammarAccess.getAssuranceTaskAccess().getAnyUserSelectionAnyKeyword_6_1_2_0());
+        newLeafNode(lv_anyCategory_11_0, grammarAccess.getAssuranceTaskAccess().getAnyCategoryAnyKeyword_6_1_2_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
-       		setWithLastConsumed($current, "anyUserSelection", true, "any");
+       		setWithLastConsumed($current, "anyCategory", true, "any");
 	    }
 
 )
@@ -691,103 +693,15 @@ ruleAssuranceTask returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6(), 2);
 	 				}
-					({true}?=>(	otherlv_12='quality' 
+					({true}?=>(	otherlv_12='issues' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getAssuranceTaskAccess().getQualityKeyword_6_2_0());
+    	newLeafNode(otherlv_12, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_2_0());
     }
 (
 (
+		lv_issues_13_0=RULE_STRING
 		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-        }
-	otherlv_13=RULE_ID
-	{
-		newLeafNode(otherlv_13, grammarAccess.getAssuranceTaskAccess().getQualityCategoryQualityCategoryCrossReference_6_2_1_0()); 
-	}
-
-)
-)+(
-(
-		lv_anyQualityAttribute_14_0=	'any' 
-    {
-        newLeafNode(lv_anyQualityAttribute_14_0, grammarAccess.getAssuranceTaskAccess().getAnyQualityAttributeAnyKeyword_6_2_2_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-       		setWithLastConsumed($current, "anyQualityAttribute", true, "any");
-	    }
-
-)
-)?))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6(), 3)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6(), 3);
-	 				}
-					({true}?=>(	otherlv_15='phase' 
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getAssuranceTaskAccess().getPhaseKeyword_6_3_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-        }
-	otherlv_16=RULE_ID
-	{
-		newLeafNode(otherlv_16, grammarAccess.getAssuranceTaskAccess().getPhaseCategoryPhaseCategoryCrossReference_6_3_1_0()); 
-	}
-
-)
-)+(
-(
-		lv_anyDevelopmentPhase_17_0=	'any' 
-    {
-        newLeafNode(lv_anyDevelopmentPhase_17_0, grammarAccess.getAssuranceTaskAccess().getAnyDevelopmentPhaseAnyKeyword_6_3_2_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-       		setWithLastConsumed($current, "anyDevelopmentPhase", true, "any");
-	    }
-
-)
-)?))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6(), 4);
-	 				}
-					({true}?=>(	otherlv_18='issues' 
-    {
-    	newLeafNode(otherlv_18, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_4_0());
-    }
-(
-(
-		lv_issues_19_0=RULE_STRING
-		{
-			newLeafNode(lv_issues_19_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_6_4_1_0()); 
+			newLeafNode(lv_issues_13_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_6_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -796,7 +710,7 @@ ruleAssuranceTask returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_19_0, 
+        		lv_issues_13_0, 
         		"STRING");
 	    }
 
@@ -815,12 +729,53 @@ ruleAssuranceTask returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_6());
 	}
 
-)	otherlv_20=']' 
+)	otherlv_14=']' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_7());
+    	newLeafNode(otherlv_14, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_7());
     }
 )
 ;
+
+
+
+
+
+// Entry rule entryRuleCatRef
+entryRuleCatRef returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getCatRefRule()); } 
+	 iv_ruleCatRef=ruleCatRef 
+	 { $current=$iv_ruleCatRef.current.getText(); }  
+	 EOF 
+;
+
+// Rule CatRef
+ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
+    }
+
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
+    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_2()); 
+    }
+)
+    ;
 
 
 

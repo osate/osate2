@@ -40,9 +40,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q;
 	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q;
 	protected AbstractElementAlias match_AssuranceTask_CategoryKeyword_6_1_0_q;
-	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_6_4_0_q;
-	protected AbstractElementAlias match_AssuranceTask_PhaseKeyword_6_3_0_q;
-	protected AbstractElementAlias match_AssuranceTask_QualityKeyword_6_2_0_q;
+	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_6_2_0_q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	
 	@Inject
@@ -55,9 +53,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_3_1()));
 		match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_2_1()));
 		match_AssuranceTask_CategoryKeyword_6_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getCategoryKeyword_6_1_0());
-		match_AssuranceTask_IssuesKeyword_6_4_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_4_0());
-		match_AssuranceTask_PhaseKeyword_6_3_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getPhaseKeyword_6_3_0());
-		match_AssuranceTask_QualityKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getQualityKeyword_6_2_0());
+		match_AssuranceTask_IssuesKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_2_0());
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 	}
 	
@@ -87,12 +83,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_CategoryKeyword_6_1_0_q.equals(syntax))
 				emit_AssuranceTask_CategoryKeyword_6_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_IssuesKeyword_6_4_0_q.equals(syntax))
-				emit_AssuranceTask_IssuesKeyword_6_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_PhaseKeyword_6_3_0_q.equals(syntax))
-				emit_AssuranceTask_PhaseKeyword_6_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_QualityKeyword_6_2_0_q.equals(syntax))
-				emit_AssuranceTask_QualityKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask_IssuesKeyword_6_2_0_q.equals(syntax))
+				emit_AssuranceTask_IssuesKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -202,7 +194,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     userCategory+=[UserCategory|ID] (ambiguity) userCategory+=[UserCategory|ID]
+	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
 	 */
 	protected void emit_AssuranceTask_CategoryKeyword_6_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -215,29 +207,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_AssuranceTask_IssuesKeyword_6_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'phase'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     phaseCategory+=[PhaseCategory|ID] (ambiguity) phaseCategory+=[PhaseCategory|ID]
-	 */
-	protected void emit_AssuranceTask_PhaseKeyword_6_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'quality'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) qualityCategory+=[QualityCategory|ID]
-	 */
-	protected void emit_AssuranceTask_QualityKeyword_6_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask_IssuesKeyword_6_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

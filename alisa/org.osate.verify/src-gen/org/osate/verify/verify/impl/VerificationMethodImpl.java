@@ -40,8 +40,7 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.QualityCategory;
-import org.osate.categories.categories.UserCategory;
+import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.MethodKind;
@@ -70,8 +69,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getQualityCategory <em>Quality Category</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getUserCategory <em>User Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  * </ul>
  *
  * @generated
@@ -249,24 +247,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected VerificationCondition validation;
 
   /**
-   * The cached value of the '{@link #getQualityCategory() <em>Quality Category</em>}' reference list.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getQualityCategory()
+   * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected EList<QualityCategory> qualityCategory;
-
-  /**
-   * The cached value of the '{@link #getUserCategory() <em>User Category</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUserCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<UserCategory> userCategory;
+  protected EList<Category> category;
 
   /**
    * <!-- begin-user-doc -->
@@ -677,27 +665,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<QualityCategory> getQualityCategory()
+  public EList<Category> getCategory()
   {
-    if (qualityCategory == null)
+    if (category == null)
     {
-      qualityCategory = new EObjectResolvingEList<QualityCategory>(QualityCategory.class, this, VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY);
+      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_METHOD__CATEGORY);
     }
-    return qualityCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<UserCategory> getUserCategory()
-  {
-    if (userCategory == null)
-    {
-      userCategory = new EObjectResolvingEList<UserCategory>(UserCategory.class, this, VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY);
-    }
-    return userCategory;
+    return category;
   }
 
   /**
@@ -763,10 +737,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getPrecondition();
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return getValidation();
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
-        return getQualityCategory();
-      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
-        return getUserCategory();
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        return getCategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -825,13 +797,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
-        getQualityCategory().clear();
-        getQualityCategory().addAll((Collection<? extends QualityCategory>)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
-        getUserCategory().clear();
-        getUserCategory().addAll((Collection<? extends UserCategory>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends Category>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -886,11 +854,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)null);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
-        getQualityCategory().clear();
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
-        getUserCategory().clear();
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        getCategory().clear();
         return;
     }
     super.eUnset(featureID);
@@ -932,10 +897,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return precondition != null;
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return validation != null;
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
-        return qualityCategory != null && !qualityCategory.isEmpty();
-      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
-        return userCategory != null && !userCategory.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        return category != null && !category.isEmpty();
     }
     return super.eIsSet(featureID);
   }

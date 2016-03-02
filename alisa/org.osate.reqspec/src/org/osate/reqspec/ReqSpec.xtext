@@ -95,8 +95,7 @@ DocGoal returns Goal:
 		)
 	)?
 '['  (
- 	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
- 	&('category'  userCategory+=[categories::UserCategory|ID]+ )?
+ 	('category' category+=[categories::Category|CatRef]+ )?
 	 & description=Description? 
 	&constants+=ValDeclaration* 
 	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
@@ -118,8 +117,7 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
- 	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
- 	&('category'  userCategory+=[categories::UserCategory|ID]+ )?
+ 	('category' category+=[categories::Category|CatRef]+ )?
 	 &(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
@@ -149,8 +147,7 @@ SystemRequirement returns Requirement:
 		targetElement=[aadl2::NamedElement|ID] )
 	)?
 '['	(
- 	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
- 	&('category'  userCategory+=[categories::UserCategory|ID]+ )?
+ 	('category' category+=[categories::Category|CatRef]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -177,8 +174,7 @@ GlobalRequirement returns Requirement:
 	(':'  title=STRING)? 
 	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
 '['	(
- 	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
- 	&('category'  userCategory+=[categories::UserCategory|ID]+ )?
+ 	('category' category+=[categories::Category|CatRef]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -200,15 +196,14 @@ GlobalRequirement returns Requirement:
 	']';
 	
 DocRequirement returns Requirement:
-	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
+	'requirement'  name=ID   
 	(':'  title=STRING)? 
 	( 'for'  ( targetDescription=STRING |
 		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
 		componentCategory+=ComponentCategory+)
 	)?
 '['	(
- 	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
- 	&('category'  userCategory+=[categories::UserCategory|ID]+ )?
+ 	('category'  category+=[categories::Category|CatRef]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -266,5 +261,8 @@ ExternalDocument :
 DOCPATH: ( ID '/')* ID '.' ID;
 
 DOCFRAGMENT: ID ('.' ID)*;
+
+CatRef : ID '.' ID;
+
 
 	

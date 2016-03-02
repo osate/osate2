@@ -245,8 +245,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
+	 *         category+=[Category|CatRef]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         whencondition=WhenCondition? 
@@ -270,15 +269,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (
 	 *             targetDescription=STRING | 
 	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
 	 *             componentCategory+=ComponentCategory+
 	 *         )? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
+	 *         category+=[Category|CatRef]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -337,8 +334,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
+	 *         category+=[Category|CatRef]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -389,8 +385,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
+	 *         category+=[Category|CatRef]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         whencondition=WhenCondition? 
@@ -503,8 +498,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         qualityCategory+=[QualityCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
+	 *         category+=[Category|CatRef]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

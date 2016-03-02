@@ -93,8 +93,7 @@ VerificationActivity:
 		')'
 	)?
 	('['(
-		('phase' phaseCategory+=[categories::PhaseCategory|ID]+)?
-	&('category' userCategory+=[categories::UserCategory|ID]+)?
+ 	('category'  category+=[categories::Category|CatRef]+ )?
 	&('timeout' timeout=AIntegerTerm)?
 	&('weight' weight=INT)?
 	)']')?
@@ -151,8 +150,7 @@ VerificationMethod:
 		& description=Description?
 		& precondition=VerificationPrecondition?
 		& validation=VerificationValidation?
-	&('quality' qualityCategory+=[categories::QualityCategory|ID]+)?
-	&('category' userCategory+=[categories::UserCategory|ID]+)?
+ 	&('category'  category+=[categories::Category|CatRef]+ )?
 	)
 	']'
 	;
@@ -185,6 +183,8 @@ MethodKind:
 		'junit' classPath=QualifiedName
 	;
 
+
+CatRef : ID '.' ID;
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 

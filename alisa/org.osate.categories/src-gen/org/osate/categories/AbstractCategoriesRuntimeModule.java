@@ -105,11 +105,6 @@ public abstract class AbstractCategoriesRuntimeModule extends org.eclipse.xtext.
 		return org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
-	public Class<? extends org.eclipse.xtext.parser.antlr.IUnorderedGroupHelper> bindIUnorderedGroupHelper() {
-		return org.eclipse.xtext.parser.antlr.UnorderedGroupHelper.class;
-	}
-
 	// contributed by org.eclipse.xtext.generator.validation.ValidatorFragment
 	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.categories.validation.CategoriesValidator> bindCategoriesValidator() {
 		return org.osate.categories.validation.CategoriesValidator.class;

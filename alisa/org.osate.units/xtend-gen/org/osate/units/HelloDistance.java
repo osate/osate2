@@ -13,19 +13,15 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.categories.categories;
+package org.osate.units;
 
+import org.osate.units.Distance;
 
-/**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>User Categories</b></em>'.
- * <!-- end-user-doc -->
- *
- *
- * @see org.osate.categories.categories.CategoriesPackage#getUserCategories()
- * @model
- * @generated
- */
-public interface UserCategories extends Categories
-{
-} // UserCategories
+@SuppressWarnings("all")
+public class HelloDistance {
+  private final Distance x = Distance.mm(10).operator_plus(Distance.cm(22));
+  
+  private final Distance y = Distance.cm(2).operator_multiply(7);
+  
+  private final Distance z = Distance.operator_multiply(7, Distance.cm(2));
+}

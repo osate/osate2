@@ -53,50 +53,26 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 		]);
 	}
 	
-	override void completeVerificationMethod_QualityCategory(EObject model, Assignment assignment,
+	override void completeVerificationMethod_Category(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
-				 ! (model as VerificationMethod).qualityCategory.exists[c|c.name.equals(match)]
+				 ! (model as VerificationMethod).category.exists[c|c.name.equals(match)]
 			]
 		);
 	}
 	
-	override void completeVerificationMethod_UserCategory(EObject model, Assignment assignment,
+	override void completeVerificationActivity_Category(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
-				 ! (model as VerificationMethod).userCategory.exists[c|c.name.equals(match)]
-			]
-		);
-	}
-	
-	override void completeVerificationActivity_PhaseCategory(EObject model, Assignment assignment,
-		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(
-			assignment.getTerminal() as CrossReference,
-			context,
-			acceptor,
-			[description| val match = description.qualifiedName.toString; 
-				 ! (model as VerificationActivity).phaseCategory.exists[c|c.name.equals(match)]
-			]
-		);
-	}
-	
-	override void completeVerificationActivity_UserCategory(EObject model, Assignment assignment,
-		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(
-			assignment.getTerminal() as CrossReference,
-			context,
-			acceptor,
-			[description| val match = description.qualifiedName.toString; 
-				 ! (model as VerificationActivity).userCategory.exists[c|c.name.equals(match)]
+				 ! (model as VerificationActivity).category.exists[c|c.name.equals(match)]
 			]
 		);
 	}

@@ -81,12 +81,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.CATEGORIES: return createCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.CATEGORY_FILTER: return createCategoryFilter();
-      case CategoriesPackage.USER_CATEGORIES: return createUserCategories();
-      case CategoriesPackage.QUALITY_CATEGORIES: return createQualityCategories();
-      case CategoriesPackage.PHASE_CATEGORIES: return createPhaseCategories();
-      case CategoriesPackage.USER_CATEGORY: return createUserCategory();
-      case CategoriesPackage.QUALITY_CATEGORY: return createQualityCategory();
-      case CategoriesPackage.PHASE_CATEGORY: return createPhaseCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -134,72 +128,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     CategoryFilterImpl categoryFilter = new CategoryFilterImpl();
     return categoryFilter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UserCategories createUserCategories()
-  {
-    UserCategoriesImpl userCategories = new UserCategoriesImpl();
-    return userCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public QualityCategories createQualityCategories()
-  {
-    QualityCategoriesImpl qualityCategories = new QualityCategoriesImpl();
-    return qualityCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PhaseCategories createPhaseCategories()
-  {
-    PhaseCategoriesImpl phaseCategories = new PhaseCategoriesImpl();
-    return phaseCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UserCategory createUserCategory()
-  {
-    UserCategoryImpl userCategory = new UserCategoryImpl();
-    return userCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public QualityCategory createQualityCategory()
-  {
-    QualityCategoryImpl qualityCategory = new QualityCategoryImpl();
-    return qualityCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PhaseCategory createPhaseCategory()
-  {
-    PhaseCategoryImpl phaseCategory = new PhaseCategoryImpl();
-    return phaseCategory;
   }
 
   /**

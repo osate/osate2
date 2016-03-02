@@ -27,8 +27,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
 
-import org.osate.categories.categories.QualityCategory;
-import org.osate.categories.categories.UserCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,8 +43,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getQualityCategory <em>Quality Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getUserCategory <em>User Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getWhencondition <em>Whencondition</em>}</li>
@@ -196,36 +194,20 @@ public interface ContractualElement extends EObject
   void setTargetElement(NamedElement value);
 
   /**
-   * Returns the value of the '<em><b>Quality Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.QualityCategory}.
+   * Returns the value of the '<em><b>Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Quality Category</em>' reference list isn't clear,
+   * If the meaning of the '<em>Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Quality Category</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_QualityCategory()
+   * @return the value of the '<em>Category</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Category()
    * @model
    * @generated
    */
-  EList<QualityCategory> getQualityCategory();
-
-  /**
-   * Returns the value of the '<em><b>User Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>User Category</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_UserCategory()
-   * @model
-   * @generated
-   */
-  EList<UserCategory> getUserCategory();
+  EList<Category> getCategory();
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

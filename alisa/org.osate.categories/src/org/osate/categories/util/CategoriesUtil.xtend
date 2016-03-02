@@ -18,22 +18,11 @@ package org.osate.categories.util
 
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.Category
-import org.osate.categories.categories.PhaseCategories
-import org.osate.categories.categories.QualityCategories
-import org.osate.categories.categories.UserCategories
 
 class CategoriesUtil {
 
 	def static Categories containingCategories(Category sh) {
 		sh.eContainer() as Categories
-	}
-
-	def static category(Categories cats) {
-		switch (cats) {
-			UserCategories: cats.category
-			PhaseCategories: cats.category
-			QualityCategories: cats.category
-		}
 	}
 
 	def static boolean intersects(Iterable<? extends Category> specifiedCategories, Iterable<? extends Category> filterCriteria,

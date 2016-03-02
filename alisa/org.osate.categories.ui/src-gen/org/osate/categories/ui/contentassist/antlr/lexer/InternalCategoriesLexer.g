@@ -28,13 +28,9 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Category : 'category';
-
-Quality : 'quality';
-
-Phase : 'phase';
-
 Any : 'any';
+
+FullStop : '.';
 
 LeftSquareBracket : '[';
 

@@ -191,15 +191,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         description=Description? 
-	 *         (userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)? 
-	 *         (qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)? 
-	 *         (phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)? 
-	 *         issues+=STRING*
-	 *     )
+	 *     (name=ID title=STRING? description=Description? (category+=[Category|CatRef]+ anyCategory?='any'?)? issues+=STRING*)
 	 */
 	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

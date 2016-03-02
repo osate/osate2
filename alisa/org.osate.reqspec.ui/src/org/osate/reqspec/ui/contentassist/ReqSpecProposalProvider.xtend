@@ -164,52 +164,27 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 
 
 
-	override void completeGlobalRequirement_QualityCategory(EObject model, Assignment assignment,
+	override void completeGlobalRequirement_Category(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description|val match = description.qualifiedName.toString; 
-				 ! (model as Requirement).qualityCategory.exists[c|c.name.equals(match)]
+				 ! (model as Requirement).category.exists[c|c.name.equals(match)]
 			]
 		);
 	}
 
 
-	override void completeGlobalRequirement_UserCategory(EObject model, Assignment assignment,
+	override void completeGoal_Category(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description|val match = description.qualifiedName.toString; 
-				 ! (model as Requirement).userCategory.exists[c|c.name.equals(match)]
-			]
-		);
-	}
-
-
-	override void completeGoal_QualityCategory(EObject model, Assignment assignment,
-		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(
-			assignment.getTerminal() as CrossReference,
-			context,
-			acceptor,
-			[description|val match = description.qualifiedName.toString; 
-				 ! (model as Requirement).qualityCategory.exists[c|c.name.equals(match)]
-			]
-		);
-	}
-
-	override void completeGoal_UserCategory(EObject model, Assignment assignment,
-		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(
-			assignment.getTerminal() as CrossReference,
-			context,
-			acceptor,
-			[description|val match = description.qualifiedName.toString; 
-				 ! (model as Requirement).userCategory.exists[c|c.name.equals(match)]
+				 ! (model as Requirement).category.exists[c|c.name.equals(match)]
 			]
 		);
 	}

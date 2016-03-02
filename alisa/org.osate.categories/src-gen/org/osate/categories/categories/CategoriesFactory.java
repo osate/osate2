@@ -72,60 +72,6 @@ public interface CategoriesFactory extends EFactory
   CategoryFilter createCategoryFilter();
 
   /**
-   * Returns a new object of class '<em>User Categories</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>User Categories</em>'.
-   * @generated
-   */
-  UserCategories createUserCategories();
-
-  /**
-   * Returns a new object of class '<em>Quality Categories</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Quality Categories</em>'.
-   * @generated
-   */
-  QualityCategories createQualityCategories();
-
-  /**
-   * Returns a new object of class '<em>Phase Categories</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Phase Categories</em>'.
-   * @generated
-   */
-  PhaseCategories createPhaseCategories();
-
-  /**
-   * Returns a new object of class '<em>User Category</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>User Category</em>'.
-   * @generated
-   */
-  UserCategory createUserCategory();
-
-  /**
-   * Returns a new object of class '<em>Quality Category</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Quality Category</em>'.
-   * @generated
-   */
-  QualityCategory createQualityCategory();
-
-  /**
-   * Returns a new object of class '<em>Phase Category</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Phase Category</em>'.
-   * @generated
-   */
-  PhaseCategory createPhaseCategory();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

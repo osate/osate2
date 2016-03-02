@@ -84,170 +84,89 @@ ruleCategoriesDefinitions returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-
-(
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 0);
-	 				}
-					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getUserCategoriesUserCategoriesParserRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0()); 
 	    }
-		lv_userCategories_1_0=ruleUserCategories		{
+		lv_categories_0_0=ruleCategories		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCategoriesDefinitionsRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"userCategories",
-        		lv_userCategories_1_0, 
-        		"UserCategories");
+       			"categories",
+        		lv_categories_0_0, 
+        		"Categories");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 1);
-	 				}
-					({true}?=>(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getPhaseCategoriesPhaseCategoriesParserRuleCall_1_0()); 
-	    }
-		lv_phaseCategories_2_0=rulePhaseCategories		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getCategoriesDefinitionsRule());
-	        }
-       		set(
-       			$current, 
-       			"phaseCategories",
-        		lv_phaseCategories_2_0, 
-        		"PhaseCategories");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup(), 2);
-	 				}
-					({true}?=>(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getQualityCategoriesQualityCategoriesParserRuleCall_2_0()); 
-	    }
-		lv_qualityCategories_3_0=ruleQualityCategories		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getCategoriesDefinitionsRule());
-	        }
-       		set(
-       			$current, 
-       			"qualityCategories",
-        		lv_qualityCategories_3_0, 
-        		"QualityCategories");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup());
-	 				}
- 				)
-			)  
-
-		)*	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getCategoriesDefinitionsAccess().getUnorderedGroup());
-	}
-
-)
+)*
 ;
 
 
 
 
 
-// Entry rule entryRuleUserCategories
-entryRuleUserCategories returns [EObject current=null]
+// Entry rule entryRuleCategories
+entryRuleCategories returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getUserCategoriesRule()); }
-	 iv_ruleUserCategories=ruleUserCategories 
-	 { $current=$iv_ruleUserCategories.current; } 
+	{ newCompositeNode(grammarAccess.getCategoriesRule()); }
+	 iv_ruleCategories=ruleCategories 
+	 { $current=$iv_ruleCategories.current; } 
 	 EOF 
 ;
 
-// Rule UserCategories
-ruleUserCategories returns [EObject current=null] 
+// Rule Categories
+ruleCategories returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getUserCategoriesAccess().getUserCategoriesAction_0(),
-            $current);
-    }
-)
-	otherlv_1=Category
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getUserCategoriesAccess().getCategoryKeyword_1());
-    }
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getCategoriesAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getCategoriesRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
 
-	otherlv_2=LeftSquareBracket
+)
+)
+	otherlv_1=LeftSquareBracket
     {
-    	newLeafNode(otherlv_2, grammarAccess.getUserCategoriesAccess().getLeftSquareBracketKeyword_2());
+    	newLeafNode(otherlv_1, grammarAccess.getCategoriesAccess().getLeftSquareBracketKeyword_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUserCategoriesAccess().getCategoryUserCategoryParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getCategoriesAccess().getCategoryCategoryParserRuleCall_2_0()); 
 	    }
-		lv_category_3_0=ruleUserCategory		{
+		lv_category_2_0=ruleCategory		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUserCategoriesRule());
+	            $current = createModelElementForParent(grammarAccess.getCategoriesRule());
 	        }
        		add(
        			$current, 
        			"category",
-        		lv_category_3_0, 
-        		"UserCategory");
+        		lv_category_2_0, 
+        		"Category");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+
-	otherlv_4=RightSquareBracket
+	otherlv_3=RightSquareBracket
     {
-    	newLeafNode(otherlv_4, grammarAccess.getUserCategoriesAccess().getRightSquareBracketKeyword_4());
+    	newLeafNode(otherlv_3, grammarAccess.getCategoriesAccess().getRightSquareBracketKeyword_3());
     }
 )
 ;
@@ -256,260 +175,84 @@ ruleUserCategories returns [EObject current=null]
 
 
 
-// Entry rule entryRuleQualityCategories
-entryRuleQualityCategories returns [EObject current=null]
+// Entry rule entryRuleCategory
+entryRuleCategory returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getQualityCategoriesRule()); }
-	 iv_ruleQualityCategories=ruleQualityCategories 
-	 { $current=$iv_ruleQualityCategories.current; } 
+	{ newCompositeNode(grammarAccess.getCategoryRule()); }
+	 iv_ruleCategory=ruleCategory 
+	 { $current=$iv_ruleCategory.current; } 
 	 EOF 
 ;
 
-// Rule QualityCategories
-ruleQualityCategories returns [EObject current=null] 
+// Rule Category
+ruleCategory returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getQualityCategoriesAccess().getQualityCategoriesAction_0(),
-            $current);
-    }
-)
-	otherlv_1=Quality
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getQualityCategoriesAccess().getQualityKeyword_1());
-    }
-
-	otherlv_2=LeftSquareBracket
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getQualityCategoriesAccess().getLeftSquareBracketKeyword_2());
-    }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getQualityCategoriesAccess().getCategoryQualityCategoryParserRuleCall_3_0()); 
-	    }
-		lv_category_3_0=ruleQualityCategory		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getQualityCategoriesRule());
-	        }
-       		add(
-       			$current, 
-       			"category",
-        		lv_category_3_0, 
-        		"QualityCategory");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+
-	otherlv_4=RightSquareBracket
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getQualityCategoriesAccess().getRightSquareBracketKeyword_4());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRulePhaseCategories
-entryRulePhaseCategories returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getPhaseCategoriesRule()); }
-	 iv_rulePhaseCategories=rulePhaseCategories 
-	 { $current=$iv_rulePhaseCategories.current; } 
-	 EOF 
-;
-
-// Rule PhaseCategories
-rulePhaseCategories returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getPhaseCategoriesAccess().getPhaseCategoriesAction_0(),
-            $current);
-    }
-)
-	otherlv_1=Phase
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getPhaseCategoriesAccess().getPhaseKeyword_1());
-    }
-
-	otherlv_2=LeftSquareBracket
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getPhaseCategoriesAccess().getLeftSquareBracketKeyword_2());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPhaseCategoriesAccess().getCategoryPhaseCategoryParserRuleCall_3_0()); 
-	    }
-		lv_category_3_0=rulePhaseCategory		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPhaseCategoriesRule());
-	        }
-       		add(
-       			$current, 
-       			"category",
-        		lv_category_3_0, 
-        		"PhaseCategory");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+
-	otherlv_4=RightSquareBracket
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getPhaseCategoriesAccess().getRightSquareBracketKeyword_4());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleUserCategory
-entryRuleUserCategory returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getUserCategoryRule()); }
-	 iv_ruleUserCategory=ruleUserCategory 
-	 { $current=$iv_ruleUserCategory.current; } 
-	 EOF 
-;
-
-// Rule UserCategory
-ruleUserCategory returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getUserCategoryAccess().getUserCategoryAction_0(),
-            $current);
-    }
-)(
-(
-		lv_name_1_0=RULE_ID
+		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getUserCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getCategoryAccess().getNameIDTerminalRuleCall_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUserCategoryRule());
+	            $current = createModelElement(grammarAccess.getCategoryRule());
 	        }
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_1_0, 
+        		lv_name_0_0, 
         		"ID");
 	    }
 
 )
-))
+)
 ;
 
 
 
 
 
-// Entry rule entryRuleQualityCategory
-entryRuleQualityCategory returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getQualityCategoryRule()); }
-	 iv_ruleQualityCategory=ruleQualityCategory 
-	 { $current=$iv_ruleQualityCategory.current; } 
+
+
+// Entry rule entryRuleCatRef
+entryRuleCatRef returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getCatRefRule()); } 
+	 iv_ruleCatRef=ruleCatRef 
+	 { $current=$iv_ruleCatRef.current.getText(); }  
 	 EOF 
 ;
 
-// Rule QualityCategory
-ruleQualityCategory returns [EObject current=null] 
+// Rule CatRef
+ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
     }
-    @after { leaveRule(); }:
-((
+    @after { leaveRule();
+    }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
+    }
+
+	kw=FullStop 
     {
-        $current = forceCreateModelElement(
-            grammarAccess.getQualityCategoryAccess().getQualityCategoryAction_0(),
-            $current);
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
     }
-)(
-(
-		lv_name_1_0=RULE_ID
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getQualityCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getQualityCategoryRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"ID");
-	    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
 
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_2()); 
+    }
 )
-))
-;
-
-
-
-
-
-// Entry rule entryRulePhaseCategory
-entryRulePhaseCategory returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getPhaseCategoryRule()); }
-	 iv_rulePhaseCategory=rulePhaseCategory 
-	 { $current=$iv_rulePhaseCategory.current; } 
-	 EOF 
-;
-
-// Rule PhaseCategory
-rulePhaseCategory returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getPhaseCategoryAccess().getPhaseCategoryAction_0(),
-            $current);
-    }
-)(
-(
-		lv_name_1_0=RULE_ID
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getPhaseCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPhaseCategoryRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"ID");
-	    }
-
-)
-))
-;
-
-
-
-
+    ;
 
 
 

@@ -92,8 +92,6 @@ Include : 'include';
 
 Process : 'process';
 
-Quality : 'quality';
-
 Refines : 'refines';
 
 Section : 'section';
