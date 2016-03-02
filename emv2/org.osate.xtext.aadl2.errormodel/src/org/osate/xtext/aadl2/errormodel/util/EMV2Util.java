@@ -436,7 +436,7 @@ public class EMV2Util {
 						}
 					} else {
 						String refname = EMV2Util.getPath(ep.getFeatureorPPRef());
-						if (refname.equalsIgnoreCase(name)) {
+						if (refname != null && name.equalsIgnoreCase(refname)) {
 							return ep;
 						}
 					}
@@ -2667,7 +2667,7 @@ public class EMV2Util {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * for compatibility reasons.
 	 * The path is now right recursive and most code interprets that path.
