@@ -22,6 +22,7 @@ package org.osate.assure.ui.outline
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode
 import org.eclipse.emf.ecore.EObject
 import org.osate.assure.assure.QualifiedClaimReference
+import org.osate.assure.assure.QualifiedVAReference
 
 /**
  * Customization of the default outline structure.
@@ -32,7 +33,7 @@ class AssureOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl
 	 // here you can override labels and images if the labels should be different than the general label provider
 	override _createChildren(IOutlineNode parentNode, EObject modelElement) {
 		modelElement.eContents().forEach [childElement |
-			if (!QualifiedClaimReference.isInstance(childElement)){
+			if (!QualifiedClaimReference.isInstance(childElement)&& !QualifiedVAReference.isInstance(childElement)){
 				createNode(parentNode, childElement)
 			}
 		]
