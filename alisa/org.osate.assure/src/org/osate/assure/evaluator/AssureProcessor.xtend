@@ -287,13 +287,9 @@ class AssureProcessor implements IAssureProcessor {
 				if (typeName.endsWith("Impl")) typeName = typeName.substring(0,typeName.length-4)
 				if (typeName != null && paramType != null && 
 					! (typeName.equalsIgnoreCase(paramType)
-						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("aadlreal")
 						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("real")
-						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("aadlinteger")
 						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("int")
-						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("aadlstring")
 						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("string")
-						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("aadlboolean")
 						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("bool")
 					)
 				) {
