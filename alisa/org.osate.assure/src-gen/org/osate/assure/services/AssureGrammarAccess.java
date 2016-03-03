@@ -1090,29 +1090,35 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cQualityCategoryRequirementsCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
 		private final RuleCall cQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0 = (RuleCall)cQualityCategoryRequirementsCountAssignment_12_1.eContents().get(0);
 		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cWeightKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cWeightAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_13_1_0 = (RuleCall)cWeightAssignment_13_1.eContents().get(0);
+		private final Keyword cRequirementswithoutplanclaimcountKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
+		private final Assignment cRequirementsWithoutPlanClaimCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
+		private final RuleCall cRequirementsWithoutPlanClaimCountINTTerminalRuleCall_13_1_0 = (RuleCall)cRequirementsWithoutPlanClaimCountAssignment_13_1.eContents().get(0);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cTimeKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cExecutionTimeAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cExecutionTimeAIntParserRuleCall_14_1_0 = (RuleCall)cExecutionTimeAssignment_14_1.eContents().get(0);
+		private final Keyword cWeightKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Assignment cWeightAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cWeightINTTerminalRuleCall_14_1_0 = (RuleCall)cWeightAssignment_14_1.eContents().get(0);
+		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
+		private final Keyword cTimeKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
+		private final Assignment cExecutionTimeAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
+		private final RuleCall cExecutionTimeAIntParserRuleCall_15_1_0 = (RuleCall)cExecutionTimeAssignment_15_1.eContents().get(0);
 		
 		//Metrics:
 		//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//	validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
-		//	featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)? ("weight"
-		//	weight=INT)? ("time" executionTime=AInt)?;
+		//	featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)?
+		//	("requirementswithoutplanclaimcount" requirementsWithoutPlanClaimCount=INT)? ("weight" weight=INT)? ("time"
+		//	executionTime=AInt)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
-		//featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)? ("weight"
-		//weight=INT)? ("time" executionTime=AInt)?
+		//featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)?
+		//("requirementswithoutplanclaimcount" requirementsWithoutPlanClaimCount=INT)? ("weight" weight=INT)? ("time"
+		//executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -1262,29 +1268,41 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0() { return cQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0; }
 
-		//("weight" weight=INT)?
+		//("requirementswithoutplanclaimcount" requirementsWithoutPlanClaimCount=INT)?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//"weight"
-		public Keyword getWeightKeyword_13_0() { return cWeightKeyword_13_0; }
+		//"requirementswithoutplanclaimcount"
+		public Keyword getRequirementswithoutplanclaimcountKeyword_13_0() { return cRequirementswithoutplanclaimcountKeyword_13_0; }
 
-		//weight=INT
-		public Assignment getWeightAssignment_13_1() { return cWeightAssignment_13_1; }
+		//requirementsWithoutPlanClaimCount=INT
+		public Assignment getRequirementsWithoutPlanClaimCountAssignment_13_1() { return cRequirementsWithoutPlanClaimCountAssignment_13_1; }
 
 		//INT
-		public RuleCall getWeightINTTerminalRuleCall_13_1_0() { return cWeightINTTerminalRuleCall_13_1_0; }
+		public RuleCall getRequirementsWithoutPlanClaimCountINTTerminalRuleCall_13_1_0() { return cRequirementsWithoutPlanClaimCountINTTerminalRuleCall_13_1_0; }
 
-		//("time" executionTime=AInt)?
+		//("weight" weight=INT)?
 		public Group getGroup_14() { return cGroup_14; }
 
+		//"weight"
+		public Keyword getWeightKeyword_14_0() { return cWeightKeyword_14_0; }
+
+		//weight=INT
+		public Assignment getWeightAssignment_14_1() { return cWeightAssignment_14_1; }
+
+		//INT
+		public RuleCall getWeightINTTerminalRuleCall_14_1_0() { return cWeightINTTerminalRuleCall_14_1_0; }
+
+		//("time" executionTime=AInt)?
+		public Group getGroup_15() { return cGroup_15; }
+
 		//"time"
-		public Keyword getTimeKeyword_14_0() { return cTimeKeyword_14_0; }
+		public Keyword getTimeKeyword_15_0() { return cTimeKeyword_15_0; }
 
 		//executionTime=AInt
-		public Assignment getExecutionTimeAssignment_14_1() { return cExecutionTimeAssignment_14_1; }
+		public Assignment getExecutionTimeAssignment_15_1() { return cExecutionTimeAssignment_15_1; }
 
 		//AInt
-		public RuleCall getExecutionTimeAIntParserRuleCall_14_1_0() { return cExecutionTimeAIntParserRuleCall_14_1_0; }
+		public RuleCall getExecutionTimeAIntParserRuleCall_15_1_0() { return cExecutionTimeAIntParserRuleCall_15_1_0; }
 	}
 
 	public class QualifiedVerificationPlanElementReferenceElements extends AbstractParserRuleElementFinder {
@@ -1816,8 +1834,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 	//	validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
-	//	featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)? ("weight"
-	//	weight=INT)? ("time" executionTime=AInt)?;
+	//	featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)?
+	//	("requirementswithoutplanclaimcount" requirementsWithoutPlanClaimCount=INT)? ("weight" weight=INT)? ("time"
+	//	executionTime=AInt)?;
 	public MetricsElements getMetricsAccess() {
 		return pMetrics;
 	}
