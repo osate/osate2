@@ -36,7 +36,8 @@ Export-Package: org.osate.alisa.common,
  org.osate.alisa.common.parser.antlr.internal,
  org.osate.alisa.common.scoping,
  org.osate.alisa.common.serializer,
- org.osate.alisa.common.services,
  org.osate.alisa.common.util,
- org.osate.alisa.common.validation
+ org.osate.alisa.common.validation,
+ org.osate.alisa.common.valueconversion,
+ org.osate.alisa.common.services
 

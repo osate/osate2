@@ -14,18 +14,19 @@
  * See COPYRIGHT file for full details.
  */
 
-package org.osate.alisa.common.services
+package org.osate.alisa.common.valueconversion
 
 import com.google.inject.Singleton
-import org.eclipse.xtext.common.services.DefaultTerminalConverters
 import org.eclipse.xtext.conversion.IValueConverter
 import org.eclipse.xtext.conversion.ValueConverter
 import org.eclipse.xtext.conversion.impl.AbstractNullSafeConverter
 import org.eclipse.xtext.nodemodel.INode
 import org.eclipse.xtext.conversion.ValueConverterException
+import org.osate.alisa.common.valueconversion.CommonValueConverter
 
 @Singleton
-class CommonValueConverters extends DefaultTerminalConverters {
+class CommonValueConverters extends CommonValueConverter {
+	// This class should be bound as the value converter for AExpressions.
 	@ValueConverter(rule = "AadlClassifierReference")
 	def IValueConverter<String> AadlClassifierReference() {
 		new AbstractNullSafeConverter<String> () {

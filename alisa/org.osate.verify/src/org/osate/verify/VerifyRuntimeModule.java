@@ -43,7 +43,7 @@ public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeM
 
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-		return org.osate.alisa.common.services.CommonValueConverters.class;
+		return org.osate.alisa.common.valueconversion.CommonValueConverters.class;
 	}
 
 	@Override

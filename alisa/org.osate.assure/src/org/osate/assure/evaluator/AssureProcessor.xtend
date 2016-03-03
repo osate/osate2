@@ -254,8 +254,8 @@ class AssureProcessor implements IAssureProcessor {
 					actual = aps.get(idx).valueCopy
 				} else {
 					setToError(verificationResult,
-						"Referenced formal parameter '" + ap.name + " of method '" + method.name +
-							"' does not have an actual value", null)
+						"Referenced formal parameter " + ap.name + " of method " + method.name +
+							" does not have an actual value", null)
 					return
 				}
 			} else if (ap instanceof PropertyExpression){

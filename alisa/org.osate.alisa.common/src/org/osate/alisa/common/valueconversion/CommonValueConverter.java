@@ -10,7 +10,8 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class CommonValueConverter extends DefaultTerminalConverters {
-
+// this is the basic one. It gets extended by the Xtend implementation CommonValueConverters
+// that one should be used by the different languages that use the expression part of common
 	@ValueConverter(rule = "ComponentCategory")
 	public IValueConverter<ComponentCategory> ComponentCategory() {
 		return new IValueConverter<ComponentCategory>() {

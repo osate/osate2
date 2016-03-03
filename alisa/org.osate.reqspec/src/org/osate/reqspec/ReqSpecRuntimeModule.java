@@ -36,7 +36,7 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-		return org.osate.alisa.common.services.CommonValueConverters.class;
+		return org.osate.alisa.common.valueconversion.CommonValueConverters.class;
 	}
 
 	@Override
