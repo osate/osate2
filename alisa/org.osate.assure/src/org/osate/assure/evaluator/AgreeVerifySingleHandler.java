@@ -19,7 +19,6 @@ package org.osate.assure.evaluator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -389,8 +388,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	private AnalysisResult createVerification(String resultName, ComponentInstance compInst, Program lustreProgram,
 			AgreeProgram agreeProgram, AgreeAnalysisType analysisType) {
 
-		Map<String, EObject> refMap = new HashMap<String, EObject>();
-		AgreeRenaming renaming = new AgreeRenaming(refMap);
+		AgreeRenaming renaming = new AgreeRenaming();
 		AgreeLayout layout = new AgreeLayout();
 		Node mainNode = null;
 		for (Node node : lustreProgram.nodes) {
@@ -404,7 +402,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		}
 
 		List<String> properties = new ArrayList<String>();
-		addRenamings(refMap, renaming, properties, layout, mainNode, agreeProgram);
+		addRenamings(renaming, properties, layout, mainNode, agreeProgram);
 
 		JKindResult result;
 		switch (analysisType) {
@@ -427,7 +425,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		linker.setComponent(result, compImpl);
 		linker.setContract(result, getContract(compImpl));
 //		linker.setLayout(result, layout);   This cause NoClassDefFoundError. Don't know why. Used for counter example menu
-		linker.setReferenceMap(result, refMap);
+		linker.setReferenceMap(result, renaming.getRefMap());
 //		linker.setLog(result, AgreeLogger.getLog());
 
 		// System.out.println(program);
@@ -435,37 +433,37 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 	}
 
-	private void addRenamings(Map<String, EObject> refMap, AgreeRenaming renaming, List<String> properties,
-			AgreeLayout layout, Node mainNode, AgreeProgram agreeProgram) {
+	private void addRenamings(AgreeRenaming renaming, List<String> properties, AgreeLayout layout, Node mainNode,
+			AgreeProgram agreeProgram) {
 		for (VarDecl var : mainNode.inputs) {
 			if (var instanceof AgreeVar) {
-				addReference(refMap, renaming, layout, var);
+				addReference(renaming, layout, var);
 			}
 		}
 
 		for (VarDecl var : mainNode.locals) {
 			if (var instanceof AgreeVar) {
-				addReference(refMap, renaming, layout, var);
+				addReference(renaming, layout, var);
 			}
 		}
 
 		for (VarDecl var : mainNode.outputs) {
 			if (var instanceof AgreeVar) {
-				addReference(refMap, renaming, layout, var);
+				addReference(renaming, layout, var);
 			}
 		}
 
 		// there is a special case in the AgreeRenaming which handles this translation
 		if (AgreeUtils.usingKind2()) {
-			addKind2Properties2(agreeProgram.topNode, properties, renaming, "_TOP", "");
+			addKind2Properties(agreeProgram.topNode, properties, renaming, "_TOP", "");
 		} else {
 			properties.addAll(mainNode.properties);
 		}
 
 	}
 
-	private void addKind2Properties2(AgreeNode agreeNode, List<String> properties, AgreeRenaming renaming,
-			String prefix, String userPropPrefix) {
+	void addKind2Properties(AgreeNode agreeNode, List<String> properties, AgreeRenaming renaming, String prefix,
+			String userPropPrefix) {
 		int i = 0;
 
 		String propPrefix = (userPropPrefix.equals("")) ? "" : userPropPrefix + ": ";
@@ -480,17 +478,14 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 		userPropPrefix = userPropPrefix.equals("") ? "" : userPropPrefix + ".";
 		for (AgreeNode subNode : agreeNode.subNodes) {
-			addKind2Properties2(subNode, properties, renaming, prefix + "." + subNode.id, userPropPrefix + subNode.id);
+			addKind2Properties(subNode, properties, renaming, prefix + "." + subNode.id, userPropPrefix + subNode.id);
 		}
 	}
 
-	private void addReference(Map<String, EObject> refMap, AgreeRenaming renaming, AgreeLayout layout, VarDecl var) {
+	private void addReference(AgreeRenaming renaming, AgreeLayout layout, VarDecl var) {
 		String refStr = getReferenceStr((AgreeVar) var);
-		// TODO verify which reference should be put here
-		refMap.put(refStr, ((AgreeVar) var).reference);
-		refMap.put(var.id, ((AgreeVar) var).reference);
-		// TODO we could clean up the agree renaming as well
 		renaming.addExplicitRename(var.id, refStr);
+		renaming.addToRefMap(var.id, ((AgreeVar) var).reference);
 		String category = getCategory((AgreeVar) var);
 		if (category != null && !layout.getCategories().contains(category)) {
 			layout.addCategory(category);
@@ -530,7 +525,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 		} else if (reference instanceof DataPort) {
 			return prefix + seperator + ((DataPort) reference).getName();
 		} else if (reference instanceof EventDataPort) {
-			return prefix + seperator + ((EventDataPort) reference).getName();
+			return prefix + seperator + ((EventDataPort) reference).getName() + "._EVENT_";
 		} else if (reference instanceof FeatureGroup) {
 			return prefix + seperator + ((FeatureGroup) reference).getName();
 		} else if (reference instanceof PropertyStatement) {
