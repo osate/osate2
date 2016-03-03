@@ -465,7 +465,7 @@ class AssureProcessor implements IAssureProcessor {
 		var nci = ci
 		while (!(nci instanceof SystemInstance)) {
 			val x = factory.createNestedDotID
-			x.base = ci.subcomponent
+			x.base = nci.subcomponent
 			x.sub = nid
 			nid = x
 			nci = nci.eContainer as ComponentInstance
