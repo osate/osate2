@@ -40,6 +40,9 @@ import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.PropertyConstant
+import org.osate.alisa.common.common.AVariableReference
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.PropertyExpression
 
 class CommonUtilExtension {
 
@@ -66,12 +69,12 @@ class CommonUtilExtension {
 		}
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
-			if(decl.eIsProxy) return "TBD"
+			if (decl.eIsProxy) return "TBD"
 			if (decl instanceof ComputeDeclaration) {
 				return decl.name
 			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
-				if(x == null || x instanceof NullLiteral) return "TBD"
+				if (x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
 					if (pd instanceof Property) {
@@ -81,19 +84,19 @@ class CommonUtilExtension {
 						} catch (PropertyLookupException e) {
 							return pd.qualifiedName()
 						}
-					} else if (pd instanceof PropertyConstant){
+					} else if (pd instanceof PropertyConstant) {
 						val actual = pd.constantValue
 						return actual.toString
 					}
 
 				}
 			}
-			if(decl.eIsProxy) return "TBD"
+			if (decl.eIsProxy) return "TBD"
 			if (decl instanceof ComputeDeclaration) {
 				return decl.name
 			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
-				if(x == null || x instanceof NullLiteral) return "TBD"
+				if (x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
 					if (pd instanceof Property) {
@@ -110,7 +113,7 @@ class CommonUtilExtension {
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name
-			if(nm.endsWith("_Instance")) nm = nm.substring(0, nm.length - 9)
+			if (nm.endsWith("_Instance")) nm = nm.substring(0, nm.length - 9)
 			return nm
 		}
 		""
@@ -126,7 +129,7 @@ class CommonUtilExtension {
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
-		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
+		if (Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target
 		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
 			ext = (target as ComponentImplementation).getType();
@@ -142,7 +145,7 @@ class CommonUtilExtension {
 	}
 
 	def static boolean isSameorExtendsURI(ComponentClassifier target, URI ancestorURI) {
-		if(target == null || ancestorURI == null) return false
+		if (target == null || ancestorURI == null) return false
 		var Classifier ext = target
 		while (ext != null) {
 			if (ancestorURI == EcoreUtil.getURI(ext)) {
@@ -175,7 +178,7 @@ class CommonUtilExtension {
 	def static InstanceObject findElementInstanceInList(EList<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
-			if(name.equalsIgnoreCase(n1)) return ei
+			if (name.equalsIgnoreCase(n1)) return ei
 		}
 		return null
 	}
@@ -184,7 +187,7 @@ class CommonUtilExtension {
 		for (ei : ci.connectionInstances) {
 			for (connref : ei.connectionReferences) {
 				val conn = connref.connection
-				if(conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent &&
+				if (conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent &&
 					name.equalsIgnoreCase(conn.name)) return ei
 			}
 		}
@@ -200,9 +203,31 @@ class CommonUtilExtension {
 	def static findElementInstance(ComponentInstance io, String elementName) {
 		val n = elementName
 		var res = findElementInstanceInList(io.endToEndFlows, n)
-		if(res == null) res = findElementInstanceInList(io.componentInstances, n)
-		if(res == null) res = findElementInstanceInList(io.featureInstances, n)
+		if (res == null) res = findElementInstanceInList(io.componentInstances, n)
+		if (res == null) res = findElementInstanceInList(io.featureInstances, n)
 		return res
+	}
+
+	def static getValueCopy(PropertyExpression vd) {
+		if (vd instanceof ValDeclaration) {
+			return EcoreUtil.copy(vd.right)
+		} else if (vd instanceof AVariableReference) {
+			// handle Val reference if AExpression is used
+			val pari = vd.variable
+			if (pari instanceof ValDeclaration) {
+			return EcoreUtil.copy(pari.right)
+			}
+		} else if (vd instanceof APropertyReference) {
+			// handle property or property constant reference
+			val pari = vd.property
+			if (pari instanceof PropertyConstant) {
+				return EcoreUtil.copy(pari.constantValue)
+			} else if (pari instanceof org.osate.aadl2.Property) {
+			}
+		} else {
+			// the value literal object as found in AExpression
+			return vd 
+		}
 	}
 
 }

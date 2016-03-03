@@ -22,6 +22,7 @@ package org.osate.alisa.common.validation
 import org.eclipse.xtext.validation.Check
 import org.osate.alisa.common.common.CommonPackage
 import org.osate.alisa.common.common.AFunctionCall
+import org.osate.alisa.common.common.ValDeclaration
 
 //import org.eclipse.xtext.validation.Check
 

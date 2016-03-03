@@ -70,6 +70,7 @@ import org.osate.aadl2.PropertyConstant
 import org.junit.runner.JUnitCore
 import org.junit.runner.Result
 import org.osate.verify.verify.JUnit4Method
+import org.osate.aadl2.PropertyExpression
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -240,48 +241,33 @@ class AssureProcessor implements IAssureProcessor {
 		// This means actual parameter values that are references to "val" are resolved to the value object
 		// In this context we also convert from StringLiteral to String if String is expected.
 		// Same for RealLiteral, IntegerLiteral, and BooleanLiteral.
-		var List<Object> actualParameterObjects = new ArrayList(actualParameters.size)
+		var List<PropertyExpression> actualParameterObjects = new ArrayList(actualParameters.size)
 
 		for (ap : actualParameters) {
-			var Object actual
-			var Object dereferencedActual = ap
+			var PropertyExpression actual 
 			// first handle references to formal parameters, as used in precondition and validation calls
 			if (ap instanceof FormalParameter) {
 				val varesult = verificationResult.eContainer as VerificationActivityResult
 				val aps = varesult.target.parameters
 				val idx = method.params.indexOf(ap)
 				if (idx >= 0) {
-					dereferencedActual = aps.get(idx)
+					actual = aps.get(idx).valueCopy
 				} else {
 					setToError(verificationResult,
 						"Referenced formal parameter '" + ap.name + " of method '" + method.name +
 							"' does not have an actual value", null)
 					return
 				}
-			}
-			// the first case is if we allow a ValDeclaration reference directly, not as part of an AExpression
-			if (dereferencedActual instanceof ValDeclaration) {
-				actual = dereferencedActual.right
-			} else if (dereferencedActual instanceof AVariableReference) {
-				// handle Val reference if AExpression is used
-				val pari = dereferencedActual.variable
-				if (pari instanceof ValDeclaration) {
-					actual = pari.right
-				}
-			} else if (dereferencedActual instanceof APropertyReference) {
-				// handle property or property constant reference
-				val pari = dereferencedActual.property
-				if (pari instanceof PropertyConstant) {
-					actual = pari.constantValue
-				} else if (pari instanceof org.osate.aadl2.Property){
-						
-				}
+			} else if (ap instanceof PropertyExpression){
+				actual = ap.valueCopy
 			} else {
-				// the value literal object as found in AExpression
-				actual = dereferencedActual as EObject
+				var formalParam = method.params.get(i)
+				setToError(verificationResult,
+					"Actual parameter for " + formalParam.name + " of method " + method.name +
+						" does not have an actual value", null)
+				return
 			}
 
-			// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
 			if (i < nbParams) {
 				var formalParam = method.params.get(i)
 				if (actual instanceof NumberValue) {
@@ -290,27 +276,29 @@ class AssureProcessor implements IAssureProcessor {
 						actual = convertValueToUnit(actual, formalParam.unit)
 					}
 				}
-				switch (actual){
-					RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double")) actual = actual.value
-					IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long")) actual = actual.value
-					StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) actual = actual.value
-					BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) actual = actual.isValue
-				}
 				
 				val paramType = formalParam.parameterType
+				if (actual == null){
+					return
+				}
 				var typeName = actual.getClass.name
 				val idx = typeName.lastIndexOf('.')
 				if (idx >=0) typeName = typeName.substring(idx+1)
+				if (typeName.endsWith("Impl")) typeName = typeName.substring(0,typeName.length-4)
 				if (typeName != null && paramType != null && 
 					! (typeName.equalsIgnoreCase(paramType)
 						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("aadlreal")
+						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("real")
 						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("aadlinteger")
+						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("int")
 						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("aadlstring")
+						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("string")
 						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("aadlboolean")
+						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("bool")
 					)
 				) {
 					setToError(verificationResult,
-						"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
+						"Parameter " + formalParam.name + ": mismatched types " + paramType + " and actual " +
 							typeName, null)
 					return
 				}
@@ -438,7 +426,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
-		List<Object> parameters) {
+		List<PropertyExpression> parameters) {
 		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 		if (res != null) {
 			if (res instanceof Boolean) {
@@ -458,7 +446,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, List<Object> params) {
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, List<PropertyExpression> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
@@ -487,7 +475,7 @@ class AssureProcessor implements IAssureProcessor {
 		te
 	}
 
-	def addParams(FnCallExpr call, List<Object> params) {
+	def addParams(FnCallExpr call, List<PropertyExpression> params) {
 		for (p : params) {
 			if (p instanceof RealLiteral) {
 				val realval = ResoluteFactory.eINSTANCE.createRealExpr
@@ -509,7 +497,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def createWrapperFnCall(ResoluteMethod vr, List<Object> params) {
+	def createWrapperFnCall(ResoluteMethod vr, List<PropertyExpression> params) {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr
