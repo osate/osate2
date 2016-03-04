@@ -31,6 +31,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -506,6 +507,24 @@ public class EMV2Properties {
 		return true;
 	}
 
+	private static boolean matchCIStack(Stack<NamedElement> ciStack, EMV2PathElement cp) {
+		if (cp == null && (ciStack == null || ciStack.isEmpty())) {
+			return true;
+		}
+		if (cp == null && (ciStack != null && !ciStack.isEmpty())
+				|| cp != null && (ciStack == null || ciStack.isEmpty()))
+			return false;
+		EMV2PathElement emv2ce = cp;
+		for (NamedElement namedElement : ciStack) {
+			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
+				return false;
+			} else {
+				emv2ce = emv2ce.getPath();
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * return the containment path if the stack combined with the target and optionally the type set match the containment path of a property association.
 	 * It is sufficient for one of the paths in the PA to match.
@@ -523,11 +542,16 @@ public class EMV2Properties {
 		EList<EMV2Path> applies = propertyAssociation.getEmv2Path();
 		for (EMV2Path emv2Path : applies) {
 			ContainmentPathElement cp = emv2Path.getContainmentPath();
-			matchStack = matchCIStack(ciStack, cp);
+			if (cp != null) {
+				matchStack = matchCIStack(ciStack, cp);
+			} else {
+				matchStack = matchCIStack(ciStack, emv2Path.getEmv2Target());
+			}
 			if (matchStack) {
 				// we are past the component portion of the path
 				String targetName = EMV2Util.getPrintName(target);
-				String pathName = EMV2Util.getPrintNameWithoutType(emv2Path);
+				NamedElement pathTargetEME = EMV2Util.getErrorModelElement(emv2Path);
+				String pathName = EMV2Util.getPrintName(pathTargetEME);
 				if (targetName.equalsIgnoreCase(pathName)) {
 					ErrorTypes typeelement = EMV2Util.getErrorType(emv2Path);
 					if (typeelement != null && ts != null) {

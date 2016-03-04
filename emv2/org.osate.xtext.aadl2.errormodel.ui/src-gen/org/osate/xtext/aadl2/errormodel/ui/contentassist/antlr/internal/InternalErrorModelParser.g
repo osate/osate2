@@ -33767,8 +33767,8 @@ rule__BasicEMV2PropertyAssociation__Emv2PathAssignment_5_1_1
     }
 :
 (
-{ before(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_1_0()); }
-	ruleEMV2Path{ after(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_1_0()); }
+{ before(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0()); }
+	ruleBasicEMV2Path{ after(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0()); }
 )
 
 ;

@@ -532,7 +532,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         ownedValues+=OptionalModalPropertyValue 
 	 *         ownedValues+=OptionalModalPropertyValue* 
 	 *         emv2Path+=BasicEMV2Path 
-	 *         emv2Path+=EMV2Path*
+	 *         emv2Path+=BasicEMV2Path*
 	 *     )
 	 */
 	protected void sequence_BasicEMV2PropertyAssociation(EObject context, EMV2PropertyAssociation semanticObject) {

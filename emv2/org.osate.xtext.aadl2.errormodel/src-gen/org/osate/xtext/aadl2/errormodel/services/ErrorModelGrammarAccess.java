@@ -2173,16 +2173,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
 		private final Keyword cCommaKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
 		private final Assignment cEmv2PathAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
-		private final RuleCall cEmv2PathEMV2PathParserRuleCall_5_1_1_0 = (RuleCall)cEmv2PathAssignment_5_1_1.eContents().get(0);
+		private final RuleCall cEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0 = (RuleCall)cEmv2PathAssignment_5_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
 		//	property=[aadl2::Property|QPREF] "=>" (ownedValues+=OptionalModalPropertyValue (","
-		//	ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=EMV2Path)*) ";";
+		//	ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=BasicEMV2Path)*)
+		//	";";
 		@Override public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] "=>" (ownedValues+=OptionalModalPropertyValue (","
-		//ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=EMV2Path)*) ";"
+		//ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=BasicEMV2Path)*) ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -2224,7 +2225,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_4() { return cToKeyword_4; }
 
-		//emv2Path+=BasicEMV2Path ("," emv2Path+=EMV2Path)*
+		//emv2Path+=BasicEMV2Path ("," emv2Path+=BasicEMV2Path)*
 		public Group getGroup_5() { return cGroup_5; }
 
 		//emv2Path+=BasicEMV2Path
@@ -2233,17 +2234,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//BasicEMV2Path
 		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_5_0_0() { return cEmv2PathBasicEMV2PathParserRuleCall_5_0_0; }
 
-		//("," emv2Path+=EMV2Path)*
+		//("," emv2Path+=BasicEMV2Path)*
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//","
 		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
 
-		//emv2Path+=EMV2Path
+		//emv2Path+=BasicEMV2Path
 		public Assignment getEmv2PathAssignment_5_1_1() { return cEmv2PathAssignment_5_1_1; }
 
-		//EMV2Path
-		public RuleCall getEmv2PathEMV2PathParserRuleCall_5_1_1_0() { return cEmv2PathEMV2PathParserRuleCall_5_1_1_0; }
+		//BasicEMV2Path
+		public RuleCall getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0() { return cEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
@@ -6630,7 +6631,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] "=>" (ownedValues+=OptionalModalPropertyValue (","
-	//	ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=EMV2Path)*) ";";
+	//	ownedValues+=OptionalModalPropertyValue)*) "applies" "to" (emv2Path+=BasicEMV2Path ("," emv2Path+=BasicEMV2Path)*)
+	//	";";
 	public BasicEMV2PropertyAssociationElements getBasicEMV2PropertyAssociationAccess() {
 		return pBasicEMV2PropertyAssociation;
 	}

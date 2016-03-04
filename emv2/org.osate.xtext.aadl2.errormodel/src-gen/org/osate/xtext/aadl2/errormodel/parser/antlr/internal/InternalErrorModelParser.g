@@ -2524,9 +2524,9 @@ ruleBasicEMV2PropertyAssociation returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0()); 
 	    }
-		lv_emv2Path_9_0=ruleEMV2Path		{
+		lv_emv2Path_9_0=ruleBasicEMV2Path		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getBasicEMV2PropertyAssociationRule());
 	        }
@@ -2534,7 +2534,7 @@ ruleBasicEMV2PropertyAssociation returns [EObject current=null]
        			$current, 
        			"emv2Path",
         		lv_emv2Path_9_0, 
-        		"EMV2Path");
+        		"BasicEMV2Path");
 	        afterParserOrEnumRuleCall();
 	    }
 

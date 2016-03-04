@@ -6216,7 +6216,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBasicEMV2PropertyAssociation"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2426:1: ruleBasicEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) otherlv_10= Semicolon ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2426:1: ruleBasicEMV2PropertyAssociation returns [EObject current=null] : ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) otherlv_10= Semicolon ) ;
     public final EObject ruleBasicEMV2PropertyAssociation() throws RecognitionException {
         EObject current = null;
 
@@ -6238,11 +6238,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2429:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) otherlv_10= Semicolon ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) otherlv_10= Semicolon )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2429:28: ( ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) otherlv_10= Semicolon ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) otherlv_10= Semicolon )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) otherlv_10= Semicolon )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* ) otherlv_10= Semicolon
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:1: ( ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) otherlv_10= Semicolon )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:2: ( ( ruleQPREF ) ) otherlv_1= EqualsSignGreaterThanSign ( ( (lv_ownedValues_2_0= ruleOptionalModalPropertyValue ) ) (otherlv_3= Comma ( (lv_ownedValues_4_0= ruleOptionalModalPropertyValue ) ) )* ) otherlv_5= Applies otherlv_6= To ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* ) otherlv_10= Semicolon
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2430:2: ( ( ruleQPREF ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2431:1: ( ruleQPREF )
@@ -6380,8 +6380,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_6, grammarAccess.getBasicEMV2PropertyAssociationAccess().getToKeyword_4());
                 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2501:1: ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )* )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2501:2: ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )*
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2501:1: ( ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )* )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2501:2: ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) ) (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )*
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2501:2: ( (lv_emv2Path_7_0= ruleBasicEMV2Path ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2502:1: (lv_emv2Path_7_0= ruleBasicEMV2Path )
@@ -6414,7 +6414,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2519:2: (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) ) )*
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2519:2: (otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) ) )*
             loop104:
             do {
                 int alt104=2;
@@ -6427,23 +6427,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt104) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2520:2: otherlv_8= Comma ( (lv_emv2Path_9_0= ruleEMV2Path ) )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2520:2: otherlv_8= Comma ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) )
             	    {
             	    otherlv_8=(Token)match(input,Comma,FOLLOW_Comma_in_ruleBasicEMV2PropertyAssociation4756); 
 
             	        	newLeafNode(otherlv_8, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_5_1_0());
             	        
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2524:1: ( (lv_emv2Path_9_0= ruleEMV2Path ) )
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2525:1: (lv_emv2Path_9_0= ruleEMV2Path )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2524:1: ( (lv_emv2Path_9_0= ruleBasicEMV2Path ) )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2525:1: (lv_emv2Path_9_0= ruleBasicEMV2Path )
             	    {
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2525:1: (lv_emv2Path_9_0= ruleEMV2Path )
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2526:3: lv_emv2Path_9_0= ruleEMV2Path
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2525:1: (lv_emv2Path_9_0= ruleBasicEMV2Path )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2526:3: lv_emv2Path_9_0= ruleBasicEMV2Path
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_1_0()); 
+            	    	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleEMV2Path_in_ruleBasicEMV2PropertyAssociation4776);
-            	    lv_emv2Path_9_0=ruleEMV2Path();
+            	    pushFollow(FOLLOW_ruleBasicEMV2Path_in_ruleBasicEMV2PropertyAssociation4776);
+            	    lv_emv2Path_9_0=ruleBasicEMV2Path();
 
             	    state._fsp--;
 
@@ -6455,7 +6455,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"emv2Path",
             	            		lv_emv2Path_9_0, 
-            	            		"EMV2Path");
+            	            		"BasicEMV2Path");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -26376,7 +26376,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_To_in_ruleBasicEMV2PropertyAssociation4721 = new BitSet(new long[]{0x0000000500888400L,0x0000080080000000L});
     public static final BitSet FOLLOW_ruleBasicEMV2Path_in_ruleBasicEMV2PropertyAssociation4742 = new BitSet(new long[]{0x0000000000000000L,0x0000000008800000L});
     public static final BitSet FOLLOW_Comma_in_ruleBasicEMV2PropertyAssociation4756 = new BitSet(new long[]{0x0000000500888400L,0x0000080080000000L});
-    public static final BitSet FOLLOW_ruleEMV2Path_in_ruleBasicEMV2PropertyAssociation4776 = new BitSet(new long[]{0x0000000000000000L,0x0000000008800000L});
+    public static final BitSet FOLLOW_ruleBasicEMV2Path_in_ruleBasicEMV2PropertyAssociation4776 = new BitSet(new long[]{0x0000000000000000L,0x0000000008800000L});
     public static final BitSet FOLLOW_Semicolon_in_ruleBasicEMV2PropertyAssociation4792 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleEMV2Path_in_entryRuleEMV2Path4826 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleEMV2Path4836 = new BitSet(new long[]{0x0000000000000002L});
