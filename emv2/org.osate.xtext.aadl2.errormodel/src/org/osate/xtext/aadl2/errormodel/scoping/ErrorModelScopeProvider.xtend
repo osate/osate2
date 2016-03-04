@@ -221,7 +221,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 //			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
 		} else if (classifier instanceof FeatureGroupType) {
-			classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			classifier.allFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
 		} else {
 			emptySet
 		}

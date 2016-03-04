@@ -148,7 +148,6 @@ public class CMAUtils {
 			/**
 			 * Here, the condition come from a subcomponent.
 			 */
-			// XXX if this only subcomponents from compositional?
 			if (elt instanceof SConditionElement) {
 				SConditionElement scondelt = (SConditionElement) elt;
 				if (scondelt.getQualifiedState() != null && scondelt.getQualifiedState().getNext() == null) {

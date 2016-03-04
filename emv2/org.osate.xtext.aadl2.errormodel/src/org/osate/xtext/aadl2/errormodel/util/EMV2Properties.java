@@ -508,12 +508,9 @@ public class EMV2Properties {
 	}
 
 	private static boolean matchCIStack(Stack<NamedElement> ciStack, EMV2PathElement cp) {
-		if (cp == null && (ciStack == null || ciStack.isEmpty())) {
+		if (cp == null || (ciStack == null || ciStack.isEmpty())) {
 			return true;
 		}
-		if (cp == null && (ciStack != null && !ciStack.isEmpty())
-				|| cp != null && (ciStack == null || ciStack.isEmpty()))
-			return false;
 		EMV2PathElement emv2ce = cp;
 		for (NamedElement namedElement : ciStack) {
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {

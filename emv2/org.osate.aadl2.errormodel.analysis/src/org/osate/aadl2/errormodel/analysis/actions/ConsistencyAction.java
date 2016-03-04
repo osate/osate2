@@ -400,11 +400,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						if (eop != null) {
 							if (eop instanceof ErrorPropagation) {
 								ErrorPropagation ep = (ErrorPropagation) eop;
-								found = true;
-// XXX : comparison is always true. ce.incoming is same as getErrorOrPropagation
-//								if (ep == ce.getIncoming()) {
-//									found = true;
-//								}
+						
+								if (ep == es.getIncoming()) {
+									found = true;
+								}
 							}
 						}
 					}
