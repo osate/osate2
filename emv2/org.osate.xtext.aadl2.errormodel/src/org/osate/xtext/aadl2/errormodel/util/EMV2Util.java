@@ -2105,6 +2105,18 @@ public class EMV2Util {
 		}
 	}
 
+	/**
+	 * **********************************
+	 * methods for retrieving elements in an EMV2Path
+	 */
+
+	/**
+	 * This method returns the error type if referenced in the containment path
+	 * This applies only to paths in EMV2PropertionAssociation
+	 * In ConditionElement the type or type set is 
+	 * @param ep
+	 * @return
+	 */
 	public static ErrorTypes getErrorType(EMV2Path ep) {
 		EMV2PathElement last = getLast(ep.getEmv2Target());
 		if (last.getNamedElement() instanceof ErrorTypes) {
@@ -2113,18 +2125,44 @@ public class EMV2Util {
 		return null;
 	}
 
+	/**
+	 * Get the error model element pointed to by the EMV2Path.
+	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
+	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
+	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * @param ce ConditionElement
+	 * @return NamedElement
+	 */
 	public static NamedElement getErrorModelElement(ConditionElement ce) {
 		return getErrorModelElement(ce.getQualifiedErrorPropagationReference());
 	}
 
+	/**
+	 * get the error propagation pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param ce ConditionElement
+	 * @return ErrorPropagation
+	 */
 	public static ErrorPropagation getErrorPropagation(SConditionElement ce) {
 		return getErrorPropagation(ce.getQualifiedErrorPropagationReference());
 	}
 
+	/**
+	 * get the error propagation or error behavior event pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param ce ConditionElement
+	 * @return EventOrPropagation
+	 */
 	public static EventOrPropagation getErrorEventOrPropagation(ConditionElement ce) {
 		return getErrorEventOrPropagation(ce.getQualifiedErrorPropagationReference());
 	}
 
+	/**
+	 * get the error propagation pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param epath EMV2Path
+	 * @return ErrorPropagation
+	 */
 	public static ErrorPropagation getErrorPropagation(EMV2Path epath) {
 		NamedElement res = getErrorModelElement(epath);
 		if (res instanceof ErrorPropagation)
@@ -2132,6 +2170,12 @@ public class EMV2Util {
 		return null;
 	}
 
+	/**
+	 * get the error propagation or error behavior event pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param epath EMV2Path
+	 * @return EventOrPropagation
+	 */
 	public static EventOrPropagation getErrorEventOrPropagation(EMV2Path epath) {
 		NamedElement res = getErrorModelElement(epath);
 		if (res instanceof ErrorPropagation || res instanceof ErrorBehaviorEvent)
@@ -2139,6 +2183,14 @@ public class EMV2Util {
 		return null;
 	}
 
+	/**
+	 * Get the error model element pointed to by the EMV2Path.
+	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
+	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
+	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * @param epath EMV2Path
+	 * @return NamedElement
+	 */
 	public static NamedElement getErrorModelElement(EMV2Path epath) {
 		EMV2PathElement target = getLast(epath.getEmv2Target());
 		if (target.getNamedElement() instanceof ErrorTypes) {
@@ -2180,6 +2232,43 @@ public class EMV2Util {
 		EMV2PathElement result = ep;
 		while (result.getPath() != null) {
 			result = result.getPath();
+		}
+		return result;
+	}
+
+	/**
+	 * return the last subcomponent in the EMV2Path
+	 * @param epath EMV2Path
+	 * @return Subcomponent
+	 */
+	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		EMV2PathElement epe = epath.getEmv2Target();
+		Subcomponent result = null;
+		while (epe != null) {
+			if (epe.getNamedElement() instanceof Subcomponent) {
+				result = (Subcomponent) epe.getNamedElement();
+			}
+			epe = epe.getPath();
+		}
+		return result;
+	}
+
+	/**
+	 * get the last component instance in the epath relative to the component instance root
+	 * Returns null if the component instance is not found
+	 * @param epath EMV2Path that includes EMV2PathElements pointing to subcomponents.
+	 * @param root ComponentInstance that is the root of the subcomponent section of the path
+	 * @return ComponentInstance
+	 */
+	public static ComponentInstance getLastComponentInstance(EMV2Path epath, ComponentInstance root) {
+		EMV2PathElement epe = epath.getEmv2Target();
+		ComponentInstance result = root;
+		while (epe != null && result != null) {
+			if (epe.getNamedElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) epe.getNamedElement();
+				result = result.findSubcomponentInstance(sub);
+			}
+			epe = epe.getPath();
 		}
 		return result;
 	}
