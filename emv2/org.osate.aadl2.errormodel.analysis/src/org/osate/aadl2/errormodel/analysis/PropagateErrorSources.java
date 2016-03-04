@@ -63,6 +63,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -189,10 +190,11 @@ public class PropagateErrorSources {
 			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci)) {
 				if (trans.getCondition() instanceof ConditionElement) {
 					ConditionElement conditionElement = (ConditionElement) trans.getCondition();
-					if (conditionElement.getIncoming() instanceof ErrorPropagation) {
+					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
+					if (EMV2Util.getErrorEventOrPropagation(conditionElement) instanceof ErrorPropagation) {
 						continue;
 					}
-					if (conditionElement.getIncoming().getName().equalsIgnoreCase(event.getName())) {
+					if (eop.getName().equalsIgnoreCase(event.getName())) {
 						states.add(trans.getTarget());
 					}
 				}

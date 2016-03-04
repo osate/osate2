@@ -192,7 +192,7 @@ class EventOrPropagationTest extends OsateTest {
 				transitions.head => [
 					"transition1".assertEquals(name)
 					//Tests scope_ConditionElement_incoming(ErrorBehaviorStateMachine, EReference)
-					condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, #["err_evt1"])
+					condition.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["err_evt1"])
 				]
 			]
 		]
@@ -201,34 +201,38 @@ class EventOrPropagationTest extends OsateTest {
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					val expectedScope = #["err_evt2", "err_evt3", "err_evt4", "err_evt5", "dp1", "processor", "fg1.dp9",
+					val expectedScope = #["err_evt1","err_evt2", "err_evt3", "err_evt4", "err_evt5", "dp1", "processor", "fg1.dp9",
+						"fg1.fg2.dp11", "point1", "dp3", "connection", "es1", "eds1", "dp5", "bindings", "dp7"
+					]
+					val expectedScope1 = expectedScope + #[ "asub2.dp2", "asub2.memory", "asub2.fg1.dp10", "asub2.fg1.fg2.dp12", "asub2.point2",
+							"asub2.dp4", "asub2.binding", "asub2.es2", "asub2.eds2", "asub2.asub1.dp2",
+							"asub2.asub1.memory", "asub2.asub1.fg1.dp10", "asub2.asub1.fg1.fg2.dp12",
+							"asub2.asub1.point2", "asub1.dp2", "asub1.memory", "asub1.fg1.dp10", "asub1.fg1.fg2.dp12",
+							"asub1.point2"
+					]
+					val expectedScope2 = #["dp1", "processor", "fg1.dp9",
 						"fg1.fg2.dp11", "point1", "dp3", "connection", "es1", "eds1", "dp5", "bindings", "dp7"
 					]
 					transitions.head => [
 						"transition2".assertEquals(name)
 						//Tests scope_ConditionElement_incoming(Classifier, EReference)
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, expectedScope)
+						condition.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, expectedScope1)
 					]
 					outgoingPropagationConditions.head => [
 						"condition1".assertEquals(name)
 						//Tests scope_ConditionElement_incoming(Classifier, EReference)
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, expectedScope)
+						condition.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, expectedScope1)
 					]
 					errorDetections.head => [
 						"detection1".assertEquals(name)
 						//Tests scope_ConditionElement_incoming(ErrorDetection, EReference)
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, expectedScope + #[
-							"asub2.dp2", "asub2.memory", "asub2.fg1.dp10", "asub2.fg1.fg2.dp12", "asub2.point2",
-							"asub2.dp4", "asub2.binding", "asub2.es2", "asub2.eds2", "asub2.asub1.dp2",
-							"asub2.asub1.memory", "asub2.asub1.fg1.dp10", "asub2.asub1.fg1.fg2.dp12",
-							"asub2.asub1.point2", "asub1.dp2", "asub1.memory", "asub1.fg1.dp10", "asub1.fg1.fg2.dp12",
-							"asub1.point2"
-						])
+						condition.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, expectedScope1 
+							)
 					]
 					states.head => [
 						"compositeState1".assertEquals(name)
 						//Tests scope_ConditionElement_incoming(Classifier, EReference)
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, expectedScope)
+						condition.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, expectedScope2)
 					]
 				]
 			]

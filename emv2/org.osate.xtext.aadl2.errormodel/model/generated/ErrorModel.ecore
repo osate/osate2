@@ -62,14 +62,14 @@
         eType="#//EMV2Path" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2Path" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="containmentPath" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ContainedNamedElement"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containmentPath" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ContainmentPathElement"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="emv2PropagationKind" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="#//ErrorTypes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Target" eType="#//EMV2PathElement"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2PathElement" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="emv2PropagationKind" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="#//ErrorTypes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="#//EMV2PathElement"
         containment="true"/>
@@ -255,10 +255,9 @@
         eType="#//ConditionElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionElement" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element #//ConditionExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//EventOrPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedErrorPropagationReference"
+        eType="#//EMV2Path" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//TypeSet"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedState" eType="#//QualifiedErrorBehaviorState"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventOrPropagation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
@@ -334,5 +333,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
         eType="#//ConditionElement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedErrorEventOrPropagation" eSuperTypes="#//EMV2Path"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedErrorPropagation" eSuperTypes="#//EMV2Path"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SConditionElement" eSuperTypes="#//ConditionElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedState" eType="#//QualifiedErrorBehaviorState"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

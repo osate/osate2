@@ -321,6 +321,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createAllExpressionAdapter();
       }
       @Override
+      public Adapter caseQualifiedErrorEventOrPropagation(QualifiedErrorEventOrPropagation object)
+      {
+        return createQualifiedErrorEventOrPropagationAdapter();
+      }
+      @Override
+      public Adapter caseQualifiedErrorPropagation(QualifiedErrorPropagation object)
+      {
+        return createQualifiedErrorPropagationAdapter();
+      }
+      @Override
+      public Adapter caseSConditionElement(SConditionElement object)
+      {
+        return createSConditionElementAdapter();
+      }
+      @Override
       public Adapter caseElement(Element object)
       {
         return createElementAdapter();
@@ -1083,6 +1098,51 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAllExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation <em>Qualified Error Event Or Propagation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
+   * @generated
+   */
+  public Adapter createQualifiedErrorEventOrPropagationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation <em>Qualified Error Propagation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation
+   * @generated
+   */
+  public Adapter createQualifiedErrorPropagationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement <em>SCondition Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
+   * @generated
+   */
+  public Adapter createSConditionElementAdapter()
   {
     return null;
   }

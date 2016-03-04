@@ -235,21 +235,24 @@ BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
 	';';
 	
 EMV2Path returns EMV2Path:
-		(containmentPath=ContainmentPath '@' )?
-			(( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
-			)
-			| emv2Target=EMV2PathElement )
+		('^' containmentPath=ContainmentPathElement '@' )?
+	 emv2Target=EMV2PathElementOrKind 
 ;
 	
 BasicEMV2Path returns EMV2Path:
-			(( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
-			)
-			| emv2Target=EMV2PathElement )
+ 	emv2Target=EMV2PathElementOrKind
+;
+
+EMV2PathElementOrKind returns EMV2PathElement:
+	( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
+	)
+	| (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2PathElement)?)
 ;
 
 EMV2PathElement returns EMV2PathElement:
-			namedElement=[aadl2::NamedElement|ID]
-		('.' path=EMV2PathElement)?
+ (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2PathElement)?)
 ;
 
 ErrorTypes returns ErrorTypes:
@@ -407,13 +410,6 @@ ErrorPath returns ErrorPath:
 ErrorPropagationPoint :
    (ID ".")*(PropagationKind | ID  )
    ;
-//ErrorPropagationPointPath :
-//   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
-//   ;
-//
-//NamedElementReference returns NamedElementReference:
-//	namedElement = [aadl2::NamedElement|ID]
-//;
 
    
 PropagationPoint returns PropagationPoint:
@@ -539,9 +535,28 @@ ConditionTerm returns ConditionExpression:
   ;
   
 ConditionElement returns ConditionElement:
-	// (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-  incoming=[EventOrPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?
+  qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation ( constraint=TypeTokenConstraintNoError )?
   ;
+  
+//QualifiedErrorPropagation returns QualifiedErrorPropagation:
+//	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+//;
+//
+//NestedModelElement returns NestedModelElement:
+//	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
+//;
+	
+QualifiedErrorEventOrPropagation returns EMV2Path:
+ 	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath
+;
+
+EMV2ErrorPropagationPath returns EMV2PathElement:
+	( emv2PropagationKind=PropagationKind 
+	)
+	| (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2ErrorPropagationPath)?)
+;
+
 
 EventOrPropagation :
 	ErrorBehaviorEvent | ErrorPropagation
@@ -620,11 +635,16 @@ SConditionTerm returns ConditionExpression:
       | '(' SConditionExpression ')'
   ;
 
+	
+QualifiedErrorPropagation returns EMV2Path:
+ 	{QualifiedErrorPropagation} emv2Target=EMV2ErrorPropagationPath
+;
   
 SConditionElement returns ConditionElement:
-	(qualifiedState=QualifiedErrorBehaviorState (constraint=TypeTokenConstraint)?)
+	{SConditionElement}((qualifiedState=QualifiedErrorBehaviorState (constraint=TypeTokenConstraint)?)
 	|
-  	'in' (incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
+  	'in' (qualifiedErrorPropagationReference=QualifiedErrorPropagation ( constraint=TypeTokenConstraintNoError )?)
+  	)
   ;
 
 QualifiedErrorBehaviorState:

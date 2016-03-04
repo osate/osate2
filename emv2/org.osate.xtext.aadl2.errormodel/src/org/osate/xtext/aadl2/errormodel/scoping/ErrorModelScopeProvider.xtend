@@ -39,6 +39,15 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
+import java.util.Collection
+import java.util.Collections
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.FeatureGroupType
 
 /**
  * This class contains custom scoping description.
@@ -182,27 +191,45 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allConnections.scopeFor
 	}
 	
-	def scope_ConditionElement_incoming(ErrorBehaviorStateMachine context, EReference reference) {
+	def scope_EMV2PathElement_namedElement(ErrorBehaviorStateMachine context, EReference reference) {
 		context.events.scopeFor
 	}
-
-// XXX TODO the scope needs to reflect the change of allowing subcomponent references.
-// when changing this we need to update the scope tests	
-	def scope_ConditionElement_incoming(Classifier context, EReference reference) {
-		new SimpleScope(context.localEventandIncomingPropagationDescriptions, true)
-	}
 	
-	def scope_ConditionElement_incoming(ErrorDetection context, EReference reference) {
+	def scope_EMV2PathElement_namedElement(CompositeState context, EReference reference) {
+		val cl = context.associatedClassifier
+		cl.scopeForErrorPropagation(DirectionType.IN)
+	}
+
+	def scope_EMV2PathElement_namedElement(ErrorModelSubclause context, EReference reference) {
+		val parent = context.eContainer
 		val classifier = context.associatedClassifier
-		val subcomponentDescriptions = if (classifier instanceof ComponentImplementation) {
+//		switch (parent) {
+//			EMV2Path: context.associatedClassifier
+//			EMV2PathElement: {
+//				val ne = parent.namedElement
+//				if (ne instanceof Subcomponent){
+//					ne.allClassifier
+//				} else if (ne instanceof FeatureGroup){
+//					ne.allClassifier
+//				} else {
+//					null
+//				}
+//			}
+//			}
+		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
 			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+//			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
+		} else if (classifier instanceof FeatureGroupType) {
+			classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
 		} else {
 			emptySet
 		}
-		new SimpleScope(classifier.localEventandIncomingPropagationDescriptions + subcomponentDescriptions, true)
+		new SimpleScope(classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions
+			, true
+		)
 	}
-	
+
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
@@ -297,13 +324,16 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)])
 	}
 	
-	def public static getLocalEventandIncomingPropagationDescriptions(Classifier classifier) {
+	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {
+		val stateMachine = classifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
+		val ebsmevents = stateMachine?.events
+		val ebsmeventDescriptions = ebsmevents.map[EObjectDescription.create(QualifiedName.create(name), it)]
 		classifier.allContainingClassifierEMV2Subclauses.map[
 			val eventsDescriptions = events.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			val inPropagations = propagations.filter[!not && direction == DirectionType.IN]
 			val propagationsDescriptions = inPropagations.map[EObjectDescription.create(QualifiedName.create(propagationName), it)]
 			eventsDescriptions + propagationsDescriptions
-		].flatten
+		].flatten+ebsmeventDescriptions
 	}
 	
 	def private static Iterable<IEObjectDescription> getSubcomponentPropagations(String prefix, ComponentClassifier classifier) {

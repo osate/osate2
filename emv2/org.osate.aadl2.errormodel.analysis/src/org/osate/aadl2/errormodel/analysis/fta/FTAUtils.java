@@ -20,7 +20,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -409,18 +411,19 @@ public class FTAUtils {
 		 */
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			if (conditionElement.getIncoming() != null) {
+			EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
+			if (eop != null) {
 				// OsateDebug.osateDebug("[FTAUtils] processCondition incoming=" + conditionElement.getIncoming());
 
 				/**
 				 * Here, we have an error event. Likely, this is something we can get
 				 * when we are analyzing error component behavior.
 				 */
-				if (conditionElement.getIncoming() instanceof ErrorEvent) {
+				if (eop instanceof ErrorEvent) {
 					ErrorEvent errorEvent;
 					Event newEvent;
 
-					errorEvent = (ErrorEvent) conditionElement.getIncoming();
+					errorEvent = (ErrorEvent) eop;
 
 					newEvent = new Event();
 					newEvent.setDescription("Error event " + errorEvent.getName() + "types "
@@ -438,10 +441,10 @@ public class FTAUtils {
 				 * with the in propagation within a composite error
 				 * model.
 				 */
-				if (conditionElement.getIncoming() instanceof ErrorPropagation) {
+				if (eop instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation;
 					Event newEvent;
-					errorPropagation = (ErrorPropagation) conditionElement.getIncoming();
+					errorPropagation = (ErrorPropagation) eop;
 
 					newEvent = new Event();
 					newEvent.setDescription("Error Propagation on " + EMV2Util.getPrintName(errorPropagation) + "types "
@@ -472,41 +475,44 @@ public class FTAUtils {
 			 * one of its state. This is what we find in a composite error
 			 * state machine.
 			 */
-			if (conditionElement.getQualifiedState() != null) {
-				/**
-				 * In the following, it seems that we reference another component.
-				 * This is typically the case when the condition is within
-				 * an composite error behavior.
-				 *
-				 * So, we find the referenced component in the component hierarchy
-				 * and add all its contributors to the returned events.
-				 */
-				// OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
-				SubcomponentElement subcomponentElement = conditionElement.getQualifiedState().getSubcomponent();
-				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-				ComponentInstance referencedInstance;
-				ErrorTypes referencedErrorType;
-				referencedInstance = null;
-				referencedErrorType = null;
-				// OsateDebug.osateDebug("[FTAUtils] subcomponent=" + subcomponent);
+			if (conditionElement instanceof SConditionElement) {
+				SConditionElement sConditionElement = (SConditionElement) conditionElement;
+				if (sConditionElement.getQualifiedState() != null) {
+					/**
+					 * In the following, it seems that we reference another component.
+					 * This is typically the case when the condition is within
+					 * an composite error behavior.
+					 *
+					 * So, we find the referenced component in the component hierarchy
+					 * and add all its contributors to the returned events.
+					 */
+					// OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
+					SubcomponentElement subcomponentElement = sConditionElement.getQualifiedState().getSubcomponent();
+					Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+					ComponentInstance referencedInstance;
+					ErrorTypes referencedErrorType;
+					referencedInstance = null;
+					referencedErrorType = null;
+					// OsateDebug.osateDebug("[FTAUtils] subcomponent=" + subcomponent);
 
-				for (ComponentInstance sub : component.getComponentInstances()) {
-					// OsateDebug.osateDebug("[FTAUtils] sub=" + sub.getSubcomponent());
-					if (sub.getSubcomponent().getName().equalsIgnoreCase(subcomponent.getName())) {
-						referencedInstance = sub;
+					for (ComponentInstance sub : component.getComponentInstances()) {
+						// OsateDebug.osateDebug("[FTAUtils] sub=" + sub.getSubcomponent());
+						if (sub.getSubcomponent().getName().equalsIgnoreCase(subcomponent.getName())) {
+							referencedInstance = sub;
+						}
 					}
+
+					if ((conditionElement.getConstraint() != null)
+							&& (conditionElement.getConstraint().getTypeTokens().size() > 0)) {
+						referencedErrorType = conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0);
+					}
+
+					// OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
+					// OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
+
+					returnedEvents.add(processErrorState(referencedInstance, EMV2Util.getState(sConditionElement),
+							referencedErrorType));
 				}
-
-				if ((conditionElement.getConstraint() != null)
-						&& (conditionElement.getConstraint().getTypeTokens().size() > 0)) {
-					referencedErrorType = conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0);
-				}
-
-				// OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
-				// OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
-
-				returnedEvents.add(processErrorState(referencedInstance, EMV2Util.getState(conditionElement),
-						referencedErrorType));
 			}
 		}
 

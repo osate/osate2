@@ -13,9 +13,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -26,9 +25,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getQualifiedErrorPropagationReference <em>Qualified Error Propagation Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getQualifiedState <em>Qualified State</em>}</li>
  * </ul>
  *
  * @generated
@@ -36,14 +34,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 public class ConditionElementImpl extends ElementImpl implements ConditionElement
 {
   /**
-   * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
+   * The cached value of the '{@link #getQualifiedErrorPropagationReference() <em>Qualified Error Propagation Reference</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getIncoming()
+   * @see #getQualifiedErrorPropagationReference()
    * @generated
    * @ordered
    */
-  protected EventOrPropagation incoming;
+  protected EMV2Path qualifiedErrorPropagationReference;
 
   /**
    * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference.
@@ -54,16 +52,6 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * @ordered
    */
   protected TypeSet constraint;
-
-  /**
-   * The cached value of the '{@link #getQualifiedState() <em>Qualified State</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getQualifiedState()
-   * @generated
-   * @ordered
-   */
-  protected QualifiedErrorBehaviorState qualifiedState;
 
   /**
    * <!-- begin-user-doc -->
@@ -91,19 +79,9 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EventOrPropagation getIncoming()
+  public EMV2Path getQualifiedErrorPropagationReference()
   {
-    if (incoming != null && incoming.eIsProxy())
-    {
-      InternalEObject oldIncoming = (InternalEObject)incoming;
-      incoming = (EventOrPropagation)eResolveProxy(oldIncoming);
-      if (incoming != oldIncoming)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONDITION_ELEMENT__INCOMING, oldIncoming, incoming));
-      }
-    }
-    return incoming;
+    return qualifiedErrorPropagationReference;
   }
 
   /**
@@ -111,22 +89,37 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EventOrPropagation basicGetIncoming()
+  public NotificationChain basicSetQualifiedErrorPropagationReference(EMV2Path newQualifiedErrorPropagationReference, NotificationChain msgs)
   {
-    return incoming;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setIncoming(EventOrPropagation newIncoming)
-  {
-    EventOrPropagation oldIncoming = incoming;
-    incoming = newIncoming;
+    EMV2Path oldQualifiedErrorPropagationReference = qualifiedErrorPropagationReference;
+    qualifiedErrorPropagationReference = newQualifiedErrorPropagationReference;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__INCOMING, oldIncoming, incoming));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE, oldQualifiedErrorPropagationReference, newQualifiedErrorPropagationReference);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setQualifiedErrorPropagationReference(EMV2Path newQualifiedErrorPropagationReference)
+  {
+    if (newQualifiedErrorPropagationReference != qualifiedErrorPropagationReference)
+    {
+      NotificationChain msgs = null;
+      if (qualifiedErrorPropagationReference != null)
+        msgs = ((InternalEObject)qualifiedErrorPropagationReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE, null, msgs);
+      if (newQualifiedErrorPropagationReference != null)
+        msgs = ((InternalEObject)newQualifiedErrorPropagationReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE, null, msgs);
+      msgs = basicSetQualifiedErrorPropagationReference(newQualifiedErrorPropagationReference, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE, newQualifiedErrorPropagationReference, newQualifiedErrorPropagationReference));
   }
 
   /**
@@ -182,63 +175,15 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public QualifiedErrorBehaviorState getQualifiedState()
-  {
-    return qualifiedState;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetQualifiedState(QualifiedErrorBehaviorState newQualifiedState, NotificationChain msgs)
-  {
-    QualifiedErrorBehaviorState oldQualifiedState = qualifiedState;
-    qualifiedState = newQualifiedState;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, oldQualifiedState, newQualifiedState);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setQualifiedState(QualifiedErrorBehaviorState newQualifiedState)
-  {
-    if (newQualifiedState != qualifiedState)
-    {
-      NotificationChain msgs = null;
-      if (qualifiedState != null)
-        msgs = ((InternalEObject)qualifiedState).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, null, msgs);
-      if (newQualifiedState != null)
-        msgs = ((InternalEObject)newQualifiedState).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, null, msgs);
-      msgs = basicSetQualifiedState(newQualifiedState, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE, newQualifiedState, newQualifiedState));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE:
+        return basicSetQualifiedErrorPropagationReference(null, msgs);
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return basicSetConstraint(null, msgs);
-      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
-        return basicSetQualifiedState(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -253,13 +198,10 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
-      case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
-        if (resolve) return getIncoming();
-        return basicGetIncoming();
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE:
+        return getQualifiedErrorPropagationReference();
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return getConstraint();
-      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
-        return getQualifiedState();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -274,14 +216,11 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
-      case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
-        setIncoming((EventOrPropagation)newValue);
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE:
+        setQualifiedErrorPropagationReference((EMV2Path)newValue);
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)newValue);
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
-        setQualifiedState((QualifiedErrorBehaviorState)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -297,14 +236,11 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
-      case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
-        setIncoming((EventOrPropagation)null);
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE:
+        setQualifiedErrorPropagationReference((EMV2Path)null);
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)null);
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
-        setQualifiedState((QualifiedErrorBehaviorState)null);
         return;
     }
     super.eUnset(featureID);
@@ -320,12 +256,10 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
-      case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
-        return incoming != null;
+      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE:
+        return qualifiedErrorPropagationReference != null;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return constraint != null;
-      case ErrorModelPackage.CONDITION_ELEMENT__QUALIFIED_STATE:
-        return qualifiedState != null;
     }
     return super.eIsSet(featureID);
   }

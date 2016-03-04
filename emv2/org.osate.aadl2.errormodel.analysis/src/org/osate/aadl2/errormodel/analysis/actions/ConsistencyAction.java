@@ -73,7 +73,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -372,9 +374,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance)) {
 					boolean found = false;
 					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(ebt)) {
-						if (ce.getIncoming() != null) {
-							if (ce.getIncoming() instanceof ErrorEvent) {
-								ErrorEvent ee = (ErrorEvent) ce.getIncoming();
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+						if (eop != null) {
+							if (eop instanceof ErrorEvent) {
+								ErrorEvent ee = (ErrorEvent) eop;
 								if (ee == ebe) {
 									found = true;
 								}
@@ -393,12 +396,15 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance)) {
 					boolean found = false;
 					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(ebt)) {
-						if (ce.getIncoming() != null) {
-							if (ce.getIncoming() instanceof ErrorPropagation) {
-								ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
-								if (ep == ce.getIncoming()) {
-									found = true;
-								}
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+						if (eop != null) {
+							if (eop instanceof ErrorPropagation) {
+								ErrorPropagation ep = (ErrorPropagation) eop;
+								found = true;
+// XXX : comparison is always true. ce.incoming is same as getErrorOrPropagation
+//								if (ep == ce.getIncoming()) {
+//									found = true;
+//								}
 							}
 						}
 					}
@@ -449,8 +455,9 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					boolean found = false;
 
 					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc)) {
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation)) {
-							ErrorPropagation conditionIncoming = (ErrorPropagation) ce.getIncoming();
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+						if (eop != null && (eop instanceof ErrorPropagation)) {
+							ErrorPropagation conditionIncoming = (ErrorPropagation) eop;
 							for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
 								if (ef instanceof ErrorPath) {
 									ErrorPath ep = (ErrorPath) ef;
@@ -544,11 +551,12 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance)) {
 
 				for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc)) {
-					if (ce.getIncoming() != null) {
+					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+					if (eop != null) {
 						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
 							if (ef instanceof ErrorSink) {
 								ErrorSink es = (ErrorSink) ef;
-								if (es.getIncoming() == ce.getIncoming()) {
+								if (es.getIncoming() == eop) {
 									error(componentInstance,
 											"C7: propagation " + EMV2Util.getPrintName(opc) + " in component "
 													+ componentInstance.getName() + " depends on an error sink");
@@ -592,8 +600,9 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance)) {
 					boolean found = false;
 					for (ConditionElement ce : allCE) {
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation)) {
-							if (ce.getIncoming() == es.getIncoming()) {
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+						if ((eop != null) && (eop instanceof ErrorPropagation)) {
+							if (eop == es.getIncoming()) {
 								found = true;
 							}
 						}
@@ -609,8 +618,9 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance)) {
 					boolean found = false;
 					for (ConditionElement ce : allCE) {
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorEvent)) {
-							if (ce.getIncoming() == ebe) {
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+						if ((eop != null) && (eop instanceof ErrorEvent)) {
+							if (eop == ebe) {
 								found = true;
 							}
 						}
@@ -667,9 +677,11 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
 						if (cs.getState() == ebs) {
 							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(cs)) {
-								for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
-									if (se != null) {
-										subcomponents.add(se.getSubcomponent());
+								if (ce instanceof SConditionElement) {
+									for (SubcomponentElement se : EMV2Util.getSubcomponents((SConditionElement) ce)) {
+										if (se != null) {
+											subcomponents.add(se.getSubcomponent());
+										}
 									}
 								}
 							}
@@ -736,35 +748,39 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					 * some consistency check and handle the different operators such as and, or, etc.
 					 */
 					for (ConditionElement ce : elementsComposite) {
-						for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
-							se.getSubcomponent();
-							// OsateDebug.osateDebug("se=" + se);
-							EMV2PropertyAssociation PA = EMV2Properties
-									.getOccurenceDistributionProperty(componentInstance, EMV2Util.getState(ce), null);
-							if (PA == null) {
-								warning(componentInstance,
-										"C13: component " + componentInstance.getName()
-												+ " does not define occurrence for " + EMV2Util.getPrintName(se)
-												+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(ce)));
-							} else {
-								// OsateDebug.osateDebug(" PA " + PA);
-								tmp = EMV2Properties.getOccurenceValue(PA);
-								// OsateDebug.osateDebug("tmp=" + tmp);
-								probabilityComposite = probabilityComposite + tmp;
+						if (ce instanceof SConditionElement) {
+							SConditionElement sce = (SConditionElement) ce;
+							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
+								se.getSubcomponent();
+								// OsateDebug.osateDebug("se=" + se);
+								EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(
+										componentInstance, EMV2Util.getState(sce), null);
+								if (PA == null) {
+									warning(componentInstance,
+											"C13: component " + componentInstance.getName()
+													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
+													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
+								} else {
+									// OsateDebug.osateDebug(" PA " + PA);
+									tmp = EMV2Properties.getOccurenceValue(PA);
+									// OsateDebug.osateDebug("tmp=" + tmp);
+									probabilityComposite = probabilityComposite + tmp;
+								}
 							}
 						}
 
 					}
 
 					for (ConditionElement ce : elementsBehavior) {
+						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
 						EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,
-								ce.getIncoming(), null);
+								eop, null);
 						// OsateDebug.osateDebug(" PA " + PA);
 						if (PA == null) {
 							warning(componentInstance,
 									"C13: component " + componentInstance.getName()
 											+ " does not define occurrence for incoming propagation "
-											+ EMV2Util.getPrintName(ce.getIncoming()));
+											+ EMV2Util.getPrintName(eop));
 						} else {
 							// OsateDebug.osateDebug(" PA " + PA);
 							tmp = EMV2Properties.getOccurenceValue(PA);

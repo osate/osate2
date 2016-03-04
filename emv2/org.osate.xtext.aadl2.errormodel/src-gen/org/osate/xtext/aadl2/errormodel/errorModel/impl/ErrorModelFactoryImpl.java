@@ -112,6 +112,9 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
       case ErrorModelPackage.ALL_EXPRESSION: return createAllExpression();
+      case ErrorModelPackage.QUALIFIED_ERROR_EVENT_OR_PROPAGATION: return createQualifiedErrorEventOrPropagation();
+      case ErrorModelPackage.QUALIFIED_ERROR_PROPAGATION: return createQualifiedErrorPropagation();
+      case ErrorModelPackage.SCONDITION_ELEMENT: return createSConditionElement();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -643,6 +646,39 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     AllExpressionImpl allExpression = new AllExpressionImpl();
     return allExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedErrorEventOrPropagation createQualifiedErrorEventOrPropagation()
+  {
+    QualifiedErrorEventOrPropagationImpl qualifiedErrorEventOrPropagation = new QualifiedErrorEventOrPropagationImpl();
+    return qualifiedErrorEventOrPropagation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedErrorPropagation createQualifiedErrorPropagation()
+  {
+    QualifiedErrorPropagationImpl qualifiedErrorPropagation = new QualifiedErrorPropagationImpl();
+    return qualifiedErrorPropagation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SConditionElement createSConditionElement()
+  {
+    SConditionElementImpl sConditionElement = new SConditionElementImpl();
+    return sConditionElement;
   }
 
   /**

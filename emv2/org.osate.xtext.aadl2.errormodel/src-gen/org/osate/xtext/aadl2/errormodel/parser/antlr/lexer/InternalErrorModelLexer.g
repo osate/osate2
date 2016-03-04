@@ -198,6 +198,8 @@ LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
 
+CircumflexAccent : '^';
+
 LeftCurlyBracket : '{';
 
 RightCurlyBracket : '}';

@@ -65,6 +65,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
@@ -121,8 +122,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			ConditionExpression cond = trans.getCondition();
 			if (cond instanceof ConditionElement) {
 				ConditionElement condElement = (ConditionElement) trans.getCondition();
-				if (condElement.getIncoming() instanceof ErrorEvent) {
-					ErrorEvent errorEvent = (ErrorEvent) condElement.getIncoming();
+				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(condElement);
+				if (eop instanceof ErrorEvent) {
+					ErrorEvent errorEvent = (ErrorEvent) eop;
 					EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
 					EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,

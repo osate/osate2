@@ -531,31 +531,13 @@ public interface ErrorModelPackage extends EPackage
   int EMV2_PATH__CONTAINMENT_PATH = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Emv2 Propagation Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EMV2_PATH__EMV2_PROPAGATION_KIND = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Error Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EMV2_PATH__ERROR_TYPE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
-
-  /**
    * The feature id for the '<em><b>Emv2 Target</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMV2_PATH__EMV2_TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int EMV2_PATH__EMV2_TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>EMV2 Path</em>' class.
@@ -564,7 +546,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PATH_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int EMV2_PATH_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl <em>EMV2 Path Element</em>}' class.
@@ -595,13 +577,31 @@ public interface ErrorModelPackage extends EPackage
   int EMV2_PATH_ELEMENT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
+   * The feature id for the '<em><b>Emv2 Propagation Kind</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Error Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMV2_PATH_ELEMENT__ERROR_TYPE = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Named Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMV2_PATH_ELEMENT__NAMED_ELEMENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int EMV2_PATH_ELEMENT__NAMED_ELEMENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Path</b></em>' containment reference.
@@ -610,7 +610,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PATH_ELEMENT__PATH = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int EMV2_PATH_ELEMENT__PATH = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>EMV2 Path Element</em>' class.
@@ -619,7 +619,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMV2_PATH_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int EMV2_PATH_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorTypesImpl <em>Error Types</em>}' class.
@@ -3056,13 +3056,13 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Incoming</b></em>' reference.
+   * The feature id for the '<em><b>Qualified Error Propagation Reference</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT__INCOMING = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -3074,22 +3074,13 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT__CONSTRAINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Qualified State</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITION_ELEMENT__QUALIFIED_STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
-
-  /**
    * The number of structural features of the '<em>Condition Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int CONDITION_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EventOrPropagationImpl <em>Event Or Propagation</em>}' class.
@@ -3967,6 +3958,180 @@ public interface ErrorModelPackage extends EPackage
    */
   int ALL_EXPRESSION_FEATURE_COUNT = CONDITION_EXPRESSION_FEATURE_COUNT + 2;
 
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorEventOrPropagationImpl <em>Qualified Error Event Or Propagation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorEventOrPropagationImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorEventOrPropagation()
+   * @generated
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION = 48;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION__OWNED_ELEMENT = EMV2_PATH__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION__OWNED_COMMENT = EMV2_PATH__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Containment Path</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION__CONTAINMENT_PATH = EMV2_PATH__CONTAINMENT_PATH;
+
+  /**
+   * The feature id for the '<em><b>Emv2 Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION__EMV2_TARGET = EMV2_PATH__EMV2_TARGET;
+
+  /**
+   * The number of structural features of the '<em>Qualified Error Event Or Propagation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION_FEATURE_COUNT = EMV2_PATH_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorPropagationImpl <em>Qualified Error Propagation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorPropagationImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorPropagation()
+   * @generated
+   */
+  int QUALIFIED_ERROR_PROPAGATION = 49;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_PROPAGATION__OWNED_ELEMENT = EMV2_PATH__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_PROPAGATION__OWNED_COMMENT = EMV2_PATH__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Containment Path</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_PROPAGATION__CONTAINMENT_PATH = EMV2_PATH__CONTAINMENT_PATH;
+
+  /**
+   * The feature id for the '<em><b>Emv2 Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_PROPAGATION__EMV2_TARGET = EMV2_PATH__EMV2_TARGET;
+
+  /**
+   * The number of structural features of the '<em>Qualified Error Propagation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_PROPAGATION_FEATURE_COUNT = EMV2_PATH_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SConditionElementImpl <em>SCondition Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.SConditionElementImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSConditionElement()
+   * @generated
+   */
+  int SCONDITION_ELEMENT = 50;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT__OWNED_ELEMENT = CONDITION_ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT__OWNED_COMMENT = CONDITION_ELEMENT__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Qualified Error Propagation Reference</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE = CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE;
+
+  /**
+   * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT__CONSTRAINT = CONDITION_ELEMENT__CONSTRAINT;
+
+  /**
+   * The feature id for the '<em><b>Qualified State</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT__QUALIFIED_STATE = CONDITION_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>SCondition Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCONDITION_ELEMENT_FEATURE_COUNT = CONDITION_ELEMENT_FEATURE_COUNT + 1;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause <em>Subclause</em>}'.
@@ -4339,28 +4504,6 @@ public interface ErrorModelPackage extends EPackage
   EReference getEMV2Path_ContainmentPath();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getEmv2PropagationKind <em>Emv2 Propagation Kind</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Emv2 Propagation Kind</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getEmv2PropagationKind()
-   * @see #getEMV2Path()
-   * @generated
-   */
-  EAttribute getEMV2Path_Emv2PropagationKind();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getErrorType <em>Error Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Error Type</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getErrorType()
-   * @see #getEMV2Path()
-   * @generated
-   */
-  EReference getEMV2Path_ErrorType();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path#getEmv2Target <em>Emv2 Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4380,6 +4523,28 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EClass getEMV2PathElement();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getEmv2PropagationKind <em>Emv2 Propagation Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Emv2 Propagation Kind</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getEmv2PropagationKind()
+   * @see #getEMV2PathElement()
+   * @generated
+   */
+  EAttribute getEMV2PathElement_Emv2PropagationKind();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getErrorType <em>Error Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Error Type</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getErrorType()
+   * @see #getEMV2PathElement()
+   * @generated
+   */
+  EReference getEMV2PathElement_ErrorType();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement#getNamedElement <em>Named Element</em>}'.
@@ -5605,15 +5770,15 @@ public interface ErrorModelPackage extends EPackage
   EClass getConditionElement();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedErrorPropagationReference <em>Qualified Error Propagation Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Incoming</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming()
+   * @return the meta object for the containment reference '<em>Qualified Error Propagation Reference</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedErrorPropagationReference()
    * @see #getConditionElement()
    * @generated
    */
-  EReference getConditionElement_Incoming();
+  EReference getConditionElement_QualifiedErrorPropagationReference();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}'.
@@ -5625,17 +5790,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getConditionElement_Constraint();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState <em>Qualified State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Qualified State</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState()
-   * @see #getConditionElement()
-   * @generated
-   */
-  EReference getConditionElement_QualifiedState();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation <em>Event Or Propagation</em>}'.
@@ -6121,6 +6275,47 @@ public interface ErrorModelPackage extends EPackage
   EAttribute getAllExpression_Count();
 
   /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation <em>Qualified Error Event Or Propagation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Qualified Error Event Or Propagation</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
+   * @generated
+   */
+  EClass getQualifiedErrorEventOrPropagation();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation <em>Qualified Error Propagation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Qualified Error Propagation</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation
+   * @generated
+   */
+  EClass getQualifiedErrorPropagation();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement <em>SCondition Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>SCondition Element</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
+   * @generated
+   */
+  EClass getSConditionElement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement#getQualifiedState <em>Qualified State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Qualified State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement#getQualifiedState()
+   * @see #getSConditionElement()
+   * @generated
+   */
+  EReference getSConditionElement_QualifiedState();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6424,22 +6619,6 @@ public interface ErrorModelPackage extends EPackage
     EReference EMV2_PATH__CONTAINMENT_PATH = eINSTANCE.getEMV2Path_ContainmentPath();
 
     /**
-     * The meta object literal for the '<em><b>Emv2 Propagation Kind</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EMV2_PATH__EMV2_PROPAGATION_KIND = eINSTANCE.getEMV2Path_Emv2PropagationKind();
-
-    /**
-     * The meta object literal for the '<em><b>Error Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EMV2_PATH__ERROR_TYPE = eINSTANCE.getEMV2Path_ErrorType();
-
-    /**
      * The meta object literal for the '<em><b>Emv2 Target</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6456,6 +6635,22 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EClass EMV2_PATH_ELEMENT = eINSTANCE.getEMV2PathElement();
+
+    /**
+     * The meta object literal for the '<em><b>Emv2 Propagation Kind</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND = eINSTANCE.getEMV2PathElement_Emv2PropagationKind();
+
+    /**
+     * The meta object literal for the '<em><b>Error Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMV2_PATH_ELEMENT__ERROR_TYPE = eINSTANCE.getEMV2PathElement_ErrorType();
 
     /**
      * The meta object literal for the '<em><b>Named Element</b></em>' reference feature.
@@ -7432,12 +7627,12 @@ public interface ErrorModelPackage extends EPackage
     EClass CONDITION_ELEMENT = eINSTANCE.getConditionElement();
 
     /**
-     * The meta object literal for the '<em><b>Incoming</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Qualified Error Propagation Reference</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONDITION_ELEMENT__INCOMING = eINSTANCE.getConditionElement_Incoming();
+    EReference CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE = eINSTANCE.getConditionElement_QualifiedErrorPropagationReference();
 
     /**
      * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
@@ -7446,14 +7641,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference CONDITION_ELEMENT__CONSTRAINT = eINSTANCE.getConditionElement_Constraint();
-
-    /**
-     * The meta object literal for the '<em><b>Qualified State</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITION_ELEMENT__QUALIFIED_STATE = eINSTANCE.getConditionElement_QualifiedState();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EventOrPropagationImpl <em>Event Or Propagation</em>}' class.
@@ -7838,6 +8025,44 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EAttribute ALL_EXPRESSION__COUNT = eINSTANCE.getAllExpression_Count();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorEventOrPropagationImpl <em>Qualified Error Event Or Propagation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorEventOrPropagationImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorEventOrPropagation()
+     * @generated
+     */
+    EClass QUALIFIED_ERROR_EVENT_OR_PROPAGATION = eINSTANCE.getQualifiedErrorEventOrPropagation();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorPropagationImpl <em>Qualified Error Propagation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorPropagationImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorPropagation()
+     * @generated
+     */
+    EClass QUALIFIED_ERROR_PROPAGATION = eINSTANCE.getQualifiedErrorPropagation();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SConditionElementImpl <em>SCondition Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.SConditionElementImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSConditionElement()
+     * @generated
+     */
+    EClass SCONDITION_ELEMENT = eINSTANCE.getSConditionElement();
+
+    /**
+     * The meta object literal for the '<em><b>Qualified State</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SCONDITION_ELEMENT__QUALIFIED_STATE = eINSTANCE.getSConditionElement_QualifiedState();
 
   }
 

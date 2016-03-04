@@ -17,6 +17,7 @@ import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +27,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl#getEmv2PropagationKind <em>Emv2 Propagation Kind</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl#getErrorType <em>Error Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl#getNamedElement <em>Named Element</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EMV2PathElementImpl#getPath <em>Path</em>}</li>
  * </ul>
@@ -34,6 +37,36 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  */
 public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
 {
+  /**
+   * The default value of the '{@link #getEmv2PropagationKind() <em>Emv2 Propagation Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEmv2PropagationKind()
+   * @generated
+   * @ordered
+   */
+  protected static final String EMV2_PROPAGATION_KIND_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getEmv2PropagationKind() <em>Emv2 Propagation Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEmv2PropagationKind()
+   * @generated
+   * @ordered
+   */
+  protected String emv2PropagationKind = EMV2_PROPAGATION_KIND_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getErrorType() <em>Error Type</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getErrorType()
+   * @generated
+   * @ordered
+   */
+  protected ErrorTypes errorType;
+
   /**
    * The cached value of the '{@link #getNamedElement() <em>Named Element</em>}' reference.
    * <!-- begin-user-doc -->
@@ -73,6 +106,72 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.EMV2_PATH_ELEMENT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getEmv2PropagationKind()
+  {
+    return emv2PropagationKind;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setEmv2PropagationKind(String newEmv2PropagationKind)
+  {
+    String oldEmv2PropagationKind = emv2PropagationKind;
+    emv2PropagationKind = newEmv2PropagationKind;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND, oldEmv2PropagationKind, emv2PropagationKind));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ErrorTypes getErrorType()
+  {
+    if (errorType != null && errorType.eIsProxy())
+    {
+      InternalEObject oldErrorType = (InternalEObject)errorType;
+      errorType = (ErrorTypes)eResolveProxy(oldErrorType);
+      if (errorType != oldErrorType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE, oldErrorType, errorType));
+      }
+    }
+    return errorType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ErrorTypes basicGetErrorType()
+  {
+    return errorType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setErrorType(ErrorTypes newErrorType)
+  {
+    ErrorTypes oldErrorType = errorType;
+    errorType = newErrorType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE, oldErrorType, errorType));
   }
 
   /**
@@ -192,6 +291,11 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   {
     switch (featureID)
     {
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND:
+        return getEmv2PropagationKind();
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE:
+        if (resolve) return getErrorType();
+        return basicGetErrorType();
       case ErrorModelPackage.EMV2_PATH_ELEMENT__NAMED_ELEMENT:
         if (resolve) return getNamedElement();
         return basicGetNamedElement();
@@ -211,6 +315,12 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   {
     switch (featureID)
     {
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND:
+        setEmv2PropagationKind((String)newValue);
+        return;
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE:
+        setErrorType((ErrorTypes)newValue);
+        return;
       case ErrorModelPackage.EMV2_PATH_ELEMENT__NAMED_ELEMENT:
         setNamedElement((NamedElement)newValue);
         return;
@@ -231,6 +341,12 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   {
     switch (featureID)
     {
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND:
+        setEmv2PropagationKind(EMV2_PROPAGATION_KIND_EDEFAULT);
+        return;
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE:
+        setErrorType((ErrorTypes)null);
+        return;
       case ErrorModelPackage.EMV2_PATH_ELEMENT__NAMED_ELEMENT:
         setNamedElement((NamedElement)null);
         return;
@@ -251,12 +367,33 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   {
     switch (featureID)
     {
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND:
+        return EMV2_PROPAGATION_KIND_EDEFAULT == null ? emv2PropagationKind != null : !EMV2_PROPAGATION_KIND_EDEFAULT.equals(emv2PropagationKind);
+      case ErrorModelPackage.EMV2_PATH_ELEMENT__ERROR_TYPE:
+        return errorType != null;
       case ErrorModelPackage.EMV2_PATH_ELEMENT__NAMED_ELEMENT:
         return namedElement != null;
       case ErrorModelPackage.EMV2_PATH_ELEMENT__PATH:
         return path != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (emv2PropagationKind: ");
+    result.append(emv2PropagationKind);
+    result.append(')');
+    return result.toString();
   }
 
 } //EMV2PathElementImpl

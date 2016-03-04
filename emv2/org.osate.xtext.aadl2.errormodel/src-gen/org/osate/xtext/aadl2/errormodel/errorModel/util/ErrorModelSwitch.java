@@ -511,6 +511,34 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.QUALIFIED_ERROR_EVENT_OR_PROPAGATION:
+      {
+        QualifiedErrorEventOrPropagation qualifiedErrorEventOrPropagation = (QualifiedErrorEventOrPropagation)theEObject;
+        T result = caseQualifiedErrorEventOrPropagation(qualifiedErrorEventOrPropagation);
+        if (result == null) result = caseEMV2Path(qualifiedErrorEventOrPropagation);
+        if (result == null) result = caseElement(qualifiedErrorEventOrPropagation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.QUALIFIED_ERROR_PROPAGATION:
+      {
+        QualifiedErrorPropagation qualifiedErrorPropagation = (QualifiedErrorPropagation)theEObject;
+        T result = caseQualifiedErrorPropagation(qualifiedErrorPropagation);
+        if (result == null) result = caseEMV2Path(qualifiedErrorPropagation);
+        if (result == null) result = caseElement(qualifiedErrorPropagation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.SCONDITION_ELEMENT:
+      {
+        SConditionElement sConditionElement = (SConditionElement)theEObject;
+        T result = caseSConditionElement(sConditionElement);
+        if (result == null) result = caseConditionElement(sConditionElement);
+        if (result == null) result = caseConditionExpression(sConditionElement);
+        if (result == null) result = caseElement(sConditionElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -1279,6 +1307,54 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAllExpression(AllExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Qualified Error Event Or Propagation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Qualified Error Event Or Propagation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseQualifiedErrorEventOrPropagation(QualifiedErrorEventOrPropagation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Qualified Error Propagation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Qualified Error Propagation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseQualifiedErrorPropagation(QualifiedErrorPropagation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>SCondition Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>SCondition Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSConditionElement(SConditionElement object)
   {
     return null;
   }

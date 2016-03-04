@@ -53,11 +53,11 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -92,7 +92,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return container;
 	}
 
-	private double handleElement(final ConditionElement conditionElement, final ComponentInstance root) {
+	private double handleElement(final SConditionElement conditionElement, final ComponentInstance root) {
 		double result = 0;
 
 		ErrorBehaviorState behaviorState = EMV2Util.getState(conditionElement);
@@ -161,8 +161,8 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		double tmp;
 		// OsateDebug.osateDebug("cond="+cond);
 
-		if (cond instanceof ConditionElement) {
-			return handleElement((ConditionElement) cond, root);
+		if (cond instanceof SConditionElement) {
+			return handleElement((SConditionElement) cond, root);
 		}
 
 		if (cond instanceof OrExpression) {

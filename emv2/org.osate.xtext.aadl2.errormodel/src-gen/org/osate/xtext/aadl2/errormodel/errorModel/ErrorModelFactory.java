@@ -455,6 +455,33 @@ public interface ErrorModelFactory extends EFactory
   AllExpression createAllExpression();
 
   /**
+   * Returns a new object of class '<em>Qualified Error Event Or Propagation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Error Event Or Propagation</em>'.
+   * @generated
+   */
+  QualifiedErrorEventOrPropagation createQualifiedErrorEventOrPropagation();
+
+  /**
+   * Returns a new object of class '<em>Qualified Error Propagation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Error Propagation</em>'.
+   * @generated
+   */
+  QualifiedErrorPropagation createQualifiedErrorPropagation();
+
+  /**
+   * Returns a new object of class '<em>SCondition Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>SCondition Element</em>'.
+   * @generated
+   */
+  SConditionElement createSConditionElement();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

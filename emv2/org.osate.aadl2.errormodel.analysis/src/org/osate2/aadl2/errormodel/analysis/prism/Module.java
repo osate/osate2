@@ -22,6 +22,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -250,7 +251,7 @@ public class Module {
 	 * @return A PRISM Expression that represents the conditionElement from the
 	 *         AADL EMV2, null if this cannot be mapped.
 	 */
-	private Expression handleElement(final ConditionElement conditionElement) {
+	private Expression handleElement(final SConditionElement conditionElement) {
 
 		ErrorBehaviorState behaviorState = EMV2Util.getState(conditionElement);
 
@@ -276,8 +277,8 @@ public class Module {
 	private Expression handleCompositeCondition(final ConditionExpression cond) {
 		Expression res = null;
 
-		if (cond instanceof ConditionElement) {
-			res = handleElement((ConditionElement) cond);
+		if (cond instanceof SConditionElement) {
+			res = handleElement((SConditionElement) cond);
 		}
 
 		if (cond instanceof OrExpression) {
@@ -485,10 +486,11 @@ public class Module {
 
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			if (conditionElement.getIncoming() instanceof ErrorPropagation) {
+			EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
+			if (eop instanceof ErrorPropagation) {
 				int errorTypeValue = 0;
 				// FIXME Julien: Find the appropriate id that correspond to the propagation code
-				ErrorPropagation incomingErrorPropagation = (ErrorPropagation) conditionElement.getIncoming();
+				ErrorPropagation incomingErrorPropagation = (ErrorPropagation) eop;
 				List<PropagationPathEnd> propagationEnds = associatedModel.getAnalysisModel()
 						.getAllPropagationSourceEnds(aadlComponent, incomingErrorPropagation);
 
@@ -545,9 +547,9 @@ public class Module {
 			if (probability == 0) {
 				if (trans.getCondition() instanceof ConditionElement) {
 					ConditionElement conditionElement = (ConditionElement) trans.getCondition();
-					EventOrPropagation event = conditionElement.getIncoming();
+					EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 					// OsateDebug.osateDebug("[Utils] incoming :" + event);
-					if ((event != null) && (event instanceof ErrorEvent)) {
+					if ((eop != null) && (eop instanceof ErrorEvent)) {
 						/*
 						 * If the probability is 0 and this is just an event, we should not generate anything.
 						 * We just return and do not add any new command.

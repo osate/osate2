@@ -38,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -88,14 +89,12 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			ErrorBehaviorTransition case model instanceof TypeSet: {
 				filterTypeSetTokenTypes(modelContainer.source.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).incoming != null : {
-				val incoming = (model as ConditionElement).incoming
+			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).qualifiedErrorPropagationReference != null : {
+				val incoming = EMV2Util.getErrorEventOrPropagation(model as ConditionElement)
 				switch incoming {
 					ErrorPropagation : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
 					ErrorEvent : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
 				}
-				
-				filterTypeSetTokenTypes(((model as ConditionElement).incoming as ErrorPropagation).typeSet, model, assignment, context, acceptor)
 			}
 			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)
 		}

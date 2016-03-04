@@ -112,7 +112,7 @@ public class Util {
 		condition = trans.getCondition();
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			EventOrPropagation event = conditionElement.getIncoming();
+			EventOrPropagation event = EMV2Util.getErrorEventOrPropagation(conditionElement);
 			TypeSet typeSet = conditionElement.getConstraint();
 
 			// OsateDebug.osateDebug("[Utils] incoming :" + event);
@@ -212,7 +212,8 @@ public class Util {
 		double res = 0.0;
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			EventOrPropagation event = conditionElement.getIncoming();
+			EventOrPropagation event = EMV2Util.getErrorEventOrPropagation(conditionElement);
+			;
 			TypeSet typeSet = conditionElement.getConstraint();
 
 			// OsateDebug.osateDebug("[Utils] incoming :" + event);

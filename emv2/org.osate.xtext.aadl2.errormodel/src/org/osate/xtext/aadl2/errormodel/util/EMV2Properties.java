@@ -12,7 +12,6 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
@@ -489,14 +488,14 @@ public class EMV2Properties {
 	 * @param cpes
 	 * @return
 	 */
-	private static boolean matchCIStack(Stack<NamedElement> ciStack, ContainedNamedElement cp) {
+	private static boolean matchCIStack(Stack<NamedElement> ciStack, ContainmentPathElement cp) {
 		if (cp == null && (ciStack == null || ciStack.isEmpty())) {
 			return true;
 		}
 		if (cp == null && (ciStack != null && !ciStack.isEmpty())
 				|| cp != null && (ciStack == null || ciStack.isEmpty()))
 			return false;
-		ContainmentPathElement emv2ce = cp.getPath();
+		ContainmentPathElement emv2ce = cp;
 		for (NamedElement namedElement : ciStack) {
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
 				return false;
@@ -523,7 +522,7 @@ public class EMV2Properties {
 		boolean matchStack = false;
 		EList<EMV2Path> applies = propertyAssociation.getEmv2Path();
 		for (EMV2Path emv2Path : applies) {
-			ContainedNamedElement cp = emv2Path.getContainmentPath();
+			ContainmentPathElement cp = emv2Path.getContainmentPath();
 			matchStack = matchCIStack(ciStack, cp);
 			if (matchStack) {
 				// we are past the component portion of the path

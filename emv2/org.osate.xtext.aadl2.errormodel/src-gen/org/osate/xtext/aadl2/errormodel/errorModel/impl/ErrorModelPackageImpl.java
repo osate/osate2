@@ -51,9 +51,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -406,6 +409,27 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass allExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedErrorEventOrPropagationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedErrorPropagationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass sConditionElementEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -818,29 +842,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEMV2Path_Emv2PropagationKind()
-  {
-    return (EAttribute)emv2PathEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEMV2Path_ErrorType()
-  {
-    return (EReference)emv2PathEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getEMV2Path_Emv2Target()
   {
-    return (EReference)emv2PathEClass.getEStructuralFeatures().get(3);
+    return (EReference)emv2PathEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -858,9 +862,29 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEMV2PathElement_Emv2PropagationKind()
+  {
+    return (EAttribute)emv2PathElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMV2PathElement_ErrorType()
+  {
+    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getEMV2PathElement_NamedElement()
   {
-    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(0);
+    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -870,7 +894,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    */
   public EReference getEMV2PathElement_Path()
   {
-    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(1);
+    return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1998,7 +2022,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Incoming()
+  public EReference getConditionElement_QualifiedErrorPropagationReference()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(0);
   }
@@ -2011,16 +2035,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EReference getConditionElement_Constraint()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionElement_QualifiedState()
-  {
-    return (EReference)conditionElementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2478,6 +2492,46 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getQualifiedErrorEventOrPropagation()
+  {
+    return qualifiedErrorEventOrPropagationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getQualifiedErrorPropagation()
+  {
+    return qualifiedErrorPropagationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSConditionElement()
+  {
+    return sConditionElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSConditionElement_QualifiedState()
+  {
+    return (EReference)sConditionElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ErrorModelFactory getErrorModelFactory()
   {
     return (ErrorModelFactory)getEFactoryInstance();
@@ -2540,11 +2594,11 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     emv2PathEClass = createEClass(EMV2_PATH);
     createEReference(emv2PathEClass, EMV2_PATH__CONTAINMENT_PATH);
-    createEAttribute(emv2PathEClass, EMV2_PATH__EMV2_PROPAGATION_KIND);
-    createEReference(emv2PathEClass, EMV2_PATH__ERROR_TYPE);
     createEReference(emv2PathEClass, EMV2_PATH__EMV2_TARGET);
 
     emv2PathElementEClass = createEClass(EMV2_PATH_ELEMENT);
+    createEAttribute(emv2PathElementEClass, EMV2_PATH_ELEMENT__EMV2_PROPAGATION_KIND);
+    createEReference(emv2PathElementEClass, EMV2_PATH_ELEMENT__ERROR_TYPE);
     createEReference(emv2PathElementEClass, EMV2_PATH_ELEMENT__NAMED_ELEMENT);
     createEReference(emv2PathElementEClass, EMV2_PATH_ELEMENT__PATH);
 
@@ -2690,9 +2744,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(orlessExpressionEClass, ORLESS_EXPRESSION__OPERANDS);
 
     conditionElementEClass = createEClass(CONDITION_ELEMENT);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__INCOMING);
+    createEReference(conditionElementEClass, CONDITION_ELEMENT__QUALIFIED_ERROR_PROPAGATION_REFERENCE);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__CONSTRAINT);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__QUALIFIED_STATE);
 
     eventOrPropagationEClass = createEClass(EVENT_OR_PROPAGATION);
 
@@ -2750,6 +2803,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     allExpressionEClass = createEClass(ALL_EXPRESSION);
     createEReference(allExpressionEClass, ALL_EXPRESSION__OPERANDS);
     createEAttribute(allExpressionEClass, ALL_EXPRESSION__COUNT);
+
+    qualifiedErrorEventOrPropagationEClass = createEClass(QUALIFIED_ERROR_EVENT_OR_PROPAGATION);
+
+    qualifiedErrorPropagationEClass = createEClass(QUALIFIED_ERROR_PROPAGATION);
+
+    sConditionElementEClass = createEClass(SCONDITION_ELEMENT);
+    createEReference(sConditionElementEClass, SCONDITION_ELEMENT__QUALIFIED_STATE);
   }
 
   /**
@@ -2838,6 +2898,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     andExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     allExpressionEClass.getESuperTypes().add(this.getConditionExpression());
+    qualifiedErrorEventOrPropagationEClass.getESuperTypes().add(this.getEMV2Path());
+    qualifiedErrorPropagationEClass.getESuperTypes().add(this.getEMV2Path());
+    sConditionElementEClass.getESuperTypes().add(this.getConditionElement());
 
     // Initialize classes and features; add operations and parameters
     initEClass(errorModelSubclauseEClass, ErrorModelSubclause.class, "ErrorModelSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2876,12 +2939,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getEMV2PropertyAssociation_Emv2Path(), this.getEMV2Path(), null, "emv2Path", null, 0, -1, EMV2PropertyAssociation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(emv2PathEClass, EMV2Path.class, "EMV2Path", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEMV2Path_ContainmentPath(), theAadl2Package.getContainedNamedElement(), null, "containmentPath", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEMV2Path_Emv2PropagationKind(), theEcorePackage.getEString(), "emv2PropagationKind", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEMV2Path_ErrorType(), this.getErrorTypes(), null, "errorType", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2Path_ContainmentPath(), theAadl2Package.getContainmentPathElement(), null, "containmentPath", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2Path_Emv2Target(), this.getEMV2PathElement(), null, "emv2Target", null, 0, 1, EMV2Path.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(emv2PathElementEClass, EMV2PathElement.class, "EMV2PathElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEMV2PathElement_Emv2PropagationKind(), theEcorePackage.getEString(), "emv2PropagationKind", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMV2PathElement_ErrorType(), this.getErrorTypes(), null, "errorType", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2PathElement_NamedElement(), theAadl2Package.getNamedElement(), null, "namedElement", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMV2PathElement_Path(), this.getEMV2PathElement(), null, "path", null, 0, 1, EMV2PathElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3027,9 +3090,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getOrlessExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, OrlessExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(conditionElementEClass, ConditionElement.class, "ConditionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConditionElement_Incoming(), this.getEventOrPropagation(), null, "incoming", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConditionElement_QualifiedErrorPropagationReference(), this.getEMV2Path(), null, "qualifiedErrorPropagationReference", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Constraint(), this.getTypeSet(), null, "constraint", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionElement_QualifiedState(), this.getQualifiedErrorBehaviorState(), null, "qualifiedState", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eventOrPropagationEClass, EventOrPropagation.class, "EventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3087,6 +3149,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(allExpressionEClass, AllExpression.class, "AllExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAllExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAllExpression_Count(), theAadl2Package.getInteger(), "count", null, 0, 1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(qualifiedErrorEventOrPropagationEClass, QualifiedErrorEventOrPropagation.class, "QualifiedErrorEventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(qualifiedErrorPropagationEClass, QualifiedErrorPropagation.class, "QualifiedErrorPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(sConditionElementEClass, SConditionElement.class, "SConditionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSConditionElement_QualifiedState(), this.getQualifiedErrorBehaviorState(), null, "qualifiedState", null, 0, 1, SConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

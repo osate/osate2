@@ -64,9 +64,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -230,26 +233,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_CompositeState(context, (CompositeState) semanticObject); 
 				return; 
 			case ErrorModelPackage.CONDITION_ELEMENT:
-				if(context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionElementRule() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule()) {
-					sequence_ConditionElement(context, (ConditionElement) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionElementRule() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule()) {
-					sequence_SConditionElement(context, (ConditionElement) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_ConditionElement(context, (ConditionElement) semanticObject); 
+				return; 
 			case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
 				sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 				return; 
@@ -265,8 +250,20 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.EMV2_PATH_ELEMENT:
-				sequence_EMV2PathElement(context, (EMV2PathElement) semanticObject); 
-				return; 
+				if(context == grammarAccess.getEMV2ErrorPropagationPathRule()) {
+					sequence_EMV2ErrorPropagationPath(context, (EMV2PathElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getEMV2PathElementOrKindRule()) {
+					sequence_EMV2PathElementOrKind(context, (EMV2PathElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getEMV2PathElementRule() ||
+				   context == grammarAccess.getElementRule()) {
+					sequence_EMV2PathElement(context, (EMV2PathElement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION:
 				if(context == grammarAccess.getBasicEMV2PropertyAssociationRule()) {
 					sequence_BasicEMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
@@ -417,6 +414,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE:
 				sequence_QualifiedErrorBehaviorState(context, (QualifiedErrorBehaviorState) semanticObject); 
 				return; 
+			case ErrorModelPackage.QUALIFIED_ERROR_EVENT_OR_PROPAGATION:
+				sequence_QualifiedErrorEventOrPropagation(context, (QualifiedErrorEventOrPropagation) semanticObject); 
+				return; 
+			case ErrorModelPackage.QUALIFIED_ERROR_PROPAGATION:
+				sequence_QualifiedErrorPropagation(context, (QualifiedErrorPropagation) semanticObject); 
+				return; 
 			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT:
 				sequence_QualifiedPropagationPoint(context, (QualifiedPropagationPoint) semanticObject); 
 				return; 
@@ -425,6 +428,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.REPAIR_EVENT:
 				sequence_RepairEvent(context, (RepairEvent) semanticObject); 
+				return; 
+			case ErrorModelPackage.SCONDITION_ELEMENT:
+				sequence_SConditionElement(context, (SConditionElement) semanticObject); 
 				return; 
 			case ErrorModelPackage.SUBCOMPONENT_ELEMENT:
 				sequence_SubcomponentElement(context, (SubcomponentElement) semanticObject); 
@@ -512,7 +518,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | emv2Target=EMV2PathElement)
+	 *     emv2Target=EMV2PathElementOrKind
 	 */
 	protected void sequence_BasicEMV2Path(EObject context, EMV2Path semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -554,7 +560,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+	 *     (qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?)
 	 */
 	protected void sequence_ConditionElement(EObject context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -587,6 +593,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (emv2PropagationKind=PropagationKind | (namedElement=[NamedElement|ID] path=EMV2ErrorPropagationPath?))
+	 */
+	protected void sequence_EMV2ErrorPropagationPath(EObject context, EMV2PathElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=QEMREF 
 	 *         (
@@ -607,6 +622,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | (namedElement=[NamedElement|ID] path=EMV2PathElement?))
+	 */
+	protected void sequence_EMV2PathElementOrKind(EObject context, EMV2PathElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (namedElement=[NamedElement|ID] path=EMV2PathElement?)
 	 */
 	protected void sequence_EMV2PathElement(EObject context, EMV2PathElement semanticObject) {
@@ -616,7 +640,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (containmentPath=ContainmentPath? ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | emv2Target=EMV2PathElement))
+	 *     (containmentPath=ContainmentPathElement? emv2Target=EMV2PathElementOrKind)
 	 */
 	protected void sequence_EMV2Path(EObject context, EMV2Path semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -975,6 +999,24 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     emv2Target=EMV2ErrorPropagationPath
+	 */
+	protected void sequence_QualifiedErrorEventOrPropagation(EObject context, QualifiedErrorEventOrPropagation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     emv2Target=EMV2ErrorPropagationPath
+	 */
+	protected void sequence_QualifiedErrorPropagation(EObject context, QualifiedErrorPropagation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (subcomponent=SubcomponentElement (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID]))
 	 */
 	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
@@ -1022,10 +1064,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?) | 
-	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+	 *         (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?)
 	 *     )
 	 */
-	protected void sequence_SConditionElement(EObject context, ConditionElement semanticObject) {
+	protected void sequence_SConditionElement(EObject context, SConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

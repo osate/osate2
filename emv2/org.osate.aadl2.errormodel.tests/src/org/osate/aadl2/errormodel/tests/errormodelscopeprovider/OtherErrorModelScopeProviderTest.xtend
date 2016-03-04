@@ -20,6 +20,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 @RunWith(XtextRunner2)
 @InjectWith(ErrorModelUiInjectorProvider)
@@ -902,7 +903,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					states.get(0) => [
 						"compositeState1".assertEquals(name)
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_QualifiedErrorBehaviorState_state
 							assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state2"])
@@ -911,7 +912,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					]
 					states.get(1) => [
 						"compositeState2".assertEquals(name)
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)
@@ -923,7 +924,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					]
 					states.get(2) => [
 						"compositeState3".assertEquals(name)
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							next => [
 								"asub2".assertEquals(subcomponent.subcomponent.name)

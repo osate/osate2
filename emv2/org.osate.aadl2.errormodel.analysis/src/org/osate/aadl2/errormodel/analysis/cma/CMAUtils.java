@@ -16,6 +16,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -94,8 +95,8 @@ public class CMAUtils {
 			result.addAll(processConditionElements(analysisModel, componentInstance, toAnalyze));
 		}
 
-		if (expression instanceof ConditionElement) {
-			ConditionElement element = (ConditionElement) expression;
+		if (expression instanceof SConditionElement) {
+			SConditionElement element = (SConditionElement) expression;
 
 			SubcomponentElement selt = element.getQualifiedState().getSubcomponent();
 			Subcomponent subcomp = selt.getSubcomponent();
@@ -147,39 +148,43 @@ public class CMAUtils {
 			/**
 			 * Here, the condition come from a subcomponent.
 			 */
-			if (elt.getQualifiedState() != null && elt.getQualifiedState().getNext() == null) {
-				/**
-				 * Here, we retrieve the subcomponent related to the condition.
-				 */
-				SubcomponentElement selt = elt.getQualifiedState().getSubcomponent();
-				Subcomponent subcomp = selt.getSubcomponent();
-				ComponentInstance subcompInstance = findComponentInstance(componentInstance, subcomp);
-				referencedInstances.add(subcompInstance);
+			// XXX if this only subcomponents from compositional?
+			if (elt instanceof SConditionElement) {
+				SConditionElement scondelt = (SConditionElement) elt;
+				if (scondelt.getQualifiedState() != null && scondelt.getQualifiedState().getNext() == null) {
+					/**
+					 * Here, we retrieve the subcomponent related to the condition.
+					 */
+					SubcomponentElement selt = scondelt.getQualifiedState().getSubcomponent();
+					Subcomponent subcomp = selt.getSubcomponent();
+					ComponentInstance subcompInstance = findComponentInstance(componentInstance, subcomp);
+					referencedInstances.add(subcompInstance);
 
-				/**
-				 * Then, we get all the classifiers used by the subcomponent.
-				 */
-				usedClassifiers = new ArrayList<ComponentClassifier>();
-				getAllClassifiers(subcompInstance, usedClassifiers);
+					/**
+					 * Then, we get all the classifiers used by the subcomponent.
+					 */
+					usedClassifiers = new ArrayList<ComponentClassifier>();
+					getAllClassifiers(subcompInstance, usedClassifiers);
 
-				/**
-				 * For each component involved in the condition, we stored
-				 * all the used classifiers.
-				 */
-				componentClassifiers.put(subcompInstance, usedClassifiers);
+					/**
+					 * For each component involved in the condition, we stored
+					 * all the used classifiers.
+					 */
+					componentClassifiers.put(subcompInstance, usedClassifiers);
 
-				/**
-				 * Then, we get all the error propagations that might
-				 * impact the component.
-				 */
-				relatedErrorSources = new ArrayList<PropagationPathEnd>();
-				getAllErrorSources(subcompInstance, analysisModel, relatedErrorSources);
+					/**
+					 * Then, we get all the error propagations that might
+					 * impact the component.
+					 */
+					relatedErrorSources = new ArrayList<PropagationPathEnd>();
+					getAllErrorSources(subcompInstance, analysisModel, relatedErrorSources);
 
-				/**
-				 * For each component involved in the condition, we stored
-				 * all the used classifiers.
-				 */
-				errorSources.put(subcompInstance, relatedErrorSources);
+					/**
+					 * For each component involved in the condition, we stored
+					 * all the used classifiers.
+					 */
+					errorSources.put(subcompInstance, relatedErrorSources);
+				}
 			}
 		}
 

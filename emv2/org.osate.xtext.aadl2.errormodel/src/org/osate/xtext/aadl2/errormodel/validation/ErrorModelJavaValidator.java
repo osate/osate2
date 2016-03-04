@@ -58,6 +58,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -223,6 +224,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.NORMAL)
+	public void caseSConditionElement(SConditionElement conditionElement) {
+		checkSConditionElementType(conditionElement);
+	}
+
+	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 		checkSubclauseAssociationToClassifier(subclause);
 		checkDuplicateSubclause(subclause);
@@ -348,18 +354,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkConditionElementType(ConditionElement conditionElement) {
-		EventOrPropagation ep = conditionElement.getIncoming();
+	private void checkSConditionElementType(SConditionElement conditionElement) {
 		ErrorBehaviorState es = EMV2Util.getState(conditionElement);
 		TypeSet triggerTS = null;
 		String triggerName = "";
-		if (ep instanceof ErrorPropagation) {
-			triggerTS = ((ErrorPropagation) ep).getTypeSet();
-			triggerName = "propagation " + EMV2Util.getPrintName((ErrorPropagation) ep);
-		} else if (ep instanceof ErrorEvent) {
-			triggerTS = ((ErrorEvent) ep).getTypeSet();
-			triggerName = "event " + ((ErrorBehaviorEvent) ep).getName();
-		} else if (es != null) {
+		if (es != null) {
 			triggerTS = es.getTypeSet();
 			triggerName = "state " + es.getName();
 		}
@@ -368,6 +367,31 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			return;
 		}
 		if (triggerTS == null && condTS != null && es == null) {
+			// it is ok for a state not to have a type set.
+			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
+		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
+			error(conditionElement,
+					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
+							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
+		}
+	}
+
+	private void checkConditionElementType(ConditionElement conditionElement) {
+		EventOrPropagation ep = EMV2Util.getErrorEventOrPropagation(conditionElement);
+		TypeSet triggerTS = null;
+		String triggerName = "";
+		if (ep instanceof ErrorPropagation) {
+			triggerTS = ((ErrorPropagation) ep).getTypeSet();
+			triggerName = "propagation " + EMV2Util.getPrintName((ErrorPropagation) ep);
+		} else if (ep instanceof ErrorEvent) {
+			triggerTS = ((ErrorEvent) ep).getTypeSet();
+			triggerName = "event " + ((ErrorBehaviorEvent) ep).getName();
+		}
+		TypeSet condTS = conditionElement.getConstraint();
+		if (condTS == null) {
+			return;
+		}
+		if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
 		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {

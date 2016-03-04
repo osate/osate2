@@ -62,23 +62,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 		super();
 	}
 
-	/**
-	 * find the closest subcomponent classifier before the element at idx.
-	 * @param cpe
-	 * @return
-	 */
-	private ComponentClassifier getLastComponentClassifier(ContainmentPathElement cpe) {
-		EObject obj = cpe;
-		while (obj instanceof ContainmentPathElement) {
-			NamedElement el = ((ContainmentPathElement) obj).getNamedElement();
-			if (el instanceof Subcomponent) {
-				return ((Subcomponent) el).getAllClassifier();
-			}
-			obj = obj.eContainer().eContainer();
-		}
-		return null;
-	}
-
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
 			throws IllegalNodeException {
@@ -108,7 +91,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (searchResult != null && searchResult instanceof Subcomponent) {
 					return Collections.singletonList(searchResult);
 				}
-			} else if (context instanceof EMV2PathElement) {
+			}
+			if (context instanceof EMV2PathElement) {
 				// EMV2 model element and optional error type
 				EObject previous = context.eContainer();
 				// the default context element is the EMV2PathElement
@@ -141,6 +125,16 @@ public class EMLinkingService extends PropertiesLinkingService {
 							epFGPrefix = EMV2Util.getPropagationName((ErrorPropagation) ne);
 						}
 						cxtElement = ne;
+					} else if (ne instanceof Subcomponent) {
+						// use the last component on the path as context for lookup of error model elements
+						ComponentClassifier cxtPathComp = ((Subcomponent) ne).getAllClassifier();
+						if (cxtPathComp != null) {
+							searchResult = cxtPathComp.findNamedElement(name);
+							if (searchResult != null && searchResult instanceof Subcomponent) {
+								return Collections.singletonList(searchResult);
+							}
+							cxtElement = cxtPathComp;
+						}
 					} else if (!Aadl2Util.isNull(ne)) {
 						cxtElement = ne;
 					}
@@ -152,7 +146,19 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (last != null) {
 						NamedElement ne = last.getNamedElement();
 						if (ne instanceof Subcomponent) {
-							cxtElement = ((Subcomponent) ne).getAllClassifier();
+							Classifier cxtClassifier = ((Subcomponent) ne).getAllClassifier();
+							if (cxtClassifier != null) {
+								cxtElement = cxtClassifier;
+							}
+						}
+					} else {
+						Classifier cxtClassifier = EMV2Util.getAssociatedClassifier((Element) context);
+						if (cxtClassifier != null) {
+							cxtElement = cxtClassifier;
+							searchResult = cxtClassifier.findNamedElement(name);
+							if (searchResult != null && searchResult instanceof Subcomponent) {
+								return Collections.singletonList(searchResult);
+							}
 						}
 					}
 				}

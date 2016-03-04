@@ -2253,78 +2253,60 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2Path");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Assignment cContainmentPathAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cContainmentPathContainmentPathParserRuleCall_0_0_0 = (RuleCall)cContainmentPathAssignment_0_0.eContents().get(0);
-		private final Keyword cCommercialAtKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
-		private final Assignment cEmv2PropagationKindAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
-		private final RuleCall cEmv2PropagationKindPropagationKindParserRuleCall_1_0_0_0 = (RuleCall)cEmv2PropagationKindAssignment_1_0_0.eContents().get(0);
-		private final Group cGroup_1_0_1 = (Group)cGroup_1_0.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0_1_0 = (Keyword)cGroup_1_0_1.eContents().get(0);
-		private final Assignment cErrorTypeAssignment_1_0_1_1 = (Assignment)cGroup_1_0_1.eContents().get(1);
-		private final CrossReference cErrorTypeErrorTypesCrossReference_1_0_1_1_0 = (CrossReference)cErrorTypeAssignment_1_0_1_1.eContents().get(0);
-		private final RuleCall cErrorTypeErrorTypesIDTerminalRuleCall_1_0_1_1_0_1 = (RuleCall)cErrorTypeErrorTypesCrossReference_1_0_1_1_0.eContents().get(1);
-		private final Assignment cEmv2TargetAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
-		private final RuleCall cEmv2TargetEMV2PathElementParserRuleCall_1_1_0 = (RuleCall)cEmv2TargetAssignment_1_1.eContents().get(0);
+		private final Keyword cCircumflexAccentKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cContainmentPathAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cContainmentPathContainmentPathElementParserRuleCall_0_1_0 = (RuleCall)cContainmentPathAssignment_0_1.eContents().get(0);
+		private final Keyword cCommercialAtKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Assignment cEmv2TargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cEmv2TargetEMV2PathElementOrKindParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
 		
 		//EMV2Path:
-		//	(containmentPath=ContainmentPath "@")? (emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? |
-		//	emv2Target=EMV2PathElement);
+		//	("^" containmentPath=ContainmentPathElement "@")? emv2Target=EMV2PathElementOrKind;
 		@Override public ParserRule getRule() { return rule; }
 
-		//(containmentPath=ContainmentPath "@")? (emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? |
-		//emv2Target=EMV2PathElement)
+		//("^" containmentPath=ContainmentPathElement "@")? emv2Target=EMV2PathElementOrKind
 		public Group getGroup() { return cGroup; }
 
-		//(containmentPath=ContainmentPath "@")?
+		//("^" containmentPath=ContainmentPathElement "@")?
 		public Group getGroup_0() { return cGroup_0; }
 
-		//containmentPath=ContainmentPath
-		public Assignment getContainmentPathAssignment_0_0() { return cContainmentPathAssignment_0_0; }
+		//"^"
+		public Keyword getCircumflexAccentKeyword_0_0() { return cCircumflexAccentKeyword_0_0; }
 
-		//ContainmentPath
-		public RuleCall getContainmentPathContainmentPathParserRuleCall_0_0_0() { return cContainmentPathContainmentPathParserRuleCall_0_0_0; }
+		//containmentPath=ContainmentPathElement
+		public Assignment getContainmentPathAssignment_0_1() { return cContainmentPathAssignment_0_1; }
+
+		//ContainmentPathElement
+		public RuleCall getContainmentPathContainmentPathElementParserRuleCall_0_1_0() { return cContainmentPathContainmentPathElementParserRuleCall_0_1_0; }
 
 		//"@"
-		public Keyword getCommercialAtKeyword_0_1() { return cCommercialAtKeyword_0_1; }
+		public Keyword getCommercialAtKeyword_0_2() { return cCommercialAtKeyword_0_2; }
 
-		//emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target=EMV2PathElement
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		//emv2Target=EMV2PathElementOrKind
+		public Assignment getEmv2TargetAssignment_1() { return cEmv2TargetAssignment_1; }
 
-		//emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])?
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//emv2PropagationKind=PropagationKind
-		public Assignment getEmv2PropagationKindAssignment_1_0_0() { return cEmv2PropagationKindAssignment_1_0_0; }
-
-		//PropagationKind
-		public RuleCall getEmv2PropagationKindPropagationKindParserRuleCall_1_0_0_0() { return cEmv2PropagationKindPropagationKindParserRuleCall_1_0_0_0; }
-
-		//("." errorType=[ErrorTypes])?
-		public Group getGroup_1_0_1() { return cGroup_1_0_1; }
-
-		//"."
-		public Keyword getFullStopKeyword_1_0_1_0() { return cFullStopKeyword_1_0_1_0; }
-
-		//errorType=[ErrorTypes]
-		public Assignment getErrorTypeAssignment_1_0_1_1() { return cErrorTypeAssignment_1_0_1_1; }
-
-		//[ErrorTypes]
-		public CrossReference getErrorTypeErrorTypesCrossReference_1_0_1_1_0() { return cErrorTypeErrorTypesCrossReference_1_0_1_1_0; }
-
-		//ID
-		public RuleCall getErrorTypeErrorTypesIDTerminalRuleCall_1_0_1_1_0_1() { return cErrorTypeErrorTypesIDTerminalRuleCall_1_0_1_1_0_1; }
-
-		//emv2Target=EMV2PathElement
-		public Assignment getEmv2TargetAssignment_1_1() { return cEmv2TargetAssignment_1_1; }
-
-		//EMV2PathElement
-		public RuleCall getEmv2TargetEMV2PathElementParserRuleCall_1_1_0() { return cEmv2TargetEMV2PathElementParserRuleCall_1_1_0; }
+		//EMV2PathElementOrKind
+		public RuleCall getEmv2TargetEMV2PathElementOrKindParserRuleCall_1_0() { return cEmv2TargetEMV2PathElementOrKindParserRuleCall_1_0; }
 	}
 
 	public class BasicEMV2PathElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BasicEMV2Path");
+		private final Assignment cEmv2TargetAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cEmv2TargetEMV2PathElementOrKindParserRuleCall_0 = (RuleCall)cEmv2TargetAssignment.eContents().get(0);
+		
+		//BasicEMV2Path returns EMV2Path:
+		//	emv2Target=EMV2PathElementOrKind;
+		@Override public ParserRule getRule() { return rule; }
+
+		//emv2Target=EMV2PathElementOrKind
+		public Assignment getEmv2TargetAssignment() { return cEmv2TargetAssignment; }
+
+		//EMV2PathElementOrKind
+		public RuleCall getEmv2TargetEMV2PathElementOrKindParserRuleCall_0() { return cEmv2TargetEMV2PathElementOrKindParserRuleCall_0; }
+	}
+
+	public class EMV2PathElementOrKindElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2PathElementOrKind");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cEmv2PropagationKindAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
@@ -2334,14 +2316,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cErrorTypeAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
 		private final CrossReference cErrorTypeErrorTypesCrossReference_0_1_1_0 = (CrossReference)cErrorTypeAssignment_0_1_1.eContents().get(0);
 		private final RuleCall cErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1 = (RuleCall)cErrorTypeErrorTypesCrossReference_0_1_1_0.eContents().get(1);
-		private final Assignment cEmv2TargetAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cEmv2TargetEMV2PathElementParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cNamedElementAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final CrossReference cNamedElementNamedElementCrossReference_1_0_0 = (CrossReference)cNamedElementAssignment_1_0.eContents().get(0);
+		private final RuleCall cNamedElementNamedElementIDTerminalRuleCall_1_0_0_1 = (RuleCall)cNamedElementNamedElementCrossReference_1_0_0.eContents().get(1);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Assignment cPathAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cPathEMV2PathElementParserRuleCall_1_1_1_0 = (RuleCall)cPathAssignment_1_1_1.eContents().get(0);
 		
-		//BasicEMV2Path returns EMV2Path:
-		//	emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target=EMV2PathElement;
+		//EMV2PathElementOrKind returns EMV2PathElement:
+		//	emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ("."
+		//	path=EMV2PathElement)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target=EMV2PathElement
+		//emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ("."
+		//path=EMV2PathElement)?
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])?
@@ -2368,11 +2358,29 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1() { return cErrorTypeErrorTypesIDTerminalRuleCall_0_1_1_0_1; }
 
-		//emv2Target=EMV2PathElement
-		public Assignment getEmv2TargetAssignment_1() { return cEmv2TargetAssignment_1; }
+		//namedElement=[aadl2::NamedElement] ("." path=EMV2PathElement)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//namedElement=[aadl2::NamedElement]
+		public Assignment getNamedElementAssignment_1_0() { return cNamedElementAssignment_1_0; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getNamedElementNamedElementCrossReference_1_0_0() { return cNamedElementNamedElementCrossReference_1_0_0; }
+
+		//ID
+		public RuleCall getNamedElementNamedElementIDTerminalRuleCall_1_0_0_1() { return cNamedElementNamedElementIDTerminalRuleCall_1_0_0_1; }
+
+		//("." path=EMV2PathElement)?
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
+
+		//path=EMV2PathElement
+		public Assignment getPathAssignment_1_1_1() { return cPathAssignment_1_1_1; }
 
 		//EMV2PathElement
-		public RuleCall getEmv2TargetEMV2PathElementParserRuleCall_1_0() { return cEmv2TargetEMV2PathElementParserRuleCall_1_0; }
+		public RuleCall getPathEMV2PathElementParserRuleCall_1_1_1_0() { return cPathEMV2PathElementParserRuleCall_1_1_1_0; }
 	}
 
 	public class EMV2PathElementElements extends AbstractParserRuleElementFinder {
@@ -3844,13 +3852,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPointKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		////ErrorPropagationPointPath :
-		////   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
-		////   ;
-		////
-		////NamedElementReference returns NamedElementReference:
-		////	namedElement = [aadl2::NamedElement|ID]
-		////;
 		//PropagationPoint:
 		//	name=ID ":" "propagation" "point" ";";
 		@Override public ParserRule getRule() { return rule; }
@@ -5172,35 +5173,112 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	public class ConditionElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConditionElement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cIncomingAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cIncomingEventOrPropagationCrossReference_0_0 = (CrossReference)cIncomingAssignment_0.eContents().get(0);
-		private final RuleCall cIncomingEventOrPropagationErrorPropagationPointParserRuleCall_0_0_1 = (RuleCall)cIncomingEventOrPropagationCrossReference_0_0.eContents().get(1);
+		private final Assignment cQualifiedErrorPropagationReferenceAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cQualifiedErrorPropagationReferenceQualifiedErrorEventOrPropagationParserRuleCall_0_0 = (RuleCall)cQualifiedErrorPropagationReferenceAssignment_0.eContents().get(0);
 		private final Assignment cConstraintAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0 = (RuleCall)cConstraintAssignment_1.eContents().get(0);
 		
-		//ConditionElement: // (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-		//	incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?;
+		//ConditionElement:
+		//	qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//// (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-		//incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?
+		//qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?
 		public Group getGroup() { return cGroup; }
 
-		//// (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-		//incoming=[EventOrPropagation|ErrorPropagationPoint]
-		public Assignment getIncomingAssignment_0() { return cIncomingAssignment_0; }
+		//qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation
+		public Assignment getQualifiedErrorPropagationReferenceAssignment_0() { return cQualifiedErrorPropagationReferenceAssignment_0; }
 
-		//[EventOrPropagation|ErrorPropagationPoint]
-		public CrossReference getIncomingEventOrPropagationCrossReference_0_0() { return cIncomingEventOrPropagationCrossReference_0_0; }
-
-		//ErrorPropagationPoint
-		public RuleCall getIncomingEventOrPropagationErrorPropagationPointParserRuleCall_0_0_1() { return cIncomingEventOrPropagationErrorPropagationPointParserRuleCall_0_0_1; }
+		//QualifiedErrorEventOrPropagation
+		public RuleCall getQualifiedErrorPropagationReferenceQualifiedErrorEventOrPropagationParserRuleCall_0_0() { return cQualifiedErrorPropagationReferenceQualifiedErrorEventOrPropagationParserRuleCall_0_0; }
 
 		//constraint=TypeTokenConstraintNoError?
 		public Assignment getConstraintAssignment_1() { return cConstraintAssignment_1; }
 
 		//TypeTokenConstraintNoError
 		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0; }
+	}
+
+	public class QualifiedErrorEventOrPropagationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedErrorEventOrPropagation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cQualifiedErrorEventOrPropagationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cEmv2TargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
+		
+		////QualifiedErrorPropagation returns QualifiedErrorPropagation:
+		////	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+		////;
+		////
+		////NestedModelElement returns NestedModelElement:
+		////	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
+		////;
+		//QualifiedErrorEventOrPropagation returns EMV2Path:
+		//	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath;
+		@Override public ParserRule getRule() { return rule; }
+
+		//{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath
+		public Group getGroup() { return cGroup; }
+
+		//{QualifiedErrorEventOrPropagation}
+		public Action getQualifiedErrorEventOrPropagationAction_0() { return cQualifiedErrorEventOrPropagationAction_0; }
+
+		//emv2Target=EMV2ErrorPropagationPath
+		public Assignment getEmv2TargetAssignment_1() { return cEmv2TargetAssignment_1; }
+
+		//EMV2ErrorPropagationPath
+		public RuleCall getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0() { return cEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0; }
+	}
+
+	public class EMV2ErrorPropagationPathElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EMV2ErrorPropagationPath");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cEmv2PropagationKindAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cEmv2PropagationKindPropagationKindParserRuleCall_0_0 = (RuleCall)cEmv2PropagationKindAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cNamedElementAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final CrossReference cNamedElementNamedElementCrossReference_1_0_0 = (CrossReference)cNamedElementAssignment_1_0.eContents().get(0);
+		private final RuleCall cNamedElementNamedElementIDTerminalRuleCall_1_0_0_1 = (RuleCall)cNamedElementNamedElementCrossReference_1_0_0.eContents().get(1);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Assignment cPathAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cPathEMV2ErrorPropagationPathParserRuleCall_1_1_1_0 = (RuleCall)cPathAssignment_1_1_1.eContents().get(0);
+		
+		//EMV2ErrorPropagationPath returns EMV2PathElement:
+		//	emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ("." path=EMV2ErrorPropagationPath)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ("." path=EMV2ErrorPropagationPath)?
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//emv2PropagationKind=PropagationKind
+		public Assignment getEmv2PropagationKindAssignment_0() { return cEmv2PropagationKindAssignment_0; }
+
+		//PropagationKind
+		public RuleCall getEmv2PropagationKindPropagationKindParserRuleCall_0_0() { return cEmv2PropagationKindPropagationKindParserRuleCall_0_0; }
+
+		//namedElement=[aadl2::NamedElement] ("." path=EMV2ErrorPropagationPath)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//namedElement=[aadl2::NamedElement]
+		public Assignment getNamedElementAssignment_1_0() { return cNamedElementAssignment_1_0; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getNamedElementNamedElementCrossReference_1_0_0() { return cNamedElementNamedElementCrossReference_1_0_0; }
+
+		//ID
+		public RuleCall getNamedElementNamedElementIDTerminalRuleCall_1_0_0_1() { return cNamedElementNamedElementIDTerminalRuleCall_1_0_0_1; }
+
+		//("." path=EMV2ErrorPropagationPath)?
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
+
+		//path=EMV2ErrorPropagationPath
+		public Assignment getPathAssignment_1_1_1() { return cPathAssignment_1_1_1; }
+
+		//EMV2ErrorPropagationPath
+		public RuleCall getPathEMV2ErrorPropagationPathParserRuleCall_1_1_1_0() { return cPathEMV2ErrorPropagationPathParserRuleCall_1_1_1_0; }
 	}
 
 	public class EventOrPropagationElements extends AbstractParserRuleElementFinder {
@@ -5977,70 +6055,99 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_4_2() { return cRightParenthesisKeyword_4_2; }
 	}
 
-	public class SConditionElementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SConditionElement");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cQualifiedStateAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0 = (RuleCall)cQualifiedStateAssignment_0_0.eContents().get(0);
-		private final Assignment cConstraintAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_0_1_0 = (RuleCall)cConstraintAssignment_0_1.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cInKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Assignment cIncomingAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final CrossReference cIncomingErrorPropagationCrossReference_1_1_0_0 = (CrossReference)cIncomingAssignment_1_1_0.eContents().get(0);
-		private final RuleCall cIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1 = (RuleCall)cIncomingErrorPropagationCrossReference_1_1_0_0.eContents().get(1);
-		private final Assignment cConstraintAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1.eContents().get(0);
+	public class QualifiedErrorPropagationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedErrorPropagation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cQualifiedErrorPropagationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cEmv2TargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
 		
-		//SConditionElement returns ConditionElement:
-		//	qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
-		//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+		//QualifiedErrorPropagation returns EMV2Path:
+		//	{QualifiedErrorPropagation} emv2Target=EMV2ErrorPropagationPath;
 		@Override public ParserRule getRule() { return rule; }
 
+		//{QualifiedErrorPropagation} emv2Target=EMV2ErrorPropagationPath
+		public Group getGroup() { return cGroup; }
+
+		//{QualifiedErrorPropagation}
+		public Action getQualifiedErrorPropagationAction_0() { return cQualifiedErrorPropagationAction_0; }
+
+		//emv2Target=EMV2ErrorPropagationPath
+		public Assignment getEmv2TargetAssignment_1() { return cEmv2TargetAssignment_1; }
+
+		//EMV2ErrorPropagationPath
+		public RuleCall getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0() { return cEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0; }
+	}
+
+	public class SConditionElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SConditionElement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSConditionElementAction_0 = (Action)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Assignment cQualifiedStateAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
+		private final RuleCall cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_1_0_0_0 = (RuleCall)cQualifiedStateAssignment_1_0_0.eContents().get(0);
+		private final Assignment cConstraintAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_1_0_1_0 = (RuleCall)cConstraintAssignment_1_0_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final Keyword cInKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Group cGroup_1_1_1 = (Group)cGroup_1_1.eContents().get(1);
+		private final Assignment cQualifiedErrorPropagationReferenceAssignment_1_1_1_0 = (Assignment)cGroup_1_1_1.eContents().get(0);
+		private final RuleCall cQualifiedErrorPropagationReferenceQualifiedErrorPropagationParserRuleCall_1_1_1_0_0 = (RuleCall)cQualifiedErrorPropagationReferenceAssignment_1_1_1_0.eContents().get(0);
+		private final Assignment cConstraintAssignment_1_1_1_1 = (Assignment)cGroup_1_1_1.eContents().get(1);
+		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1_1.eContents().get(0);
+		
+		//SConditionElement returns ConditionElement:
+		//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
+		//	(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
+		@Override public ParserRule getRule() { return rule; }
+
+		//{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
+		//(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?))
+		public Group getGroup() { return cGroup; }
+
+		//{SConditionElement}
+		public Action getSConditionElementAction_0() { return cSConditionElementAction_0; }
+
 		//qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
-		//(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?)
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?
-		public Group getGroup_0() { return cGroup_0; }
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//qualifiedState=QualifiedErrorBehaviorState
-		public Assignment getQualifiedStateAssignment_0_0() { return cQualifiedStateAssignment_0_0; }
+		public Assignment getQualifiedStateAssignment_1_0_0() { return cQualifiedStateAssignment_1_0_0; }
 
 		//QualifiedErrorBehaviorState
-		public RuleCall getQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0() { return cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0; }
+		public RuleCall getQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_1_0_0_0() { return cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_1_0_0_0; }
 
 		//constraint=TypeTokenConstraint?
-		public Assignment getConstraintAssignment_0_1() { return cConstraintAssignment_0_1; }
+		public Assignment getConstraintAssignment_1_0_1() { return cConstraintAssignment_1_0_1; }
 
 		//TypeTokenConstraint
-		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_0_1_0() { return cConstraintTypeTokenConstraintParserRuleCall_0_1_0; }
+		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_1_0_1_0() { return cConstraintTypeTokenConstraintParserRuleCall_1_0_1_0; }
 
-		//"in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"in"
-		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
-
-		//incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?
+		//"in" (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?)
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//incoming=[ErrorPropagation|ErrorPropagationPoint]
-		public Assignment getIncomingAssignment_1_1_0() { return cIncomingAssignment_1_1_0; }
+		//"in"
+		public Keyword getInKeyword_1_1_0() { return cInKeyword_1_1_0; }
 
-		//[ErrorPropagation|ErrorPropagationPoint]
-		public CrossReference getIncomingErrorPropagationCrossReference_1_1_0_0() { return cIncomingErrorPropagationCrossReference_1_1_0_0; }
+		//qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?
+		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
 
-		//ErrorPropagationPoint
-		public RuleCall getIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1() { return cIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1; }
+		//qualifiedErrorPropagationReference=QualifiedErrorPropagation
+		public Assignment getQualifiedErrorPropagationReferenceAssignment_1_1_1_0() { return cQualifiedErrorPropagationReferenceAssignment_1_1_1_0; }
+
+		//QualifiedErrorPropagation
+		public RuleCall getQualifiedErrorPropagationReferenceQualifiedErrorPropagationParserRuleCall_1_1_1_0_0() { return cQualifiedErrorPropagationReferenceQualifiedErrorPropagationParserRuleCall_1_1_1_0_0; }
 
 		//constraint=TypeTokenConstraintNoError?
-		public Assignment getConstraintAssignment_1_1_1() { return cConstraintAssignment_1_1_1; }
+		public Assignment getConstraintAssignment_1_1_1_1() { return cConstraintAssignment_1_1_1_1; }
 
 		//TypeTokenConstraintNoError
-		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0; }
+		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_1_0; }
 	}
 
 	public class QualifiedErrorBehaviorStateElements extends AbstractParserRuleElementFinder {
@@ -6167,6 +6274,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final BasicEMV2PropertyAssociationElements pBasicEMV2PropertyAssociation;
 	private final EMV2PathElements pEMV2Path;
 	private final BasicEMV2PathElements pBasicEMV2Path;
+	private final EMV2PathElementOrKindElements pEMV2PathElementOrKind;
 	private final EMV2PathElementElements pEMV2PathElement;
 	private final ErrorTypesElements pErrorTypes;
 	private final TypeDefinitionElements pTypeDefinition;
@@ -6213,6 +6321,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final OrlessExpressionElements pOrlessExpression;
 	private final ConditionTermElements pConditionTerm;
 	private final ConditionElementElements pConditionElement;
+	private final QualifiedErrorEventOrPropagationElements pQualifiedErrorEventOrPropagation;
+	private final EMV2ErrorPropagationPathElements pEMV2ErrorPropagationPath;
 	private final EventOrPropagationElements pEventOrPropagation;
 	private final OutgoingPropagationConditionElements pOutgoingPropagationCondition;
 	private final ErrorDetectionElements pErrorDetection;
@@ -6225,6 +6335,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final SOrlessExpressionElements pSOrlessExpression;
 	private final SAllExpressionElements pSAllExpression;
 	private final SConditionTermElements pSConditionTerm;
+	private final QualifiedErrorPropagationElements pQualifiedErrorPropagation;
 	private final SConditionElementElements pSConditionElement;
 	private final QualifiedErrorBehaviorStateElements pQualifiedErrorBehaviorState;
 	private final SubcomponentElementElements pSubcomponentElement;
@@ -6256,6 +6367,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pBasicEMV2PropertyAssociation = new BasicEMV2PropertyAssociationElements();
 		this.pEMV2Path = new EMV2PathElements();
 		this.pBasicEMV2Path = new BasicEMV2PathElements();
+		this.pEMV2PathElementOrKind = new EMV2PathElementOrKindElements();
 		this.pEMV2PathElement = new EMV2PathElementElements();
 		this.pErrorTypes = new ErrorTypesElements();
 		this.pTypeDefinition = new TypeDefinitionElements();
@@ -6302,6 +6414,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pOrlessExpression = new OrlessExpressionElements();
 		this.pConditionTerm = new ConditionTermElements();
 		this.pConditionElement = new ConditionElementElements();
+		this.pQualifiedErrorEventOrPropagation = new QualifiedErrorEventOrPropagationElements();
+		this.pEMV2ErrorPropagationPath = new EMV2ErrorPropagationPathElements();
 		this.pEventOrPropagation = new EventOrPropagationElements();
 		this.pOutgoingPropagationCondition = new OutgoingPropagationConditionElements();
 		this.pErrorDetection = new ErrorDetectionElements();
@@ -6314,6 +6428,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSOrlessExpression = new SOrlessExpressionElements();
 		this.pSAllExpression = new SAllExpressionElements();
 		this.pSConditionTerm = new SConditionTermElements();
+		this.pQualifiedErrorPropagation = new QualifiedErrorPropagationElements();
 		this.pSConditionElement = new SConditionElementElements();
 		this.pQualifiedErrorBehaviorState = new QualifiedErrorBehaviorStateElements();
 		this.pSubcomponentElement = new SubcomponentElementElements();
@@ -6525,8 +6640,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMV2Path:
-	//	(containmentPath=ContainmentPath "@")? (emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? |
-	//	emv2Target=EMV2PathElement);
+	//	("^" containmentPath=ContainmentPathElement "@")? emv2Target=EMV2PathElementOrKind;
 	public EMV2PathElements getEMV2PathAccess() {
 		return pEMV2Path;
 	}
@@ -6536,13 +6650,24 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BasicEMV2Path returns EMV2Path:
-	//	emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | emv2Target=EMV2PathElement;
+	//	emv2Target=EMV2PathElementOrKind;
 	public BasicEMV2PathElements getBasicEMV2PathAccess() {
 		return pBasicEMV2Path;
 	}
 	
 	public ParserRule getBasicEMV2PathRule() {
 		return getBasicEMV2PathAccess().getRule();
+	}
+
+	//EMV2PathElementOrKind returns EMV2PathElement:
+	//	emv2PropagationKind=PropagationKind ("." errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ("."
+	//	path=EMV2PathElement)?;
+	public EMV2PathElementOrKindElements getEMV2PathElementOrKindAccess() {
+		return pEMV2PathElementOrKind;
+	}
+	
+	public ParserRule getEMV2PathElementOrKindRule() {
+		return getEMV2PathElementOrKindAccess().getRule();
 	}
 
 	//EMV2PathElement:
@@ -6836,13 +6961,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPropagationPointAccess().getRule();
 	}
 
-	////ErrorPropagationPointPath :
-	////   namedElementReference=NamedElementReference '.' (next=ErrorPropagationPointPath | propatationKind=PropagationKind)
-	////   ;
-	////
-	////NamedElementReference returns NamedElementReference:
-	////	namedElement = [aadl2::NamedElement|ID]
-	////;
 	//PropagationPoint:
 	//	name=ID ":" "propagation" "point" ";";
 	public PropagationPointElements getPropagationPointAccess() {
@@ -7047,14 +7165,41 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getConditionTermAccess().getRule();
 	}
 
-	//ConditionElement: // (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-	//	incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?;
+	//ConditionElement:
+	//	qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?;
 	public ConditionElementElements getConditionElementAccess() {
 		return pConditionElement;
 	}
 	
 	public ParserRule getConditionElementRule() {
 		return getConditionElementAccess().getRule();
+	}
+
+	////QualifiedErrorPropagation returns QualifiedErrorPropagation:
+	////	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+	////;
+	////
+	////NestedModelElement returns NestedModelElement:
+	////	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
+	////;
+	//QualifiedErrorEventOrPropagation returns EMV2Path:
+	//	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath;
+	public QualifiedErrorEventOrPropagationElements getQualifiedErrorEventOrPropagationAccess() {
+		return pQualifiedErrorEventOrPropagation;
+	}
+	
+	public ParserRule getQualifiedErrorEventOrPropagationRule() {
+		return getQualifiedErrorEventOrPropagationAccess().getRule();
+	}
+
+	//EMV2ErrorPropagationPath returns EMV2PathElement:
+	//	emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ("." path=EMV2ErrorPropagationPath)?;
+	public EMV2ErrorPropagationPathElements getEMV2ErrorPropagationPathAccess() {
+		return pEMV2ErrorPropagationPath;
+	}
+	
+	public ParserRule getEMV2ErrorPropagationPathRule() {
+		return getEMV2ErrorPropagationPathAccess().getRule();
 	}
 
 	//EventOrPropagation:
@@ -7185,9 +7330,19 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSConditionTermAccess().getRule();
 	}
 
+	//QualifiedErrorPropagation returns EMV2Path:
+	//	{QualifiedErrorPropagation} emv2Target=EMV2ErrorPropagationPath;
+	public QualifiedErrorPropagationElements getQualifiedErrorPropagationAccess() {
+		return pQualifiedErrorPropagation;
+	}
+	
+	public ParserRule getQualifiedErrorPropagationRule() {
+		return getQualifiedErrorPropagationAccess().getRule();
+	}
+
 	//SConditionElement returns ConditionElement:
-	//	qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
-	//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+	//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | "in"
+	//	(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
 	public SConditionElementElements getSConditionElementAccess() {
 		return pSConditionElement;
 	}
