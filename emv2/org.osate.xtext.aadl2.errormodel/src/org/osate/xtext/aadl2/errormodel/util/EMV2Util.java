@@ -2402,7 +2402,8 @@ public class EMV2Util {
 	 */
 	public static EList<ErrorModelLibrary> getUseTypes(Element context) {
 		EObject useTypesContainer = context;
-		while (!(useTypesContainer instanceof ErrorModelLibrary || useTypesContainer instanceof ErrorModelSubclause
+		while (useTypesContainer != null && !(useTypesContainer instanceof ErrorModelLibrary
+				|| useTypesContainer instanceof ErrorModelSubclause
 				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet
 				|| useTypesContainer instanceof ErrorBehaviorStateMachine)) {
 			useTypesContainer = useTypesContainer.eContainer();
