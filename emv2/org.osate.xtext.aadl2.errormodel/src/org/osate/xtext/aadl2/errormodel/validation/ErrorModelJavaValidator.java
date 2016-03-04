@@ -355,13 +355,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkSConditionElementType(SConditionElement conditionElement) {
+		// this method handles state part of composite. The incoming propagation is handled by the ConditionElement method.
 		ErrorBehaviorState es = EMV2Util.getState(conditionElement);
+		if (es == null)
+			return;
 		TypeSet triggerTS = null;
 		String triggerName = "";
-		if (es != null) {
-			triggerTS = es.getTypeSet();
-			triggerName = "state " + es.getName();
-		}
+		triggerTS = es.getTypeSet();
+		triggerName = "state " + es.getName();
 		TypeSet condTS = conditionElement.getConstraint();
 		if (condTS == null) {
 			return;

@@ -2170,7 +2170,7 @@ public class EMV2Util {
 			}
 		}
 		ErrorPropagation ep = findErrorPropagation(cxtcl, kind, DirectionType.IN);
-		if (ep != null) {
+		if (ep == null) {
 			ep = findErrorPropagation(cxtcl, kind, DirectionType.OUT);
 		}
 		return ep;
