@@ -2242,6 +2242,14 @@ public class EMV2Util {
 	 * @return Subcomponent
 	 */
 	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath.getContainmentPath() != null) {
+			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
+			ContainmentPathElement last = getLast(epath.getContainmentPath());
+			if (last.getNamedElement() instanceof Subcomponent) {
+				return (Subcomponent) last.getNamedElement();
+			}
+			return null;
+		}
 		EMV2PathElement epe = epath.getEmv2Target();
 		Subcomponent result = null;
 		while (epe != null) {
@@ -2255,14 +2263,28 @@ public class EMV2Util {
 
 	/**
 	 * get the last component instance in the epath relative to the component instance root
-	 * Returns null if the component instance is not found
+	 * Returns root if the path does not include subcomponents.
+	 * Returns null if the component instance is not found, i.e., the path subcomponent references cannot be found in the
+	 * component instance hierarchy.
 	 * @param epath EMV2Path that includes EMV2PathElements pointing to subcomponents.
 	 * @param root ComponentInstance that is the root of the subcomponent section of the path
 	 * @return ComponentInstance
 	 */
 	public static ComponentInstance getLastComponentInstance(EMV2Path epath, ComponentInstance root) {
-		EMV2PathElement epe = epath.getEmv2Target();
 		ComponentInstance result = root;
+		if (epath.getContainmentPath() != null) {
+			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
+			ContainmentPathElement ce = epath.getContainmentPath();
+			while (ce != null && result != null) {
+				if (ce.getNamedElement() instanceof Subcomponent) {
+					Subcomponent sub = (Subcomponent) ce.getNamedElement();
+					result = result.findSubcomponentInstance(sub);
+				}
+				ce = ce.getPath();
+			}
+			return result;
+		}
+		EMV2PathElement epe = epath.getEmv2Target();
 		while (epe != null && result != null) {
 			if (epe.getNamedElement() instanceof Subcomponent) {
 				Subcomponent sub = (Subcomponent) epe.getNamedElement();
