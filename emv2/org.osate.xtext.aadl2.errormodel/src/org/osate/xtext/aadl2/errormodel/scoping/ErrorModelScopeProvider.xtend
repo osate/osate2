@@ -11,20 +11,19 @@ import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.TriggerPort
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
@@ -32,22 +31,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
-import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
-import java.util.Collection
-import java.util.Collections
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
-import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.FeatureGroupType
 
 /**
  * This class contains custom scoping description.
@@ -221,7 +210,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 //			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
 		} else if (classifier instanceof FeatureGroupType) {
-			classifier.allFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
+			classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
 		} else {
 			emptySet
 		}
