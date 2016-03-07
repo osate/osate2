@@ -366,6 +366,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataAccessAccess().getAlternatives_0(), "rule__DataAccess__Alternatives_0");
 					put(grammarAccess.getAbstractFeatureAccess().getAlternatives_0(), "rule__AbstractFeature__Alternatives_0");
 					put(grammarAccess.getAbstractFeatureAccess().getAlternatives_1(), "rule__AbstractFeature__Alternatives_1");
+					put(grammarAccess.getAbstractFeatureAccess().getAlternatives_2(), "rule__AbstractFeature__Alternatives_2");
 					put(grammarAccess.getPortDirectionAccess().getAlternatives(), "rule__PortDirection__Alternatives");
 					put(grammarAccess.getInOutDirectionAccess().getAlternatives(), "rule__InOutDirection__Alternatives");
 					put(grammarAccess.getAccessDirectionAccess().getAlternatives(), "rule__AccessDirection__Alternatives");
@@ -1183,7 +1184,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractFeatureAccess().getGroup(), "rule__AbstractFeature__Group__0");
 					put(grammarAccess.getAbstractFeatureAccess().getGroup_0_0(), "rule__AbstractFeature__Group_0_0__0");
 					put(grammarAccess.getAbstractFeatureAccess().getGroup_0_1(), "rule__AbstractFeature__Group_0_1__0");
-					put(grammarAccess.getAbstractFeatureAccess().getGroup_5(), "rule__AbstractFeature__Group_5__0");
+					put(grammarAccess.getAbstractFeatureAccess().getGroup_2_0(), "rule__AbstractFeature__Group_2_0__0");
+					put(grammarAccess.getAbstractFeatureAccess().getGroup_2_1(), "rule__AbstractFeature__Group_2_1__0");
+					put(grammarAccess.getAbstractFeatureAccess().getGroup_4(), "rule__AbstractFeature__Group_4__0");
 					put(grammarAccess.getPortDirectionAccess().getGroup_2(), "rule__PortDirection__Group_2__0");
 					put(grammarAccess.getPortCategoryAccess().getGroup_2(), "rule__PortCategory__Group_2__0");
 					put(grammarAccess.getFeatureGroupTypeAccess().getGroup(), "rule__FeatureGroupType__Group__0");
@@ -2474,9 +2477,10 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractFeatureAccess().getRefinedAssignment_0_1_0(), "rule__AbstractFeature__RefinedAssignment_0_1_0");
 					put(grammarAccess.getAbstractFeatureAccess().getInAssignment_1_0(), "rule__AbstractFeature__InAssignment_1_0");
 					put(grammarAccess.getAbstractFeatureAccess().getOutAssignment_1_1(), "rule__AbstractFeature__OutAssignment_1_1");
-					put(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeAssignment_3(), "rule__AbstractFeature__FeaturePrototypeAssignment_3");
-					put(grammarAccess.getAbstractFeatureAccess().getArrayDimensionAssignment_4(), "rule__AbstractFeature__ArrayDimensionAssignment_4");
-					put(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__AbstractFeature__OwnedPropertyAssociationAssignment_5_1");
+					put(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeAssignment_2_0_1(), "rule__AbstractFeature__FeaturePrototypeAssignment_2_0_1");
+					put(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAssignment_2_1_1(), "rule__AbstractFeature__AbstractFeatureClassifierAssignment_2_1_1");
+					put(grammarAccess.getAbstractFeatureAccess().getArrayDimensionAssignment_3(), "rule__AbstractFeature__ArrayDimensionAssignment_3");
+					put(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__AbstractFeature__OwnedPropertyAssociationAssignment_4_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getNameAssignment_2(), "rule__FeatureGroupType__NameAssignment_2");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedExtensionAssignment_3_0(), "rule__FeatureGroupType__OwnedExtensionAssignment_3_0");
 					put(grammarAccess.getFeatureGroupTypeAccess().getOwnedPrototypeBindingAssignment_3_1_1(), "rule__FeatureGroupType__OwnedPrototypeBindingAssignment_3_1_1");
