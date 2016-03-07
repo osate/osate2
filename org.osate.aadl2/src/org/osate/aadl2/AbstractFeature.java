@@ -50,6 +50,7 @@ package org.osate.aadl2;
  * </p>
  * <ul>
  *   <li>{@link org.osate.aadl2.AbstractFeature#getFeaturePrototype <em>Feature Prototype</em>}</li>
+ *   <li>{@link org.osate.aadl2.AbstractFeature#getAbstractFeatureClassifier <em>Abstract Feature Classifier</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractFeature()
@@ -85,5 +86,36 @@ public interface AbstractFeature extends DirectedFeature, TriggerPort {
 	 * @generated
 	 */
 	void setFeaturePrototype(FeaturePrototype value);
+
+	/**
+	 * Returns the value of the '<em><b>Abstract Feature Classifier</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * </p>
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
+	 * </ul>
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Features.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Abstract Feature Classifier</em>' reference.
+	 * @see #setAbstractFeatureClassifier(FeatureClassifier)
+	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_AbstractFeatureClassifier()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	FeatureClassifier getAbstractFeatureClassifier();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.AbstractFeature#getAbstractFeatureClassifier <em>Abstract Feature Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract Feature Classifier</em>' reference.
+	 * @see #getAbstractFeatureClassifier()
+	 * @generated
+	 */
+	void setAbstractFeatureClassifier(FeatureClassifier value);
 
 } // AbstractFeature

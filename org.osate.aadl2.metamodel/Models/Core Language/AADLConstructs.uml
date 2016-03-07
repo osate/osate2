@@ -1249,6 +1249,10 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LYb6hm6nEeGGmbyPbDXL2g"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LYb6hW6nEeGGmbyPbDXL2g" value="1"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_ogAD4t8XEeWPpo3CDaG7Qg" name="abstractFeatureClassifier" type="_hn8cMLOzEeCzMYz5ww7glA" subsettedProperty="Features-Feature-classifier" association="_of_c0N8XEeWPpo3CDaG7Qg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rHSPMN8XEeWPpo3CDaG7Qg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rHTdUN8XEeWPpo3CDaG7Qg" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Features-A_feature_classifier" name="A_feature_featureClassifier" memberEnd="Features-A_feature_classifier-feature Features-Feature-classifier">
         <ownedEnd xmi:id="Features-A_feature_classifier-feature" name="feature" visibility="public" type="Features-Feature" association="Features-A_feature_classifier">
@@ -1346,6 +1350,12 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v62Eo7O0EeCzMYz5ww7glA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v62EorO0EeCzMYz5ww7glA" value="1"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_of_c0N8XEeWPpo3CDaG7Qg" name="A_abstractFeature_abstractFeatureClassifier" memberEnd="_ogAD4t8XEeWPpo3CDaG7Qg _ogBSAN8XEeWPpo3CDaG7Qg">
+        <eAnnotations xmi:id="_ogAD4N8XEeWPpo3CDaG7Qg" source="org.eclipse.papyrus">
+          <details xmi:id="_ogAD4d8XEeWPpo3CDaG7Qg" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_ogBSAN8XEeWPpo3CDaG7Qg" name="abstractFeature" type="Features-AbstractFeature" association="_of_c0N8XEeWPpo3CDaG7Qg"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Packaging" name="Packaging">

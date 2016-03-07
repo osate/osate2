@@ -75,6 +75,7 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addFeaturePrototypePropertyDescriptor(object);
+			addAbstractFeatureClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -92,6 +93,22 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider {
 						getString("_UI_PropertyDescriptor_description", "_UI_AbstractFeature_featurePrototype_feature",
 								"_UI_AbstractFeature_type"),
 				Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype(), true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Abstract Feature Classifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAbstractFeatureClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_AbstractFeature_abstractFeatureClassifier_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_AbstractFeature_abstractFeatureClassifier_feature", "_UI_AbstractFeature_type"),
+				Aadl2Package.eINSTANCE.getAbstractFeature_AbstractFeatureClassifier(), true, false, true, null, null,
+				null));
 	}
 
 	/**

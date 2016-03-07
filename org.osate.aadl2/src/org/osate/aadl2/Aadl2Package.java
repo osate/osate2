@@ -9541,13 +9541,22 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE__FEATURE_PROTOTYPE = DIRECTED_FEATURE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Abstract Feature Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
+	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38173,6 +38182,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getAbstractFeature_FeaturePrototype();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.AbstractFeature#getAbstractFeatureClassifier <em>Abstract Feature Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Abstract Feature Classifier</em>'.
+	 * @see org.osate.aadl2.AbstractFeature#getAbstractFeatureClassifier()
+	 * @see #getAbstractFeature()
+	 * @generated
+	 */
+	EReference getAbstractFeature_AbstractFeatureClassifier();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Subcomponent <em>Subcomponent</em>}'.
