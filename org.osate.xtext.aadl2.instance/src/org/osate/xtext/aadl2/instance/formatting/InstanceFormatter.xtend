@@ -32,5 +32,6 @@ class InstanceFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1).after(featureInstanceRule)
 		c.setLinewrap(1).after(connectionInstanceRule)
 		c.setLinewrap(1).after(connectionReferenceRule)
+		c.setLinewrap(1).after(flowSpecificationInstanceRule)
 	}
 }

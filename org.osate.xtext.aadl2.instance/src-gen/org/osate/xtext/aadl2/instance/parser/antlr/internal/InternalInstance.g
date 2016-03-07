@@ -366,26 +366,7 @@ ruleFeatureInstance returns [EObject current=null]
     {
     	newLeafNode(otherlv_10, grammarAccess.getFeatureInstanceAccess().getLeftParenthesisKeyword_6_2());
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceConnectionInstanceCrossReference_6_3_0()); 
-	    }
-		ruleCONNINSTREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_12=',' 
-    {
-    	newLeafNode(otherlv_12, grammarAccess.getFeatureInstanceAccess().getCommaKeyword_6_4_0());
-    }
-(
+((
 (
 		{
 			if ($current==null) {
@@ -393,30 +374,32 @@ ruleFeatureInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceConnectionInstanceCrossReference_6_4_1_0()); 
+	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceConnectionInstanceCrossReference_6_3_0_0()); 
 	    }
 		ruleCONNINSTREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_14=')' 
-    {
-    	newLeafNode(otherlv_14, grammarAccess.getFeatureInstanceAccess().getRightParenthesisKeyword_6_5());
-    }
-)?(	otherlv_15='destination' 
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getFeatureInstanceAccess().getDestinationKeyword_7_0());
-    }
-	otherlv_16='of' 
-    {
-    	newLeafNode(otherlv_16, grammarAccess.getFeatureInstanceAccess().getOfKeyword_7_1());
-    }
-	otherlv_17='(' 
-    {
-    	newLeafNode(otherlv_17, grammarAccess.getFeatureInstanceAccess().getLeftParenthesisKeyword_7_2());
-    }
+)
+    |(
 (
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	        }
+        }
+	otherlv_12=RULE_ID
+	{
+		newLeafNode(otherlv_12, grammarAccess.getFeatureInstanceAccess().getSrcFlowSpecFlowSpecificationInstanceCrossReference_6_3_1_0()); 
+	}
+
+)
+))(	otherlv_13=',' 
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFeatureInstanceAccess().getCommaKeyword_6_4_0());
+    }
+((
 (
 		{
 			if ($current==null) {
@@ -424,18 +407,44 @@ ruleFeatureInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceConnectionInstanceCrossReference_7_3_0()); 
+	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceConnectionInstanceCrossReference_6_4_1_0_0()); 
 	    }
 		ruleCONNINSTREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_19=',' 
-    {
-    	newLeafNode(otherlv_19, grammarAccess.getFeatureInstanceAccess().getCommaKeyword_7_4_0());
-    }
+)
+    |(
 (
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	        }
+        }
+	otherlv_15=RULE_ID
+	{
+		newLeafNode(otherlv_15, grammarAccess.getFeatureInstanceAccess().getSrcFlowSpecFlowSpecificationInstanceCrossReference_6_4_1_1_0()); 
+	}
+
+)
+)))*	otherlv_16=')' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFeatureInstanceAccess().getRightParenthesisKeyword_6_5());
+    }
+)?(	otherlv_17='destination' 
+    {
+    	newLeafNode(otherlv_17, grammarAccess.getFeatureInstanceAccess().getDestinationKeyword_7_0());
+    }
+	otherlv_18='of' 
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getFeatureInstanceAccess().getOfKeyword_7_1());
+    }
+	otherlv_19='(' 
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getFeatureInstanceAccess().getLeftParenthesisKeyword_7_2());
+    }
+((
 (
 		{
 			if ($current==null) {
@@ -443,42 +452,89 @@ ruleFeatureInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceConnectionInstanceCrossReference_7_4_1_0()); 
+	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceConnectionInstanceCrossReference_7_3_0_0()); 
 	    }
 		ruleCONNINSTREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_21=')' 
+)
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	        }
+        }
+	otherlv_21=RULE_ID
+	{
+		newLeafNode(otherlv_21, grammarAccess.getFeatureInstanceAccess().getDstFlowSpecFlowSpecificationInstanceCrossReference_7_3_1_0()); 
+	}
+
+)
+))(	otherlv_22=',' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getFeatureInstanceAccess().getRightParenthesisKeyword_7_5());
+    	newLeafNode(otherlv_22, grammarAccess.getFeatureInstanceAccess().getCommaKeyword_7_4_0());
     }
-)?(	otherlv_22='{' 
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceConnectionInstanceCrossReference_7_4_1_0_0()); 
+	    }
+		ruleCONNINSTREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	        }
+        }
+	otherlv_24=RULE_ID
+	{
+		newLeafNode(otherlv_24, grammarAccess.getFeatureInstanceAccess().getDstFlowSpecFlowSpecificationInstanceCrossReference_7_4_1_1_0()); 
+	}
+
+)
+)))*	otherlv_25=')' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getFeatureInstanceAccess().getLeftCurlyBracketKeyword_8_0());
+    	newLeafNode(otherlv_25, grammarAccess.getFeatureInstanceAccess().getRightParenthesisKeyword_7_5());
+    }
+)?(	otherlv_26='{' 
+    {
+    	newLeafNode(otherlv_26, grammarAccess.getFeatureInstanceAccess().getLeftCurlyBracketKeyword_8_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getFeatureInstanceFeatureInstanceParserRuleCall_8_1_0()); 
 	    }
-		lv_featureInstance_23_0=ruleFeatureInstance		{
+		lv_featureInstance_27_0=ruleFeatureInstance		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureInstanceRule());
 	        }
        		add(
        			$current, 
        			"featureInstance",
-        		lv_featureInstance_23_0, 
+        		lv_featureInstance_27_0, 
         		"FeatureInstance");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_24='}' 
+)*	otherlv_28='}' 
     {
-    	newLeafNode(otherlv_24, grammarAccess.getFeatureInstanceAccess().getRightCurlyBracketKeyword_8_2());
+    	newLeafNode(otherlv_28, grammarAccess.getFeatureInstanceAccess().getRightCurlyBracketKeyword_8_2());
     }
 )?)
 ;
@@ -742,9 +798,28 @@ ruleComponentInstance returns [EObject current=null]
 	    }
 
 )
-))*	otherlv_25='}' 
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComponentInstanceAccess().getFlowSpecificationFlowSpecificationInstanceParserRuleCall_7_1_3_0()); 
+	    }
+		lv_flowSpecification_25_0=ruleFlowSpecificationInstance		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComponentInstanceRule());
+	        }
+       		add(
+       			$current, 
+       			"flowSpecification",
+        		lv_flowSpecification_25_0, 
+        		"FlowSpecificationInstance");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_26='}' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_7_2());
+    	newLeafNode(otherlv_26, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_7_2());
     }
 )?)
 ;

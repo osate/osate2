@@ -38,6 +38,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getSystemInstanceAccess().getAlternatives_5(), "rule__SystemInstance__Alternatives_5");
+					put(grammarAccess.getFeatureInstanceAccess().getAlternatives_6_3(), "rule__FeatureInstance__Alternatives_6_3");
+					put(grammarAccess.getFeatureInstanceAccess().getAlternatives_6_4_1(), "rule__FeatureInstance__Alternatives_6_4_1");
+					put(grammarAccess.getFeatureInstanceAccess().getAlternatives_7_3(), "rule__FeatureInstance__Alternatives_7_3");
+					put(grammarAccess.getFeatureInstanceAccess().getAlternatives_7_4_1(), "rule__FeatureInstance__Alternatives_7_4_1");
 					put(grammarAccess.getComponentInstanceAccess().getAlternatives_7_1(), "rule__ComponentInstance__Alternatives_7_1");
 					put(grammarAccess.getConnectionInstanceAccess().getAlternatives_5(), "rule__ConnectionInstance__Alternatives_5");
 					put(grammarAccess.getDirectionTypeAccess().getAlternatives(), "rule__DirectionType__Alternatives");
@@ -102,10 +106,14 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureInstanceAccess().getNameAssignment_2(), "rule__FeatureInstance__NameAssignment_2");
 					put(grammarAccess.getFeatureInstanceAccess().getIndexAssignment_3_1(), "rule__FeatureInstance__IndexAssignment_3_1");
 					put(grammarAccess.getFeatureInstanceAccess().getFeatureAssignment_5(), "rule__FeatureInstance__FeatureAssignment_5");
-					put(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceAssignment_6_3(), "rule__FeatureInstance__SrcConnectionInstanceAssignment_6_3");
-					put(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceAssignment_6_4_1(), "rule__FeatureInstance__SrcConnectionInstanceAssignment_6_4_1");
-					put(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceAssignment_7_3(), "rule__FeatureInstance__DstConnectionInstanceAssignment_7_3");
-					put(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceAssignment_7_4_1(), "rule__FeatureInstance__DstConnectionInstanceAssignment_7_4_1");
+					put(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceAssignment_6_3_0(), "rule__FeatureInstance__SrcConnectionInstanceAssignment_6_3_0");
+					put(grammarAccess.getFeatureInstanceAccess().getSrcFlowSpecAssignment_6_3_1(), "rule__FeatureInstance__SrcFlowSpecAssignment_6_3_1");
+					put(grammarAccess.getFeatureInstanceAccess().getSrcConnectionInstanceAssignment_6_4_1_0(), "rule__FeatureInstance__SrcConnectionInstanceAssignment_6_4_1_0");
+					put(grammarAccess.getFeatureInstanceAccess().getSrcFlowSpecAssignment_6_4_1_1(), "rule__FeatureInstance__SrcFlowSpecAssignment_6_4_1_1");
+					put(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceAssignment_7_3_0(), "rule__FeatureInstance__DstConnectionInstanceAssignment_7_3_0");
+					put(grammarAccess.getFeatureInstanceAccess().getDstFlowSpecAssignment_7_3_1(), "rule__FeatureInstance__DstFlowSpecAssignment_7_3_1");
+					put(grammarAccess.getFeatureInstanceAccess().getDstConnectionInstanceAssignment_7_4_1_0(), "rule__FeatureInstance__DstConnectionInstanceAssignment_7_4_1_0");
+					put(grammarAccess.getFeatureInstanceAccess().getDstFlowSpecAssignment_7_4_1_1(), "rule__FeatureInstance__DstFlowSpecAssignment_7_4_1_1");
 					put(grammarAccess.getFeatureInstanceAccess().getFeatureInstanceAssignment_8_1(), "rule__FeatureInstance__FeatureInstanceAssignment_8_1");
 					put(grammarAccess.getComponentInstanceAccess().getCategoryAssignment_0(), "rule__ComponentInstance__CategoryAssignment_0");
 					put(grammarAccess.getComponentInstanceAccess().getNameAssignment_1(), "rule__ComponentInstance__NameAssignment_1");
@@ -118,6 +126,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComponentInstanceAccess().getFeatureInstanceAssignment_7_1_0(), "rule__ComponentInstance__FeatureInstanceAssignment_7_1_0");
 					put(grammarAccess.getComponentInstanceAccess().getComponentInstanceAssignment_7_1_1(), "rule__ComponentInstance__ComponentInstanceAssignment_7_1_1");
 					put(grammarAccess.getComponentInstanceAccess().getConnectionInstanceAssignment_7_1_2(), "rule__ComponentInstance__ConnectionInstanceAssignment_7_1_2");
+					put(grammarAccess.getComponentInstanceAccess().getFlowSpecificationAssignment_7_1_3(), "rule__ComponentInstance__FlowSpecificationAssignment_7_1_3");
 					put(grammarAccess.getConnectionInstanceAccess().getCompleteAssignment_0(), "rule__ConnectionInstance__CompleteAssignment_0");
 					put(grammarAccess.getConnectionInstanceAccess().getKindAssignment_1(), "rule__ConnectionInstance__KindAssignment_1");
 					put(grammarAccess.getConnectionInstanceAccess().getNameAssignment_2(), "rule__ConnectionInstance__NameAssignment_2");
