@@ -66,7 +66,12 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         subcomponent=[Subcomponent|SUBREF] 
 	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
-	 *         (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance)*
+	 *         (
+	 *             featureInstance+=FeatureInstance | 
+	 *             componentInstance+=ComponentInstance | 
+	 *             connectionInstance+=ConnectionInstance | 
+	 *             flowSpecification+=FlowSpecificationInstance
+	 *         )*
 	 *     )
 	 */
 	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {
@@ -113,8 +118,14 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ID 
 	 *         index=LONG? 
 	 *         feature=[Feature|FEATREF] 
-	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
-	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
+	 *         (
+	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID]) 
+	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID])*
+	 *         )? 
+	 *         (
+	 *             (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[FlowSpecificationInstance|ID]) 
+	 *             (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[FlowSpecificationInstance|ID])*
+	 *         )? 
 	 *         featureInstance+=FeatureInstance*
 	 *     )
 	 */

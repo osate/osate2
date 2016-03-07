@@ -18,8 +18,8 @@ SystemInstance returns instance::SystemInstance:
 
 FeatureInstance returns instance::FeatureInstance:
 	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|FEATREF]
-	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
-	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
+	('source' 'of' '(' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]) (',' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]))* ')')?
+	('destination' 'of' '(' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]) (',' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]))* ')')? ('{'
 		featureInstance+=FeatureInstance*
 	'}')?
 ;
@@ -30,7 +30,8 @@ ComponentInstance returns instance::ComponentInstance:
 	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
-			connectionInstance+=ConnectionInstance
+			connectionInstance+=ConnectionInstance |
+			flowSpecification+=FlowSpecificationInstance
 		)*
 	'}')?
 ;

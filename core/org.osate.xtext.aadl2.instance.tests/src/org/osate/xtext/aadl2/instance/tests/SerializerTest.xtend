@@ -726,6 +726,91 @@ class SerializerTest extends OsateTest {
 				som "No Modes"
 			}''')
 	}
+	
+	@Test
+	def void testFlowSpecification() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s
+					features
+						p1: in data port;
+						p2: out data port;
+						p3: in data port[2];
+						fg1: feature group fgt1;
+						fg2: feature group fgt2[2];
+					flows
+						f1: flow source p2;
+						f2: flow sink p1;
+						f3: flow path p1 -> p2;
+						f4: flow sink p3;
+						f5: flow sink fg1.p4;
+						f6: flow sink fg1.p5;
+						f7: flow sink fg2.p6;
+				end s;
+				
+				system implementation s.i
+					subcomponents
+						s2_sub: system s2;
+					connections
+						conn1: port p1 -> s2_sub.p7;
+				end s.i;
+				
+				feature group fgt1
+					features
+						p4: in data port;
+						p5: in data port[2];
+				end fgt1;
+				
+				feature group fgt2
+					features
+						p6: in data port;
+				end fgt2;
+				
+				system s2
+					features
+						p7: in data port;
+					flows
+						f8: flow sink p7;
+				end s2;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				in out featureGroup fg1 : pkg1::s::fg1 {
+					in dataPort p4 : pkg1::fgt1::p4 source of ( f5 )
+					in dataPort p5 [ 1 ] : pkg1::fgt1::p5 source of ( f6 )
+					in dataPort p5 [ 2 ] : pkg1::fgt1::p5
+				}
+				in out featureGroup fg2 [ 1 ] : pkg1::s::fg2 {
+					in dataPort p6 : pkg1::fgt2::p6 source of ( f7 )
+				}
+				in out featureGroup fg2 [ 2 ] : pkg1::s::fg2 {
+					in dataPort p6 : pkg1::fgt2::p6
+				}
+				in dataPort p1 : pkg1::s::p1 source of ( 0 , f2 , f3 )
+				out dataPort p2 : pkg1::s::p2 destination of ( f1 , f3 )
+				in dataPort p3 [ 1 ] : pkg1::s::p3 source of ( f4 )
+				in dataPort p3 [ 2 ] : pkg1::s::p3
+				system s2_sub [ 0 ] : pkg1::s.i::s2_sub {
+					in dataPort p7 : pkg1::s2::p7 source of ( f8 ) destination of ( 1.0 )
+					flow f8 ( p7 -> ) : pkg1::s2::f8
+				}
+				portConnection "p1 -> s2_sub.p7" : p1 -> s2_sub[0].p7 {
+					p1 -> s2_sub[0].p7 : pkg1::s.i::conn1 in parent
+				}
+				flow f1 ( -> p2 ) : pkg1::s::f1
+				flow f2 ( p1 -> ) : pkg1::s::f2
+				flow f3 ( p1 -> p2 ) : pkg1::s::f3
+				flow f4 ( p3[1] -> ) : pkg1::s::f4
+				flow f5 ( fg1.p4 -> ) : pkg1::s::f5
+				flow f6 ( fg1.p5[1] -> ) : pkg1::s::f6
+				flow f7 ( fg2[1].p6 -> ) : pkg1::s::f7
+				som "No Modes"
+			}''')
+	}
 
 	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
 		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
