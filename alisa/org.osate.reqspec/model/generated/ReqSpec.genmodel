@@ -18,7 +18,6 @@
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpec/parts"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecContainer"/>
     <genClasses ecoreClass="ReqSpec.ecore#//GlobalConstants">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//GlobalConstants/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//GlobalConstants/constants"/>
@@ -42,26 +41,22 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/issues"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/goalReference"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//ReqRoot"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ReqRoot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqRoot/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqRoot/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqRoot/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqRoot/docReference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqRoot/issues"/>
+    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//StakeholderGoals">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/componentCategory"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/importConstants"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/constants"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/content"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/docReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/issues"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/goals"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqDocument">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqDocument/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqDocument/title"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqDocument/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqDocument/content"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqDocument/docReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqDocument/issues"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//DocumentSection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//DocumentSection/label"/>
@@ -70,16 +65,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//DocumentSection/content"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Requirements">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirements/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirements/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/importConstants"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/constants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/computes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/content"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/docReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/requirements"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirements/stakeholderGoals"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirements/issues"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Goal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/refinesReference"/>

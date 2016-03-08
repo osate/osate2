@@ -211,8 +211,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleGlobalConstants
 entryRuleGlobalConstants 
 :
@@ -2373,7 +2371,6 @@ rule__ReqSpec__PartsAlternatives_0
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 
@@ -20489,14 +20486,14 @@ rule__StakeholderGoals__UnorderedGroup_7__Impl
 	 				}
 					(
 					(
-						{ before(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7_2()); }
-						(rule__StakeholderGoals__ContentAssignment_7_2)
-						{ after(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7_2()); }
+						{ before(grammarAccess.getStakeholderGoalsAccess().getGoalsAssignment_7_2()); }
+						(rule__StakeholderGoals__GoalsAssignment_7_2)
+						{ after(grammarAccess.getStakeholderGoalsAccess().getGoalsAssignment_7_2()); }
 					)
 					(
-						{ before(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7_2()); }
-						((rule__StakeholderGoals__ContentAssignment_7_2)=>rule__StakeholderGoals__ContentAssignment_7_2)*
-						{ after(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7_2()); }
+						{ before(grammarAccess.getStakeholderGoalsAccess().getGoalsAssignment_7_2()); }
+						((rule__StakeholderGoals__GoalsAssignment_7_2)=>rule__StakeholderGoals__GoalsAssignment_7_2)*
+						{ after(grammarAccess.getStakeholderGoalsAccess().getGoalsAssignment_7_2()); }
 					)					)
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup_7());
@@ -21015,14 +21012,14 @@ rule__SystemRequirements__UnorderedGroup_9__Impl
 	 				}
 					(
 					(
-						{ before(grammarAccess.getSystemRequirementsAccess().getContentAssignment_9_3()); }
-						(rule__SystemRequirements__ContentAssignment_9_3)
-						{ after(grammarAccess.getSystemRequirementsAccess().getContentAssignment_9_3()); }
+						{ before(grammarAccess.getSystemRequirementsAccess().getRequirementsAssignment_9_3()); }
+						(rule__SystemRequirements__RequirementsAssignment_9_3)
+						{ after(grammarAccess.getSystemRequirementsAccess().getRequirementsAssignment_9_3()); }
 					)
 					(
-						{ before(grammarAccess.getSystemRequirementsAccess().getContentAssignment_9_3()); }
-						((rule__SystemRequirements__ContentAssignment_9_3)=>rule__SystemRequirements__ContentAssignment_9_3)*
-						{ after(grammarAccess.getSystemRequirementsAccess().getContentAssignment_9_3()); }
+						{ before(grammarAccess.getSystemRequirementsAccess().getRequirementsAssignment_9_3()); }
+						((rule__SystemRequirements__RequirementsAssignment_9_3)=>rule__SystemRequirements__RequirementsAssignment_9_3)*
+						{ after(grammarAccess.getSystemRequirementsAccess().getRequirementsAssignment_9_3()); }
 					)					)
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSystemRequirementsAccess().getUnorderedGroup_9());
@@ -21347,14 +21344,14 @@ rule__GlobalRequirements__UnorderedGroup_7__Impl
 	 				}
 					(
 					(
-						{ before(grammarAccess.getGlobalRequirementsAccess().getContentAssignment_7_3()); }
-						(rule__GlobalRequirements__ContentAssignment_7_3)
-						{ after(grammarAccess.getGlobalRequirementsAccess().getContentAssignment_7_3()); }
+						{ before(grammarAccess.getGlobalRequirementsAccess().getRequirementsAssignment_7_3()); }
+						(rule__GlobalRequirements__RequirementsAssignment_7_3)
+						{ after(grammarAccess.getGlobalRequirementsAccess().getRequirementsAssignment_7_3()); }
 					)
 					(
-						{ before(grammarAccess.getGlobalRequirementsAccess().getContentAssignment_7_3()); }
-						((rule__GlobalRequirements__ContentAssignment_7_3)=>rule__GlobalRequirements__ContentAssignment_7_3)*
-						{ after(grammarAccess.getGlobalRequirementsAccess().getContentAssignment_7_3()); }
+						{ before(grammarAccess.getGlobalRequirementsAccess().getRequirementsAssignment_7_3()); }
+						((rule__GlobalRequirements__RequirementsAssignment_7_3)=>rule__GlobalRequirements__RequirementsAssignment_7_3)*
+						{ after(grammarAccess.getGlobalRequirementsAccess().getRequirementsAssignment_7_3()); }
 					)					)
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGlobalRequirementsAccess().getUnorderedGroup_7());
@@ -24867,14 +24864,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__StakeholderGoals__ContentAssignment_7_2
+rule__StakeholderGoals__GoalsAssignment_7_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_7_2_0()); }
-	ruleGoal{ after(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_7_2_0()); }
+{ before(grammarAccess.getStakeholderGoalsAccess().getGoalsGoalParserRuleCall_7_2_0()); }
+	ruleGoal{ after(grammarAccess.getStakeholderGoalsAccess().getGoalsGoalParserRuleCall_7_2_0()); }
 )
 
 ;
@@ -25177,14 +25174,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SystemRequirements__ContentAssignment_9_3
+rule__SystemRequirements__RequirementsAssignment_9_3
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getSystemRequirementsAccess().getContentSystemRequirementParserRuleCall_9_3_0()); }
-	ruleSystemRequirement{ after(grammarAccess.getSystemRequirementsAccess().getContentSystemRequirementParserRuleCall_9_3_0()); }
+{ before(grammarAccess.getSystemRequirementsAccess().getRequirementsSystemRequirementParserRuleCall_9_3_0()); }
+	ruleSystemRequirement{ after(grammarAccess.getSystemRequirementsAccess().getRequirementsSystemRequirementParserRuleCall_9_3_0()); }
 )
 
 ;
@@ -25350,14 +25347,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__GlobalRequirements__ContentAssignment_7_3
+rule__GlobalRequirements__RequirementsAssignment_7_3
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getGlobalRequirementsAccess().getContentGlobalRequirementParserRuleCall_7_3_0()); }
-	ruleGlobalRequirement{ after(grammarAccess.getGlobalRequirementsAccess().getContentGlobalRequirementParserRuleCall_7_3_0()); }
+{ before(grammarAccess.getGlobalRequirementsAccess().getRequirementsGlobalRequirementParserRuleCall_7_3_0()); }
+	ruleGlobalRequirement{ after(grammarAccess.getGlobalRequirementsAccess().getRequirementsGlobalRequirementParserRuleCall_7_3_0()); }
 )
 
 ;

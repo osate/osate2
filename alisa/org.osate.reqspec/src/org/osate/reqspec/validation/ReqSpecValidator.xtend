@@ -141,11 +141,11 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (cl == null || cl.getAllFeatures.empty ) return
 		
 		val fealist = new BasicEList<NamedElement>
-		cl.getAllFeatures.forEach[e| if (!sysreqs.content.exists[r| r.targetElement == e ]) fealist += e]
+		cl.getAllFeatures.forEach[e| if (!sysreqs.requirements.exists[r| r.targetElement == e ]) fealist += e]
 		if (!fealist.empty){
-			val fls = sysreqs.content.map[name].reduce[p1, p2| p1 + ' ' + p2]
+			val fls = sysreqs.requirements.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Features without requirement: '+fls, 
-					ReqSpecPackage.Literals.REQUIREMENTS__CONTENT,
+					ReqSpecPackage.Literals.REQUIREMENTS__REQUIREMENTS,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}
@@ -153,8 +153,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 		@Check(CheckType.NORMAL)
 	def void checkDuplicateGoal(StakeholderGoals stakeHolderGoals) {
-		stakeHolderGoals.content.forEach[goal | 
-			if (stakeHolderGoals.content.filter[name == goal.name].size > 1) 
+		stakeHolderGoals.goals.forEach[goal | 
+			if (stakeHolderGoals.goals.filter[name == goal.name].size > 1) 
 				error("Duplicate goal name '" + goal.name + "' in StakeholderGoals '" + stakeHolderGoals.name + "'",  
 					goal, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
 					DUPLICATE_GOAL_WITHIN_STAKEHOLDER_GOALS, EcoreUtil.getURI(stakeHolderGoals).toString()
@@ -182,7 +182,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(shg);
 				error("Duplicate StakeholderGoal name '" + shg.name + "'",  
-					shg, ReqSpecPackage.Literals.STAKEHOLDER_GOALS__NAME,
+					shg, ReqSpecPackage.Literals.REQ_ROOT__NAME,
 					DUPLICATE_STAKEHOLDER_GOALS, "" + node.offset, "" + node.length)
 			}
 	}
@@ -193,14 +193,14 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(sysReq);
 				error("Duplicate Requirements name '" + sysReq.name + "'",  
-					sysReq, ReqSpecPackage.Literals.REQUIREMENTS__NAME,
+					sysReq, ReqSpecPackage.Literals.REQ_ROOT__NAME,
 					DUPLICATE_REQUIREMENTS, "" + node.offset, "" + node.length)
 			}
 	}
 	@Check(CheckType.NORMAL)
 	def void checkDuplicateRequirement(Requirements sysReq) {
-		sysReq.content.forEach[requirement | 
-			if (sysReq.content.filter[name == requirement.name].size > 1) 
+		sysReq.requirements.forEach[requirement | 
+			if (sysReq.requirements.filter[name == requirement.name].size > 1) 
 				error("Duplicate requirement name '" + requirement.name + "' in requirements '" + sysReq.name + "'",  
 					requirement, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
 					DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENTS, EcoreUtil.getURI(sysReq).toString()
@@ -211,7 +211,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	@Check(CheckType.NORMAL)
 	def void checkSpecGoalTargetConsistency(SystemRequirements sysReqs) {
 		val reqSpecTarget = sysReqs.target
-		val requirements = sysReqs.content
+		val requirements = sysReqs.requirements
 		val resource = sysReqs.eResource();
 
 		requirements.forEach[requirement | 
@@ -295,8 +295,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		val target = shgs.target
 		if (!SystemImplementation.isInstance(target)){ return }
 		val sysReqs = reqSpecrefFinder.getSystemRequirements(target)
-		shgs.content.forEach[goal | 
-			if (!sysReqs.exists[sysReq | sysReq.content.exists[goalReference.exists[goalRef | goalRef === goal]]]){
+		shgs.goals.forEach[goal | 
+			if (!sysReqs.exists[sysReq | sysReq.requirements.exists[goalReference.exists[goalRef | goalRef === goal]]]){
 				error("Goal " + goal.name + " does not have a corresponding System Requirement.", 
 						goal, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
 			}
@@ -467,7 +467,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (componentClassifier instanceof ComponentImplementation)	 compType = componentClassifier.type
 		classifierParents.toSet.toList.forEach[ classifierParent |
 			reqSpecrefFinder.getSystemRequirements(classifierParent as ComponentClassifier).forEach[ sysreqs |
-				if (sysreqs.content.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
+				if (sysreqs.requirements.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
 					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
 							"' shadows a requirement of the same name in the System Requirements for '" +
 							classifierParent.name + "'. Shadowing '" + reqName + "' must evolve original or original '" + 

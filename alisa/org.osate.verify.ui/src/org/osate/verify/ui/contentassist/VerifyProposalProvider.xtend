@@ -49,7 +49,7 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 				nameList.add(proposedObj)
 			}
 			// Scope handles correctly to make sure all valid requirements are included in scope without '.'
-			forSystemRequirements.content.contains(proposedObj)
+			forSystemRequirements.requirements.contains(proposedObj)
 		]);
 	}
 	

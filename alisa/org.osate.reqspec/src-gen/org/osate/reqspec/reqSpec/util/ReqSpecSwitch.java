@@ -92,13 +92,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQ_SPEC_CONTAINER:
-      {
-        ReqSpecContainer reqSpecContainer = (ReqSpecContainer)theEObject;
-        T result = caseReqSpecContainer(reqSpecContainer);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ReqSpecPackage.GLOBAL_CONSTANTS:
       {
         GlobalConstants globalConstants = (GlobalConstants)theEObject;
@@ -124,7 +117,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         StakeholderGoals stakeholderGoals = (StakeholderGoals)theEObject;
         T result = caseStakeholderGoals(stakeholderGoals);
-        if (result == null) result = caseReqSpecContainer(stakeholderGoals);
         if (result == null) result = caseReqRoot(stakeholderGoals);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -133,7 +125,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         ReqDocument reqDocument = (ReqDocument)theEObject;
         T result = caseReqDocument(reqDocument);
-        if (result == null) result = caseReqSpecContainer(reqDocument);
         if (result == null) result = caseReqRoot(reqDocument);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -142,7 +133,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         DocumentSection documentSection = (DocumentSection)theEObject;
         T result = caseDocumentSection(documentSection);
-        if (result == null) result = caseReqSpecContainer(documentSection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -150,7 +140,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         Requirements requirements = (Requirements)theEObject;
         T result = caseRequirements(requirements);
-        if (result == null) result = caseReqSpecContainer(requirements);
         if (result == null) result = caseReqRoot(requirements);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -235,7 +224,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         SystemRequirements systemRequirements = (SystemRequirements)theEObject;
         T result = caseSystemRequirements(systemRequirements);
         if (result == null) result = caseRequirements(systemRequirements);
-        if (result == null) result = caseReqSpecContainer(systemRequirements);
         if (result == null) result = caseReqRoot(systemRequirements);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -245,7 +233,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         GlobalRequirements globalRequirements = (GlobalRequirements)theEObject;
         T result = caseGlobalRequirements(globalRequirements);
         if (result == null) result = caseRequirements(globalRequirements);
-        if (result == null) result = caseReqSpecContainer(globalRequirements);
         if (result == null) result = caseReqRoot(globalRequirements);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -266,22 +253,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseReqSpec(ReqSpec object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Container</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Container</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseReqSpecContainer(ReqSpecContainer object)
   {
     return null;
   }

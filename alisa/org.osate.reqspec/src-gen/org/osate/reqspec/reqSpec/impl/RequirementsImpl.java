@@ -17,7 +17,6 @@ package org.osate.reqspec.reqSpec.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -25,17 +24,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
-import org.osate.alisa.common.common.Description;
 
-import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqRoot;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -50,62 +44,17 @@ import org.osate.reqspec.reqSpec.Requirements;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getComputes <em>Computes</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getContent <em>Content</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getDocReference <em>Doc Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getRequirements <em>Requirements</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RequirementsImpl extends ReqSpecContainerImpl implements Requirements
+public class RequirementsImpl extends ReqRootImpl implements Requirements
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected static final String TITLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected String title = TITLE_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getImportConstants() <em>Import Constants</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -115,16 +64,6 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
    * @ordered
    */
   protected EList<GlobalConstants> importConstants;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected Description description;
 
   /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
@@ -147,24 +86,14 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
   protected EList<AVariableDeclaration> computes;
 
   /**
-   * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
+   * The cached value of the '{@link #getRequirements() <em>Requirements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getContent()
+   * @see #getRequirements()
    * @generated
    * @ordered
    */
-  protected EList<Requirement> content;
-
-  /**
-   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDocReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<ExternalDocument> docReference;
+  protected EList<Requirement> requirements;
 
   /**
    * The cached value of the '{@link #getStakeholderGoals() <em>Stakeholder Goals</em>}' reference list.
@@ -175,16 +104,6 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
    * @ordered
    */
   protected EList<ReqRoot> stakeholderGoals;
-
-  /**
-   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIssues()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -212,52 +131,6 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENTS__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENTS__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<GlobalConstants> getImportConstants()
   {
     if (importConstants == null)
@@ -265,54 +138,6 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
       importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS);
     }
     return importConstants;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Description getDescription()
-  {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
-  {
-    Description oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENTS__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(Description newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENTS__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENTS__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENTS__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -348,27 +173,13 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Requirement> getContent()
+  public EList<Requirement> getRequirements()
   {
-    if (content == null)
+    if (requirements == null)
     {
-      content = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENTS__CONTENT);
+      requirements = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENTS__REQUIREMENTS);
     }
-    return content;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ExternalDocument> getDocReference()
-  {
-    if (docReference == null)
-    {
-      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE);
-    }
-    return docReference;
+    return requirements;
   }
 
   /**
@@ -390,35 +201,17 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getIssues()
-  {
-    if (issues == null)
-    {
-      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.REQUIREMENTS__ISSUES);
-    }
-    return issues;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__DESCRIPTION:
-        return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENTS__COMPUTES:
         return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENTS__CONTENT:
-        return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE:
-        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+        return ((InternalEList<?>)getRequirements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -433,26 +226,16 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__NAME:
-        return getName();
-      case ReqSpecPackage.REQUIREMENTS__TITLE:
-        return getTitle();
       case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
         return getImportConstants();
-      case ReqSpecPackage.REQUIREMENTS__DESCRIPTION:
-        return getDescription();
       case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQUIREMENTS__COMPUTES:
         return getComputes();
-      case ReqSpecPackage.REQUIREMENTS__CONTENT:
-        return getContent();
-      case ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE:
-        return getDocReference();
+      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+        return getRequirements();
       case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
         return getStakeholderGoals();
-      case ReqSpecPackage.REQUIREMENTS__ISSUES:
-        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -468,18 +251,9 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__NAME:
-        setName((String)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENTS__TITLE:
-        setTitle((String)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
         getImportConstants().clear();
         getImportConstants().addAll((Collection<? extends GlobalConstants>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENTS__DESCRIPTION:
-        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
         getConstants().clear();
@@ -489,21 +263,13 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENTS__CONTENT:
-        getContent().clear();
-        getContent().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE:
-        getDocReference().clear();
-        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
+      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+        getRequirements().clear();
+        getRequirements().addAll((Collection<? extends Requirement>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
         getStakeholderGoals().addAll((Collection<? extends ReqRoot>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENTS__ISSUES:
-        getIssues().clear();
-        getIssues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -519,17 +285,8 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case ReqSpecPackage.REQUIREMENTS__TITLE:
-        setTitle(TITLE_EDEFAULT);
-        return;
       case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
         getImportConstants().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENTS__DESCRIPTION:
-        setDescription((Description)null);
         return;
       case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
         getConstants().clear();
@@ -537,17 +294,11 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
       case ReqSpecPackage.REQUIREMENTS__COMPUTES:
         getComputes().clear();
         return;
-      case ReqSpecPackage.REQUIREMENTS__CONTENT:
-        getContent().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE:
-        getDocReference().clear();
+      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+        getRequirements().clear();
         return;
       case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENTS__ISSUES:
-        getIssues().clear();
         return;
     }
     super.eUnset(featureID);
@@ -563,49 +314,18 @@ public class RequirementsImpl extends ReqSpecContainerImpl implements Requiremen
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ReqSpecPackage.REQUIREMENTS__TITLE:
-        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
         return importConstants != null && !importConstants.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__DESCRIPTION:
-        return description != null;
       case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQUIREMENTS__COMPUTES:
         return computes != null && !computes.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__CONTENT:
-        return content != null && !content.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__DOC_REFERENCE:
-        return docReference != null && !docReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+        return requirements != null && !requirements.isEmpty();
       case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
         return stakeholderGoals != null && !stakeholderGoals.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__ISSUES:
-        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
-    result.append(title);
-    result.append(", issues: ");
-    result.append(issues);
-    result.append(')');
-    return result.toString();
   }
 
 } //RequirementsImpl

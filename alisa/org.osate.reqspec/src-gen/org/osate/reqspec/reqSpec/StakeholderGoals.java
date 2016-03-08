@@ -21,7 +21,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
-import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,76 +31,19 @@ import org.osate.alisa.common.common.Description;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getContent <em>Content</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference <em>Doc Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getGoals <em>Goals</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals()
  * @model
  * @generated
  */
-public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
+public interface StakeholderGoals extends ReqRoot
 {
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Title</em>' attribute.
-   * @see #setTitle(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Title()
-   * @model
-   * @generated
-   */
-  String getTitle();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTitle <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Title</em>' attribute.
-   * @see #getTitle()
-   * @generated
-   */
-  void setTitle(String value);
-
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -163,32 +105,6 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
   EList<GlobalConstants> getImportConstants();
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(Description)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Description()
-   * @model containment="true"
-   * @generated
-   */
-  Description getDescription();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' containment reference.
-   * @see #getDescription()
-   * @generated
-   */
-  void setDescription(Description value);
-
-  /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
    * <!-- begin-user-doc -->
@@ -205,51 +121,19 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
   EList<AVariableDeclaration> getConstants();
 
   /**
-   * Returns the value of the '<em><b>Content</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Goals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Goals</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Content</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Content()
+   * @return the value of the '<em>Goals</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Goals()
    * @model containment="true"
    * @generated
    */
-  EList<Goal> getContent();
-
-  /**
-   * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Doc Reference</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_DocReference()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ExternalDocument> getDocReference();
-
-  /**
-   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Issues</em>' attribute list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Issues()
-   * @model unique="false"
-   * @generated
-   */
-  EList<String> getIssues();
+  EList<Goal> getGoals();
 
 } // StakeholderGoals

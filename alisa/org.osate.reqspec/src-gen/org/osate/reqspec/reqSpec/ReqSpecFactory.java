@@ -45,15 +45,6 @@ public interface ReqSpecFactory extends EFactory
   ReqSpec createReqSpec();
 
   /**
-   * Returns a new object of class '<em>Container</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Container</em>'.
-   * @generated
-   */
-  ReqSpecContainer createReqSpecContainer();
-
-  /**
    * Returns a new object of class '<em>Global Constants</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

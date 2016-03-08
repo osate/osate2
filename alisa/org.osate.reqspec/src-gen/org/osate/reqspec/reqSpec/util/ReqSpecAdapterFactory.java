@@ -93,11 +93,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createReqSpecAdapter();
       }
       @Override
-      public Adapter caseReqSpecContainer(ReqSpecContainer object)
-      {
-        return createReqSpecContainerAdapter();
-      }
-      @Override
       public Adapter caseGlobalConstants(GlobalConstants object)
       {
         return createGlobalConstantsAdapter();
@@ -225,21 +220,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createReqSpecAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqSpecContainer <em>Container</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.ReqSpecContainer
-   * @generated
-   */
-  public Adapter createReqSpecContainerAdapter()
   {
     return null;
   }

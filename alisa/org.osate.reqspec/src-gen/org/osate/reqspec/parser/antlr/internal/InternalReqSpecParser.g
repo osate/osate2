@@ -172,8 +172,6 @@ ruleReqSpec returns [EObject current=null]
 
 
 
-
-
 // Entry rule entryRuleGlobalConstants
 entryRuleGlobalConstants returns [EObject current=null]
 	:
@@ -461,16 +459,16 @@ ruleStakeholderGoals returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_7_2_0()); 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getGoalsGoalParserRuleCall_7_2_0()); 
 	    }
-		lv_content_15_0=ruleGoal		{
+		lv_goals_15_0=ruleGoal		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
 	        }
        		add(
        			$current, 
-       			"content",
-        		lv_content_15_0, 
+       			"goals",
+        		lv_goals_15_0, 
         		"Goal");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1252,16 +1250,16 @@ ruleSystemRequirements returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSystemRequirementsAccess().getContentSystemRequirementParserRuleCall_9_3_0()); 
+	        newCompositeNode(grammarAccess.getSystemRequirementsAccess().getRequirementsSystemRequirementParserRuleCall_9_3_0()); 
 	    }
-		lv_content_16_0=ruleSystemRequirement		{
+		lv_requirements_16_0=ruleSystemRequirement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSystemRequirementsRule());
 	        }
        		add(
        			$current, 
-       			"content",
-        		lv_content_16_0, 
+       			"requirements",
+        		lv_requirements_16_0, 
         		"SystemRequirement");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1643,16 +1641,16 @@ ruleGlobalRequirements returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getGlobalRequirementsAccess().getContentGlobalRequirementParserRuleCall_7_3_0()); 
+	        newCompositeNode(grammarAccess.getGlobalRequirementsAccess().getRequirementsGlobalRequirementParserRuleCall_7_3_0()); 
 	    }
-		lv_content_14_0=ruleGlobalRequirement		{
+		lv_requirements_14_0=ruleGlobalRequirement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getGlobalRequirementsRule());
 	        }
        		add(
        			$current, 
-       			"content",
-        		lv_content_14_0, 
+       			"requirements",
+        		lv_requirements_14_0, 
         		"GlobalRequirement");
 	        afterParserOrEnumRuleCall();
 	    }

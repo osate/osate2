@@ -72,7 +72,7 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 			ci.componentClassifier.allRequirements
 		}
 		override Iterable<Requirement> getAllRequirements(ComponentClassifier cc){
-			cc.systemRequirements.map[it.content].flatten
+			cc.systemRequirements.map[it.requirements].flatten
 		}
 
 		override Iterable<StakeholderGoals> getStakeholderGoals(ComponentClassifier cc){

@@ -40,7 +40,7 @@ import org.osate.alisa.common.common.Description;
  * @model
  * @generated
  */
-public interface DocumentSection extends ReqSpecContainer
+public interface DocumentSection extends EObject
 {
   /**
    * Returns the value of the '<em><b>Label</b></em>' attribute.

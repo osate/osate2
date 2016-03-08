@@ -105,7 +105,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 
 			// predicate for not itself and whether proposed requirement exists in any of the accessible system requirements
 			model != proposedObj && listAccessibleSystemRequirements.filter [
-				content.contains(proposedObj)
+				requirements.contains(proposedObj)
 			].size > 0
 		]);
 	}

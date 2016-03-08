@@ -154,7 +154,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 		val claims = vp.claim
 		claims.forEach[EcoreUtil.resolveAll(it)]
 		val sysreqs = vp.requirements
-		val sysreqsContent = sysreqs.content
+		val sysreqsContent = sysreqs.requirements 
 		val vpURI = EcoreUtil.getURI(vp).toString()
 		val claimsRequirements = claims.map[requirement].toSet
 		val requirementsWithoutClaims = sysreqsContent.filter[!claimsRequirements.contains(it)]		
@@ -198,7 +198,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	@Check(CheckType.NORMAL)
 	def checkClaimsForRequirement(VerificationPlan vp) {
 		val systemRequirements = vp.requirements
-		val requirements = systemRequirements.content
+		val requirements = systemRequirements.requirements
 		requirements.forEach [ req |
 			if (!vp.claim.exists[claim|claim.requirement === req]) {
 				error('No claim for requirement ' + req.name, vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
@@ -209,7 +209,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	@Check(CheckType.NORMAL)
 	def checkClaimsForMultipleRequirement(VerificationPlan vp) {
 		val systemRequirements = vp.requirements
-		val requirements = systemRequirements.content
+		val requirements = systemRequirements.requirements
 		val List<String> missingRequirements = new ArrayList<String>
 		requirements.forEach [ req |
 			if (!vp.claim.exists[claim|claim.requirement === req]) {

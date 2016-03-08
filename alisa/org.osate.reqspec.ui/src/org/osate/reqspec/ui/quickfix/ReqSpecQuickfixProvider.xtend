@@ -61,7 +61,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
 						val stakeholderGoals = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as StakeholderGoals
 						val goal = element as Goal
-						stakeholderGoals.content.remove(goal);
+						stakeholderGoals.goals.remove(goal);
 					}
 				});
 	}
@@ -147,7 +147,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
 						val SystemRequirements = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as SystemRequirements
 						val requirement = element as Requirement
-						SystemRequirements.content.remove(requirement)
+						SystemRequirements.requirements.remove(requirement)
 					}
 				});
 	}

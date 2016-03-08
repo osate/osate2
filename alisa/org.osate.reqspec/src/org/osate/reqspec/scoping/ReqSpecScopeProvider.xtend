@@ -143,9 +143,9 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 			].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 			// TODO sort in extends hierarchy order
 			for (sr : listAccessibleSystemRequirements) {
-				if (!sr.content.empty) {
+				if (!sr.requirements.empty) {
 					result = new SimpleScope(result,
-						Scopes::scopedElementsFor(sr.content,
+						Scopes::scopedElementsFor(sr.requirements,
 							QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 				}
 			}
