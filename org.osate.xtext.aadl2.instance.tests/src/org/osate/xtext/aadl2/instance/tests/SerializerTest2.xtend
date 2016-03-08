@@ -184,4 +184,78 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m6#s1_sub.m2" m6 , s1_sub[0].m2
 			}''')
 	}
+	
+	@Test
+	def void testInModes() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s1
+					features
+						p1: in data port;
+					flows
+						f1: flow sink p1 in modes (m1, m2);
+					modes
+						m1: initial mode;
+						m2: mode;
+						m3: mode;
+				end s1;
+				
+				system implementation s1.i
+					subcomponents
+						sub1: system s2;
+						sub2: system in modes (m1);
+						sub3: system in modes (m1, m2);
+						sub4: system s3 in modes (m1, m2, m3);
+					connections
+						conn1: port sub1.p2 -> sub4.p3 in modes (m3);
+					flows
+						etef1: end to end flow sub1.f2 -> conn1 -> sub4.f3 in modes (m3);
+				end s1.i;
+				
+				system s2
+					features
+						p2: out data port;
+					flows
+						f2: flow source p2;
+				end s2;
+				
+				system s3
+					features
+						p3: in data port;
+					flows
+						f3: flow sink p3;
+				end s3;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
+			system s1_i_Instance : pkg1::s1.i {
+				in dataPort p1 : pkg1::s1::p1 source of ( f1 )
+				system sub1 [ 0 ] : pkg1::s1.i::sub1 {
+					out dataPort p2 : pkg1::s2::p2 source of ( 1.0 ) destination of ( f2 )
+					flow f2 ( -> p2 ) : pkg1::s2::f2
+				}
+				system sub2 [ 0 ] in modes ( m1 ) : pkg1::s1.i::sub2
+				system sub3 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i::sub3
+				system sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i::sub4 {
+					in dataPort p3 : pkg1::s3::p3 source of ( f3 ) destination of ( 1.0 )
+					flow f3 ( p3 -> ) : pkg1::s3::f3
+				}
+				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in
+				modes ( 2 ) {
+					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i::conn1 in parent
+				}
+				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1::f1
+				end to end flow etef1 sub1[0].f2 -> 0 -> sub4[0].f3 in modes ( 2 ) :
+				pkg1::s1.i::etef1
+				initial mode m1 : pkg1::s1::m1
+				mode m2 : pkg1::s1::m2
+				mode m3 : pkg1::s1::m3
+				som "m1" m1
+				som "m2" m2
+				som "m3" m3
+			}''')
+	}
 }

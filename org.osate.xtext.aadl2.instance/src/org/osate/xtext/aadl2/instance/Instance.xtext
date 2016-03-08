@@ -27,7 +27,7 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=LONG ']')* ':' subcomponent=[aadl2::Subcomponent|SUBREF]
+	category=ComponentCategory name=ID ('[' index+=LONG ']')* ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' subcomponent=[aadl2::Subcomponent|SUBREF]
 	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
 	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
@@ -41,7 +41,7 @@ ComponentInstance returns instance::ComponentInstance:
 ;
 
 ConnectionInstance returns instance::ConnectionInstance:
-	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] '{'
+	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? '{'
 		connectionReference+=ConnectionReference+
 	'}'
 ;
@@ -51,11 +51,11 @@ ConnectionReference returns instance::ConnectionReference:
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
-	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
+	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
 ;
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
-	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ':' endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
+	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ':' endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
 ;
 
 ModeInstance returns instance::ModeInstance:
@@ -124,6 +124,10 @@ FLOWELEMENTREF:
 
 MODEINSTREF:
 	(ID ('[' LONG ']')* '.')* ID
+;
+
+SOMREF:
+	LONG
 ;
 	
 terminal ID:	('a'..'z'
