@@ -1,28 +1,19 @@
 package org.osate.xtext.aadl2.instance.tests
 
-import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.serializer.ISerializer
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.ComponentImplementation
-import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.instance.InstanceUiInjectorProvider
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertNotNull
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
-class SerializerTest extends OsateTest {
-	@Inject
-	extension ISerializer
-	
+class SerializerTest1 extends AbstractSerializerTest {
 	override getProjectName() {
-		"SerializerTest"
+		"SerializerTest1"
 	}
 	
 	@Test
@@ -810,11 +801,5 @@ class SerializerTest extends OsateTest {
 				flow f7 ( fg2[1].p6 -> ) : pkg1::s::f7
 				som "No Modes"
 			}''')
-	}
-
-	def private assertSerialize(AadlPackage aadlPackage, String implName, String expected) {
-		val impl = aadlPackage.publicSection.ownedClassifiers.filter(ComponentImplementation).findFirst[implName == name]
-		impl.assertNotNull
-		expected.assertEquals(impl.buildInstanceModelFile.serialize)
 	}
 }

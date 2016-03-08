@@ -16,6 +16,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -40,6 +41,9 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				return; 
 			case InstancePackage.CONNECTION_REFERENCE:
 				sequence_ConnectionReference(context, (ConnectionReference) semanticObject); 
+				return; 
+			case InstancePackage.END_TO_END_FLOW_INSTANCE:
+				sequence_EndToEndFlowInstance(context, (EndToEndFlowInstance) semanticObject); 
 				return; 
 			case InstancePackage.FEATURE_INSTANCE:
 				sequence_FeatureInstance(context, (FeatureInstance) semanticObject); 
@@ -70,7 +74,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             featureInstance+=FeatureInstance | 
 	 *             componentInstance+=ComponentInstance | 
 	 *             connectionInstance+=ConnectionInstance | 
-	 *             flowSpecification+=FlowSpecificationInstance
+	 *             flowSpecification+=FlowSpecificationInstance | 
+	 *             endToEndFlow+=EndToEndFlowInstance
 	 *         )*
 	 *     )
 	 */
@@ -106,6 +111,19 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     )
 	 */
 	protected void sequence_ConnectionReference(EObject context, ConnectionReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (flowElement+=[FlowElementInstance|FLOWELEMENTREF] flowElement+=[FlowElementInstance|FLOWELEMENTREF]*)? 
+	 *         endToEndFlow=[EndToEndFlow|SUBREF]
+	 *     )
+	 */
+	protected void sequence_EndToEndFlowInstance(EObject context, EndToEndFlowInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -159,6 +177,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             componentInstance+=ComponentInstance | 
 	 *             connectionInstance+=ConnectionInstance | 
 	 *             flowSpecification+=FlowSpecificationInstance | 
+	 *             endToEndFlow+=EndToEndFlowInstance | 
 	 *             systemOperationMode+=SystemOperationMode
 	 *         )*
 	 *     )
