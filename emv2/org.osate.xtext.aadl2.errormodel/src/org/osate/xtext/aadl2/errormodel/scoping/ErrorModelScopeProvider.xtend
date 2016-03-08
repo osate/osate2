@@ -243,12 +243,8 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * We return Subcomponents, and out ErrorPropagations of subcomponents, as well as Features in Feature Groups.
 	 */
 	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
-		val parent = context.eContainer
-		val classifier = switch (parent) {
-			EMV2Path:
-				context.associatedClassifier
-			EMV2PathElement: {
-				val ne = parent.namedElement
+		val ne = context.namedElement
+		val classifier = 
 				if (ne instanceof Subcomponent) {
 					ne.allClassifier
 				} else if (ne instanceof FeatureGroup) {
@@ -256,8 +252,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				} else {
 					null
 				}
-			}
-		}
 		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
 				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
 				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
