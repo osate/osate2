@@ -12,6 +12,7 @@ SystemInstance returns instance::SystemInstance:
 			connectionInstance+=ConnectionInstance |
 			flowSpecification+=FlowSpecificationInstance |
 			endToEndFlow+=EndToEndFlowInstance |
+			modeInstance+=ModeInstance |
 			systemOperationMode+=SystemOperationMode
 		)*
 	'}'
@@ -33,7 +34,8 @@ ComponentInstance returns instance::ComponentInstance:
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
 			flowSpecification+=FlowSpecificationInstance |
-			endToEndFlow+=EndToEndFlowInstance
+			endToEndFlow+=EndToEndFlowInstance |
+			modeInstance+=ModeInstance
 		)*
 	'}')?
 ;
@@ -55,9 +57,13 @@ FlowSpecificationInstance returns instance::FlowSpecificationInstance:
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ':' endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
 ;
+
+ModeInstance returns instance::ModeInstance:
+	initial?='initial'? derived?='derived'? 'mode' name=ID ':' mode=[aadl2::Mode|MODEREF]
+;
 	
 SystemOperationMode returns instance::SystemOperationMode:
-	'som' name=STRING
+	'som' name=STRING (currentMode+=[instance::ModeInstance|MODEINSTREF] (',' currentMode+=[instance::ModeInstance|MODEINSTREF])*)?
 ;
 
 DirectionType returns aadl2::DirectionType:
@@ -92,6 +98,10 @@ SUBREF:
 	(ID '::')+ ID '.' ID '::' ID
 ;
 
+MODEREF:
+	(ID '::')+ ID ('.' ID)? '::' ID
+;
+
 INSTANCEREF:
 	ID ('[' LONG ']')* ('.' ID ('[' LONG ']')*)*
 ;
@@ -110,6 +120,10 @@ CONNINSTREF:
 
 FLOWELEMENTREF:
 	(ID ('[' LONG ']')* '.')* (LONG | ID ('[' LONG ']')*)
+;
+
+MODEINSTREF:
+	(ID ('[' LONG ']')* '.')* ID
 ;
 	
 terminal ID:	('a'..'z'
