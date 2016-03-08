@@ -21,6 +21,7 @@ import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.instance.SystemInstance
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -270,5 +271,9 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		]
 		val modes = component.modeInstances.map[EObjectDescription.create(prefix + "." + name, it)]
 		components.flatten + modes
+	}
+	
+	def IScope scope_SystemOperationMode(SystemInstance context, EReference reference) {
+		new SimpleScope(context.systemOperationModes.indexed.map[EObjectDescription.create(key.toString, value)])
 	}
 }

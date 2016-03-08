@@ -71,6 +71,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         category=ComponentCategory 
 	 *         name=ID 
 	 *         index+=LONG* 
+	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         subcomponent=[Subcomponent|SUBREF] 
 	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
@@ -98,6 +99,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
 	 *         bidirectional?='<->'? 
 	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
 	 *         connectionReference+=ConnectionReference+
 	 *     )
 	 */
@@ -125,6 +127,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         name=ID 
 	 *         (flowElement+=[FlowElementInstance|FLOWELEMENTREF] flowElement+=[FlowElementInstance|FLOWELEMENTREF]*)? 
+	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
 	 *         endToEndFlow=[EndToEndFlow|SUBREF]
 	 *     )
 	 */
@@ -163,6 +166,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ID 
 	 *         source=[FeatureInstance|SIMPLEINSTANCEREF]? 
 	 *         destination=[FeatureInstance|SIMPLEINSTANCEREF]? 
+	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         flowSpecification=[FlowSpecification|FEATREF]
 	 *     )
 	 */
