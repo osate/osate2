@@ -15,6 +15,7 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupType
@@ -238,5 +239,36 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		val endToEndFlows = component.endToEndFlows.map[EObjectDescription.create(prefix + "." + name, it)]
 		val flowSpecs = component.flowSpecifications.map[EObjectDescription.create(prefix + "." + name, it)]
 		components.flatten + connections + endToEndFlows + flowSpecs
+	}
+	
+	def IScope scope_ModeInstance_mode(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentClassifier)
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as ComponentClassifier]
+		new SimpleScope(classifiers.map[classifier |
+			val pkgName = classifier.getContainerOfType(AadlPackage).name
+			classifier.ownedModes.map[mode |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, mode.name])
+				EObjectDescription.create(qualifiedName, mode)
+			]
+		].flatten)
+	}
+	
+	def IScope scope_SystemOperationMode_currentMode(ComponentInstance context, EReference reference) {
+		val components = context.componentInstances.map[
+			val prefix = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			doComponentForMode(prefix, it)
+		]
+		val modes = context.modeInstances.map[EObjectDescription.create(name, it)]
+		new SimpleScope(components.flatten + modes)
+	}
+	
+	def private static Iterable<IEObjectDescription> doComponentForMode(String prefix, ComponentInstance component) {
+		val components = component.componentInstances.map[
+			val newPrefix = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			doComponentForMode(newPrefix, it)
+		]
+		val modes = component.modeInstances.map[EObjectDescription.create(prefix + "." + name, it)]
+		components.flatten + modes
 	}
 }

@@ -133,4 +133,55 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "No Modes"
 			}''')
 	}
+	
+	@Test
+	def void testModes() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s1
+					modes
+						m1: initial mode;
+						m2: mode;
+				end s1;
+				
+				system s2
+					requires modes
+						m3: initial mode;
+						m4: mode;
+				end s2;
+				
+				system s3
+					modes
+						m5: initial mode;
+						m6: mode;
+				end s3;
+				
+				system implementation s3.i
+					subcomponents
+						s1_sub: system s1;
+						s2_sub: system s2;
+				end s3.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+			system s3_i_Instance : pkg1::s3.i {
+				system s1_sub [ 0 ] : pkg1::s3.i::s1_sub {
+					initial mode m1 : pkg1::s1::m1
+					mode m2 : pkg1::s1::m2
+				}
+				system s2_sub [ 0 ] : pkg1::s3.i::s2_sub {
+					initial derived mode m3 : pkg1::s2::m3
+					derived mode m4 : pkg1::s2::m4
+				}
+				initial mode m5 : pkg1::s3::m5
+				mode m6 : pkg1::s3::m6
+				som "m5#s1_sub.m1" m5 , s1_sub[0].m1
+				som "m5#s1_sub.m2" m5 , s1_sub[0].m2
+				som "m6#s1_sub.m1" m6 , s1_sub[0].m1
+				som "m6#s1_sub.m2" m6 , s1_sub[0].m2
+			}''')
+	}
 }

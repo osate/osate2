@@ -20,6 +20,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
@@ -51,6 +52,9 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case InstancePackage.FLOW_SPECIFICATION_INSTANCE:
 				sequence_FlowSpecificationInstance(context, (FlowSpecificationInstance) semanticObject); 
 				return; 
+			case InstancePackage.MODE_INSTANCE:
+				sequence_ModeInstance(context, (ModeInstance) semanticObject); 
+				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
 				return; 
@@ -75,7 +79,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             componentInstance+=ComponentInstance | 
 	 *             connectionInstance+=ConnectionInstance | 
 	 *             flowSpecification+=FlowSpecificationInstance | 
-	 *             endToEndFlow+=EndToEndFlowInstance
+	 *             endToEndFlow+=EndToEndFlowInstance | 
+	 *             modeInstance+=ModeInstance
 	 *         )*
 	 *     )
 	 */
@@ -168,6 +173,15 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
+	 *     (initial?='initial'? derived?='derived'? name=ID mode=[Mode|MODEREF])
+	 */
+	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         category=ComponentCategory 
 	 *         name=ID 
@@ -178,6 +192,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             connectionInstance+=ConnectionInstance | 
 	 *             flowSpecification+=FlowSpecificationInstance | 
 	 *             endToEndFlow+=EndToEndFlowInstance | 
+	 *             modeInstance+=ModeInstance | 
 	 *             systemOperationMode+=SystemOperationMode
 	 *         )*
 	 *     )
@@ -189,7 +204,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     name=STRING
+	 *     (name=STRING (currentMode+=[ModeInstance|MODEINSTREF] currentMode+=[ModeInstance|MODEINSTREF]*)?)
 	 */
 	protected void sequence_SystemOperationMode(EObject context, SystemOperationMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
