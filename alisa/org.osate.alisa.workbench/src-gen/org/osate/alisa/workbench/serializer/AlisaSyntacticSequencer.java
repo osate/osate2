@@ -36,9 +36,10 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_AssurancePlan_AssureKeyword_7_1_0_q;
-	protected AbstractElementAlias match_AssurancePlan_IssuesKeyword_7_4_0_q;
-	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q;
-	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q;
+	protected AbstractElementAlias match_AssurancePlan_IssuesKeyword_7_5_0_q;
+	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q;
+	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q;
+	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q;
 	protected AbstractElementAlias match_AssuranceTask_CategoryKeyword_6_1_0_q;
 	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_6_2_0_q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
@@ -49,9 +50,10 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_AssurancePlan_AssureKeyword_7_1_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_1_0());
-		match_AssurancePlan_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_4_0());
-		match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_3_1()));
-		match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_2_1()));
+		match_AssurancePlan_IssuesKeyword_7_5_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_5_0());
+		match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_4_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_4_1()));
+		match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getGlobalKeyword_7_2_1()));
+		match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_3_1()));
 		match_AssuranceTask_CategoryKeyword_6_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getCategoryKeyword_6_1_0());
 		match_AssuranceTask_IssuesKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_2_0());
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
@@ -75,12 +77,14 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssurancePlan_AssureKeyword_7_1_0_q.equals(syntax))
 				emit_AssurancePlan_AssureKeyword_7_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan_IssuesKeyword_7_4_0_q.equals(syntax))
-				emit_AssurancePlan_IssuesKeyword_7_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q.equals(syntax))
-				emit_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q.equals(syntax))
-				emit_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan_IssuesKeyword_7_5_0_q.equals(syntax))
+				emit_AssurancePlan_IssuesKeyword_7_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q.equals(syntax))
+				emit_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q.equals(syntax))
+				emit_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q.equals(syntax))
+				emit_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_CategoryKeyword_6_1_0_q.equals(syntax))
 				emit_AssuranceTask_CategoryKeyword_6_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_IssuesKeyword_6_2_0_q.equals(syntax))
@@ -165,7 +169,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_AssurancePlan_IssuesKeyword_7_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssurancePlan_IssuesKeyword_7_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -176,7 +180,18 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     assumeSubsystems+=[Subcomponent|ID] (ambiguity) assumeSubsystems+=[Subcomponent|ID]
 	 */
-	protected void emit_AssurancePlan___AssumeKeyword_7_3_0_SubsystemKeyword_7_3_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('assure' 'global')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     assureGlobal+=[VerificationPlan|QualifiedName] (ambiguity) assureGlobal+=[VerificationPlan|QualifiedName]
+	 */
+	protected void emit_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -187,7 +202,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     assureSubsystems+=[Subcomponent|ID] (ambiguity) assureSubsystems+=[Subcomponent|ID]
 	 */
-	protected void emit_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

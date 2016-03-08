@@ -54,6 +54,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.osate.reqspec.reqSpec.GlobalRequirementSet
 
 /**
  * Generates code from your model files on save.
@@ -230,6 +231,8 @@ class AlisaGenerator implements IGenerator {
 						}
 					}
 				}
+			} else if (reqs instanceof GlobalRequirementSet){
+					globalPlans.add(vplan)
 			}
 		}
 		val result = 
@@ -242,11 +245,13 @@ class AlisaGenerator implements IGenerator {
 				«ENDFOR»
 			«ENDFOR»
 			«FOR vplan : selfPlans»
+				«IF vplan.requirements instanceof SystemRequirementSet»
 				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 				«IF claim.evaluateRequirementFilter(filter)»
 				«claim.generateAll(cc)»
 				«ENDIF»
 				«ENDFOR»
+				«ENDIF»
 			«ENDFOR»
 				«FOR claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 				«IF claim.evaluateRequirementFilter(filter)»
