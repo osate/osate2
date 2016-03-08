@@ -35,23 +35,23 @@ import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-import org.osate.reqspec.reqSpec.SystemRequirements;
+import org.osate.reqspec.reqSpec.SystemRequirementSet;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>System Requirements</b></em>'.
+ * An implementation of the model object '<em><b>System Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getInclude <em>Include</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementSetImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementSetImpl#getInclude <em>Include</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SystemRequirementsImpl extends RequirementsImpl implements SystemRequirements
+public class SystemRequirementSetImpl extends RequirementSetImpl implements SystemRequirementSet
 {
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -78,7 +78,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
    * <!-- end-user-doc -->
    * @generated
    */
-  protected SystemRequirementsImpl()
+  protected SystemRequirementSetImpl()
   {
     super();
   }
@@ -91,7 +91,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS;
+    return ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET;
   }
 
   /**
@@ -108,7 +108,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
       if (target != oldTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET, oldTarget, target));
       }
     }
     return target;
@@ -134,7 +134,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
     ComponentClassifier oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET, oldTarget, target));
   }
 
   /**
@@ -146,7 +146,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     if (include == null)
     {
-      include = new EObjectContainmentEList<IncludeGlobalRequirement>(IncludeGlobalRequirement.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE);
+      include = new EObjectContainmentEList<IncludeGlobalRequirement>(IncludeGlobalRequirement.class, this, ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE);
     }
     return include;
   }
@@ -161,7 +161,7 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE:
         return ((InternalEList<?>)getInclude()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -177,10 +177,10 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE:
         return getInclude();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -197,10 +197,10 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET:
         setTarget((ComponentClassifier)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE:
         getInclude().clear();
         getInclude().addAll((Collection<? extends IncludeGlobalRequirement>)newValue);
         return;
@@ -218,10 +218,10 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET:
         setTarget((ComponentClassifier)null);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE:
         getInclude().clear();
         return;
     }
@@ -238,12 +238,12 @@ public class SystemRequirementsImpl extends RequirementsImpl implements SystemRe
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__TARGET:
         return target != null;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__INCLUDE:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET__INCLUDE:
         return include != null && !include.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //SystemRequirementsImpl
+} //SystemRequirementSetImpl

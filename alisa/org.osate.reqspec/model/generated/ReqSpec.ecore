@@ -78,7 +78,7 @@
         eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Requirements" eSuperTypes="#//ReqRoot">
+  <eClassifiers xsi:type="ecore:EClass" name="RequirementSet" eSuperTypes="#//ReqRoot">
     <eStructuralFeatures xsi:type="ecore:EReference" name="importConstants" unique="false"
         upperBound="-1" eType="#//GlobalConstants"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
@@ -166,10 +166,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="docReference" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="docFragment" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemRequirements" eSuperTypes="#//Requirements">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemRequirementSet" eSuperTypes="#//RequirementSet">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="include" upperBound="-1"
         eType="#//IncludeGlobalRequirement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GlobalRequirements" eSuperTypes="#//Requirements"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GlobalRequirementSet" eSuperTypes="#//RequirementSet"/>
 </ecore:EPackage>

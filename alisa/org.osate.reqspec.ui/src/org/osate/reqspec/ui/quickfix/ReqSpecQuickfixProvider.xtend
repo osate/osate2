@@ -36,7 +36,7 @@ import org.osate.reqspec.reqSpec.ReqDocument
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.validation.ReqSpecValidator
 
 /**
@@ -104,7 +104,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 						
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
 						val classifier = resourceSet.getEObject(URI.createURI(fromURI), true) as ComponentClassifier
-						val sysReqs = element as SystemRequirements
+						val sysReqs = element as SystemRequirementSet
 						sysReqs.target = classifier
 					}
 				});
@@ -145,7 +145,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
-						val SystemRequirements = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as SystemRequirements
+						val SystemRequirements = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as SystemRequirementSet
 						val requirement = element as Requirement
 						SystemRequirements.requirements.remove(requirement)
 					}

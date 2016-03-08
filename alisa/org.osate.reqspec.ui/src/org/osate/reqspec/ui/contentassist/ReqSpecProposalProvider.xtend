@@ -32,11 +32,11 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.reqspec.reqSpec.GlobalRequirements
+import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 
@@ -56,7 +56,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		);
 	}
 
-	override void completeSystemRequirements_Target(EObject model, Assignment assignment, ContentAssistContext context,
+	override void completeSystemRequirementSet_Target(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
@@ -69,7 +69,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 	override void completeGlobalRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		// System.out.println("completeRequirement_GoalReference0000" + model.toString);
-		val sysRequirements = model.eContainer as SystemRequirements
+		val sysRequirements = model.eContainer as SystemRequirementSet
 
 		// if stakeHolderGoals.target is equal to any of the parent and self of sysRequirements.target
 		val targetComponentClassifier = sysRequirements.target
@@ -87,10 +87,10 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 	override void completeGlobalRequirement_RefinesReference(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 
-		val targetComponentClassifier = (model.eContainer as SystemRequirements).target
-		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirements
+		val targetComponentClassifier = (model.eContainer as SystemRequirementSet).target
+		val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
+			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirementSet
 		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 
 		val ArrayList<EObject> nameList = newArrayList();
@@ -195,7 +195,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
-			[description| model instanceof GlobalRequirements || (model instanceof Requirement && model.eContainer instanceof GlobalRequirements)
+			[description| model instanceof GlobalRequirementSet || (model instanceof Requirement && model.eContainer instanceof GlobalRequirementSet)
 			]
 		);
 	}

@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
-import org.osate.reqspec.reqSpec.Requirements;
+import org.osate.reqspec.reqSpec.RequirementSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -109,12 +109,12 @@ public interface VerificationPlan extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Requirements</em>' reference.
-   * @see #setRequirements(Requirements)
+   * @see #setRequirements(RequirementSet)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Requirements()
    * @model
    * @generated
    */
-  Requirements getRequirements();
+  RequirementSet getRequirements();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}' reference.
@@ -124,7 +124,7 @@ public interface VerificationPlan extends EObject
    * @see #getRequirements()
    * @generated
    */
-  void setRequirements(Requirements value);
+  void setRequirements(RequirementSet value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

@@ -34,27 +34,27 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqSpec");
 		private final Assignment cPartsAssignment = (Assignment)rule.eContents().get(1);
 		private final Alternatives cPartsAlternatives_0 = (Alternatives)cPartsAssignment.eContents().get(0);
-		private final RuleCall cPartsSystemRequirementsParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
-		private final RuleCall cPartsGlobalRequirementsParserRuleCall_0_1 = (RuleCall)cPartsAlternatives_0.eContents().get(1);
+		private final RuleCall cPartsSystemRequirementSetParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
+		private final RuleCall cPartsGlobalRequirementSetParserRuleCall_0_1 = (RuleCall)cPartsAlternatives_0.eContents().get(1);
 		private final RuleCall cPartsStakeholderGoalsParserRuleCall_0_2 = (RuleCall)cPartsAlternatives_0.eContents().get(2);
 		private final RuleCall cPartsReqDocumentParserRuleCall_0_3 = (RuleCall)cPartsAlternatives_0.eContents().get(3);
 		private final RuleCall cPartsGlobalConstantsParserRuleCall_0_4 = (RuleCall)cPartsAlternatives_0.eContents().get(4);
 		
 		//ReqSpec:
-		//	parts+=(SystemRequirements | GlobalRequirements | StakeholderGoals | ReqDocument | GlobalConstants)+;
+		//	parts+=(SystemRequirementSet | GlobalRequirementSet | StakeholderGoals | ReqDocument | GlobalConstants)+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//parts+=(SystemRequirements | GlobalRequirements | StakeholderGoals | ReqDocument | GlobalConstants)+
+		//parts+=(SystemRequirementSet | GlobalRequirementSet | StakeholderGoals | ReqDocument | GlobalConstants)+
 		public Assignment getPartsAssignment() { return cPartsAssignment; }
 
-		//SystemRequirements | GlobalRequirements | StakeholderGoals | ReqDocument | GlobalConstants
+		//SystemRequirementSet | GlobalRequirementSet | StakeholderGoals | ReqDocument | GlobalConstants
 		public Alternatives getPartsAlternatives_0() { return cPartsAlternatives_0; }
 
-		//SystemRequirements
-		public RuleCall getPartsSystemRequirementsParserRuleCall_0_0() { return cPartsSystemRequirementsParserRuleCall_0_0; }
+		//SystemRequirementSet
+		public RuleCall getPartsSystemRequirementSetParserRuleCall_0_0() { return cPartsSystemRequirementSetParserRuleCall_0_0; }
 
-		//GlobalRequirements
-		public RuleCall getPartsGlobalRequirementsParserRuleCall_0_1() { return cPartsGlobalRequirementsParserRuleCall_0_1; }
+		//GlobalRequirementSet
+		public RuleCall getPartsGlobalRequirementSetParserRuleCall_0_1() { return cPartsGlobalRequirementSetParserRuleCall_0_1; }
 
 		//StakeholderGoals
 		public RuleCall getPartsStakeholderGoalsParserRuleCall_0_2() { return cPartsStakeholderGoalsParserRuleCall_0_2; }
@@ -132,14 +132,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cStakeholderGoalsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cReqDocumentParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cSystemRequirementsParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cGlobalRequirementsParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cSystemRequirementSetParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cGlobalRequirementSetParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//ReqRoot:
-		//	StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequirements;
+		//	StakeholderGoals | ReqDocument | SystemRequirementSet | GlobalRequirementSet;
 		@Override public ParserRule getRule() { return rule; }
 
-		//StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequirements
+		//StakeholderGoals | ReqDocument | SystemRequirementSet | GlobalRequirementSet
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StakeholderGoals
@@ -148,11 +148,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ReqDocument
 		public RuleCall getReqDocumentParserRuleCall_1() { return cReqDocumentParserRuleCall_1; }
 
-		//SystemRequirements
-		public RuleCall getSystemRequirementsParserRuleCall_2() { return cSystemRequirementsParserRuleCall_2; }
+		//SystemRequirementSet
+		public RuleCall getSystemRequirementSetParserRuleCall_2() { return cSystemRequirementSetParserRuleCall_2; }
 
-		//GlobalRequirements
-		public RuleCall getGlobalRequirementsParserRuleCall_3() { return cGlobalRequirementsParserRuleCall_3; }
+		//GlobalRequirementSet
+		public RuleCall getGlobalRequirementSetParserRuleCall_3() { return cGlobalRequirementSetParserRuleCall_3; }
 	}
 
 	public class StakeholderGoalsElements extends AbstractParserRuleElementFinder {
@@ -537,10 +537,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
-	public class SystemRequirementsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemRequirements");
+	public class SystemRequirementSetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemRequirementSet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cSystemRequirementsAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cSystemRequirementSetAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cSystemKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cRequirementsKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
@@ -588,8 +588,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesSTRINGTerminalRuleCall_9_7_1_0 = (RuleCall)cIssuesAssignment_9_7_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
-		//SystemRequirements returns Requirements:
-		//	{SystemRequirements} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
+		//SystemRequirementSet returns RequirementSet:
+		//	{SystemRequirementSet} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
 		//	target=[aadl2::ComponentClassifier|AadlClassifierReference] ("use" "constants"
 		//	importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 		//	computes+=ComputeDeclaration* & requirements+=SystemRequirement* & include+=IncludeGlobalRequirement* & ("see"
@@ -597,7 +597,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{SystemRequirements} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
+		//{SystemRequirementSet} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference] ("use" "constants"
 		//importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & requirements+=SystemRequirement* & include+=IncludeGlobalRequirement* & ("see"
@@ -605,8 +605,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
-		//{SystemRequirements}
-		public Action getSystemRequirementsAction_0() { return cSystemRequirementsAction_0; }
+		//{SystemRequirementSet}
+		public Action getSystemRequirementSetAction_0() { return cSystemRequirementSetAction_0; }
 
 		//"system"
 		public Keyword getSystemKeyword_1() { return cSystemKeyword_1; }
@@ -749,10 +749,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
 	}
 
-	public class GlobalRequirementsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "GlobalRequirements");
+	public class GlobalRequirementSetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "GlobalRequirementSet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cGlobalRequirementsAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cGlobalRequirementSetAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cGlobalKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cRequirementsKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
@@ -794,22 +794,22 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_6_1_0 = (RuleCall)cIssuesAssignment_7_6_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//GlobalRequirements returns Requirements:
-		//	{GlobalRequirements} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
+		//GlobalRequirementSet returns RequirementSet:
+		//	{GlobalRequirementSet} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
 		//	importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 		//	computes+=ComputeDeclaration* & requirements+=GlobalRequirement* & ("see" "document"
 		//	docReference+=ExternalDocument+)? & ("see" "goals" stakeholderGoals+=[ReqRoot|QualifiedName]+)? & ("issues"
 		//	issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{GlobalRequirements} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
+		//{GlobalRequirementSet} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
 		//importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & requirements+=GlobalRequirement* & ("see" "document" docReference+=ExternalDocument+)?
 		//& ("see" "goals" stakeholderGoals+=[ReqRoot|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
-		//{GlobalRequirements}
-		public Action getGlobalRequirementsAction_0() { return cGlobalRequirementsAction_0; }
+		//{GlobalRequirementSet}
+		public Action getGlobalRequirementSetAction_0() { return cGlobalRequirementSetAction_0; }
 
 		//"global"
 		public Keyword getGlobalKeyword_1() { return cGlobalKeyword_1; }
@@ -3389,8 +3389,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final StakeholderGoalsElements pStakeholderGoals;
 	private final ReqDocumentElements pReqDocument;
 	private final DocumentSectionElements pDocumentSection;
-	private final SystemRequirementsElements pSystemRequirements;
-	private final GlobalRequirementsElements pGlobalRequirements;
+	private final SystemRequirementSetElements pSystemRequirementSet;
+	private final GlobalRequirementSetElements pGlobalRequirementSet;
 	private final DocGoalElements pDocGoal;
 	private final GoalElements pGoal;
 	private final ReqKindElements unknownRuleReqKind;
@@ -3425,8 +3425,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pStakeholderGoals = new StakeholderGoalsElements();
 		this.pReqDocument = new ReqDocumentElements();
 		this.pDocumentSection = new DocumentSectionElements();
-		this.pSystemRequirements = new SystemRequirementsElements();
-		this.pGlobalRequirements = new GlobalRequirementsElements();
+		this.pSystemRequirementSet = new SystemRequirementSetElements();
+		this.pGlobalRequirementSet = new GlobalRequirementSetElements();
 		this.pDocGoal = new DocGoalElements();
 		this.pGoal = new GoalElements();
 		this.unknownRuleReqKind = new ReqKindElements();
@@ -3474,7 +3474,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//ReqSpec:
-	//	parts+=(SystemRequirements | GlobalRequirements | StakeholderGoals | ReqDocument | GlobalConstants)+;
+	//	parts+=(SystemRequirementSet | GlobalRequirementSet | StakeholderGoals | ReqDocument | GlobalConstants)+;
 	public ReqSpecElements getReqSpecAccess() {
 		return pReqSpec;
 	}
@@ -3505,7 +3505,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqRoot:
-	//	StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequirements;
+	//	StakeholderGoals | ReqDocument | SystemRequirementSet | GlobalRequirementSet;
 	public ReqRootElements getReqRootAccess() {
 		return pReqRoot;
 	}
@@ -3550,33 +3550,33 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDocumentSectionAccess().getRule();
 	}
 
-	//SystemRequirements returns Requirements:
-	//	{SystemRequirements} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
+	//SystemRequirementSet returns RequirementSet:
+	//	{SystemRequirementSet} "system" "requirements" name=QualifiedName (":" title=STRING)? "for"
 	//	target=[aadl2::ComponentClassifier|AadlClassifierReference] ("use" "constants"
 	//	importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 	//	computes+=ComputeDeclaration* & requirements+=SystemRequirement* & include+=IncludeGlobalRequirement* & ("see"
 	//	"document" docReference+=ExternalDocument+)? & ("see" "goals" stakeholderGoals+=[ReqRoot|QualifiedName]+)? &
 	//	("issues" issues+=STRING+)?) "]";
-	public SystemRequirementsElements getSystemRequirementsAccess() {
-		return pSystemRequirements;
+	public SystemRequirementSetElements getSystemRequirementSetAccess() {
+		return pSystemRequirementSet;
 	}
 	
-	public ParserRule getSystemRequirementsRule() {
-		return getSystemRequirementsAccess().getRule();
+	public ParserRule getSystemRequirementSetRule() {
+		return getSystemRequirementSetAccess().getRule();
 	}
 
-	//GlobalRequirements returns Requirements:
-	//	{GlobalRequirements} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
+	//GlobalRequirementSet returns RequirementSet:
+	//	{GlobalRequirementSet} "global" "requirements" name=QualifiedName (":" title=STRING)? ("use" "constants"
 	//	importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? & constants+=ValDeclaration* &
 	//	computes+=ComputeDeclaration* & requirements+=GlobalRequirement* & ("see" "document"
 	//	docReference+=ExternalDocument+)? & ("see" "goals" stakeholderGoals+=[ReqRoot|QualifiedName]+)? & ("issues"
 	//	issues+=STRING+)?) "]";
-	public GlobalRequirementsElements getGlobalRequirementsAccess() {
-		return pGlobalRequirements;
+	public GlobalRequirementSetElements getGlobalRequirementSetAccess() {
+		return pGlobalRequirementSet;
 	}
 	
-	public ParserRule getGlobalRequirementsRule() {
-		return getGlobalRequirementsAccess().getRule();
+	public ParserRule getGlobalRequirementSetRule() {
+		return getGlobalRequirementSetAccess().getRule();
 	}
 
 	//DocGoal returns Goal:

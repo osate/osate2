@@ -21,22 +21,22 @@ import org.osate.aadl2.ComponentClassifier;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>System Requirements</b></em>'.
+ * A representation of the model object '<em><b>System Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getInclude <em>Include</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirementSet#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirementSet#getInclude <em>Include</em>}</li>
  * </ul>
  *
- * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements()
+ * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirementSet()
  * @model
  * @generated
  */
-public interface SystemRequirements extends Requirements
+public interface SystemRequirementSet extends RequirementSet
 {
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
@@ -48,14 +48,14 @@ public interface SystemRequirements extends Requirements
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentClassifier)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Target()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirementSet_Target()
    * @model
    * @generated
    */
   ComponentClassifier getTarget();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirementSet#getTarget <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Target</em>' reference.
@@ -74,10 +74,10 @@ public interface SystemRequirements extends Requirements
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Include</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Include()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirementSet_Include()
    * @model containment="true"
    * @generated
    */
   EList<IncludeGlobalRequirement> getInclude();
 
-} // SystemRequirements
+} // SystemRequirementSet

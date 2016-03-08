@@ -34,26 +34,26 @@ import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqRoot;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.Requirements;
+import org.osate.reqspec.reqSpec.RequirementSet;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Requirements</b></em>'.
+ * An implementation of the model object '<em><b>Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getComputes <em>Computes</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getRequirements <em>Requirements</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementsImpl#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementSetImpl#getImportConstants <em>Import Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementSetImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementSetImpl#getComputes <em>Computes</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementSetImpl#getRequirements <em>Requirements</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementSetImpl#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RequirementsImpl extends ReqRootImpl implements Requirements
+public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
 {
   /**
    * The cached value of the '{@link #getImportConstants() <em>Import Constants</em>}' reference list.
@@ -110,7 +110,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
    * <!-- end-user-doc -->
    * @generated
    */
-  protected RequirementsImpl()
+  protected RequirementSetImpl()
   {
     super();
   }
@@ -123,7 +123,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.REQUIREMENTS;
+    return ReqSpecPackage.Literals.REQUIREMENT_SET;
   }
 
   /**
@@ -135,7 +135,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     if (importConstants == null)
     {
-      importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS);
+      importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.REQUIREMENT_SET__IMPORT_CONSTANTS);
     }
     return importConstants;
   }
@@ -149,7 +149,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENTS__CONSTANTS);
+      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT_SET__CONSTANTS);
     }
     return constants;
   }
@@ -163,7 +163,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     if (computes == null)
     {
-      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENTS__COMPUTES);
+      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT_SET__COMPUTES);
     }
     return computes;
   }
@@ -177,7 +177,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     if (requirements == null)
     {
-      requirements = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENTS__REQUIREMENTS);
+      requirements = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS);
     }
     return requirements;
   }
@@ -191,7 +191,7 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     if (stakeholderGoals == null)
     {
-      stakeholderGoals = new EObjectResolvingEList<ReqRoot>(ReqRoot.class, this, ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS);
+      stakeholderGoals = new EObjectResolvingEList<ReqRoot>(ReqRoot.class, this, ReqSpecPackage.REQUIREMENT_SET__STAKEHOLDER_GOALS);
     }
     return stakeholderGoals;
   }
@@ -206,11 +206,11 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_SET__COMPUTES:
         return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         return ((InternalEList<?>)getRequirements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -226,15 +226,15 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__IMPORT_CONSTANTS:
         return getImportConstants();
-      case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         return getConstants();
-      case ReqSpecPackage.REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_SET__COMPUTES:
         return getComputes();
-      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         return getRequirements();
-      case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_SET__STAKEHOLDER_GOALS:
         return getStakeholderGoals();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -251,23 +251,23 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__IMPORT_CONSTANTS:
         getImportConstants().clear();
         getImportConstants().addAll((Collection<? extends GlobalConstants>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_SET__COMPUTES:
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         getRequirements().clear();
         getRequirements().addAll((Collection<? extends Requirement>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_SET__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
         getStakeholderGoals().addAll((Collection<? extends ReqRoot>)newValue);
         return;
@@ -285,19 +285,19 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__IMPORT_CONSTANTS:
         getImportConstants().clear();
         return;
-      case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         getConstants().clear();
         return;
-      case ReqSpecPackage.REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_SET__COMPUTES:
         getComputes().clear();
         return;
-      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         getRequirements().clear();
         return;
-      case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_SET__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
         return;
     }
@@ -314,18 +314,18 @@ public class RequirementsImpl extends ReqRootImpl implements Requirements
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__IMPORT_CONSTANTS:
         return importConstants != null && !importConstants.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         return constants != null && !constants.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_SET__COMPUTES:
         return computes != null && !computes.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         return requirements != null && !requirements.isEmpty();
-      case ReqSpecPackage.REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_SET__STAKEHOLDER_GOALS:
         return stakeholderGoals != null && !stakeholderGoals.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //RequirementsImpl
+} //RequirementSetImpl

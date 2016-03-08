@@ -18,14 +18,14 @@ package org.osate.reqspec.reqSpec;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Global Requirements</b></em>'.
+ * A representation of the model object '<em><b>Global Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalRequirements()
+ * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalRequirementSet()
  * @model
  * @generated
  */
-public interface GlobalRequirements extends Requirements
+public interface GlobalRequirementSet extends RequirementSet
 {
-} // GlobalRequirements
+} // GlobalRequirementSet

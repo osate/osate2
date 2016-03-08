@@ -45844,13 +45844,13 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16133:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementsCrossReference_5_0()); 
+               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); 
             }
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16134:1: ( ruleQualifiedName )
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16135:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementsQualifiedNameParserRuleCall_5_0_1()); 
+               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__RequirementsAssignment_533420);
             ruleQualifiedName();
@@ -45858,13 +45858,13 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementsQualifiedNameParserRuleCall_5_0_1()); 
+               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementsCrossReference_5_0()); 
+               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); 
             }
 
             }

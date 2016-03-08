@@ -21,25 +21,25 @@ import org.osate.alisa.common.common.AVariableDeclaration;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Requirements</b></em>'.
+ * A representation of the model object '<em><b>Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirements#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirements#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirements#getComputes <em>Computes</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirements#getRequirements <em>Requirements</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirements#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getImportConstants <em>Import Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getComputes <em>Computes</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getRequirements <em>Requirements</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
  * </ul>
  *
- * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements()
+ * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet()
  * @model
  * @generated
  */
-public interface Requirements extends ReqRoot
+public interface RequirementSet extends ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.
@@ -51,7 +51,7 @@ public interface Requirements extends ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Import Constants</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements_ImportConstants()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_ImportConstants()
    * @model
    * @generated
    */
@@ -67,7 +67,7 @@ public interface Requirements extends ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements_Constants()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Constants()
    * @model containment="true"
    * @generated
    */
@@ -83,7 +83,7 @@ public interface Requirements extends ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Computes</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements_Computes()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Computes()
    * @model containment="true"
    * @generated
    */
@@ -99,7 +99,7 @@ public interface Requirements extends ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Requirements</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements_Requirements()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Requirements()
    * @model containment="true"
    * @generated
    */
@@ -115,10 +115,10 @@ public interface Requirements extends ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Stakeholder Goals</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirements_StakeholderGoals()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_StakeholderGoals()
    * @model
    * @generated
    */
   EList<ReqRoot> getStakeholderGoals();
 
-} // Requirements
+} // RequirementSet

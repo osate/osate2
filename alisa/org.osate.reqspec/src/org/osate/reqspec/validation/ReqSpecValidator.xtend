@@ -39,16 +39,16 @@ import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.GlobalConstants
-import org.osate.reqspec.reqSpec.GlobalRequirements
+import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement
 import org.osate.reqspec.reqSpec.ReqDocument
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.Requirements
+import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
@@ -136,7 +136,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 		@Check(CheckType.EXPENSIVE)
-	def void checkFeatureCoverage(SystemRequirements sysreqs) {
+	def void checkFeatureCoverage(SystemRequirementSet sysreqs) {
 		val cl = sysreqs.target
 		if (cl == null || cl.getAllFeatures.empty ) return
 		
@@ -145,7 +145,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (!fealist.empty){
 			val fls = sysreqs.requirements.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Features without requirement: '+fls, 
-					ReqSpecPackage.Literals.REQUIREMENTS__REQUIREMENTS,
+					ReqSpecPackage.Literals.REQUIREMENT_SET__REQUIREMENTS,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}
@@ -165,7 +165,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 @Inject ICommonGlobalReferenceFinder refFinder
 
 //	@Check(CheckType.FAST)
-//	def void checkDuplicateGlobalReq(GlobalRequirements globalReqs) {
+//	def void checkDuplicateGlobalReq(GlobalRequirementSet globalReqs) {
 //		val dupes = refFinder.getDuplicates(globalReqs)
 //		if (dupes.size > 0) {
 //			val node = NodeModelUtils.getNode(globalReqs);
@@ -188,7 +188,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 	@Check(CheckType.FAST)
-	def void checkDuplicateRequirements(Requirements sysReq) {
+	def void checkDuplicateRequirements(RequirementSet sysReq) {
 		val dupes = refFinder.getDuplicates(sysReq)
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(sysReq);
@@ -198,7 +198,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			}
 	}
 	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirement(Requirements sysReq) {
+	def void checkDuplicateRequirement(RequirementSet sysReq) {
 		sysReq.requirements.forEach[requirement | 
 			if (sysReq.requirements.filter[name == requirement.name].size > 1) 
 				error("Duplicate requirement name '" + requirement.name + "' in requirements '" + sysReq.name + "'",  
@@ -209,7 +209,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 
 	@Check(CheckType.NORMAL)
-	def void checkSpecGoalTargetConsistency(SystemRequirements sysReqs) {
+	def void checkSpecGoalTargetConsistency(SystemRequirementSet sysReqs) {
 		val reqSpecTarget = sysReqs.target
 		val requirements = sysReqs.requirements
 		val resource = sysReqs.eResource();
@@ -230,7 +230,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 						error("System Requirement '" +  sysReqs.name + 
 								"' is not for the same component as the StakeholderGoals that " +
 								"holds the goal that corresponds to requirement '" + requirement.name + "'", sysReqs,  
-								ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR,
+								ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET__TARGET, REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR,
 								sysReqs.target.name, goalTargetName, goalTargetURI )
 				}
 				
@@ -294,7 +294,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkCoverage(StakeholderGoals shgs) {
 		val target = shgs.target
 		if (!SystemImplementation.isInstance(target)){ return }
-		val sysReqs = reqSpecrefFinder.getSystemRequirements(target)
+		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(target)
 		shgs.goals.forEach[goal | 
 			if (!sysReqs.exists[sysReq | sysReq.requirements.exists[goalReference.exists[goalRef | goalRef === goal]]]){
 				error("Goal " + goal.name + " does not have a corresponding System Requirement.", 
@@ -312,8 +312,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			case REQSPEC_FILE_EXT : {
 				parts.forEach[part |
 					switch part {
-						SystemRequirements : {}
-						GlobalRequirements : {}
+						SystemRequirementSet : {}
+						GlobalRequirementSet : {}
 						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
 						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
@@ -325,7 +325,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						StakeholderGoals : {}
-						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
+						SystemRequirementSet : fileTypeWarning(fileExt, "system requirements", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
 						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						default : fileTypeWarning(fileExt, part.class.name, part)
@@ -346,8 +346,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								}
 							]
 						}	
-						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
-						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						SystemRequirementSet : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirementSet : fileTypeWarning(fileExt, "global requirements", part)	
 						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
@@ -368,8 +368,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								}
 							]
 						}	
-						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
-						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						SystemRequirementSet : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirementSet : fileTypeWarning(fileExt, "global requirements", part)	
 						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
@@ -380,8 +380,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						GlobalConstants : {}
-						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
-						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						SystemRequirementSet : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirementSet : fileTypeWarning(fileExt, "global requirements", part)	
 						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
@@ -396,7 +396,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		warning( partName +" not allowed in '"+ fileType + "' file.", part, null)
 	}
 	/** TODO: These methods invoke the QuickFixes, not using yet do to unexpected behavior: 
-	 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirements elements re-order in a way causing an error
+	 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirementSet elements re-order in a way causing an error
 	def void fileTypeError(String fileType, String partName, EObject part, ReqSpec parent){
 		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC, partName, EcoreUtil.getURI(parent).toString())
 	}
@@ -431,13 +431,13 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 	@Check//(CheckType.FAST)
-	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
+	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
 		val target = sysReq.target
-		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsNoExtends(target)
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
 		if (allSystemRequirements.size > 1){
 			error("Other System Requirements exist for '" +  target.name + 
 								"'. Only one System Requirement is allowed for a specific component." , sysReq,  
-								ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET)
+								ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET__TARGET)
 		}
 	}
 	
@@ -457,7 +457,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
 		val containingSysReqs = req.containingRequirements
-		if (containingSysReqs instanceof SystemRequirements){
+		if (containingSysReqs instanceof SystemRequirementSet){
 		val componentClassifier = containingSysReqs.target
 		val classifierParents = new ArrayList<ComponentClassifier>
 
@@ -466,7 +466,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		var ComponentType compType
 		if (componentClassifier instanceof ComponentImplementation)	 compType = componentClassifier.type
 		classifierParents.toSet.toList.forEach[ classifierParent |
-			reqSpecrefFinder.getSystemRequirements(classifierParent as ComponentClassifier).forEach[ sysreqs |
+			reqSpecrefFinder.getSystemRequirementSets(classifierParent as ComponentClassifier).forEach[ sysreqs |
 				if (sysreqs.requirements.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
 					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
 							"' shadows a requirement of the same name in the System Requirements for '" +
@@ -501,10 +501,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			default : {
 				val classifierParents = new ArrayList<ComponentClassifier>
 				val reqs = req.containingRequirements
-				if (reqs instanceof SystemRequirements){
+				if (reqs instanceof SystemRequirementSet){
 				reqs.target.buildExtended(classifierParents)
 				val refinedreqs = req.refinesReference.head.containingRequirements
-				if (refinedreqs instanceof SystemRequirements){
+				if (refinedreqs instanceof SystemRequirementSet){
 				if (classifierParents.contains(refinedreqs.target)) return;
 				error("Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name + 
 						"' and must either be in the same System Requirements or '" +
@@ -520,7 +520,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 	@Check(CheckType.FAST)
 	def void checkIncludeGlobalRequirement(IncludeGlobalRequirement igr) {
-		if (!(igr.include instanceof GlobalRequirements || igr.include instanceof Requirement)){
+		if (!(igr.include instanceof GlobalRequirementSet || igr.include instanceof Requirement)){
 			error("Must include global requirements or requirement in global requirements." , igr,  
 								ReqSpecPackage.Literals.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE, INCORRECT_GLOBAL_REQUIREMENT_INCLUDE)
 		}

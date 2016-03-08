@@ -509,7 +509,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         requirements=[Requirements|QualifiedName] 
+	 *         requirements=[RequirementSet|QualifiedName] 
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 

@@ -136,11 +136,11 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQUIREMENTS:
+      case ReqSpecPackage.REQUIREMENT_SET:
       {
-        Requirements requirements = (Requirements)theEObject;
-        T result = caseRequirements(requirements);
-        if (result == null) result = caseReqRoot(requirements);
+        RequirementSet requirementSet = (RequirementSet)theEObject;
+        T result = caseRequirementSet(requirementSet);
+        if (result == null) result = caseReqRoot(requirementSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -219,21 +219,21 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS:
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET:
       {
-        SystemRequirements systemRequirements = (SystemRequirements)theEObject;
-        T result = caseSystemRequirements(systemRequirements);
-        if (result == null) result = caseRequirements(systemRequirements);
-        if (result == null) result = caseReqRoot(systemRequirements);
+        SystemRequirementSet systemRequirementSet = (SystemRequirementSet)theEObject;
+        T result = caseSystemRequirementSet(systemRequirementSet);
+        if (result == null) result = caseRequirementSet(systemRequirementSet);
+        if (result == null) result = caseReqRoot(systemRequirementSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.GLOBAL_REQUIREMENTS:
+      case ReqSpecPackage.GLOBAL_REQUIREMENT_SET:
       {
-        GlobalRequirements globalRequirements = (GlobalRequirements)theEObject;
-        T result = caseGlobalRequirements(globalRequirements);
-        if (result == null) result = caseRequirements(globalRequirements);
-        if (result == null) result = caseReqRoot(globalRequirements);
+        GlobalRequirementSet globalRequirementSet = (GlobalRequirementSet)theEObject;
+        T result = caseGlobalRequirementSet(globalRequirementSet);
+        if (result == null) result = caseRequirementSet(globalRequirementSet);
+        if (result == null) result = caseReqRoot(globalRequirementSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -354,17 +354,17 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Requirements</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Requirement Set</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Requirements</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Requirement Set</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRequirements(Requirements object)
+  public T caseRequirementSet(RequirementSet object)
   {
     return null;
   }
@@ -530,33 +530,33 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>System Requirements</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>System Requirement Set</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>System Requirements</em>'.
+   * @return the result of interpreting the object as an instance of '<em>System Requirement Set</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSystemRequirements(SystemRequirements object)
+  public T caseSystemRequirementSet(SystemRequirementSet object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Global Requirements</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Global Requirement Set</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Global Requirements</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Global Requirement Set</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseGlobalRequirements(GlobalRequirements object)
+  public T caseGlobalRequirementSet(GlobalRequirementSet object)
   {
     return null;
   }

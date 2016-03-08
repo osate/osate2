@@ -123,9 +123,9 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createDocumentSectionAdapter();
       }
       @Override
-      public Adapter caseRequirements(Requirements object)
+      public Adapter caseRequirementSet(RequirementSet object)
       {
-        return createRequirementsAdapter();
+        return createRequirementSetAdapter();
       }
       @Override
       public Adapter caseGoal(Goal object)
@@ -178,14 +178,14 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createExternalDocumentAdapter();
       }
       @Override
-      public Adapter caseSystemRequirements(SystemRequirements object)
+      public Adapter caseSystemRequirementSet(SystemRequirementSet object)
       {
-        return createSystemRequirementsAdapter();
+        return createSystemRequirementSetAdapter();
       }
       @Override
-      public Adapter caseGlobalRequirements(GlobalRequirements object)
+      public Adapter caseGlobalRequirementSet(GlobalRequirementSet object)
       {
-        return createGlobalRequirementsAdapter();
+        return createGlobalRequirementSetAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -315,16 +315,16 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.Requirements <em>Requirements</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.RequirementSet <em>Requirement Set</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.Requirements
+   * @see org.osate.reqspec.reqSpec.RequirementSet
    * @generated
    */
-  public Adapter createRequirementsAdapter()
+  public Adapter createRequirementSetAdapter()
   {
     return null;
   }
@@ -480,31 +480,31 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.SystemRequirements <em>System Requirements</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.SystemRequirementSet <em>System Requirement Set</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.SystemRequirements
+   * @see org.osate.reqspec.reqSpec.SystemRequirementSet
    * @generated
    */
-  public Adapter createSystemRequirementsAdapter()
+  public Adapter createSystemRequirementSetAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.GlobalRequirements <em>Global Requirements</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.GlobalRequirementSet <em>Global Requirement Set</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.GlobalRequirements
+   * @see org.osate.reqspec.reqSpec.GlobalRequirementSet
    * @generated
    */
-  public Adapter createGlobalRequirementsAdapter()
+  public Adapter createGlobalRequirementSetAdapter()
   {
     return null;
   }

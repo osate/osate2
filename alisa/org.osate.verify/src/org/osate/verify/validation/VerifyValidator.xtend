@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
@@ -44,6 +43,7 @@ import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 import org.osate.verify.verify.JUnit4Method
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 /**
  * Custom validation rules. 
@@ -327,7 +327,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	@Check(CheckType.NORMAL)
 	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
 		val sysReq = vp.requirements
-		if (sysReq instanceof SystemRequirements) {
+		if (sysReq instanceof SystemRequirementSet) {
 			val vps = verifyGlobalRefFinder.getAllVerificationPlansForRequirements(sysReq, vp)
 			if (vps.size > 1) {
 				error("Other Verification Plans exist for '" + sysReq.name +

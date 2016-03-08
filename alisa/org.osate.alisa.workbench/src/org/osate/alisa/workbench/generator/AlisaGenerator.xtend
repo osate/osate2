@@ -37,8 +37,8 @@ import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import org.osate.categories.categories.CategoryFilter
 import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.Requirements
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.RequirementSet
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -200,13 +200,13 @@ class AlisaGenerator implements IGenerator {
 		val globalClaimsTop = globalClaims.size
 		for (vplan : vplans) {
 			val reqs = vplan.requirements
-			if (reqs instanceof SystemRequirements) {
+			if (reqs instanceof SystemRequirementSet) {
 				val includes = reqs.include
 				for (incl : includes) {
-					if (incl.include instanceof Requirements) {
+					if (incl.include instanceof RequirementSet) {
 						if (incl.componentCategory.matchingCategory(cc.category)) {
 							val plans = referenceFinder.
-								getAllVerificationPlansForRequirements(incl.include as Requirements, vplan)
+								getAllVerificationPlansForRequirements(incl.include as RequirementSet, vplan)
 							if (incl.self) {
 								selfPlans.addAll(plans)
 							} else {

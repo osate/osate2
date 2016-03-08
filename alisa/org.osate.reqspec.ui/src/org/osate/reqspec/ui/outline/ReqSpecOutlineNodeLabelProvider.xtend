@@ -25,7 +25,7 @@ import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
@@ -67,7 +67,7 @@ class ReqSpecOutlineNodeLabelProvider extends OutlineNodeLabelProvider {
 						}
 						titleName + desc 
 					}
-					SystemRequirements : {
+					SystemRequirementSet : {
 						obj.name
 					}
 					Requirement : {

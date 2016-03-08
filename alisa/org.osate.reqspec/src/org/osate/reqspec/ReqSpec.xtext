@@ -8,7 +8,7 @@ import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-ReqSpec: parts +=(SystemRequirements|GlobalRequirements|StakeholderGoals|ReqDocument|GlobalConstants)+  ;
+ReqSpec: parts +=(SystemRequirementSet|GlobalRequirementSet|StakeholderGoals|ReqDocument|GlobalConstants)+  ;
 
 //ReqSpecContainer: SystemRequirements | GlobalRequirements |  StakeholderGoals | ReqDocument | DocumentSection ;
 
@@ -19,7 +19,7 @@ GlobalConstants:
 
 ContractualElement: Goal | SystemRequirement  ;
 
-ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequirements;
+ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirementSet | GlobalRequirementSet;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
@@ -54,8 +54,8 @@ DocumentSection returns DocumentSection:
 	']' 
 	;
 
-SystemRequirements returns Requirements:
-	{SystemRequirements} 'system''requirements'  name =QualifiedName (':' title=STRING)? 
+SystemRequirementSet returns RequirementSet:
+	{SystemRequirementSet} 'system''requirements'  name =QualifiedName (':' title=STRING)? 
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
@@ -72,8 +72,8 @@ SystemRequirements returns Requirements:
 	']'
 	;
 
-GlobalRequirements returns Requirements:
-	{GlobalRequirements}'global''requirements'  name =QualifiedName (':' title=STRING)? 
+GlobalRequirementSet returns RequirementSet:
+	{GlobalRequirementSet}'global''requirements'  name =QualifiedName (':' title=STRING)? 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(

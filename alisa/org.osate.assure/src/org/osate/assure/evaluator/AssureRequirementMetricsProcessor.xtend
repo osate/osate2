@@ -33,7 +33,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		EcoreUtil.resolveAll(plan)
 		val verificationPlans = plan.assure
 		val claimReqs = verificationPlans.map[claim.map[requirement]].flatten.toSet
-		val targetReqs = reqSpecrefFinder.getSystemRequirements(targetComponent)
+		val targetReqs = reqSpecrefFinder.getSystemRequirementSets(targetComponent)
 
 		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
 		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size
@@ -47,7 +47,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		caseResult.metrics.featuresCount = targetSystem.allFeatures.size
 		val claimResults = caseResult.claimResult
 		val claimReqs = claimResults.map[targetReference.verificationPlan.claim].flatten.map[requirement].toSet
-		val sysReqs = reqSpecrefFinder.getSystemRequirements(targetSystem.componentType)
+		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(targetSystem.componentType)
 		
 		caseResult.metrics.requirementsWithoutPlanClaimCount = sysReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
 		caseResult.metrics.qualityCategoryRequirementsCount = sysReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size

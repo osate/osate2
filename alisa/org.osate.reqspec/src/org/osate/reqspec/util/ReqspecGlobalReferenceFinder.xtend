@@ -27,19 +27,19 @@ import org.osate.reqspec.reqSpec.GlobalConstants
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 @ImplementedBy(ReqspecGlobalReferenceFinder)
 interface IReqspecGlobalReferenceFinder {
 	/**
 	 * these methods should not be used to construct scopes
 	 */
-	def Iterable<SystemRequirements> getSystemRequirements(ComponentInstance ci);
+	def Iterable<SystemRequirementSet> getSystemRequirementSets(ComponentInstance ci);
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
-	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
+	def Iterable<SystemRequirementSet> getSystemRequirementSets(ComponentClassifier cc);
 	def Iterable<Requirement> getAllRequirements(ComponentClassifier cc);
-	def Iterable<SystemRequirements> getSystemRequirementsNoExtends(ComponentClassifier cc);
+	def Iterable<SystemRequirementSet> getSystemRequirementSetsNoExtends(ComponentClassifier cc);
 	def Iterable<GlobalConstants> getAllGlobalConstants(EObject context);
 	def Iterable<StakeholderGoals> getStakeholderGoals(ComponentClassifier cc);
 	def Iterable<StakeholderGoals> getStakeholderGoals(ComponentInstance ci);
@@ -50,21 +50,21 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 	@Inject
 	var ICommonGlobalReferenceFinder commonRefFinder
 		
-		override Iterable<SystemRequirements> getSystemRequirements(ComponentInstance ci){
-			ci.componentClassifier.systemRequirements
+		override Iterable<SystemRequirementSet> getSystemRequirementSets(ComponentInstance ci){
+			ci.componentClassifier.systemRequirementSets
 		}
 		
-		override Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc){
-		   val Iterable<SystemRequirements> result = commonRefFinder.getEObjectDescriptions(
-			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirements]
+		override Iterable<SystemRequirementSet> getSystemRequirementSets(ComponentClassifier cc){
+		   val Iterable<SystemRequirementSet> result = commonRefFinder.getEObjectDescriptions(
+			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirementSet]
 			return result.filter[ sr | CommonUtilExtension.isSameorExtends(cc, sr.target)]
 		}
 		
-		override Iterable<SystemRequirements> getSystemRequirementsNoExtends(ComponentClassifier cc){
-		   val Iterable<SystemRequirements> result = commonRefFinder.getEObjectDescriptions(
-			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirements]
+		override Iterable<SystemRequirementSet> getSystemRequirementSetsNoExtends(ComponentClassifier cc){
+		   val Iterable<SystemRequirementSet> result = commonRefFinder.getEObjectDescriptions(
+			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirementSet]
 			return result.filter[ sr | cc === sr.target]
 		}
 
@@ -72,7 +72,7 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 			ci.componentClassifier.allRequirements
 		}
 		override Iterable<Requirement> getAllRequirements(ComponentClassifier cc){
-			cc.systemRequirements.map[it.requirements].flatten
+			cc.systemRequirementSets.map[it.requirements].flatten
 		}
 
 		override Iterable<StakeholderGoals> getStakeholderGoals(ComponentClassifier cc){

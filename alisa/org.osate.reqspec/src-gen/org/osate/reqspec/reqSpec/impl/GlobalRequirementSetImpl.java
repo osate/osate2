@@ -17,24 +17,24 @@ package org.osate.reqspec.reqSpec.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.osate.reqspec.reqSpec.GlobalRequirements;
+import org.osate.reqspec.reqSpec.GlobalRequirementSet;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Global Requirements</b></em>'.
+ * An implementation of the model object '<em><b>Global Requirement Set</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class GlobalRequirementsImpl extends RequirementsImpl implements GlobalRequirements
+public class GlobalRequirementSetImpl extends RequirementSetImpl implements GlobalRequirementSet
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected GlobalRequirementsImpl()
+  protected GlobalRequirementSetImpl()
   {
     super();
   }
@@ -47,7 +47,7 @@ public class GlobalRequirementsImpl extends RequirementsImpl implements GlobalRe
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.GLOBAL_REQUIREMENTS;
+    return ReqSpecPackage.Literals.GLOBAL_REQUIREMENT_SET;
   }
 
-} //GlobalRequirementsImpl
+} //GlobalRequirementSetImpl

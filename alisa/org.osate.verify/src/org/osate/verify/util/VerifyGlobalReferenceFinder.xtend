@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.reqspec.reqSpec.Requirements
+import org.osate.reqspec.reqSpec.RequirementSet
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -42,7 +42,7 @@ interface IVerifyGlobalReferenceFinder {
 	 * method to be used for scope creation as it does not use EReferences
 	 */
 	
-	def Iterable<VerificationPlan> getAllVerificationPlansForRequirements(Requirements reqs, EObject context);
+	def Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context);
 }
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
@@ -52,12 +52,12 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirements; reqs instanceof SystemRequirements && cc.isSameorExtends((reqs as SystemRequirements).target)]
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirements; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
 	}
 		
 
 
-		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(Requirements reqs, EObject context){
+		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context){
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirements === reqs]
 		}

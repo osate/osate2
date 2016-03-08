@@ -85,7 +85,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.STAKEHOLDER_GOALS: return createStakeholderGoals();
       case ReqSpecPackage.REQ_DOCUMENT: return createReqDocument();
       case ReqSpecPackage.DOCUMENT_SECTION: return createDocumentSection();
-      case ReqSpecPackage.REQUIREMENTS: return createRequirements();
+      case ReqSpecPackage.REQUIREMENT_SET: return createRequirementSet();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT: return createIncludeGlobalRequirement();
@@ -96,8 +96,8 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
       case ReqSpecPackage.DESIRED_VALUE: return createDesiredValue();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS: return createSystemRequirements();
-      case ReqSpecPackage.GLOBAL_REQUIREMENTS: return createGlobalRequirements();
+      case ReqSpecPackage.SYSTEM_REQUIREMENT_SET: return createSystemRequirementSet();
+      case ReqSpecPackage.GLOBAL_REQUIREMENT_SET: return createGlobalRequirementSet();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -219,10 +219,10 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirements createRequirements()
+  public RequirementSet createRequirementSet()
   {
-    RequirementsImpl requirements = new RequirementsImpl();
-    return requirements;
+    RequirementSetImpl requirementSet = new RequirementSetImpl();
+    return requirementSet;
   }
 
   /**
@@ -340,10 +340,10 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemRequirements createSystemRequirements()
+  public SystemRequirementSet createSystemRequirementSet()
   {
-    SystemRequirementsImpl systemRequirements = new SystemRequirementsImpl();
-    return systemRequirements;
+    SystemRequirementSetImpl systemRequirementSet = new SystemRequirementSetImpl();
+    return systemRequirementSet;
   }
 
   /**
@@ -351,10 +351,10 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public GlobalRequirements createGlobalRequirements()
+  public GlobalRequirementSet createGlobalRequirementSet()
   {
-    GlobalRequirementsImpl globalRequirements = new GlobalRequirementsImpl();
-    return globalRequirements;
+    GlobalRequirementSetImpl globalRequirementSet = new GlobalRequirementSetImpl();
+    return globalRequirementSet;
   }
 
   /**

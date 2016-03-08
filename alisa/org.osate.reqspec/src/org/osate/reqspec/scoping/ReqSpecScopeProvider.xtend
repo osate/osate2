@@ -31,6 +31,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.DirectionType
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
@@ -38,17 +39,13 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.WhenCondition
+import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelScopeProvider
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
-import org.osate.reqspec.reqSpec.WhenCondition
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
-import org.eclipse.xtext.resource.EObjectDescription
-import org.osate.aadl2.DirectionType
-import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -135,11 +132,11 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 // use delegate to get other scopes including the global scope
 		var result = delegateGetScope(context, reference) // IScope.NULLSCOPE
 		val reqs = containingRequirements(context)
-		if (reqs instanceof SystemRequirements) {
+		if (reqs instanceof SystemRequirementSet) {
 			val targetComponentClassifier = reqs.target
-			val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-				targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
-				EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
+			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
+				targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
+				EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirementSet
 			].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 			// TODO sort in extends hierarchy order
 			for (sr : listAccessibleSystemRequirements) {

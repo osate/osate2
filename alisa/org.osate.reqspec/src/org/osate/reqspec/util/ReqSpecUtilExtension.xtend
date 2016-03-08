@@ -26,14 +26,14 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.alisa.common.common.AVariableDeclaration
 import org.eclipse.emf.common.util.BasicEList
 import org.osate.aadl2.ComponentCategory
-import org.osate.reqspec.reqSpec.Requirements
+import org.osate.reqspec.reqSpec.RequirementSet
 
 class ReqSpecUtilExtension {
 
@@ -42,8 +42,8 @@ class ReqSpecUtilExtension {
 		var EObject container = req
 		while (container.eContainer != null) {
 			container = container.eContainer
-			if (container instanceof SystemRequirements) {
-				val rs = container as SystemRequirements
+			if (container instanceof SystemRequirementSet) {
+				val rs = container as SystemRequirementSet
 				if(rs.target != null) return rs.target
 			} else if (container instanceof StakeholderGoals) {
 				val rs = container as StakeholderGoals
@@ -62,7 +62,7 @@ class ReqSpecUtilExtension {
 	}
 
 	def static containingRequirements(EObject sh) {
-		sh.getContainerOfType(Requirements)
+		sh.getContainerOfType(RequirementSet)
 	}
 
 	def static containingStakeholderGoals(EObject sh) {
