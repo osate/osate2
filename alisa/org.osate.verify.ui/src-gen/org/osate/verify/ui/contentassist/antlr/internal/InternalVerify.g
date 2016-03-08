@@ -3271,9 +3271,9 @@ rule__VerificationPlan__Group__5__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationPlanAccess().getRequirementsAssignment_5()); }
-(rule__VerificationPlan__RequirementsAssignment_5)
-{ after(grammarAccess.getVerificationPlanAccess().getRequirementsAssignment_5()); }
+{ before(grammarAccess.getVerificationPlanAccess().getRequirementSetAssignment_5()); }
+(rule__VerificationPlan__RequirementSetAssignment_5)
+{ after(grammarAccess.getVerificationPlanAccess().getRequirementSetAssignment_5()); }
 )
 
 ;
@@ -16124,18 +16124,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationPlan__RequirementsAssignment_5
+rule__VerificationPlan__RequirementSetAssignment_5
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); }
+{ before(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetCrossReference_5_0()); }
 (
-{ before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); }
+{ before(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1()); }
 )
-{ after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); }
+{ after(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetCrossReference_5_0()); }
 )
 
 ;

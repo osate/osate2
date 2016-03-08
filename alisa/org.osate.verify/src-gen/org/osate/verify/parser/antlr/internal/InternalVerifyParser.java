@@ -577,7 +577,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); 
+              	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetCrossReference_5_0()); 
               	    
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_ruleVerificationPlan342);

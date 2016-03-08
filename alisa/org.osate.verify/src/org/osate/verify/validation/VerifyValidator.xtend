@@ -153,7 +153,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 		
 		val claims = vp.claim
 		claims.forEach[EcoreUtil.resolveAll(it)]
-		val sysreqs = vp.requirements
+		val sysreqs = vp.requirementSet
 		val sysreqsContent = sysreqs.requirements 
 		val vpURI = EcoreUtil.getURI(vp).toString()
 		val claimsRequirements = claims.map[requirement].toSet
@@ -197,7 +197,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 
 	@Check(CheckType.NORMAL)
 	def checkClaimsForRequirement(VerificationPlan vp) {
-		val systemRequirements = vp.requirements
+		val systemRequirements = vp.requirementSet
 		val requirements = systemRequirements.requirements
 		requirements.forEach [ req |
 			if (!vp.claim.exists[claim|claim.requirement === req]) {
@@ -208,7 +208,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	}
 	@Check(CheckType.NORMAL)
 	def checkClaimsForMultipleRequirement(VerificationPlan vp) {
-		val systemRequirements = vp.requirements
+		val systemRequirements = vp.requirementSet
 		val requirements = systemRequirements.requirements
 		val List<String> missingRequirements = new ArrayList<String>
 		requirements.forEach [ req |
@@ -326,13 +326,13 @@ class VerifyValidator extends AbstractVerifyValidator {
 
 	@Check(CheckType.NORMAL)
 	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
-		val sysReq = vp.requirements
+		val sysReq = vp.requirementSet
 		if (sysReq instanceof SystemRequirementSet) {
 			val vps = verifyGlobalRefFinder.getAllVerificationPlansForRequirements(sysReq, vp)
 			if (vps.size > 1) {
 				error("Other Verification Plans exist for '" + sysReq.name +
 					"'. Only one Verification Plans is allowed for a specific System Requirements.", vp,
-					VerifyPackage.Literals.VERIFICATION_PLAN__REQUIREMENTS)
+					VerifyPackage.Literals.VERIFICATION_PLAN__REQUIREMENT_SET)
 			}
 		}
 	}

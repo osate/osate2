@@ -10560,26 +10560,26 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationPlan__Group__5__Impl"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3268:1: rule__VerificationPlan__Group__5__Impl : ( ( rule__VerificationPlan__RequirementsAssignment_5 ) ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3268:1: rule__VerificationPlan__Group__5__Impl : ( ( rule__VerificationPlan__RequirementSetAssignment_5 ) ) ;
     public final void rule__VerificationPlan__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3272:1: ( ( ( rule__VerificationPlan__RequirementsAssignment_5 ) ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3273:1: ( ( rule__VerificationPlan__RequirementsAssignment_5 ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3272:1: ( ( ( rule__VerificationPlan__RequirementSetAssignment_5 ) ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3273:1: ( ( rule__VerificationPlan__RequirementSetAssignment_5 ) )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3273:1: ( ( rule__VerificationPlan__RequirementsAssignment_5 ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3274:1: ( rule__VerificationPlan__RequirementsAssignment_5 )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3273:1: ( ( rule__VerificationPlan__RequirementSetAssignment_5 ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3274:1: ( rule__VerificationPlan__RequirementSetAssignment_5 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getRequirementsAssignment_5()); 
+               before(grammarAccess.getVerificationPlanAccess().getRequirementSetAssignment_5()); 
             }
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3275:1: ( rule__VerificationPlan__RequirementsAssignment_5 )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3275:2: rule__VerificationPlan__RequirementsAssignment_5
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3275:1: ( rule__VerificationPlan__RequirementSetAssignment_5 )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:3275:2: rule__VerificationPlan__RequirementSetAssignment_5
             {
-            pushFollow(FOLLOW_rule__VerificationPlan__RequirementsAssignment_5_in_rule__VerificationPlan__Group__5__Impl7105);
-            rule__VerificationPlan__RequirementsAssignment_5();
+            pushFollow(FOLLOW_rule__VerificationPlan__RequirementSetAssignment_5_in_rule__VerificationPlan__Group__5__Impl7105);
+            rule__VerificationPlan__RequirementSetAssignment_5();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10587,7 +10587,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getRequirementsAssignment_5()); 
+               after(grammarAccess.getVerificationPlanAccess().getRequirementSetAssignment_5()); 
             }
 
             }
@@ -45830,9 +45830,9 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__VerificationPlan__TitleAssignment_3_1"
 
 
-    // $ANTLR start "rule__VerificationPlan__RequirementsAssignment_5"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16127:1: rule__VerificationPlan__RequirementsAssignment_5 : ( ( ruleQualifiedName ) ) ;
-    public final void rule__VerificationPlan__RequirementsAssignment_5() throws RecognitionException {
+    // $ANTLR start "rule__VerificationPlan__RequirementSetAssignment_5"
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16127:1: rule__VerificationPlan__RequirementSetAssignment_5 : ( ( ruleQualifiedName ) ) ;
+    public final void rule__VerificationPlan__RequirementSetAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -45844,27 +45844,27 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16133:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); 
+               before(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetCrossReference_5_0()); 
             }
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16134:1: ( ruleQualifiedName )
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:16135:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
+               before(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__RequirementsAssignment_533420);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__RequirementSetAssignment_533420);
             ruleQualifiedName();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
+               after(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementSetCrossReference_5_0()); 
+               after(grammarAccess.getVerificationPlanAccess().getRequirementSetRequirementSetCrossReference_5_0()); 
             }
 
             }
@@ -45884,7 +45884,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__VerificationPlan__RequirementsAssignment_5"
+    // $ANTLR end "rule__VerificationPlan__RequirementSetAssignment_5"
 
 
     // $ANTLR start "rule__VerificationPlan__DescriptionAssignment_7_0"
@@ -54303,7 +54303,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_56_in_rule__VerificationPlan__Group__4__Impl7044 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationPlan__Group__5__Impl_in_rule__VerificationPlan__Group__57075 = new BitSet(new long[]{0x0200000000000000L});
     public static final BitSet FOLLOW_rule__VerificationPlan__Group__6_in_rule__VerificationPlan__Group__57078 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationPlan__RequirementsAssignment_5_in_rule__VerificationPlan__Group__5__Impl7105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationPlan__RequirementSetAssignment_5_in_rule__VerificationPlan__Group__5__Impl7105 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationPlan__Group__6__Impl_in_rule__VerificationPlan__Group__67135 = new BitSet(new long[]{0x3000000000000000L,0x0000000006000000L});
     public static final BitSet FOLLOW_rule__VerificationPlan__Group__7_in_rule__VerificationPlan__Group__67138 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_57_in_rule__VerificationPlan__Group__6__Impl7166 = new BitSet(new long[]{0x0000000000000002L});
@@ -55333,7 +55333,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__Verification__ContentsAlternatives_0_in_rule__Verification__ContentsAssignment33321 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__NameAssignment_233354 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__VerificationPlan__TitleAssignment_3_133385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__RequirementsAssignment_533420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__RequirementSetAssignment_533420 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleDescription_in_rule__VerificationPlan__DescriptionAssignment_7_033455 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleClaim_in_rule__VerificationPlan__ClaimAssignment_7_133486 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRationale_in_rule__VerificationPlan__RationaleAssignment_7_233517 = new BitSet(new long[]{0x0000000000000002L});

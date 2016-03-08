@@ -51,7 +51,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRequirements <em>Requirements</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRequirementSet <em>Requirement Set</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
@@ -103,14 +103,14 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRequirements() <em>Requirements</em>}' reference.
+   * The cached value of the '{@link #getRequirementSet() <em>Requirement Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRequirements()
+   * @see #getRequirementSet()
    * @generated
    * @ordered
    */
-  protected RequirementSet requirements;
+  protected RequirementSet requirementSet;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -224,19 +224,19 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementSet getRequirements()
+  public RequirementSet getRequirementSet()
   {
-    if (requirements != null && requirements.eIsProxy())
+    if (requirementSet != null && requirementSet.eIsProxy())
     {
-      InternalEObject oldRequirements = (InternalEObject)requirements;
-      requirements = (RequirementSet)eResolveProxy(oldRequirements);
-      if (requirements != oldRequirements)
+      InternalEObject oldRequirementSet = (InternalEObject)requirementSet;
+      requirementSet = (RequirementSet)eResolveProxy(oldRequirementSet);
+      if (requirementSet != oldRequirementSet)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS, oldRequirements, requirements));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET, oldRequirementSet, requirementSet));
       }
     }
-    return requirements;
+    return requirementSet;
   }
 
   /**
@@ -244,9 +244,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementSet basicGetRequirements()
+  public RequirementSet basicGetRequirementSet()
   {
-    return requirements;
+    return requirementSet;
   }
 
   /**
@@ -254,12 +254,12 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRequirements(RequirementSet newRequirements)
+  public void setRequirementSet(RequirementSet newRequirementSet)
   {
-    RequirementSet oldRequirements = requirements;
-    requirements = newRequirements;
+    RequirementSet oldRequirementSet = requirementSet;
+    requirementSet = newRequirementSet;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS, oldRequirements, requirements));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET, oldRequirementSet, requirementSet));
   }
 
   /**
@@ -420,9 +420,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getName();
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        if (resolve) return getRequirements();
-        return basicGetRequirements();
+      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET:
+        if (resolve) return getRequirementSet();
+        return basicGetRequirementSet();
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
@@ -452,8 +452,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        setRequirements((RequirementSet)newValue);
+      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET:
+        setRequirementSet((RequirementSet)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
@@ -489,8 +489,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        setRequirements((RequirementSet)null);
+      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET:
+        setRequirementSet((RequirementSet)null);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)null);
@@ -522,8 +522,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        return requirements != null;
+      case VerifyPackage.VERIFICATION_PLAN__REQUIREMENT_SET:
+        return requirementSet != null;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:

@@ -35,7 +35,7 @@ import org.osate.reqspec.reqSpec.RequirementSet;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getRequirementSet <em>Requirement Set</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
@@ -101,30 +101,30 @@ public interface VerificationPlan extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Requirements</b></em>' reference.
+   * Returns the value of the '<em><b>Requirement Set</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirements</em>' reference isn't clear,
+   * If the meaning of the '<em>Requirement Set</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirements</em>' reference.
-   * @see #setRequirements(RequirementSet)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Requirements()
+   * @return the value of the '<em>Requirement Set</em>' reference.
+   * @see #setRequirementSet(RequirementSet)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_RequirementSet()
    * @model
    * @generated
    */
-  RequirementSet getRequirements();
+  RequirementSet getRequirementSet();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}' reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRequirementSet <em>Requirement Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirements</em>' reference.
-   * @see #getRequirements()
+   * @param value the new value of the '<em>Requirement Set</em>' reference.
+   * @see #getRequirementSet()
    * @generated
    */
-  void setRequirements(RequirementSet value);
+  void setRequirementSet(RequirementSet value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

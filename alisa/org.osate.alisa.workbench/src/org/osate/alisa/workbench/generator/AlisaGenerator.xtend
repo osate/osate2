@@ -200,7 +200,7 @@ class AlisaGenerator implements IGenerator {
 		val globalPlansTop = globalPlans.size
 		val globalClaimsTop = globalClaims.size
 		for (vplan : vplans) {
-			val reqs = vplan.requirements
+			val reqs = vplan.requirementSet
 			if (reqs instanceof SystemRequirementSet) {
 				val includes = reqs.include
 				for (incl : includes) {
@@ -245,7 +245,7 @@ class AlisaGenerator implements IGenerator {
 				«ENDFOR»
 			«ENDFOR»
 			«FOR vplan : selfPlans»
-				«IF vplan.requirements instanceof SystemRequirementSet»
+				«IF vplan.requirementSet instanceof SystemRequirementSet»
 				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 				«IF claim.evaluateRequirementFilter(filter)»
 				«claim.generateAll(cc)»

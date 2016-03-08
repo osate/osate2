@@ -66,9 +66,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
 		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cRequirementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cRequirementsRequirementSetCrossReference_5_0 = (CrossReference)cRequirementsAssignment_5.eContents().get(0);
-		private final RuleCall cRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cRequirementsRequirementSetCrossReference_5_0.eContents().get(1);
+		private final Assignment cRequirementSetAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cRequirementSetRequirementSetCrossReference_5_0 = (CrossReference)cRequirementSetAssignment_5.eContents().get(0);
+		private final RuleCall cRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cRequirementSetRequirementSetCrossReference_5_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
 		private final Assignment cDescriptionAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
@@ -85,12 +85,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VerificationPlan:
 		//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
-		//	requirements=[ReqSpec::RequirementSet|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	requirementSet=[ReqSpec::RequirementSet|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" name=QualifiedName (":" title=STRING)? "for" requirements=[ReqSpec::RequirementSet|QualifiedName]
-		//"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
+		//"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
+		//requirementSet=[ReqSpec::RequirementSet|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -120,14 +121,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_4() { return cForKeyword_4; }
 
-		//requirements=[ReqSpec::RequirementSet|QualifiedName]
-		public Assignment getRequirementsAssignment_5() { return cRequirementsAssignment_5; }
+		//requirementSet=[ReqSpec::RequirementSet|QualifiedName]
+		public Assignment getRequirementSetAssignment_5() { return cRequirementSetAssignment_5; }
 
 		//[ReqSpec::RequirementSet|QualifiedName]
-		public CrossReference getRequirementsRequirementSetCrossReference_5_0() { return cRequirementsRequirementSetCrossReference_5_0; }
+		public CrossReference getRequirementSetRequirementSetCrossReference_5_0() { return cRequirementSetRequirementSetCrossReference_5_0; }
 
 		//QualifiedName
-		public RuleCall getRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1() { return cRequirementsRequirementSetQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1() { return cRequirementSetRequirementSetQualifiedNameParserRuleCall_5_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
@@ -1888,7 +1889,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationPlan:
 	//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
-	//	requirements=[ReqSpec::RequirementSet|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	requirementSet=[ReqSpec::RequirementSet|QualifiedName] "[" (description=Description? & claim+=Claim* &
 	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;

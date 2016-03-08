@@ -81,7 +81,7 @@ class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	def scope_NestedClaimReference_requirement(NestedClaimReference context, EReference reference) {
 		var result = IScope.NULLSCOPE// delegateGetScope(context, reference)
-		val forSystemRequirements = context.findVerificationPlan.getRequirements
+		val forSystemRequirements = context.findVerificationPlan.getRequirementSet
 		if (!forSystemRequirements.requirements.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(forSystemRequirements.requirements,

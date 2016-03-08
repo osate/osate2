@@ -52,14 +52,14 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirements; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirementSet; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
 	}
 		
 
 
 		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context){
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirements === reqs]
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirementSet === reqs]
 		}
 
 }

@@ -76,7 +76,7 @@ class VerifyScopeProvider extends CommonScopeProvider {
 
 	def scope_Claim_requirement(Claim context, EReference reference) {
 		var result = delegateGetScope(context, reference)
-		val forSystemRequirements = (containingVerificationPlan(context)).getRequirements
+		val forSystemRequirements = (containingVerificationPlan(context)).getRequirementSet
 		if (!forSystemRequirements.requirements.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(forSystemRequirements.requirements,

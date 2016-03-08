@@ -38,7 +38,7 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 	override void completeClaim_Requirement(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		// filter scope to only include requirements that exist in system requirement of verification plan
-		val forSystemRequirements = (model.eContainer as VerificationPlan).getRequirements
+		val forSystemRequirements = (model.eContainer as VerificationPlan).getRequirementSet
 		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
 			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets all Requirements from Loose Scope

@@ -12,7 +12,7 @@ Verification:
 
 VerificationPlan returns VerificationPlan:
 	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
-	'for' requirements=[ReqSpec::RequirementSet|QualifiedName]  
+	'for' requirementSet=[ReqSpec::RequirementSet|QualifiedName]  
 	'['
 	(
 		( description=Description)?
