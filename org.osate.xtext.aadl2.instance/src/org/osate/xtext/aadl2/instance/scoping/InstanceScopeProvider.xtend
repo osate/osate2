@@ -204,4 +204,39 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		]
 		new SimpleScope(features.flatten)
 	}
+	
+	def IScope scope_EndToEndFlowInstance_endToEndFlow(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
+		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
+		new SimpleScope(impls.map[impl |
+			val pkgName = impl.getContainerOfType(AadlPackage).name
+			impl.ownedEndToEndFlows.map[etef |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, etef.name])
+				EObjectDescription.create(qualifiedName, etef)
+			]
+		].flatten)
+	}
+	
+	def IScope scope_EndToEndFlowInstance_flowElement(ComponentInstance context, EReference reference) {
+		val components = context.componentInstances.map[
+			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponentForFlowElement(newName, it)
+		]
+		val connections = context.connectionInstances.indexed.map[EObjectDescription.create(key.toString, value)]
+		val endToEndFlows = context.endToEndFlows.map[EObjectDescription.create(name, it)]
+		val flowSpecs = context.flowSpecifications.map[EObjectDescription.create(name, it)]
+		new SimpleScope(components.flatten + connections + endToEndFlows + flowSpecs)
+	}
+	
+	def private static Iterable<IEObjectDescription> doComponentForFlowElement(String prefix, ComponentInstance component) {
+		val components = component.componentInstances.map[
+			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
+			#[EObjectDescription.create(newName, it)] + doComponentForFlowElement(newName, it)
+		]
+		val connections = component.connectionInstances.indexed.map[EObjectDescription.create(prefix + "." + key, value)]
+		val endToEndFlows = component.endToEndFlows.map[EObjectDescription.create(prefix + "." + name, it)]
+		val flowSpecs = component.flowSpecifications.map[EObjectDescription.create(prefix + "." + name, it)]
+		components.flatten + connections + endToEndFlows + flowSpecs
+	}
 }

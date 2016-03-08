@@ -38,19 +38,23 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConnectionInstanceConnectionInstanceParserRuleCall_5_2_0 = (RuleCall)cConnectionInstanceAssignment_5_2.eContents().get(0);
 		private final Assignment cFlowSpecificationAssignment_5_3 = (Assignment)cAlternatives_5.eContents().get(3);
 		private final RuleCall cFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0 = (RuleCall)cFlowSpecificationAssignment_5_3.eContents().get(0);
-		private final Assignment cSystemOperationModeAssignment_5_4 = (Assignment)cAlternatives_5.eContents().get(4);
-		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_4_0 = (RuleCall)cSystemOperationModeAssignment_5_4.eContents().get(0);
+		private final Assignment cEndToEndFlowAssignment_5_4 = (Assignment)cAlternatives_5.eContents().get(4);
+		private final RuleCall cEndToEndFlowEndToEndFlowInstanceParserRuleCall_5_4_0 = (RuleCall)cEndToEndFlowAssignment_5_4.eContents().get(0);
+		private final Assignment cSystemOperationModeAssignment_5_5 = (Assignment)cAlternatives_5.eContents().get(5);
+		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_5_0 = (RuleCall)cSystemOperationModeAssignment_5_5.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SystemInstance returns instance::SystemInstance:
 		//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//	flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}";
+		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance |
+		//	systemOperationMode+=SystemOperationMode)* "}";
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}"
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance |
+		//systemOperationMode+=SystemOperationMode)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -81,7 +85,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)*
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance |
+		//systemOperationMode+=SystemOperationMode)*
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//featureInstance+=FeatureInstance
@@ -108,11 +113,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSpecificationInstance
 		public RuleCall getFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0() { return cFlowSpecificationFlowSpecificationInstanceParserRuleCall_5_3_0; }
 
+		//endToEndFlow+=EndToEndFlowInstance
+		public Assignment getEndToEndFlowAssignment_5_4() { return cEndToEndFlowAssignment_5_4; }
+
+		//EndToEndFlowInstance
+		public RuleCall getEndToEndFlowEndToEndFlowInstanceParserRuleCall_5_4_0() { return cEndToEndFlowEndToEndFlowInstanceParserRuleCall_5_4_0; }
+
 		//systemOperationMode+=SystemOperationMode
-		public Assignment getSystemOperationModeAssignment_5_4() { return cSystemOperationModeAssignment_5_4; }
+		public Assignment getSystemOperationModeAssignment_5_5() { return cSystemOperationModeAssignment_5_5; }
 
 		//SystemOperationMode
-		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_4_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_4_0; }
+		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_5_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_5_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
@@ -455,6 +466,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConnectionInstanceConnectionInstanceParserRuleCall_7_1_2_0 = (RuleCall)cConnectionInstanceAssignment_7_1_2.eContents().get(0);
 		private final Assignment cFlowSpecificationAssignment_7_1_3 = (Assignment)cAlternatives_7_1.eContents().get(3);
 		private final RuleCall cFlowSpecificationFlowSpecificationInstanceParserRuleCall_7_1_3_0 = (RuleCall)cFlowSpecificationAssignment_7_1_3.eContents().get(0);
+		private final Assignment cEndToEndFlowAssignment_7_1_4 = (Assignment)cAlternatives_7_1.eContents().get(4);
+		private final RuleCall cEndToEndFlowEndToEndFlowInstanceParserRuleCall_7_1_4_0 = (RuleCall)cEndToEndFlowAssignment_7_1_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
 		
 		//ComponentInstance returns instance::ComponentInstance:
@@ -464,7 +477,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 		//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//	flowSpecification+=FlowSpecificationInstance)* "}")?;
+		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance)* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ("[" index+=LONG "]")* ":" subcomponent=[aadl2::Subcomponent|SUBREF] ("source" "of"
@@ -473,7 +486,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 		//componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance)* "}")?
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance)* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -596,14 +609,14 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_6_5() { return cRightParenthesisKeyword_6_5; }
 
 		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance)* "}")?
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance)* "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance)*
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance)*
 		public Alternatives getAlternatives_7_1() { return cAlternatives_7_1; }
 
 		//featureInstance+=FeatureInstance
@@ -629,6 +642,12 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//FlowSpecificationInstance
 		public RuleCall getFlowSpecificationFlowSpecificationInstanceParserRuleCall_7_1_3_0() { return cFlowSpecificationFlowSpecificationInstanceParserRuleCall_7_1_3_0; }
+
+		//endToEndFlow+=EndToEndFlowInstance
+		public Assignment getEndToEndFlowAssignment_7_1_4() { return cEndToEndFlowAssignment_7_1_4; }
+
+		//EndToEndFlowInstance
+		public RuleCall getEndToEndFlowEndToEndFlowInstanceParserRuleCall_7_1_4_0() { return cEndToEndFlowEndToEndFlowInstanceParserRuleCall_7_1_4_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
@@ -885,6 +904,97 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//FEATREF
 		public RuleCall getFlowSpecificationFlowSpecificationFEATREFParserRuleCall_8_0_1() { return cFlowSpecificationFlowSpecificationFEATREFParserRuleCall_8_0_1; }
+	}
+
+	public class EndToEndFlowInstanceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EndToEndFlowInstance");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cEndKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cToKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cEndKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cFlowKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameIDTerminalRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cFlowElementAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final CrossReference cFlowElementFlowElementInstanceCrossReference_5_0_0 = (CrossReference)cFlowElementAssignment_5_0.eContents().get(0);
+		private final RuleCall cFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_0_0_1 = (RuleCall)cFlowElementFlowElementInstanceCrossReference_5_0_0.eContents().get(1);
+		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cFlowElementAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final CrossReference cFlowElementFlowElementInstanceCrossReference_5_1_1_0 = (CrossReference)cFlowElementAssignment_5_1_1.eContents().get(0);
+		private final RuleCall cFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_1_1_0_1 = (RuleCall)cFlowElementFlowElementInstanceCrossReference_5_1_1_0.eContents().get(1);
+		private final Keyword cColonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cEndToEndFlowAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cEndToEndFlowEndToEndFlowCrossReference_7_0 = (CrossReference)cEndToEndFlowAssignment_7.eContents().get(0);
+		private final RuleCall cEndToEndFlowEndToEndFlowSUBREFParserRuleCall_7_0_1 = (RuleCall)cEndToEndFlowEndToEndFlowCrossReference_7_0.eContents().get(1);
+		
+		//EndToEndFlowInstance returns instance::EndToEndFlowInstance:
+		//	"end" "to" "end" "flow" name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ("->"
+		//	flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ":" endToEndFlow=[aadl2::EndToEndFlow|SUBREF];
+		@Override public ParserRule getRule() { return rule; }
+
+		//"end" "to" "end" "flow" name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ("->"
+		//flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ":" endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
+		public Group getGroup() { return cGroup; }
+
+		//"end"
+		public Keyword getEndKeyword_0() { return cEndKeyword_0; }
+
+		//"to"
+		public Keyword getToKeyword_1() { return cToKeyword_1; }
+
+		//"end"
+		public Keyword getEndKeyword_2() { return cEndKeyword_2; }
+
+		//"flow"
+		public Keyword getFlowKeyword_3() { return cFlowKeyword_3; }
+
+		//name=ID
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_4_0() { return cNameIDTerminalRuleCall_4_0; }
+
+		//(flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ("->"
+		//flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF]
+		public Assignment getFlowElementAssignment_5_0() { return cFlowElementAssignment_5_0; }
+
+		//[instance::FlowElementInstance|FLOWELEMENTREF]
+		public CrossReference getFlowElementFlowElementInstanceCrossReference_5_0_0() { return cFlowElementFlowElementInstanceCrossReference_5_0_0; }
+
+		//FLOWELEMENTREF
+		public RuleCall getFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_0_0_1() { return cFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_0_0_1; }
+
+		//("->" flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*
+		public Group getGroup_5_1() { return cGroup_5_1; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_5_1_0() { return cHyphenMinusGreaterThanSignKeyword_5_1_0; }
+
+		//flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF]
+		public Assignment getFlowElementAssignment_5_1_1() { return cFlowElementAssignment_5_1_1; }
+
+		//[instance::FlowElementInstance|FLOWELEMENTREF]
+		public CrossReference getFlowElementFlowElementInstanceCrossReference_5_1_1_0() { return cFlowElementFlowElementInstanceCrossReference_5_1_1_0; }
+
+		//FLOWELEMENTREF
+		public RuleCall getFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_1_1_0_1() { return cFlowElementFlowElementInstanceFLOWELEMENTREFParserRuleCall_5_1_1_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_6() { return cColonKeyword_6; }
+
+		//endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
+		public Assignment getEndToEndFlowAssignment_7() { return cEndToEndFlowAssignment_7; }
+
+		//[aadl2::EndToEndFlow|SUBREF]
+		public CrossReference getEndToEndFlowEndToEndFlowCrossReference_7_0() { return cEndToEndFlowEndToEndFlowCrossReference_7_0; }
+
+		//SUBREF
+		public RuleCall getEndToEndFlowEndToEndFlowSUBREFParserRuleCall_7_0_1() { return cEndToEndFlowEndToEndFlowSUBREFParserRuleCall_7_0_1; }
 	}
 
 	public class SystemOperationModeElements extends AbstractParserRuleElementFinder {
@@ -1464,6 +1574,78 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//LONG
 		public RuleCall getLONGTerminalRuleCall_1() { return cLONGTerminalRuleCall_1; }
 	}
+
+	public class FLOWELEMENTREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FLOWELEMENTREF");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final RuleCall cLONGTerminalRuleCall_0_1_1 = (RuleCall)cGroup_0_1.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
+		private final Keyword cFullStopKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final RuleCall cLONGTerminalRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1_1_0 = (RuleCall)cGroup_1_1.eContents().get(0);
+		private final Group cGroup_1_1_1 = (Group)cGroup_1_1.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_1_1_0 = (Keyword)cGroup_1_1_1.eContents().get(0);
+		private final RuleCall cLONGTerminalRuleCall_1_1_1_1 = (RuleCall)cGroup_1_1_1.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_1_1_1_2 = (Keyword)cGroup_1_1_1.eContents().get(2);
+		
+		//FLOWELEMENTREF:
+		//	(ID ("[" LONG "]")* ".")* (LONG | ID ("[" LONG "]")*);
+		@Override public ParserRule getRule() { return rule; }
+
+		//(ID ("[" LONG "]")* ".")* (LONG | ID ("[" LONG "]")*)
+		public Group getGroup() { return cGroup; }
+
+		//(ID ("[" LONG "]")* ".")*
+		public Group getGroup_0() { return cGroup_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
+
+		//("[" LONG "]")*
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_0_1_0() { return cLeftSquareBracketKeyword_0_1_0; }
+
+		//LONG
+		public RuleCall getLONGTerminalRuleCall_0_1_1() { return cLONGTerminalRuleCall_0_1_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_0_1_2() { return cRightSquareBracketKeyword_0_1_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_0_2() { return cFullStopKeyword_0_2; }
+
+		//LONG | ID ("[" LONG "]")*
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//LONG
+		public RuleCall getLONGTerminalRuleCall_1_0() { return cLONGTerminalRuleCall_1_0; }
+
+		//ID ("[" LONG "]")*
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1_0() { return cIDTerminalRuleCall_1_1_0; }
+
+		//("[" LONG "]")*
+		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_1_1_0() { return cLeftSquareBracketKeyword_1_1_1_0; }
+
+		//LONG
+		public RuleCall getLONGTerminalRuleCall_1_1_1_1() { return cLONGTerminalRuleCall_1_1_1_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_1_1_2() { return cRightSquareBracketKeyword_1_1_1_2; }
+	}
 	
 	
 	private final SystemInstanceElements pSystemInstance;
@@ -1472,6 +1654,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final ConnectionInstanceElements pConnectionInstance;
 	private final ConnectionReferenceElements pConnectionReference;
 	private final FlowSpecificationInstanceElements pFlowSpecificationInstance;
+	private final EndToEndFlowInstanceElements pEndToEndFlowInstance;
 	private final SystemOperationModeElements pSystemOperationMode;
 	private final DirectionTypeElements pDirectionType;
 	private final FeatureCategoryElements pFeatureCategory;
@@ -1484,6 +1667,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final SIMPLEINSTANCEREFElements pSIMPLEINSTANCEREF;
 	private final INSTANCEREFWITHPARENTElements pINSTANCEREFWITHPARENT;
 	private final CONNINSTREFElements pCONNINSTREF;
+	private final FLOWELEMENTREFElements pFLOWELEMENTREF;
 	private final TerminalRule tID;
 	private final TerminalRule tLONG;
 	private final TerminalRule tSTRING;
@@ -1501,6 +1685,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pConnectionInstance = new ConnectionInstanceElements();
 		this.pConnectionReference = new ConnectionReferenceElements();
 		this.pFlowSpecificationInstance = new FlowSpecificationInstanceElements();
+		this.pEndToEndFlowInstance = new EndToEndFlowInstanceElements();
 		this.pSystemOperationMode = new SystemOperationModeElements();
 		this.pDirectionType = new DirectionTypeElements();
 		this.pFeatureCategory = new FeatureCategoryElements();
@@ -1513,6 +1698,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSIMPLEINSTANCEREF = new SIMPLEINSTANCEREFElements();
 		this.pINSTANCEREFWITHPARENT = new INSTANCEREFWITHPARENTElements();
 		this.pCONNINSTREF = new CONNINSTREFElements();
+		this.pFLOWELEMENTREF = new FLOWELEMENTREFElements();
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID");
 		this.tLONG = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "LONG");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "STRING");
@@ -1546,7 +1732,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//SystemInstance returns instance::SystemInstance:
 	//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 	//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-	//	flowSpecification+=FlowSpecificationInstance | systemOperationMode+=SystemOperationMode)* "}";
+	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance |
+	//	systemOperationMode+=SystemOperationMode)* "}";
 	public SystemInstanceElements getSystemInstanceAccess() {
 		return pSystemInstance;
 	}
@@ -1580,7 +1767,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 	//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-	//	flowSpecification+=FlowSpecificationInstance)* "}")?;
+	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance)* "}")?;
 	public ComponentInstanceElements getComponentInstanceAccess() {
 		return pComponentInstance;
 	}
@@ -1622,6 +1809,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getFlowSpecificationInstanceRule() {
 		return getFlowSpecificationInstanceAccess().getRule();
+	}
+
+	//EndToEndFlowInstance returns instance::EndToEndFlowInstance:
+	//	"end" "to" "end" "flow" name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ("->"
+	//	flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ":" endToEndFlow=[aadl2::EndToEndFlow|SUBREF];
+	public EndToEndFlowInstanceElements getEndToEndFlowInstanceAccess() {
+		return pEndToEndFlowInstance;
+	}
+	
+	public ParserRule getEndToEndFlowInstanceRule() {
+		return getEndToEndFlowInstanceAccess().getRule();
 	}
 
 	//SystemOperationMode returns instance::SystemOperationMode:
@@ -1745,6 +1943,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCONNINSTREFRule() {
 		return getCONNINSTREFAccess().getRule();
+	}
+
+	//FLOWELEMENTREF:
+	//	(ID ("[" LONG "]")* ".")* (LONG | ID ("[" LONG "]")*);
+	public FLOWELEMENTREFElements getFLOWELEMENTREFAccess() {
+		return pFLOWELEMENTREF;
+	}
+	
+	public ParserRule getFLOWELEMENTREFRule() {
+		return getFLOWELEMENTREFAccess().getRule();
 	}
 
 	//terminal ID:

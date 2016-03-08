@@ -11,6 +11,7 @@ SystemInstance returns instance::SystemInstance:
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
 			flowSpecification+=FlowSpecificationInstance |
+			endToEndFlow+=EndToEndFlowInstance |
 			systemOperationMode+=SystemOperationMode
 		)*
 	'}'
@@ -31,7 +32,8 @@ ComponentInstance returns instance::ComponentInstance:
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
-			flowSpecification+=FlowSpecificationInstance
+			flowSpecification+=FlowSpecificationInstance |
+			endToEndFlow+=EndToEndFlowInstance
 		)*
 	'}')?
 ;
@@ -48,6 +50,10 @@ ConnectionReference returns instance::ConnectionReference:
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
 	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
+;
+
+EndToEndFlowInstance returns instance::EndToEndFlowInstance:
+	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ':' endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
@@ -100,6 +106,10 @@ INSTANCEREFWITHPARENT:
 
 CONNINSTREF:
 	(LONG '.')? LONG
+;
+
+FLOWELEMENTREF:
+	(ID ('[' LONG ']')* '.')* (LONG | ID ('[' LONG ']')*)
 ;
 	
 terminal ID:	('a'..'z'
