@@ -184,15 +184,24 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allConnections.scopeFor
 	}
 
+	/**
+	 * Scope for elements of EMV2Path in transition conditions in state machine declarations
+	 */
 	def scope_EMV2PathElement_namedElement(ErrorBehaviorStateMachine context, EReference reference) {
 		context.events.scopeFor
 	}
 
+	/**
+	 * Scope for incoming propagations as SConditionElements in a CompositeStetate declaration
+	 */
 	def scope_EMV2PathElement_namedElement(CompositeState context, EReference reference) {
 		val cl = context.associatedClassifier
 		cl.scopeForErrorPropagation(DirectionType.IN)
 	}
 
+	/**
+	 * Scope for the first element of a EMV2Path in ErrorBehaviorTransition, OutPropagationCondition, and ErrorDetection conditions
+	 */
 	def scope_EMV2PathElement_namedElement(ErrorModelSubclause context, EReference reference) {
 		val classifier = context.associatedClassifier
 		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
@@ -209,51 +218,61 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		)
 	}
 
-//	def scope_EMV2PathElement_namedElement(EMV2PropertyAssociation context, EReference reference) {
-//		val classifier = context.associatedClassifier
-//		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-//			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-//			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-//		} else if (classifier instanceof FeatureGroupType) {
-//			classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
-//		} else {
-//			emptySet
-//		}
-//		new SimpleScope(classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions
-//			, true
-//		)
-//	}
-//	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
-//		val parent = context.eContainer
-//		val classifier = switch (parent) {
-//			EMV2Path:
-//				context.associatedClassifier
-//			EMV2PathElement: {
-//				val ne = parent.namedElement
-//				if (ne instanceof Subcomponent) {
-//					ne.allClassifier
-//				} else if (ne instanceof FeatureGroup) {
-//					ne.allClassifier
-//				} else {
-//					null
-//				}
-//			}
-//		}
-//		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-//				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-//				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-//			} else if (classifier instanceof FeatureGroupType) {
-//				classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
-//			} else {
-//				emptySet
-//			}
-//					context.scopeForErrorPropagation(DirectionType.OUT)
-//			
-//		new SimpleScope(
-//			classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions,
-//			true
-//		)
-//	}
+	/**
+	 * Scope for EMV2Path in a property association
+	 * It can start with subcomponents if there is no explicit core path (^ @)
+	 */
+	def scope_EMV2PathElement_namedElement(EMV2PropertyAssociation context, EReference reference) {
+		val classifier = context.associatedClassifier
+		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
+			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
+		} else if (classifier instanceof FeatureGroupType) {
+			classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
+		} else {
+			emptySet
+		}
+		// XXX all error model elements
+		new SimpleScope(classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions
+			, true
+		)
+	}
+	
+	/**
+	 * Scope for EMV2PathElements that are not the first. The previous one determines the scope content.
+	 * We return Subcomponents, and out ErrorPropagations of subcomponents, as well as Features in Feature Groups.
+	 */
+	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
+		val parent = context.eContainer
+		val classifier = switch (parent) {
+			EMV2Path:
+				context.associatedClassifier
+			EMV2PathElement: {
+				val ne = parent.namedElement
+				if (ne instanceof Subcomponent) {
+					ne.allClassifier
+				} else if (ne instanceof FeatureGroup) {
+					ne.allClassifier
+				} else {
+					null
+				}
+			}
+		}
+		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
+				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			} else if (classifier instanceof FeatureGroupType) {
+				classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			} else {
+				emptySet
+			}
+		val outProps = if (classifier instanceof ComponentClassifier) {
+				classifier.eDescriptionsForErrorPropagation(DirectionType.OUT)
+			} else {
+				emptySet
+			}
+		new SimpleScope(outProps + subCoreElementDescriptions,true)
+	}
 
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
 		context.scopeForErrorPropagation(DirectionType.OUT)
@@ -352,6 +371,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		].flatten.flatten
 
 		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
+	}
+
+	def public static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
+			!not && direction == requiredDirection
+		]
+		propagations.map[EObjectDescription.create(propagationName, it)]
 	}
 
 	def public static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
