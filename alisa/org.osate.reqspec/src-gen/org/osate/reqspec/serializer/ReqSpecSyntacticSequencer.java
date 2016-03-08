@@ -276,15 +276,15 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#[' ']' (rule start)
-	 *     (rule start) (ambiguity) '#[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#{' '}' (rule start)
-	 *     (rule start) (ambiguity) '#{' elements+=AExpression
-	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' ']' (rule start)
+	 *     (rule start) (ambiguity) '[' elements+=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
 	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) 'this' (rule start)
+	 *     (rule start) (ambiguity) '{' '}' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt
@@ -304,15 +304,15 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#[' ']' ')' (rule start)
-	 *     (rule start) (ambiguity) '#[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '#{' elements+=AExpression
-	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' ']' ')' (rule start)
+	 *     (rule start) (ambiguity) '[' elements+=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
 	 *     (rule start) (ambiguity) 'this' ')' (rule start)
 	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
 	 *     (rule start) (ambiguity) value=AInt

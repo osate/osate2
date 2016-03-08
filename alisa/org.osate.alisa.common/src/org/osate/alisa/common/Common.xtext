@@ -50,8 +50,9 @@ ComputeDeclaration returns AVariableDeclaration:
 	 'compute' (=> (type=ID name=ID) | name=ID) 
 ;
 
+// Reference to property, property constant, or model element.
 AModelOrPropertyReference returns AExpression:
-	(AModelReference (=>({APropertyReference.modelElementReference=current} '@') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
+	(AModelReference (=>({APropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
 		) | APropertyReference
 ;
 
@@ -64,7 +65,7 @@ AModelReference returns AModelReference:
 ;
 
 APropertyReference returns APropertyReference:
-	{APropertyReference}'@' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+	{APropertyReference}'#' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 ;
 
 AVariableReference returns AExpression:
@@ -190,11 +191,11 @@ NumAlt  returns aadl2::PropertyExpression:
 ;
 
 ASetTerm returns aadl2::PropertyExpression:
-	{ASetLiteral}  '#{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
 ;
 
 AListTerm returns aadl2::PropertyExpression:
-	{AListTerm} '#[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
 ;
 
 

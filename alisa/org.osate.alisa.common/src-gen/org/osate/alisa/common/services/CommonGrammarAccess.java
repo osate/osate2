@@ -418,43 +418,44 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0_1_0 = (Group)cGroup_0_1.eContents().get(0);
 		private final Group cGroup_0_1_0_0 = (Group)cGroup_0_1_0.eContents().get(0);
 		private final Action cAPropertyReferenceModelElementReferenceAction_0_1_0_0_0 = (Action)cGroup_0_1_0_0.eContents().get(0);
-		private final Keyword cCommercialAtKeyword_0_1_0_0_1 = (Keyword)cGroup_0_1_0_0.eContents().get(1);
+		private final Keyword cNumberSignKeyword_0_1_0_0_1 = (Keyword)cGroup_0_1_0_0.eContents().get(1);
 		private final Assignment cPropertyAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
 		private final CrossReference cPropertyAbstractNamedValueCrossReference_0_1_1_0 = (CrossReference)cPropertyAssignment_0_1_1.eContents().get(0);
 		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_0_1_1_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_0_1_1_0.eContents().get(1);
 		private final RuleCall cAPropertyReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
+		//// Reference to property, property constant, or model element.
 		//AModelOrPropertyReference returns AExpression:
-		//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//	AModelReference (=> ({APropertyReference.modelElementReference=current} "#")
 		//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 		@Override public ParserRule getRule() { return rule; }
 
-		//AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//AModelReference (=> ({APropertyReference.modelElementReference=current} "#")
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+		//AModelReference (=> ({APropertyReference.modelElementReference=current} "#")
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
 		public Group getGroup_0() { return cGroup_0; }
 
 		//AModelReference
 		public RuleCall getAModelReferenceParserRuleCall_0_0() { return cAModelReferenceParserRuleCall_0_0; }
 
-		//(=> ({APropertyReference.modelElementReference=current} "@")
+		//(=> ({APropertyReference.modelElementReference=current} "#")
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
-		//=> ({APropertyReference.modelElementReference=current} "@")
+		//=> ({APropertyReference.modelElementReference=current} "#")
 		public Group getGroup_0_1_0() { return cGroup_0_1_0; }
 
-		//{APropertyReference.modelElementReference=current} "@"
+		//{APropertyReference.modelElementReference=current} "#"
 		public Group getGroup_0_1_0_0() { return cGroup_0_1_0_0; }
 
 		//{APropertyReference.modelElementReference=current}
 		public Action getAPropertyReferenceModelElementReferenceAction_0_1_0_0_0() { return cAPropertyReferenceModelElementReferenceAction_0_1_0_0_0; }
 
-		//"@"
-		public Keyword getCommercialAtKeyword_0_1_0_0_1() { return cCommercialAtKeyword_0_1_0_0_1; }
+		//"#"
+		public Keyword getNumberSignKeyword_0_1_0_0_1() { return cNumberSignKeyword_0_1_0_0_1; }
 
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Assignment getPropertyAssignment_0_1_1() { return cPropertyAssignment_0_1_1; }
@@ -549,23 +550,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "APropertyReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAPropertyReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cPropertyAbstractNamedValueCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
 		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_2_0.eContents().get(1);
 		
 		//APropertyReference:
-		//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+		//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		//{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Group getGroup() { return cGroup; }
 
 		//{APropertyReference}
 		public Action getAPropertyReferenceAction_0() { return cAPropertyReferenceAction_0; }
 
-		//"@"
-		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
+		//"#"
+		public Keyword getNumberSignKeyword_1() { return cNumberSignKeyword_1; }
 
 		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
@@ -1676,7 +1677,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ASetTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cASetLiteralAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cNumberSignLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cElementsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final RuleCall cElementsAExpressionParserRuleCall_2_0_0 = (RuleCall)cElementsAssignment_2_0.eContents().get(0);
@@ -1687,17 +1688,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ASetTerm returns aadl2::PropertyExpression:
-		//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+		//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}"
+		//{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}"
 		public Group getGroup() { return cGroup; }
 
 		//{ASetLiteral}
 		public Action getASetLiteralAction_0() { return cASetLiteralAction_0; }
 
-		//"#{"
-		public Keyword getNumberSignLeftCurlyBracketKeyword_1() { return cNumberSignLeftCurlyBracketKeyword_1; }
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 
 		//(elements+=AExpression ("," elements+=AExpression)*)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1728,7 +1729,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AListTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAListTermAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cNumberSignLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cElementsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final RuleCall cElementsAExpressionParserRuleCall_2_0_0 = (RuleCall)cElementsAssignment_2_0.eContents().get(0);
@@ -1739,17 +1740,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//AListTerm returns aadl2::PropertyExpression:
-		//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+		//	{AListTerm} "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]"
+		//{AListTerm} "[" (elements+=AExpression ("," elements+=AExpression)*)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//{AListTerm}
 		public Action getAListTermAction_0() { return cAListTermAction_0; }
 
-		//"#["
-		public Keyword getNumberSignLeftSquareBracketKeyword_1() { return cNumberSignLeftSquareBracketKeyword_1; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
 		//(elements+=AExpression ("," elements+=AExpression)*)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -2395,8 +2396,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getComputeDeclarationAccess().getRule();
 	}
 
+	//// Reference to property, property constant, or model element.
 	//AModelOrPropertyReference returns AExpression:
-	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "#")
 	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 	public AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return pAModelOrPropertyReference;
@@ -2427,7 +2429,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference:
-	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public APropertyReferenceElements getAPropertyReferenceAccess() {
 		return pAPropertyReference;
 	}
@@ -2747,7 +2749,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ASetTerm returns aadl2::PropertyExpression:
-	//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 	public ASetTermElements getASetTermAccess() {
 		return pASetTerm;
 	}
@@ -2757,7 +2759,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AListTerm returns aadl2::PropertyExpression:
-	//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+	//	{AListTerm} "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 	public AListTermElements getAListTermAccess() {
 		return pAListTerm;
 	}

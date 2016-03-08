@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'case'", "'['", "'message'", "']'", "'model'", "'for'", "'subsystem'", "'claim'", "'precondition'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'validation'", "'verification'", "'else'", "'error'", "'fail'", "'timeout'", "'then'", "'do'", "'thenfailed'", "'tbdcount'", "'successcount'", "'failcount'", "'timeoutcount'", "'errorcount'", "'didelsecount'", "'thenskipcount'", "'prefailcount'", "'validfailcount'", "'featurescount'", "'featuresrequirementscount'", "'qualitycategoryrequirementscount'", "'requirementswithoutplanclaimcount'", "'weight'", "'time'", "'#'", "'.'", "'this'", "'target'", "'exception'", "'diagnosticId'", "'@'", "'%'", "'img'", "'/'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'='", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'('", "','", "')'", "'#{'", "'}'", "'#['", "'true'", "'false'", "'null'", "'::'", "'ok'", "'tbd'", "'success'", "'todo'", "'running'", "'redo'", "'completed'", "'warning'", "'info'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'case'", "'['", "'message'", "']'", "'model'", "'for'", "'subsystem'", "'claim'", "'precondition'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'validation'", "'verification'", "'else'", "'error'", "'fail'", "'timeout'", "'then'", "'do'", "'thenfailed'", "'tbdcount'", "'successcount'", "'failcount'", "'timeoutcount'", "'errorcount'", "'didelsecount'", "'thenskipcount'", "'prefailcount'", "'validfailcount'", "'featurescount'", "'featuresrequirementscount'", "'qualitycategoryrequirementscount'", "'requirementswithoutplanclaimcount'", "'weight'", "'time'", "'#'", "'.'", "'this'", "'target'", "'exception'", "'diagnosticId'", "'%'", "'img'", "'/'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'='", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'('", "','", "')'", "'{'", "'}'", "'true'", "'false'", "'null'", "'::'", "'ok'", "'tbd'", "'success'", "'todo'", "'running'", "'redo'", "'completed'", "'warning'", "'info'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -88,11 +88,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final int T__42=42;
     public static final int T__43=43;
     public static final int T__91=91;
-    public static final int T__100=100;
     public static final int T__92=92;
     public static final int T__93=93;
     public static final int T__94=94;
-    public static final int T__101=101;
     public static final int T__90=90;
     public static final int RULE_INT_EXPONENT=10;
     public static final int T__19=19;
@@ -1844,7 +1842,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt13=2;
                         int LA13_0 = input.LA(1);
 
-                        if ( ((LA13_0>=33 && LA13_0<=34)||(LA13_0>=94 && LA13_0<=95)||(LA13_0>=100 && LA13_0<=101)) ) {
+                        if ( ((LA13_0>=33 && LA13_0<=34)||(LA13_0>=92 && LA13_0<=93)||(LA13_0>=98 && LA13_0<=99)) ) {
                             alt13=1;
                         }
 
@@ -2320,7 +2318,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt17=2;
                         int LA17_0 = input.LA(1);
 
-                        if ( ((LA17_0>=33 && LA17_0<=34)||(LA17_0>=94 && LA17_0<=95)||(LA17_0>=100 && LA17_0<=101)) ) {
+                        if ( ((LA17_0>=33 && LA17_0<=34)||(LA17_0>=92 && LA17_0<=93)||(LA17_0>=98 && LA17_0<=99)) ) {
                             alt17=1;
                         }
 
@@ -2803,7 +2801,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt21=2;
                         int LA21_0 = input.LA(1);
 
-                        if ( ((LA21_0>=33 && LA21_0<=34)||(LA21_0>=94 && LA21_0<=95)||(LA21_0>=100 && LA21_0<=101)) ) {
+                        if ( ((LA21_0>=33 && LA21_0<=34)||(LA21_0>=92 && LA21_0<=93)||(LA21_0>=98 && LA21_0<=99)) ) {
                             alt21=1;
                         }
 
@@ -3694,7 +3692,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt35=2;
             int LA35_0 = input.LA(1);
 
-            if ( ((LA35_0>=33 && LA35_0<=35)||LA35_0==93) ) {
+            if ( ((LA35_0>=33 && LA35_0<=35)||LA35_0==91) ) {
                 alt35=1;
             }
             switch (alt35) {
@@ -5605,7 +5603,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt55=3;
                 }
                 break;
-            case 62:
+            case 61:
                 {
                 alt55=4;
                 }
@@ -6109,7 +6107,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt59=2;
                         int LA59_0 = input.LA(1);
 
-                        if ( ((LA59_0>=33 && LA59_0<=34)||(LA59_0>=94 && LA59_0<=95)||(LA59_0>=100 && LA59_0<=101)) ) {
+                        if ( ((LA59_0>=33 && LA59_0<=34)||(LA59_0>=92 && LA59_0<=93)||(LA59_0>=98 && LA59_0<=99)) ) {
                             alt59=1;
                         }
 
@@ -6231,7 +6229,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAModelOrPropertyReference"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2334:1: ruleAModelOrPropertyReference returns [EObject current=null] : ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2334:1: ruleAModelOrPropertyReference returns [EObject current=null] : ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) ;
     public final EObject ruleAModelOrPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -6244,17 +6242,17 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2337:28: ( ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2337:28: ( ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             int alt62=2;
             int LA62_0 = input.LA(1);
 
             if ( (LA62_0==56) ) {
                 alt62=1;
             }
-            else if ( (LA62_0==60) ) {
+            else if ( (LA62_0==54) ) {
                 alt62=2;
             }
             else {
@@ -6266,10 +6264,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt62) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2339:5: this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2338:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2339:5: this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -6287,22 +6285,22 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                               afterParserOrEnumRuleCall();
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:1: ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:1: ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     int alt61=2;
                     int LA61_0 = input.LA(1);
 
-                    if ( (LA61_0==60) && (synpred1_InternalAssure())) {
+                    if ( (LA61_0==54) && (synpred1_InternalAssure())) {
                         alt61=1;
                     }
                     switch (alt61) {
                         case 1 :
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:2: ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:2: ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:2: ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) )
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:3: ( ( () '@' ) )=> ( () otherlv_2= '@' )
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:2: ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) )
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:3: ( ( () '#' ) )=> ( () otherlv_2= '#' )
                             {
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2349:5: ( () otherlv_2= '@' )
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2349:6: () otherlv_2= '@'
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2349:5: ( () otherlv_2= '#' )
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2349:6: () otherlv_2= '#'
                             {
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2349:6: ()
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2350:5: 
@@ -6317,10 +6315,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_2=(Token)match(input,60,FOLLOW_60_in_ruleAModelOrPropertyReference4459); if (state.failed) return current;
+                            otherlv_2=(Token)match(input,54,FOLLOW_54_in_ruleAModelOrPropertyReference4459); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1());
+                                  	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1());
                                   
                             }
 
@@ -6782,7 +6780,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAPropertyReference"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2510:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2510:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
     public final EObject ruleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -6791,11 +6789,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2513:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2513:28: ( ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:1: ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:1: ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:2: () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) )
             {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2514:2: ()
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2515:5: 
@@ -6810,10 +6808,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,60,FOLLOW_60_in_ruleAPropertyReference4861); if (state.failed) return current;
+            otherlv_1=(Token)match(input,54,FOLLOW_54_in_ruleAPropertyReference4861); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2524:1: ( ( ruleAADLPROPERTYREFERENCE ) )
@@ -7075,14 +7073,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt65=2;
             int LA65_0 = input.LA(1);
 
-            if ( (LA65_0==61) ) {
+            if ( (LA65_0==60) ) {
                 alt65=1;
             }
             switch (alt65) {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2613:4: otherlv_1= '%' ( (otherlv_2= RULE_ID ) )
                     {
-                    otherlv_1=(Token)match(input,61,FOLLOW_61_in_ruleShowValue5088); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,60,FOLLOW_60_in_ruleShowValue5088); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
@@ -7199,7 +7197,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2651:1: (otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) ) )
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2651:3: otherlv_0= 'img' ( (lv_imgfile_1_0= ruleIMGREF ) )
             {
-            otherlv_0=(Token)match(input,62,FOLLOW_62_in_ruleImageReference5193); if (state.failed) return current;
+            otherlv_0=(Token)match(input,61,FOLLOW_61_in_ruleImageReference5193); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getImageReferenceAccess().getImgKeyword_0());
@@ -7330,7 +7328,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 if ( (LA66_0==RULE_ID) ) {
                     int LA66_1 = input.LA(2);
 
-                    if ( (LA66_1==63) ) {
+                    if ( (LA66_1==62) ) {
                         alt66=1;
                     }
 
@@ -7353,7 +7351,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	          newLeafNode(this_ID_0, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
             	          
             	    }
-            	    kw=(Token)match(input,63,FOLLOW_63_in_ruleIMGREF5321); if (state.failed) return current;
+            	    kw=(Token)match(input,62,FOLLOW_62_in_ruleIMGREF5321); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -7592,7 +7590,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt67=2;
                 int LA67_0 = input.LA(1);
 
-                if ( (LA67_0==64) && (synpred2_InternalAssure())) {
+                if ( (LA67_0==63) && (synpred2_InternalAssure())) {
                     alt67=1;
                 }
 
@@ -7780,7 +7778,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2854:28: (kw= '||' )
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2856:2: kw= '||'
             {
-            kw=(Token)match(input,64,FOLLOW_64_in_ruleOpOr5722); if (state.failed) return current;
+            kw=(Token)match(input,63,FOLLOW_63_in_ruleOpOr5722); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -7889,7 +7887,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt68=2;
                 int LA68_0 = input.LA(1);
 
-                if ( (LA68_0==65) && (synpred3_InternalAssure())) {
+                if ( (LA68_0==64) && (synpred3_InternalAssure())) {
                     alt68=1;
                 }
 
@@ -8077,7 +8075,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2958:28: (kw= '&&' )
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2960:2: kw= '&&'
             {
-            kw=(Token)match(input,65,FOLLOW_65_in_ruleOpAnd5977); if (state.failed) return current;
+            kw=(Token)match(input,64,FOLLOW_64_in_ruleOpAnd5977); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -8186,10 +8184,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt69=2;
                 int LA69_0 = input.LA(1);
 
-                if ( (LA69_0==66) && (synpred4_InternalAssure())) {
+                if ( (LA69_0==65) && (synpred4_InternalAssure())) {
                     alt69=1;
                 }
-                else if ( (LA69_0==67) && (synpred4_InternalAssure())) {
+                else if ( (LA69_0==66) && (synpred4_InternalAssure())) {
                     alt69=1;
                 }
 
@@ -8381,10 +8379,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt70=2;
             int LA70_0 = input.LA(1);
 
-            if ( (LA70_0==66) ) {
+            if ( (LA70_0==65) ) {
                 alt70=1;
             }
-            else if ( (LA70_0==67) ) {
+            else if ( (LA70_0==66) ) {
                 alt70=2;
             }
             else {
@@ -8398,7 +8396,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3064:2: kw= '=='
                     {
-                    kw=(Token)match(input,66,FOLLOW_66_in_ruleOpEquality6233); if (state.failed) return current;
+                    kw=(Token)match(input,65,FOLLOW_65_in_ruleOpEquality6233); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8411,7 +8409,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3071:2: kw= '!='
                     {
-                    kw=(Token)match(input,67,FOLLOW_67_in_ruleOpEquality6252); if (state.failed) return current;
+                    kw=(Token)match(input,66,FOLLOW_66_in_ruleOpEquality6252); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8526,13 +8524,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt71=2;
                 int LA71_0 = input.LA(1);
 
-                if ( (LA71_0==68) && (synpred5_InternalAssure())) {
+                if ( (LA71_0==67) && (synpred5_InternalAssure())) {
                     alt71=1;
                 }
-                else if ( (LA71_0==69) && (synpred5_InternalAssure())) {
+                else if ( (LA71_0==68) && (synpred5_InternalAssure())) {
                     alt71=1;
                 }
-                else if ( (LA71_0==71) && (synpred5_InternalAssure())) {
+                else if ( (LA71_0==70) && (synpred5_InternalAssure())) {
                     alt71=1;
                 }
 
@@ -8723,19 +8721,19 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3174:1: (kw= '>=' | (kw= '<' kw= '=' ) | kw= '>' | kw= '<' )
             int alt72=4;
             switch ( input.LA(1) ) {
-            case 68:
+            case 67:
                 {
                 alt72=1;
                 }
                 break;
-            case 69:
+            case 68:
                 {
                 int LA72_2 = input.LA(2);
 
-                if ( (LA72_2==EOF||(LA72_2>=RULE_STRING && LA72_2<=RULE_REAL_LIT)||LA72_2==56||LA72_2==60||(LA72_2>=78 && LA72_2<=79)||(LA72_2>=82 && LA72_2<=83)||LA72_2==86||(LA72_2>=88 && LA72_2<=91)) ) {
+                if ( (LA72_2==EOF||(LA72_2>=RULE_STRING && LA72_2<=RULE_REAL_LIT)||LA72_2==18||LA72_2==54||LA72_2==56||(LA72_2>=77 && LA72_2<=78)||(LA72_2>=81 && LA72_2<=82)||LA72_2==85||(LA72_2>=87 && LA72_2<=89)) ) {
                     alt72=4;
                 }
-                else if ( (LA72_2==70) ) {
+                else if ( (LA72_2==69) ) {
                     alt72=2;
                 }
                 else {
@@ -8747,7 +8745,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 }
                 }
                 break;
-            case 71:
+            case 70:
                 {
                 alt72=3;
                 }
@@ -8764,7 +8762,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3175:2: kw= '>='
                     {
-                    kw=(Token)match(input,68,FOLLOW_68_in_ruleOpCompare6509); if (state.failed) return current;
+                    kw=(Token)match(input,67,FOLLOW_67_in_ruleOpCompare6509); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8780,14 +8778,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3181:6: (kw= '<' kw= '=' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3182:2: kw= '<' kw= '='
                     {
-                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpCompare6529); if (state.failed) return current;
+                    kw=(Token)match(input,68,FOLLOW_68_in_ruleOpCompare6529); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_1_0()); 
                           
                     }
-                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpCompare6542); if (state.failed) return current;
+                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpCompare6542); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8803,7 +8801,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3195:2: kw= '>'
                     {
-                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpCompare6562); if (state.failed) return current;
+                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpCompare6562); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8816,7 +8814,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3202:2: kw= '<'
                     {
-                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpCompare6581); if (state.failed) return current;
+                    kw=(Token)match(input,68,FOLLOW_68_in_ruleOpCompare6581); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9120,7 +9118,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3306:2: kw= '->'
                     {
-                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther6838); if (state.failed) return current;
+                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther6838); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9133,7 +9131,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3313:2: kw= '..<'
                     {
-                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther6857); if (state.failed) return current;
+                    kw=(Token)match(input,72,FOLLOW_72_in_ruleOpOther6857); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9149,14 +9147,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3319:6: (kw= '>' kw= '..' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3320:2: kw= '>' kw= '..'
                     {
-                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther6877); if (state.failed) return current;
+                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpOther6877); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_2_0()); 
                           
                     }
-                    kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther6890); if (state.failed) return current;
+                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther6890); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9172,7 +9170,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3333:2: kw= '..'
                     {
-                    kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther6910); if (state.failed) return current;
+                    kw=(Token)match(input,73,FOLLOW_73_in_ruleOpOther6910); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9185,7 +9183,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3340:2: kw= '=>'
                     {
-                    kw=(Token)match(input,75,FOLLOW_75_in_ruleOpOther6929); if (state.failed) return current;
+                    kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther6929); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9201,7 +9199,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3346:6: (kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' ) )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3347:2: kw= '>' ( ( ( ( '>' '>' ) )=> (kw= '>' kw= '>' ) ) | kw= '>' )
                     {
-                    kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther6949); if (state.failed) return current;
+                    kw=(Token)match(input,70,FOLLOW_70_in_ruleOpOther6949); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9212,13 +9210,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     int alt74=2;
                     int LA74_0 = input.LA(1);
 
-                    if ( (LA74_0==71) ) {
+                    if ( (LA74_0==70) ) {
                         int LA74_1 = input.LA(2);
 
-                        if ( (LA74_1==EOF||(LA74_1>=RULE_STRING && LA74_1<=RULE_REAL_LIT)||LA74_1==56||LA74_1==60||(LA74_1>=78 && LA74_1<=79)||(LA74_1>=82 && LA74_1<=83)||LA74_1==86||(LA74_1>=88 && LA74_1<=91)) ) {
+                        if ( (LA74_1==EOF||(LA74_1>=RULE_STRING && LA74_1<=RULE_REAL_LIT)||LA74_1==18||LA74_1==54||LA74_1==56||(LA74_1>=77 && LA74_1<=78)||(LA74_1>=81 && LA74_1<=82)||LA74_1==85||(LA74_1>=87 && LA74_1<=89)) ) {
                             alt74=2;
                         }
-                        else if ( (LA74_1==71) && (synpred7_InternalAssure())) {
+                        else if ( (LA74_1==70) && (synpred7_InternalAssure())) {
                             alt74=1;
                         }
                         else {
@@ -9246,14 +9244,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3356:5: (kw= '>' kw= '>' )
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3357:2: kw= '>' kw= '>'
                             {
-                            kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther6980); if (state.failed) return current;
+                            kw=(Token)match(input,70,FOLLOW_70_in_ruleOpOther6980); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
                                       newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_0()); 
                                   
                             }
-                            kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther6993); if (state.failed) return current;
+                            kw=(Token)match(input,70,FOLLOW_70_in_ruleOpOther6993); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
@@ -9272,7 +9270,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         case 2 :
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3370:2: kw= '>'
                             {
-                            kw=(Token)match(input,71,FOLLOW_71_in_ruleOpOther7014); if (state.failed) return current;
+                            kw=(Token)match(input,70,FOLLOW_70_in_ruleOpOther7014); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
@@ -9297,7 +9295,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3376:6: (kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' ) )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3377:2: kw= '<' ( ( ( ( '<' '<' ) )=> (kw= '<' kw= '<' ) ) | kw= '<' | kw= '=>' )
                     {
-                    kw=(Token)match(input,69,FOLLOW_69_in_ruleOpOther7036); if (state.failed) return current;
+                    kw=(Token)match(input,68,FOLLOW_68_in_ruleOpOther7036); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9308,13 +9306,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     int alt75=3;
                     int LA75_0 = input.LA(1);
 
-                    if ( (LA75_0==69) ) {
+                    if ( (LA75_0==68) ) {
                         int LA75_1 = input.LA(2);
 
-                        if ( (LA75_1==69) && (synpred8_InternalAssure())) {
+                        if ( (LA75_1==68) && (synpred8_InternalAssure())) {
                             alt75=1;
                         }
-                        else if ( (LA75_1==EOF||(LA75_1>=RULE_STRING && LA75_1<=RULE_REAL_LIT)||LA75_1==56||LA75_1==60||(LA75_1>=78 && LA75_1<=79)||(LA75_1>=82 && LA75_1<=83)||LA75_1==86||(LA75_1>=88 && LA75_1<=91)) ) {
+                        else if ( (LA75_1==EOF||(LA75_1>=RULE_STRING && LA75_1<=RULE_REAL_LIT)||LA75_1==18||LA75_1==54||LA75_1==56||(LA75_1>=77 && LA75_1<=78)||(LA75_1>=81 && LA75_1<=82)||LA75_1==85||(LA75_1>=87 && LA75_1<=89)) ) {
                             alt75=2;
                         }
                         else {
@@ -9325,7 +9323,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                             throw nvae;
                         }
                     }
-                    else if ( (LA75_0==75) ) {
+                    else if ( (LA75_0==74) ) {
                         alt75=3;
                     }
                     else {
@@ -9345,14 +9343,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3386:5: (kw= '<' kw= '<' )
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3387:2: kw= '<' kw= '<'
                             {
-                            kw=(Token)match(input,69,FOLLOW_69_in_ruleOpOther7067); if (state.failed) return current;
+                            kw=(Token)match(input,68,FOLLOW_68_in_ruleOpOther7067); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
                                       newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_0()); 
                                   
                             }
-                            kw=(Token)match(input,69,FOLLOW_69_in_ruleOpOther7080); if (state.failed) return current;
+                            kw=(Token)match(input,68,FOLLOW_68_in_ruleOpOther7080); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
@@ -9371,7 +9369,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         case 2 :
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3400:2: kw= '<'
                             {
-                            kw=(Token)match(input,69,FOLLOW_69_in_ruleOpOther7101); if (state.failed) return current;
+                            kw=(Token)match(input,68,FOLLOW_68_in_ruleOpOther7101); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
@@ -9384,7 +9382,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         case 3 :
                             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3407:2: kw= '=>'
                             {
-                            kw=(Token)match(input,75,FOLLOW_75_in_ruleOpOther7120); if (state.failed) return current;
+                            kw=(Token)match(input,74,FOLLOW_74_in_ruleOpOther7120); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
@@ -9406,7 +9404,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 8 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3414:2: kw= '<>'
                     {
-                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther7141); if (state.failed) return current;
+                    kw=(Token)match(input,75,FOLLOW_75_in_ruleOpOther7141); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9419,7 +9417,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 9 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3421:2: kw= '?:'
                     {
-                    kw=(Token)match(input,77,FOLLOW_77_in_ruleOpOther7160); if (state.failed) return current;
+                    kw=(Token)match(input,76,FOLLOW_76_in_ruleOpOther7160); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9534,10 +9532,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt77=2;
                 int LA77_0 = input.LA(1);
 
-                if ( (LA77_0==78) && (synpred9_InternalAssure())) {
+                if ( (LA77_0==77) && (synpred9_InternalAssure())) {
                     alt77=1;
                 }
-                else if ( (LA77_0==79) && (synpred9_InternalAssure())) {
+                else if ( (LA77_0==78) && (synpred9_InternalAssure())) {
                     alt77=1;
                 }
 
@@ -9729,10 +9727,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt78=2;
             int LA78_0 = input.LA(1);
 
-            if ( (LA78_0==78) ) {
+            if ( (LA78_0==77) ) {
                 alt78=1;
             }
-            else if ( (LA78_0==79) ) {
+            else if ( (LA78_0==78) ) {
                 alt78=2;
             }
             else {
@@ -9746,7 +9744,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3525:2: kw= '+'
                     {
-                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpAdd7417); if (state.failed) return current;
+                    kw=(Token)match(input,77,FOLLOW_77_in_ruleOpAdd7417); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9759,7 +9757,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3532:2: kw= '-'
                     {
-                    kw=(Token)match(input,79,FOLLOW_79_in_ruleOpAdd7436); if (state.failed) return current;
+                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpAdd7436); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -9874,16 +9872,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt79=2;
                 int LA79_0 = input.LA(1);
 
-                if ( (LA79_0==80) && (synpred10_InternalAssure())) {
+                if ( (LA79_0==79) && (synpred10_InternalAssure())) {
                     alt79=1;
                 }
-                else if ( (LA79_0==81) && (synpred10_InternalAssure())) {
+                else if ( (LA79_0==80) && (synpred10_InternalAssure())) {
                     alt79=1;
                 }
-                else if ( (LA79_0==63) && (synpred10_InternalAssure())) {
+                else if ( (LA79_0==62) && (synpred10_InternalAssure())) {
                     alt79=1;
                 }
-                else if ( (LA79_0==61) && (synpred10_InternalAssure())) {
+                else if ( (LA79_0==60) && (synpred10_InternalAssure())) {
                     alt79=1;
                 }
 
@@ -10074,22 +10072,22 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3635:1: (kw= '*' | kw= '**' | kw= '/' | kw= '%' )
             int alt80=4;
             switch ( input.LA(1) ) {
-            case 80:
+            case 79:
                 {
                 alt80=1;
                 }
                 break;
-            case 81:
+            case 80:
                 {
                 alt80=2;
                 }
                 break;
-            case 63:
+            case 62:
                 {
                 alt80=3;
                 }
                 break;
-            case 61:
+            case 60:
                 {
                 alt80=4;
                 }
@@ -10106,7 +10104,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3636:2: kw= '*'
                     {
-                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpMulti7693); if (state.failed) return current;
+                    kw=(Token)match(input,79,FOLLOW_79_in_ruleOpMulti7693); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10119,7 +10117,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3643:2: kw= '**'
                     {
-                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpMulti7712); if (state.failed) return current;
+                    kw=(Token)match(input,80,FOLLOW_80_in_ruleOpMulti7712); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10132,7 +10130,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3650:2: kw= '/'
                     {
-                    kw=(Token)match(input,63,FOLLOW_63_in_ruleOpMulti7731); if (state.failed) return current;
+                    kw=(Token)match(input,62,FOLLOW_62_in_ruleOpMulti7731); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10145,7 +10143,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3657:2: kw= '%'
                     {
-                    kw=(Token)match(input,61,FOLLOW_61_in_ruleOpMulti7750); if (state.failed) return current;
+                    kw=(Token)match(input,60,FOLLOW_60_in_ruleOpMulti7750); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10239,10 +10237,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt81=2;
             int LA81_0 = input.LA(1);
 
-            if ( ((LA81_0>=78 && LA81_0<=79)||LA81_0==82) ) {
+            if ( ((LA81_0>=77 && LA81_0<=78)||LA81_0==81) ) {
                 alt81=1;
             }
-            else if ( ((LA81_0>=RULE_STRING && LA81_0<=RULE_REAL_LIT)||LA81_0==56||LA81_0==60||LA81_0==83||LA81_0==86||(LA81_0>=88 && LA81_0<=91)) ) {
+            else if ( ((LA81_0>=RULE_STRING && LA81_0<=RULE_REAL_LIT)||LA81_0==18||LA81_0==54||LA81_0==56||LA81_0==82||LA81_0==85||(LA81_0>=87 && LA81_0<=89)) ) {
                 alt81=2;
             }
             else {
@@ -10448,17 +10446,17 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3756:1: (kw= '!' | kw= '-' | kw= '+' )
             int alt82=3;
             switch ( input.LA(1) ) {
-            case 82:
+            case 81:
                 {
                 alt82=1;
                 }
                 break;
-            case 79:
+            case 78:
                 {
                 alt82=2;
                 }
                 break;
-            case 78:
+            case 77:
                 {
                 alt82=3;
                 }
@@ -10475,7 +10473,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3757:2: kw= '!'
                     {
-                    kw=(Token)match(input,82,FOLLOW_82_in_ruleOpUnary7991); if (state.failed) return current;
+                    kw=(Token)match(input,81,FOLLOW_81_in_ruleOpUnary7991); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10488,7 +10486,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3764:2: kw= '-'
                     {
-                    kw=(Token)match(input,79,FOLLOW_79_in_ruleOpUnary8010); if (state.failed) return current;
+                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpUnary8010); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10501,7 +10499,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3771:2: kw= '+'
                     {
-                    kw=(Token)match(input,78,FOLLOW_78_in_ruleOpUnary8029); if (state.failed) return current;
+                    kw=(Token)match(input,77,FOLLOW_77_in_ruleOpUnary8029); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10601,11 +10599,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             case RULE_STRING:
             case RULE_INT:
             case RULE_REAL_LIT:
-            case 86:
+            case 18:
+            case 85:
+            case 87:
             case 88:
             case 89:
-            case 90:
-            case 91:
                 {
                 alt83=1;
                 }
@@ -10614,10 +10612,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 {
                 int LA83_2 = input.LA(2);
 
-                if ( (LA83_2==EOF||LA83_2==20||LA83_2==61||(LA83_2>=63 && LA83_2<=69)||(LA83_2>=71 && LA83_2<=81)||(LA83_2>=84 && LA83_2<=85)||LA83_2==87) ) {
+                if ( (LA83_2==EOF||LA83_2==20||LA83_2==60||(LA83_2>=62 && LA83_2<=68)||(LA83_2>=70 && LA83_2<=80)||(LA83_2>=83 && LA83_2<=84)||LA83_2==86) ) {
                     alt83=2;
                 }
-                else if ( (LA83_2==83) ) {
+                else if ( (LA83_2==82) ) {
                     alt83=4;
                 }
                 else {
@@ -10629,13 +10627,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 }
                 }
                 break;
+            case 54:
             case 56:
-            case 60:
                 {
                 alt83=3;
                 }
                 break;
-            case 83:
+            case 82:
                 {
                 alt83=5;
                 }
@@ -10887,7 +10885,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,83,FOLLOW_83_in_ruleAFunctionCall8347); if (state.failed) return current;
+            otherlv_2=(Token)match(input,82,FOLLOW_82_in_ruleAFunctionCall8347); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getAFunctionCallAccess().getLeftParenthesisKeyword_2());
@@ -10934,7 +10932,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt84=2;
                 int LA84_0 = input.LA(1);
 
-                if ( (LA84_0==84) ) {
+                if ( (LA84_0==83) ) {
                     alt84=1;
                 }
 
@@ -10943,7 +10941,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3913:4: otherlv_4= ',' ( (lv_functionCallArguments_5_0= ruleAExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,84,FOLLOW_84_in_ruleAFunctionCall8381); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,83,FOLLOW_83_in_ruleAFunctionCall8381); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0());
@@ -10993,7 +10991,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,85,FOLLOW_85_in_ruleAFunctionCall8416); if (state.failed) return current;
+            otherlv_6=(Token)match(input,84,FOLLOW_84_in_ruleAFunctionCall8416); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5());
@@ -11090,18 +11088,18 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3960:1: (this_ASetTerm_0= ruleASetTerm | this_AListTerm_1= ruleAListTerm | this_ABooleanLiteral_2= ruleABooleanLiteral | this_ARealTerm_3= ruleARealTerm | this_AIntegerTerm_4= ruleAIntegerTerm | this_ANullLiteral_5= ruleANullLiteral | this_StringTerm_6= ruleStringTerm )
             int alt85=7;
             switch ( input.LA(1) ) {
-            case 86:
+            case 85:
                 {
                 alt85=1;
                 }
                 break;
-            case 88:
+            case 18:
                 {
                 alt85=2;
                 }
                 break;
-            case 89:
-            case 90:
+            case 87:
+            case 88:
                 {
                 alt85=3;
                 }
@@ -11116,7 +11114,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt85=5;
                 }
                 break;
-            case 91:
+            case 89:
                 {
                 alt85=6;
                 }
@@ -11960,7 +11958,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleASetTerm"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4248:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4248:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
     public final EObject ruleASetTerm() throws RecognitionException {
         EObject current = null;
 
@@ -11975,11 +11973,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4251:28: ( ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:1: ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4251:28: ( ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:1: ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:2: () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:2: () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
             {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4252:2: ()
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4253:5: 
@@ -11994,17 +11992,17 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,86,FOLLOW_86_in_ruleASetTerm9299); if (state.failed) return current;
+            otherlv_1=(Token)match(input,85,FOLLOW_85_in_ruleASetTerm9299); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4262:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
             int alt90=2;
             int LA90_0 = input.LA(1);
 
-            if ( ((LA90_0>=RULE_STRING && LA90_0<=RULE_REAL_LIT)||LA90_0==56||LA90_0==60||(LA90_0>=78 && LA90_0<=79)||(LA90_0>=82 && LA90_0<=83)||LA90_0==86||(LA90_0>=88 && LA90_0<=91)) ) {
+            if ( ((LA90_0>=RULE_STRING && LA90_0<=RULE_REAL_LIT)||LA90_0==18||LA90_0==54||LA90_0==56||(LA90_0>=77 && LA90_0<=78)||(LA90_0>=81 && LA90_0<=82)||LA90_0==85||(LA90_0>=87 && LA90_0<=89)) ) {
                 alt90=1;
             }
             switch (alt90) {
@@ -12052,7 +12050,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt89=2;
                         int LA89_0 = input.LA(1);
 
-                        if ( (LA89_0==84) ) {
+                        if ( (LA89_0==83) ) {
                             alt89=1;
                         }
 
@@ -12061,7 +12059,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	case 1 :
                     	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4280:4: otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,84,FOLLOW_84_in_ruleASetTerm9334); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,83,FOLLOW_83_in_ruleASetTerm9334); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getASetTermAccess().getCommaKeyword_2_1_0());
@@ -12117,7 +12115,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,87,FOLLOW_87_in_ruleASetTerm9371); if (state.failed) return current;
+            otherlv_5=(Token)match(input,86,FOLLOW_86_in_ruleASetTerm9371); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getASetTermAccess().getRightCurlyBracketKeyword_3());
@@ -12186,7 +12184,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAListTerm"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4323:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4323:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) ;
     public final EObject ruleAListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -12201,11 +12199,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4326:28: ( ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:1: ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4326:28: ( ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:1: ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:1: ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:2: () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:1: ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:2: () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']'
             {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4327:2: ()
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4328:5: 
@@ -12220,17 +12218,17 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,88,FOLLOW_88_in_ruleAListTerm9463); if (state.failed) return current;
+            otherlv_1=(Token)match(input,18,FOLLOW_18_in_ruleAListTerm9463); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4337:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
             int alt92=2;
             int LA92_0 = input.LA(1);
 
-            if ( ((LA92_0>=RULE_STRING && LA92_0<=RULE_REAL_LIT)||LA92_0==56||LA92_0==60||(LA92_0>=78 && LA92_0<=79)||(LA92_0>=82 && LA92_0<=83)||LA92_0==86||(LA92_0>=88 && LA92_0<=91)) ) {
+            if ( ((LA92_0>=RULE_STRING && LA92_0<=RULE_REAL_LIT)||LA92_0==18||LA92_0==54||LA92_0==56||(LA92_0>=77 && LA92_0<=78)||(LA92_0>=81 && LA92_0<=82)||LA92_0==85||(LA92_0>=87 && LA92_0<=89)) ) {
                 alt92=1;
             }
             switch (alt92) {
@@ -12278,7 +12276,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int alt91=2;
                         int LA91_0 = input.LA(1);
 
-                        if ( (LA91_0==84) ) {
+                        if ( (LA91_0==83) ) {
                             alt91=1;
                         }
 
@@ -12287,7 +12285,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	case 1 :
                     	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4355:4: otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,84,FOLLOW_84_in_ruleAListTerm9498); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,83,FOLLOW_83_in_ruleAListTerm9498); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getAListTermAccess().getCommaKeyword_2_1_0());
@@ -12430,7 +12428,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4402:1: (otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')' )
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4402:3: otherlv_0= '(' this_AExpression_1= ruleAExpression otherlv_2= ')'
             {
-            otherlv_0=(Token)match(input,83,FOLLOW_83_in_ruleAParenthesizedExpression9618); if (state.failed) return current;
+            otherlv_0=(Token)match(input,82,FOLLOW_82_in_ruleAParenthesizedExpression9618); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
@@ -12452,7 +12450,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            otherlv_2=(Token)match(input,85,FOLLOW_85_in_ruleAParenthesizedExpression9651); if (state.failed) return current;
+            otherlv_2=(Token)match(input,84,FOLLOW_84_in_ruleAParenthesizedExpression9651); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2());
@@ -12554,10 +12552,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt93=2;
             int LA93_0 = input.LA(1);
 
-            if ( (LA93_0==89) ) {
+            if ( (LA93_0==87) ) {
                 alt93=1;
             }
-            else if ( (LA93_0==90) ) {
+            else if ( (LA93_0==88) ) {
                 alt93=2;
             }
             else {
@@ -12577,7 +12575,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4447:1: (lv_value_1_0= 'true' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4448:3: lv_value_1_0= 'true'
                     {
-                    lv_value_1_0=(Token)match(input,89,FOLLOW_89_in_ruleABooleanLiteral9750); if (state.failed) return current;
+                    lv_value_1_0=(Token)match(input,87,FOLLOW_87_in_ruleABooleanLiteral9750); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_value_1_0, grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0());
@@ -12603,7 +12601,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4462:7: otherlv_2= 'false'
                     {
-                    otherlv_2=(Token)match(input,90,FOLLOW_90_in_ruleABooleanLiteral9781); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,88,FOLLOW_88_in_ruleABooleanLiteral9781); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_1());
@@ -12706,7 +12704,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,91,FOLLOW_91_in_ruleANullLiteral9874); if (state.failed) return current;
+            otherlv_1=(Token)match(input,89,FOLLOW_89_in_ruleANullLiteral9874); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getANullLiteralAccess().getNullKeyword_1());
@@ -13002,7 +13000,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 int alt94=2;
                 int LA94_0 = input.LA(1);
 
-                if ( (LA94_0==92) ) {
+                if ( (LA94_0==90) ) {
                     alt94=1;
                 }
 
@@ -13011,7 +13009,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4595:2: kw= '::' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,92,FOLLOW_92_in_ruleAadlClassifierReference10168); if (state.failed) return current;
+            	    kw=(Token)match(input,90,FOLLOW_90_in_ruleAadlClassifierReference10168); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -13173,14 +13171,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             int alt96=2;
             int LA96_0 = input.LA(1);
 
-            if ( (LA96_0==92) ) {
+            if ( (LA96_0==90) ) {
                 alt96=1;
             }
             switch (alt96) {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4649:2: kw= '::' this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,92,FOLLOW_92_in_ruleAADLPROPERTYREFERENCE10337); if (state.failed) return current;
+                    kw=(Token)match(input,90,FOLLOW_90_in_ruleAADLPROPERTYREFERENCE10337); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -13460,7 +13458,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4741:1: ( (enumLiteral_0= 'ok' ) | (enumLiteral_1= 'fail' ) | (enumLiteral_2= 'timeout' ) | (enumLiteral_3= 'error' ) )
             int alt98=4;
             switch ( input.LA(1) ) {
-            case 93:
+            case 91:
                 {
                 alt98=1;
                 }
@@ -13495,7 +13493,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4741:2: (enumLiteral_0= 'ok' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4741:4: enumLiteral_0= 'ok'
                     {
-                    enumLiteral_0=(Token)match(input,93,FOLLOW_93_in_ruleElseType10641); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,91,FOLLOW_91_in_ruleElseType10641); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getElseTypeAccess().getOKEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -13606,12 +13604,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4772:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'error' ) | (enumLiteral_4= 'timeout' ) )
             int alt99=5;
             switch ( input.LA(1) ) {
-            case 94:
+            case 92:
                 {
                 alt99=1;
                 }
                 break;
-            case 95:
+            case 93:
                 {
                 alt99=2;
                 }
@@ -13646,7 +13644,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4772:2: (enumLiteral_0= 'tbd' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4772:4: enumLiteral_0= 'tbd'
                     {
-                    enumLiteral_0=(Token)match(input,94,FOLLOW_94_in_ruleVerificationResultState10737); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,92,FOLLOW_92_in_ruleVerificationResultState10737); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationResultStateAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -13665,7 +13663,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4778:6: (enumLiteral_1= 'success' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4778:8: enumLiteral_1= 'success'
                     {
-                    enumLiteral_1=(Token)match(input,95,FOLLOW_95_in_ruleVerificationResultState10754); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,93,FOLLOW_93_in_ruleVerificationResultState10754); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationResultStateAccess().getSUCCESSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -13775,22 +13773,22 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4809:1: ( (enumLiteral_0= 'todo' ) | (enumLiteral_1= 'running' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) )
             int alt100=4;
             switch ( input.LA(1) ) {
-            case 96:
+            case 94:
                 {
                 alt100=1;
                 }
                 break;
-            case 97:
+            case 95:
                 {
                 alt100=2;
                 }
                 break;
-            case 98:
+            case 96:
                 {
                 alt100=3;
                 }
                 break;
-            case 99:
+            case 97:
                 {
                 alt100=4;
                 }
@@ -13810,7 +13808,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4809:2: (enumLiteral_0= 'todo' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4809:4: enumLiteral_0= 'todo'
                     {
-                    enumLiteral_0=(Token)match(input,96,FOLLOW_96_in_ruleVerificationExecutionState10850); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,94,FOLLOW_94_in_ruleVerificationExecutionState10850); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -13829,7 +13827,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4815:6: (enumLiteral_1= 'running' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4815:8: enumLiteral_1= 'running'
                     {
-                    enumLiteral_1=(Token)match(input,97,FOLLOW_97_in_ruleVerificationExecutionState10867); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,95,FOLLOW_95_in_ruleVerificationExecutionState10867); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -13848,7 +13846,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4821:6: (enumLiteral_2= 'redo' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4821:8: enumLiteral_2= 'redo'
                     {
-                    enumLiteral_2=(Token)match(input,98,FOLLOW_98_in_ruleVerificationExecutionState10884); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,96,FOLLOW_96_in_ruleVerificationExecutionState10884); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -13867,7 +13865,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4827:6: (enumLiteral_3= 'completed' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4827:8: enumLiteral_3= 'completed'
                     {
-                    enumLiteral_3=(Token)match(input,99,FOLLOW_99_in_ruleVerificationExecutionState10901); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,97,FOLLOW_97_in_ruleVerificationExecutionState10901); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -13922,7 +13920,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4840:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
             int alt101=6;
             switch ( input.LA(1) ) {
-            case 94:
+            case 92:
                 {
                 alt101=1;
                 }
@@ -13932,17 +13930,17 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt101=2;
                 }
                 break;
-            case 100:
+            case 98:
                 {
                 alt101=3;
                 }
                 break;
-            case 101:
+            case 99:
                 {
                 alt101=4;
                 }
                 break;
-            case 95:
+            case 93:
                 {
                 alt101=5;
                 }
@@ -13967,7 +13965,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4840:2: (enumLiteral_0= 'tbd' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4840:4: enumLiteral_0= 'tbd'
                     {
-                    enumLiteral_0=(Token)match(input,94,FOLLOW_94_in_ruleResultIssueType10946); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,92,FOLLOW_92_in_ruleResultIssueType10946); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -14005,7 +14003,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4852:6: (enumLiteral_2= 'warning' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4852:8: enumLiteral_2= 'warning'
                     {
-                    enumLiteral_2=(Token)match(input,100,FOLLOW_100_in_ruleResultIssueType10980); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,98,FOLLOW_98_in_ruleResultIssueType10980); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -14024,7 +14022,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4858:6: (enumLiteral_3= 'info' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4858:8: enumLiteral_3= 'info'
                     {
-                    enumLiteral_3=(Token)match(input,101,FOLLOW_101_in_ruleResultIssueType10997); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,99,FOLLOW_99_in_ruleResultIssueType10997); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -14043,7 +14041,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4864:6: (enumLiteral_4= 'success' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:4864:8: enumLiteral_4= 'success'
                     {
-                    enumLiteral_4=(Token)match(input,95,FOLLOW_95_in_ruleResultIssueType11014); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,93,FOLLOW_93_in_ruleResultIssueType11014); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -14098,18 +14096,18 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred1_InternalAssure
     public final void synpred1_InternalAssure_fragment() throws RecognitionException {   
-        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:3: ( ( () '@' ) )
-        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:4: ( () '@' )
+        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:3: ( ( () '#' ) )
+        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:4: ( () '#' )
         {
-        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:4: ( () '@' )
-        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:5: () '@'
+        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:4: ( () '#' )
+        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:5: () '#'
         {
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2347:5: ()
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2348:1: 
         {
         }
 
-        match(input,60,FOLLOW_60_in_synpred1_InternalAssure4440); if (state.failed) return ;
+        match(input,54,FOLLOW_54_in_synpred1_InternalAssure4440); if (state.failed) return ;
 
         }
 
@@ -14316,8 +14314,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3352:4: ( '>' '>' )
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3353:2: '>' '>'
         {
-        match(input,71,FOLLOW_71_in_synpred7_InternalAssure6964); if (state.failed) return ;
-        match(input,71,FOLLOW_71_in_synpred7_InternalAssure6969); if (state.failed) return ;
+        match(input,70,FOLLOW_70_in_synpred7_InternalAssure6964); if (state.failed) return ;
+        match(input,70,FOLLOW_70_in_synpred7_InternalAssure6969); if (state.failed) return ;
 
         }
 
@@ -14334,8 +14332,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3382:4: ( '<' '<' )
         // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:3383:2: '<' '<'
         {
-        match(input,69,FOLLOW_69_in_synpred8_InternalAssure7051); if (state.failed) return ;
-        match(input,69,FOLLOW_69_in_synpred8_InternalAssure7056); if (state.failed) return ;
+        match(input,68,FOLLOW_68_in_synpred8_InternalAssure7051); if (state.failed) return ;
+        match(input,68,FOLLOW_68_in_synpred8_InternalAssure7056); if (state.failed) return ;
 
         }
 
@@ -14573,19 +14571,20 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     static final String DFA73_minS =
         "\1\24\1\uffff\2\4\12\uffff";
     static final String DFA73_maxS =
-        "\1\127\1\uffff\2\133\12\uffff";
+        "\1\126\1\uffff\2\131\12\uffff";
     static final String DFA73_acceptS =
         "\1\uffff\1\2\2\uffff\12\1";
     static final String DFA73_specialS =
         "\1\2\1\uffff\1\1\1\0\12\uffff}>";
     static final String[] DFA73_transitionS = {
-            "\1\1\53\uffff\5\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
+            "\1\1\52\uffff\5\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
             "\6\uffff\2\1\1\uffff\1\1",
             "",
-            "\4\1\60\uffff\1\1\3\uffff\1\1\10\uffff\1\12\1\1\4\uffff\1"+
-            "\13\2\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\4\1",
-            "\4\1\60\uffff\1\1\3\uffff\1\1\12\uffff\1\15\2\uffff\1\14\3"+
-            "\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\4\1",
+            "\4\1\12\uffff\1\1\43\uffff\1\1\1\uffff\1\1\13\uffff\1\12\1"+
+            "\1\4\uffff\1\13\2\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff"+
+            "\3\1",
+            "\4\1\12\uffff\1\1\43\uffff\1\1\1\uffff\1\1\15\uffff\1\15\2"+
+            "\uffff\1\14\3\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\3\1",
             "",
             "",
             "",
@@ -14641,11 +14640,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int index73_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA73_3>=RULE_STRING && LA73_3<=RULE_REAL_LIT)||LA73_3==56||LA73_3==60||(LA73_3>=78 && LA73_3<=79)||(LA73_3>=82 && LA73_3<=83)||LA73_3==86||(LA73_3>=88 && LA73_3<=91)) ) {s = 1;}
+                        if ( ((LA73_3>=RULE_STRING && LA73_3<=RULE_REAL_LIT)||LA73_3==18||LA73_3==54||LA73_3==56||(LA73_3>=77 && LA73_3<=78)||(LA73_3>=81 && LA73_3<=82)||LA73_3==85||(LA73_3>=87 && LA73_3<=89)) ) {s = 1;}
 
-                        else if ( (LA73_3==74) && (synpred6_InternalAssure())) {s = 12;}
+                        else if ( (LA73_3==73) && (synpred6_InternalAssure())) {s = 12;}
 
-                        else if ( (LA73_3==71) && (synpred6_InternalAssure())) {s = 13;}
+                        else if ( (LA73_3==70) && (synpred6_InternalAssure())) {s = 13;}
 
                          
                         input.seek(index73_3);
@@ -14658,11 +14657,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int index73_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA73_2>=RULE_STRING && LA73_2<=RULE_REAL_LIT)||LA73_2==56||LA73_2==60||LA73_2==70||(LA73_2>=78 && LA73_2<=79)||(LA73_2>=82 && LA73_2<=83)||LA73_2==86||(LA73_2>=88 && LA73_2<=91)) ) {s = 1;}
+                        if ( ((LA73_2>=RULE_STRING && LA73_2<=RULE_REAL_LIT)||LA73_2==18||LA73_2==54||LA73_2==56||LA73_2==69||(LA73_2>=77 && LA73_2<=78)||(LA73_2>=81 && LA73_2<=82)||LA73_2==85||(LA73_2>=87 && LA73_2<=89)) ) {s = 1;}
 
-                        else if ( (LA73_2==69) && (synpred6_InternalAssure())) {s = 10;}
+                        else if ( (LA73_2==68) && (synpred6_InternalAssure())) {s = 10;}
 
-                        else if ( (LA73_2==75) && (synpred6_InternalAssure())) {s = 11;}
+                        else if ( (LA73_2==74) && (synpred6_InternalAssure())) {s = 11;}
 
                          
                         input.seek(index73_2);
@@ -14675,23 +14674,23 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                         int index73_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA73_0==EOF||LA73_0==20||(LA73_0>=64 && LA73_0<=68)||(LA73_0>=84 && LA73_0<=85)||LA73_0==87) ) {s = 1;}
+                        if ( (LA73_0==EOF||LA73_0==20||(LA73_0>=63 && LA73_0<=67)||(LA73_0>=83 && LA73_0<=84)||LA73_0==86) ) {s = 1;}
 
-                        else if ( (LA73_0==69) ) {s = 2;}
+                        else if ( (LA73_0==68) ) {s = 2;}
 
-                        else if ( (LA73_0==71) ) {s = 3;}
+                        else if ( (LA73_0==70) ) {s = 3;}
 
-                        else if ( (LA73_0==72) && (synpred6_InternalAssure())) {s = 4;}
+                        else if ( (LA73_0==71) && (synpred6_InternalAssure())) {s = 4;}
 
-                        else if ( (LA73_0==73) && (synpred6_InternalAssure())) {s = 5;}
+                        else if ( (LA73_0==72) && (synpred6_InternalAssure())) {s = 5;}
 
-                        else if ( (LA73_0==74) && (synpred6_InternalAssure())) {s = 6;}
+                        else if ( (LA73_0==73) && (synpred6_InternalAssure())) {s = 6;}
 
-                        else if ( (LA73_0==75) && (synpred6_InternalAssure())) {s = 7;}
+                        else if ( (LA73_0==74) && (synpred6_InternalAssure())) {s = 7;}
 
-                        else if ( (LA73_0==76) && (synpred6_InternalAssure())) {s = 8;}
+                        else if ( (LA73_0==75) && (synpred6_InternalAssure())) {s = 8;}
 
-                        else if ( (LA73_0==77) && (synpred6_InternalAssure())) {s = 9;}
+                        else if ( (LA73_0==76) && (synpred6_InternalAssure())) {s = 9;}
 
                          
                         input.seek(index73_0);
@@ -14710,9 +14709,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     static final String DFA76_eofS =
         "\13\uffff";
     static final String DFA76_minS =
-        "\1\105\2\uffff\1\107\7\uffff";
+        "\1\104\2\uffff\1\106\7\uffff";
     static final String DFA76_maxS =
-        "\1\115\2\uffff\1\112\7\uffff";
+        "\1\114\2\uffff\1\111\7\uffff";
     static final String DFA76_acceptS =
         "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\3\1\6";
     static final String DFA76_specialS =
@@ -14819,13 +14818,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_25_in_rulePreconditionResult1120 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rulePreconditionResult1152 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_18_in_rulePreconditionResult1164 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_rulePreconditionResult1176 = new BitSet(new long[]{0x0000000000000000L,0x0000000F00000000L});
+    public static final BitSet FOLLOW_26_in_rulePreconditionResult1176 = new BitSet(new long[]{0x0000000000000000L,0x00000003C0000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rulePreconditionResult1197 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_rulePreconditionResult1209 = new BitSet(new long[]{0x0000000E00000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_27_in_rulePreconditionResult1209 = new BitSet(new long[]{0x0000000E00000000L,0x0000000030000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_rulePreconditionResult1230 = new BitSet(new long[]{0x003FFF8030180000L});
     public static final BitSet FOLLOW_28_in_rulePreconditionResult1243 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_rulePreconditionResult1255 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rulePreconditionResult1276 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
+    public static final BitSet FOLLOW_18_in_rulePreconditionResult1255 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rulePreconditionResult1276 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
     public static final BitSet FOLLOW_20_in_rulePreconditionResult1289 = new BitSet(new long[]{0x003FFF8020180000L});
     public static final BitSet FOLLOW_29_in_rulePreconditionResult1304 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rulePreconditionResult1327 = new BitSet(new long[]{0x003FFF8000180000L});
@@ -14838,13 +14837,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_30_in_ruleValidationResult1482 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleValidationResult1514 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_18_in_ruleValidationResult1526 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleValidationResult1538 = new BitSet(new long[]{0x0000000000000000L,0x0000000F00000000L});
+    public static final BitSet FOLLOW_26_in_ruleValidationResult1538 = new BitSet(new long[]{0x0000000000000000L,0x00000003C0000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_ruleValidationResult1559 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_ruleValidationResult1571 = new BitSet(new long[]{0x0000000E00000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_27_in_ruleValidationResult1571 = new BitSet(new long[]{0x0000000E00000000L,0x0000000030000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_ruleValidationResult1592 = new BitSet(new long[]{0x003FFF8030180000L});
     public static final BitSet FOLLOW_28_in_ruleValidationResult1605 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleValidationResult1617 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_ruleValidationResult1638 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
+    public static final BitSet FOLLOW_18_in_ruleValidationResult1617 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_ruleValidationResult1638 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
     public static final BitSet FOLLOW_20_in_ruleValidationResult1651 = new BitSet(new long[]{0x003FFF8020180000L});
     public static final BitSet FOLLOW_29_in_ruleValidationResult1666 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleValidationResult1689 = new BitSet(new long[]{0x003FFF8000180000L});
@@ -14857,13 +14856,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_31_in_ruleVerificationActivityResult1844 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedVAReference_in_ruleVerificationActivityResult1874 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_18_in_ruleVerificationActivityResult1886 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleVerificationActivityResult1898 = new BitSet(new long[]{0x0000000000000000L,0x0000000F00000000L});
+    public static final BitSet FOLLOW_26_in_ruleVerificationActivityResult1898 = new BitSet(new long[]{0x0000000000000000L,0x00000003C0000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_ruleVerificationActivityResult1919 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_ruleVerificationActivityResult1931 = new BitSet(new long[]{0x0000000E00000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_27_in_ruleVerificationActivityResult1931 = new BitSet(new long[]{0x0000000E00000000L,0x0000000030000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_ruleVerificationActivityResult1952 = new BitSet(new long[]{0x003FFF8072180000L});
     public static final BitSet FOLLOW_28_in_ruleVerificationActivityResult1965 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleVerificationActivityResult1977 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_ruleVerificationActivityResult1998 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
+    public static final BitSet FOLLOW_18_in_ruleVerificationActivityResult1977 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_ruleVerificationActivityResult1998 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
     public static final BitSet FOLLOW_20_in_ruleVerificationActivityResult2011 = new BitSet(new long[]{0x003FFF8062180000L});
     public static final BitSet FOLLOW_29_in_ruleVerificationActivityResult2026 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationActivityResult2049 = new BitSet(new long[]{0x003FFF8042180000L});
@@ -14888,7 +14887,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleVerificationExpr_in_ruleElseResult2489 = new BitSet(new long[]{0x0000001980040000L});
     public static final BitSet FOLLOW_35_in_ruleElseResult2505 = new BitSet(new long[]{0x0000001180000000L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_ruleElseResult2526 = new BitSet(new long[]{0x0000001180040000L});
-    public static final BitSet FOLLOW_18_in_ruleElseResult2541 = new BitSet(new long[]{0x003FFF8E00100000L,0x0000000020000000L});
+    public static final BitSet FOLLOW_18_in_ruleElseResult2541 = new BitSet(new long[]{0x003FFF8E00100000L,0x0000000008000000L});
     public static final BitSet FOLLOW_ruleElseType_in_ruleElseResult2562 = new BitSet(new long[]{0x003FFF8000100000L});
     public static final BitSet FOLLOW_ruleMetrics_in_ruleElseResult2584 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_20_in_ruleElseResult2596 = new BitSet(new long[]{0x0000000000000002L});
@@ -14967,13 +14966,13 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue4233 = new BitSet(new long[]{0x0800000000040002L});
     public static final BitSet FOLLOW_59_in_ruleResultIssue4253 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue4270 = new BitSet(new long[]{0x0000000000040002L});
-    public static final BitSet FOLLOW_18_in_ruleResultIssue4290 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue4311 = new BitSet(new long[]{0x0000000600100000L,0x00000030C0000000L});
+    public static final BitSet FOLLOW_18_in_ruleResultIssue4290 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue4311 = new BitSet(new long[]{0x0000000600100000L,0x0000000C30000000L});
     public static final BitSet FOLLOW_20_in_ruleResultIssue4324 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAModelOrPropertyReference_in_entryRuleAModelOrPropertyReference4366 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAModelOrPropertyReference4376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAModelReference_in_ruleAModelOrPropertyReference4424 = new BitSet(new long[]{0x1000000000000002L});
-    public static final BitSet FOLLOW_60_in_ruleAModelOrPropertyReference4459 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleAModelReference_in_ruleAModelOrPropertyReference4424 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_54_in_ruleAModelOrPropertyReference4459 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAModelOrPropertyReference4484 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAPropertyReference_in_ruleAModelOrPropertyReference4515 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNestedModelelement_in_entryRuleNestedModelelement4550 = new BitSet(new long[]{0x0000000000000000L});
@@ -14988,24 +14987,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleNestedModelelement_in_ruleAModelReference4767 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference4805 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAPropertyReference4815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_ruleAPropertyReference4861 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_54_in_ruleAPropertyReference4861 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference4884 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAVariableReference_in_entryRuleAVariableReference4920 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAVariableReference4930 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAVariableReference4984 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleShowValue_in_entryRuleShowValue5020 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleShowValue5030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue5075 = new BitSet(new long[]{0x2000000000000002L});
-    public static final BitSet FOLLOW_61_in_ruleShowValue5088 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue5075 = new BitSet(new long[]{0x1000000000000002L});
+    public static final BitSet FOLLOW_60_in_ruleShowValue5088 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue5108 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImageReference_in_entryRuleImageReference5146 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleImageReference5156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_62_in_ruleImageReference5193 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_61_in_ruleImageReference5193 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ruleIMGREF_in_ruleImageReference5214 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIMGREF_in_entryRuleIMGREF5251 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleIMGREF5262 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF5303 = new BitSet(new long[]{0x8000000000000000L});
-    public static final BitSet FOLLOW_63_in_ruleIMGREF5321 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF5303 = new BitSet(new long[]{0x4000000000000000L});
+    public static final BitSet FOLLOW_62_in_ruleIMGREF5321 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF5338 = new BitSet(new long[]{0x0080000000000000L});
     public static final BitSet FOLLOW_55_in_ruleIMGREF5356 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF5371 = new BitSet(new long[]{0x0000000000000002L});
@@ -15014,95 +15013,95 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAOrExpression_in_ruleAExpression5472 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression5506 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression5516 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression5563 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression5612 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression5635 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression5563 = new BitSet(new long[]{0x8000000000000002L});
+    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression5612 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression5635 = new BitSet(new long[]{0x8000000000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr5674 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpOr5685 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_64_in_ruleOpOr5722 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_63_in_ruleOpOr5722 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression5761 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression5771 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression5818 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression5867 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression5890 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression5818 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
+    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression5867 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression5890 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
     public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd5929 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd5940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleOpAnd5977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_64_in_ruleOpAnd5977 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression6016 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression6026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression6073 = new BitSet(new long[]{0x0000000000000002L,0x000000000000000CL});
-    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression6122 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression6145 = new BitSet(new long[]{0x0000000000000002L,0x000000000000000CL});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression6073 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
+    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression6122 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression6145 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000006L});
     public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality6184 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality6195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_ruleOpEquality6233 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_67_in_ruleOpEquality6252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_ruleOpEquality6233 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_ruleOpEquality6252 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression6292 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression6302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression6349 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000B0L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression6398 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression6421 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000B0L});
+    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression6349 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000058L});
+    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression6398 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression6421 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000058L});
     public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare6460 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare6471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_68_in_ruleOpCompare6509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleOpCompare6529 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_70_in_ruleOpCompare6542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_ruleOpCompare6562 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleOpCompare6581 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_67_in_ruleOpCompare6509 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleOpCompare6529 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69_in_ruleOpCompare6542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleOpCompare6562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleOpCompare6581 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression6621 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAOtherOperatorExpression6631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression6678 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003FA0L});
-    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression6727 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression6750 = new BitSet(new long[]{0x0000000000000002L,0x0000000000003FA0L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression6678 = new BitSet(new long[]{0x0000000000000002L,0x0000000000001FD0L});
+    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression6727 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression6750 = new BitSet(new long[]{0x0000000000000002L,0x0000000000001FD0L});
     public static final BitSet FOLLOW_ruleOpOther_in_entryRuleOpOther6789 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpOther6800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleOpOther6838 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleOpOther6857 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_ruleOpOther6877 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_74_in_ruleOpOther6890 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_74_in_ruleOpOther6910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_ruleOpOther6929 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_ruleOpOther6949 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_71_in_ruleOpOther6980 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_71_in_ruleOpOther6993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_ruleOpOther7014 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleOpOther7036 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000820L});
-    public static final BitSet FOLLOW_69_in_ruleOpOther7067 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_69_in_ruleOpOther7080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleOpOther7101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_ruleOpOther7120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_76_in_ruleOpOther7141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_77_in_ruleOpOther7160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_71_in_ruleOpOther6838 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleOpOther6857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleOpOther6877 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther6890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleOpOther6910 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_74_in_ruleOpOther6929 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleOpOther6949 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_70_in_ruleOpOther6980 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_70_in_ruleOpOther6993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleOpOther7014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleOpOther7036 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000410L});
+    public static final BitSet FOLLOW_68_in_ruleOpOther7067 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_ruleOpOther7080 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleOpOther7101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_74_in_ruleOpOther7120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_75_in_ruleOpOther7141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_76_in_ruleOpOther7160 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression7200 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression7210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression7257 = new BitSet(new long[]{0x0000000000000002L,0x000000000000C000L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression7306 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression7329 = new BitSet(new long[]{0x0000000000000002L,0x000000000000C000L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression7257 = new BitSet(new long[]{0x0000000000000002L,0x0000000000006000L});
+    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression7306 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression7329 = new BitSet(new long[]{0x0000000000000002L,0x0000000000006000L});
     public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd7368 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd7379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_78_in_ruleOpAdd7417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_79_in_ruleOpAdd7436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_77_in_ruleOpAdd7417 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_78_in_ruleOpAdd7436 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression7476 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression7486 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression7533 = new BitSet(new long[]{0xA000000000000002L,0x0000000000030000L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression7582 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression7605 = new BitSet(new long[]{0xA000000000000002L,0x0000000000030000L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression7533 = new BitSet(new long[]{0x5000000000000002L,0x0000000000018000L});
+    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression7582 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression7605 = new BitSet(new long[]{0x5000000000000002L,0x0000000000018000L});
     public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti7644 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti7655 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_80_in_ruleOpMulti7693 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_81_in_ruleOpMulti7712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_ruleOpMulti7731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_ruleOpMulti7750 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_79_in_ruleOpMulti7693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_80_in_ruleOpMulti7712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_62_in_ruleOpMulti7731 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_ruleOpMulti7750 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation7790 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation7800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation7856 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
+    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation7856 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation7877 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation7906 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary7942 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpUnary7953 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_82_in_ruleOpUnary7991 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_79_in_ruleOpUnary8010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_78_in_ruleOpUnary8029 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_81_in_ruleOpUnary7991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_78_in_ruleOpUnary8010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_77_in_ruleOpUnary8029 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression8069 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAPrimaryExpression8079 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleALiteral_in_ruleAPrimaryExpression8126 = new BitSet(new long[]{0x0000000000000002L});
@@ -15112,12 +15111,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression8234 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAFunctionCall_in_entryRuleAFunctionCall8269 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAFunctionCall8279 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAFunctionCall8330 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_ruleAFunctionCall8347 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall8368 = new BitSet(new long[]{0x0000000000000000L,0x0000000000300000L});
-    public static final BitSet FOLLOW_84_in_ruleAFunctionCall8381 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall8402 = new BitSet(new long[]{0x0000000000000000L,0x0000000000300000L});
-    public static final BitSet FOLLOW_85_in_ruleAFunctionCall8416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAFunctionCall8330 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_82_in_ruleAFunctionCall8347 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall8368 = new BitSet(new long[]{0x0000000000000000L,0x0000000000180000L});
+    public static final BitSet FOLLOW_83_in_ruleAFunctionCall8381 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall8402 = new BitSet(new long[]{0x0000000000000000L,0x0000000000180000L});
+    public static final BitSet FOLLOW_84_in_ruleAFunctionCall8416 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral8452 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleALiteral8462 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleASetTerm_in_ruleALiteral8509 = new BitSet(new long[]{0x0000000000000002L});
@@ -15147,30 +15146,30 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleNumAlt9208 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleASetTerm_in_entryRuleASetTerm9243 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleASetTerm9253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_ruleASetTerm9299 = new BitSet(new long[]{0x11000000000000F0L,0x000000000FCCC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm9321 = new BitSet(new long[]{0x0000000000000000L,0x0000000000900000L});
-    public static final BitSet FOLLOW_84_in_ruleASetTerm9334 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm9355 = new BitSet(new long[]{0x0000000000000000L,0x0000000000900000L});
-    public static final BitSet FOLLOW_87_in_ruleASetTerm9371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_85_in_ruleASetTerm9299 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003E66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm9321 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_83_in_ruleASetTerm9334 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm9355 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_86_in_ruleASetTerm9371 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAListTerm_in_entryRuleAListTerm9407 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAListTerm9417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_88_in_ruleAListTerm9463 = new BitSet(new long[]{0x11000000001000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm9485 = new BitSet(new long[]{0x0000000000100000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_84_in_ruleAListTerm9498 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm9519 = new BitSet(new long[]{0x0000000000100000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_18_in_ruleAListTerm9463 = new BitSet(new long[]{0x01400000001400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm9485 = new BitSet(new long[]{0x0000000000100000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_ruleAListTerm9498 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm9519 = new BitSet(new long[]{0x0000000000100000L,0x0000000000080000L});
     public static final BitSet FOLLOW_20_in_ruleAListTerm9535 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression9571 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression9581 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_83_in_ruleAParenthesizedExpression9618 = new BitSet(new long[]{0x11000000000000F0L,0x000000000F4CC000L});
-    public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression9640 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_ruleAParenthesizedExpression9651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_82_in_ruleAParenthesizedExpression9618 = new BitSet(new long[]{0x01400000000400F0L,0x0000000003A66000L});
+    public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression9640 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_84_in_ruleAParenthesizedExpression9651 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral9687 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral9697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_89_in_ruleABooleanLiteral9750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_90_in_ruleABooleanLiteral9781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_87_in_ruleABooleanLiteral9750 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_88_in_ruleABooleanLiteral9781 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral9818 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleANullLiteral9828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_91_in_ruleANullLiteral9874 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_89_in_ruleANullLiteral9874 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm9910 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm9920 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm9965 = new BitSet(new long[]{0x0000000000000002L});
@@ -15179,15 +15178,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString10051 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference10098 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference10109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference10149 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_92_in_ruleAadlClassifierReference10168 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference10183 = new BitSet(new long[]{0x0080000000000002L,0x0000000010000000L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference10149 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_90_in_ruleAadlClassifierReference10168 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference10183 = new BitSet(new long[]{0x0080000000000002L,0x0000000004000000L});
     public static final BitSet FOLLOW_55_in_ruleAadlClassifierReference10204 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference10219 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE10267 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE10278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE10318 = new BitSet(new long[]{0x0000000000000002L,0x0000000010000000L});
-    public static final BitSet FOLLOW_92_in_ruleAADLPROPERTYREFERENCE10337 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE10318 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
+    public static final BitSet FOLLOW_90_in_ruleAADLPROPERTYREFERENCE10337 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE10352 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleURIID_in_entryRuleURIID10400 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleURIID10411 = new BitSet(new long[]{0x0000000000000002L});
@@ -15197,35 +15196,35 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName10546 = new BitSet(new long[]{0x0080000000000002L});
     public static final BitSet FOLLOW_55_in_ruleQualifiedName10565 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName10580 = new BitSet(new long[]{0x0080000000000002L});
-    public static final BitSet FOLLOW_93_in_ruleElseType10641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_91_in_ruleElseType10641 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_34_in_ruleElseType10658 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_35_in_ruleElseType10675 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_33_in_ruleElseType10692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_94_in_ruleVerificationResultState10737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_95_in_ruleVerificationResultState10754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_ruleVerificationResultState10737 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_93_in_ruleVerificationResultState10754 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_34_in_ruleVerificationResultState10771 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_33_in_ruleVerificationResultState10788 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_35_in_ruleVerificationResultState10805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_96_in_ruleVerificationExecutionState10850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_97_in_ruleVerificationExecutionState10867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_98_in_ruleVerificationExecutionState10884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_99_in_ruleVerificationExecutionState10901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_94_in_ruleResultIssueType10946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_94_in_ruleVerificationExecutionState10850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_95_in_ruleVerificationExecutionState10867 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_96_in_ruleVerificationExecutionState10884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_97_in_ruleVerificationExecutionState10901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_ruleResultIssueType10946 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_33_in_ruleResultIssueType10963 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_100_in_ruleResultIssueType10980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_101_in_ruleResultIssueType10997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_95_in_ruleResultIssueType11014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_98_in_ruleResultIssueType10980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_99_in_ruleResultIssueType10997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_93_in_ruleResultIssueType11014 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_34_in_ruleResultIssueType11031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_synpred1_InternalAssure4440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_synpred1_InternalAssure4440 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_synpred2_InternalAssure5582 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpAnd_in_synpred3_InternalAssure5837 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpEquality_in_synpred4_InternalAssure6092 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpCompare_in_synpred5_InternalAssure6368 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpOther_in_synpred6_InternalAssure6697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_71_in_synpred7_InternalAssure6964 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_71_in_synpred7_InternalAssure6969 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_synpred8_InternalAssure7051 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_69_in_synpred8_InternalAssure7056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_synpred7_InternalAssure6964 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_70_in_synpred7_InternalAssure6969 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_synpred8_InternalAssure7051 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_synpred8_InternalAssure7056 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpAdd_in_synpred9_InternalAssure7276 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpMulti_in_synpred10_InternalAssure7552 = new BitSet(new long[]{0x0000000000000002L});
 

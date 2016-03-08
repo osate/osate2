@@ -4602,11 +4602,11 @@ rule__AModelOrPropertyReference__Group_0_1_0_0__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1()); }
+{ before(grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1()); }
 
-	'@' 
+	'#' 
 
-{ after(grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1()); }
+{ after(grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1()); }
 )
 
 ;
@@ -4951,11 +4951,11 @@ rule__APropertyReference__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ before(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 
-	'@' 
+	'#' 
 
-{ after(grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1()); }
+{ after(grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1()); }
 )
 
 ;
@@ -7908,11 +7908,11 @@ rule__ASetTerm__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1()); }
+{ before(grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1()); }
 
-	'#{' 
+	'{' 
 
-{ after(grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1()); }
+{ after(grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1()); }
 )
 
 ;
@@ -8161,11 +8161,11 @@ rule__AListTerm__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1()); }
+{ before(grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1()); }
 
-	'#[' 
+	'[' 
 
-{ after(grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1()); }
+{ after(grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1()); }
 )
 
 ;

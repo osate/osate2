@@ -2345,16 +2345,16 @@ ruleAModelOrPropertyReference returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 (((((
-)	'@' 
+)	'#' 
 ))=>((
     {
         $current = forceCreateModelElementAndSet(
             grammarAccess.getAModelOrPropertyReferenceAccess().getAPropertyReferenceModelElementReferenceAction_0_1_0_0_0(),
             $current);
     }
-)	otherlv_2='@' 
+)	otherlv_2='#' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1());
+    	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1());
     }
 ))(
 (
@@ -2517,9 +2517,9 @@ ruleAPropertyReference returns [EObject current=null]
             grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
             $current);
     }
-)	otherlv_1='@' 
+)	otherlv_1='#' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
     }
 (
 (
@@ -4255,9 +4255,9 @@ ruleASetTerm returns [EObject current=null]
             grammarAccess.getASetTermAccess().getASetLiteralAction_0(),
             $current);
     }
-)	otherlv_1='#{' 
+)	otherlv_1='{' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
     }
 ((
 (
@@ -4330,9 +4330,9 @@ ruleAListTerm returns [EObject current=null]
             grammarAccess.getAListTermAccess().getAListTermAction_0(),
             $current);
     }
-)	otherlv_1='#[' 
+)	otherlv_1='[' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1());
     }
 ((
 (

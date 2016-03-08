@@ -42,7 +42,6 @@ public class InternalCommonLexer extends Lexer {
     public static final int T__24=24;
     public static final int T__25=25;
     public static final int T__62=62;
-    public static final int T__63=63;
     public static final int T__20=20;
     public static final int T__21=21;
     public static final int RULE_REAL_LIT=7;
@@ -237,10 +236,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:18:7: ( '@' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:18:9: '@'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:18:7: ( '#' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:18:9: '#'
             {
-            match('@'); 
+            match('#'); 
 
             }
 
@@ -790,11 +789,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:45:7: ( '#{' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:45:9: '#{'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:45:7: ( '{' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:45:9: '{'
             {
-            match("#{"); 
-
+            match('{'); 
 
             }
 
@@ -831,10 +829,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:47:7: ( '#[' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:47:9: '#['
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:47:7: ( 'true' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:47:9: 'true'
             {
-            match("#["); 
+            match("true"); 
 
 
             }
@@ -852,10 +850,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:48:7: ( 'true' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:48:9: 'true'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:48:7: ( 'false' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:48:9: 'false'
             {
-            match("true"); 
+            match("false"); 
 
 
             }
@@ -873,10 +871,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:49:7: ( 'false' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:49:9: 'false'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:49:7: ( 'null' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:49:9: 'null'
             {
-            match("false"); 
+            match("null"); 
 
 
             }
@@ -894,10 +892,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:50:7: ( 'null' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:50:9: 'null'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:50:7: ( '::' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:50:9: '::'
             {
-            match("null"); 
+            match("::"); 
 
 
             }
@@ -915,10 +913,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:51:7: ( '::' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:51:9: '::'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:51:7: ( 'tbd' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:51:9: 'tbd'
             {
-            match("::"); 
+            match("tbd"); 
 
 
             }
@@ -936,10 +934,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:52:7: ( 'tbd' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:52:9: 'tbd'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:52:7: ( 'error' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:52:9: 'error'
             {
-            match("tbd"); 
+            match("error"); 
 
 
             }
@@ -957,10 +955,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:53:7: ( 'error' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:53:9: 'error'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:53:7: ( 'warning' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:53:9: 'warning'
             {
-            match("error"); 
+            match("warning"); 
 
 
             }
@@ -978,10 +976,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:54:7: ( 'warning' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:54:9: 'warning'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:54:7: ( 'info' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:54:9: 'info'
             {
-            match("warning"); 
+            match("info"); 
 
 
             }
@@ -999,10 +997,10 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:55:7: ( 'info' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:55:9: 'info'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:55:7: ( 'success' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:55:9: 'success'
             {
-            match("info"); 
+            match("success"); 
 
 
             }
@@ -1020,29 +1018,8 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:56:7: ( 'success' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:56:9: 'success'
-            {
-            match("success"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__62"
-
-    // $ANTLR start "T__63"
-    public final void mT__63() throws RecognitionException {
-        try {
-            int _type = T__63;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:57:7: ( 'fail' )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:57:9: 'fail'
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:56:7: ( 'fail' )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:56:9: 'fail'
             {
             match("fail"); 
 
@@ -1055,7 +1032,7 @@ public class InternalCommonLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__63"
+    // $ANTLR end "T__62"
 
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
@@ -2015,8 +1992,8 @@ public class InternalCommonLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:8: ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | RULE_REAL_LIT | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt25=55;
+        // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:8: ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | RULE_REAL_LIT | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt25=54;
         alt25 = dfa25.predict(input);
         switch (alt25) {
             case 1 :
@@ -2342,63 +2319,56 @@ public class InternalCommonLexer extends Lexer {
                 }
                 break;
             case 47 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:286: T__63
-                {
-                mT__63(); 
-
-                }
-                break;
-            case 48 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:292: RULE_REAL_LIT
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:286: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
-            case 49 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:306: RULE_ID
+            case 48 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:300: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 50 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:314: RULE_INT
+            case 49 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:308: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 51 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:323: RULE_STRING
+            case 50 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:317: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 52 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:335: RULE_ML_COMMENT
+            case 51 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:329: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 53 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:351: RULE_SL_COMMENT
+            case 52 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:345: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 54 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:367: RULE_WS
+            case 53 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:361: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 55 :
-                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:375: RULE_ANY_OTHER
+            case 54 :
+                // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:1:369: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -2413,60 +2383,60 @@ public class InternalCommonLexer extends Lexer {
     protected DFA25 dfa25 = new DFA25(this);
     static final String DFA25_eotS =
         "\1\uffff\3\50\3\uffff\1\63\1\uffff\1\50\1\71\2\45\1\76\1\100\1"+
-        "\102\1\104\1\106\1\45\1\uffff\1\112\3\uffff\1\45\1\uffff\2\50\1"+
-        "\45\2\50\1\126\1\45\1\uffff\2\45\2\uffff\2\50\1\uffff\6\50\3\uffff"+
-        "\1\144\2\uffff\2\50\32\uffff\2\50\1\uffff\2\50\1\uffff\1\126\3\uffff"+
-        "\5\50\1\161\2\50\2\uffff\1\164\10\50\1\175\1\50\1\177\1\uffff\2"+
-        "\50\1\uffff\1\u0082\1\50\1\u0084\1\u0085\4\50\1\uffff\1\50\1\uffff"+
-        "\1\50\1\u008c\1\uffff\1\u008d\2\uffff\4\50\1\u0092\1\50\2\uffff"+
-        "\4\50\1\uffff\1\50\1\u0099\1\u009a\3\50\2\uffff\2\50\1\u00a0\2\50"+
-        "\1\uffff\1\u00a3\1\50\1\uffff\1\u00a5\1\uffff";
+        "\102\1\104\1\106\1\45\1\uffff\1\112\5\uffff\2\50\1\45\2\50\1\125"+
+        "\1\45\1\uffff\2\45\2\uffff\2\50\1\uffff\6\50\3\uffff\1\143\2\uffff"+
+        "\2\50\31\uffff\2\50\1\uffff\2\50\1\uffff\1\125\3\uffff\5\50\1\160"+
+        "\2\50\2\uffff\1\163\10\50\1\174\1\50\1\176\1\uffff\2\50\1\uffff"+
+        "\1\u0081\1\50\1\u0083\1\u0084\4\50\1\uffff\1\50\1\uffff\1\50\1\u008b"+
+        "\1\uffff\1\u008c\2\uffff\4\50\1\u0091\1\50\2\uffff\4\50\1\uffff"+
+        "\1\50\1\u0098\1\u0099\3\50\2\uffff\2\50\1\u009f\2\50\1\uffff\1\u00a2"+
+        "\1\50\1\uffff\1\u00a4\1\uffff";
     static final String DFA25_eofS =
-        "\u00a6\uffff";
+        "\u00a5\uffff";
     static final String DFA25_minS =
         "\1\0\1\145\1\141\1\162\3\uffff\1\56\1\uffff\1\155\1\52\1\174\1"+
-        "\46\3\75\2\76\1\72\1\uffff\1\52\3\uffff\1\133\1\uffff\1\141\1\165"+
-        "\1\72\1\141\1\165\1\56\1\101\1\uffff\2\0\2\uffff\1\163\1\141\1\uffff"+
-        "\1\151\1\162\1\165\1\144\1\143\1\162\3\uffff\1\74\2\uffff\1\147"+
-        "\1\146\32\uffff\1\151\1\154\1\uffff\1\162\1\143\1\uffff\1\56\3\uffff"+
-        "\1\143\1\147\1\163\1\147\1\145\1\60\1\145\1\157\2\uffff\1\60\1\157"+
-        "\1\163\2\154\1\156\1\143\1\162\1\156\1\60\1\145\1\60\1\uffff\1\160"+
-        "\1\162\1\uffff\1\60\1\145\2\60\1\151\1\145\1\151\1\157\1\uffff\1"+
-        "\164\1\uffff\1\164\1\60\1\uffff\1\60\2\uffff\1\156\1\163\1\160\1"+
-        "\163\1\60\1\151\2\uffff\1\147\1\163\2\164\1\uffff\1\157\2\60\2\151"+
-        "\1\156\2\uffff\1\157\1\143\1\60\1\156\1\111\1\uffff\1\60\1\144\1"+
-        "\uffff\1\60\1\uffff";
+        "\46\3\75\2\76\1\72\1\uffff\1\52\5\uffff\1\141\1\165\1\72\1\141\1"+
+        "\165\1\56\1\101\1\uffff\2\0\2\uffff\1\163\1\141\1\uffff\1\151\1"+
+        "\162\1\165\1\144\1\143\1\162\3\uffff\1\74\2\uffff\1\147\1\146\31"+
+        "\uffff\1\151\1\154\1\uffff\1\162\1\143\1\uffff\1\56\3\uffff\1\143"+
+        "\1\147\1\163\1\147\1\145\1\60\1\145\1\157\2\uffff\1\60\1\157\1\163"+
+        "\2\154\1\156\1\143\1\162\1\156\1\60\1\145\1\60\1\uffff\1\160\1\162"+
+        "\1\uffff\1\60\1\145\2\60\1\151\1\145\1\151\1\157\1\uffff\1\164\1"+
+        "\uffff\1\164\1\60\1\uffff\1\60\2\uffff\1\156\1\163\1\160\1\163\1"+
+        "\60\1\151\2\uffff\1\147\1\163\2\164\1\uffff\1\157\2\60\2\151\1\156"+
+        "\2\uffff\1\157\1\143\1\60\1\156\1\111\1\uffff\1\60\1\144\1\uffff"+
+        "\1\60\1\uffff";
     static final String DFA25_maxS =
         "\1\uffff\1\151\1\162\1\170\3\uffff\1\56\1\uffff\1\156\1\57\1\174"+
-        "\1\46\1\76\2\75\2\76\1\72\1\uffff\1\52\3\uffff\1\173\1\uffff\1\141"+
-        "\1\165\1\72\1\141\1\165\1\137\1\172\1\uffff\2\uffff\2\uffff\1\163"+
-        "\1\141\1\uffff\1\151\1\162\1\165\1\144\1\143\1\162\3\uffff\1\74"+
-        "\2\uffff\1\147\1\146\32\uffff\2\154\1\uffff\1\162\1\143\1\uffff"+
-        "\1\137\3\uffff\1\143\1\147\1\163\1\147\1\145\1\172\1\145\1\157\2"+
-        "\uffff\1\172\1\157\1\163\2\154\1\156\1\143\1\162\1\156\1\172\1\145"+
-        "\1\172\1\uffff\1\160\1\162\1\uffff\1\172\1\145\2\172\1\151\1\145"+
-        "\1\151\1\157\1\uffff\1\164\1\uffff\1\164\1\172\1\uffff\1\172\2\uffff"+
-        "\1\156\1\163\1\160\1\163\1\172\1\151\2\uffff\1\147\1\163\2\164\1"+
-        "\uffff\1\157\2\172\2\151\1\156\2\uffff\1\157\1\143\1\172\1\156\1"+
-        "\111\1\uffff\1\172\1\144\1\uffff\1\172\1\uffff";
+        "\1\46\1\76\2\75\2\76\1\72\1\uffff\1\52\5\uffff\1\141\1\165\1\72"+
+        "\1\141\1\165\1\137\1\172\1\uffff\2\uffff\2\uffff\1\163\1\141\1\uffff"+
+        "\1\151\1\162\1\165\1\144\1\143\1\162\3\uffff\1\74\2\uffff\1\147"+
+        "\1\146\31\uffff\2\154\1\uffff\1\162\1\143\1\uffff\1\137\3\uffff"+
+        "\1\143\1\147\1\163\1\147\1\145\1\172\1\145\1\157\2\uffff\1\172\1"+
+        "\157\1\163\2\154\1\156\1\143\1\162\1\156\1\172\1\145\1\172\1\uffff"+
+        "\1\160\1\162\1\uffff\1\172\1\145\2\172\1\151\1\145\1\151\1\157\1"+
+        "\uffff\1\164\1\uffff\1\164\1\172\1\uffff\1\172\2\uffff\1\156\1\163"+
+        "\1\160\1\163\1\172\1\151\2\uffff\1\147\1\163\2\164\1\uffff\1\157"+
+        "\2\172\2\151\1\156\2\uffff\1\157\1\143\1\172\1\156\1\111\1\uffff"+
+        "\1\172\1\144\1\uffff\1\172\1\uffff";
     static final String DFA25_acceptS =
         "\4\uffff\1\6\1\7\1\10\1\uffff\1\12\12\uffff\1\33\1\uffff\1\40\1"+
-        "\41\1\42\1\uffff\1\44\7\uffff\1\61\2\uffff\1\66\1\67\2\uffff\1\61"+
-        "\6\uffff\1\6\1\7\1\10\1\uffff\1\11\1\12\2\uffff\1\64\1\65\1\14\1"+
-        "\15\1\16\1\17\1\30\1\23\1\20\1\37\1\21\1\24\1\31\1\22\1\25\1\34"+
-        "\1\32\1\33\1\36\1\35\1\40\1\41\1\42\1\43\1\45\1\44\2\uffff\1\51"+
-        "\2\uffff\1\62\1\uffff\1\60\1\63\1\66\10\uffff\1\26\1\27\14\uffff"+
-        "\1\52\2\uffff\1\13\10\uffff\1\2\1\uffff\1\46\2\uffff\1\55\1\uffff"+
-        "\1\57\1\50\6\uffff\1\53\1\47\4\uffff\1\3\6\uffff\1\54\1\56\5\uffff"+
-        "\1\4\2\uffff\1\1\1\uffff\1\5";
+        "\41\1\42\1\43\1\44\7\uffff\1\60\2\uffff\1\65\1\66\2\uffff\1\60\6"+
+        "\uffff\1\6\1\7\1\10\1\uffff\1\11\1\12\2\uffff\1\63\1\64\1\14\1\15"+
+        "\1\16\1\17\1\30\1\23\1\20\1\37\1\21\1\24\1\31\1\22\1\25\1\34\1\32"+
+        "\1\33\1\36\1\35\1\40\1\41\1\42\1\43\1\44\2\uffff\1\50\2\uffff\1"+
+        "\61\1\uffff\1\57\1\62\1\65\10\uffff\1\26\1\27\14\uffff\1\51\2\uffff"+
+        "\1\13\10\uffff\1\2\1\uffff\1\45\2\uffff\1\54\1\uffff\1\56\1\47\6"+
+        "\uffff\1\52\1\46\4\uffff\1\3\6\uffff\1\53\1\55\5\uffff\1\4\2\uffff"+
+        "\1\1\1\uffff\1\5";
     static final String DFA25_specialS =
-        "\1\2\41\uffff\1\1\1\0\u0082\uffff}>";
+        "\1\0\41\uffff\1\1\1\2\u0081\uffff}>";
     static final String[] DFA25_transitionS = {
-            "\11\45\2\44\2\45\1\44\22\45\1\44\1\16\1\42\1\30\1\45\1\10\1"+
+            "\11\45\2\44\2\45\1\44\22\45\1\44\1\16\1\42\1\6\1\45\1\10\1"+
             "\14\1\43\1\25\1\27\1\24\1\23\1\26\1\21\1\7\1\12\12\37\1\34\1"+
-            "\45\1\20\1\15\1\17\1\22\1\6\32\41\1\4\1\45\1\5\1\40\1\41\1\45"+
-            "\3\41\1\1\1\3\1\32\2\41\1\11\4\41\1\33\4\41\1\36\1\2\2\41\1"+
-            "\35\3\41\1\45\1\13\1\31\uff82\45",
+            "\45\1\20\1\15\1\17\1\22\1\45\32\41\1\4\1\45\1\5\1\40\1\41\1"+
+            "\45\3\41\1\1\1\3\1\32\2\41\1\11\4\41\1\33\4\41\1\36\1\2\2\41"+
+            "\1\35\3\41\1\30\1\13\1\31\uff82\45",
             "\1\46\3\uffff\1\47",
             "\1\52\1\54\5\uffff\1\51\11\uffff\1\53",
             "\1\56\5\uffff\1\55",
@@ -2490,37 +2460,37 @@ public class InternalCommonLexer extends Lexer {
             "",
             "",
             "",
-            "\1\117\37\uffff\1\116",
             "",
+            "",
+            "\1\120",
             "\1\121",
             "\1\122",
             "\1\123",
             "\1\124",
-            "\1\125",
-            "\1\130\1\uffff\12\127\45\uffff\1\130",
+            "\1\127\1\uffff\12\126\45\uffff\1\127",
             "\32\50\4\uffff\1\50\1\uffff\32\50",
             "",
-            "\0\131",
-            "\0\131",
+            "\0\130",
+            "\0\130",
             "",
             "",
+            "\1\132",
             "\1\133",
-            "\1\134",
             "",
+            "\1\134",
             "\1\135",
             "\1\136",
             "\1\137",
             "\1\140",
             "\1\141",
+            "",
+            "",
+            "",
             "\1\142",
             "",
             "",
-            "",
-            "\1\143",
-            "",
-            "",
+            "\1\144",
             "\1\145",
-            "\1\146",
             "",
             "",
             "",
@@ -2546,28 +2516,28 @@ public class InternalCommonLexer extends Lexer {
             "",
             "",
             "",
+            "\1\147\2\uffff\1\146",
+            "\1\150",
             "",
-            "\1\150\2\uffff\1\147",
             "\1\151",
-            "",
             "\1\152",
+            "",
+            "\1\127\1\uffff\12\126\45\uffff\1\127",
+            "",
+            "",
+            "",
             "\1\153",
-            "",
-            "\1\130\1\uffff\12\127\45\uffff\1\130",
-            "",
-            "",
-            "",
             "\1\154",
             "\1\155",
             "\1\156",
             "\1\157",
-            "\1\160",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\161",
             "\1\162",
-            "\1\163",
             "",
             "",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\164",
             "\1\165",
             "\1\166",
             "\1\167",
@@ -2575,60 +2545,59 @@ public class InternalCommonLexer extends Lexer {
             "\1\171",
             "\1\172",
             "\1\173",
-            "\1\174",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
-            "\1\176",
+            "\1\175",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             "",
+            "\1\177",
             "\1\u0080",
-            "\1\u0081",
             "",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
-            "\1\u0083",
+            "\1\u0082",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\u0085",
             "\1\u0086",
             "\1\u0087",
             "\1\u0088",
+            "",
             "\1\u0089",
             "",
             "\1\u008a",
-            "",
-            "\1\u008b",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             "",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             "",
             "",
+            "\1\u008d",
             "\1\u008e",
             "\1\u008f",
             "\1\u0090",
-            "\1\u0091",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\u0092",
+            "",
+            "",
             "\1\u0093",
-            "",
-            "",
             "\1\u0094",
             "\1\u0095",
             "\1\u0096",
-            "\1\u0097",
             "",
-            "\1\u0098",
+            "\1\u0097",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\u009a",
             "\1\u009b",
             "\1\u009c",
+            "",
+            "",
             "\1\u009d",
-            "",
-            "",
             "\1\u009e",
-            "\1\u009f",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
+            "\1\u00a0",
             "\1\u00a1",
-            "\1\u00a2",
             "",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
-            "\1\u00a4",
+            "\1\u00a3",
             "",
             "\12\50\7\uffff\32\50\4\uffff\1\50\1\uffff\32\50",
             ""
@@ -2664,33 +2633,13 @@ public class InternalCommonLexer extends Lexer {
             this.transition = DFA25_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | RULE_REAL_LIT | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | RULE_REAL_LIT | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA25_35 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA25_35>='\u0000' && LA25_35<='\uFFFF')) ) {s = 89;}
-
-                        else s = 37;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA25_34 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA25_34>='\u0000' && LA25_34<='\uFFFF')) ) {s = 89;}
-
-                        else s = 37;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA25_0 = input.LA(1);
 
                         s = -1;
@@ -2704,7 +2653,7 @@ public class InternalCommonLexer extends Lexer {
 
                         else if ( (LA25_0==']') ) {s = 5;}
 
-                        else if ( (LA25_0=='@') ) {s = 6;}
+                        else if ( (LA25_0=='#') ) {s = 6;}
 
                         else if ( (LA25_0=='.') ) {s = 7;}
 
@@ -2740,7 +2689,7 @@ public class InternalCommonLexer extends Lexer {
 
                         else if ( (LA25_0==')') ) {s = 23;}
 
-                        else if ( (LA25_0=='#') ) {s = 24;}
+                        else if ( (LA25_0=='{') ) {s = 24;}
 
                         else if ( (LA25_0=='}') ) {s = 25;}
 
@@ -2766,7 +2715,27 @@ public class InternalCommonLexer extends Lexer {
 
                         else if ( ((LA25_0>='\t' && LA25_0<='\n')||LA25_0=='\r'||LA25_0==' ') ) {s = 36;}
 
-                        else if ( ((LA25_0>='\u0000' && LA25_0<='\b')||(LA25_0>='\u000B' && LA25_0<='\f')||(LA25_0>='\u000E' && LA25_0<='\u001F')||LA25_0=='$'||LA25_0==';'||LA25_0=='\\'||LA25_0=='`'||LA25_0=='{'||(LA25_0>='~' && LA25_0<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA25_0>='\u0000' && LA25_0<='\b')||(LA25_0>='\u000B' && LA25_0<='\f')||(LA25_0>='\u000E' && LA25_0<='\u001F')||LA25_0=='$'||LA25_0==';'||LA25_0=='@'||LA25_0=='\\'||LA25_0=='`'||(LA25_0>='~' && LA25_0<='\uFFFF')) ) {s = 37;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA25_34 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA25_34>='\u0000' && LA25_34<='\uFFFF')) ) {s = 88;}
+
+                        else s = 37;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA25_35 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA25_35>='\u0000' && LA25_35<='\uFFFF')) ) {s = 88;}
+
+                        else s = 37;
 
                         if ( s>=0 ) return s;
                         break;

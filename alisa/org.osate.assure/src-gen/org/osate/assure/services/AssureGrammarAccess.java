@@ -1992,8 +1992,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getComputeDeclarationAccess().getRule();
 	}
 
+	//// Reference to property, property constant, or model element.
 	//AModelOrPropertyReference returns AExpression:
-	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "@")
+	//	AModelReference (=> ({APropertyReference.modelElementReference=current} "#")
 	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? | APropertyReference;
 	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return gaCommon.getAModelOrPropertyReferenceAccess();
@@ -2024,7 +2025,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference:
-	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "#" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
 		return gaCommon.getAPropertyReferenceAccess();
 	}
@@ -2344,7 +2345,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ASetTerm returns aadl2::PropertyExpression:
-	//	{ASetLiteral} "#{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
+	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 	public CommonGrammarAccess.ASetTermElements getASetTermAccess() {
 		return gaCommon.getASetTermAccess();
 	}
@@ -2354,7 +2355,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AListTerm returns aadl2::PropertyExpression:
-	//	{AListTerm} "#[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
+	//	{AListTerm} "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
 	public CommonGrammarAccess.AListTermElements getAListTermAccess() {
 		return gaCommon.getAListTermAccess();
 	}

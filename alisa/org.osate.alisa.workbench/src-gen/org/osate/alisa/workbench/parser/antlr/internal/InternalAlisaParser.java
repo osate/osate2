@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'assurance'", "'case'", "':'", "'for'", "'['", "']'", "'plan'", "'assure'", "'subsystem'", "'all'", "'assume'", "'issues'", "'task'", "'category'", "'any'", "'.'", "'description'", "'this'", "'target'", "'exception'", "'diagnosticId'", "'@'", "'%'", "'img'", "'/'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'='", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'('", "','", "')'", "'#{'", "'}'", "'#['", "'true'", "'false'", "'null'", "'::'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_REAL_LIT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'assurance'", "'case'", "':'", "'for'", "'['", "']'", "'plan'", "'assure'", "'subsystem'", "'all'", "'assume'", "'issues'", "'task'", "'category'", "'any'", "'.'", "'description'", "'this'", "'target'", "'exception'", "'diagnosticId'", "'#'", "'%'", "'img'", "'/'", "'||'", "'&&'", "'=='", "'!='", "'>='", "'<'", "'='", "'>'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'!'", "'('", "','", "')'", "'{'", "'}'", "'true'", "'false'", "'null'", "'::'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'"
     };
     public static final int T__50=50;
     public static final int RULE_INT_EXPONENT=10;
@@ -99,7 +99,6 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final int T__31=31;
     public static final int T__75=75;
     public static final int T__32=32;
-    public static final int T__76=76;
     public static final int RULE_WS=15;
     public static final int RULE_ANY_OTHER=16;
     public static final int RULE_EXPONENT=9;
@@ -2853,7 +2852,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                         int alt23=2;
                         int LA23_0 = input.LA(1);
 
-                        if ( ((LA23_0>=71 && LA23_0<=76)) ) {
+                        if ( ((LA23_0>=70 && LA23_0<=75)) ) {
                             alt23=1;
                         }
 
@@ -2975,7 +2974,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAModelOrPropertyReference"
-    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1084:1: ruleAModelOrPropertyReference returns [EObject current=null] : ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) ;
+    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1084:1: ruleAModelOrPropertyReference returns [EObject current=null] : ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) ;
     public final EObject ruleAModelOrPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -2988,10 +2987,10 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1087:28: ( ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1087:28: ( ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3010,10 +3009,10 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
-                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
-                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1089:5: this_AModelReference_0= ruleAModelReference ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1088:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1089:5: this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -3031,7 +3030,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                               afterParserOrEnumRuleCall();
                           
                     }
-                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:1: ( ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:1: ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -3040,13 +3039,13 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt25) {
                         case 1 :
-                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:2: ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
+                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:2: ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
-                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:2: ( ( ( () '@' ) )=> ( () otherlv_2= '@' ) )
-                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:3: ( ( () '@' ) )=> ( () otherlv_2= '@' )
+                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:2: ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) )
+                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:3: ( ( () '#' ) )=> ( () otherlv_2= '#' )
                             {
-                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1099:5: ( () otherlv_2= '@' )
-                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1099:6: () otherlv_2= '@'
+                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1099:5: ( () otherlv_2= '#' )
+                            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1099:6: () otherlv_2= '#'
                             {
                             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1099:6: ()
                             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1100:5: 
@@ -3064,7 +3063,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                             otherlv_2=(Token)match(input,38,FOLLOW_38_in_ruleAModelOrPropertyReference2438); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1());
+                                  	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1());
                                   
                             }
 
@@ -3526,7 +3525,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAPropertyReference"
-    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1260:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
+    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1260:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
     public final EObject ruleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -3535,11 +3534,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1263:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1263:28: ( ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:1: ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) )
             {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:1: ( () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:2: () otherlv_1= '#' ( ( ruleAADLPROPERTYREFERENCE ) )
             {
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1264:2: ()
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1265:5: 
@@ -3557,7 +3556,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             otherlv_1=(Token)match(input,38,FOLLOW_38_in_ruleAPropertyReference2840); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
                   
             }
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1274:1: ( ( ruleAADLPROPERTYREFERENCE ) )
@@ -5476,7 +5475,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                 {
                 int LA36_2 = input.LA(2);
 
-                if ( (LA36_2==EOF||(LA36_2>=RULE_STRING && LA36_2<=RULE_REAL_LIT)||LA36_2==34||LA36_2==38||(LA36_2>=56 && LA36_2<=57)||(LA36_2>=60 && LA36_2<=61)||LA36_2==64||(LA36_2>=66 && LA36_2<=69)) ) {
+                if ( (LA36_2==EOF||(LA36_2>=RULE_STRING && LA36_2<=RULE_REAL_LIT)||LA36_2==21||LA36_2==34||LA36_2==38||(LA36_2>=56 && LA36_2<=57)||(LA36_2>=60 && LA36_2<=61)||LA36_2==64||(LA36_2>=66 && LA36_2<=68)) ) {
                     alt36=4;
                 }
                 else if ( (LA36_2==48) ) {
@@ -5959,7 +5958,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     if ( (LA38_0==49) ) {
                         int LA38_1 = input.LA(2);
 
-                        if ( (LA38_1==EOF||(LA38_1>=RULE_STRING && LA38_1<=RULE_REAL_LIT)||LA38_1==34||LA38_1==38||(LA38_1>=56 && LA38_1<=57)||(LA38_1>=60 && LA38_1<=61)||LA38_1==64||(LA38_1>=66 && LA38_1<=69)) ) {
+                        if ( (LA38_1==EOF||(LA38_1>=RULE_STRING && LA38_1<=RULE_REAL_LIT)||LA38_1==21||LA38_1==34||LA38_1==38||(LA38_1>=56 && LA38_1<=57)||(LA38_1>=60 && LA38_1<=61)||LA38_1==64||(LA38_1>=66 && LA38_1<=68)) ) {
                             alt38=2;
                         }
                         else if ( (LA38_1==49) && (synpred7_InternalAlisa())) {
@@ -6058,7 +6057,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                         if ( (LA39_1==47) && (synpred8_InternalAlisa())) {
                             alt39=1;
                         }
-                        else if ( (LA39_1==EOF||(LA39_1>=RULE_STRING && LA39_1<=RULE_REAL_LIT)||LA39_1==34||LA39_1==38||(LA39_1>=56 && LA39_1<=57)||(LA39_1>=60 && LA39_1<=61)||LA39_1==64||(LA39_1>=66 && LA39_1<=69)) ) {
+                        else if ( (LA39_1==EOF||(LA39_1>=RULE_STRING && LA39_1<=RULE_REAL_LIT)||LA39_1==21||LA39_1==34||LA39_1==38||(LA39_1>=56 && LA39_1<=57)||(LA39_1>=60 && LA39_1<=61)||LA39_1==64||(LA39_1>=66 && LA39_1<=68)) ) {
                             alt39=2;
                         }
                         else {
@@ -6986,7 +6985,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             if ( ((LA45_0>=56 && LA45_0<=57)||LA45_0==60) ) {
                 alt45=1;
             }
-            else if ( ((LA45_0>=RULE_STRING && LA45_0<=RULE_REAL_LIT)||LA45_0==34||LA45_0==38||LA45_0==61||LA45_0==64||(LA45_0>=66 && LA45_0<=69)) ) {
+            else if ( ((LA45_0>=RULE_STRING && LA45_0<=RULE_REAL_LIT)||LA45_0==21||LA45_0==34||LA45_0==38||LA45_0==61||LA45_0==64||(LA45_0>=66 && LA45_0<=68)) ) {
                 alt45=2;
             }
             else {
@@ -7345,11 +7344,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             case RULE_STRING:
             case RULE_INT:
             case RULE_REAL_LIT:
+            case 21:
             case 64:
             case 66:
             case 67:
             case 68:
-            case 69:
                 {
                 alt47=1;
                 }
@@ -7839,13 +7838,13 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                 alt49=1;
                 }
                 break;
-            case 66:
+            case 21:
                 {
                 alt49=2;
                 }
                 break;
+            case 66:
             case 67:
-            case 68:
                 {
                 alt49=3;
                 }
@@ -7860,7 +7859,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                 alt49=5;
                 }
                 break;
-            case 69:
+            case 68:
                 {
                 alt49=6;
                 }
@@ -8704,7 +8703,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleASetTerm"
-    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:2998:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
+    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:2998:1: ruleASetTerm returns [EObject current=null] : ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) ;
     public final EObject ruleASetTerm() throws RecognitionException {
         EObject current = null;
 
@@ -8719,11 +8718,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3001:28: ( ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:1: ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3001:28: ( ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
             {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:1: ( () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:2: () otherlv_1= '#{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:1: ( () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}' )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:2: () otherlv_1= '{' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= '}'
             {
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3002:2: ()
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3003:5: 
@@ -8741,14 +8740,14 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             otherlv_1=(Token)match(input,64,FOLLOW_64_in_ruleASetTerm7278); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
                   
             }
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3012:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
             int alt54=2;
             int LA54_0 = input.LA(1);
 
-            if ( ((LA54_0>=RULE_STRING && LA54_0<=RULE_REAL_LIT)||LA54_0==34||LA54_0==38||(LA54_0>=56 && LA54_0<=57)||(LA54_0>=60 && LA54_0<=61)||LA54_0==64||(LA54_0>=66 && LA54_0<=69)) ) {
+            if ( ((LA54_0>=RULE_STRING && LA54_0<=RULE_REAL_LIT)||LA54_0==21||LA54_0==34||LA54_0==38||(LA54_0>=56 && LA54_0<=57)||(LA54_0>=60 && LA54_0<=61)||LA54_0==64||(LA54_0>=66 && LA54_0<=68)) ) {
                 alt54=1;
             }
             switch (alt54) {
@@ -8930,7 +8929,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAListTerm"
-    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3073:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) ;
+    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3073:1: ruleAListTerm returns [EObject current=null] : ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) ;
     public final EObject ruleAListTerm() throws RecognitionException {
         EObject current = null;
 
@@ -8945,11 +8944,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3076:28: ( ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:1: ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3076:28: ( ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' ) )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:1: ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
             {
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:1: ( () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
-            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:2: () otherlv_1= '#[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']'
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:1: ( () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']' )
+            // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:2: () otherlv_1= '[' ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )? otherlv_5= ']'
             {
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3077:2: ()
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3078:5: 
@@ -8964,17 +8963,17 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,66,FOLLOW_66_in_ruleAListTerm7442); if (state.failed) return current;
+            otherlv_1=(Token)match(input,21,FOLLOW_21_in_ruleAListTerm7442); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1());
                   
             }
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3087:1: ( ( (lv_elements_2_0= ruleAExpression ) ) (otherlv_3= ',' ( (lv_elements_4_0= ruleAExpression ) ) )* )?
             int alt56=2;
             int LA56_0 = input.LA(1);
 
-            if ( ((LA56_0>=RULE_STRING && LA56_0<=RULE_REAL_LIT)||LA56_0==34||LA56_0==38||(LA56_0>=56 && LA56_0<=57)||(LA56_0>=60 && LA56_0<=61)||LA56_0==64||(LA56_0>=66 && LA56_0<=69)) ) {
+            if ( ((LA56_0>=RULE_STRING && LA56_0<=RULE_REAL_LIT)||LA56_0==21||LA56_0==34||LA56_0==38||(LA56_0>=56 && LA56_0<=57)||(LA56_0>=60 && LA56_0<=61)||LA56_0==64||(LA56_0>=66 && LA56_0<=68)) ) {
                 alt56=1;
             }
             switch (alt56) {
@@ -9298,10 +9297,10 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             int alt57=2;
             int LA57_0 = input.LA(1);
 
-            if ( (LA57_0==67) ) {
+            if ( (LA57_0==66) ) {
                 alt57=1;
             }
-            else if ( (LA57_0==68) ) {
+            else if ( (LA57_0==67) ) {
                 alt57=2;
             }
             else {
@@ -9321,7 +9320,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3197:1: (lv_value_1_0= 'true' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3198:3: lv_value_1_0= 'true'
                     {
-                    lv_value_1_0=(Token)match(input,67,FOLLOW_67_in_ruleABooleanLiteral7729); if (state.failed) return current;
+                    lv_value_1_0=(Token)match(input,66,FOLLOW_66_in_ruleABooleanLiteral7729); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_value_1_0, grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0());
@@ -9347,7 +9346,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3212:7: otherlv_2= 'false'
                     {
-                    otherlv_2=(Token)match(input,68,FOLLOW_68_in_ruleABooleanLiteral7760); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,67,FOLLOW_67_in_ruleABooleanLiteral7760); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_1());
@@ -9450,7 +9449,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,69,FOLLOW_69_in_ruleANullLiteral7853); if (state.failed) return current;
+            otherlv_1=(Token)match(input,68,FOLLOW_68_in_ruleANullLiteral7853); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getANullLiteralAccess().getNullKeyword_1());
@@ -9746,7 +9745,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                 int alt58=2;
                 int LA58_0 = input.LA(1);
 
-                if ( (LA58_0==70) ) {
+                if ( (LA58_0==69) ) {
                     alt58=1;
                 }
 
@@ -9755,7 +9754,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3345:2: kw= '::' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,70,FOLLOW_70_in_ruleAadlClassifierReference8147); if (state.failed) return current;
+            	    kw=(Token)match(input,69,FOLLOW_69_in_ruleAadlClassifierReference8147); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -9917,14 +9916,14 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             int alt60=2;
             int LA60_0 = input.LA(1);
 
-            if ( (LA60_0==70) ) {
+            if ( (LA60_0==69) ) {
                 alt60=1;
             }
             switch (alt60) {
                 case 1 :
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3399:2: kw= '::' this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,70,FOLLOW_70_in_ruleAADLPROPERTYREFERENCE8316); if (state.failed) return current;
+                    kw=(Token)match(input,69,FOLLOW_69_in_ruleAADLPROPERTYREFERENCE8316); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -10206,32 +10205,32 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3491:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'error' ) | (enumLiteral_2= 'warning' ) | (enumLiteral_3= 'info' ) | (enumLiteral_4= 'success' ) | (enumLiteral_5= 'fail' ) )
             int alt62=6;
             switch ( input.LA(1) ) {
-            case 71:
+            case 70:
                 {
                 alt62=1;
                 }
                 break;
-            case 72:
+            case 71:
                 {
                 alt62=2;
                 }
                 break;
-            case 73:
+            case 72:
                 {
                 alt62=3;
                 }
                 break;
-            case 74:
+            case 73:
                 {
                 alt62=4;
                 }
                 break;
-            case 75:
+            case 74:
                 {
                 alt62=5;
                 }
                 break;
-            case 76:
+            case 75:
                 {
                 alt62=6;
                 }
@@ -10251,7 +10250,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3491:2: (enumLiteral_0= 'tbd' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3491:4: enumLiteral_0= 'tbd'
                     {
-                    enumLiteral_0=(Token)match(input,71,FOLLOW_71_in_ruleResultIssueType8620); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,70,FOLLOW_70_in_ruleResultIssueType8620); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -10270,7 +10269,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3497:6: (enumLiteral_1= 'error' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3497:8: enumLiteral_1= 'error'
                     {
-                    enumLiteral_1=(Token)match(input,72,FOLLOW_72_in_ruleResultIssueType8637); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,71,FOLLOW_71_in_ruleResultIssueType8637); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -10289,7 +10288,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3503:6: (enumLiteral_2= 'warning' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3503:8: enumLiteral_2= 'warning'
                     {
-                    enumLiteral_2=(Token)match(input,73,FOLLOW_73_in_ruleResultIssueType8654); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,72,FOLLOW_72_in_ruleResultIssueType8654); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -10308,7 +10307,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3509:6: (enumLiteral_3= 'info' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3509:8: enumLiteral_3= 'info'
                     {
-                    enumLiteral_3=(Token)match(input,74,FOLLOW_74_in_ruleResultIssueType8671); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,73,FOLLOW_73_in_ruleResultIssueType8671); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -10327,7 +10326,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3515:6: (enumLiteral_4= 'success' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3515:8: enumLiteral_4= 'success'
                     {
-                    enumLiteral_4=(Token)match(input,75,FOLLOW_75_in_ruleResultIssueType8688); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,74,FOLLOW_74_in_ruleResultIssueType8688); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -10346,7 +10345,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3521:6: (enumLiteral_5= 'fail' )
                     // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:3521:8: enumLiteral_5= 'fail'
                     {
-                    enumLiteral_5=(Token)match(input,76,FOLLOW_76_in_ruleResultIssueType8705); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,75,FOLLOW_75_in_ruleResultIssueType8705); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
@@ -10382,11 +10381,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred1_InternalAlisa
     public final void synpred1_InternalAlisa_fragment() throws RecognitionException {   
-        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:3: ( ( () '@' ) )
-        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:4: ( () '@' )
+        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:3: ( ( () '#' ) )
+        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:4: ( () '#' )
         {
-        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:4: ( () '@' )
-        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:5: () '@'
+        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:4: ( () '#' )
+        // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:5: () '#'
         {
         // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1097:5: ()
         // ../org.osate.alisa.workbench/src-gen/org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.g:1098:1: 
@@ -10857,7 +10856,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     static final String DFA37_minS =
         "\1\26\1\uffff\2\4\12\uffff";
     static final String DFA37_maxS =
-        "\1\101\1\uffff\2\105\12\uffff";
+        "\1\101\1\uffff\2\104\12\uffff";
     static final String DFA37_acceptS =
         "\1\uffff\1\2\2\uffff\12\1";
     static final String DFA37_specialS =
@@ -10866,10 +10865,11 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             "\1\1\23\uffff\5\1\1\2\1\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
             "\6\uffff\2\1\1\uffff\1\1",
             "",
-            "\4\1\32\uffff\1\1\3\uffff\1\1\10\uffff\1\12\1\1\4\uffff\1"+
-            "\13\2\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\4\1",
-            "\4\1\32\uffff\1\1\3\uffff\1\1\12\uffff\1\15\2\uffff\1\14\3"+
-            "\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\4\1",
+            "\4\1\15\uffff\1\1\14\uffff\1\1\3\uffff\1\1\10\uffff\1\12\1"+
+            "\1\4\uffff\1\13\2\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff"+
+            "\3\1",
+            "\4\1\15\uffff\1\1\14\uffff\1\1\3\uffff\1\1\12\uffff\1\15\2"+
+            "\uffff\1\14\3\uffff\2\1\2\uffff\2\1\2\uffff\1\1\1\uffff\3\1",
             "",
             "",
             "",
@@ -10925,7 +10925,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                         int index37_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA37_3>=RULE_STRING && LA37_3<=RULE_REAL_LIT)||LA37_3==34||LA37_3==38||(LA37_3>=56 && LA37_3<=57)||(LA37_3>=60 && LA37_3<=61)||LA37_3==64||(LA37_3>=66 && LA37_3<=69)) ) {s = 1;}
+                        if ( ((LA37_3>=RULE_STRING && LA37_3<=RULE_REAL_LIT)||LA37_3==21||LA37_3==34||LA37_3==38||(LA37_3>=56 && LA37_3<=57)||(LA37_3>=60 && LA37_3<=61)||LA37_3==64||(LA37_3>=66 && LA37_3<=68)) ) {s = 1;}
 
                         else if ( (LA37_3==52) && (synpred6_InternalAlisa())) {s = 12;}
 
@@ -10971,7 +10971,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
                         int index37_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA37_2>=RULE_STRING && LA37_2<=RULE_REAL_LIT)||LA37_2==34||LA37_2==38||LA37_2==48||(LA37_2>=56 && LA37_2<=57)||(LA37_2>=60 && LA37_2<=61)||LA37_2==64||(LA37_2>=66 && LA37_2<=69)) ) {s = 1;}
+                        if ( ((LA37_2>=RULE_STRING && LA37_2<=RULE_REAL_LIT)||LA37_2==21||LA37_2==34||LA37_2==38||LA37_2==48||(LA37_2>=56 && LA37_2<=57)||(LA37_2>=60 && LA37_2<=61)||LA37_2==64||(LA37_2>=66 && LA37_2<=68)) ) {s = 1;}
 
                         else if ( (LA37_2==47) && (synpred6_InternalAlisa())) {s = 10;}
 
@@ -11128,8 +11128,8 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue2212 = new BitSet(new long[]{0x0000002000200002L});
     public static final BitSet FOLLOW_37_in_ruleResultIssue2232 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue2249 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_ruleResultIssue2269 = new BitSet(new long[]{0x0000000000400000L,0x0000000000001F80L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue2290 = new BitSet(new long[]{0x0000000000400000L,0x0000000000001F80L});
+    public static final BitSet FOLLOW_21_in_ruleResultIssue2269 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000FC0L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue2290 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000FC0L});
     public static final BitSet FOLLOW_22_in_ruleResultIssue2303 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAModelOrPropertyReference_in_entryRuleAModelOrPropertyReference2345 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAModelOrPropertyReference2355 = new BitSet(new long[]{0x0000000000000002L});
@@ -11176,7 +11176,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression3485 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression3495 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression3542 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression3591 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression3591 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression3614 = new BitSet(new long[]{0x0000040000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr3653 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpOr3664 = new BitSet(new long[]{0x0000000000000002L});
@@ -11184,7 +11184,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression3740 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression3750 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression3797 = new BitSet(new long[]{0x0000080000000002L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression3846 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression3846 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression3869 = new BitSet(new long[]{0x0000080000000002L});
     public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd3908 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd3919 = new BitSet(new long[]{0x0000000000000002L});
@@ -11192,7 +11192,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression3995 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression4005 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression4052 = new BitSet(new long[]{0x0000300000000002L});
-    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression4101 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression4101 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression4124 = new BitSet(new long[]{0x0000300000000002L});
     public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality4163 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality4174 = new BitSet(new long[]{0x0000000000000002L});
@@ -11201,7 +11201,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression4271 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression4281 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression4328 = new BitSet(new long[]{0x0002C00000000002L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression4377 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression4377 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression4400 = new BitSet(new long[]{0x0002C00000000002L});
     public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare4439 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare4450 = new BitSet(new long[]{0x0000000000000002L});
@@ -11213,7 +11213,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression4600 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAOtherOperatorExpression4610 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression4657 = new BitSet(new long[]{0x00FE800000000002L});
-    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression4706 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression4706 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression4729 = new BitSet(new long[]{0x00FE800000000002L});
     public static final BitSet FOLLOW_ruleOpOther_in_entryRuleOpOther4768 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpOther4779 = new BitSet(new long[]{0x0000000000000002L});
@@ -11237,7 +11237,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression5179 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression5189 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression5236 = new BitSet(new long[]{0x0300000000000002L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression5285 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression5285 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression5308 = new BitSet(new long[]{0x0300000000000002L});
     public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd5347 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd5358 = new BitSet(new long[]{0x0000000000000002L});
@@ -11246,7 +11246,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression5455 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression5465 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression5512 = new BitSet(new long[]{0x0C00028000000002L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression5561 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression5561 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression5584 = new BitSet(new long[]{0x0C00028000000002L});
     public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti5623 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti5634 = new BitSet(new long[]{0x0000000000000002L});
@@ -11256,7 +11256,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_39_in_ruleOpMulti5729 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation5769 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation5779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation5835 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation5835 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation5856 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation5885 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary5921 = new BitSet(new long[]{0x0000000000000000L});
@@ -11274,9 +11274,9 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAFunctionCall_in_entryRuleAFunctionCall6248 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAFunctionCall6258 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAFunctionCall6309 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_61_in_ruleAFunctionCall6326 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_61_in_ruleAFunctionCall6326 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall6347 = new BitSet(new long[]{0xC000000000000000L});
-    public static final BitSet FOLLOW_62_in_ruleAFunctionCall6360 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_62_in_ruleAFunctionCall6360 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall6381 = new BitSet(new long[]{0xC000000000000000L});
     public static final BitSet FOLLOW_63_in_ruleAFunctionCall6395 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral6431 = new BitSet(new long[]{0x0000000000000000L});
@@ -11308,30 +11308,30 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleNumAlt7187 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleASetTerm_in_entryRuleASetTerm7222 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleASetTerm7232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_64_in_ruleASetTerm7278 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003FL});
+    public static final BitSet FOLLOW_64_in_ruleASetTerm7278 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001FL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm7300 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_62_in_ruleASetTerm7313 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_62_in_ruleASetTerm7313 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleASetTerm7334 = new BitSet(new long[]{0x4000000000000000L,0x0000000000000002L});
     public static final BitSet FOLLOW_65_in_ruleASetTerm7350 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAListTerm_in_entryRuleAListTerm7386 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAListTerm7396 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_ruleAListTerm7442 = new BitSet(new long[]{0x33000044004000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_21_in_ruleAListTerm7442 = new BitSet(new long[]{0x33000044006000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm7464 = new BitSet(new long[]{0x4000000000400000L});
-    public static final BitSet FOLLOW_62_in_ruleAListTerm7477 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_62_in_ruleAListTerm7477 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleAListTerm7498 = new BitSet(new long[]{0x4000000000400000L});
     public static final BitSet FOLLOW_22_in_ruleAListTerm7514 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression7550 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression7560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_ruleAParenthesizedExpression7597 = new BitSet(new long[]{0x33000044000000F0L,0x000000000000003DL});
+    public static final BitSet FOLLOW_61_in_ruleAParenthesizedExpression7597 = new BitSet(new long[]{0x33000044002000F0L,0x000000000000001DL});
     public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression7619 = new BitSet(new long[]{0x8000000000000000L});
     public static final BitSet FOLLOW_63_in_ruleAParenthesizedExpression7630 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral7666 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral7676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_67_in_ruleABooleanLiteral7729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_68_in_ruleABooleanLiteral7760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_ruleABooleanLiteral7729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_67_in_ruleABooleanLiteral7760 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral7797 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleANullLiteral7807 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_69_in_ruleANullLiteral7853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_ruleANullLiteral7853 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm7889 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm7899 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm7944 = new BitSet(new long[]{0x0000000000000002L});
@@ -11340,15 +11340,15 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString8030 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference8077 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference8088 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference8128 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_70_in_ruleAadlClassifierReference8147 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference8162 = new BitSet(new long[]{0x0000000100000002L,0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference8128 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69_in_ruleAadlClassifierReference8147 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference8162 = new BitSet(new long[]{0x0000000100000002L,0x0000000000000020L});
     public static final BitSet FOLLOW_32_in_ruleAadlClassifierReference8183 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference8198 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE8246 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE8257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE8297 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000040L});
-    public static final BitSet FOLLOW_70_in_ruleAADLPROPERTYREFERENCE8316 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE8297 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69_in_ruleAADLPROPERTYREFERENCE8316 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE8331 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleURIID_in_entryRuleURIID8379 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleURIID8390 = new BitSet(new long[]{0x0000000000000002L});
@@ -11358,12 +11358,12 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName8525 = new BitSet(new long[]{0x0000000100000002L});
     public static final BitSet FOLLOW_32_in_ruleQualifiedName8544 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName8559 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_71_in_ruleResultIssueType8620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleResultIssueType8637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_73_in_ruleResultIssueType8654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_74_in_ruleResultIssueType8671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_ruleResultIssueType8688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_76_in_ruleResultIssueType8705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_ruleResultIssueType8620 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_71_in_ruleResultIssueType8637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_ruleResultIssueType8654 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_73_in_ruleResultIssueType8671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_74_in_ruleResultIssueType8688 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_75_in_ruleResultIssueType8705 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_38_in_synpred1_InternalAlisa2419 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_synpred2_InternalAlisa3561 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpAnd_in_synpred3_InternalAlisa3816 = new BitSet(new long[]{0x0000000000000002L});

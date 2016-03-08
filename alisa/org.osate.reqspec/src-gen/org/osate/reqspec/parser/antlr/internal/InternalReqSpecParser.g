@@ -6693,7 +6693,7 @@ ruleAModelOrPropertyReference returns [EObject current=null]
     }
 (((((
 )
-CommercialAt
+NumberSign
 ))=>((
     {
         $current = forceCreateModelElementAndSet(
@@ -6701,9 +6701,9 @@ CommercialAt
             $current);
     }
 )
-	otherlv_2=CommercialAt
+	otherlv_2=NumberSign
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getCommercialAtKeyword_0_1_0_0_1());
+    	newLeafNode(otherlv_2, grammarAccess.getAModelOrPropertyReferenceAccess().getNumberSignKeyword_0_1_0_0_1());
     }
 ))(
 (
@@ -6870,9 +6870,9 @@ ruleAPropertyReference returns [EObject current=null]
             $current);
     }
 )
-	otherlv_1=CommercialAt
+	otherlv_1=NumberSign
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getNumberSignKeyword_1());
     }
 (
 (
@@ -8625,9 +8625,9 @@ ruleASetTerm returns [EObject current=null]
             $current);
     }
 )
-	otherlv_1=NumberSignLeftCurlyBracket
+	otherlv_1=LeftCurlyBracket
     {
-    	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getNumberSignLeftCurlyBracketKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
     }
 ((
 (
@@ -8703,9 +8703,9 @@ ruleAListTerm returns [EObject current=null]
             $current);
     }
 )
-	otherlv_1=NumberSignLeftSquareBracket
+	otherlv_1=LeftSquareBracket
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignLeftSquareBracketKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_1());
     }
 ((
 (

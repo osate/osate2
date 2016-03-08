@@ -1,7 +1,6 @@
 '!'=36
 '!='=20
-'#['=99
-'#{'=97
+'#'=94
 '%'=35
 '&&'=18
 '('=70
@@ -17,7 +16,7 @@
 '..<'=25
 '/'=34
 ':'=59
-'::'=103
+'::'=102
 '<'=23
 '<>'=28
 '='=72
@@ -26,7 +25,6 @@
 '>'=22
 '>='=21
 '?:'=29
-'@'=94
 '['=57
 ']'=58
 'abstract'=38
@@ -34,7 +32,7 @@
 'agree'=86
 'all'=68
 'assert'=63
-'boolean'=104
+'boolean'=103
 'bus'=39
 'category'=75
 'claim'=61
@@ -48,7 +46,7 @@
 'fail'=53
 'false'=37
 'for'=56
-'group'=101
+'group'=100
 'img'=96
 'info'=51
 'issues'=60
@@ -58,7 +56,7 @@
 'memory'=42
 'method'=79
 'methods'=78
-'null'=100
+'null'=99
 'plan'=55
 'plugin'=85
 'precondition'=77
@@ -67,10 +65,10 @@
 'properties'=80
 'property'=73
 'rationale'=90
-'report'=105
+'report'=104
 'resolute'=82
 'returns'=81
-'single'=106
+'single'=105
 'subprogram'=45
 'success'=52
 'system'=46
@@ -80,13 +78,14 @@
 'this'=95
 'thread'=47
 'timeout'=67
-'true'=107
+'true'=106
 'validation'=76
 'values'=74
 'verification'=54
-'virtual'=102
+'virtual'=101
 'warning'=50
 'weight'=64
+'{'=97
 '||'=17
 '}'=98
 RULE_ANY_OTHER=16
@@ -109,7 +108,6 @@ T__103=103
 T__104=104
 T__105=105
 T__106=106
-T__107=107
 T__17=17
 T__18=18
 T__19=19
