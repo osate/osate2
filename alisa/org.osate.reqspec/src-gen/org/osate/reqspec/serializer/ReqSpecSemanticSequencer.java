@@ -376,7 +376,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
 	 *         category+=[Category|CatRef]* 
@@ -542,7 +541,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         reqKind=ReqKind? 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
 	 *         category+=[Category|CatRef]* 

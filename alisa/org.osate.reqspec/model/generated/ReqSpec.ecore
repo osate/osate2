@@ -100,15 +100,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderReference" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ReqKind">
-    <eLiterals name="ASSUMPTION" literal="assumption"/>
-    <eLiterals name="GUARANTEE" value="1" literal="guarantee"/>
-    <eLiterals name="CONSTRAINT" value="2" literal="constraint"/>
-    <eLiterals name="EXCEPTION" value="3" literal="exception"/>
-    <eLiterals name="CONSISTENCY" value="4" literal="consistency"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reqKind" eType="#//ReqKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AVariableDeclaration"
         containment="true"/>

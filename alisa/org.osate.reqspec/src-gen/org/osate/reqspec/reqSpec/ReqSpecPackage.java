@@ -17,7 +17,6 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -1080,22 +1079,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT__GOAL_REFERENCE;
 
   /**
-   * The feature id for the '<em><b>Req Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__REQ_KIND = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
+  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Predicate</b></em>' containment reference.
@@ -1104,7 +1094,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
+  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Exception</b></em>' reference.
@@ -1113,7 +1103,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Exception Text</b></em>' attribute.
@@ -1122,7 +1112,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
@@ -1131,7 +1121,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -1140,7 +1130,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Inherits Reference</b></em>' reference.
@@ -1149,7 +1139,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__INHERITS_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__INHERITS_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
@@ -1158,7 +1148,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Requirement Reference</b></em>' reference list.
@@ -1167,7 +1157,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Component Category</b></em>' attribute list.
@@ -1176,7 +1166,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
+  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Connections</b></em>' attribute.
@@ -1185,7 +1175,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
+  int REQUIREMENT__CONNECTIONS = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1194,7 +1184,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 12;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
@@ -1709,16 +1699,6 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int GLOBAL_REQUIREMENT_SET_FEATURE_COUNT = REQUIREMENT_SET_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.ReqKind <em>Req Kind</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.ReqKind
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqKind()
-   * @generated
-   */
-  int REQ_KIND = 20;
 
 
   /**
@@ -2295,17 +2275,6 @@ public interface ReqSpecPackage extends EPackage
   EClass getRequirement();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#getReqKind <em>Req Kind</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Req Kind</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getReqKind()
-   * @see #getRequirement()
-   * @generated
-   */
-  EAttribute getRequirement_ReqKind();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2701,16 +2670,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getGlobalRequirementSet();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.reqspec.reqSpec.ReqKind <em>Req Kind</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Req Kind</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqKind
-   * @generated
-   */
-  EEnum getReqKind();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -3180,14 +3139,6 @@ public interface ReqSpecPackage extends EPackage
     EClass REQUIREMENT = eINSTANCE.getRequirement();
 
     /**
-     * The meta object literal for the '<em><b>Req Kind</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQUIREMENT__REQ_KIND = eINSTANCE.getRequirement_ReqKind();
-
-    /**
      * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3502,16 +3453,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass GLOBAL_REQUIREMENT_SET = eINSTANCE.getGlobalRequirementSet();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.ReqKind <em>Req Kind</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.ReqKind
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqKind()
-     * @generated
-     */
-    EEnum REQ_KIND = eINSTANCE.getReqKind();
 
   }
 

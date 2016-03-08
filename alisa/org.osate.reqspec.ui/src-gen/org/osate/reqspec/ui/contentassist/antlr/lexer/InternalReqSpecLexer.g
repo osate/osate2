@@ -34,8 +34,6 @@ Requirements : 'requirements';
 
 Connections : 'connections';
 
-Consistency : 'consistency';
-
 Description : 'description';
 
 Development : 'development';
@@ -45,10 +43,6 @@ Requirement : 'requirement';
 Stakeholder : 'stakeholder';
 
 Uncertainty : 'uncertainty';
-
-Assumption : 'assumption';
-
-Constraint : 'constraint';
 
 Decomposes : 'decomposes';
 
@@ -61,8 +55,6 @@ Conflicts : 'conflicts';
 Constants : 'constants';
 
 Exception : 'exception';
-
-Guarantee : 'guarantee';
 
 Mitigates : 'mitigates';
 

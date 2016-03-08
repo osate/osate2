@@ -135,13 +135,9 @@ Goal returns Goal:
 	 ']';
 
 
-enum ReqKind:
-	ASSUMPTION='assumption'| GUARANTEE='guarantee'|CONSTRAINT='constraint'|EXCEPTION='exception' | CONSISTENCY='consistency'
-;
-
 
 SystemRequirement returns Requirement:
-	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
+	'requirement'  name=ID   
 	(':'  title=STRING)? 
 	( 'for'  (
 		targetElement=[aadl2::NamedElement|ID] )
@@ -170,7 +166,7 @@ SystemRequirement returns Requirement:
 	']';
 	
 GlobalRequirement returns Requirement:
-	'requirement'  name=ID   ( '(' reqKind=ReqKind')')?
+	'requirement'  name=ID   
 	(':'  title=STRING)? 
 	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
 '['	(

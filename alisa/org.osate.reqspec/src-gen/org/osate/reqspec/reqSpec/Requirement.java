@@ -34,7 +34,6 @@ import org.osate.organization.organization.Stakeholder;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getReqKind <em>Req Kind</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
@@ -54,35 +53,6 @@ import org.osate.organization.organization.Stakeholder;
  */
 public interface Requirement extends ContractualElement
 {
-  /**
-   * Returns the value of the '<em><b>Req Kind</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.reqspec.reqSpec.ReqKind}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Req Kind</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Req Kind</em>' attribute.
-   * @see org.osate.reqspec.reqSpec.ReqKind
-   * @see #setReqKind(ReqKind)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_ReqKind()
-   * @model
-   * @generated
-   */
-  ReqKind getReqKind();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getReqKind <em>Req Kind</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Req Kind</em>' attribute.
-   * @see org.osate.reqspec.reqSpec.ReqKind
-   * @see #getReqKind()
-   * @generated
-   */
-  void setReqKind(ReqKind value);
-
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.

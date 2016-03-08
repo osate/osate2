@@ -8,13 +8,6 @@
     editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.11" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec,goals,constants,reqdoc,goaldoc" ecorePackage="ReqSpec.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ReqSpec.ecore#//ReqKind">
-      <genEnumLiterals ecoreEnumLiteral="ReqSpec.ecore#//ReqKind/ASSUMPTION"/>
-      <genEnumLiterals ecoreEnumLiteral="ReqSpec.ecore#//ReqKind/GUARANTEE"/>
-      <genEnumLiterals ecoreEnumLiteral="ReqSpec.ecore#//ReqKind/CONSTRAINT"/>
-      <genEnumLiterals ecoreEnumLiteral="ReqSpec.ecore#//ReqKind/EXCEPTION"/>
-      <genEnumLiterals ecoreEnumLiteral="ReqSpec.ecore#//ReqKind/CONSISTENCY"/>
-    </genEnums>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpec/parts"/>
     </genClasses>
@@ -77,7 +70,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/stakeholderReference"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Requirement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/reqKind"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/computes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/predicate"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/exception"/>
