@@ -20,8 +20,6 @@
 <unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.12.2.v20160120-1255"/>
 <unit id="org.eclipse.help.feature.group" version="2.1.2.v20160212-1500"/>
 <unit id="org.eclipse.m2e.logback.feature.feature.group" version="1.6.2.20150902-0002"/>
-<unit id="org.eclipse.m2m.atl.feature.group" version="3.6.0.v201505180909"/>
-<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="3.6.0.v201505180909"/>
 <unit id="org.eclipse.platform.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.rcp.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.sdk.feature.group" version="4.5.2.v20160212-1500"/>
@@ -31,7 +29,6 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.xtext.redist.feature.group" version="2.8.4.v201508050135"/>
-<unit id="org.eclipse.xtext.ui.feature.group" version="2.8.4.v201508050135"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.8.4/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
