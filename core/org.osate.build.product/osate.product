@@ -66,15 +66,12 @@
       <feature id="org.eclipse.graphiti.sdk.feature"/>
       <feature id="org.eclipse.help"/>
       <feature id="org.eclipse.m2e.logback.feature"/>
-      <feature id="org.eclipse.m2m.atl"/>
-      <feature id="org.eclipse.m2m.atl.sdk"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.sdk"/>
       <feature id="org.eclipse.uml2"/>
       <feature id="org.eclipse.zest"/>
       <feature id="org.eclipse.xtext.redist"/>
-      <feature id="org.eclipse.xtext.ui"/>
    </features>
 
    <configurations>
