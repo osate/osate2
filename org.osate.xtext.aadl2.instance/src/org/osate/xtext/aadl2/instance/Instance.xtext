@@ -59,7 +59,7 @@ EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 ;
 
 ModeInstance returns instance::ModeInstance:
-	initial?='initial'? derived?='derived'? 'mode' name=ID ':' mode=[aadl2::Mode|MODEREF]
+	initial?='initial'? derived?='derived'? 'mode' name=ID ('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))? ':' mode=[aadl2::Mode|MODEREF]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:

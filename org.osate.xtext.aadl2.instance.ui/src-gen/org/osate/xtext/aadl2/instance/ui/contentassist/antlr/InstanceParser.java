@@ -44,6 +44,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureInstanceAccess().getAlternatives_7_4_1(), "rule__FeatureInstance__Alternatives_7_4_1");
 					put(grammarAccess.getComponentInstanceAccess().getAlternatives_8_1(), "rule__ComponentInstance__Alternatives_8_1");
 					put(grammarAccess.getConnectionInstanceAccess().getAlternatives_5(), "rule__ConnectionInstance__Alternatives_5");
+					put(grammarAccess.getModeInstanceAccess().getAlternatives_4_1(), "rule__ModeInstance__Alternatives_4_1");
 					put(grammarAccess.getDirectionTypeAccess().getAlternatives(), "rule__DirectionType__Alternatives");
 					put(grammarAccess.getFeatureCategoryAccess().getAlternatives(), "rule__FeatureCategory__Alternatives");
 					put(grammarAccess.getComponentCategoryAccess().getAlternatives(), "rule__ComponentCategory__Alternatives");
@@ -80,6 +81,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_6(), "rule__EndToEndFlowInstance__Group_6__0");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_6_4(), "rule__EndToEndFlowInstance__Group_6_4__0");
 					put(grammarAccess.getModeInstanceAccess().getGroup(), "rule__ModeInstance__Group__0");
+					put(grammarAccess.getModeInstanceAccess().getGroup_4(), "rule__ModeInstance__Group_4__0");
+					put(grammarAccess.getModeInstanceAccess().getGroup_4_1_1(), "rule__ModeInstance__Group_4_1_1__0");
+					put(grammarAccess.getModeInstanceAccess().getGroup_4_1_1_2(), "rule__ModeInstance__Group_4_1_1_2__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup(), "rule__SystemOperationMode__Group__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup_2(), "rule__SystemOperationMode__Group_2__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup_2_1(), "rule__SystemOperationMode__Group_2_1__0");
@@ -187,7 +191,10 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeInstanceAccess().getInitialAssignment_0(), "rule__ModeInstance__InitialAssignment_0");
 					put(grammarAccess.getModeInstanceAccess().getDerivedAssignment_1(), "rule__ModeInstance__DerivedAssignment_1");
 					put(grammarAccess.getModeInstanceAccess().getNameAssignment_3(), "rule__ModeInstance__NameAssignment_3");
-					put(grammarAccess.getModeInstanceAccess().getModeAssignment_5(), "rule__ModeInstance__ModeAssignment_5");
+					put(grammarAccess.getModeInstanceAccess().getParentAssignment_4_1_0(), "rule__ModeInstance__ParentAssignment_4_1_0");
+					put(grammarAccess.getModeInstanceAccess().getParentAssignment_4_1_1_1(), "rule__ModeInstance__ParentAssignment_4_1_1_1");
+					put(grammarAccess.getModeInstanceAccess().getParentAssignment_4_1_1_2_1(), "rule__ModeInstance__ParentAssignment_4_1_1_2_1");
+					put(grammarAccess.getModeInstanceAccess().getModeAssignment_6(), "rule__ModeInstance__ModeAssignment_6");
 					put(grammarAccess.getSystemOperationModeAccess().getNameAssignment_1(), "rule__SystemOperationMode__NameAssignment_1");
 					put(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2_0(), "rule__SystemOperationMode__CurrentModeAssignment_2_0");
 					put(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2_1_1(), "rule__SystemOperationMode__CurrentModeAssignment_2_1_1");
