@@ -38,7 +38,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
@@ -64,7 +64,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 		featureTypeToClassifierSetterMap.put(p.getDataAccess(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getSubprogramAccess(), new FeatureClassifierSetterInfo(p.getSubprogramSubcomponentType(), SubprogramSubcomponentType.class, "setSubprogramFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getSubprogramGroupAccess(), new FeatureClassifierSetterInfo(p.getSubprogramGroupSubcomponentType(), SubprogramGroupSubcomponentType.class, "setSubprogramGroupFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getAbstractFeature(), new FeatureClassifierSetterInfo(p.getFeaturePrototype(), FeaturePrototype.class, "setFeaturePrototype"));
+		featureTypeToClassifierSetterMap.put(p.getAbstractFeature(), new FeatureClassifierSetterInfo(p.getFeatureClassifier(), FeatureClassifier.class, "setAbstractFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getFeatureGroup(), new FeatureClassifierSetterInfo(p.getFeatureType(), FeatureType.class, "setFeatureType"));
 		featureTypeToClassifierSetterMap.put(p.getParameter(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
 		featureTypeToClassifierSetterMap.put(p.getDataPort(), new FeatureClassifierSetterInfo(p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
