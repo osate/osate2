@@ -14,6 +14,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
@@ -337,19 +338,27 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		// now find it in use behavior clause
 		EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(subclause);
 		ErrorBehaviorStateMachine foundEBMS = null;
-		ComponentClassifier cl = null;
+		ComponentClassifier foundcl = null;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
 			if (ebsm != null) {
 				if (foundEBMS != null && foundEBMS != ebsm) {
-					error(cl,
-							"use behavior '" + foundEBMS.getName() + "' of '" + cl.getQualifiedName()
-									+ "' is not the same as use behavior '" + ebsm.getName() + "' of '"
-									+ EMV2Util.getAssociatedClassifier(errorModelSubclause).getQualifiedName() + "'");
-					return;
+					ComponentClassifier cl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
+					if (cl instanceof ComponentImplementation && foundcl instanceof ComponentType) {
+						error(foundcl,
+								"use behavior '" + foundEBMS.getName() + "' of '" + foundcl.getQualifiedName()
+										+ "' is not the same as use behavior '" + ebsm.getName() + "' of '"
+										+ cl.getQualifiedName() + "'");
+						return;
+					} else {
+						warning(foundcl,
+								"use behavior '" + foundEBMS.getName() + "' of '" + foundcl.getQualifiedName()
+										+ "' is not the same as use behavior '" + ebsm.getName() + "' of '"
+										+ cl.getQualifiedName() + "'");
+					}
 				}
 				foundEBMS = ebsm;
-				cl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
+				foundcl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
 			}
 		}
 	}
