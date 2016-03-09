@@ -299,4 +299,33 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	def IScope scope_FlowSpecificationInstance_inMode(ComponentInstance context, EReference reference) {
 		context.modeInstances.scopeFor
 	}
+	
+	def IScope scope_ModeTransitionInstance_modeTransition(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentClassifier)
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as ComponentClassifier]
+		new SimpleScope(classifiers.map[classifier |
+			val pkgName = classifier.getContainerOfType(AadlPackage).name
+			classifier.ownedModeTransitions.map[modeTransition |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, modeTransition.name])
+				EObjectDescription.create(qualifiedName, modeTransition)
+			]
+		].flatten)
+	}
+	
+	def IScope scope_ModeInstance_srcModeTransition(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_ModeInstance_dstModeTransition(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_ModeTransitionInstance_source(ComponentInstance context, EReference reference) {
+		context.modeInstances.scopeFor
+	}
+	
+	def IScope scope_ModeTransitionInstance_destination(ComponentInstance context, EReference reference) {
+		context.modeInstances.scopeFor
+	}
 }

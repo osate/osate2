@@ -13,6 +13,7 @@ SystemInstance returns instance::SystemInstance:
 			flowSpecification+=FlowSpecificationInstance |
 			endToEndFlow+=EndToEndFlowInstance |
 			modeInstance+=ModeInstance |
+			modeTransitionInstance+=ModeTransitionInstance |
 			systemOperationMode+=SystemOperationMode
 		)*
 	'}'
@@ -35,7 +36,8 @@ ComponentInstance returns instance::ComponentInstance:
 			connectionInstance+=ConnectionInstance |
 			flowSpecification+=FlowSpecificationInstance |
 			endToEndFlow+=EndToEndFlowInstance |
-			modeInstance+=ModeInstance
+			modeInstance+=ModeInstance |
+			modeTransitionInstance+=ModeTransitionInstance
 		)*
 	'}')?
 ;
@@ -59,7 +61,14 @@ EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 ;
 
 ModeInstance returns instance::ModeInstance:
-	initial?='initial'? derived?='derived'? 'mode' name=ID ('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))? ':' mode=[aadl2::Mode|MODEREF]
+	initial?='initial'? derived?='derived'? 'mode' name=ID ('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))?
+	('source' 'of' '(' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
+	('destination' 'of' '(' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
+	':' mode=[aadl2::Mode|MODEREF]
+;
+
+ModeTransitionInstance returns instance::ModeTransitionInstance:
+	'mode' 'transition' name=MTNAME source=[instance::ModeInstance] '->' destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|MODEREF]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
@@ -128,6 +137,10 @@ MODEINSTREF:
 
 SOMREF:
 	LONG
+;
+
+MTNAME:
+	ID '.' ID '.' ID
 ;
 	
 terminal ID:	('a'..'z'

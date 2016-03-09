@@ -42,21 +42,23 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEndToEndFlowEndToEndFlowInstanceParserRuleCall_5_4_0 = (RuleCall)cEndToEndFlowAssignment_5_4.eContents().get(0);
 		private final Assignment cModeInstanceAssignment_5_5 = (Assignment)cAlternatives_5.eContents().get(5);
 		private final RuleCall cModeInstanceModeInstanceParserRuleCall_5_5_0 = (RuleCall)cModeInstanceAssignment_5_5.eContents().get(0);
-		private final Assignment cSystemOperationModeAssignment_5_6 = (Assignment)cAlternatives_5.eContents().get(6);
-		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_6_0 = (RuleCall)cSystemOperationModeAssignment_5_6.eContents().get(0);
+		private final Assignment cModeTransitionInstanceAssignment_5_6 = (Assignment)cAlternatives_5.eContents().get(6);
+		private final RuleCall cModeTransitionInstanceModeTransitionInstanceParserRuleCall_5_6_0 = (RuleCall)cModeTransitionInstanceAssignment_5_6.eContents().get(0);
+		private final Assignment cSystemOperationModeAssignment_5_7 = (Assignment)cAlternatives_5.eContents().get(7);
+		private final RuleCall cSystemOperationModeSystemOperationModeParserRuleCall_5_7_0 = (RuleCall)cSystemOperationModeAssignment_5_7.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SystemInstance returns instance::SystemInstance:
 		//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
-		//	systemOperationMode+=SystemOperationMode)* "}";
+		//	modeTransitionInstance+=ModeTransitionInstance | systemOperationMode+=SystemOperationMode)* "}";
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
-		//systemOperationMode+=SystemOperationMode)* "}"
+		//modeTransitionInstance+=ModeTransitionInstance | systemOperationMode+=SystemOperationMode)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -88,7 +90,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
-		//systemOperationMode+=SystemOperationMode)*
+		//modeTransitionInstance+=ModeTransitionInstance | systemOperationMode+=SystemOperationMode)*
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//featureInstance+=FeatureInstance
@@ -127,11 +129,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//ModeInstance
 		public RuleCall getModeInstanceModeInstanceParserRuleCall_5_5_0() { return cModeInstanceModeInstanceParserRuleCall_5_5_0; }
 
+		//modeTransitionInstance+=ModeTransitionInstance
+		public Assignment getModeTransitionInstanceAssignment_5_6() { return cModeTransitionInstanceAssignment_5_6; }
+
+		//ModeTransitionInstance
+		public RuleCall getModeTransitionInstanceModeTransitionInstanceParserRuleCall_5_6_0() { return cModeTransitionInstanceModeTransitionInstanceParserRuleCall_5_6_0; }
+
 		//systemOperationMode+=SystemOperationMode
-		public Assignment getSystemOperationModeAssignment_5_6() { return cSystemOperationModeAssignment_5_6; }
+		public Assignment getSystemOperationModeAssignment_5_7() { return cSystemOperationModeAssignment_5_7; }
 
 		//SystemOperationMode
-		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_6_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_6_0; }
+		public RuleCall getSystemOperationModeSystemOperationModeParserRuleCall_5_7_0() { return cSystemOperationModeSystemOperationModeParserRuleCall_5_7_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
@@ -491,6 +499,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEndToEndFlowEndToEndFlowInstanceParserRuleCall_8_1_4_0 = (RuleCall)cEndToEndFlowAssignment_8_1_4.eContents().get(0);
 		private final Assignment cModeInstanceAssignment_8_1_5 = (Assignment)cAlternatives_8_1.eContents().get(5);
 		private final RuleCall cModeInstanceModeInstanceParserRuleCall_8_1_5_0 = (RuleCall)cModeInstanceAssignment_8_1_5.eContents().get(0);
+		private final Assignment cModeTransitionInstanceAssignment_8_1_6 = (Assignment)cAlternatives_8_1.eContents().get(6);
+		private final RuleCall cModeTransitionInstanceModeTransitionInstanceParserRuleCall_8_1_6_0 = (RuleCall)cModeTransitionInstanceAssignment_8_1_6.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
 		
 		//ComponentInstance returns instance::ComponentInstance:
@@ -501,8 +511,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 		//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance)*
-		//	"}")?;
+		//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
+		//	modeTransitionInstance+=ModeTransitionInstance)* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//category=ComponentCategory name=ID ("[" index+=LONG "]")* ("in" "modes" "(" inMode+=[instance::ModeInstance] (","
@@ -512,7 +522,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 		//dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 		//componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance)* "}")?
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
+		//modeTransitionInstance+=ModeTransitionInstance)* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//category=ComponentCategory
@@ -674,14 +685,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_7_5() { return cRightParenthesisKeyword_7_5; }
 
 		//("{" (featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance)* "}")?
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
+		//modeTransitionInstance+=ModeTransitionInstance)* "}")?
 		public Group getGroup_8() { return cGroup_8; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
 
 		//(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance)*
+		//flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
+		//modeTransitionInstance+=ModeTransitionInstance)*
 		public Alternatives getAlternatives_8_1() { return cAlternatives_8_1; }
 
 		//featureInstance+=FeatureInstance
@@ -719,6 +732,12 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ModeInstance
 		public RuleCall getModeInstanceModeInstanceParserRuleCall_8_1_5_0() { return cModeInstanceModeInstanceParserRuleCall_8_1_5_0; }
+
+		//modeTransitionInstance+=ModeTransitionInstance
+		public Assignment getModeTransitionInstanceAssignment_8_1_6() { return cModeTransitionInstanceAssignment_8_1_6; }
+
+		//ModeTransitionInstance
+		public RuleCall getModeTransitionInstanceModeTransitionInstanceParserRuleCall_8_1_6_0() { return cModeTransitionInstanceModeTransitionInstanceParserRuleCall_8_1_6_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_8_2() { return cRightCurlyBracketKeyword_8_2; }
@@ -1261,18 +1280,52 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cParentModeInstanceCrossReference_4_1_1_2_1_0 = (CrossReference)cParentAssignment_4_1_1_2_1.eContents().get(0);
 		private final RuleCall cParentModeInstanceIDTerminalRuleCall_4_1_1_2_1_0_1 = (RuleCall)cParentModeInstanceCrossReference_4_1_1_2_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_4_1_1_3 = (Keyword)cGroup_4_1_1.eContents().get(3);
-		private final Keyword cColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cModeAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cModeModeCrossReference_6_0 = (CrossReference)cModeAssignment_6.eContents().get(0);
-		private final RuleCall cModeModeMODEREFParserRuleCall_6_0_1 = (RuleCall)cModeModeCrossReference_6_0.eContents().get(1);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cSourceKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cOfKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Assignment cSrcModeTransitionAssignment_5_3 = (Assignment)cGroup_5.eContents().get(3);
+		private final CrossReference cSrcModeTransitionModeTransitionInstanceCrossReference_5_3_0 = (CrossReference)cSrcModeTransitionAssignment_5_3.eContents().get(0);
+		private final RuleCall cSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_3_0_1 = (RuleCall)cSrcModeTransitionModeTransitionInstanceCrossReference_5_3_0.eContents().get(1);
+		private final Group cGroup_5_4 = (Group)cGroup_5.eContents().get(4);
+		private final Keyword cCommaKeyword_5_4_0 = (Keyword)cGroup_5_4.eContents().get(0);
+		private final Assignment cSrcModeTransitionAssignment_5_4_1 = (Assignment)cGroup_5_4.eContents().get(1);
+		private final CrossReference cSrcModeTransitionModeTransitionInstanceCrossReference_5_4_1_0 = (CrossReference)cSrcModeTransitionAssignment_5_4_1.eContents().get(0);
+		private final RuleCall cSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_4_1_0_1 = (RuleCall)cSrcModeTransitionModeTransitionInstanceCrossReference_5_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5_5 = (Keyword)cGroup_5.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cDestinationKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cOfKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Assignment cDstModeTransitionAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final CrossReference cDstModeTransitionModeTransitionInstanceCrossReference_6_3_0 = (CrossReference)cDstModeTransitionAssignment_6_3.eContents().get(0);
+		private final RuleCall cDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_3_0_1 = (RuleCall)cDstModeTransitionModeTransitionInstanceCrossReference_6_3_0.eContents().get(1);
+		private final Group cGroup_6_4 = (Group)cGroup_6.eContents().get(4);
+		private final Keyword cCommaKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Assignment cDstModeTransitionAssignment_6_4_1 = (Assignment)cGroup_6_4.eContents().get(1);
+		private final CrossReference cDstModeTransitionModeTransitionInstanceCrossReference_6_4_1_0 = (CrossReference)cDstModeTransitionAssignment_6_4_1.eContents().get(0);
+		private final RuleCall cDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_4_1_0_1 = (RuleCall)cDstModeTransitionModeTransitionInstanceCrossReference_6_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6_5 = (Keyword)cGroup_6.eContents().get(5);
+		private final Keyword cColonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cModeAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final CrossReference cModeModeCrossReference_8_0 = (CrossReference)cModeAssignment_8.eContents().get(0);
+		private final RuleCall cModeModeMODEREFParserRuleCall_8_0_1 = (RuleCall)cModeModeCrossReference_8_0.eContents().get(1);
 		
 		//ModeInstance returns instance::ModeInstance:
 		//	initial?="initial"? derived?="derived"? "mode" name=ID ("=" (parent+=[instance::ModeInstance] | "("
-		//	parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ":" mode=[aadl2::Mode|MODEREF];
+		//	parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ("source" "of" "("
+		//	srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//	srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ("destination" "of" "("
+		//	dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//	dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ":" mode=[aadl2::Mode|MODEREF];
 		@Override public ParserRule getRule() { return rule; }
 
 		//initial?="initial"? derived?="derived"? "mode" name=ID ("=" (parent+=[instance::ModeInstance] | "("
-		//parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ":" mode=[aadl2::Mode|MODEREF]
+		//parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ("source" "of" "("
+		//srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ("destination" "of" "("
+		//dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ":" mode=[aadl2::Mode|MODEREF]
 		public Group getGroup() { return cGroup; }
 
 		//initial?="initial"?
@@ -1348,17 +1401,171 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_1_1_3() { return cRightParenthesisKeyword_4_1_1_3; }
 
+		//("source" "of" "(" srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"source"
+		public Keyword getSourceKeyword_5_0() { return cSourceKeyword_5_0; }
+
+		//"of"
+		public Keyword getOfKeyword_5_1() { return cOfKeyword_5_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
+
+		//srcModeTransition+=[instance::ModeTransitionInstance|SOMREF]
+		public Assignment getSrcModeTransitionAssignment_5_3() { return cSrcModeTransitionAssignment_5_3; }
+
+		//[instance::ModeTransitionInstance|SOMREF]
+		public CrossReference getSrcModeTransitionModeTransitionInstanceCrossReference_5_3_0() { return cSrcModeTransitionModeTransitionInstanceCrossReference_5_3_0; }
+
+		//SOMREF
+		public RuleCall getSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_3_0_1() { return cSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_3_0_1; }
+
+		//("," srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])*
+		public Group getGroup_5_4() { return cGroup_5_4; }
+
+		//","
+		public Keyword getCommaKeyword_5_4_0() { return cCommaKeyword_5_4_0; }
+
+		//srcModeTransition+=[instance::ModeTransitionInstance|SOMREF]
+		public Assignment getSrcModeTransitionAssignment_5_4_1() { return cSrcModeTransitionAssignment_5_4_1; }
+
+		//[instance::ModeTransitionInstance|SOMREF]
+		public CrossReference getSrcModeTransitionModeTransitionInstanceCrossReference_5_4_1_0() { return cSrcModeTransitionModeTransitionInstanceCrossReference_5_4_1_0; }
+
+		//SOMREF
+		public RuleCall getSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_4_1_0_1() { return cSrcModeTransitionModeTransitionInstanceSOMREFParserRuleCall_5_4_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_5_5() { return cRightParenthesisKeyword_5_5; }
+
+		//("destination" "of" "(" dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+		//dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"destination"
+		public Keyword getDestinationKeyword_6_0() { return cDestinationKeyword_6_0; }
+
+		//"of"
+		public Keyword getOfKeyword_6_1() { return cOfKeyword_6_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_6_2() { return cLeftParenthesisKeyword_6_2; }
+
+		//dstModeTransition+=[instance::ModeTransitionInstance|SOMREF]
+		public Assignment getDstModeTransitionAssignment_6_3() { return cDstModeTransitionAssignment_6_3; }
+
+		//[instance::ModeTransitionInstance|SOMREF]
+		public CrossReference getDstModeTransitionModeTransitionInstanceCrossReference_6_3_0() { return cDstModeTransitionModeTransitionInstanceCrossReference_6_3_0; }
+
+		//SOMREF
+		public RuleCall getDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_3_0_1() { return cDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_3_0_1; }
+
+		//("," dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])*
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
+		//","
+		public Keyword getCommaKeyword_6_4_0() { return cCommaKeyword_6_4_0; }
+
+		//dstModeTransition+=[instance::ModeTransitionInstance|SOMREF]
+		public Assignment getDstModeTransitionAssignment_6_4_1() { return cDstModeTransitionAssignment_6_4_1; }
+
+		//[instance::ModeTransitionInstance|SOMREF]
+		public CrossReference getDstModeTransitionModeTransitionInstanceCrossReference_6_4_1_0() { return cDstModeTransitionModeTransitionInstanceCrossReference_6_4_1_0; }
+
+		//SOMREF
+		public RuleCall getDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_4_1_0_1() { return cDstModeTransitionModeTransitionInstanceSOMREFParserRuleCall_6_4_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_6_5() { return cRightParenthesisKeyword_6_5; }
+
 		//":"
-		public Keyword getColonKeyword_5() { return cColonKeyword_5; }
+		public Keyword getColonKeyword_7() { return cColonKeyword_7; }
 
 		//mode=[aadl2::Mode|MODEREF]
-		public Assignment getModeAssignment_6() { return cModeAssignment_6; }
+		public Assignment getModeAssignment_8() { return cModeAssignment_8; }
 
 		//[aadl2::Mode|MODEREF]
-		public CrossReference getModeModeCrossReference_6_0() { return cModeModeCrossReference_6_0; }
+		public CrossReference getModeModeCrossReference_8_0() { return cModeModeCrossReference_8_0; }
 
 		//MODEREF
-		public RuleCall getModeModeMODEREFParserRuleCall_6_0_1() { return cModeModeMODEREFParserRuleCall_6_0_1; }
+		public RuleCall getModeModeMODEREFParserRuleCall_8_0_1() { return cModeModeMODEREFParserRuleCall_8_0_1; }
+	}
+
+	public class ModeTransitionInstanceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ModeTransitionInstance");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cModeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cTransitionKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameMTNAMEParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cSourceAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cSourceModeInstanceCrossReference_3_0 = (CrossReference)cSourceAssignment_3.eContents().get(0);
+		private final RuleCall cSourceModeInstanceIDTerminalRuleCall_3_0_1 = (RuleCall)cSourceModeInstanceCrossReference_3_0.eContents().get(1);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cDestinationAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cDestinationModeInstanceCrossReference_5_0 = (CrossReference)cDestinationAssignment_5.eContents().get(0);
+		private final RuleCall cDestinationModeInstanceIDTerminalRuleCall_5_0_1 = (RuleCall)cDestinationModeInstanceCrossReference_5_0.eContents().get(1);
+		private final Keyword cColonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cModeTransitionAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cModeTransitionModeTransitionCrossReference_7_0 = (CrossReference)cModeTransitionAssignment_7.eContents().get(0);
+		private final RuleCall cModeTransitionModeTransitionMODEREFParserRuleCall_7_0_1 = (RuleCall)cModeTransitionModeTransitionCrossReference_7_0.eContents().get(1);
+		
+		//ModeTransitionInstance returns instance::ModeTransitionInstance:
+		//	"mode" "transition" name=MTNAME source=[instance::ModeInstance] "->" destination=[instance::ModeInstance] ":"
+		//	modeTransition=[aadl2::ModeTransition|MODEREF];
+		@Override public ParserRule getRule() { return rule; }
+
+		//"mode" "transition" name=MTNAME source=[instance::ModeInstance] "->" destination=[instance::ModeInstance] ":"
+		//modeTransition=[aadl2::ModeTransition|MODEREF]
+		public Group getGroup() { return cGroup; }
+
+		//"mode"
+		public Keyword getModeKeyword_0() { return cModeKeyword_0; }
+
+		//"transition"
+		public Keyword getTransitionKeyword_1() { return cTransitionKeyword_1; }
+
+		//name=MTNAME
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+
+		//MTNAME
+		public RuleCall getNameMTNAMEParserRuleCall_2_0() { return cNameMTNAMEParserRuleCall_2_0; }
+
+		//source=[instance::ModeInstance]
+		public Assignment getSourceAssignment_3() { return cSourceAssignment_3; }
+
+		//[instance::ModeInstance]
+		public CrossReference getSourceModeInstanceCrossReference_3_0() { return cSourceModeInstanceCrossReference_3_0; }
+
+		//ID
+		public RuleCall getSourceModeInstanceIDTerminalRuleCall_3_0_1() { return cSourceModeInstanceIDTerminalRuleCall_3_0_1; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
+
+		//destination=[instance::ModeInstance]
+		public Assignment getDestinationAssignment_5() { return cDestinationAssignment_5; }
+
+		//[instance::ModeInstance]
+		public CrossReference getDestinationModeInstanceCrossReference_5_0() { return cDestinationModeInstanceCrossReference_5_0; }
+
+		//ID
+		public RuleCall getDestinationModeInstanceIDTerminalRuleCall_5_0_1() { return cDestinationModeInstanceIDTerminalRuleCall_5_0_1; }
+
+		//":"
+		public Keyword getColonKeyword_6() { return cColonKeyword_6; }
+
+		//modeTransition=[aadl2::ModeTransition|MODEREF]
+		public Assignment getModeTransitionAssignment_7() { return cModeTransitionAssignment_7; }
+
+		//[aadl2::ModeTransition|MODEREF]
+		public CrossReference getModeTransitionModeTransitionCrossReference_7_0() { return cModeTransitionModeTransitionCrossReference_7_0; }
+
+		//MODEREF
+		public RuleCall getModeTransitionModeTransitionMODEREFParserRuleCall_7_0_1() { return cModeTransitionModeTransitionMODEREFParserRuleCall_7_0_1; }
 	}
 
 	public class SystemOperationModeElements extends AbstractParserRuleElementFinder {
@@ -2152,6 +2359,38 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//LONG
 		public RuleCall getLONGTerminalRuleCall() { return cLONGTerminalRuleCall; }
 	}
+
+	public class MTNAMEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MTNAME");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cIDTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		
+		//MTNAME:
+		//	ID "." ID "." ID;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ID "." ID "." ID
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_4() { return cIDTerminalRuleCall_4; }
+	}
 	
 	
 	private final SystemInstanceElements pSystemInstance;
@@ -2162,6 +2401,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final FlowSpecificationInstanceElements pFlowSpecificationInstance;
 	private final EndToEndFlowInstanceElements pEndToEndFlowInstance;
 	private final ModeInstanceElements pModeInstance;
+	private final ModeTransitionInstanceElements pModeTransitionInstance;
 	private final SystemOperationModeElements pSystemOperationMode;
 	private final DirectionTypeElements pDirectionType;
 	private final FeatureCategoryElements pFeatureCategory;
@@ -2178,6 +2418,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final FLOWELEMENTREFElements pFLOWELEMENTREF;
 	private final MODEINSTREFElements pMODEINSTREF;
 	private final SOMREFElements pSOMREF;
+	private final MTNAMEElements pMTNAME;
 	private final TerminalRule tID;
 	private final TerminalRule tLONG;
 	private final TerminalRule tSTRING;
@@ -2197,6 +2438,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFlowSpecificationInstance = new FlowSpecificationInstanceElements();
 		this.pEndToEndFlowInstance = new EndToEndFlowInstanceElements();
 		this.pModeInstance = new ModeInstanceElements();
+		this.pModeTransitionInstance = new ModeTransitionInstanceElements();
 		this.pSystemOperationMode = new SystemOperationModeElements();
 		this.pDirectionType = new DirectionTypeElements();
 		this.pFeatureCategory = new FeatureCategoryElements();
@@ -2213,6 +2455,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFLOWELEMENTREF = new FLOWELEMENTREFElements();
 		this.pMODEINSTREF = new MODEINSTREFElements();
 		this.pSOMREF = new SOMREFElements();
+		this.pMTNAME = new MTNAMEElements();
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID");
 		this.tLONG = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "LONG");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "STRING");
@@ -2247,7 +2490,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//	category=ComponentCategory name=ID ":" componentImplementation=[aadl2::ComponentImplementation|IMPLREF] "{"
 	//	(featureInstance+=FeatureInstance | componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
 	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
-	//	systemOperationMode+=SystemOperationMode)* "}";
+	//	modeTransitionInstance+=ModeTransitionInstance | systemOperationMode+=SystemOperationMode)* "}";
 	public SystemInstanceElements getSystemInstanceAccess() {
 		return pSystemInstance;
 	}
@@ -2282,8 +2525,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (","
 	//	dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ")")? ("{" (featureInstance+=FeatureInstance |
 	//	componentInstance+=ComponentInstance | connectionInstance+=ConnectionInstance |
-	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance)*
-	//	"}")?;
+	//	flowSpecification+=FlowSpecificationInstance | endToEndFlow+=EndToEndFlowInstance | modeInstance+=ModeInstance |
+	//	modeTransitionInstance+=ModeTransitionInstance)* "}")?;
 	public ComponentInstanceElements getComponentInstanceAccess() {
 		return pComponentInstance;
 	}
@@ -2344,13 +2587,28 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ModeInstance returns instance::ModeInstance:
 	//	initial?="initial"? derived?="derived"? "mode" name=ID ("=" (parent+=[instance::ModeInstance] | "("
-	//	parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ":" mode=[aadl2::Mode|MODEREF];
+	//	parent+=[instance::ModeInstance] ("," parent+=[instance::ModeInstance])+ ")"))? ("source" "of" "("
+	//	srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+	//	srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ("destination" "of" "("
+	//	dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (","
+	//	dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ")")? ":" mode=[aadl2::Mode|MODEREF];
 	public ModeInstanceElements getModeInstanceAccess() {
 		return pModeInstance;
 	}
 	
 	public ParserRule getModeInstanceRule() {
 		return getModeInstanceAccess().getRule();
+	}
+
+	//ModeTransitionInstance returns instance::ModeTransitionInstance:
+	//	"mode" "transition" name=MTNAME source=[instance::ModeInstance] "->" destination=[instance::ModeInstance] ":"
+	//	modeTransition=[aadl2::ModeTransition|MODEREF];
+	public ModeTransitionInstanceElements getModeTransitionInstanceAccess() {
+		return pModeTransitionInstance;
+	}
+	
+	public ParserRule getModeTransitionInstanceRule() {
+		return getModeTransitionInstanceAccess().getRule();
 	}
 
 	//SystemOperationMode returns instance::SystemOperationMode:
@@ -2515,6 +2773,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSOMREFRule() {
 		return getSOMREFAccess().getRule();
+	}
+
+	//MTNAME:
+	//	ID "." ID "." ID;
+	public MTNAMEElements getMTNAMEAccess() {
+		return pMTNAME;
+	}
+	
+	public ParserRule getMTNAMERule() {
+		return getMTNAMEAccess().getRule();
 	}
 
 	//terminal ID:
