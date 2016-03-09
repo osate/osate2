@@ -3,3 +3,4 @@
 * Syntax coloring
 	* References to the declarative model
 	* Names in bold so that it is easy to see the structure
+* Fix ModeTransitionInstance names, then refer to them by name instead of index

@@ -316,4 +316,45 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m5#sub2.m5" m5 , sub2[0].m5
 			}''')
 	}
+	
+	@Test
+	def void testModeTransitionInstances() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s
+					features
+						p1: in event port;
+					modes
+						m1: initial mode;
+						m2: mode;
+						mt1: m1 -[p1]-> m2;
+				end s;
+				
+				system implementation s.i
+					subcomponents
+						sub1: system s;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				in eventPort p1 : pkg1::s::p1
+				system sub1 [ 0 ] : pkg1::s.i::sub1 {
+					in eventPort p1 : pkg1::s::p1
+					initial mode m1 source of ( 0 ) : pkg1::s::m1
+					mode m2 destination of ( 0 ) : pkg1::s::m2
+					mode transition m1.p1.m2 m1 -> m2 : pkg1::s::mt1
+				}
+				initial mode m1 source of ( 0 ) : pkg1::s::m1
+				mode m2 destination of ( 0 ) : pkg1::s::m2
+				mode transition m1.p1.m2 m1 -> m2 : pkg1::s::mt1
+				som "m1#sub1.m1" m1 , sub1[0].m1
+				som "m1#sub1.m2" m1 , sub1[0].m2
+				som "m2#sub1.m1" m2 , sub1[0].m1
+				som "m2#sub1.m2" m2 , sub1[0].m2
+			}''')
+	}
 }

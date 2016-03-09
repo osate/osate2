@@ -21,6 +21,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
@@ -55,6 +56,9 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case InstancePackage.MODE_INSTANCE:
 				sequence_ModeInstance(context, (ModeInstance) semanticObject); 
 				return; 
+			case InstancePackage.MODE_TRANSITION_INSTANCE:
+				sequence_ModeTransitionInstance(context, (ModeTransitionInstance) semanticObject); 
+				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
 				return; 
@@ -81,7 +85,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             connectionInstance+=ConnectionInstance | 
 	 *             flowSpecification+=FlowSpecificationInstance | 
 	 *             endToEndFlow+=EndToEndFlowInstance | 
-	 *             modeInstance+=ModeInstance
+	 *             modeInstance+=ModeInstance | 
+	 *             modeTransitionInstance+=ModeTransitionInstance
 	 *         )*
 	 *     )
 	 */
@@ -182,10 +187,21 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         derived?='derived'? 
 	 *         name=ID 
 	 *         (parent+=[ModeInstance|ID] | (parent+=[ModeInstance|ID] parent+=[ModeInstance|ID]+))? 
+	 *         (srcModeTransition+=[ModeTransitionInstance|SOMREF] srcModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
+	 *         (dstModeTransition+=[ModeTransitionInstance|SOMREF] dstModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
 	 *         mode=[Mode|MODEREF]
 	 *     )
 	 */
 	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=MTNAME source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|MODEREF])
+	 */
+	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -203,6 +219,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             flowSpecification+=FlowSpecificationInstance | 
 	 *             endToEndFlow+=EndToEndFlowInstance | 
 	 *             modeInstance+=ModeInstance | 
+	 *             modeTransitionInstance+=ModeTransitionInstance | 
 	 *             systemOperationMode+=SystemOperationMode
 	 *         )*
 	 *     )
