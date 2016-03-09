@@ -18,6 +18,7 @@ import org.osate.ge.ext.ExtensionPaletteEntry.Type;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.SimplePaletteEntry;
 import org.osate.ge.ext.annotations.CanCreate;
+import org.osate.ge.ext.annotations.CanDelete;
 import org.osate.ge.ext.annotations.CanRefresh;
 import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetCreateOwningBusinessObject;
@@ -64,7 +65,8 @@ public class ErrorTypePictogramHandler {
 	}
 	
 	@CanRefresh
-	public boolean canRefresh(final @Named(Names.BUSINESS_OBJECT) ErrorType errorType) {
+	@CanDelete
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorType errorType) {
 		return true;
 	}
 

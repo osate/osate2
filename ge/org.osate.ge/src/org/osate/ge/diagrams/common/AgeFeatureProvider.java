@@ -72,7 +72,7 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
-import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
+import org.osate.ge.diagrams.common.features.GoToPackageDiagramFeature;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
@@ -81,6 +81,7 @@ import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerAddFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerCreateConnectionFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerCreateFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerDeleteFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.diagrams.common.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.diagrams.common.features.UpdateLayoutFromClassifierDiagramFeature;
@@ -139,6 +140,7 @@ import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UserInputService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
@@ -148,7 +150,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private ReferenceBuilderService refBuilder;
 	private GhostingService ghostingService;
 	private PictogramElementService peService;
+	private AadlModificationService aadlModService;
+	private UserInputService userInputService;
+	private ShapeService shapeService;
+	private DiagramModificationService diagramModService;
 	private BusinessObjectResolutionService bor;
+	private PictogramHandlerDeleteFeature defaultDeleteFeature;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -161,6 +168,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.refBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
 		this.peService = Objects.requireNonNull(context.get(PictogramElementService.class), "unable to retrieve pictogram element service");
+		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
+		this.userInputService = Objects.requireNonNull(eclipseContext.get(UserInputService.class), "unable to retrieve user input service service");
+		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
+		this.diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
@@ -193,6 +204,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
+		
+		// Create the delete feature to use for pictograms which do not have a specialized feature. Delegates to pictogram handlers.
+		defaultDeleteFeature = new PictogramHandlerDeleteFeature(bor, extService, aadlModService, userInputService, this);
 	}
 
 	private IEclipseContext getContext() {
@@ -259,6 +273,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	@Override
+	protected IDeleteFeature getDeleteFeatureAdditional(final IDeleteContext context) {
+		return defaultDeleteFeature;
+	}
+	
+	@Override
 	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
 		final ArrayList<ICustomFeature> features = new ArrayList<ICustomFeature>();
 		addCustomFeatures(features);
@@ -272,7 +291,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(DrillDownFeature.class));
 		features.add(make(ComponentImplementationToTypeFeature.class));
-		features.add(make(ComponentToPackageFeature.class));
+		features.add(make(GoToPackageDiagramFeature.class));
 		features.add(make(GraphicalToTextualFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(InstantiateComponentImplementationFeature.class));
@@ -449,10 +468,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
 		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
 		
-		// Add extension create features
-		final AadlModificationService aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		final ShapeService shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
-
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
@@ -557,10 +572,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			retList.add(element);
 		}
 		
-		// Add extension create connection features
-		final AadlModificationService aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		final DiagramModificationService diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");	
-		
+		// Add extension create connection features		
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {

@@ -59,6 +59,8 @@ import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
+	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
+	
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
@@ -175,11 +177,11 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
 		//Use hint to verify command should be executed
-		if(GraphicalToTextualFeature.HINT.equals(hint)){
+		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
 			final ICustomFeature customFeature = ContextInjectionFactory.make(GraphicalToTextualFeature.class, getContext());
-				if(customFeature.canExecute(context)){	
-					return customFeature;
-				}
+			if(customFeature.canExecute(context)){	
+				return customFeature;
+			}
 		}
 		return super.getCommandFeature(context, hint);
 	}

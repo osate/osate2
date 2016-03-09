@@ -14,18 +14,19 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Element;
+import org.osate.ge.ext.ReferenceEObjectProvider;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.InternalDiagramService;
 
 import javax.inject.Inject;
 
-public class ComponentToPackageFeature extends AbstractCustomFeature {
+public class GoToPackageDiagramFeature extends AbstractCustomFeature {
 	private final InternalDiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentToPackageFeature(final IFeatureProvider fp, final InternalDiagramService diagramService,final BusinessObjectResolutionService bor)  {
+	public GoToPackageDiagramFeature(final IFeatureProvider fp, final InternalDiagramService diagramService,final BusinessObjectResolutionService bor)  {
 		super(fp);
 		this.diagramService = diagramService;
 		this.bor = bor;
@@ -50,10 +51,22 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 		}
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return (!(bo instanceof AadlPackage)) && bo instanceof NamedElement && ((NamedElement)bo).getElementRoot() instanceof AadlPackage;
+		if(bo instanceof AadlPackage) {
+			return false;
+		}
+		
+		final Element element = getElement(bo);		
+		return element != null && element.getElementRoot() instanceof AadlPackage;
 	}
     
-
+    private Element getElement(Object bo) {
+    	if(bo instanceof ReferenceEObjectProvider) {
+    		bo = ((ReferenceEObjectProvider) bo).getRefereneEObject();
+    	}
+    	
+    	return bo instanceof Element ? (Element)bo : null;
+    }
+    
     @Override
     public boolean canExecute(final ICustomContext context) {   	
 		return true;
@@ -65,9 +78,9 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 		final PictogramElement[] pes = customCtx.getPictogramElements();		
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);		
-		NamedElement component = (NamedElement)bo;
+		final Element element = getElement(bo);		
 		
-		diagramService.openOrCreateDiagramBusinessObject(component.getElementRoot());
+		diagramService.openOrCreateDiagramBusinessObject(element.getElementRoot());
 	}
 
 }
