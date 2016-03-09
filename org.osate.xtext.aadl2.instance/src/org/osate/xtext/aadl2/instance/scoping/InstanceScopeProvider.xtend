@@ -287,4 +287,16 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		val parent = context.eContainer.getContainerOfType(ComponentInstance)
 		(parent?.modeInstances ?: emptyList).scopeFor
 	}
+	
+	def IScope scope_FeatureInstance_srcFlowSpec(ComponentInstance context, EReference reference) {
+		context.flowSpecifications.scopeFor
+	}
+	
+	def IScope scope_FeatureInstance_dstFlowSpec(ComponentInstance context, EReference reference) {
+		context.flowSpecifications.scopeFor
+	}
+	
+	def IScope scope_FlowSpecificationInstance_inMode(ComponentInstance context, EReference reference) {
+		context.modeInstances.scopeFor
+	}
 }
