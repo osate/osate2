@@ -199,7 +199,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
 				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			} else if (classifier instanceof FeatureGroupType) {
-				classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
+				classifier.allFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
 			} else {
 				emptySet
 			}
