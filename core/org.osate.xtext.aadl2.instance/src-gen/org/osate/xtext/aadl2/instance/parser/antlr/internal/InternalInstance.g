@@ -1619,9 +1619,65 @@ ruleModeInstance returns [EObject current=null]
 	    }
 
 )
-)	otherlv_4=':' 
+)(	otherlv_4='=' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getModeInstanceAccess().getColonKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getModeInstanceAccess().getEqualsSignKeyword_4_0());
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModeInstanceRule());
+	        }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getModeInstanceAccess().getParentModeInstanceCrossReference_4_1_0_0()); 
+	}
+
+)
+)
+    |(	otherlv_6='(' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getModeInstanceAccess().getLeftParenthesisKeyword_4_1_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModeInstanceRule());
+	        }
+        }
+	otherlv_7=RULE_ID
+	{
+		newLeafNode(otherlv_7, grammarAccess.getModeInstanceAccess().getParentModeInstanceCrossReference_4_1_1_1_0()); 
+	}
+
+)
+)(	otherlv_8=',' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getModeInstanceAccess().getCommaKeyword_4_1_1_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModeInstanceRule());
+	        }
+        }
+	otherlv_9=RULE_ID
+	{
+		newLeafNode(otherlv_9, grammarAccess.getModeInstanceAccess().getParentModeInstanceCrossReference_4_1_1_2_1_0()); 
+	}
+
+)
+))+	otherlv_10=')' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getModeInstanceAccess().getRightParenthesisKeyword_4_1_1_3());
+    }
+)))?	otherlv_11=':' 
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getModeInstanceAccess().getColonKeyword_5());
     }
 (
 (
@@ -1631,7 +1687,7 @@ ruleModeInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getModeInstanceAccess().getModeModeCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getModeInstanceAccess().getModeModeCrossReference_6_0()); 
 	    }
 		ruleMODEREF		{ 
 	        afterParserOrEnumRuleCall();

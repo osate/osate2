@@ -25,6 +25,7 @@ import org.osate.aadl2.instance.SystemInstance
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 
 /**
  * This class contains custom scoping description.
@@ -273,7 +274,17 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		components.flatten + modes
 	}
 	
+	def IScope scope_ComponentInstance_inMode(ComponentInstance context, EReference reference) {
+		val parent = context.eContainer.getContainerOfType(ComponentInstance)
+		(parent?.modeInstances ?: emptyList).scopeFor
+	}
+	
 	def IScope scope_SystemOperationMode(SystemInstance context, EReference reference) {
 		new SimpleScope(context.systemOperationModes.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_ModeInstance_parent(ComponentInstance context, EReference reference) {
+		val parent = context.eContainer.getContainerOfType(ComponentInstance)
+		(parent?.modeInstances ?: emptyList).scopeFor
 	}
 }

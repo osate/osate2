@@ -177,7 +177,13 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (initial?='initial'? derived?='derived'? name=ID mode=[Mode|MODEREF])
+	 *     (
+	 *         initial?='initial'? 
+	 *         derived?='derived'? 
+	 *         name=ID 
+	 *         (parent+=[ModeInstance|ID] | (parent+=[ModeInstance|ID] parent+=[ModeInstance|ID]+))? 
+	 *         mode=[Mode|MODEREF]
+	 *     )
 	 */
 	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

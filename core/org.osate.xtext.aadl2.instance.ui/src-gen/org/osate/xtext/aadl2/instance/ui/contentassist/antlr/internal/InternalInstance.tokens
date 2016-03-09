@@ -2,10 +2,11 @@
 ')'=46
 ','=47
 '->'=9
-'.'=57
+'.'=58
 ':'=38
-'::'=58
-'<->'=60
+'::'=59
+'<->'=61
+'='=54
 '['=41
 ']'=42
 'abstract'=21
@@ -13,10 +14,10 @@
 'accessConnection'=32
 'bus'=22
 'busAccess'=16
-'complete'=59
+'complete'=60
 'data'=23
 'dataPort'=12
-'derived'=62
+'derived'=63
 'destination'=48
 'device'=24
 'end'=51
@@ -26,9 +27,9 @@
 'featureGroup'=19
 'featureGroupConnection'=36
 'flow'=50
-'group'=55
+'group'=56
 'in'=10
-'initial'=61
+'initial'=62
 'memory'=25
 'mode'=53
 'modeTransitionConnection'=35
@@ -41,7 +42,7 @@
 'portConnection'=34
 'process'=26
 'processor'=27
-'som'=54
+'som'=55
 'source'=43
 'subprogram'=28
 'subprogramAccess'=17
@@ -49,7 +50,7 @@
 'system'=29
 'thread'=30
 'to'=52
-'virtual'=56
+'virtual'=57
 '{'=39
 '}'=40
 RULE_ID=5
@@ -110,4 +111,5 @@ T__59=59
 T__60=60
 T__61=61
 T__62=62
+T__63=63
 T__9=9
