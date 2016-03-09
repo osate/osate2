@@ -22,9 +22,6 @@
 <unit id="org.eclipse.m2e.logback.feature.feature.group" version="1.6.2.20150902-0002"/>
 <unit id="org.eclipse.m2m.atl.feature.group" version="3.6.0.v201505180909"/>
 <unit id="org.eclipse.m2m.atl.sdk.feature.group" version="3.6.0.v201505180909"/>
-<unit id="org.eclipse.ocl.all.feature.group" version="5.1.0.v20150525-1635"/>
-<unit id="org.eclipse.ocl.all.sdk.feature.group" version="5.1.0.v20160118-1848"/>
-<unit id="org.eclipse.ocl.feature.group" version="3.5.0.v20150525-1635"/>
 <unit id="org.eclipse.platform.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.rcp.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.sdk.feature.group" version="4.5.2.v20160212-1500"/>

@@ -68,9 +68,6 @@
       <feature id="org.eclipse.m2e.logback.feature"/>
       <feature id="org.eclipse.m2m.atl"/>
       <feature id="org.eclipse.m2m.atl.sdk"/>
-      <feature id="org.eclipse.ocl.all"/>
-      <feature id="org.eclipse.ocl.all.sdk"/>
-      <feature id="org.eclipse.ocl"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.sdk"/>
