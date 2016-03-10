@@ -6,7 +6,7 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 SystemInstance returns instance::SystemInstance:
-	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|IMPLREF] '{'
+	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|ImplRef] '{'
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
@@ -20,7 +20,7 @@ SystemInstance returns instance::SystemInstance:
 ;
 
 FeatureInstance returns instance::FeatureInstance:
-	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|FEATREF]
+	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|DeclarativeRef]
 	('source' 'of' '(' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]) (',' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]))* ')')?
 	('destination' 'of' '(' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]) (',' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]))* ')')? ('{'
 		featureInstance+=FeatureInstance*
@@ -28,7 +28,7 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=LONG ']')* ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' subcomponent=[aadl2::Subcomponent|SUBREF]
+	category=ComponentCategory name=ID ('[' index+=LONG ']')* ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' subcomponent=[aadl2::Subcomponent|DeclarativeRef]
 	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
 	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
@@ -49,26 +49,26 @@ ConnectionInstance returns instance::ConnectionInstance:
 ;
 
 ConnectionReference returns instance::ConnectionReference:
-	source=[instance::ConnectionInstanceEnd|INSTANCEREF] '->' destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ':' connection=[aadl2::Connection|SUBREF] 'in' context=[instance::ComponentInstance|INSTANCEREFWITHPARENT]
+	source=[instance::ConnectionInstanceEnd|INSTANCEREF] '->' destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ':' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|INSTANCEREFWITHPARENT]
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
-	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
+	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? ':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef]
 ;
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
-	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ':' endToEndFlow=[aadl2::EndToEndFlow|SUBREF]
+	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef]
 ;
 
 ModeInstance returns instance::ModeInstance:
 	initial?='initial'? derived?='derived'? 'mode' name=ID ('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))?
 	('source' 'of' '(' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
 	('destination' 'of' '(' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
-	':' mode=[aadl2::Mode|MODEREF]
+	':' mode=[aadl2::Mode|DeclarativeRef]
 ;
 
 ModeTransitionInstance returns instance::ModeTransitionInstance:
-	'mode' 'transition' name=MTNAME source=[instance::ModeInstance] '->' destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|MODEREF]
+	'mode' 'transition' name=MTNAME source=[instance::ModeInstance] '->' destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|DeclarativeRef]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
@@ -95,19 +95,11 @@ ConnectionKind returns instance::ConnectionKind:
 	'portConnection' | 'featureGroupConnection'
 ;
 
-IMPLREF:
+ImplRef:
 	(ID '::')+ ID '.' ID
 ;
 
-FEATREF:
-	(ID '::')+ ID '::' ID
-;
-	
-SUBREF:
-	(ID '::')+ ID '.' ID '::' ID
-;
-
-MODEREF:
+DeclarativeRef:
 	(ID '::')+ ID ('.' ID)? '::' ID
 ;
 
