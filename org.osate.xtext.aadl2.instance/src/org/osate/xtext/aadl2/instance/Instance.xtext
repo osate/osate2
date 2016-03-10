@@ -21,16 +21,16 @@ SystemInstance returns instance::SystemInstance:
 
 FeatureInstance returns instance::FeatureInstance:
 	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|DeclarativeRef]
-	('source' 'of' '(' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]) (',' (srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[instance::FlowSpecificationInstance]))* ')')?
-	('destination' 'of' '(' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]) (',' (dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[instance::FlowSpecificationInstance]))* ')')? ('{'
+	('source' 'of' '(' (srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] | srcFlowSpec+=[instance::FlowSpecificationInstance]) (',' (srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] | srcFlowSpec+=[instance::FlowSpecificationInstance]))* ')')?
+	('destination' 'of' '(' (dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] | dstFlowSpec+=[instance::FlowSpecificationInstance]) (',' (dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] | dstFlowSpec+=[instance::FlowSpecificationInstance]))* ')')? ('{'
 		featureInstance+=FeatureInstance*
 	'}')?
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
 	category=ComponentCategory name=ID ('[' index+=LONG ']')* ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' subcomponent=[aadl2::Subcomponent|DeclarativeRef]
-	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' srcConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')?
-	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF] (',' dstConnectionInstance+=[instance::ConnectionInstance|CONNINSTREF])* ')')? ('{'
+	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')?
+	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')? ('{'
 		(featureInstance+=FeatureInstance |
 			componentInstance+=ComponentInstance |
 			connectionInstance+=ConnectionInstance |
@@ -43,36 +43,36 @@ ComponentInstance returns instance::ComponentInstance:
 ;
 
 ConnectionInstance returns instance::ConnectionInstance:
-	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? '{'
+	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|InstanceRef] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|InstanceRef] ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef])* ')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' inModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')? '{'
 		connectionReference+=ConnectionReference+
 	'}'
 ;
 
 ConnectionReference returns instance::ConnectionReference:
-	source=[instance::ConnectionInstanceEnd|INSTANCEREF] '->' destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ':' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|INSTANCEREFWITHPARENT]
+	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
-	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? ':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef]
+	'flow' name=ID '(' source=[instance::FeatureInstance|InstanceRef]? '->' destination=[instance::FeatureInstance|InstanceRef]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' inModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')? ':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef]
 ;
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
-	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF] ('->' flowElement+=[instance::FlowElementInstance|FLOWELEMENTREF])*)? ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef]
+	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|InstanceRef] ('->' flowElement+=[instance::FlowElementInstance|InstanceRef])*)? ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef])* ')')? ':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef]
 ;
 
 ModeInstance returns instance::ModeInstance:
 	initial?='initial'? derived?='derived'? 'mode' name=ID ('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))?
-	('source' 'of' '(' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' srcModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
-	('destination' 'of' '(' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' dstModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')?
+	('source' 'of' '(' srcModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' srcModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')?
+	('destination' 'of' '(' dstModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' dstModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')?
 	':' mode=[aadl2::Mode|DeclarativeRef]
 ;
 
 ModeTransitionInstance returns instance::ModeTransitionInstance:
-	'mode' 'transition' name=MTNAME source=[instance::ModeInstance] '->' destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|DeclarativeRef]
+	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|DeclarativeRef]
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
-	'som' name=STRING (currentMode+=[instance::ModeInstance|MODEINSTREF] (',' currentMode+=[instance::ModeInstance|MODEINSTREF])*)?
+	'som' name=STRING (currentMode+=[instance::ModeInstance|InstanceRef] (',' currentMode+=[instance::ModeInstance|InstanceRef])*)?
 ;
 
 DirectionType returns aadl2::DirectionType:
@@ -103,35 +103,15 @@ DeclarativeRef:
 	(ID '::')+ ID ('.' ID)? '::' ID
 ;
 
-INSTANCEREF:
-	ID ('[' LONG ']')* ('.' ID ('[' LONG ']')*)*
+InstanceRef:
+	'parent' | (ID ('[' LONG ']')* '.')* (LONG | ID ('[' LONG ']')*)
 ;
 
-SIMPLEINSTANCEREF:
-	ID ('[' LONG ']')? ('.' ID ('[' LONG ']')?)*
-;
-
-INSTANCEREFWITHPARENT:
-	'parent' | (ID ('[' LONG ']')+ ('.' ID ('[' LONG ']')+)*)
-;
-
-CONNINSTREF:
+IndexRef:
 	(LONG '.')? LONG
 ;
 
-FLOWELEMENTREF:
-	(ID ('[' LONG ']')* '.')* (LONG | ID ('[' LONG ']')*)
-;
-
-MODEINSTREF:
-	(ID ('[' LONG ']')* '.')* ID
-;
-
-SOMREF:
-	LONG
-;
-
-MTNAME:
+ModeTransitionName:
 	ID '.' ID '.' ID
 ;
 	

@@ -77,8 +77,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         index+=LONG* 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         subcomponent=[Subcomponent|DeclarativeRef] 
-	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
-	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
+	 *         (srcConnectionInstance+=[ConnectionInstance|IndexRef] srcConnectionInstance+=[ConnectionInstance|IndexRef]*)? 
+	 *         (dstConnectionInstance+=[ConnectionInstance|IndexRef] dstConnectionInstance+=[ConnectionInstance|IndexRef]*)? 
 	 *         (
 	 *             featureInstance+=FeatureInstance | 
 	 *             componentInstance+=ComponentInstance | 
@@ -101,11 +101,11 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         complete?='complete'? 
 	 *         kind=ConnectionKind 
 	 *         name=STRING 
-	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         source=[ConnectionInstanceEnd|InstanceRef] 
 	 *         bidirectional?='<->'? 
-	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
-	 *         (inModeTransition+=[ModeTransitionInstance|SOMREF] inModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
+	 *         destination=[ConnectionInstanceEnd|InstanceRef] 
+	 *         (inSystemOperationMode+=[SystemOperationMode|IndexRef] inSystemOperationMode+=[SystemOperationMode|IndexRef]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|IndexRef] inModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
 	 *         connectionReference+=ConnectionReference+
 	 *     )
 	 */
@@ -117,10 +117,10 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (
-	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
+	 *         source=[ConnectionInstanceEnd|InstanceRef] 
+	 *         destination=[ConnectionInstanceEnd|InstanceRef] 
 	 *         connection=[Connection|DeclarativeRef] 
-	 *         context=[ComponentInstance|INSTANCEREFWITHPARENT]
+	 *         context=[ComponentInstance|InstanceRef]
 	 *     )
 	 */
 	protected void sequence_ConnectionReference(EObject context, ConnectionReference semanticObject) {
@@ -132,8 +132,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (flowElement+=[FlowElementInstance|FLOWELEMENTREF] flowElement+=[FlowElementInstance|FLOWELEMENTREF]*)? 
-	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
+	 *         (flowElement+=[FlowElementInstance|InstanceRef] flowElement+=[FlowElementInstance|InstanceRef]*)? 
+	 *         (inSystemOperationMode+=[SystemOperationMode|IndexRef] inSystemOperationMode+=[SystemOperationMode|IndexRef]*)? 
 	 *         endToEndFlow=[EndToEndFlow|DeclarativeRef]
 	 *     )
 	 */
@@ -151,12 +151,12 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         index=LONG? 
 	 *         feature=[Feature|DeclarativeRef] 
 	 *         (
-	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID]) 
-	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID])*
+	 *             (srcConnectionInstance+=[ConnectionInstance|IndexRef] | srcFlowSpec+=[FlowSpecificationInstance|ID]) 
+	 *             (srcConnectionInstance+=[ConnectionInstance|IndexRef] | srcFlowSpec+=[FlowSpecificationInstance|ID])*
 	 *         )? 
 	 *         (
-	 *             (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[FlowSpecificationInstance|ID]) 
-	 *             (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] | dstFlowSpec+=[FlowSpecificationInstance|ID])*
+	 *             (dstConnectionInstance+=[ConnectionInstance|IndexRef] | dstFlowSpec+=[FlowSpecificationInstance|ID]) 
+	 *             (dstConnectionInstance+=[ConnectionInstance|IndexRef] | dstFlowSpec+=[FlowSpecificationInstance|ID])*
 	 *         )? 
 	 *         featureInstance+=FeatureInstance*
 	 *     )
@@ -170,10 +170,10 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         source=[FeatureInstance|SIMPLEINSTANCEREF]? 
-	 *         destination=[FeatureInstance|SIMPLEINSTANCEREF]? 
+	 *         source=[FeatureInstance|InstanceRef]? 
+	 *         destination=[FeatureInstance|InstanceRef]? 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
-	 *         (inModeTransition+=[ModeTransitionInstance|SOMREF] inModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|IndexRef] inModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
 	 *         flowSpecification=[FlowSpecification|DeclarativeRef]
 	 *     )
 	 */
@@ -189,8 +189,8 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         derived?='derived'? 
 	 *         name=ID 
 	 *         (parent+=[ModeInstance|ID] | (parent+=[ModeInstance|ID] parent+=[ModeInstance|ID]+))? 
-	 *         (srcModeTransition+=[ModeTransitionInstance|SOMREF] srcModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
-	 *         (dstModeTransition+=[ModeTransitionInstance|SOMREF] dstModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
+	 *         (srcModeTransition+=[ModeTransitionInstance|IndexRef] srcModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
+	 *         (dstModeTransition+=[ModeTransitionInstance|IndexRef] dstModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
 	 *         mode=[Mode|DeclarativeRef]
 	 *     )
 	 */
@@ -201,7 +201,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (name=MTNAME source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|DeclarativeRef])
+	 *     (name=ModeTransitionName source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|DeclarativeRef])
 	 */
 	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -233,7 +233,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (name=STRING (currentMode+=[ModeInstance|MODEINSTREF] currentMode+=[ModeInstance|MODEINSTREF]*)?)
+	 *     (name=STRING (currentMode+=[ModeInstance|InstanceRef] currentMode+=[ModeInstance|InstanceRef]*)?)
 	 */
 	protected void sequence_SystemOperationMode(EObject context, SystemOperationMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
