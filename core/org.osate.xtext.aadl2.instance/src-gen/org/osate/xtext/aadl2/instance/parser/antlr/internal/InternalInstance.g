@@ -1157,31 +1157,81 @@ ruleConnectionInstance returns [EObject current=null]
     {
     	newLeafNode(otherlv_14, grammarAccess.getConnectionInstanceAccess().getRightParenthesisKeyword_7_5());
     }
-)?	otherlv_15='{' 
+)?(	otherlv_15='in' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getConnectionInstanceAccess().getLeftCurlyBracketKeyword_8());
+    	newLeafNode(otherlv_15, grammarAccess.getConnectionInstanceAccess().getInKeyword_8_0());
+    }
+	otherlv_16='transitions' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getConnectionInstanceAccess().getTransitionsKeyword_8_1());
+    }
+	otherlv_17='(' 
+    {
+    	newLeafNode(otherlv_17, grammarAccess.getConnectionInstanceAccess().getLeftParenthesisKeyword_8_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getInModeTransitionModeTransitionInstanceCrossReference_8_3_0()); 
+	    }
+		ruleSOMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_19=',' 
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getConnectionInstanceAccess().getCommaKeyword_8_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getInModeTransitionModeTransitionInstanceCrossReference_8_4_1_0()); 
+	    }
+		ruleSOMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_21=')' 
+    {
+    	newLeafNode(otherlv_21, grammarAccess.getConnectionInstanceAccess().getRightParenthesisKeyword_8_5());
+    }
+)?	otherlv_22='{' 
+    {
+    	newLeafNode(otherlv_22, grammarAccess.getConnectionInstanceAccess().getLeftCurlyBracketKeyword_9());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceConnectionReferenceParserRuleCall_9_0()); 
+	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceConnectionReferenceParserRuleCall_10_0()); 
 	    }
-		lv_connectionReference_16_0=ruleConnectionReference		{
+		lv_connectionReference_23_0=ruleConnectionReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConnectionInstanceRule());
 	        }
        		add(
        			$current, 
        			"connectionReference",
-        		lv_connectionReference_16_0, 
+        		lv_connectionReference_23_0, 
         		"ConnectionReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_17='}' 
+)+	otherlv_24='}' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getConnectionInstanceAccess().getRightCurlyBracketKeyword_10());
+    	newLeafNode(otherlv_24, grammarAccess.getConnectionInstanceAccess().getRightCurlyBracketKeyword_11());
     }
 )
 ;
@@ -1407,9 +1457,17 @@ ruleFlowSpecificationInstance returns [EObject current=null]
     {
     	newLeafNode(otherlv_13, grammarAccess.getFlowSpecificationInstanceAccess().getRightParenthesisKeyword_7_5());
     }
-)?	otherlv_14=':' 
+)?(	otherlv_14='in' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getFlowSpecificationInstanceAccess().getColonKeyword_8());
+    	newLeafNode(otherlv_14, grammarAccess.getFlowSpecificationInstanceAccess().getInKeyword_8_0());
+    }
+	otherlv_15='transitions' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getFlowSpecificationInstanceAccess().getTransitionsKeyword_8_1());
+    }
+	otherlv_16='(' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFlowSpecificationInstanceAccess().getLeftParenthesisKeyword_8_2());
     }
 (
 (
@@ -1419,7 +1477,49 @@ ruleFlowSpecificationInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFlowSpecificationInstanceAccess().getFlowSpecificationFlowSpecificationCrossReference_9_0()); 
+	        newCompositeNode(grammarAccess.getFlowSpecificationInstanceAccess().getInModeTransitionModeTransitionInstanceCrossReference_8_3_0()); 
+	    }
+		ruleSOMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_18=',' 
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getFlowSpecificationInstanceAccess().getCommaKeyword_8_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSpecificationInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSpecificationInstanceAccess().getInModeTransitionModeTransitionInstanceCrossReference_8_4_1_0()); 
+	    }
+		ruleSOMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_20=')' 
+    {
+    	newLeafNode(otherlv_20, grammarAccess.getFlowSpecificationInstanceAccess().getRightParenthesisKeyword_8_5());
+    }
+)?	otherlv_21=':' 
+    {
+    	newLeafNode(otherlv_21, grammarAccess.getFlowSpecificationInstanceAccess().getColonKeyword_9());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSpecificationInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSpecificationInstanceAccess().getFlowSpecificationFlowSpecificationCrossReference_10_0()); 
 	    }
 		ruleFEATREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -2327,17 +2427,10 @@ ruleConnectionKind returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRule
     }
 
     |
-	kw='modeTransitionConnection' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getConnectionKindAccess().getModeTransitionConnectionKeyword_4()); 
-    }
-
-    |
 	kw='featureGroupConnection' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getConnectionKindAccess().getFeatureGroupConnectionKeyword_5()); 
+        newLeafNode(kw, grammarAccess.getConnectionKindAccess().getFeatureGroupConnectionKeyword_4()); 
     }
 )
     ;

@@ -105,6 +105,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         bidirectional?='<->'? 
 	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
 	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|SOMREF] inModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
 	 *         connectionReference+=ConnectionReference+
 	 *     )
 	 */
@@ -172,6 +173,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         source=[FeatureInstance|SIMPLEINSTANCEREF]? 
 	 *         destination=[FeatureInstance|SIMPLEINSTANCEREF]? 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|SOMREF] inModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
 	 *         flowSpecification=[FlowSpecification|FEATREF]
 	 *     )
 	 */

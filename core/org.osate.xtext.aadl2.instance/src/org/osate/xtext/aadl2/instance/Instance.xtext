@@ -43,7 +43,7 @@ ComponentInstance returns instance::ComponentInstance:
 ;
 
 ConnectionInstance returns instance::ConnectionInstance:
-	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? '{'
+	complete?='complete'? kind=ConnectionKind name=STRING ':' source=[instance::ConnectionInstanceEnd|INSTANCEREF] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|INSTANCEREF] ('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF] (',' inSystemOperationMode+=[instance::SystemOperationMode|SOMREF])* ')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? '{'
 		connectionReference+=ConnectionReference+
 	'}'
 ;
@@ -53,7 +53,7 @@ ConnectionReference returns instance::ConnectionReference:
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
-	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
+	'flow' name=ID '(' source=[instance::FeatureInstance|SIMPLEINSTANCEREF]? '->' destination=[instance::FeatureInstance|SIMPLEINSTANCEREF]? ')' ('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')? ('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|SOMREF] (',' inModeTransition+=[instance::ModeTransitionInstance|SOMREF])* ')')? ':' flowSpecification=[aadl2::FlowSpecification|FEATREF]
 ;
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
@@ -92,7 +92,7 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 
 ConnectionKind returns instance::ConnectionKind:
 	'featureConnection' | 'accessConnection' | 'parameterConnection' |
-	'portConnection' | 'modeTransitionConnection' | 'featureGroupConnection'
+	'portConnection' | 'featureGroupConnection'
 ;
 
 IMPLREF:

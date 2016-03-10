@@ -328,4 +328,12 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	def IScope scope_ModeTransitionInstance_destination(ComponentInstance context, EReference reference) {
 		context.modeInstances.scopeFor
 	}
+	
+	def IScope scope_ConnectionInstance_inModeTransition(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_FlowSpecificationInstance_inModeTransition(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
 }

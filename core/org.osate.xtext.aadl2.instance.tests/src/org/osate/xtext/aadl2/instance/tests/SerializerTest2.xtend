@@ -357,4 +357,63 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m2#sub1.m2" m2 , sub1[0].m2
 			}''')
 	}
+	
+	@Test
+	def void testInModeTransitions() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(pkg1FileName -> '''
+			package pkg1
+			public
+				system s1
+					features
+						p1: out data port;
+				end s1;
+				
+				system s2
+					features
+						p2: in data port;
+				end s2;
+				
+				system s3
+					features
+						p3: in event port;
+					flows
+						f1: flow sink p3 in modes (mt1);
+					modes
+						m1: initial mode;
+						m2: mode;
+						mt1: m1 -[p3]-> m2;
+				end s3;
+				
+				system implementation s3.i
+					subcomponents
+						sub1: system s1;
+						sub2: system s2;
+					connections
+						conn1: port sub1.p1 -> sub2.p2 in modes (mt1);
+				end s3.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+			system s3_i_Instance : pkg1::s3.i {
+				in eventPort p3 : pkg1::s3::p3 source of ( f1 )
+				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
+					out dataPort p1 : pkg1::s1::p1 source of ( 1.0 )
+				}
+				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
+					in dataPort p2 : pkg1::s2::p2 destination of ( 1.0 )
+				}
+				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in
+				transitions ( 0 ) {
+					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i::conn1 in parent
+				}
+				flow f1 ( p3 -> ) in transitions ( 0 ) : pkg1::s3::f1
+				initial mode m1 source of ( 0 ) : pkg1::s3::m1
+				mode m2 destination of ( 0 ) : pkg1::s3::m2
+				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3::mt1
+				som "m1" m1
+				som "m2" m2
+			}''')
+	}
 }
