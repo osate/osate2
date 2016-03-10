@@ -58,7 +58,7 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] ')' (ambiguity) (rule end)
 	 *     srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] ')' (ambiguity) (rule end)
-	 *     subcomponent=[Subcomponent|SUBREF] (ambiguity) (rule end)
+	 *     subcomponent=[Subcomponent|DeclarativeRef] (ambiguity) (rule end)
 	 */
 	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -71,7 +71,7 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] ')' (ambiguity) (rule end)
 	 *     dstFlowSpec+=[FlowSpecificationInstance|ID] ')' (ambiguity) (rule end)
-	 *     feature=[Feature|FEATREF] (ambiguity) (rule end)
+	 *     feature=[Feature|DeclarativeRef] (ambiguity) (rule end)
 	 *     srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] ')' (ambiguity) (rule end)
 	 *     srcFlowSpec+=[FlowSpecificationInstance|ID] ')' (ambiguity) (rule end)
 	 */

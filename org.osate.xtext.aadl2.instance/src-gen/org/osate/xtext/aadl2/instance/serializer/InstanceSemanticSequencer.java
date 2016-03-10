@@ -76,7 +76,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ID 
 	 *         index+=LONG* 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
-	 *         subcomponent=[Subcomponent|SUBREF] 
+	 *         subcomponent=[Subcomponent|DeclarativeRef] 
 	 *         (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] srcConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (dstConnectionInstance+=[ConnectionInstance|CONNINSTREF] dstConnectionInstance+=[ConnectionInstance|CONNINSTREF]*)? 
 	 *         (
@@ -119,7 +119,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         source=[ConnectionInstanceEnd|INSTANCEREF] 
 	 *         destination=[ConnectionInstanceEnd|INSTANCEREF] 
-	 *         connection=[Connection|SUBREF] 
+	 *         connection=[Connection|DeclarativeRef] 
 	 *         context=[ComponentInstance|INSTANCEREFWITHPARENT]
 	 *     )
 	 */
@@ -134,7 +134,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ID 
 	 *         (flowElement+=[FlowElementInstance|FLOWELEMENTREF] flowElement+=[FlowElementInstance|FLOWELEMENTREF]*)? 
 	 *         (inSystemOperationMode+=[SystemOperationMode|SOMREF] inSystemOperationMode+=[SystemOperationMode|SOMREF]*)? 
-	 *         endToEndFlow=[EndToEndFlow|SUBREF]
+	 *         endToEndFlow=[EndToEndFlow|DeclarativeRef]
 	 *     )
 	 */
 	protected void sequence_EndToEndFlowInstance(EObject context, EndToEndFlowInstance semanticObject) {
@@ -149,7 +149,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         category=FeatureCategory 
 	 *         name=ID 
 	 *         index=LONG? 
-	 *         feature=[Feature|FEATREF] 
+	 *         feature=[Feature|DeclarativeRef] 
 	 *         (
 	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID]) 
 	 *             (srcConnectionInstance+=[ConnectionInstance|CONNINSTREF] | srcFlowSpec+=[FlowSpecificationInstance|ID])*
@@ -174,7 +174,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         destination=[FeatureInstance|SIMPLEINSTANCEREF]? 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         (inModeTransition+=[ModeTransitionInstance|SOMREF] inModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
-	 *         flowSpecification=[FlowSpecification|FEATREF]
+	 *         flowSpecification=[FlowSpecification|DeclarativeRef]
 	 *     )
 	 */
 	protected void sequence_FlowSpecificationInstance(EObject context, FlowSpecificationInstance semanticObject) {
@@ -191,7 +191,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (parent+=[ModeInstance|ID] | (parent+=[ModeInstance|ID] parent+=[ModeInstance|ID]+))? 
 	 *         (srcModeTransition+=[ModeTransitionInstance|SOMREF] srcModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
 	 *         (dstModeTransition+=[ModeTransitionInstance|SOMREF] dstModeTransition+=[ModeTransitionInstance|SOMREF]*)? 
-	 *         mode=[Mode|MODEREF]
+	 *         mode=[Mode|DeclarativeRef]
 	 *     )
 	 */
 	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
@@ -201,7 +201,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (name=MTNAME source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|MODEREF])
+	 *     (name=MTNAME source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|DeclarativeRef])
 	 */
 	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -213,7 +213,7 @@ public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         category=ComponentCategory 
 	 *         name=ID 
-	 *         componentImplementation=[ComponentImplementation|IMPLREF] 
+	 *         componentImplementation=[ComponentImplementation|ImplRef] 
 	 *         (
 	 *             featureInstance+=FeatureInstance | 
 	 *             componentInstance+=ComponentInstance | 
