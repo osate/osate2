@@ -32,6 +32,11 @@ public class DefaultExtensionService implements ExtensionService {
     }
 	
 	@Override
+	public Object getApplicablePictogramHandler(final Object bo) {
+		return globalExtService.getApplicablePictogramHandler(bo);
+	}
+	
+	@Override
 	public IEclipseContext createChildContext() {
 		final IEclipseContext ctx = baseCtx.createChild();
 		ctx.set(Diagram.class, diagramTypeProvider.getDiagram());

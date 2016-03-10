@@ -22,6 +22,8 @@ public interface ExtensionRegistryService {
 	 * Pictogram handlers are extension which control aspects of handling a pictogram, e.g., creating and refreshing pictograms. 
 	 */
     Collection<Object> getPictogramHandlers();
+
+    Object getApplicablePictogramHandler(final Object bo);
     
 	/**
 	 * Style factories create styles.  

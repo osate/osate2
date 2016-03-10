@@ -58,10 +58,15 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+		if(containerBo == null) {
+			return false;
+		}
+		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.CONTAINER, context.getTargetContainer());
+			eclipseCtx.set(Names.CONTAINER_BO, containerBo);
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx);
 		} finally {
 			eclipseCtx.dispose();
@@ -112,7 +117,7 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.CONTAINER, container);
+			eclipseCtx.set(Names.CONTAINER_BO, bor.getBusinessObjectForPictogramElement(container));
 			final EObject ownerBo = (EObject) ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;

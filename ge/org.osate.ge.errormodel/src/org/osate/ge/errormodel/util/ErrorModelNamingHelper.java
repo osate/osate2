@@ -19,6 +19,28 @@ public class ErrorModelNamingHelper {
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);		
 	}
 	
+	/**
+	 * Returns null if validation succeeds. Otherwise, returns a reason the name is not valid.
+	 * @param lib
+	 * @param oldName
+	 * @param newName
+	 * @return
+	 */
+	public static String validateName(final ErrorModelLibrary lib, final String oldName, final String newName) {
+		// TODO: Check reserved words?
+    	if(newName.equalsIgnoreCase(oldName)) {
+    		// Name is unchanged
+    		return null;
+    	}
+    	
+		final Set<String> existingIdentifiers = buildNameSet(lib);
+		if(existingIdentifiers.contains(newName.toLowerCase())) {
+			return "The specified name conflicts with an existing element.";
+		}
+		
+		return null;
+	}
+	
 	private static String buildUniqueIdentifier(final Set<String> existingIdentifiers, final String baseIdentifier) {
 		// Resolve naming conflicts
 		String newIdentifier = baseIdentifier;

@@ -66,6 +66,7 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
@@ -79,7 +80,6 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeFeatureProvider;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlArrayService;
@@ -338,7 +338,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		anchorService.removeAnchorsWithoutConnections(shape);
 		
 		// Determine whether the subcomponent/classifier should be shown based on the the depth level setting
-		final int depthLevel = getDepthLevel(shape);
+		final int depthLevel = shapeService.getDepthLevel(shape) - 1; // Subtract 1 because of the container shape that contains all other shapes
 		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
 		
 		// Ghost children
@@ -451,7 +451,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private void updateAnnexSubclauses(final ContainerShape container, final Collection<AnnexSubclause> subclauses) {
 		for(final AnnexSubclause subclause : subclauses) {
 			final NamedElement parsedAnnexSubclause = getParsedAnnexSubclause(subclause);
-			final boolean specializedHandling = parsedAnnexSubclause != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(container, parsedAnnexSubclause);			
+			final boolean specializedHandling = parsedAnnexSubclause != null && shapeCreationService.createUpdateShape(container, parsedAnnexSubclause);
+			
 			if(!specializedHandling) {
 				shapeCreationService.createUpdateShape(container, subclause);
 			}
@@ -460,7 +461,14 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	
 	private NamedElement getParsedAnnexSubclause(final AnnexSubclause annexSubclause) {
 		if(annexSubclause instanceof DefaultAnnexSubclause) {
-			return ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
+			final NamedElement parsedSubclause = ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
+			
+			// Don't return subclauses which inherit from DefaultAnnexSubclause
+			if(parsedSubclause instanceof DefaultAnnexLibrary) {
+				return null;
+			}
+			
+			return parsedSubclause;
 		}
 		
 		return null;
@@ -840,19 +848,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		return true;
 	}
 
-	// Determines the shapes depth level
-	private int getDepthLevel(Shape shape) {
-		int depthLevel = -1; // Start at -1 because of the container shape that contains all other shapes.
-		while(shape != null && !(shape instanceof Diagram)) {
-			if(bor.getBusinessObjectForPictogramElement(shape) != null) {
-				depthLevel++;
-			}
-			shape = shape.getContainer();
-		}
-
-		return depthLevel;
-	}	
-	
 	// Labels
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();

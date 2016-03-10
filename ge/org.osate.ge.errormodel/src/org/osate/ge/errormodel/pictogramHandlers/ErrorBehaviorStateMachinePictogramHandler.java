@@ -2,12 +2,6 @@ package org.osate.ge.errormodel.pictogramHandlers;
 
 import javax.inject.Named;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelBusinessObjectHelper;
@@ -16,19 +10,30 @@ import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.ExtensionPaletteEntry.Type;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.SimplePaletteEntry;
+import org.osate.ge.ext.annotations.AllowDelete;
 import org.osate.ge.ext.annotations.CanCreate;
-import org.osate.ge.ext.annotations.CanRefresh;
 import org.osate.ge.ext.annotations.CreateBusinessObject;
 import org.osate.ge.ext.annotations.GetCreateOwningBusinessObject;
+import org.osate.ge.ext.annotations.GetGraphicalRepresentation;
+import org.osate.ge.ext.annotations.GetName;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
-import org.osate.ge.ext.annotations.RefreshShape;
-import org.osate.ge.ext.annotations.RefreshGraphics;
-import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.ge.ext.annotations.IsApplicable;
+import org.osate.ge.ext.annotations.SetName;
+import org.osate.ge.ext.annotations.ValidateName;
+import org.osate.ge.ext.graphics.Ellipse;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorStateMachinePictogramHandler {
+	private static final Ellipse graphics = new Ellipse();
+	
+	@IsApplicable
+	@AllowDelete
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine bo) {
+		return true;
+	}
+	
 	@GetPaletteEntries
 	public ExtensionPaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		return new ExtensionPaletteEntry[] { 
@@ -37,13 +42,13 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreateShape(final @Named(Names.CONTAINER) ContainerShape container, final PictogramElementService peService) {
-		return peService.getBusinessObject(container) instanceof AadlPackage && container instanceof Diagram;
+	public boolean canCreateShape(final @Named(Names.CONTAINER_BO) AadlPackage pkg) {
+		return true;
 	}
 
 	@GetCreateOwningBusinessObject
-	public Object getOwnerBusinessObject(final @Named(Names.CONTAINER) ContainerShape container, final PictogramElementService peService) {
-		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(container, peService);
+	public Object getOwnerBusinessObject(final @Named(Names.CONTAINER_BO) AadlPackage pkg) {
+		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(pkg);
 	}
 	
 	@CreateBusinessObject
@@ -61,31 +66,24 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 		return newBehavior;
 	}	
 	
-	@CanRefresh
-	public boolean canRefresh(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine bo) {
-		return true;
-	}
-
-	@RefreshShape
-	public ContainerShape refreshChildren(final @Named(Names.CONTAINER) ContainerShape container, @Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape, 
-			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine behavior) {
-        // Create the container shape
-		if(shape == null) {
-			final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-	        shape = peCreateService.createContainerShape(container, true);			
-		}
-		
-        return shape;
+	@GetGraphicalRepresentation
+	public Ellipse getGraphicalRepresentation() {
+		return graphics;
 	}
 	
-	@RefreshGraphics 
-	public void refreshGraphics(@Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape) {		
-        // Recreate the graphics algorithm
-		final IGaService gaService = Graphiti.getGaService();
-        final GraphicsAlgorithm ga = gaService.createPlainEllipse(shape);
-        		
-		// TODO: Set appropriate size. Should behave like other pictograms. Use current size as minimum and expand as necessary
-        ga.setWidth(50);
-        ga.setHeight(50);
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine) {
+		return stateMachine.getName();
+	}
+	
+	@ValidateName
+	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final @Named(Names.NAME) String value) {
+		final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)stateMachine.eContainer();
+		return ErrorModelNamingHelper.validateName(errorModelLibrary, stateMachine.getName(), value);
+	}
+	
+	@SetName
+	public void setName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final @Named(Names.NAME) String value) {
+		stateMachine.setName(value);
 	}
 }

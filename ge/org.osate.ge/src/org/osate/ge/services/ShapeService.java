@@ -90,4 +90,6 @@ public interface ShapeService {
 	 * @return
 	 */
 	<T> T getClosestBusinessObjectOfType(Shape s, Class<?> ... types);
+	
+	int getDepthLevel(Shape shape);
 }

@@ -20,5 +20,5 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RefreshGraphics {
+public @interface GetChildren {
 }

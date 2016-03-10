@@ -1,6 +1,9 @@
 package org.osate.ge.diagrams.common.features;
 
 import java.util.Objects;
+
+import javax.inject.Inject;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
@@ -14,7 +17,7 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.CanDelete;
+import org.osate.ge.ext.annotations.AllowDelete;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ExtensionService;
@@ -28,6 +31,7 @@ public class PictogramHandlerDeleteFeature extends AbstractFeature implements ID
 	private final AadlModificationService aadlModService;
 	private final UserInputService userInputService;
 
+	@Inject
 	public PictogramHandlerDeleteFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final AadlModificationService aadlModService, 
 			final UserInputService userInputService, final IFeatureProvider fp) {
 		super(fp);
@@ -69,19 +73,18 @@ public class PictogramHandlerDeleteFeature extends AbstractFeature implements ID
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = (Object)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		if(bo == null) {
+		if(!(bo instanceof EObject)) {
 			return false;
 		}
 		
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
-			childCtx.set(Names.PICTOGRAM_ELEMENT, context.getPictogramElement());
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
 			
 			// Call the appropriate extension to refresh the annex element's pictogram
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final boolean canDeleteAnnex = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanDelete.class, childCtx, false);
-				if(canDeleteAnnex) {
+				final boolean allowDelete = (boolean)ContextInjectionFactory.invoke(pictogramHandler, AllowDelete.class, childCtx, false);
+				if(allowDelete) {
 					return true;
 				}
 			}
@@ -101,18 +104,15 @@ public class PictogramHandlerDeleteFeature extends AbstractFeature implements ID
 		}
 
 		// Remove the EObject from the model
-		final Object bo = (Object)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		if(bo instanceof EObject) {
-			final EObject eObjBo = (EObject)bo;
-			aadlModService.modify(eObjBo, new AbstractModifier<EObject, Object>() {
-				@Override
-				public Object modify(final Resource resource, final EObject bo) {
-					EcoreUtil.remove(bo);
-					return null;
-				}		
-			});
-		}
-		
+		final EObject bo = (EObject)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		aadlModService.modify(bo, new AbstractModifier<EObject, Object>() {
+			@Override
+			public Object modify(final Resource resource, final EObject bo) {
+				EcoreUtil.remove(bo);
+				return null;
+			}		
+		});
+
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}

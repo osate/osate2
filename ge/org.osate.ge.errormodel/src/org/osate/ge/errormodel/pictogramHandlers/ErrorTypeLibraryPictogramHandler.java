@@ -1,64 +1,45 @@
 package org.osate.ge.errormodel.pictogramHandlers;
 
+import java.util.stream.Stream;
+
 import javax.inject.Named;
 
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.CanHandleDoubleClick;
-import org.osate.ge.ext.annotations.CanRefresh;
+import org.osate.ge.ext.annotations.GetChildren;
+import org.osate.ge.ext.annotations.GetGraphicalRepresentation;
+import org.osate.ge.ext.annotations.GetName;
 import org.osate.ge.ext.annotations.HandleDoubleClick;
-import org.osate.ge.ext.annotations.RefreshGraphics;
-import org.osate.ge.ext.annotations.RefreshShape;
+import org.osate.ge.ext.annotations.IsApplicable;
+import org.osate.ge.ext.graphics.Rectangle;
 import org.osate.ge.ext.services.DiagramService;
-import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeLibraryPictogramHandler {	
-	@CanRefresh
-	public boolean canRefresh(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+public class ErrorTypeLibraryPictogramHandler {
+	private static final Rectangle graphics = new Rectangle();
+	
+	@IsApplicable
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
 		return true;
 	}
-
-	@RefreshShape
-	public ContainerShape refresh(final @Named(Names.CONTAINER) ContainerShape container, @Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape, final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final PictogramElementService pes) {
-		if(shape instanceof Diagram) {
-			// Refresh children
-			pes.refreshShapesForBusinessObjects(shape, typeLib.getErrorModelLibrary().getTypes());
-			// TODO: Refresh other children
-		} else {
-		    // Create the container shape
-			if(shape == null) {
-				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		        shape = peCreateService.createContainerShape(container, true);			
-			}
-		}
-
-		return shape;
-	}
 	
-	@RefreshGraphics 
-	public void refreshGraphics(@Named(Names.PICTOGRAM_ELEMENT) ContainerShape shape) {
-        // Recreate the graphics algorithm
-		final IGaService gaService = Graphiti.getGaService();
-        final GraphicsAlgorithm ga = gaService.createPlainRectangle(shape);
-        		
-		// TODO: Set appropriate size. Should behave like other pictograms. Use current size as minimum and expand as necessary
-        ga.setWidth(50);
-        ga.setHeight(50);
+	@GetChildren
+	public Stream<ErrorType> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+		return typeLib.getErrorModelLibrary().getTypes().stream();
 	}
-	
-	@CanHandleDoubleClick
-	public boolean canDoubleClick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		return true;
+
+	@GetGraphicalRepresentation
+	public Rectangle getGraphicalRepresentation() {
+		return graphics;
 	}
 	
 	@HandleDoubleClick
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final DiagramService diagramService) {
 		diagramService.openOrCreateDiagramBusinessObject(typeLib);
+	}
+	
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+		return "Error Type Library";
 	}
 }

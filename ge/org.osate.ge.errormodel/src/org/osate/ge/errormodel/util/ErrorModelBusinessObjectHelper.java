@@ -1,11 +1,9 @@
 package org.osate.ge.errormodel.util;
 
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -16,13 +14,9 @@ public class ErrorModelBusinessObjectHelper {
 	 * Attempts to return one of the following based on availability:
 	 * ErrorModelLibrary (Parsed Annex)
 	 * DefaultAnnexLibrary (Unparsed Annex)
-	 * AadlPackage 
-	 * @param container
-	 * @param pes
 	 * @return
 	 */
-	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final ContainerShape container, final PictogramElementService pes) {
-		final AadlPackage pkg = (AadlPackage)pes.getBusinessObject(container);
+	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final AadlPackage pkg) {
 		if(pkg.getPublicSection() == null) {
 			return null;
 		}

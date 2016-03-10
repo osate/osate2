@@ -87,7 +87,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 	
 	@Override
-	public void createUpdateShape(final ContainerShape container, final Object bo) {
+	public boolean createUpdateShape(final ContainerShape container, final Object bo) {
 		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, bo);
 		if(pictogramElement == null) {					
 			final AddContext addContext = new AddContext();
@@ -99,6 +99,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			final IAddFeature addFeature = fp.getAddFeature(addContext);
 			if(addFeature != null && addFeature.canAdd(addContext)) {
 				addFeature.add(addContext);
+				return true;
 			}
 		} else {				
 			final UpdateContext updateContext = new UpdateContext(pictogramElement);
@@ -107,8 +108,11 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			// Update the classifier regardless of whether it is "needed" or not.
 			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 				updateFeature.update(updateContext);
+				return true;
 			}
 		}
+		
+		return false;
 	}
 	
 	@Override

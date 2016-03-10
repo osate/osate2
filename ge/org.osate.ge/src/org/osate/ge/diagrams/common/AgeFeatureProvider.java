@@ -22,10 +22,13 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
+import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
+import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
+import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -34,10 +37,13 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
+import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -48,7 +54,6 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -69,7 +74,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.features.ChangeFeatureTypeFeature;
 import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.diagrams.common.features.GoToPackageDiagramFeature;
@@ -82,6 +86,8 @@ import org.osate.ge.diagrams.common.features.PictogramHandlerAddFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerCreateConnectionFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerCreateFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerDeleteFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerDirectEditFeature;
+import org.osate.ge.diagrams.common.features.PictogramHandlerLayoutFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.diagrams.common.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.diagrams.common.features.UpdateLayoutFromClassifierDiagramFeature;
@@ -127,10 +133,7 @@ import org.osate.ge.diagrams.type.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.ext.ExtensionPaletteEntry;
 import org.osate.ge.ext.Names;
 import org.osate.ge.ext.ExtensionPaletteEntry.Type;
-import org.osate.ge.ext.annotations.CanRefresh;
 import org.osate.ge.ext.annotations.GetPaletteEntries;
-import org.osate.ge.ext.annotations.RefreshShape;
-import org.osate.ge.ext.services.PictogramElementService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
@@ -138,9 +141,11 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.services.LabelService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.UserInputService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
@@ -149,13 +154,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private ExtensionService extService;
 	private ReferenceBuilderService refBuilder;
 	private GhostingService ghostingService;
-	private PictogramElementService peService;
 	private AadlModificationService aadlModService;
-	private UserInputService userInputService;
 	private ShapeService shapeService;
 	private DiagramModificationService diagramModService;
+	private LabelService labelService;
+	private ShapeCreationService shapeCreationService;
 	private BusinessObjectResolutionService bor;
+	private PropertyService propertyService;
 	private PictogramHandlerDeleteFeature defaultDeleteFeature;
+	private PictogramHandlerDirectEditFeature defaultDirectEditFeature;
+	private PictogramHandlerLayoutFeature defaultLayoutFeature;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -167,12 +175,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
 		this.refBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
-		this.peService = Objects.requireNonNull(context.get(PictogramElementService.class), "unable to retrieve pictogram element service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
-		this.userInputService = Objects.requireNonNull(eclipseContext.get(UserInputService.class), "unable to retrieve user input service service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
 		this.diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
+		this.labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
+		this.shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
+		this.propertyService = Objects.requireNonNull(context.get(PropertyService.class), "unable to retrieve property service");
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -205,8 +214,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 		
-		// Create the delete feature to use for pictograms which do not have a specialized feature. Delegates to pictogram handlers.
-		defaultDeleteFeature = new PictogramHandlerDeleteFeature(bor, extService, aadlModService, userInputService, this);
+		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to pictogram handlers.
+		defaultDeleteFeature = make(PictogramHandlerDeleteFeature.class);
+		defaultDirectEditFeature = make(PictogramHandlerDirectEditFeature.class);
+		defaultLayoutFeature = make(PictogramHandlerLayoutFeature.class);
 	}
 
 	private IEclipseContext getContext() {
@@ -456,9 +467,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return make(RenameModeTransitionFeature.class);
 		} else if(bo instanceof FlowSpecification) {
 			return make(RenameFlowSpecificationFeature.class);
+		} else {	
+			return defaultDirectEditFeature;
 		}
-
-		return super.getDirectEditingFeatureAdditional(context);
 	}
 	
 	@Override
@@ -492,9 +503,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		if(addCtx instanceof IAddConnectionContext) {
 			// TODO: Support connections
 		} else {
-			final Object pictogramHandler = getRefreshPictogramHandler(addCtx.getTargetContainer(), null, AadlElementWrapper.unwrap(addCtx.getNewObject()));
+			final Object pictogramHandler = extService.getApplicablePictogramHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
 			if(pictogramHandler != null) {
-				return new PictogramHandlerAddFeature(extService, ghostingService, this, pictogramHandler);
+				return new PictogramHandlerAddFeature(extService, ghostingService, labelService, shapeCreationService, shapeService, propertyService, this, pictogramHandler);
 			}
 		}
 
@@ -505,43 +516,15 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected IUpdateFeature getUpdateFeatureAdditional(final IUpdateContext updateCtx) {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
 		if(pe instanceof Shape) {
-			final Shape container = ((Shape)pe).getContainer();
-			final Object pictogramHandler = getRefreshPictogramHandler(container, pe, peService.getBusinessObject(pe));
+			final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(pe));
 			if(pictogramHandler != null) {
-				return new PictogramHandlerUpdateFeature(extService, refBuilder, ghostingService, peService, this, pictogramHandler);
+				return new PictogramHandlerUpdateFeature(extService, refBuilder, ghostingService, bor, labelService, shapeCreationService, shapeService, propertyService, this, pictogramHandler);
 			}
 		} else if(pe instanceof Connection) {
 			// TODO: Support connections
 		}
 		
 		return super.getUpdateFeatureAdditional(updateCtx);
-	}
-	
-	private final Object getRefreshPictogramHandler(final Shape container, final PictogramElement pe, final Object bo) {
-		if(bo == null) {
-			return null;
-		}
-		
-		// Check pictogram handlers
-		final IEclipseContext childCtx = extService.createChildContext();
-		try {
-			childCtx.set(Names.CONTAINER, container);
-			childCtx.set(Names.PICTOGRAM_ELEMENT, pe);
-			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			
-			// Call the appropriate extension to refresh the annex element's pictogram
-			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final boolean canRefreshAnnex = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanRefresh.class, childCtx, false);
-				if(canRefreshAnnex) {
-					return pictogramHandler;
-				}
-			}
-			
-		} finally {
-			childCtx.dispose();
-		}
-		
-		return null;
 	}
 	
 	private void addIfAvailable(final List<ICreateFeature> features, final ICreateFeature feature, final IContext context) {
@@ -832,38 +815,35 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 	}
 	
-	/**
-	 * Calls extensions to perform a specialized refresh for a parsed annex element.
-	 * @param parsedAnnexElement
-	 * @return whether the parsed element was refreshed. Returns false if an extension which provided specialized handling of the annex element could not be found.
-	 */
-	public boolean refreshParsedAnnexElement(final ContainerShape container, final NamedElement parsedAnnexElement) {
-		final IEclipseContext eclipseCtx = extService.createChildContext();
-		try {
-			eclipseCtx.set(Names.CONTAINER, container);
-			eclipseCtx.set(Names.PICTOGRAM_ELEMENT, null);
-			eclipseCtx.set(Names.BUSINESS_OBJECT, parsedAnnexElement);
-
-			// Call the appropriate extension to refresh the annex element's pictogram
-			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final boolean canRefreshAnnex = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanRefresh.class, eclipseCtx, false);
-				if(canRefreshAnnex) {
-					ContextInjectionFactory.invoke(pictogramHandler, RefreshShape.class, eclipseCtx);
-					return true;
-				}
-			}
-			
-		} finally {
-			eclipseCtx.dispose();
-		}
-		
-		return false;
-	}
-	
 	private IEclipseContext createGetPaletteEntriesContext() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
 		final IEclipseContext childCtx = extService.createChildContext();
 		childCtx.set(Names.DIAGRAM_BO, diagramBo);
 		return childCtx;
+	}
+	
+	// Don't allow moving transient shapes
+	@Override
+	protected IMoveShapeFeature getMoveShapeFeatureAdditional(final IMoveShapeContext context) {
+		if(propertyService.isTransient(context.getShape())) {
+			return null;
+		}
+		
+		return super.getMoveShapeFeatureAdditional(context);
+	}
+	
+	// Don't allow resizing transient shapes
+	@Override
+	protected IResizeShapeFeature getResizeShapeFeatureAdditional(final IResizeShapeContext context) {
+		if(propertyService.isTransient(context.getShape())) {
+			return null;
+		}
+		
+		return super.getResizeShapeFeatureAdditional(context);
+	}
+	
+	@Override
+	protected ILayoutFeature getLayoutFeatureAdditional(final ILayoutContext context) {
+		return defaultLayoutFeature;
 	}
 }

@@ -25,7 +25,6 @@ import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
@@ -51,9 +50,7 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.PictogramHandlerDoubleClickFeature;
 import org.osate.ge.ext.Categorized;
-import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.CanHandleDoubleClick;
-import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ExtensionRegistryService.Category;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
@@ -64,15 +61,16 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
-	private final PictogramElementService pes;
+	private final PictogramHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context, final PictogramElementService pes) {
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, 
+			final ExtensionService extensionService, final IEclipseContext context, final BusinessObjectResolutionService bor) {
 		super(diagramTypeProvider);
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
-		this.pes = pes;
+		this.defaultDoubleClickFeature = new PictogramHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
 	}
 
 	@Override
@@ -116,7 +114,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		return super.getAdapter(type);
 	}	
-	
+
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
 	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
@@ -124,32 +122,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	        return customFeature;
 	    }
 	    
-	    // Check pictogram handlers
-	    if(context.getPictogramElements().length == 1) {
-			final PictogramElement pe = context.getPictogramElements()[0];
-			if(!(pe instanceof Diagram)) {
-				final IEclipseContext eclipseCtx = extensionService.createChildContext();
-				
-				try {
-					eclipseCtx.set(Names.PICTOGRAM_ELEMENT, pe);
-					eclipseCtx.set(Names.BUSINESS_OBJECT, pes.getBusinessObject(pe));
-		
-					// Find the pictogram handler which can be used to handle the double-click
-					for(final Object pictogramHandler : extensionService.getPictogramHandlers()) {
-						final boolean canHandleDoubleClick = (boolean)ContextInjectionFactory.invoke(pictogramHandler, CanHandleDoubleClick.class, eclipseCtx, false);
-						if(canHandleDoubleClick) {
-							return new PictogramHandlerDoubleClickFeature(extensionService, pes, getFeatureProvider(), pictogramHandler);
-						}
-						
-					}
-					
-				} finally {
-					eclipseCtx.dispose();
-				}
-			}
-	    }
-		
-	    return super.getDoubleClickFeature(context);
+	    return defaultDoubleClickFeature;
 	 }
 	
 	/**

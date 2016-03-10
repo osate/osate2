@@ -1,25 +1,22 @@
 package org.osate.ge.errormodel.pictogramHandlers;
 
+import java.util.stream.Stream;
+
 import javax.inject.Named;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.CanRefresh;
-import org.osate.ge.ext.annotations.RefreshShape;
-import org.osate.ge.ext.services.PictogramElementService;
+import org.osate.ge.ext.annotations.GetChildren;
+import org.osate.ge.ext.annotations.IsApplicable;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 public class ErrorModelLibraryPictogramHandler {	
-	@CanRefresh
-	public boolean canRefresh(final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib) {
+	@IsApplicable
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib) {
 		return true;
 	}
-
-	@RefreshShape
-	public void refresh(final @Named(Names.CONTAINER) ContainerShape container, final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib, final PictogramElementService pes) {
-		// TODO: Show referenced error type libraries as well
-		
-		pes.refreshShapesForBusinessObject(container, new ErrorTypeLibrary(lib));
-		pes.refreshShapesForBusinessObjects(container, lib.getBehaviors());
+	
+	@GetChildren
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib) {
+		return Stream.concat(Stream.of(new ErrorTypeLibrary(lib)), lib.getBehaviors().stream());
 	}
 }

@@ -46,7 +46,6 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeFeatureProvider;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.ConnectionCreationService;
@@ -256,7 +255,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		for(final NamedElement el : elements) {
 			if(el instanceof AnnexLibrary) {
 				final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(el);
-				final boolean specializedHandling = parsedAnnexLibrary != null && ((AgeFeatureProvider)getFeatureProvider()).refreshParsedAnnexElement(diagram, parsedAnnexLibrary);
+				final boolean specializedHandling = parsedAnnexLibrary != null && shapeCreationService.createUpdateShape(diagram, parsedAnnexLibrary);
 
 				// Create the generic shape if specialized handling wasn't used
 				if(!specializedHandling) {
@@ -268,7 +267,14 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
 		if(annexLibrary instanceof DefaultAnnexLibrary) {
-			return ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
+			final NamedElement parsedLib = ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
+			
+			// Don't return libraries which inherit from DefaultAnnexLibrary
+			if(parsedLib instanceof DefaultAnnexLibrary) {
+				return null;
+			}
+			
+			return parsedLib;
 		}
 		
 		return null;

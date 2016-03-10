@@ -14,8 +14,12 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.ext.Categories;
+import org.osate.ge.ext.Names;
+import org.osate.ge.ext.annotations.IsApplicable;
 import org.osate.ge.services.ExtensionRegistryService;
 
 /**
@@ -56,6 +60,29 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	public Collection<Object> getPictogramHandlers() {
     	return pictogramHandlers;
     }
+	
+	@Override
+	public Object getApplicablePictogramHandler(final Object bo) {
+		final IEclipseContext eclipseCtx =  EclipseContextFactory.create();
+
+		try {
+			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
+
+			// Find the pictogram handler which can be used to handle the double-click
+			for(final Object handler : getPictogramHandlers()) {
+				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
+				if(isApplicable) {
+					return handler;
+				}
+				
+			}
+			
+		} finally {
+			eclipseCtx.dispose();
+		}
+		
+		return null;
+	}
 	
 	@Override
 	public Object getStyleFactory(final String styleId) {

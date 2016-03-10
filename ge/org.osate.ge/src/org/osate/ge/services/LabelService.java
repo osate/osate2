@@ -9,7 +9,6 @@ package org.osate.ge.services;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.NamedElement;
 
 /**
  * Service for creating and working with label shapes
@@ -18,5 +17,5 @@ import org.osate.aadl2.NamedElement;
  */
 public interface LabelService {
 	// Create a label shape. The label's position is not set.
-	Shape createLabelShape(final ContainerShape container, final String shapeName, final NamedElement bo, final String labelValue);
+	Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue);
 }
