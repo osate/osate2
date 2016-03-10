@@ -71,10 +71,13 @@ import org.junit.runner.JUnitCore
 import org.junit.runner.Result
 import org.osate.verify.verify.JUnit4Method
 import org.osate.aadl2.PropertyExpression
+import org.eclipse.jface.viewers.TreeViewer
+import org.eclipse.swt.widgets.Display
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
 	def void processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor);
+	def void setProgressTreeViewer (TreeViewer viewPage);
 }
 
 /**
@@ -86,6 +89,8 @@ interface IAssureProcessor {
 class AssureProcessor implements IAssureProcessor {
 
 	var IProgressMonitor progressmonitor
+	
+	var TreeViewer progressTreeViewer
 
 	var long start = 0
 
@@ -313,6 +318,7 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					executeJavaMethod(verificationResult, methodtype, target, actualParameterObjects)
 					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
@@ -324,6 +330,7 @@ class AssureProcessor implements IAssureProcessor {
 						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
 					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
 					// The parameters are objects from the Properties Meta model. Resolute likes them this way
@@ -347,6 +354,7 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
 				AgreeMethod: {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
@@ -359,7 +367,11 @@ class AssureProcessor implements IAssureProcessor {
 					} else if (agreemethod.singleLayer) {
 						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
 						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
-						verHandler.executeSystemInstance(instanceroot);
+						
+						//verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
+						
+						//Currently Agree does not work on Flows or Connections so this is valid
+						verHandler.executeSystemInstance(target as ComponentInstance, progressTreeViewer);
 					}
 					
 					//Should not save here because it is job based
@@ -406,19 +418,34 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				ManualMethod: {
 					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
 			verificationResult.eResource.save(null)
+			updateProgress(verificationResult)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 			//e.printStackTrace;
 			verificationResult.eResource.save(null)
+			updateProgress(verificationResult)
 		}
 		//verificationResult.eResource.save(null)
+		
+		
+	}
+	
+	def updateProgress(VerificationResult result) {
+		if(progressTreeViewer != null){
+			Display.getDefault().asyncExec(new Runnable() {
+			override void run() {
+				progressTreeViewer.update(result, null)
+			}
+		});
+		}
 	}
 
 	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
@@ -542,6 +569,10 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 		return success;
+	}
+	
+	override void setProgressTreeViewer (TreeViewer treeViewer ) {
+		progressTreeViewer = treeViewer
 	}
 	
 }
