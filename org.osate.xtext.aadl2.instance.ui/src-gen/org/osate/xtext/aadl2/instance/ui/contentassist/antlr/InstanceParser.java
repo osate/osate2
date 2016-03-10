@@ -71,10 +71,14 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionInstanceAccess().getGroup(), "rule__ConnectionInstance__Group__0");
 					put(grammarAccess.getConnectionInstanceAccess().getGroup_7(), "rule__ConnectionInstance__Group_7__0");
 					put(grammarAccess.getConnectionInstanceAccess().getGroup_7_4(), "rule__ConnectionInstance__Group_7_4__0");
+					put(grammarAccess.getConnectionInstanceAccess().getGroup_8(), "rule__ConnectionInstance__Group_8__0");
+					put(grammarAccess.getConnectionInstanceAccess().getGroup_8_4(), "rule__ConnectionInstance__Group_8_4__0");
 					put(grammarAccess.getConnectionReferenceAccess().getGroup(), "rule__ConnectionReference__Group__0");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup(), "rule__FlowSpecificationInstance__Group__0");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_7(), "rule__FlowSpecificationInstance__Group_7__0");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_7_4(), "rule__FlowSpecificationInstance__Group_7_4__0");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_8(), "rule__FlowSpecificationInstance__Group_8__0");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_8_4(), "rule__FlowSpecificationInstance__Group_8_4__0");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getGroup(), "rule__EndToEndFlowInstance__Group__0");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_5(), "rule__EndToEndFlowInstance__Group_5__0");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_5_1(), "rule__EndToEndFlowInstance__Group_5_1__0");
@@ -179,7 +183,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionInstanceAccess().getDestinationAssignment_6(), "rule__ConnectionInstance__DestinationAssignment_6");
 					put(grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeAssignment_7_3(), "rule__ConnectionInstance__InSystemOperationModeAssignment_7_3");
 					put(grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeAssignment_7_4_1(), "rule__ConnectionInstance__InSystemOperationModeAssignment_7_4_1");
-					put(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceAssignment_9(), "rule__ConnectionInstance__ConnectionReferenceAssignment_9");
+					put(grammarAccess.getConnectionInstanceAccess().getInModeTransitionAssignment_8_3(), "rule__ConnectionInstance__InModeTransitionAssignment_8_3");
+					put(grammarAccess.getConnectionInstanceAccess().getInModeTransitionAssignment_8_4_1(), "rule__ConnectionInstance__InModeTransitionAssignment_8_4_1");
+					put(grammarAccess.getConnectionInstanceAccess().getConnectionReferenceAssignment_10(), "rule__ConnectionInstance__ConnectionReferenceAssignment_10");
 					put(grammarAccess.getConnectionReferenceAccess().getSourceAssignment_0(), "rule__ConnectionReference__SourceAssignment_0");
 					put(grammarAccess.getConnectionReferenceAccess().getDestinationAssignment_2(), "rule__ConnectionReference__DestinationAssignment_2");
 					put(grammarAccess.getConnectionReferenceAccess().getConnectionAssignment_4(), "rule__ConnectionReference__ConnectionAssignment_4");
@@ -189,7 +195,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getDestinationAssignment_5(), "rule__FlowSpecificationInstance__DestinationAssignment_5");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getInModeAssignment_7_3(), "rule__FlowSpecificationInstance__InModeAssignment_7_3");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getInModeAssignment_7_4_1(), "rule__FlowSpecificationInstance__InModeAssignment_7_4_1");
-					put(grammarAccess.getFlowSpecificationInstanceAccess().getFlowSpecificationAssignment_9(), "rule__FlowSpecificationInstance__FlowSpecificationAssignment_9");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getInModeTransitionAssignment_8_3(), "rule__FlowSpecificationInstance__InModeTransitionAssignment_8_3");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getInModeTransitionAssignment_8_4_1(), "rule__FlowSpecificationInstance__InModeTransitionAssignment_8_4_1");
+					put(grammarAccess.getFlowSpecificationInstanceAccess().getFlowSpecificationAssignment_10(), "rule__FlowSpecificationInstance__FlowSpecificationAssignment_10");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getNameAssignment_4(), "rule__EndToEndFlowInstance__NameAssignment_4");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getFlowElementAssignment_5_0(), "rule__EndToEndFlowInstance__FlowElementAssignment_5_0");
 					put(grammarAccess.getEndToEndFlowInstanceAccess().getFlowElementAssignment_5_1_1(), "rule__EndToEndFlowInstance__FlowElementAssignment_5_1_1");
