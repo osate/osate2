@@ -46,6 +46,7 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -313,6 +314,26 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int requirementsWithoutPlanClaimCount = REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getNoVerificationPlansCount() <em>No Verification Plans Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNoVerificationPlansCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int NO_VERIFICATION_PLANS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getNoVerificationPlansCount() <em>No Verification Plans Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNoVerificationPlansCount()
+   * @generated
+   * @ordered
+   */
+  protected int noVerificationPlansCount = NO_VERIFICATION_PLANS_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -679,6 +700,29 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getNoVerificationPlansCount()
+  {
+    return noVerificationPlansCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNoVerificationPlansCount(int newNoVerificationPlansCount)
+  {
+    int oldNoVerificationPlansCount = noVerificationPlansCount;
+    noVerificationPlansCount = newNoVerificationPlansCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT, oldNoVerificationPlansCount, noVerificationPlansCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getWeight()
   {
     return weight;
@@ -756,6 +800,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getQualityCategoryRequirementsCount();
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         return getRequirementsWithoutPlanClaimCount();
+      case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
+        return getNoVerificationPlansCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -812,6 +858,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         setRequirementsWithoutPlanClaimCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
+        setNoVerificationPlansCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
@@ -872,6 +921,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         setRequirementsWithoutPlanClaimCount(REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
+        setNoVerificationPlansCount(NO_VERIFICATION_PLANS_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
@@ -918,6 +970,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return qualityCategoryRequirementsCount != QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         return requirementsWithoutPlanClaimCount != REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
+        return noVerificationPlansCount != NO_VERIFICATION_PLANS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -963,6 +1017,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(qualityCategoryRequirementsCount);
     result.append(", requirementsWithoutPlanClaimCount: ");
     result.append(requirementsWithoutPlanClaimCount);
+    result.append(", noVerificationPlansCount: ");
+    result.append(noVerificationPlansCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(", executionTime: ");
