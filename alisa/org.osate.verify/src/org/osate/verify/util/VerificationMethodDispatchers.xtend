@@ -42,6 +42,9 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.aadl2.PropertyExpression
 import org.osate.verify.verify.TargetType
 import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.instance.InstancePackage
 
 class VerificationMethodDispatchers {
 
@@ -231,14 +234,25 @@ class VerificationMethodDispatchers {
 			case "Double": return typeof(Double)
 			case "Long": return typeof(Long)
 			case "aadlreal": return typeof(RealLiteral)
-			case "RealLiteral": return typeof(RealLiteral)
 			case "aadlinteger": return typeof(IntegerLiteral)
-			case "IntegerLiteral": return typeof(IntegerLiteral)
 			case "aadlstring": return typeof(StringLiteral)
-			case "StringLiteral": return typeof(StringLiteral)
 			case "aadlboolean": return typeof(BooleanLiteral)
-			case "BooleanLiteral": return typeof(BooleanLiteral)
-			default: return Class.forName(name)
+//			case "StringLiteral": return typeof(StringLiteral)
+//			case "IntegerLiteral": return typeof(IntegerLiteral)
+//			case "RealLiteral": return typeof(RealLiteral)
+//			case "BooleanLiteral": return typeof(BooleanLiteral)
+//			case "PropertyConstant": return typeof(PropertyConstant)
+//			case "PropertyExpression": return typeof(PropertyExpression)
+//			case "ComponentInstance": return typeof(ComponentInstance)
+//			case "FeatureInstance": return typeof(FeatureInstance)
+			default: {
+				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
+				if (ecl == null){
+					InstancePackage.eINSTANCE.getEClassifier(name)
+				}
+				if (ecl != null) return ecl.instanceClass
+				return Class.forName(name)
+			}
 		}
 	}
 
