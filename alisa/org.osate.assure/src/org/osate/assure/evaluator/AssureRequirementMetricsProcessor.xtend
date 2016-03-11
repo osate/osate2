@@ -47,7 +47,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val targetSystem = caseResult.targetSystem
 		caseResult.metrics.featuresCount = targetSystem.allFeatures.size
 		val claimResults = caseResult.claimResult
-		val verificationPlans = claimResults.map[targetReference.verificationPlan]
+		val verificationPlans = claimResults.map[targetReference.verificationPlan] 
 		val claimReqs = claimResults.map[targetReference.verificationPlan.claim].flatten.map[requirement].toSet
 		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(targetSystem.componentType)
 		
