@@ -38,6 +38,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
 		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size
 		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size		
+		modelResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
 		modelResult.subsystemResult.forEach[subsystemResult|subsystemResult.process]
 		modelResult.subAssuranceCase.forEach[subAssuranceCase|subAssuranceCase.process]
 	}
@@ -46,12 +47,14 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val targetSystem = caseResult.targetSystem
 		caseResult.metrics.featuresCount = targetSystem.allFeatures.size
 		val claimResults = caseResult.claimResult
+		val verificationPlans = claimResults.map[targetReference.verificationPlan]
 		val claimReqs = claimResults.map[targetReference.verificationPlan.claim].flatten.map[requirement].toSet
 		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(targetSystem.componentType)
 		
 		caseResult.metrics.requirementsWithoutPlanClaimCount = sysReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
 		caseResult.metrics.qualityCategoryRequirementsCount = sysReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size
 		caseResult.metrics.featuresRequirementsCount = sysReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size	
+		caseResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
 		caseResult.subsystemResult.forEach[subcaseResult|subcaseResult.process]
 	}
 

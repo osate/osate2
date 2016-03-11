@@ -829,7 +829,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMetrics_Weight()
+  public EAttribute getMetrics_NoVerificationPlansCount()
   {
     return (EAttribute)metricsEClass.getEStructuralFeatures().get(13);
   }
@@ -839,9 +839,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMetrics_ExecutionTime()
+  public EAttribute getMetrics_Weight()
   {
     return (EAttribute)metricsEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_ExecutionTime()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(15);
   }
 
   /**
@@ -1138,6 +1148,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(metricsEClass, METRICS__FEATURES_REQUIREMENTS_COUNT);
     createEAttribute(metricsEClass, METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT);
     createEAttribute(metricsEClass, METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT);
+    createEAttribute(metricsEClass, METRICS__NO_VERIFICATION_PLANS_COUNT);
     createEAttribute(metricsEClass, METRICS__WEIGHT);
     createEAttribute(metricsEClass, METRICS__EXECUTION_TIME);
 
@@ -1289,6 +1300,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getMetrics_FeaturesRequirementsCount(), theEcorePackage.getEInt(), "featuresRequirementsCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_QualityCategoryRequirementsCount(), theEcorePackage.getEInt(), "qualityCategoryRequirementsCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_RequirementsWithoutPlanClaimCount(), theEcorePackage.getEInt(), "requirementsWithoutPlanClaimCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_NoVerificationPlansCount(), theEcorePackage.getEInt(), "noVerificationPlansCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ExecutionTime(), theAadl2Package.getInteger(), "executionTime", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -117,6 +117,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getGroup_13(), "rule__Metrics__Group_13__0");
 					put(grammarAccess.getMetricsAccess().getGroup_14(), "rule__Metrics__Group_14__0");
 					put(grammarAccess.getMetricsAccess().getGroup_15(), "rule__Metrics__Group_15__0");
+					put(grammarAccess.getMetricsAccess().getGroup_16(), "rule__Metrics__Group_16__0");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getGroup(), "rule__QualifiedClaimReference__Group__0");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getGroup(), "rule__QualifiedVAReference__Group__0");
 					put(grammarAccess.getNestedClaimReferenceAccess().getGroup(), "rule__NestedClaimReference__Group__0");
@@ -283,8 +284,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getFeaturesRequirementsCountAssignment_11_1(), "rule__Metrics__FeaturesRequirementsCountAssignment_11_1");
 					put(grammarAccess.getMetricsAccess().getQualityCategoryRequirementsCountAssignment_12_1(), "rule__Metrics__QualityCategoryRequirementsCountAssignment_12_1");
 					put(grammarAccess.getMetricsAccess().getRequirementsWithoutPlanClaimCountAssignment_13_1(), "rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_13_1");
-					put(grammarAccess.getMetricsAccess().getWeightAssignment_14_1(), "rule__Metrics__WeightAssignment_14_1");
-					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_15_1(), "rule__Metrics__ExecutionTimeAssignment_15_1");
+					put(grammarAccess.getMetricsAccess().getNoVerificationPlansCountAssignment_14_1(), "rule__Metrics__NoVerificationPlansCountAssignment_14_1");
+					put(grammarAccess.getMetricsAccess().getWeightAssignment_15_1(), "rule__Metrics__WeightAssignment_15_1");
+					put(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_16_1(), "rule__Metrics__ExecutionTimeAssignment_16_1");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedClaimReference__VerificationPlanAssignment_0");
 					put(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementAssignment_2(), "rule__QualifiedClaimReference__RequirementAssignment_2");
 					put(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanAssignment_0(), "rule__QualifiedVAReference__VerificationPlanAssignment_0");
