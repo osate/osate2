@@ -115,7 +115,7 @@ VerificationPrecondition returns VerificationCondition:
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'verification' 'methods' name=QualifiedName
 	(':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
+//	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
 	'[' (
 	( description=Description)?
 	methods+=VerificationMethod+)
@@ -125,11 +125,12 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 FormalParameter returns FormalParameter:
 	parameterType=ID name=ID ('%' unit=[aadl2::UnitLiteral|ID])?;
 
+enum TargetType: COMPONENT='component'|FEATURE='feature';
 
 VerificationMethod:
-	'method' name=ID
+	'method' name=ID 
 	(
-		'(' (params+=FormalParameter (',' params+=FormalParameter)*)? ')'
+		'(' (targetType=TargetType ',')? (params+=FormalParameter (',' params+=FormalParameter)*)? ')'
 		(
 			'properties' '('
 			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
@@ -164,7 +165,7 @@ MethodKind:
 	;
 	
 	JavaMethod:
-		'java' methodPath=QualifiedName
+		'java' methodPath=QualifiedName ('(' (params+=FormalParameter (',' params+=FormalParameter)*)?')')?
 	;
 	
 	ManualMethod:

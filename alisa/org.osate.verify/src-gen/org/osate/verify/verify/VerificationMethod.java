@@ -37,6 +37,7 @@ import org.osate.categories.categories.Category;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getTargetType <em>Target Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getResultValues <em>Result Values</em>}</li>
@@ -83,6 +84,35 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target Type</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.verify.verify.TargetType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target Type</em>' attribute.
+   * @see org.osate.verify.verify.TargetType
+   * @see #setTargetType(TargetType)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_TargetType()
+   * @model
+   * @generated
+   */
+  TargetType getTargetType();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTargetType <em>Target Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target Type</em>' attribute.
+   * @see org.osate.verify.verify.TargetType
+   * @see #getTargetType()
+   * @generated
+   */
+  void setTargetType(TargetType value);
 
   /**
    * Returns the value of the '<em><b>Params</b></em>' containment reference list.

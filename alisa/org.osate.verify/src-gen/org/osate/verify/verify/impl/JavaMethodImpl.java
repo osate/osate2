@@ -15,12 +15,22 @@
  */
 package org.osate.verify.verify.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.VerifyPackage;
 
@@ -33,6 +43,7 @@ import org.osate.verify.verify.VerifyPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.JavaMethodImpl#getMethodPath <em>Method Path</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.JavaMethodImpl#getParams <em>Params</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,6 +69,16 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * @ordered
    */
   protected String methodPath = METHOD_PATH_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParams()
+   * @generated
+   * @ordered
+   */
+  protected EList<FormalParameter> params;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,6 +129,36 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<FormalParameter> getParams()
+  {
+    if (params == null)
+    {
+      params = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.JAVA_METHOD__PARAMS);
+    }
+    return params;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case VerifyPackage.JAVA_METHOD__PARAMS:
+        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -115,6 +166,8 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
     {
       case VerifyPackage.JAVA_METHOD__METHOD_PATH:
         return getMethodPath();
+      case VerifyPackage.JAVA_METHOD__PARAMS:
+        return getParams();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -124,6 +177,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -131,6 +185,10 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
     {
       case VerifyPackage.JAVA_METHOD__METHOD_PATH:
         setMethodPath((String)newValue);
+        return;
+      case VerifyPackage.JAVA_METHOD__PARAMS:
+        getParams().clear();
+        getParams().addAll((Collection<? extends FormalParameter>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -149,6 +207,9 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
       case VerifyPackage.JAVA_METHOD__METHOD_PATH:
         setMethodPath(METHOD_PATH_EDEFAULT);
         return;
+      case VerifyPackage.JAVA_METHOD__PARAMS:
+        getParams().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -165,6 +226,8 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
     {
       case VerifyPackage.JAVA_METHOD__METHOD_PATH:
         return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
+      case VerifyPackage.JAVA_METHOD__PARAMS:
+        return params != null && !params.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -44,6 +44,7 @@ import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.MethodKind;
+import org.osate.verify.verify.TargetType;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -57,6 +58,7 @@ import org.osate.verify.verify.VerifyPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTargetType <em>Target Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getResultValues <em>Result Values</em>}</li>
@@ -95,6 +97,26 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTargetType() <em>Target Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetType()
+   * @generated
+   * @ordered
+   */
+  protected static final TargetType TARGET_TYPE_EDEFAULT = TargetType.COMPONENT;
+
+  /**
+   * The cached value of the '{@link #getTargetType() <em>Target Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetType()
+   * @generated
+   * @ordered
+   */
+  protected TargetType targetType = TARGET_TYPE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
@@ -298,6 +320,29 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TargetType getTargetType()
+  {
+    return targetType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetType(TargetType newTargetType)
+  {
+    TargetType oldTargetType = targetType;
+    targetType = newTargetType == null ? TARGET_TYPE_EDEFAULT : newTargetType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE, oldTargetType, targetType));
   }
 
   /**
@@ -712,6 +757,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return getName();
+      case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
+        return getTargetType();
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return getParams();
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
@@ -756,6 +803,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
+        setTargetType((TargetType)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
@@ -818,6 +868,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
+        setTargetType(TARGET_TYPE_EDEFAULT);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
         return;
@@ -873,6 +926,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
+        return targetType != TARGET_TYPE_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return params != null && !params.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
@@ -916,6 +971,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", targetType: ");
+    result.append(targetType);
     result.append(", isPredicate: ");
     result.append(isPredicate);
     result.append(", isResultReport: ");

@@ -40,6 +40,8 @@ import org.osate.aadl2.StringLiteral
 import org.eclipse.emf.ecore.EObject
 import org.osate.verify.verify.VerificationMethod
 import org.osate.aadl2.PropertyExpression
+import org.osate.verify.verify.TargetType
+import org.osate.aadl2.instance.FeatureInstance
 
 class VerificationMethodDispatchers {
 
@@ -124,7 +126,11 @@ class VerificationMethodDispatchers {
 			val instance = clazz.newInstance
 
 			val newClasses = newArrayList()
-			newClasses.add(ComponentInstance)
+			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
+				newClasses.add(FeatureInstance)
+			} else {
+				newClasses.add(ComponentInstance)
+			}
 			for (par : formalparameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -187,7 +193,11 @@ class VerificationMethodDispatchers {
 			val loader = new URLClassLoader(urls, parent);
 			val clazz = Class.forName(className, true, loader);
 			val newClasses = newArrayList()
-			newClasses.add(ComponentInstance)
+			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
+				newClasses.add(FeatureInstance)
+			} else {
+				newClasses.add(ComponentInstance)
+			}
 			for (par : parameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -195,8 +205,8 @@ class VerificationMethodDispatchers {
 			}
 
 			val method = clazz.getMethod(methodName, newClasses)
-			if (method == null) throw new IllegalArgumentException(
-				"Method " + methodName + " not found in class instance")
+			if (method == null)
+				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException) {
 				return e.targetException.toString
@@ -235,8 +245,10 @@ class VerificationMethodDispatchers {
 	def Object convertToJavaObject(FormalParameter formalParam, PropertyExpression actual) {
 		var Object result = actual
 		switch (actual) {
-			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double")) result = actual.value
-			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long")) result = actual.value
+			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
+				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
+			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long") ||
+				formalParam.parameterType.equalsIgnoreCase("int")) result = actual.value
 			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
 			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
 		}

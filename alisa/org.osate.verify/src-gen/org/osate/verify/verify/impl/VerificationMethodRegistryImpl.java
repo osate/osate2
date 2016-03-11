@@ -23,18 +23,13 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.Description;
 
@@ -52,8 +47,6 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getMethods <em>Methods</em>}</li>
  * </ul>
@@ -101,26 +94,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTarget()
-   * @generated
-   * @ordered
-   */
-  protected ComponentClassifier target;
-
-  /**
-   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComponentCategory> componentCategory;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -207,63 +180,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
     title = newTitle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentClassifier getTarget()
-  {
-    if (target != null && ((EObject)target).eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentClassifier)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET, oldTarget, target));
-      }
-    }
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentClassifier basicGetTarget()
-  {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(ComponentClassifier newTarget)
-  {
-    ComponentClassifier oldTarget = target;
-    target = newTarget;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET, oldTarget, target));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ComponentCategory> getComponentCategory()
-  {
-    if (componentCategory == null)
-    {
-      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, VerifyPackage.VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY);
-    }
-    return componentCategory;
   }
 
   /**
@@ -360,11 +276,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
         return getName();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY:
-        return getComponentCategory();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
@@ -389,13 +300,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE:
         setTitle((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET:
-        setTarget((ComponentClassifier)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
         setDescription((Description)newValue);
@@ -424,12 +328,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET:
-        setTarget((ComponentClassifier)null);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
         setDescription((Description)null);
         return;
@@ -454,10 +352,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TARGET:
-        return target != null;
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY:
-        return componentCategory != null && !componentCategory.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
@@ -481,8 +375,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", componentCategory: ");
-    result.append(componentCategory);
     result.append(')');
     return result.toString();
   }

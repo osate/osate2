@@ -330,17 +330,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     methodPath=QualifiedName
+	 *     (methodPath=QualifiedName (params+=FormalParameter params+=FormalParameter*)?)
 	 */
 	protected void sequence_JavaMethod(EObject context, JavaMethod semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0(), semanticObject.getMethodPath());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -467,13 +460,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         title=STRING? 
-	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)? 
-	 *         description=Description? 
-	 *         methods+=VerificationMethod+
-	 *     )
+	 *     (name=QualifiedName title=STRING? description=Description? methods+=VerificationMethod+)
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -485,6 +472,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (
+	 *             targetType=TargetType? 
 	 *             (params+=FormalParameter params+=FormalParameter*)? 
 	 *             (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
 	 *             (resultValues+=FormalParameter resultValues+=FormalParameter*)? 

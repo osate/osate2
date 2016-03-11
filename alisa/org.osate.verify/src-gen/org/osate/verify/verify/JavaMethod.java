@@ -15,6 +15,7 @@
  */
 package org.osate.verify.verify;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +27,7 @@ package org.osate.verify.verify;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.JavaMethod#getMethodPath <em>Method Path</em>}</li>
+ *   <li>{@link org.osate.verify.verify.JavaMethod#getParams <em>Params</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getJavaMethod()
@@ -59,5 +61,21 @@ public interface JavaMethod extends MethodKind
    * @generated
    */
   void setMethodPath(String value);
+
+  /**
+   * Returns the value of the '<em><b>Params</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Params</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getJavaMethod_Params()
+   * @model containment="true"
+   * @generated
+   */
+  EList<FormalParameter> getParams();
 
 } // JavaMethod

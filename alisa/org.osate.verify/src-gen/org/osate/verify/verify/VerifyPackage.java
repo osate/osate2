@@ -17,6 +17,7 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -455,31 +456,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD_REGISTRY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD_REGISTRY__TARGET = 2;
-
-  /**
-   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY = 3;
-
-  /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__DESCRIPTION = 4;
+  int VERIFICATION_METHOD_REGISTRY__DESCRIPTION = 2;
 
   /**
    * The feature id for the '<em><b>Methods</b></em>' containment reference list.
@@ -488,7 +471,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__METHODS = 5;
+  int VERIFICATION_METHOD_REGISTRY__METHODS = 3;
 
   /**
    * The number of structural features of the '<em>Verification Method Registry</em>' class.
@@ -497,7 +480,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY_FEATURE_COUNT = 6;
+  int VERIFICATION_METHOD_REGISTRY_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
@@ -565,13 +548,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Target Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__TARGET_TYPE = 1;
+
+  /**
    * The feature id for the '<em><b>Params</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PARAMS = 1;
+  int VERIFICATION_METHOD__PARAMS = 2;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' reference list.
@@ -580,7 +572,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PROPERTIES = 2;
+  int VERIFICATION_METHOD__PROPERTIES = 3;
 
   /**
    * The feature id for the '<em><b>Result Values</b></em>' containment reference list.
@@ -589,7 +581,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__RESULT_VALUES = 3;
+  int VERIFICATION_METHOD__RESULT_VALUES = 4;
 
   /**
    * The feature id for the '<em><b>Is Predicate</b></em>' attribute.
@@ -598,7 +590,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_PREDICATE = 4;
+  int VERIFICATION_METHOD__IS_PREDICATE = 5;
 
   /**
    * The feature id for the '<em><b>Is Result Report</b></em>' attribute.
@@ -607,7 +599,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_RESULT_REPORT = 5;
+  int VERIFICATION_METHOD__IS_RESULT_REPORT = 6;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -616,7 +608,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 6;
+  int VERIFICATION_METHOD__TITLE = 7;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -625,7 +617,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TARGET = 7;
+  int VERIFICATION_METHOD__TARGET = 8;
 
   /**
    * The feature id for the '<em><b>Component Category</b></em>' attribute list.
@@ -634,7 +626,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__COMPONENT_CATEGORY = 8;
+  int VERIFICATION_METHOD__COMPONENT_CATEGORY = 9;
 
   /**
    * The feature id for the '<em><b>Method Kind</b></em>' containment reference.
@@ -643,7 +635,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_KIND = 9;
+  int VERIFICATION_METHOD__METHOD_KIND = 10;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -652,7 +644,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 10;
+  int VERIFICATION_METHOD__DESCRIPTION = 11;
 
   /**
    * The feature id for the '<em><b>Precondition</b></em>' containment reference.
@@ -661,7 +653,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PRECONDITION = 11;
+  int VERIFICATION_METHOD__PRECONDITION = 12;
 
   /**
    * The feature id for the '<em><b>Validation</b></em>' containment reference.
@@ -670,7 +662,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__VALIDATION = 12;
+  int VERIFICATION_METHOD__VALIDATION = 13;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -679,7 +671,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 13;
+  int VERIFICATION_METHOD__CATEGORY = 14;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -688,7 +680,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 14;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 15;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
@@ -757,13 +749,22 @@ public interface VerifyPackage extends EPackage
   int JAVA_METHOD__METHOD_PATH = METHOD_KIND_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_METHOD__PARAMS = METHOD_KIND_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Java Method</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int JAVA_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
+  int JAVA_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
@@ -1107,6 +1108,16 @@ public interface VerifyPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_PRECONDITION_FEATURE_COUNT = VERIFICATION_CONDITION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.TargetType
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getTargetType()
+   * @generated
+   */
+  int TARGET_TYPE = 22;
 
 
   /**
@@ -1499,28 +1510,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethodRegistry_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationMethodRegistry#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getTarget()
-   * @see #getVerificationMethodRegistry()
-   * @generated
-   */
-  EReference getVerificationMethodRegistry_Target();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationMethodRegistry#getComponentCategory <em>Component Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Component Category</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getComponentCategory()
-   * @see #getVerificationMethodRegistry()
-   * @generated
-   */
-  EAttribute getVerificationMethodRegistry_ComponentCategory();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1605,6 +1594,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getVerificationMethod_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTargetType <em>Target Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Target Type</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getTargetType()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_TargetType();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}'.
@@ -1800,6 +1800,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getJavaMethod_MethodPath();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.JavaMethod#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.osate.verify.verify.JavaMethod#getParams()
+   * @see #getJavaMethod()
+   * @generated
+   */
+  EReference getJavaMethod_Params();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ManualMethod <em>Manual Method</em>}'.
@@ -2043,6 +2054,16 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EClass getVerificationPrecondition();
+
+  /**
+   * Returns the meta object for enum '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Target Type</em>'.
+   * @see org.osate.verify.verify.TargetType
+   * @generated
+   */
+  EEnum getTargetType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2370,22 +2391,6 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD_REGISTRY__TITLE = eINSTANCE.getVerificationMethodRegistry_Title();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD_REGISTRY__TARGET = eINSTANCE.getVerificationMethodRegistry_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD_REGISTRY__COMPONENT_CATEGORY = eINSTANCE.getVerificationMethodRegistry_ComponentCategory();
-
-    /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2452,6 +2457,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute VERIFICATION_METHOD__NAME = eINSTANCE.getVerificationMethod_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Target Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__TARGET_TYPE = eINSTANCE.getVerificationMethod_TargetType();
 
     /**
      * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
@@ -2602,6 +2615,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute JAVA_METHOD__METHOD_PATH = eINSTANCE.getJavaMethod_MethodPath();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference JAVA_METHOD__PARAMS = eINSTANCE.getJavaMethod_Params();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
@@ -2806,6 +2827,16 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_PRECONDITION = eINSTANCE.getVerificationPrecondition();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.TargetType <em>Target Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.TargetType
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getTargetType()
+     * @generated
+     */
+    EEnum TARGET_TYPE = eINSTANCE.getTargetType();
 
   }
 
