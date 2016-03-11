@@ -4,6 +4,8 @@
 package org.osate.xtext.aadl2.instance.scoping
 
 import com.google.inject.Inject
+import java.util.List
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
@@ -15,17 +17,26 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.instance.EndToEndFlowInstance
 import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.instance.FlowSpecificationInstance
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.ModeInstance
 import org.osate.aadl2.instance.SystemInstance
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
+import static extension org.eclipse.xtext.EcoreUtil2.eAllContentsAsList
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
+import static extension org.eclipse.xtext.scoping.Scopes.scopedElementsFor
 
 /**
  * This class contains custom scoping description.
@@ -35,243 +46,28 @@ import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
  *
  */
 class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
+	val ResourceDescriptionsProvider rdp
+	
 	@Inject
-	ResourceDescriptionsProvider rdp
+	new(ResourceDescriptionsProvider rdp) {
+		this.rdp = rdp
+	}
 	
 	def IScope scope_FeatureInstance_feature(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val typeDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentType)
-		val types = typeDescriptions.map[EObjectOrProxy.resolve(context) as ComponentType]
-		val typeScope = types.map[type |
-			val pkgName = type.getContainerOfType(AadlPackage).name
-			type.ownedFeatures.map[feature |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[type.name, feature.name])
-				EObjectDescription.create(qualifiedName, feature)
-			]
-		]
-		val fgtDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.featureGroupType)
-		val fgts = fgtDescriptions.map[EObjectOrProxy.resolve(context) as FeatureGroupType]
-		val fgtScope = fgts.map[fgt |
-			val pkgName = fgt.getContainerOfType(AadlPackage).name
-			fgt.ownedFeatures.map[feature |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[fgt.name, feature.name])
-				EObjectDescription.create(qualifiedName, feature)
-			]
-		]
-		new SimpleScope((typeScope + fgtScope).flatten)
+		val fromComponents = <ComponentType>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentType, [ownedFeatures])
+		val fromFeatureGroups = <FeatureGroupType>getDeclarativeScope(context, Aadl2Package.eINSTANCE.featureGroupType, [ownedFeatures])
+		new SimpleScope(fromComponents + fromFeatureGroups)
 	}
 	
-	def IScope scope_ComponentInstance_subcomponent(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
-		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
-		new SimpleScope(impls.map[impl |
-			val pkgName = impl.getContainerOfType(AadlPackage).name
-			impl.ownedSubcomponents.map[sub |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, sub.name])
-				EObjectDescription.create(qualifiedName, sub)
-			]
-		].flatten)
+	def IScope scope_FlowSpecificationInstance(ComponentInstance context, EReference reference) {
+		context.flowSpecifications.scopeFor
 	}
 	
-	def IScope scope_ConnectionInstanceEnd(ComponentInstance context, EReference reference) {
-		val features = context.featureInstances.map[
-			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
-			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
-		]
-		val components = context.componentInstances.map[
-			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponent(newName, it)
-		]
-		new SimpleScope((features + components).flatten)
-	}
-	
-	def private static Iterable<IEObjectDescription> doFeature(String prefix, FeatureInstance feature) {
-		feature.featureInstances.map[
-			val newName = '''«prefix».«name»«IF index != 0»[«index»]«ENDIF»'''
-			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
-		].flatten
-	}
-	
-	def private static Iterable<IEObjectDescription> doComponent(String prefix, ComponentInstance component) {
-		val features = component.featureInstances.map[
-			val newName = '''«prefix».«name»«IF index != 0»[«index»]«ENDIF»'''
-			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
-		]
-		val components = component.componentInstances.map[
-			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponent(newName, it)
-		]
-		(features + components).flatten
-	}
-	
-	def IScope scope_ConnectionReference_connection(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
-		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
-		new SimpleScope(impls.map[impl |
-			val pkgName = impl.getContainerOfType(AadlPackage).name
-			impl.ownedConnections.map[conn |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, conn.name])
-				EObjectDescription.create(qualifiedName, conn)
-			]
-		].flatten)
-	}
-	
-	def IScope scope_ConnectionReference_context(ComponentInstance context, EReference reference) {
-		val components = context.componentInstances.map[
-			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponentOnly(newName, it)
-		].flatten
-		new SimpleScope(components + #[EObjectDescription.create("parent", context)])
-	}
-	
-	def private static Iterable<IEObjectDescription> doComponentOnly(String prefix, ComponentInstance component) {
-		component.componentInstances.map[
-			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponentOnly(newName, it)
-		].flatten
-	}
-	
-	def IScope scope_ConnectionInstanceEnd_srcConnectionInstance(EObject context, EReference reference) {
-		val parent = context.eContainer.getContainerOfType(ComponentInstance)
-		if (parent != null) {
-			val descriptions = parent.connectionInstances.indexed.map[
-				EObjectDescription.create(key.toString, value)
-			]
-			val parent2 = parent.eContainer
-			new SimpleScope(if (parent2 instanceof ComponentInstance) {
-				descriptions + doConnection(1, parent2)
-			} else {
-				descriptions
-			})
-		} else {
-			IScope.NULLSCOPE
+	def IScope scope_ConnectionInstance(EObject context, EReference reference) {
+		switch parent : context.eContainer.getContainerOfType(ComponentInstance) {
+			case null: IScope.NULLSCOPE
+			default: new SimpleScope(doConnection(0, parent))
 		}
-	}
-	
-	def IScope scope_ConnectionInstanceEnd_dstConnectionInstance(EObject context, EReference reference) {
-		val parent = context.eContainer.getContainerOfType(ComponentInstance)
-		if (parent != null) {
-			val descriptions = parent.connectionInstances.indexed.map[
-				EObjectDescription.create(key.toString, value)
-			]
-			val parent2 = parent.eContainer
-			new SimpleScope(if (parent2 instanceof ComponentInstance) {
-				descriptions + doConnection(1, parent2)
-			} else {
-				descriptions
-			})
-		} else {
-			IScope.NULLSCOPE
-		}
-	}
-	
-	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
-		val descriptions = component.connectionInstances.indexed.map[
-			EObjectDescription.create('''«levelCount».«key»''', value)
-		]
-		val parent = component.eContainer
-		if (parent instanceof ComponentInstance) {
-			descriptions + doConnection(levelCount + 1, parent)
-		} else {
-			descriptions
-		}
-	}
-	
-	def IScope scope_FlowSpecificationInstance_flowSpecification(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val typeDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentType)
-		val types = typeDescriptions.map[EObjectOrProxy.resolve(context) as ComponentType]
-		new SimpleScope(types.map[type |
-			val pkgName = type.getContainerOfType(AadlPackage).name
-			type.ownedFlowSpecifications.map[flow |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[type.name, flow.name])
-				EObjectDescription.create(qualifiedName, flow)
-			]
-		].flatten)
-	}
-	
-	def IScope scope_FlowSpecificationInstance_source(ComponentInstance context, EReference reference) {
-		val features = context.featureInstances.map[
-			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
-			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
-		]
-		new SimpleScope(features.flatten)
-	}
-	
-	def IScope scope_FlowSpecificationInstance_destination(ComponentInstance context, EReference reference) {
-		val features = context.featureInstances.map[
-			val newName = '''«name»«IF index != 0»[«index»]«ENDIF»'''
-			#[EObjectDescription.create(newName, it)] + doFeature(newName, it)
-		]
-		new SimpleScope(features.flatten)
-	}
-	
-	def IScope scope_EndToEndFlowInstance_endToEndFlow(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val implDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentImplementation)
-		val impls = implDescriptions.map[EObjectOrProxy.resolve(context) as ComponentImplementation]
-		new SimpleScope(impls.map[impl |
-			val pkgName = impl.getContainerOfType(AadlPackage).name
-			impl.ownedEndToEndFlows.map[etef |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[impl.name, etef.name])
-				EObjectDescription.create(qualifiedName, etef)
-			]
-		].flatten)
-	}
-	
-	def IScope scope_EndToEndFlowInstance_flowElement(ComponentInstance context, EReference reference) {
-		val components = context.componentInstances.map[
-			val newName = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponentForFlowElement(newName, it)
-		]
-		val connections = context.connectionInstances.indexed.map[EObjectDescription.create(key.toString, value)]
-		val endToEndFlows = context.endToEndFlows.map[EObjectDescription.create(name, it)]
-		val flowSpecs = context.flowSpecifications.map[EObjectDescription.create(name, it)]
-		new SimpleScope(components.flatten + connections + endToEndFlows + flowSpecs)
-	}
-	
-	def private static Iterable<IEObjectDescription> doComponentForFlowElement(String prefix, ComponentInstance component) {
-		val components = component.componentInstances.map[
-			val newName = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			#[EObjectDescription.create(newName, it)] + doComponentForFlowElement(newName, it)
-		]
-		val connections = component.connectionInstances.indexed.map[EObjectDescription.create(prefix + "." + key, value)]
-		val endToEndFlows = component.endToEndFlows.map[EObjectDescription.create(prefix + "." + name, it)]
-		val flowSpecs = component.flowSpecifications.map[EObjectDescription.create(prefix + "." + name, it)]
-		components.flatten + connections + endToEndFlows + flowSpecs
-	}
-	
-	def IScope scope_ModeInstance_mode(EObject context, EReference reference) {
-		val rds = rdp.getResourceDescriptions(context.eResource)
-		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentClassifier)
-		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as ComponentClassifier]
-		new SimpleScope(classifiers.map[classifier |
-			val pkgName = classifier.getContainerOfType(AadlPackage).name
-			classifier.ownedModes.map[mode |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, mode.name])
-				EObjectDescription.create(qualifiedName, mode)
-			]
-		].flatten)
-	}
-	
-	def IScope scope_SystemOperationMode_currentMode(ComponentInstance context, EReference reference) {
-		val components = context.componentInstances.map[
-			val prefix = '''«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			doComponentForMode(prefix, it)
-		]
-		val modes = context.modeInstances.map[EObjectDescription.create(name, it)]
-		new SimpleScope(components.flatten + modes)
-	}
-	
-	def private static Iterable<IEObjectDescription> doComponentForMode(String prefix, ComponentInstance component) {
-		val components = component.componentInstances.map[
-			val newPrefix = '''«prefix».«name»«FOR index : indices»[«index»]«ENDFOR»'''
-			doComponentForMode(newPrefix, it)
-		]
-		val modes = component.modeInstances.map[EObjectDescription.create(prefix + "." + name, it)]
-		components.flatten + modes
 	}
 	
 	def IScope scope_ComponentInstance_inMode(ComponentInstance context, EReference reference) {
@@ -279,8 +75,48 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		(parent?.modeInstances ?: emptyList).scopeFor
 	}
 	
+	def IScope scope_ComponentInstance_subcomponent(EObject context, EReference reference) {
+		new SimpleScope(<ComponentImplementation>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentImplementation, [ownedSubcomponents]))
+	}
+	
+	def IScope scope_ConnectionInstanceEnd(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.getInstanceScope(FeatureInstance, ComponentInstance))
+	}
+	
 	def IScope scope_SystemOperationMode(SystemInstance context, EReference reference) {
 		new SimpleScope(context.systemOperationModes.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_ModeTransitionInstance(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	}
+	
+	def IScope scope_ConnectionReference_connection(EObject context, EReference reference) {
+		new SimpleScope(<ComponentImplementation>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentImplementation, [ownedConnections]))
+	}
+	
+	def IScope scope_ConnectionReference_context(ComponentInstance context, EReference reference) {
+		new SimpleScope(#[EObjectDescription.create("parent", context)] + context.getInstanceScope(ComponentInstance))
+	}
+	
+	def IScope scope_FeatureInstance(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.getInstanceScope(FeatureInstance))
+	}
+	
+	def IScope scope_ModeInstance(ComponentInstance context, EReference reference) {
+		context.modeInstances.scopeFor
+	}
+	
+	def IScope scope_FlowSpecificationInstance_flowSpecification(EObject context, EReference reference) {
+		new SimpleScope(<ComponentType>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentType, [ownedFlowSpecifications]))
+	}
+	
+	def IScope scope_EndToEndFlowInstance_flowElement(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.getInstanceScope(ComponentInstance, ConnectionInstance, EndToEndFlowInstance, FlowSpecificationInstance))
+	}
+	
+	def IScope scope_EndToEndFlowInstance_endToEndFlow(EObject context, EReference reference) {
+		new SimpleScope(<ComponentImplementation>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentImplementation, [ownedEndToEndFlows]))
 	}
 	
 	def IScope scope_ModeInstance_parent(ComponentInstance context, EReference reference) {
@@ -288,52 +124,56 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		(parent?.modeInstances ?: emptyList).scopeFor
 	}
 	
-	def IScope scope_FeatureInstance_srcFlowSpec(ComponentInstance context, EReference reference) {
-		context.flowSpecifications.scopeFor
-	}
-	
-	def IScope scope_FeatureInstance_dstFlowSpec(ComponentInstance context, EReference reference) {
-		context.flowSpecifications.scopeFor
-	}
-	
-	def IScope scope_FlowSpecificationInstance_inMode(ComponentInstance context, EReference reference) {
-		context.modeInstances.scopeFor
+	def IScope scope_ModeInstance_mode(EObject context, EReference reference) {
+		new SimpleScope(<ComponentClassifier>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentClassifier, [ownedModes]))
 	}
 	
 	def IScope scope_ModeTransitionInstance_modeTransition(EObject context, EReference reference) {
+		new SimpleScope(<ComponentClassifier>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentClassifier, [ownedModeTransitions]))
+	}
+	
+	def IScope scope_SystemOperationMode_currentMode(ComponentInstance context, EReference reference) {
+		new SimpleScope(context.getInstanceScope(ModeInstance))
+	}
+	
+	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
+		val descriptions = component.connectionInstances.indexed.map[
+			EObjectDescription.create('''«IF levelCount > 0»«levelCount».«ENDIF»«key»''', value)
+		]
+		switch parent : component.eContainer {
+			ComponentInstance: descriptions + doConnection(levelCount + 1, parent)
+			default: descriptions
+		}
+	}
+	
+	def private <T extends Classifier> getDeclarativeScope(EObject context, EClass containerEClass, (T)=>List<? extends NamedElement> elementsGetter) {
 		val rds = rdp.getResourceDescriptions(context.eResource)
-		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.componentClassifier)
-		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as ComponentClassifier]
-		new SimpleScope(classifiers.map[classifier |
+		val classifierDescriptions = rds.getExportedObjectsByType(containerEClass)
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as T]
+		classifiers.map[classifier |
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
-			classifier.ownedModeTransitions.map[modeTransition |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, modeTransition.name])
-				EObjectDescription.create(qualifiedName, modeTransition)
+			elementsGetter.apply(classifier).map[element |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, element.name])
+				EObjectDescription.create(qualifiedName, element)
 			]
-		].flatten)
+		].flatten
 	}
 	
-	def IScope scope_ModeInstance_srcModeTransition(ComponentInstance context, EReference reference) {
-		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	def private getInstanceScope(ComponentInstance context, Class<?>... types) {
+		context.eAllContentsAsList.filter[element | types.exists[isInstance(element)]].scopedElementsFor[QualifiedName.create(getInstanceScopeName(context))]
 	}
 	
-	def IScope scope_ModeInstance_dstModeTransition(ComponentInstance context, EReference reference) {
-		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
-	}
-	
-	def IScope scope_ModeTransitionInstance_source(ComponentInstance context, EReference reference) {
-		context.modeInstances.scopeFor
-	}
-	
-	def IScope scope_ModeTransitionInstance_destination(ComponentInstance context, EReference reference) {
-		context.modeInstances.scopeFor
-	}
-	
-	def IScope scope_ConnectionInstance_inModeTransition(ComponentInstance context, EReference reference) {
-		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
-	}
-	
-	def IScope scope_FlowSpecificationInstance_inModeTransition(ComponentInstance context, EReference reference) {
-		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+	def private static String getInstanceScopeName(EObject element, ComponentInstance root) {
+		val prefix = if (element.eContainer == root) {
+			""
+		} else {
+			getInstanceScopeName(element.eContainer, root) + "."
+		}
+		prefix + switch element {
+			ComponentInstance: '''«element.name»«FOR index : element.indices»[«index»]«ENDFOR»'''
+			ConnectionInstance: element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
+			FeatureInstance: '''«element.name»«IF element.index != 0»[«element.index»]«ENDIF»'''
+			InstanceObject: element.name
+		}
 	}
 }
