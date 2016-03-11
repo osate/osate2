@@ -54,6 +54,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.aadl2.Classifier
+import org.osate.reqspec.reqSpec.ReqPredicate
 
 /**
  * This class contains custom scoping description.
@@ -66,7 +67,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	// For Reference is from Goal, Requirement 
-	def scope_NamedElement(AModelReference context, EReference reference) {
+	def scope_NestedModelElement_modelElement(ReqPredicate context, EReference reference) {
 			val ne = containingContractualElement(context).targetElement
 			var Classifier tcl = null
 			if (ne instanceof Feature){
@@ -88,7 +89,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		}
 	}
 	
-	def scope_NamedElement(ContractualElement context, EReference reference) {
+	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor
