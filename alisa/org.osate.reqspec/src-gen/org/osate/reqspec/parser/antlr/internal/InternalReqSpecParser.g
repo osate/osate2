@@ -5651,24 +5651,29 @@ ruleValuePredicate returns [EObject current=null]
 
 )
 )(
+	otherlv_3=With
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getValuePredicateAccess().getWithKeyword_3_0());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getValuePredicateAccess().getDesiredValueDesiredValueParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getValuePredicateAccess().getDesiredValueDesiredValueParserRuleCall_3_1_0()); 
 	    }
-		lv_desiredValue_3_0=ruleDesiredValue		{
+		lv_desiredValue_4_0=ruleDesiredValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getValuePredicateRule());
 	        }
-       		set(
+       		add(
        			$current, 
        			"desiredValue",
-        		lv_desiredValue_3_0, 
+        		lv_desiredValue_4_0, 
         		"DesiredValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?)
+)+)?)
 ;
 
 
@@ -5689,12 +5694,25 @@ ruleDesiredValue returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((
+((
 (
-		lv_upto_0_0=
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDesiredValueRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceCrossReference_0_0()); 
+	}
+
+)
+)((
+(
+		lv_upto_1_0=
 	Upto
     {
-        newLeafNode(lv_upto_0_0, grammarAccess.getDesiredValueAccess().getUptoUptoKeyword_0_0_0());
+        newLeafNode(lv_upto_1_0, grammarAccess.getDesiredValueAccess().getUptoUptoKeyword_1_0_0());
     }
 
 	    {
@@ -5707,23 +5725,23 @@ ruleDesiredValue returns [EObject current=null]
 )
 )
     |
-	otherlv_1=Downto
+	otherlv_2=Downto
     {
-    	newLeafNode(otherlv_1, grammarAccess.getDesiredValueAccess().getDowntoKeyword_0_1());
+    	newLeafNode(otherlv_2, grammarAccess.getDesiredValueAccess().getDowntoKeyword_1_1());
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDesiredValueAccess().getValueAExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getDesiredValueAccess().getValueAExpressionParserRuleCall_2_0()); 
 	    }
-		lv_value_2_0=ruleAExpression		{
+		lv_value_3_0=ruleAExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDesiredValueRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_2_0, 
+        		lv_value_3_0, 
         		"AExpression");
 	        afterParserOrEnumRuleCall();
 	    }

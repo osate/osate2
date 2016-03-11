@@ -64,7 +64,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIncludeGlobalRequirementAccess().getAlternatives_2_1(), "rule__IncludeGlobalRequirement__Alternatives_2_1");
 					put(grammarAccess.getWhenConditionAccess().getAlternatives_1(), "rule__WhenCondition__Alternatives_1");
 					put(grammarAccess.getReqPredicateAccess().getAlternatives(), "rule__ReqPredicate__Alternatives");
-					put(grammarAccess.getDesiredValueAccess().getAlternatives_0(), "rule__DesiredValue__Alternatives_0");
+					put(grammarAccess.getDesiredValueAccess().getAlternatives_1(), "rule__DesiredValue__Alternatives_1");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_2(), "rule__ValDeclaration__Alternatives_2");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_2(), "rule__ComputeDeclaration__Alternatives_2");
@@ -187,6 +187,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInformalPredicateAccess().getGroup(), "rule__InformalPredicate__Group__0");
 					put(grammarAccess.getPredicateAccess().getGroup(), "rule__Predicate__Group__0");
 					put(grammarAccess.getValuePredicateAccess().getGroup(), "rule__ValuePredicate__Group__0");
+					put(grammarAccess.getValuePredicateAccess().getGroup_3(), "rule__ValuePredicate__Group_3__0");
 					put(grammarAccess.getDesiredValueAccess().getGroup(), "rule__DesiredValue__Group__0");
 					put(grammarAccess.getExternalDocumentAccess().getGroup(), "rule__ExternalDocument__Group__0");
 					put(grammarAccess.getExternalDocumentAccess().getGroup_1(), "rule__ExternalDocument__Group_1__0");
@@ -456,9 +457,10 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInformalPredicateAccess().getDescriptionAssignment_2(), "rule__InformalPredicate__DescriptionAssignment_2");
 					put(grammarAccess.getPredicateAccess().getXpressionAssignment_1(), "rule__Predicate__XpressionAssignment_1");
 					put(grammarAccess.getValuePredicateAccess().getXpressionAssignment_2(), "rule__ValuePredicate__XpressionAssignment_2");
-					put(grammarAccess.getValuePredicateAccess().getDesiredValueAssignment_3(), "rule__ValuePredicate__DesiredValueAssignment_3");
-					put(grammarAccess.getDesiredValueAccess().getUptoAssignment_0_0(), "rule__DesiredValue__UptoAssignment_0_0");
-					put(grammarAccess.getDesiredValueAccess().getValueAssignment_1(), "rule__DesiredValue__ValueAssignment_1");
+					put(grammarAccess.getValuePredicateAccess().getDesiredValueAssignment_3_1(), "rule__ValuePredicate__DesiredValueAssignment_3_1");
+					put(grammarAccess.getDesiredValueAccess().getDesiredAssignment_0(), "rule__DesiredValue__DesiredAssignment_0");
+					put(grammarAccess.getDesiredValueAccess().getUptoAssignment_1_0(), "rule__DesiredValue__UptoAssignment_1_0");
+					put(grammarAccess.getDesiredValueAccess().getValueAssignment_2(), "rule__DesiredValue__ValueAssignment_2");
 					put(grammarAccess.getExternalDocumentAccess().getDocReferenceAssignment_0(), "rule__ExternalDocument__DocReferenceAssignment_0");
 					put(grammarAccess.getExternalDocumentAccess().getDocFragmentAssignment_1_1(), "rule__ExternalDocument__DocFragmentAssignment_1_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");

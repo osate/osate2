@@ -15,13 +15,20 @@
  */
 package org.osate.reqspec.reqSpec.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.PropertyExpression;
 
@@ -56,14 +63,14 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
   protected PropertyExpression xpression;
 
   /**
-   * The cached value of the '{@link #getDesiredValue() <em>Desired Value</em>}' containment reference.
+   * The cached value of the '{@link #getDesiredValue() <em>Desired Value</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDesiredValue()
    * @generated
    * @ordered
    */
-  protected DesiredValue desiredValue;
+  protected EList<DesiredValue> desiredValue;
 
   /**
    * <!-- begin-user-doc -->
@@ -139,47 +146,13 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
    * <!-- end-user-doc -->
    * @generated
    */
-  public DesiredValue getDesiredValue()
+  public EList<DesiredValue> getDesiredValue()
   {
+    if (desiredValue == null)
+    {
+      desiredValue = new EObjectContainmentEList<DesiredValue>(DesiredValue.class, this, ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE);
+    }
     return desiredValue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDesiredValue(DesiredValue newDesiredValue, NotificationChain msgs)
-  {
-    DesiredValue oldDesiredValue = desiredValue;
-    desiredValue = newDesiredValue;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE, oldDesiredValue, newDesiredValue);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDesiredValue(DesiredValue newDesiredValue)
-  {
-    if (newDesiredValue != desiredValue)
-    {
-      NotificationChain msgs = null;
-      if (desiredValue != null)
-        msgs = ((InternalEObject)desiredValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE, null, msgs);
-      if (newDesiredValue != null)
-        msgs = ((InternalEObject)newDesiredValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE, null, msgs);
-      msgs = basicSetDesiredValue(newDesiredValue, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE, newDesiredValue, newDesiredValue));
   }
 
   /**
@@ -195,7 +168,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
       case ReqSpecPackage.VALUE_PREDICATE__XPRESSION:
         return basicSetXpression(null, msgs);
       case ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE:
-        return basicSetDesiredValue(null, msgs);
+        return ((InternalEList<?>)getDesiredValue()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -223,6 +196,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -232,7 +206,8 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
         setXpression((PropertyExpression)newValue);
         return;
       case ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE:
-        setDesiredValue((DesiredValue)newValue);
+        getDesiredValue().clear();
+        getDesiredValue().addAll((Collection<? extends DesiredValue>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -252,7 +227,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
         setXpression((PropertyExpression)null);
         return;
       case ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE:
-        setDesiredValue((DesiredValue)null);
+        getDesiredValue().clear();
         return;
     }
     super.eUnset(featureID);
@@ -271,7 +246,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
       case ReqSpecPackage.VALUE_PREDICATE__XPRESSION:
         return xpression != null;
       case ReqSpecPackage.VALUE_PREDICATE__DESIRED_VALUE:
-        return desiredValue != null;
+        return desiredValue != null && !desiredValue.isEmpty();
     }
     return super.eIsSet(featureID);
   }

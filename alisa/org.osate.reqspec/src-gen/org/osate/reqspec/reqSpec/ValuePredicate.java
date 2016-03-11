@@ -15,6 +15,8 @@
  */
 package org.osate.reqspec.reqSpec;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.PropertyExpression;
 
 /**
@@ -63,29 +65,19 @@ public interface ValuePredicate extends ReqPredicate
   void setXpression(PropertyExpression value);
 
   /**
-   * Returns the value of the '<em><b>Desired Value</b></em>' containment reference.
+   * Returns the value of the '<em><b>Desired Value</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.DesiredValue}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Desired Value</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Desired Value</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Desired Value</em>' containment reference.
-   * @see #setDesiredValue(DesiredValue)
+   * @return the value of the '<em>Desired Value</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getValuePredicate_DesiredValue()
    * @model containment="true"
    * @generated
    */
-  DesiredValue getDesiredValue();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue <em>Desired Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Desired Value</em>' containment reference.
-   * @see #getDesiredValue()
-   * @generated
-   */
-  void setDesiredValue(DesiredValue value);
+  EList<DesiredValue> getDesiredValue();
 
 } // ValuePredicate

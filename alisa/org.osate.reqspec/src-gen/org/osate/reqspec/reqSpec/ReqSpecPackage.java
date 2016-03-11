@@ -1373,7 +1373,7 @@ public interface ReqSpecPackage extends EPackage
   int VALUE_PREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Desired Value</b></em>' containment reference.
+   * The feature id for the '<em><b>Desired Value</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1401,13 +1401,22 @@ public interface ReqSpecPackage extends EPackage
   int DESIRED_VALUE = 16;
 
   /**
+   * The feature id for the '<em><b>Desired</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESIRED_VALUE__DESIRED = 0;
+
+  /**
    * The feature id for the '<em><b>Upto</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DESIRED_VALUE__UPTO = 0;
+  int DESIRED_VALUE__UPTO = 1;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1416,7 +1425,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DESIRED_VALUE__VALUE = 1;
+  int DESIRED_VALUE__VALUE = 2;
 
   /**
    * The number of structural features of the '<em>Desired Value</em>' class.
@@ -1425,7 +1434,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DESIRED_VALUE_FEATURE_COUNT = 2;
+  int DESIRED_VALUE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
@@ -2555,10 +2564,10 @@ public interface ReqSpecPackage extends EPackage
   EReference getValuePredicate_Xpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue <em>Desired Value</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue <em>Desired Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Desired Value</em>'.
+   * @return the meta object for the containment reference list '<em>Desired Value</em>'.
    * @see org.osate.reqspec.reqSpec.ValuePredicate#getDesiredValue()
    * @see #getValuePredicate()
    * @generated
@@ -2574,6 +2583,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getDesiredValue();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Desired</em>'.
+   * @see org.osate.reqspec.reqSpec.DesiredValue#getDesired()
+   * @see #getDesiredValue()
+   * @generated
+   */
+  EReference getDesiredValue_Desired();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.DesiredValue#isUpto <em>Upto</em>}'.
@@ -3359,7 +3379,7 @@ public interface ReqSpecPackage extends EPackage
     EReference VALUE_PREDICATE__XPRESSION = eINSTANCE.getValuePredicate_Xpression();
 
     /**
-     * The meta object literal for the '<em><b>Desired Value</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Desired Value</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3375,6 +3395,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass DESIRED_VALUE = eINSTANCE.getDesiredValue();
+
+    /**
+     * The meta object literal for the '<em><b>Desired</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DESIRED_VALUE__DESIRED = eINSTANCE.getDesiredValue_Desired();
 
     /**
      * The meta object literal for the '<em><b>Upto</b></em>' attribute feature.

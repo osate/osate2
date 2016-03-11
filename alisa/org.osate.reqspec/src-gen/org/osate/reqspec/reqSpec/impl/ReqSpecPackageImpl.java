@@ -1088,9 +1088,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getDesiredValue_Desired()
+  {
+    return (EReference)desiredValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getDesiredValue_Upto()
   {
-    return (EAttribute)desiredValueEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)desiredValueEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1100,7 +1110,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getDesiredValue_Value()
   {
-    return (EReference)desiredValueEClass.getEStructuralFeatures().get(1);
+    return (EReference)desiredValueEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1300,6 +1310,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(valuePredicateEClass, VALUE_PREDICATE__DESIRED_VALUE);
 
     desiredValueEClass = createEClass(DESIRED_VALUE);
+    createEReference(desiredValueEClass, DESIRED_VALUE__DESIRED);
     createEAttribute(desiredValueEClass, DESIRED_VALUE__UPTO);
     createEReference(desiredValueEClass, DESIRED_VALUE__VALUE);
 
@@ -1457,9 +1468,10 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(valuePredicateEClass, ValuePredicate.class, "ValuePredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getValuePredicate_Xpression(), theAadl2Package.getPropertyExpression(), null, "xpression", null, 0, 1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getValuePredicate_DesiredValue(), this.getDesiredValue(), null, "desiredValue", null, 0, 1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getValuePredicate_DesiredValue(), this.getDesiredValue(), null, "desiredValue", null, 0, -1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(desiredValueEClass, DesiredValue.class, "DesiredValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDesiredValue_Desired(), theCommonPackage.getAVariableReference(), null, "desired", null, 0, 1, DesiredValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDesiredValue_Upto(), theEcorePackage.getEBoolean(), "upto", null, 0, 1, DesiredValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDesiredValue_Value(), theAadl2Package.getPropertyExpression(), null, "value", null, 0, 1, DesiredValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

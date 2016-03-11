@@ -257,7 +257,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (upto?='upto'? value=AExpression)
+	 *     (desired=[AVariableReference|ID] upto?='upto'? value=AExpression)
 	 */
 	protected void sequence_DesiredValue(EObject context, DesiredValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -571,7 +571,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=AAndExpression desiredValue=DesiredValue?)
+	 *     (xpression=AAndExpression desiredValue+=DesiredValue*)
 	 */
 	protected void sequence_ValuePredicate(EObject context, ValuePredicate semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.PropertyExpression;
 
+import org.osate.alisa.common.common.AVariableReference;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Desired Value</b></em>'.
@@ -28,6 +30,7 @@ import org.osate.aadl2.PropertyExpression;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.DesiredValue#isUpto <em>Upto</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.DesiredValue#getValue <em>Value</em>}</li>
  * </ul>
@@ -38,6 +41,32 @@ import org.osate.aadl2.PropertyExpression;
  */
 public interface DesiredValue extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Desired</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Desired</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Desired</em>' reference.
+   * @see #setDesired(AVariableReference)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getDesiredValue_Desired()
+   * @model
+   * @generated
+   */
+  AVariableReference getDesired();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Desired</em>' reference.
+   * @see #getDesired()
+   * @generated
+   */
+  void setDesired(AVariableReference value);
+
   /**
    * Returns the value of the '<em><b>Upto</b></em>' attribute.
    * <!-- begin-user-doc -->

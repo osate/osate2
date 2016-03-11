@@ -3093,15 +3093,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPredicateKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cXpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cXpressionAAndExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
-		private final Assignment cDesiredValueAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cDesiredValueDesiredValueParserRuleCall_3_0 = (RuleCall)cDesiredValueAssignment_3.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cWithKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cDesiredValueAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cDesiredValueDesiredValueParserRuleCall_3_1_0 = (RuleCall)cDesiredValueAssignment_3_1.eContents().get(0);
 		
 		//// intended to be restricted to deal with value limits
 		//ValuePredicate:
-		//	"value" "predicate" xpression=AAndExpression desiredValue=DesiredValue?;
+		//	"value" "predicate" xpression=AAndExpression ("with" desiredValue+=DesiredValue+)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"value" "predicate" xpression=AAndExpression desiredValue=DesiredValue?
+		//"value" "predicate" xpression=AAndExpression ("with" desiredValue+=DesiredValue+)?
 		public Group getGroup() { return cGroup; }
 
 		//"value"
@@ -3116,47 +3118,65 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//AAndExpression
 		public RuleCall getXpressionAAndExpressionParserRuleCall_2_0() { return cXpressionAAndExpressionParserRuleCall_2_0; }
 
-		//desiredValue=DesiredValue?
-		public Assignment getDesiredValueAssignment_3() { return cDesiredValueAssignment_3; }
+		//("with" desiredValue+=DesiredValue+)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"with"
+		public Keyword getWithKeyword_3_0() { return cWithKeyword_3_0; }
+
+		//desiredValue+=DesiredValue+
+		public Assignment getDesiredValueAssignment_3_1() { return cDesiredValueAssignment_3_1; }
 
 		//DesiredValue
-		public RuleCall getDesiredValueDesiredValueParserRuleCall_3_0() { return cDesiredValueDesiredValueParserRuleCall_3_0; }
+		public RuleCall getDesiredValueDesiredValueParserRuleCall_3_1_0() { return cDesiredValueDesiredValueParserRuleCall_3_1_0; }
 	}
 
 	public class DesiredValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DesiredValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final Assignment cUptoAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
-		private final Keyword cUptoUptoKeyword_0_0_0 = (Keyword)cUptoAssignment_0_0.eContents().get(0);
-		private final Keyword cDowntoKeyword_0_1 = (Keyword)cAlternatives_0.eContents().get(1);
-		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cValueAExpressionParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
+		private final Assignment cDesiredAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cDesiredAVariableReferenceCrossReference_0_0 = (CrossReference)cDesiredAssignment_0.eContents().get(0);
+		private final RuleCall cDesiredAVariableReferenceIDTerminalRuleCall_0_0_1 = (RuleCall)cDesiredAVariableReferenceCrossReference_0_0.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cUptoAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final Keyword cUptoUptoKeyword_1_0_0 = (Keyword)cUptoAssignment_1_0.eContents().get(0);
+		private final Keyword cDowntoKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueAExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//DesiredValue:
-		//	(upto?="upto" | "downto") value=AExpression;
+		//	desired=[common::AVariableReference] (upto?="upto" | "downto") value=AExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//(upto?="upto" | "downto") value=AExpression
+		//desired=[common::AVariableReference] (upto?="upto" | "downto") value=AExpression
 		public Group getGroup() { return cGroup; }
 
+		//desired=[common::AVariableReference]
+		public Assignment getDesiredAssignment_0() { return cDesiredAssignment_0; }
+
+		//[common::AVariableReference]
+		public CrossReference getDesiredAVariableReferenceCrossReference_0_0() { return cDesiredAVariableReferenceCrossReference_0_0; }
+
+		//ID
+		public RuleCall getDesiredAVariableReferenceIDTerminalRuleCall_0_0_1() { return cDesiredAVariableReferenceIDTerminalRuleCall_0_0_1; }
+
 		//upto?="upto" | "downto"
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//upto?="upto"
-		public Assignment getUptoAssignment_0_0() { return cUptoAssignment_0_0; }
+		public Assignment getUptoAssignment_1_0() { return cUptoAssignment_1_0; }
 
 		//"upto"
-		public Keyword getUptoUptoKeyword_0_0_0() { return cUptoUptoKeyword_0_0_0; }
+		public Keyword getUptoUptoKeyword_1_0_0() { return cUptoUptoKeyword_1_0_0; }
 
 		//"downto"
-		public Keyword getDowntoKeyword_0_1() { return cDowntoKeyword_0_1; }
+		public Keyword getDowntoKeyword_1_1() { return cDowntoKeyword_1_1; }
 
 		//value=AExpression
-		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
 		//AExpression
-		public RuleCall getValueAExpressionParserRuleCall_1_0() { return cValueAExpressionParserRuleCall_1_0; }
+		public RuleCall getValueAExpressionParserRuleCall_2_0() { return cValueAExpressionParserRuleCall_2_0; }
 	}
 
 	public class ExternalDocumentElements extends AbstractParserRuleElementFinder {
@@ -3634,7 +3654,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// intended to be restricted to deal with value limits
 	//ValuePredicate:
-	//	"value" "predicate" xpression=AAndExpression desiredValue=DesiredValue?;
+	//	"value" "predicate" xpression=AAndExpression ("with" desiredValue+=DesiredValue+)?;
 	public ValuePredicateElements getValuePredicateAccess() {
 		return pValuePredicate;
 	}
@@ -3644,7 +3664,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DesiredValue:
-	//	(upto?="upto" | "downto") value=AExpression;
+	//	desired=[common::AVariableReference] (upto?="upto" | "downto") value=AExpression;
 	public DesiredValueElements getDesiredValueAccess() {
 		return pDesiredValue;
 	}

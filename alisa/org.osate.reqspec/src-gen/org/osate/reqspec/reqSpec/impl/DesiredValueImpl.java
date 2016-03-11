@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.aadl2.PropertyExpression;
 
+import org.osate.alisa.common.common.AVariableReference;
+
 import org.osate.reqspec.reqSpec.DesiredValue;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
@@ -37,6 +39,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.DesiredValueImpl#getDesired <em>Desired</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DesiredValueImpl#isUpto <em>Upto</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DesiredValueImpl#getValue <em>Value</em>}</li>
  * </ul>
@@ -45,6 +48,16 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  */
 public class DesiredValueImpl extends MinimalEObjectImpl.Container implements DesiredValue
 {
+  /**
+   * The cached value of the '{@link #getDesired() <em>Desired</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDesired()
+   * @generated
+   * @ordered
+   */
+  protected AVariableReference desired;
+
   /**
    * The default value of the '{@link #isUpto() <em>Upto</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -94,6 +107,49 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.DESIRED_VALUE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AVariableReference getDesired()
+  {
+    if (desired != null && desired.eIsProxy())
+    {
+      InternalEObject oldDesired = (InternalEObject)desired;
+      desired = (AVariableReference)eResolveProxy(oldDesired);
+      if (desired != oldDesired)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.DESIRED_VALUE__DESIRED, oldDesired, desired));
+      }
+    }
+    return desired;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AVariableReference basicGetDesired()
+  {
+    return desired;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDesired(AVariableReference newDesired)
+  {
+    AVariableReference oldDesired = desired;
+    desired = newDesired;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.DESIRED_VALUE__DESIRED, oldDesired, desired));
   }
 
   /**
@@ -193,6 +249,9 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     switch (featureID)
     {
+      case ReqSpecPackage.DESIRED_VALUE__DESIRED:
+        if (resolve) return getDesired();
+        return basicGetDesired();
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         return isUpto();
       case ReqSpecPackage.DESIRED_VALUE__VALUE:
@@ -211,6 +270,9 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     switch (featureID)
     {
+      case ReqSpecPackage.DESIRED_VALUE__DESIRED:
+        setDesired((AVariableReference)newValue);
+        return;
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         setUpto((Boolean)newValue);
         return;
@@ -231,6 +293,9 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     switch (featureID)
     {
+      case ReqSpecPackage.DESIRED_VALUE__DESIRED:
+        setDesired((AVariableReference)null);
+        return;
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         setUpto(UPTO_EDEFAULT);
         return;
@@ -251,6 +316,8 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     switch (featureID)
     {
+      case ReqSpecPackage.DESIRED_VALUE__DESIRED:
+        return desired != null;
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         return upto != UPTO_EDEFAULT;
       case ReqSpecPackage.DESIRED_VALUE__VALUE:
