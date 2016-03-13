@@ -1483,6 +1483,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEEnum(targetTypeEEnum, TargetType.class, "TargetType");
     addEEnumLiteral(targetTypeEEnum, TargetType.COMPONENT);
     addEEnumLiteral(targetTypeEEnum, TargetType.FEATURE);
+    addEEnumLiteral(targetTypeEEnum, TargetType.CONNECTION);
+    addEEnumLiteral(targetTypeEEnum, TargetType.FLOW);
+    addEEnumLiteral(targetTypeEEnum, TargetType.MODE);
+    addEEnumLiteral(targetTypeEEnum, TargetType.ELEMENT);
 
     // Create resource
     createResource(eNS_URI);

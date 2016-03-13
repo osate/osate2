@@ -45,6 +45,9 @@ import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.instance.InstancePackage
+import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.instance.ModeInstance
 
 class VerificationMethodDispatchers {
 
@@ -129,11 +132,7 @@ class VerificationMethodDispatchers {
 			val instance = clazz.newInstance
 
 			val newClasses = newArrayList()
-			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
-				newClasses.add(FeatureInstance)
-			} else {
-				newClasses.add(ComponentInstance)
-			}
+			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : formalparameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -196,11 +195,7 @@ class VerificationMethodDispatchers {
 			val loader = new URLClassLoader(urls, parent);
 			val clazz = Class.forName(className, true, loader);
 			val newClasses = newArrayList()
-			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
-				newClasses.add(FeatureInstance)
-			} else {
-				newClasses.add(ComponentInstance)
-			}
+			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : parameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -217,6 +212,22 @@ class VerificationMethodDispatchers {
 			return e.toString
 		}
 		return null
+	}
+	
+	def Class<?> forTargetType(VerificationMethod vm){
+		switch (vm.targetType){
+			case TargetType.FEATURE: typeof(FeatureInstance)
+			case COMPONENT: { typeof(ComponentInstance)
+			}
+			case CONNECTION: {typeof(ConnectionInstance)
+			}
+			case ELEMENT: { typeof(InstanceObject)
+			}
+			case FLOW: {typeof(EndToEndFlowInstance)
+			}
+			case MODE: {typeof(ModeInstance)
+			}
+		}
 	}
 
 	def Class<?> forName(String name) throws ClassNotFoundException {
@@ -237,14 +248,6 @@ class VerificationMethodDispatchers {
 			case "aadlinteger": return typeof(IntegerLiteral)
 			case "aadlstring": return typeof(StringLiteral)
 			case "aadlboolean": return typeof(BooleanLiteral)
-//			case "StringLiteral": return typeof(StringLiteral)
-//			case "IntegerLiteral": return typeof(IntegerLiteral)
-//			case "RealLiteral": return typeof(RealLiteral)
-//			case "BooleanLiteral": return typeof(BooleanLiteral)
-//			case "PropertyConstant": return typeof(PropertyConstant)
-//			case "PropertyExpression": return typeof(PropertyExpression)
-//			case "ComponentInstance": return typeof(ComponentInstance)
-//			case "FeatureInstance": return typeof(FeatureInstance)
 			default: {
 				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
 				if (ecl == null){

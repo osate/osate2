@@ -5665,6 +5665,30 @@ ruleTargetType returns [Enumerator current=null]
         $current = grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
         newLeafNode(enumLiteral_1, grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1()); 
     }
+)
+    |(	enumLiteral_2='connection' 
+	{
+        $current = grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2()); 
+    }
+)
+    |(	enumLiteral_3='flow' 
+	{
+        $current = grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3()); 
+    }
+)
+    |(	enumLiteral_4='mode' 
+	{
+        $current = grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4()); 
+    }
+)
+    |(	enumLiteral_5='element' 
+	{
+        $current = grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); 
+    }
 ));
 
 
