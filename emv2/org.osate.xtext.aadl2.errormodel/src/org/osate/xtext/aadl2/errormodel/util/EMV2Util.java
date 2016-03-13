@@ -1315,10 +1315,13 @@ public class EMV2Util {
 		// SOrExpression
 		// SAndExpression
 		// OrmoreExpression
+		// They are the same class, so we test for only one being a certain class
 		if (ce1 instanceof ConditionElement) {
 			ConditionElement element1 = (ConditionElement) ce1;
 			ConditionElement element2 = (ConditionElement) ce2;
-			return (getErrorModelElement(element1) == getErrorModelElement(element2));
+			return (getPathNameWithoutType(element1.getQualifiedErrorPropagationReference().getEmv2Target())
+					.equalsIgnoreCase(
+							getPathNameWithoutType(element2.getQualifiedErrorPropagationReference().getEmv2Target())));
 		}
 
 		if (ce1 instanceof AndExpression) {
