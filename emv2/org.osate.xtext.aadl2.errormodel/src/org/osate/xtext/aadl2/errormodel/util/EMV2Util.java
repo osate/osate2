@@ -1292,6 +1292,40 @@ public class EMV2Util {
 		return result.values();
 	}
 
+	/**
+	 * determine if two propagations match by name.
+	 * This is useful when we have inherited error propagations and one reference points
+	 * to the original and the second one to the one overriding the original.
+	 * @param ep1
+	 * @param ep2
+	 * @return
+	 */
+	public static boolean isSame(ErrorPropagation ep1, ErrorPropagation ep2) {
+		return (getPropagationName(ep1).equalsIgnoreCase(getPropagationName(ep2)));
+
+	}
+
+	/**
+	 * compare NamedElements by name.
+	 * Useful when dealing with inheritence.
+	 * @param errorModelElement1
+	 * @param errorModelElement2
+	 * @return
+	 */
+	public static boolean isSame(NamedElement errorModelElement1, NamedElement errorModelElement2) {
+		if (errorModelElement1 instanceof ErrorPropagation && errorModelElement2 instanceof ErrorPropagation) {
+			return isSame((ErrorPropagation) errorModelElement1, (ErrorPropagation) errorModelElement2);
+		}
+		return (errorModelElement1.getName().equalsIgnoreCase(errorModelElement2.getName()));
+	}
+
+	/**
+	 * Determine if the two expressions are the same.
+	 * Compare operators and compare referenced elements by pathname
+	 * @param ce1
+	 * @param ce2
+	 * @return
+	 */
 	public static boolean isEqual(ConditionExpression ce1, ConditionExpression ce2) {
 		if ((ce1 == null) && (ce2 == null)) {
 			return true;
@@ -1353,37 +1387,6 @@ public class EMV2Util {
 			}
 			return true;
 		}
-
-		if (ce1 instanceof AndExpression) {
-			AndExpression expr1 = (AndExpression) ce1;
-			AndExpression expr2 = (AndExpression) ce2;
-			if (expr1.getOperands().size() != expr2.getOperands().size()) {
-				return false;
-			}
-
-			for (int i = 0; i < expr1.getOperands().size(); i++) {
-				if (!isEqual(expr1.getOperands().get(i), expr2.getOperands().get(i))) {
-					return false;
-				}
-			}
-			return true;
-		}
-
-		if (ce1 instanceof OrExpression) {
-			OrExpression expr1 = (OrExpression) ce1;
-			OrExpression expr2 = (OrExpression) ce2;
-			if (expr1.getOperands().size() != expr2.getOperands().size()) {
-				return false;
-			}
-
-			for (int i = 0; i < expr1.getOperands().size(); i++) {
-				if (!isEqual(expr1.getOperands().get(i), expr2.getOperands().get(i))) {
-					return false;
-				}
-			}
-			return true;
-		}
-
 		OsateDebug.osateDebug("[EMV2Util] isEqual does not handled this class type " + ce1 + "|" + ce2);
 		return false;
 	}
