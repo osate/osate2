@@ -2696,6 +2696,21 @@ public class EMV2Util {
 		return false;
 	}
 
+	public static boolean hasOutgoingPropagationCondition(ComponentInstance ci) {
+		return hasOutgoingPropagationCondition(ci.getComponentClassifier());
+	}
+
+	public static boolean hasOutgoingPropagationCondition(ComponentClassifier cl) {
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			EList<OutgoingPropagationCondition> ceb = errorModelSubclause.getOutgoingPropagationConditions();
+			if (!ceb.isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * retrieve list of component instances that have EMV2 clauses
 	 * @param ci ComponentInstance
