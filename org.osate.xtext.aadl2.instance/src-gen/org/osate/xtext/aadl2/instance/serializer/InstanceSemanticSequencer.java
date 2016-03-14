@@ -9,10 +9,28 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -25,16 +43,113 @@ import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
+import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 
 @SuppressWarnings("all")
-public class InstanceSemanticSequencer extends AbstractDelegatingSemanticSequencer {
+public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 
 	@Inject
 	private InstanceGrammarAccess grammarAccess;
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == InstancePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case Aadl2Package.ARRAY_RANGE:
+				sequence_ArrayRange(context, (ArrayRange) semanticObject); 
+				return; 
+			case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
+				sequence_FieldPropertyAssociation(context, (BasicPropertyAssociation) semanticObject); 
+				return; 
+			case Aadl2Package.BOOLEAN_LITERAL:
+				sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.CLASSIFIER_VALUE:
+				sequence_ComponentClassifierTerm(context, (ClassifierValue) semanticObject); 
+				return; 
+			case Aadl2Package.COMPUTED_VALUE:
+				sequence_ComputedTerm(context, (ComputedValue) semanticObject); 
+				return; 
+			case Aadl2Package.CONTAINED_NAMED_ELEMENT:
+				sequence_ContainmentPath(context, (ContainedNamedElement) semanticObject); 
+				return; 
+			case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
+				sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
+				return; 
+			case Aadl2Package.INTEGER_LITERAL:
+				sequence_IntegerTerm(context, (IntegerLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.LIST_VALUE:
+				sequence_ListTerm(context, (ListValue) semanticObject); 
+				return; 
+			case Aadl2Package.MODAL_PROPERTY_VALUE:
+				if(context == grammarAccess.getModalPropertyValueRule()) {
+					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyValueRule()) {
+					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.NAMED_VALUE:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getNumAltRule()) {
+					sequence_ConstantValue(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getLiteralorReferenceTermRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.OPERATION:
+				sequence_SignedConstant(context, (Operation) semanticObject); 
+				return; 
+			case Aadl2Package.PROPERTY_ASSOCIATION:
+				if(context == grammarAccess.getBasicPropertyAssociationRule()) {
+					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
+				   context == grammarAccess.getPModelRule()) {
+					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyAssociationRule()) {
+					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.RANGE_VALUE:
+				sequence_NumericRangeTerm(context, (RangeValue) semanticObject); 
+				return; 
+			case Aadl2Package.REAL_LITERAL:
+				sequence_RealTerm(context, (RealLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.RECORD_VALUE:
+				if(context == grammarAccess.getOldRecordTermRule()) {
+					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getRecordTermRule()) {
+					sequence_RecordTerm(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.REFERENCE_VALUE:
+				sequence_ReferenceTerm(context, (ReferenceValue) semanticObject); 
+				return; 
+			case Aadl2Package.STRING_LITERAL:
+				sequence_StringTerm(context, (StringLiteral) semanticObject); 
+				return; 
+			}
+		else if(semanticObject.eClass().getEPackage() == InstancePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case InstancePackage.COMPONENT_INSTANCE:
 				sequence_ComponentInstance(context, (ComponentInstance) semanticObject); 
 				return; 
