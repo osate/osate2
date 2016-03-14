@@ -1,4 +1,4 @@
-grammar org.osate.xtext.aadl2.instance.Instance hidden(WS, SL_COMMENT)
+grammar org.osate.xtext.aadl2.instance.Instance with org.osate.xtext.aadl2.properties.Properties
 
 import "http://aadl.info/AADL/2.0/instance" as instance
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -132,23 +132,6 @@ ModeTransitionName:
 	ID '.' ID '.' ID
 ;
 	
-terminal ID:	('a'..'z'
-        |'A'..'Z'
-        ) ( ('_')? ('a'..'z'
-        |'A'..'Z'
-        |'0'..'9'))*;
-
 terminal LONG returns ecore::ELong:
-	('0' .. '9')+
+	DIGIT+
 ;
-
-terminal STRING	: 
-			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-		; 
-
-terminal SL_COMMENT:
-	'--' !('\n' | '\r')* ('\r'? '\n')?;
-	
-
-terminal WS			: (' '|'\t'|'\r'|'\n')+;

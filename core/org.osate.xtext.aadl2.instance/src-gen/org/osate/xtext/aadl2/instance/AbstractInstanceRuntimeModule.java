@@ -93,11 +93,6 @@ public abstract class AbstractInstanceRuntimeModule extends org.eclipse.xtext.se
 		return org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.validation.ValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.instance.validation.InstanceValidator> bindInstanceValidator() {
-		return org.osate.xtext.aadl2.instance.validation.InstanceValidator.class;
-	}
-
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
 		return org.osate.xtext.aadl2.instance.scoping.InstanceScopeProvider.class;
