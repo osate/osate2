@@ -868,11 +868,16 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		EList<ComponentInstance> subcil = getComponentInstances();
 		for (Iterator<ComponentInstance> it = subcil.iterator(); it.hasNext();) {
 			ComponentInstance ci = it.next();
-			// XXX: Do we need to do this for modes and end-to-end flows too???
-			EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
-			if (scl.contains(sc)) {
+			// had to introduce name matching. The subcomponent may be from an access connection end in an original implementation
+			// while the component instance is from a refined subcomponent in the implementation extension.
+			if (ci.getName().equalsIgnoreCase(sc.getName())) {
 				return ci;
 			}
+//			// XXX: Do we need to do this for modes and end-to-end flows too???
+//			EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
+//			if (scl.contains(sc)) {
+//				return ci;
+//			}
 		}
 		return null;
 	}
@@ -890,10 +895,16 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		EList<FeatureInstance> subcil = getFeatureInstances();
 		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
 			FeatureInstance fi = it.next();
-			EList<Feature> fl = fi.getFeature().getAllFeatureRefinements();
-			if (fl.contains(feature)) {
+			// had to introduce name matching. The feature may be from a connection end in an original implementation
+			// while the feature instance is from a refined subcomponent in the implementation extension.
+			if (fi.getName().equalsIgnoreCase(feature.getName())) {
 				return fi;
 			}
+// XXX We would have to also check features in subcomponents that have been refined.
+//			EList<Feature> fl = fi.getFeature().getAllFeatureRefinements();
+//			if (fl.contains(feature)) {
+//				return fi;
+//			}
 		}
 		return null;
 	}

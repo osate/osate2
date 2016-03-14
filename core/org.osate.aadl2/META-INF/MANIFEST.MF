@@ -22,8 +22,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2;visibility:=reexport,
  org.eclipse.uml2.uml;visibility:=reexport,
  org.eclipse.uml2.types;visibility:=reexport,
- org.eclipse.uml2.common;visibility:=reexport,
- org.eclipse.ocl.ecore;visibility:=reexport
+ org.eclipse.uml2.common;visibility:=reexport
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.osate.aadl2.util.Activator
