@@ -301,19 +301,7 @@ public class FTAUtils {
 
 	private static boolean propagationEndsMatches(ErrorPropagation propagationSource,
 			ErrorPropagation propagationDestination) {
-
-		if (EMV2Util.isBinding(propagationSource) && EMV2Util.isBinding(propagationDestination)) {
-			return true;
-		}
-
-		if ((propagationSource.getFeatureorPPRef() != null) && (propagationDestination.getFeatureorPPRef() != null)
-				&& (propagationSource.getFeatureorPPRef().getFeatureorPP() == propagationDestination.getFeatureorPPRef()
-						.getFeatureorPP())) {
-			return true;
-		}
-
-		return false;
-
+		return EMV2Util.isSame(propagationSource, propagationDestination);
 	}
 
 	/**
