@@ -20,9 +20,9 @@
 package org.osate.alisa.common.validation
 
 import org.eclipse.xtext.validation.Check
-import org.osate.alisa.common.common.CommonPackage
 import org.osate.alisa.common.common.AFunctionCall
-import org.osate.alisa.common.common.ValDeclaration
+import org.osate.alisa.common.common.CommonPackage
+import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator
 
 //import org.eclipse.xtext.validation.Check
 
@@ -31,7 +31,7 @@ import org.osate.alisa.common.common.ValDeclaration
  *
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class CommonValidator extends AbstractCommonValidator {
+class CommonValidator extends CommonTypeSystemValidator {
   public static val UNSUPPORTED_FUNCTION = 'UnSupportedFunction'
   
   public static val SupportedFunctions = #["max", "min", "prev","abs","sum","roundup","round","rounddown"]

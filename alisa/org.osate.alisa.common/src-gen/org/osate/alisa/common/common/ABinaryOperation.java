@@ -29,8 +29,9 @@ import org.osate.aadl2.PropertyExpression;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getLeftOperand <em>Left Operand</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getRightOperand <em>Right Operand</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation()
@@ -66,30 +67,33 @@ public interface ABinaryOperation extends EObject, PropertyExpression
   void setLeftOperand(PropertyExpression value);
 
   /**
-   * Returns the value of the '<em><b>Feature</b></em>' attribute.
+   * Returns the value of the '<em><b>Operator</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.Operation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Feature</em>' attribute isn't clear,
+   * If the meaning of the '<em>Operator</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Feature</em>' attribute.
-   * @see #setFeature(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Feature()
+   * @return the value of the '<em>Operator</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #setOperator(Operation)
+   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Operator()
    * @model
    * @generated
    */
-  String getFeature();
+  Operation getOperator();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getOperator <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Feature</em>' attribute.
-   * @see #getFeature()
+   * @param value the new value of the '<em>Operator</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #getOperator()
    * @generated
    */
-  void setFeature(String value);
+  void setOperator(Operation value);
 
   /**
    * Returns the value of the '<em><b>Right Operand</b></em>' containment reference.
@@ -116,5 +120,34 @@ public interface ABinaryOperation extends EObject, PropertyExpression
    * @generated
    */
   void setRightOperand(PropertyExpression value);
+
+  /**
+   * Returns the value of the '<em><b>Feature</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.Operation}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Feature</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Feature</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #setFeature(Operation)
+   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Feature()
+   * @model
+   * @generated
+   */
+  Operation getFeature();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Feature</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #getFeature()
+   * @generated
+   */
+  void setFeature(Operation value);
 
 } // ABinaryOperation

@@ -37,7 +37,7 @@ class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 				return reqText(req)
 				}
 		}
-		return "No message!!"
+		return super.getHoverInfoAsHtml(o)
 	}
 	
 	def reqText(Requirement req){

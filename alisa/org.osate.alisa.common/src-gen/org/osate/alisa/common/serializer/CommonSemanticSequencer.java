@@ -29,6 +29,10 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.RangeValue;
@@ -52,6 +56,7 @@ import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.services.CommonGrammarAccess;
@@ -65,6 +70,18 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case Aadl2Package.AADL_BOOLEAN:
+				sequence_TypeRef(context, (AadlBoolean) semanticObject); 
+				return; 
+			case Aadl2Package.AADL_INTEGER:
+				sequence_TypeRef(context, (AadlInteger) semanticObject); 
+				return; 
+			case Aadl2Package.AADL_REAL:
+				sequence_TypeRef(context, (AadlReal) semanticObject); 
+				return; 
+			case Aadl2Package.AADL_STRING:
+				sequence_TypeRef(context, (AadlString) semanticObject); 
+				return; 
 			case Aadl2Package.BOOLEAN_LITERAL:
 				sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
 				return; 
@@ -83,7 +100,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			}
 		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
-				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AFUNCTION_CALL:
 				sequence_AFunctionCall(context, (AFunctionCall) semanticObject); 
@@ -110,8 +127,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
 				   context == grammarAccess.getAOrExpressionRule() ||
 				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
-				   context == grammarAccess.getAOtherOperatorExpressionRule() ||
-				   context == grammarAccess.getAOtherOperatorExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
 				   context == grammarAccess.getAParenthesizedExpressionRule() ||
 				   context == grammarAccess.getAPrimaryExpressionRule() ||
 				   context == grammarAccess.getARelationalExpressionRule() ||
@@ -158,6 +173,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case CommonPackage.SHOW_VALUE:
 				sequence_ShowValue(context, (ShowValue) semanticObject); 
 				return; 
+			case CommonPackage.TYPE_REF:
+				sequence_TypeRef(context, (TypeRef) semanticObject); 
+				return; 
 			case CommonPackage.UNCERTAINTY:
 				sequence_Uncertainty(context, (Uncertainty) semanticObject); 
 				return; 
@@ -172,15 +190,14 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         (leftOperand=AAdditiveExpression_ABinaryOperation_1_0_0_0 feature=OpAdd rightOperand=AMultiplicativeExpression) | 
-	 *         (leftOperand=AMultiplicativeExpression_ABinaryOperation_1_0_0_0 feature=OpMulti rightOperand=AUnaryOperation) | 
-	 *         (leftOperand=AOtherOperatorExpression_ABinaryOperation_1_0_0_0 feature=OpOther rightOperand=AAdditiveExpression) | 
-	 *         (leftOperand=ARelationalExpression_ABinaryOperation_1_0_0_0 feature=OpCompare rightOperand=AOtherOperatorExpression) | 
-	 *         (leftOperand=AEqualityExpression_ABinaryOperation_1_0_0_0 feature=OpEquality rightOperand=ARelationalExpression) | 
-	 *         (leftOperand=AAndExpression_ABinaryOperation_1_0_0_0 feature=OpAnd rightOperand=AEqualityExpression) | 
-	 *         (leftOperand=AOrExpression_ABinaryOperation_1_0_0_0 feature=OpOr rightOperand=AAndExpression)
+	 *         (leftOperand=AMultiplicativeExpression_ABinaryOperation_1_0_0_0 operator=OpMulti rightOperand=AUnaryOperation) | 
+	 *         (leftOperand=ARelationalExpression_ABinaryOperation_1_0_0_0 operator=OpCompare rightOperand=AAdditiveExpression) | 
+	 *         (leftOperand=AEqualityExpression_ABinaryOperation_1_0_0_0 operator=OpEquality rightOperand=ARelationalExpression) | 
+	 *         (leftOperand=AAndExpression_ABinaryOperation_1_0_0_0 operator=OpAnd rightOperand=AEqualityExpression) | 
+	 *         (leftOperand=AOrExpression_ABinaryOperation_1_0_0_0 operator=OpOr rightOperand=AAndExpression)
 	 *     )
 	 */
-	protected void sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(EObject context, ABinaryOperation semanticObject) {
+	protected void sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(EObject context, ABinaryOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -289,7 +306,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (feature=OpUnary operand=AUnaryOperation)
+	 *     (operatorv=OpUnary operand=AUnaryOperation)
 	 */
 	protected void sequence_AUnaryOperation(EObject context, AUnaryOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -307,7 +324,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     ((type=ID name=ID) | name=ID)
+	 *     (name=ID type=TypeRef?)
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -409,6 +426,51 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
+	 *     {AadlBoolean}
+	 */
+	protected void sequence_TypeRef(EObject context, AadlBoolean semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlInteger}
+	 */
+	protected void sequence_TypeRef(EObject context, AadlInteger semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlReal}
+	 */
+	protected void sequence_TypeRef(EObject context, AadlReal semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlString}
+	 */
+	protected void sequence_TypeRef(EObject context, AadlString semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     type=[PropertyType|AADLPROPERTYREFERENCE]
+	 */
+	protected void sequence_TypeRef(EObject context, TypeRef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (volatility=INT impact=INT)
 	 */
 	protected void sequence_Uncertainty(EObject context, Uncertainty semanticObject) {
@@ -418,7 +480,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (((type=ID name=ID) | name=ID) right=AExpression)
+	 *     (name=ID type=TypeRef? value=AExpression)
 	 */
 	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

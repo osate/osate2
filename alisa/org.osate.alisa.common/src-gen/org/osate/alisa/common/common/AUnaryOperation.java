@@ -28,7 +28,7 @@ import org.osate.aadl2.PropertyExpression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getOperatorv <em>Operatorv</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getOperand <em>Operand</em>}</li>
  * </ul>
  *
@@ -39,30 +39,33 @@ import org.osate.aadl2.PropertyExpression;
 public interface AUnaryOperation extends EObject, PropertyExpression
 {
   /**
-   * Returns the value of the '<em><b>Feature</b></em>' attribute.
+   * Returns the value of the '<em><b>Operatorv</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.Operation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Feature</em>' attribute isn't clear,
+   * If the meaning of the '<em>Operatorv</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Feature</em>' attribute.
-   * @see #setFeature(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getAUnaryOperation_Feature()
+   * @return the value of the '<em>Operatorv</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #setOperatorv(Operation)
+   * @see org.osate.alisa.common.common.CommonPackage#getAUnaryOperation_Operatorv()
    * @model
    * @generated
    */
-  String getFeature();
+  Operation getOperatorv();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AUnaryOperation#getFeature <em>Feature</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AUnaryOperation#getOperatorv <em>Operatorv</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Feature</em>' attribute.
-   * @see #getFeature()
+   * @param value the new value of the '<em>Operatorv</em>' attribute.
+   * @see org.osate.alisa.common.common.Operation
+   * @see #getOperatorv()
    * @generated
    */
-  void setFeature(String value);
+  void setOperatorv(Operation value);
 
   /**
    * Returns the value of the '<em><b>Operand</b></em>' containment reference.

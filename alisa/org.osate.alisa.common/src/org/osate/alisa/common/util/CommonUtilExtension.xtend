@@ -73,7 +73,7 @@ class CommonUtilExtension {
 			if (decl instanceof ComputeDeclaration) {
 				return decl.name
 			} else if (decl instanceof ValDeclaration) {
-				val x = decl?.right
+				val x = decl?.value
 				if (x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
@@ -95,7 +95,7 @@ class CommonUtilExtension {
 			if (decl instanceof ComputeDeclaration) {
 				return decl.name
 			} else if (decl instanceof ValDeclaration) {
-				val x = decl?.right
+				val x = decl?.value
 				if (x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
@@ -210,12 +210,12 @@ class CommonUtilExtension {
 
 	def static getValueCopy(PropertyExpression vd) {
 		if (vd instanceof ValDeclaration) {
-			return EcoreUtil.copy(vd.right)
+			return EcoreUtil.copy(vd.value)
 		} else if (vd instanceof AVariableReference) {
 			// handle Val reference if AExpression is used
 			val pari = vd.variable
 			if (pari instanceof ValDeclaration) {
-			return EcoreUtil.copy(pari.right)
+			return EcoreUtil.copy(pari.value)
 			}
 		} else if (vd instanceof APropertyReference) {
 			// handle property or property constant reference

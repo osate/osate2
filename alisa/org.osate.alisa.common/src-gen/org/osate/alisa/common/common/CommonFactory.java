@@ -144,6 +144,15 @@ public interface CommonFactory extends EFactory
   ImageReference createImageReference();
 
   /**
+   * Returns a new object of class '<em>Type Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Ref</em>'.
+   * @generated
+   */
+  TypeRef createTypeRef();
+
+  /**
    * Returns a new object of class '<em>Val Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

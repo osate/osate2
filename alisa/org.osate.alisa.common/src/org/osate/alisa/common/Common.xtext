@@ -41,13 +41,21 @@ enum ResultIssueType:
 	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
 ;
 
+TypeRef returns aadl2::PropertyType:
+	{aadl2::AadlBoolean} 'boolean'
+	| {aadl2::AadlInteger} 'integer'
+	| {aadl2::AadlReal} 'real'
+	| {aadl2::AadlString} 'string'
+	| {TypeRef} type=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+;
+
 ValDeclaration returns AVariableDeclaration:
-	 {ValDeclaration} 'val' (=> (type=ID name=ID) | name=ID) '=' right=AExpression  
+	 {ValDeclaration} 'val' name=ID (':' type=TypeRef)? '=' value=AExpression  
 	 ;
 
 ComputeDeclaration returns AVariableDeclaration:
 	{ComputeDeclaration}
-	 'compute' (=> (type=ID name=ID) | name=ID) 
+	 'compute' name=ID (':' type=TypeRef)?
 ;
 
 // Reference to property, property constant, or model element.
@@ -74,74 +82,83 @@ AVariableReference returns AExpression:
 
 
  
- ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%' unit=[aadl2::UnitLiteral|ID])?;	
+ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
 
 ImageReference : 'img' imgfile=IMGREF;
 
 IMGREF : (ID '/')* ID '.' ID; 
 
 // Expressions
+enum Operation:
+	OR='or' 
+	| AND='and'
+	| EQ='==' | NEQ='!='
+	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<'
+	
+;
 
 AExpression returns aadl2::PropertyExpression: AOrExpression;
 
 AOrExpression returns aadl2::PropertyExpression:
-	AAndExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOr) rightOperand=AAndExpression)*;
+	AAndExpression (=>({ABinaryOperation.leftOperand=current} operator=OpOr) rightOperand=AAndExpression)*;
 
-OpOr:
-	'||';
+OpOr returns Operation:
+	'or';
 
 AAndExpression returns aadl2::PropertyExpression:
-	AEqualityExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAnd) rightOperand=AEqualityExpression)*;
+	AEqualityExpression (=>({ABinaryOperation.leftOperand=current} operator=OpAnd) rightOperand=AEqualityExpression)*;
 
-OpAnd:
-	'&&';
+OpAnd returns Operation:
+	'and';
 
 AEqualityExpression returns aadl2::PropertyExpression:
-	ARelationalExpression (=>({ABinaryOperation.leftOperand=current} feature=OpEquality)
+	ARelationalExpression (=>({ABinaryOperation.leftOperand=current} operator=OpEquality)
 	rightOperand=ARelationalExpression)*;
 
-OpEquality:
+OpEquality returns Operation:
 	'==' | '!=' ;
 
 ARelationalExpression returns aadl2::PropertyExpression:
-	AOtherOperatorExpression
-	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
+//	AOtherOperatorExpression
+//	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
+	AAdditiveExpression
+	( =>({ABinaryOperation.leftOperand=current} operator=OpCompare) rightOperand=AAdditiveExpression)*;
 
-OpCompare:
+OpCompare returns Operation:
 	'>=' | '<' '=' | '>' | '<' ;
 
-AOtherOperatorExpression returns aadl2::PropertyExpression:
-	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
-	rightOperand=AAdditiveExpression)*;
-
-OpOther:
-	  '->' 
-	| '..<'
-	| '>' '..'
-	| '..'
-	| '=>' 
-	| '>' (=>('>' '>') | '>') 
-	| '<' (=>('<' '<') | '<' | '=>')
-	| '<>'
-	| '?:';
+//AOtherOperatorExpression returns aadl2::PropertyExpression:
+//	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+//	rightOperand=AAdditiveExpression)*;
+//
+//OpOther:
+//	  '->' 
+//	| '..<'
+//	| '>' '..'
+//	| '..'
+//	| '=>' 
+//	| '>' (=>('>' '>') | '>') 
+//	| '<' (=>('<' '<') | '<' | '=>')
+//	| '<>'
+//	| '?:';
 
 AAdditiveExpression returns aadl2::PropertyExpression:
 	AMultiplicativeExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAdd)
 	rightOperand=AMultiplicativeExpression)*;
 
-OpAdd:
+OpAdd returns Operation:
 	'+' | '-';
 
 AMultiplicativeExpression returns aadl2::PropertyExpression:
-	AUnaryOperation (=>({ABinaryOperation.leftOperand=current} feature=OpMulti) rightOperand=AUnaryOperation)*;
+	AUnaryOperation (=>({ABinaryOperation.leftOperand=current} operator=OpMulti) rightOperand=AUnaryOperation)*;
 
-OpMulti:
-	'*' | '**' | '/' | '%';
+OpMulti returns Operation:
+	'*' | '/' | 'div' | 'mod';
 
 AUnaryOperation returns aadl2::PropertyExpression:
-	{AUnaryOperation} feature=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	{AUnaryOperation} operatorv=OpUnary operand=AUnaryOperation | APrimaryExpression;
 
-OpUnary:
+OpUnary returns Operation:
 	"!" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:

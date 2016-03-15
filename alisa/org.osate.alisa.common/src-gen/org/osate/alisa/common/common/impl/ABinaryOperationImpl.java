@@ -29,6 +29,7 @@ import org.osate.aadl2.impl.PropertyExpressionImpl;
 
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.Operation;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,8 +40,9 @@ import org.osate.alisa.common.common.CommonPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getLeftOperand <em>Left Operand</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getRightOperand <em>Right Operand</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,24 +60,24 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   protected PropertyExpression leftOperand;
 
   /**
-   * The default value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected static final String FEATURE_EDEFAULT = null;
+  protected static final Operation OPERATOR_EDEFAULT = Operation.OR;
 
   /**
-   * The cached value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected String feature = FEATURE_EDEFAULT;
+  protected Operation operator = OPERATOR_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRightOperand() <em>Right Operand</em>}' containment reference.
@@ -86,6 +88,26 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * @ordered
    */
   protected PropertyExpression rightOperand;
+
+  /**
+   * The default value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeature()
+   * @generated
+   * @ordered
+   */
+  protected static final Operation FEATURE_EDEFAULT = Operation.OR;
+
+  /**
+   * The cached value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeature()
+   * @generated
+   * @ordered
+   */
+  protected Operation feature = FEATURE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -161,9 +183,9 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFeature()
+  public Operation getOperator()
   {
-    return feature;
+    return operator;
   }
 
   /**
@@ -171,12 +193,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFeature(String newFeature)
+  public void setOperator(Operation newOperator)
   {
-    String oldFeature = feature;
-    feature = newFeature;
+    Operation oldOperator = operator;
+    operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__FEATURE, oldFeature, feature));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__OPERATOR, oldOperator, operator));
   }
 
   /**
@@ -232,6 +254,29 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  public Operation getFeature()
+  {
+    return feature;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeature(Operation newFeature)
+  {
+    Operation oldFeature = feature;
+    feature = newFeature == null ? FEATURE_EDEFAULT : newFeature;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__FEATURE, oldFeature, feature));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -257,10 +302,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
     {
       case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
         return getLeftOperand();
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        return getFeature();
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        return getOperator();
       case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
         return getRightOperand();
+      case CommonPackage.ABINARY_OPERATION__FEATURE:
+        return getFeature();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -278,11 +325,14 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
       case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
         setLeftOperand((PropertyExpression)newValue);
         return;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        setFeature((String)newValue);
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        setOperator((Operation)newValue);
         return;
       case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
         setRightOperand((PropertyExpression)newValue);
+        return;
+      case CommonPackage.ABINARY_OPERATION__FEATURE:
+        setFeature((Operation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -301,11 +351,14 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
       case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
         setLeftOperand((PropertyExpression)null);
         return;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        setFeature(FEATURE_EDEFAULT);
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        setOperator(OPERATOR_EDEFAULT);
         return;
       case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
         setRightOperand((PropertyExpression)null);
+        return;
+      case CommonPackage.ABINARY_OPERATION__FEATURE:
+        setFeature(FEATURE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -323,10 +376,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
     {
       case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
         return leftOperand != null;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        return FEATURE_EDEFAULT == null ? feature != null : !FEATURE_EDEFAULT.equals(feature);
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        return operator != OPERATOR_EDEFAULT;
       case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
         return rightOperand != null;
+      case CommonPackage.ABINARY_OPERATION__FEATURE:
+        return feature != FEATURE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -342,7 +397,9 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (feature: ");
+    result.append(" (operator: ");
+    result.append(operator);
+    result.append(", feature: ");
     result.append(feature);
     result.append(')');
     return result.toString();

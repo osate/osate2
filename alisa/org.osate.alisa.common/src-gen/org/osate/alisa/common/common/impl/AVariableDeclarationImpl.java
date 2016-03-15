@@ -16,11 +16,15 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.PropertyType;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.CommonPackage;
@@ -33,34 +37,14 @@ import org.osate.alisa.common.common.CommonPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container implements AVariableDeclaration
 {
-  /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
-
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -82,6 +66,16 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
   protected String name = NAME_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected PropertyType type;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -100,29 +94,6 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
   protected EClass eStaticClass()
   {
     return CommonPackage.Literals.AVARIABLE_DECLARATION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getType()
-  {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(String newType)
-  {
-    String oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_DECLARATION__TYPE, oldType, type));
   }
 
   /**
@@ -153,15 +124,79 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public PropertyType getType()
+  {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetType(PropertyType newType, NotificationChain msgs)
+  {
+    PropertyType oldType = type;
+    type = newType;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_DECLARATION__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(PropertyType newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AVARIABLE_DECLARATION__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AVARIABLE_DECLARATION__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_DECLARATION__TYPE, newType, newType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
+        return basicSetType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
-        return getType();
       case CommonPackage.AVARIABLE_DECLARATION__NAME:
         return getName();
+      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -176,11 +211,11 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
-        setType((String)newValue);
-        return;
       case CommonPackage.AVARIABLE_DECLARATION__NAME:
         setName((String)newValue);
+        return;
+      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
+        setType((PropertyType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,11 +231,11 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
-        setType(TYPE_EDEFAULT);
-        return;
       case CommonPackage.AVARIABLE_DECLARATION__NAME:
         setName(NAME_EDEFAULT);
+        return;
+      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
+        setType((PropertyType)null);
         return;
     }
     super.eUnset(featureID);
@@ -216,10 +251,10 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case CommonPackage.AVARIABLE_DECLARATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case CommonPackage.AVARIABLE_DECLARATION__TYPE:
+        return type != null;
     }
     return super.eIsSet(featureID);
   }
@@ -235,9 +270,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
-    result.append(type);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(')');
     return result.toString();

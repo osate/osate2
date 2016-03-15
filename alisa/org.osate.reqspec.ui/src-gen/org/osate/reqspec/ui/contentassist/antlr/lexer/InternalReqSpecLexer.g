@@ -74,6 +74,8 @@ Informal : 'informal';
 
 Inherits : 'inherits';
 
+Boolean : 'boolean';
+
 Compute : 'compute';
 
 Dropped : 'dropped';
@@ -81,6 +83,8 @@ Dropped : 'dropped';
 Evolves : 'evolves';
 
 Include : 'include';
+
+Integer : 'integer';
 
 Process : 'process';
 
@@ -105,6 +109,8 @@ Impact : 'impact';
 Issues : 'issues';
 
 Memory : 'memory';
+
+String : 'string';
 
 KW_System : 'system';
 
@@ -138,6 +144,8 @@ Mode : 'mode';
 
 Null : 'null';
 
+Real : 'real';
+
 Self : 'self';
 
 This : 'this';
@@ -150,13 +158,17 @@ When : 'when';
 
 With : 'with';
 
-FullStopFullStopLessThanSign : '..<';
+And : 'and';
 
 Bus : 'bus';
+
+Div : 'div';
 
 For : 'for';
 
 Img : 'img';
+
+Mod : 'mod';
 
 See : 'see';
 
@@ -168,29 +180,19 @@ Val : 'val';
 
 ExclamationMarkEqualsSign : '!=';
 
-AmpersandAmpersand : '&&';
-
-AsteriskAsterisk : '**';
-
-HyphenMinusGreaterThanSign : '->';
-
 FullStopFullStop : '..';
 
 ColonColon : '::';
 
-LessThanSignGreaterThanSign : '<>';
+LessThanSignEqualsSign : '<=';
 
 EqualsSignEqualsSign : '==';
 
-EqualsSignGreaterThanSign : '=>';
-
 GreaterThanSignEqualsSign : '>=';
-
-QuestionMarkColon : '?:';
 
 In : 'in';
 
-VerticalLineVerticalLine : '||';
+Or : 'or';
 
 ExclamationMark : '!';
 

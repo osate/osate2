@@ -26,7 +26,7 @@ import org.osate.aadl2.PropertyExpression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.ValDeclaration#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ValDeclaration#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getValDeclaration()
@@ -36,29 +36,29 @@ import org.osate.aadl2.PropertyExpression;
 public interface ValDeclaration extends AVariableDeclaration
 {
   /**
-   * Returns the value of the '<em><b>Right</b></em>' containment reference.
+   * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Right</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(PropertyExpression)
-   * @see org.osate.alisa.common.common.CommonPackage#getValDeclaration_Right()
+   * @return the value of the '<em>Value</em>' containment reference.
+   * @see #setValue(PropertyExpression)
+   * @see org.osate.alisa.common.common.CommonPackage#getValDeclaration_Value()
    * @model containment="true"
    * @generated
    */
-  PropertyExpression getRight();
+  PropertyExpression getValue();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ValDeclaration#getRight <em>Right</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ValDeclaration#getValue <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Right</em>' containment reference.
-   * @see #getRight()
+   * @param value the new value of the '<em>Value</em>' containment reference.
+   * @see #getValue()
    * @generated
    */
-  void setRight(PropertyExpression value);
+  void setValue(PropertyExpression value);
 
 } // ValDeclaration

@@ -90,6 +90,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
+      case CommonPackage.TYPE_REF: return createTypeRef();
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
@@ -116,6 +117,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.RESULT_ISSUE_TYPE:
         return createResultIssueTypeFromString(eDataType, initialValue);
+      case CommonPackage.OPERATION:
+        return createOperationFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -133,6 +136,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.RESULT_ISSUE_TYPE:
         return convertResultIssueTypeToString(eDataType, instanceValue);
+      case CommonPackage.OPERATION:
+        return convertOperationToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -275,6 +280,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public TypeRef createTypeRef()
+  {
+    TypeRefImpl typeRef = new TypeRefImpl();
+    return typeRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ValDeclaration createValDeclaration()
   {
     ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
@@ -387,6 +403,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * @generated
    */
   public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Operation createOperationFromString(EDataType eDataType, String initialValue)
+  {
+    Operation result = Operation.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertOperationToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

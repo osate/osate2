@@ -20,6 +20,8 @@
 package org.osate.alisa.common.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+import org.osate.alisa.common.ui.editor.hover.html.CommonEObjectHoverProvider;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -29,4 +31,7 @@ public class CommonUiModule extends org.osate.alisa.common.ui.AbstractCommonUiMo
 		super(plugin);
 	}
 
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return CommonEObjectHoverProvider.class;
+	}
 }
