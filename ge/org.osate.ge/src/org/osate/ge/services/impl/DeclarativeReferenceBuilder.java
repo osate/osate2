@@ -38,25 +38,25 @@ import org.osate.ge.ui.util.SelectionHelper;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
-	public final static String TYPE_PACKAGE = "package";
-	public final static String TYPE_CLASSIFIER = "classifier";
-	public final static String TYPE_SUBCOMPONENT = "subcomponent";
-	public final static String TYPE_REALIZATION = "realization";
-	public final static String TYPE_TYPE_EXTENSION = "type_extension";
-	public final static String TYPE_IMPLEMENTATION_EXTENSION = "implementation_extension";
-	public final static String TYPE_GROUP_EXTENSION = "group_extension";
-	public final static String TYPE_FEATURE = "feature";
-	public final static String TYPE_INTERNAL_FEATURE = "internal_feature";
-	public final static String TYPE_PROCESSOR_FEATURE = "processor_feature";
-	public final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
-	public final static String TYPE_CONNECTION = "connection";
-	public final static String TYPE_MODE = "mode";
-	public final static String TYPE_MODE_TRANSITION = "mode_transition";
-	public final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
-	public final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
-	public final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
-	public final static String TYPE_ANNEX_LIBRARY = "annex_library";
-	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
+	final static String TYPE_PACKAGE = "package";
+	final static String TYPE_CLASSIFIER = "classifier";
+	final static String TYPE_SUBCOMPONENT = "subcomponent";
+	final static String TYPE_REALIZATION = "realization";
+	final static String TYPE_TYPE_EXTENSION = "type_extension";
+	final static String TYPE_IMPLEMENTATION_EXTENSION = "implementation_extension";
+	final static String TYPE_GROUP_EXTENSION = "group_extension";
+	final static String TYPE_FEATURE = "feature";
+	final static String TYPE_INTERNAL_FEATURE = "internal_feature";
+	final static String TYPE_PROCESSOR_FEATURE = "processor_feature";
+	final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
+	final static String TYPE_CONNECTION = "connection";
+	final static String TYPE_MODE = "mode";
+	final static String TYPE_MODE_TRANSITION = "mode_transition";
+	final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
+	final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
+	final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
+	final static String TYPE_ANNEX_LIBRARY = "annex_library";
+	final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 
 	@BuildReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
