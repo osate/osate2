@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.xtext.aadl2.instance.services.InstanceGrammarAccess;
@@ -174,6 +175,9 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 			case InstancePackage.MODE_TRANSITION_INSTANCE:
 				sequence_ModeTransitionInstance(context, (ModeTransitionInstance) semanticObject); 
 				return; 
+			case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE:
+				sequence_PropertyAssociationInstance(context, (PropertyAssociationInstance) semanticObject); 
+				return; 
 			case InstancePackage.SYSTEM_INSTANCE:
 				sequence_SystemInstance(context, (SystemInstance) semanticObject); 
 				return; 
@@ -201,7 +205,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *             flowSpecification+=FlowSpecificationInstance | 
 	 *             endToEndFlow+=EndToEndFlowInstance | 
 	 *             modeInstance+=ModeInstance | 
-	 *             modeTransitionInstance+=ModeTransitionInstance
+	 *             modeTransitionInstance+=ModeTransitionInstance | 
+	 *             ownedPropertyAssociation+=PropertyAssociationInstance
 	 *         )*
 	 *     )
 	 */
@@ -221,7 +226,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         destination=[ConnectionInstanceEnd|InstanceRef] 
 	 *         (inSystemOperationMode+=[SystemOperationMode|IndexRef] inSystemOperationMode+=[SystemOperationMode|IndexRef]*)? 
 	 *         (inModeTransition+=[ModeTransitionInstance|IndexRef] inModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
-	 *         connectionReference+=ConnectionReference+
+	 *         (connectionReference+=ConnectionReference | ownedPropertyAssociation+=PropertyAssociationInstance)+
 	 *     )
 	 */
 	protected void sequence_ConnectionInstance(EObject context, ConnectionInstance semanticObject) {
@@ -249,7 +254,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         name=ID 
 	 *         (flowElement+=[FlowElementInstance|InstanceRef] flowElement+=[FlowElementInstance|InstanceRef]*)? 
 	 *         (inSystemOperationMode+=[SystemOperationMode|IndexRef] inSystemOperationMode+=[SystemOperationMode|IndexRef]*)? 
-	 *         endToEndFlow=[EndToEndFlow|DeclarativeRef]
+	 *         endToEndFlow=[EndToEndFlow|DeclarativeRef] 
+	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
 	 */
 	protected void sequence_EndToEndFlowInstance(EObject context, EndToEndFlowInstance semanticObject) {
@@ -273,7 +279,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *             (dstConnectionInstance+=[ConnectionInstance|IndexRef] | dstFlowSpec+=[FlowSpecificationInstance|ID]) 
 	 *             (dstConnectionInstance+=[ConnectionInstance|IndexRef] | dstFlowSpec+=[FlowSpecificationInstance|ID])*
 	 *         )? 
-	 *         featureInstance+=FeatureInstance*
+	 *         (featureInstance+=FeatureInstance | ownedPropertyAssociation+=PropertyAssociationInstance)*
 	 *     )
 	 */
 	protected void sequence_FeatureInstance(EObject context, FeatureInstance semanticObject) {
@@ -289,7 +295,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         destination=[FeatureInstance|InstanceRef]? 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         (inModeTransition+=[ModeTransitionInstance|IndexRef] inModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
-	 *         flowSpecification=[FlowSpecification|DeclarativeRef]
+	 *         flowSpecification=[FlowSpecification|DeclarativeRef] 
+	 *         ownedPropertyAssociation+=PropertyAssociationInstance*
 	 *     )
 	 */
 	protected void sequence_FlowSpecificationInstance(EObject context, FlowSpecificationInstance semanticObject) {
@@ -306,7 +313,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         (parent+=[ModeInstance|ID] | (parent+=[ModeInstance|ID] parent+=[ModeInstance|ID]+))? 
 	 *         (srcModeTransition+=[ModeTransitionInstance|IndexRef] srcModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
 	 *         (dstModeTransition+=[ModeTransitionInstance|IndexRef] dstModeTransition+=[ModeTransitionInstance|IndexRef]*)? 
-	 *         mode=[Mode|DeclarativeRef]
+	 *         mode=[Mode|DeclarativeRef] 
+	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
 	 */
 	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
@@ -316,9 +324,24 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ModeTransitionName source=[ModeInstance|ID] destination=[ModeInstance|ID] modeTransition=[ModeTransition|DeclarativeRef])
+	 *     (
+	 *         name=ModeTransitionName 
+	 *         source=[ModeInstance|ID] 
+	 *         destination=[ModeInstance|ID] 
+	 *         modeTransition=[ModeTransition|DeclarativeRef] 
+	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
+	 *     )
 	 */
 	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (property=[Property|QPREF] ownedValue+=OptionalModalPropertyValue propertyAssociation=[PropertyAssociation|PropertyAssociationRef])
+	 */
+	protected void sequence_PropertyAssociationInstance(EObject context, PropertyAssociationInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -337,7 +360,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *             endToEndFlow+=EndToEndFlowInstance | 
 	 *             modeInstance+=ModeInstance | 
 	 *             modeTransitionInstance+=ModeTransitionInstance | 
-	 *             systemOperationMode+=SystemOperationMode
+	 *             systemOperationMode+=SystemOperationMode | 
+	 *             ownedPropertyAssociation+=PropertyAssociationInstance
 	 *         )*
 	 *     )
 	 */

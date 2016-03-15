@@ -22,6 +22,7 @@ import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
@@ -46,6 +47,8 @@ import static extension org.eclipse.xtext.scoping.Scopes.scopedElementsFor
  *
  */
 class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
+	val static TRANSITION_NAME_GETTER = [List<ModeTransition> list, ModeTransition element | element.name ?: "transition#" + list.indexOf(element)]
+	
 	val ResourceDescriptionsProvider rdp
 	
 	@Inject
@@ -129,16 +132,44 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def IScope scope_ModeTransitionInstance_modeTransition(EObject context, EReference reference) {
-		new SimpleScope(<ComponentClassifier>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentClassifier, [ownedModeTransitions]))
+		new SimpleScope(getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentClassifier, [ComponentClassifier it | ownedModeTransitions], TRANSITION_NAME_GETTER))
 	}
 	
 	def IScope scope_SystemOperationMode_currentMode(ComponentInstance context, EReference reference) {
 		new SimpleScope(context.getInstanceScope(ModeInstance))
 	}
 	
+	def IScope scope_PropertyAssociationInstance_propertyAssociation(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.classifier)
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as Classifier]
+		
+		
+		new SimpleScope(classifiers.map[classifier |
+			val pkgName = classifier.getContainerOfType(AadlPackage).name
+			
+			val directAssociations = classifier.ownedPropertyAssociations.indexed.map[propertyAssociation |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, propertyAssociation.key.toString])
+				EObjectDescription.create(qualifiedName, propertyAssociation.value)
+			]
+			
+			val indirectAssociations = switch classifier {
+				FeatureGroupType: getAssociationScope(pkgName, classifier.name, classifier.ownedFeatures)
+				ComponentType: classifier.ownedModeTransitions.getAssociationScope(pkgName, classifier.name, TRANSITION_NAME_GETTER) + getAssociationScope(
+					pkgName, classifier.name, classifier.ownedFeatures, classifier.ownedFlowSpecifications, classifier.ownedModes
+				)
+				ComponentImplementation: classifier.ownedModeTransitions.getAssociationScope(pkgName, classifier.name, TRANSITION_NAME_GETTER) + getAssociationScope(
+					pkgName, classifier.name, classifier.ownedSubcomponents, classifier.ownedConnections, classifier.ownedEndToEndFlows, classifier.ownedModes
+				)
+			}
+			
+			directAssociations + indirectAssociations
+		].flatten)
+	}
+	
 	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
 		val descriptions = component.connectionInstances.indexed.map[
-			EObjectDescription.create('''«IF levelCount > 0»«levelCount».«ENDIF»«key»''', value)
+			EObjectDescription.create('''«IF levelCount > 0»«levelCount»~«ENDIF»«key»''', value)
 		]
 		switch parent : component.eContainer {
 			ComponentInstance: descriptions + doConnection(levelCount + 1, parent)
@@ -147,13 +178,18 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def private <T extends Classifier> getDeclarativeScope(EObject context, EClass containerEClass, (T)=>List<? extends NamedElement> elementsGetter) {
+		getDeclarativeScope(context, containerEClass, elementsGetter, [list, element | element.name])
+	}
+	
+	def private <C extends Classifier, E extends NamedElement> getDeclarativeScope(EObject context, EClass containerEClass, (C)=>List<E> elementsGetter, (List<E>, E)=>String nameGetter) {
 		val rds = rdp.getResourceDescriptions(context.eResource)
 		val classifierDescriptions = rds.getExportedObjectsByType(containerEClass)
-		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as T]
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as C]
 		classifiers.map[classifier |
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
-			elementsGetter.apply(classifier).map[element |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, element.name])
+			val elements = elementsGetter.apply(classifier)
+			elements.map[element |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, nameGetter.apply(elements, element)])
 				EObjectDescription.create(qualifiedName, element)
 			]
 		].flatten
@@ -175,5 +211,16 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			FeatureInstance: '''«element.name»«IF element.index != 0»[«element.index»]«ENDIF»'''
 			InstanceObject: element.name
 		}
+	}
+	
+	def private static getAssociationScope(String pkgName, String classifierName, List<? extends NamedElement>... lists) {
+		lists.map[getAssociationScope(pkgName, classifierName, [list, element | element.name])].flatten
+	}
+	
+	def private static <T extends NamedElement> getAssociationScope(List<T> list, String pkgName, String classifierName, (List<T>, T)=>String getName) {
+		list.map[element | element.ownedPropertyAssociations.indexed.map[propertyAssociation |
+			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), propertyAssociation.key.toString])
+			EObjectDescription.create(qualifiedName, propertyAssociation.value)
+		]].flatten
 	}
 }

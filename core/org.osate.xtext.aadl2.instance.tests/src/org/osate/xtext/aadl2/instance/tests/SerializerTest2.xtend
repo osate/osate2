@@ -89,21 +89,21 @@ class SerializerTest2 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s5.i", '''
 			system s5_i_Instance : pkg1::s5.i {
 				system s4_sub [ 0 ] : pkg1::s5.i::s4_sub {
-					out dataPort p6 : pkg1::s4::p6 source of ( 1.0 ) destination of ( f6 )
-					in dataPort p7 : pkg1::s4::p7 source of ( f7 ) destination of ( 1.1 )
+					out dataPort p6 : pkg1::s4::p6 source of ( 1~0 ) destination of ( f6 )
+					in dataPort p7 : pkg1::s4::p7 source of ( f7 ) destination of ( 1~1 )
 					flow f6 ( -> p6 ) : pkg1::s4::f6
 					flow f7 ( p7 -> ) : pkg1::s4::f7
 				}
 				system s3_sub [ 0 ] : pkg1::s5.i::s3_sub {
 					in dataPort p4 : pkg1::s3::p4 source of ( f3 , f4 , f5 )
-					out dataPort p5 : pkg1::s3::p5 source of ( 1.1 ) destination of ( f5 )
+					out dataPort p5 : pkg1::s3::p5 source of ( 1~1 ) destination of ( f5 )
 					system s1_sub [ 0 ] : pkg1::s3.i::s1_sub {
-						in dataPort p1 : pkg1::s1::p1 source of ( f1 ) destination of ( 2.0 )
-						out dataPort p2 : pkg1::s1::p2 source of ( 1.0 ) destination of ( f1 )
+						in dataPort p1 : pkg1::s1::p1 source of ( f1 ) destination of ( 2~0 )
+						out dataPort p2 : pkg1::s1::p2 source of ( 1~0 ) destination of ( f1 )
 						flow f1 ( p1 -> p2 ) : pkg1::s1::f1
 					}
 					system s2_sub [ 0 ] : pkg1::s3.i::s2_sub {
-						in dataPort p3 : pkg1::s2::p3 source of ( f2 ) destination of ( 1.0 )
+						in dataPort p3 : pkg1::s2::p3 source of ( f2 ) destination of ( 1~0 )
 						flow f2 ( p3 -> ) : pkg1::s2::f2
 					}
 					complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 ->
@@ -234,13 +234,13 @@ class SerializerTest2 extends AbstractSerializerTest {
 			system s1_i_Instance : pkg1::s1.i {
 				in dataPort p1 : pkg1::s1::p1 source of ( f1 )
 				system sub1 [ 0 ] : pkg1::s1.i::sub1 {
-					out dataPort p2 : pkg1::s2::p2 source of ( 1.0 ) destination of ( f2 )
+					out dataPort p2 : pkg1::s2::p2 source of ( 1~0 ) destination of ( f2 )
 					flow f2 ( -> p2 ) : pkg1::s2::f2
 				}
 				system sub2 [ 0 ] in modes ( m1 ) : pkg1::s1.i::sub2
 				system sub3 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i::sub3
 				system sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i::sub4 {
-					in dataPort p3 : pkg1::s3::p3 source of ( f3 ) destination of ( 1.0 )
+					in dataPort p3 : pkg1::s3::p3 source of ( f3 ) destination of ( 1~0 )
 					flow f3 ( p3 -> ) : pkg1::s3::f3
 				}
 				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in
@@ -399,10 +399,10 @@ class SerializerTest2 extends AbstractSerializerTest {
 			system s3_i_Instance : pkg1::s3.i {
 				in eventPort p3 : pkg1::s3::p3 source of ( f1 )
 				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
-					out dataPort p1 : pkg1::s1::p1 source of ( 1.0 )
+					out dataPort p1 : pkg1::s1::p1 source of ( 1~0 )
 				}
 				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
-					in dataPort p2 : pkg1::s2::p2 destination of ( 1.0 )
+					in dataPort p2 : pkg1::s2::p2 destination of ( 1~0 )
 				}
 				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in
 				transitions ( 0 ) {
@@ -414,6 +414,105 @@ class SerializerTest2 extends AbstractSerializerTest {
 				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3::mt1
 				som "m1" m1
 				som "m2" m2
+			}''')
+	}
+	
+	@Test
+	def void testPropertyAssociations() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				bool1: aadlboolean applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s1
+					features
+						p1: out data port;
+						p2: in event port;
+						fg1: feature group fgt1;
+					flows
+						fs1: flow source p1 {ps1::bool1 => true;};
+					modes
+						m1: initial mode {ps1::bool1 => true;};
+						m2: mode;
+						mt1: m1 -[p2]-> m2 {ps1::bool1 => true;};
+						m2 -[p2]-> m1 {ps1::bool1 => true;};
+				end s1;
+				
+				system s2
+					features
+						p3: in data port;
+					flows
+						fs2: flow sink p3;
+				end s2;
+				
+				system s3
+					properties
+						ps1::bool1 => true;
+				end s3;
+				
+				system implementation s3.i
+					subcomponents
+						sub1: system s1 {ps1::bool1 => true;};
+						sub2: system s2;
+					connections
+						conn1: port sub1.p1 -> sub2.p3 {ps1::bool1 => true;};
+					flows
+						etef1: end to end flow sub1.fs1 -> conn1 -> sub2.fs2 {ps1::bool1 => true;};
+				end s3.i;
+				
+				feature group fgt1
+					features
+						p4: in data port {ps1::bool1 => true;};
+				end fgt1;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+			system s3_i_Instance : pkg1::s3.i {
+				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
+					in out featureGroup fg1 : pkg1::s1::fg1 {
+						in dataPort p4 : pkg1::fgt1::p4 {
+							ps1::bool1 => true : pkg1::fgt1::p4::0
+						}
+					}
+					out dataPort p1 : pkg1::s1::p1 source of ( 1~0 ) destination of ( fs1 )
+					in eventPort p2 : pkg1::s1::p2
+					flow fs1 ( -> p1 ) : pkg1::s1::fs1 {
+						ps1::bool1 => true : pkg1::s1::fs1::0
+					}
+					initial mode m1 source of ( 0 ) destination of ( 1 ) : pkg1::s1::m1 {
+						ps1::bool1 => true : pkg1::s1::m1::0
+					}
+					mode m2 source of ( 1 ) destination of ( 0 ) : pkg1::s1::m2
+					mode transition m1.p2.m2 m1 -> m2 : pkg1::s1::mt1 {
+						ps1::bool1 => true : pkg1::s1::mt1::0
+					}
+					mode transition m2.p2.m1 m2 -> m1 : pkg1::s1::transition#1 {
+						ps1::bool1 => true : pkg1::s1::transition#1::0
+					}
+					ps1::bool1 => true : pkg1::s3.i::sub1::0
+				}
+				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
+					in dataPort p3 : pkg1::s2::p3 source of ( fs2 ) destination of ( 1~0 )
+					flow fs2 ( p3 -> ) : pkg1::s2::fs2
+				}
+				complete portConnection "sub1.p1 -> sub2.p3" : sub1[0].p1 -> sub2[0].p3 {
+					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i::conn1 in parent
+					ps1::bool1 => true : pkg1::s3.i::conn1::0
+				}
+				end to end flow etef1 sub1[0].fs1 -> 0 -> sub2[0].fs2 in modes ( 0 , 1 ) :
+				pkg1::s3.i::etef1 {
+					ps1::bool1 => true : pkg1::s3.i::etef1::0
+				}
+				som "sub1.m1" sub1[0].m1
+				som "sub1.m2" sub1[0].m2
+				ps1::bool1 => true : pkg1::s3::0
 			}''')
 	}
 }
