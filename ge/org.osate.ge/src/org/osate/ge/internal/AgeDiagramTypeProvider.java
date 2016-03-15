@@ -78,6 +78,8 @@ import org.osate.ge.internal.services.impl.DefaultSubcomponentService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
 import org.osate.ge.internal.ui.util.impl.DefaultGhostPurger;
+import org.osate.ge.services.ReferenceService;
+import org.osate.ge.services.impl.DefaultReferenceService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -163,6 +165,9 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(LabelService.class, labelService);
 		
+		// Create Public/Extension Services
+		context.set(ReferenceService.class, new DefaultReferenceService(serializableReferenceService));
+				
 		return context;
 	}
 	

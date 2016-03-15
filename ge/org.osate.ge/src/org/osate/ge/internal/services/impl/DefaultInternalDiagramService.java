@@ -353,7 +353,7 @@ public class DefaultInternalDiagramService implements InternalDiagramService {
 
 				if(behavior != null && behavior.getDiagramTypeProvider() != null) {
 					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();
-					if(diagram != null) {
+					if(diagram != null && diagram.eResource() != null) {
 						openDiagrams.put(diagram.eResource().getURI(), diagram);
 						diagramRefs.add(new OpenDiagramReference(diagramEditor));
 					}

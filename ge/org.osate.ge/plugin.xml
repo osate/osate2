@@ -795,7 +795,5 @@
        <referenceBuilder
              class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
        </referenceBuilder>
-       <referenceResolver
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceResolver"></referenceResolver>
     </extension>
 </plugin>

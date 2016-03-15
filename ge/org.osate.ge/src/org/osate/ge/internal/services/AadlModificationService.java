@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * Service providing a mechanism for making changes to the model
- * @author philip.alldredge
  *
  */
 public interface AadlModificationService {

@@ -114,7 +114,6 @@ import org.osate.ge.Categories;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
- * @author philip.alldredge
  */
 public class ClassifierPattern extends AgePattern implements Categorized {
 	public static String BINDING_CONNECTION_TYPE = "generic_binding";

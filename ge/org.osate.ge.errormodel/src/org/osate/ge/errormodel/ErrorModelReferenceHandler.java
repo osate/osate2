@@ -110,11 +110,9 @@ public class ErrorModelReferenceHandler {
 			
 			if(errorModelLibrary.isPresent()) {
 				final ErrorModelLibrary errorModelLib = errorModelLibrary.get();
-				System.err.println("TEST; " + errorModelLib);
 				return new ErrorTypeLibrary(errorModelLib);
 			}
 			
-			System.err.println("NULL: " + pkg);
 			return null;
 		}
 		

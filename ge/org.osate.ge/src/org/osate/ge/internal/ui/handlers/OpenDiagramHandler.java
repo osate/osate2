@@ -24,7 +24,6 @@ import org.osate.ge.internal.util.Log;
 
 /**
  * Handler for the open classifier diagram menu commands
- * @author philip.alldredge
  *
  */
 public class OpenDiagramHandler extends AbstractHandler {

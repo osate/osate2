@@ -41,7 +41,6 @@ import org.osate.ge.internal.services.SubcomponentService;
 
 /**
  * Updates a subcomponent shape to duplicate the layout of the classifier diagram associated with the subcomponent's classifier.
- * @author philip.alldredge
  *
  */
 public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeature {

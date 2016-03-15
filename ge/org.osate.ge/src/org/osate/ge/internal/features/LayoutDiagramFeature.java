@@ -47,7 +47,6 @@ import org.osate.ge.internal.services.ShapeService;
 /**
  * Lays out the pictogram elements included in a diagram using an algorithm.
  * To specify a minimum size for a shape, the resize feature or pattern for the shape must return a resize configuration that implements AgeResizeConfiguration.
- * @author philip.alldredge
  *
  */
 public class LayoutDiagramFeature extends AbstractCustomFeature {

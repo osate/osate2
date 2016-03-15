@@ -30,7 +30,6 @@ import org.osate.ge.internal.services.SubcomponentService;
 
 /**
  * Drill down feature. Does not inherit from AbstractDrillDownFeature because it will create diagrams if needed.
- * @author philip.alldredge
  *
  */
 public class DrillDownFeature extends AbstractCustomFeature {

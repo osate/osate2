@@ -16,7 +16,6 @@ import org.osate.aadl2.NamedElement;
 
 /**
  * Contains methods for finding and working with shapes
- * @author philip.alldredge
  *
  */
 public interface ShapeService {
