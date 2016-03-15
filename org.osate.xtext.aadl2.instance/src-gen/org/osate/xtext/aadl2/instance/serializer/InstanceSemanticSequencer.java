@@ -339,7 +339,21 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (property=[Property|QPREF] ownedValue+=OptionalModalPropertyValue propertyAssociation=[PropertyAssociation|PropertyAssociationRef])
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|IndexRef] inMode+=[Mode|IndexRef]*)?)
+	 */
+	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         propertyAssociation=[PropertyAssociation|PropertyAssociationRef]
+	 *     )
 	 */
 	protected void sequence_PropertyAssociationInstance(EObject context, PropertyAssociationInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

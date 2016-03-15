@@ -515,4 +515,49 @@ class SerializerTest2 extends AbstractSerializerTest {
 				ps1::bool1 => true : pkg1::s3::0
 			}''')
 	}
+	
+	@Test
+	def void testModalProperties() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				bool1: aadlboolean applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s
+					modes
+						m1: initial mode;
+						m2: mode;
+					properties
+						ps1::bool1 => true in modes (m1), false in modes(m2);
+				end s;
+				
+				system implementation s.i
+					subcomponents
+						sub1: system s;
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				system sub1 [ 0 ] : pkg1::s.i::sub1 {
+					initial mode m1 : pkg1::s::m1
+					mode m2 : pkg1::s::m2
+					ps1::bool1 => true in modes ( 0 , 2 ) , false in modes ( 1 , 3 ) : pkg1::s::0
+				}
+				initial mode m1 : pkg1::s::m1
+				mode m2 : pkg1::s::m2
+				som "m1#sub1.m1" m1 , sub1[0].m1
+				som "m1#sub1.m2" m1 , sub1[0].m2
+				som "m2#sub1.m1" m2 , sub1[0].m1
+				som "m2#sub1.m2" m2 , sub1[0].m2
+				ps1::bool1 => true in modes ( 0 , 1 ) , false in modes ( 2 , 3 ) : pkg1::s::0
+			}''')
+	}
 }
