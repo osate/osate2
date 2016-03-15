@@ -284,28 +284,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 								scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
-								/*
-								 * JD bug 174
-								 * Also add the property to the connection reference
-								 * instance.
-								 */
-								connRef.getOwnedPropertyAssociations().add(newPA);
-
 								if (setPA == null) {
 									setPA = newPA;
-
-									/*
-									 * This code seems to be useless
-									 * newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-									 * newPA.setProperty(prop);
-									 * fillPropertyValue(connRef, newPA, propertyValue);
-									 */
-
-									/*
-									 * JD bug 174
-									 * Also add the property to the connection reference
-									 * instance.
-									 */
 									conni.getOwnedPropertyAssociations().add(newPA);
 								} else {
 									// check consistency
