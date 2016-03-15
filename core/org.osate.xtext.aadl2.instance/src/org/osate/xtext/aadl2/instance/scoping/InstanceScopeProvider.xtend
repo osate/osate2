@@ -143,16 +143,12 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		val rds = rdp.getResourceDescriptions(context.eResource)
 		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.classifier)
 		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as Classifier]
-		
-		
 		new SimpleScope(classifiers.map[classifier |
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
-			
 			val directAssociations = classifier.ownedPropertyAssociations.indexed.map[propertyAssociation |
 				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, propertyAssociation.key.toString])
 				EObjectDescription.create(qualifiedName, propertyAssociation.value)
 			]
-			
 			val indirectAssociations = switch classifier {
 				FeatureGroupType: getAssociationScope(pkgName, classifier.name, classifier.ownedFeatures)
 				ComponentType: classifier.ownedModeTransitions.getAssociationScope(pkgName, classifier.name, TRANSITION_NAME_GETTER) + getAssociationScope(
@@ -162,9 +158,12 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 					pkgName, classifier.name, classifier.ownedSubcomponents, classifier.ownedConnections, classifier.ownedEndToEndFlows, classifier.ownedModes
 				)
 			}
-			
 			directAssociations + indirectAssociations
 		].flatten)
+	}
+	
+	def IScope scope_ModalElement_inMode(SystemInstance context, EReference reference) {
+		scope_SystemOperationMode(context, reference)
 	}
 	
 	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {

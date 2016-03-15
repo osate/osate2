@@ -95,9 +95,13 @@ SystemOperationMode returns instance::SystemOperationMode:
 ;
 
 PropertyAssociationInstance returns instance::PropertyAssociationInstance:
-	property=[aadl2::Property|QPREF] '=>' ownedValue+=OptionalModalPropertyValue ':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
+	property=[aadl2::Property|QPREF] '=>' ownedValue+=OptionalModalPropertyValue (',' ownedValue+=OptionalModalPropertyValue)*
+	':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
 ;
 
+OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode|IndexRef] (',' inMode+=[aadl2::Mode|IndexRef])* ')')?
+;
 
 DirectionType returns aadl2::DirectionType:
 	'in' | 'out' | 'in' 'out'

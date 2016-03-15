@@ -2343,9 +2343,31 @@ rulePropertyAssociationInstance returns [EObject current=null]
 	    }
 
 )
-)	otherlv_3=':' 
+)(	otherlv_3=',' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getPropertyAssociationInstanceAccess().getColonKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getPropertyAssociationInstanceAccess().getCommaKeyword_3_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAssociationInstanceAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_0()); 
+	    }
+		lv_ownedValue_4_0=ruleOptionalModalPropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertyAssociationInstanceRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedValue",
+        		lv_ownedValue_4_0, 
+        		"OptionalModalPropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_5=':' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getPropertyAssociationInstanceAccess().getColonKeyword_4());
     }
 (
 (
@@ -2355,7 +2377,7 @@ rulePropertyAssociationInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPropertyAssociationInstanceAccess().getPropertyAssociationPropertyAssociationCrossReference_4_0()); 
+	        newCompositeNode(grammarAccess.getPropertyAssociationInstanceAccess().getPropertyAssociationPropertyAssociationCrossReference_5_0()); 
 	    }
 		rulePropertyAssociationRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -2363,6 +2385,95 @@ rulePropertyAssociationInstance returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleOptionalModalPropertyValue
+entryRuleOptionalModalPropertyValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getOptionalModalPropertyValueRule()); }
+	 iv_ruleOptionalModalPropertyValue=ruleOptionalModalPropertyValue 
+	 { $current=$iv_ruleOptionalModalPropertyValue.current; } 
+	 EOF 
+;
+
+// Rule OptionalModalPropertyValue
+ruleOptionalModalPropertyValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0_0()); 
+	    }
+		lv_ownedValue_0_0=rulePropertyExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getOptionalModalPropertyValueRule());
+	        }
+       		set(
+       			$current, 
+       			"ownedValue",
+        		lv_ownedValue_0_0, 
+        		"PropertyExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_1='in' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0());
+    }
+	otherlv_2='modes' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1());
+    }
+	otherlv_3='(' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
+	    }
+		ruleIndexRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_5=',' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
+	    }
+		ruleIndexRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_7=')' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_5());
+    }
+)?)
 ;
 
 
@@ -3362,91 +3473,6 @@ ruleContainmentPath returns [EObject current=null]
 ;
 
 
-
-
-
-
-
-// Entry rule entryRuleOptionalModalPropertyValue
-entryRuleOptionalModalPropertyValue returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getOptionalModalPropertyValueRule()); }
-	 iv_ruleOptionalModalPropertyValue=ruleOptionalModalPropertyValue 
-	 { $current=$iv_ruleOptionalModalPropertyValue.current; } 
-	 EOF 
-;
-
-// Rule OptionalModalPropertyValue
-ruleOptionalModalPropertyValue returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0_0()); 
-	    }
-		lv_ownedValue_0_0=rulePropertyExpression		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOptionalModalPropertyValueRule());
-	        }
-       		set(
-       			$current, 
-       			"ownedValue",
-        		lv_ownedValue_0_0, 
-        		"PropertyExpression");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_1='in' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0());
-    }
-	otherlv_2='modes' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1());
-    }
-	otherlv_3='(' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_2());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
-	        }
-        }
-	otherlv_4=RULE_ID
-	{
-		newLeafNode(otherlv_4, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
-	}
-
-)
-)(	otherlv_5=',' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_4_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
-	        }
-        }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
-	}
-
-)
-))*	otherlv_7=')' 
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_5());
-    }
-)?)
-;
 
 
 
