@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.ICustomUndoableFeature;
+import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -37,7 +37,7 @@ import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.util.Log;
 
-public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature, DiagramUpdateFeature {
+public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature, DiagramUpdateFeature {
 	private final ReferenceBuilderService refBuilder;
 	private final StyleService styleService;
 	private final GhostingService ghostingService;
@@ -59,11 +59,6 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		}
 		
 		return null;
-	}
-	
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
 	}
 	
 	@Override
@@ -133,17 +128,30 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 
 		return false;
 	}
-
+	
 	@Override
-	public void undo(final IContext context) {
+	public boolean canUndo(final IContext context) {
+		return false;
 	}
-
+	
 	@Override
 	public boolean canRedo(final IContext context) {
 		return false;
 	}
 
 	@Override
-	public void redo(final IContext context) {	
+	public void preUndo(IContext context) {
+	}
+
+	@Override
+	public void postUndo(IContext context) {
+	}
+
+	@Override
+	public void preRedo(IContext context) {
+	}
+
+	@Override
+	public void postRedo(IContext context) {
 	}
 }
