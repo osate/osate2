@@ -5,11 +5,13 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-02-02T13:05:34.514000000"/>
+	<meta name="changed" content="2016-03-15T00:25:22.372000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-02-02T13:05:34.514000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-01-04T12:14:26.237000000">
 	<meta name="created" content="00:00:00">
@@ -20,6 +22,10 @@
 		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		p.cjk { font-size: 12pt; so-language: zxx }
 		p.ctl { font-size: 12pt; so-language: zxx }
+		td p { margin-bottom: 0.08in; line-height: 0.19in }
+		td p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
+		td p.cjk { font-size: 12pt; so-language: zxx }
+		td p.ctl { font-size: 12pt; so-language: zxx }
 		h1 { margin-bottom: 0.08in }
 		h1.western { font-family: "Liberation Serif", serif; so-language: zxx }
 		h1.cjk { font-family: "Segoe UI"; font-size: 24pt; so-language: zxx }
@@ -48,13 +54,13 @@ Specification for a System</font></h1>
 <br/>
 
 </p>
-<p lang="zxx" class="western"><font color="#000000"><span style="font-variant: normal"><span style="font-style: normal">This
+<p lang="zxx" class="western"><span style="font-variant: normal"><font color="#000000"><span lang="zxx"><span style="font-style: normal">This
 document describes a textual requirement specification notation,
-called </span></span><span style="font-variant: normal"><i>ReqSpec.
-It</i></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">has
-been derived from the draft Requirements Definition and Analysis
-Language (RDAL) Annex for use with the SAE Architecture Analysis &amp;
-Design Language (AADL). </span></span></font>
+called </span></span></font></span><span style="font-variant: normal"><font color="#000000"><span lang="zxx"><i>ReqSpe</i></span></font></span><span style="font-variant: normal"><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>c.</i></span></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>
+</i></span></font></font></font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">It
+draws on the draft Requirements Definition and Analysis Language
+(RDAL) Annex, which defines a meta-model for requirement
+specification as annotations to AADL models. </span></font></font></span>
 </p>
 <p lang="zxx" class="western"><font color="#000000">The objective is
 to support the elicitation, definition and modeling of requirements
@@ -102,80 +108,113 @@ as well as export ReqSpec based modifications.</span></font></font></font></p>
 <font color="#000000">Concepts of the ReqSpec Notation</font></h2>
 <p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
 <font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">ReqSpec
-allows users to define goals, i.e., stakeholder requirements, and
-requirements, i.e., system requirements. Goals are expressed by <i>goal
-</i>declarations and requirements by <i>requirement </i>declarations.
-</font></font></font>
+allows users to define goals, or stakeholder requirements, and
+requirements, or system requirements. Goals are expressed by <i>goal
+</i>declarations and requirements by <i>requirement </i>declarations.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Goals
+and requirements can be organized according to the architecture
+structure, by associating them with AADL component types or
+implementations, or they can be organized according to a document
+structure, in terms of document sections.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">A
+<i>stakeholder goal set </i>declaration represents goals for a
+specific architecture component and contains a set of <i>goal</i>
+declarations.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">A
+<i>system requirement set </i>declaration represents requirements for
+a specific architecture component and contains a set of <i>system
+requirement</i> declarations. User can also declare a set of reusable
+requirement declarations through a <i>global requirement set
+</i>declaration. Such reusable requirements can then be included in
+system requirement set declarations.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">A
+<i>goals document</i> contains a <i>document </i>declaration that
+includes <i>document section</i> declarations and <i>goal
+</i>declarations. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">A
+<i>requirements document</i> contains a <i>document </i>declaration
+that includes <i>document section</i> declarations and <i>requirement
+</i>declarations.</font></font></font></p>
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="1087" valign="top" style="border: 1.00pt solid #1f497d; padding: 0.02in 0.08in">
+			<p lang="zxx" class="western" style="margin-bottom: 0in"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><b>Summary
+			of file extensions:</b></font></font></font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font></span>For <i>goals document</i>, use the extension
+			<i>goaldoc</i>.</font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font></span>For <i>requirements document</i>, use the extension
+			<i>reqdoc</i>.</font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font></span>For <i>stakeholder goal set</i>, use the file
+			extension <i>goals</i>.</font></p>
+			<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</font></span>For <i>system requirement set </i>and <i>global
+			requirement set,</i> use the extension <i>reqspec</i>.</font></p>
+		</td>
+	</tr>
+</table>
+<p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
+<br/>
+<br/>
+
 </p>
 <p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
-<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Goals
-and requirements can be organized according to a document structure,
-i.e., in terms of document sections, or they can be organized
-according to the architecture structure, i.e., associated with AADL
-component types or implementations. </font></font></font>
+<font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+<i>stakeholder goal set</i>, <i>system requirement set</i>, <i>global
+requirement set</i>, <i>goal document</i>, and <i>requirement
+document</i> constructs represent goal and requirement containers.
+They can have names with &lt;dot&gt;-separated identifiers (e.g.,
+aircraft.Autopilot). These names can be used to qualify goals and the
+requirements contained in them.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">A
+<i>goal</i>, <i>system requirement</i>, or <i>global requirement</i>
+has an identifier as name. </font></font></font>
 </p>
-<p lang="zxx" class="western" style="line-height: 0.19in; page-break-before: auto; page-break-after: auto">
-<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Goal
-documents are represented by files with the extension <i>goaldoc</i>
-and requirement documents by files with the extension <i>reqdoc</i>.
-A goal document contains a <i>document </i>declaration that contains
-<i>document section</i> declarations and <i>goal </i>declarations. A
-requirement document contains a <i>document </i>declaration that
-contains <i>document section</i> declarations and <i>requirement
-</i>declarations.</font></font></font></p>
-<p lang="zxx" class="western" style="line-height: 0.19in"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Goals
-organized according to the architecture structure are represented by
-files with the extension <i>goals</i>. Each file consists of a
-<i>stakeholder goals </i>declaration for a specific architecture
-component that contains a set of <i>goal</i> declarations. </font></font></font>
-</p>
-<p lang="zxx" class="western" style="line-height: 0.19in"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Requirements
-organized according to the architecture structure are represented by
-files with the extension <i>reqspec</i>. Each file consists of a
-<i>system requirements </i>declaration for a specific architecture
-component that contains a set of <i>requirement</i> declarations, or
-it consists of a <i>global requirement </i>declaration that contains
-a set of reusable <i>requirement </i>declarations that can be
-included in different system requirement declarations. </font></font></font>
-</p>
-<p lang="zxx" class="western" style="line-height: 0.19in"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">The
-<i>stakeholder goals</i>, <i>system requirements</i>, <i>goals
-document</i>, <i>requirements document</i> constructs can have names
-of &lt;dot&gt; separated identifiers. These names can be used to
-qualify goals and requirement contained in them.</font></font></font></p>
-<p lang="zxx" class="western" style="line-height: 0.19in"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">For
-<i>stakeholder goals</i> users are expected to use the file extension
-<i>goals</i>, for <i>system requirements </i>the extension <i>reqspec</i>,
-for a <i>goals document</i> the extension <i>goaldoc</i>, and for
-<i>requirements document </i>the extension <i>reqdoc</i>.</font></font></font></p>
-<p lang="zxx" class="western"><font color="#000000">Goals and
-requirements can be referenced by their identifier or by qualifying
-them with their container name. Note that document section
-identifiers are not used for qualification of names. </font>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Goals
+and requirements can be referenced by their identifiers within the
+same container or by qualifying them with their container (e.g.,
+aircraft.Autopilot.Req1).</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">References
+are shown in the grammar as &lt;Goal&gt; or &lt;Requirement&gt;,
+indicating the type of element being referenced.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Optional
+elements are shown as ( )?. Elements repeated one or more times are
+shown as ( )+, and elements repeated zero or more times as ( )*. For
+example:</font></font></font></p>
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol"><font size="2" style="font-size: 10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></font></span><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">(
+</font></font></font><font color="#7e0055"><font face="Lucida Console"><font size="2" style="font-size: 10pt"><b>dropped
+</b></font></font></font><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">)</font></font></font><font face="Lucida Console"><font size="2" style="font-size: 10pt">?</font></font></font></p>
+<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font color="#000000"><font face="Lucida Console">(
+DocReference )+</font></font></font></p>
+<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></span><font face="Lucida Console">( ConstantVariable )*</font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+set of elements between square brackets, [ ], can appear in any
+order.</font></font></font></p>
+<p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
+<br/>
+<br/>
+
 </p>
 <h2 lang="zxx" class="western" style="margin-top: 0in; margin-bottom: 0.08in"><a name="__RefHeading___Toc436393023"></a><a name="StakeholderGoals"></a>
 <font color="#000000">Stakeholder Goals </font>
 </h2>
-<p lang="zxx" class="western"><font color="#000000">ReqSpec has the
-<i>Goal</i> construct to represent individual stakeholder
-requirements. </font>
-</p>
-<p lang="zxx" class="western"><font color="#000000">Stakeholder goals
-can be organized in two ways: </font>
-</p>
-<ul>
-	<li/>
-<p lang="zxx" class="list-western"><font color="#000000">By
-	the <i>StakeholderGoals</i> construct to represent a collection of
-	goals for a particular system that is represented as an AADL
-	component.</font></p>
-	<li/>
-<p lang="zxx" class="list-western"><font color="#000000">By
-	the <i>Document</i> construct that contains goals, possibly
-	organized into (nested) <i>DocumentSection </i>to reflect the
-	structure of an existing textual stakeholder requirement document. </font>
-	</p>
-</ul>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">ReqSpec
+uses the <i>Goal</i> construct to represent individual stakeholder
+requirements. Stakeholder goals can be organized in two ways:</font></font></font></p>
+<p lang="zxx" class="western"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">&middot;<span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>by the <i>StakeholderGoalSet</i> construct, to represent a
+collection of goals for a particular system that is represented as an
+AADL component</font></font></p>
+<p lang="zxx" class="western"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">&middot;<span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>by the <i>GoalsDocument</i> construct that contains goals,
+possibly organized into a (nested) <i>DocumentSection </i>to reflect
+the structure of an existing textual stakeholder requirement document</font></font></p>
 <p lang="zxx" class="western"><font color="#000000">We proceed by
 describing the <i>Goal</i> and <i>StakeholderGoals</i> constructs.
 The <i>Document</i> and <i>DocumentSection</i> constructs are also
@@ -190,10 +229,9 @@ system.</font></p>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt"><b>goal</b></span><span style="letter-spacing: -0.5pt"> </span>Name (<span style="letter-spacing: -0.2pt"> </span><span style="letter-spacing: 0.1pt"><b>:</b></span><span style="letter-spacing: 4.3pt"> </span>Title<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx">(<span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>for</b></span><span style="letter-spacing: -0.2pt"> </span>TargetElement<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.4pt"> </span></span></font>
 <font color="#000000"><span lang="zxx">[</span></font>
-<font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>quality</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Qualitylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Categorylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description )?<span style="letter-spacing: 1.2pt"> </span></span></font>
-<font color="#000000"><span lang="zxx">( ConstantVariable )*</span></font>
+<font color="#000000"><span lang="zxx">( Constant )*</span></font>
 <font color="#000000"><span lang="zxx">( WhenCondition )?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>rationale</b></span><span style="letter-spacing: -0.5pt"> </span>String<span style="letter-spacing: -0.6pt"> </span><span style="letter-spacing: 0.1pt">)?</span></span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>refines</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>&lt;Goal&gt;<span style="letter-spacing: -0.3pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font>
@@ -212,6 +250,8 @@ system.</font></p>
 <font color="#000000"><span lang="zxx">TargetElement ::= &lt;ModelElement&gt;</span></font>
 <font color="#000000"><span lang="zxx">DocReference ::= URI to an element in an external document</span></font>
 
+<font face="Lucida Console"><font size="2" style="font-size: 10pt"><span lang="zxx">Description ::= String ( &lt;Constant or Variable&gt; | <font color="#7e0055"><b>this</b></font> | String )*</span></font></font>
+
 <font color="#000000"><span lang="zxx">WhenCondition ::= </span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when in modes </b></span><span lang="zxx"><span style="font-weight: normal">&lt;Mode&gt; ( </span></span><span lang="zxx"><b>, &lt;M</b></span><span lang="zxx"><span style="font-weight: normal">ode&gt; )*</span></span></span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">|</span></span></span></font>
@@ -228,7 +268,7 @@ declaration has the following elements:</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Name</i>:
 	an identifier that is unique within the scope of a goal container
-	(requirement document or stakeholder goals container). </font>
+	(requirement document or stakeholder goal set container). </font>
 	</p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Title:</i>
@@ -238,20 +278,16 @@ declaration has the following elements:</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><i>For:
 	</i>if present it identifies the target of the goal within a system,
 	i.e., a model element within the classifier, e.g., a port, end to
-	end flow or subcomponent. The enclosing <i>StakeholderGoals</i>
+	end flow or subcomponent. The enclosing <i>StakeholderGoal</i><i>Set</i>
 	container specifies the component classifier of the system of
 	interest. </font>
 	</p>
 	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><i>Quality:</i>
-	list of quality attribute labels (without comma separation) that
-	this verification method addresses. It is used when defining filter
-	criteria for assurance tasks.</font></p>
-	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><i>Category</i>:
-	list of user defined category labels (without comma separation) in
-	which this verification activity should be performed. It is used
-	when defining assurance tasks.</font></p>
+<p lang="zxx" class="list-western"><font color="#000000"><span lang="zxx"><i>Categor</i></span></font><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>y</i></span></font></font><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx">:
+	</span></font></font><font face="Times, serif"><font size="3" style="font-size: 12pt">list
+	of user-defined category labels (without comma separation) to
+	characterize a stakeholder goal. Such labels can be used for
+	specifying filtered views of stakeholder goals.</font></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Description:
 	</i>A textual description of the goal. In its most general form this
@@ -274,8 +310,8 @@ declaration has the following elements:</font></p>
 	</i><span style="font-variant: normal"><span style="font-style: normal">the
 	condition under which the requirement applies. The condition is a
 	set of AADL2 modes (operational modes), EMV2 error behavior states
-	(failure modes), </span></span><span style="font-variant: normal"><span style="font-style: normal">or
-	a general expression on model elements and properties</span></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></font></p>
+	(failure modes), or a general expression on model elements and
+	properties.</span></span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Rationale:
 	</i>the rationale for a stakeholder goal as string.</font></p>
@@ -332,34 +368,35 @@ mapped into an architecture model and support identifying different
 systems for different goals in the same document or document section.
 </font>
 </p>
-<h3 class="western"><font color="#000000">The Stakeholder Goals
+<h3 class="western"><font color="#000000">The Stakeholder Goal Set
 Construct</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
-<i>StakeholderGoals</i> construct is a container for <i>Goal
+<i>StakeholderGoal</i><i>Set</i> construct is a container for <i>Goal
 </i>declarations. It is typically used to group together stakeholder
 goals for a particular system. It represents a name scope for the
 goal declarations contained in it, i.e., a goal is referenced by the
 <i>StakeholderGoals</i> name and the <i>Goal </i>name &ndash;
 separated by a dot. </font>
 </p>
-<pre lang="zxx" class="western"><font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">StakeholderGoals ::= </font></font></font>
+<pre lang="zxx" class="western"><font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">StakeholderGoalSet ::= </font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt"><b>stakeholder goals</b></span> QualifiedName (<span style="letter-spacing: -0.2pt"> </span><span style="letter-spacing: 0.1pt"><b>:</b></span><span style="letter-spacing: 4.3pt"> </span>Title<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt"><b>for</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.2pt"> </span><span style="letter-spacing: -0.3pt">Target</span>Classifier<span style="letter-spacing: -0.4pt"> | </span><span style="letter-spacing: 0.1pt"><b>all </b></span>)</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">(<span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>use constants</b></span><span style="letter-spacing: -0.2pt"> </span>&lt;GlobalConstants&gt;*<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description )?<span style="letter-spacing: 1.2pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><span style="letter-spacing: 0.1pt"><b>see</b></span><span style="letter-spacing: -0.5pt"> </span><span style="letter-spacing: 0.1pt"><b>document</b></span><span style="letter-spacing: -0.5pt"> </span>(<span style="letter-spacing: -0.6pt"> DocReference </span>)+ )?<span style="letter-spacing: 1.3pt"> </span></span></font></font></font>
-<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( ConstantVariable )*</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Constant )*</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal )+</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>issues</b></span><span style="letter-spacing: -0.5pt"> </span>(String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></font>
-<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font></pre><p lang="zxx" class="western">
-<font color="#000000">A <i>StakeholderGoals</i> declaration has the
-following elements:</font></p>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">QualifiedName ::= Identifier ( <font color="#7e0055"><b>.</b></font> Identifier )*</span></font></font></font>
+</pre><p lang="zxx" class="western">
+<font color="#000000">A <i>StakeholderGoal</i><i>Set</i> declaration
+has the following elements:</font></p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>QualifiedName</i>:
-	name as a &lt;dot&gt; separated sequence of identifiers that is
-	globally unique (within the workspace of OSATE).</font></p>
+	name as a &lt;dot&gt; separated sequence of identifiers.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Title:</i>
 	a short descriptor of the stakeholder goal container. This optional
@@ -388,14 +425,14 @@ following elements:</font></p>
 	this container is the identified document.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000">Set
-	of <i>ConstantVariable: </i>Constant variables are used to
-	parameterize goal and requirement specifications (see Section
-	Constant and Compute Variables). Many of the changes to a goal or
-	requirement are in a value used in the goal or requirement
-	specification. Variables allow users to define a requirement value
-	once and reference it in the description, predicates, and in
-	verification activities of verification plans expressed in the
-	Verify notation (documented in a separate report).</font></p>
+	of <i>Constant: </i>Constants are used to parameterize goal and
+	requirement specifications (see Section Constant and Compute
+	Variables). Many of the changes to a goal or requirement are in a
+	value used in the goal or requirement specification. Variables allow
+	users to define a requirement value once and reference it in the
+	description, predicates, and in verification activities of
+	verification plans expressed in the Verify notation (documented in a
+	separate report).</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000">Set
 	of <i>Goal</i>: a set of goal declarations. All contained goals are
@@ -423,16 +460,16 @@ system. </font>
 define requirements that are not specific to a particular system, but
 are applicable to any component or components of a specified set of
 component categories. Such <i>GlobalRequirements </i>can then be
-included in a <i>SystemRequirements</i> declaration as a set or set
-individual requirements through an <i>include </i>statement. The
-system identified by the <i>SystemRequirements for </i>statement
-determines the scope of applicability of the requirement, i.e., the
-requirement is applicable to that system and its subsystems down the
-hierarchy that match the category. </font>
+included in a <i>SystemRequirement</i><i>Set</i> declaration as a set
+or set individual requirements through an <i>include </i>statement.
+The system identified by the <i>SystemRequirement</i><i>Set</i><i>
+for </i>statement determines the scope of applicability of the
+requirement, i.e., the requirement is applicable to that system and
+its subsystems down the hierarchy that match the category. </font>
 </p>
 <p lang="zxx" class="western"><font color="#000000">We proceed by
-describing the <i>SystemRequirement</i>, <i>SystemRequirements</i>,
-and <i>GlobalRequirements</i> constructs in turn.</font></p>
+describing the <i>SystemRequirement</i>, <i>SystemRequirement</i><i>Set</i>,
+and <i>GlobalRequirement</i><i>Set</i> constructs in turn.</font></p>
 <p lang="zxx" class="western"><font color="#000000">Note that the
 term <i>system</i> in system requirements is not limited to the AADL
 <i>system </i>component category. A system may be represented by
@@ -455,6 +492,7 @@ other categories as well, e.g., by <i>abstract</i> or <i>device</i>.</font></p>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>mitigates</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>&lt;Hazard&gt;<span style="letter-spacing: -0.3pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>refines</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Requirement&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>decomposes</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Requirement&gt;<span style="letter-spacing: -0.4pt"> </span>)+)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>inherits</b></span><span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt">(</span><span style="letter-spacing: -0.4pt"> </span><span style="letter-spacing: 0.1pt">&lt;Requirement&gt;</span><span style="letter-spacing: -0.4pt"> </span><span style="letter-spacing: 0.1pt">)+)?</span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>evolves</b></span><span style="letter-spacing: -0.4pt"> </span>( &lt;Requirement&gt;<span style="letter-spacing: -0.5pt"> </span>)+)?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>dropped </b></span>)?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><span style="letter-spacing: 0.1pt"><b>development</b></span><span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>stakeholder</b></span><span style="letter-spacing: -0.3pt"> </span>(<span style="letter-spacing: -0.4pt"> </span>&lt;Stakeholder&gt;<span style="letter-spacing: -0.4pt"> </span>)+ )?</span></font></font></font>
@@ -470,8 +508,7 @@ following elements:</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Name</i>:
 	an identifier that is unique within the scope of a requirement
-	container (requirement document or requirement specification
-	container). </font>
+	container (requirement document or system requirement set ). </font>
 	</p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Title:</i>
@@ -486,15 +523,11 @@ following elements:</font></p>
 	interest. </font>
 	</p>
 	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><i>Quality:</i>
-	list of quality attribute labels (without comma separation) that
-	this verification method addresses. It is used when defining filter
-	criteria for assurance tasks.</font></p>
-	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><i>Category</i>:
-	list of user defined category labels (without comma separation) in
-	which this verification activity should be performed. It is used
-	when defining assurance tasks.</font></p>
+<p lang="zxx" class="list-western"><font color="#000000"><span lang="zxx"><i>Category</i></span></font><font color="#000000"><span lang="zxx">:
+	</span></font><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">list
+	of user-defined category labels (without comma separation) to
+	characterize a requirement. Such labels can be used for specifying
+	filtered views of system requirements</font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">.</span></font></font></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Description:
 	</i>A textual description of the requirement. In its most general
@@ -518,8 +551,8 @@ following elements:</font></p>
 	</i><span style="font-variant: normal"><span style="font-style: normal">the
 	condition under which the requirement applies. The condition is a
 	set of AADL2 modes (operational modes), EMV2 error behavior states
-	(failure modes), </span></span><span style="font-variant: normal"><span style="font-style: normal">or
-	a general expression on model elements and properties</span></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></font></p>
+	(failure modes), or a general expression on model elements and
+	properties.</span></span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Predicate:
 	</i>a formalized specification of the condition that must be met to
@@ -547,6 +580,14 @@ following elements:</font></p>
 	</i>one or more references to requirements of an enclosing system
 	that this requirement is derived from, i.e., it provides
 	traceability across architecture layers.</font></p>
+	<li/>
+<p lang="zxx" class="western"><font color="#000000"><i>Inherits:
+	</i><span style="font-style: normal">one or more references to
+	requirements of an enclosing system that is being inherited as a
+	whole. For example, requirements on interfaces of an enclosing
+	system can be inherited by those subsystems that directly take the
+	input or produce the output of the enclosing system. This element
+	provides traceability across architecture layers.</span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Evolves</i>:
 	references to other goals this goal evolves from. This allows for
@@ -599,16 +640,14 @@ supports identifying different systems for different requirements
 within the same document or document section. </font>
 </p>
 <h3 class="western"><a name="__RefHeading___Toc436393028"></a><a name="SystemRequirementsConstruct"></a>
-<font color="#000000">The System Requirements Construct</font></h3>
-<p lang="zxx" class="western"><font color="#000000">The
-<i>SystemRequirements</i> construct is a container for <i>Requirement
-</i>declarations. It is typically used to group together system
-requirements for a particular system. It represents a name scope for
-the goal declarations contained in it, i.e., a requirement is
-referenced by the <i>SystemRequirements</i> name and the <i>Requirement
-</i>name &ndash; separated by a dot. </font>
+<font color="#000000">The System Requirement Set Construct</font></h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">The
+<i>SystemRequirementSet</i> construct is a container for a set of
+<i>SystemRequirement </i>declarations. It is used to group together
+system requirements for a particular system, namely all requirements
+that are associated with an AADL component type or implementation. </font></font></font>
 </p>
-<pre lang="zxx" class="western"><font color="#000000"><font size="2" style="font-size: 10pt">SystemRequirements ::=</font></font>
+<pre lang="zxx" class="western"><font color="#000000"><font size="2" style="font-size: 10pt">SystemRequirementSet ::=</font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>System requirements </b></span></font><font face="Lucida Console, monospace">QualifiedName (</font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>:</b></span></font><span style="letter-spacing: 4.3pt"> </span><font face="Lucida Console, monospace">Title</font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace">)?</font></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>for</b></span></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace"><span style="letter-spacing: -0.3pt">Target</span></font><font face="Lucida Console, monospace">Classifier</font><span style="letter-spacing: 1.4pt"> </span></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace">(</font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>use constants</b></span></font><span style="letter-spacing: -0.2pt"> </span><font face="Lucida Console, monospace">&lt;GlobalConstants&gt;*</font><span style="letter-spacing: -0.3pt"> </span><font face="Lucida Console, monospace">)?</font><span style="letter-spacing: 1.4pt"> </span></span></font></font>
@@ -621,16 +660,15 @@ referenced by the <i>SystemRequirements</i> name and the <i>Requirement
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace">( </font><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>include</b></span></font> <font face="Lucida Console, monospace">&lt;GlobalRequirements or requirement&gt; ( </font><font face="Lucida Console, monospace"><b>for </b></font><font face="Lucida Console, monospace">ComponentCategory | </font><font face="Lucida Console, monospace"><b>self</b></font> <font face="Lucida Console, monospace">)*</font></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt">( </span></font><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace">(String)+</font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace">)?</font></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></pre><p lang="zxx" class="western">
-<font color="#000000">A <i>SystemRequirements</i> declaration has the
-following elements:</font></p>
+<font color="#000000">A <i>SystemRequirement</i><i>Set</i>
+declaration has the following elements:</font></p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>QualifiedName</i>:
-	name as a &lt;dot&gt; separated sequence of identifiers that is
-	globally unique (within the workspace of OSATE).</font></p>
+	name as a &lt;dot&gt; separated sequence of identifiers.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Title:</i>
-	a short descriptor of the stakeholder goal container. This optional
+	a short descriptor of the system requirement set. This optional
 	element may be used as a more descriptive label than the name.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>For:
@@ -656,7 +694,7 @@ following elements:</font></p>
 	container is the identified document.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>See
-	goals: </i>reference to StakeholderGoals or GoalsDocument.</font></p>
+	goals: </i>reference to StakeholderGoalSet or GoalsDocument.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000">Set
 	of <i>Variable: </i>Constant and compute variables are used to
@@ -690,16 +728,16 @@ following elements:</font></p>
 	of textual notes (Strings).</font></p>
 </ul>
 <h3 class="western" style="margin-left: 0in; text-indent: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="GlobalRequirements"></a>
-<font color="#000000">The Global Requirements and Requirement
+<font color="#000000">The Global Requirement Set and Requirement
 Constructs</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
-<i>GlobalRequirements</i> construct is a container for <i>Requirement
-</i>declarations. A <i>GlobalRequirements</i> declaration differs
-from <i>SystemRequirements </i>in that it contains <i>Requirement
-</i>declarations instead of <i>SystemRequirement </i>declarations,
-and it does not have a <i>for </i>statement, not an <i>include
-</i>statement.</font></p>
-<p lang="zxx" class="list-western"><font color="#000000">GlobalRequirements
+<i>GlobalRequirement</i><i>Set</i> construct is a container for
+<i>Requirement </i>declarations. A <i>GlobalRequirement</i><i>Set</i>
+declaration differs from <i>SystemRequirement</i><i>Set</i><i> </i>in
+that it contains <i>Global</i><i>Requirement </i>declarations instead
+of <i>SystemRequirement </i>declarations, and it does not have a <i>for
+</i>statement, not an <i>include </i>statement.</font></p>
+<p lang="zxx" class="list-western"><font color="#000000">GlobalRequirementSet
 ::=</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><b>global
 requirements </b>QualifiedName ( <b>:</b><span style="letter-spacing: 4.3pt">
@@ -729,11 +767,11 @@ GlobalRequirement )*</font></p>
 <p lang="zxx" class="list-western"><font color="#000000">( <b>issues</b>
 (String)+ )?</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><b>]</b></font></p>
-<p lang="zxx" class="western">The <i>Requirement</i> construct
-represents a global requirement. It application may be restricted to
-certain component categories through the <i>for </i>statement. The
-only difference to a <i>SystemRequirement </i>construct is the <i>for
-</i>statement.</p>
+<p lang="zxx" class="western">The <i>GlobalR</i><i>equirement</i>
+construct represents a global requirement. It application may be
+restricted to certain component categories through the <i>for
+</i>statement. The only difference to a <i>SystemRequirement
+</i>construct is the <i>for </i>statement.</p>
 <pre lang="zxx" class="western">GlobalRequirement ::=
 <span lang="zxx"><b>requirement</b> Name ( <b>:</b><span style="letter-spacing: 4.3pt"> </span>Title )?</span>
 <span lang="zxx">( <b>for </b>ComponentCategory+ )?<span style="letter-spacing: 1.4pt"> </span></span>
@@ -741,44 +779,57 @@ only difference to a <i>SystemRequirement </i>construct is the <i>for
 <span lang="zxx">// Same as for SystemRequirement</span>
 <span lang="zxx">]</span></pre><h2 lang="zxx" class="western">
 Documents and Document Sections</h2>
-<p lang="zxx" class="western">The <i>Document</i> construct is
-intended to represent existing stakeholder goal or system requirement
-documents that are imported into a ReqSpec representation. In such
-documents goals and requirements are organized into document
-sections. Once an existing stakeholder requirement or system
-requirement document has been imported into ReqSpec, its goals can be
-associated with an AADL model enabling traceability and consistency
-checks on stakeholder goals and system requirements. 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+<i>Document</i> construct allows users to organize stakeholder goals
+or system requirement into document sections to mirror existing
+documentation. This supports import of existing stakeholder
+requirement or system requirement documentation into ReqSpec. </font></font></font>
 </p>
-<p lang="zxx" class="western">A <i>Document</i> contains a set of
-document sections, stakeholder goals, or system requirements. A
-<i>DocumentSection</i> can recursively contain document sections,
-stakeholder goals, or system requirements. In the case of stakeholder
-goals the file extension <i>goaldoc </i>is used, while in the case of
-requirements the file extension <i>reqdoc</i> is used.</p>
-<p lang="zxx" class="western">A <i>Document</i> represents a name
-scope for the <i>goal</i> and <i>requirement</i> declarations
-contained in it, i.e., a goal or requirement is referenced by the
-<i>Document</i> name and the <i>goal </i>or <i>requirement </i>name &ndash;
-separated by a dot. Note that document sections do not contribute to
-name scoping, i.e., <i>goal</i> and <i>requirement</i> declarations
-have to be unique within the requirement document.</p>
-<pre lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">Document ::=</font></font>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">A
+<i>Document</i> contains a set of document sections, and stakeholder
+goals or system requirements. A <i>DocumentSection</i> can
+recursively contain document sections, and stakeholder goals or
+system requirements. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">A
+<i>GoalsDocument</i> only contains stakeholder goals, while a
+<i>RequirementsDocument</i> only contains system requirements.</font></font></font></p>
+<p lang="zxx" class="western"><br/>
+<br/>
+
+</p>
+<pre lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">GoalsDocument ::=</font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>document</b></span></font><font color="#7e0055"> </font>Name (<span style="letter-spacing: -0.2pt"> </span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>:</b></span></font><span style="letter-spacing: 4.3pt"> </span>Title<font color="#2a00ff"><span style="letter-spacing: -0.3pt"> </span></font>)?</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>description</b></span></font><font color="#7e0055"><span style="letter-spacing: 4.4pt"> </span></font>String<font color="#2a00ff"><span style="letter-spacing: -0.5pt"> </span></font>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal | Requirement | DocumentSection )+ </span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal  | DocumentSection )+ </span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"> </span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"><b>(</b></span></font>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font>
 
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">DocumentSection ::=</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">GoalsDocumentSection ::=</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>section</b></span></font><font color="#7e0055"> </font>Name (<span style="letter-spacing: -0.2pt"> </span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>:</b></span></font><span style="letter-spacing: 4.3pt"> </span>Title<font color="#2a00ff"><span style="letter-spacing: -0.3pt"> </span></font>)?</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>description</b></span></font><font color="#7e0055"><span style="letter-spacing: 4.4pt"> </span></font>String<font color="#2a00ff"><span style="letter-spacing: -0.5pt"> </span></font>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal | Requirement | DocumentSection )+ </span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal  | DocumentSection )+ </span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"> </span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"><b>(</b></span></font>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></pre><p lang="zxx" class="western">
-A <i>RequirementDocument</i> declaration has the following elements:</p>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">RequirementsDocument ::=</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>document</b></span></font><font color="#7e0055"> </font>Name (<span style="letter-spacing: -0.2pt"> </span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>:</b></span></font><span style="letter-spacing: 4.3pt"> </span>Title<font color="#2a00ff"><span style="letter-spacing: -0.3pt"> </span></font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>description</b></span></font><font color="#7e0055"><span style="letter-spacing: 4.4pt"> </span></font>String<font color="#2a00ff"><span style="letter-spacing: -0.5pt"> </span></font>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Requirement  | DocumentSection )+ </span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"> </span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"><b>(</b></span></font>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font>
+
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">RequirementsDocumentSection ::=</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>section</b></span></font><font color="#7e0055"> </font>Name (<span style="letter-spacing: -0.2pt"> </span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>:</b></span></font><span style="letter-spacing: 4.3pt"> </span>Title<font color="#2a00ff"><span style="letter-spacing: -0.3pt"> </span></font>)?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>description</b></span></font><font color="#7e0055"><span style="letter-spacing: 4.4pt"> </span></font>String<font color="#2a00ff"><span style="letter-spacing: -0.5pt"> </span></font>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Requirement  | DocumentSection )+ </span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"> </span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"><b>(</b></span></font>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></pre><p lang="zxx" class="western">
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">]</font></font></p>
+<p lang="zxx" class="western">A <i>Requirement</i><i>s</i><i>Document</i>
+declaration has the following elements:</p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><i>Name</i>: an identifier
@@ -834,48 +885,45 @@ has the following elements:</p>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393030"></a><a name="VariablesPredicates"></a>
 Variables and Predicates</h2>
 <h3 class="western"><a name="__RefHeading___Toc436393031"></a><a name="ConstantCompute"></a>
-Constant and Compute Variables 
+Constants and Compute Variables 
 </h3>
-<p lang="zxx" class="western">ReqSpec allows the user to introduce
-variables with values to localize common changes to a stakeholder
-goal or system requirement. They act as parameters that can be
-referenced by Description elements in Goal and Requirement
-declarations and by Predicate elements in Requirement declarations.
-These variables are called <i>ConstantVariable</i>. Their values can
-be any numeric value with optional measurement unit, as well as
-Booleans, strings, and enumeration literals. Acceptable measurement
-units are any unit defined as Units literals in property sets of the
-AADL core language. 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">ReqSpec
+allows the user to introduce <i>Constants</i> to localize common
+changes to a stakeholder goal or system requirement. Constants act as
+parameters that can be referenced by Description elements in goal and
+requirement declarations and by Predicate elements in requirement
+declarations. Their values can be any numeric value with an optional
+measurement unit, as well as Booleans, strings, and enumeration
+literals. Acceptable measurement units are any unit defined as Units
+literals in property sets of the AADL core language.</font></font></font></p>
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Times, serif">A
+predicate for a requirement typically compares an expected value
+against a value that has been computed or measured during a
+verification activity. The </font><font face="Times, serif"><i>ComputedVariable
+</i></font><font face="Times, serif">declaration allows the user to
+introduce the name of such variables explicitly. They can then be
+referenced in predicate declarations. They can also be referenced in
+verification plans that complement requirement specifications in the
+architecture-led incremental system assurance (ALISA) workbench
+[Delange 2016].</font> </font>
 </p>
-<p lang="zxx" class="western">A predicate for a requirement typically
-compares an expected value against a value that has been computed or
-measured during a verification activity. The <i>ComputedVariable
-</i>declaration allows the user to introduce the name of such
-variables explicitly. They can then be referenced in predicate
-declarations. They can also be referenced in Description elements of
-verification activities to present verification results. Note that
-specification of verification activities are expressed by the <i>Verify</i>
-notation that is part of incremental life-cycle assurance.</p>
 <pre lang="zxx" class="western"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">Variable ::=</font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">ConstantVariable | ComputedVariable</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant | ComputedVariable</span></font></font>
 
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">ConstantVariable ::=</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant ::=</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>val</b></span></font><font color="#7e0055"> ( </font>Type )?<font color="#7e0055"> </font>Name <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>=</b></span></font> Value </span></font></font>
 
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">ComputedVariable ::=</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>compute</b></span></font><font color="#7e0055"> </font>Name </span></font></font>
 
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Type ::= &lt;base type&gt;</span></font></font></pre><p lang="zxx" class="western">
-ReqSpec also supports the specification of predicates as a
-formalization of a requirement. Predicates must be satisfied as part
-of a verification activity to produce evidence that the requirement
-is met. In many typical verification activities an actual value from
-the artifact being verified is compared against an expected value.
-The actual value may be computed by an analysis or measured in a
-simulation or in actual execution. 
+<br/>
+<br/>
+
 </p>
 <h3 class="western"><a name="__RefHeading___Toc436393032"></a><a name="GlobalConstants"></a>
-Global Constant Variables</h3>
+Reusable Global Constants 
+</h3>
 <p lang="zxx" class="western">In some cases it is desirable to define
 a set of constants that can be referenced within the <i>ReqSpec </i>model
 of any system. Global constants are defined in files with the
@@ -889,6 +937,14 @@ files:</p>
 </p>
 <h3 class="western"><a name="__RefHeading___Toc436393033"></a><a name="Predicates"></a>
 Requirement Predicates</h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">ReqSpec
+supports the specification of predicates as a formalization of a
+requirement. Predicates must be satisfied as part of a verification
+activity in a verification plan to produce evidence that the
+requirement is met. In many verification activities, an actual value
+from a system implementation is verified is compared against an
+expected value. The actual value may be computed by an analysis or
+measured in a simulation, test execution, or operation.</font></font></font></p>
 <p lang="zxx" class="western">Users can specify predicates in one of
 several forms:</p>
 <ul>
@@ -901,16 +957,24 @@ several forms:</p>
 	quickly attempt to specify a predicate without getting hung up about
 	syntax of a particular notation.</font></p>
 	<li/>
-<p lang="zxx" class="list-western">Value assertion: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>value
-	predicate </b></span></font></font></font><font color="#7e0055">
-	</font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">ActualBudget
-	&lt;= MaxBudge</font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">t
-	</font></font></font><font color="#2a00ff"><br/>
-</font><font color="#000000">The
-	user specifies a predicate on expected values vs. computed values
-	resulting from a verification activity. The expression is typically
-	one or more comparison expressions that reference variables and
-	specify constants.</font></p>
+<p lang="zxx" class="list-western"><span lang="zxx">Value
+	assertion: </span><font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><span lang="zxx"><b>value
+	predicate </b></span></span></font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span lang="zxx">ActualBudget
+	&lt;= MaxBudget </span></font></font></font><font color="#2a00ff"><span lang="zxx"><br/>
+</span></font><font color="#000000">Expressions
+	compare actual values against expected values. This is done by
+	comparing ReqSpec constant values, AADL property constants, AADL
+	property values associated with the system component in an AADL
+	model, and computed values represented by a </font><font color="#000000"><i>ComputedVariable</i></font><font color="#000000">.
+	Constants and computed variables are referenced by their name. AADL
+	property and property constant references are prefixed by </font><font color="#7e0055"><font face="Lucida Console"><font size="2" style="font-size: 10pt"><b>#</b></font></font></font><font color="#000000">.
+	The expression language includes Boolean, comparison, arithmetic
+	operators and functions such as min, max, round, abs.<br/>
+For
+	example, a user specifies </font><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">ActualCPUBudget
+	&lt;= MaxCPUBudget</font></font></font><font color="#000000"><font size="2" style="font-size: 10pt">
+	</font></font><font color="#000000">where MaxCPUBudget is a constant
+	and ActualCPUBudget is a computed variable.</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000">Full
 	predicate expression: </font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>predicate</b></span></font></font></font><font color="#7e0055">
@@ -920,39 +984,77 @@ several forms:</p>
 	</p>
 </ul>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393034"></a><a name="Categories"></a>
-User-definable Categories</h2>
-<p lang="zxx" class="western">The <i>categories</i> notation allows
-users to define three categories of labels: 
+User-definable and Predefined Category Types and Labels</h2>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">ReqSpec
+allows users to associate category labels with goals and
+requirements. These category labels can also be associated with
+verification methods and verification activities in verification
+plans. </font></font></font>
 </p>
-<ul>
-	<li/>
-<p lang="zxx" class="western"><i>Quality</i>: to represent
-	quality attributes. These labels can be used to categorize goals,
-	requirements, and verification methods. 
-	</p>
-	<li/>
-<p lang="zxx" class="western"><i>Phase</i>: to represent
-	development phases. These labels can be used to categorize
-	verification activities.</p>
-	<li/>
-<p lang="zxx" class="western"><i>Category</i>: to represent
-	selection categories. These labels can be used to categorize goals,
-	requirements, verification methods, and verification activities.</p>
-</ul>
-<p lang="zxx" class="western">These categories are declared with
-goals and requirements, as well as verification methods and
-verification activities. The latter are part of the <i>Verify
-</i>notation in support of incremental lifecycle assurance. For
-requirements the <i>quality</i> category is used to assess coverage.
-The categories are also used for filtering subsets of goals,
-requirements, verification methods and activities.</p>
-<p lang="zxx" class="western">Categories are declared in a separate
-file with the extension <i>cat</i> using the following syntax:</p>
-<pre lang="zxx" class="western"><font size="2" style="font-size: 10pt">Categories ::=</font>
-<font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"> </span></font><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>category [ </b></span></font>( SelectionCategoryLabel )+ <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>] </b></span></font><span style="letter-spacing: 0.1pt">)?</span></span></font>
-<font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"> </span></font><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>quality [ </b></span></font>( QualityCategoryLabel )+ <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>] </b></span></font><span style="letter-spacing: 0.1pt">)?</span></span></font>
-<font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"> </span></font><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>phase [ </b></span></font>( PhaseCategoryLabel )+ <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>] </b></span></font><span style="letter-spacing: 0.1pt">)?</span></span></font></pre><p lang="zxx" class="western">
-Each category label must be globally unique.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Users
+can then define filters on those category specifications to focus on
+subsets of requirements and verification activities, e.g., on
+verifying key quality attributes, or on verification activities
+relevant to certain development phases. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Categories
+are declared in a separate file with the extension <i>cat</i> using
+the following syntax:</font></font></font></p>
+<pre lang="zxx" class="western"><font face="Courier New"><font size="2" style="font-size: 10pt"><span style="letter-spacing: 0.1pt">Categories ::= ( CategoryType )+</span></font></font>
+<font face="Courier New"><font size="2" style="font-size: 10pt"><span lang="zxx">CategoryType ::=</span></font></font></pre><p lang="zxx" class="western">
+<font size="2" style="font-size: 10pt"><font face="Times, serif">Name
+</font><font color="#7e0055"><font face="Times, serif"><b>[
+</b></font></font><font face="Times, serif">(CategoryLabel )+ </font><font color="#7e0055"><font face="Times, serif"><b>]</b></font></font>
+</font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+name of each category type must unique among category types. Labels
+must be unique within a category type.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+following category types have been predefined within the ALISA
+workbench:</font></font></font></p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></font></span><i>Kind:</i> to indicate the kind of requirement</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Guarantee:
+</i>guarantee made by a system to its environment, typically about
+its output.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Assumption:</i>
+assumption made by a system about its environment, typically about
+its input.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Exception:
+</i>exceptional condition such as safety hazard or security
+vulnerability that the requirement addresses.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Constraint:</i>
+a constraint on the implementation of a system, typically, on the
+subcomponents, their properties, state, and connectivity. 
+</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Consistency:</i>
+a consistency constraint between information in ReqSpec and an AADL
+model or between models. For example, that the values of ReqSpec
+constants are consistent with property values in the AADL model.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></font></span><i>Quality:</i> to represent operational quality
+attributes that the requirement addresses. The following category
+literals are included: <i>Behavior</i>, <i>State</i>, <i>Timing</i>
+(schedulability), <i>Latency</i> (response time), <i>Safety</i>,
+<i>Security</i>, <i>Reliability</i>, <i>Availability</i>,
+<i>CPUUtilization</i>, <i>MemoryUtilization</i>, <i>NetworkUtilization</i>,
+<i>Mass</i>, <i>ElectricalPower</i></p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></font></span><i>Phase:</i> to represent development phases:
+SystemRequirements, ArchitectureDesign, PDR, CDR, DetailedDesign,
+Implementation, UnitTest, SystemTest.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font></font></span><i>Layer:</i> Tier of a layered architecture:
+<i>Tier1</i>, <i>Tier2</i>, <i>Tier3</i>, <i>Tier4</i>, <i>Tier5</i>.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+can define their own category types. Users can also extend
+predeclared category types by defining additional category labels
+using the <i>CategoryType</i> declaration.</font></font></font></p>
+<p lang="zxx" class="western"><br/>
+<br/>
+
+</p>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393035"></a><a name="Stakeholders"></a>
 Stakeholders and Their Organizations</h2>
 <p lang="zxx" class="western">The <i>organization</i> notation allows
@@ -979,136 +1081,164 @@ separate file with the extension <i>org</i>.</p>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></pre><h2 lang="zxx" class="western">
 <a name="__RefHeading___Toc436393036"></a><a name="Uncertainty"></a>Change
 Uncertainty</h2>
-<p lang="zxx" class="western">The concept of change uncertainty is
-used to assess how likely requirements may change and what the impact
-of such change is. This is a common technique to prioritize entities.
-For example, in the Architecture Tradeoff Analysis Methods (ATAM<sup>&reg;</sup>)
-criticality and difficulty of change are used to prioritize use
-cases. [Nolan 2011] uses pairs of likelihood and impact measures to
-let experts assess the change uncertainty in system requirements and
-by focusing on those with a high change uncertainty up to 50%
-reduction in requirement changes can be achieved. These measures have
-been proposed to be included in RDAL. Safety analysis practices,
-e.g., SAE ARP4761, use likelihood of occurrence and severity of
-impact to prioritize hazards.</p>
-<p lang="zxx" class="western">In the context of ReqSpec we use a
-single likelihood measure called <i>volatility</i> and a single
-impact measure called <i>impact</i> as sufficient measures to
-identify high payoff opportunities for reducing requirement change
-and in the context of safety and security hazards for reducing safety
-and security risks.</p>
-<h2 lang="zxx" class="western">Satisfiable Requirements</h2>
-<p lang="zxx" class="western">RDAL distinguishes between <i>verifiable</i>
-and <i>satisfiable</i> requirements. Verifiable requirements must be
-met (true/false result). Satisfiable requirements are quantified and
-are expected to be met to a certain degree. Satisfiable requirements
-are used in design tradeoffs where different architecture design
-decisions result different degrees to which a set of satisfiable
-requirements are met. 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Various
+techniques are commonly used to prioritize entities. For example, in
+the Architecture Tradeoff Analysis Method<sup>&reg;</sup> (ATAM<sup>&reg;</sup>)
+criticality and difficulty of change are used to prioritize use cases
+during an architecture evaluation. Safety analysis practices such as
+SAE ARP4761 use likelihood of occurrence and severity of impact to
+prioritize hazards [SAE 1996] to derive design assurance levels (DAL)
+to focus on high payoff safety risk reduction. </font></font></font>
 </p>
-<p lang="zxx" class="western"><span lang="zxx">In Reqspec we support
-the specification of desirable target values that a system design is
-expected to satisfy. We have done so in the context of a </span><span lang="zxx"><i>value
-predicate </i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">for
-a requirement. The value predicate specifies the value that must be
-met (</span></span></span><span lang="zxx"><i>verif</i></span><span lang="zxx"><i>i</i></span><span lang="zxx"><i>able
-</i></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">requirement).
-</span></span></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">This
-predicate can </span></font></font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">optionally
-</span></font></font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">be
-augmented with a desirable target value or value range that is above
-or below the required value or value range. It is specified by adding
-the following to value predicates </span></font></font></span>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">We
+introduce the concept of change uncertainty to assess the volatility
+to change and the impact of change. </font></font></font>
 </p>
-<p lang="zxx" class="western"><span style="font-variant: normal"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><span style="font-weight: normal">DesiredValue
-::= </span></span></font></font></span><span style="font-variant: normal"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><b>upto
-</b></span></font></font></span><span style="font-variant: normal"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><span style="font-weight: normal">&lt;value&gt;</span></span></font></font></span><span style="font-variant: normal">
-</span><span style="font-variant: normal">| </span><span style="font-variant: normal"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><b>downto
-</b></span></font></font></span><span style="font-variant: normal"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span style="font-style: normal"><span style="font-weight: normal">&lt;value&gt;</span></span></font></font></span></p>
-<h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393038"></a><a name="ReqSpecGuidelines"></a>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Volatility</i></font></font></font>
+represents the likelihood of change to a requirement or architecture
+design. Volatility may reflect several indicators, such as
+familiarity with a system, i.e., whether such a system has been
+developed before, frequent changes in the operational environment, 
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Impact</i></font></font></font>
+represents the effort involved in performing the change and
+addressing its impact other parts of a system. It may reflect
+indicators such as system complexity, precedence in technology use.</p>
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Times, serif">These
+measures can identify high-payoff opportunities for reducing
+requirement change. [Nolan 2011] has demonstrated that reduction of
+up to 50% in requirement changes can be achieved based on expert
+assessment of such categorical measures. </font></font>
+</p>
+<h2 lang="zxx" class="western">Design Goals</h2>
+<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">RDAL
+distinguishes between verifiable and satisfiable requirements.
+Verifiable requirements must be met, and testing will provide a
+true/false result. In ReqSpec, all system and global requirements
+must be verifiable. Satisfiable requirements are quantified and must
+be met to a certain degree. </span></span></span></font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">ReqSpec
+supports the specification of desirable target values that a system
+design is expected to satisfy. It does so in the context of a value
+predicate for a requirement. The value predicate specifies the value
+or value range that the system must meet (a verifiable requirement).
+This predicate can optionally be augmented with a desirable target
+value that is above or below the required value or value range (a
+satisfiable requirement). It is specified by optionally adding the
+following to value predicates:</font></font></font></p>
+<pre lang="zxx" class="western" style="margin-top: 0.08in; margin-bottom: 0.08in"><font size="2" style="font-size: 10pt"><font color="#7e0055"><font face="Lucida Console"><b>with</b></font></font> <font face="Lucida Console">( &lt;constant&gt; </font><font color="#7e0055"><font face="Lucida Console"><b>upto </b></font></font><font face="Lucida Console">| </font><font color="#7e0055"><font face="Lucida Console"><b>downto</b></font></font> <font face="Lucida Console">&lt;value&gt; )+</font></font></pre><h2 lang="zxx" class="western">
+<a name="__RefHeading___Toc436393038"></a><a name="ReqSpecGuidelines"></a>
 Guidelines for Use of ReqSpec</h2>
-<p lang="zxx" class="western">This section provides some general
-guidelines on the use of ReqSpec within the OSATE or similar modeling
-environment and assumes that you are familiar with the use of the
-environment. 
-</p>
-<h3 class="western"><a name="__RefHeading___Toc436393039"></a><a name="ReqSpecFiles"></a>
-ReqSpec Files</h3>
-<p lang="zxx" class="western">You create files that contain
-stakeholder goals using the extension <i>goals</i> and files
-containing system requirements using the extension <i>reqspec</i>.
-For stakeholder goal documents and system requirements documents you
-use the extensions <i>goaldoc </i>and <i>reqdoc,</i> respectively. 
-</p>
-<p lang="zxx" class="western">You can place all of these files in a
-single folder within a project that contains your AADL model, e.g.,
-in a folder named <i>requirements</i> at the same level within a
-project as a folder that contains AADL packages. However, this is
-just a convention and, for example, you may prefer to place the
-<i>reqspec </i>files in a separate AADL project from that containing
-your AADL model. If they are in separate projects you must set the
-project references for the projects within OSATE/Eclipse.</p>
-<p lang="zxx" class="western">You may place one or more sets of
-stakeholder goals, system requirements, and associated documents in a
-single file. As a convention, we recommend you create a separate file
-for each <i>system requirements </i>set or <i>stakeholder goals </i>set
-belonging to a system. In other words, for each AADL system type or
-other component type representing a system, e.g., device or abstract,
-you should create a separate file. 
-</p>
-<h3 class="western"><a name="__RefHeading___Toc436393040"></a><a name="ReqsAndGoals"></a>
-System Requirements and Stakeholder Goals</h3>
-<p lang="zxx" class="western">The names for system requirements sets
-must be globally unique among all system requirements sets within the
-scope defined in your workspace. For example, they must be unique
-within a project or across projects within a workspace, if project
-references are set for those projects. Similarly, stakeholder goals
-sets must have a globally unique name. 
-</p>
-<p lang="zxx" class="western">You can use &lt;dot&gt; separated IDs
-as the name <i>for a system requirements</i> set. By convention you
-can use names that are the equivalent of the qualified component
-classifier name (e.g. aircraft_Pkg::Autopilot) identifying the target
-system with &ldquo;::&rdquo; replaced by &ldquo;.&rdquo; (e.g.
-aircraft_Pkg.Autopilot). Note that a <i>system requirements </i>set
-and a <i>stakeholder goals </i>set for a system can have the same
-name that is globally unique.</p>
-<h3 class="western"><a name="__RefHeading___Toc436393041"></a><a name="CatReqs"></a>
-Categorizing Requirements</h3>
-<p lang="zxx" class="western">You can associate category labels with
-requirements and goals into groups using the <i>categories</i>
-notation. You assign categories to stakeholder goals and system
-requirements. For example you can define categories <i>latency</i>
-and <i>response_time</i>. Figure 1 shows an example of category
-declarations.</p>
-<p lang="zxx" class="western" style="margin-top: 0.13in; margin-bottom: 0.13in; line-height: 0.19in">
-<img src="data:image/png;base64,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" name="Picture 4" align="bottom" width="638" height="282" border="0"/>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">This
+section provides some general guidelines on using ReqSpec with AADL
+models. ReqSpec is supported in OSATE by the workbench extension
+ALISA</font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">[1]</font></font></sup></font></a><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">
+that supports architecture-led incremental system assurance
+throughout the life cycle [Delange 2016]. Section </font></font></font><font size="3" style="font-size: 12pt">4.1
+provides detail on installing ReqSpec and ALISA in OSATE.</font></p>
+<p lang="zxx" class="western" style="margin-bottom: 0in"><br/>
 
 </p>
-<p lang="zxx" class="western"><a name="__RefHeading___Toc436393057"></a>
-Figure 1: Category, Phase, and Quality Labels Example</p>
-<p lang="zxx" class="western">Individual category labels can be
-referenced in a goal, requirement, or in sorting or filter conditions
-for a tool. 
+<hr width="438" align="left" size="1"/>
+
+<div id="ftn1" dir="ltr">
+	<p lang="zxx" class="western"><a href="#_ftnref1" name="_ftn1"><font color="#000000"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt">[1]</font></font></sup></font></a><font color="#000000">
+	ALISA as a whole or ReqSpec as a separate Eclipse feature are
+	available through an update site at www.github.com/osate/alisa.</font></p>
+</div>
+<p lang="zxx" class="western"><br/>
+<br/>
+
 </p>
-<h3 class="western"><a name="__RefHeading___Toc436393042"></a><a name="ExtensionsReqs"></a>
-Classifier Extensions, Implementations, and System Requirements</h3>
-<p lang="zxx" class="western">System requirements are inherited by
-type extensions, by implementations and their extensions, and by
-instances expressed by subcomponent declarations. In other words,
-system requirements must be satisfied by all instances of component
-types or implementations, whose classifiers can be traced back
-through the <i>extends</i> hierarchy (as defined by core AADL2) to
-the system requirements set.</p>
-<p lang="zxx" class="western">A component classifier that is an
-extension of another component classifier with a system requirements
-set, can also have a system requirements set. The requirements
-associated with the extension must either be new requirements, or
-requirements that evolve (expressed by the <i>evolves </i>reference)
-from a requirement associated with the original component classifier.
-With the <i>evolves </i>reference, the original requirement is
-overwritten for the extension, but still holds for the original. 
+<h3 class="western"><a name="__RefHeading___Toc436393039"></a><a name="ReqSpecFiles"></a>
+Organizing ReqSpec Files</h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+create files that contain stakeholder goal sets, system requirement
+sets, global requirement sets, goals and requirements in document
+structured format, global constants, stakeholders in organizations,
+and category types by creating files with the appropriate extension.
+Users can place these files in folders within a project that contains
+the AADL model; for instance, you can create a folder named
+</font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><i>requirements</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">
+at the same level within a project as a folder called </font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><i>packages
+</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">that
+contains AADL packages. Users can also place these files in a project
+separate from the AADL model of a system. In this case, you must set
+the project references for the projects within OSATE/Eclipse.</font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">[1]</font></font></sup></font></a></p>
+<p lang="zxx" class="western" style="margin-bottom: 0in"><br/>
+
 </p>
+<hr width="438" align="left" size="1"/>
+
+<div id="Section1" dir="ltr">
+	<p lang="zxx" class="western"><a name="ftn1"></a><a href="#_ftnref1" name="_ftn1"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt">[1]</font></font></sup></a>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set the project references using the
+	pull-down menu Project &rarr; Properties &rarr; Project References,
+	as shown in Figure 3.</p>
+</div>
+<p lang="zxx" class="western"><br/>
+<br/>
+
+</p>
+<h3 class="western"><a name="__RefHeading___Toc436393040"></a><a name="ReqsAndGoals"></a>
+Defining System Requirement and Stakeholder Goal Sets</h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">When
+users define stakeholder goals and system requirements in an
+architecture-led fashion they define stakeholder goal sets and system
+requirement sets for an AADL component type or implementation. It is
+recommended, but not required, that you name these goal set or
+requirement set with the same name as the qualified name of the
+component classifier using &ldquo;.&rdquo; instead of &ldquo;::&rdquo;
+as identifier separator.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">When
+users define stakeholder goals and system requirements in a document
+format, goals and requirements can be organized into document
+sections. There is no restriction as whether two goals or
+requirements in one section are associated with the same or different
+system components.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">In
+the following sections we describe usage in terms of requirements.
+The same principals apply to goals. </font></font></font>
+</p>
+<h3 lang="zxx" class="western"><br/>
+<br/>
+
+</h3>
+<h3 class="western" style="margin-bottom: 0.08in">Requirement Sets
+and Component Extension Hierarchy</h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">AADL
+allows users to define a component type and define extensions that
+add or refine features and other type elements. Similarly, users can
+associate one or more implementations with a component type, and
+component implementations can be extensions of other component
+implementations. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+define a separate requirement set for the original component type and
+a separate requirement set for the component type extension. The
+requirements in a system requirement set are associated with the
+component classifier identified in the <i>for </i>reference of the
+system requirement set. Users can target a requirement to a specific
+element in a component type or implementation by a <i>for </i>reference
+in the requirement declaration. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Requirements
+defined for the original component type are inherited by the
+extension. This means that a requirement set of the extension can
+focus on requirement declaration for additions or refinements of the
+component type. In the case of refinement, a requirement declaration
+associated with the original component type may need to be rephrased.
+In this case, the rephrased requirement can be linked to the original
+requirement with an <i>evolves </i>reference. </font></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Similarly
+users may define requirements on component implementations. These
+represent requirements for the particular component variant and
+requirements that represent implementation constraints. Note that
+requirements associated with a component type apply to
+implementations of that type, i.e., the implementation are expected
+to satisfy these requirements.</font></font></font></p>
 <h3 class="western"><a name="__RefHeading___Toc436393043"></a><a name="ReqRefinement"></a>
 Requirement Refinement</h3>
 <p lang="zxx" class="western">A requirement may be refined into
@@ -1117,97 +1247,162 @@ placing the refined requirement in the same system requirements set
 as the original, and by identifying the original in a <i>refines
 </i>reference. 
 </p>
-<p lang="zxx" class="western">Verification plans (in the Verify
-notation) associate verification activities with requirements &ndash;
-clearly documenting their verifiability. Every leaf requirement in a
-refinement hierarchy must have associated verification activities.
-Enclosing requirements in the hierarchy may have &ndash; but are not
-required to have &ndash; verification activities. In the former case
-satisfaction of the leaf requirement claims is sufficient for the
-enclosing requirement, while in the case where an enclosing
-requirement has verification activities, the verification
-satisfaction is necessary but still requires the passing of
-verification activities associated with the enclosing requirement.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">In
+the ALISA workbench users indicate that requirements are verifiable
+by associating verification plans with requirement sets. For each
+requirement the verification plan contains a claim that specifies a
+set of verification activities to demonstrate that the requirement is
+met. The result of performing or executing a verification activity
+represents evidence that the requirement is met or not met. If all
+refined requirements are met, then the requirement being refined is
+considered verified as well.</font></font></font></p>
 <h3 class="western"><a name="__RefHeading___Toc436393044"></a><a name="ReqDecomposition"></a>
 Requirement Decomposition</h3>
-<p lang="zxx" class="western">When a system architecture is
-elaborated by defining a component implementation, i.e., a blue
-print, requirements for a system may be decomposed into requirements
-for its subsystems. It may be desirable to provide traceability of
-this decomposition. This is accomplished by <i>decomposes </i>references
-to the original requirement. 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">When
+a system architecture is elaborated by defining a component
+implementation&mdash;that is, a blueprint&mdash;requirements for a
+system may be decomposed into requirements for its subsystems. Users
+might want to provide traceability of this decomposed requirement to
+the original by adding <i>decomposes </i>references to the original
+requirement.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+can record a decomposed requirement in two ways: as a requirement
+associated with the subcomponent &ndash; identified as <i>for</i>
+target element; or as requirement declared for the component
+classifier referenced by the subcomponent. </font></font></font>
 </p>
-<p lang="zxx" class="western">The decomposed requirement can be
-recorded in two ways: 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">In
+the first case, the decomposed requirement represents an
+implementation constraint from a particular use context, which is
+declared in a requirement set associated with a component
+implementation, which allows the <i>for </i>reference the
+subcomponent as target element. When a component is provided by a
+supplier as subcomponent, this use context requirement must be
+verified on the provided component implementation. </font></font></font>
 </p>
-<ul>
-	<li/>
-<p lang="zxx" class="list-western">As a requirement associated
-	with the component classifier of the subcomponent. The requirement
-	is placed in the system requirements set of the subcomponent
-	classifier. There may be multiple instances of the same subcomponent
-	classifier, i.e., different use context, each with a system
-	requirements set. Each of these use contexts imposes decomposed
-	(derived) requirements that must all be met by instances of one type
-	of component. The resulting requirements associated with the
-	subcomponent classifier represent the common requirements across
-	these use contexts. For example, suppliers may provide both a
-	component type (spec sheet) that must meet the specified
-	requirements (refinement substitution rules of core AADL2 apply),
-	and component implementations (blue prints) that can be verified to
-	satisfy the requirements.</p>
-	<li/>
-<p lang="zxx" class="list-western">As a requirement associated
-	with the subcomponent itself. In this case the requirement is
-	specified as an implementation constraint on the subcomponent by
-	placing the requirement with the enclosing classifier, typically the
-	component implementation. This is done by identifying the
-	subcomponent as target element in the requirement <i>for </i>clause.
-	In this case, a separate decomposed requirement is maintained for
-	each use context and treated as implementation constraint that the
-	classifier supplied for the subcomponent (e.g. a spec sheet from a
-	supplier) must meet. 
-	</p>
-</ul>
-<h3 class="western" style="margin-left: 0in; text-indent: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-before: auto; page-break-after: avoid"><a name="__RefHeading___Toc436393045"></a><a name="ReqReferences"></a>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">In
+the second case, the user accumulates requirements from different use
+contexts within their design in a single location, namely the
+component type referenced by all subcomponent declarations. </font></font></font>
+</p>
+<h3 class="western" style="margin-left: 0in; text-indent: 0in; line-height: 0.19in; orphans: 2; widows: 2; page-break-after: avoid"><a name="__RefHeading___Toc436393045"></a><a name="ReqReferences"></a>
 Requirement References</h3>
-<p lang="zxx" class="western">Requirements (and goals) can be
-referenced by just their name if the context uniquely identifies
-them. This is the case when the referenced requirement is in the same
-system requirements set or when the requirement is contained in a
-system requirements set that is associated with a classifier in the
-<i>extends</i> hierarchy of the target classifier. 
-</p>
-<p lang="zxx" class="western">In some cases requirements must be
-qualified with the name of the enclosing system requirements set.
-This is the case for references from system requirements of a
-subsystem to requirements of a system (decomposes) or from system
-requirements to stakeholder goals. For qualified references the
-system requirements set actually containing the requirement must be
-identified. 
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+can reference requirements (and goals) by just their name if the
+context uniquely identifies them. This is true when the referenced
+requirement appears in the same system requirements set or when the
+requirement is contained in a system requirements set that is
+associated with a classifier in the <i>extends</i> hierarchy of the
+target classifier.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">In
+some cases, requirements must be qualified with the name of the
+enclosing system requirements set. This is the case for references
+from system requirements of a subsystem to requirements of a system
+(decomposed requirements) or from system requirements to stakeholder
+goals. For qualified references, the system requirement set that
+contains the requirement must be identified.</font></font></font></p>
+<h3 class="western">Categorizing Goals and Requirements</h3>
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font color="#000000"><font face="Times New Roman"><span lang="zxx">Users
+can associate category labels of different category types with
+requirements and goals. This allows users to create filtered views of
+requirements and verification plans, e.g., focus on safety and
+performance requirements. Predefined category types and labels have
+been introduced in Section </span></font></font><font color="#000000"><font face="Times New Roman"><span lang="zxx">Category
+Types and Labels</span></font></font><span lang="zxx">.</span></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
+categorization also allows us to assess requirements coverage and
+verification early and throughout the development life cycle. For
+example, the ALISA workbench can assess whether every feature of a
+component type has a requirement, whether requirements regarding the
+state, e.g., in the form of AADL modes, and behavior has been
+specified, whether quality attributes of interest and exceptional
+conditions leading to safety hazards or security risks have been
+covered. Similarly, categorization of verification activities
+according to phase allows the ALISA workbench to ensure that
+potential issues in a system design are discovered as early as
+possible through appropriate verification activities.</font></font></font></p>
+<p lang="zxx" class="western"> 
 </p>
 <h2 lang="zxx" class="western">References</h2>
-<p lang="zxx" class="western"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">[FAA
-2009] Federal Aviation Administration. </span></font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx"><i>Requirements
-Engineering Management Handbook</i></span></font></font><span lang="zxx">
-</span><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">DOT/FAA/AR-08/32.
-2008.
-</span></font></font><a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf"><font color="#000000"><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</span></font></font></font></a><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><span lang="zxx">.</span></font></font></p>
-<p lang="zxx" class="western">[Lamsweerde 2009] Axel van Lamsweerde,
-<i>Requirements Engineering: From System Goals to UML Models to
-Software Specifications</i>, Wiley, 2009.</p>
-<p lang="zxx" class="western">[Feiler 2015] Peter Feiler,
-<i>Requirements and Architecture Specification of the Joint
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b><font face="Arial, sans-serif"><span lang="zxx">[ALISA
+2016]</span></font></b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Architecture-Led
+Incremental System Assurance (ALISA) Workbench.&nbsp;
+https://github.com/osate/alisa </font></font></font>
+</p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Delange
+2016]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Delange,
+J., Feiler, P., Ernst, N., </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Incremental
+Life Cycle Assurance of Safety-Critical Systems</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">,
+Proc. 8</font></font></font><font color="#000000"><sup><font face="Times New Roman"><font size="2" style="font-size: 10pt">th</font></font></sup></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+European Congress on Embedded Real Time Software and Systems, Jan
+2016. <a href="http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13">http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13</a>
+</font></font></font>
+</p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Eclipse
+2015]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Eclipse.
+Xtend. 2015. http://www.eclipse.org/xtend</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[FAA
+2009] </b></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Federal
+Aviation Administration. </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Requirements
+Engineering Management Handbook</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.
+DOT/FAA/AR-08/32. FAA. 2008.
+<a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</a></font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Feiler
+2015] </b></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Feiler,
+Peter. <i>Requirements and Architecture Specification of the Joint
 Multi-Role (JMR) Joint Common Architecture (JCA) Demonstration
-System</i>. Special Report CMU/SEI-2015-SR-031, Software Engineering
-Institute. Oct 2015.</p>
-<p lang="zxx" class="western"><span lang="zxx">[Nolan 2011] Nolan,
-A.J.; Abrahao, S.; Clements, P.; Pickard, A.; </span><span lang="zxx"><i>Managing
-requirements uncertainty in engine control systems development</i></span><span lang="zxx">,
-Requirements Engineering Conference (RE), 2011 19th IEEE
-International, vol., no., pp.259-264, Aug. 29 -Sept. 2 2011. DOI:
-10.1109/RE.2011.6051622 URL:
-<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6051622&amp;isnumber=6051621</a></span></p>
+System</i>. CMU/SEI-2015-SR-031. Software Engineering Institute,
+Carnegie Mellon University. 2015.
+http://resources.sei.cmu.edu/library/asset-view.cfm?assetid=447184</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[IEEE
+2009]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Institute
+of Electrical and Electronics Engineers. IEEE Standard 830-1998:
+Recommended Practice for Software Requirements Specifications. IEEE
+Standards Association. 2009.</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Lamsweerde
+2009] </b></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">van
+Lamsweerde, Axel van. <i>Requirements Engineering: From System Goals
+to UML Models to Software Specifications</i>. Wiley. 2009.</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Nolan
+2011] </b></font></font>
+</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Nolan,
+A. J.; Abrahao, S.; Clements, P.; and Pickard, A. Managing
+Requirements Uncertainty in Engine Control Systems Development.
+259&ndash;264. </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>19th
+IEEE International Requirements Engineering Conference (RE)</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.
+Aug. 29&ndash;Sep. 2, 2011.
+<a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1">http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1</a></font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[OMG
+2015]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Object
+Management Group. OMG Systems Modeling Language. OMG. 2015.
+http://www.omgsysml.org</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[OSATE
+2016]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Open
+Source AADL Tool Environment (OSATE).&nbsp;
+https://wiki.sei.cmu.edu/aadl#OSATE.</font></font></font></p>
+<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[SAE
+1996]</b></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">SAE
+International. ARP4761: Guidelines and Methods for Conducting the
+Safety Assessment Process on Civil Airborne Systems and Equipment.
+SAE. 1996.</font></font></font></p>
+<p lang="zxx" class="western"><br/>
+<br/>
+
+</p>
 <p lang="zxx" class="western" style="margin-top: 0.13in; line-height: 0.19in">
 <br/>
 <br/>
@@ -1215,7 +1410,7 @@ International, vol., no., pp.259-264, Aug. 29 -Sept. 2 2011. DOI:
 </p>
 <div title="footer">
 	<p lang="zxx" class="western" align="center" style="margin-top: 0.2in; margin-bottom: 0in">
-	<sdfield type=PAGE subtype=RANDOM format=PAGE>15</sdfield></p>
+	<sdfield type=PAGE subtype=RANDOM format=PAGE>17</sdfield></p>
 </div>
 </body>
 </html>

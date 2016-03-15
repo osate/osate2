@@ -1818,12 +1818,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCOMPONENTComponentKeyword_0_0 = (Keyword)cCOMPONENTEnumLiteralDeclaration_0.eContents().get(0);
 		private final EnumLiteralDeclaration cFEATUREEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
 		private final Keyword cFEATUREFeatureKeyword_1_0 = (Keyword)cFEATUREEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cCONNECTIONEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cCONNECTIONConnectionKeyword_2_0 = (Keyword)cCONNECTIONEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cFLOWEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cFLOWFlowKeyword_3_0 = (Keyword)cFLOWEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cMODEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cMODEModeKeyword_4_0 = (Keyword)cMODEEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cELEMENTEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cELEMENTElementKeyword_5_0 = (Keyword)cELEMENTEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum TargetType:
-		//	COMPONENT="component" | FEATURE="feature";
+		//	COMPONENT="component" | FEATURE="feature" | CONNECTION="connection" | FLOW="flow" | MODE="mode" | ELEMENT="element";
 		public EnumRule getRule() { return rule; }
 
-		//COMPONENT="component" | FEATURE="feature"
+		//COMPONENT="component" | FEATURE="feature" | CONNECTION="connection" | FLOW="flow" | MODE="mode" | ELEMENT="element"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//COMPONENT="component"
@@ -1837,6 +1845,30 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"feature"
 		public Keyword getFEATUREFeatureKeyword_1_0() { return cFEATUREFeatureKeyword_1_0; }
+
+		//CONNECTION="connection"
+		public EnumLiteralDeclaration getCONNECTIONEnumLiteralDeclaration_2() { return cCONNECTIONEnumLiteralDeclaration_2; }
+
+		//"connection"
+		public Keyword getCONNECTIONConnectionKeyword_2_0() { return cCONNECTIONConnectionKeyword_2_0; }
+
+		//FLOW="flow"
+		public EnumLiteralDeclaration getFLOWEnumLiteralDeclaration_3() { return cFLOWEnumLiteralDeclaration_3; }
+
+		//"flow"
+		public Keyword getFLOWFlowKeyword_3_0() { return cFLOWFlowKeyword_3_0; }
+
+		//MODE="mode"
+		public EnumLiteralDeclaration getMODEEnumLiteralDeclaration_4() { return cMODEEnumLiteralDeclaration_4; }
+
+		//"mode"
+		public Keyword getMODEModeKeyword_4_0() { return cMODEModeKeyword_4_0; }
+
+		//ELEMENT="element"
+		public EnumLiteralDeclaration getELEMENTEnumLiteralDeclaration_5() { return cELEMENTEnumLiteralDeclaration_5; }
+
+		//"element"
+		public Keyword getELEMENTElementKeyword_5_0() { return cELEMENTElementKeyword_5_0; }
 	}
 	
 	private final VerificationElements pVerification;
@@ -2105,7 +2137,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum TargetType:
-	//	COMPONENT="component" | FEATURE="feature";
+	//	COMPONENT="component" | FEATURE="feature" | CONNECTION="connection" | FLOW="flow" | MODE="mode" | ELEMENT="element";
 	public TargetTypeElements getTargetTypeAccess() {
 		return unknownRuleTargetType;
 	}

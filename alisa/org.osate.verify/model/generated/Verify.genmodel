@@ -11,6 +11,10 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//TargetType">
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/COMPONENT"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//TargetType/ELEMENT"/>
     </genEnums>
     <genClasses ecoreClass="Verify.ecore#//Verification">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Verification/contents"/>

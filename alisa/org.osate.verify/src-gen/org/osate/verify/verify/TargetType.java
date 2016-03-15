@@ -50,7 +50,47 @@ public enum TargetType implements Enumerator
    * @generated
    * @ordered
    */
-  FEATURE(1, "FEATURE", "feature");
+  FEATURE(1, "FEATURE", "feature"),
+
+  /**
+   * The '<em><b>CONNECTION</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #CONNECTION_VALUE
+   * @generated
+   * @ordered
+   */
+  CONNECTION(2, "CONNECTION", "connection"),
+
+  /**
+   * The '<em><b>FLOW</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #FLOW_VALUE
+   * @generated
+   * @ordered
+   */
+  FLOW(3, "FLOW", "flow"),
+
+  /**
+   * The '<em><b>MODE</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MODE_VALUE
+   * @generated
+   * @ordered
+   */
+  MODE(4, "MODE", "mode"),
+
+  /**
+   * The '<em><b>ELEMENT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ELEMENT_VALUE
+   * @generated
+   * @ordered
+   */
+  ELEMENT(5, "ELEMENT", "element");
 
   /**
    * The '<em><b>COMPONENT</b></em>' literal value.
@@ -83,6 +123,66 @@ public enum TargetType implements Enumerator
   public static final int FEATURE_VALUE = 1;
 
   /**
+   * The '<em><b>CONNECTION</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>CONNECTION</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #CONNECTION
+   * @model literal="connection"
+   * @generated
+   * @ordered
+   */
+  public static final int CONNECTION_VALUE = 2;
+
+  /**
+   * The '<em><b>FLOW</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>FLOW</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #FLOW
+   * @model literal="flow"
+   * @generated
+   * @ordered
+   */
+  public static final int FLOW_VALUE = 3;
+
+  /**
+   * The '<em><b>MODE</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MODE</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MODE
+   * @model literal="mode"
+   * @generated
+   * @ordered
+   */
+  public static final int MODE_VALUE = 4;
+
+  /**
+   * The '<em><b>ELEMENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ELEMENT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ELEMENT
+   * @model literal="element"
+   * @generated
+   * @ordered
+   */
+  public static final int ELEMENT_VALUE = 5;
+
+  /**
    * An array of all the '<em><b>Target Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,6 +193,10 @@ public enum TargetType implements Enumerator
     {
       COMPONENT,
       FEATURE,
+      CONNECTION,
+      FLOW,
+      MODE,
+      ELEMENT,
     };
 
   /**
@@ -159,6 +263,10 @@ public enum TargetType implements Enumerator
     {
       case COMPONENT_VALUE: return COMPONENT;
       case FEATURE_VALUE: return FEATURE;
+      case CONNECTION_VALUE: return CONNECTION;
+      case FLOW_VALUE: return FLOW;
+      case MODE_VALUE: return MODE;
+      case ELEMENT_VALUE: return ELEMENT;
     }
     return null;
   }

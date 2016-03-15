@@ -128,7 +128,7 @@ class CommonUtilExtension {
 //		}
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
-	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
+	def static boolean isSameorExtends(Classifier target, Classifier ancestor) {
 		if (Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target
 		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {

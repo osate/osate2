@@ -25,14 +25,21 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 import org.osate.aadl2.DirectionType
+import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.Subcomponent
+import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.NestedModelElement
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
@@ -46,6 +53,8 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.aadl2.Classifier
+import org.osate.reqspec.reqSpec.ReqPredicate
 
 /**
  * This class contains custom scoping description.
@@ -58,7 +67,29 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	// For Reference is from Goal, Requirement 
-	def scope_NamedElement(ContractualElement context, EReference reference) {
+	def scope_NestedModelElement_modelElement(ReqPredicate context, EReference reference) {
+			val ne = containingContractualElement(context).targetElement
+			var Classifier tcl = null
+			if (ne instanceof Feature){
+				tcl = ne.allClassifier
+			} else if (ne instanceof Subcomponent){
+				tcl=  ne.allClassifier
+			} else {
+		tcl = targetClassifier(containingContractualElement(context))
+			}
+		switch (tcl){
+			FeatureGroupType: return tcl.getAllFeatures.scopeFor
+			ComponentType: return new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(tcl.getAllFeatures + tcl.allModes,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			ComponentImplementation: new SimpleScope(IScope::NULLSCOPE,
+					Scopes::scopedElementsFor(tcl.getAllFeatures + tcl.allModes+tcl.allSubcomponents + tcl.allEndToEndFlows,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			default: return IScope.NULLSCOPE
+		}
+	}
+	
+	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor
@@ -77,9 +108,32 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		}
 	}
 
+	/**
+	 * Scope for nested model elements 
+	 */
+	def scope_NestedModelElement_modelElement(NestedModelElement context, EReference reference) {
+		val ne = (context.eContainer as NestedModelElement).modelElement
+		val classifier = if (ne instanceof Subcomponent) {
+				ne.allClassifier
+			} else if (ne instanceof Feature) {
+				ne.allClassifier
+			} else {
+				null
+			}
+		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
+				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			} else if (classifier instanceof FeatureGroupType) {
+				classifier.allFeatures.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			} else {
+				emptySet
+			}
+		new SimpleScope(subCoreElementDescriptions, true)
+	}
+
 	def scope_Mode(WhenCondition context, EReference reference) {
 		val targetClassifier = targetClassifier(containingRequirement(context))
-		if (targetClassifier != null) {
+		if (targetClassifier instanceof ComponentType) {
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.allModes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
@@ -94,8 +148,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		if (targetClassifier != null) {
 			val states = EMV2Util.getAllErrorBehaviorStates(targetClassifier)
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
-				Scopes::scopedElementsFor(states,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				Scopes::scopedElementsFor(states, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			return thescope
 		} else {
 			IScope.NULLSCOPE
@@ -134,10 +187,11 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		val reqs = containingRequirements(context)
 		if (reqs instanceof SystemRequirementSet) {
 			val targetComponentClassifier = reqs.target
-			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-				targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
-				EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirementSet
-			].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.
+				getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET,
+					"reqspec").map [ eod |
+					EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirementSet
+				].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 			// TODO sort in extends hierarchy order
 			for (sr : listAccessibleSystemRequirements) {
 				if (!sr.requirements.empty) {
@@ -165,9 +219,9 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	def scope_Requirement_exception(Requirement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
-			val exceptionItems = EMV2Util.getAllErrorSources(targetClassifier)
-			+ EMV2Util.getAllErrorPaths(targetClassifier)
-		val propscope = ErrorModelScopeProvider.scopeForErrorPropagation(targetClassifier,DirectionType.OUT)
+			val exceptionItems = EMV2Util.getAllErrorSources(targetClassifier) +
+				EMV2Util.getAllErrorPaths(targetClassifier)
+			val propscope = ErrorModelScopeProvider.scopeForErrorPropagation(targetClassifier, DirectionType.OUT)
 			val thescope = new SimpleScope(propscope,
 				Scopes::scopedElementsFor(exceptionItems,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)

@@ -2961,6 +2961,34 @@ rule__TargetType__Alternatives
 { after(grammarAccess.getTargetTypeAccess().getFEATUREEnumLiteralDeclaration_1()); }
 )
 
+    |(
+{ before(grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2()); }
+(	'connection' 
+)
+{ after(grammarAccess.getTargetTypeAccess().getCONNECTIONEnumLiteralDeclaration_2()); }
+)
+
+    |(
+{ before(grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3()); }
+(	'flow' 
+)
+{ after(grammarAccess.getTargetTypeAccess().getFLOWEnumLiteralDeclaration_3()); }
+)
+
+    |(
+{ before(grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4()); }
+(	'mode' 
+)
+{ after(grammarAccess.getTargetTypeAccess().getMODEEnumLiteralDeclaration_4()); }
+)
+
+    |(
+{ before(grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); }
+(	'element' 
+)
+{ after(grammarAccess.getTargetTypeAccess().getELEMENTEnumLiteralDeclaration_5()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);

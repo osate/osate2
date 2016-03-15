@@ -42,6 +42,12 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.aadl2.PropertyExpression
 import org.osate.verify.verify.TargetType
 import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.instance.InstancePackage
+import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.instance.ModeInstance
 
 class VerificationMethodDispatchers {
 
@@ -126,11 +132,7 @@ class VerificationMethodDispatchers {
 			val instance = clazz.newInstance
 
 			val newClasses = newArrayList()
-			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
-				newClasses.add(FeatureInstance)
-			} else {
-				newClasses.add(ComponentInstance)
-			}
+			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : formalparameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -193,11 +195,7 @@ class VerificationMethodDispatchers {
 			val loader = new URLClassLoader(urls, parent);
 			val clazz = Class.forName(className, true, loader);
 			val newClasses = newArrayList()
-			if ((vm.eContainer as VerificationMethod).targetType == TargetType.FEATURE) {
-				newClasses.add(FeatureInstance)
-			} else {
-				newClasses.add(ComponentInstance)
-			}
+			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : parameters) {
 				val pt = par.parameterType
 				val cl = forName(pt);
@@ -215,6 +213,22 @@ class VerificationMethodDispatchers {
 		}
 		return null
 	}
+	
+	def Class<?> forTargetType(VerificationMethod vm){
+		switch (vm.targetType){
+			case TargetType.FEATURE: typeof(FeatureInstance)
+			case COMPONENT: { typeof(ComponentInstance)
+			}
+			case CONNECTION: {typeof(ConnectionInstance)
+			}
+			case ELEMENT: { typeof(InstanceObject)
+			}
+			case FLOW: {typeof(EndToEndFlowInstance)
+			}
+			case MODE: {typeof(ModeInstance)
+			}
+		}
+	}
 
 	def Class<?> forName(String name) throws ClassNotFoundException {
 		switch (name) {
@@ -231,14 +245,17 @@ class VerificationMethodDispatchers {
 			case "Double": return typeof(Double)
 			case "Long": return typeof(Long)
 			case "aadlreal": return typeof(RealLiteral)
-			case "RealLiteral": return typeof(RealLiteral)
 			case "aadlinteger": return typeof(IntegerLiteral)
-			case "IntegerLiteral": return typeof(IntegerLiteral)
 			case "aadlstring": return typeof(StringLiteral)
-			case "StringLiteral": return typeof(StringLiteral)
 			case "aadlboolean": return typeof(BooleanLiteral)
-			case "BooleanLiteral": return typeof(BooleanLiteral)
-			default: return Class.forName(name)
+			default: {
+				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
+				if (ecl == null){
+					InstancePackage.eINSTANCE.getEClassifier(name)
+				}
+				if (ecl != null) return ecl.instanceClass
+				return Class.forName(name)
+			}
 		}
 	}
 

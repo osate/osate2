@@ -34,9 +34,17 @@ import org.osate.alisa.common.common.AVariableDeclaration
 import org.eclipse.emf.common.util.BasicEList
 import org.osate.aadl2.ComponentCategory
 import org.osate.reqspec.reqSpec.RequirementSet
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroup
 
 class ReqSpecUtilExtension {
 
+	/**
+	 * return the classifier of the target.
+	 * The target could be an element inside a classifier. Then return its classifier.
+	 * If the target is a classifier return it.
+	 */
 	def static targetClassifier(ContractualElement req) {
 		if(req.target != null) return req.target
 		var EObject container = req
