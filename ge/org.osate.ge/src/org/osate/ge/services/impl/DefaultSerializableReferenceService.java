@@ -84,7 +84,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			
 			for(final Object refResolver : referenceResolvers) {
 				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveReference.class, ctx, argCtx, null);
-				if(referencedObject != null) {
+				if(referencedObject == null) {
 					return referencedObject instanceof Element ?  new AadlElementWrapper((Element)referencedObject) : referencedObject;
 				}
 			}
