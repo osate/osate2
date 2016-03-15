@@ -19,7 +19,6 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 
@@ -39,14 +38,14 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-
+import org.osate.ge.internal.services.GraphitiService;
 
 public class GraphicalToTextualFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
 	public final static String HINT = "graphicalToTextualFeature";
 	@Inject
-	public GraphicalToTextualFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor) {	
-		super(fp);
+	public GraphicalToTextualFeature(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {	
+		super(graphiti.getFeatureProvider());
 		this.bor = bor;
 	}
 	

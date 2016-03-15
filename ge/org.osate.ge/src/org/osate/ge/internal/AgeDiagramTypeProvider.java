@@ -14,7 +14,6 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.internal.services.AadlArrayService;
@@ -34,6 +33,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
@@ -64,6 +64,7 @@ import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultGhostingService;
 import org.osate.ge.internal.services.impl.DefaultGraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.impl.DefaultGraphicsAlgorithmManipulationService;
+import org.osate.ge.internal.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.impl.DefaultLabelService;
 import org.osate.ge.internal.services.impl.DefaultLayoutService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
@@ -84,6 +85,7 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
 	private DefaultSerializableReferenceService serializableReferenceService;
+	private DefaultStyleService styleService;
 	
 	public AgeDiagramTypeProvider() {	
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -114,25 +116,26 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
-		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), this, context);
+		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
-		final DefaultStyleService styleUtil = new DefaultStyleService(fp, extensionService);
+		styleService = new DefaultStyleService(fp);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
 		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
-		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
+		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleService, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
-				
+		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
+		
 		// Populate the context.
-		context.set(IDiagramTypeProvider.class, this);
-		context.set(IFeatureProvider.class, fp);
+		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
+		// are in internal package. It should not include Graphiti objects.
 		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
 		context.set(CachingService.class, cachingService);
@@ -148,7 +151,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(LayoutService.class, layoutService);
-		context.set(StyleService.class, styleUtil);
+		context.set(StyleService.class, styleService);
 		context.set(AnchorService.class, anchorUtil);
 		context.set(GhostingService.class, ghostingService);
 		context.set(ShapeService.class, shapeHelper);
@@ -161,6 +164,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(LabelService.class, labelService);
+		context.set(GraphitiService.class, graphitiService);
 		
 		return context;
 	}
@@ -168,10 +172,14 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
 	public void dispose() {
 		// Dispose of services that need disposing
+		if(styleService != null) {
+			styleService.dispose();
+		}
+		
 		if(serializableReferenceService != null) {
 			serializableReferenceService.dispose();
 		}
-		
+
 		if(context != null) {
 			context.dispose();
 		}

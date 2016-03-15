@@ -58,13 +58,14 @@ import org.osate.ge.di.Deactivate;
 import org.osate.ge.di.Description;
 import org.osate.ge.di.Icon;
 import org.osate.ge.di.Id;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.SelectionChanged;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
@@ -90,8 +91,8 @@ public class CreateEndToEndFlowSpecificationTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlowSpecification.gif");
 
 	@CanActivate
-	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
-		return bor.getBusinessObjectForPictogramElement(dtp.getDiagram()) instanceof ComponentImplementation
+	public boolean canActivate(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {
+		return bor.getBusinessObjectForPictogramElement(graphiti.getDiagram()) instanceof ComponentImplementation
 				&& canActivate;
 	}
 
@@ -99,8 +100,8 @@ public class CreateEndToEndFlowSpecificationTool {
 	public void activate(final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService highlightingService,
-			final BusinessObjectResolutionService bor, final IDiagramTypeProvider dtp, final NamingService namingService) {
-		this.dtp = dtp;
+			final BusinessObjectResolutionService bor, final GraphitiService graphiti, final NamingService namingService) {
+		this.dtp = graphiti.getDiagramTypeProvider();
 		this.bor = bor;
 		// Create a coloring object that will allow adjustment of pictogram
 		coloring = highlightingService.adjustColors();
@@ -136,8 +137,8 @@ public class CreateEndToEndFlowSpecificationTool {
 	}
 
 	@Deactivate
-	public void deactivate(final IDiagramTypeProvider dtp) {
-		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+	public void deactivate(final GraphitiService graphiti) {
+		final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {
@@ -170,7 +171,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
 		final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.

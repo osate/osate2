@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
@@ -126,7 +127,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	public void initialize(final IEclipseContext context) {
-		this.context = context;
+		this.context = context.createChild();
+		this.context.set(IFeatureProvider.class, this);
 		this.connectionService = context.get(ConnectionService.class);
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
@@ -161,8 +163,15 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
 
+	@Override
+	public void dispose() {
+		if(context != null) {
+			context.dispose();
+		}
+		
+		super.dispose();
+	}
 	
-
 	private IEclipseContext getContext() {
 		return context;
 	}

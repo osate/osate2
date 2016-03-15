@@ -9,8 +9,8 @@ import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.Deactivate;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.SelectionChanged;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**
@@ -74,11 +74,15 @@ public class ToolHandler {
 	}
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
-		// Update the context
-		context.set(Names.SELECTED_PICTOGRAM_ELEMENTS, pes);
-		// Notify the active tool
-		if(activeTool != null) {
-			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
+		try {
+			// Update the context
+			context.set(InternalNames.SELECTED_PICTOGRAM_ELEMENTS, pes);
+			// Notify the active tool
+			if(activeTool != null) {
+				ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
+			}
+		} finally {
+			context.set(InternalNames.SELECTED_PICTOGRAM_ELEMENTS, null);
 		}
 	}
 }

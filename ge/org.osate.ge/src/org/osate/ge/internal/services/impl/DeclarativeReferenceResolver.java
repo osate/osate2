@@ -21,7 +21,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -56,6 +55,7 @@ import org.osate.ge.internal.patterns.SubprogramCallOrder;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.CachingService.Cache;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SavedAadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -67,7 +67,7 @@ public class DeclarativeReferenceResolver {
 	// Cache for items that should not change unless models have changed.
 	private static class DeclarativeCache implements Cache {
 		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
-		private final IDiagramTypeProvider diagramTypeProvider;
+		private final GraphitiService graphiti;
 		private final CachingService cachingService;
 		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
 		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to the EObjectReference objects exist during the lifetime of the service 
@@ -103,8 +103,8 @@ public class DeclarativeReferenceResolver {
 	        }
 	    };
 	    	    
-	    public DeclarativeCache(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
-			this.diagramTypeProvider = Objects.requireNonNull(diagramTypeProvider, "diagramTypeProvider must not be null");
+	    public DeclarativeCache(final GraphitiService graphiti, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+			this.graphiti = Objects.requireNonNull(graphiti, "graphiti must not be null");
 	    	this.cachingService = Objects.requireNonNull(cachingService, "cachingService must not be null");
 			this.savedAadlResourceService = Objects.requireNonNull(savedAadlResourceService, "savedAadlResourceService must not be null");
 			
@@ -196,7 +196,7 @@ public class DeclarativeReferenceResolver {
 		private Set<IProject> getRelevantProjects() {
 			try {
 				final Set<IProject> projects = new HashSet<IProject>();
-				final IProject diagramProject = SelectionHelper.getProject(diagramTypeProvider.getDiagram().eResource());
+				final IProject diagramProject = SelectionHelper.getProject(graphiti.getDiagram().eResource());
 				projects.add(diagramProject);
 				addReferencedProjects(diagramProject, projects);
 
@@ -219,8 +219,8 @@ public class DeclarativeReferenceResolver {
 	private final DeclarativeCache declarativeCache;
          
 	@Inject
-	public DeclarativeReferenceResolver(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
-		this.declarativeCache = new DeclarativeCache(diagramTypeProvider, cachingService, savedAadlResourceService);		
+	public DeclarativeReferenceResolver(final GraphitiService graphiti, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+		this.declarativeCache = new DeclarativeCache(graphiti, cachingService, savedAadlResourceService);		
 		cachingService.registerCache(declarativeCache);
 	}
 		
