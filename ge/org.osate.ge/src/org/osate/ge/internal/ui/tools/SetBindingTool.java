@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -57,13 +56,14 @@ import org.osate.ge.di.Deactivate;
 import org.osate.ge.di.Description;
 import org.osate.ge.di.Icon;
 import org.osate.ge.di.Id;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.SelectionChanged;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -88,21 +88,21 @@ public class SetBindingTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/SetBinding.gif");
 
 	@CanActivate
-	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
-		return getSelectedPictogramElement((AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer(), bor) != null && 
+	public boolean canActivate(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {
+		return getSelectedPictogramElement((AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer(), bor) != null && 
 				currentWindow == null && 
-				bor.getBusinessObjectForPictogramElement(dtp.getDiagram()) instanceof ComponentImplementation;
+				bor.getBusinessObjectForPictogramElement(graphiti.getDiagram()) instanceof ComponentImplementation;
 	}
 	
 	@Activate
-	public void activate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ConnectionService connectionService) {
-		final AgeDiagramEditor editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
+	public void activate(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ConnectionService connectionService) {
+		final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
 
 		// Open Dialog
 		if (currentWindow == null) {
 			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
 			if(currentWindow.open() == Dialog.OK) {
-				createPropertyAssociation(dtp.getDiagram(), bor, aadlModService, diagramModService, connectionService);
+				createPropertyAssociation(graphiti.getDiagramTypeProvider().getDiagram(), bor, aadlModService, diagramModService, connectionService);
 			}
 			
 			currentWindow = null;
@@ -110,10 +110,10 @@ public class SetBindingTool {
 	}
 	
 	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final IDiagramTypeProvider dtp,
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final GraphitiService graphiti,
 			final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
 		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
-			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+			final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
 			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 				@Override
 				public void execute() {
@@ -126,8 +126,8 @@ public class SetBindingTool {
 	}
 	
 	@Deactivate
-	public void deactivate(final IDiagramTypeProvider dtp, final UiService uiService) {
-		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+	public void deactivate(final GraphitiService graphiti, final UiService uiService) {
+		final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {

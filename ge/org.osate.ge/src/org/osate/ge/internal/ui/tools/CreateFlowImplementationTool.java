@@ -58,13 +58,14 @@ import org.osate.ge.di.Deactivate;
 import org.osate.ge.di.Description;
 import org.osate.ge.di.Icon;
 import org.osate.ge.di.Id;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.SelectionChanged;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -89,8 +90,8 @@ public class CreateFlowImplementationTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
 
 	@CanActivate
-	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
-		return bor.getBusinessObjectForPictogramElement(dtp.getDiagram()) instanceof ComponentImplementation
+	public boolean canActivate(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {
+		return bor.getBusinessObjectForPictogramElement(graphiti.getDiagram()) instanceof ComponentImplementation
 				&& canActivate;
 	}
 
@@ -99,15 +100,15 @@ public class CreateFlowImplementationTool {
 			final UiService uiService,
 			final ColoringService highlightingService,
 			final BusinessObjectResolutionService bor,
-			final IDiagramTypeProvider dtp, final IFeatureProvider fp) {
+			final GraphitiService graphiti) {
 		this.coloring = highlightingService.adjustColors();
-		this.fp = fp;
+		this.fp = graphiti.getFeatureProvider();
 		this.bor = bor;
 		
-		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
+		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(graphiti.getDiagram());
 		if (ci != null) {
 			canActivate = false;
-			clearSelection(dtp);
+			clearSelection(graphiti.getDiagramTypeProvider());
 			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell());
 			if (dlg.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
@@ -134,8 +135,8 @@ public class CreateFlowImplementationTool {
 	}
 
 	@Deactivate
-	public void deactivate(final IDiagramTypeProvider dtp) {
-		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+	public void deactivate(final GraphitiService graphiti) {
+		final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {				
@@ -165,11 +166,11 @@ public class CreateFlowImplementationTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
-			final BusinessObjectResolutionService bor, final IDiagramTypeProvider dtp, final ShapeService shapeService, final ConnectionService connectionService) {
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
+			final BusinessObjectResolutionService bor, final GraphitiService graphiti, final ShapeService shapeService, final ConnectionService connectionService) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
-			// If the selection is a valid addition to the flow implementaiton, add it		
-			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();			
+			// If the selection is a valid addition to the flow implementation, add it		
+			final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();			
 			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {

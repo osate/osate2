@@ -50,7 +50,7 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 			}
 		} catch (RuntimeException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					Activator.PLUGIN_ID, "Error opening classifier diagram handler: " + e.getMessage());
+					Activator.PLUGIN_ID, "Error opening diagram: " + e.getMessage());
 			throw e;
 		}
 

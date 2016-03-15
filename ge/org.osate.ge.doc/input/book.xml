@@ -810,6 +810,7 @@
 				<title>Tools</title>
 				<para>Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own user interface to provide feedback to the user. Tools are displayed in the toolbar.</para>
 				<para>The tools extension point(<emphasis>org.osate.ge.tools</emphasis>) is used to register tools. The graphical editor implements tool extensions which may be used as examples. Those tools are contained in the <emphasis>org.osate.ge.tools</emphasis> package.</para>
+				<emphasis role="bold">NOTE: The tool extension point is currently limited to internal use only. The tools implemented by the graphical editor makes us of internal interfaces which are not API. The tools extension point should not be used at this time.</emphasis>
 				<para>Required Annotations:</para>
 				<itemizedlist>
 					<listitem><para>Activate</para></listitem>
@@ -823,10 +824,6 @@
 				<itemizedlist>
 					<listitem><para>CanActivate</para></listitem>
 					<listitem><para>SelectionChanged</para></listitem>
-				</itemizedlist>
-				<para>Supported named parameters:</para>
-				<itemizedlist>
-					<listitem><para>SELECTED_PICTOGRAM_ELEMENTS(SelectionChanged)</para></listitem>
 				</itemizedlist>
 			</section>
 			<section>
@@ -875,23 +872,6 @@
 							<listitem><para>REFERENCE(ResolveReference)</para></listitem>
 						</itemizedlist>
 					</section>
-				</section>
-				<section>
-					<title>Styles</title>
-					<para>The graphical editor manages creating and updating the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
-					<para>The graphical editor implements style factories which may be used as examples. Those style factories are contained in the <emphasis>org.osate.ge.styles</emphasis> package.</para>
-					<para>Required Annotations:</para>
-					<itemizedlist>
-						<listitem><para>Activate</para></listitem>
-					</itemizedlist>
-					<para>Optional Annotations:</para>
-					<itemizedlist>
-						<listitem><para>None</para></listitem>
-					</itemizedlist>
-					<para>Supported named parameters:</para>
-					<itemizedlist>
-						<listitem><para>STYLE_ID(Activate)</para></listitem>
-					</itemizedlist>
 				</section>
 				<section>
 					<title>Categories</title>

@@ -9,11 +9,11 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.InternalNames;
 
 public class DefaultAnnexStyleFactory {
 	@Activate
-	public Style create(final @Named(Names.STYLE_ID) String styleId, Diagram diagram) {
+	public Style create(final @Named(InternalNames.STYLE_ID) String styleId, Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
 		style.setFilled(false);

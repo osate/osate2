@@ -17,7 +17,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 
@@ -26,13 +25,14 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
 import org.osate.ge.ReferenceEObjectProvider;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.GraphitiService;
 
 public class GraphicalToTextualFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
 
 	@Inject
-	public GraphicalToTextualFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor) {	
-		super(fp);
+	public GraphicalToTextualFeature(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {	
+		super(graphiti.getFeatureProvider());
 		this.bor = bor;
 	}	
 	

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.osate.ge.styles" name="Styles" schema="schema/org.osate.ge.styles.exsd"/>
    <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
@@ -105,61 +104,7 @@
 			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 		</factory>
 	</extension>
-	
- <extension point="org.osate.ge.styles">
- 	<factory class="org.osate.ge.internal.styles.ClassifierStyleFactory" styleId="classifier"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="system"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="process"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="data"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="device"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
- 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="org.osate.ge.internal.styles.FeatureGroupStyleFactory" styleId="feature-group"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="feature-group-type-edit"/>
- 	<factory class="org.osate.ge.internal.styles.ShadedStyleFactory" styleId="shaded"/>
- 	<factory class="org.osate.ge.internal.styles.ImplementsStyleFactory" styleId="implements"/>
- 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="flow_specification"/>
- 	<factory class="org.osate.ge.internal.styles.ExtendsStyleFactory" styleId="extends"/>
- 	<factory class="org.osate.ge.internal.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="decorator"/>
- 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="feature"/>
- 	<factory class="org.osate.ge.internal.styles.LabelStyleFactory" styleId="label"/>
- 	<factory class="org.osate.ge.internal.styles.AnnotationStyleFactory" styleId="annotation"/>
- 	<factory class="org.osate.ge.internal.styles.TextBackgroundStyleFactory" styleId="text-background"/>
- 	<factory class="org.osate.ge.internal.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
- 	<factory class="org.osate.ge.internal.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
- 	<factory class="org.osate.ge.internal.styles.BackgroundStyleFactory" styleId="background"/>
- 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
- 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="mode-initial"/>
- 	<factory class="org.osate.ge.internal.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
- 	<factory class="org.osate.ge.internal.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
- 	<factory class="org.osate.ge.internal.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
- 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
- 	<factory class="org.osate.ge.internal.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
- </extension>
- 
+
   <extension
         point="org.eclipse.ui.navigator.navigatorContent">
      <navigatorContent

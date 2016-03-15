@@ -305,7 +305,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 		
 		// If the shape was dropped on the diagram, set the location of the new shape
 		if(newClassifier != null && context.getTargetContainer() instanceof Diagram) {
-			Shape newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);
+			Shape newShape = shapeService.getDescendantShapeByReference(getDiagram(), newClassifier);
 			
 			// If the update feature hasn't been called, add the shape to the diagram
 			if(newShape == null) {
@@ -320,7 +320,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 				}
 	
 				// Try to find the shape again
-				newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);			
+				newShape = shapeService.getDescendantShapeByReference(getDiagram(), newClassifier);			
 			}
 
 			if(newShape != null) {

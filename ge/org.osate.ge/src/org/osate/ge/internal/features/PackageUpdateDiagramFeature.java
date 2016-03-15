@@ -172,7 +172,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		for(final NamedElement el : elements) {
 			// Add a item for the classifier
 			if(!Aadl2Util.isNull(el) && el instanceof Classifier) {
-				PictogramElement pictogramElement = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), el);
+				PictogramElement pictogramElement = shapeService.getDescendantShapeByReference(getDiagram(), el);
 				if(pictogramElement == null) {					
 					final AddContext addContext = new AddContext();
 					addContext.setNewObject(new AadlElementWrapper(el));

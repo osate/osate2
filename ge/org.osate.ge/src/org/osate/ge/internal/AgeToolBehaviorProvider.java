@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -53,6 +52,7 @@ import org.osate.ge.internal.features.PictogramHandlerDoubleClickFeature;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -64,9 +64,8 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PictogramHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, 
-			final ExtensionService extensionService, final IEclipseContext context, final BusinessObjectResolutionService bor) {
-		super(diagramTypeProvider);
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
+		super(graphiti.getDiagramTypeProvider());
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;

@@ -10,7 +10,6 @@ package org.osate.ge.internal;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.osate.ge.internal.services.SerializableReferenceService;
 
@@ -18,7 +17,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 	private final SerializableReferenceService serializableReferenceService;
 
 	@Inject
-	public IndependenceProvider(final SerializableReferenceService serializableReferenceService, final IFeatureProvider featureProvider) {
+	public IndependenceProvider(final SerializableReferenceService serializableReferenceService) {
 		this.serializableReferenceService = serializableReferenceService;
 	}
 

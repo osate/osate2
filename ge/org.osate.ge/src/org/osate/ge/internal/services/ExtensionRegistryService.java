@@ -23,16 +23,8 @@ public interface ExtensionRegistryService {
 	 */
     Collection<Object> getPictogramHandlers();
 
-    Object getApplicablePictogramHandler(final Object bo);
+    Object getApplicablePictogramHandler(Object bo);
     
-	/**
-	 * Style factories create styles.  
-	 * The following annotations are used with style factories:
-	 * Activate - Required
-	 */
-	Object getStyleFactory(String styleId);
-
-	
 	/**
 	 * Returns a list of registered categories for the palette.
 	 */

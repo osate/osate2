@@ -23,6 +23,7 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
@@ -170,10 +171,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	public void initialize(final IEclipseContext context) {
-		this.eclipseContext = context;
-		this.connectionService = Objects.requireNonNull(context.get(ConnectionService.class), "unable to get connection service");		
-		this.extService = Objects.requireNonNull(context.get(ExtensionService.class), "unable to retrieve extension service");
-		this.refBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
+		this.eclipseContext = context.createChild();
+		this.eclipseContext.set(IFeatureProvider.class, this);
+		this.connectionService = Objects.requireNonNull(eclipseContext.get(ConnectionService.class), "unable to get connection service");		
+		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
+		this.refBuilder = Objects.requireNonNull(eclipseContext.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
@@ -181,12 +183,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
 		this.shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
-		this.propertyService = Objects.requireNonNull(context.get(PropertyService.class), "unable to retrieve property service");
+		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
 			final CachingIndependenceProvider cachingIndependenceProvider = new CachingIndependenceProvider(nonCachingIndependenceProvider);
-			context.get(CachingService.class).registerCache(cachingIndependenceProvider);
+			eclipseContext.get(CachingService.class).registerCache(cachingIndependenceProvider);
 			setIndependenceSolver(cachingIndependenceProvider);
 		} else {
 			setIndependenceSolver(nonCachingIndependenceProvider);
@@ -219,6 +221,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		defaultDirectEditFeature = make(PictogramHandlerDirectEditFeature.class);
 		defaultLayoutFeature = make(PictogramHandlerLayoutFeature.class);
 	}
+
+	@Override
+	public void dispose() {
+		if(eclipseContext != null) {
+			eclipseContext.dispose();
+		}
+		
+		super.dispose();
+	}
+	
 
 	private IEclipseContext getContext() {
 		return eclipseContext;

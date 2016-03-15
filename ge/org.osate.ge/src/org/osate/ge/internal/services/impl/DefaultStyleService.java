@@ -8,9 +8,10 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import java.util.Objects;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -24,17 +25,84 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.StyleService;
 
 public class DefaultStyleService implements StyleService {
+	private static final Map<String, Object> styleIdToFactoryMap = new HashMap<>();
 	private final IFeatureProvider fp;
-	private final ExtensionService extensionService;
+	private final IEclipseContext context;
 	
-	public DefaultStyleService(final IFeatureProvider fp, final ExtensionService extensionService) {
+	static void createStyleFactory(final Class<?> factoryClass, final String styleId) {
+		try {
+			styleIdToFactoryMap.put(styleId, factoryClass.newInstance());
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	static {
+		createStyleFactory(org.osate.ge.internal.styles.ClassifierStyleFactory.class, "classifier");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "system");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "system-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "process");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "process-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "subprogram");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "subprogram-implementation"); 	
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "data");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "data-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "bus");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "bus-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "processor");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "processor-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "device");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "device-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "memory");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "memory-implementation"); 	
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "thread-group");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "thread-group-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "thread");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "thread-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "subprogram-group");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "subprogram-group-implementation"); 	
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "abstract");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "abstract-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "virtual-bus");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "virtual-bus-implementation");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "virtual-processor");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedComponentTypeStyleFactory.class, "virtual-processor-implementation"); 	
+	 	createStyleFactory(org.osate.ge.internal.styles.FeatureGroupStyleFactory.class, "feature-group");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "feature-group-type-edit");
+	 	createStyleFactory(org.osate.ge.internal.styles.ShadedStyleFactory.class, "shaded");
+	 	createStyleFactory(org.osate.ge.internal.styles.ImplementsStyleFactory.class, "implements");
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "flow_specification");
+	 	createStyleFactory(org.osate.ge.internal.styles.ExtendsStyleFactory.class, "extends");
+	 	createStyleFactory(org.osate.ge.internal.styles.GeneralizationArrowheadStyleFactory.class, "generalization-arrowhead");
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "decorator");
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "feature");
+	 	createStyleFactory(org.osate.ge.internal.styles.LabelStyleFactory.class, "label");
+	 	createStyleFactory(org.osate.ge.internal.styles.AnnotationStyleFactory.class, "annotation");
+	 	createStyleFactory(org.osate.ge.internal.styles.TextBackgroundStyleFactory.class, "text-background");
+	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramAccessStyleFactory.class, "subprogram_access");
+	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramGroupAccessStyleFactory.class, "subprogram_group_access");
+	 	createStyleFactory(org.osate.ge.internal.styles.BackgroundStyleFactory.class, "background");
+	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "mode");
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "mode-initial");
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedLineStyleFactory.class, "mode_transition_trigger");
+	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallSequenceStyleFactory.class, "subprogram_call_sequence");
+	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallStyleFactory.class, "subprogram_call"); 	
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "subprogram_call_order");
+	 	createStyleFactory(org.osate.ge.internal.styles.DefaultAnnexStyleFactory.class, "default_annex");
+	}
+	
+	public DefaultStyleService(final IFeatureProvider fp) {
 		this.fp = fp;
-		this.extensionService = extensionService;
+		context = EclipseContextFactory.create();
+		context.set(StyleService.class, this);
+	}
+	
+	public void dispose() {
+		context.dispose();
 	}
 	
 	/* (non-Javadoc)
@@ -48,14 +116,10 @@ public class DefaultStyleService implements StyleService {
     	
         // If it does not exist, create it
         if(style == null) {
-        	final Object styleFactory = extensionService.getStyleFactory(styleId);
-        	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
-        	try {
-	        	context.set(Names.STYLE_ID, styleId);
-	        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
-        	} finally {
-        		context.dispose();
-        	}
+        	final Object styleFactory = styleIdToFactoryMap.get(styleId);
+        	context.set(Diagram.class, fp.getDiagramTypeProvider().getDiagram());
+        	context.set(InternalNames.STYLE_ID, styleId);
+        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
         }
 		
 		return style;

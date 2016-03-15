@@ -10,7 +10,6 @@ package org.osate.ge.internal.features;
 
 import javax.inject.Inject;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
@@ -26,6 +25,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.InternalDiagramService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SubcomponentService;
 
 /**
@@ -38,8 +38,8 @@ public class DrillDownFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final InternalDiagramService diagramService, final BusinessObjectResolutionService bor) {
-		super(fp);
+	public DrillDownFeature(final GraphitiService graphiti, final SubcomponentService subcomponentService, final InternalDiagramService diagramService, final BusinessObjectResolutionService bor) {
+		super(graphiti.getFeatureProvider());
 		this.subcomponentService = subcomponentService;
 		this.diagramService = diagramService;
 		this.bor = bor;

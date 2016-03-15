@@ -47,15 +47,7 @@ public interface ShapeService {
 	 * @return
 	 */
 	Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo);
-	
-	/**
-	 * Gets a descendant shape that is linked to a an AADL element with the same qualified same as the specified element. Does not look at children if the child shape is associated with another object.
-	 * @param shape
-	 * @param el
-	 * @return
-	 */
-	Shape getDescendantShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el);
-	
+		
 	/**
 	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified element. Does not look at children if the child shape is associated with another object.
 	 * Only looks for visible shapes.

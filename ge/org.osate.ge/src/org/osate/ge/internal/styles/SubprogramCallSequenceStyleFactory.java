@@ -17,11 +17,11 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.InternalNames;
 
 public class SubprogramCallSequenceStyleFactory {
 	@Activate
-	public Style create(final @Named(Names.STYLE_ID) String styleId, final Diagram diagram) {
+	public Style create(final @Named(InternalNames.STYLE_ID) String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
        	final Style style = gaService.createPlainStyle(diagram, styleId);
 
