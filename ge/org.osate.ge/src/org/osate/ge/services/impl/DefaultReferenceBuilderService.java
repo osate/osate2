@@ -28,22 +28,34 @@ import org.osate.ge.ext.annotations.BuildReference;
 import org.osate.ge.ext.annotations.GetProject;
 import org.osate.ge.ext.annotations.GetTitle;
 import org.osate.ge.services.ReferenceBuilderService;
+import org.osgi.framework.FrameworkUtil;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
 	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
 	private List<Object> referenceBuilders = null;
+	private final IEclipseContext ctx = EclipseContextFactory.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext()).createChild();
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceBuilderService> {
 		@Override
 		public ReferenceBuilderService createService(final IEclipseContext context) {
 			return new DefaultReferenceBuilderService();
-		}		
+		}
+		
+		protected final void deactivate() {
+			((DefaultReferenceBuilderService)getService()).dispose();
+			super.deactivate();
+		}
 	}
 
 	public DefaultReferenceBuilderService() {
 		referenceBuilders = instantiateReferenceBuilders();
+	}
+	
+	public void dispose() {
+		ctx.dispose();
+		argCtx.dispose();
 	}
 	
 	private static List<Object> instantiateReferenceBuilders() {		
@@ -73,7 +85,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, null, argCtx, null);
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, ctx, argCtx, null);
 				if(ref != null) {
 					return String.join(" ", ref);
 				}
@@ -92,7 +104,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, null, argCtx, null);
+				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, ctx, argCtx, null);
 				if(title != null) {
 					return title;
 				}
@@ -111,7 +123,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, null, argCtx, null);
+				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, ctx, argCtx, null);
 				if(project != null) {
 					return project;
 				}

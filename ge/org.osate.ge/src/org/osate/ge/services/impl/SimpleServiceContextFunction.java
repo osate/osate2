@@ -19,4 +19,10 @@ public abstract class SimpleServiceContextFunction<ServiceInterface> extends Con
 	}
 	
 	protected abstract ServiceInterface createService(final IEclipseContext context);
+	
+	protected ServiceInterface getService() { return service; }
+	
+	protected void deactivate() {
+		this.service = null;
+	}
 }
