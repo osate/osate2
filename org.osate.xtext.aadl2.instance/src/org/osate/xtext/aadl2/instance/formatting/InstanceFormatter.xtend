@@ -36,5 +36,6 @@ class InstanceFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1).after(endToEndFlowInstanceRule)
 		c.setLinewrap(1).after(modeInstanceRule)
 		c.setLinewrap(1).after(modeTransitionInstanceRule)
+		c.setLinewrap(1).after(propertyAssociationInstanceRule)
 	}
 }

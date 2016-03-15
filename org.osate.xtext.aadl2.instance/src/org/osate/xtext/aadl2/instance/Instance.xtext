@@ -6,17 +6,17 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 SystemInstance returns instance::SystemInstance:
-	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|ImplRef] '{'
-		(featureInstance+=FeatureInstance |
-			componentInstance+=ComponentInstance |
-			connectionInstance+=ConnectionInstance |
-			flowSpecification+=FlowSpecificationInstance |
-			endToEndFlow+=EndToEndFlowInstance |
-			modeInstance+=ModeInstance |
-			modeTransitionInstance+=ModeTransitionInstance |
-			systemOperationMode+=SystemOperationMode
-		)*
-	'}'
+	category=ComponentCategory name=ID ':' componentImplementation=[aadl2::ComponentImplementation|ImplRef] '{' (
+		featureInstance+=FeatureInstance |
+		componentInstance+=ComponentInstance |
+		connectionInstance+=ConnectionInstance |
+		flowSpecification+=FlowSpecificationInstance |
+		endToEndFlow+=EndToEndFlowInstance |
+		modeInstance+=ModeInstance |
+		modeTransitionInstance+=ModeTransitionInstance |
+		systemOperationMode+=SystemOperationMode |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}'
 ;
 
 FeatureInstance returns instance::FeatureInstance:
@@ -26,9 +26,10 @@ FeatureInstance returns instance::FeatureInstance:
 	)?
 	('destination' 'of' '(' (dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] | dstFlowSpec+=[instance::FlowSpecificationInstance])
 		(',' (dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] | dstFlowSpec+=[instance::FlowSpecificationInstance]))* ')'
-	)? ('{'
-		featureInstance+=FeatureInstance*
-	'}')?
+	)? ('{' (
+		featureInstance+=FeatureInstance |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}')?
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
@@ -36,25 +37,26 @@ ComponentInstance returns instance::ComponentInstance:
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
 	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef]
 	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')?
-	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')? ('{'
-		(featureInstance+=FeatureInstance |
-			componentInstance+=ComponentInstance |
-			connectionInstance+=ConnectionInstance |
-			flowSpecification+=FlowSpecificationInstance |
-			endToEndFlow+=EndToEndFlowInstance |
-			modeInstance+=ModeInstance |
-			modeTransitionInstance+=ModeTransitionInstance
-		)*
-	'}')?
+	('destination' 'of' '(' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' dstConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')? ('{' (
+		featureInstance+=FeatureInstance |
+		componentInstance+=ComponentInstance |
+		connectionInstance+=ConnectionInstance |
+		flowSpecification+=FlowSpecificationInstance |
+		endToEndFlow+=EndToEndFlowInstance |
+		modeInstance+=ModeInstance |
+		modeTransitionInstance+=ModeTransitionInstance |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)* '}')?
 ;
 
 ConnectionInstance returns instance::ConnectionInstance:
 	complete?='complete'? kind=ConnectionKind name=STRING ':'
 	source=[instance::ConnectionInstanceEnd|InstanceRef] (bidirectional?='<->' | '->') destination=[instance::ConnectionInstanceEnd|InstanceRef]
 	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef])* ')')?
-	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' inModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')? '{'
-		connectionReference+=ConnectionReference+
-	'}'
+	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' inModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')? '{' (
+		connectionReference+=ConnectionReference |
+		ownedPropertyAssociation+=PropertyAssociationInstance
+	)+ '}'
 ;
 
 ConnectionReference returns instance::ConnectionReference:
@@ -66,13 +68,13 @@ FlowSpecificationInstance returns instance::FlowSpecificationInstance:
 	'flow' name=ID '(' source=[instance::FeatureInstance|InstanceRef]? '->' destination=[instance::FeatureInstance|InstanceRef]? ')'
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
 	('in' 'transitions' '(' inModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' inModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')?
-	':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef]
+	':' flowSpecification=[aadl2::FlowSpecification|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance+ '}')?
 ;
 
 EndToEndFlowInstance returns instance::EndToEndFlowInstance:
 	'end' 'to' 'end' 'flow' name=ID (flowElement+=[instance::FlowElementInstance|InstanceRef] ('->' flowElement+=[instance::FlowElementInstance|InstanceRef])*)?
 	('in' 'modes' '(' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef] (',' inSystemOperationMode+=[instance::SystemOperationMode|IndexRef])* ')')?
-	':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef]
+	':' endToEndFlow=[aadl2::EndToEndFlow|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 ;
 
 ModeInstance returns instance::ModeInstance:
@@ -80,17 +82,22 @@ ModeInstance returns instance::ModeInstance:
 	('=' (parent+=[instance::ModeInstance] | ('(' parent+=[instance::ModeInstance] (',' parent+=[instance::ModeInstance])+ ')')))?
 	('source' 'of' '(' srcModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' srcModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')?
 	('destination' 'of' '(' dstModeTransition+=[instance::ModeTransitionInstance|IndexRef] (',' dstModeTransition+=[instance::ModeTransitionInstance|IndexRef])* ')')?
-	':' mode=[aadl2::Mode|DeclarativeRef]
+	':' mode=[aadl2::Mode|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 ;
 
 ModeTransitionInstance returns instance::ModeTransitionInstance:
 	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance]
-	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef]
+	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 ;
 	
 SystemOperationMode returns instance::SystemOperationMode:
 	'som' name=STRING (currentMode+=[instance::ModeInstance|InstanceRef] (',' currentMode+=[instance::ModeInstance|InstanceRef])*)?
 ;
+
+PropertyAssociationInstance returns instance::PropertyAssociationInstance:
+	property=[aadl2::Property|QPREF] '=>' ownedValue+=OptionalModalPropertyValue ':' propertyAssociation=[aadl2::PropertyAssociation|PropertyAssociationRef]
+;
+
 
 DirectionType returns aadl2::DirectionType:
 	'in' | 'out' | 'in' 'out'
@@ -117,7 +124,7 @@ ImplRef:
 ;
 
 DeclarativeRef:
-	(ID '::')+ ID ('.' ID)? '::' ID
+	(ID '::')+ ID ('.' ID)? '::' ('transition' '#' LONG | ID)
 ;
 
 InstanceRef:
@@ -125,11 +132,15 @@ InstanceRef:
 ;
 
 IndexRef:
-	(LONG '.')? LONG
+	(LONG '~')? LONG
 ;
 
 ModeTransitionName:
 	ID '.' ID '.' ID
+;
+
+PropertyAssociationRef:
+	ID '::' ID ('.' ID)? ('::' ('transition' '#' LONG | ID))? '::' LONG
 ;
 	
 terminal LONG returns ecore::ELong:
