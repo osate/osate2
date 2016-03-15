@@ -80,8 +80,9 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 	private final IEclipseContext createEclipseContext(final ICreateConnectionContext createCtx) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
-			eclipseCtx.set(Names.SOURCE_PICTOGRAM_ELEMENT, createCtx.getSourcePictogramElement());
-			eclipseCtx.set(Names.TARGET_PICTOGRAM_ELEMENT, createCtx.getTargetPictogramElement());
+			// TODO: Replace with something else
+			//eclipseCtx.set(Names.SOURCE_PICTOGRAM_ELEMENT, createCtx.getSourcePictogramElement());
+			//eclipseCtx.set(Names.TARGET_PICTOGRAM_ELEMENT, createCtx.getTargetPictogramElement());
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			return eclipseCtx;
 		} catch(Exception ex) {
