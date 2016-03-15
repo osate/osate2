@@ -94,7 +94,7 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		ghostingService.ghostChildShapes(diagram);
 
 		// Add/Update the shape for the classifier
-		final PictogramElement pe = shapeService.getDescendantShapeByElementQualifiedName(diagram, classifier);
+		final PictogramElement pe = shapeService.getDescendantShapeByReference(diagram, classifier);
 		if(pe == null) {
 			final AddContext addContext = new AddContext();
 			addContext.setNewObject(new AadlElementWrapper(classifier));

@@ -104,23 +104,6 @@ public class DefaultShapeService implements ShapeService {
 		return null;
 	}
 	
-	@Override
-	public Shape getDescendantShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
-		for(final Shape c : shape.getChildren()) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
-			if(childBo instanceof NamedElement && areQualifiedNamesEqual((NamedElement)childBo, el)) {
-				return c;
-			} else if(childBo == null && c instanceof ContainerShape) {
-				final Shape recResult = getDescendantShapeByElementQualifiedName((ContainerShape)c, el);
-				if(recResult != null) {
-					return recResult;
-				}
-			}
-		}
-
-		return null;
-	}	
-	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.ShapeService#getDescendantShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
 	 */	
@@ -182,14 +165,7 @@ public class DefaultShapeService implements ShapeService {
 
 		return e1.getName().equalsIgnoreCase(e2.getName());
 	}
-	
-	private boolean areQualifiedNamesEqual(final NamedElement e1, final NamedElement e2) {
-		if(e1 == null || e1.getQualifiedName() == null || e2 == null || e2.getQualifiedName() == null)
-			return false;
-
-		return e1.getQualifiedName().equalsIgnoreCase(e2.getQualifiedName());
-	}
-	
+		
 	@Override
 	public Shape getClosestAncestorWithBusinessObjectType(final Shape s, final Class<?> ... boTypes) {
 		for(Shape tmpShape = s; tmpShape != null; tmpShape = tmpShape.getContainer()) {
