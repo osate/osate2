@@ -19,7 +19,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
-import org.osate.ge.ext.Names;
+import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Ellipse;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;

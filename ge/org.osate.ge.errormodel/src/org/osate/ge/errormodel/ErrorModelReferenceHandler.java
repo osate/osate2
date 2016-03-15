@@ -16,13 +16,13 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.di.GetResource;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 import org.osate.ge.di.GetProject;
+import org.osate.ge.di.GetResource;
 import org.osate.ge.di.GetTitle;
+import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
+import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.services.ReferenceService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -102,7 +102,6 @@ public class ErrorModelReferenceHandler {
 			return null;
 		}
 
-
 		if(type.equals(TYPE_ERROR_TYPE_LIBRARY)) {
 			final Optional<ErrorModelLibrary> errorModelLibrary = pkg.getOwnedPublicSection().getOwnedAnnexLibraries().stream(). // Get annex libraries
 					filter(lib -> lib instanceof DefaultAnnexLibrary && ((DefaultAnnexLibrary)lib).getParsedAnnexLibrary() instanceof ErrorModelLibrary). // Filter non EMV2 Libraries
@@ -111,9 +110,11 @@ public class ErrorModelReferenceHandler {
 			
 			if(errorModelLibrary.isPresent()) {
 				final ErrorModelLibrary errorModelLib = errorModelLibrary.get();
+				System.err.println("TEST; " + errorModelLib);
 				return new ErrorTypeLibrary(errorModelLib);
 			}
 			
+			System.err.println("NULL: " + pkg);
 			return null;
 		}
 		

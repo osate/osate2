@@ -11,7 +11,7 @@ import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.CreateConnectionBusinessObject;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.errormodel.ErrorModelCategories;
-import org.osate.ge.ext.Names;
+import org.osate.ge.di.Names;
 
 public class TestConnectionHandler {
 	@GetPaletteEntries

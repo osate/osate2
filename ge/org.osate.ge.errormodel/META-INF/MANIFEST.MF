@@ -4,9 +4,9 @@ Bundle-Name: Errormodel
 Bundle-SymbolicName: org.osate.ge.errormodel;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.osate.ge,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.graphiti.mm,
  org.osate.aadl2,
  org.osate.xtext.aadl2.errormodel,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.osate.ge
