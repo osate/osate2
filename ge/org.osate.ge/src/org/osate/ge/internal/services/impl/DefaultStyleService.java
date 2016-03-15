@@ -25,7 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.StyleService;
 
 public class DefaultStyleService implements StyleService {
@@ -118,7 +118,7 @@ public class DefaultStyleService implements StyleService {
         if(style == null) {
         	final Object styleFactory = styleIdToFactoryMap.get(styleId);
         	context.set(Diagram.class, fp.getDiagramTypeProvider().getDiagram());
-        	context.set(Names.STYLE_ID, styleId);
+        	context.set(InternalNames.STYLE_ID, styleId);
         	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
         }
 		
