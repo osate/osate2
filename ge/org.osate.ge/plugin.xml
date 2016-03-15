@@ -7,7 +7,7 @@
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
 	<extension point="org.eclipse.ui.commands">
-	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
+	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command 
 	   		id="org.osate.ge.commands.open.diagram.from.navigator"
 			name="Open Diagram" 
@@ -66,13 +66,13 @@
    <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
+            class="org.osate.ge.internal.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlDiagramType">
          </diagramType>
 		 <imageProvider
-            id="org.osate.ge.diagrams.common.AgeImageProvider">
+            id="org.osate.ge.image_provider">
       	 </imageProvider>
       </diagramTypeProvider>
    </extension>
@@ -82,95 +82,95 @@
 		<editor
 	  	   id = "org.osate.ge.editor.AgeDiagramEditor"
 	  	   name="AADL Diagram Editor"
-      	   class="org.osate.ge.ui.editor.AgeDiagramEditor"
+      	   class="org.osate.ge.internal.ui.editor.AgeDiagramEditor"
 		   extensions="aadl_diagram"
-           contributorClass="org.osate.ge.ui.editor.AgeDiagramEditorActionBarContributor"
+           contributorClass="org.osate.ge.internal.ui.editor.AgeDiagramEditorActionBarContributor"
            matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy">
 		</editor>
 	</extension>
 
 	<extension point="org.eclipse.ui.startup">
-      <startup class="org.osate.ge.ui.xtext.AgeXtextUtil$Initializer">
+      <startup class="org.osate.ge.internal.ui.xtext.AgeXtextUtil$Initializer">
       </startup>
    </extension>
    
 	<extension point="org.eclipse.core.runtime.adapters">
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="org.osate.ge.ui.editor.GraphitiEditPartAdapterFactory">
+		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 		</factory>
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="org.osate.ge.ui.editor.GraphitiEditPartAdapterFactory">
+		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 		</factory>
 	</extension>
 	
  <extension point="org.osate.ge.styles">
- 	<factory class="org.osate.ge.styles.ClassifierStyleFactory" styleId="classifier"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="system"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="process"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="data"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="device"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
- 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="org.osate.ge.styles.FeatureGroupStyleFactory" styleId="feature-group"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="feature-group-type-edit"/>
- 	<factory class="org.osate.ge.styles.ShadedStyleFactory" styleId="shaded"/>
- 	<factory class="org.osate.ge.styles.ImplementsStyleFactory" styleId="implements"/>
- 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="flow_specification"/>
- 	<factory class="org.osate.ge.styles.ExtendsStyleFactory" styleId="extends"/>
- 	<factory class="org.osate.ge.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="decorator"/>
- 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="feature"/>
- 	<factory class="org.osate.ge.styles.LabelStyleFactory" styleId="label"/>
- 	<factory class="org.osate.ge.styles.AnnotationStyleFactory" styleId="annotation"/>
- 	<factory class="org.osate.ge.styles.TextBackgroundStyleFactory" styleId="text-background"/>
- 	<factory class="org.osate.ge.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
- 	<factory class="org.osate.ge.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
- 	<factory class="org.osate.ge.styles.BackgroundStyleFactory" styleId="background"/>
- 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
- 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="mode-initial"/>
- 	<factory class="org.osate.ge.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
- 	<factory class="org.osate.ge.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
- 	<factory class="org.osate.ge.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
- 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
- 	<factory class="org.osate.ge.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
+ 	<factory class="org.osate.ge.internal.styles.ClassifierStyleFactory" styleId="classifier"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="system"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="process"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="data"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="device"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
+ 	<factory class="org.osate.ge.internal.styles.FeatureGroupStyleFactory" styleId="feature-group"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="feature-group-type-edit"/>
+ 	<factory class="org.osate.ge.internal.styles.ShadedStyleFactory" styleId="shaded"/>
+ 	<factory class="org.osate.ge.internal.styles.ImplementsStyleFactory" styleId="implements"/>
+ 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="flow_specification"/>
+ 	<factory class="org.osate.ge.internal.styles.ExtendsStyleFactory" styleId="extends"/>
+ 	<factory class="org.osate.ge.internal.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
+ 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="decorator"/>
+ 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="feature"/>
+ 	<factory class="org.osate.ge.internal.styles.LabelStyleFactory" styleId="label"/>
+ 	<factory class="org.osate.ge.internal.styles.AnnotationStyleFactory" styleId="annotation"/>
+ 	<factory class="org.osate.ge.internal.styles.TextBackgroundStyleFactory" styleId="text-background"/>
+ 	<factory class="org.osate.ge.internal.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
+ 	<factory class="org.osate.ge.internal.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
+ 	<factory class="org.osate.ge.internal.styles.BackgroundStyleFactory" styleId="background"/>
+ 	<factory class="org.osate.ge.internal.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
+ 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="mode-initial"/>
+ 	<factory class="org.osate.ge.internal.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
+ 	<factory class="org.osate.ge.internal.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
+ 	<factory class="org.osate.ge.internal.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
+ 	<factory class="org.osate.ge.internal.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
+ 	<factory class="org.osate.ge.internal.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
  </extension>
  
   <extension
         point="org.eclipse.ui.navigator.navigatorContent">
      <navigatorContent
            activeByDefault="true"
-           contentProvider="org.osate.ge.ui.navigator.ContentProvider"
+           contentProvider="org.osate.ge.internal.ui.navigator.ContentProvider"
            id="org.osate.ge.navigatorContent"
-           labelProvider="org.osate.ge.ui.navigator.LabelProvider"
+           labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
            
 		<actionProvider
-			class="org.osate.ge.ui.navigator.ActionProvider">
+			class="org.osate.ge.internal.ui.navigator.ActionProvider">
 		</actionProvider>
 		
         <enablement>
@@ -214,7 +214,7 @@
            priority="highest"
            sortOnly="true">
         <commonSorter
-              class="org.osate.ge.ui.navigator.Sorter"
+              class="org.osate.ge.internal.ui.navigator.Sorter"
               id="org.osate.ge.navigatorContent.sorter">
            <parentExpression>
               <or>
@@ -232,7 +232,7 @@
   <extension
         point="org.eclipse.ui.navigator.linkHelper">
      <linkHelper
-           class="org.osate.ge.ui.navigator.LinkHelper"
+           class="org.osate.ge.internal.ui.navigator.LinkHelper"
            id="org.osate.ge.linkHelper">
         <editorInputEnablement>
            <instanceof
@@ -244,7 +244,7 @@
         point="org.eclipse.ui.newWizards">
      <wizard
            category="org.osate.Wizard.category.ID"
-           class="org.osate.ge.wizards.NewPackageWizard"
+           class="org.osate.ge.internal.wizards.NewPackageWizard"
            id="org.osate.ge.wizards.NewPackageWizard"
            name="Aadl Package (Graphical)">
      </wizard>
@@ -252,7 +252,7 @@
   <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
-           class="org.osate.ge.ui.navigator.PropertyTester"
+           class="org.osate.ge.internal.ui.navigator.PropertyTester"
            id="org.osate.ge.navigator.propertyTester"
            namespace="org.osate.ge"
            properties="name,isAadlPackage"
@@ -263,8 +263,8 @@
  <extension
       point="org.eclipse.graphiti.ui.imageProviders">
    <imageProvider
-         class="org.osate.ge.diagrams.common.AgeImageProvider"
-         id="org.osate.ge.diagrams.common.AgeImageProvider">
+         class="org.osate.ge.internal.AgeImageProvider"
+         id="org.osate.ge.image_provider">
    </imageProvider>
 </extension>
 
@@ -322,14 +322,14 @@
     <propertySections
           contributorId="org.osate.ge.editor.AgeDiagramEditor">
         <propertySection
-              class="org.osate.ge.properties.BindingsSection"
-              filter="org.osate.ge.properties.BindingsFilter"
+              class="org.osate.ge.internal.ui.properties.BindingsSection"
+              filter="org.osate.ge.internal.ui.properties.BindingsFilter"
               id="graphiti.main.tab.emfclass"
               tab="org.osate.ge.bindings">
         </propertySection>
         <propertySection
-              class="org.osate.ge.properties.ConnectionsSection"
-              filter="org.osate.ge.properties.ConnectionsFilter"
+              class="org.osate.ge.internal.ui.properties.ConnectionsSection"
+              filter="org.osate.ge.internal.ui.properties.ConnectionsFilter"
               id="graphiti.main.tab.emfclass"
               tab="org.osate.ge.connections">
         </propertySection>
@@ -352,7 +352,7 @@
     <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.osate.ge.ui.handlers.OpenDiagramFromNavigatorHandler"
+            class="org.osate.ge.internal.ui.handlers.OpenDiagramFromNavigatorHandler"
             commandId="org.osate.ge.commands.open.diagram.from.navigator">
          <enabledWhen>
 			<and>
@@ -379,9 +379,9 @@
    </extension>
     <extension
           point="org.osate.ge.tools">
-       <tool class="org.osate.ge.tools.CreateEndToEndFlowSpecificationTool"/>
-       <tool class="org.osate.ge.tools.CreateFlowImplementationTool"/>
-       <tool class="org.osate.ge.tools.SetBindingTool"/>
+       <tool class="org.osate.ge.internal.ui.tools.CreateEndToEndFlowSpecificationTool"/>
+       <tool class="org.osate.ge.internal.ui.tools.CreateFlowImplementationTool"/>
+       <tool class="org.osate.ge.internal.ui.tools.SetBindingTool"/>
     </extension>
     <extension
           point="org.osate.ge.categories">
@@ -792,9 +792,9 @@
     <extension
           point="org.osate.ge.references">
        <referenceBuilder
-             class="org.osate.ge.services.impl.DeclarativeReferenceBuilder">
+             class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
        </referenceBuilder>
        <referenceResolver
-             class="org.osate.ge.services.impl.DeclarativeReferenceResolver"></referenceResolver>
+             class="org.osate.ge.internal.services.impl.DeclarativeReferenceResolver"></referenceResolver>
     </extension>
 </plugin>
