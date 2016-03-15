@@ -4,15 +4,15 @@ import java.util.stream.Stream;
 
 import javax.inject.Named;
 
+import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.GetGraphicalRepresentation;
+import org.osate.ge.di.GetName;
+import org.osate.ge.di.HandleDoubleClick;
+import org.osate.ge.di.IsApplicable;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.GetChildren;
-import org.osate.ge.ext.annotations.GetGraphicalRepresentation;
-import org.osate.ge.ext.annotations.GetName;
-import org.osate.ge.ext.annotations.HandleDoubleClick;
-import org.osate.ge.ext.annotations.IsApplicable;
-import org.osate.ge.ext.graphics.Rectangle;
-import org.osate.ge.ext.services.DiagramService;
+import org.osate.ge.graphics.Rectangle;
+import org.osate.ge.services.DiagramService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeLibraryPictogramHandler {

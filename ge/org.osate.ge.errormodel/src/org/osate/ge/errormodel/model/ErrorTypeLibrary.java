@@ -3,7 +3,7 @@ package org.osate.ge.errormodel.model;
 import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.ext.ReferenceEObjectProvider;
+import org.osate.ge.ReferenceEObjectProvider;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 public class ErrorTypeLibrary implements ReferenceEObjectProvider {

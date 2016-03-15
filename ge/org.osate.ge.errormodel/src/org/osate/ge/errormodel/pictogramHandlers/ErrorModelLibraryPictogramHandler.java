@@ -3,10 +3,11 @@ package org.osate.ge.errormodel.pictogramHandlers;
 import java.util.stream.Stream;
 
 import javax.inject.Named;
+
+import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.IsApplicable;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.GetChildren;
-import org.osate.ge.ext.annotations.IsApplicable;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 public class ErrorModelLibraryPictogramHandler {	
