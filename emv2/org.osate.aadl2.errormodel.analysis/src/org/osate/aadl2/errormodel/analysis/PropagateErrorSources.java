@@ -80,7 +80,7 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 /**
  * This class initiates a fault impact analysis starting with error sources.
- * The level of impact analysis (how deep) can be set as parameter (with a default of 5)
+ * The level of impact analysis (how deep) can be set as parameter (with a default of 7)
  * @author phf
  */
 public class PropagateErrorSources {
@@ -92,7 +92,7 @@ public class PropagateErrorSources {
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
-		faultModel = new AnalysisModel(root);
+		faultModel = new AnalysisModel(root, false);
 		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
@@ -294,6 +294,8 @@ public class PropagateErrorSources {
 				for (TypeToken typeToken : result) {
 					String failuremodeText = generateErrorPropTypeTokenText(ep, typeToken);
 					traceErrorPaths(root, ep, typeToken, 2, componentText + ", " + failuremodeText);
+//					String connText = generateComponentPropagationPointText(destci, destEP);
+//					traceErrorFlows(destci, destEP, typeToken, 0, failuremodeText + "-[incoming]->" + connText);
 				}
 			}
 		}

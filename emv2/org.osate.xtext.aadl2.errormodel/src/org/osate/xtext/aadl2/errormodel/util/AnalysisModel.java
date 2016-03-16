@@ -54,6 +54,10 @@ public class AnalysisModel {
 		this(root, PropagationPathLevel.LEAF, true);
 	}
 
+	public AnalysisModel(ComponentInstance root, boolean complete) {
+		this(root, PropagationPathLevel.LEAF, complete);
+	}
+
 	/**
 	 * build up a propagation path graph of propagations within a system as well
 	 * as external ones.
