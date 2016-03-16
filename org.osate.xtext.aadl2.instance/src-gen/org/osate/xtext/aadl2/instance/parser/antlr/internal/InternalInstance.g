@@ -391,19 +391,19 @@ ruleFeatureInstance returns [EObject current=null]
     }
 (
 (
-		lv_index_4_0=RULE_LONG
-		{
-			newLeafNode(lv_index_4_0, grammarAccess.getFeatureInstanceAccess().getIndexLONGTerminalRuleCall_3_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getFeatureInstanceAccess().getIndexLongParserRuleCall_3_1_0()); 
+	    }
+		lv_index_4_0=ruleLong		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFeatureInstanceRule());
+	            $current = createModelElementForParent(grammarAccess.getFeatureInstanceRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"index",
         		lv_index_4_0, 
-        		"LONG");
+        		"Long");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -694,19 +694,19 @@ ruleComponentInstance returns [EObject current=null]
     }
 (
 (
-		lv_index_3_0=RULE_LONG
-		{
-			newLeafNode(lv_index_3_0, grammarAccess.getComponentInstanceAccess().getIndexLONGTerminalRuleCall_2_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getComponentInstanceAccess().getIndexLongParserRuleCall_2_1_0()); 
+	    }
+		lv_index_3_0=ruleLong		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getComponentInstanceRule());
+	            $current = createModelElementForParent(grammarAccess.getComponentInstanceRule());
 	        }
-       		addWithLastConsumed(
+       		add(
        			$current, 
        			"index",
         		lv_index_3_0, 
-        		"LONG");
+        		"Long");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -2926,12 +2926,12 @@ ruleDeclarativeRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRule
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getDeclarativeRefAccess().getNumberSignKeyword_4_0_1()); 
     }
-    this_LONG_8=RULE_LONG    {
-		$current.merge(this_LONG_8);
+    this_INTEGER_LIT_8=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_8);
     }
 
     { 
-    newLeafNode(this_LONG_8, grammarAccess.getDeclarativeRefAccess().getLONGTerminalRuleCall_4_0_2()); 
+    newLeafNode(this_INTEGER_LIT_8, grammarAccess.getDeclarativeRefAccess().getINTEGER_LITTerminalRuleCall_4_0_2()); 
     }
 )
     |    this_ID_9=RULE_ID    {
@@ -2982,12 +2982,12 @@ ruleInstanceRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getInstanceRefAccess().getLeftSquareBracketKeyword_1_0_1_0()); 
     }
-    this_LONG_3=RULE_LONG    {
-		$current.merge(this_LONG_3);
+    this_INTEGER_LIT_3=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_3);
     }
 
     { 
-    newLeafNode(this_LONG_3, grammarAccess.getInstanceRefAccess().getLONGTerminalRuleCall_1_0_1_1()); 
+    newLeafNode(this_INTEGER_LIT_3, grammarAccess.getInstanceRefAccess().getINTEGER_LITTerminalRuleCall_1_0_1_1()); 
     }
 
 	kw=']' 
@@ -3001,12 +3001,12 @@ ruleInstanceRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getInstanceRefAccess().getFullStopKeyword_1_0_2()); 
     }
-)*(    this_LONG_6=RULE_LONG    {
-		$current.merge(this_LONG_6);
+)*(    this_INTEGER_LIT_6=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_6);
     }
 
     { 
-    newLeafNode(this_LONG_6, grammarAccess.getInstanceRefAccess().getLONGTerminalRuleCall_1_1_0()); 
+    newLeafNode(this_INTEGER_LIT_6, grammarAccess.getInstanceRefAccess().getINTEGER_LITTerminalRuleCall_1_1_0()); 
     }
 
     |(    this_ID_7=RULE_ID    {
@@ -3022,12 +3022,12 @@ ruleInstanceRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getInstanceRefAccess().getLeftSquareBracketKeyword_1_1_1_1_0()); 
     }
-    this_LONG_9=RULE_LONG    {
-		$current.merge(this_LONG_9);
+    this_INTEGER_LIT_9=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_9);
     }
 
     { 
-    newLeafNode(this_LONG_9, grammarAccess.getInstanceRefAccess().getLONGTerminalRuleCall_1_1_1_1_1()); 
+    newLeafNode(this_INTEGER_LIT_9, grammarAccess.getInstanceRefAccess().getINTEGER_LITTerminalRuleCall_1_1_1_1_1()); 
     }
 
 	kw=']' 
@@ -3056,12 +3056,12 @@ ruleIndexRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((    this_LONG_0=RULE_LONG    {
-		$current.merge(this_LONG_0);
+((    this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_0);
     }
 
     { 
-    newLeafNode(this_LONG_0, grammarAccess.getIndexRefAccess().getLONGTerminalRuleCall_0_0()); 
+    newLeafNode(this_INTEGER_LIT_0, grammarAccess.getIndexRefAccess().getINTEGER_LITTerminalRuleCall_0_0()); 
     }
 
 	kw='~' 
@@ -3069,12 +3069,12 @@ ruleIndexRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getIndexRefAccess().getTildeKeyword_0_1()); 
     }
-)?    this_LONG_2=RULE_LONG    {
-		$current.merge(this_LONG_2);
+)?    this_INTEGER_LIT_2=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_2);
     }
 
     { 
-    newLeafNode(this_LONG_2, grammarAccess.getIndexRefAccess().getLONGTerminalRuleCall_1()); 
+    newLeafNode(this_INTEGER_LIT_2, grammarAccess.getIndexRefAccess().getINTEGER_LITTerminalRuleCall_1()); 
     }
 )
     ;
@@ -3202,12 +3202,12 @@ rulePropertyAssociationRef returns [AntlrDatatypeRuleToken current=new AntlrData
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getNumberSignKeyword_4_1_0_1()); 
     }
-    this_LONG_8=RULE_LONG    {
-		$current.merge(this_LONG_8);
+    this_INTEGER_LIT_8=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_8);
     }
 
     { 
-    newLeafNode(this_LONG_8, grammarAccess.getPropertyAssociationRefAccess().getLONGTerminalRuleCall_4_1_0_2()); 
+    newLeafNode(this_INTEGER_LIT_8, grammarAccess.getPropertyAssociationRefAccess().getINTEGER_LITTerminalRuleCall_4_1_0_2()); 
     }
 )
     |    this_ID_9=RULE_ID    {
@@ -3223,14 +3223,42 @@ rulePropertyAssociationRef returns [AntlrDatatypeRuleToken current=new AntlrData
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getColonColonKeyword_5()); 
     }
-    this_LONG_11=RULE_LONG    {
-		$current.merge(this_LONG_11);
+    this_INTEGER_LIT_11=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_11);
     }
 
     { 
-    newLeafNode(this_LONG_11, grammarAccess.getPropertyAssociationRefAccess().getLONGTerminalRuleCall_6()); 
+    newLeafNode(this_INTEGER_LIT_11, grammarAccess.getPropertyAssociationRefAccess().getINTEGER_LITTerminalRuleCall_6()); 
     }
 )
+    ;
+
+
+
+
+
+// Entry rule entryRuleLong
+entryRuleLong returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getLongRule()); } 
+	 iv_ruleLong=ruleLong 
+	 { $current=$iv_ruleLong.current.getText(); }  
+	 EOF 
+;
+
+// Rule Long
+ruleLong returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+    this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_0);
+    }
+
+    { 
+    newLeafNode(this_INTEGER_LIT_0, grammarAccess.getLongAccess().getINTEGER_LITTerminalRuleCall()); 
+    }
+
     ;
 
 
@@ -4889,8 +4917,6 @@ ruleSTAR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 
 
 
-
-RULE_LONG : RULE_DIGIT+;
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 

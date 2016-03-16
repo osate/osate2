@@ -560,4 +560,103 @@ class SerializerTest2 extends AbstractSerializerTest {
 				ps1::bool1 => true in modes ( 0 , 1 ) , false in modes ( 2 , 3 ) : pkg1::s::0
 			}''')
 	}
+	
+	@Test
+	def void testPropertyTypes() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				enumType1: type enumeration (one, two, three);
+				units1: type units (mm, cm => mm * 10, m => cm * 100);
+				
+				const1: constant aadlinteger => 42;
+				
+				bool1: aadlboolean applies to (all);
+				string1: aadlstring applies to (all);
+				int1: aadlinteger applies to (all);
+				int2: aadlinteger applies to (all);
+				int3: aadlinteger units ps1::units1 applies to (all);
+				real1: aadlreal applies to (all);
+				real2: aadlreal applies to (all);
+				real3: aadlreal units ps1::units1 applies to (all);
+				range1: range of aadlinteger applies to (all);
+				range2: range of aadlinteger applies to (all);
+				range3: range of aadlinteger units ps1::units1 applies to (all);
+				int4: aadlinteger applies to (all);
+				int5: aadlinteger applies to (all);
+				enum1: ps1::enumType1 applies to (all);
+				classifier1: classifier (system) applies to (all);
+				int6: aadlinteger applies to (all);
+				record1: record (
+					field1: aadlinteger;
+					field2: record (field3: aadlinteger;);
+					field4: ps1::enumType1;
+					field5: aadlinteger units ps1::units1;
+					field6: range of aadlinteger units ps1::units1;
+				) applies to (all);
+				list1: list of aadlinteger applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s
+					properties
+						ps1::bool1 => true;
+						ps1::string1 => "value";
+						ps1::int1 => 42;
+						ps1::int2 => -42;
+						ps1::int3 => 42cm;
+						ps1::real1 => 3.14;
+						ps1::real2 => -3.14;
+						ps1::real3 => 3.14cm;
+						ps1::range1 => 0 .. 10;
+						ps1::range2 => 0 .. 10 delta 2;
+						ps1::range3 => 0cm .. 10cm;
+						ps1::int4 => ps1::const1;
+						ps1::int5 => ps1::int1;
+						ps1::enum1 => two;
+						ps1::classifier1 => classifier (s);
+						ps1::int6 => compute (function1);
+						ps1::record1 => [
+							field1 => 42;
+							field2 => [field3 => 42;];
+							field4 => two;
+							field5 => 42cm;
+							field6 => 0cm .. 10cm;
+						];
+						ps1::list1 => (1, 2, 4, 8);
+				end s;
+				
+				system implementation s.i
+				end s.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
+			system s_i_Instance : pkg1::s.i {
+				som "No Modes"
+				ps1::bool1 => true : pkg1::s::0
+				ps1::string1 => "value" : pkg1::s::1
+				ps1::int1 => 42 : pkg1::s::2
+				ps1::int2 => -42 : pkg1::s::3
+				ps1::int3 => 42 cm : pkg1::s::4
+				ps1::real1 => 3.14 : pkg1::s::5
+				ps1::real2 => -3.14 : pkg1::s::6
+				ps1::real3 => 3.14 cm : pkg1::s::7
+				ps1::range1 => 0 .. 10 : pkg1::s::8
+				ps1::range2 => 0 .. 10 delta 2 : pkg1::s::9
+				ps1::range3 => 0 cm .. 10 cm : pkg1::s::10
+				ps1::int4 => ps1::const1 : pkg1::s::11
+				ps1::int5 => ps1::int1 : pkg1::s::12
+				ps1::enum1 => two : pkg1::s::13
+				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s::14
+				ps1::int6 => compute ( function1 ) : pkg1::s::15
+				ps1::record1 => [ field1 => 42 ; field2 => [ field3 => 42 ; ] ; field4 => two
+				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] : pkg1::s::16
+				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s::17
+			}''')
+	}
 }
