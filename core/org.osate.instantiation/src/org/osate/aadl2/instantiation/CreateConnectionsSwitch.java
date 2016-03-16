@@ -256,52 +256,50 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					return;
 				}
 			}
-		} else {
-			// connection instance may start at a feature
-			List<Connection> outsideSubConns = filterOutgoingConnections(parentConns, sub);
-			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
-			@SuppressWarnings("unchecked")
-			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
-			boolean hasOutgoingFeatureSubcomponents = AadlUtil
-					.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
-			FeatureInstance prevFi = null;
-			for (FeatureInstance featurei : ci.getFeatureInstances()) {
-				if (prevFi == null || !prevFi.getName().equalsIgnoreCase(featurei.getName())) {
-					Feature feature = featurei.getFeature();
-					// TODO warning if subcomponents with outgoing features
-					// exist
-					if (AadlUtil.hasOutgoingFeatures(featurei)) {
-						List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
-						boolean connectedInside = false;
-						boolean destinationFromInside = false;
+		}
+		// connection instance may start at a feature
+		List<Connection> outsideSubConns = filterOutgoingConnections(parentConns, sub);
+		ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
+		@SuppressWarnings("unchecked")
+		List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
+		boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
+		FeatureInstance prevFi = null;
+		for (FeatureInstance featurei : ci.getFeatureInstances()) {
+			if (prevFi == null || !prevFi.getName().equalsIgnoreCase(featurei.getName())) {
+				Feature feature = featurei.getFeature();
+				// TODO warning if subcomponents with outgoing features
+				// exist
+				if (AadlUtil.hasOutgoingFeatures(featurei)) {
+					List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
+					boolean connectedInside = false;
+					boolean destinationFromInside = false;
 
-						// warn if there's an incomplete connection
-						if (hasOutgoingFeatureSubcomponents
-								&& ((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
-										// in case of a provides bus access we want to
-										// start from the bus.
-										|| ((cat == PROCESSOR || cat == DEVICE || cat == ComponentCategory.MEMORY)
-												&& feature instanceof BusAccess
-												&& ((BusAccess) feature).getKind() == AccessType.PROVIDES))) {
-							connectedInside = isConnectionEnd(insideSubConns, feature);
-							destinationFromInside = isDestination(insideSubConns, feature);
-						}
+					// warn if there's an incomplete connection
+					if (hasOutgoingFeatureSubcomponents
+							&& ((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
+									// in case of a provides bus access we want to
+									// start from the bus.
+									|| ((cat == PROCESSOR || cat == DEVICE || cat == ComponentCategory.MEMORY)
+											&& feature instanceof BusAccess
+											&& ((BusAccess) feature).getKind() == AccessType.PROVIDES))) {
+						connectedInside = isConnectionEnd(insideSubConns, feature);
+						destinationFromInside = isDestination(insideSubConns, feature);
+					}
 
-						// first see if mode transitions are triggered by a
-						// doModeTransitionConnections(ci, featurei);
+					// first see if mode transitions are triggered by a
+					// doModeTransitionConnections(ci, featurei);
 
-						for (Connection conn : outgoingConns) {
-							// conn is first segment if it can't continue inside
-							// the subcomponent
-							if (!(destinationFromInside || conn.isAllBidirectional() && connectedInside)) {
-								prevFi = featurei;
+					for (Connection conn : outgoingConns) {
+						// conn is first segment if it can't continue inside
+						// the subcomponent
+						if (!(destinationFromInside || conn.isAllBidirectional() && connectedInside)) {
+							prevFi = featurei;
 
-								boolean opposite = isOpposite(feature, sub, conn);
+							boolean opposite = isOpposite(feature, sub, conn);
 
-								appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
-								if (monitor.isCanceled()) {
-									return;
-								}
+							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
+							if (monitor.isCanceled()) {
+								return;
 							}
 						}
 					}
