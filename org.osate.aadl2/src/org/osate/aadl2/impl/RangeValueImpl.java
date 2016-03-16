@@ -42,8 +42,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PropertyConstant;
@@ -443,25 +441,9 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 				throw new InvalidModelException(this, "Range maximum is modal");
 			}
 
-			/*
-			 * FIX JD
-			 * Fixes bug #129 : when the maxvalue is a constant, we try to resolve it.
-			 */
-			if (maxVal.first().getValue() instanceof NamedValue) {
-				try {
-					NamedValue nv = (NamedValue) maxVal.first().getValue();
-					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					maxNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
-				} catch (Exception e) {
-					maxNumberValue = null;
-				}
-			}
-
 			if (maxVal.first().getValue() instanceof NumberValue) {
 				maxNumberValue = (NumberValue) maxVal.first().getValue();
-			}
-
-			if (maxNumberValue == null) {
+			} else {
 				throw new InvalidModelException(this, "Range maximum is not numeric");
 			}
 
@@ -472,21 +454,9 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 				throw new InvalidModelException(this, "Range minimum is modal");
 			}
 
-			if (minVal.first().getValue() instanceof NamedValue) {
-				try {
-					NamedValue nv = (NamedValue) minVal.first().getValue();
-					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					minNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
-				} catch (Exception e) {
-					minNumberValue = null;
-				}
-			}
-
 			if (minVal.first().getValue() instanceof NumberValue) {
 				minNumberValue = (NumberValue) minVal.first().getValue();
-			}
-
-			if (minNumberValue == null) {
+			} else {
 				throw new InvalidModelException(this, "Range minimum is not numeric");
 			}
 
