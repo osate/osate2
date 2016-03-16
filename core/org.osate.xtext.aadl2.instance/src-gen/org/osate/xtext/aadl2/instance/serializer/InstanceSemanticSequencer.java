@@ -193,7 +193,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *     (
 	 *         category=ComponentCategory 
 	 *         name=ID 
-	 *         index+=LONG* 
+	 *         index+=Long* 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
 	 *         subcomponent=[Subcomponent|DeclarativeRef] 
 	 *         (srcConnectionInstance+=[ConnectionInstance|IndexRef] srcConnectionInstance+=[ConnectionInstance|IndexRef]*)? 
@@ -269,7 +269,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         direction=DirectionType 
 	 *         category=FeatureCategory 
 	 *         name=ID 
-	 *         index=LONG? 
+	 *         index=Long? 
 	 *         feature=[Feature|DeclarativeRef] 
 	 *         (
 	 *             (srcConnectionInstance+=[ConnectionInstance|IndexRef] | srcFlowSpec+=[FlowSpecificationInstance|ID]) 

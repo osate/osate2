@@ -17,13 +17,22 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
+import org.osate.aadl2.Element
+import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumberType
+import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RangeType
+import org.osate.aadl2.RecordType
+import org.osate.aadl2.RecordValue
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.EndToEndFlowInstance
@@ -38,6 +47,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.eAllContentsAsList
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.scoping.Scopes.scopeFor
 import static extension org.eclipse.xtext.scoping.Scopes.scopedElementsFor
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 
 /**
  * This class contains custom scoping description.
@@ -166,6 +176,48 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		scope_SystemOperationMode(context, reference)
 	}
 	
+	/*
+	 * Copied from PropertiesScopeProvider.  Ideally, this class should extend from PropertiesScopeProvider, but this
+	 * cannot be done because the Properties language is case-insensitive and this language is case-sensitive.  The two
+	 * scope providers call different versions of the method scopeFor.  PropertiesScopeProvider should really be
+	 * modified so that it can be extended and used in case-sensitive languages.
+	 */
+	def IScope scope_NumberValue_unit(PropertyAssociation context, EReference reference) {
+		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
+	}
+	
+	/*
+	 * Copied from PropertiesScopeProvider.  Ideally, this class should extend from PropertiesScopeProvider, but this
+	 * cannot be done because the Properties language is case-insensitive and this language is case-sensitive.  The two
+	 * scope providers call different versions of the method scopeFor.  PropertiesScopeProvider should really be
+	 * modified so that it can be extended and used in case-sensitive languages.
+	 */
+	def IScope scope_NumberValue_unit(BasicPropertyAssociation context, EReference reference) {
+		createUnitLiteralsScopeFromPropertyType(context.property.propertyType)
+	}
+	
+	/*
+	 * Copied from PropertiesScopeProvider.  Ideally, this class should extend from PropertiesScopeProvider, but this
+	 * cannot be done because the Properties language is case-insensitive and this language is case-sensitive.  The two
+	 * scope providers call different versions of the method scopeFor.  PropertiesScopeProvider should really be
+	 * modified so that it can be extended and used in case-sensitive languages.
+	 */
+	def IScope scope_NamedValue_namedValue(Element context, EReference reference) {
+		val property = context.getContainerOfType(BasicPropertyAssociation)?.property ?: context.getContainerOfType(PropertyAssociation).property
+		switch baseType : property.propertyType.basePropertyType {
+			EnumerationType: baseType.ownedLiterals.scopeFor(delegateGetScope(context, reference))
+			default: delegateGetScope(context, reference)
+		}
+	}
+	
+	def IScope scope_BasicPropertyAssociation_property(RecordValue context, EReference reference) {
+		val property = context.getContainerOfType(BasicPropertyAssociation)?.property ?: context.getContainerOfType(PropertyAssociation).property
+		switch baseType : property.propertyType.basePropertyType {
+			RecordType: baseType.ownedFields.scopeFor
+			default: IScope.NULLSCOPE
+		}
+	}
+	
 	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
 		val descriptions = component.connectionInstances.indexed.map[
 			EObjectDescription.create('''«IF levelCount > 0»«levelCount»~«ENDIF»«key»''', value)
@@ -221,5 +273,18 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), propertyAssociation.key.toString])
 			EObjectDescription.create(qualifiedName, propertyAssociation.value)
 		]].flatten
+	}
+	
+	/*
+	 * Copied from PropertiesScopeProvider.  Ideally, this class should extend from PropertiesScopeProvider, but this
+	 * cannot be done because the Properties language is case-insensitive and this language is case-sensitive.  The two
+	 * scope providers call different versions of the method scopeFor.  PropertiesScopeProvider should really be
+	 * modified so that it can be extended and used in case-sensitive languages.
+	 */
+	def private static createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+		switch baseType : type.basePropertyType {
+			NumberType: baseType.unitsType
+			RangeType: baseType.numberType.unitsType
+		}?.ownedLiterals?.scopeFor ?: IScope.NULLSCOPE
 	}
 }

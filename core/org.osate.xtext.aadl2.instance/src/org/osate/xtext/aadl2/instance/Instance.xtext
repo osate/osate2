@@ -20,7 +20,7 @@ SystemInstance returns instance::SystemInstance:
 ;
 
 FeatureInstance returns instance::FeatureInstance:
-	direction=DirectionType category=FeatureCategory name=ID ('[' index=LONG ']')? ':' feature=[aadl2::Feature|DeclarativeRef]
+	direction=DirectionType category=FeatureCategory name=ID ('[' index=Long ']')? ':' feature=[aadl2::Feature|DeclarativeRef]
 	('source' 'of' '(' (srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] | srcFlowSpec+=[instance::FlowSpecificationInstance])
 		(',' (srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] | srcFlowSpec+=[instance::FlowSpecificationInstance]))* ')'
 	)?
@@ -33,7 +33,7 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=LONG ']')*
+	category=ComponentCategory name=ID ('[' index+=Long ']')*
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
 	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef]
 	('source' 'of' '(' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef] (',' srcConnectionInstance+=[instance::ConnectionInstance|IndexRef])* ')')?
@@ -128,15 +128,15 @@ ImplRef:
 ;
 
 DeclarativeRef:
-	(ID '::')+ ID ('.' ID)? '::' ('transition' '#' LONG | ID)
+	(ID '::')+ ID ('.' ID)? '::' ('transition' '#' INTEGER_LIT | ID)
 ;
 
 InstanceRef:
-	'parent' | (ID ('[' LONG ']')* '.')* (LONG | ID ('[' LONG ']')*)
+	'parent' | (ID ('[' INTEGER_LIT ']')* '.')* (INTEGER_LIT | ID ('[' INTEGER_LIT ']')*)
 ;
 
 IndexRef:
-	(LONG '~')? LONG
+	(INTEGER_LIT '~')? INTEGER_LIT
 ;
 
 ModeTransitionName:
@@ -144,9 +144,9 @@ ModeTransitionName:
 ;
 
 PropertyAssociationRef:
-	ID '::' ID ('.' ID)? ('::' ('transition' '#' LONG | ID))? '::' LONG
+	ID '::' ID ('.' ID)? ('::' ('transition' '#' INTEGER_LIT | ID))? '::' INTEGER_LIT
 ;
 	
-terminal LONG returns ecore::ELong:
-	DIGIT+
+Long returns ecore::ELong:
+	INTEGER_LIT
 ;
