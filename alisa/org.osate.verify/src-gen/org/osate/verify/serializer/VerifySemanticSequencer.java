@@ -52,6 +52,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.NestedModelElement;
+import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
@@ -136,21 +137,21 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
 				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAExpressionRule() ||
 				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
 				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAParenthesizedExpressionRule() ||
 				   context == grammarAccess.getAPrimaryExpressionRule() ||
 				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAUnaryOperationRule()) {
 					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
@@ -183,6 +184,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.NESTED_MODEL_ELEMENT:
 				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
+				return; 
+			case CommonPackage.PROPERTY_REF:
+				sequence_PropertyRef(context, (PropertyRef) semanticObject); 
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 

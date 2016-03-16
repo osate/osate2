@@ -91,6 +91,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
       case CommonPackage.TYPE_REF: return createTypeRef();
+      case CommonPackage.PROPERTY_REF: return createPropertyRef();
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
@@ -284,6 +285,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     TypeRefImpl typeRef = new TypeRefImpl();
     return typeRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyRef createPropertyRef()
+  {
+    PropertyRefImpl propertyRef = new PropertyRefImpl();
+    return propertyRef;
   }
 
   /**

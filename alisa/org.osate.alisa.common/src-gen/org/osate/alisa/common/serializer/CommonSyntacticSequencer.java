@@ -86,13 +86,13 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '{' '}' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) function=ID
-	 *     (rule start) (ambiguity) operatorv=OpUnary
+	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -114,13 +114,13 @@ public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
 	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) function=ID
-	 *     (rule start) (ambiguity) operatorv=OpUnary
+	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

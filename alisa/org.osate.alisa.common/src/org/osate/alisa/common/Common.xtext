@@ -46,12 +46,16 @@ TypeRef returns aadl2::PropertyType:
 	| {aadl2::AadlInteger} 'integer'
 	| {aadl2::AadlReal} 'real'
 	| {aadl2::AadlString} 'string'
-	| {TypeRef} type=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+;
+
+PropertyRef returns aadl2::PropertyType:
+	{PropertyRef} ref=[aadl2::Property|AADLPROPERTYREFERENCE]
 ;
 
 ValDeclaration returns AVariableDeclaration:
-	 {ValDeclaration} 'val' name=ID (':' type=TypeRef)? '=' value=AExpression  
-	 ;
+	 {ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' '(' type=PropertyRef ')') )? '=' value=AExpression  
+;
 
 ComputeDeclaration returns AVariableDeclaration:
 	{ComputeDeclaration}
@@ -100,20 +104,19 @@ enum Operation:
 AExpression returns aadl2::PropertyExpression: AOrExpression;
 
 AOrExpression returns aadl2::PropertyExpression:
-	AAndExpression (=>({ABinaryOperation.leftOperand=current} operator=OpOr) rightOperand=AAndExpression)*;
+	AAndExpression (=>({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*;
 
 OpOr returns Operation:
 	'or';
 
 AAndExpression returns aadl2::PropertyExpression:
-	AEqualityExpression (=>({ABinaryOperation.leftOperand=current} operator=OpAnd) rightOperand=AEqualityExpression)*;
+	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*;
 
 OpAnd returns Operation:
 	'and';
 
 AEqualityExpression returns aadl2::PropertyExpression:
-	ARelationalExpression (=>({ABinaryOperation.leftOperand=current} operator=OpEquality)
-	rightOperand=ARelationalExpression)*;
+	ARelationalExpression (=>({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*;
 
 OpEquality returns Operation:
 	'==' | '!=' ;
@@ -122,7 +125,7 @@ ARelationalExpression returns aadl2::PropertyExpression:
 //	AOtherOperatorExpression
 //	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
 	AAdditiveExpression
-	( =>({ABinaryOperation.leftOperand=current} operator=OpCompare) rightOperand=AAdditiveExpression)*;
+	( =>({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*;
 
 OpCompare returns Operation:
 	'>=' | '<' '=' | '>' | '<' ;
@@ -143,20 +146,19 @@ OpCompare returns Operation:
 //	| '?:';
 
 AAdditiveExpression returns aadl2::PropertyExpression:
-	AMultiplicativeExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAdd)
-	rightOperand=AMultiplicativeExpression)*;
+	AMultiplicativeExpression (=>({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
 
 OpAdd returns Operation:
 	'+' | '-';
 
 AMultiplicativeExpression returns aadl2::PropertyExpression:
-	AUnaryOperation (=>({ABinaryOperation.leftOperand=current} operator=OpMulti) rightOperand=AUnaryOperation)*;
+	AUnaryOperation (=>({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*;
 
 OpMulti returns Operation:
 	'*' | '/' | 'div' | 'mod';
 
 AUnaryOperation returns aadl2::PropertyExpression:
-	{AUnaryOperation} operatorv=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
 
 OpUnary returns Operation:
 	"!" | "-" | "+";

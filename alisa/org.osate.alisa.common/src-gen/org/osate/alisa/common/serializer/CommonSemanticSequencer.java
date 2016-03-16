@@ -53,6 +53,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.NestedModelElement;
+import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
@@ -116,21 +117,21 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
 				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAExpressionRule() ||
 				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
 				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAParenthesizedExpressionRule() ||
 				   context == grammarAccess.getAPrimaryExpressionRule() ||
 				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0() ||
+				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAUnaryOperationRule()) {
 					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
@@ -164,6 +165,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case CommonPackage.NESTED_MODEL_ELEMENT:
 				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
 				return; 
+			case CommonPackage.PROPERTY_REF:
+				sequence_PropertyRef(context, (PropertyRef) semanticObject); 
+				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
 				return; 
@@ -189,12 +193,12 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         (leftOperand=AAdditiveExpression_ABinaryOperation_1_0_0_0 feature=OpAdd rightOperand=AMultiplicativeExpression) | 
-	 *         (leftOperand=AMultiplicativeExpression_ABinaryOperation_1_0_0_0 operator=OpMulti rightOperand=AUnaryOperation) | 
-	 *         (leftOperand=ARelationalExpression_ABinaryOperation_1_0_0_0 operator=OpCompare rightOperand=AAdditiveExpression) | 
-	 *         (leftOperand=AEqualityExpression_ABinaryOperation_1_0_0_0 operator=OpEquality rightOperand=ARelationalExpression) | 
-	 *         (leftOperand=AAndExpression_ABinaryOperation_1_0_0_0 operator=OpAnd rightOperand=AEqualityExpression) | 
-	 *         (leftOperand=AOrExpression_ABinaryOperation_1_0_0_0 operator=OpOr rightOperand=AAndExpression)
+	 *         (left=AAdditiveExpression_ABinaryOperation_1_0_0_0 operator=OpAdd right=AMultiplicativeExpression) | 
+	 *         (left=AMultiplicativeExpression_ABinaryOperation_1_0_0_0 operator=OpMulti right=AUnaryOperation) | 
+	 *         (left=ARelationalExpression_ABinaryOperation_1_0_0_0 operator=OpCompare right=AAdditiveExpression) | 
+	 *         (left=AEqualityExpression_ABinaryOperation_1_0_0_0 operator=OpEquality right=ARelationalExpression) | 
+	 *         (left=AAndExpression_ABinaryOperation_1_0_0_0 operator=OpAnd right=AEqualityExpression) | 
+	 *         (left=AOrExpression_ABinaryOperation_1_0_0_0 operator=OpOr right=AAndExpression)
 	 *     )
 	 */
 	protected void sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(EObject context, ABinaryOperation semanticObject) {
@@ -306,7 +310,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (operatorv=OpUnary operand=AUnaryOperation)
+	 *     (operator=OpUnary operand=AUnaryOperation)
 	 */
 	protected void sequence_AUnaryOperation(EObject context, AUnaryOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -370,6 +374,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (modelElement=[NamedElement|ID] next=NestedModelelement?)
 	 */
 	protected void sequence_NestedModelelement(EObject context, NestedModelElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ref=[Property|AADLPROPERTYREFERENCE]
+	 */
+	protected void sequence_PropertyRef(EObject context, PropertyRef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -462,7 +475,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     type=[PropertyType|AADLPROPERTYREFERENCE]
+	 *     ref=[PropertyType|AADLPROPERTYREFERENCE]
 	 */
 	protected void sequence_TypeRef(EObject context, TypeRef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -480,7 +493,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=TypeRef? value=AExpression)
+	 *     (name=ID (type=TypeRef | type=PropertyRef)? value=AExpression)
 	 */
 	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -153,6 +153,15 @@ public interface CommonFactory extends EFactory
   TypeRef createTypeRef();
 
   /**
+   * Returns a new object of class '<em>Property Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Ref</em>'.
+   * @generated
+   */
+  PropertyRef createPropertyRef();
+
+  /**
    * Returns a new object of class '<em>Val Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

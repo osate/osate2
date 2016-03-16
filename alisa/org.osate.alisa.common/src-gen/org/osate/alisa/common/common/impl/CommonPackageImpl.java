@@ -45,6 +45,7 @@ import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.Operation;
+import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ResultIssueType;
@@ -151,6 +152,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass typeRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyRefEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -670,9 +678,29 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTypeRef_Type()
+  public EReference getTypeRef_Ref()
   {
     return (EReference)typeRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyRef()
+  {
+    return propertyRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyRef_Ref()
+  {
+    return (EReference)propertyRefEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -740,7 +768,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getABinaryOperation_LeftOperand()
+  public EReference getABinaryOperation_Left()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(0);
   }
@@ -760,19 +788,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getABinaryOperation_RightOperand()
+  public EReference getABinaryOperation_Right()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getABinaryOperation_Feature()
-  {
-    return (EAttribute)aBinaryOperationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -790,7 +808,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAUnaryOperation_Operatorv()
+  public EAttribute getAUnaryOperation_Operator()
   {
     return (EAttribute)aUnaryOperationEClass.getEStructuralFeatures().get(0);
   }
@@ -984,7 +1002,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(imageReferenceEClass, IMAGE_REFERENCE__IMGFILE);
 
     typeRefEClass = createEClass(TYPE_REF);
-    createEReference(typeRefEClass, TYPE_REF__TYPE);
+    createEReference(typeRefEClass, TYPE_REF__REF);
+
+    propertyRefEClass = createEClass(PROPERTY_REF);
+    createEReference(propertyRefEClass, PROPERTY_REF__REF);
 
     valDeclarationEClass = createEClass(VAL_DECLARATION);
     createEReference(valDeclarationEClass, VAL_DECLARATION__VALUE);
@@ -995,13 +1016,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(aVariableReferenceEClass, AVARIABLE_REFERENCE__VARIABLE);
 
     aBinaryOperationEClass = createEClass(ABINARY_OPERATION);
-    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__LEFT_OPERAND);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__LEFT);
     createEAttribute(aBinaryOperationEClass, ABINARY_OPERATION__OPERATOR);
-    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__RIGHT_OPERAND);
-    createEAttribute(aBinaryOperationEClass, ABINARY_OPERATION__FEATURE);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__RIGHT);
 
     aUnaryOperationEClass = createEClass(AUNARY_OPERATION);
-    createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__OPERATORV);
+    createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__OPERATOR);
     createEReference(aUnaryOperationEClass, AUNARY_OPERATION__OPERAND);
 
     aFunctionCallEClass = createEClass(AFUNCTION_CALL);
@@ -1058,6 +1078,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aModelReferenceEClass.getESuperTypes().add(this.getAExpression());
     aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
     typeRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
+    propertyRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
     valDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
     computeDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
     aVariableReferenceEClass.getESuperTypes().add(this.getAExpression());
@@ -1118,7 +1139,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getImageReference_Imgfile(), theEcorePackage.getEString(), "imgfile", null, 0, 1, ImageReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeRefEClass, TypeRef.class, "TypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeRef_Type(), theAadl2Package.getPropertyType(), null, "type", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypeRef_Ref(), theAadl2Package.getPropertyType(), null, "ref", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyRefEClass, PropertyRef.class, "PropertyRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyRef_Ref(), theAadl2Package.getProperty(), null, "ref", null, 0, 1, PropertyRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valDeclarationEClass, ValDeclaration.class, "ValDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getValDeclaration_Value(), theAadl2Package.getPropertyExpression(), null, "value", null, 0, 1, ValDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1129,13 +1153,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getAVariableReference_Variable(), this.getAVariableDeclaration(), null, "variable", null, 0, 1, AVariableReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aBinaryOperationEClass, ABinaryOperation.class, "ABinaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getABinaryOperation_LeftOperand(), theAadl2Package.getPropertyExpression(), null, "leftOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getABinaryOperation_Left(), theAadl2Package.getPropertyExpression(), null, "left", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getABinaryOperation_Operator(), this.getOperation(), "operator", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getABinaryOperation_RightOperand(), theAadl2Package.getPropertyExpression(), null, "rightOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getABinaryOperation_Feature(), this.getOperation(), "feature", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getABinaryOperation_Right(), theAadl2Package.getPropertyExpression(), null, "right", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aUnaryOperationEClass, AUnaryOperation.class, "AUnaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAUnaryOperation_Operatorv(), this.getOperation(), "operatorv", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAUnaryOperation_Operator(), this.getOperation(), "operator", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAUnaryOperation_Operand(), theAadl2Package.getPropertyExpression(), null, "operand", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aFunctionCallEClass, AFunctionCall.class, "AFunctionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

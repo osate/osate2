@@ -28,7 +28,7 @@ import org.osate.aadl2.PropertyExpression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getOperatorv <em>Operatorv</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.AUnaryOperation#getOperand <em>Operand</em>}</li>
  * </ul>
  *
@@ -39,33 +39,33 @@ import org.osate.aadl2.PropertyExpression;
 public interface AUnaryOperation extends EObject, PropertyExpression
 {
   /**
-   * Returns the value of the '<em><b>Operatorv</b></em>' attribute.
+   * Returns the value of the '<em><b>Operator</b></em>' attribute.
    * The literals are from the enumeration {@link org.osate.alisa.common.common.Operation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Operatorv</em>' attribute isn't clear,
+   * If the meaning of the '<em>Operator</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Operatorv</em>' attribute.
+   * @return the value of the '<em>Operator</em>' attribute.
    * @see org.osate.alisa.common.common.Operation
-   * @see #setOperatorv(Operation)
-   * @see org.osate.alisa.common.common.CommonPackage#getAUnaryOperation_Operatorv()
+   * @see #setOperator(Operation)
+   * @see org.osate.alisa.common.common.CommonPackage#getAUnaryOperation_Operator()
    * @model
    * @generated
    */
-  Operation getOperatorv();
+  Operation getOperator();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AUnaryOperation#getOperatorv <em>Operatorv</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AUnaryOperation#getOperator <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Operatorv</em>' attribute.
+   * @param value the new value of the '<em>Operator</em>' attribute.
    * @see org.osate.alisa.common.common.Operation
-   * @see #getOperatorv()
+   * @see #getOperator()
    * @generated
    */
-  void setOperatorv(Operation value);
+  void setOperator(Operation value);
 
   /**
    * Returns the value of the '<em><b>Operand</b></em>' containment reference.

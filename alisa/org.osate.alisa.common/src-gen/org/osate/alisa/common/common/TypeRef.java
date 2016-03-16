@@ -28,7 +28,7 @@ import org.osate.aadl2.PropertyType;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.TypeRef#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.TypeRef#getRef <em>Ref</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getTypeRef()
@@ -38,29 +38,29 @@ import org.osate.aadl2.PropertyType;
 public interface TypeRef extends EObject, PropertyType
 {
   /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
+   * Returns the value of the '<em><b>Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Ref</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(PropertyType)
-   * @see org.osate.alisa.common.common.CommonPackage#getTypeRef_Type()
+   * @return the value of the '<em>Ref</em>' reference.
+   * @see #setRef(PropertyType)
+   * @see org.osate.alisa.common.common.CommonPackage#getTypeRef_Ref()
    * @model
    * @generated
    */
-  PropertyType getType();
+  PropertyType getRef();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.TypeRef#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.TypeRef#getRef <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
-   * @see #getType()
+   * @param value the new value of the '<em>Ref</em>' reference.
+   * @see #getRef()
    * @generated
    */
-  void setType(PropertyType value);
+  void setRef(PropertyType value);
 
 } // TypeRef

@@ -159,6 +159,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createTypeRefAdapter();
       }
       @Override
+      public Adapter casePropertyRef(PropertyRef object)
+      {
+        return createPropertyRefAdapter();
+      }
+      @Override
       public Adapter caseValDeclaration(ValDeclaration object)
       {
         return createValDeclarationAdapter();
@@ -441,6 +446,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTypeRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.PropertyRef <em>Property Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.PropertyRef
+   * @generated
+   */
+  public Adapter createPropertyRefAdapter()
   {
     return null;
   }

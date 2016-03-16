@@ -28,10 +28,9 @@ import org.osate.aadl2.PropertyExpression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getLeftOperand <em>Left Operand</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getOperator <em>Operator</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getRightOperand <em>Right Operand</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ABinaryOperation#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation()
@@ -41,30 +40,30 @@ import org.osate.aadl2.PropertyExpression;
 public interface ABinaryOperation extends EObject, PropertyExpression
 {
   /**
-   * Returns the value of the '<em><b>Left Operand</b></em>' containment reference.
+   * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Left Operand</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Left</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Left Operand</em>' containment reference.
-   * @see #setLeftOperand(PropertyExpression)
-   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_LeftOperand()
+   * @return the value of the '<em>Left</em>' containment reference.
+   * @see #setLeft(PropertyExpression)
+   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Left()
    * @model containment="true"
    * @generated
    */
-  PropertyExpression getLeftOperand();
+  PropertyExpression getLeft();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getLeftOperand <em>Left Operand</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getLeft <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Left Operand</em>' containment reference.
-   * @see #getLeftOperand()
+   * @param value the new value of the '<em>Left</em>' containment reference.
+   * @see #getLeft()
    * @generated
    */
-  void setLeftOperand(PropertyExpression value);
+  void setLeft(PropertyExpression value);
 
   /**
    * Returns the value of the '<em><b>Operator</b></em>' attribute.
@@ -96,58 +95,29 @@ public interface ABinaryOperation extends EObject, PropertyExpression
   void setOperator(Operation value);
 
   /**
-   * Returns the value of the '<em><b>Right Operand</b></em>' containment reference.
+   * Returns the value of the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Right Operand</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Right</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Right Operand</em>' containment reference.
-   * @see #setRightOperand(PropertyExpression)
-   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_RightOperand()
+   * @return the value of the '<em>Right</em>' containment reference.
+   * @see #setRight(PropertyExpression)
+   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Right()
    * @model containment="true"
    * @generated
    */
-  PropertyExpression getRightOperand();
+  PropertyExpression getRight();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getRightOperand <em>Right Operand</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getRight <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Right Operand</em>' containment reference.
-   * @see #getRightOperand()
+   * @param value the new value of the '<em>Right</em>' containment reference.
+   * @see #getRight()
    * @generated
    */
-  void setRightOperand(PropertyExpression value);
-
-  /**
-   * Returns the value of the '<em><b>Feature</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.alisa.common.common.Operation}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Feature</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Feature</em>' attribute.
-   * @see org.osate.alisa.common.common.Operation
-   * @see #setFeature(Operation)
-   * @see org.osate.alisa.common.common.CommonPackage#getABinaryOperation_Feature()
-   * @model
-   * @generated
-   */
-  Operation getFeature();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ABinaryOperation#getFeature <em>Feature</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Feature</em>' attribute.
-   * @see org.osate.alisa.common.common.Operation
-   * @see #getFeature()
-   * @generated
-   */
-  void setFeature(Operation value);
+  void setRight(PropertyExpression value);
 
 } // ABinaryOperation

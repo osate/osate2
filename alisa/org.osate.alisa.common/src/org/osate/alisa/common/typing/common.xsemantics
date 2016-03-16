@@ -6,6 +6,7 @@ import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListType
 import org.osate.aadl2.NumberType
+import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RealLiteral
@@ -13,6 +14,7 @@ import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AListTerm
+import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.validation.AbstractCommonValidator
@@ -22,9 +24,9 @@ system org.osate.alisa.common.typing.CommonTypeSystem
 validatorExtends AbstractCommonValidator
 
 judgments {
-	type |- EObject commonObject : output PropertyType
-		error "cannot type " + stringRep(commonObject)
-		source commonObject
+	type |- EObject o : output PropertyType
+		error "cannot type " + stringRep(o)
+		source o
 }
 
 rule ValDeclaration
@@ -33,14 +35,12 @@ from {
 	val declared = valDecl.getType()
 	{
 		declared != null
-		// infer type from expression
-		type = if (declared instanceof TypeRef) declared else (declared as TypeRef).getType()
+		G |- declared : type
 	}
 	or
 	{
-		var PropertyType assigned
-		G |- valDecl.value : assigned 
-		type = assigned
+		// infer type from expression
+		G |- valDecl.value : type
 	}
 }
 
@@ -56,11 +56,11 @@ from {
 rule ABinaryExpression
 	G |- ABinaryOperation binary : PropertyType type
 from {
-	G |- binary.leftOperand : var PropertyType leftType
-	G |- binary.rightOperand : var PropertyType rightType
-	val op = binary.^feature
+	G |- binary.left : var PropertyType leftType
+	G |- binary.right : var PropertyType rightType
+	val op = binary.operator
 	switch op {
-		case 'and', case 'or': {
+		case 'or', case 'and': {
 				leftType instanceof AadlBoolean && rightType instanceof AadlBoolean
 				type = leftType
 			}
@@ -90,8 +90,28 @@ from {
 	type.ownedElementType = elementType // owned vs. referenced???
 }
 
+// type of property
 
-// simple types
+rule PropertyRef
+	G |- PropertyRef propRef : PropertyType type
+from {
+	type = propRef.ref.propertyType
+}
+
+rule TypeRef
+	G |- TypeRef typeRef : PropertyType type
+from {
+	type = typeRef.ref
+}
+
+rule PropertyType
+	G |- PropertyType propType : PropertyType type
+from {
+	type = propType
+}
+
+
+// primitive types
 
 axiom IntegerLiteral
 	G |- IntegerLiteral value : {

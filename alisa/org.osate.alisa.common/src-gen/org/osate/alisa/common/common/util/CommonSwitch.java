@@ -194,6 +194,17 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.PROPERTY_REF:
+      {
+        PropertyRef propertyRef = (PropertyRef)theEObject;
+        T result = casePropertyRef(propertyRef);
+        if (result == null) result = casePropertyType(propertyRef);
+        if (result == null) result = caseType(propertyRef);
+        if (result == null) result = caseNamedElement(propertyRef);
+        if (result == null) result = caseElement(propertyRef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.VAL_DECLARATION:
       {
         ValDeclaration valDeclaration = (ValDeclaration)theEObject;
@@ -482,6 +493,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTypeRef(TypeRef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyRef(PropertyRef object)
   {
     return null;
   }

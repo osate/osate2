@@ -38,7 +38,7 @@ import org.osate.alisa.common.common.TypeRef;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.TypeRefImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.TypeRefImpl#getRef <em>Ref</em>}</li>
  * </ul>
  *
  * @generated
@@ -46,14 +46,14 @@ import org.osate.alisa.common.common.TypeRef;
 public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getRef()
    * @generated
    * @ordered
    */
-  protected PropertyType type;
+  protected PropertyType ref;
 
   /**
    * <!-- begin-user-doc -->
@@ -81,19 +81,19 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyType getType()
+  public PropertyType getRef()
   {
-    if (type != null && ((EObject)type).eIsProxy())
+    if (ref != null && ((EObject)ref).eIsProxy())
     {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (PropertyType)eResolveProxy(oldType);
-      if (type != oldType)
+      InternalEObject oldRef = (InternalEObject)ref;
+      ref = (PropertyType)eResolveProxy(oldRef);
+      if (ref != oldRef)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.TYPE_REF__TYPE, oldType, type));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.TYPE_REF__REF, oldRef, ref));
       }
     }
-    return type;
+    return ref;
   }
 
   /**
@@ -101,9 +101,9 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyType basicGetType()
+  public PropertyType basicGetRef()
   {
-    return type;
+    return ref;
   }
 
   /**
@@ -111,12 +111,12 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(PropertyType newType)
+  public void setRef(PropertyType newRef)
   {
-    PropertyType oldType = type;
-    type = newType;
+    PropertyType oldRef = ref;
+    ref = newRef;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.TYPE_REF__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.TYPE_REF__REF, oldRef, ref));
   }
 
   /**
@@ -129,9 +129,9 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
   {
     switch (featureID)
     {
-      case CommonPackage.TYPE_REF__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case CommonPackage.TYPE_REF__REF:
+        if (resolve) return getRef();
+        return basicGetRef();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -146,8 +146,8 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
   {
     switch (featureID)
     {
-      case CommonPackage.TYPE_REF__TYPE:
-        setType((PropertyType)newValue);
+      case CommonPackage.TYPE_REF__REF:
+        setRef((PropertyType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -163,8 +163,8 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
   {
     switch (featureID)
     {
-      case CommonPackage.TYPE_REF__TYPE:
-        setType((PropertyType)null);
+      case CommonPackage.TYPE_REF__REF:
+        setRef((PropertyType)null);
         return;
     }
     super.eUnset(featureID);
@@ -180,8 +180,8 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
   {
     switch (featureID)
     {
-      case CommonPackage.TYPE_REF__TYPE:
-        return type != null;
+      case CommonPackage.TYPE_REF__REF:
+        return ref != null;
     }
     return super.eIsSet(featureID);
   }

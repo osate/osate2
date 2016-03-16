@@ -118,6 +118,8 @@ Target : 'target';
 
 Thread : 'thread';
 
+Typeof : 'typeof';
+
 Delta : 'delta';
 
 Error : 'error';
