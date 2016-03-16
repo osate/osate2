@@ -28,6 +28,8 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
+Filter : 'filter';
+
 Any : 'any';
 
 FullStop : '.';

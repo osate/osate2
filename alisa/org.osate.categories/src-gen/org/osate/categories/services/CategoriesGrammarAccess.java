@@ -103,15 +103,16 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	public class CategoryFilterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CategoryFilter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cCategoryAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cCategoryCategoryCrossReference_2_0 = (CrossReference)cCategoryAssignment_2.eContents().get(0);
-		private final RuleCall cCategoryCategoryCatRefParserRuleCall_2_0_1 = (RuleCall)cCategoryCategoryCrossReference_2_0.eContents().get(1);
-		private final Assignment cAnyCategoryAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cAnyCategoryAnyKeyword_3_0 = (Keyword)cAnyCategoryAssignment_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cFilterKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cCategoryAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cCategoryCategoryCrossReference_3_0 = (CrossReference)cCategoryAssignment_3.eContents().get(0);
+		private final RuleCall cCategoryCategoryCatRefParserRuleCall_3_0_1 = (RuleCall)cCategoryCategoryCrossReference_3_0.eContents().get(1);
+		private final Assignment cAnyCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Keyword cAnyCategoryAnyKeyword_4_0 = (Keyword)cAnyCategoryAssignment_4.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		////
 		////CategoryFilters returns CategoryFilters:
@@ -120,38 +121,41 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		////;
 		////
 		//CategoryFilter:
-		//	name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
+		//	"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]"
+		//"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]"
 		public Group getGroup() { return cGroup; }
 
+		//"filter"
+		public Keyword getFilterKeyword_0() { return cFilterKeyword_0; }
+
 		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//category+=[Category|CatRef]*
-		public Assignment getCategoryAssignment_2() { return cCategoryAssignment_2; }
+		public Assignment getCategoryAssignment_3() { return cCategoryAssignment_3; }
 
 		//[Category|CatRef]
-		public CrossReference getCategoryCategoryCrossReference_2_0() { return cCategoryCategoryCrossReference_2_0; }
+		public CrossReference getCategoryCategoryCrossReference_3_0() { return cCategoryCategoryCrossReference_3_0; }
 
 		//CatRef
-		public RuleCall getCategoryCategoryCatRefParserRuleCall_2_0_1() { return cCategoryCategoryCatRefParserRuleCall_2_0_1; }
+		public RuleCall getCategoryCategoryCatRefParserRuleCall_3_0_1() { return cCategoryCategoryCatRefParserRuleCall_3_0_1; }
 
 		//anyCategory?="any"?
-		public Assignment getAnyCategoryAssignment_3() { return cAnyCategoryAssignment_3; }
+		public Assignment getAnyCategoryAssignment_4() { return cAnyCategoryAssignment_4; }
 
 		//"any"
-		public Keyword getAnyCategoryAnyKeyword_3_0() { return cAnyCategoryAnyKeyword_3_0; }
+		public Keyword getAnyCategoryAnyKeyword_4_0() { return cAnyCategoryAnyKeyword_4_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
 	public class CatRefElements extends AbstractParserRuleElementFinder {
@@ -268,7 +272,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	////;
 	////
 	//CategoryFilter:
-	//	name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
+	//	"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
 	public CategoryFilterElements getCategoryFilterAccess() {
 		return pCategoryFilter;
 	}

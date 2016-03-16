@@ -31,7 +31,7 @@ Category returns Category:
 //;
 //
 CategoryFilter returns CategoryFilter:
-	name=ID '['
+	'filter' name=ID '['
 	category+=[Category|CatRef]* anyCategory?='any'?
 	']'
 ;
