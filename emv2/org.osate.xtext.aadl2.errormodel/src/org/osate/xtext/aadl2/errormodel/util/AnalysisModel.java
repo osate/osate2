@@ -533,14 +533,14 @@ public class AnalysisModel {
 		// source prop kind determined by destination and vice versa (BR = bound
 		// resource, BC bound component
 		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
-				bindingKind);
+				"bindings");
 
 		if (BRsrcprop != null) {
 			propagationPaths.add(new PropagationPathRecord(boundResource, BRsrcprop, conn));
 			added = true;
 		}
 		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
-				bindingKind);
+				"bindings");
 		if (BRdstprop != null) {
 			propagationPaths.add(new PropagationPathRecord(conn, boundResource, BRdstprop));
 			added = true;
@@ -610,8 +610,7 @@ public class AnalysisModel {
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ConnectionInstance ci) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
 		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
-			PropagationPathEnd src = propagationPathRecord.getPathSrc();
-			if (src.getConnectionInstance() == ci) {
+			if (propagationPathRecord.getConnectionInstance() == ci) {
 				result.add(propagationPathRecord.getPathDst());
 			}
 		}
