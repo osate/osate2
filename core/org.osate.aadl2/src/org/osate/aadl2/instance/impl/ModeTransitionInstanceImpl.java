@@ -439,17 +439,15 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		return super.eIsSet(featureID);
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final List<SystemOperationMode> getExistsInModes() {
 		// Always exist
 		return null;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
-		return Collections.emptyList();
+		return Collections.singletonList(getModeTransition());
 	}
 
 	@Override
