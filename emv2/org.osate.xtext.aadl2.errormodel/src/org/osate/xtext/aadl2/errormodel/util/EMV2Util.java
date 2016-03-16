@@ -2807,7 +2807,7 @@ public class EMV2Util {
 			return null;
 		}
 		FeatureorPPReference forppref = ep.getFeatureorPPRef();
-		if (forppref.getFeatureorPP() instanceof PropagationPoint)
+		if (forppref == null || forppref.getFeatureorPP() instanceof PropagationPoint)
 			return null;
 		FeatureInstance container = ci.findFeatureInstance((Feature) forppref.getFeatureorPP());
 		while (forppref.getNext() != null) {
