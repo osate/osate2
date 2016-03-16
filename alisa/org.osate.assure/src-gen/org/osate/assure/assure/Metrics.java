@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -413,6 +414,32 @@ public interface Metrics extends EObject
    * @generated
    */
   void setNoVerificationPlansCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Requirements Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirements Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirements Count</em>' attribute.
+   * @see #setRequirementsCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_RequirementsCount()
+   * @model
+   * @generated
+   */
+  int getRequirementsCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirements Count</em>' attribute.
+   * @see #getRequirementsCount()
+   * @generated
+   */
+  void setRequirementsCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

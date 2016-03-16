@@ -738,13 +738,22 @@ public interface AssurePackage extends EPackage
   int METRICS__NO_VERIFICATION_PLANS_COUNT = 13;
 
   /**
+   * The feature id for the '<em><b>Requirements Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__REQUIREMENTS_COUNT = 14;
+
+  /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS__WEIGHT = 14;
+  int METRICS__WEIGHT = 15;
 
   /**
    * The feature id for the '<em><b>Execution Time</b></em>' attribute.
@@ -753,7 +762,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS__EXECUTION_TIME = 15;
+  int METRICS__EXECUTION_TIME = 16;
 
   /**
    * The number of structural features of the '<em>Metrics</em>' class.
@@ -762,7 +771,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 16;
+  int METRICS_FEATURE_COUNT = 17;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVerificationPlanElementReferenceImpl <em>Qualified Verification Plan Element Reference</em>}' class.
@@ -1823,6 +1832,17 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_NoVerificationPlansCount();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Requirements Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getRequirementsCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_RequirementsCount();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2544,6 +2564,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__NO_VERIFICATION_PLANS_COUNT = eINSTANCE.getMetrics_NoVerificationPlansCount();
+
+    /**
+     * The meta object literal for the '<em><b>Requirements Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__REQUIREMENTS_COUNT = eINSTANCE.getMetrics_RequirementsCount();
 
     /**
      * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.

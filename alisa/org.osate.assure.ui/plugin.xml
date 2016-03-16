@@ -175,9 +175,11 @@
      </command>
      <command categoryId="org.osate.assure.category.commands"
             id="org.osate.assure.commands.AssureRequirementsMetrics"
-            description="Assure Requirements Metrics"
-            name="Assure Requirements Metrics">
+            description="Open Assure Requirements Coverage View"
+            name="Open Assure Requirements Coverage View">
      </command>
+     
+     
     </extension>
     
     
@@ -288,7 +290,7 @@
          </menuContribution>
         <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 			<command commandId="org.osate.assure.commands.AssureRequirementsMetrics" 
-				style="push" tooltip="Assure Requirements Metrics">
+				style="push" tooltip="Open Assure Requirements Coverage View">
          		<visibleWhen checkEnabled="false">
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
@@ -299,7 +301,6 @@
 				</visibleWhen>
 			</command>
          </menuContribution>
-  
 <!--           <menuContribution locationURI="popup:#TextEditorContext?after=copy">
          	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
          		style="push" tooltip="Verify TBD Evidence (affected by change)">
@@ -421,6 +422,12 @@
           icon="icons/claims.png"
           name="Assurance Results"
           class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureView"/>
+      <view
+          category="org.osate.alisa.assure"
+          id="org.osate.assure.ui.views.assure.requirements.coverage.view"
+          icon="icons/claims.png"
+          name="Assurance Requirements Coverage"
+          class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureRequirementsCoverageView"/>
       <view
           category="org.osate.alisa.assure"
           id="org.osate.assure.ui.views.assureProgressView"

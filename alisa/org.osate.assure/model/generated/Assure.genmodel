@@ -91,6 +91,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/qualityCategoryRequirementsCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/requirementsWithoutPlanClaimCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/noVerificationPlansCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/requirementsCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/weight"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/executionTime"/>
     </genClasses>
