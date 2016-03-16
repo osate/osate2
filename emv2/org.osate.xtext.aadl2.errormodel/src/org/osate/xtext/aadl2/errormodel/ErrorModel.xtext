@@ -655,6 +655,16 @@ SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]
 ;
 
+// XXX new grammar rules for aligning state path with EMV2Path
+//NewQualifiedErrorBehaviorState returns EMV2Path:
+// 	{QualifiedErrorBehaviorState} emv2Target=EMV2ErrorStatePath
+//;
+//
+//EMV2ErrorStatePath returns EMV2PathElement:
+//	namedElement=[aadl2::NamedElement|ID]
+//		('.' path=EMV2ErrorStatePath)?
+//;
+
 
  CONDITION:
 	STRING;
