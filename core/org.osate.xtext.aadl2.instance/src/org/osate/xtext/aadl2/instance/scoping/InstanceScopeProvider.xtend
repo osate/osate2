@@ -227,7 +227,7 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
 			val elements = switch classifier {
 				FeatureGroupType: classifier.ownedPrototypes + classifier.ownedFeatureGroups
-				ComponentType: classifier.ownedPrototypes + classifier.ownedFeatureGroups
+				ComponentType: classifier.componentClassifierReferenceElements + classifier.ownedFeatureGroups
 				BehavioredImplementation: classifier.implReferenceElements + classifier.ownedSubprogramCallSequences + classifier.subprogramCalls()
 				ComponentImplementation: classifier.implReferenceElements
 			}
@@ -312,7 +312,11 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		}?.ownedLiterals?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
+	def private static getComponentClassifierReferenceElements(ComponentClassifier classifier) {
+		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name != null]
+	}
+	
 	def private static getImplReferenceElements(ComponentImplementation impl) {
-		impl.ownedPrototypes + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
+		impl.componentClassifierReferenceElements + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
 	}
 }
