@@ -247,8 +247,8 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	@Override
 	public String getText(Object object) {
 		String label = ((ConnectionInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstance_type") //$NON-NLS-1$
-				: getString("_UI_ConnectionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ConnectionInstance_type") : //$NON-NLS-1$
+				getString("_UI_ConnectionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

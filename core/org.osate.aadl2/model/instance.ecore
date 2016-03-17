@@ -6,9 +6,11 @@
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcFlowSpec" ordered="false"
-        upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/source"/>
+        upperBound="-1" eType="#//FlowSpecificationInstance" transient="true" resolveProxies="false"
+        eOpposite="#//FlowSpecificationInstance/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dstFlowSpec" ordered="false"
-        upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/destination"/>
+        upperBound="-1" eType="#//FlowSpecificationInstance" transient="true" resolveProxies="false"
+        eOpposite="#//FlowSpecificationInstance/destination"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureInstance" ordered="false"
         upperBound="-1" eType="#//FeatureInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
@@ -41,9 +43,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstanceEnd" abstract="true"
       eSuperTypes="#//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcConnectionInstance"
-        ordered="false" upperBound="-1" eType="#//ConnectionInstance" eOpposite="#//ConnectionInstance/source"/>
+        ordered="false" upperBound="-1" eType="#//ConnectionInstance" transient="true"
+        resolveProxies="false" eOpposite="#//ConnectionInstance/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dstConnectionInstance"
-        ordered="false" upperBound="-1" eType="#//ConnectionInstance" eOpposite="#//ConnectionInstance/destination"/>
+        ordered="false" upperBound="-1" eType="#//ConnectionInstance" transient="true"
+        resolveProxies="false" eOpposite="#//ConnectionInstance/destination"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
@@ -55,13 +59,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//ConnectionKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/dstConnectionInstance"/>
+        lowerBound="1" eType="#//ConnectionInstanceEnd" resolveProxies="false" eOpposite="#//ConnectionInstanceEnd/dstConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionReference" lowerBound="1"
         upperBound="-1" eType="#//ConnectionReference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bidirectional" ordered="false"
         lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/srcConnectionInstance"/>
+        lowerBound="1" eType="#//ConnectionInstanceEnd" resolveProxies="false" eOpposite="#//ConnectionInstanceEnd/srcConnectionInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowElementInstance" abstract="true"
       eSuperTypes="#//InstanceObject"/>
@@ -71,9 +75,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeInstance" eSuperTypes="#//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcModeTransition" ordered="false"
-        upperBound="-1" eType="#//ModeTransitionInstance" eOpposite="#//ModeTransitionInstance/source"/>
+        upperBound="-1" eType="#//ModeTransitionInstance" transient="true" resolveProxies="false"
+        eOpposite="#//ModeTransitionInstance/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dstModeTransition" ordered="false"
-        upperBound="-1" eType="#//ModeTransitionInstance" eOpposite="#//ModeTransitionInstance/destination"/>
+        upperBound="-1" eType="#//ModeTransitionInstance" transient="true" resolveProxies="false"
+        eOpposite="#//ModeTransitionInstance/destination"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
         lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mode" ordered="false" lowerBound="1"
@@ -85,11 +91,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeTransitionInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        lowerBound="1" eType="#//ModeInstance" eOpposite="#//ModeInstance/dstModeTransition"/>
+        lowerBound="1" eType="#//ModeInstance" resolveProxies="false" eOpposite="#//ModeInstance/dstModeTransition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modeTransition" ordered="false"
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//ModeTransition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        lowerBound="1" eType="#//ModeInstance" eOpposite="#//ModeInstance/srcModeTransition"/>
+        lowerBound="1" eType="#//ModeInstance" resolveProxies="false" eOpposite="#//ModeInstance/srcModeTransition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ConnectionKind">
     <eLiterals name="featureConnection"/>
@@ -135,9 +141,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowSpecificationInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        eType="#//FeatureInstance" eOpposite="#//FeatureInstance/srcFlowSpec"/>
+        eType="#//FeatureInstance" resolveProxies="false" eOpposite="#//FeatureInstance/srcFlowSpec"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        eType="#//FeatureInstance" eOpposite="#//FeatureInstance/dstFlowSpec"/>
+        eType="#//FeatureInstance" resolveProxies="false" eOpposite="#//FeatureInstance/dstFlowSpec"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//FlowSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" ordered="false"

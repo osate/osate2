@@ -48,7 +48,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.ArrayRange;
@@ -305,8 +305,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	@Override
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
-			srcFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
-					FlowSpecificationInstance.class, this, InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+			srcFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+					InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		}
 		return srcFlowSpecs;
@@ -320,8 +320,8 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	@Override
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
-			dstFlowSpecs = new EObjectWithInverseResolvingEList<FlowSpecificationInstance>(
-					FlowSpecificationInstance.class, this, InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
+			dstFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+					InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		}
 		return dstFlowSpecs;

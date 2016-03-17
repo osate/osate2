@@ -1196,11 +1196,11 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureInstance_SrcFlowSpec(), getFlowSpecificationInstance(),
 				getFlowSpecificationInstance_Source(), "srcFlowSpec", null, 0, -1, FeatureInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFeatureInstance_DstFlowSpec(), getFlowSpecificationInstance(),
 				getFlowSpecificationInstance_Destination(), "dstFlowSpec", null, 0, -1, FeatureInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFeatureInstance_FeatureInstance(), getFeatureInstance(), null, "featureInstance", null, //$NON-NLS-1$
 				0, -1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
@@ -1240,12 +1240,12 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnectionInstanceEnd_SrcConnectionInstance(), getConnectionInstance(),
 				getConnectionInstance_Source(), "srcConnectionInstance", null, 0, -1, ConnectionInstanceEnd.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionInstanceEnd_DstConnectionInstance(), getConnectionInstance(),
 				getConnectionInstance_Destination(), "dstConnectionInstance", null, 0, -1, //$NON-NLS-1$
-				ConnectionInstanceEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				ConnectionInstanceEnd.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(connectionInstanceEClass, ConnectionInstance.class, "ConnectionInstance", !IS_ABSTRACT, //$NON-NLS-1$
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1263,8 +1263,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionInstance_Destination(), getConnectionInstanceEnd(),
 				getConnectionInstanceEnd_DstConnectionInstance(), "destination", null, 1, 1, //$NON-NLS-1$
-				ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionInstance_ConnectionReference(), getConnectionReference(), null,
 				"connectionReference", null, 1, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, //$NON-NLS-1$
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1273,7 +1273,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionInstance_Source(), getConnectionInstanceEnd(),
 				getConnectionInstanceEnd_SrcConnectionInstance(), "source", null, 1, 1, ConnectionInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(flowElementInstanceEClass, FlowElementInstance.class, "FlowElementInstance", IS_ABSTRACT, //$NON-NLS-1$
@@ -1289,11 +1289,11 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModeInstance_SrcModeTransition(), getModeTransitionInstance(),
 				getModeTransitionInstance_Source(), "srcModeTransition", null, 0, -1, ModeInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getModeInstance_DstModeTransition(), getModeTransitionInstance(),
 				getModeTransitionInstance_Destination(), "dstModeTransition", null, 0, -1, ModeInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getModeInstance_Initial(), theAadl2Package.getBoolean(), "initial", "false", 1, 1, //$NON-NLS-1$//$NON-NLS-2$
 				ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
@@ -1312,14 +1312,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModeTransitionInstance_Destination(), getModeInstance(), getModeInstance_DstModeTransition(),
 				"destination", null, 1, 1, ModeTransitionInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getModeTransitionInstance_ModeTransition(), theAadl2Package.getModeTransition(), null,
 				"modeTransition", null, 1, 1, ModeTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, //$NON-NLS-1$
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getModeTransitionInstance_Source(), getModeInstance(), getModeInstance_SrcModeTransition(),
 				"source", null, 1, 1, ModeTransitionInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(connectionReferenceEClass, ConnectionReference.class, "ConnectionReference", !IS_ABSTRACT, //$NON-NLS-1$
@@ -1377,11 +1377,11 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFlowSpecificationInstance_Source(), getFeatureInstance(), getFeatureInstance_SrcFlowSpec(),
 				"source", null, 0, 1, FlowSpecificationInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFlowSpecificationInstance_Destination(), getFeatureInstance(),
 				getFeatureInstance_DstFlowSpec(), "destination", null, 0, 1, FlowSpecificationInstance.class, //$NON-NLS-1$
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFlowSpecificationInstance_FlowSpecification(), theAadl2Package.getFlowSpecification(), null,
 				"flowSpecification", null, 1, 1, FlowSpecificationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, //$NON-NLS-1$

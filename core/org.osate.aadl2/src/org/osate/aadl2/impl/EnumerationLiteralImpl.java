@@ -35,10 +35,15 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collections;
+
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.properties.EvaluatedProperty;
+import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,6 +78,13 @@ public class EnumerationLiteralImpl extends NamedElementImpl implements Enumerat
 			return false;
 		}
 		return ((EnumerationLiteralImpl) namedValue).name.equals(name);
+	}
+
+	@Override
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx) {
+		NamedValueImpl nv = new NamedValueImpl();
+		nv.setNamedValue(this);
+		return new PropertyEvaluationResult(null, Collections.singletonList(new EvaluatedProperty(nv)));
 	}
 
 } // EnumerationLiteralImpl

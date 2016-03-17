@@ -149,25 +149,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 */
 	@Override
 	public FeatureInstance getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (FeatureInstance) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE, oldSource, source));
-				}
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureInstance basicGetSource() {
 		return source;
 	}
 
@@ -225,25 +206,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 */
 	@Override
 	public FeatureInstance getDestination() {
-		if (destination != null && destination.eIsProxy()) {
-			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (FeatureInstance) eResolveProxy(oldDestination);
-			if (destination != oldDestination) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION, oldDestination, destination));
-				}
-			}
-		}
-		return destination;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureInstance basicGetDestination() {
 		return destination;
 	}
 
@@ -417,15 +379,9 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
-			if (resolve) {
-				return getSource();
-			}
-			return basicGetSource();
+			return getSource();
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION:
-			if (resolve) {
-				return getDestination();
-			}
-			return basicGetDestination();
+			return getDestination();
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION:
 			if (resolve) {
 				return getFlowSpecification();

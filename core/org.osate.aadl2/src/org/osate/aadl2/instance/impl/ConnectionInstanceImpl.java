@@ -306,25 +306,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public ConnectionInstanceEnd getDestination() {
-		if (destination != null && destination.eIsProxy()) {
-			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (ConnectionInstanceEnd) eResolveProxy(oldDestination);
-			if (destination != oldDestination) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_INSTANCE__DESTINATION, oldDestination, destination));
-				}
-			}
-		}
-		return destination;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionInstanceEnd basicGetDestination() {
 		return destination;
 	}
 
@@ -436,25 +417,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public ConnectionInstanceEnd getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (ConnectionInstanceEnd) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_INSTANCE__SOURCE, oldSource, source));
-				}
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionInstanceEnd basicGetSource() {
 		return source;
 	}
 
@@ -568,19 +530,13 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		case InstancePackage.CONNECTION_INSTANCE__KIND:
 			return getKind();
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
-			if (resolve) {
-				return getDestination();
-			}
-			return basicGetDestination();
+			return getDestination();
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
 			return getConnectionReferences();
 		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
 			return isBidirectional();
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
-			if (resolve) {
-				return getSource();
-			}
-			return basicGetSource();
+			return getSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

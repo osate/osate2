@@ -73,7 +73,7 @@ public interface FlowSpecificationInstance extends FlowElementInstance {
 	 * @see #setSource(FeatureInstance)
 	 * @see org.osate.aadl2.instance.InstancePackage#getFlowSpecificationInstance_Source()
 	 * @see org.osate.aadl2.instance.FeatureInstance#getSrcFlowSpecs
-	 * @model opposite="srcFlowSpec" ordered="false"
+	 * @model opposite="srcFlowSpec" resolveProxies="false" ordered="false"
 	 * @generated
 	 */
 	FeatureInstance getSource();
@@ -101,7 +101,7 @@ public interface FlowSpecificationInstance extends FlowElementInstance {
 	 * @see #setDestination(FeatureInstance)
 	 * @see org.osate.aadl2.instance.InstancePackage#getFlowSpecificationInstance_Destination()
 	 * @see org.osate.aadl2.instance.FeatureInstance#getDstFlowSpecs
-	 * @model opposite="dstFlowSpec" ordered="false"
+	 * @model opposite="dstFlowSpec" resolveProxies="false" ordered="false"
 	 * @generated
 	 */
 	FeatureInstance getDestination();

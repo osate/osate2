@@ -47,7 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.instance.InstancePackage;
@@ -181,8 +181,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	@Override
 	public EList<ModeTransitionInstance> getSrcModeTransitions() {
 		if (srcModeTransitions == null) {
-			srcModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
-					ModeTransitionInstance.class, this, InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
+			srcModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+					InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE);
 		}
 		return srcModeTransitions;
@@ -196,8 +196,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	@Override
 	public EList<ModeTransitionInstance> getDstModeTransitions() {
 		if (dstModeTransitions == null) {
-			dstModeTransitions = new EObjectWithInverseResolvingEList<ModeTransitionInstance>(
-					ModeTransitionInstance.class, this, InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
+			dstModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+					InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION);
 		}
 		return dstModeTransitions;

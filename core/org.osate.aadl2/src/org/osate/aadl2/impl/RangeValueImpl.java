@@ -42,8 +42,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PropertyConstant;
@@ -440,63 +438,35 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			 * First, retrieve the maximum value.
 			 */
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
-				throw new InvalidModelException(this, "Range maximum is modal");
-			}
-
-			/*
-			 * FIX JD
-			 * Fixes bug #129 : when the maxvalue is a constant, we try to resolve it.
-			 */
-			if (maxVal.first().getValue() instanceof NamedValue) {
-				try {
-					NamedValue nv = (NamedValue) maxVal.first().getValue();
-					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					maxNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
-				} catch (Exception e) {
-					maxNumberValue = null;
-				}
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range maximum is modal");
 			}
 
 			if (maxVal.first().getValue() instanceof NumberValue) {
 				maxNumberValue = (NumberValue) maxVal.first().getValue();
-			}
-
-			if (maxNumberValue == null) {
-				throw new InvalidModelException(this, "Range maximum is not numeric");
+			} else {
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range maximum is not numeric");
 			}
 
 			/*
 			 * So now, retrieve the minimum value.
 			 */
 			if (minVal.size() != 1 || minVal.first().isModal()) {
-				throw new InvalidModelException(this, "Range minimum is modal");
-			}
-
-			if (minVal.first().getValue() instanceof NamedValue) {
-				try {
-					NamedValue nv = (NamedValue) minVal.first().getValue();
-					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					minNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
-				} catch (Exception e) {
-					minNumberValue = null;
-				}
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range minimum is modal");
 			}
 
 			if (minVal.first().getValue() instanceof NumberValue) {
 				minNumberValue = (NumberValue) minVal.first().getValue();
-			}
-
-			if (minNumberValue == null) {
-				throw new InvalidModelException(this, "Range minimum is not numeric");
+			} else {
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range minimum is not numeric");
 			}
 
 			if (delta != null) {
 				deltaVal = delta.evaluate(ctx);
 				if (deltaVal.size() != 1 || deltaVal.first().isModal()) {
-					throw new InvalidModelException(this, "Range delta is modal");
+					throw new InvalidModelException(ctx.getInstanceObject(), "Range delta is modal");
 				}
 				if (!(deltaVal.first().getValue() instanceof NumberValue)) {
-					throw new InvalidModelException(this, "Range delta is not numeric");
+					throw new InvalidModelException(ctx.getInstanceObject(), "Range delta is not numeric");
 				}
 			}
 			RangeValue newVal = Aadl2Factory.eINSTANCE.createRangeValue();
@@ -508,11 +478,11 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			return new EvaluatedProperty(newVal);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			throw new InvalidModelException(this, "Incomplete range value");
+			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		} catch (ClassCastException e) {
 			e.printStackTrace();
 
-			throw new InvalidModelException(this, "Incomplete range value");
+			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		}
 	}
 

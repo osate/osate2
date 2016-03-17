@@ -89,20 +89,20 @@ public enum OperationKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PLUS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	PLUS(3, "plus", "plus"),
+	PLUS(3, "plus", "+"),
 
 	/**
 	 * The '<em><b>Minus</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #MINUS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	MINUS(4, "minus", "minus");
+	MINUS(4, "minus", "-");
 
 	/**
 	 * The '<em><b>And</b></em>' literal value.
