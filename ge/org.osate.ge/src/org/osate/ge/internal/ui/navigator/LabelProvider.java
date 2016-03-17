@@ -25,13 +25,13 @@ import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.osate.ge.internal.services.InternalDiagramService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class LabelProvider implements ILabelProvider {
 	private final IBaseLabelProvider innerLabelProvider; // An optional label provider that will return the results if the content is not a diagram.
 	private final List<ILabelProviderListener> listeners = new ArrayList<ILabelProviderListener>();
-	private final InternalDiagramService diagramService;
+	private final DiagramService diagramService;
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
 		public void resourceChanged(final IResourceChangeEvent event) {
 			if(event.getType() == IResourceChangeEvent.POST_CHANGE) {
@@ -67,7 +67,7 @@ public class LabelProvider implements ILabelProvider {
 	
 	public LabelProvider(final IBaseLabelProvider innerLabelProvider) {
 		this.innerLabelProvider = innerLabelProvider;
-		this.diagramService = (InternalDiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(InternalDiagramService.class);
+		this.diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 
 		// Register to listen for workspace changes
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);

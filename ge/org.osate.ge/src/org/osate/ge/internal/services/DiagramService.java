@@ -40,7 +40,7 @@ public interface DiagramService {
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram is create.
 	 * @param bo the business object for which to open/create the diagram
 	 */
-	public void openOrCreateDiagramForRootBusinessObject(final Object bo);
+	public AgeDiagramEditor openOrCreateDiagramForRootBusinessObject(final Object bo);
 	
 	/**
 	 * Returns the name of a specified diagram

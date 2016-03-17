@@ -12,7 +12,7 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Rectangle;
-import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.GraphicalEditorService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeLibraryPictogramHandler {
@@ -34,8 +34,8 @@ public class ErrorTypeLibraryPictogramHandler {
 	}
 	
 	@HandleDoubleClick
-	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final DiagramService diagramService) {
-		diagramService.openOrCreateDiagramForBusinessObject(typeLib);
+	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final GraphicalEditorService editorService) {
+		editorService.openBusinessObject(typeLib);
 	}
 	
 	@GetName

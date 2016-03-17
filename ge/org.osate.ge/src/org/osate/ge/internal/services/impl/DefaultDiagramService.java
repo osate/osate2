@@ -188,46 +188,53 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	@Override
-	public void openOrCreateDiagramForRootBusinessObject(final Object bo) {
-		if(!openExistingDiagramForRootBusinessObject(bo)) {
-			// If a diagram can not be found, create a new diagram
-			Log.info("Existing diagram not found.");
-				
-			// Create and open the new resource
-			final Resource diagramResource = createNewDiagram(bo);
-			openEditor((Diagram)diagramResource.getContents().get(0));
+	public AgeDiagramEditor openOrCreateDiagramForRootBusinessObject(final Object bo) {
+		final AgeDiagramEditor editor = openExistingDiagramForRootBusinessObject(bo);
+		if(editor != null) {
+			return editor;
 		}
+		
+		// If a diagram can not be found, create a new diagram
+		Log.info("Existing diagram not found.");
+			
+		// Create and open the new resource
+		final Resource diagramResource = createNewDiagram(bo);
+		return openEditor((Diagram)diagramResource.getContents().get(0));
 	}
 	
-	private boolean openExistingDiagramForRootBusinessObject(final Object bo) {
+	private AgeDiagramEditor openExistingDiagramForRootBusinessObject(final Object bo) {
 		// Look for an existing diagram
 		final DiagramReference diagramRef = findFirstDiagramByRootBusinessObject(bo);
 		if(diagramRef != null) {
 			if(diagramRef.isOpen()) {
 				Log.info("Existing diagram found. Activating existing editor...");
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(diagramRef.getEditor());
-				return true;
+				return diagramRef.getEditor();
 			} else {
 				final Diagram diagram = diagramRef.getDiagram();
 				if(diagram != null) {
 					Log.info("Existing diagram found. Opening new editor...");
-					openEditor(diagram);
-					return true;
+					return openEditor(diagram);
 				}
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	/**
 	 * Opens a diagram editor for the specified resource.
 	 * @param resource the resource to edit. Must contain a diagram object.
 	 */
-	private void openEditor(final Diagram diagram) {
+	private AgeDiagramEditor openEditor(final Diagram diagram) {
 		final String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());	
 		final DiagramEditorInput editorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
+			final IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
+			if(editor instanceof AgeDiagramEditor) {
+				return (AgeDiagramEditor)editor;
+			} else {
+				throw new RuntimeException("Unexpected editor type: " + editor);
+			}
 		} catch (PartInitException e) {
 			throw new RuntimeException(e);
 		}

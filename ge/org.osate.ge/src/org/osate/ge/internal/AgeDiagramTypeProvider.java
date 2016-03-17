@@ -32,7 +32,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
-import org.osate.ge.internal.services.InternalDiagramService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
@@ -108,7 +108,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final CachingService cachingService = new DefaultCachingService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
-		final InternalDiagramService internalDiagramService = Objects.requireNonNull(context.get(InternalDiagramService.class), "Unable to retrieve InternalDiagramService");
+		final DiagramService internalDiagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
 		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);

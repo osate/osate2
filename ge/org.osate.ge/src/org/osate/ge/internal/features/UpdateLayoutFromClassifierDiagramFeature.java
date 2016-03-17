@@ -31,8 +31,8 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.services.InternalDiagramService;
-import org.osate.ge.internal.services.InternalDiagramService.DiagramReference;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.DiagramService.DiagramReference;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.PropertyService;
@@ -44,7 +44,7 @@ import org.osate.ge.internal.services.SubcomponentService;
  *
  */
 public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeature {
-	private final InternalDiagramService diagramService;
+	private final DiagramService diagramService;
 	private final SubcomponentService subcomponentService;
 	private final PropertyService propertyService;
 	private final ShapeService shapeService;
@@ -52,7 +52,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public UpdateLayoutFromClassifierDiagramFeature(final InternalDiagramService diagramService, final SubcomponentService subcomponentService, 
+	public UpdateLayoutFromClassifierDiagramFeature(final DiagramService diagramService, final SubcomponentService subcomponentService, 
 			final PropertyService propertyService, final ShapeService shapeService, final ConnectionService connectionService, 
 			final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);

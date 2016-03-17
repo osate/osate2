@@ -22,7 +22,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.internal.Activator;
-import org.osate.ge.internal.services.InternalDiagramService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ui.navigator.AadlNavigator;
 
 public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
@@ -36,15 +36,15 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 			if (element != null) {
 				if (element instanceof Classifier) {
 					final Classifier classifier = (Classifier) element;
-					final InternalDiagramService diagramService = (InternalDiagramService) PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow().getService(InternalDiagramService.class);
-					diagramService.openOrCreateDiagramForBusinessObject(classifier);
+					final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow().getService(DiagramService.class);
+					diagramService.openOrCreateDiagramForRootBusinessObject(classifier);
 
 				} else if (element instanceof AadlPackage) {
 					final AadlPackage pkg = (AadlPackage) element;
-					final InternalDiagramService diagramService = (InternalDiagramService) PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow().getService(InternalDiagramService.class);
-					diagramService.openOrCreateDiagramForBusinessObject(pkg);
+					final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow().getService(DiagramService.class);
+					diagramService.openOrCreateDiagramForRootBusinessObject(pkg);
 
 				}
 			}

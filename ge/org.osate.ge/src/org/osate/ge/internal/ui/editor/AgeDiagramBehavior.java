@@ -62,7 +62,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
-import org.osate.ge.internal.services.InternalDiagramService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
@@ -77,7 +77,7 @@ import java.util.Map;
 public class AgeDiagramBehavior extends DiagramBehavior {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
-	private final InternalDiagramService diagramService;
+	private final DiagramService diagramService;
 	private final PropertyService propertyService;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
@@ -126,7 +126,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}		
 	};
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final InternalDiagramService diagramService, final PropertyService propertyService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService, final PropertyService propertyService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
