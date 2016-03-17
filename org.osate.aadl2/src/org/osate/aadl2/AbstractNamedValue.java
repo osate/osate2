@@ -35,6 +35,8 @@
 package org.osate.aadl2;
 
 import org.osate.aadl2.parsesupport.AObject;
+import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,4 +56,6 @@ import org.osate.aadl2.parsesupport.AObject;
 public interface AbstractNamedValue extends AObject {
 
 	boolean sameAs(AbstractNamedValue namedValue);
+
+	PropertyEvaluationResult evaluate(EvaluationContext ctx);
 } // AbstractNamedValue

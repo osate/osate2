@@ -708,4 +708,16 @@ These are those SOMs in which all of this flow's elements  are active.</body>
   <Ecore:EPackage xmi:id="_lL5UoFqDEd2uI6imbPQYOQ" base_Package="_0" packageName="instance" nsPrefix="instance" nsURI="http://aadl.info/AADL/2.0/instance" basePackage="org.osate.aadl2" prefix="Instance"/>
   <standard:Metamodel xmi:id="_lMMPkFqDEd2uI6imbPQYOQ" base_Model="_0"/>
   <standard:Metaclass xmi:id="_q3paA2fKEd2ly6zXqnHGuA" base_Class="ConnectionInstance"/>
+  <Ecore:EReference xmi:id="_U3KUAOxoEeWhPuR9X355ew" base_Property="ConnectionInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_Z87T8OxoEeWhPuR9X355ew" base_Property="ConnectionInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_nX98wOxoEeWhPuR9X355ew" isTransient="true" base_Property="ConnectionInstanceEnd-srcConnectionInstace" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_pDUEQOxoEeWhPuR9X355ew" isTransient="true" base_Property="ConnectionInstanceEnd-dstConnectionInstance" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_znnJcOxoEeWhPuR9X355ew" isTransient="true" base_Property="ModeInstance-srcModeTransition" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_02k28OxoEeWhPuR9X355ew" isTransient="true" base_Property="ModeInstance-dstModeTransition" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_4dsHkOxoEeWhPuR9X355ew" base_Property="ModeTransitionInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_6F-7EOxoEeWhPuR9X355ew" base_Property="ModeTransitionInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_He3nwOxpEeWhPuR9X355ew" base_Property="FlowSpecInstance-src" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_IdJN4OxpEeWhPuR9X355ew" base_Property="FlowSpecInstance-dst" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_RC6J0OxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-srcFlowSpec" isResolveProxies="false"/>
+  <Ecore:EReference xmi:id="_SF3boOxpEeWhPuR9X355ew" isTransient="true" base_Property="FeatureInstance-dstFlowSpec" isResolveProxies="false"/>
 </xmi:XMI>

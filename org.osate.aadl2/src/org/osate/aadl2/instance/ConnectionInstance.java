@@ -168,7 +168,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * @see #setDestination(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance_Destination()
 	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getDstConnectionInstances
-	 * @model opposite="dstConnectionInstance" required="true" ordered="false"
+	 * @model opposite="dstConnectionInstance" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getDestination();
@@ -248,7 +248,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * @see #setSource(ConnectionInstanceEnd)
 	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance_Source()
 	 * @see org.osate.aadl2.instance.ConnectionInstanceEnd#getSrcConnectionInstances
-	 * @model opposite="srcConnectionInstance" required="true" ordered="false"
+	 * @model opposite="srcConnectionInstance" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ConnectionInstanceEnd getSource();

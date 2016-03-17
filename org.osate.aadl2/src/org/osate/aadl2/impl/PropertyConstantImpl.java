@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collections;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -50,6 +52,7 @@ import org.osate.aadl2.Type;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -493,7 +496,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty value = getConstantValue().evaluate(ctx);
 
 		if (value.isEmpty()) {
@@ -505,7 +508,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 		if (value.first().isModal()) {
 			throw new InvalidModelException(this, "Constant value is modal");
 		}
-		return value;
+		return new PropertyEvaluationResult(null, Collections.singletonList(value));
 	}
 
 	/*

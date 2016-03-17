@@ -146,8 +146,8 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	@Override
 	public String getText(Object object) {
 		String label = ((ModeTransitionInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ModeTransitionInstance_type") //$NON-NLS-1$
-				: getString("_UI_ModeTransitionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return label == null || label.length() == 0 ? getString("_UI_ModeTransitionInstance_type") : //$NON-NLS-1$
+				getString("_UI_ModeTransitionInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

@@ -73,7 +73,7 @@ public interface ModeInstance extends InstanceObject {
 	 * @return the value of the '<em>Src Mode Transition</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getModeInstance_SrcModeTransition()
 	 * @see org.osate.aadl2.instance.ModeTransitionInstance#getSource
-	 * @model opposite="source" ordered="false"
+	 * @model opposite="source" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<ModeTransitionInstance> getSrcModeTransitions();
@@ -91,7 +91,7 @@ public interface ModeInstance extends InstanceObject {
 	 * @return the value of the '<em>Dst Mode Transition</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getModeInstance_DstModeTransition()
 	 * @see org.osate.aadl2.instance.ModeTransitionInstance#getDestination
-	 * @model opposite="destination" ordered="false"
+	 * @model opposite="destination" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<ModeTransitionInstance> getDstModeTransitions();

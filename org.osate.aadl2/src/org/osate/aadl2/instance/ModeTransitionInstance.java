@@ -69,7 +69,7 @@ public interface ModeTransitionInstance extends ConnectionInstanceEnd, InstanceO
 	 * @see #setDestination(ModeInstance)
 	 * @see org.osate.aadl2.instance.InstancePackage#getModeTransitionInstance_Destination()
 	 * @see org.osate.aadl2.instance.ModeInstance#getDstModeTransitions
-	 * @model opposite="dstModeTransition" required="true" ordered="false"
+	 * @model opposite="dstModeTransition" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ModeInstance getDestination();
@@ -123,7 +123,7 @@ public interface ModeTransitionInstance extends ConnectionInstanceEnd, InstanceO
 	 * @see #setSource(ModeInstance)
 	 * @see org.osate.aadl2.instance.InstancePackage#getModeTransitionInstance_Source()
 	 * @see org.osate.aadl2.instance.ModeInstance#getSrcModeTransitions
-	 * @model opposite="srcModeTransition" required="true" ordered="false"
+	 * @model opposite="srcModeTransition" resolveProxies="false" required="true" ordered="false"
 	 * @generated
 	 */
 	ModeInstance getSource();
