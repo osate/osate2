@@ -769,4 +769,82 @@ class SerializerTest2 extends AbstractSerializerTest {
 				pkg1::s1.i::8
 			}''')
 	}
+	
+	@Test
+	def void testInstanceReferenceValue() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				reference1: reference (named element) applies to (all);
+				reference2: reference (named element) applies to (all);
+				reference3: reference (named element) applies to (all);
+				reference4: reference (named element) applies to (all);
+				reference5: reference (named element) applies to (all);
+				reference6: reference (named element) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s1
+					features
+						p1: out data port;
+				end s1;
+				
+				system s2
+					features
+						p2: in data port;
+					flows
+						f1: flow sink p2;
+				end s2;
+				
+				system s3
+					modes
+						m1: initial mode;
+				end s3;
+				
+				system implementation s3.i
+					subcomponents
+						sub1: system s1;
+						sub2: system s2;
+					connections
+						conn1: port sub1.p1 -> sub2.p2;
+					flows
+						etef1: end to end flow sub1 -> conn1 -> sub2.f1;
+					properties
+						ps1::reference1 => reference (sub1.p1);
+						ps1::reference2 => reference (sub2.f1);
+						ps1::reference3 => reference (m1);
+						ps1::reference4 => reference (sub1);
+						ps1::reference5 => reference (conn1);
+						ps1::reference6 => reference (etef1);
+				end s3.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
+			system s3_i_Instance : pkg1::s3.i {
+				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
+					out dataPort p1 : pkg1::s1::p1 source of ( 1~0 )
+				}
+				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
+					in dataPort p2 : pkg1::s2::p2 source of ( f1 ) destination of ( 1~0 )
+					flow f1 ( p2 -> ) : pkg1::s2::f1
+				}
+				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 {
+					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i::conn1 in parent
+				}
+				end to end flow etef1 sub1[0] -> 0 -> sub2[0].f1 : pkg1::s3.i::etef1
+				initial mode m1 : pkg1::s3::m1
+				som "m1" m1
+				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i::0
+				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i::1
+				ps1::reference3 => reference ( m1 ) : pkg1::s3.i::2
+				ps1::reference4 => reference ( sub1[0] ) : pkg1::s3.i::3
+				ps1::reference5 => reference ( 0 ) : pkg1::s3.i::4
+				ps1::reference6 => reference ( etef1 ) : pkg1::s3.i::5
+			}''')
+	}
 }

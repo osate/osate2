@@ -2023,6 +2023,68 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_1_5() { return cRightParenthesisKeyword_1_5; }
 	}
 
+	public class PropertyExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cRecordTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cReferenceTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cInstanceReferenceValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cComponentClassifierTermParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cComputedTermParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cStringTermParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cNumericRangeTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cRealTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cIntegerTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cListTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cBooleanLiteralParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cLiteralorReferenceTermParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		
+		//PropertyExpression returns aadl2::PropertyExpression:
+		//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
+		//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
+		@Override public ParserRule getRule() { return rule; }
+
+		//RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
+		//NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//RecordTerm
+		public RuleCall getRecordTermParserRuleCall_0() { return cRecordTermParserRuleCall_0; }
+
+		//ReferenceTerm
+		public RuleCall getReferenceTermParserRuleCall_1() { return cReferenceTermParserRuleCall_1; }
+
+		//InstanceReferenceValue
+		public RuleCall getInstanceReferenceValueParserRuleCall_2() { return cInstanceReferenceValueParserRuleCall_2; }
+
+		//ComponentClassifierTerm
+		public RuleCall getComponentClassifierTermParserRuleCall_3() { return cComponentClassifierTermParserRuleCall_3; }
+
+		//ComputedTerm
+		public RuleCall getComputedTermParserRuleCall_4() { return cComputedTermParserRuleCall_4; }
+
+		//StringTerm
+		public RuleCall getStringTermParserRuleCall_5() { return cStringTermParserRuleCall_5; }
+
+		//NumericRangeTerm
+		public RuleCall getNumericRangeTermParserRuleCall_6() { return cNumericRangeTermParserRuleCall_6; }
+
+		//RealTerm
+		public RuleCall getRealTermParserRuleCall_7() { return cRealTermParserRuleCall_7; }
+
+		//IntegerTerm
+		public RuleCall getIntegerTermParserRuleCall_8() { return cIntegerTermParserRuleCall_8; }
+
+		//ListTerm
+		public RuleCall getListTermParserRuleCall_9() { return cListTermParserRuleCall_9; }
+
+		//BooleanLiteral
+		public RuleCall getBooleanLiteralParserRuleCall_10() { return cBooleanLiteralParserRuleCall_10; }
+
+		//LiteralorReferenceTerm
+		public RuleCall getLiteralorReferenceTermParserRuleCall_11() { return cLiteralorReferenceTermParserRuleCall_11; }
+	}
+
 	public class ContainmentPathElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ContainmentPathElement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2069,6 +2131,42 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ContainmentPathElement
 		public RuleCall getPathContainmentPathElementParserRuleCall_2_1_0() { return cPathContainmentPathElementParserRuleCall_2_1_0; }
+	}
+
+	public class InstanceReferenceValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InstanceReferenceValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cReferenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cReferencedInstanceObjectAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cReferencedInstanceObjectInstanceObjectCrossReference_2_0 = (CrossReference)cReferencedInstanceObjectAssignment_2.eContents().get(0);
+		private final RuleCall cReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1 = (RuleCall)cReferencedInstanceObjectInstanceObjectCrossReference_2_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//InstanceReferenceValue returns instance::InstanceReferenceValue:
+		//	"reference" "(" referencedInstanceObject=[instance::InstanceObject|InstanceRef] ")";
+		@Override public ParserRule getRule() { return rule; }
+
+		//"reference" "(" referencedInstanceObject=[instance::InstanceObject|InstanceRef] ")"
+		public Group getGroup() { return cGroup; }
+
+		//"reference"
+		public Keyword getReferenceKeyword_0() { return cReferenceKeyword_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+
+		//referencedInstanceObject=[instance::InstanceObject|InstanceRef]
+		public Assignment getReferencedInstanceObjectAssignment_2() { return cReferencedInstanceObjectAssignment_2; }
+
+		//[instance::InstanceObject|InstanceRef]
+		public CrossReference getReferencedInstanceObjectInstanceObjectCrossReference_2_0() { return cReferencedInstanceObjectInstanceObjectCrossReference_2_0; }
+
+		//InstanceRef
+		public RuleCall getReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1() { return cReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 
 	public class DirectionTypeElements extends AbstractParserRuleElementFinder {
@@ -2632,7 +2730,9 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final SystemOperationModeElements pSystemOperationMode;
 	private final PropertyAssociationInstanceElements pPropertyAssociationInstance;
 	private final OptionalModalPropertyValueElements pOptionalModalPropertyValue;
+	private final PropertyExpressionElements pPropertyExpression;
 	private final ContainmentPathElementElements pContainmentPathElement;
+	private final InstanceReferenceValueElements pInstanceReferenceValue;
 	private final DirectionTypeElements pDirectionType;
 	private final FeatureCategoryElements pFeatureCategory;
 	private final ComponentCategoryElements pComponentCategory;
@@ -2666,7 +2766,9 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSystemOperationMode = new SystemOperationModeElements();
 		this.pPropertyAssociationInstance = new PropertyAssociationInstanceElements();
 		this.pOptionalModalPropertyValue = new OptionalModalPropertyValueElements();
+		this.pPropertyExpression = new PropertyExpressionElements();
 		this.pContainmentPathElement = new ContainmentPathElementElements();
+		this.pInstanceReferenceValue = new InstanceReferenceValueElements();
 		this.pDirectionType = new DirectionTypeElements();
 		this.pFeatureCategory = new FeatureCategoryElements();
 		this.pComponentCategory = new ComponentCategoryElements();
@@ -2875,6 +2977,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getOptionalModalPropertyValueAccess().getRule();
 	}
 
+	//PropertyExpression returns aadl2::PropertyExpression:
+	//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
+	//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
+	public PropertyExpressionElements getPropertyExpressionAccess() {
+		return pPropertyExpression;
+	}
+	
+	public ParserRule getPropertyExpressionRule() {
+		return getPropertyExpressionAccess().getRule();
+	}
+
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
 	//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ("/" path=ContainmentPathElement)?;
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
@@ -2883,6 +2996,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getContainmentPathElementRule() {
 		return getContainmentPathElementAccess().getRule();
+	}
+
+	//InstanceReferenceValue returns instance::InstanceReferenceValue:
+	//	"reference" "(" referencedInstanceObject=[instance::InstanceObject|InstanceRef] ")";
+	public InstanceReferenceValueElements getInstanceReferenceValueAccess() {
+		return pInstanceReferenceValue;
+	}
+	
+	public ParserRule getInstanceReferenceValueRule() {
+		return getInstanceReferenceValueAccess().getRule();
 	}
 
 	//DirectionType returns aadl2::DirectionType:
@@ -3073,17 +3196,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPropertyValueRule() {
 		return getPropertyValueAccess().getRule();
-	}
-
-	//PropertyExpression returns aadl2::PropertyExpression: //	OldRecordTerm |
-	//	RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
-	//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
-	public PropertiesGrammarAccess.PropertyExpressionElements getPropertyExpressionAccess() {
-		return gaProperties.getPropertyExpressionAccess();
-	}
-	
-	public ParserRule getPropertyExpressionRule() {
-		return getPropertyExpressionAccess().getRule();
 	}
 
 	//LiteralorReferenceTerm returns aadl2::NamedValue:
