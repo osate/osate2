@@ -1808,15 +1808,37 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_25='requirementswithoutplanclaimcount' 
+))?(	otherlv_25='totalqualitycategorycount' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getMetricsAccess().getRequirementswithoutplanclaimcountKeyword_13_0());
+    	newLeafNode(otherlv_25, grammarAccess.getMetricsAccess().getTotalqualitycategorycountKeyword_13_0());
     }
 (
 (
-		lv_requirementsWithoutPlanClaimCount_26_0=RULE_INT
+		lv_totalQualityCategoryCount_26_0=RULE_INT
 		{
-			newLeafNode(lv_requirementsWithoutPlanClaimCount_26_0, grammarAccess.getMetricsAccess().getRequirementsWithoutPlanClaimCountINTTerminalRuleCall_13_1_0()); 
+			newLeafNode(lv_totalQualityCategoryCount_26_0, grammarAccess.getMetricsAccess().getTotalQualityCategoryCountINTTerminalRuleCall_13_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetricsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"totalQualityCategoryCount",
+        		lv_totalQualityCategoryCount_26_0, 
+        		"INT");
+	    }
+
+)
+))?(	otherlv_27='requirementswithoutplanclaimcount' 
+    {
+    	newLeafNode(otherlv_27, grammarAccess.getMetricsAccess().getRequirementswithoutplanclaimcountKeyword_14_0());
+    }
+(
+(
+		lv_requirementsWithoutPlanClaimCount_28_0=RULE_INT
+		{
+			newLeafNode(lv_requirementsWithoutPlanClaimCount_28_0, grammarAccess.getMetricsAccess().getRequirementsWithoutPlanClaimCountINTTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1825,20 +1847,20 @@ ruleMetrics returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"requirementsWithoutPlanClaimCount",
-        		lv_requirementsWithoutPlanClaimCount_26_0, 
+        		lv_requirementsWithoutPlanClaimCount_28_0, 
         		"INT");
 	    }
 
 )
-))?(	otherlv_27='noverificationplanscount' 
+))?(	otherlv_29='noverificationplanscount' 
     {
-    	newLeafNode(otherlv_27, grammarAccess.getMetricsAccess().getNoverificationplanscountKeyword_14_0());
+    	newLeafNode(otherlv_29, grammarAccess.getMetricsAccess().getNoverificationplanscountKeyword_15_0());
     }
 (
 (
-		lv_noVerificationPlansCount_28_0=RULE_INT
+		lv_noVerificationPlansCount_30_0=RULE_INT
 		{
-			newLeafNode(lv_noVerificationPlansCount_28_0, grammarAccess.getMetricsAccess().getNoVerificationPlansCountINTTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_noVerificationPlansCount_30_0, grammarAccess.getMetricsAccess().getNoVerificationPlansCountINTTerminalRuleCall_15_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1847,20 +1869,42 @@ ruleMetrics returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"noVerificationPlansCount",
-        		lv_noVerificationPlansCount_28_0, 
+        		lv_noVerificationPlansCount_30_0, 
         		"INT");
 	    }
 
 )
-))?(	otherlv_29='weight' 
+))?(	otherlv_31='requirementscount' 
     {
-    	newLeafNode(otherlv_29, grammarAccess.getMetricsAccess().getWeightKeyword_15_0());
+    	newLeafNode(otherlv_31, grammarAccess.getMetricsAccess().getRequirementscountKeyword_16_0());
     }
 (
 (
-		lv_weight_30_0=RULE_INT
+		lv_requirementsCount_32_0=RULE_INT
 		{
-			newLeafNode(lv_weight_30_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_15_1_0()); 
+			newLeafNode(lv_requirementsCount_32_0, grammarAccess.getMetricsAccess().getRequirementsCountINTTerminalRuleCall_16_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetricsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"requirementsCount",
+        		lv_requirementsCount_32_0, 
+        		"INT");
+	    }
+
+)
+))?(	otherlv_33='weight' 
+    {
+    	newLeafNode(otherlv_33, grammarAccess.getMetricsAccess().getWeightKeyword_17_0());
+    }
+(
+(
+		lv_weight_34_0=RULE_INT
+		{
+			newLeafNode(lv_weight_34_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_17_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1869,28 +1913,28 @@ ruleMetrics returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"weight",
-        		lv_weight_30_0, 
+        		lv_weight_34_0, 
         		"INT");
 	    }
 
 )
-))?(	otherlv_31='time' 
+))?(	otherlv_35='time' 
     {
-    	newLeafNode(otherlv_31, grammarAccess.getMetricsAccess().getTimeKeyword_16_0());
+    	newLeafNode(otherlv_35, grammarAccess.getMetricsAccess().getTimeKeyword_18_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_16_1_0()); 
+	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_18_1_0()); 
 	    }
-		lv_executionTime_32_0=ruleAInt		{
+		lv_executionTime_36_0=ruleAInt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMetricsRule());
 	        }
        		set(
        			$current, 
        			"executionTime",
-        		lv_executionTime_32_0, 
+        		lv_executionTime_36_0, 
         		"AInt");
 	        afterParserOrEnumRuleCall();
 	    }

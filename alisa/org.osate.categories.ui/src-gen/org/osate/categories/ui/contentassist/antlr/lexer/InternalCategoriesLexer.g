@@ -28,6 +28,8 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
+Filter : 'filter';
+
 Any : 'any';
 
 FullStop : '.';

@@ -56,9 +56,9 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCategoriesAccess().getNameAssignment_0(), "rule__Categories__NameAssignment_0");
 					put(grammarAccess.getCategoriesAccess().getCategoryAssignment_2(), "rule__Categories__CategoryAssignment_2");
 					put(grammarAccess.getCategoryAccess().getNameAssignment(), "rule__Category__NameAssignment");
-					put(grammarAccess.getCategoryFilterAccess().getNameAssignment_0(), "rule__CategoryFilter__NameAssignment_0");
-					put(grammarAccess.getCategoryFilterAccess().getCategoryAssignment_2(), "rule__CategoryFilter__CategoryAssignment_2");
-					put(grammarAccess.getCategoryFilterAccess().getAnyCategoryAssignment_3(), "rule__CategoryFilter__AnyCategoryAssignment_3");
+					put(grammarAccess.getCategoryFilterAccess().getNameAssignment_1(), "rule__CategoryFilter__NameAssignment_1");
+					put(grammarAccess.getCategoryFilterAccess().getCategoryAssignment_3(), "rule__CategoryFilter__CategoryAssignment_3");
+					put(grammarAccess.getCategoryFilterAccess().getAnyCategoryAssignment_4(), "rule__CategoryFilter__AnyCategoryAssignment_4");
 				}
 			};
 		}

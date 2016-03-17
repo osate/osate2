@@ -36,20 +36,21 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Any", "FullStop", "LeftSquareBracket", "RightSquareBracket", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Filter", "Any", "FullStop", "LeftSquareBracket", "RightSquareBracket", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
     };
-    public static final int FullStop=5;
-    public static final int RULE_ID=8;
-    public static final int RULE_WS=13;
-    public static final int RULE_STRING=10;
-    public static final int RULE_ANY_OTHER=14;
-    public static final int Any=4;
-    public static final int RULE_SL_COMMENT=12;
-    public static final int RULE_INT=9;
-    public static final int RULE_ML_COMMENT=11;
-    public static final int LeftSquareBracket=6;
+    public static final int FullStop=6;
+    public static final int RULE_ID=9;
+    public static final int RULE_WS=14;
+    public static final int RULE_STRING=11;
+    public static final int RULE_ANY_OTHER=15;
+    public static final int Any=5;
+    public static final int RULE_SL_COMMENT=13;
+    public static final int Filter=4;
+    public static final int RULE_INT=10;
+    public static final int RULE_ML_COMMENT=12;
+    public static final int LeftSquareBracket=7;
     public static final int EOF=-1;
-    public static final int RightSquareBracket=7;
+    public static final int RightSquareBracket=8;
 
     // delegates
     // delegators
@@ -562,20 +563,20 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleCategoriesDefinitions_in_entryRuleCategoriesDefinitions67 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCategoriesDefinitions77 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCategories_in_ruleCategoriesDefinitions122 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_ruleCategories_in_ruleCategoriesDefinitions122 = new BitSet(new long[]{0x0000000000000202L});
     public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories157 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCategories167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCategories209 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleCategories227 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_ruleCategory_in_ruleCategories247 = new BitSet(new long[]{0x0000000000000180L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCategories209 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleCategories227 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ruleCategory_in_ruleCategories247 = new BitSet(new long[]{0x0000000000000300L});
     public static final BitSet FOLLOW_RightSquareBracket_in_ruleCategories261 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleCategory_in_entryRuleCategory295 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCategory305 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleCategory346 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleCatRef_in_entryRuleCatRef388 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCatRef399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef439 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_FullStop_in_ruleCatRef457 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef439 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_FullStop_in_ruleCatRef457 = new BitSet(new long[]{0x0000000000000200L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef472 = new BitSet(new long[]{0x0000000000000002L});
 
 }

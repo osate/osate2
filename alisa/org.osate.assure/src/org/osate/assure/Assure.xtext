@@ -149,8 +149,10 @@ Metrics returns Metrics:
 	('featurescount'  featuresCount=INT)?
 	('featuresrequirementscount'  featuresRequirementsCount=INT)?
 	('qualitycategoryrequirementscount'  qualityCategoryRequirementsCount=INT)?
+	('totalqualitycategorycount'  totalQualityCategoryCount=INT)?
 	('requirementswithoutplanclaimcount'  requirementsWithoutPlanClaimCount=INT)?
 	('noverificationplanscount'  noVerificationPlansCount=INT)?
+	('requirementscount'  requirementsCount=INT)?
 	('weight' weight = INT)?
 	('time' executionTime = AInt)?
 ;
