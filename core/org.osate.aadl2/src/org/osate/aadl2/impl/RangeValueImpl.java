@@ -438,35 +438,35 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			 * First, retrieve the maximum value.
 			 */
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
-				throw new InvalidModelException(this, "Range maximum is modal");
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range maximum is modal");
 			}
 
 			if (maxVal.first().getValue() instanceof NumberValue) {
 				maxNumberValue = (NumberValue) maxVal.first().getValue();
 			} else {
-				throw new InvalidModelException(this, "Range maximum is not numeric");
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range maximum is not numeric");
 			}
 
 			/*
 			 * So now, retrieve the minimum value.
 			 */
 			if (minVal.size() != 1 || minVal.first().isModal()) {
-				throw new InvalidModelException(this, "Range minimum is modal");
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range minimum is modal");
 			}
 
 			if (minVal.first().getValue() instanceof NumberValue) {
 				minNumberValue = (NumberValue) minVal.first().getValue();
 			} else {
-				throw new InvalidModelException(this, "Range minimum is not numeric");
+				throw new InvalidModelException(ctx.getInstanceObject(), "Range minimum is not numeric");
 			}
 
 			if (delta != null) {
 				deltaVal = delta.evaluate(ctx);
 				if (deltaVal.size() != 1 || deltaVal.first().isModal()) {
-					throw new InvalidModelException(this, "Range delta is modal");
+					throw new InvalidModelException(ctx.getInstanceObject(), "Range delta is modal");
 				}
 				if (!(deltaVal.first().getValue() instanceof NumberValue)) {
-					throw new InvalidModelException(this, "Range delta is not numeric");
+					throw new InvalidModelException(ctx.getInstanceObject(), "Range delta is not numeric");
 				}
 			}
 			RangeValue newVal = Aadl2Factory.eINSTANCE.createRangeValue();
@@ -478,11 +478,11 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			return new EvaluatedProperty(newVal);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			throw new InvalidModelException(this, "Incomplete range value");
+			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		} catch (ClassCastException e) {
 			e.printStackTrace();
 
-			throw new InvalidModelException(this, "Incomplete range value");
+			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		}
 	}
 
