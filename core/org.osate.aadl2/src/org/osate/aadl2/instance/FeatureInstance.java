@@ -131,7 +131,7 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @return the value of the '<em>Src Flow Spec</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance_SrcFlowSpec()
 	 * @see org.osate.aadl2.instance.FlowSpecificationInstance#getSource
-	 * @model opposite="source" ordered="false"
+	 * @model opposite="source" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<FlowSpecificationInstance> getSrcFlowSpecs();
@@ -149,7 +149,7 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @return the value of the '<em>Dst Flow Spec</em>' reference list.
 	 * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance_DstFlowSpec()
 	 * @see org.osate.aadl2.instance.FlowSpecificationInstance#getDestination
-	 * @model opposite="destination" ordered="false"
+	 * @model opposite="destination" resolveProxies="false" transient="true" ordered="false"
 	 * @generated
 	 */
 	EList<FlowSpecificationInstance> getDstFlowSpecs();

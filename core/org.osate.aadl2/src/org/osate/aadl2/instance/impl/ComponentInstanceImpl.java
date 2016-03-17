@@ -873,11 +873,11 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			if (ci.getName().equalsIgnoreCase(sc.getName())) {
 				return ci;
 			}
-//			// XXX: Do we need to do this for modes and end-to-end flows too???
-//			EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
-//			if (scl.contains(sc)) {
-//				return ci;
-//			}
+			// // XXX: Do we need to do this for modes and end-to-end flows too???
+			// EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
+			// if (scl.contains(sc)) {
+			// return ci;
+			// }
 		}
 		return null;
 	}
@@ -900,11 +900,11 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			if (fi.getName().equalsIgnoreCase(feature.getName())) {
 				return fi;
 			}
-// XXX We would have to also check features in subcomponents that have been refined.
-//			EList<Feature> fl = fi.getFeature().getAllFeatureRefinements();
-//			if (fl.contains(feature)) {
-//				return fi;
-//			}
+			// XXX We would have to also check features in subcomponents that have been refined.
+			// EList<Feature> fl = fi.getFeature().getAllFeatureRefinements();
+			// if (fl.contains(feature)) {
+			// return fi;
+			// }
 		}
 		return null;
 	}
