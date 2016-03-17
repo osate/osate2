@@ -659,4 +659,114 @@ class SerializerTest2 extends AbstractSerializerTest {
 				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s::17
 			}''')
 	}
+	
+	@Test
+	def void testDeclarativeReferenceValue() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				reference1: reference (named element) applies to (all);
+				reference2: reference (named element) applies to (all);
+				reference3: reference (named element) applies to (all);
+				reference4: reference (named element) applies to (all);
+				reference5: reference (named element) applies to (all);
+				reference6: reference (named element) applies to (all);
+				reference7: reference (named element) applies to (all);
+				reference8: reference (named element) applies to (all);
+				reference9: reference (named element) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s1
+					prototypes
+						proto1: system;
+					features
+						fg1: feature group fgt1;
+				end s1;
+				
+				system implementation s1.i
+					subcomponents
+						sub1: system s2;
+						sub2: abstract a1.i;
+					internal features
+						es1: event;
+					processor features
+						pp1: port;
+					properties
+						ps1::reference1 => reference (proto1);
+						ps1::reference2 => reference (fg1.proto2);
+						ps1::reference3 => reference (fg1.fg2.proto3);
+						ps1::reference4 => reference (fg1.fg2[1].proto3);
+						ps1::reference5 => reference (sub1.proto4);
+						ps1::reference6 => reference (es1);
+						ps1::reference7 => reference (pp1);
+						ps1::reference8 => reference (sub2.sequence1);
+						ps1::reference9 => reference (sub2.call1);
+				end s1.i;
+				
+				feature group fgt1
+					prototypes
+						proto2: system;
+					features
+						fg2: feature group fgt2;
+						fg3: feature group fgt2[2];
+				end fgt1;
+				
+				feature group fgt2
+					prototypes
+						proto3: system;
+				end fgt2;
+				
+				system s2
+					prototypes
+						proto4: system;
+				end s2;
+				
+				abstract a1
+					features
+						sa1: requires subprogram access;
+				end a1;
+				
+				abstract implementation a1.i
+					calls
+						sequence1: {
+							call1: subprogram sa1;
+						};
+				end a1.i;
+			end pkg1;
+		''')
+		suppressSerialization
+		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
+			system s1_i_Instance : pkg1::s1.i {
+				in out featureGroup fg1 : pkg1::s1::fg1 {
+					in out featureGroup fg2 : pkg1::fgt1::fg2
+					in out featureGroup fg3 [ 1 ] : pkg1::fgt1::fg3
+					in out featureGroup fg3 [ 2 ] : pkg1::fgt1::fg3
+				}
+				abstract sub2 [ 0 ] : pkg1::s1.i::sub2 {
+					in out subprogramAccess sa1 : pkg1::a1::sa1
+				}
+				system sub1 [ 0 ] : pkg1::s1.i::sub1
+				som "No Modes"
+				ps1::reference1 => reference ( pkg1::s1::proto1 ) : pkg1::s1.i::0
+				ps1::reference2 => reference ( pkg1::s1::fg1 / pkg1::fgt1::proto2 ) :
+				pkg1::s1.i::1
+				ps1::reference3 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 /
+				pkg1::fgt2::proto3 ) : pkg1::s1.i::2
+				ps1::reference4 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 [ 1 ] /
+				pkg1::fgt2::proto3 ) : pkg1::s1.i::3
+				ps1::reference5 => reference ( pkg1::s1.i::sub1 / pkg1::s2::proto4 ) :
+				pkg1::s1.i::4
+				ps1::reference6 => reference ( pkg1::s1.i::es1 ) : pkg1::s1.i::5
+				ps1::reference7 => reference ( pkg1::s1.i::pp1 ) : pkg1::s1.i::6
+				ps1::reference8 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::sequence1 ) :
+				pkg1::s1.i::7
+				ps1::reference9 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::call1 ) :
+				pkg1::s1.i::8
+			}''')
+	}
 }

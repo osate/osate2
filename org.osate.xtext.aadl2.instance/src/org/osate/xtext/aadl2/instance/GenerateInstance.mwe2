@@ -122,7 +122,11 @@ Workflow {
     		//      backtrack = true
     		//  }
     		}
-    
+    		
+    		fragment = validation.ValidatorFragment auto-inject {
+    			inheritImplementation = false
+    		}
+    		
     		// old scoping and exporting API
     		// fragment = scoping.ImportURIScopingFragment auto-inject {}
     		// fragment = exporting.SimpleNamesFragment auto-inject {}

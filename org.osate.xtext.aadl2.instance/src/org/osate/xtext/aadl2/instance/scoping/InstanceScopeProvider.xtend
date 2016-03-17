@@ -18,6 +18,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
@@ -218,6 +219,25 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 	
+	def IScope scope_ContainmentPathElement_namedElement(EObject context, EReference reference) {
+		val rds = rdp.getResourceDescriptions(context.eResource)
+		val classifierDescriptions = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.classifier)
+		val classifiers = classifierDescriptions.map[EObjectOrProxy.resolve(context) as Classifier]
+		new SimpleScope(classifiers.map[classifier |
+			val pkgName = classifier.getContainerOfType(AadlPackage).name
+			val elements = switch classifier {
+				FeatureGroupType: classifier.ownedPrototypes + classifier.ownedFeatureGroups
+				ComponentType: classifier.ownedPrototypes + classifier.ownedFeatureGroups
+				BehavioredImplementation: classifier.implReferenceElements + classifier.ownedSubprogramCallSequences + classifier.subprogramCalls()
+				ComponentImplementation: classifier.implReferenceElements
+			}
+			elements.map[element |
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, element.name])
+				EObjectDescription.create(qualifiedName, element)
+			]
+		].flatten)
+	}
+	
 	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
 		val descriptions = component.connectionInstances.indexed.map[
 			EObjectDescription.create('''«IF levelCount > 0»«levelCount»~«ENDIF»«key»''', value)
@@ -286,5 +306,9 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			NumberType: baseType.unitsType
 			RangeType: baseType.numberType.unitsType
 		}?.ownedLiterals?.scopeFor ?: IScope.NULLSCOPE
+	}
+	
+	def private static getImplReferenceElements(ComponentImplementation impl) {
+		impl.ownedPrototypes + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
 	}
 }

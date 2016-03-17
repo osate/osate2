@@ -103,6 +103,10 @@ OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode|IndexRef] (',' inMode+=[aadl2::Mode|IndexRef])* ')')?
 ;
 
+ContainmentPathElement returns aadl2::ContainmentPathElement:
+	namedElement=[aadl2::NamedElement|DeclarativeRef] (arrayRange+=ArrayRange)? ('/' path=ContainmentPathElement)?
+;
+
 DirectionType returns aadl2::DirectionType:
 	'in' | 'out' | 'in' 'out'
 ;
