@@ -38,13 +38,13 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 					final Classifier classifier = (Classifier) element;
 					final InternalDiagramService diagramService = (InternalDiagramService) PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getService(InternalDiagramService.class);
-					diagramService.openOrCreateDiagramBusinessObject(classifier);
+					diagramService.openOrCreateDiagramForBusinessObject(classifier);
 
 				} else if (element instanceof AadlPackage) {
 					final AadlPackage pkg = (AadlPackage) element;
 					final InternalDiagramService diagramService = (InternalDiagramService) PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getService(InternalDiagramService.class);
-					diagramService.openOrCreateDiagramBusinessObject(pkg);
+					diagramService.openOrCreateDiagramForBusinessObject(pkg);
 
 				}
 			}

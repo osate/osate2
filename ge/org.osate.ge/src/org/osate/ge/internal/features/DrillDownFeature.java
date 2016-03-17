@@ -95,7 +95,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
 				} else {
 					element = (NamedElement)bo;
 				}
-				diagramService.openOrCreateDiagramBusinessObject(element);
+				diagramService.openOrCreateDiagramForBusinessObject(element);
 			}
 		}
 	}

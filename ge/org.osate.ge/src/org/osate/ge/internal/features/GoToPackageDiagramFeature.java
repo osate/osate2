@@ -80,7 +80,7 @@ public class GoToPackageDiagramFeature extends AbstractCustomFeature {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);		
 		final Element element = getElement(bo);		
 		
-		diagramService.openOrCreateDiagramBusinessObject(element.getElementRoot());
+		diagramService.openOrCreateDiagramForBusinessObject(element.getElementRoot());
 	}
 
 }

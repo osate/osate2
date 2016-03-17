@@ -68,7 +68,7 @@ public class ComponentImplementationToTypeFeature extends AbstractCustomFeature 
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final ComponentImplementation compImpl = (ComponentImplementation)bo;
 		final Classifier componentType = compImpl.getType();
-		diagramService.openOrCreateDiagramBusinessObject(componentType);
+		diagramService.openOrCreateDiagramForBusinessObject(componentType);
 	}
 
 }

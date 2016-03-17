@@ -188,7 +188,7 @@ public class DefaultInternalDiagramService implements InternalDiagramService {
 	}
 
 	@Override
-	public void openOrCreateDiagramBusinessObject(final Object bo) {
+	public void openOrCreateDiagramForBusinessObject(final Object bo) {
 		if(!openExistingDiagramForRootBusinessObject(bo)) {
 			// If a diagram can not be found, create a new diagram
 			Log.info("Existing diagram not found.");

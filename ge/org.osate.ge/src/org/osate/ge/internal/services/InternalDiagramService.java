@@ -41,7 +41,7 @@ public interface InternalDiagramService extends DiagramService {
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram is create.
 	 * @param bo the business object for which to open/create the diagram
 	 */
-	public void openOrCreateDiagramBusinessObject(final Object bo);
+	public void openOrCreateDiagramForBusinessObject(final Object bo);
 	
 	/**
 	 * Returns the name of a specified diagram

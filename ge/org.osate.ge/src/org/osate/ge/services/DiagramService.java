@@ -13,5 +13,5 @@ public interface DiagramService {
 	 * Opens the diagram which is linked to the specified business object. If a diagram is not found, it is created.
 	 * @param bo
 	 */
-	void openOrCreateDiagramBusinessObject(Object bo);
+	void openOrCreateDiagramForBusinessObject(Object bo);
 }

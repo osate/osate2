@@ -30,7 +30,7 @@ public class DefaultDiagramService implements DiagramService {
 	}
 	
 	@Override
-	public void openOrCreateDiagramBusinessObject(final Object bo) {
-		internalDiagramService.openOrCreateDiagramBusinessObject(bo);
+	public void openOrCreateDiagramForBusinessObject(final Object bo) {
+		internalDiagramService.openOrCreateDiagramForBusinessObject(bo);
 	}
 }

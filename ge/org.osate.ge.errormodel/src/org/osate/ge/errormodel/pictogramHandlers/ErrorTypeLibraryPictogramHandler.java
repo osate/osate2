@@ -35,7 +35,7 @@ public class ErrorTypeLibraryPictogramHandler {
 	
 	@HandleDoubleClick
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final DiagramService diagramService) {
-		diagramService.openOrCreateDiagramBusinessObject(typeLib);
+		diagramService.openOrCreateDiagramForBusinessObject(typeLib);
 	}
 	
 	@GetName
