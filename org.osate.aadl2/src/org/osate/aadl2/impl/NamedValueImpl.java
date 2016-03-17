@@ -34,6 +34,8 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -42,7 +44,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.properties.EvaluatedProperty;
+import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -203,4 +210,22 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		NamedValueImpl other = (NamedValueImpl) pe;
 		return namedValue.sameAs(other.namedValue);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
+	 */
+	@Override
+	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+		AbstractNamedValue nv = getNamedValue();
+		PropertyEvaluationResult pev = nv.evaluate(ctx);
+		List<EvaluatedProperty> evaluated = pev.getEvaluated();
+		if (evaluated.isEmpty()) {
+			throw new InvalidModelException(ctx.getInstanceObject(),
+					"Property " + ((Property) nv).getQualifiedName() + " is undefined");
+		}
+		return evaluated.get(0);
+	}
+
 } // NamedValueImpl
