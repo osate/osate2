@@ -47,7 +47,6 @@ import org.osate.ge.internal.ui.tools.SetBindingTool;
 
 /**
  * Property section for changing a connection's properties.
- * @author ryan.mcilnay
  */
 
 public class ConnectionsSection extends GFPropertySection implements ITabbedPropertyConstants {

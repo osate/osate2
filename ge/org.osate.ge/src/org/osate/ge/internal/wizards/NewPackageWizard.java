@@ -97,7 +97,6 @@ import org.osate.workspace.WorkspacePlugin;
  * This is a simple wizard for creating a new model file.
  * It is based on edu.cmu.sei.aadl.model.core.presentation.CoreModelWizard from OSATE 1.
  * 
- * @author jseibel
  */
 public class NewPackageWizard extends Wizard implements INewWizard {
 	/**
