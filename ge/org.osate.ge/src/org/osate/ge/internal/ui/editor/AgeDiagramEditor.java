@@ -11,12 +11,13 @@ package org.osate.ge.internal.ui.editor;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.PlatformUI;
+import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.impl.DefaultPropertyService;
 import org.osate.ge.internal.ui.util.impl.DefaultGhostPurger;
 
-public class AgeDiagramEditor extends DiagramEditor {
+public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	public static final String EXTENSION_NO_DOT = "aadl_diagram";
 	public static final String EXTENSION = "." + EXTENSION_NO_DOT;

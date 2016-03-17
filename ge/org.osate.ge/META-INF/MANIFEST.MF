@@ -39,7 +39,9 @@ Import-Package: org.eclipse.draw2d.graph,
 Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultDiagramService.xml,
  components/DefaultReferenceBuilderService.xml,
- components/DefaultSavedAadlPackageService.xml
+ components/DefaultSavedAadlPackageService.xml,
+ components/DefaultGraphicalEditorService.xml
 Export-Package: org.osate.ge,
- org.osate.ge.di
+ org.osate.ge.di,
+ org.osate.ge.services
 
