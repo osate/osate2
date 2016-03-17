@@ -42,7 +42,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -109,8 +109,8 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	@Override
 	public EList<ConnectionInstance> getSrcConnectionInstances() {
 		if (srcConnectionInstances == null) {
-			srcConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(ConnectionInstance.class,
-					this, InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+			srcConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,
+					InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__SOURCE);
 		}
 		return srcConnectionInstances;
@@ -124,8 +124,8 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	@Override
 	public EList<ConnectionInstance> getDstConnectionInstances() {
 		if (dstConnectionInstances == null) {
-			dstConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(ConnectionInstance.class,
-					this, InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+			dstConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,
+					InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__DESTINATION);
 		}
 		return dstConnectionInstances;

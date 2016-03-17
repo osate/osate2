@@ -122,25 +122,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 */
 	@Override
 	public ModeInstance getDestination() {
-		if (destination != null && destination.eIsProxy()) {
-			InternalEObject oldDestination = (InternalEObject) destination;
-			destination = (ModeInstance) eResolveProxy(oldDestination);
-			if (destination != oldDestination) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION, oldDestination, destination));
-				}
-			}
-		}
-		return destination;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ModeInstance basicGetDestination() {
 		return destination;
 	}
 
@@ -243,25 +224,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 */
 	@Override
 	public ModeInstance getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (ModeInstance) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE, oldSource, source));
-				}
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ModeInstance basicGetSource() {
 		return source;
 	}
 
@@ -361,20 +323,14 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
-			if (resolve) {
-				return getDestination();
-			}
-			return basicGetDestination();
+			return getDestination();
 		case InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION:
 			if (resolve) {
 				return getModeTransition();
 			}
 			return basicGetModeTransition();
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
-			if (resolve) {
-				return getSource();
-			}
-			return basicGetSource();
+			return getSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
