@@ -36,7 +36,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
   
   private PolymorphicDispatcher<Result<PropertyType>> typeDispatcher;
   
-  private PolymorphicDispatcher<Result<Boolean>> assignableDispatcher;
+  private PolymorphicDispatcher<Result<Boolean>> assignDispatcher;
   
   private PolymorphicDispatcher<Result<Boolean>> assignablesequenceDispatcher;
   
@@ -49,8 +49,8 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     super.init();
     typeDispatcher = buildPolymorphicDispatcher1(
     	"typeImpl", 3, "|-", ":");
-    assignableDispatcher = buildPolymorphicDispatcher1(
-    	"assignableImpl", 5, "|-", "~>", "<-");
+    assignDispatcher = buildPolymorphicDispatcher1(
+    	"assignImpl", 5, "|-", "~>", "<-");
     assignablesequenceDispatcher = buildPolymorphicDispatcher1(
     	"assignablesequenceImpl", 5, "|-", "~>", "<<");
   }
@@ -74,35 +74,35 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     }
   }
   
-  public Result<Boolean> assignable(final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
-    return assignable(new RuleEnvironment(), null, owner, type, actual);
+  public Result<Boolean> assign(final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+    return assign(new RuleEnvironment(), null, owner, type, actual);
   }
   
-  public Result<Boolean> assignable(final RuleEnvironment _environment_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
-    return assignable(_environment_, null, owner, type, actual);
+  public Result<Boolean> assign(final RuleEnvironment _environment_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+    return assign(_environment_, null, owner, type, actual);
   }
   
-  public Result<Boolean> assignable(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+  public Result<Boolean> assign(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
     try {
-    	return assignableInternal(_environment_, _trace_, owner, type, actual);
-    } catch (Exception _e_assignable) {
-    	return resultForFailure(_e_assignable);
+    	return assignInternal(_environment_, _trace_, owner, type, actual);
+    } catch (Exception _e_assign) {
+    	return resultForFailure(_e_assign);
     }
   }
   
-  public Boolean assignableSucceeded(final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
-    return assignableSucceeded(new RuleEnvironment(), null, owner, type, actual);
+  public Boolean assignSucceeded(final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+    return assignSucceeded(new RuleEnvironment(), null, owner, type, actual);
   }
   
-  public Boolean assignableSucceeded(final RuleEnvironment _environment_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
-    return assignableSucceeded(_environment_, null, owner, type, actual);
+  public Boolean assignSucceeded(final RuleEnvironment _environment_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+    return assignSucceeded(_environment_, null, owner, type, actual);
   }
   
-  public Boolean assignableSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+  public Boolean assignSucceeded(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
     try {
-    	assignableInternal(_environment_, _trace_, owner, type, actual);
+    	assignInternal(_environment_, _trace_, owner, type, actual);
     	return true;
-    } catch (Exception _e_assignable) {
+    } catch (Exception _e_assign) {
     	return false;
     }
   }
@@ -177,17 +177,17 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     	_issue, _ex, new ErrorInformation(source, null));
   }
   
-  protected Result<Boolean> assignableInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
+  protected Result<Boolean> assignInternal(final RuleEnvironment _environment_, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual) {
     try {
     	checkParamsNotNull(owner, type, actual);
-    	return assignableDispatcher.invoke(_environment_, _trace_, owner, type, actual);
-    } catch (Exception _e_assignable) {
-    	sneakyThrowRuleFailedException(_e_assignable);
+    	return assignDispatcher.invoke(_environment_, _trace_, owner, type, actual);
+    } catch (Exception _e_assign) {
+    	sneakyThrowRuleFailedException(_e_assign);
     	return null;
     }
   }
   
-  protected void assignableThrowException(final String _error, final String _issue, final Exception _ex, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual, final ErrorInformation[] _errorInformations) throws RuleFailedException {
+  protected void assignThrowException(final String _error, final String _issue, final Exception _ex, final VerificationActivity owner, final FormalParameter type, final PropertyExpression actual, final ErrorInformation[] _errorInformations) throws RuleFailedException {
     throwRuleFailedException(_error, _issue, _ex, _errorInformations);
   }
   
@@ -330,7 +330,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
         RuleFailedException previousFailure = null;
         try {
           /* G |- owner ~> formal <- actual */
-          assignableInternal(G, _trace_, owner, formal, actual);
+          assignInternal(G, _trace_, owner, formal, actual);
         } catch (Exception e_1) {
           previousFailure = extractRuleFailedException(e_1);
           /* fail error "bla " + previousFailure.message feature VerifyPackage.eINSTANCE.verificationActivity_Parameters source owner */
@@ -348,7 +348,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     return new Result<Boolean>(true);
   }
   
-  protected Result<Boolean> assignableImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter formal, final PropertyExpression actual) throws RuleFailedException {
+  protected Result<Boolean> assignImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VerificationActivity owner, final FormalParameter formal, final PropertyExpression actual) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
     	final Result<Boolean> _result_ = applyRuleAssignable(G, _subtrace_, owner, formal, actual);
@@ -360,7 +360,7 @@ public class VerifyTypeSystem extends CommonTypeSystem {
     	addAsSubtrace(_trace_, _subtrace_);
     	return _result_;
     } catch (Exception e_applyRuleAssignable) {
-    	assignableThrowException(ruleName("Assignable") + stringRepForEnv(G) + " |- " + stringRep(owner) + " ~> " + stringRep(formal) + " <- " + stringRep(actual),
+    	assignThrowException(ruleName("Assignable") + stringRepForEnv(G) + " |- " + stringRep(owner) + " ~> " + stringRep(formal) + " <- " + stringRep(actual),
     		ASSIGNABLE,
     		e_applyRuleAssignable, owner, formal, actual, new ErrorInformation[] {new ErrorInformation(owner), new ErrorInformation(formal), new ErrorInformation(actual)});
     	return null;

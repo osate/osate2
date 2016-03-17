@@ -18,7 +18,7 @@ judgments {
 	override type |- EObject verifyObject : output PropertyType
 		error "cannot type " + stringRep(verifyObject)
 		source verifyObject
-	assignable |- VerificationActivity owner ~> FormalParameter type <- PropertyExpression actual
+	assign |- VerificationActivity owner ~> FormalParameter type <- PropertyExpression actual
 	assignablesequence |- VerificationActivity owner ~> List<FormalParameter> formalParams << List<PropertyExpression> actuals
         error "invalid arguments for expected parameters"
         source owner
