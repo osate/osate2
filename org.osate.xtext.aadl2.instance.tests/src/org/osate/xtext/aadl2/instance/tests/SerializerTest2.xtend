@@ -675,6 +675,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				reference7: reference (named element) applies to (all);
 				reference8: reference (named element) applies to (all);
 				reference9: reference (named element) applies to (all);
+				reference10: reference (named element) applies to (all);
 			end ps1;
 		''', pkg1FileName -> '''
 			package pkg1
@@ -686,6 +687,11 @@ class SerializerTest2 extends AbstractSerializerTest {
 						proto1: system;
 					features
 						fg1: feature group fgt1;
+						p1: in event port;
+					modes
+						m1: initial mode;
+						m2: mode;
+						mt1: m1-[p1]->m2;
 				end s1;
 				
 				system implementation s1.i
@@ -700,12 +706,13 @@ class SerializerTest2 extends AbstractSerializerTest {
 						ps1::reference1 => reference (proto1);
 						ps1::reference2 => reference (fg1.proto2);
 						ps1::reference3 => reference (fg1.fg2.proto3);
-						ps1::reference4 => reference (fg1.fg2[1].proto3);
+						ps1::reference4 => reference (fg1.fg3[1].proto3);
 						ps1::reference5 => reference (sub1.proto4);
 						ps1::reference6 => reference (es1);
 						ps1::reference7 => reference (pp1);
 						ps1::reference8 => reference (sub2.sequence1);
 						ps1::reference9 => reference (sub2.call1);
+						ps1::reference10 => reference (mt1);
 				end s1.i;
 				
 				feature group fgt1
@@ -747,17 +754,22 @@ class SerializerTest2 extends AbstractSerializerTest {
 					in out featureGroup fg3 [ 1 ] : pkg1::fgt1::fg3
 					in out featureGroup fg3 [ 2 ] : pkg1::fgt1::fg3
 				}
+				in eventPort p1 : pkg1::s1::p1
 				abstract sub2 [ 0 ] : pkg1::s1.i::sub2 {
 					in out subprogramAccess sa1 : pkg1::a1::sa1
 				}
 				system sub1 [ 0 ] : pkg1::s1.i::sub1
-				som "No Modes"
+				initial mode m1 source of ( 0 ) : pkg1::s1::m1
+				mode m2 destination of ( 0 ) : pkg1::s1::m2
+				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1::mt1
+				som "m1" m1
+				som "m2" m2
 				ps1::reference1 => reference ( pkg1::s1::proto1 ) : pkg1::s1.i::0
 				ps1::reference2 => reference ( pkg1::s1::fg1 / pkg1::fgt1::proto2 ) :
 				pkg1::s1.i::1
 				ps1::reference3 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 /
 				pkg1::fgt2::proto3 ) : pkg1::s1.i::2
-				ps1::reference4 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 [ 1 ] /
+				ps1::reference4 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg3 [ 1 ] /
 				pkg1::fgt2::proto3 ) : pkg1::s1.i::3
 				ps1::reference5 => reference ( pkg1::s1.i::sub1 / pkg1::s2::proto4 ) :
 				pkg1::s1.i::4
@@ -767,6 +779,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				pkg1::s1.i::7
 				ps1::reference9 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::call1 ) :
 				pkg1::s1.i::8
+				ps1::reference10 => reference ( pkg1::s1::mt1 ) : pkg1::s1.i::9
 			}''')
 	}
 	
