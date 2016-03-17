@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
@@ -168,6 +169,9 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				return; 
 			case InstancePackage.FLOW_SPECIFICATION_INSTANCE:
 				sequence_FlowSpecificationInstance(context, (FlowSpecificationInstance) semanticObject); 
+				return; 
+			case InstancePackage.INSTANCE_REFERENCE_VALUE:
+				sequence_InstanceReferenceValue(context, (InstanceReferenceValue) semanticObject); 
 				return; 
 			case InstancePackage.MODE_INSTANCE:
 				sequence_ModeInstance(context, (ModeInstance) semanticObject); 
@@ -309,6 +313,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_FlowSpecificationInstance(EObject context, FlowSpecificationInstance semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     referencedInstanceObject=[InstanceObject|InstanceRef]
+	 */
+	protected void sequence_InstanceReferenceValue(EObject context, InstanceReferenceValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

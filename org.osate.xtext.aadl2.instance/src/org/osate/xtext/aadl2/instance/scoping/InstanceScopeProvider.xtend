@@ -238,6 +238,10 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		].flatten)
 	}
 	
+	def IScope scope_InstanceReferenceValue_referencedInstanceObject(SystemInstance context, EReference reference) {
+		new SimpleScope(context.getInstanceScope(FeatureInstance, FlowSpecificationInstance, ModeInstance, ComponentInstance, ConnectionInstance, EndToEndFlowInstance))
+	}
+	
 	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
 		val descriptions = component.connectionInstances.indexed.map[
 			EObjectDescription.create('''«IF levelCount > 0»«levelCount»~«ENDIF»«key»''', value)

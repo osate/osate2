@@ -47,6 +47,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionInstanceAccess().getAlternatives_5(), "rule__ConnectionInstance__Alternatives_5");
 					put(grammarAccess.getConnectionInstanceAccess().getAlternatives_10(), "rule__ConnectionInstance__Alternatives_10");
 					put(grammarAccess.getModeInstanceAccess().getAlternatives_4_1(), "rule__ModeInstance__Alternatives_4_1");
+					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
 					put(grammarAccess.getDirectionTypeAccess().getAlternatives(), "rule__DirectionType__Alternatives");
 					put(grammarAccess.getFeatureCategoryAccess().getAlternatives(), "rule__FeatureCategory__Alternatives");
 					put(grammarAccess.getComponentCategoryAccess().getAlternatives(), "rule__ComponentCategory__Alternatives");
@@ -57,7 +58,6 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyAssociationRefAccess().getAlternatives_4_1(), "rule__PropertyAssociationRef__Alternatives_4_1");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
-					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
 					put(grammarAccess.getBooleanLiteralAccess().getAlternatives_1(), "rule__BooleanLiteral__Alternatives_1");
 					put(grammarAccess.getPlusMinusAccess().getAlternatives(), "rule__PlusMinus__Alternatives");
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
@@ -119,6 +119,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalModalPropertyValueAccess().getGroup_1_4(), "rule__OptionalModalPropertyValue__Group_1_4__0");
 					put(grammarAccess.getContainmentPathElementAccess().getGroup(), "rule__ContainmentPathElement__Group__0");
 					put(grammarAccess.getContainmentPathElementAccess().getGroup_2(), "rule__ContainmentPathElement__Group_2__0");
+					put(grammarAccess.getInstanceReferenceValueAccess().getGroup(), "rule__InstanceReferenceValue__Group__0");
 					put(grammarAccess.getDirectionTypeAccess().getGroup_2(), "rule__DirectionType__Group_2__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_8(), "rule__ComponentCategory__Group_8__0");
 					put(grammarAccess.getComponentCategoryAccess().getGroup_10(), "rule__ComponentCategory__Group_10__0");
@@ -288,6 +289,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getContainmentPathElementAccess().getNamedElementAssignment_0(), "rule__ContainmentPathElement__NamedElementAssignment_0");
 					put(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_1(), "rule__ContainmentPathElement__ArrayRangeAssignment_1");
 					put(grammarAccess.getContainmentPathElementAccess().getPathAssignment_2_1(), "rule__ContainmentPathElement__PathAssignment_2_1");
+					put(grammarAccess.getInstanceReferenceValueAccess().getReferencedInstanceObjectAssignment_2(), "rule__InstanceReferenceValue__ReferencedInstanceObjectAssignment_2");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppendAssignment_1_1(), "rule__ContainedPropertyAssociation__AppendAssignment_1_1");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getConstantAssignment_2(), "rule__ContainedPropertyAssociation__ConstantAssignment_2");

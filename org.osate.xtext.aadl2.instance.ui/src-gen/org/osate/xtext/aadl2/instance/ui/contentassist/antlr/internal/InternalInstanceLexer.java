@@ -1239,10 +1239,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:65:7: ( 'group' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:65:9: 'group'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:65:7: ( 'reference' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:65:9: 'reference'
             {
-            match("group"); 
+            match("reference"); 
 
 
             }
@@ -1260,10 +1260,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:66:7: ( 'virtual' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:66:9: 'virtual'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:66:7: ( 'group' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:66:9: 'group'
             {
-            match("virtual"); 
+            match("group"); 
 
 
             }
@@ -1281,10 +1281,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:67:7: ( '.' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:67:9: '.'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:67:7: ( 'virtual' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:67:9: 'virtual'
             {
-            match('.'); 
+            match("virtual"); 
+
 
             }
 
@@ -1301,11 +1302,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:68:7: ( '::' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:68:9: '::'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:68:7: ( '.' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:68:9: '.'
             {
-            match("::"); 
-
+            match('.'); 
 
             }
 
@@ -1322,10 +1322,11 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:69:7: ( '#' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:69:9: '#'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:69:7: ( '::' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:69:9: '::'
             {
-            match('#'); 
+            match("::"); 
+
 
             }
 
@@ -1342,10 +1343,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:70:7: ( '~' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:70:9: '~'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:70:7: ( '#' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:70:9: '#'
             {
-            match('~'); 
+            match('#'); 
 
             }
 
@@ -1362,10 +1363,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:71:7: ( ';' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:71:9: ';'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:71:7: ( '~' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:71:9: '~'
             {
-            match(';'); 
+            match('~'); 
 
             }
 
@@ -1382,11 +1383,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:72:7: ( 'applies' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:72:9: 'applies'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:72:7: ( ';' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:72:9: ';'
             {
-            match("applies"); 
-
+            match(';'); 
 
             }
 
@@ -1403,10 +1403,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:73:7: ( 'binding' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:73:9: 'binding'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:73:7: ( 'applies' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:73:9: 'applies'
             {
-            match("binding"); 
+            match("applies"); 
 
 
             }
@@ -1424,10 +1424,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = T__78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:74:7: ( 'reference' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:74:9: 'reference'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:74:7: ( 'binding' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:74:9: 'binding'
             {
-            match("reference"); 
+            match("binding"); 
 
 
             }
@@ -1676,12 +1676,12 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -1694,7 +1694,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1714,7 +1714,7 @@ public class InternalInstanceLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:40: ( ( '\\r' )? '\\n' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1723,9 +1723,9 @@ public class InternalInstanceLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:41: ( '\\r' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -1734,7 +1734,7 @@ public class InternalInstanceLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17461:41: '\\r'
+                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17643:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1764,8 +1764,8 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17463:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17463:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17645:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17645:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1776,7 +1776,7 @@ public class InternalInstanceLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17463:36: ( '+' | '-' )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17645:36: ( '+' | '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1802,7 +1802,7 @@ public class InternalInstanceLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17463:47: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17645:47: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1816,7 +1816,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17463:47: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17645:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1844,8 +1844,8 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1856,7 +1856,7 @@ public class InternalInstanceLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:40: ( '+' )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:40: ( '+' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1865,7 +1865,7 @@ public class InternalInstanceLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:40: '+'
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:40: '+'
                     {
                     match('+'); 
 
@@ -1874,7 +1874,7 @@ public class InternalInstanceLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:45: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:45: ( RULE_DIGIT )+
             int cnt7=0;
             loop7:
             do {
@@ -1888,7 +1888,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17465:45: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17647:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1918,10 +1918,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:17: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:17: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -1935,7 +1935,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:17: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1951,7 +1951,7 @@ public class InternalInstanceLexer extends Lexer {
                 cnt8++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:29: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:29: ( '_' ( RULE_DIGIT )+ )*
             loop10:
             do {
                 int alt10=2;
@@ -1964,10 +1964,10 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:30: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:34: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:34: ( RULE_DIGIT )+
             	    int cnt9=0;
             	    loop9:
             	    do {
@@ -1981,7 +1981,7 @@ public class InternalInstanceLexer extends Lexer {
 
             	        switch (alt9) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:34: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -2007,7 +2007,7 @@ public class InternalInstanceLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:52: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:52: ( RULE_DIGIT )+
             int cnt11=0;
             loop11:
             do {
@@ -2021,7 +2021,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:52: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2037,7 +2037,7 @@ public class InternalInstanceLexer extends Lexer {
                 cnt11++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:64: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:64: ( '_' ( RULE_DIGIT )+ )*
             loop13:
             do {
                 int alt13=2;
@@ -2050,10 +2050,10 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:69: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:69: ( RULE_DIGIT )+
             	    int cnt12=0;
             	    loop12:
             	    do {
@@ -2067,7 +2067,7 @@ public class InternalInstanceLexer extends Lexer {
 
             	        switch (alt12) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:69: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -2092,7 +2092,7 @@ public class InternalInstanceLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:83: ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:83: ( RULE_EXPONENT )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -2101,7 +2101,7 @@ public class InternalInstanceLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17467:83: RULE_EXPONENT
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17649:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -2126,10 +2126,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:20: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:20: ( RULE_DIGIT )+
             int cnt15=0;
             loop15:
             do {
@@ -2143,7 +2143,7 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:20: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:20: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -2159,7 +2159,7 @@ public class InternalInstanceLexer extends Lexer {
                 cnt15++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:32: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:32: ( '_' ( RULE_DIGIT )+ )*
             loop17:
             do {
                 int alt17=2;
@@ -2172,10 +2172,10 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:33: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:33: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:37: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:37: ( RULE_DIGIT )+
             	    int cnt16=0;
             	    loop16:
             	    do {
@@ -2189,7 +2189,7 @@ public class InternalInstanceLexer extends Lexer {
 
             	        switch (alt16) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:37: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:37: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -2214,7 +2214,7 @@ public class InternalInstanceLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2225,12 +2225,12 @@ public class InternalInstanceLexer extends Lexer {
                 alt20=2;}
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
                     {
                     match('#'); 
                     mRULE_BASED_INTEGER(); 
                     match('#'); 
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:79: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:79: ( RULE_INT_EXPONENT )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -2239,7 +2239,7 @@ public class InternalInstanceLexer extends Lexer {
                     }
                     switch (alt18) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:79: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:79: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -2252,9 +2252,9 @@ public class InternalInstanceLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:98: ( RULE_INT_EXPONENT )?
                     {
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:98: ( RULE_INT_EXPONENT )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2263,7 +2263,7 @@ public class InternalInstanceLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17469:98: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17651:98: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -2292,8 +2292,8 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17471:21: ( '0' .. '9' )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17471:23: '0' .. '9'
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17653:21: ( '0' .. '9' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17653:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -2308,8 +2308,8 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17473:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17473:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17655:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17655:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -2332,11 +2332,11 @@ public class InternalInstanceLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop22:
             do {
                 int alt22=2;
@@ -2349,9 +2349,9 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:52: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:52: ( '_' )?
             	    int alt21=2;
             	    int LA21_0 = input.LA(1);
 
@@ -2360,7 +2360,7 @@ public class InternalInstanceLexer extends Lexer {
             	    }
             	    switch (alt21) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17475:52: '_'
+            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17657:52: '_'
             	            {
             	            match('_'); 
 
@@ -2393,10 +2393,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2414,10 +2414,10 @@ public class InternalInstanceLexer extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop23:
                     do {
                         int alt23=3;
@@ -2433,7 +2433,7 @@ public class InternalInstanceLexer extends Lexer {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2449,7 +2449,7 @@ public class InternalInstanceLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2474,10 +2474,10 @@ public class InternalInstanceLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop24:
                     do {
                         int alt24=3;
@@ -2493,7 +2493,7 @@ public class InternalInstanceLexer extends Lexer {
 
                         switch (alt24) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2509,7 +2509,7 @@ public class InternalInstanceLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17477:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17659:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2552,8 +2552,8 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -2564,7 +2564,7 @@ public class InternalInstanceLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             loop27:
             do {
                 int alt27=2;
@@ -2577,9 +2577,9 @@ public class InternalInstanceLexer extends Lexer {
 
                 switch (alt27) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
             	    {
-            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:32: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:32: ( '_' )?
             	    int alt26=2;
             	    int LA26_0 = input.LA(1);
 
@@ -2588,7 +2588,7 @@ public class InternalInstanceLexer extends Lexer {
             	    }
             	    switch (alt26) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17479:32: '_'
+            	            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17661:32: '_'
             	            {
             	            match('_'); 
 
@@ -2631,10 +2631,10 @@ public class InternalInstanceLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17481:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17481:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17663:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17663:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17481:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.instance.ui/src-gen/org/osate/xtext/aadl2/instance/ui/contentassist/antlr/internal/InternalInstance.g:17663:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt28=0;
             loop28:
             do {
@@ -3263,19 +3263,19 @@ public class InternalInstanceLexer extends Lexer {
 
     protected DFA29 dfa29 = new DFA29(this);
     static final String DFA29_eotS =
-        "\2\uffff\1\50\13\44\1\104\1\106\1\110\10\uffff\2\44\1\114\3\uffff\2\44\1\uffff\1\120\6\uffff\1\124\1\44\1\126\26\44\1\162\6\uffff\2\44\2\uffff\3\44\3\uffff\1\44\1\uffff\1\173\1\uffff\6\44\1\u0082\3\44\1\u0088\4\44\1\u008d\13\44\1\uffff\6\44\1\120\1\44\1\uffff\1\u00a1\5\44\1\uffff\5\44\1\uffff\4\44\1\uffff\2\44\1\u00b2\4\44\1\u00b8\2\44\1\u00bb\10\44\1\uffff\2\44\1\u00c7\14\44\1\u00d5\1\uffff\4\44\1\u00da\1\uffff\2\44\1\uffff\1\u00dd\10\44\1\u00e6\1\44\1\uffff\4\44\1\u00ec\5\44\1\u00f2\1\u00f3\1\44\1\uffff\3\44\1\u00f8\1\uffff\1\u00f9\1\44\1\uffff\6\44\1\u0101\1\44\1\uffff\1\44\1\u0104\3\44\1\uffff\1\u0109\2\44\1\u010c\1\44\2\uffff\3\44\1\u0112\2\uffff\1\44\1\u0114\1\44\1\u0116\3\44\1\uffff\1\u011a\1\44\1\uffff\4\44\1\uffff\2\44\1\uffff\3\44\1\u0126\1\44\1\uffff\1\44\1\uffff\1\44\1\uffff\1\u012a\1\u012b\1\44\1\uffff\1\44\1\u012e\1\44\1\u0131\1\u0132\1\44\1\u0134\4\44\1\uffff\2\44\1\u013b\2\uffff\2\44\1\uffff\2\44\2\uffff\1\44\1\uffff\1\u0143\4\44\1\u0149\1\uffff\1\u014a\1\u014b\5\44\1\uffff\4\44\1\u0155\3\uffff\5\44\1\u015c\3\44\1\uffff\1\u0160\5\44\1\uffff\3\44\1\uffff\1\44\1\u016a\7\44\1\uffff\4\44\1\u0176\2\44\1\u0179\3\44\1\uffff\1\u017d\1\44\1\uffff\2\44\1\u0181\1\uffff\3\44\1\uffff\1\u0185\2\44\1\uffff\2\44\1\u018a\1\44\1\uffff\1\u018c\1\uffff";
+        "\2\uffff\1\50\13\44\1\104\1\106\1\110\10\uffff\3\44\1\115\3\uffff\1\44\1\uffff\1\120\6\uffff\1\124\1\44\1\126\26\44\1\162\6\uffff\3\44\2\uffff\2\44\3\uffff\1\44\1\uffff\1\173\1\uffff\6\44\1\u0082\3\44\1\u0088\4\44\1\u008d\13\44\1\uffff\6\44\1\120\1\44\1\uffff\1\u00a1\5\44\1\uffff\5\44\1\uffff\4\44\1\uffff\2\44\1\u00b2\4\44\1\u00b8\2\44\1\u00bb\10\44\1\uffff\2\44\1\u00c7\14\44\1\u00d5\1\uffff\4\44\1\u00da\1\uffff\2\44\1\uffff\1\44\1\u00de\7\44\1\u00e6\1\44\1\uffff\4\44\1\u00ec\5\44\1\u00f2\1\u00f3\1\44\1\uffff\3\44\1\u00f8\1\uffff\1\u00f9\2\44\1\uffff\5\44\1\u0101\1\44\1\uffff\1\44\1\u0104\3\44\1\uffff\1\u0109\2\44\1\u010c\1\44\2\uffff\3\44\1\u0112\2\uffff\2\44\1\u0115\1\u0116\3\44\1\uffff\1\u011a\1\44\1\uffff\4\44\1\uffff\2\44\1\uffff\3\44\1\u0126\1\44\1\uffff\2\44\2\uffff\1\u012a\1\u012b\1\44\1\uffff\1\44\1\u012e\1\44\1\u0131\1\u0132\1\44\1\u0134\4\44\1\uffff\2\44\1\u013b\2\uffff\2\44\1\uffff\2\44\2\uffff\1\44\1\uffff\1\u0143\4\44\1\u0149\1\uffff\1\u014a\1\u014b\5\44\1\uffff\4\44\1\u0155\3\uffff\5\44\1\u015c\3\44\1\uffff\1\u0160\5\44\1\uffff\3\44\1\uffff\1\44\1\u016a\7\44\1\uffff\4\44\1\u0176\2\44\1\u0179\3\44\1\uffff\1\u017d\1\44\1\uffff\2\44\1\u0181\1\uffff\3\44\1\uffff\1\u0185\2\44\1\uffff\2\44\1\u018a\1\44\1\uffff\1\u018c\1\uffff";
     static final String DFA29_eofS =
         "\u018d\uffff";
     static final String DFA29_minS =
-        "\1\11\1\uffff\1\55\1\156\1\146\1\141\1\156\1\141\1\151\1\157\1\141\1\142\1\145\1\150\1\76\1\75\1\72\10\uffff\1\162\1\151\1\56\3\uffff\1\145\1\154\1\uffff\1\56\6\uffff\1\60\1\164\1\60\1\164\1\154\1\145\1\144\1\162\1\157\1\162\1\163\1\156\1\142\1\163\1\155\1\141\1\154\1\157\1\163\1\143\1\160\1\155\1\144\1\162\1\141\1\60\6\uffff\1\157\1\162\2\uffff\1\146\1\155\1\141\1\uffff\1\60\1\uffff\1\164\1\uffff\1\60\1\uffff\1\141\1\151\2\164\1\151\1\156\1\60\1\141\1\143\1\164\1\60\1\144\1\160\1\164\1\162\1\60\1\164\1\163\1\167\1\164\1\145\1\154\1\157\2\145\1\156\1\145\1\uffff\1\165\1\164\1\145\1\160\2\163\1\56\1\151\1\uffff\1\60\1\143\1\151\1\141\1\166\1\164\1\uffff\1\155\1\156\1\145\1\103\1\143\1\uffff\1\151\1\162\1\145\1\143\1\uffff\1\165\1\145\1\60\1\162\1\163\1\151\1\162\1\60\1\141\1\163\1\60\1\160\1\165\1\162\1\154\1\164\1\163\1\141\1\157\1\uffff\1\145\1\156\1\60\1\145\1\104\1\145\1\164\1\163\1\157\1\143\1\156\1\157\1\155\1\145\1\162\1\60\1\uffff\1\141\1\163\1\145\1\171\1\60\1\uffff\1\144\1\151\1\uffff\1\60\1\141\1\145\1\164\1\145\1\141\1\151\1\154\1\162\1\60\1\141\1\uffff\1\144\1\157\1\141\1\164\1\60\1\163\1\156\1\145\2\147\2\60\1\145\1\uffff\1\143\1\103\1\163\1\60\1\uffff\1\60\1\164\1\uffff\1\154\1\156\1\145\1\164\1\156\1\146\1\60\1\164\1\uffff\1\164\1\60\1\162\1\164\1\145\1\uffff\1\60\1\156\1\163\1\60\1\162\2\uffff\1\103\1\164\1\157\1\60\2\uffff\1\151\1\60\1\143\1\60\1\145\1\164\1\151\1\uffff\1\60\1\151\1\uffff\1\164\1\141\2\162\1\uffff\1\145\1\163\1\uffff\1\141\1\162\1\157\1\60\1\156\1\uffff\1\157\1\uffff\1\145\1\uffff\2\60\1\145\1\uffff\1\157\1\60\1\120\2\60\1\143\1\60\1\155\1\157\1\156\1\145\1\uffff\2\156\1\60\2\uffff\1\162\1\156\1\uffff\2\157\2\uffff\1\164\1\uffff\1\60\1\165\1\156\1\141\1\145\1\60\1\uffff\2\60\1\162\1\156\1\151\1\143\1\162\1\uffff\1\160\1\145\1\164\1\143\1\60\3\uffff\1\164\1\156\1\157\1\143\1\157\1\60\1\143\1\165\1\164\1\uffff\1\60\1\145\1\156\1\145\1\165\1\157\1\uffff\1\164\1\162\1\151\1\uffff\1\143\1\60\1\163\1\160\1\156\1\151\1\145\1\157\1\164\1\uffff\1\163\1\101\1\156\1\157\1\60\1\156\1\151\1\60\1\143\1\145\1\156\1\uffff\1\60\1\157\1\uffff\2\143\1\60\1\uffff\1\156\1\145\1\164\1\uffff\1\60\1\163\1\151\1\uffff\1\163\1\157\1\60\1\156\1\uffff\1\60\1\uffff";
+        "\1\11\1\uffff\1\55\1\156\1\146\1\141\1\156\1\141\1\151\1\157\1\141\1\142\1\145\1\150\1\76\1\75\1\72\10\uffff\1\145\1\162\1\151\1\56\3\uffff\1\154\1\uffff\1\56\6\uffff\1\60\1\164\1\60\1\164\1\154\1\145\1\144\1\162\1\157\1\162\1\163\1\156\1\142\1\163\1\155\1\141\1\154\1\157\1\163\1\143\1\160\1\155\1\144\1\162\1\141\1\60\6\uffff\1\146\1\157\1\162\2\uffff\1\155\1\141\1\uffff\1\60\1\uffff\1\164\1\uffff\1\60\1\uffff\1\141\1\151\2\164\1\151\1\156\1\60\1\141\1\143\1\164\1\60\1\144\1\160\1\164\1\162\1\60\1\164\1\163\1\167\1\164\1\145\1\154\1\157\2\145\1\156\1\145\1\uffff\1\145\1\165\1\164\1\160\2\163\1\56\1\151\1\uffff\1\60\1\143\1\151\1\141\1\166\1\164\1\uffff\1\155\1\156\1\145\1\103\1\143\1\uffff\1\151\1\162\1\145\1\143\1\uffff\1\165\1\145\1\60\1\162\1\163\1\151\1\162\1\60\1\141\1\163\1\60\1\162\1\160\1\165\1\154\1\164\1\163\1\141\1\157\1\uffff\1\145\1\156\1\60\1\145\1\104\1\145\1\164\1\163\1\157\1\143\1\156\1\157\1\155\1\145\1\162\1\60\1\uffff\1\141\1\163\1\145\1\171\1\60\1\uffff\1\144\1\151\1\uffff\1\145\1\60\1\141\1\164\1\145\1\141\1\151\1\154\1\162\1\60\1\141\1\uffff\1\144\1\157\1\141\1\164\1\60\1\163\1\156\1\145\2\147\2\60\1\145\1\uffff\1\143\1\103\1\163\1\60\1\uffff\1\60\1\164\1\156\1\uffff\1\154\1\145\1\164\1\156\1\146\1\60\1\164\1\uffff\1\164\1\60\1\162\1\164\1\145\1\uffff\1\60\1\156\1\163\1\60\1\162\2\uffff\1\103\1\164\1\157\1\60\2\uffff\1\151\1\143\2\60\1\145\1\164\1\151\1\uffff\1\60\1\151\1\uffff\1\164\1\141\2\162\1\uffff\1\145\1\163\1\uffff\1\141\1\162\1\157\1\60\1\156\1\uffff\1\157\1\145\2\uffff\2\60\1\145\1\uffff\1\157\1\60\1\120\2\60\1\143\1\60\1\155\1\157\1\156\1\145\1\uffff\2\156\1\60\2\uffff\1\162\1\156\1\uffff\2\157\2\uffff\1\164\1\uffff\1\60\1\165\1\156\1\141\1\145\1\60\1\uffff\2\60\1\162\1\156\1\151\1\143\1\162\1\uffff\1\160\1\145\1\164\1\143\1\60\3\uffff\1\164\1\156\1\157\1\143\1\157\1\60\1\143\1\165\1\164\1\uffff\1\60\1\145\1\156\1\145\1\165\1\157\1\uffff\1\164\1\162\1\151\1\uffff\1\143\1\60\1\163\1\160\1\156\1\151\1\145\1\157\1\164\1\uffff\1\163\1\101\1\156\1\157\1\60\1\156\1\151\1\60\1\143\1\145\1\156\1\uffff\1\60\1\157\1\uffff\2\143\1\60\1\uffff\1\156\1\145\1\164\1\uffff\1\60\1\163\1\151\1\uffff\1\163\1\157\1\60\1\156\1\uffff\1\60\1\uffff";
     static final String DFA29_maxS =
-        "\1\176\1\uffff\1\76\1\156\1\165\1\145\1\166\1\162\1\165\1\171\1\154\1\160\1\157\1\162\1\76\1\75\1\72\10\uffff\1\162\1\151\1\56\3\uffff\1\145\1\157\1\uffff\1\137\6\uffff\1\172\1\164\1\172\1\164\1\166\1\145\1\144\1\162\1\157\1\162\1\163\1\156\1\142\1\163\1\165\1\141\1\154\1\157\1\163\1\143\1\160\1\155\1\144\1\162\1\165\1\172\6\uffff\1\157\1\162\2\uffff\1\146\1\156\1\141\1\uffff\1\71\1\uffff\1\164\1\uffff\1\172\1\uffff\1\141\1\151\2\164\1\151\1\156\1\172\1\145\1\143\1\164\1\172\1\144\1\160\1\164\1\162\1\172\1\164\1\163\1\167\1\164\1\145\1\154\1\157\2\145\1\156\1\145\1\uffff\1\165\1\164\1\145\1\160\2\163\1\137\1\151\1\uffff\1\172\1\143\1\151\1\141\1\166\1\164\1\uffff\1\155\1\156\1\145\1\103\1\143\1\uffff\1\151\1\162\1\145\1\143\1\uffff\1\165\1\145\1\172\1\162\1\163\1\151\1\162\1\172\1\141\1\163\1\172\1\160\1\165\1\162\1\165\1\164\1\163\1\141\1\157\1\uffff\1\145\1\156\1\172\1\145\1\120\1\145\1\164\1\163\1\157\1\143\1\156\1\157\1\155\1\145\1\162\1\172\1\uffff\1\141\1\163\1\145\1\171\1\172\1\uffff\1\144\1\151\1\uffff\1\172\1\141\1\145\1\164\1\145\1\141\1\151\1\154\1\162\1\172\1\141\1\uffff\1\144\1\157\1\141\1\164\1\172\1\163\1\156\1\145\2\147\2\172\1\145\1\uffff\1\143\1\103\1\163\1\172\1\uffff\1\172\1\164\1\uffff\1\154\1\156\1\145\1\164\1\156\1\146\1\172\1\164\1\uffff\1\164\1\172\1\162\1\164\1\145\1\uffff\1\172\1\156\1\163\1\172\1\162\2\uffff\1\107\1\164\1\157\1\172\2\uffff\1\151\1\172\1\143\1\172\1\145\1\164\1\151\1\uffff\1\172\1\151\1\uffff\1\164\1\141\2\162\1\uffff\1\145\1\163\1\uffff\1\141\1\162\1\157\1\172\1\156\1\uffff\1\157\1\uffff\1\145\1\uffff\2\172\1\145\1\uffff\1\157\1\172\1\120\2\172\1\143\1\172\1\155\1\157\1\156\1\145\1\uffff\2\156\1\172\2\uffff\1\162\1\156\1\uffff\2\157\2\uffff\1\164\1\uffff\1\172\1\165\1\156\1\141\1\145\1\172\1\uffff\2\172\1\162\1\156\1\151\1\143\1\162\1\uffff\1\160\1\145\1\164\1\143\1\172\3\uffff\1\164\1\156\1\157\1\143\1\157\1\172\1\143\1\165\1\164\1\uffff\1\172\1\145\1\156\1\145\1\165\1\157\1\uffff\1\164\1\162\1\151\1\uffff\1\143\1\172\1\163\1\160\1\156\1\151\1\145\1\157\1\164\1\uffff\1\163\1\101\1\156\1\157\1\172\1\156\1\151\1\172\1\143\1\145\1\156\1\uffff\1\172\1\157\1\uffff\2\143\1\172\1\uffff\1\156\1\145\1\164\1\uffff\1\172\1\163\1\151\1\uffff\1\163\1\157\1\172\1\156\1\uffff\1\172\1\uffff";
+        "\1\176\1\uffff\1\76\1\156\1\165\1\145\1\166\1\162\1\165\1\171\1\154\1\160\1\157\1\162\1\76\1\75\1\72\10\uffff\1\145\1\162\1\151\1\56\3\uffff\1\157\1\uffff\1\137\6\uffff\1\172\1\164\1\172\1\164\1\166\1\145\1\144\1\162\1\157\1\162\1\163\1\156\1\142\1\163\1\165\1\141\1\154\1\157\1\163\1\143\1\160\1\155\1\144\1\162\1\165\1\172\6\uffff\1\146\1\157\1\162\2\uffff\1\156\1\141\1\uffff\1\71\1\uffff\1\164\1\uffff\1\172\1\uffff\1\141\1\151\2\164\1\151\1\156\1\172\1\145\1\143\1\164\1\172\1\144\1\160\1\164\1\162\1\172\1\164\1\163\1\167\1\164\1\145\1\154\1\157\2\145\1\156\1\145\1\uffff\1\145\1\165\1\164\1\160\2\163\1\137\1\151\1\uffff\1\172\1\143\1\151\1\141\1\166\1\164\1\uffff\1\155\1\156\1\145\1\103\1\143\1\uffff\1\151\1\162\1\145\1\143\1\uffff\1\165\1\145\1\172\1\162\1\163\1\151\1\162\1\172\1\141\1\163\1\172\1\162\1\160\2\165\1\164\1\163\1\141\1\157\1\uffff\1\145\1\156\1\172\1\145\1\120\1\145\1\164\1\163\1\157\1\143\1\156\1\157\1\155\1\145\1\162\1\172\1\uffff\1\141\1\163\1\145\1\171\1\172\1\uffff\1\144\1\151\1\uffff\1\145\1\172\1\141\1\164\1\145\1\141\1\151\1\154\1\162\1\172\1\141\1\uffff\1\144\1\157\1\141\1\164\1\172\1\163\1\156\1\145\2\147\2\172\1\145\1\uffff\1\143\1\103\1\163\1\172\1\uffff\1\172\1\164\1\156\1\uffff\1\154\1\145\1\164\1\156\1\146\1\172\1\164\1\uffff\1\164\1\172\1\162\1\164\1\145\1\uffff\1\172\1\156\1\163\1\172\1\162\2\uffff\1\107\1\164\1\157\1\172\2\uffff\1\151\1\143\2\172\1\145\1\164\1\151\1\uffff\1\172\1\151\1\uffff\1\164\1\141\2\162\1\uffff\1\145\1\163\1\uffff\1\141\1\162\1\157\1\172\1\156\1\uffff\1\157\1\145\2\uffff\2\172\1\145\1\uffff\1\157\1\172\1\120\2\172\1\143\1\172\1\155\1\157\1\156\1\145\1\uffff\2\156\1\172\2\uffff\1\162\1\156\1\uffff\2\157\2\uffff\1\164\1\uffff\1\172\1\165\1\156\1\141\1\145\1\172\1\uffff\2\172\1\162\1\156\1\151\1\143\1\162\1\uffff\1\160\1\145\1\164\1\143\1\172\3\uffff\1\164\1\156\1\157\1\143\1\157\1\172\1\143\1\165\1\164\1\uffff\1\172\1\145\1\156\1\145\1\165\1\157\1\uffff\1\164\1\162\1\151\1\uffff\1\143\1\172\1\163\1\160\1\156\1\151\1\145\1\157\1\164\1\uffff\1\163\1\101\1\156\1\157\1\172\1\156\1\151\1\172\1\143\1\145\1\156\1\uffff\1\172\1\157\1\uffff\2\143\1\172\1\uffff\1\156\1\145\1\164\1\uffff\1\172\1\163\1\151\1\uffff\1\163\1\157\1\172\1\156\1\uffff\1\172\1\uffff";
     static final String DFA29_acceptS =
-        "\1\uffff\1\1\17\uffff\1\43\1\44\1\45\1\46\1\51\1\52\1\53\1\66\3\uffff\1\73\1\74\1\75\2\uffff\1\106\1\uffff\1\117\1\120\1\121\1\2\1\114\1\41\32\uffff\1\36\1\63\1\111\1\40\1\72\1\42\2\uffff\1\103\1\71\3\uffff\1\116\1\uffff\1\115\1\uffff\1\3\1\uffff\1\50\33\uffff\1\61\10\uffff\1\4\6\uffff\1\60\5\uffff\1\17\4\uffff\1\65\23\uffff\1\20\20\uffff\1\57\5\uffff\1\62\2\uffff\1\113\13\uffff\1\104\15\uffff\1\37\4\uffff\1\55\2\uffff\1\67\10\uffff\1\21\5\uffff\1\35\5\uffff\1\26\1\47\4\uffff\1\22\1\27\7\uffff\1\107\2\uffff\1\110\4\uffff\1\23\2\uffff\1\77\5\uffff\1\76\1\uffff\1\70\1\uffff\1\101\3\uffff\1\5\13\uffff\1\16\3\uffff\1\105\1\112\2\uffff\1\6\2\uffff\1\10\1\24\1\uffff\1\11\6\uffff\1\100\7\uffff\1\25\5\uffff\1\64\1\102\1\54\11\uffff\1\56\6\uffff\1\14\3\uffff\1\7\11\uffff\1\33\13\uffff\1\15\2\uffff\1\12\3\uffff\1\31\3\uffff\1\30\3\uffff\1\32\4\uffff\1\13\1\uffff\1\34";
+        "\1\uffff\1\1\17\uffff\1\43\1\44\1\45\1\46\1\51\1\52\1\53\1\66\4\uffff\1\74\1\75\1\76\1\uffff\1\106\1\uffff\1\117\1\120\1\121\1\2\1\114\1\41\32\uffff\1\36\1\63\1\111\1\40\1\73\1\42\3\uffff\1\103\1\72\2\uffff\1\116\1\uffff\1\115\1\uffff\1\3\1\uffff\1\50\33\uffff\1\61\10\uffff\1\4\6\uffff\1\60\5\uffff\1\17\4\uffff\1\65\23\uffff\1\20\20\uffff\1\57\5\uffff\1\62\2\uffff\1\113\13\uffff\1\104\15\uffff\1\37\4\uffff\1\55\3\uffff\1\70\7\uffff\1\21\5\uffff\1\35\5\uffff\1\26\1\47\4\uffff\1\22\1\27\7\uffff\1\107\2\uffff\1\110\4\uffff\1\23\2\uffff\1\100\5\uffff\1\77\2\uffff\1\71\1\101\3\uffff\1\5\13\uffff\1\16\3\uffff\1\105\1\112\2\uffff\1\6\2\uffff\1\10\1\24\1\uffff\1\11\6\uffff\1\67\7\uffff\1\25\5\uffff\1\64\1\102\1\54\11\uffff\1\56\6\uffff\1\14\3\uffff\1\7\11\uffff\1\33\13\uffff\1\15\2\uffff\1\12\3\uffff\1\31\3\uffff\1\30\3\uffff\1\32\4\uffff\1\13\1\uffff\1\34";
     static final String DFA29_specialS =
         "\u018d\uffff}>";
     static final String[] DFA29_transitionS = {
-            "\2\45\2\uffff\1\45\22\uffff\1\45\1\uffff\1\43\1\34\3\uffff\1\43\1\25\1\26\1\1\1\17\1\27\1\2\1\33\1\30\12\42\1\20\1\36\1\41\1\16\3\uffff\32\44\1\23\1\uffff\1\24\3\uffff\1\13\1\10\1\40\1\5\1\6\1\12\1\31\1\44\1\3\3\44\1\14\1\44\1\4\1\7\1\44\1\37\1\11\1\15\1\44\1\32\4\44\1\21\1\uffff\1\22\1\35",
+            "\2\45\2\uffff\1\45\22\uffff\1\45\1\uffff\1\43\1\35\3\uffff\1\43\1\25\1\26\1\1\1\17\1\27\1\2\1\34\1\30\12\42\1\20\1\37\1\41\1\16\3\uffff\32\44\1\23\1\uffff\1\24\3\uffff\1\13\1\10\1\40\1\5\1\6\1\12\1\32\1\44\1\3\3\44\1\14\1\44\1\4\1\7\1\44\1\31\1\11\1\15\1\44\1\33\4\44\1\21\1\uffff\1\22\1\36",
             "",
             "\1\47\20\uffff\1\46",
             "\1\51",
@@ -3303,10 +3303,10 @@ public class InternalInstanceLexer extends Lexer {
             "\1\111",
             "\1\112",
             "\1\113",
+            "\1\114",
             "",
             "",
             "",
-            "\1\115",
             "\1\117\2\uffff\1\116",
             "",
             "\1\122\1\uffff\12\42\45\uffff\1\121",
@@ -3350,9 +3350,9 @@ public class InternalInstanceLexer extends Lexer {
             "",
             "\1\163",
             "\1\164",
-            "",
-            "",
             "\1\165",
+            "",
+            "",
             "\1\166\1\167",
             "\1\170",
             "",
@@ -3463,8 +3463,8 @@ public class InternalInstanceLexer extends Lexer {
             "\1\u00db",
             "\1\u00dc",
             "",
+            "\1\u00dd",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00de",
             "\1\u00df",
             "\1\u00e0",
             "\1\u00e1",
@@ -3496,8 +3496,8 @@ public class InternalInstanceLexer extends Lexer {
             "",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\u00fa",
-            "",
             "\1\u00fb",
+            "",
             "\1\u00fc",
             "\1\u00fd",
             "\1\u00fe",
@@ -3526,8 +3526,8 @@ public class InternalInstanceLexer extends Lexer {
             "",
             "",
             "\1\u0113",
+            "\1\u0114",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u0115",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\u0117",
             "\1\u0118",
@@ -3551,8 +3551,8 @@ public class InternalInstanceLexer extends Lexer {
             "\1\u0127",
             "",
             "\1\u0128",
-            "",
             "\1\u0129",
+            "",
             "",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",

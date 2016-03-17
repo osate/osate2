@@ -1,4 +1,4 @@
-'#'=73
+'#'=74
 '('=55
 ')'=56
 '*'=15
@@ -7,12 +7,12 @@
 ','=57
 '-'=47
 '->'=16
-'.'=71
+'.'=72
 '..'=81
 '/'=68
 ':'=48
-'::'=72
-';'=75
+'::'=73
+';'=76
 '<->'=84
 '='=65
 '=>'=44
@@ -21,8 +21,8 @@
 'abstract'=28
 'abstractFeature'=27
 'accessConnection'=39
-'applies'=76
-'binding'=77
+'applies'=77
+'binding'=78
 'bus'=29
 'busAccess'=23
 'classifier'=80
@@ -43,7 +43,7 @@
 'featureGroup'=26
 'featureGroupConnection'=42
 'flow'=61
-'group'=69
+'group'=70
 'in'=17
 'initial'=85
 'memory'=32
@@ -57,7 +57,7 @@
 'portConnection'=41
 'process'=33
 'processor'=34
-'reference'=78
+'reference'=69
 'som'=67
 'source'=53
 'subprogram'=35
@@ -69,10 +69,10 @@
 'transition'=66
 'transitions'=60
 'true'=89
-'virtual'=70
+'virtual'=71
 '{'=49
 '}'=50
-'~'=74
+'~'=75
 RULE_BASED_INTEGER=12
 RULE_DIGIT=9
 RULE_EXPONENT=10

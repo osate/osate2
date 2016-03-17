@@ -103,9 +103,19 @@ OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode|IndexRef] (',' inMode+=[aadl2::Mode|IndexRef])* ')')?
 ;
 
+PropertyExpression returns aadl2::PropertyExpression:
+	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
+	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
+;
+
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	namedElement=[aadl2::NamedElement|DeclarativeRef] (arrayRange+=ArrayRange)? ('/' path=ContainmentPathElement)?
 ;
+
+InstanceReferenceValue returns instance::InstanceReferenceValue:
+	'reference' '(' referencedInstanceObject=[instance::InstanceObject|InstanceRef] ')'
+;
+
 
 DirectionType returns aadl2::DirectionType:
 	'in' | 'out' | 'in' 'out'
