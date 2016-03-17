@@ -2023,6 +2023,54 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_1_5() { return cRightParenthesisKeyword_1_5; }
 	}
 
+	public class ContainmentPathElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ContainmentPathElement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNamedElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cNamedElementNamedElementCrossReference_0_0 = (CrossReference)cNamedElementAssignment_0.eContents().get(0);
+		private final RuleCall cNamedElementNamedElementDeclarativeRefParserRuleCall_0_0_1 = (RuleCall)cNamedElementNamedElementCrossReference_0_0.eContents().get(1);
+		private final Assignment cArrayRangeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cArrayRangeArrayRangeParserRuleCall_1_0 = (RuleCall)cArrayRangeAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cSolidusKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cPathAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cPathContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cPathAssignment_2_1.eContents().get(0);
+		
+		//ContainmentPathElement returns aadl2::ContainmentPathElement:
+		//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ("/" path=ContainmentPathElement)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ("/" path=ContainmentPathElement)?
+		public Group getGroup() { return cGroup; }
+
+		//namedElement=[aadl2::NamedElement|DeclarativeRef]
+		public Assignment getNamedElementAssignment_0() { return cNamedElementAssignment_0; }
+
+		//[aadl2::NamedElement|DeclarativeRef]
+		public CrossReference getNamedElementNamedElementCrossReference_0_0() { return cNamedElementNamedElementCrossReference_0_0; }
+
+		//DeclarativeRef
+		public RuleCall getNamedElementNamedElementDeclarativeRefParserRuleCall_0_0_1() { return cNamedElementNamedElementDeclarativeRefParserRuleCall_0_0_1; }
+
+		//arrayRange+=ArrayRange?
+		public Assignment getArrayRangeAssignment_1() { return cArrayRangeAssignment_1; }
+
+		//ArrayRange
+		public RuleCall getArrayRangeArrayRangeParserRuleCall_1_0() { return cArrayRangeArrayRangeParserRuleCall_1_0; }
+
+		//("/" path=ContainmentPathElement)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"/"
+		public Keyword getSolidusKeyword_2_0() { return cSolidusKeyword_2_0; }
+
+		//path=ContainmentPathElement
+		public Assignment getPathAssignment_2_1() { return cPathAssignment_2_1; }
+
+		//ContainmentPathElement
+		public RuleCall getPathContainmentPathElementParserRuleCall_2_1_0() { return cPathContainmentPathElementParserRuleCall_2_1_0; }
+	}
+
 	public class DirectionTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DirectionType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2584,6 +2632,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final SystemOperationModeElements pSystemOperationMode;
 	private final PropertyAssociationInstanceElements pPropertyAssociationInstance;
 	private final OptionalModalPropertyValueElements pOptionalModalPropertyValue;
+	private final ContainmentPathElementElements pContainmentPathElement;
 	private final DirectionTypeElements pDirectionType;
 	private final FeatureCategoryElements pFeatureCategory;
 	private final ComponentCategoryElements pComponentCategory;
@@ -2617,6 +2666,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSystemOperationMode = new SystemOperationModeElements();
 		this.pPropertyAssociationInstance = new PropertyAssociationInstanceElements();
 		this.pOptionalModalPropertyValue = new OptionalModalPropertyValueElements();
+		this.pContainmentPathElement = new ContainmentPathElementElements();
 		this.pDirectionType = new DirectionTypeElements();
 		this.pFeatureCategory = new FeatureCategoryElements();
 		this.pComponentCategory = new ComponentCategoryElements();
@@ -2823,6 +2873,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getOptionalModalPropertyValueRule() {
 		return getOptionalModalPropertyValueAccess().getRule();
+	}
+
+	//ContainmentPathElement returns aadl2::ContainmentPathElement:
+	//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ("/" path=ContainmentPathElement)?;
+	public ContainmentPathElementElements getContainmentPathElementAccess() {
+		return pContainmentPathElement;
+	}
+	
+	public ParserRule getContainmentPathElementRule() {
+		return getContainmentPathElementAccess().getRule();
 	}
 
 	//DirectionType returns aadl2::DirectionType:
@@ -3128,19 +3188,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getFieldPropertyAssociationRule() {
 		return getFieldPropertyAssociationAccess().getRule();
-	}
-
-	//// from AADL2
-	//// need to add annex path element
-	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
-	//ContainmentPathElement returns aadl2::ContainmentPathElement:
-	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ("." path=ContainmentPathElement)?;
-	public PropertiesGrammarAccess.ContainmentPathElementElements getContainmentPathElementAccess() {
-		return gaProperties.getContainmentPathElementAccess();
-	}
-	
-	public ParserRule getContainmentPathElementRule() {
-		return getContainmentPathElementAccess().getRule();
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **

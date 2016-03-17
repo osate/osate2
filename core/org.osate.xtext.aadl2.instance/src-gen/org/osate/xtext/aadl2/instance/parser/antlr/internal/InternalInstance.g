@@ -2480,6 +2480,82 @@ ruleOptionalModalPropertyValue returns [EObject current=null]
 
 
 
+// Entry rule entryRuleContainmentPathElement
+entryRuleContainmentPathElement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getContainmentPathElementRule()); }
+	 iv_ruleContainmentPathElement=ruleContainmentPathElement 
+	 { $current=$iv_ruleContainmentPathElement.current; } 
+	 EOF 
+;
+
+// Rule ContainmentPathElement
+ruleContainmentPathElement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getContainmentPathElementRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_0()); 
+	    }
+		ruleDeclarativeRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_1_0()); 
+	    }
+		lv_arrayRange_1_0=ruleArrayRange		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
+	        }
+       		add(
+       			$current, 
+       			"arrayRange",
+        		lv_arrayRange_1_0, 
+        		"ArrayRange");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(	otherlv_2='/' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getContainmentPathElementAccess().getSolidusKeyword_2_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getPathContainmentPathElementParserRuleCall_2_1_0()); 
+	    }
+		lv_path_3_0=ruleContainmentPathElement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
+	        }
+       		set(
+       			$current, 
+       			"path",
+        		lv_path_3_0, 
+        		"ContainmentPathElement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
 // Entry rule entryRuleDirectionType
 entryRuleDirectionType returns [String current=null] 
 	:
@@ -4122,80 +4198,6 @@ ruleFieldPropertyAssociation returns [EObject current=null]
     	newLeafNode(otherlv_3, grammarAccess.getFieldPropertyAssociationAccess().getSemicolonKeyword_3());
     }
 )
-;
-
-
-
-
-
-// Entry rule entryRuleContainmentPathElement
-entryRuleContainmentPathElement returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getContainmentPathElementRule()); }
-	 iv_ruleContainmentPathElement=ruleContainmentPathElement 
-	 { $current=$iv_ruleContainmentPathElement.current; } 
-	 EOF 
-;
-
-// Rule ContainmentPathElement
-ruleContainmentPathElement returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getContainmentPathElementRule());
-	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_0_0()); 
-	}
-
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
-	    }
-		lv_arrayRange_1_0=ruleArrayRange		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
-	        }
-       		add(
-       			$current, 
-       			"arrayRange",
-        		lv_arrayRange_1_0, 
-        		"ArrayRange");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?)(	otherlv_2='.' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getContainmentPathElementAccess().getFullStopKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getPathContainmentPathElementParserRuleCall_1_1_0()); 
-	    }
-		lv_path_3_0=ruleContainmentPathElement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
-	        }
-       		set(
-       			$current, 
-       			"path",
-        		lv_path_3_0, 
-        		"ContainmentPathElement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?)
 ;
 
 
