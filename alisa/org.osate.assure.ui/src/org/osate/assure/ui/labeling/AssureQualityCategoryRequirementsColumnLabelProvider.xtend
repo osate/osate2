@@ -1,5 +1,6 @@
 package org.osate.assure.ui.labeling;
 
+import java.text.NumberFormat
 import org.osate.alisa.common.common.ResultIssue
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
@@ -11,18 +12,69 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 
 class AssureQualityCategoryRequirementsColumnLabelProvider extends AssureRequirementsCoverageMetricsColumnLabelProvider {
 
+
+	def int getCumulativeQualityCategoryRequirementsCount(Object ele){
+		switch ele {
+			AssuranceCaseResult : {
+				ele.metrics.qualityCategoryRequirementsCount +
+				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.cumulativeQualityCategoryRequirementsCount])
+			}
+			ModelResult : {
+				ele.metrics.qualityCategoryRequirementsCount +
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeQualityCategoryRequirementsCount])
+			}
+			SubsystemResult : {
+				ele.metrics.qualityCategoryRequirementsCount +
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeQualityCategoryRequirementsCount])
+			}
+			default : 0
+		}
+	}
+	def int getCumulativeTotalQualityCategorysCount(Object ele){
+		switch ele {
+			AssuranceCaseResult : {
+				ele.metrics.totalQualityCategoryCount +
+				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.cumulativeTotalQualityCategorysCount])
+			}
+			ModelResult : {
+				ele.metrics.totalQualityCategoryCount +
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeTotalQualityCategorysCount])
+			}
+			SubsystemResult : {
+				ele.metrics.totalQualityCategoryCount +
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeTotalQualityCategorysCount])
+			}
+			default : 0
+		}
+	}
+
+	def percentOfNumber(double x, double y) {
+		val format = NumberFormat.getPercentInstance()
+		format.setMinimumFractionDigits(2)
+		format.format(x / y)
+	}
+
 	override getText(Object ele) {
 		switch ele {
-//		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
-//		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size
-//		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size		
-//		modelResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
-
-			AssuranceCaseResult : "" + ele.metrics.qualityCategoryRequirementsCount
-			ModelResult : "" +  ele.metrics.qualityCategoryRequirementsCount
-			SubsystemResult : "" +  ele.metrics.qualityCategoryRequirementsCount
-//			ClaimResult : ele.assureResultCounts
-//			VerificationActivityResult : ele.assureResultCounts
+			AssuranceCaseResult : {
+//				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
+//					ele.metrics.totalQualityCategoryCount +  
+//						" | Cumulative Coverage: " + 
+						"Cumulative Coverage: " + 
+						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
+			}
+			ModelResult : {
+				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
+					ele.metrics.totalQualityCategoryCount +  
+						" | Cumulative Coverage: " + 
+						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
+			}
+			SubsystemResult : {
+				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
+					ele.metrics.totalQualityCategoryCount +  
+						" | Cumulative Coverage: " + 
+						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
+			}
 			ResultIssue : {
 					ele.target?.constructLabel?:""+ ele.constructMessage
 			}
@@ -30,6 +82,7 @@ class AssureQualityCategoryRequirementsColumnLabelProvider extends AssureRequire
 			ThenResult : 'then'
 			default : '?'
 		}
+			
 	}
 
 //	override getImage(Object ele){

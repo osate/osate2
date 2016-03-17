@@ -15,15 +15,15 @@ class  AssureFeaturesRequirementsColumnLabelProvider extends AssureRequirementsC
 		switch ele {
 			AssuranceCaseResult : {
 				ele.metrics.featuresRequirementsCount +
-				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.getCumulativeFeaturesRequirementsCount])
+				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.cumulativeFeaturesRequirementsCount])
 			}
 			ModelResult : {
 				ele.metrics.featuresRequirementsCount +
-					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.getCumulativeFeaturesRequirementsCount])
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeFeaturesRequirementsCount])
 			}
 			SubsystemResult : {
 				ele.metrics.featuresRequirementsCount +
-					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.getCumulativeFeaturesRequirementsCount])
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeFeaturesRequirementsCount])
 			}
 			default : 0
 		}
@@ -50,21 +50,23 @@ class  AssureFeaturesRequirementsColumnLabelProvider extends AssureRequirementsC
 	override getText(Object ele) {
 		switch ele {
 			AssuranceCaseResult : {
-				ele.metrics.featuresRequirementsCount.toString + " for " +
-					ele.metrics.featuresCount +  
-						" | Cumulative: " + ele.getCumulativeFeaturesRequirementsCount + 
+//				ele.metrics.featuresRequirementsCount.toString + " for " +
+//					ele.metrics.featuresCount +  
+//						" | Cumulative: " + 
+						"Cumulative: " + 
+						ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			ModelResult : {
 				ele.metrics.featuresRequirementsCount.toString + " for " +
 					ele.metrics.featuresCount +  
-						" | Cumulative: " + ele.getCumulativeFeaturesRequirementsCount + 
+						" | Cumulative: " + ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			SubsystemResult : {
 				ele.metrics.featuresRequirementsCount.toString + " for " +
 					ele.metrics.featuresCount +  
-						" | Cumulative: " + ele.getCumulativeFeaturesRequirementsCount + 
+						" | Cumulative: " + ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			ResultIssue : {

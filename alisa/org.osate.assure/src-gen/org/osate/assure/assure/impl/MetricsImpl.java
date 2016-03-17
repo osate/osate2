@@ -45,6 +45,7 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesCount <em>Features Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getTotalQualityCategoryCount <em>Total Quality Category Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsCount <em>Requirements Count</em>}</li>
@@ -295,6 +296,26 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int qualityCategoryRequirementsCount = QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTotalQualityCategoryCount() <em>Total Quality Category Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTotalQualityCategoryCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int TOTAL_QUALITY_CATEGORY_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getTotalQualityCategoryCount() <em>Total Quality Category Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTotalQualityCategoryCount()
+   * @generated
+   * @ordered
+   */
+  protected int totalQualityCategoryCount = TOTAL_QUALITY_CATEGORY_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getRequirementsWithoutPlanClaimCount() <em>Requirements Without Plan Claim Count</em>}' attribute.
@@ -698,6 +719,29 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getTotalQualityCategoryCount()
+  {
+    return totalQualityCategoryCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTotalQualityCategoryCount(int newTotalQualityCategoryCount)
+  {
+    int oldTotalQualityCategoryCount = totalQualityCategoryCount;
+    totalQualityCategoryCount = newTotalQualityCategoryCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__TOTAL_QUALITY_CATEGORY_COUNT, oldTotalQualityCategoryCount, totalQualityCategoryCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getRequirementsWithoutPlanClaimCount()
   {
     return requirementsWithoutPlanClaimCount;
@@ -842,6 +886,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getFeaturesRequirementsCount();
       case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
         return getQualityCategoryRequirementsCount();
+      case AssurePackage.METRICS__TOTAL_QUALITY_CATEGORY_COUNT:
+        return getTotalQualityCategoryCount();
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         return getRequirementsWithoutPlanClaimCount();
       case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
@@ -901,6 +947,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
         setQualityCategoryRequirementsCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__TOTAL_QUALITY_CATEGORY_COUNT:
+        setTotalQualityCategoryCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         setRequirementsWithoutPlanClaimCount((Integer)newValue);
@@ -967,6 +1016,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
         setQualityCategoryRequirementsCount(QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__TOTAL_QUALITY_CATEGORY_COUNT:
+        setTotalQualityCategoryCount(TOTAL_QUALITY_CATEGORY_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         setRequirementsWithoutPlanClaimCount(REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT_EDEFAULT);
         return;
@@ -1020,6 +1072,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return featuresRequirementsCount != FEATURES_REQUIREMENTS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT:
         return qualityCategoryRequirementsCount != QUALITY_CATEGORY_REQUIREMENTS_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__TOTAL_QUALITY_CATEGORY_COUNT:
+        return totalQualityCategoryCount != TOTAL_QUALITY_CATEGORY_COUNT_EDEFAULT;
       case AssurePackage.METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT:
         return requirementsWithoutPlanClaimCount != REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT_EDEFAULT;
       case AssurePackage.METRICS__NO_VERIFICATION_PLANS_COUNT:
@@ -1069,6 +1123,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(featuresRequirementsCount);
     result.append(", qualityCategoryRequirementsCount: ");
     result.append(qualityCategoryRequirementsCount);
+    result.append(", totalQualityCategoryCount: ");
+    result.append(totalQualityCategoryCount);
     result.append(", requirementsWithoutPlanClaimCount: ");
     result.append(requirementsWithoutPlanClaimCount);
     result.append(", noVerificationPlansCount: ");

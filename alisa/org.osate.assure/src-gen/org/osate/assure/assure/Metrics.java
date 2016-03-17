@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesCount <em>Features Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesRequirementsCount <em>Features Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getQualityCategoryRequirementsCount <em>Quality Category Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getTotalQualityCategoryCount <em>Total Quality Category Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}</li>
@@ -362,6 +363,32 @@ public interface Metrics extends EObject
    * @generated
    */
   void setQualityCategoryRequirementsCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Total Quality Category Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Total Quality Category Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Total Quality Category Count</em>' attribute.
+   * @see #setTotalQualityCategoryCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_TotalQualityCategoryCount()
+   * @model
+   * @generated
+   */
+  int getTotalQualityCategoryCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getTotalQualityCategoryCount <em>Total Quality Category Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Total Quality Category Count</em>' attribute.
+   * @see #getTotalQualityCategoryCount()
+   * @generated
+   */
+  void setTotalQualityCategoryCount(int value);
 
   /**
    * Returns the value of the '<em><b>Requirements Without Plan Claim Count</b></em>' attribute.

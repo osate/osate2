@@ -51,21 +51,24 @@ class AssureRequirementsWithNoPlanClaimColumnLabelProvider extends AssureRequire
 	override getText(Object ele) {
 		switch ele {
 			AssuranceCaseResult : {
-				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
-					ele.metrics.requirementsCount + " | Cumulative: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
-						" of "  + ele.getCumulativeRequirementsCount 
+//				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
+//					ele.metrics.requirementsCount + 
+//					" | Cumulative: " + 
+					"Cumulative: " + 
+					ele.cumulativeRequirementsWithoutPlanClaimCount + 
+						" of "  + ele.cumulativeRequirementsCount 
 			}
 			ModelResult : {
 				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
 					ele.metrics.requirementsCount + 
 						" | Cumulative: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
-							" of " + ele.getCumulativeRequirementsCount
+							" of " + ele.cumulativeRequirementsCount
 			}
 			SubsystemResult : {
 				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
 					ele.metrics.requirementsCount + 
 						" | Cumulative: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
-							" of " + ele.getCumulativeRequirementsCount
+							" of " + ele.cumulativeRequirementsCount
 			}
 			ResultIssue : {
 					ele.target?.constructLabel?:""+ ele.constructMessage

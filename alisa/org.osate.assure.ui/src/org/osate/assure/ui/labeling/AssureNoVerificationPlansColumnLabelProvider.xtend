@@ -15,15 +15,15 @@ class AssureNoVerificationPlansColumnLabelProvider extends AssureRequirementsCov
 		switch ele {
 			AssuranceCaseResult : {
 				ele.metrics.noVerificationPlansCount +
-				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.getCumulativeNoVerificationPlansCount])
+				 ele.modelResult.fold(0, [sum, modelRes | sum + modelRes.cumulativeNoVerificationPlansCount])
 			}
 			ModelResult : {
 				ele.metrics.noVerificationPlansCount +
-					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.getCumulativeNoVerificationPlansCount])
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeNoVerificationPlansCount])
 			}
 			SubsystemResult : {
 				ele.metrics.noVerificationPlansCount +
-					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.getCumulativeNoVerificationPlansCount])
+					 ele.subsystemResult.fold(0, [sum, subRes | sum + subRes.cumulativeNoVerificationPlansCount])
 			}
 			default : 0
 		}
@@ -33,8 +33,10 @@ class AssureNoVerificationPlansColumnLabelProvider extends AssureRequirementsCov
 		switch ele {
 
 			AssuranceCaseResult : {
-				ele.metrics.noVerificationPlansCount.toString + 
-					" | Cumulative: " + ele.cumulativeNoVerificationPlansCount 
+//				ele.metrics.noVerificationPlansCount.toString + 
+//					" | Cumulative: " + 
+					"Cumulative: " + 
+					ele.cumulativeNoVerificationPlansCount 
 			}
 			ModelResult : {
 				ele.metrics.noVerificationPlansCount.toString + 

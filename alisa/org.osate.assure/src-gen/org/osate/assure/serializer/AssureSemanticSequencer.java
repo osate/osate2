@@ -279,6 +279,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         featuresCount=INT? 
 	 *         featuresRequirementsCount=INT? 
 	 *         qualityCategoryRequirementsCount=INT? 
+	 *         totalQualityCategoryCount=INT? 
 	 *         requirementsWithoutPlanClaimCount=INT? 
 	 *         noVerificationPlansCount=INT? 
 	 *         requirementsCount=INT? 

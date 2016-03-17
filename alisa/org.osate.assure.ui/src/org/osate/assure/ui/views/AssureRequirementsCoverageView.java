@@ -149,8 +149,8 @@ import com.google.inject.Inject;
 
 	        TreeViewerColumn column2 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column2.getColumn().setAlignment(SWT.LEFT);
-	        column2.getColumn().setText("Quality Categories Covered");
-	        column2.getColumn().setWidth(200);
+	        column2.getColumn().setText("Quality Categories Coverage");
+	        column2.getColumn().setWidth(280);
 	        column2.getColumn().setResizable(true);
 	        column2.setLabelProvider(new AssureQualityCategoryRequirementsColumnLabelProvider());
 
