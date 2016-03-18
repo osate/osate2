@@ -277,10 +277,10 @@ class SerializerTest1 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				device sub1 [ 0 ] : pkg1::s.i::sub1 {
-					out dataPort op : pkg1::dev1::op source of ( 1~0 , 1~1 )
+					out dataPort op : pkg1::dev1::op
 				}
 				device sub2 [ 0 ] : pkg1::s.i::sub2 {
-					in dataPort ip : pkg1::dev2::ip destination of ( 1~0 , 1~1 )
+					in dataPort ip : pkg1::dev2::ip
 				}
 				complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
 					sub1[0].op -> sub2[0].ip : pkg1::s.i::conn1 in parent
@@ -318,9 +318,9 @@ class SerializerTest1 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				bus b [ 0 ] : pkg1::s.i::b source of ( 0 )
+				bus b [ 0 ] : pkg1::s.i::b
 				processor psub [ 0 ] : pkg1::s.i::psub {
-					in out busAccess ba : pkg1::p::ba destination of ( 1~0 )
+					in out busAccess ba : pkg1::p::ba
 				}
 				complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
 					b[0] -> psub[0].ba : pkg1::s.i::conn1 in parent
@@ -387,13 +387,13 @@ class SerializerTest1 extends AbstractSerializerTest {
 				process p1sub [ 0 ] : pkg1::s.i::p1sub {
 					out dataPort op : pkg1::p1::op
 					thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
-						out dataPort op : pkg1::t1::op source of ( 2~0 )
+						out dataPort op : pkg1::t1::op
 					}
 				}
 				process p2sub [ 0 ] : pkg1::s.i::p2sub {
 					in dataPort ip : pkg1::p2::ip
 					thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
-						in dataPort ip : pkg1::t2::ip destination of ( 2~0 )
+						in dataPort ip : pkg1::t2::ip
 					}
 				}
 				complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" :
@@ -436,11 +436,11 @@ class SerializerTest1 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				in dataPort ip : pkg1::s::ip source of ( 0 )
-				out dataPort op : pkg1::s::op destination of ( 1 )
+				in dataPort ip : pkg1::s::ip
+				out dataPort op : pkg1::s::op
 				process psub [ 0 ] : pkg1::s.i::psub {
-					in dataPort ip : pkg1::p::ip destination of ( 1~0 )
-					out dataPort op : pkg1::p::op source of ( 1~1 )
+					in dataPort ip : pkg1::p::ip
+					out dataPort op : pkg1::p::op
 				}
 				portConnection "ip -> psub.ip" : ip -> psub[0].ip {
 					ip -> psub[0].ip : pkg1::s.i::conn1 in parent
@@ -493,10 +493,10 @@ class SerializerTest1 extends AbstractSerializerTest {
 			system s_i_Instance : pkg1::s.i {
 				process psub [ 0 ] : pkg1::s.i::psub {
 					thread t1sub [ 0 ] : pkg1::p.i::t1sub {
-						out dataPort op : pkg1::t1::op source of ( 1~0 )
+						out dataPort op : pkg1::t1::op
 					}
 					thread t2sub [ 0 ] : pkg1::p.i::t2sub {
-						in dataPort ip : pkg1::t2::ip destination of ( 1~0 )
+						in dataPort ip : pkg1::t2::ip
 					}
 					complete portConnection "t1sub.op -> t2sub.ip" : t1sub[0].op -> t2sub[0].ip {
 						t1sub[0].op -> t2sub[0].ip : pkg1::p.i::conn1 in parent
@@ -547,16 +547,16 @@ class SerializerTest1 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "top.i", '''
 			abstract top_i_Instance : pkg1::top.i {
 				abstract a1sub [ 0 ] : pkg1::top.i::a1sub {
-					in out featureGroup fg1 : pkg1::a1::fg1 source of ( 1~0 )
-					in out abstractFeature af1 : pkg1::a1::af1 source of ( 1~1 )
-					in out busAccess ba1 : pkg1::a1::ba1 source of ( 1~2 )
-					out eventPort ep1 : pkg1::a1::ep1 source of ( 1~3 )
+					in out featureGroup fg1 : pkg1::a1::fg1
+					in out abstractFeature af1 : pkg1::a1::af1
+					in out busAccess ba1 : pkg1::a1::ba1
+					out eventPort ep1 : pkg1::a1::ep1
 				}
 				abstract a2sub [ 0 ] : pkg1::top.i::a2sub {
-					in out featureGroup fg2 : pkg1::a2::fg2 destination of ( 1~0 )
-					in out abstractFeature af2 : pkg1::a2::af2 destination of ( 1~1 )
-					in out busAccess ba2 : pkg1::a2::ba2 destination of ( 1~2 )
-					in eventPort ep2 : pkg1::a2::ep2 destination of ( 1~3 )
+					in out featureGroup fg2 : pkg1::a2::fg2
+					in out abstractFeature af2 : pkg1::a2::af2
+					in out busAccess ba2 : pkg1::a2::ba2
+					in eventPort ep2 : pkg1::a2::ep2
 				}
 				complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 ->
 				a2sub[0].fg2 {
@@ -665,11 +665,11 @@ class SerializerTest1 extends AbstractSerializerTest {
 					in out featureGroup fg6 : pkg1::p1::fg6
 					thread t1sub [ 0 ] : pkg1::p1.i::t1sub {
 						in out featureGroup fg1 : pkg1::t1::fg1 {
-							out dataPort dp1 : pkg1::fgt1::dp1 source of ( 2~0 )
-							out eventPort ep1 : pkg1::fgt1::ep1 source of ( 2~1 )
+							out dataPort dp1 : pkg1::fgt1::dp1
+							out eventPort ep1 : pkg1::fgt1::ep1
 						}
-						in out featureGroup fg2 : pkg1::t1::fg2 source of ( 2~2 )
-						in out featureGroup fg3 : pkg1::t1::fg3 source of ( 2~3 )
+						in out featureGroup fg2 : pkg1::t1::fg2
+						in out featureGroup fg3 : pkg1::t1::fg3
 					}
 				}
 				process p2sub [ 0 ] : pkg1::s.i::p2sub {
@@ -681,11 +681,11 @@ class SerializerTest1 extends AbstractSerializerTest {
 					in out featureGroup fg12 : pkg1::p2::fg12
 					thread t2sub [ 0 ] : pkg1::p2.i::t2sub {
 						in out featureGroup fg7 : pkg1::t2::fg7 {
-							in dataPort dp1 : pkg1::fgt1::dp1 destination of ( 2~0 )
-							in eventPort ep1 : pkg1::fgt1::ep1 destination of ( 2~1 )
+							in dataPort dp1 : pkg1::fgt1::dp1
+							in eventPort ep1 : pkg1::fgt1::ep1
 						}
-						in out featureGroup fg8 : pkg1::t2::fg8 destination of ( 2~2 )
-						in out featureGroup fg9 : pkg1::t2::fg9 destination of ( 2~3 )
+						in out featureGroup fg8 : pkg1::t2::fg8
+						in out featureGroup fg9 : pkg1::t2::fg9
 					}
 				}
 				complete portConnection "p1sub.t1sub.fg1.dp1 -> p2sub.t2sub.fg7.dp1" :
@@ -771,22 +771,22 @@ class SerializerTest1 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				in out featureGroup fg1 : pkg1::s::fg1 {
-					in dataPort p4 : pkg1::fgt1::p4 source of ( f5 )
-					in dataPort p5 [ 1 ] : pkg1::fgt1::p5 source of ( f6 )
+					in dataPort p4 : pkg1::fgt1::p4
+					in dataPort p5 [ 1 ] : pkg1::fgt1::p5
 					in dataPort p5 [ 2 ] : pkg1::fgt1::p5
 				}
 				in out featureGroup fg2 [ 1 ] : pkg1::s::fg2 {
-					in dataPort p6 : pkg1::fgt2::p6 source of ( f7 )
+					in dataPort p6 : pkg1::fgt2::p6
 				}
 				in out featureGroup fg2 [ 2 ] : pkg1::s::fg2 {
 					in dataPort p6 : pkg1::fgt2::p6
 				}
-				in dataPort p1 : pkg1::s::p1 source of ( 0 , f2 , f3 )
-				out dataPort p2 : pkg1::s::p2 destination of ( f1 , f3 )
-				in dataPort p3 [ 1 ] : pkg1::s::p3 source of ( f4 )
+				in dataPort p1 : pkg1::s::p1
+				out dataPort p2 : pkg1::s::p2
+				in dataPort p3 [ 1 ] : pkg1::s::p3
 				in dataPort p3 [ 2 ] : pkg1::s::p3
 				system s2_sub [ 0 ] : pkg1::s.i::s2_sub {
-					in dataPort p7 : pkg1::s2::p7 source of ( f8 ) destination of ( 1~0 )
+					in dataPort p7 : pkg1::s2::p7
 					flow f8 ( p7 -> ) : pkg1::s2::f8
 				}
 				portConnection "p1 -> s2_sub.p7" : p1 -> s2_sub[0].p7 {
