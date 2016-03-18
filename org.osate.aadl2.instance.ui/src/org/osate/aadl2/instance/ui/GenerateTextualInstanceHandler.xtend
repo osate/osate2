@@ -11,6 +11,8 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.SystemInstance
 import org.osate.xtext.aadl2.instance.ui.internal.InstanceActivator
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.copy
@@ -37,6 +39,7 @@ class GenerateTextualInstanceHandler extends AbstractHandler {
 		val destUri = sourceUri.trimFileExtension.appendFileExtension(extensionProvider.primaryFileExtension)
 		val destResource = resourceSetProvider.get.createResource(destUri)
 		destResource.contents += sourceResource.contents.head.copy
+		destResource.allContents.filter(ComponentInstance).filter[!(it instanceof SystemInstance) && indices.size == 1 && indices.head == 0L].forEach[indices.clear]
 		destResource.save(null)
 		
 		val destFile = sourceFile.workspace.root.getFile(new Path(destUri.toPlatformString(false)))
