@@ -149,6 +149,16 @@ public class EM2TypeSetUtil {
 		return true;
 	}
 
+	public static boolean contains(ErrorTypes constraint, TypeToken type) {
+		if (constraint instanceof ErrorType) {
+			return contains((ErrorType) constraint, type);
+		}
+		if (constraint instanceof TypeSet) {
+			return contains((TypeSet) constraint, type);
+		}
+		return true;
+	}
+
 	public static boolean contains(ErrorTypes constraint, ErrorTypes type) {
 		if (type instanceof ErrorType) {
 			ErrorType et = (ErrorType) type;
