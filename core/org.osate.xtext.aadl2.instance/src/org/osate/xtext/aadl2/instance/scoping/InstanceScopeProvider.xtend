@@ -86,11 +86,11 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def IScope scope_SystemOperationMode(SystemInstance context, EReference reference) {
-		new SimpleScope(context.systemOperationModes.indexed.map[EObjectDescription.create(key.toString, value)])
+		new SimpleScope(context.systemOperationModes.indexed.map[EObjectDescription.create("som#" + key, value)])
 	}
 	
 	def IScope scope_ModeTransitionInstance(ComponentInstance context, EReference reference) {
-		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create(key.toString, value)])
+		new SimpleScope(context.modeTransitionInstances.indexed.map[EObjectDescription.create("transition#" + key, value)])
 	}
 	
 	def IScope scope_ConnectionReference_connection(EObject context, EReference reference) {
@@ -145,7 +145,7 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		new SimpleScope(classifiers.map[classifier |
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
 			val directAssociations = classifier.ownedPropertyAssociations.indexed.map[propertyAssociation |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, propertyAssociation.key.toString])
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, "property#" + propertyAssociation.key])
 				EObjectDescription.create(qualifiedName, propertyAssociation.value)
 			]
 			val indirectAssociations = switch classifier {
@@ -260,7 +260,8 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		prefix + switch element {
 			ComponentInstance: '''«element.name»«FOR index : element.indices»[«index»]«ENDFOR»'''
-			ConnectionInstance: element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
+//			ConnectionInstance: element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
+			ConnectionInstance: "connection#" + element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
 			FeatureInstance: '''«element.name»«IF element.index != 0»[«element.index»]«ENDIF»'''
 			InstanceObject: element.name
 		}
@@ -272,7 +273,7 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def private static <T extends NamedElement> getAssociationScope(List<T> list, String pkgName, String classifierName, (List<T>, T)=>String getName) {
 		list.map[element | element.ownedPropertyAssociations.indexed.map[propertyAssociation |
-			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), propertyAssociation.key.toString])
+			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), "property#" + propertyAssociation.key])
 			EObjectDescription.create(qualifiedName, propertyAssociation.value)
 		]].flatten
 	}
