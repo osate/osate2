@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
-import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
@@ -71,17 +70,6 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		val fromComponents = <ComponentType>getDeclarativeScope(context, Aadl2Package.eINSTANCE.componentType, [ownedFeatures])
 		val fromFeatureGroups = <FeatureGroupType>getDeclarativeScope(context, Aadl2Package.eINSTANCE.featureGroupType, [ownedFeatures])
 		new SimpleScope(fromComponents + fromFeatureGroups)
-	}
-	
-	def IScope scope_FlowSpecificationInstance(ComponentInstance context, EReference reference) {
-		context.flowSpecifications.scopeFor
-	}
-	
-	def IScope scope_ConnectionInstance(EObject context, EReference reference) {
-		switch parent : context.eContainer.getContainerOfType(ComponentInstance) {
-			case null: IScope.NULLSCOPE
-			default: new SimpleScope(doConnection(0, parent))
-		}
 	}
 	
 	def IScope scope_ComponentInstance_inMode(ComponentInstance context, EReference reference) {
@@ -240,16 +228,6 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def IScope scope_InstanceReferenceValue_referencedInstanceObject(SystemInstance context, EReference reference) {
 		new SimpleScope(context.getInstanceScope(FeatureInstance, FlowSpecificationInstance, ModeInstance, ComponentInstance, ConnectionInstance, EndToEndFlowInstance))
-	}
-	
-	def private static Iterable<IEObjectDescription> doConnection(int levelCount, ComponentInstance component) {
-		val descriptions = component.connectionInstances.indexed.map[
-			EObjectDescription.create('''«IF levelCount > 0»«levelCount»~«ENDIF»«key»''', value)
-		]
-		switch parent : component.eContainer {
-			ComponentInstance: descriptions + doConnection(levelCount + 1, parent)
-			default: descriptions
-		}
 	}
 	
 	def private <T extends Classifier> getDeclarativeScope(EObject context, EClass containerEClass, (T)=>List<? extends NamedElement> elementsGetter) {
