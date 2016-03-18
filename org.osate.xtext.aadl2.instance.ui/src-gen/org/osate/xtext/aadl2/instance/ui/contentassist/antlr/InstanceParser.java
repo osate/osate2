@@ -51,6 +51,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDeclarativeRefAccess().getAlternatives_4(), "rule__DeclarativeRef__Alternatives_4");
 					put(grammarAccess.getInstanceRefAccess().getAlternatives(), "rule__InstanceRef__Alternatives");
 					put(grammarAccess.getInstanceRefAccess().getAlternatives_1_1(), "rule__InstanceRef__Alternatives_1_1");
+					put(grammarAccess.getInstanceRefAccess().getAlternatives_1_1_0_0(), "rule__InstanceRef__Alternatives_1_1_0_0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getAlternatives_4_1(), "rule__PropertyAssociationRef__Alternatives_4_1");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
@@ -118,6 +119,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstanceRefAccess().getGroup_1(), "rule__InstanceRef__Group_1__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_0(), "rule__InstanceRef__Group_1_0__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_0_1(), "rule__InstanceRef__Group_1_0_1__0");
+					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_0(), "rule__InstanceRef__Group_1_1_0__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_1(), "rule__InstanceRef__Group_1_1_1__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_1_1(), "rule__InstanceRef__Group_1_1_1_1__0");
 					put(grammarAccess.getModeTransitionNameAccess().getGroup(), "rule__ModeTransitionName__Group__0");
