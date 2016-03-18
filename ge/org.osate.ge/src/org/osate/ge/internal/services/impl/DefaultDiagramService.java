@@ -233,7 +233,7 @@ public class DefaultDiagramService implements DiagramService {
 			if(editor instanceof AgeDiagramEditor) {
 				return (AgeDiagramEditor)editor;
 			} else {
-				throw new RuntimeException("Unexpected editor type: " + editor);
+				throw new RuntimeException("Unexpected editor: " + editor);
 			}
 		} catch (PartInitException e) {
 			throw new RuntimeException(e);
