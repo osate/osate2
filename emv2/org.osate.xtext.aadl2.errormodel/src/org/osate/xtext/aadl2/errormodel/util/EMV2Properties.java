@@ -1,7 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
@@ -84,10 +84,10 @@ public class EMV2Properties {
 	 * @return
 	 */
 	public static double getProbability(NamedElement ci, NamedElement ne, ErrorTypes ts) {
-		EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(ci, ne, ts);
+		List<EMV2PropertyAssociation> PA = EMV2Properties.getOccurrenceDistributionProperty(ci, ne, ts);
 		double prob = 0;
-		if (PA != null) {
-			prob = EMV2Properties.getOccurenceValue(PA);
+		for (EMV2PropertyAssociation emv2PropertyAssociation : PA) {
+			prob += EMV2Properties.getOccurenceValue(emv2PropertyAssociation);
 		}
 		return prob;
 	}
@@ -113,13 +113,13 @@ public class EMV2Properties {
 			ts = ((ErrorEvent) element).getTypeSet();
 		}
 
-		EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
+		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
 		if (PA == null) {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.get(0).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue) {
 				RecordValue rv = (RecordValue) val;
@@ -173,13 +173,13 @@ public class EMV2Properties {
 			ts = ((ErrorEvent) element).getTypeSet();
 		}
 
-		EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
+		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
-		if (PA == null) {
+		if (PA.isEmpty()) {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : PA.get(0).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue) {
 				RecordValue rv = (RecordValue) val;
@@ -219,8 +219,8 @@ public class EMV2Properties {
 	 * @param ts TypeSet
 	 * @return
 	 */
-	public static EMV2PropertyAssociation getHazardsProperty(NamedElement ci, NamedElement target, TypeSet ts) {
-		EMV2PropertyAssociation result = getProperty("EMV2::hazards", ci, target, ts);
+	public static List<EMV2PropertyAssociation> getHazardsProperty(NamedElement ci, NamedElement target, TypeSet ts) {
+		List<EMV2PropertyAssociation> result = getProperty("EMV2::hazards", ci, target, ts);
 		if (result == null) {
 			result = getProperty("ARP4761::hazards", ci, target, ts);
 		}
@@ -242,9 +242,9 @@ public class EMV2Properties {
 	 * @param ts				corresponding typeset or null
 	 * @return
 	 */
-	public static EMV2PropertyAssociation getOccurenceDistributionProperty(NamedElement ci, NamedElement target,
+	public static List<EMV2PropertyAssociation> getOccurrenceDistributionProperty(NamedElement ci, NamedElement target,
 			ErrorTypes ts) {
-		EMV2PropertyAssociation result = getProperty("EMV2::OccurrenceDistribution", ci, target, ts);
+		List<EMV2PropertyAssociation> result = getProperty("EMV2::OccurrenceDistribution", ci, target, ts);
 		return result;
 	}
 
@@ -392,7 +392,7 @@ public class EMV2Properties {
 	 * @param element declarative model element or error annex element
 	 * @return PS list of ErrorModelLibrary, ErrorBehaviorStateMachine
 	 */
-	public static Collection<EMV2PropertyAssociation> getPropertyAssociationListInContext(Element element) {
+	public static List<EMV2PropertyAssociation> getPropertyAssociationListInContext(Element element) {
 		EObject container = element;
 		while (container != null) {
 			if (container instanceof ErrorModelSubclause) {
@@ -415,9 +415,9 @@ public class EMV2Properties {
 	 * @param propertyName name of property
 	 * @return EList<PropertyAssociation>
 	 */
-	public static Collection<PropertyAssociation> getPropertyAssociationsMatchingName(
-			Collection<PropertyAssociation> props, String propertyName) {
-		Collection<PropertyAssociation> result = new ArrayList<PropertyAssociation>();
+	public static List<PropertyAssociation> getPropertyAssociationsMatchingName(List<PropertyAssociation> props,
+			String propertyName) {
+		List<PropertyAssociation> result = new ArrayList<PropertyAssociation>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
@@ -437,22 +437,36 @@ public class EMV2Properties {
 	 * @param ciStack stack of nested CI below the ci of the props; those names may show up in the path
 	 * @return list of paths
 	 */
-	public static EMV2PropertyAssociation getMatchingPropertiesInList(Collection<EMV2PropertyAssociation> props,
+	public static List<EMV2PropertyAssociation> getMatchingPropertiesInList(List<EMV2PropertyAssociation> props,
 			String propertyName, NamedElement target, Stack<NamedElement> ciStack, ErrorTypes ts) {
 		if (props.isEmpty()) {
 			return null;
 		}
+		List<EMV2PropertyAssociation> result = new ArrayList<EMV2PropertyAssociation>();
 		for (EMV2PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
-				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, ciStack, ts);
+				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
 				if (res != null) {
-					return res;
+					result.add(res);
 				}
 			}
 		}
-		return null;
+		return result;
+	}
+
+	/**
+	 * return containment paths of all PA in list whose property name and target/ts match
+	 * @param props
+	 * @param propertyName
+	 * @param target
+	 * @param ts
+	 * @return list of PropertyAssociation
+	 */
+	public static List<EMV2PropertyAssociation> getMatchingPropertiesInList(List<EMV2PropertyAssociation> props,
+			String propertyName, NamedElement target, ErrorTypes ts) {
+		return getMatchingPropertiesInList(props, propertyName, target, null, ts);
 	}
 
 	/**
@@ -542,32 +556,6 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * return containment paths of all PA in list whose property name and target/ts match
-	 * @param props
-	 * @param propertyName
-	 * @param target
-	 * @param ts
-	 * @return PropertyAssociation
-	 */
-	public static EMV2PropertyAssociation getMatchingErrorModelElementPropertyAssociationsInList(
-			Collection<EMV2PropertyAssociation> props, String propertyName, NamedElement target, ErrorTypes ts) {
-		if (props == null) {
-			return null;
-		}
-		for (EMV2PropertyAssociation propertyAssociation : props) {
-			Property prop = propertyAssociation.getProperty();
-			String name = prop.getQualifiedName();
-			if (propertyName.equalsIgnoreCase(name)) {
-				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
-				if (res != null) {
-					return res;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * find property by first looking for it down the component instance hierarchy to ci
 	 * Then try to find it in the local context if not null. The context is the context object of the referenced target.
 	 * For example: the transition for a state reference.
@@ -583,15 +571,15 @@ public class EMV2Properties {
 	 * @param ts Type Set null or any error type in the type set as part of the target error model element
 	 * @return
 	 */
-	public static EMV2PropertyAssociation getProperty(String propertyName, NamedElement ci, NamedElement target,
+	public static List<EMV2PropertyAssociation> getProperty(String propertyName, NamedElement ci, NamedElement target,
 			ErrorTypes ts) {
-		EMV2PropertyAssociation result = getPropertyInInstanceHierarchy(propertyName, ci, target, ts);
+		List<EMV2PropertyAssociation> result = getPropertyInInstanceHierarchy(propertyName, ci, target, ts);
 		if (result == null) {
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
-			Collection<EMV2PropertyAssociation> props = getPropertyAssociationListInContext(target);
+			List<EMV2PropertyAssociation> props = getPropertyAssociationListInContext(target);
 			if (props != null) {
-				result = getMatchingErrorModelElementPropertyAssociationsInList(props, propertyName, target, ts);
+				result = getMatchingPropertiesInList(props, propertyName, target, ts);
 			}
 		}
 		return result;
@@ -607,12 +595,12 @@ public class EMV2Properties {
 	 * @param ts
 	 * @return
 	 */
-	private static EMV2PropertyAssociation getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,
-			NamedElement target, Stack<NamedElement> ciStack, ErrorTypes ts) {
+	private static List<EMV2PropertyAssociation> getPropertyInInstanceHierarchy(String propertyName,
+			ComponentInstance ci, NamedElement target, Stack<NamedElement> ciStack, ErrorTypes ts) {
 		if (ci != null) {
 			if (ci.getContainingComponentInstance() != null) {
 				ciStack.push(ci);
-				EMV2PropertyAssociation result = getPropertyInInstanceHierarchy(propertyName,
+				List<EMV2PropertyAssociation> result = getPropertyInInstanceHierarchy(propertyName,
 						ci.getContainingComponentInstance(), target, ciStack, ts);
 				ciStack.pop();
 				if (result != null) {
@@ -620,10 +608,11 @@ public class EMV2Properties {
 				}
 			}
 			// deals with inherited properties by walking subclause inheritance
-			Collection<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+			List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
 			for (ErrorModelSubclause ems : emslist) {
-				Collection<EMV2PropertyAssociation> props = ems.getProperties();
-				EMV2PropertyAssociation result = getMatchingPropertiesInList(props, propertyName, target, ciStack, ts);
+				List<EMV2PropertyAssociation> props = ems.getProperties();
+				List<EMV2PropertyAssociation> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
+						ts);
 				if (result != null) {
 					return result;
 				}
@@ -644,7 +633,7 @@ public class EMV2Properties {
 	 * @return Containmentpath of the PA that matches the parameters.
 	 * we return the path because the PA applies to more than element
 	 */
-	public static EMV2PropertyAssociation getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
+	public static List<EMV2PropertyAssociation> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			NamedElement target, ErrorTypes ts) {
 		if (ci == null)
 			return null;
@@ -659,7 +648,7 @@ public class EMV2Properties {
 			cl = (ComponentClassifier) ((Subcomponent) ci).getContainingClassifier();
 			ciStack.push(ci);
 			// ciStack has subcomponent whose error model is of interest
-			EMV2PropertyAssociation result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
+			List<EMV2PropertyAssociation> result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
 			if (result != null) {
 				return result;
 			}
@@ -685,14 +674,15 @@ public class EMV2Properties {
 	 * @return Containmentpath of the PA that matches the parameters.
 	 * we return the path because the PA applies to more than element
 	 */
-	public static EMV2PropertyAssociation getPropertyInClassifier(String propertyName, Classifier cl,
+	public static List<EMV2PropertyAssociation> getPropertyInClassifier(String propertyName, Classifier cl,
 			NamedElement target, Stack<NamedElement> ciStack, ErrorTypes ts) {
 		if (cl != null) {
 			// deals with inherited properties by walking subclause inheritance
 			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(cl);
 			for (ErrorModelSubclause ems : emslist) {
-				Collection<EMV2PropertyAssociation> props = ems.getProperties();
-				EMV2PropertyAssociation result = getMatchingPropertiesInList(props, propertyName, target, ciStack, ts);
+				List<EMV2PropertyAssociation> props = ems.getProperties();
+				List<EMV2PropertyAssociation> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
+						ts);
 				if (result != null) {
 					return result;
 				}
@@ -708,7 +698,7 @@ public class EMV2Properties {
 	 * @param ts Typeset
 	 * @return path to element with property
 	 */
-	public static EMV2PropertyAssociation getSeverityProperty(NamedElement ci, NamedElement target, TypeSet ts) {
+	public static List<EMV2PropertyAssociation> getSeverityProperty(NamedElement ci, NamedElement target, TypeSet ts) {
 		return EMV2Properties.getProperty("EMV2::Severity", ci, target, ts);
 	}
 
@@ -719,7 +709,8 @@ public class EMV2Properties {
 	 * @param ts Typeset
 	 * @return path to element with property
 	 */
-	public static EMV2PropertyAssociation getLikelihoodProperty(NamedElement ci, NamedElement target, TypeSet ts) {
+	public static List<EMV2PropertyAssociation> getLikelihoodProperty(NamedElement ci, NamedElement target,
+			TypeSet ts) {
 		return EMV2Properties.getProperty("EMV2::Likelihood", ci, target, ts);
 	}
 

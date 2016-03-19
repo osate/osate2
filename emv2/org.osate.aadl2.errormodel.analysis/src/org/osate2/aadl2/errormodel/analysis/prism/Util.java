@@ -222,8 +222,9 @@ public class Util {
 				ErrorEvent ee = (ErrorEvent) event;
 				// OsateDebug.osateDebug("[Utils] Event kind:" + ee);
 
-				EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, ee, null);
-				// OsateDebug.osateDebug("[Utils] PA :" + PA);
+				List<EMV2PropertyAssociation> PAList = EMV2Properties.getOccurrenceDistributionProperty(instance, ee,
+						null);
+				EMV2PropertyAssociation PA = PAList.isEmpty() ? null : PAList.get(0);
 				if (PA != null) {
 					/**
 					 * 
@@ -253,8 +254,7 @@ public class Util {
 						PRISMAction.reportWarning(instance,
 								"Distribution occurence should be set to poisson for CTMC generation");
 					}
-
-					res = EMV2Properties.getOccurenceValue(PA);
+					res = EMV2Properties.getProbability(instance, ee, null);
 				}
 			}
 
@@ -262,11 +262,7 @@ public class Util {
 				RecoverEvent re = (RecoverEvent) event;
 				// OsateDebug.osateDebug("[Utils] Recover kind:" + re);
 
-				EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(instance, re, null);
-				// OsateDebug.osateDebug("[Utils] PA :" + PA);
-				if (PA != null) {
-					res = EMV2Properties.getOccurenceValue(PA);
-				}
+				res = EMV2Properties.getProbability(instance, re, null);
 			}
 
 			/**

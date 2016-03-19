@@ -63,7 +63,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -400,7 +399,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						if (eop != null) {
 							if (eop instanceof ErrorPropagation) {
 								ErrorPropagation ep = (ErrorPropagation) eop;
-						
+
 								if (ep == es.getIncoming()) {
 									found = true;
 								}
@@ -752,18 +751,15 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
 								se.getSubcomponent();
 								// OsateDebug.osateDebug("se=" + se);
-								EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(
-										componentInstance, EMV2Util.getState(sce), null);
-								if (PA == null) {
+								double res = EMV2Properties.getProbability(componentInstance, EMV2Util.getState(sce),
+										null);
+								if (res == 0) {
 									warning(componentInstance,
 											"C13: component " + componentInstance.getName()
 													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
 													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
 								} else {
-									// OsateDebug.osateDebug(" PA " + PA);
-									tmp = EMV2Properties.getOccurenceValue(PA);
-									// OsateDebug.osateDebug("tmp=" + tmp);
-									probabilityComposite = probabilityComposite + tmp;
+									probabilityComposite = probabilityComposite + res;
 								}
 							}
 						}
@@ -772,24 +768,17 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 					for (ConditionElement ce : elementsBehavior) {
 						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
-						EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,
-								eop, null);
+						double res = EMV2Properties.getProbability(componentInstance, eop, null);
 						// OsateDebug.osateDebug(" PA " + PA);
-						if (PA == null) {
+						if (res == 0) {
 							warning(componentInstance,
 									"C13: component " + componentInstance.getName()
 											+ " does not define occurrence for incoming propagation "
 											+ EMV2Util.getPrintName(eop));
 						} else {
-							// OsateDebug.osateDebug(" PA " + PA);
-							tmp = EMV2Properties.getOccurenceValue(PA);
-							// OsateDebug.osateDebug("tmp=" + tmp);
-							probabilityBehavior = probabilityBehavior + tmp;
+							probabilityBehavior = probabilityBehavior + res;
 						}
 					}
-//					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
-//					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
-//
 
 					if (probabilityBehavior != probabilityComposite) {
 						error(componentInstance,

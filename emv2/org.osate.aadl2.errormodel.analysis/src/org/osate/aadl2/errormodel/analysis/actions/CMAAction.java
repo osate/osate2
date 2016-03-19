@@ -33,6 +33,8 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -110,7 +112,9 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		 */
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
 
-			EMV2PropertyAssociation severityPA = EMV2Properties.getSeverityProperty(si, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> severityPAList = EMV2Properties.getSeverityProperty(si, state,
+					state.getTypeSet());
+			EMV2PropertyAssociation severityPA = severityPAList.isEmpty() ? null : severityPAList.get(0);
 			PropertyExpression severityValue = EMV2Properties.getPropertyValue(severityPA);
 			String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
 			CMAUtils.setCurrentSeverity(sev);

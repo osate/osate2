@@ -878,8 +878,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				prob = prob + Double.valueOf(bv);
 			} else if (sl != null) {
 				ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
-				EMV2PropertyAssociation pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
-				prob = prob + EMV2Properties.getRealValue(pa);
+				List<EMV2PropertyAssociation> pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
+				for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
+					prob = prob + EMV2Properties.getRealValue(emv2PropertyAssociation);
+				}
 			}
 		}
 		if (!foundothers && prob != 1) {

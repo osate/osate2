@@ -125,11 +125,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(condElement);
 				if (eop instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) eop;
-					EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+					List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+					List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
-					EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
+					List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
 					reportHazardProperty(ci, PA, Sev, Like, errorEvent, errorEvent.getTypeSet(), errorEvent, report);
 				}
@@ -140,9 +140,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			EMV2PropertyAssociation PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
-			EMV2PropertyAssociation Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
-			EMV2PropertyAssociation Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
 			reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state, report);
 		}
 
@@ -153,9 +153,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
-			EMV2PropertyAssociation HazardPA = null;
-			EMV2PropertyAssociation Sev = null;
-			EMV2PropertyAssociation Like = null;
+			List<EMV2PropertyAssociation> HazardPA = null;
+			List<EMV2PropertyAssociation> Sev = null;
+			List<EMV2PropertyAssociation> Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
@@ -203,20 +203,18 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 		for (ErrorPropagation ep : oeplist) {
-			EMV2PropertyAssociation HazardPA = null;
-			EMV2PropertyAssociation Sev = null;
-			EMV2PropertyAssociation Like = null;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
 			// error propagation is originating hazard
 			ts = ep.getTypeSet();
-			HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
-			Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
-			Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
+			List<EMV2PropertyAssociation> HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
+			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
+			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
 			target = ep;
 			localContext = null;
-			if (HazardPA != null) {
+			// XXX we may have more than one matching hazard
+			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
 		}
@@ -245,11 +243,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, EMV2PropertyAssociation PA, EMV2PropertyAssociation Sev,
-			EMV2PropertyAssociation Like, Element target, TypeSet ts, Element localContext, WriteToFile report) {
+	protected void reportHazardProperty(ComponentInstance ci, List<EMV2PropertyAssociation> PAList,
+			List<EMV2PropertyAssociation> SevList, List<EMV2PropertyAssociation> LikeList, Element target, TypeSet ts,
+			Element localContext, WriteToFile report) {
 
 		String targetName;
-		if (PA == null)
+		if (PAList.isEmpty())
 			return;
 		if (target == null) {
 			targetName = "";
@@ -263,37 +262,34 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				targetName = "state " + targetName;
 			}
 		}
+		EMV2PropertyAssociation PA = PAList.get(0);
+		EMV2PropertyAssociation Sev = SevList.isEmpty() ? null : SevList.get(0);
+		EMV2PropertyAssociation Like = LikeList.isEmpty() ? null : LikeList.get(0);
 
 		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
-			if (peVal instanceof ListValue) { // it is always a list
-				ListValue lv = (ListValue) peVal;
-				for (PropertyExpression pe : lv.getOwnedListElements()) {
-					// OsateDebug.osateDebug ("pe=" + pe);
-					if (pe instanceof RecordValue) {
-						PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
-						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
-						EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
-						// for all error types/aliases in type set or the element identified in the containment clause
+			ListValue lv = (ListValue) peVal;
+			for (PropertyExpression pe : lv.getOwnedListElements()) {
+				PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
+				PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
+				EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
+				// for all error types/aliases in type set or the element identified in the containment clause
 
-						if (ts != null) {
-							for (TypeToken token : ts.getTypeTokens()) {
-								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-										EMV2Util.getName(token));
-							}
-						} else {
-							// did not have a type set. Let's use fmr (state of type set as failure mode.
+				if (ts != null) {
+					for (TypeToken token : ts.getTypeTokens()) {
+						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+								EMV2Util.getName(token));
+					}
+				} else {
+					// did not have a type set. Let's use fmr (state of type set as failure mode.
 
-							if (localContext == null) {
-								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
-							} else {
-								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
-										EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
-							}
-						}
+					if (localContext == null) {
+						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
+					} else {
+						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
+								EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
 					}
 				}
-
 			}
 		}
 	}
@@ -305,8 +301,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected void reportHeading(WriteToFile report) {
 		report.addOutputNewline("Component, Error," + " Hazard Description, Crossreference, " + "Functional Failure, " + // "Failure Effect, " +
 				"Operational Phases, Environment," + // " Mishap/Failure Condition,"+
-//				"Effects of Hazard"+ // "Description" old style
-		" Severity, Likelihood," +
+				// "Effects of Hazard"+ // "Description" old style
+				" Severity, Likelihood," +
 				// "Target Severity, Target Likelihood, Assurance Level, " +
 				"Verification, " + // "Safety Report, " +
 				"Comment");

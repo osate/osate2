@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -54,11 +53,9 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -78,26 +75,13 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return "RBD";
 	}
 
-	private static ComponentInstance findInstance(ComponentInstance root,
-			EList<SubcomponentElement> subcomponentElements) {
-		ComponentInstance container = root;
-		for (SubcomponentElement se : subcomponentElements) {
-			Subcomponent sub = se.getSubcomponent();
-			container = container.findSubcomponentInstance(sub);
-			if (container == null) {
-				return null;
-			}
-		}
-
-		return container;
-	}
-
 	private double handleElement(final SConditionElement conditionElement, final ComponentInstance root) {
 		double result = 0;
 
 		ErrorBehaviorState behaviorState = EMV2Util.getState(conditionElement);
 
-		ComponentInstance relatedInstance = findInstance(root, EMV2Util.getSubcomponents(conditionElement));
+		ComponentInstance relatedInstance = EMV2Util
+				.getLastComponentInstance(conditionElement.getQualifiedErrorPropagationReference(), root);
 //		OsateDebug.osateDebug("         instance " + relatedInstance);
 
 		if (relatedInstance != null && !componentsNames.contains(relatedInstance)) {
@@ -119,15 +103,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * If it does not work, try the property mechanism.
 			 */
-
-			// OsateDebug.osateDebug(" behaviorState " + behaviorState);
-			EMV2PropertyAssociation PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance, behaviorState,
-					null);
-			// OsateDebug.osateDebug(" PA " + PA);
-			if (PA != null) {
-				// XXX TODO handle values on subtypes (list > 1)
-				resultProperty = EMV2Properties.getOccurenceValue(PA);
-			}
+			resultProperty = EMV2Properties.getProbability(relatedInstance, behaviorState, null);
 
 			/**
 			 * We take the result that is the worst case occurrence.
@@ -136,19 +112,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 				result = resultProperty;
 			} else {
 				result = resultSubcomponents;
-//				if ((resultProperty > 0) && (resultProperty < resultSubcomponents))
-//				{
-//					result = resultSubcomponents;
-//
-//					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking analysis result");
-//				}
-//
-//				if ((resultProperty > 0) && (resultSubcomponents < resultProperty))
-//				{
-//					result = resultProperty;
-//
-//					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking property result");
-//				}
 			}
 
 		}
@@ -191,7 +154,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		double probabilityTemp;
 		double toRemove;
 		double result;
-		double inverseProb=1; 											//Probability fix attempt - DD 06/23/15
+		double inverseProb = 1; // Probability fix attempt - DD 06/23/15
 
 		EList<CompositeState> states = EMV2Util.getAllCompositeStates(component);
 		result = 0;
@@ -201,24 +164,28 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			if (state.getState().getName().equalsIgnoreCase(errorStateName)) {
 				probabilityTemp = handleCondition(state.getCondition(), component);
 				// OsateDebug.osateDebug("temp=" + probabilityTemp);
-				
-				/*result = result + probabilityTemp; 					//Probability fix attempt - DD 06/23/15
-				if (toRemove == 0) {
-					toRemove = probabilityTemp;
-				} else {
-					toRemove = toRemove * probabilityTemp;
-					result = result - toRemove;
-					toRemove = result;
-				}*/
-				inverseProb *= (1-probabilityTemp);
+
+				/*
+				 * result = result + probabilityTemp; //Probability fix attempt - DD 06/23/15
+				 * if (toRemove == 0) {
+				 * toRemove = probabilityTemp;
+				 * } else {
+				 * toRemove = toRemove * probabilityTemp;
+				 * result = result - toRemove;
+				 * toRemove = result;
+				 * }
+				 */
+				inverseProb *= (1 - probabilityTemp);
 
 			}
 		}
 		// seems to reset the fa
-		/*if (result > toRemove) {
-			result = result - toRemove;
-		}*/
-		result = 1-inverseProb; 										//End Probability fix attempt - DD 06/23/15
+		/*
+		 * if (result > toRemove) {
+		 * result = result - toRemove;
+		 * }
+		 */
+		result = 1 - inverseProb; // End Probability fix attempt - DD 06/23/15
 		return result;
 	}
 
