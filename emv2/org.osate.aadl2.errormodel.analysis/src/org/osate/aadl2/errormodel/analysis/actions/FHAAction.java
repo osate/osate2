@@ -170,7 +170,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = failureMode;
 				localContext = errorSource;
 			}
-			if (HazardPA == null) {
+			if (HazardPA.isEmpty()) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) {
@@ -198,7 +198,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 //				target = ep;
 //				localContext = null;
 //			}
-			if (HazardPA != null) {
+			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
 		}
