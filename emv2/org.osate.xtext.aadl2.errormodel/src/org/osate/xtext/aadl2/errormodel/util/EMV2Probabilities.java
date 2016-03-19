@@ -94,6 +94,16 @@ public class EMV2Probabilities {
 		return 0;
 	}
 
+	/**
+	 * compute probability of being in the specified state.
+	 * This is determined by error events triggering incoming transitions, and recursively
+	 * error events from predecessor state transitions (as product)
+	 * reduce by probability of error events triggering outgoing transitions: incoming * (1 - outgoing)
+	 * @param component
+	 * @param es
+	 * @param type
+	 * @return
+	 */
 	public static double computeOwnStateProbability(ComponentInstance component, ErrorBehaviorState es,
 			ErrorTypes type) {
 		double incomingProbability = 0;
@@ -108,6 +118,25 @@ public class EMV2Probabilities {
 				incomingProbability = incomingProbability + eventTriggerProbability * previousStateProbability;
 			}
 		}
+		double outgoingProbability = computeOutgoingTransitionsProbability(component, es, type, transitions);
+		return incomingProbability * (1 - outgoingProbability);
+	}
+
+	/**
+	 * compute the probability of any outgoing transition to occur
+	 * @param component
+	 * @param es
+	 * @param type
+	 * @return
+	 */
+	public static double computeOutgoingTransitionsProbability(ComponentInstance component, ErrorBehaviorState es,
+			ErrorTypes type) {
+		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
+		return computeOutgoingTransitionsProbability(component, es, type, transitions);
+	}
+
+	public static double computeOutgoingTransitionsProbability(ComponentInstance component, ErrorBehaviorState es,
+			ErrorTypes type, Collection<ErrorBehaviorTransition> transitions) {
 		double outgoingProbability = 0;
 		for (ErrorBehaviorTransition transition : transitions) {
 			if (transition.getSource().getName().equalsIgnoreCase(es.getName())) {
@@ -116,7 +145,7 @@ public class EMV2Probabilities {
 				outgoingProbability += probabilityTemp;
 			}
 		}
-		return incomingProbability * (1 - outgoingProbability);
+		return outgoingProbability;
 	}
 
 	/**
