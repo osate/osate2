@@ -1,6 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -221,10 +222,10 @@ public class EMV2Properties {
 	 */
 	public static List<EMV2PropertyAssociation> getHazardsProperty(NamedElement ci, NamedElement target, TypeSet ts) {
 		List<EMV2PropertyAssociation> result = getProperty("EMV2::hazards", ci, target, ts);
-		if (result == null) {
+		if (result.isEmpty()) {
 			result = getProperty("ARP4761::hazards", ci, target, ts);
 		}
-		if (result == null) {
+		if (result.isEmpty()) {
 			result = getProperty("MILSTD882::hazards", ci, target, ts);
 		}
 		return result;
@@ -406,7 +407,7 @@ public class EMV2Properties {
 			}
 			container = container.eContainer();
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	/** return list of property associations that meet the property name
@@ -440,14 +441,14 @@ public class EMV2Properties {
 	public static List<EMV2PropertyAssociation> getMatchingPropertiesInList(List<EMV2PropertyAssociation> props,
 			String propertyName, NamedElement target, Stack<NamedElement> ciStack, ErrorTypes ts) {
 		if (props.isEmpty()) {
-			return null;
+			return Collections.emptyList();
 		}
 		List<EMV2PropertyAssociation> result = new ArrayList<EMV2PropertyAssociation>();
 		for (EMV2PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
-				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
+				EMV2PropertyAssociation res = isErrorModelElementProperty(propertyAssociation, target, ciStack, ts);
 				if (res != null) {
 					result.add(res);
 				}
@@ -574,11 +575,11 @@ public class EMV2Properties {
 	public static List<EMV2PropertyAssociation> getProperty(String propertyName, NamedElement ci, NamedElement target,
 			ErrorTypes ts) {
 		List<EMV2PropertyAssociation> result = getPropertyInInstanceHierarchy(propertyName, ci, target, ts);
-		if (result == null) {
+		if (result.isEmpty()) {
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
 			List<EMV2PropertyAssociation> props = getPropertyAssociationListInContext(target);
-			if (props != null) {
+			if (!props.isEmpty()) {
 				result = getMatchingPropertiesInList(props, propertyName, target, ts);
 			}
 		}
@@ -603,7 +604,7 @@ public class EMV2Properties {
 				List<EMV2PropertyAssociation> result = getPropertyInInstanceHierarchy(propertyName,
 						ci.getContainingComponentInstance(), target, ciStack, ts);
 				ciStack.pop();
-				if (result != null) {
+				if (!result.isEmpty()) {
 					return result;
 				}
 			}
@@ -613,12 +614,12 @@ public class EMV2Properties {
 				List<EMV2PropertyAssociation> props = ems.getProperties();
 				List<EMV2PropertyAssociation> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
 						ts);
-				if (result != null) {
+				if (!result.isEmpty()) {
 					return result;
 				}
 			}
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	/**
@@ -636,7 +637,7 @@ public class EMV2Properties {
 	public static List<EMV2PropertyAssociation> getPropertyInInstanceHierarchy(String propertyName, NamedElement ci,
 			NamedElement target, ErrorTypes ts) {
 		if (ci == null)
-			return null;
+			return Collections.emptyList();
 		Stack<NamedElement> ciStack = new Stack<NamedElement>();
 		ComponentClassifier cl = null;
 		if (ci instanceof ComponentInstance) {
@@ -649,7 +650,7 @@ public class EMV2Properties {
 			ciStack.push(ci);
 			// ciStack has subcomponent whose error model is of interest
 			List<EMV2PropertyAssociation> result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
-			if (result != null) {
+			if (!result.isEmpty()) {
 				return result;
 			}
 			ciStack.pop();
@@ -661,7 +662,7 @@ public class EMV2Properties {
 			// empty ciStack
 			return getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	/**
@@ -683,12 +684,12 @@ public class EMV2Properties {
 				List<EMV2PropertyAssociation> props = ems.getProperties();
 				List<EMV2PropertyAssociation> result = getMatchingPropertiesInList(props, propertyName, target, ciStack,
 						ts);
-				if (result != null) {
+				if (!result.isEmpty()) {
 					return result;
 				}
 			}
 		}
-		return null;
+		return Collections.emptyList();
 	}
 
 	/**
