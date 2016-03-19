@@ -2305,6 +2305,16 @@ public class EMV2Util {
 		return result;
 	}
 
+	public static ComponentInstance getLastComponentInstance(QualifiedErrorBehaviorState qs, ComponentInstance root) {
+		ComponentInstance referencedInstance;
+		referencedInstance = root;
+		while (qs != null && referencedInstance != null) {
+			referencedInstance = referencedInstance.findSubcomponentInstance(qs.getSubcomponent().getSubcomponent());
+			qs = qs.getNext();
+		}
+		return referencedInstance;
+	}
+
 	public static ContainmentPathElement getLast(ContainmentPathElement ep) {
 		if (ep == null)
 			return null;
