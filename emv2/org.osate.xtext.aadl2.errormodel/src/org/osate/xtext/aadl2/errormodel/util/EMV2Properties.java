@@ -116,7 +116,7 @@ public class EMV2Properties {
 
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);
 
-		if (PA == null) {
+		if (PA.isEmpty()) {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
