@@ -191,6 +191,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		double probabilityTemp;
 		double toRemove;
 		double result;
+		double inverseProb=1; 											//Probability fix attempt - DD 06/23/15
 
 		EList<CompositeState> states = EMV2Util.getAllCompositeStates(component);
 		result = 0;
@@ -200,20 +201,24 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			if (state.getState().getName().equalsIgnoreCase(errorStateName)) {
 				probabilityTemp = handleCondition(state.getCondition(), component);
 				// OsateDebug.osateDebug("temp=" + probabilityTemp);
-				result = result + probabilityTemp;
+				
+				/*result = result + probabilityTemp; 					//Probability fix attempt - DD 06/23/15
 				if (toRemove == 0) {
 					toRemove = probabilityTemp;
 				} else {
 					toRemove = toRemove * probabilityTemp;
-				}
+					result = result - toRemove;
+					toRemove = result;
+				}*/
+				inverseProb *= (1-probabilityTemp);
 
 			}
 		}
 		// seems to reset the fa
-		if (result > toRemove) {
+		/*if (result > toRemove) {
 			result = result - toRemove;
-		}
-
+		}*/
+		result = 1-inverseProb; 										//End Probability fix attempt - DD 06/23/15
 		return result;
 	}
 
