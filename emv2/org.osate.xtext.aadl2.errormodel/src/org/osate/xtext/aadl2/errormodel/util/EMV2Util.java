@@ -2183,6 +2183,8 @@ public class EMV2Util {
 	 * @return EventOrPropagation
 	 */
 	public static EventOrPropagation getErrorEventOrPropagation(EMV2Path epath) {
+		if (epath == null)
+			return null;
 		NamedElement res = getErrorModelElement(epath);
 		if (res instanceof ErrorPropagation || res instanceof ErrorBehaviorEvent)
 			return (EventOrPropagation) res;
@@ -2198,6 +2200,8 @@ public class EMV2Util {
 	 * @return NamedElement
 	 */
 	public static NamedElement getErrorModelElement(EMV2Path epath) {
+		if (epath == null)
+			return null;
 		EMV2PathElement target = getLast(epath.getEmv2Target());
 		if (target.getNamedElement() instanceof ErrorTypes) {
 			EObject prev = target.eContainer();

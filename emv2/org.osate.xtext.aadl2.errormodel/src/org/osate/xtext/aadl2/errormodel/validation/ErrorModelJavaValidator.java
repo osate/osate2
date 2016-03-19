@@ -388,6 +388,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkConditionElementType(ConditionElement conditionElement) {
 		EventOrPropagation ep = EMV2Util.getErrorEventOrPropagation(conditionElement);
+		if (ep == null)
+			return;
 		TypeSet triggerTS = null;
 		String triggerName = "";
 		if (ep instanceof ErrorPropagation) {
