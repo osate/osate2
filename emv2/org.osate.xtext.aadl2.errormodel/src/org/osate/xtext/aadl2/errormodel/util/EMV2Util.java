@@ -2038,6 +2038,10 @@ public class EMV2Util {
 			ErrorPropagation ep = (ErrorPropagation) el;
 			return getPrintName(ep);
 		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getPrintName(ts);
+		}
 		if (el instanceof NamedElement) {
 			NamedElement ne = (NamedElement) el;
 			if (ne.getName() != null) {
@@ -2355,7 +2359,7 @@ public class EMV2Util {
 
 	public static String getPrintName(TypeSet ts) {
 		if (ts == null) {
-			return "<allTypes>";
+			return "{allTypes}";
 		}
 		EList<TypeToken> tel = ts.getTypeTokens();
 		return getPrintName(tel);
