@@ -113,7 +113,7 @@ DirectionType returns aadl2::DirectionType:
 
 FeatureCategory returns instance::FeatureCategory:
 	'dataPort' | 'eventPort' | 'eventDataPort' | 'parameter' |
-	'busAccess' | 'subprogramAccess' | 'subprogramGroupAccess' |
+	'busAccess' | 'dataAccess'| 'subprogramAccess' | 'subprogramGroupAccess' |
 	'featureGroup' | 'abstractFeature'
 ;
 

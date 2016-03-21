@@ -142,6 +142,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 					edp: in event data port;
 					p: in parameter;
 					ba: provides bus access;
+					da: provides data access;
 					subpa: provides subprogram access;
 					subpga: provides subprogram group access;
 					fg1: feature group;
@@ -154,6 +155,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 					ep: out event port;
 					edp: in event data port;
 					ba: provides bus access;
+					da: provides data access;
 					subpa: provides subprogram access;
 					subpga: provides subprogram group access;
 					fg: feature group;
@@ -171,6 +173,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 					ep: out event port;
 					edp: in event data port;
 					ba: provides bus access;
+					da: provides data access;
 					subpa: provides subprogram access;
 					subpga: provides subprogram group access;
 					fg1: feature group;
@@ -202,6 +205,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 					in out featureGroup fg1 : pkg1::s1::fg1
 					in out featureGroup fg2 : pkg1::s1::fg2 {
 						in out busAccess ba : pkg1::fgt1::ba
+						in out dataAccess da : pkg1::fgt1::da
 						in dataPort dp : pkg1::fgt1::dp
 						in eventDataPort edp : pkg1::fgt1::edp
 						out eventPort ep : pkg1::fgt1::ep
@@ -213,6 +217,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 					}
 					in out abstractFeature af : pkg1::s1::af
 					in out busAccess ba : pkg1::s1::ba
+					in out dataAccess da : pkg1::s1::da
 					in dataPort dp : pkg1::s1::dp
 					in out subprogramGroupAccess subpga : pkg1::s1::subpga
 					in out subprogramAccess subpa : pkg1::s1::subpa
@@ -222,6 +227,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 						in out featureGroup fg : pkg1::a::fg
 						in out abstractFeature af : pkg1::a::af
 						in out busAccess ba : pkg1::a::ba
+						in out dataAccess da : pkg1::a::da
 						in out subprogramAccess subpa : pkg1::a::subpa
 						in dataPort dp : pkg1::a::dp
 						out eventPort ep : pkg1::a::ep
