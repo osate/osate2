@@ -1793,18 +1793,19 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEventDataPortKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		private final Keyword cParameterKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		private final Keyword cBusAccessKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
-		private final Keyword cSubprogramAccessKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
-		private final Keyword cSubprogramGroupAccessKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
-		private final Keyword cFeatureGroupKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
-		private final Keyword cAbstractFeatureKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		private final Keyword cDataAccessKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cSubprogramAccessKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cSubprogramGroupAccessKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Keyword cFeatureGroupKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		private final Keyword cAbstractFeatureKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
 		
 		//FeatureCategory returns instance::FeatureCategory:
-		//	"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "subprogramAccess" | "subprogramGroupAccess"
-		//	| "featureGroup" | "abstractFeature";
+		//	"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "dataAccess" | "subprogramAccess" |
+		//	"subprogramGroupAccess" | "featureGroup" | "abstractFeature";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "subprogramAccess" | "subprogramGroupAccess" |
-		//"featureGroup" | "abstractFeature"
+		//"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "dataAccess" | "subprogramAccess" |
+		//"subprogramGroupAccess" | "featureGroup" | "abstractFeature"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"dataPort"
@@ -1822,17 +1823,20 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//"busAccess"
 		public Keyword getBusAccessKeyword_4() { return cBusAccessKeyword_4; }
 
+		//"dataAccess"
+		public Keyword getDataAccessKeyword_5() { return cDataAccessKeyword_5; }
+
 		//"subprogramAccess"
-		public Keyword getSubprogramAccessKeyword_5() { return cSubprogramAccessKeyword_5; }
+		public Keyword getSubprogramAccessKeyword_6() { return cSubprogramAccessKeyword_6; }
 
 		//"subprogramGroupAccess"
-		public Keyword getSubprogramGroupAccessKeyword_6() { return cSubprogramGroupAccessKeyword_6; }
+		public Keyword getSubprogramGroupAccessKeyword_7() { return cSubprogramGroupAccessKeyword_7; }
 
 		//"featureGroup"
-		public Keyword getFeatureGroupKeyword_7() { return cFeatureGroupKeyword_7; }
+		public Keyword getFeatureGroupKeyword_8() { return cFeatureGroupKeyword_8; }
 
 		//"abstractFeature"
-		public Keyword getAbstractFeatureKeyword_8() { return cAbstractFeatureKeyword_8; }
+		public Keyword getAbstractFeatureKeyword_9() { return cAbstractFeatureKeyword_9; }
 	}
 
 	public class ComponentCategoryElements extends AbstractParserRuleElementFinder {
@@ -2593,8 +2597,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeatureCategory returns instance::FeatureCategory:
-	//	"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "subprogramAccess" | "subprogramGroupAccess"
-	//	| "featureGroup" | "abstractFeature";
+	//	"dataPort" | "eventPort" | "eventDataPort" | "parameter" | "busAccess" | "dataAccess" | "subprogramAccess" |
+	//	"subprogramGroupAccess" | "featureGroup" | "abstractFeature";
 	public FeatureCategoryElements getFeatureCategoryAccess() {
 		return pFeatureCategory;
 	}

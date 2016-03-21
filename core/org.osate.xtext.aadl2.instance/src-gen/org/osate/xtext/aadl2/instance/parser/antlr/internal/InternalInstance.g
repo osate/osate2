@@ -2485,31 +2485,38 @@ ruleFeatureCategory returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRul
     }
 
     |
+	kw='dataAccess' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getDataAccessKeyword_5()); 
+    }
+
+    |
 	kw='subprogramAccess' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_5()); 
+        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_6()); 
     }
 
     |
 	kw='subprogramGroupAccess' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_6()); 
+        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_7()); 
     }
 
     |
 	kw='featureGroup' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_7()); 
+        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_8()); 
     }
 
     |
 	kw='abstractFeature' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_8()); 
+        newLeafNode(kw, grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_9()); 
     }
 )
     ;

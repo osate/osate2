@@ -1901,35 +1901,43 @@ rule__FeatureCategory__Alternatives
 )
 
     |(
-{ before(grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_5()); }
+{ before(grammarAccess.getFeatureCategoryAccess().getDataAccessKeyword_5()); }
+
+	'dataAccess' 
+
+{ after(grammarAccess.getFeatureCategoryAccess().getDataAccessKeyword_5()); }
+)
+
+    |(
+{ before(grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_6()); }
 
 	'subprogramAccess' 
 
-{ after(grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_5()); }
+{ after(grammarAccess.getFeatureCategoryAccess().getSubprogramAccessKeyword_6()); }
 )
 
     |(
-{ before(grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_6()); }
+{ before(grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_7()); }
 
 	'subprogramGroupAccess' 
 
-{ after(grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_6()); }
+{ after(grammarAccess.getFeatureCategoryAccess().getSubprogramGroupAccessKeyword_7()); }
 )
 
     |(
-{ before(grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_7()); }
+{ before(grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_8()); }
 
 	'featureGroup' 
 
-{ after(grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_7()); }
+{ after(grammarAccess.getFeatureCategoryAccess().getFeatureGroupKeyword_8()); }
 )
 
     |(
-{ before(grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_8()); }
+{ before(grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_9()); }
 
 	'abstractFeature' 
 
-{ after(grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_8()); }
+{ after(grammarAccess.getFeatureCategoryAccess().getAbstractFeatureKeyword_9()); }
 )
 
 ;
