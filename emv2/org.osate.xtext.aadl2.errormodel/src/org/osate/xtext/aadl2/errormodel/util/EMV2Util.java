@@ -2884,7 +2884,7 @@ public class EMV2Util {
 			}
 			fref = fref.getNext();
 		}
-		if (f instanceof Port) {
+		if (f instanceof Feature) {
 			DirectionType portd = ((Port) f).getDirection();
 			if (inverse) {
 				return portd.getInverseDirection();
