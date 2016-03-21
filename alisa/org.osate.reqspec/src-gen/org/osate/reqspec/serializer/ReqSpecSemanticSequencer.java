@@ -51,6 +51,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
@@ -178,6 +179,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.MODEL_REF:
+				sequence_TypeRef(context, (ModelRef) semanticObject); 
 				return; 
 			case CommonPackage.NESTED_MODEL_ELEMENT:
 				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 

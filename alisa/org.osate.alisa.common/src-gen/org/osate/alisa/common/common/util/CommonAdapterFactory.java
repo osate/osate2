@@ -154,6 +154,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createImageReferenceAdapter();
       }
       @Override
+      public Adapter caseModelRef(ModelRef object)
+      {
+        return createModelRefAdapter();
+      }
+      @Override
       public Adapter caseTypeRef(TypeRef object)
       {
         return createTypeRefAdapter();
@@ -431,6 +436,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImageReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ModelRef <em>Model Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ModelRef
+   * @generated
+   */
+  public Adapter createModelRefAdapter()
   {
     return null;
   }

@@ -52,6 +52,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
@@ -161,6 +162,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.MODEL_REF:
+				sequence_TypeRef(context, (ModelRef) semanticObject); 
 				return; 
 			case CommonPackage.NESTED_MODEL_ELEMENT:
 				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
@@ -328,7 +332,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=TypeRef?)
+	 *     (name=ID (type=TypeRef | type=PropertyRef))
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -470,6 +474,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 */
 	protected void sequence_TypeRef(EObject context, AadlString semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {ModelRef}
+	 */
+	protected void sequence_TypeRef(EObject context, ModelRef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

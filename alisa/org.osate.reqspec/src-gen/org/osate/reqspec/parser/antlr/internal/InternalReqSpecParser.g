@@ -6476,7 +6476,24 @@ ruleTypeRef returns [EObject current=null]
     |((
     {
         $current = forceCreateModelElement(
-            grammarAccess.getTypeRefAccess().getTypeRefAction_4_0(),
+            grammarAccess.getTypeRefAccess().getModelRefAction_4_0(),
+            $current);
+    }
+)
+	otherlv_9=Model
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getTypeRefAccess().getModelKeyword_4_1());
+    }
+
+	otherlv_10=Element
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getTypeRefAccess().getElementKeyword_4_2());
+    }
+)
+    |((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getTypeRefAccess().getTypeRefAction_5_0(),
             $current);
     }
 )(
@@ -6487,7 +6504,7 @@ ruleTypeRef returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeRefAccess().getRefPropertyTypeCrossReference_4_1_0()); 
+	        newCompositeNode(grammarAccess.getTypeRefAccess().getRefPropertyTypeCrossReference_5_1_0()); 
 	    }
 		ruleAADLPROPERTYREFERENCE		{ 
 	        afterParserOrEnumRuleCall();
@@ -6716,15 +6733,15 @@ ruleComputeDeclaration returns [EObject current=null]
 	    }
 
 )
-)(
+)
 	otherlv_3=Colon
     {
-    	newLeafNode(otherlv_3, grammarAccess.getComputeDeclarationAccess().getColonKeyword_3_0());
+    	newLeafNode(otherlv_3, grammarAccess.getComputeDeclarationAccess().getColonKeyword_3());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeTypeRefParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeTypeRefParserRuleCall_4_0_0()); 
 	    }
 		lv_type_4_0=ruleTypeRef		{
 	        if ($current==null) {
@@ -6739,7 +6756,41 @@ ruleComputeDeclaration returns [EObject current=null]
 	    }
 
 )
-))?)
+)
+    |(
+	otherlv_5=Typeof
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getComputeDeclarationAccess().getTypeofKeyword_4_1_0());
+    }
+
+	otherlv_6=LeftParenthesis
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getComputeDeclarationAccess().getLeftParenthesisKeyword_4_1_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypePropertyRefParserRuleCall_4_1_2_0()); 
+	    }
+		lv_type_7_0=rulePropertyRef		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComputeDeclarationRule());
+	        }
+       		set(
+       			$current, 
+       			"type",
+        		lv_type_7_0, 
+        		"PropertyRef");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_8=RightParenthesis
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getComputeDeclarationAccess().getRightParenthesisKeyword_4_1_3());
+    }
+)))
 ;
 
 

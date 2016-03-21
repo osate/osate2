@@ -8,6 +8,8 @@ import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListType
 import org.osate.aadl2.NumberType
+import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RealLiteral
@@ -16,10 +18,15 @@ import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AExpression
 import org.osate.alisa.common.common.AListTerm
+import org.osate.alisa.common.common.AModelReference
+import org.osate.alisa.common.common.APropertyReference
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.validation.AbstractCommonValidator
+import org.osate.alisa.common.common.CommonFactory
 
 system org.osate.alisa.common.typing.CommonTypeSystem
 
@@ -53,15 +60,35 @@ from {
 	}
 }
 
+rule ComputeDeclaration
+  G |- ComputeDeclaration valDecl : PropertyType type
+from {
+	val declared = valDecl.getType()
+	declared != null
+	G |- declared : type
+}
+
+
+// type of property
+
+axiom PropertyRef
+	G |- PropertyRef propRef : propRef.ref.propertyType
+
+axiom TypeRef
+	G |- TypeRef typeRef : typeRef.ref
+
+axiom PropertyType
+	G |- PropertyType propType : propType
+
+
+// binary operations
+
 rule AExpression
 	G |- PropertyExpression param : PropertyType type
 from {
 	type = Aadl2Factory.eINSTANCE.createAadlInteger
 }
  
-
-// binary operations
-
 rule ABinaryExpression
 	G |- ABinaryOperation binary : PropertyType type
 from {
@@ -88,6 +115,7 @@ from {
 	}
 }
 
+
 // compound types
 
 rule AListTerm
@@ -99,26 +127,19 @@ from {
 	type.ownedElementType = elementType // owned vs. referenced???
 }
 
-// type of property
+// simple types
 
-rule PropertyRef
-	G |- PropertyRef propRef : PropertyType type
-from {
-	type = propRef.ref.propertyType
-}
-
-rule TypeRef
-	G |- TypeRef typeRef : PropertyType type
-from {
-	type = typeRef.ref
-}
-
-rule PropertyType
-	G |- PropertyType propType : PropertyType type
-from {
-	type = propType
-}
-
+axiom PropertyReference
+	G |- APropertyReference ref : {
+		val namedValue = ref.property
+		if (namedValue instanceof Property) {
+			namedValue.propertyType
+		}	else if (namedValue instanceof PropertyConstant) {
+			namedValue.propertyType
+		} else {
+			fail
+		}
+	}
 
 // primitive types
 
@@ -142,6 +163,10 @@ axiom BooleanLiteral
 axiom StringLiteral
 	G |- StringLiteral _ : Aadl2Factory.eINSTANCE.createAadlString
 
+axiom ModelReference
+	G |- AModelReference _ : CommonFactory.eINSTANCE.createModelRef
+
+
 // type compatibility
 
 rule ExpressionAssignableToType
@@ -162,7 +187,11 @@ rule PrimitiveNumber
 	G |- NumberType left <: NumberType right
 from {
 	left.unitsType == right.unitsType
+	left instanceof AadlInteger ||	right instanceof AadlReal
 }
+
+axiom ModelRef
+	G |- ModelRef left <: ModelRef right
 
 rule NotCompatible
 	G |- PropertyType left <: PropertyType right
@@ -176,7 +205,9 @@ from {
 checkrule CheckValDecls for 
 	ValDeclaration valDecl
 from {
-  empty |- valDecl : var PropertyType valType
-  empty |- valDecl.value : var PropertyType valueType
-  empty |- valueType <: valType
+	if (valDecl.getType() != null) {
+	  empty |- valDecl : var PropertyType valType
+  	empty |- valDecl.value : var PropertyType valueType
+  	empty |- valueType <: valType
+  }
 }

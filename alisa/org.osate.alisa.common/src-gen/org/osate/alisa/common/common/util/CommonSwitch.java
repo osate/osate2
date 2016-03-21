@@ -183,6 +183,17 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.MODEL_REF:
+      {
+        ModelRef modelRef = (ModelRef)theEObject;
+        T result = caseModelRef(modelRef);
+        if (result == null) result = casePropertyType(modelRef);
+        if (result == null) result = caseType(modelRef);
+        if (result == null) result = caseNamedElement(modelRef);
+        if (result == null) result = caseElement(modelRef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.TYPE_REF:
       {
         TypeRef typeRef = (TypeRef)theEObject;
@@ -477,6 +488,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseImageReference(ImageReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Model Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Model Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModelRef(ModelRef object)
   {
     return null;
   }

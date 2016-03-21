@@ -43,6 +43,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.Operation;
 import org.osate.alisa.common.common.PropertyRef;
@@ -145,6 +146,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass imageReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modelRefEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -668,6 +676,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getModelRef()
+  {
+    return modelRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTypeRef()
   {
     return typeRefEClass;
@@ -1001,6 +1019,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     imageReferenceEClass = createEClass(IMAGE_REFERENCE);
     createEAttribute(imageReferenceEClass, IMAGE_REFERENCE__IMGFILE);
 
+    modelRefEClass = createEClass(MODEL_REF);
+
     typeRefEClass = createEClass(TYPE_REF);
     createEReference(typeRefEClass, TYPE_REF__REF);
 
@@ -1077,6 +1097,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aExpressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aModelReferenceEClass.getESuperTypes().add(this.getAExpression());
     aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
+    modelRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
     typeRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
     propertyRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
     valDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
@@ -1137,6 +1158,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(imageReferenceEClass, ImageReference.class, "ImageReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImageReference_Imgfile(), theEcorePackage.getEString(), "imgfile", null, 0, 1, ImageReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(modelRefEClass, ModelRef.class, "ModelRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(typeRefEClass, TypeRef.class, "TypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTypeRef_Ref(), theAadl2Package.getPropertyType(), null, "ref", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

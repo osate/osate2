@@ -3154,7 +3154,22 @@ ruleTypeRef returns [EObject current=null]
     |((
     {
         $current = forceCreateModelElement(
-            grammarAccess.getTypeRefAccess().getTypeRefAction_4_0(),
+            grammarAccess.getTypeRefAccess().getModelRefAction_4_0(),
+            $current);
+    }
+)	otherlv_9='model' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getTypeRefAccess().getModelKeyword_4_1());
+    }
+	otherlv_10='element' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getTypeRefAccess().getElementKeyword_4_2());
+    }
+)
+    |((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getTypeRefAccess().getTypeRefAction_5_0(),
             $current);
     }
 )(
@@ -3165,7 +3180,7 @@ ruleTypeRef returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeRefAccess().getRefPropertyTypeCrossReference_4_1_0()); 
+	        newCompositeNode(grammarAccess.getTypeRefAccess().getRefPropertyTypeCrossReference_5_1_0()); 
 	    }
 		ruleAADLPROPERTYREFERENCE		{ 
 	        afterParserOrEnumRuleCall();

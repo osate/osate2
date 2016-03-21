@@ -24,6 +24,7 @@ import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
 import org.osate.aadl2.Property
+import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.typing.CommonTypeSystem
 
 public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
@@ -43,10 +44,11 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 						'typeof(' + owner.qualifiedName() + ')'
 					} else {
 						switch (type) {
-							AadlInteger: "integer"
-							AadlReal: "real"
-							AadlBoolean: "boolean"
-							AadlString: "string"
+							AadlInteger: 'integer'
+							AadlReal: 'real'
+							AadlBoolean: 'boolean'
+							AadlString: 'string'
+							ModelRef: 'model element'
 						}
 					}
 				} else {

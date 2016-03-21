@@ -301,18 +301,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAadlStringAction_3_0 = (Action)cGroup_3.eContents().get(0);
 		private final Keyword cStringKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
 		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
-		private final Action cTypeRefAction_4_0 = (Action)cGroup_4.eContents().get(0);
-		private final Assignment cRefAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final CrossReference cRefPropertyTypeCrossReference_4_1_0 = (CrossReference)cRefAssignment_4_1.eContents().get(0);
-		private final RuleCall cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_4_1_0_1 = (RuleCall)cRefPropertyTypeCrossReference_4_1_0.eContents().get(1);
+		private final Action cModelRefAction_4_0 = (Action)cGroup_4.eContents().get(0);
+		private final Keyword cModelKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Keyword cElementKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
+		private final Action cTypeRefAction_5_0 = (Action)cGroup_5.eContents().get(0);
+		private final Assignment cRefAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final CrossReference cRefPropertyTypeCrossReference_5_1_0 = (CrossReference)cRefAssignment_5_1.eContents().get(0);
+		private final RuleCall cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1 = (RuleCall)cRefPropertyTypeCrossReference_5_1_0.eContents().get(1);
 		
 		//TypeRef returns aadl2::PropertyType:
 		//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" | {aadl2::AadlReal} "real" | {aadl2::AadlString}
-		//	"string" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+		//	"string" | {ModelRef} "model" "element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
 		//{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" | {aadl2::AadlReal} "real" | {aadl2::AadlString}
-		//"string" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+		//"string" | {ModelRef} "model" "element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//{aadl2::AadlBoolean} "boolean"
@@ -351,20 +355,32 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"string"
 		public Keyword getStringKeyword_3_1() { return cStringKeyword_3_1; }
 
-		//{TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+		//{ModelRef} "model" "element"
 		public Group getGroup_4() { return cGroup_4; }
 
+		//{ModelRef}
+		public Action getModelRefAction_4_0() { return cModelRefAction_4_0; }
+
+		//"model"
+		public Keyword getModelKeyword_4_1() { return cModelKeyword_4_1; }
+
+		//"element"
+		public Keyword getElementKeyword_4_2() { return cElementKeyword_4_2; }
+
+		//{TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+		public Group getGroup_5() { return cGroup_5; }
+
 		//{TypeRef}
-		public Action getTypeRefAction_4_0() { return cTypeRefAction_4_0; }
+		public Action getTypeRefAction_5_0() { return cTypeRefAction_5_0; }
 
 		//ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
-		public Assignment getRefAssignment_4_1() { return cRefAssignment_4_1; }
+		public Assignment getRefAssignment_5_1() { return cRefAssignment_5_1; }
 
 		//[aadl2::PropertyType|AADLPROPERTYREFERENCE]
-		public CrossReference getRefPropertyTypeCrossReference_4_1_0() { return cRefPropertyTypeCrossReference_4_1_0; }
+		public CrossReference getRefPropertyTypeCrossReference_5_1_0() { return cRefPropertyTypeCrossReference_5_1_0; }
 
 		//AADLPROPERTYREFERENCE
-		public RuleCall getRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_4_1_0_1() { return cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_4_1_0_1; }
+		public RuleCall getRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1() { return cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1; }
 	}
 
 	public class PropertyRefElements extends AbstractParserRuleElementFinder {
@@ -486,16 +502,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cComputeKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTypeTypeRefParserRuleCall_3_1_0 = (RuleCall)cTypeAssignment_3_1.eContents().get(0);
+		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
+		private final Assignment cTypeAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
+		private final RuleCall cTypeTypeRefParserRuleCall_4_0_0 = (RuleCall)cTypeAssignment_4_0.eContents().get(0);
+		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
+		private final Keyword cTypeofKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_4_1_1 = (Keyword)cGroup_4_1.eContents().get(1);
+		private final Assignment cTypeAssignment_4_1_2 = (Assignment)cGroup_4_1.eContents().get(2);
+		private final RuleCall cTypePropertyRefParserRuleCall_4_1_2_0 = (RuleCall)cTypeAssignment_4_1_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4_1_3 = (Keyword)cGroup_4_1.eContents().get(3);
 		
 		//ComputeDeclaration returns AVariableDeclaration:
-		//	{ComputeDeclaration} "compute" name=ID (":" type=TypeRef)?;
+		//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")");
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} "compute" name=ID (":" type=TypeRef)?
+		//{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")")
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
@@ -510,17 +532,35 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//(":" type=TypeRef)?
-		public Group getGroup_3() { return cGroup_3; }
-
 		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
+		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
+
+		//type=TypeRef | "typeof" "(" type=PropertyRef ")"
+		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//type=TypeRef
-		public Assignment getTypeAssignment_3_1() { return cTypeAssignment_3_1; }
+		public Assignment getTypeAssignment_4_0() { return cTypeAssignment_4_0; }
 
 		//TypeRef
-		public RuleCall getTypeTypeRefParserRuleCall_3_1_0() { return cTypeTypeRefParserRuleCall_3_1_0; }
+		public RuleCall getTypeTypeRefParserRuleCall_4_0_0() { return cTypeTypeRefParserRuleCall_4_0_0; }
+
+		//"typeof" "(" type=PropertyRef ")"
+		public Group getGroup_4_1() { return cGroup_4_1; }
+
+		//"typeof"
+		public Keyword getTypeofKeyword_4_1_0() { return cTypeofKeyword_4_1_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_4_1_1() { return cLeftParenthesisKeyword_4_1_1; }
+
+		//type=PropertyRef
+		public Assignment getTypeAssignment_4_1_2() { return cTypeAssignment_4_1_2; }
+
+		//PropertyRef
+		public RuleCall getTypePropertyRefParserRuleCall_4_1_2_0() { return cTypePropertyRefParserRuleCall_4_1_2_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
 	}
 
 	public class AModelOrPropertyReferenceElements extends AbstractParserRuleElementFinder {
@@ -2427,7 +2467,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeRef returns aadl2::PropertyType:
 	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" | {aadl2::AadlReal} "real" | {aadl2::AadlString}
-	//	"string" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	"string" | {ModelRef} "model" "element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public TypeRefElements getTypeRefAccess() {
 		return pTypeRef;
 	}
@@ -2457,7 +2497,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration returns AVariableDeclaration:
-	//	{ComputeDeclaration} "compute" name=ID (":" type=TypeRef)?;
+	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")");
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}

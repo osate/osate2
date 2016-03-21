@@ -2025,7 +2025,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeRef returns aadl2::PropertyType:
 	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" | {aadl2::AadlReal} "real" | {aadl2::AadlString}
-	//	"string" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	"string" | {ModelRef} "model" "element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -2055,7 +2055,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration returns AVariableDeclaration:
-	//	{ComputeDeclaration} "compute" name=ID (":" type=TypeRef)?;
+	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")");
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}

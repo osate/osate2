@@ -46,6 +46,7 @@ TypeRef returns aadl2::PropertyType:
 	| {aadl2::AadlInteger} 'integer'
 	| {aadl2::AadlReal} 'real'
 	| {aadl2::AadlString} 'string'
+	| {ModelRef} 'model' 'element'
 	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
 ;
 
@@ -59,7 +60,7 @@ ValDeclaration returns AVariableDeclaration:
 
 ComputeDeclaration returns AVariableDeclaration:
 	{ComputeDeclaration}
-	 'compute' name=ID (':' type=TypeRef)?
+	 'compute' name=ID ':' (type=TypeRef | 'typeof' '(' type=PropertyRef ')')
 ;
 
 // Reference to property, property constant, or model element.
