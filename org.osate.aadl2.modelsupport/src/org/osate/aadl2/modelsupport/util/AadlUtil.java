@@ -81,7 +81,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ArrayDimension;
@@ -2384,20 +2383,20 @@ public final class AadlUtil {
 
 	public static DirectionType getDirectionType(Feature f) {
 		boolean inverse = false;
-		if (f instanceof Access) {
-			if (((Access) f).getKind() == AccessType.PROVIDES) {
-				return DirectionType.OUT;
-			} else {
-				return DirectionType.IN;
-			}
-		}
-		if (f instanceof AbstractFeature) {
-			if (((AbstractFeature) f).isIn()) {
-				return DirectionType.IN;
-			} else {
-				return DirectionType.OUT;
-			}
-		}
+//		if (f instanceof Access) {
+//			if (((Access) f).getKind() == AccessType.PROVIDES) {
+//				return DirectionType.OUT;
+//			} else {
+//				return DirectionType.IN;
+//			}
+//		}
+//		if (f instanceof AbstractFeature) {
+//			if (((AbstractFeature) f).isIn()) {
+//				return DirectionType.IN;
+//			} else {
+//				return DirectionType.OUT;
+//			}
+//		}
 		if (f instanceof DirectedFeature) {
 			DirectionType portd = ((DirectedFeature) f).getDirection();
 			if (inverse) {
