@@ -29,7 +29,6 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -2870,6 +2869,7 @@ public class EMV2Util {
 		FeatureorPPReference fref = ep.getFeatureorPPRef();
 		boolean inverse = false;
 		NamedElement f = null;
+		DirectionType featuredir = DirectionType.IN_OUT;
 		while (fref != null) {
 			f = fref.getFeatureorPP();
 			if (f instanceof FeatureGroup) {
@@ -2885,15 +2885,14 @@ public class EMV2Util {
 			fref = fref.getNext();
 		}
 		if (f instanceof Feature) {
-			DirectionType portd = ((Port) f).getDirection();
+			featuredir = AadlUtil.getDirectionType((Feature) f);
 			if (inverse) {
-				return portd.getInverseDirection();
+				return featuredir.getInverseDirection();
 			} else {
-				return portd;
+				return featuredir;
 			}
 		}
-		// for anything but the port we assume in_out
-		return DirectionType.IN_OUT;
+		return featuredir;
 	}
 
 	/**
