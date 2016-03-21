@@ -4,6 +4,10 @@
 package org.osate.xtext.aadl2.instance.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.osate.xtext.aadl2.instance.ui.editor.syntaxcoloring.InstanceHighlightingConfiguration;
+import org.osate.xtext.aadl2.instance.ui.editor.syntaxcoloring.InstanceSemanticHighlightingCalculator;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -11,5 +15,13 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class InstanceUiModule extends org.osate.xtext.aadl2.instance.ui.AbstractInstanceUiModule {
 	public InstanceUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+		return InstanceHighlightingConfiguration.class;
+	}
+	
+	public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
+		return InstanceSemanticHighlightingCalculator.class;
 	}
 }
