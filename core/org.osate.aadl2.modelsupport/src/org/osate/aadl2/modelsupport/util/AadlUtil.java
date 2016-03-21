@@ -81,6 +81,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ArrayDimension;
@@ -99,6 +100,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlowElement;
@@ -2378,6 +2380,34 @@ public final class AadlUtil {
 			}
 		}
 		return result;
+	}
+
+	public static DirectionType getDirectionType(Feature f) {
+		boolean inverse = false;
+		if (f instanceof Access) {
+			if (((Access) f).getKind() == AccessType.PROVIDES) {
+				return DirectionType.OUT;
+			} else {
+				return DirectionType.IN;
+			}
+		}
+		if (f instanceof AbstractFeature) {
+			if (((AbstractFeature) f).isIn()) {
+				return DirectionType.IN;
+			} else {
+				return DirectionType.OUT;
+			}
+		}
+		if (f instanceof DirectedFeature) {
+			DirectionType portd = ((DirectedFeature) f).getDirection();
+			if (inverse) {
+				return portd.getInverseDirection();
+			} else {
+				return portd;
+			}
+		}
+		// for anything but the port we assume in_out
+		return DirectionType.IN_OUT;
 	}
 
 	public static boolean isOutgoingConnection(Connection conn) {
