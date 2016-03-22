@@ -84,36 +84,38 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 				root);
 //		OsateDebug.osateDebug("         instance " + relatedInstance);
 
-		if (relatedInstance != null && !componentsNames.contains(relatedInstance)) {
-			componentsNames.add(relatedInstance);
-		}
-
-		if (behaviorState != null) {
-			double resultSubcomponents;
-			double resultProperty;
-
-			resultProperty = 0;
-			resultSubcomponents = 0;
-
-			/*
-			 * Let's try to recursively compute the value
-			 */
-			resultSubcomponents = processComponent(relatedInstance, behaviorState.getName());
-
-			/**
-			 * If it does not work, try the property mechanism.
-			 */
-			resultProperty = EMV2Properties.getProbability(relatedInstance, behaviorState, null);
-
-			/**
-			 * We take the result that is the worst case occurrence.
-			 */
-			if (resultSubcomponents == 0) {
-				result = resultProperty;
-			} else {
-				result = resultSubcomponents;
+		if (relatedInstance != null) {
+			if (!componentsNames.contains(relatedInstance)) {
+				componentsNames.add(relatedInstance);
 			}
 
+			if (behaviorState != null) {
+				double resultSubcomponents;
+				double resultProperty;
+
+				resultProperty = 0;
+				resultSubcomponents = 0;
+
+				/*
+				 * Let's try to recursively compute the value
+				 */
+				resultSubcomponents = processComponent(relatedInstance, behaviorState.getName());
+
+				/**
+				 * If it does not work, try the property mechanism.
+				 */
+				resultProperty = EMV2Properties.getProbability(relatedInstance, behaviorState, null);
+
+				/**
+				 * We take the result that is the worst case occurrence.
+				 */
+				if (resultSubcomponents == 0) {
+					result = resultProperty;
+				} else {
+					result = resultSubcomponents;
+				}
+
+			}
 		}
 
 		return result;
