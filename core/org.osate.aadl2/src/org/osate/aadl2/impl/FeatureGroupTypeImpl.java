@@ -36,6 +36,7 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -1143,8 +1144,16 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		if (searchResult != null) {
 			return searchResult;
 		}
-		if (getOwnedFeatures().isEmpty() && getInverse() != null) {
-			return getInverse().findNamedElement(name);
+		HashSet<FeatureGroupType> inverses = new HashSet<>();
+		FeatureGroupType inverse = getInverse();
+		while (inverse != null && getOwnedFeatures().isEmpty() && !inverses.contains(inverse)) {
+			searchResult = Aadl2Util.findOwnedNamedElement(inverse, name);
+			if (searchResult != null) {
+				return searchResult;
+			} else {
+				inverses.add(inverse);
+				inverse = inverse.getInverse();
+			}
 		}
 		return null;
 	}
