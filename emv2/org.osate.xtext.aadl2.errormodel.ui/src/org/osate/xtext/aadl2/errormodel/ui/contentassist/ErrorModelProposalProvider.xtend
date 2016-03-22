@@ -99,19 +99,19 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)
 		}
 	}
-
-	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		val modelContainer = model.eContainer
-		switch modelContainer{
-			ErrorPath case modelContainer.outgoing != null : {
-				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
-			}
-			ErrorBehaviorTransition case modelContainer.target != null: {
-				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
-			}
-			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
-		}
-	}
+//
+//	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		val modelContainer = model.eContainer
+//		switch modelContainer{
+//			ErrorPath case modelContainer.outgoing != null : {
+//				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
+//			}
+//			ErrorBehaviorTransition case modelContainer.target != null: {
+//				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
+//			}
+//			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
+//		}
+//	}
 
 	def filterTypeSetTokenTypes(TypeSet typeSet, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
 		val validErrorTypesList = new ArrayList<ErrorTypes> 

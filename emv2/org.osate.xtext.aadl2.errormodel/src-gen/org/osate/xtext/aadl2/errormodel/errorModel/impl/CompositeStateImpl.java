@@ -16,7 +16,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -84,7 +84,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * @generated
    * @ordered
    */
-  protected TypeToken typedToken;
+  protected TypeSet typedToken;
 
   /**
    * <!-- begin-user-doc -->
@@ -226,7 +226,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTypedToken()
+  public TypeSet getTypedToken()
   {
     return typedToken;
   }
@@ -236,9 +236,9 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTypedToken(TypeToken newTypedToken, NotificationChain msgs)
+  public NotificationChain basicSetTypedToken(TypeSet newTypedToken, NotificationChain msgs)
   {
-    TypeToken oldTypedToken = typedToken;
+    TypeSet oldTypedToken = typedToken;
     typedToken = newTypedToken;
     if (eNotificationRequired())
     {
@@ -253,7 +253,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTypedToken(TypeToken newTypedToken)
+  public void setTypedToken(TypeSet newTypedToken)
   {
     if (newTypedToken != typedToken)
     {
@@ -330,7 +330,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
         setState((ErrorBehaviorState)newValue);
         return;
       case ErrorModelPackage.COMPOSITE_STATE__TYPED_TOKEN:
-        setTypedToken((TypeToken)newValue);
+        setTypedToken((TypeSet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -356,7 +356,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
         setState((ErrorBehaviorState)null);
         return;
       case ErrorModelPackage.COMPOSITE_STATE__TYPED_TOKEN:
-        setTypedToken((TypeToken)null);
+        setTypedToken((TypeSet)null);
         return;
     }
     super.eUnset(featureID);

@@ -23,7 +23,7 @@ import org.osate.aadl2.impl.ElementImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * @generated
    * @ordered
    */
-  protected TypeToken typeToken;
+  protected TypeSet typeToken;
 
   /**
    * The cached value of the '{@link #getMappedModes() <em>Mapped Modes</em>}' reference list.
@@ -141,7 +141,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTypeToken()
+  public TypeSet getTypeToken()
   {
     return typeToken;
   }
@@ -151,9 +151,9 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTypeToken(TypeToken newTypeToken, NotificationChain msgs)
+  public NotificationChain basicSetTypeToken(TypeSet newTypeToken, NotificationChain msgs)
   {
-    TypeToken oldTypeToken = typeToken;
+    TypeSet oldTypeToken = typeToken;
     typeToken = newTypeToken;
     if (eNotificationRequired())
     {
@@ -168,7 +168,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTypeToken(TypeToken newTypeToken)
+  public void setTypeToken(TypeSet newTypeToken)
   {
     if (newTypeToken != typeToken)
     {
@@ -250,7 +250,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
         setErrorState((ErrorBehaviorState)newValue);
         return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
-        setTypeToken((TypeToken)newValue);
+        setTypeToken((TypeSet)newValue);
         return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         getMappedModes().clear();
@@ -274,7 +274,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
         setErrorState((ErrorBehaviorState)null);
         return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
-        setTypeToken((TypeToken)null);
+        setTypeToken((TypeSet)null);
         return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         getMappedModes().clear();

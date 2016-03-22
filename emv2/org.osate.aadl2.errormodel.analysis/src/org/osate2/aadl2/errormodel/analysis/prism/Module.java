@@ -217,7 +217,7 @@ public class Module {
 			for (PropagationPathEnd ppe : propagationEnds) {
 				NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRef().getFeatureorPP();
 
-				ErrorTypes et = opc.getTypeToken().getType().get(0);
+				ErrorTypes et = opc.getTypeToken();
 				// OsateDebug.osateDebug("TYPE" + et.getName() +";state=" + targetState.getName());
 
 				if (reset) {
@@ -459,7 +459,7 @@ public class Module {
 			before = new Equal(new Terminal(Util.getComponentStateVariableName(aadlComponent)),
 					new Terminal("" + tmpState));
 
-			errorValue = associatedModel.getErrorTypeCode(ppe, outgoingPropagation.getTypeToken().getType().get(0));
+			errorValue = associatedModel.getErrorTypeCode(ppe, outgoingPropagation.getTypeToken());
 			after = new Equal(new Terminal(Util.getComponentIncomingPropagationVariableName(ppe.getComponentInstance(),
 					incomingPropagationName), true), new Terminal("" + errorValue));
 			transaction = new Transition(after);

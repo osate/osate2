@@ -3370,58 +3370,16 @@ ruleTypeToken returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getTypeTokenAccess().getTypeTokenAction_0(),
-            $current);
-    }
-)(
-	otherlv_1=LeftCurlyBracket
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getTypeTokenAccess().getLeftCurlyBracketKeyword_1_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeTokenRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); 
-	    }
-		ruleQEMREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
 
-)
-)(
-	otherlv_3=Asterisk
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getTypeTokenAccess().getAsteriskKeyword_1_2_0());
+    { 
+        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeSetReferenceParserRuleCall()); 
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeTokenRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); 
-	    }
-		ruleQEMREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+    this_TypeSetReference_0=ruleTypeSetReference
+    {
+        $current = $this_TypeSetReference_0.current;
+        afterParserOrEnumRuleCall();
+    }
 
-)
-))*
-	otherlv_5=RightCurlyBracket
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_1_3());
-    }
-))
 ;
 
 
@@ -3444,34 +3402,24 @@ ruleTypeTokenOrNoError returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getTypeTokenParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getTypeSetReferenceParserRuleCall_0()); 
     }
-    this_TypeToken_0=ruleTypeToken
+    this_TypeSetReference_0=ruleTypeSetReference
     {
-        $current = $this_TypeToken_0.current;
+        $current = $this_TypeSetReference_0.current;
         afterParserOrEnumRuleCall();
     }
 
-    |(
-	otherlv_1=LeftCurlyBracket
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getTypeTokenOrNoErrorAccess().getLeftCurlyBracketKeyword_1_0());
-    }
-
+    |
     { 
-        newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getNoErrorTypeTokenParserRuleCall_1_1()); 
+        newCompositeNode(grammarAccess.getTypeTokenOrNoErrorAccess().getNoErrorTypeSetParserRuleCall_1()); 
     }
-    this_NoErrorTypeToken_2=ruleNoErrorTypeToken
+    this_NoErrorTypeSet_1=ruleNoErrorTypeSet
     {
-        $current = $this_NoErrorTypeToken_2.current;
+        $current = $this_NoErrorTypeSet_1.current;
         afterParserOrEnumRuleCall();
     }
-
-	otherlv_3=RightCurlyBracket
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getTypeTokenOrNoErrorAccess().getRightCurlyBracketKeyword_1_2());
-    }
-))
+)
 ;
 
 

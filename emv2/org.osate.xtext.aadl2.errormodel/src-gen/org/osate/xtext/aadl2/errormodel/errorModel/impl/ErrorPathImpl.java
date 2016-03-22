@@ -14,7 +14,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,7 +104,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * @generated
    * @ordered
    */
-  protected TypeToken targetToken;
+  protected TypeSet targetToken;
 
   /**
    * The cached value of the '{@link #getTypeMappingSet() <em>Type Mapping Set</em>}' reference.
@@ -274,7 +274,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTargetToken()
+  public TypeSet getTargetToken()
   {
     return targetToken;
   }
@@ -284,9 +284,9 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTargetToken(TypeToken newTargetToken, NotificationChain msgs)
+  public NotificationChain basicSetTargetToken(TypeSet newTargetToken, NotificationChain msgs)
   {
-    TypeToken oldTargetToken = targetToken;
+    TypeSet oldTargetToken = targetToken;
     targetToken = newTargetToken;
     if (eNotificationRequired())
     {
@@ -301,7 +301,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetToken(TypeToken newTargetToken)
+  public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
     {
@@ -428,7 +428,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
         setAllOutgoing((Boolean)newValue);
         return;
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-        setTargetToken((TypeToken)newValue);
+        setTargetToken((TypeSet)newValue);
         return;
       case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
         setTypeMappingSet((TypeMappingSet)newValue);
@@ -460,7 +460,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
         setAllOutgoing(ALL_OUTGOING_EDEFAULT);
         return;
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-        setTargetToken((TypeToken)null);
+        setTargetToken((TypeSet)null);
         return;
       case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
         setTypeMappingSet((TypeMappingSet)null);

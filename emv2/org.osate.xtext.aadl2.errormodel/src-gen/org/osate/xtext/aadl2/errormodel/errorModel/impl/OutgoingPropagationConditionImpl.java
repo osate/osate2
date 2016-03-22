@@ -18,7 +18,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -129,7 +128,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * @generated
    * @ordered
    */
-  protected TypeToken typeToken;
+  protected TypeSet typeToken;
 
   /**
    * <!-- begin-user-doc -->
@@ -385,7 +384,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTypeToken()
+  public TypeSet getTypeToken()
   {
     return typeToken;
   }
@@ -395,9 +394,9 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTypeToken(TypeToken newTypeToken, NotificationChain msgs)
+  public NotificationChain basicSetTypeToken(TypeSet newTypeToken, NotificationChain msgs)
   {
-    TypeToken oldTypeToken = typeToken;
+    TypeSet oldTypeToken = typeToken;
     typeToken = newTypeToken;
     if (eNotificationRequired())
     {
@@ -412,7 +411,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTypeToken(TypeToken newTypeToken)
+  public void setTypeToken(TypeSet newTypeToken)
   {
     if (newTypeToken != typeToken)
     {
@@ -507,7 +506,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
         setAllPropagations((Boolean)newValue);
         return;
       case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
-        setTypeToken((TypeToken)newValue);
+        setTypeToken((TypeSet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -542,7 +541,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
         setAllPropagations(ALL_PROPAGATIONS_EDEFAULT);
         return;
       case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
-        setTypeToken((TypeToken)null);
+        setTypeToken((TypeSet)null);
         return;
     }
     super.eUnset(featureID);

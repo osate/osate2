@@ -25,7 +25,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -117,7 +116,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * @generated
    * @ordered
    */
-  protected TypeToken targetToken;
+  protected TypeSet targetToken;
 
   /**
    * The default value of the '{@link #isSteadyState() <em>Steady State</em>}' attribute.
@@ -380,7 +379,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTargetToken()
+  public TypeSet getTargetToken()
   {
     return targetToken;
   }
@@ -390,9 +389,9 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTargetToken(TypeToken newTargetToken, NotificationChain msgs)
+  public NotificationChain basicSetTargetToken(TypeSet newTargetToken, NotificationChain msgs)
   {
-    TypeToken oldTargetToken = targetToken;
+    TypeSet oldTargetToken = targetToken;
     targetToken = newTargetToken;
     if (eNotificationRequired())
     {
@@ -407,7 +406,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetToken(TypeToken newTargetToken)
+  public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
     {
@@ -541,7 +540,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
         setTarget((ErrorBehaviorState)newValue);
         return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
-        setTargetToken((TypeToken)newValue);
+        setTargetToken((TypeSet)newValue);
         return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
         setSteadyState((Boolean)newValue);
@@ -580,7 +579,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
         setTarget((ErrorBehaviorState)null);
         return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
-        setTargetToken((TypeToken)null);
+        setTargetToken((TypeSet)null);
         return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
         setSteadyState(STEADY_STATE_EDEFAULT);

@@ -60,12 +60,12 @@ public interface TypeMapping extends EObject, Element
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' containment reference.
-   * @see #setTarget(TypeToken)
+   * @see #setTarget(TypeSet)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeMapping_Target()
    * @model containment="true"
    * @generated
    */
-  TypeToken getTarget();
+  TypeSet getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping#getTarget <em>Target</em>}' containment reference.
@@ -75,6 +75,6 @@ public interface TypeMapping extends EObject, Element
    * @see #getTarget()
    * @generated
    */
-  void setTarget(TypeToken value);
+  void setTarget(TypeSet value);
 
 } // TypeMapping

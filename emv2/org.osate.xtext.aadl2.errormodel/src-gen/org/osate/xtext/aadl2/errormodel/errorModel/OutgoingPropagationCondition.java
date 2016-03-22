@@ -195,12 +195,12 @@ public interface OutgoingPropagationCondition extends EObject, NamedElement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type Token</em>' containment reference.
-   * @see #setTypeToken(TypeToken)
+   * @see #setTypeToken(TypeSet)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getOutgoingPropagationCondition_TypeToken()
    * @model containment="true"
    * @generated
    */
-  TypeToken getTypeToken();
+  TypeSet getTypeToken();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getTypeToken <em>Type Token</em>}' containment reference.
@@ -210,6 +210,6 @@ public interface OutgoingPropagationCondition extends EObject, NamedElement
    * @see #getTypeToken()
    * @generated
    */
-  void setTypeToken(TypeToken value);
+  void setTypeToken(TypeSet value);
 
 } // OutgoingPropagationCondition

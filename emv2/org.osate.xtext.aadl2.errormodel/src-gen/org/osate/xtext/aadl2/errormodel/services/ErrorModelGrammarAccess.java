@@ -185,102 +185,98 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Element");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cTypeSetElementParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTypeTokenParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cTypeTransformationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cTypeMappingParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cQualifiedPropagationPointParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cTransitionBranchParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cBranchValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cErrorCodeValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cConditionElementParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cAndExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cConditionTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cConditionExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cOrmoreExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
-		private final RuleCall cErrorStateToModeMappingParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
-		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
-		private final RuleCall cSubcomponentElementParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
-		private final RuleCall cFeatureorPPReferenceParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
-		private final RuleCall cEMV2PropertyAssociationParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
-		private final RuleCall cEMV2PathParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
-		private final RuleCall cEMV2PathElementParserRuleCall_20 = (RuleCall)cAlternatives.eContents().get(20);
+		private final RuleCall cTypeTransformationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cTypeMappingParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cQualifiedPropagationPointParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cTransitionBranchParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cBranchValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cErrorCodeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cConditionElementParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cAndExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cConditionTermParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cConditionExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cOrmoreExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cOrlessExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cErrorStateToModeMappingParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cSubcomponentElementParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
+		private final RuleCall cFeatureorPPReferenceParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cEMV2PropertyAssociationParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cEMV2PathParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
+		private final RuleCall cEMV2PathElementParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
 		
 		//Element returns aadl2::Element:
-		//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//	OrmoreExpression | OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement |
-		//	FeatureorPPReference | EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
+		//	TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
+		//	ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
+		//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//	| EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
 		@Override public ParserRule getRule() { return rule; }
 
-		//TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-		//BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//OrmoreExpression | OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement |
-		//FeatureorPPReference | EMV2PropertyAssociation | EMV2Path | EMV2PathElement
+		//TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
+		//ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
+		//OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//| EMV2PropertyAssociation | EMV2Path | EMV2PathElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
 		public RuleCall getTypeSetElementParserRuleCall_0() { return cTypeSetElementParserRuleCall_0; }
 
-		//TypeToken
-		public RuleCall getTypeTokenParserRuleCall_1() { return cTypeTokenParserRuleCall_1; }
-
 		//TypeTransformation
-		public RuleCall getTypeTransformationParserRuleCall_2() { return cTypeTransformationParserRuleCall_2; }
+		public RuleCall getTypeTransformationParserRuleCall_1() { return cTypeTransformationParserRuleCall_1; }
 
 		//TypeMapping
-		public RuleCall getTypeMappingParserRuleCall_3() { return cTypeMappingParserRuleCall_3; }
+		public RuleCall getTypeMappingParserRuleCall_2() { return cTypeMappingParserRuleCall_2; }
 
 		//QualifiedPropagationPoint
-		public RuleCall getQualifiedPropagationPointParserRuleCall_4() { return cQualifiedPropagationPointParserRuleCall_4; }
+		public RuleCall getQualifiedPropagationPointParserRuleCall_3() { return cQualifiedPropagationPointParserRuleCall_3; }
 
 		//TransitionBranch
-		public RuleCall getTransitionBranchParserRuleCall_5() { return cTransitionBranchParserRuleCall_5; }
+		public RuleCall getTransitionBranchParserRuleCall_4() { return cTransitionBranchParserRuleCall_4; }
 
 		//BranchValue
-		public RuleCall getBranchValueParserRuleCall_6() { return cBranchValueParserRuleCall_6; }
+		public RuleCall getBranchValueParserRuleCall_5() { return cBranchValueParserRuleCall_5; }
 
 		//ErrorCodeValue
-		public RuleCall getErrorCodeValueParserRuleCall_7() { return cErrorCodeValueParserRuleCall_7; }
+		public RuleCall getErrorCodeValueParserRuleCall_6() { return cErrorCodeValueParserRuleCall_6; }
 
 		//ConditionElement
-		public RuleCall getConditionElementParserRuleCall_8() { return cConditionElementParserRuleCall_8; }
+		public RuleCall getConditionElementParserRuleCall_7() { return cConditionElementParserRuleCall_7; }
 
 		//AndExpression
-		public RuleCall getAndExpressionParserRuleCall_9() { return cAndExpressionParserRuleCall_9; }
+		public RuleCall getAndExpressionParserRuleCall_8() { return cAndExpressionParserRuleCall_8; }
 
 		//ConditionTerm
-		public RuleCall getConditionTermParserRuleCall_10() { return cConditionTermParserRuleCall_10; }
+		public RuleCall getConditionTermParserRuleCall_9() { return cConditionTermParserRuleCall_9; }
 
 		//ConditionExpression
-		public RuleCall getConditionExpressionParserRuleCall_11() { return cConditionExpressionParserRuleCall_11; }
+		public RuleCall getConditionExpressionParserRuleCall_10() { return cConditionExpressionParserRuleCall_10; }
 
 		//OrmoreExpression
-		public RuleCall getOrmoreExpressionParserRuleCall_12() { return cOrmoreExpressionParserRuleCall_12; }
+		public RuleCall getOrmoreExpressionParserRuleCall_11() { return cOrmoreExpressionParserRuleCall_11; }
 
 		//OrlessExpression
-		public RuleCall getOrlessExpressionParserRuleCall_13() { return cOrlessExpressionParserRuleCall_13; }
+		public RuleCall getOrlessExpressionParserRuleCall_12() { return cOrlessExpressionParserRuleCall_12; }
 
 		//ErrorStateToModeMapping
-		public RuleCall getErrorStateToModeMappingParserRuleCall_14() { return cErrorStateToModeMappingParserRuleCall_14; }
+		public RuleCall getErrorStateToModeMappingParserRuleCall_13() { return cErrorStateToModeMappingParserRuleCall_13; }
 
 		//QualifiedErrorBehaviorState
-		public RuleCall getQualifiedErrorBehaviorStateParserRuleCall_15() { return cQualifiedErrorBehaviorStateParserRuleCall_15; }
+		public RuleCall getQualifiedErrorBehaviorStateParserRuleCall_14() { return cQualifiedErrorBehaviorStateParserRuleCall_14; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentElementParserRuleCall_16() { return cSubcomponentElementParserRuleCall_16; }
+		public RuleCall getSubcomponentElementParserRuleCall_15() { return cSubcomponentElementParserRuleCall_15; }
 
 		//FeatureorPPReference
-		public RuleCall getFeatureorPPReferenceParserRuleCall_17() { return cFeatureorPPReferenceParserRuleCall_17; }
+		public RuleCall getFeatureorPPReferenceParserRuleCall_16() { return cFeatureorPPReferenceParserRuleCall_16; }
 
 		//EMV2PropertyAssociation
-		public RuleCall getEMV2PropertyAssociationParserRuleCall_18() { return cEMV2PropertyAssociationParserRuleCall_18; }
+		public RuleCall getEMV2PropertyAssociationParserRuleCall_17() { return cEMV2PropertyAssociationParserRuleCall_17; }
 
 		//EMV2Path
-		public RuleCall getEMV2PathParserRuleCall_19() { return cEMV2PathParserRuleCall_19; }
+		public RuleCall getEMV2PathParserRuleCall_18() { return cEMV2PathParserRuleCall_18; }
 
 		//EMV2PathElement
-		public RuleCall getEMV2PathElementParserRuleCall_20() { return cEMV2PathElementParserRuleCall_20; }
+		public RuleCall getEMV2PathElementParserRuleCall_19() { return cEMV2PathElementParserRuleCall_19; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -2837,102 +2833,48 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class TypeTokenElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeToken");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cTypeTokenAction_0 = (Action)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cTypeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cTypeErrorTypesCrossReference_1_1_0 = (CrossReference)cTypeAssignment_1_1.eContents().get(0);
-		private final RuleCall cTypeErrorTypesQEMREFParserRuleCall_1_1_0_1 = (RuleCall)cTypeErrorTypesCrossReference_1_1_0.eContents().get(1);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cAsteriskKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
-		private final Assignment cTypeAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final CrossReference cTypeErrorTypesCrossReference_1_2_1_0 = (CrossReference)cTypeAssignment_1_2_1.eContents().get(0);
-		private final RuleCall cTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1 = (RuleCall)cTypeErrorTypesCrossReference_1_2_1_0.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final RuleCall cTypeSetReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//TypeToken:
-		//	{TypeToken} ("{" type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorTypes|QEMREF])* "}");
+		//TypeToken returns TypeSet:
+		//	TypeSetReference;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{TypeToken} ("{" type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorTypes|QEMREF])* "}")
-		public Group getGroup() { return cGroup; }
-
-		//{TypeToken}
-		public Action getTypeTokenAction_0() { return cTypeTokenAction_0; }
-
-		//"{" type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorTypes|QEMREF])* "}"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
-
-		//type+=[ErrorTypes|QEMREF]
-		public Assignment getTypeAssignment_1_1() { return cTypeAssignment_1_1; }
-
-		//[ErrorTypes|QEMREF]
-		public CrossReference getTypeErrorTypesCrossReference_1_1_0() { return cTypeErrorTypesCrossReference_1_1_0; }
-
-		//QEMREF
-		public RuleCall getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1() { return cTypeErrorTypesQEMREFParserRuleCall_1_1_0_1; }
-
-		//("*" type+=[ErrorTypes|QEMREF])*
-		public Group getGroup_1_2() { return cGroup_1_2; }
-
-		//"*"
-		public Keyword getAsteriskKeyword_1_2_0() { return cAsteriskKeyword_1_2_0; }
-
-		//type+=[ErrorTypes|QEMREF]
-		public Assignment getTypeAssignment_1_2_1() { return cTypeAssignment_1_2_1; }
-
-		//[ErrorTypes|QEMREF]
-		public CrossReference getTypeErrorTypesCrossReference_1_2_1_0() { return cTypeErrorTypesCrossReference_1_2_1_0; }
-
-		//QEMREF
-		public RuleCall getTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1() { return cTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_1_3() { return cRightCurlyBracketKeyword_1_3; }
+		//TypeSetReference
+		public RuleCall getTypeSetReferenceParserRuleCall() { return cTypeSetReferenceParserRuleCall; }
 	}
 
 	public class TypeTokenOrNoErrorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTokenOrNoError");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTypeTokenParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cNoErrorTypeTokenParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final RuleCall cTypeSetReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNoErrorTypeSetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//TypeTokenOrNoError returns TypeToken: //| '(' NoErrorTypeToken ')' 
-		//	TypeToken | "{" NoErrorTypeToken "}";
+		////returns TypeToken:
+		////	{TypeToken}
+		////     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+		////;
+		//TypeTokenOrNoError returns TypeSet:
+		//	TypeSetReference | NoErrorTypeSet;
 		@Override public ParserRule getRule() { return rule; }
 
-		////| '(' NoErrorTypeToken ')' 
-		//TypeToken | "{" NoErrorTypeToken "}"
+		//TypeSetReference | NoErrorTypeSet
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		////| '(' NoErrorTypeToken ')' 
-		//TypeToken
-		public RuleCall getTypeTokenParserRuleCall_0() { return cTypeTokenParserRuleCall_0; }
+		//TypeSetReference
+		public RuleCall getTypeSetReferenceParserRuleCall_0() { return cTypeSetReferenceParserRuleCall_0; }
 
-		//"{" NoErrorTypeToken "}"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
-
-		//NoErrorTypeToken
-		public RuleCall getNoErrorTypeTokenParserRuleCall_1_1() { return cNoErrorTypeTokenParserRuleCall_1_1; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
+		//NoErrorTypeSet
+		public RuleCall getNoErrorTypeSetParserRuleCall_1() { return cNoErrorTypeSetParserRuleCall_1; }
 	}
 
 	public class TypeTokenConstraintElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTokenConstraint");
 		private final RuleCall cTypeSetReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		////returns TypeToken:
+		////	TypeToken  
+		////	| '{' NoErrorTypeToken '}'
+		////;
 		//TypeTokenConstraint returns TypeSet:
 		//	TypeSetReference;
 		@Override public ParserRule getRule() { return rule; }
@@ -6223,6 +6165,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CONDITION");
 		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// XXX new grammar rules for aligning state path with EMV2Path
+		////NewQualifiedErrorBehaviorState returns EMV2Path:
+		//// 	{QualifiedErrorBehaviorState} emv2Target=EMV2ErrorStatePath
+		////;
+		////
+		////EMV2ErrorStatePath returns EMV2PathElement:
+		////	namedElement=[aadl2::NamedElement|ID]
+		////		('.' path=EMV2ErrorStatePath)?
+		////;
 		//CONDITION:
 		//	STRING;
 		@Override public ParserRule getRule() { return rule; }
@@ -6525,10 +6476,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Element returns aadl2::Element:
-	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-	//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-	//	OrmoreExpression | OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement |
-	//	FeatureorPPReference | EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
+	//	TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
+	//	ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
+	//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+	//	| EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
 	public ElementElements getElementAccess() {
 		return pElement;
 	}
@@ -6775,8 +6726,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoErrorTypeTokenAccess().getRule();
 	}
 
-	//TypeToken:
-	//	{TypeToken} ("{" type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorTypes|QEMREF])* "}");
+	//TypeToken returns TypeSet:
+	//	TypeSetReference;
 	public TypeTokenElements getTypeTokenAccess() {
 		return pTypeToken;
 	}
@@ -6785,8 +6736,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenAccess().getRule();
 	}
 
-	//TypeTokenOrNoError returns TypeToken: //| '(' NoErrorTypeToken ')' 
-	//	TypeToken | "{" NoErrorTypeToken "}";
+	////returns TypeToken:
+	////	{TypeToken}
+	////     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+	////;
+	//TypeTokenOrNoError returns TypeSet:
+	//	TypeSetReference | NoErrorTypeSet;
 	public TypeTokenOrNoErrorElements getTypeTokenOrNoErrorAccess() {
 		return pTypeTokenOrNoError;
 	}
@@ -6795,6 +6750,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenOrNoErrorAccess().getRule();
 	}
 
+	////returns TypeToken:
+	////	TypeToken  
+	////	| '{' NoErrorTypeToken '}'
+	////;
 	//TypeTokenConstraint returns TypeSet:
 	//	TypeSetReference;
 	public TypeTokenConstraintElements getTypeTokenConstraintAccess() {
@@ -7373,6 +7332,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSubcomponentElementAccess().getRule();
 	}
 
+	//// XXX new grammar rules for aligning state path with EMV2Path
+	////NewQualifiedErrorBehaviorState returns EMV2Path:
+	//// 	{QualifiedErrorBehaviorState} emv2Target=EMV2ErrorStatePath
+	////;
+	////
+	////EMV2ErrorStatePath returns EMV2PathElement:
+	////	namedElement=[aadl2::NamedElement|ID]
+	////		('.' path=EMV2ErrorStatePath)?
+	////;
 	//CONDITION:
 	//	STRING;
 	public CONDITIONElements getCONDITIONAccess() {

@@ -2491,7 +2491,7 @@ public class EMV2Util {
 		} else if (path instanceof ErrorPath) {
 			ErrorPath epath = (ErrorPath) path;
 			// map the token
-			TypeToken ttup = epath.getTargetToken();
+			TypeSet ttup = epath.getTargetToken();
 			if (ttup == null) {
 				// map token via tms
 				TypeMappingSet tms = getUseMappings(epath);
@@ -2499,7 +2499,7 @@ public class EMV2Util {
 					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
 				}
 			} else {
-				result = ttup;
+				result = ttup.getTypeTokens().get(0);
 			}
 		} else if (path instanceof FlowSpecificationInstance) {
 			// pass on source token
@@ -2984,6 +2984,10 @@ public class EMV2Util {
 
 	public static boolean isProcessor(ErrorPropagation ep) {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
+	}
+
+	public static boolean isNoError(TypeSet type) {
+		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
 
 }

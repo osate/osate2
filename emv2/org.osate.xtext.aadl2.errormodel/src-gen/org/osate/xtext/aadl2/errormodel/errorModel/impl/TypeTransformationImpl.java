@@ -14,7 +14,6 @@ import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 
 /**
@@ -83,7 +82,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * @generated
    * @ordered
    */
-  protected TypeToken target;
+  protected TypeSet target;
 
   /**
    * <!-- begin-user-doc -->
@@ -230,7 +229,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTarget()
+  public TypeSet getTarget()
   {
     return target;
   }
@@ -240,9 +239,9 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTarget(TypeToken newTarget, NotificationChain msgs)
+  public NotificationChain basicSetTarget(TypeSet newTarget, NotificationChain msgs)
   {
-    TypeToken oldTarget = target;
+    TypeSet oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
     {
@@ -257,7 +256,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(TypeToken newTarget)
+  public void setTarget(TypeSet newTarget)
   {
     if (newTarget != target)
     {
@@ -335,7 +334,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
         setContributor((TypeSet)newValue);
         return;
       case ErrorModelPackage.TYPE_TRANSFORMATION__TARGET:
-        setTarget((TypeToken)newValue);
+        setTarget((TypeSet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -361,7 +360,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
         setContributor((TypeSet)null);
         return;
       case ErrorModelPackage.TYPE_TRANSFORMATION__TARGET:
-        setTarget((TypeToken)null);
+        setTarget((TypeSet)null);
         return;
     }
     super.eUnset(featureID);

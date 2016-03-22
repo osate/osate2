@@ -41,7 +41,7 @@ ErrorModelSubclause
 ;
 
 Element returns aadl2::Element:
-TypeSetElement|TypeToken 
+TypeSetElement 
 |TypeTransformation|TypeMapping
 |QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
 |ConditionElement | AndExpression | ConditionTerm
@@ -313,15 +313,17 @@ NoErrorTypeToken returns TypeToken:
 	noError?='noerror'
 ;
 
-TypeToken returns TypeToken:
-	{TypeToken}
-     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
-;
+TypeToken returns TypeSet:TypeSetReference;
+//returns TypeToken:
+//	{TypeToken}
+//     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+//;
 
-TypeTokenOrNoError returns TypeToken:
-	TypeToken //| '(' NoErrorTypeToken ')' 
-	| '{' NoErrorTypeToken '}'
-;
+TypeTokenOrNoError returns TypeSet: TypeSetReference | NoErrorTypeSet;
+//returns TypeToken:
+//	TypeToken  
+//	| '{' NoErrorTypeToken '}'
+//;
 
 TypeTokenConstraint returns TypeSet:
 	TypeSetReference

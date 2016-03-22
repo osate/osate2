@@ -139,12 +139,12 @@ public interface ErrorPath extends ErrorFlow
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Token</em>' containment reference.
-   * @see #setTargetToken(TypeToken)
+   * @see #setTargetToken(TypeSet)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath_TargetToken()
    * @model containment="true"
    * @generated
    */
-  TypeToken getTargetToken();
+  TypeSet getTargetToken();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTargetToken <em>Target Token</em>}' containment reference.
@@ -154,7 +154,7 @@ public interface ErrorPath extends ErrorFlow
    * @see #getTargetToken()
    * @generated
    */
-  void setTargetToken(TypeToken value);
+  void setTargetToken(TypeSet value);
 
   /**
    * Returns the value of the '<em><b>Type Mapping Set</b></em>' reference.

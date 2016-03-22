@@ -16,7 +16,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * @generated
    * @ordered
    */
-  protected TypeToken targetToken;
+  protected TypeSet targetToken;
 
   /**
    * The default value of the '{@link #isSteadyState() <em>Steady State</em>}' attribute.
@@ -155,7 +155,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeToken getTargetToken()
+  public TypeSet getTargetToken()
   {
     return targetToken;
   }
@@ -165,9 +165,9 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTargetToken(TypeToken newTargetToken, NotificationChain msgs)
+  public NotificationChain basicSetTargetToken(TypeSet newTargetToken, NotificationChain msgs)
   {
-    TypeToken oldTargetToken = targetToken;
+    TypeSet oldTargetToken = targetToken;
     targetToken = newTargetToken;
     if (eNotificationRequired())
     {
@@ -182,7 +182,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetToken(TypeToken newTargetToken)
+  public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
     {
@@ -324,7 +324,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
         setTarget((ErrorBehaviorState)newValue);
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-        setTargetToken((TypeToken)newValue);
+        setTargetToken((TypeSet)newValue);
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
         setSteadyState((Boolean)newValue);
@@ -350,7 +350,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
         setTarget((ErrorBehaviorState)null);
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-        setTargetToken((TypeToken)null);
+        setTargetToken((TypeSet)null);
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
         setSteadyState(STEADY_STATE_EDEFAULT);

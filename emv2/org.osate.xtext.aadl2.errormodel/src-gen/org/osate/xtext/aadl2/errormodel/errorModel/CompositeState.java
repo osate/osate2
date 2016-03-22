@@ -114,12 +114,12 @@ public interface CompositeState extends EObject, NamedElement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Typed Token</em>' containment reference.
-   * @see #setTypedToken(TypeToken)
+   * @see #setTypedToken(TypeSet)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getCompositeState_TypedToken()
    * @model containment="true"
    * @generated
    */
-  TypeToken getTypedToken();
+  TypeSet getTypedToken();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState#getTypedToken <em>Typed Token</em>}' containment reference.
@@ -129,6 +129,6 @@ public interface CompositeState extends EObject, NamedElement
    * @see #getTypedToken()
    * @generated
    */
-  void setTypedToken(TypeToken value);
+  void setTypedToken(TypeSet value);
 
 } // CompositeState

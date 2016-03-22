@@ -186,10 +186,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getTypeSetElementAccess().getGroup_1(), "rule__TypeSetElement__Group_1__0");
 					put(grammarAccess.getNoErrorTypeSetAccess().getGroup(), "rule__NoErrorTypeSet__Group__0");
 					put(grammarAccess.getNoErrorTypeTokenAccess().getGroup(), "rule__NoErrorTypeToken__Group__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup(), "rule__TypeToken__Group__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup_1(), "rule__TypeToken__Group_1__0");
-					put(grammarAccess.getTypeTokenAccess().getGroup_1_2(), "rule__TypeToken__Group_1_2__0");
-					put(grammarAccess.getTypeTokenOrNoErrorAccess().getGroup_1(), "rule__TypeTokenOrNoError__Group_1__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup(), "rule__TypeTransformationSet__Group__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup_3(), "rule__TypeTransformationSet__Group_3__0");
 					put(grammarAccess.getTypeTransformationSetAccess().getGroup_3_3(), "rule__TypeTransformationSet__Group_3_3__0");
@@ -444,8 +440,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_1_1(), "rule__TypeSetElement__TypeAssignment_1_1");
 					put(grammarAccess.getNoErrorTypeSetAccess().getTypeTokensAssignment_2(), "rule__NoErrorTypeSet__TypeTokensAssignment_2");
 					put(grammarAccess.getNoErrorTypeTokenAccess().getNoErrorAssignment_1(), "rule__NoErrorTypeToken__NoErrorAssignment_1");
-					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_1_1(), "rule__TypeToken__TypeAssignment_1_1");
-					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_1_2_1(), "rule__TypeToken__TypeAssignment_1_2_1");
 					put(grammarAccess.getTypeTransformationSetAccess().getNameAssignment_2(), "rule__TypeTransformationSet__NameAssignment_2");
 					put(grammarAccess.getTypeTransformationSetAccess().getUseTypesAssignment_3_2(), "rule__TypeTransformationSet__UseTypesAssignment_3_2");
 					put(grammarAccess.getTypeTransformationSetAccess().getUseTypesAssignment_3_3_1(), "rule__TypeTransformationSet__UseTypesAssignment_3_3_1");

@@ -550,7 +550,7 @@ public class EM2TypeSetUtil {
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
 			if (contains(src, token)) {
-				return typeMapping.getTarget();
+				return typeMapping.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -561,7 +561,7 @@ public class EM2TypeSetUtil {
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
 			if (contains(src, token)) {
-				return typeMapping.getTarget();
+				return typeMapping.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -579,7 +579,7 @@ public class EM2TypeSetUtil {
 		EList<TypeMapping> tmlist = tms.getMapping();
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
-			TypeToken trg = typeMapping.getTarget();
+			TypeSet trg = typeMapping.getTarget();
 			if (contains(trg, token)) {
 				return src.getTypeTokens().get(0);
 			}
@@ -600,7 +600,7 @@ public class EM2TypeSetUtil {
 		for (TypeTransformation typeXform : ttlist) {
 			TypeSet src = typeXform.getSource();
 			if (contains(src, token)) {
-				return typeXform.getTarget();
+				return typeXform.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -621,7 +621,7 @@ public class EM2TypeSetUtil {
 			TypeSet src = typeXform.getSource();
 			TypeSet contrib = typeXform.getContributor();
 			if (contains(src, srctoken) && contains(contrib, contributortoken)) {
-				return typeXform.getTarget();
+				return typeXform.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
