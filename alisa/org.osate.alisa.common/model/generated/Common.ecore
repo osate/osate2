@@ -73,6 +73,13 @@
     <eLiterals name="LEQ" value="5" literal="&lt;="/>
     <eLiterals name="GT" value="6" literal=">"/>
     <eLiterals name="LT" value="7" literal="&lt;"/>
+    <eLiterals name="PLUS" value="8" literal="+"/>
+    <eLiterals name="MINUS" value="9" literal="-"/>
+    <eLiterals name="MULT" value="10" literal="*"/>
+    <eLiterals name="DIV" value="11" literal="/"/>
+    <eLiterals name="INTDIV" value="12" literal="div"/>
+    <eLiterals name="MOD" value="13" literal="mod"/>
+    <eLiterals name="NOT" value="14" literal="not"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType">

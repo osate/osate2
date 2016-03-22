@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalCommonParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'!'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'description'", "'target'", "'exception'", "'diagnosticId'", "'['", "']'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'this'", "'in'", "'img'", "'='", "'('", "')'", "','", "'{'", "'}'", "'null'", "'::'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'description'", "'target'", "'exception'", "'diagnosticId'", "'['", "']'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'this'", "'in'", "'img'", "'='", "'('", "')'", "','", "'{'", "'}'", "'null'", "'::'", "'true'"
     };
     public static final int T__50=50;
     public static final int RULE_INT_EXPONENT=10;
@@ -5084,13 +5084,13 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OpUnary__Alternatives"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1658:1: rule__OpUnary__Alternatives : ( ( '!' ) | ( '-' ) | ( '+' ) );
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1658:1: rule__OpUnary__Alternatives : ( ( 'not' ) | ( '-' ) | ( '+' ) );
     public final void rule__OpUnary__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1662:1: ( ( '!' ) | ( '-' ) | ( '+' ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1662:1: ( ( 'not' ) | ( '-' ) | ( '+' ) )
             int alt10=3;
             switch ( input.LA(1) ) {
             case 31:
@@ -5118,17 +5118,17 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1663:1: ( '!' )
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1663:1: ( 'not' )
                     {
-                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1663:1: ( '!' )
-                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1664:1: '!'
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1663:1: ( 'not' )
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1664:1: 'not'
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       before(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
                     match(input,31,FOLLOW_31_in_rule__OpUnary__Alternatives3493); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       after(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
 
                     }

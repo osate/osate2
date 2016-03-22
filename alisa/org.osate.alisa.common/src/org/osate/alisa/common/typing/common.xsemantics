@@ -13,6 +13,7 @@ import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ABinaryOperation
@@ -20,13 +21,14 @@ import org.osate.alisa.common.common.AExpression
 import org.osate.alisa.common.common.AListTerm
 import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.APropertyReference
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.validation.AbstractCommonValidator
-import org.osate.alisa.common.common.CommonFactory
 
 system org.osate.alisa.common.typing.CommonTypeSystem
 
@@ -85,8 +87,10 @@ axiom PropertyType
 
 rule AExpression
 	G |- PropertyExpression param : PropertyType type
+	error 'typing: unhandled case' + stringRep(param)
+	source param
 from {
-	type = Aadl2Factory.eINSTANCE.createAadlInteger
+	fail
 }
  
 rule ABinaryExpression
@@ -95,22 +99,25 @@ from {
 	G |- binary.left : var PropertyType leftType
 	G |- binary.right : var PropertyType rightType
 	val op = binary.operator
+	val leftUnit = null
+	val rightUnit = null
 	switch op {
-		case 'or', case 'and': {
-				leftType instanceof AadlBoolean && rightType instanceof AadlBoolean
-				type = leftType
-			}
-		case '==', case '!=': {
-				leftType.eClass == rightType.eClass
+		case OR, case AND,
+		case EQ, case NEQ,
+		case LT, case LEQ, case GT, case GEQ:
 				type = Aadl2Factory.eINSTANCE.createAadlBoolean
-			}
-		case '<', case '<=', case '>', case '>=': {
-				leftType instanceof NumberType && rightType instanceof NumberType
-				type = Aadl2Factory.eINSTANCE.createAadlBoolean
-			}
-		case '*', case '/', case '+', case '-': {
-				leftType instanceof NumberType && rightType instanceof NumberType
-				type = if (leftType instanceof AadlReal) leftType else rightType 
+		case PLUS, case MINUS, case MULT, case DIV: {
+				if (leftType instanceof NumberType && rightType instanceof NumberType) {
+					if (leftType instanceof AadlInteger && rightType instanceof AadlInteger) {
+						type = leftType
+					} else if (leftType instanceof AadlReal) {
+						type = leftType
+					} else {
+						type = rightType
+					}
+				} else {
+					fail	
+				}
 		}
 	}
 }
@@ -140,6 +147,12 @@ axiom PropertyReference
 			fail
 		}
 	}
+
+rule AVariableReference
+	G |- AVariableReference vRef : PropertyType type
+from {
+	G |- vRef.variable : type
+}
 
 // primitive types
 
@@ -193,6 +206,9 @@ from {
 axiom ModelRef
 	G |- ModelRef left <: ModelRef right
 
+axiom ModelRef1
+	G |- ModelRef left <: ReferenceType right
+
 rule NotCompatible
 	G |- PropertyType left <: PropertyType right
 	error 'Types ' + stringRep(left) + ' and ' + stringRep(right) + ' are not compatible'
@@ -210,4 +226,10 @@ from {
   	empty |- valDecl.value : var PropertyType valueType
   	empty |- valueType <: valType
   }
+}
+
+checkrule CheckExpressions for
+	AExpression exp
+from {
+	
 }

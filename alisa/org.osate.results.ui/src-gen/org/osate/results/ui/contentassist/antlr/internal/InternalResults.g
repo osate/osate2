@@ -1853,11 +1853,11 @@ rule__OpUnary__Alternatives
     }
 :
 (
-{ before(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); }
+{ before(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); }
 
-	'!' 
+	'not' 
 
-{ after(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); }
+{ after(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); }
 )
 
     |(

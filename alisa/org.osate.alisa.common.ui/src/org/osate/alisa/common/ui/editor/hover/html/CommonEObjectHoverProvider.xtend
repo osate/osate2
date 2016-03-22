@@ -38,7 +38,9 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		if (!result.failed()) {
 			val label = getLabel(o);
 			val type = result.getValue();
-			val typename = if (type.name == null) {
+			val typename = if (type == null)
+						'no type'
+					else if (type.name == null) {
 					val owner = type.eContainer
 					if (owner instanceof Property) {
 						'typeof(' + owner.qualifiedName() + ')'

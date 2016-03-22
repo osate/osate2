@@ -49,7 +49,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
  	private final Map<String, String> tokenNameToValue = new HashMap<String, String>();
  	
  	{
-		tokenNameToValue.put("ExclamationMark", "'!'");
 		tokenNameToValue.put("NumberSign", "'#'");
 		tokenNameToValue.put("PercentSign", "'\%'");
 		tokenNameToValue.put("LeftParenthesis", "'('");
@@ -80,6 +79,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("For", "'for'");
 		tokenNameToValue.put("Img", "'img'");
 		tokenNameToValue.put("Mod", "'mod'");
+		tokenNameToValue.put("Not", "'not'");
 		tokenNameToValue.put("See", "'see'");
 		tokenNameToValue.put("Tbd", "'tbd'");
 		tokenNameToValue.put("Use", "'use'");
@@ -3033,11 +3033,11 @@ rule__OpUnary__Alternatives
     }
 :
 (
-{ before(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); }
+{ before(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); }
 
-	ExclamationMark 
+	Not 
 
-{ after(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); }
+{ after(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); }
 )
 
     |(

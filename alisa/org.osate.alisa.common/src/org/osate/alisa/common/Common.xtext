@@ -99,6 +99,9 @@ enum Operation:
 	| AND='and'
 	| EQ='==' | NEQ='!='
 	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<'
+	| PLUS='+' | MINUS='-'
+	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+	| NOT='not'
 	
 ;
 
@@ -162,7 +165,7 @@ AUnaryOperation returns aadl2::PropertyExpression:
 	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
 
 OpUnary returns Operation:
-	"!" | "-" | "+";
+	"not" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
 	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall 

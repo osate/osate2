@@ -176,6 +176,8 @@ Img : 'img';
 
 Mod : 'mod';
 
+Not : 'not';
+
 See : 'see';
 
 Tbd : 'tbd';
@@ -199,8 +201,6 @@ GreaterThanSignEqualsSign : '>=';
 In : 'in';
 
 Or : 'or';
-
-ExclamationMark : '!';
 
 NumberSign : '#';
 

@@ -4459,10 +4459,10 @@ ruleOpUnary returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
     }
     @after { leaveRule(); }:
 (
-	kw='!' 
+	kw='not' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+        newLeafNode(kw, grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
     }
 
     |

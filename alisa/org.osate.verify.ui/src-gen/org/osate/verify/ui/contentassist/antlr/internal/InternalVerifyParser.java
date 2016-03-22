@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'!'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'", "'element'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'verification'", "'plan'", "'for'", "'['", "']'", "':'", "'issues'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'timeout'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'method'", "'properties'", "'returns'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'junit'", "'.'", "'description'", "'rationale'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'#'", "'this'", "'in'", "'img'", "'{'", "'}'", "'null'", "'group'", "'virtual'", "'::'", "'report'", "'single'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'", "'element'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'verification'", "'plan'", "'for'", "'['", "']'", "':'", "'issues'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'timeout'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'method'", "'properties'", "'returns'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'junit'", "'.'", "'description'", "'rationale'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'#'", "'this'", "'in'", "'img'", "'{'", "'}'", "'null'", "'group'", "'virtual'", "'::'", "'report'", "'single'", "'true'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -8621,13 +8621,13 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OpUnary__Alternatives"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2695:1: rule__OpUnary__Alternatives : ( ( '!' ) | ( '-' ) | ( '+' ) );
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2695:1: rule__OpUnary__Alternatives : ( ( 'not' ) | ( '-' ) | ( '+' ) );
     public final void rule__OpUnary__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2699:1: ( ( '!' ) | ( '-' ) | ( '+' ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2699:1: ( ( 'not' ) | ( '-' ) | ( '+' ) )
             int alt20=3;
             switch ( input.LA(1) ) {
             case 31:
@@ -8655,17 +8655,17 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2700:1: ( '!' )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2700:1: ( 'not' )
                     {
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2700:1: ( '!' )
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2701:1: '!'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2700:1: ( 'not' )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:2701:1: 'not'
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       before(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
                     match(input,31,FOLLOW_31_in_rule__OpUnary__Alternatives5763); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       after(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
 
                     }

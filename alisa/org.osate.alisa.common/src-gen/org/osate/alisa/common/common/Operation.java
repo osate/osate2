@@ -110,7 +110,77 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  LT(7, "LT", "<");
+  LT(7, "LT", "<"),
+
+  /**
+   * The '<em><b>PLUS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #PLUS_VALUE
+   * @generated
+   * @ordered
+   */
+  PLUS(8, "PLUS", "+"),
+
+  /**
+   * The '<em><b>MINUS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MINUS_VALUE
+   * @generated
+   * @ordered
+   */
+  MINUS(9, "MINUS", "-"),
+
+  /**
+   * The '<em><b>MULT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MULT_VALUE
+   * @generated
+   * @ordered
+   */
+  MULT(10, "MULT", "*"),
+
+  /**
+   * The '<em><b>DIV</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #DIV_VALUE
+   * @generated
+   * @ordered
+   */
+  DIV(11, "DIV", "/"),
+
+  /**
+   * The '<em><b>INTDIV</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #INTDIV_VALUE
+   * @generated
+   * @ordered
+   */
+  INTDIV(12, "INTDIV", "div"),
+
+  /**
+   * The '<em><b>MOD</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MOD_VALUE
+   * @generated
+   * @ordered
+   */
+  MOD(13, "MOD", "mod"),
+
+  /**
+   * The '<em><b>NOT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #NOT_VALUE
+   * @generated
+   * @ordered
+   */
+  NOT(14, "NOT", "not");
 
   /**
    * The '<em><b>OR</b></em>' literal value.
@@ -233,6 +303,111 @@ public enum Operation implements Enumerator
   public static final int LT_VALUE = 7;
 
   /**
+   * The '<em><b>PLUS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PLUS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PLUS
+   * @model literal="+"
+   * @generated
+   * @ordered
+   */
+  public static final int PLUS_VALUE = 8;
+
+  /**
+   * The '<em><b>MINUS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MINUS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MINUS
+   * @model literal="-"
+   * @generated
+   * @ordered
+   */
+  public static final int MINUS_VALUE = 9;
+
+  /**
+   * The '<em><b>MULT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MULT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MULT
+   * @model literal="*"
+   * @generated
+   * @ordered
+   */
+  public static final int MULT_VALUE = 10;
+
+  /**
+   * The '<em><b>DIV</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>DIV</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #DIV
+   * @model literal="/"
+   * @generated
+   * @ordered
+   */
+  public static final int DIV_VALUE = 11;
+
+  /**
+   * The '<em><b>INTDIV</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>INTDIV</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #INTDIV
+   * @model literal="div"
+   * @generated
+   * @ordered
+   */
+  public static final int INTDIV_VALUE = 12;
+
+  /**
+   * The '<em><b>MOD</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MOD</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MOD
+   * @model literal="mod"
+   * @generated
+   * @ordered
+   */
+  public static final int MOD_VALUE = 13;
+
+  /**
+   * The '<em><b>NOT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>NOT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #NOT
+   * @model literal="not"
+   * @generated
+   * @ordered
+   */
+  public static final int NOT_VALUE = 14;
+
+  /**
    * An array of all the '<em><b>Operation</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -249,6 +424,13 @@ public enum Operation implements Enumerator
       LEQ,
       GT,
       LT,
+      PLUS,
+      MINUS,
+      MULT,
+      DIV,
+      INTDIV,
+      MOD,
+      NOT,
     };
 
   /**
@@ -321,6 +503,13 @@ public enum Operation implements Enumerator
       case LEQ_VALUE: return LEQ;
       case GT_VALUE: return GT;
       case LT_VALUE: return LT;
+      case PLUS_VALUE: return PLUS;
+      case MINUS_VALUE: return MINUS;
+      case MULT_VALUE: return MULT;
+      case DIV_VALUE: return DIV;
+      case INTDIV_VALUE: return INTDIV;
+      case MOD_VALUE: return MOD;
+      case NOT_VALUE: return NOT;
     }
     return null;
   }

@@ -25,6 +25,13 @@
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LEQ"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/GT"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MULT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/DIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/INTDIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MOD"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/NOT"/>
     </genEnums>
     <genClasses ecoreClass="Common.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Description/description"/>

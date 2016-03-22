@@ -1362,19 +1362,19 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class OpUnaryElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpUnary");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Keyword cExclamationMarkKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cNotKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cHyphenMinusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cPlusSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
 		//OpUnary returns Operation:
-		//	"!" | "-" | "+";
+		//	"not" | "-" | "+";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"!" | "-" | "+"
+		//"not" | "-" | "+"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//"!"
-		public Keyword getExclamationMarkKeyword_0() { return cExclamationMarkKeyword_0; }
+		//"not"
+		public Keyword getNotKeyword_0() { return cNotKeyword_0; }
 
 		//"-"
 		public Keyword getHyphenMinusKeyword_1() { return cHyphenMinusKeyword_1; }
@@ -2184,13 +2184,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGTGreaterThanSignKeyword_6_0 = (Keyword)cGTEnumLiteralDeclaration_6.eContents().get(0);
 		private final EnumLiteralDeclaration cLTEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
 		private final Keyword cLTLessThanSignKeyword_7_0 = (Keyword)cLTEnumLiteralDeclaration_7.eContents().get(0);
+		private final EnumLiteralDeclaration cPLUSEnumLiteralDeclaration_8 = (EnumLiteralDeclaration)cAlternatives.eContents().get(8);
+		private final Keyword cPLUSPlusSignKeyword_8_0 = (Keyword)cPLUSEnumLiteralDeclaration_8.eContents().get(0);
+		private final EnumLiteralDeclaration cMINUSEnumLiteralDeclaration_9 = (EnumLiteralDeclaration)cAlternatives.eContents().get(9);
+		private final Keyword cMINUSHyphenMinusKeyword_9_0 = (Keyword)cMINUSEnumLiteralDeclaration_9.eContents().get(0);
+		private final EnumLiteralDeclaration cMULTEnumLiteralDeclaration_10 = (EnumLiteralDeclaration)cAlternatives.eContents().get(10);
+		private final Keyword cMULTAsteriskKeyword_10_0 = (Keyword)cMULTEnumLiteralDeclaration_10.eContents().get(0);
+		private final EnumLiteralDeclaration cDIVEnumLiteralDeclaration_11 = (EnumLiteralDeclaration)cAlternatives.eContents().get(11);
+		private final Keyword cDIVSolidusKeyword_11_0 = (Keyword)cDIVEnumLiteralDeclaration_11.eContents().get(0);
+		private final EnumLiteralDeclaration cINTDIVEnumLiteralDeclaration_12 = (EnumLiteralDeclaration)cAlternatives.eContents().get(12);
+		private final Keyword cINTDIVDivKeyword_12_0 = (Keyword)cINTDIVEnumLiteralDeclaration_12.eContents().get(0);
+		private final EnumLiteralDeclaration cMODEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
+		private final Keyword cMODModKeyword_13_0 = (Keyword)cMODEnumLiteralDeclaration_13.eContents().get(0);
+		private final EnumLiteralDeclaration cNOTEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
+		private final Keyword cNOTNotKeyword_14_0 = (Keyword)cNOTEnumLiteralDeclaration_14.eContents().get(0);
 		
 		//// Expressions
 		//enum Operation:
-		//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<";
+		//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
+		//	DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 		public EnumRule getRule() { return rule; }
 
-		//OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<"
+		//OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
+		//DIV="/" | INTDIV="div" | MOD="mod" | NOT="not"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//OR="or"
@@ -2240,6 +2256,48 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"<"
 		public Keyword getLTLessThanSignKeyword_7_0() { return cLTLessThanSignKeyword_7_0; }
+
+		//PLUS="+"
+		public EnumLiteralDeclaration getPLUSEnumLiteralDeclaration_8() { return cPLUSEnumLiteralDeclaration_8; }
+
+		//"+"
+		public Keyword getPLUSPlusSignKeyword_8_0() { return cPLUSPlusSignKeyword_8_0; }
+
+		//MINUS="-"
+		public EnumLiteralDeclaration getMINUSEnumLiteralDeclaration_9() { return cMINUSEnumLiteralDeclaration_9; }
+
+		//"-"
+		public Keyword getMINUSHyphenMinusKeyword_9_0() { return cMINUSHyphenMinusKeyword_9_0; }
+
+		//MULT="*"
+		public EnumLiteralDeclaration getMULTEnumLiteralDeclaration_10() { return cMULTEnumLiteralDeclaration_10; }
+
+		//"*"
+		public Keyword getMULTAsteriskKeyword_10_0() { return cMULTAsteriskKeyword_10_0; }
+
+		//DIV="/"
+		public EnumLiteralDeclaration getDIVEnumLiteralDeclaration_11() { return cDIVEnumLiteralDeclaration_11; }
+
+		//"/"
+		public Keyword getDIVSolidusKeyword_11_0() { return cDIVSolidusKeyword_11_0; }
+
+		//INTDIV="div"
+		public EnumLiteralDeclaration getINTDIVEnumLiteralDeclaration_12() { return cINTDIVEnumLiteralDeclaration_12; }
+
+		//"div"
+		public Keyword getINTDIVDivKeyword_12_0() { return cINTDIVDivKeyword_12_0; }
+
+		//MOD="mod"
+		public EnumLiteralDeclaration getMODEnumLiteralDeclaration_13() { return cMODEnumLiteralDeclaration_13; }
+
+		//"mod"
+		public Keyword getMODModKeyword_13_0() { return cMODModKeyword_13_0; }
+
+		//NOT="not"
+		public EnumLiteralDeclaration getNOTEnumLiteralDeclaration_14() { return cNOTEnumLiteralDeclaration_14; }
+
+		//"not"
+		public Keyword getNOTNotKeyword_14_0() { return cNOTNotKeyword_14_0; }
 	}
 	
 	private final DescriptionElements pDescription;
@@ -2590,7 +2648,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Expressions
 	//enum Operation:
-	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<";
+	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
+	//	DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 	public OperationElements getOperationAccess() {
 		return unknownRuleOperation;
 	}
@@ -2755,7 +2814,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpUnary returns Operation:
-	//	"!" | "-" | "+";
+	//	"not" | "-" | "+";
 	public OpUnaryElements getOpUnaryAccess() {
 		return pOpUnary;
 	}

@@ -1214,6 +1214,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     addEEnumLiteral(operationEEnum, Operation.LEQ);
     addEEnumLiteral(operationEEnum, Operation.GT);
     addEEnumLiteral(operationEEnum, Operation.LT);
+    addEEnumLiteral(operationEEnum, Operation.PLUS);
+    addEEnumLiteral(operationEEnum, Operation.MINUS);
+    addEEnumLiteral(operationEEnum, Operation.MULT);
+    addEEnumLiteral(operationEEnum, Operation.DIV);
+    addEEnumLiteral(operationEEnum, Operation.INTDIV);
+    addEEnumLiteral(operationEEnum, Operation.MOD);
+    addEEnumLiteral(operationEEnum, Operation.NOT);
 
     // Create resource
     createResource(eNS_URI);

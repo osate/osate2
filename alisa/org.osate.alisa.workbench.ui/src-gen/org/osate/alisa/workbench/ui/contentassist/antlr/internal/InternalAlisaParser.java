@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'!'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'assurance'", "'case'", "'for'", "'['", "']'", "':'", "'plan'", "'assure'", "'global'", "'subsystem'", "'assume'", "'issues'", "'task'", "'category'", "'.'", "'description'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'element'", "'#'", "'this'", "'in'", "'img'", "'='", "'('", "')'", "','", "'{'", "'}'", "'null'", "'::'", "'all'", "'any'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'or'", "'and'", "'%'", "'=='", "'!='", "'>='", "'>'", "'<'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'assurance'", "'case'", "'for'", "'['", "']'", "':'", "'plan'", "'assure'", "'global'", "'subsystem'", "'assume'", "'issues'", "'task'", "'category'", "'.'", "'description'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'real'", "'string'", "'model'", "'element'", "'#'", "'this'", "'in'", "'img'", "'='", "'('", "')'", "','", "'{'", "'}'", "'null'", "'::'", "'all'", "'any'", "'true'"
     };
     public static final int T__50=50;
     public static final int RULE_INT_EXPONENT=10;
@@ -5902,13 +5902,13 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OpUnary__Alternatives"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1880:1: rule__OpUnary__Alternatives : ( ( '!' ) | ( '-' ) | ( '+' ) );
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1880:1: rule__OpUnary__Alternatives : ( ( 'not' ) | ( '-' ) | ( '+' ) );
     public final void rule__OpUnary__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1884:1: ( ( '!' ) | ( '-' ) | ( '+' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1884:1: ( ( 'not' ) | ( '-' ) | ( '+' ) )
             int alt14=3;
             switch ( input.LA(1) ) {
             case 31:
@@ -5936,17 +5936,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
             switch (alt14) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1885:1: ( '!' )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1885:1: ( 'not' )
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1885:1: ( '!' )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1886:1: '!'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1885:1: ( 'not' )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1886:1: 'not'
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       before(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
                     match(input,31,FOLLOW_31_in_rule__OpUnary__Alternatives3985); if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                       after(grammarAccess.getOpUnaryAccess().getNotKeyword_0()); 
                     }
 
                     }
