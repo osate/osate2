@@ -6461,38 +6461,38 @@ ruleAllExpression returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getAllExpressionAccess().getAllKeyword_1());
     }
-
-	otherlv_2=LeftParenthesis
+(
+	otherlv_2=HyphenMinus
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAllExpressionAccess().getLeftParenthesisKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getAllExpressionAccess().getHyphenMinusKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getAllExpressionAccess().getCountINTVALUEParserRuleCall_2_1_0()); 
 	    }
-		lv_operands_3_0=ruleConditionElement		{
+		lv_count_3_0=ruleINTVALUE		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAllExpressionRule());
 	        }
-       		add(
+       		set(
        			$current, 
-       			"operands",
-        		lv_operands_3_0, 
-        		"ConditionElement");
+       			"count",
+        		lv_count_3_0, 
+        		"INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
-	otherlv_4=Comma
+))?
+	otherlv_4=LeftParenthesis
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAllExpressionAccess().getCommaKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAllExpressionAccess().getLeftParenthesisKeyword_3());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_4_0()); 
 	    }
 		lv_operands_5_0=ruleConditionElement		{
 	        if ($current==null) {
@@ -6507,35 +6507,35 @@ ruleAllExpression returns [EObject current=null]
 	    }
 
 )
-))*
-	otherlv_6=RightParenthesis
+)(
+	otherlv_6=Comma
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAllExpressionAccess().getRightParenthesisKeyword_5());
-    }
-(
-	otherlv_7=But
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getAllExpressionAccess().getButKeyword_6_0());
+    	newLeafNode(otherlv_6, grammarAccess.getAllExpressionAccess().getCommaKeyword_5_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAllExpressionAccess().getCountINTVALUEParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getAllExpressionAccess().getOperandsConditionElementParserRuleCall_5_1_0()); 
 	    }
-		lv_count_8_0=ruleINTVALUE		{
+		lv_operands_7_0=ruleConditionElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAllExpressionRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"count",
-        		lv_count_8_0, 
-        		"INTVALUE");
+       			"operands",
+        		lv_operands_7_0, 
+        		"ConditionElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+))*
+	otherlv_8=RightParenthesis
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getAllExpressionAccess().getRightParenthesisKeyword_6());
+    }
+)
 ;
 
 
@@ -8016,38 +8016,38 @@ ruleSAllExpression returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getSAllExpressionAccess().getAllKeyword_1());
     }
-
-	otherlv_2=LeftParenthesis
+(
+	otherlv_2=HyphenMinus
     {
-    	newLeafNode(otherlv_2, grammarAccess.getSAllExpressionAccess().getLeftParenthesisKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getSAllExpressionAccess().getHyphenMinusKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getCountINTVALUEParserRuleCall_2_1_0()); 
 	    }
-		lv_operands_3_0=ruleSConditionElement		{
+		lv_count_3_0=ruleINTVALUE		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSAllExpressionRule());
 	        }
-       		add(
+       		set(
        			$current, 
-       			"operands",
-        		lv_operands_3_0, 
-        		"SConditionElement");
+       			"count",
+        		lv_count_3_0, 
+        		"INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
-	otherlv_4=Comma
+))?
+	otherlv_4=LeftParenthesis
     {
-    	newLeafNode(otherlv_4, grammarAccess.getSAllExpressionAccess().getCommaKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getSAllExpressionAccess().getLeftParenthesisKeyword_3());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_4_0()); 
 	    }
 		lv_operands_5_0=ruleSConditionElement		{
 	        if ($current==null) {
@@ -8062,35 +8062,35 @@ ruleSAllExpression returns [EObject current=null]
 	    }
 
 )
-))*
-	otherlv_6=RightParenthesis
+)(
+	otherlv_6=Comma
     {
-    	newLeafNode(otherlv_6, grammarAccess.getSAllExpressionAccess().getRightParenthesisKeyword_5());
-    }
-(
-	otherlv_7=But
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getSAllExpressionAccess().getButKeyword_6_0());
+    	newLeafNode(otherlv_6, grammarAccess.getSAllExpressionAccess().getCommaKeyword_5_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getCountINTVALUEParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getSAllExpressionAccess().getOperandsSConditionElementParserRuleCall_5_1_0()); 
 	    }
-		lv_count_8_0=ruleINTVALUE		{
+		lv_operands_7_0=ruleSConditionElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSAllExpressionRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"count",
-        		lv_count_8_0, 
-        		"INTVALUE");
+       			"operands",
+        		lv_operands_7_0, 
+        		"SConditionElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+))*
+	otherlv_8=RightParenthesis
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getSAllExpressionAccess().getRightParenthesisKeyword_6());
+    }
+)
 ;
 
 

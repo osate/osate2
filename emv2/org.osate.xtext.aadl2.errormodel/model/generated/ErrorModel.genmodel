@@ -267,8 +267,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AndExpression/operands"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//AllExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AllExpression/operands"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//AllExpression/count"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AllExpression/operands"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorEventOrPropagation"/>
     <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorPropagation">

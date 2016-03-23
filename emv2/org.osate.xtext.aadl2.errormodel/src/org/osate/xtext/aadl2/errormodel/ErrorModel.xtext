@@ -514,8 +514,8 @@ AndExpression returns ConditionExpression:
   ConditionTerm ({AndExpression.operands+=current} 'and' operands+=ConditionTerm)*;
 
 AllExpression returns ConditionExpression:
-  {AllExpression} 'all' '(' operands+=ConditionElement
-	            ( ',' operands+=ConditionElement)* ')' ( 'but' count=INTVALUE)?;
+  {AllExpression} 'all' ( '-' count=INTVALUE)?'(' operands+=ConditionElement
+	            ( ',' operands+=ConditionElement)* ')' ;
 
   
 OrmoreExpression returns OrmoreExpression: 
@@ -625,8 +625,8 @@ SOrlessExpression returns OrlessExpression:
 ;
 
 SAllExpression returns ConditionExpression:
-  {AllExpression} 'all' '(' operands+=SConditionElement
-	            ( ',' operands+=SConditionElement)* ')' ( 'but' count=INTVALUE)?;
+  {AllExpression} 'all' ( '-' count=INTVALUE)? 
+  '(' operands+=SConditionElement ( ',' operands+=SConditionElement)* ')' ;
 
   
 SConditionTerm returns ConditionExpression:

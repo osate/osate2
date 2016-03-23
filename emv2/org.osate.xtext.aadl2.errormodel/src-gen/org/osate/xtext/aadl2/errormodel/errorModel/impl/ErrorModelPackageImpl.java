@@ -2472,9 +2472,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAllExpression_Operands()
+  public EAttribute getAllExpression_Count()
   {
-    return (EReference)allExpressionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)allExpressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2482,9 +2482,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAllExpression_Count()
+  public EReference getAllExpression_Operands()
   {
-    return (EAttribute)allExpressionEClass.getEStructuralFeatures().get(1);
+    return (EReference)allExpressionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2801,8 +2801,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(andExpressionEClass, AND_EXPRESSION__OPERANDS);
 
     allExpressionEClass = createEClass(ALL_EXPRESSION);
-    createEReference(allExpressionEClass, ALL_EXPRESSION__OPERANDS);
     createEAttribute(allExpressionEClass, ALL_EXPRESSION__COUNT);
+    createEReference(allExpressionEClass, ALL_EXPRESSION__OPERANDS);
 
     qualifiedErrorEventOrPropagationEClass = createEClass(QUALIFIED_ERROR_EVENT_OR_PROPAGATION);
 
@@ -3147,8 +3147,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getAndExpression_Operands(), this.getConditionExpression(), null, "operands", null, 0, -1, AndExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(allExpressionEClass, AllExpression.class, "AllExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAllExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAllExpression_Count(), theAadl2Package.getInteger(), "count", null, 0, 1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAllExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, AllExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(qualifiedErrorEventOrPropagationEClass, QualifiedErrorEventOrPropagation.class, "QualifiedErrorEventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

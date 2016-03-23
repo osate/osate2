@@ -491,7 +491,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (operands+=ConditionElement operands+=ConditionElement* count=INTVALUE?)
+	 *     (count=INTVALUE? operands+=ConditionElement operands+=ConditionElement*)
 	 */
 	protected void sequence_AllExpression(EObject context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1017,7 +1017,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (operands+=SConditionElement operands+=SConditionElement* count=INTVALUE?)
+	 *     (count=INTVALUE? operands+=SConditionElement operands+=SConditionElement*)
 	 */
 	protected void sequence_SAllExpression(EObject context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -330,9 +330,9 @@
         eType="#//ConditionExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AllExpression" eSuperTypes="#//ConditionExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
         eType="#//ConditionElement" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedErrorEventOrPropagation" eSuperTypes="#//EMV2Path"/>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedErrorPropagation" eSuperTypes="#//EMV2Path"/>

@@ -29,24 +29,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl#getOperands <em>Operands</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl#getCount <em>Count</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.AllExpressionImpl#getOperands <em>Operands</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AllExpressionImpl extends ConditionExpressionImpl implements AllExpression
 {
-  /**
-   * The cached value of the '{@link #getOperands() <em>Operands</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOperands()
-   * @generated
-   * @ordered
-   */
-  protected EList<ConditionElement> operands;
-
   /**
    * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -68,6 +58,16 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   protected long count = COUNT_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getOperands() <em>Operands</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOperands()
+   * @generated
+   * @ordered
+   */
+  protected EList<ConditionElement> operands;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -86,20 +86,6 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.ALL_EXPRESSION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ConditionElement> getOperands()
-  {
-    if (operands == null)
-    {
-      operands = new EObjectContainmentEList<ConditionElement>(ConditionElement.class, this, ErrorModelPackage.ALL_EXPRESSION__OPERANDS);
-    }
-    return operands;
   }
 
   /**
@@ -130,6 +116,20 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ConditionElement> getOperands()
+  {
+    if (operands == null)
+    {
+      operands = new EObjectContainmentEList<ConditionElement>(ConditionElement.class, this, ErrorModelPackage.ALL_EXPRESSION__OPERANDS);
+    }
+    return operands;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -151,10 +151,10 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
-        return getOperands();
       case ErrorModelPackage.ALL_EXPRESSION__COUNT:
         return getCount();
+      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
+        return getOperands();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -170,12 +170,12 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ALL_EXPRESSION__COUNT:
+        setCount((Long)newValue);
+        return;
       case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
         getOperands().clear();
         getOperands().addAll((Collection<? extends ConditionElement>)newValue);
-        return;
-      case ErrorModelPackage.ALL_EXPRESSION__COUNT:
-        setCount((Long)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -191,11 +191,11 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
-        getOperands().clear();
-        return;
       case ErrorModelPackage.ALL_EXPRESSION__COUNT:
         setCount(COUNT_EDEFAULT);
+        return;
+      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
+        getOperands().clear();
         return;
     }
     super.eUnset(featureID);
@@ -211,10 +211,10 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
-        return operands != null && !operands.isEmpty();
       case ErrorModelPackage.ALL_EXPRESSION__COUNT:
         return count != COUNT_EDEFAULT;
+      case ErrorModelPackage.ALL_EXPRESSION__OPERANDS:
+        return operands != null && !operands.isEmpty();
     }
     return super.eIsSet(featureID);
   }

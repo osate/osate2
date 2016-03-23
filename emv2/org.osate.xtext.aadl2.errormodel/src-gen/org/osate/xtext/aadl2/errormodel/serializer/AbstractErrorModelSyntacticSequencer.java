@@ -143,6 +143,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'all' '(' operands+=ConditionElement
+	 *     (rule start) (ambiguity) 'all' '-' count=INTVALUE
 	 *     (rule start) (ambiguity) count=INTVALUE
 	 *     (rule start) (ambiguity) qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
@@ -4205,6 +4206,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'all' '(' operands+=SConditionElement
+	 *     (rule start) (ambiguity) 'all' '-' count=INTVALUE
 	 *     (rule start) (ambiguity) 'in' qualifiedErrorPropagationReference=QualifiedErrorPropagation
 	 *     (rule start) (ambiguity) count=INTVALUE
 	 *     (rule start) (ambiguity) qualifiedState=QualifiedErrorBehaviorState
