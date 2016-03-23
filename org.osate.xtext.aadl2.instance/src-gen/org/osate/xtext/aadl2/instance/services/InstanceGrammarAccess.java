@@ -2218,85 +2218,93 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	public class PropertyAssociationRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyAssociationRef");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cPropertyAssociationRefSegmentParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final RuleCall cPropertyAssociationRefSegmentParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cColonColonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
-		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
-		private final Keyword cTransitionKeyword_4_1_0_0 = (Keyword)cGroup_4_1_0.eContents().get(0);
-		private final Keyword cNumberSignKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
-		private final RuleCall cINTEGER_LITTerminalRuleCall_4_1_0_2 = (RuleCall)cGroup_4_1_0.eContents().get(2);
-		private final RuleCall cIDTerminalRuleCall_4_1_1 = (RuleCall)cAlternatives_4_1.eContents().get(1);
-		private final Keyword cColonColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cPropertyKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Keyword cNumberSignKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final RuleCall cINTEGER_LITTerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Keyword cColonColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cPropertyAssociationRefSegmentParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
 		
 		//PropertyAssociationRef:
-		//	ID "::" ID ("." ID)? ("::" ("transition" "#" INTEGER_LIT | ID))? "::" "property" "#" INTEGER_LIT;
+		//	PropertyAssociationRefSegment "::" PropertyAssociationRefSegment ("::" PropertyAssociationRefSegment)+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID "::" ID ("." ID)? ("::" ("transition" "#" INTEGER_LIT | ID))? "::" "property" "#" INTEGER_LIT
+		//PropertyAssociationRefSegment "::" PropertyAssociationRefSegment ("::" PropertyAssociationRefSegment)+
 		public Group getGroup() { return cGroup; }
 
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		//PropertyAssociationRefSegment
+		public RuleCall getPropertyAssociationRefSegmentParserRuleCall_0() { return cPropertyAssociationRefSegmentParserRuleCall_0; }
 
 		//"::"
 		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
 
-		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		//PropertyAssociationRefSegment
+		public RuleCall getPropertyAssociationRefSegmentParserRuleCall_2() { return cPropertyAssociationRefSegmentParserRuleCall_2; }
 
-		//("." ID)?
+		//("::" PropertyAssociationRefSegment)+
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"."
-		public Keyword getFullStopKeyword_3_0() { return cFullStopKeyword_3_0; }
+		//"::"
+		public Keyword getColonColonKeyword_3_0() { return cColonColonKeyword_3_0; }
+
+		//PropertyAssociationRefSegment
+		public RuleCall getPropertyAssociationRefSegmentParserRuleCall_3_1() { return cPropertyAssociationRefSegmentParserRuleCall_3_1; }
+	}
+
+	public class PropertyAssociationRefSegmentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyAssociationRefSegment");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_1_1 = (RuleCall)cGroup_0_1.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
+		private final Keyword cTransitionKeyword_1_0_0 = (Keyword)cAlternatives_1_0.eContents().get(0);
+		private final Keyword cPropertyKeyword_1_0_1 = (Keyword)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cNumberSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final RuleCall cINTEGER_LITTerminalRuleCall_1_2 = (RuleCall)cGroup_1.eContents().get(2);
+		
+		//PropertyAssociationRefSegment:
+		//	ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//ID ("." ID)?
+		public Group getGroup_0() { return cGroup_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_3_1() { return cIDTerminalRuleCall_3_1; }
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
-		//("::" ("transition" "#" INTEGER_LIT | ID))?
-		public Group getGroup_4() { return cGroup_4; }
+		//("." ID)?
+		public Group getGroup_0_1() { return cGroup_0_1; }
 
-		//"::"
-		public Keyword getColonColonKeyword_4_0() { return cColonColonKeyword_4_0; }
+		//"."
+		public Keyword getFullStopKeyword_0_1_0() { return cFullStopKeyword_0_1_0; }
 
-		//"transition" "#" INTEGER_LIT | ID
-		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_1_1() { return cIDTerminalRuleCall_0_1_1; }
 
-		//"transition" "#" INTEGER_LIT
-		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+		//("transition" | "property") "#" INTEGER_LIT
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"transition" | "property"
+		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 
 		//"transition"
-		public Keyword getTransitionKeyword_4_1_0_0() { return cTransitionKeyword_4_1_0_0; }
-
-		//"#"
-		public Keyword getNumberSignKeyword_4_1_0_1() { return cNumberSignKeyword_4_1_0_1; }
-
-		//INTEGER_LIT
-		public RuleCall getINTEGER_LITTerminalRuleCall_4_1_0_2() { return cINTEGER_LITTerminalRuleCall_4_1_0_2; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_4_1_1() { return cIDTerminalRuleCall_4_1_1; }
-
-		//"::"
-		public Keyword getColonColonKeyword_5() { return cColonColonKeyword_5; }
+		public Keyword getTransitionKeyword_1_0_0() { return cTransitionKeyword_1_0_0; }
 
 		//"property"
-		public Keyword getPropertyKeyword_6() { return cPropertyKeyword_6; }
+		public Keyword getPropertyKeyword_1_0_1() { return cPropertyKeyword_1_0_1; }
 
 		//"#"
-		public Keyword getNumberSignKeyword_7() { return cNumberSignKeyword_7; }
+		public Keyword getNumberSignKeyword_1_1() { return cNumberSignKeyword_1_1; }
 
 		//INTEGER_LIT
-		public RuleCall getINTEGER_LITTerminalRuleCall_8() { return cINTEGER_LITTerminalRuleCall_8; }
+		public RuleCall getINTEGER_LITTerminalRuleCall_1_2() { return cINTEGER_LITTerminalRuleCall_1_2; }
 	}
 
 	public class LongElements extends AbstractParserRuleElementFinder {
@@ -2336,6 +2344,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final InstanceRefElements pInstanceRef;
 	private final ModeTransitionNameElements pModeTransitionName;
 	private final PropertyAssociationRefElements pPropertyAssociationRef;
+	private final PropertyAssociationRefSegmentElements pPropertyAssociationRefSegment;
 	private final LongElements pLong;
 	
 	private final Grammar grammar;
@@ -2371,6 +2380,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pInstanceRef = new InstanceRefElements();
 		this.pModeTransitionName = new ModeTransitionNameElements();
 		this.pPropertyAssociationRef = new PropertyAssociationRefElements();
+		this.pPropertyAssociationRefSegment = new PropertyAssociationRefSegmentElements();
 		this.pLong = new LongElements();
 	}
 	
@@ -2670,13 +2680,23 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyAssociationRef:
-	//	ID "::" ID ("." ID)? ("::" ("transition" "#" INTEGER_LIT | ID))? "::" "property" "#" INTEGER_LIT;
+	//	PropertyAssociationRefSegment "::" PropertyAssociationRefSegment ("::" PropertyAssociationRefSegment)+;
 	public PropertyAssociationRefElements getPropertyAssociationRefAccess() {
 		return pPropertyAssociationRef;
 	}
 	
 	public ParserRule getPropertyAssociationRefRule() {
 		return getPropertyAssociationRefAccess().getRule();
+	}
+
+	//PropertyAssociationRefSegment:
+	//	ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT;
+	public PropertyAssociationRefSegmentElements getPropertyAssociationRefSegmentAccess() {
+		return pPropertyAssociationRefSegment;
+	}
+	
+	public ParserRule getPropertyAssociationRefSegmentRule() {
+		return getPropertyAssociationRefSegmentAccess().getRule();
 	}
 
 	//Long returns ecore::ELong:

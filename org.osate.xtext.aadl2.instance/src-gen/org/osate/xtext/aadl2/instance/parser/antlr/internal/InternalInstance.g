@@ -3051,12 +3051,16 @@ rulePropertyAssociationRef returns [AntlrDatatypeRuleToken current=new AntlrData
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
+(
+    { 
+        newCompositeNode(grammarAccess.getPropertyAssociationRefAccess().getPropertyAssociationRefSegmentParserRuleCall_0()); 
+    }
+    this_PropertyAssociationRefSegment_0=rulePropertyAssociationRefSegment    {
+		$current.merge(this_PropertyAssociationRefSegment_0);
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getPropertyAssociationRefAccess().getIDTerminalRuleCall_0()); 
+        afterParserOrEnumRuleCall();
     }
 
 	kw='::' 
@@ -3064,85 +3068,103 @@ rulePropertyAssociationRef returns [AntlrDatatypeRuleToken current=new AntlrData
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getColonColonKeyword_1()); 
     }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
+
+    { 
+        newCompositeNode(grammarAccess.getPropertyAssociationRefAccess().getPropertyAssociationRefSegmentParserRuleCall_2()); 
+    }
+    this_PropertyAssociationRefSegment_2=rulePropertyAssociationRefSegment    {
+		$current.merge(this_PropertyAssociationRefSegment_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getPropertyAssociationRefAccess().getIDTerminalRuleCall_2()); 
+        afterParserOrEnumRuleCall();
+    }
+(
+	kw='::' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getColonColonKeyword_3_0()); 
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getPropertyAssociationRefAccess().getPropertyAssociationRefSegmentParserRuleCall_3_1()); 
+    }
+    this_PropertyAssociationRefSegment_4=rulePropertyAssociationRefSegment    {
+		$current.merge(this_PropertyAssociationRefSegment_4);
+    }
+
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)+)
+    ;
+
+
+
+
+
+// Entry rule entryRulePropertyAssociationRefSegment
+entryRulePropertyAssociationRefSegment returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getPropertyAssociationRefSegmentRule()); } 
+	 iv_rulePropertyAssociationRefSegment=rulePropertyAssociationRefSegment 
+	 { $current=$iv_rulePropertyAssociationRefSegment.current.getText(); }  
+	 EOF 
+;
+
+// Rule PropertyAssociationRefSegment
+rulePropertyAssociationRefSegment returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getPropertyAssociationRefSegmentAccess().getIDTerminalRuleCall_0_0()); 
     }
 (
 	kw='.' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getFullStopKeyword_3_0()); 
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getFullStopKeyword_0_1_0()); 
     }
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getPropertyAssociationRefAccess().getIDTerminalRuleCall_3_1()); 
+    newLeafNode(this_ID_2, grammarAccess.getPropertyAssociationRefSegmentAccess().getIDTerminalRuleCall_0_1_1()); 
     }
-)?(
-	kw='::' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getColonColonKeyword_4_0()); 
-    }
-((
+)?)
+    |((
 	kw='transition' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getTransitionKeyword_4_1_0_0()); 
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getTransitionKeyword_1_0_0()); 
     }
 
-	kw='#' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getNumberSignKeyword_4_1_0_1()); 
-    }
-    this_INTEGER_LIT_8=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_8);
-    }
-
-    { 
-    newLeafNode(this_INTEGER_LIT_8, grammarAccess.getPropertyAssociationRefAccess().getINTEGER_LITTerminalRuleCall_4_1_0_2()); 
-    }
-)
-    |    this_ID_9=RULE_ID    {
-		$current.merge(this_ID_9);
-    }
-
-    { 
-    newLeafNode(this_ID_9, grammarAccess.getPropertyAssociationRefAccess().getIDTerminalRuleCall_4_1_1()); 
-    }
-))?
-	kw='::' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getColonColonKeyword_5()); 
-    }
-
+    |
 	kw='property' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getPropertyKeyword_6()); 
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getPropertyKeyword_1_0_1()); 
     }
-
+)
 	kw='#' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefAccess().getNumberSignKeyword_7()); 
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getNumberSignKeyword_1_1()); 
     }
-    this_INTEGER_LIT_13=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_13);
+    this_INTEGER_LIT_6=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_6);
     }
 
     { 
-    newLeafNode(this_INTEGER_LIT_13, grammarAccess.getPropertyAssociationRefAccess().getINTEGER_LITTerminalRuleCall_8()); 
+    newLeafNode(this_INTEGER_LIT_6, grammarAccess.getPropertyAssociationRefSegmentAccess().getINTEGER_LITTerminalRuleCall_1_2()); 
     }
-)
+))
     ;
 
 

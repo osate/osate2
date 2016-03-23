@@ -144,7 +144,11 @@ ModeTransitionName:
 ;
 
 PropertyAssociationRef:
-	ID '::' ID ('.' ID)? ('::' ('transition' '#' INTEGER_LIT | ID))? '::' 'property' '#' INTEGER_LIT
+	PropertyAssociationRefSegment '::' PropertyAssociationRefSegment ('::' PropertyAssociationRefSegment)+
+;
+
+PropertyAssociationRefSegment:
+	ID ('.' ID)? | ('transition' | 'property') '#' INTEGER_LIT
 ;
 	
 Long returns ecore::ELong:
