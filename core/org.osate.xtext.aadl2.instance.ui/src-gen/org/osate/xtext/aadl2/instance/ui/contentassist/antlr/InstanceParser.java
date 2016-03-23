@@ -52,7 +52,8 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstanceRefAccess().getAlternatives(), "rule__InstanceRef__Alternatives");
 					put(grammarAccess.getInstanceRefAccess().getAlternatives_1_1(), "rule__InstanceRef__Alternatives_1_1");
 					put(grammarAccess.getInstanceRefAccess().getAlternatives_1_1_0_0(), "rule__InstanceRef__Alternatives_1_1_0_0");
-					put(grammarAccess.getPropertyAssociationRefAccess().getAlternatives_4_1(), "rule__PropertyAssociationRef__Alternatives_4_1");
+					put(grammarAccess.getPropertyAssociationRefSegmentAccess().getAlternatives(), "rule__PropertyAssociationRefSegment__Alternatives");
+					put(grammarAccess.getPropertyAssociationRefSegmentAccess().getAlternatives_1_0(), "rule__PropertyAssociationRefSegment__Alternatives_1_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getBooleanLiteralAccess().getAlternatives_1(), "rule__BooleanLiteral__Alternatives_1");
@@ -125,8 +126,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeTransitionNameAccess().getGroup(), "rule__ModeTransitionName__Group__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup(), "rule__PropertyAssociationRef__Group__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup_3(), "rule__PropertyAssociationRef__Group_3__0");
-					put(grammarAccess.getPropertyAssociationRefAccess().getGroup_4(), "rule__PropertyAssociationRef__Group_4__0");
-					put(grammarAccess.getPropertyAssociationRefAccess().getGroup_4_1_0(), "rule__PropertyAssociationRef__Group_4_1_0__0");
+					put(grammarAccess.getPropertyAssociationRefSegmentAccess().getGroup_0(), "rule__PropertyAssociationRefSegment__Group_0__0");
+					put(grammarAccess.getPropertyAssociationRefSegmentAccess().getGroup_0_1(), "rule__PropertyAssociationRefSegment__Group_0_1__0");
+					put(grammarAccess.getPropertyAssociationRefSegmentAccess().getGroup_1(), "rule__PropertyAssociationRefSegment__Group_1__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3(), "rule__ContainedPropertyAssociation__Group_3__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_1(), "rule__ContainedPropertyAssociation__Group_3_1__0");
