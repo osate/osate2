@@ -263,7 +263,7 @@ public class PropagationGraphBackwardTraversal {
 			List<Object> subResults = new LinkedList<Object>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				Object res = processCondition(component, condition, type, scale);
+				Object res = processCondition(component, ce, type, scale);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -379,8 +379,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	public Object traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
 			Object param) {
-		List<Object> subResults;
-		subResults = new LinkedList<Object>();
+		param = preProcessCompositeErrorStates(component, state, type, param);
+		List<Object> subResults = new LinkedList<Object>();
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
 			if (cs.getState() == state) {
@@ -393,104 +393,110 @@ public class PropagationGraphBackwardTraversal {
 		return postProcessCompositeErrorStates(component, state, type, subResults);
 	}
 
-//	
+//	methods to be overwritten by applicaitons
 
-	private Object postProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+	protected Object postProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, List<Object> subResults) {
 		OsateDebug.osateDebug("postProcessOutgoingErrorPropagation " + component.getName() + " propagation "
 				+ EMV2Util.getPropagationName(errorPropagation));
 		return subResults;
 	}
 
-	private Object preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+	protected Object preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, Object param) {
 		OsateDebug.osateDebug("preProcessOutgoingErrorPropagation " + component.getName() + " propagation "
 				+ EMV2Util.getPropagationName(errorPropagation));
 		return param;
 	}
 
-	private Object postProcessErrorFlows(ComponentInstance component, ErrorPropagation errorPropagation,
+	protected Object postProcessErrorFlows(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, List<Object> subResults) {
 		return subResults;
 	}
 
-	private Object processErrorSource(ComponentInstance component, ErrorSource errorSource, TypeSet typeTokenConstraint,
-			Object param) {
+	protected Object processErrorSource(ComponentInstance component, ErrorSource errorSource,
+			TypeSet typeTokenConstraint, Object param) {
 		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return param;
 	}
 
-	private Object processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
+	protected Object processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
 			ErrorTypes type, Object param) {
 		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
 				+ EMV2Util.getPropagationName(incoming));
 		return param;
 	}
 
-	private Object postProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+	protected Object postProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, List<Object> subResults) {
 		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
 				+ EMV2Util.getPropagationName(errorPropagation));
 		return subResults;
 	}
 
-	private Object processOutgoingErrorPropagationCondition(ComponentInstance component,
+	protected Object processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, Object conditionResult, Object param) {
 		OsateDebug.osateDebug(
 				"processOutgoingErrorPropagationCondition " + component.getName() + " condition " + opc.getName());
 		return param;
 	}
 
-	private Object postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
+	protected Object preProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes targetType, Object param) {
+		OsateDebug.osateDebug("preProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
+		return param;
+	}
+
+	protected Object postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<Object> subResults) {
 		OsateDebug.osateDebug("postProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
 		return subResults;
 	}
 
-	private Object postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			Object param) {
+	protected Object postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type, Object param) {
 		OsateDebug.osateDebug("postProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
 		return param;
 	}
 
-	private Object processTransitionCondition(ComponentInstance component, ErrorBehaviorState source, ErrorTypes type,
+	protected Object processTransitionCondition(ComponentInstance component, ErrorBehaviorState source, ErrorTypes type,
 			Object conditionResult, Object stateresult) {
 		OsateDebug.osateDebug("processTransitionCondition " + component.getName() + " state " + source.getName());
 		return conditionResult;
 	}
 
-	private Object preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			Object param) {
+	protected Object preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type, Object param) {
 		OsateDebug.osateDebug("preProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
 		return param;
 	}
 
-	private Object processErrorEvent(ComponentInstance component, ErrorEvent errorModelElement, ErrorTypes type,
+	protected Object processErrorEvent(ComponentInstance component, ErrorEvent errorModelElement, ErrorTypes type,
 			Object param) {
 		OsateDebug
 				.osateDebug("processErrorEvent " + component.getName() + " error event " + errorModelElement.getName());
 		return param;
 	}
 
-	private Object preProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected Object preProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, Object param) {
 		OsateDebug.osateDebug("preProcessAnd " + component.getName());
 		return param;
 	}
 
-	private Object postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected Object postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<Object> subResults) {
 		OsateDebug.osateDebug("postProcessAnd " + component.getName());
 		return subResults;
 	}
 
-	private Object postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected Object postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, Object param) {
 		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return param;
 	}
 
-	private Object preProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+	protected Object preProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, Object param) {
 		OsateDebug.osateDebug("posteProcessXor " + component.getName());
 		return param;
