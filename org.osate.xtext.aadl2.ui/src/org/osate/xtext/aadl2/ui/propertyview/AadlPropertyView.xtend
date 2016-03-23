@@ -518,7 +518,7 @@ class AadlPropertyView extends ViewPart {
 				treeViewer.refresh()
 			}		
 		} => [
-				
+				enabled = false
 				imageDescriptor = ViewsPlugin.getViewImageDescriptor("elcl16/filter_ps.png")
 				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
 				viewSite.actionBars.toolBarManager.add(it)
@@ -1049,6 +1049,9 @@ class AadlPropertyView extends ViewPart {
 					}
 				}
 			}
+			showOnlyImportedPropertiesAction.enabled = true
+		} else {
+			showOnlyImportedPropertiesAction.enabled = false
 		}
 	}
 
