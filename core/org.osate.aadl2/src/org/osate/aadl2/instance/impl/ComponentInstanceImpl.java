@@ -1088,7 +1088,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi) {
-		EList<FeatureInstance> children = getFeatureInstances();
+		EList<FeatureInstance> children = fi.getFeatureInstances();
 		if (children.isEmpty()) {
 			result.add(fi);
 		}
@@ -1114,7 +1114,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		if (fi.getCategory() == category) {
 			result.add(fi);
 		}
-		EList<FeatureInstance> children = getFeatureInstances();
+		EList<FeatureInstance> children = fi.getFeatureInstances();
 		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
 			doAddFeatureInstances(result, fi, category);
 		}
