@@ -36,6 +36,7 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -917,11 +918,13 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public NamedElement findNamedElement(String name) {
 		Classifier cl = this;
-		while (!Aadl2Util.isNull(cl)) {
+		HashSet<Classifier> visited = new HashSet<>();
+		while (!Aadl2Util.isNull(cl) && !visited.contains(cl)) {
 			NamedElement res = Aadl2Util.findOwnedNamedElement(cl, name);
 			if (res != null) {
 				return res;
 			}
+			visited.add(cl);
 			cl = cl.getExtended();
 		}
 		return null;
