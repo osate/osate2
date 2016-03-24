@@ -2,10 +2,12 @@ package org.osate.xtext.aadl2.errormodel.scoping
 
 import org.eclipse.emf.ecore.EReference
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.Element
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.aadl2.Element
 
 class ErrorModelSerializerScopeProvider extends ErrorModelScopeProvider {
 	override scope_FeatureorPPReference_featureorPP(FeatureorPPReference context, EReference reference) {
@@ -17,5 +19,14 @@ class ErrorModelSerializerScopeProvider extends ErrorModelScopeProvider {
 	
 	override scope_BasicPropertyAssociation_property(Element context, EReference reference) {
 		super.scope_BasicPropertyAssociation_property(context.owner, reference)
+	}
+	
+	override scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
+		val parent = context.eContainer
+		if (parent instanceof EMV2PathElement) {
+			super.scope_EMV2PathElement_namedElement(parent, reference)
+		} else {
+			scope_EMV2PathElement_namedElement(parent.getContainerOfType(EMV2PropertyAssociation), reference)
+		}
 	}
 }

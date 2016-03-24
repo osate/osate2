@@ -11,15 +11,22 @@ import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
+import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RecordType
+import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -34,13 +41,11 @@ import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSeria
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
-import org.osate.aadl2.Subcomponent
 
 /**
  * This class contains custom scoping description.
@@ -52,7 +57,48 @@ import org.osate.aadl2.Subcomponent
 class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
-
+	
+	override scope_NamedValue_namedValue(Element context, EReference reference) {
+		var scope = delegateGetScope(context, reference)
+		var PropertyType propertyType = null;
+		//Inner value of a record value.
+		propertyType = context.getContainerOfType(BasicPropertyAssociation)?.property?.propertyType
+		if (propertyType == null) {
+			//Value of an association.
+			propertyType = context.getContainerOfType(EMV2PropertyAssociation)?.property?.propertyType
+		}
+		propertyType = propertyType.basePropertyType
+		if (propertyType instanceof EnumerationType) {
+			scope = propertyType.ownedLiterals.scopeFor(scope)
+		}
+		scope
+	}
+	
+	override scope_BasicPropertyAssociation_property(Element context, EReference reference) {
+		var parent = switch context {
+			BasicPropertyAssociation case context.property.propertyType == null:
+				context.owner
+			default:
+				context
+		}
+		while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof EMV2PropertyAssociation)) {
+			parent = parent.owner
+		}
+		var PropertyType propertyType = null
+		switch parent {
+			BasicPropertyAssociation:
+				propertyType = parent.property?.propertyType
+			EMV2PropertyAssociation:
+				propertyType = parent.property?.propertyType
+		}
+		propertyType = propertyType.basePropertyType
+		if (propertyType instanceof RecordType) {
+			propertyType.ownedFields.scopeFor
+		} else {
+			IScope::NULLSCOPE
+		}
+	}
+	
 	/*
 	 * TODO: FINISH THIS!
 	 * This method should be much more complicated.  It should mimic the behavior found in the method
@@ -384,14 +430,15 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {
 		val stateMachine = classifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
 		val ebsmevents = stateMachine?.events
-		val ebsmeventDescriptions = ebsmevents.map[EObjectDescription.create(QualifiedName.create(name), it)]
+		val ebsmeventDescriptions = ebsmevents?.map[EObjectDescription.create(QualifiedName.create(name), it)] ?: emptyList
 		classifier.allContainingClassifierEMV2Subclauses.map [
 			val eventsDescriptions = events.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			val flowDescriptions = flows.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			val inPropagations = propagations.filter[!not && direction == DirectionType.IN]
 			val propagationsDescriptions = inPropagations.map [
 				EObjectDescription.create(QualifiedName.create(propagationName), it)
 			]
-			eventsDescriptions + propagationsDescriptions
+			eventsDescriptions + flowDescriptions + propagationsDescriptions
 		].flatten + ebsmeventDescriptions
 	}
 
