@@ -99,9 +99,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
-      case CommonPackage.ASET_LITERAL: return createASetLiteral();
-      case CommonPackage.ALIST_TERM: return createAListTerm();
-      case CommonPackage.ANULL_LITERAL: return createANullLiteral();
+      case CommonPackage.ARANGE: return createARange();
+      case CommonPackage.ACONDITIONAL: return createAConditional();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -381,10 +380,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ASetLiteral createASetLiteral()
+  public ARange createARange()
   {
-    ASetLiteralImpl aSetLiteral = new ASetLiteralImpl();
-    return aSetLiteral;
+    ARangeImpl aRange = new ARangeImpl();
+    return aRange;
   }
 
   /**
@@ -392,21 +391,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AListTerm createAListTerm()
+  public AConditional createAConditional()
   {
-    AListTermImpl aListTerm = new AListTermImpl();
-    return aListTerm;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ANullLiteral createANullLiteral()
-  {
-    ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
-    return aNullLiteral;
+    AConditionalImpl aConditional = new AConditionalImpl();
+    return aConditional;
   }
 
   /**

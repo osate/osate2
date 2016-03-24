@@ -859,7 +859,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpCompare returns Operation:
-	//	">=" | "<" "=" | ">" | "<";
+	//	">=" | "<=" | ">" | "<";
 	public CommonGrammarAccess.OpCompareElements getOpCompareAccess() {
 		return gaCommon.getOpCompareAccess();
 	}
@@ -943,7 +943,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression |
+	//	AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -962,11 +963,28 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAFunctionCallAccess().getRule();
 	}
 
-	////AThis returns aadl2::PropertyExpression:
-	////	{AThis} 'this'
-	////;
-	//ALiteral returns aadl2::PropertyExpression:
-	//	ASetTerm | AListTerm | ABooleanLiteral | ARealTerm | AIntegerTerm | ANullLiteral | StringTerm;
+	//ARangeExpression returns aadl2::PropertyExpression:
+	//	{ARange} "[" minimum=AExpression ".." maximum=AExpression ("delta" delta=AExpression)? "]";
+	public CommonGrammarAccess.ARangeExpressionElements getARangeExpressionAccess() {
+		return gaCommon.getARangeExpressionAccess();
+	}
+	
+	public ParserRule getARangeExpressionRule() {
+		return getARangeExpressionAccess().getRule();
+	}
+
+	//AIfExpression returns aadl2::PropertyExpression:
+	//	{AConditional} "if" if=AExpression "then" then=AExpression ("else" else=AExpression)? "endif";
+	public CommonGrammarAccess.AIfExpressionElements getAIfExpressionAccess() {
+		return gaCommon.getAIfExpressionAccess();
+	}
+	
+	public ParserRule getAIfExpressionRule() {
+		return getAIfExpressionAccess().getRule();
+	}
+
+	//ALiteral returns aadl2::PropertyExpression: //	ASetTerm | AListTerm |
+	//	ABooleanLiteral | ARealTerm | AIntegerTerm | StringTerm;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
 		return gaCommon.getALiteralAccess();
 	}
@@ -1015,59 +1033,13 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getARealAccess().getRule();
 	}
 
-	//ANumericRangeTerm returns aadl2::RangeValue:
-	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	//	NumAlt)?;
-	public CommonGrammarAccess.ANumericRangeTermElements getANumericRangeTermAccess() {
-		return gaCommon.getANumericRangeTermAccess();
-	}
-	
-	public ParserRule getANumericRangeTermRule() {
-		return getANumericRangeTermAccess().getRule();
-	}
-
-	//NumAlt returns aadl2::PropertyExpression:
-	//	ARealTerm | AIntegerTerm;
-	public CommonGrammarAccess.NumAltElements getNumAltAccess() {
-		return gaCommon.getNumAltAccess();
-	}
-	
-	public ParserRule getNumAltRule() {
-		return getNumAltAccess().getRule();
-	}
-
-	//ASetTerm returns aadl2::PropertyExpression:
-	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
-	public CommonGrammarAccess.ASetTermElements getASetTermAccess() {
-		return gaCommon.getASetTermAccess();
-	}
-	
-	public ParserRule getASetTermRule() {
-		return getASetTermAccess().getRule();
-	}
-
-	//AListTerm returns aadl2::PropertyExpression:
-	//	{AListTerm} "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
-	public CommonGrammarAccess.AListTermElements getAListTermAccess() {
-		return gaCommon.getAListTermAccess();
-	}
-	
-	public ParserRule getAListTermRule() {
-		return getAListTermAccess().getRule();
-	}
-
-	//AParenthesizedExpression returns aadl2::PropertyExpression:
-	//	"(" AExpression ")";
-	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
-		return gaCommon.getAParenthesizedExpressionAccess();
-	}
-	
-	public ParserRule getAParenthesizedExpressionRule() {
-		return getAParenthesizedExpressionAccess().getRule();
-	}
-
+	////ASetTerm returns aadl2::PropertyExpression:
+	////	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+	////;
+	////
+	////AListTerm returns aadl2::PropertyExpression:
+	////	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+	////;
 	//ABooleanLiteral returns aadl2::PropertyExpression:
 	//	{aadl2::BooleanLiteral} (value?="true" | "false");
 	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
@@ -1076,16 +1048,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getABooleanLiteralRule() {
 		return getABooleanLiteralAccess().getRule();
-	}
-
-	//ANullLiteral returns aadl2::PropertyExpression:
-	//	{ANullLiteral} "null";
-	public CommonGrammarAccess.ANullLiteralElements getANullLiteralAccess() {
-		return gaCommon.getANullLiteralAccess();
-	}
-	
-	public ParserRule getANullLiteralRule() {
-		return getANullLiteralAccess().getRule();
 	}
 
 	//StringTerm returns aadl2::StringLiteral:
@@ -1106,6 +1068,16 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNoQuoteStringRule() {
 		return getNoQuoteStringAccess().getRule();
+	}
+
+	//AParenthesizedExpression returns aadl2::PropertyExpression:
+	//	"(" AExpression ")";
+	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
+		return gaCommon.getAParenthesizedExpressionAccess();
+	}
+	
+	public ParserRule getAParenthesizedExpressionRule() {
+		return getAParenthesizedExpressionAccess().getRule();
 	}
 
 	//ComponentCategory returns aadl2::ComponentCategory:

@@ -269,30 +269,21 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.ASET_LITERAL:
+      case CommonPackage.ARANGE:
       {
-        ASetLiteral aSetLiteral = (ASetLiteral)theEObject;
-        T result = caseASetLiteral(aSetLiteral);
-        if (result == null) result = casePropertyExpression(aSetLiteral);
-        if (result == null) result = caseElement(aSetLiteral);
+        ARange aRange = (ARange)theEObject;
+        T result = caseARange(aRange);
+        if (result == null) result = casePropertyExpression(aRange);
+        if (result == null) result = caseElement(aRange);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.ALIST_TERM:
+      case CommonPackage.ACONDITIONAL:
       {
-        AListTerm aListTerm = (AListTerm)theEObject;
-        T result = caseAListTerm(aListTerm);
-        if (result == null) result = casePropertyExpression(aListTerm);
-        if (result == null) result = caseElement(aListTerm);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.ANULL_LITERAL:
-      {
-        ANullLiteral aNullLiteral = (ANullLiteral)theEObject;
-        T result = caseANullLiteral(aNullLiteral);
-        if (result == null) result = casePropertyExpression(aNullLiteral);
-        if (result == null) result = caseElement(aNullLiteral);
+        AConditional aConditional = (AConditional)theEObject;
+        T result = caseAConditional(aConditional);
+        if (result == null) result = casePropertyExpression(aConditional);
+        if (result == null) result = caseElement(aConditional);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -637,49 +628,33 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>ASet Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>ARange</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ASet Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>ARange</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseASetLiteral(ASetLiteral object)
+  public T caseARange(ARange object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>AList Term</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>AConditional</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>AList Term</em>'.
+   * @return the result of interpreting the object as an instance of '<em>AConditional</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAListTerm(AListTerm object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>ANull Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ANull Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseANullLiteral(ANullLiteral object)
+  public T caseAConditional(AConditional object)
   {
     return null;
   }

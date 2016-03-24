@@ -31,16 +31,14 @@ import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AConditional;
 import org.osate.alisa.common.common.AFunctionCall;
-import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.AModelReference;
-import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
-import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.ARange;
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -93,9 +91,6 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 			case Aadl2Package.INTEGER_LITERAL:
 				sequence_AIntegerTerm(context, (IntegerLiteral) semanticObject); 
 				return; 
-			case Aadl2Package.RANGE_VALUE:
-				sequence_ANumericRangeTerm(context, (RangeValue) semanticObject); 
-				return; 
 			case Aadl2Package.REAL_LITERAL:
 				sequence_ARealTerm(context, (RealLiteral) semanticObject); 
 				return; 
@@ -107,17 +102,14 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
+			case CommonPackage.ACONDITIONAL:
+				sequence_AIfExpression(context, (AConditional) semanticObject); 
+				return; 
 			case CommonPackage.AFUNCTION_CALL:
 				sequence_AFunctionCall(context, (AFunctionCall) semanticObject); 
 				return; 
-			case CommonPackage.ALIST_TERM:
-				sequence_AListTerm(context, (AListTerm) semanticObject); 
-				return; 
 			case CommonPackage.AMODEL_REFERENCE:
 				sequence_AModelReference(context, (AModelReference) semanticObject); 
-				return; 
-			case CommonPackage.ANULL_LITERAL:
-				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
 				if(context == grammarAccess.getAAdditiveExpressionRule() ||
@@ -145,8 +137,8 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.ASET_LITERAL:
-				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
+			case CommonPackage.ARANGE:
+				sequence_ARangeExpression(context, (ARange) semanticObject); 
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 

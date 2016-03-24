@@ -225,31 +225,22 @@ public interface CommonFactory extends EFactory
   AFunctionCall createAFunctionCall();
 
   /**
-   * Returns a new object of class '<em>ASet Literal</em>'.
+   * Returns a new object of class '<em>ARange</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>ASet Literal</em>'.
+   * @return a new object of class '<em>ARange</em>'.
    * @generated
    */
-  ASetLiteral createASetLiteral();
+  ARange createARange();
 
   /**
-   * Returns a new object of class '<em>AList Term</em>'.
+   * Returns a new object of class '<em>AConditional</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>AList Term</em>'.
+   * @return a new object of class '<em>AConditional</em>'.
    * @generated
    */
-  AListTerm createAListTerm();
-
-  /**
-   * Returns a new object of class '<em>ANull Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ANull Literal</em>'.
-   * @generated
-   */
-  ANullLiteral createANullLiteral();
+  AConditional createAConditional();
 
   /**
    * Returns the package supported by this factory.

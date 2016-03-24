@@ -132,7 +132,7 @@ ARelationalExpression returns aadl2::PropertyExpression:
 	( =>({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*;
 
 OpCompare returns Operation:
-	'>=' | '<' '=' | '>' | '<' ;
+	'>=' | '<=' | '>' | '<' ;
 
 //AOtherOperatorExpression returns aadl2::PropertyExpression:
 //	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
@@ -168,80 +168,69 @@ OpUnary returns Operation:
 	"not" | "-" | "+";
 	
 APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall 
+	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall | ARangeExpression | AIfExpression
 	| AParenthesizedExpression;
 
 AFunctionCall returns aadl2::PropertyExpression:
 	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
 ;
 
-//AThis returns aadl2::PropertyExpression:
-//	{AThis} 'this'
-//;
+ARangeExpression returns aadl2::PropertyExpression:
+	{ARange} '[' minimum=AExpression '..' maximum=AExpression (=> 'delta' delta=AExpression)? ']'
+;
+
+AIfExpression returns aadl2::PropertyExpression:
+	{AConditional} 'if' if=AExpression 'then' then=AExpression ('else' else=AExpression)? 'endif'
+;
 
 ALiteral returns aadl2::PropertyExpression:
-	ASetTerm | AListTerm |
+//	ASetTerm | AListTerm |
 	ABooleanLiteral |
-	ARealTerm | AIntegerTerm |  
-	ANullLiteral |
+	ARealTerm | AIntegerTerm |
 	StringTerm 
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:
 	value=AInt (unit=[aadl2::UnitLiteral|ID])?
-	;
+;
 
 AInt returns aadl2::Integer:
-	INT ;
+	INT
+;
 
 ARealTerm returns aadl2::RealLiteral:
 	value=AReal (unit=[aadl2::UnitLiteral|ID])?
-	;
+;
 
 AReal returns aadl2::Real:
-	REAL_LIT ;
-
-ANumericRangeTerm returns aadl2::RangeValue:
-	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		
-	)?
-	;
-
-NumAlt  returns aadl2::PropertyExpression: 
-	ARealTerm|AIntegerTerm
+	REAL_LIT
 ;
 
-ASetTerm returns aadl2::PropertyExpression:
-	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-;
-
-AListTerm returns aadl2::PropertyExpression:
-	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
-;
-
-
-AParenthesizedExpression returns aadl2::PropertyExpression:
-	'(' AExpression ')';
+//ASetTerm returns aadl2::PropertyExpression:
+//	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+//;
+//
+//AListTerm returns aadl2::PropertyExpression:
+//	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+//;
 
 ABooleanLiteral returns aadl2::PropertyExpression :
-	  {aadl2::BooleanLiteral}(value?='true'|'false');
-
-
-ANullLiteral returns aadl2::PropertyExpression :
-	{ANullLiteral} 'null';
+	{aadl2::BooleanLiteral}(value?='true'|'false')
+;
 
 
 StringTerm returns aadl2::StringLiteral:
-	value=NoQuoteString ;
-
+	value=NoQuoteString
+;
 
 NoQuoteString :
 	// remove quotes from string in ValueConverter
 	STRING
 ;
 
+AParenthesizedExpression returns aadl2::PropertyExpression:
+	'(' AExpression ')'
+;
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'

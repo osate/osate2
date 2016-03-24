@@ -27,13 +27,12 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AConditional;
 import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.AFunctionCall;
-import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.AModelReference;
-import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
-import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.ARange;
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.AVariableReference;
@@ -215,21 +214,14 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass aSetLiteralEClass = null;
+  private EClass aRangeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass aListTermEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass aNullLiteralEClass = null;
+  private EClass aConditionalEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -876,9 +868,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getASetLiteral()
+  public EClass getARange()
   {
-    return aSetLiteralEClass;
+    return aRangeEClass;
   }
 
   /**
@@ -886,9 +878,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getASetLiteral_Elements()
+  public EReference getARange_Minimum()
   {
-    return (EReference)aSetLiteralEClass.getEStructuralFeatures().get(0);
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -896,9 +888,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAListTerm()
+  public EReference getARange_Maximum()
   {
-    return aListTermEClass;
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -906,9 +898,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAListTerm_Elements()
+  public EReference getARange_Delta()
   {
-    return (EReference)aListTermEClass.getEStructuralFeatures().get(0);
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -916,9 +908,39 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getANullLiteral()
+  public EClass getAConditional()
   {
-    return aNullLiteralEClass;
+    return aConditionalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_If()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_Then()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_Else()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1048,13 +1070,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION);
     createEReference(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS);
 
-    aSetLiteralEClass = createEClass(ASET_LITERAL);
-    createEReference(aSetLiteralEClass, ASET_LITERAL__ELEMENTS);
+    aRangeEClass = createEClass(ARANGE);
+    createEReference(aRangeEClass, ARANGE__MINIMUM);
+    createEReference(aRangeEClass, ARANGE__MAXIMUM);
+    createEReference(aRangeEClass, ARANGE__DELTA);
 
-    aListTermEClass = createEClass(ALIST_TERM);
-    createEReference(aListTermEClass, ALIST_TERM__ELEMENTS);
-
-    aNullLiteralEClass = createEClass(ANULL_LITERAL);
+    aConditionalEClass = createEClass(ACONDITIONAL);
+    createEReference(aConditionalEClass, ACONDITIONAL__IF);
+    createEReference(aConditionalEClass, ACONDITIONAL__THEN);
+    createEReference(aConditionalEClass, ACONDITIONAL__ELSE);
 
     // Create enums
     resultIssueTypeEEnum = createEEnum(RESULT_ISSUE_TYPE);
@@ -1106,9 +1130,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aBinaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aFunctionCallEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aRangeEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aConditionalEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1188,13 +1211,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getAFunctionCall_Function(), theEcorePackage.getEString(), "function", null, 0, 1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAFunctionCall_FunctionCallArguments(), theAadl2Package.getPropertyExpression(), null, "functionCallArguments", null, 0, -1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(aSetLiteralEClass, ASetLiteral.class, "ASetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getASetLiteral_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, ASetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(aRangeEClass, ARange.class, "ARange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getARange_Minimum(), theAadl2Package.getPropertyExpression(), null, "minimum", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getARange_Maximum(), theAadl2Package.getPropertyExpression(), null, "maximum", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getARange_Delta(), theAadl2Package.getPropertyExpression(), null, "delta", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(aListTermEClass, AListTerm.class, "AListTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAListTerm_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, AListTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(aNullLiteralEClass, ANullLiteral.class, "ANullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(aConditionalEClass, AConditional.class, "AConditional", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAConditional_If(), theAadl2Package.getPropertyExpression(), null, "if", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAConditional_Then(), theAadl2Package.getPropertyExpression(), null, "then", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAConditional_Else(), theAadl2Package.getPropertyExpression(), null, "else", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(resultIssueTypeEEnum, ResultIssueType.class, "ResultIssueType");

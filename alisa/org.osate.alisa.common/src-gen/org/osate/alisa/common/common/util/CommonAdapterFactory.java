@@ -199,19 +199,14 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAFunctionCallAdapter();
       }
       @Override
-      public Adapter caseASetLiteral(ASetLiteral object)
+      public Adapter caseARange(ARange object)
       {
-        return createASetLiteralAdapter();
+        return createARangeAdapter();
       }
       @Override
-      public Adapter caseAListTerm(AListTerm object)
+      public Adapter caseAConditional(AConditional object)
       {
-        return createAListTermAdapter();
-      }
-      @Override
-      public Adapter caseANullLiteral(ANullLiteral object)
-      {
-        return createANullLiteralAdapter();
+        return createAConditionalAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -576,46 +571,31 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ARange <em>ARange</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.ASetLiteral
+   * @see org.osate.alisa.common.common.ARange
    * @generated
    */
-  public Adapter createASetLiteralAdapter()
+  public Adapter createARangeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AListTerm <em>AList Term</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AConditional <em>AConditional</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.AListTerm
+   * @see org.osate.alisa.common.common.AConditional
    * @generated
    */
-  public Adapter createAListTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ANullLiteral <em>ANull Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ANullLiteral
-   * @generated
-   */
-  public Adapter createANullLiteralAdapter()
+  public Adapter createAConditionalAdapter()
   {
     return null;
   }

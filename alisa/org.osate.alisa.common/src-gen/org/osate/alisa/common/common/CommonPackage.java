@@ -1084,14 +1084,14 @@ public interface CommonPackage extends EPackage
   int AFUNCTION_CALL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ARangeImpl <em>ARange</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ASetLiteralImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
+   * @see org.osate.alisa.common.common.impl.ARangeImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getARange()
    * @generated
    */
-  int ASET_LITERAL = 21;
+  int ARANGE = 21;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1100,7 +1100,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASET_LITERAL__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+  int ARANGE__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1109,35 +1109,53 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASET_LITERAL__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+  int ARANGE__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * The feature id for the '<em><b>Minimum</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASET_LITERAL__ELEMENTS = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+  int ARANGE__MINIMUM = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>ASet Literal</em>' class.
+   * The feature id for the '<em><b>Maximum</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASET_LITERAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+  int ARANGE__MAXIMUM = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AListTermImpl <em>AList Term</em>}' class.
+   * The feature id for the '<em><b>Delta</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.AListTermImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListTerm()
+   * @generated
+   * @ordered
+   */
+  int ARANGE__DELTA = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>ARange</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARANGE_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AConditionalImpl <em>AConditional</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AConditionalImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAConditional()
    * @generated
    */
-  int ALIST_TERM = 22;
+  int ACONDITIONAL = 22;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1146,7 +1164,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ALIST_TERM__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+  int ACONDITIONAL__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1155,62 +1173,43 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ALIST_TERM__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+  int ACONDITIONAL__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * The feature id for the '<em><b>If</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALIST_TERM__ELEMENTS = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+  int ACONDITIONAL__IF = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>AList Term</em>' class.
+   * The feature id for the '<em><b>Then</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALIST_TERM_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+  int ACONDITIONAL__THEN = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ANullLiteralImpl <em>ANull Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ANullLiteralImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
-   * @generated
-   */
-  int ANULL_LITERAL = 23;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * The feature id for the '<em><b>Else</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ANULL_LITERAL__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+  int ACONDITIONAL__ELSE = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * The number of structural features of the '<em>AConditional</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ANULL_LITERAL__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
-
-  /**
-   * The number of structural features of the '<em>ANull Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ANULL_LITERAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+  int ACONDITIONAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.
@@ -1220,7 +1219,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
    * @generated
    */
-  int RESULT_ISSUE_TYPE = 24;
+  int RESULT_ISSUE_TYPE = 23;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}' enum.
@@ -1230,7 +1229,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 25;
+  int OPERATION = 24;
 
 
   /**
@@ -1829,56 +1828,90 @@ public interface CommonPackage extends EPackage
   EReference getAFunctionCall_FunctionCallArguments();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ARange <em>ARange</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ASet Literal</em>'.
-   * @see org.osate.alisa.common.common.ASetLiteral
+   * @return the meta object for class '<em>ARange</em>'.
+   * @see org.osate.alisa.common.common.ARange
    * @generated
    */
-  EClass getASetLiteral();
+  EClass getARange();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.ASetLiteral#getElements <em>Elements</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ARange#getMinimum <em>Minimum</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Elements</em>'.
-   * @see org.osate.alisa.common.common.ASetLiteral#getElements()
-   * @see #getASetLiteral()
+   * @return the meta object for the containment reference '<em>Minimum</em>'.
+   * @see org.osate.alisa.common.common.ARange#getMinimum()
+   * @see #getARange()
    * @generated
    */
-  EReference getASetLiteral_Elements();
+  EReference getARange_Minimum();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.AListTerm <em>AList Term</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ARange#getMaximum <em>Maximum</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>AList Term</em>'.
-   * @see org.osate.alisa.common.common.AListTerm
+   * @return the meta object for the containment reference '<em>Maximum</em>'.
+   * @see org.osate.alisa.common.common.ARange#getMaximum()
+   * @see #getARange()
    * @generated
    */
-  EClass getAListTerm();
+  EReference getARange_Maximum();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.AListTerm#getElements <em>Elements</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ARange#getDelta <em>Delta</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Elements</em>'.
-   * @see org.osate.alisa.common.common.AListTerm#getElements()
-   * @see #getAListTerm()
+   * @return the meta object for the containment reference '<em>Delta</em>'.
+   * @see org.osate.alisa.common.common.ARange#getDelta()
+   * @see #getARange()
    * @generated
    */
-  EReference getAListTerm_Elements();
+  EReference getARange_Delta();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ANullLiteral <em>ANull Literal</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AConditional <em>AConditional</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ANull Literal</em>'.
-   * @see org.osate.alisa.common.common.ANullLiteral
+   * @return the meta object for class '<em>AConditional</em>'.
+   * @see org.osate.alisa.common.common.AConditional
    * @generated
    */
-  EClass getANullLiteral();
+  EClass getAConditional();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AConditional#getIf <em>If</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>If</em>'.
+   * @see org.osate.alisa.common.common.AConditional#getIf()
+   * @see #getAConditional()
+   * @generated
+   */
+  EReference getAConditional_If();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AConditional#getThen <em>Then</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Then</em>'.
+   * @see org.osate.alisa.common.common.AConditional#getThen()
+   * @see #getAConditional()
+   * @generated
+   */
+  EReference getAConditional_Then();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AConditional#getElse <em>Else</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Else</em>'.
+   * @see org.osate.alisa.common.common.AConditional#getElse()
+   * @see #getAConditional()
+   * @generated
+   */
+  EReference getAConditional_Else();
 
   /**
    * Returns the meta object for enum '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}'.
@@ -2414,50 +2447,72 @@ public interface CommonPackage extends EPackage
     EReference AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS = eINSTANCE.getAFunctionCall_FunctionCallArguments();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ARangeImpl <em>ARange</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ASetLiteralImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
+     * @see org.osate.alisa.common.common.impl.ARangeImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getARange()
      * @generated
      */
-    EClass ASET_LITERAL = eINSTANCE.getASetLiteral();
+    EClass ARANGE = eINSTANCE.getARange();
 
     /**
-     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Minimum</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASET_LITERAL__ELEMENTS = eINSTANCE.getASetLiteral_Elements();
+    EReference ARANGE__MINIMUM = eINSTANCE.getARange_Minimum();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AListTermImpl <em>AList Term</em>}' class.
+     * The meta object literal for the '<em><b>Maximum</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.AListTermImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListTerm()
      * @generated
      */
-    EClass ALIST_TERM = eINSTANCE.getAListTerm();
+    EReference ARANGE__MAXIMUM = eINSTANCE.getARange_Maximum();
 
     /**
-     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Delta</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ALIST_TERM__ELEMENTS = eINSTANCE.getAListTerm_Elements();
+    EReference ARANGE__DELTA = eINSTANCE.getARange_Delta();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ANullLiteralImpl <em>ANull Literal</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AConditionalImpl <em>AConditional</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ANullLiteralImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
+     * @see org.osate.alisa.common.common.impl.AConditionalImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAConditional()
      * @generated
      */
-    EClass ANULL_LITERAL = eINSTANCE.getANullLiteral();
+    EClass ACONDITIONAL = eINSTANCE.getAConditional();
+
+    /**
+     * The meta object literal for the '<em><b>If</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACONDITIONAL__IF = eINSTANCE.getAConditional_If();
+
+    /**
+     * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACONDITIONAL__THEN = eINSTANCE.getAConditional_Then();
+
+    /**
+     * The meta object literal for the '<em><b>Else</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACONDITIONAL__ELSE = eINSTANCE.getAConditional_Else();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.

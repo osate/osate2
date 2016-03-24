@@ -124,6 +124,8 @@ Typeof : 'typeof';
 
 Delta : 'delta';
 
+Endif : 'endif';
+
 Error : 'error';
 
 False : 'false';
@@ -140,6 +142,8 @@ Value : 'value';
 
 Data : 'data';
 
+Else : 'else';
+
 Fail : 'fail';
 
 Goal : 'goal';
@@ -148,11 +152,11 @@ Info : 'info';
 
 Mode : 'mode';
 
-Null : 'null';
-
 Real : 'real';
 
 Self : 'self';
+
+Then : 'then';
 
 This : 'this';
 
@@ -198,6 +202,8 @@ EqualsSignEqualsSign : '==';
 
 GreaterThanSignEqualsSign : '>=';
 
+If : 'if';
+
 In : 'in';
 
 Or : 'or';
@@ -233,10 +239,6 @@ GreaterThanSign : '>';
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
-
-LeftCurlyBracket : '{';
-
-RightCurlyBracket : '}';
 
 
 

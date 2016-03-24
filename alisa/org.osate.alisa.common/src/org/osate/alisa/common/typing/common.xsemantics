@@ -18,7 +18,6 @@ import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ABinaryOperation
 import org.osate.alisa.common.common.AExpression
-import org.osate.alisa.common.common.AListTerm
 import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.APropertyReference
 import org.osate.alisa.common.common.AVariableReference
@@ -34,11 +33,13 @@ system org.osate.alisa.common.typing.CommonTypeSystem
 
 validatorExtends AbstractCommonValidator
 
+
+
 judgments {
 	type |- EObject o : output PropertyType
 		error 'cannot type ' + stringRep(o)
 		source o
-	assignable |- AExpression exp|> PropertyType target
+	assignable |- AExpression exp |> PropertyType target
 		error stringRep(exp) + ' cannot be assigned to ' + stringRep(target)
 		source exp
 	compatible |- PropertyType left <: PropertyType right
@@ -95,6 +96,8 @@ from {
  
 rule ABinaryExpression
 	G |- ABinaryOperation binary : PropertyType type
+	error 'typing: cannot determine type of expression'
+	source binary
 from {
 	G |- binary.left : var PropertyType leftType
 	G |- binary.right : var PropertyType rightType
@@ -124,15 +127,6 @@ from {
 
 
 // compound types
-
-rule AListTerm
-	G |- AListTerm list : ListType type
-from {
-	type = Aadl2Factory.eINSTANCE.createListType
-	var PropertyType elementType
-	G |- list.elements.head : elementType
-	type.ownedElementType = elementType // owned vs. referenced???
-}
 
 // simple types
 
@@ -211,7 +205,7 @@ axiom ModelRef1
 
 rule NotCompatible
 	G |- PropertyType left <: PropertyType right
-	error 'Types ' + stringRep(left) + ' and ' + stringRep(right) + ' are not compatible'
+	error 'types not compatible: cannot assign ' + stringRep(left) + ' to ' + stringRep(right)
 from {
 	fail
 }
