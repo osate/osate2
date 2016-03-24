@@ -135,7 +135,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isThread(final NamedElement thread) {
-		return ((thread instanceof ComponentInstance) && (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD))
+		return ((thread instanceof ComponentInstance)
+				&& (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD))
 				|| thread instanceof ThreadSubcomponent;
 	}
 
@@ -145,7 +146,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isDevice(final NamedElement device) {
-		return ((device instanceof ComponentInstance) && (((ComponentInstance) device).getCategory() == ComponentCategory.DEVICE))
+		return ((device instanceof ComponentInstance)
+				&& (((ComponentInstance) device).getCategory() == ComponentCategory.DEVICE))
 				|| device instanceof DeviceSubcomponent;
 	}
 
@@ -155,7 +157,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isBus(final NamedElement bus) {
-		return ((bus instanceof ComponentInstance) && (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
+		return ((bus instanceof ComponentInstance)
+				&& (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
 				|| bus instanceof BusSubcomponent;
 	}
 
@@ -165,7 +168,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isVirtualBus(final NamedElement vbus) {
-		return ((vbus instanceof ComponentInstance) && (((ComponentInstance) vbus).getCategory() == ComponentCategory.VIRTUAL_BUS))
+		return ((vbus instanceof ComponentInstance)
+				&& (((ComponentInstance) vbus).getCategory() == ComponentCategory.VIRTUAL_BUS))
 				|| vbus instanceof VirtualBusSubcomponent;
 	}
 
@@ -175,7 +179,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isVirtualProcessor(final NamedElement vprocessor) {
-		return ((vprocessor instanceof ComponentInstance) && (((ComponentInstance) vprocessor).getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+		return ((vprocessor instanceof ComponentInstance)
+				&& (((ComponentInstance) vprocessor).getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
 				|| vprocessor instanceof VirtualProcessorSubcomponent;
 	}
 
@@ -185,7 +190,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isProcessor(final NamedElement processor) {
-		return ((processor instanceof ComponentInstance) && (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
+		return ((processor instanceof ComponentInstance)
+				&& (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
 				|| processor instanceof ProcessorSubcomponent;
 	}
 
@@ -195,7 +201,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isMemory(final NamedElement memory) {
-		return ((memory instanceof ComponentInstance) && (((ComponentInstance) memory).getCategory() == ComponentCategory.MEMORY))
+		return ((memory instanceof ComponentInstance)
+				&& (((ComponentInstance) memory).getCategory() == ComponentCategory.MEMORY))
 				|| memory instanceof MemorySubcomponent;
 	}
 
@@ -205,7 +212,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isSystem(final NamedElement system) {
-		return ((system instanceof ComponentInstance) && (((ComponentInstance) system).getCategory() == ComponentCategory.SYSTEM))
+		return ((system instanceof ComponentInstance)
+				&& (((ComponentInstance) system).getCategory() == ComponentCategory.SYSTEM))
 				|| system instanceof SystemSubcomponent;
 	}
 
@@ -215,7 +223,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isAbstract(final NamedElement system) {
-		return ((system instanceof ComponentInstance) && (((ComponentInstance) system).getCategory() == ComponentCategory.ABSTRACT))
+		return ((system instanceof ComponentInstance)
+				&& (((ComponentInstance) system).getCategory() == ComponentCategory.ABSTRACT))
 				|| system instanceof AbstractSubcomponent;
 	}
 
@@ -225,7 +234,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isProcess(final NamedElement process) {
-		return ((process instanceof ComponentInstance) && (((ComponentInstance) process).getCategory() == ComponentCategory.PROCESS))
+		return ((process instanceof ComponentInstance)
+				&& (((ComponentInstance) process).getCategory() == ComponentCategory.PROCESS))
 				|| process instanceof ProcessSubcomponent;
 	}
 
@@ -485,7 +495,8 @@ public class InstanceModelUtil {
 		return actualProcs;
 	}
 
-	protected static void addBoundProcessors(ComponentInstance componentInstance, Collection<ComponentInstance> result) {
+	protected static void addBoundProcessors(ComponentInstance componentInstance,
+			Collection<ComponentInstance> result) {
 		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
@@ -572,8 +583,8 @@ public class InstanceModelUtil {
 					ComponentInstance ci = (ComponentInstance) obj;
 					ComponentCategory cat = ci.getCategory();
 					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP
-							|| cat == ComponentCategory.PROCESS || cat == ComponentCategory.SYSTEM) && InstanceModelUtil
-							.isBoundToProcessor((ComponentInstance) obj, associatedObject));
+							|| cat == ComponentCategory.PROCESS || cat == ComponentCategory.SYSTEM)
+							&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, associatedObject));
 				}
 			}.processPreOrderComponentInstance(root);
 		}
@@ -615,8 +626,8 @@ public class InstanceModelUtil {
 				ComponentInstance ci = (ComponentInstance) obj;
 				ComponentCategory cat = ci.getCategory();
 				return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP
-						|| cat == ComponentCategory.PROCESS || cat == ComponentCategory.SYSTEM) && InstanceModelUtil
-						.isBoundToProcessor((ComponentInstance) obj, procorVP));
+						|| cat == ComponentCategory.PROCESS || cat == ComponentCategory.SYSTEM)
+						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
 			}
 		}.processPreOrderComponentInstance(root);
 		return boundComponents;
@@ -634,8 +645,8 @@ public class InstanceModelUtil {
 			protected boolean suchThat(Element obj) {
 				ComponentInstance ci = (ComponentInstance) obj;
 				ComponentCategory cat = ci.getCategory();
-				return ((cat == ComponentCategory.THREAD) && InstanceModelUtil.isBoundToProcessor(
-						(ComponentInstance) obj, procorVP));
+				return ((cat == ComponentCategory.THREAD)
+						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
 			}
 		}.processPreOrderComponentInstance(root);
 		return boundComponents;
@@ -653,8 +664,8 @@ public class InstanceModelUtil {
 			protected boolean suchThat(Element obj) {
 				ComponentInstance ci = (ComponentInstance) obj;
 				ComponentCategory cat = ci.getCategory();
-				return ((cat == ComponentCategory.PROCESS) && InstanceModelUtil.isBoundToProcessor(
-						(ComponentInstance) obj, procorVP));
+				return ((cat == ComponentCategory.PROCESS)
+						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
 			}
 		}.processPreOrderComponentInstance(root);
 		return boundComponents;
@@ -725,7 +736,8 @@ public class InstanceModelUtil {
 		if (bindinglist.isEmpty() && io instanceof ComponentInstance
 				&& ((ComponentInstance) io).getCategory() == ComponentCategory.VIRTUAL_BUS) {
 			ComponentInstance parent = io.getContainingComponentInstance();
-			if (parent.getCategory() == ComponentCategory.BUS || parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+			if (parent.getCategory() == ComponentCategory.BUS
+					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
 				bindinglist.add(parent);
 			}
 		}
@@ -776,8 +788,8 @@ public class InstanceModelUtil {
 
 				if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB) ||
 				// we derived a bus connection from the connection end bindings
-						(!InstanceModelUtil.hasBusBinding(connectionInstance) && InstanceModelUtil.connectedByBus(
-								connectionInstance, busorVB))) {
+						(!InstanceModelUtil.hasBusBinding(connectionInstance)
+								&& InstanceModelUtil.connectedByBus(connectionInstance, busorVB))) {
 					result.add(connectionInstance);
 				}
 
@@ -896,7 +908,7 @@ public class InstanceModelUtil {
 			FeatureInstance fi = it.next();
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
 				for (ConnectionInstance aci : fi.getDstConnectionInstances()) {
-					ComponentInstance curBus = (ComponentInstance) aci.getSource();
+					ComponentInstance curBus = aci.getSource().getComponentInstance();
 					if (!visitedBuses.contains(curBus)) {
 						if (connectedToBus(dstHW, curBus)) {
 							List<ComponentInstance> res = new ArrayList<ComponentInstance>();
@@ -912,7 +924,7 @@ public class InstanceModelUtil {
 							} else {
 								// check for buses that are connected to this bus
 								for (ConnectionInstance srcaci : curBus.getSrcConnectionInstances()) {
-									ComponentInstance bi = srcaci.getDestination().getContainingComponentInstance();
+									ComponentInstance bi = srcaci.getDestination().getComponentInstance();
 									if (bi.getCategory() == ComponentCategory.BUS) {
 										if (connectedToBus(dstHW, bi)) {
 											res = new BasicEList<ComponentInstance>();
@@ -974,7 +986,7 @@ public class InstanceModelUtil {
 		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
 		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
 			ConnectionInstance srcaci = it.next();
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
+			if (srcaci.getDestination().getComponentInstance() == HWcomp) {
 				return true;
 			}
 		}
@@ -982,7 +994,7 @@ public class InstanceModelUtil {
 		acl = bus.getDstConnectionInstances();
 		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
 			ConnectionInstance dstaci = it.next();
-			if (dstaci.getSource().getContainingComponentInstance() == HWcomp) {
+			if (dstaci.getSource().getComponentInstance() == HWcomp) {
 				return true;
 			}
 		}
@@ -1000,13 +1012,13 @@ public class InstanceModelUtil {
 	 */
 	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
 		for (ConnectionInstance srcaci : bus.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
+			if (srcaci.getDestination().getComponentInstance() == HWcomp) {
 				return srcaci;
 			}
 		}
 		// check the other way
 		for (ConnectionInstance srcaci : HWcomp.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getContainingComponentInstance() == bus) {
+			if (srcaci.getDestination().getComponentInstance() == bus) {
 				return srcaci;
 			}
 		}
