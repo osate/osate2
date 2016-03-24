@@ -21,23 +21,34 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Root;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -402,6 +413,26 @@ public class EMLinkingService extends PropertiesLinkingService {
 					}
 				}
 			}
+		} else if (Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType) {
+			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
+			if (context instanceof NamedValue) {
+				List<EObject> res = Collections.EMPTY_LIST;
+				if (name.indexOf("::") == -1) {
+					// names without qualifier. Must be enum/unit literal
+					res = findEnumLiteralAsList(context, reference, name);
+					if (res.isEmpty()) {
+						res = findUnitLiteralAsList(context, reference, name);
+					}
+				}
+				if (res.isEmpty()) {
+					res = findPropertyConstant(context, reference, name);
+				}
+				if (res.isEmpty()) {
+					res = findPropertyDefinitionAsList(context, reference, name);
+				}
+				return res;
+			}
+
 		} else if (Aadl2Package.eINSTANCE.getBasicProperty() == requiredType) {
 			// look for record field definition
 			if (context instanceof BasicPropertyAssociation) {
@@ -444,12 +475,157 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (searchResult != null) {
 			return Collections.singletonList(searchResult);
 		}
-		if (cxt.getElementRoot() instanceof EMV2Root) {
-			List<EObject> res = super.getLinkedObjects(context, reference, node);
-			return res;
-		} else {
+//		if (cxt.getElementRoot() instanceof EMV2Root) {
+		return super.getLinkedObjects(context, reference, node);
+//		} else {
+//			return Collections.<EObject> emptyList();
+//		}
+	}
+
+	public static List<EObject> findUnitLiteralAsList(EObject context, EReference reference, String name) {
+		EObject e = findUnitLiteral(context, reference, name);
+		if (e == null) {
 			return Collections.<EObject> emptyList();
 		}
+		return Collections.singletonList(e);
+	}
+
+	public static UnitLiteral findUnitLiteral(EObject context, EReference reference, String name) {
+		// look for unit literal pointed to by baseUnit
+		if (context instanceof UnitLiteral) {
+			UnitsType unitsType = (UnitsType) ((UnitLiteral) context).getOwner();
+			return (UnitLiteral) unitsType.findNamedElement(name);
+		} else if (context instanceof NumberValue) {
+			UnitsType unitsType = null;
+			NumberValue numberValue = (NumberValue) context;
+			Element owner = numberValue.getOwner();
+			while (owner instanceof ListValue) {
+				owner = owner.getOwner();
+			}
+			if (owner instanceof NumericRange) {
+				// values of a number
+				// property type.
+				unitsType = ((NumberType) owner.getOwner()).getUnitsType();
+			} else {
+				if (owner instanceof RangeValue) {
+					owner = owner.getOwner();
+				}
+				if (owner instanceof ListValue) {
+					owner = owner.getOwner();
+				}
+				PropertyType propertyType = null;
+				if (owner instanceof PropertyConstant) // Value of the
+				// property
+				// constant.
+				{
+					// TODO: Need to check that the type of the property
+					// constant is correct for the value.
+					// We should do this when the type of the constant is
+					// resolved in PropertyTypeReference.
+					propertyType = ((PropertyConstant) owner).getPropertyType();
+				} else if (owner instanceof Property) // Default value of a
+				// property
+				// definition.
+				{
+					// TODO: Need to check that the type of the property
+					// definition is correct for the value.
+					// We should do this when the type of the definition is
+					// resolved in PropertyValuePropertyTypeReference.
+					propertyType = ((Property) owner).getPropertyType();
+				} else if (owner instanceof ModalPropertyValue && owner.getOwner() instanceof EMV2PropertyAssociation)
+				// Value of an association.
+				{
+					// TODO: Need to check that the type of the property
+					// definition is correct for the value.
+					// We should do this when the definition of the
+					// association is resolved in
+					// PropertyDefinitionReference.
+					propertyType = ((EMV2PropertyAssociation) owner.getOwner()).getProperty().getPropertyType();
+				} else if (owner instanceof BasicPropertyAssociation)
+				// Inner value of a record value.
+				{
+					// TODO: Need to check that the type of the record field
+					// is correct for the value.
+					// We should do this when the record field of the record
+					// value is resolved in PropertyRecordFieldReference.
+					propertyType = ((BasicPropertyAssociation) owner).getProperty().getPropertyType();
+				}
+				propertyType = AadlUtil.getBasePropertyType(propertyType);
+				if (propertyType instanceof NumberType) {
+					unitsType = ((NumberType) propertyType).getUnitsType();
+				} else if (propertyType instanceof RangeType) {
+					RangeType rangeType = (RangeType) propertyType;
+					// The number type could be null if the model is incomplete.
+					if (rangeType.getNumberType() != null) {
+						unitsType = rangeType.getNumberType().getUnitsType();
+					}
+				}
+			}
+			if (unitsType != null) {
+				return unitsType.findLiteral(name);
+			}
+		}
+		return null;
+	}
+
+	public static List<EObject> findEnumLiteralAsList(EObject context, EReference reference, String name) {
+		// look for enumeration literal
+		if (context instanceof NamedValue) {
+			NamedValue value = (NamedValue) context;
+			EObject owner = value.getOwner();
+			while (owner instanceof ListValue) {
+				owner = owner.eContainer();
+			}
+			PropertyType propertyType = null;
+			if (owner instanceof PropertyConstant) // Value of the property
+			// constant.
+			{
+				// TODO: Need to check that the type of the property
+				// constant is correct for the value.
+				// We should do this when the type of the constant is
+				// resolved in PropertyTypeReference.
+				propertyType = ((PropertyConstant) owner).getPropertyType();
+			} else if (owner instanceof Property) // Default value of a
+			// property definition.
+			{
+				// TODO: Need to check that the type of the property
+				// definition is correct for the value.
+				// We should do this when the type of the definition is
+				// resolved in PropertyValuePropertyTypeReference.
+				propertyType = ((Property) owner).getPropertyType();
+			} else if (owner instanceof ModalPropertyValue && owner.eContainer() instanceof EMV2PropertyAssociation) // Value
+			// of
+			// an
+			// association.
+			{
+				// TODO: Need to check that the type of the property
+				// definition is correct for the value.
+				// We should do this when the definition of the association
+				// is resolved in PropertyDefinitionReference.
+				Property p = ((EMV2PropertyAssociation) owner.eContainer()).getProperty();
+				propertyType = p.getPropertyType();
+			} else if (owner instanceof BasicPropertyAssociation) // Inner
+			// value
+			// of a
+			// record
+			// value.
+			{
+				// TODO: Need to check that the type of the record field is
+				// correct for the value.
+				// We should do this when the record field of the record
+				// value is resolved in PropertyRecordFieldReference.
+				propertyType = ((BasicPropertyAssociation) owner).getProperty().getPropertyType();
+			}
+
+			propertyType = AadlUtil.getBasePropertyType(propertyType);
+			if (propertyType != null && propertyType instanceof EnumerationType) {
+				EnumerationLiteral literal = ((EnumerationType) propertyType).findLiteral(name);
+				if (literal != null) {
+					return Collections.singletonList((EObject) literal);
+				}
+			}
+		}
+		return Collections.<EObject> emptyList();
 	}
 
 	/**
