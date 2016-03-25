@@ -809,6 +809,8 @@ class SerializerTest2 extends AbstractSerializerTest {
 				system s1
 					features
 						p1: out data port;
+					properties
+						ps1::reference1 => reference (p1);
 				end s1;
 				
 				system s2
@@ -846,6 +848,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 			system s3_i_Instance : pkg1::s3.i {
 				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
 					out dataPort p1 : pkg1::s1::p1
+					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1::property#0
 				}
 				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
 					in dataPort p2 : pkg1::s2::p2

@@ -260,7 +260,6 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		prefix + switch element {
 			ComponentInstance: '''«element.name»«FOR index : element.indices»[«index»]«ENDFOR»'''
-//			ConnectionInstance: element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
 			ConnectionInstance: "connection#" + element.getContainerOfType(ComponentInstance).connectionInstances.indexOf(element)
 			FeatureInstance: '''«element.name»«IF element.index != 0»[«element.index»]«ENDIF»'''
 			InstanceObject: element.name
