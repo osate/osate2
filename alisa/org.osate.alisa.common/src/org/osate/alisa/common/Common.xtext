@@ -55,18 +55,18 @@ PropertyRef returns aadl2::PropertyType:
 ;
 
 ValDeclaration returns AVariableDeclaration:
-	 {ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' '(' type=PropertyRef ')') )? '=' value=AExpression  
+	 {ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef) )? '=' value=AExpression  
 ;
 
 ComputeDeclaration returns AVariableDeclaration:
 	{ComputeDeclaration}
-	 'compute' name=ID ':' (type=TypeRef | 'typeof' '(' type=PropertyRef ')')
+	 'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef)
 ;
 
 // Reference to property, property constant, or model element.
 AModelOrPropertyReference returns AExpression:
-	(AModelReference (=>({APropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
-		) | APropertyReference
+	AModelReference (=>({APropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
+	| APropertyReference
 ;
 
 NestedModelelement returns NestedModelElement:
