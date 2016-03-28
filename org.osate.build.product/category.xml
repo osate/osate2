@@ -42,10 +42,10 @@
    <feature id="com.rockwellcollins.atc.resolute.feature">
       <category name="osate2"/>
    </feature>
-   <feature id="com.rockwellcollins.atc.agree.source.feature">
+   <feature id="com.rockwellcollins.atc.agree.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature id="com.rockwellcollins.atc.resolute.source.feature">
+   <feature id="com.rockwellcollins.atc.resolute.feature.source">
       <category name="osate2source"/>
    </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
