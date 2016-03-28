@@ -30,7 +30,6 @@
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
-		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
 
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
@@ -38,7 +37,6 @@
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 
 		<module>../org.osate.build.product</module>
 	</modules>
