@@ -4,7 +4,9 @@
 package org.osate.xtext.aadl2.instance;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
+import org.osate.xtext.aadl2.instance.linking.InstanceLinkingService;
 import org.osate.xtext.aadl2.instance.serializer.InstanceCrossReferenceSerializer;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
@@ -24,5 +26,10 @@ public class InstanceRuntimeModule extends org.osate.xtext.aadl2.instance.Abstra
 	
 	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return InstanceCrossReferenceSerializer.class;
+	}
+	
+	@Override
+	public Class<? extends ILinkingService> bindILinkingService() {
+		return InstanceLinkingService.class;
 	}
 }

@@ -19,6 +19,7 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.ClassifierFeature
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
@@ -230,6 +231,14 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		new SimpleScope(context.getInstanceScope(FeatureInstance, FlowSpecificationInstance, ModeInstance, ComponentInstance, ConnectionInstance, EndToEndFlowInstance))
 	}
 	
+	def static Iterable<ClassifierFeature> getComponentClassifierReferenceElements(ComponentClassifier classifier) {
+		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name != null]
+	}
+	
+	def static Iterable<ClassifierFeature> getImplReferenceElements(ComponentImplementation impl) {
+		impl.componentClassifierReferenceElements + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
+	}
+	
 	def private <T extends Classifier> getDeclarativeScope(EObject context, EClass containerEClass, (T)=>List<? extends NamedElement> elementsGetter) {
 		getDeclarativeScope(context, containerEClass, elementsGetter, [list, element | element.name])
 	}
@@ -288,13 +297,5 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 			NumberType: baseType.unitsType
 			RangeType: baseType.numberType.unitsType
 		}?.ownedLiterals?.scopeFor ?: IScope.NULLSCOPE
-	}
-	
-	def private static getComponentClassifierReferenceElements(ComponentClassifier classifier) {
-		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name != null]
-	}
-	
-	def private static getImplReferenceElements(ComponentImplementation impl) {
-		impl.componentClassifierReferenceElements + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
 	}
 }
