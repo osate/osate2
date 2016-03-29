@@ -3146,10 +3146,17 @@ rulePropertyAssociationRefSegment returns [AntlrDatatypeRuleToken current=new An
     }
 
     |
-	kw='property' 
+	kw='classifierProperty' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getPropertyKeyword_1_0_1()); 
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getClassifierPropertyKeyword_1_0_1()); 
+    }
+
+    |
+	kw='curlyProperty' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getCurlyPropertyKeyword_1_0_2()); 
     }
 )
 	kw='#' 
@@ -3157,12 +3164,12 @@ rulePropertyAssociationRefSegment returns [AntlrDatatypeRuleToken current=new An
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropertyAssociationRefSegmentAccess().getNumberSignKeyword_1_1()); 
     }
-    this_INTEGER_LIT_6=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_6);
+    this_INTEGER_LIT_7=RULE_INTEGER_LIT    {
+		$current.merge(this_INTEGER_LIT_7);
     }
 
     { 
-    newLeafNode(this_INTEGER_LIT_6, grammarAccess.getPropertyAssociationRefSegmentAccess().getINTEGER_LITTerminalRuleCall_1_2()); 
+    newLeafNode(this_INTEGER_LIT_7, grammarAccess.getPropertyAssociationRefSegmentAccess().getINTEGER_LITTerminalRuleCall_1_2()); 
     }
 ))
     ;

@@ -481,25 +481,25 @@ class SerializerTest2 extends AbstractSerializerTest {
 				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
 					in out featureGroup fg1 : pkg1::s1::fg1 {
 						in dataPort p4 : pkg1::fgt1::p4 {
-							ps1::bool1 => true : pkg1::fgt1::p4::property#0
+							ps1::bool1 => true : pkg1::fgt1::p4::curlyProperty#0
 						}
 					}
 					out dataPort p1 : pkg1::s1::p1
 					in eventPort p2 : pkg1::s1::p2
 					flow fs1 ( -> p1 ) : pkg1::s1::fs1 {
-						ps1::bool1 => true : pkg1::s1::fs1::property#0
+						ps1::bool1 => true : pkg1::s1::fs1::curlyProperty#0
 					}
 					initial mode m1 : pkg1::s1::m1 {
-						ps1::bool1 => true : pkg1::s1::m1::property#0
+						ps1::bool1 => true : pkg1::s1::m1::curlyProperty#0
 					}
 					mode m2 : pkg1::s1::m2
 					mode transition m1.p2.m2 m1 -> m2 : pkg1::s1::mt1 {
-						ps1::bool1 => true : pkg1::s1::mt1::property#0
+						ps1::bool1 => true : pkg1::s1::mt1::curlyProperty#0
 					}
 					mode transition m2.p2.m1 m2 -> m1 : pkg1::s1::transition#1 {
-						ps1::bool1 => true : pkg1::s1::transition#1::property#0
+						ps1::bool1 => true : pkg1::s1::transition#1::curlyProperty#0
 					}
-					ps1::bool1 => true : pkg1::s3.i::sub1::property#0
+					ps1::bool1 => true : pkg1::s3.i::sub1::curlyProperty#0
 				}
 				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
 					in dataPort p3 : pkg1::s2::p3
@@ -507,15 +507,15 @@ class SerializerTest2 extends AbstractSerializerTest {
 				}
 				complete portConnection "sub1.p1 -> sub2.p3" : sub1[0].p1 -> sub2[0].p3 {
 					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i::conn1 in parent
-					ps1::bool1 => true : pkg1::s3.i::conn1::property#0
+					ps1::bool1 => true : pkg1::s3.i::conn1::curlyProperty#0
 				}
 				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes (
 				som#0 , som#1 ) : pkg1::s3.i::etef1 {
-					ps1::bool1 => true : pkg1::s3.i::etef1::property#0
+					ps1::bool1 => true : pkg1::s3.i::etef1::curlyProperty#0
 				}
 				som "sub1.m1" sub1[0].m1
 				som "sub1.m2" sub1[0].m2
-				ps1::bool1 => true : pkg1::s3::property#0
+				ps1::bool1 => true : pkg1::s3::classifierProperty#0
 			}''')
 	}
 	
@@ -553,7 +553,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 					initial mode m1 : pkg1::s::m1
 					mode m2 : pkg1::s::m2
 					ps1::bool1 => true in modes ( som#0 , som#2 ) , false in modes ( som#1 ,
-					som#3 ) : pkg1::s::property#0
+					som#3 ) : pkg1::s::classifierProperty#0
 				}
 				initial mode m1 : pkg1::s::m1
 				mode m2 : pkg1::s::m2
@@ -562,7 +562,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m2#sub1.m1" m2 , sub1[0].m1
 				som "m2#sub1.m2" m2 , sub1[0].m2
 				ps1::bool1 => true in modes ( som#0 , som#1 ) , false in modes ( som#2 , som#3
-				) : pkg1::s::property#0
+				) : pkg1::s::classifierProperty#0
 			}''')
 	}
 	
@@ -643,25 +643,26 @@ class SerializerTest2 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				som "No Modes"
-				ps1::bool1 => true : pkg1::s::property#0
-				ps1::string1 => "value" : pkg1::s::property#1
-				ps1::int1 => 42 : pkg1::s::property#2
-				ps1::int2 => -42 : pkg1::s::property#3
-				ps1::int3 => 42 cm : pkg1::s::property#4
-				ps1::real1 => 3.14 : pkg1::s::property#5
-				ps1::real2 => -3.14 : pkg1::s::property#6
-				ps1::real3 => 3.14 cm : pkg1::s::property#7
-				ps1::range1 => 0 .. 10 : pkg1::s::property#8
-				ps1::range2 => 0 .. 10 delta 2 : pkg1::s::property#9
-				ps1::range3 => 0 cm .. 10 cm : pkg1::s::property#10
-				ps1::int4 => 42 : pkg1::s::property#11
-				ps1::int5 => 42 : pkg1::s::property#12
-				ps1::enum1 => two : pkg1::s::property#13
-				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s::property#14
-				ps1::int6 => compute ( function1 ) : pkg1::s::property#15
+				ps1::bool1 => true : pkg1::s::classifierProperty#0
+				ps1::string1 => "value" : pkg1::s::classifierProperty#1
+				ps1::int1 => 42 : pkg1::s::classifierProperty#2
+				ps1::int2 => -42 : pkg1::s::classifierProperty#3
+				ps1::int3 => 42 cm : pkg1::s::classifierProperty#4
+				ps1::real1 => 3.14 : pkg1::s::classifierProperty#5
+				ps1::real2 => -3.14 : pkg1::s::classifierProperty#6
+				ps1::real3 => 3.14 cm : pkg1::s::classifierProperty#7
+				ps1::range1 => 0 .. 10 : pkg1::s::classifierProperty#8
+				ps1::range2 => 0 .. 10 delta 2 : pkg1::s::classifierProperty#9
+				ps1::range3 => 0 cm .. 10 cm : pkg1::s::classifierProperty#10
+				ps1::int4 => 42 : pkg1::s::classifierProperty#11
+				ps1::int5 => 42 : pkg1::s::classifierProperty#12
+				ps1::enum1 => two : pkg1::s::classifierProperty#13
+				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s::classifierProperty#14
+				ps1::int6 => compute ( function1 ) : pkg1::s::classifierProperty#15
 				ps1::record1 => [ field1 => 42 ; field2 => [ field3 => 42 ; ] ; field4 => two
-				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] : pkg1::s::property#16
-				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s::property#17
+				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] :
+				pkg1::s::classifierProperty#16
+				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s::classifierProperty#17
 			}''')
 	}
 	
@@ -769,22 +770,26 @@ class SerializerTest2 extends AbstractSerializerTest {
 				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1::mt1
 				som "m1" m1
 				som "m2" m2
-				ps1::reference1 => reference ( pkg1::s1::proto1 ) : pkg1::s1.i::property#0
+				ps1::reference1 => reference ( pkg1::s1::proto1 ) :
+				pkg1::s1.i::classifierProperty#0
 				ps1::reference2 => reference ( pkg1::s1::fg1 / pkg1::fgt1::proto2 ) :
-				pkg1::s1.i::property#1
+				pkg1::s1.i::classifierProperty#1
 				ps1::reference3 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 /
-				pkg1::fgt2::proto3 ) : pkg1::s1.i::property#2
+				pkg1::fgt2::proto3 ) : pkg1::s1.i::classifierProperty#2
 				ps1::reference4 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg3 [ 1 ] /
-				pkg1::fgt2::proto3 ) : pkg1::s1.i::property#3
+				pkg1::fgt2::proto3 ) : pkg1::s1.i::classifierProperty#3
 				ps1::reference5 => reference ( pkg1::s1.i::sub1 / pkg1::s2::proto4 ) :
-				pkg1::s1.i::property#4
-				ps1::reference6 => reference ( pkg1::s1.i::es1 ) : pkg1::s1.i::property#5
-				ps1::reference7 => reference ( pkg1::s1.i::pp1 ) : pkg1::s1.i::property#6
+				pkg1::s1.i::classifierProperty#4
+				ps1::reference6 => reference ( pkg1::s1.i::es1 ) :
+				pkg1::s1.i::classifierProperty#5
+				ps1::reference7 => reference ( pkg1::s1.i::pp1 ) :
+				pkg1::s1.i::classifierProperty#6
 				ps1::reference8 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::sequence1 ) :
-				pkg1::s1.i::property#7
+				pkg1::s1.i::classifierProperty#7
 				ps1::reference9 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::call1 ) :
-				pkg1::s1.i::property#8
-				ps1::reference10 => reference ( pkg1::s1::mt1 ) : pkg1::s1.i::property#9
+				pkg1::s1.i::classifierProperty#8
+				ps1::reference10 => reference ( pkg1::s1::mt1 ) :
+				pkg1::s1.i::classifierProperty#9
 			}''')
 	}
 	
@@ -848,7 +853,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 			system s3_i_Instance : pkg1::s3.i {
 				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
 					out dataPort p1 : pkg1::s1::p1
-					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1::property#0
+					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1::classifierProperty#0
 				}
 				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
 					in dataPort p2 : pkg1::s2::p2
@@ -861,12 +866,13 @@ class SerializerTest2 extends AbstractSerializerTest {
 				pkg1::s3.i::etef1
 				initial mode m1 : pkg1::s3::m1
 				som "m1" m1
-				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i::property#0
-				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i::property#1
-				ps1::reference3 => reference ( m1 ) : pkg1::s3.i::property#2
-				ps1::reference4 => reference ( sub1[0] ) : pkg1::s3.i::property#3
-				ps1::reference5 => reference ( connection#0 ) : pkg1::s3.i::property#4
-				ps1::reference6 => reference ( etef1 ) : pkg1::s3.i::property#5
+				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i::classifierProperty#0
+				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i::classifierProperty#1
+				ps1::reference3 => reference ( m1 ) : pkg1::s3.i::classifierProperty#2
+				ps1::reference4 => reference ( sub1[0] ) : pkg1::s3.i::classifierProperty#3
+				ps1::reference5 => reference ( connection#0 ) :
+				pkg1::s3.i::classifierProperty#4
+				ps1::reference6 => reference ( etef1 ) : pkg1::s3.i::classifierProperty#5
 			}''')
 	}
 }
