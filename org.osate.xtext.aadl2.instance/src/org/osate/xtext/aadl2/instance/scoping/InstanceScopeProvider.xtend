@@ -146,7 +146,7 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 		new SimpleScope(classifiers.map[classifier |
 			val pkgName = classifier.getContainerOfType(AadlPackage).name
 			val directAssociations = classifier.ownedPropertyAssociations.indexed.map[propertyAssociation |
-				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, "property#" + propertyAssociation.key])
+				val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifier.name, "classifierProperty#" + propertyAssociation.key])
 				EObjectDescription.create(qualifiedName, propertyAssociation.value)
 			]
 			val indirectAssociations = switch classifier {
@@ -281,7 +281,7 @@ class InstanceScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def private static <T extends NamedElement> getAssociationScope(List<T> list, String pkgName, String classifierName, (List<T>, T)=>String getName) {
 		list.map[element | element.ownedPropertyAssociations.indexed.map[propertyAssociation |
-			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), "property#" + propertyAssociation.key])
+			val qualifiedName = QualifiedName.create(pkgName.split("::") + #[classifierName, getName.apply(list, element), "curlyProperty#" + propertyAssociation.key])
 			EObjectDescription.create(qualifiedName, propertyAssociation.value)
 		]].flatten
 	}

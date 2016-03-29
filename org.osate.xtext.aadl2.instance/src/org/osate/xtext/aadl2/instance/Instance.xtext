@@ -148,7 +148,7 @@ PropertyAssociationRef:
 ;
 
 PropertyAssociationRefSegment:
-	ID ('.' ID)? | ('transition' | 'property') '#' INTEGER_LIT
+	ID ('.' ID)? | ('transition' | 'classifierProperty' | 'curlyProperty') '#' INTEGER_LIT
 ;
 	
 Long returns ecore::ELong:

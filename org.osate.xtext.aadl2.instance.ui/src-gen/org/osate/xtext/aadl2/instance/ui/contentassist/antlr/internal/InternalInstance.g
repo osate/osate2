@@ -2275,11 +2275,19 @@ rule__PropertyAssociationRefSegment__Alternatives_1_0
 )
 
     |(
-{ before(grammarAccess.getPropertyAssociationRefSegmentAccess().getPropertyKeyword_1_0_1()); }
+{ before(grammarAccess.getPropertyAssociationRefSegmentAccess().getClassifierPropertyKeyword_1_0_1()); }
 
-	'property' 
+	'classifierProperty' 
 
-{ after(grammarAccess.getPropertyAssociationRefSegmentAccess().getPropertyKeyword_1_0_1()); }
+{ after(grammarAccess.getPropertyAssociationRefSegmentAccess().getClassifierPropertyKeyword_1_0_1()); }
+)
+
+    |(
+{ before(grammarAccess.getPropertyAssociationRefSegmentAccess().getCurlyPropertyKeyword_1_0_2()); }
+
+	'curlyProperty' 
+
+{ after(grammarAccess.getPropertyAssociationRefSegmentAccess().getCurlyPropertyKeyword_1_0_2()); }
 )
 
 ;

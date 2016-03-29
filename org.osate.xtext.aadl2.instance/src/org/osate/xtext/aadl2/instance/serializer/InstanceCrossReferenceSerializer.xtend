@@ -85,13 +85,13 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case propertyAssociationInstance_PropertyAssociation: {
 				val classifier = target.getContainerOfType(Classifier)
 				classifier.getQualifiedName + "::" + if (target.eContainer == classifier) {
-					"property#" + classifier.ownedPropertyAssociations.indexOf(target)
+					"classifierProperty#" + classifier.ownedPropertyAssociations.indexOf(target)
 				} else {
 					val parent = target.eContainer as NamedElement
 					switch parent {
 						ModeTransition case parent.name == null: "transition#" + (classifier as ComponentClassifier).ownedModeTransitions.indexOf(parent)
 						default: parent.name
-					} + "::property#" + parent.ownedPropertyAssociations.indexOf(target)
+					} + "::curlyProperty#" + parent.ownedPropertyAssociations.indexOf(target)
 				}
 			}
 			

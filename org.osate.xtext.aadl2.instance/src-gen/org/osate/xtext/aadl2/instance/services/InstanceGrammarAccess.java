@@ -2262,15 +2262,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
 		private final Keyword cTransitionKeyword_1_0_0 = (Keyword)cAlternatives_1_0.eContents().get(0);
-		private final Keyword cPropertyKeyword_1_0_1 = (Keyword)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cClassifierPropertyKeyword_1_0_1 = (Keyword)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cCurlyPropertyKeyword_1_0_2 = (Keyword)cAlternatives_1_0.eContents().get(2);
 		private final Keyword cNumberSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final RuleCall cINTEGER_LITTerminalRuleCall_1_2 = (RuleCall)cGroup_1.eContents().get(2);
 		
 		//PropertyAssociationRefSegment:
-		//	ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT;
+		//	ID ("." ID)? | ("transition" | "classifierProperty" | "curlyProperty") "#" INTEGER_LIT;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT
+		//ID ("." ID)? | ("transition" | "classifierProperty" | "curlyProperty") "#" INTEGER_LIT
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ID ("." ID)?
@@ -2288,17 +2289,20 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_0_1_1() { return cIDTerminalRuleCall_0_1_1; }
 
-		//("transition" | "property") "#" INTEGER_LIT
+		//("transition" | "classifierProperty" | "curlyProperty") "#" INTEGER_LIT
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"transition" | "property"
+		//"transition" | "classifierProperty" | "curlyProperty"
 		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 
 		//"transition"
 		public Keyword getTransitionKeyword_1_0_0() { return cTransitionKeyword_1_0_0; }
 
-		//"property"
-		public Keyword getPropertyKeyword_1_0_1() { return cPropertyKeyword_1_0_1; }
+		//"classifierProperty"
+		public Keyword getClassifierPropertyKeyword_1_0_1() { return cClassifierPropertyKeyword_1_0_1; }
+
+		//"curlyProperty"
+		public Keyword getCurlyPropertyKeyword_1_0_2() { return cCurlyPropertyKeyword_1_0_2; }
 
 		//"#"
 		public Keyword getNumberSignKeyword_1_1() { return cNumberSignKeyword_1_1; }
@@ -2690,7 +2694,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyAssociationRefSegment:
-	//	ID ("." ID)? | ("transition" | "property") "#" INTEGER_LIT;
+	//	ID ("." ID)? | ("transition" | "classifierProperty" | "curlyProperty") "#" INTEGER_LIT;
 	public PropertyAssociationRefSegmentElements getPropertyAssociationRefSegmentAccess() {
 		return pPropertyAssociationRefSegment;
 	}
