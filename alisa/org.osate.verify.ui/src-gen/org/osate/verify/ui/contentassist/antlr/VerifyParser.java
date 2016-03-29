@@ -331,11 +331,11 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyRefAccess().getRefAssignment_1(), "rule__PropertyRef__RefAssignment_1");
 					put(grammarAccess.getValDeclarationAccess().getNameAssignment_2(), "rule__ValDeclaration__NameAssignment_2");
 					put(grammarAccess.getValDeclarationAccess().getTypeAssignment_3_1_0(), "rule__ValDeclaration__TypeAssignment_3_1_0");
-					put(grammarAccess.getValDeclarationAccess().getTypeAssignment_3_1_1_2(), "rule__ValDeclaration__TypeAssignment_3_1_1_2");
+					put(grammarAccess.getValDeclarationAccess().getTypeAssignment_3_1_1_1(), "rule__ValDeclaration__TypeAssignment_3_1_1_1");
 					put(grammarAccess.getValDeclarationAccess().getValueAssignment_5(), "rule__ValDeclaration__ValueAssignment_5");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2(), "rule__ComputeDeclaration__NameAssignment_2");
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_4_0(), "rule__ComputeDeclaration__TypeAssignment_4_0");
-					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_4_1_2(), "rule__ComputeDeclaration__TypeAssignment_4_1_2");
+					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_4_1_1(), "rule__ComputeDeclaration__TypeAssignment_4_1_1");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getPropertyAssignment_0_1_1(), "rule__AModelOrPropertyReference__PropertyAssignment_0_1_1");
 					put(grammarAccess.getNestedModelelementAccess().getModelElementAssignment_0(), "rule__NestedModelelement__ModelElementAssignment_0");
 					put(grammarAccess.getNestedModelelementAccess().getNextAssignment_1_1(), "rule__NestedModelelement__NextAssignment_1_1");

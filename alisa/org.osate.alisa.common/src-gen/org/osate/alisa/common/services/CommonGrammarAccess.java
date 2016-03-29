@@ -425,19 +425,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeRefParserRuleCall_3_1_0_0 = (RuleCall)cTypeAssignment_3_1_0.eContents().get(0);
 		private final Group cGroup_3_1_1 = (Group)cAlternatives_3_1.eContents().get(1);
 		private final Keyword cTypeofKeyword_3_1_1_0 = (Keyword)cGroup_3_1_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_3_1_1_1 = (Keyword)cGroup_3_1_1.eContents().get(1);
-		private final Assignment cTypeAssignment_3_1_1_2 = (Assignment)cGroup_3_1_1.eContents().get(2);
-		private final RuleCall cTypePropertyRefParserRuleCall_3_1_1_2_0 = (RuleCall)cTypeAssignment_3_1_1_2.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_1_1_3 = (Keyword)cGroup_3_1_1.eContents().get(3);
+		private final Assignment cTypeAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
+		private final RuleCall cTypePropertyRefParserRuleCall_3_1_1_1_0 = (RuleCall)cTypeAssignment_3_1_1_1.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cValueAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cValueAExpressionParserRuleCall_5_0 = (RuleCall)cValueAssignment_5.eContents().get(0);
 		
 		//ValDeclaration returns AVariableDeclaration:
-		//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" "(" type=PropertyRef ")"))? "=" value=AExpression;
+		//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" "(" type=PropertyRef ")"))? "=" value=AExpression
+		//{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression
 		public Group getGroup() { return cGroup; }
 
 		//{ValDeclaration}
@@ -452,13 +450,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//(":" (type=TypeRef | "typeof" "(" type=PropertyRef ")"))?
+		//(":" (type=TypeRef | "typeof" type=PropertyRef))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//":"
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//type=TypeRef | "typeof" "(" type=PropertyRef ")"
+		//type=TypeRef | "typeof" type=PropertyRef
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//type=TypeRef
@@ -467,23 +465,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeRef
 		public RuleCall getTypeTypeRefParserRuleCall_3_1_0_0() { return cTypeTypeRefParserRuleCall_3_1_0_0; }
 
-		//"typeof" "(" type=PropertyRef ")"
+		//"typeof" type=PropertyRef
 		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
 		//"typeof"
 		public Keyword getTypeofKeyword_3_1_1_0() { return cTypeofKeyword_3_1_1_0; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_3_1_1_1() { return cLeftParenthesisKeyword_3_1_1_1; }
-
 		//type=PropertyRef
-		public Assignment getTypeAssignment_3_1_1_2() { return cTypeAssignment_3_1_1_2; }
+		public Assignment getTypeAssignment_3_1_1_1() { return cTypeAssignment_3_1_1_1; }
 
 		//PropertyRef
-		public RuleCall getTypePropertyRefParserRuleCall_3_1_1_2_0() { return cTypePropertyRefParserRuleCall_3_1_1_2_0; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_3_1_1_3() { return cRightParenthesisKeyword_3_1_1_3; }
+		public RuleCall getTypePropertyRefParserRuleCall_3_1_1_1_0() { return cTypePropertyRefParserRuleCall_3_1_1_1_0; }
 
 		//"="
 		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
@@ -508,16 +500,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTypeRefParserRuleCall_4_0_0 = (RuleCall)cTypeAssignment_4_0.eContents().get(0);
 		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
 		private final Keyword cTypeofKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_4_1_1 = (Keyword)cGroup_4_1.eContents().get(1);
-		private final Assignment cTypeAssignment_4_1_2 = (Assignment)cGroup_4_1.eContents().get(2);
-		private final RuleCall cTypePropertyRefParserRuleCall_4_1_2_0 = (RuleCall)cTypeAssignment_4_1_2.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4_1_3 = (Keyword)cGroup_4_1.eContents().get(3);
+		private final Assignment cTypeAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final RuleCall cTypePropertyRefParserRuleCall_4_1_1_0 = (RuleCall)cTypeAssignment_4_1_1.eContents().get(0);
 		
 		//ComputeDeclaration returns AVariableDeclaration:
-		//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")");
+		//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef);
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")")
+		//{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef)
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
@@ -535,7 +525,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//type=TypeRef | "typeof" "(" type=PropertyRef ")"
+		//type=TypeRef | "typeof" type=PropertyRef
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//type=TypeRef
@@ -544,23 +534,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeRef
 		public RuleCall getTypeTypeRefParserRuleCall_4_0_0() { return cTypeTypeRefParserRuleCall_4_0_0; }
 
-		//"typeof" "(" type=PropertyRef ")"
+		//"typeof" type=PropertyRef
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
 		//"typeof"
 		public Keyword getTypeofKeyword_4_1_0() { return cTypeofKeyword_4_1_0; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_4_1_1() { return cLeftParenthesisKeyword_4_1_1; }
-
 		//type=PropertyRef
-		public Assignment getTypeAssignment_4_1_2() { return cTypeAssignment_4_1_2; }
+		public Assignment getTypeAssignment_4_1_1() { return cTypeAssignment_4_1_1; }
 
 		//PropertyRef
-		public RuleCall getTypePropertyRefParserRuleCall_4_1_2_0() { return cTypePropertyRefParserRuleCall_4_1_2_0; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
+		public RuleCall getTypePropertyRefParserRuleCall_4_1_1_0() { return cTypePropertyRefParserRuleCall_4_1_1_0; }
 	}
 
 	public class AModelOrPropertyReferenceElements extends AbstractParserRuleElementFinder {
@@ -2450,7 +2434,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValDeclaration returns AVariableDeclaration:
-	//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" "(" type=PropertyRef ")"))? "=" value=AExpression;
+	//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression;
 	public ValDeclarationElements getValDeclarationAccess() {
 		return pValDeclaration;
 	}
@@ -2460,7 +2444,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration returns AVariableDeclaration:
-	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" "(" type=PropertyRef ")");
+	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef);
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}
