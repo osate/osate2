@@ -219,9 +219,9 @@ EMV2PropertyAssociation returns EMV2PropertyAssociation:
 	 ownedValues+=OptionalModalPropertyValue
 	( ',' ownedValues+=OptionalModalPropertyValue )*
 	)
-	'applies' 'to' (
+	('applies' 'to' (
 		emv2Path+=EMV2Path ( ',' emv2Path+=EMV2Path)*
-	)
+	))?
 	';';
 
 BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
@@ -231,7 +231,7 @@ BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
 	 ownedValues+=OptionalModalPropertyValue
 	( ',' ownedValues+=OptionalModalPropertyValue )*
 	)
-	'applies' 'to' (emv2Path+=BasicEMV2Path ( ',' emv2Path+=BasicEMV2Path)*)
+	('applies' 'to' (emv2Path+=BasicEMV2Path ( ',' emv2Path+=BasicEMV2Path)*))?
 	';';
 	
 EMV2Path returns EMV2Path:

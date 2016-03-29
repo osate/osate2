@@ -84,13 +84,39 @@ public class EMLinkingService extends PropertiesLinkingService {
 		final Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
+			Element cxtElement = (Element) context;
+			FeatureGroupType cxtFGT = null;
+			String epFGPrefix = "";
 			if (context instanceof ContainmentPathElement) {
 				// containment path element: sequence of subcomponents
 				Classifier cxtClassifier = EMV2Util.getAssociatedClassifier(((ContainmentPathElement) context));
-				if (context.eContainer() instanceof ContainmentPathElement) {
+				EObject previous = context.eContainer();
+				if (previous instanceof ContainmentPathElement) {
 					// deal with feature groups and features as identifiers of error propagations
-					NamedElement ne = ((ContainmentPathElement) context.eContainer()).getNamedElement();
-					if (ne instanceof Subcomponent) {
+					NamedElement ne = ((ContainmentPathElement) previous).getNamedElement();
+					if (ne instanceof FeatureGroup) {
+						FeatureGroup fg = (FeatureGroup) ne;
+						cxtFGT = fg.getAllFeatureGroupType();
+						EObject obj = previous;
+						while (obj instanceof EMV2PathElement) {
+							NamedElement prevne = ((EMV2PathElement) obj).getNamedElement();
+							if (prevne instanceof FeatureGroup) {
+								epFGPrefix = ((FeatureGroup) prevne).getName() + "." + epFGPrefix;
+							} else {
+								break;
+							}
+							obj = obj.eContainer();
+						}
+					} else if (ne instanceof ErrorPropagation) {
+						// we resolved previous entry to an error propagation
+						// It may represent the context of the feature, e.g., when both the fg and the feature have an error propagation
+						Feature f = EMV2Util.getFeature((ErrorPropagation) ne);
+						if (f instanceof FeatureGroup) {
+							cxtFGT = ((FeatureGroup) f).getAllFeatureGroupType();
+							epFGPrefix = EMV2Util.getPropagationName((ErrorPropagation) ne);
+						}
+						cxtElement = ne;
+					} else if (ne instanceof Subcomponent) {
 						// use the last component on the path as context for lookup of error model elements
 						ComponentClassifier cxtPathComp = ((Subcomponent) ne).getAllClassifier();
 						if (cxtPathComp != null) {
@@ -108,9 +134,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 				EObject previous = context.eContainer();
 				// the default context element is the EMV2PathElement
 				// It is used for lookup in an EMV2 library context
-				Element cxtElement = (Element) context;
-				FeatureGroupType cxtFGT = null;
-				String epFGPrefix = "";
 				if (previous instanceof EMV2PathElement) {
 					// deal with feature groups and features as identifiers of error propagations
 					NamedElement ne = ((EMV2PathElement) previous).getNamedElement();
@@ -173,6 +196,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 						}
 					}
 				}
+			}
+			if (context instanceof ContainmentPathElement || context instanceof EMV2PathElement) {
 				// The find methods understand if they are in a subclause
 				// first we look for error propagations. This may resolve a feature group as propagation point.
 				searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
@@ -250,7 +275,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (searchResult != null) {
 					return Collections.singletonList(searchResult);
 				}
-				// EMV2 path element
+				// EMV2 path element or containment path element
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
 
 				Classifier ns = EMV2Util.getAssociatedClassifier(cxt);

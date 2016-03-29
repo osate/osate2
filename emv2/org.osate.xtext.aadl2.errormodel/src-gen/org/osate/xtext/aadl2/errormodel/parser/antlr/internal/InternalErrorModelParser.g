@@ -2350,20 +2350,20 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
 	    }
 
 )
-))*)
+))*)(
 	otherlv_5=Applies
     {
-    	newLeafNode(otherlv_5, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getEMV2PropertyAssociationAccess().getAppliesKeyword_3_0());
     }
 
 	otherlv_6=To
     {
-    	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getEMV2PropertyAssociationAccess().getToKeyword_3_1());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_2_0_0()); 
 	    }
 		lv_emv2Path_7_0=ruleEMV2Path		{
 	        if ($current==null) {
@@ -2381,12 +2381,12 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
 )(
 	otherlv_8=Comma
     {
-    	newLeafNode(otherlv_8, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_5_1_0());
+    	newLeafNode(otherlv_8, grammarAccess.getEMV2PropertyAssociationAccess().getCommaKeyword_3_2_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEMV2PropertyAssociationAccess().getEmv2PathEMV2PathParserRuleCall_3_2_1_1_0()); 
 	    }
 		lv_emv2Path_9_0=ruleEMV2Path		{
 	        if ($current==null) {
@@ -2401,10 +2401,10 @@ ruleEMV2PropertyAssociation returns [EObject current=null]
 	    }
 
 )
-))*)
+))*))?
 	otherlv_10=Semicolon
     {
-    	newLeafNode(otherlv_10, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_6());
+    	newLeafNode(otherlv_10, grammarAccess.getEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
     }
 )
 ;
@@ -2488,20 +2488,20 @@ ruleBasicEMV2PropertyAssociation returns [EObject current=null]
 	    }
 
 )
-))*)
+))*)(
 	otherlv_5=Applies
     {
-    	newLeafNode(otherlv_5, grammarAccess.getBasicEMV2PropertyAssociationAccess().getAppliesKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getBasicEMV2PropertyAssociationAccess().getAppliesKeyword_3_0());
     }
 
 	otherlv_6=To
     {
-    	newLeafNode(otherlv_6, grammarAccess.getBasicEMV2PropertyAssociationAccess().getToKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getBasicEMV2PropertyAssociationAccess().getToKeyword_3_1());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_2_0_0()); 
 	    }
 		lv_emv2Path_7_0=ruleBasicEMV2Path		{
 	        if ($current==null) {
@@ -2519,12 +2519,12 @@ ruleBasicEMV2PropertyAssociation returns [EObject current=null]
 )(
 	otherlv_8=Comma
     {
-    	newLeafNode(otherlv_8, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_5_1_0());
+    	newLeafNode(otherlv_8, grammarAccess.getBasicEMV2PropertyAssociationAccess().getCommaKeyword_3_2_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_5_1_1_0()); 
+	        newCompositeNode(grammarAccess.getBasicEMV2PropertyAssociationAccess().getEmv2PathBasicEMV2PathParserRuleCall_3_2_1_1_0()); 
 	    }
 		lv_emv2Path_9_0=ruleBasicEMV2Path		{
 	        if ($current==null) {
@@ -2539,10 +2539,10 @@ ruleBasicEMV2PropertyAssociation returns [EObject current=null]
 	    }
 
 )
-))*)
+))*))?
 	otherlv_10=Semicolon
     {
-    	newLeafNode(otherlv_10, grammarAccess.getBasicEMV2PropertyAssociationAccess().getSemicolonKeyword_6());
+    	newLeafNode(otherlv_10, grammarAccess.getBasicEMV2PropertyAssociationAccess().getSemicolonKeyword_4());
     }
 )
 ;
