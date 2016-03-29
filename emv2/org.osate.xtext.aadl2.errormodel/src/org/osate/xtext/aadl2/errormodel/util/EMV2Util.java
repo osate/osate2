@@ -23,6 +23,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
@@ -2884,8 +2885,9 @@ public class EMV2Util {
 			}
 			fref = fref.getNext();
 		}
-		if (f instanceof Feature) {
-			featuredir = AadlUtil.getDirectionType((Feature) f);
+
+		if (f instanceof DirectedFeature) {
+			featuredir = ((DirectedFeature) f).getDirection();
 			if (inverse) {
 				return featuredir.getInverseDirection();
 			} else {
