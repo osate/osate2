@@ -38,8 +38,6 @@ import static extension java.util.Collections.singletonList
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
-import static extension org.osate.xtext.aadl2.instance.scoping.InstanceScopeProvider.getComponentClassifierReferenceElements
-import static extension org.osate.xtext.aadl2.instance.scoping.InstanceScopeProvider.getImplReferenceElements
 
 class InstanceLinkingService extends DefaultLinkingService {
 	val extension InstancePackage = InstancePackage.eINSTANCE
@@ -303,5 +301,13 @@ class InstanceLinkingService extends DefaultLinkingService {
 		if (index < list.size) {
 			list.get(index)
 		}
+	}
+	
+	def private static getComponentClassifierReferenceElements(ComponentClassifier classifier) {
+		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name != null]
+	}
+	
+	def private static getImplReferenceElements(ComponentImplementation impl) {
+		impl.componentClassifierReferenceElements + impl.ownedSubcomponents + impl.ownedInternalFeatures + impl.ownedProcessorFeatures
 	}
 }
