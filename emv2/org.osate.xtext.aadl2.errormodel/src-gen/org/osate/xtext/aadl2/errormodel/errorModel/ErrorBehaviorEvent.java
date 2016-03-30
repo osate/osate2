@@ -14,6 +14,5 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface ErrorBehaviorEvent extends NamedElement, EventOrPropagation
-{
+public interface ErrorBehaviorEvent extends NamedElement, EventOrPropagation {
 } // ErrorBehaviorEvent

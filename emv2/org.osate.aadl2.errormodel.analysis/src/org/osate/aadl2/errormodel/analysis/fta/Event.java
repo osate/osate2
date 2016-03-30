@@ -14,8 +14,7 @@ public class Event {
 	protected String identifier;
 	protected Event parent;
 
-	public static void init ()
-	{
+	public static void init() {
 		generalId = 0;
 	}
 
