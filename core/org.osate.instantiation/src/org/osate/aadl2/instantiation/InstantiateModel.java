@@ -39,6 +39,8 @@
  */
 package org.osate.aadl2.instantiation;
 
+import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,7 +71,6 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -102,7 +103,6 @@ import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RecordValue;
@@ -133,7 +133,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
-import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 /**
  * This class implements the instantiation of models from a root system impl.
@@ -201,8 +200,8 @@ public class InstantiateModel {
 	public InstantiateModel(final IProgressMonitor pm) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
-		errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
-				AadlConstants.INSTANTIATION_OBJECT_MARKER));
+		errManager = new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER));
 		monitor = pm;
 	}
 
@@ -239,8 +238,8 @@ public class InstantiateModel {
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
-						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+				new AnalysisErrorReporterManager(
+						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
@@ -264,12 +263,13 @@ public class InstantiateModel {
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
+		res.getContents().clear();
 		res.unload();
 		OsateResourceUtil.refreshResourceSet();
 		ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
-						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+				new AnalysisErrorReporterManager(
+						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
 
 		return root;
@@ -295,11 +295,11 @@ public class InstantiateModel {
 		}
 		OsateResourceUtil.refreshResourceSet();
 		for (int i = 0; i < instanceRoots.size(); i++) {
-			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(
-					instanceRoots.get(i), true);
+			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet()
+					.getEObject(instanceRoots.get(i), true);
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
-							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+					new AnalysisErrorReporterManager(
+							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i));
 			instantiateModel.createSystemInstance(ci, res);
 		}
@@ -921,10 +921,8 @@ public class InstantiateModel {
 
 			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
 			if (ic.classifier == null) {
-				errManager
-						.error(fi,
-								"Could not resolve feature group type of feature group prototype "
-										+ fi.getInstanceObjectPath());
+				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
+						+ fi.getInstanceObjectPath());
 				return;
 			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
 				// prototype has not been bound yet
@@ -1160,7 +1158,8 @@ public class InstantiateModel {
 			List<PropertyExpression> patterns, int offset, List<Integer> srcSizes, int srcOffset,
 			List<Integer> dstSizes, int dstOffset, List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
-		if (patterns != null ? offset >= patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
+		if (patterns != null ? offset >= patterns.size()
+				: srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
 			return result;
 		}
@@ -1301,8 +1300,8 @@ public class InstantiateModel {
 				} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
-						dstIndices.add(i == srcSizes.get(srcOffset) ? 2
-								: (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
+						dstIndices
+								.add(i == srcSizes.get(srcOffset) ? 2 : (i == srcSizes.get(srcOffset) - 1 ? 1 : i + 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1311,8 +1310,8 @@ public class InstantiateModel {
 				} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
 					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 						srcIndices.add(i);
-						dstIndices.add(i == 2 ? srcSizes.get(srcOffset)
-								: (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
+						dstIndices
+								.add(i == 2 ? srcSizes.get(srcOffset) : (i == 1 ? srcSizes.get(srcOffset) - 1 : i - 1));
 						result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes,
 								srcOffset + 1, dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
@@ -1360,9 +1359,8 @@ public class InstantiateModel {
 
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name)
-					&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
-							"Communication_Properties")) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name) && ((PropertySet) pa.getProperty().getOwner())
+					.getName().equalsIgnoreCase("Communication_Properties")) {
 				return pa;
 			}
 		}
@@ -1373,15 +1371,14 @@ public class InstantiateModel {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
 			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
 				if (pa.getProperty().getName().equalsIgnoreCase("Index_Offset")
-						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
-								"Communication_Properties")) {
+						&& ((PropertySet) pa.getProperty().getOwner()).getName()
+								.equalsIgnoreCase("Communication_Properties")) {
 					return ((ListValue) pa.getOwnedValues().get(0).getOwnedValue()).getOwnedListElements();
 				}
 			}
 		}
 		return null;
 	}
-
 
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
@@ -1488,8 +1485,8 @@ public class InstantiateModel {
 		if (srcIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
-			errManager
-					.error(newConn, "Source indices " + srcIndices + " do not match source dimension " + sizes.size());
+			errManager.error(newConn,
+					"Source indices " + srcIndices + " do not match source dimension " + sizes.size());
 		}
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, srcIndices, true);
 		names.clear();
@@ -1499,8 +1496,8 @@ public class InstantiateModel {
 		if (dstIndices.size() != sizes.size() &&
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
-			errManager.error(newConn, "Destination indices " + dstIndices + " do not match destination dimension "
-					+ sizes.size());
+			errManager.error(newConn,
+					"Destination indices " + dstIndices + " do not match destination dimension " + sizes.size());
 		}
 		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
 		if (src == null) {
@@ -1521,8 +1518,8 @@ public class InstantiateModel {
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
 
-		ConnectionInstance duplicate = (ConnectionInstance) AadlUtil.findNamedElementInList(conni
-				.getContainingComponentInstance().getConnectionInstances(), sb.toString());
+		ConnectionInstance duplicate = (ConnectionInstance) AadlUtil
+				.findNamedElementInList(conni.getContainingComponentInstance().getConnectionInstances(), sb.toString());
 		if (duplicate != null && duplicate != conni) { // conni will be removed later
 			errManager.warning(newConn, "There is already another connection between the same endpoints");
 		}
@@ -1598,8 +1595,8 @@ public class InstantiateModel {
 				targetConnRef.setSource(target);
 			} else if (src instanceof FeatureInstance) {
 				// re-resolve the source feature
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
-						target.getFeatureInstances(), src.getName(), idx);
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil
+						.findNamedElementInList(target.getFeatureInstances(), src.getName(), idx);
 				if (found == null) {
 					Element parent = src.getOwner();
 					if (parent instanceof FeatureInstance) {
@@ -1618,7 +1615,8 @@ public class InstantiateModel {
 				ConnectionInstanceEnd outerSrc = outerConnRef.getSource();
 				targetConnRef.setContext(outerSrc.getComponentInstance());
 				// we are not at the top so we fix up the upper end of the connection reference
-				if ((dst.getOwner() instanceof ComponentInstance) && dst.getName().equalsIgnoreCase(outerSrc.getName())) {
+				if ((dst.getOwner() instanceof ComponentInstance)
+						&& dst.getName().equalsIgnoreCase(outerSrc.getName())) {
 					targetConnRef.setDestination(outerSrc);
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
@@ -1643,8 +1641,8 @@ public class InstantiateModel {
 				targetConnRef.setDestination(target);
 			} else if (dst instanceof FeatureInstance) {
 				// re-resolve the source feature
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(
-						target.getFeatureInstances(), dst.getName(), idx);
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil
+						.findNamedElementInList(target.getFeatureInstances(), dst.getName(), idx);
 				if (found == null) {
 					Element parent = dst.getOwner();
 					if (parent instanceof FeatureInstance) {
@@ -1662,7 +1660,8 @@ public class InstantiateModel {
 				ConnectionInstanceEnd outerDst = outerConnRef.getDestination();
 				targetConnRef.setContext(outerDst.getComponentInstance());
 				// we are not at the top so we fix up the upper end of the connection reference
-				if ((src.getOwner() instanceof ComponentInstance) && src.getName().equalsIgnoreCase(outerDst.getName())) {
+				if ((src.getOwner() instanceof ComponentInstance)
+						&& src.getName().equalsIgnoreCase(outerDst.getName())) {
 					targetConnRef.setSource(outerDst);
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
@@ -1843,7 +1842,6 @@ public class InstantiateModel {
 		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);
 	}
 
-
 	// --------------------------------------------------------------------------------------------
 	// Methods related to properties
 	// --------------------------------------------------------------------------------------------
@@ -1948,13 +1946,13 @@ public class InstantiateModel {
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
-			// OsateDebug.osateDebug ("[InstantiateModel]    ao=" + ao);
+			// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
 			if (ao instanceof PropertyAssociation) {
 				// OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
 				Property pd = ((PropertyAssociation) ao).getProperty();
-				// OsateDebug.osateDebug ("[InstantiateModel]    pd=" + pd);
+				// OsateDebug.osateDebug ("[InstantiateModel] pd=" + pd);
 
 				if (pd != null) {
 //					OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
