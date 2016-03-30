@@ -47,8 +47,8 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 		public AutoUnindentComponentContentsEditStrategy newInstance(String terminal, String indentationString) {
 			indentationString = indentationString == null ? indentationInformation.getIndentString()
 					: indentationString;
-			AutoUnindentComponentContentsEditStrategy strategy = new AutoUnindentComponentContentsEditStrategy(
-					terminal, indentationString);
+			AutoUnindentComponentContentsEditStrategy strategy = new AutoUnindentComponentContentsEditStrategy(terminal,
+					indentationString);
 			injector.injectMembers(strategy);
 			return strategy;
 		}

@@ -100,8 +100,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			@Override
 			public String caseSystemInstance(final SystemInstance si) {
 				monitor.subTask("Caching system instance contained property associations");
-				processContainedPropertyAssociations(si, si, si.getComponentImplementation()
-						.getAllPropertyAssociations());
+				processContainedPropertyAssociations(si, si,
+						si.getComponentImplementation().getAllPropertyAssociations());
 				return DONE;
 			}
 
@@ -124,8 +124,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 					processContainedPropertyAssociations(ci, ci, cimpl.getAllPropertyAssociations());
 				}
 
-				processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, ci.getSubcomponent()
-						.getOwnedPropertyAssociations());
+				processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci,
+						ci.getSubcomponent().getOwnedPropertyAssociations());
 				return DONE;
 			}
 
@@ -220,7 +220,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 
 					if (!ios.isEmpty()) {
 						for (InstanceObject io : ios) {
-							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+									.createPropertyAssociationInstance();
 
 							newPA.setProperty(prop);
 							newPA.setPropertyAssociation(pa);
@@ -268,23 +269,24 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			Property prop = pa.getProperty();
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
-				// OsateDebug.osateDebug ("   skip");
+				// OsateDebug.osateDebug (" skip");
 
 				continue;
 			}
-			// OsateDebug.osateDebug ("   appliesto=" + pa.getAppliesTos());
+			// OsateDebug.osateDebug (" appliesto=" + pa.getAppliesTos());
 
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
-				// OsateDebug.osateDebug ("   cpes=" + cpes);
+				// OsateDebug.osateDebug (" cpes=" + cpes);
 
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
 					for (InstanceObject io : ios) {
-						// OsateDebug.osateDebug ("   io=" + io);
+						// OsateDebug.osateDebug (" io=" + io);
 
-						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
+						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+								.createPropertyAssociationInstance();
 
 						newPA.setProperty(prop);
 						newPA.setPropertyAssociation(pa);

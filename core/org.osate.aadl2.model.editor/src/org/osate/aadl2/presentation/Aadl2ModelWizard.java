@@ -114,8 +114,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String FORMATTED_FILE_EXTENSIONS = Aadl2EditorPlugin.INSTANCE.getString(
-			"_UI_InstanceEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
+	public static final String FORMATTED_FILE_EXTENSIONS = Aadl2EditorPlugin.INSTANCE
+			.getString("_UI_InstanceEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
 
 	/**
 	 * This caches an instance of the model package.
@@ -184,8 +184,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 		this.selection = selection;
 		setWindowTitle(Aadl2EditorPlugin.INSTANCE.getString("_UI_Wizard_label")); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(Aadl2EditorPlugin.INSTANCE
-				.getImage("full/wizban/NewInstance"))); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE
+				.getImageDescriptor(Aadl2EditorPlugin.INSTANCE.getImage("full/wizban/NewInstance"))); //$NON-NLS-1$
 	}
 
 	/**
@@ -337,8 +337,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 				String extension = new Path(getFileName()).getFileExtension();
 				if (extension == null || !FILE_EXTENSIONS.contains(extension)) {
 					String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension"; //$NON-NLS-1$ //$NON-NLS-2$
-					setErrorMessage(Aadl2EditorPlugin.INSTANCE.getString(key,
-							new Object[] { FORMATTED_FILE_EXTENSIONS }));
+					setErrorMessage(
+							Aadl2EditorPlugin.INSTANCE.getString(key, new Object[] { FORMATTED_FILE_EXTENSIONS }));
 					return false;
 				}
 				return true;
@@ -557,8 +557,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 			if (encodings == null) {
 				encodings = new ArrayList<String>();
 				for (StringTokenizer stringTokenizer = new StringTokenizer(
-						Aadl2EditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens();) //$NON-NLS-1$
-				{
+						Aadl2EditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer //$NON-NLS-1$
+								.hasMoreTokens();) {
 					encodings.add(stringTokenizer.nextToken());
 				}
 			}
@@ -579,8 +579,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		newFileCreationPage = new InstanceModelWizardNewFileCreationPage("Whatever", selection); //$NON-NLS-1$
 		newFileCreationPage.setTitle(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceModelWizard_label")); //$NON-NLS-1$
 		newFileCreationPage.setDescription(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceModelWizard_description")); //$NON-NLS-1$
-		newFileCreationPage
-				.setFileName(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$ //$NON-NLS-2$
+		newFileCreationPage.setFileName(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditorFilenameDefaultBase") //$NON-NLS-1$
+				+ "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$
 		addPage(newFileCreationPage);
 
 		// Try and get the resource selection to determine a current directory for the file dialog.
@@ -619,8 +619,8 @@ public class Aadl2ModelWizard extends Wizard implements INewWizard {
 		}
 		initialObjectCreationPage = new InstanceModelWizardInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 		initialObjectCreationPage.setTitle(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceModelWizard_label")); //$NON-NLS-1$
-		initialObjectCreationPage.setDescription(Aadl2EditorPlugin.INSTANCE
-				.getString("_UI_Wizard_initial_object_description")); //$NON-NLS-1$
+		initialObjectCreationPage
+				.setDescription(Aadl2EditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description")); //$NON-NLS-1$
 		addPage(initialObjectCreationPage);
 	}
 

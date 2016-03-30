@@ -745,13 +745,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 
-				AadlPackage aadlPackage = 	EcoreUtil2.getContainerOfType(packageSection, AadlPackage.class);
+				AadlPackage aadlPackage = EcoreUtil2.getContainerOfType(packageSection, AadlPackage.class);
 				if (packageSection instanceof PublicPackageSection || aadlPackage.getPublicSection() == null) {
 					TreeIterator<EObject> packageContents = aadlPackage.eAllContents();
 					while (packageContents.hasNext()) {
 						EObject nextObject = packageContents.next();
 						PackageSection packSec = EcoreUtil2.getContainerOfType(nextObject, PackageSection.class);
-						if (packSec != null){
+						if (packSec != null) {
 							continue;
 						}
 						EList<EObject> crossReferences = nextObject.eCrossReferences();
@@ -771,7 +771,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
-				
+
 				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
 				errMsg.append(" in 'with' clause of ");
 				String publicOrPrivate = "public";

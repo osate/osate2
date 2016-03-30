@@ -7,7 +7,7 @@ import org.osate.aadl2.PropertyAssociation;
 public class PropertyEvaluationResult {
 
 	private PropertyAssociation pa;
-	
+
 	private List<EvaluatedProperty> evaluated;
 
 	public PropertyEvaluationResult(PropertyAssociation pa, List<EvaluatedProperty> evaluated) {

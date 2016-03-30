@@ -96,8 +96,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 						getResourceLocator(), getString("_UI_ClassifierFeature_featuringClassifier_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ClassifierFeature_featuringClassifier_feature", "_UI_ClassifierFeature_type"),
-				Aadl2Package.eINSTANCE.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getClassifierFeature_FeaturingClassifier(), false, false, false, null,
+						null, null));
 	}
 
 	/**
@@ -107,11 +107,11 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * @generated
 	 */
 	protected void addSpecificationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_FlowImplementation_specification_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_specification_feature",
-								"_UI_FlowImplementation_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_FlowImplementation_specification_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FlowImplementation_specification_feature",
+						"_UI_FlowImplementation_type"),
 				Aadl2Package.eINSTANCE.getFlowImplementation_Specification(), true, false, true, null, null, null));
 	}
 

@@ -262,8 +262,9 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 				@Override
 				public void run() {
 					MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							"Aadl and aaxl folders", "Could not find " + AADLPATH_FILENAME
-									+ " with AADL Build Path properties\n" + "Created " + AADLPATH_FILENAME
+							"Aadl and aaxl folders",
+							"Could not find " + AADLPATH_FILENAME + " with AADL Build Path properties\n" + "Created "
+									+ AADLPATH_FILENAME
 									+ " with project (or best guess sub folder) as Aadl and Aaxl folders.\n"
 									+ "To change the settings select Properties for project '" + projectname
 									+ "' and change AADL Build Path properties.");

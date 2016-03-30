@@ -22,12 +22,11 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Inject;
 
-
 /**
  * Modified copy of org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler
  */
-class XtextStyledTextHighlightingReconciler implements
-		ITextInputListener, IXtextModelListener, IHighlightedPositionAcceptor {
+class XtextStyledTextHighlightingReconciler
+		implements ITextInputListener, IXtextModelListener, IHighlightedPositionAcceptor {
 
 	@Inject(optional = true)
 	private ISemanticHighlightingCalculator calculator;
@@ -80,13 +79,11 @@ class XtextStyledTextHighlightingReconciler implements
 	private void reconcilePositions(XtextResource resource) {
 		// for (int i= 0, n= subtrees.length; i < n; i++)
 		// subtrees[i].accept(fCollector);
-		MergingHighlightedPositionAcceptor acceptor = new MergingHighlightedPositionAcceptor(
-				calculator);
+		MergingHighlightedPositionAcceptor acceptor = new MergingHighlightedPositionAcceptor(calculator);
 		acceptor.provideHighlightingFor(resource, this);
 		// calculator.provideHighlightingFor(resource, this);
 		List<AttributedPosition> oldPositions = removedPositions;
-		List<AttributedPosition> newPositions = new ArrayList<AttributedPosition>(
-				removedPositionCount);
+		List<AttributedPosition> newPositions = new ArrayList<AttributedPosition>(removedPositionCount);
 		for (int i = 0, n = oldPositions.size(); i < n; i++) {
 			AttributedPosition current = oldPositions.get(i);
 			if (current != null)
@@ -107,9 +104,8 @@ class XtextStyledTextHighlightingReconciler implements
 	 *            The highlighting
 	 */
 	public void addPosition(int offset, int length, String... ids) {
-		TextAttribute highlighting = ids.length == 1 ? attributeProvider
-				.getAttribute(ids[0]) : attributeProvider
-				.getMergedAttributes(ids);
+		TextAttribute highlighting = ids.length == 1 ? attributeProvider.getAttribute(ids[0])
+				: attributeProvider.getMergedAttributes(ids);
 		boolean isExisting = false;
 		// TODO: use binary search
 		for (int i = 0, n = removedPositions.size(); i < n; i++) {
@@ -125,8 +121,7 @@ class XtextStyledTextHighlightingReconciler implements
 		}
 
 		if (!isExisting) {
-			AttributedPosition position = presenter.createHighlightedPosition(
-					offset, length, highlighting);
+			AttributedPosition position = presenter.createHighlightedPosition(offset, length, highlighting);
 			addedPositions.add(position);
 		}
 	}
@@ -141,11 +136,9 @@ class XtextStyledTextHighlightingReconciler implements
 	 * @param removedPositions
 	 *            the removed positions
 	 */
-	private void updatePresentation(TextPresentation textPresentation,
-			List<AttributedPosition> addedPositions,
+	private void updatePresentation(TextPresentation textPresentation, List<AttributedPosition> addedPositions,
 			List<AttributedPosition> removedPositions) {
-		Runnable runnable = presenter.createUpdateRunnable(textPresentation,
-				addedPositions, removedPositions);
+		Runnable runnable = presenter.createUpdateRunnable(textPresentation, addedPositions, removedPositions);
 		if (runnable == null)
 			return;
 
@@ -211,8 +204,7 @@ class XtextStyledTextHighlightingReconciler implements
 	 * org.eclipse.jface.text.ITextInputListener#inputDocumentAboutToBeChanged
 	 * (org.eclipse.jface.text.IDocument, org.eclipse.jface.text.IDocument)
 	 */
-	public void inputDocumentAboutToBeChanged(IDocument oldInput,
-			IDocument newInput) {
+	public void inputDocumentAboutToBeChanged(IDocument oldInput, IDocument newInput) {
 		if (oldInput != null)
 			((IXtextDocument) oldInput).removeModelListener(this);
 	}
@@ -234,14 +226,12 @@ class XtextStyledTextHighlightingReconciler implements
 	 */
 	public void refresh() {
 		if (calculator != null) {
-			styledTextXtextAdapter.getXtextDocument().readOnly(
-					new IUnitOfWork.Void<XtextResource>() {
-						@Override
-						public void process(XtextResource state)
-								throws Exception {
-							modelChanged(state);
-						}
-					});
+			styledTextXtextAdapter.getXtextDocument().readOnly(new IUnitOfWork.Void<XtextResource>() {
+				@Override
+				public void process(XtextResource state) throws Exception {
+					modelChanged(state);
+				}
+			});
 		} else {
 			Display display = Display.getDefault();
 			display.asyncExec(presenter.createSimpleUpdateRunnable());
@@ -273,13 +263,11 @@ class XtextStyledTextHighlightingReconciler implements
 
 			final TextPresentation[] textPresentation = new TextPresentation[1];
 			if (!highlightingPresenter.isCanceled()) {
-				textPresentation[0] = highlightingPresenter.createPresentation(
-						addedPositions, removedPositions);
+				textPresentation[0] = highlightingPresenter.createPresentation(addedPositions, removedPositions);
 			}
 
 			if (!highlightingPresenter.isCanceled())
-				updatePresentation(textPresentation[0], addedPositions,
-						removedPositions);
+				updatePresentation(textPresentation[0], addedPositions, removedPositions);
 
 			stopReconcilingPositions();
 		} finally {

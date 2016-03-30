@@ -200,8 +200,8 @@ public class LoggerView extends ViewPart implements Adapter {
 		};
 		reset.setText("Clear");
 		reset.setToolTipText("Clear the Osate Log");
-		reset.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+		reset.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 
 		refresh = new Action() {
 			@Override
@@ -211,8 +211,8 @@ public class LoggerView extends ViewPart implements Adapter {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh the Osate Log");
-		refresh.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
+		refresh.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
 		doubleClickAction = new Action() {
 			@Override
 			public void run() {

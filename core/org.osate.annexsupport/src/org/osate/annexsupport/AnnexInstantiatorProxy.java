@@ -76,8 +76,8 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 		try {
 			instantiator = (AnnexInstantiator) configElem.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			AnnexPlugin.logError("Failed to instantiate " + annexName + " instantiator " + className + " in type: "
-					+ id + " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+			AnnexPlugin.logError("Failed to instantiate " + annexName + " instantiator " + className + " in type: " + id
+					+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
 		}
 		return instantiator;
 	}

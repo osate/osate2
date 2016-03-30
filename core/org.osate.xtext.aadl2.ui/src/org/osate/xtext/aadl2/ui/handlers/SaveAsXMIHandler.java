@@ -135,8 +135,8 @@ public class SaveAsXMIHandler extends AbstractHandler {
 							@Override
 							protected void doExecute() {
 
-								URI xmiuri = xtxturi.trimFileExtension().appendFileExtension(
-										WorkspacePlugin.MODEL_FILE_EXT);
+								URI xmiuri = xtxturi.trimFileExtension()
+										.appendFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
 								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory.createResource(xmiuri);
 								aaxlresource.getContents().add(eobject);

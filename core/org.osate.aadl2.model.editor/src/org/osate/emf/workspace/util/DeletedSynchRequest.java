@@ -34,12 +34,12 @@ class DeletedSynchRequest extends SynchRequest {
 	DeletedSynchRequest(WorkspaceSynchronizer synch, Resource resource) {
 		super(synch, resource);
 	}
-	
+
 	@Override
 	protected void doPerform() {
 		if (!synch.getDelegate().handleResourceDeleted(resource)) {
 			// note that if our delegate is the default, it
-			//     will always return true
+			// will always return true
 			WorkspaceSynchronizer.defaultDelegate.handleResourceDeleted(resource);
 		}
 	}

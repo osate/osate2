@@ -124,11 +124,11 @@ public class AccessSpecificationItemProvider extends FeaturePrototypeActualItemP
 	 * @generated
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_AccessSpecification_classifier_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_AccessSpecification_classifier_feature",
-								"_UI_AccessSpecification_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_AccessSpecification_classifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_AccessSpecification_classifier_feature",
+						"_UI_AccessSpecification_type"),
 				Aadl2Package.eINSTANCE.getAccessSpecification_Classifier(), true, false, true, null, null, null));
 	}
 
@@ -144,8 +144,8 @@ public class AccessSpecificationItemProvider extends FeaturePrototypeActualItemP
 						getResourceLocator(), getString("_UI_AccessSpecification_componentPrototype_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_AccessSpecification_componentPrototype_feature", "_UI_AccessSpecification_type"),
-				Aadl2Package.eINSTANCE.getAccessSpecification_ComponentPrototype(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getAccessSpecification_ComponentPrototype(), true, false, true, null,
+						null, null));
 	}
 
 	/**

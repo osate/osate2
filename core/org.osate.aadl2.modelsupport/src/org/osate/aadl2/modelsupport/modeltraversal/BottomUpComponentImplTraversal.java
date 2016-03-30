@@ -171,7 +171,8 @@ final class BottomUpComponentImplTraversal extends AbstractTraversal {
 	 */
 	private void addUsageReferences(ComponentImplementation aobj, EList<ComponentImplementation> encl,
 			EList<ComponentImplementation> allci) {
-		for (Iterator<ComponentImplementation> all = allci.iterator(); processingMethod.notCancelled() && all.hasNext();) {
+		for (Iterator<ComponentImplementation> all = allci.iterator(); processingMethod.notCancelled()
+				&& all.hasNext();) {
 			final ComponentImplementation ci = all.next();
 			final EList<Subcomponent> sublist = ci.getAllSubcomponents();
 			addUsageReferencesSubcomponents(sublist, encl, aobj, ci);
@@ -186,8 +187,8 @@ final class BottomUpComponentImplTraversal extends AbstractTraversal {
 		}
 	}
 
-	private void addUsageReferencesSubcomponents(final EList<Subcomponent> sublist,
-			EList<ComponentImplementation> encl, ComponentImplementation aobj, final ComponentImplementation ci) {
+	private void addUsageReferencesSubcomponents(final EList<Subcomponent> sublist, EList<ComponentImplementation> encl,
+			ComponentImplementation aobj, final ComponentImplementation ci) {
 		for (Iterator<Subcomponent> it = sublist.iterator(); it.hasNext();) {
 			final Subcomponent sc = it.next();
 			final ComponentClassifier cc = sc.getAllClassifier();

@@ -156,8 +156,8 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	public final EList visitWorkspaceInstanceModels() {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile file : files) {
-			SystemInstance target = (SystemInstance) Platform.getAdapterManager()
-					.getAdapter(file, SystemInstance.class);
+			SystemInstance target = (SystemInstance) Platform.getAdapterManager().getAdapter(file,
+					SystemInstance.class);
 			if (target != null) {
 				visitRoot(target);
 			}

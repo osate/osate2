@@ -30,8 +30,8 @@ public class DummyXtextDocument extends DummyDocument implements IXtextDocument 
 	}
 
 	@Override
-	public void addPosition(String category, Position position) throws BadLocationException,
-			BadPositionCategoryException {
+	public void addPosition(String category, Position position)
+			throws BadLocationException, BadPositionCategoryException {
 	}
 
 	@Override

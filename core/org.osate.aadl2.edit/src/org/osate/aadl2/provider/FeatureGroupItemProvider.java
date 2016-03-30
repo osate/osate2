@@ -137,11 +137,11 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addFeatureGroupPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_FeatureGroup_featureGroupPrototype_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_FeatureGroup_featureGroupPrototype_feature", "_UI_FeatureGroup_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_FeatureGroup_featureGroupPrototype_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroup_featureGroupPrototype_feature",
+						"_UI_FeatureGroup_type"),
 				Aadl2Package.eINSTANCE.getFeatureGroup_FeatureGroupPrototype(), false, false, false, null, null, null));
 	}
 

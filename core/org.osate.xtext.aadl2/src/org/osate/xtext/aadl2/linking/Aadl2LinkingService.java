@@ -127,8 +127,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				if (annexlinkingserviceregistry != null) {
 					AnnexLinkingService linkingservice = annexlinkingserviceregistry.getAnnexLinkingService(annexName);
 					if (linkingservice != null) {
-						List<EObject> result = linkingservice
-								.resolveAnnexReference(annexName, context, reference, node);
+						List<EObject> result = linkingservice.resolveAnnexReference(annexName, context, reference,
+								node);
 						if (!result.isEmpty()) {
 							return result;
 						}
@@ -210,12 +210,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
-			if (context instanceof ModeTransitionTrigger){
-			ModeTransitionTrigger trigger = (ModeTransitionTrigger) context;
-			TriggerPort triggerPort = findElementInContext(trigger, trigger.getContext(), name, TriggerPort.class);
-			if (triggerPort != null) {
-				return Collections.singletonList((EObject) triggerPort);
-			}
+			if (context instanceof ModeTransitionTrigger) {
+				ModeTransitionTrigger trigger = (ModeTransitionTrigger) context;
+				TriggerPort triggerPort = findElementInContext(trigger, trigger.getContext(), name, TriggerPort.class);
+				if (triggerPort != null) {
+					return Collections.singletonList((EObject) triggerPort);
+				}
 			}
 			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
@@ -399,7 +399,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getEndToEndFlowElement() == requiredType) {
 			// look for flow element in flow segment
 			EndToEndFlowSegment fs = (EndToEndFlowSegment) context;
-			EndToEndFlowElement flowElement = findElementInContext(fs, fs.getContext(), name, EndToEndFlowElement.class);
+			EndToEndFlowElement flowElement = findElementInContext(fs, fs.getContext(), name,
+					EndToEndFlowElement.class);
 			if (flowElement != null) {
 				return Collections.singletonList((EObject) flowElement);
 			}
@@ -515,9 +516,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			if (Platform.isRunning()) {
 				PredeclaredProperties.initPluginContributedAadl();
 			}
-			Resource rsrc = OsateResourceUtil.getResource(URI
-					.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME
-							+ "/AADL_Project.aadl"));
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(
+					PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + "/AADL_Project.aadl"));
 			eInstance = (Aadl2LinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
 		}
 		return eInstance;

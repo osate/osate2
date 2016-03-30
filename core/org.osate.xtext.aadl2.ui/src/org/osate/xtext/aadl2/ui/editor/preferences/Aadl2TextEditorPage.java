@@ -13,7 +13,8 @@ public class Aadl2TextEditorPage extends LanguageRootPreferencePage {
 		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_INDENT, "&AutoIndent next line after keywords",
 				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_COMPLETE,
-				"Auto&Complete Package and Components with blank line and \"end\" on next line", getFieldEditorParent()));
+				"Auto&Complete Package and Components with blank line and \"end\" on next line",
+				getFieldEditorParent()));
 		addField(new BooleanFieldEditor(WorkspacePlugin.CAPITALIZE,
 				"Use &upper case instead of lower case for \"public\" and \"end\" when using auto complete above",
 				getFieldEditorParent()));

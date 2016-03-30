@@ -86,7 +86,8 @@ abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
 		 * referenced by anything, e.g., top-level systems.
 		 */
 		final EList<ComponentImplementation> cil = AadlUtil.getAllComponentImpl();
-		for (Iterator<ComponentImplementation> all = cil.iterator(); processingMethod.notCancelled() && all.hasNext();) {
+		for (Iterator<ComponentImplementation> all = cil.iterator(); processingMethod.notCancelled()
+				&& all.hasNext();) {
 			final ComponentImplementation aobj = all.next();
 			if (!hasUsageReferences(aobj, cil)) {
 				processDown(aobj, visited);
@@ -100,7 +101,8 @@ abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
 		throw new UnsupportedOperationException("Visit all the instance models in the workspace not supported.");
 	}
 
-	protected final void processDown(final ComponentImplementation cimpl, final Stack<ComponentImplementation> visited) {
+	protected final void processDown(final ComponentImplementation cimpl,
+			final Stack<ComponentImplementation> visited) {
 		/*
 		 * Avoid loops in subcomponent nesting. This only happens in
 		 * badly formed models, but we generally try to avoid it because
@@ -135,7 +137,8 @@ abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
 	protected abstract void visitSubcomponent(Subcomponent sc, Stack<ComponentImplementation> visited);
 
 	private boolean hasUsageReferences(final ComponentClassifier aobj, final EList<ComponentImplementation> allci) {
-		for (Iterator<ComponentImplementation> all = allci.iterator(); processingMethod.notCancelled() && all.hasNext();) {
+		for (Iterator<ComponentImplementation> all = allci.iterator(); processingMethod.notCancelled()
+				&& all.hasNext();) {
 			ComponentImplementation ci = all.next();
 			EList<Subcomponent> sublist = ci.getAllSubcomponents();
 			for (Iterator<Subcomponent> it = sublist.iterator(); it.hasNext();) {

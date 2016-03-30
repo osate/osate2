@@ -208,9 +208,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		} else if (selectedProjectOrFolder instanceof IFolder) {
 			filePath = ((IFolder) selectedProjectOrFolder).getFullPath();
 		}
-		return new Path(filePath.addTrailingSeparator()
-				+ newObjectCreationPage.getNewObjectName().replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR,
-						WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
+		return new Path(filePath.addTrailingSeparator() + newObjectCreationPage.getNewObjectName().replaceAll(
+				WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
 	}
 
 	/**
@@ -222,9 +221,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		IContainer selectedProjectOrFolder = newObjectCreationPage.getSelectedProjectOrFolder();
 		IPath filePath = selectedProjectOrFolder.getLocation();
 		String fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
-		return new Path(filePath.addTrailingSeparator()
-				+ newObjectCreationPage.getNewObjectName().replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR,
-						WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
+		return new Path(filePath.addTrailingSeparator() + newObjectCreationPage.getNewObjectName().replaceAll(
+				WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
 	}
 
 	private boolean addAadlSource(final IPath sourcePath) {
@@ -250,11 +248,9 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(true, true, operation);
 			try {
-				XtextEditor editor = (XtextEditor) workbench
-						.getActiveWorkbenchWindow()
-						.getActivePage()
-						.openEditor(new FileEditorInput(newFile),
-								workbench.getEditorRegistry().getDefaultEditor(sourcePath.toString()).getId());
+				XtextEditor editor = (XtextEditor) workbench.getActiveWorkbenchWindow().getActivePage().openEditor(
+						new FileEditorInput(newFile),
+						workbench.getEditorRegistry().getDefaultEditor(sourcePath.toString()).getId());
 				int offset = firstTabOffset(editor);
 				if (offset > -1) {
 					editor.selectAndReveal(offset, 0);
@@ -271,8 +267,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 						((CoreException) e.getTargetException()).getStatus());
 			} else {
 				OsateUiPlugin.log(e.getTargetException());
-				MessageDialog.openError(getContainer().getShell(), "Creation Problems", e.getTargetException()
-						.getMessage());
+				MessageDialog.openError(getContainer().getShell(), "Creation Problems",
+						e.getTargetException().getMessage());
 			}
 			return false;
 		}
@@ -480,8 +476,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			noProjectComposite.setSize(parent.getSize());
 			noProjectComposite.setLayout(new GridLayout());
 			Label noProjectLabel = new Label(noProjectComposite, SWT.NONE);
-			noProjectLabel
-					.setText("The workspace contains no projects. Before an Aadl Package or Property Set can be created you must first create a project.");
+			noProjectLabel.setText(
+					"The workspace contains no projects. Before an Aadl Package or Property Set can be created you must first create a project.");
 			if (treeItemsLength < 1) {
 				pageBook.showPage(noProjectComposite);
 			} else {

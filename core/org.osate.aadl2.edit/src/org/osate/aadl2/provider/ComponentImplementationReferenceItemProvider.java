@@ -95,8 +95,8 @@ public class ComponentImplementationReferenceItemProvider extends ElementItemPro
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ComponentImplementationReference_implementation_feature",
 								"_UI_ComponentImplementationReference_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementationReference_Implementation(), true, false, true, null,
-				null, null));
+						Aadl2Package.eINSTANCE.getComponentImplementationReference_Implementation(), true, false, true,
+						null, null, null));
 	}
 
 	/**

@@ -135,8 +135,7 @@ public class StyledTextCellEditor extends CellEditor {
 		});
 		text.addTraverseListener(new TraverseListener() {
 			public void keyTraversed(TraverseEvent e) {
-				if (e.detail == SWT.TRAVERSE_ESCAPE
-						|| e.detail == SWT.TRAVERSE_RETURN) {
+				if (e.detail == SWT.TRAVERSE_ESCAPE || e.detail == SWT.TRAVERSE_RETURN) {
 					e.doit = false;
 				}
 			}
@@ -232,8 +231,7 @@ public class StyledTextCellEditor extends CellEditor {
 		boolean newValidState = isCorrect(typedValue);
 		if (!newValidState) {
 			// try to insert the current value into the error message.
-			setErrorMessage(MessageFormat.format(getErrorMessage(),
-					new Object[] { value }));
+			setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { value }));
 		}
 		valueChanged(oldValidState, newValidState);
 	}
@@ -313,8 +311,7 @@ public class StyledTextCellEditor extends CellEditor {
 		 * TODO: check that semantics remains the same as original:
 		 * text.getCaretPosition()
 		 */
-		return text.getSelectionCount() > 0
-				|| text.getCaretOffset() < text.getCharCount();
+		return text.getSelectionCount() > 0 || text.getCaretOffset() < text.getCharCount();
 	}
 
 	/**
@@ -384,8 +381,7 @@ public class StyledTextCellEditor extends CellEditor {
 			//
 			// An exception is made for Ctrl+Enter for multi-line texts, since
 			// a default selection event is not sent in this case.
-			if (text != null && !text.isDisposed()
-					&& (text.getStyle() & SWT.MULTI) != 0) {
+			if (text != null && !text.isDisposed() && (text.getStyle() & SWT.MULTI) != 0) {
 				if ((keyEvent.stateMask & SWT.CTRL) != 0) {
 					super.keyReleaseOccured(keyEvent);
 				}

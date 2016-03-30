@@ -206,11 +206,12 @@ public class SOMChooserDialog extends Dialog {
 		for (int pathIndex = 0; pathIndex < individualModePaths.length; pathIndex++) {
 			final String[] modePathElements = individualModePaths[pathIndex].split("\\x2e");
 			if (modePathElements.length < 2) {
-				throw new IllegalArgumentException(individualModePaths[pathIndex]
-						+ " is not a valid ModeInstance path.");
+				throw new IllegalArgumentException(
+						individualModePaths[pathIndex] + " is not a valid ModeInstance path.");
 			}
 			ComponentInstance parentComponent = systemInstance;
-			for (int elementIndex = 1; parentComponent != null && elementIndex < modePathElements.length - 1; elementIndex++) {
+			for (int elementIndex = 1; parentComponent != null
+					&& elementIndex < modePathElements.length - 1; elementIndex++) {
 				final ComponentInstance childComponent = findComponentInstance(parentComponent,
 						modePathElements[elementIndex]);
 				if (childComponent == null || !componentExistsInCurrentMode(childComponent)) {
@@ -270,8 +271,9 @@ public class SOMChooserDialog extends Dialog {
 		composite.getShell().setText("Create a System Operation Mode");
 
 		Label message = new Label(composite, SWT.NONE);
-		message.setText("Enter a &name for the new SOM.  A name can consist of letters (A-Z, a-z), numbers(0-9), the dash (-),"
-				+ " or the underscore character(_):");
+		message.setText(
+				"Enter a &name for the new SOM.  A name can consist of letters (A-Z, a-z), numbers(0-9), the dash (-),"
+						+ " or the underscore character(_):");
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, false, false);
 		message.setLayoutData(layoutData);
 
@@ -470,8 +472,8 @@ public class SOMChooserDialog extends Dialog {
 					((ComboBoxCellEditor) viewer.getCellEditors()[1]).setItems(modeNames.toArray(new String[0]));
 				}
 				final ComponentInstance component = (ComponentInstance) element;
-				return property.equals(COLUMN_MODE_INSTANCE)
-						&& (selectedModes.containsKey(component) && (component instanceof SystemInstance || componentExistsInCurrentMode(component)));
+				return property.equals(COLUMN_MODE_INSTANCE) && (selectedModes.containsKey(component)
+						&& (component instanceof SystemInstance || componentExistsInCurrentMode(component)));
 			}
 		});
 		viewer.setInput(systemInstance.eResource());

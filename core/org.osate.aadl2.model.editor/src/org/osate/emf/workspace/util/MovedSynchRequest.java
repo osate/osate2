@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 class MovedSynchRequest extends SynchRequest {
 	private final URI newURI;
-	
+
 	/**
 	 * Initializes me with the synchronizer on whose behalf I perform a
 	 * synchronization and the resource whose workspace partner is moved.
@@ -37,15 +37,15 @@ class MovedSynchRequest extends SynchRequest {
 	 */
 	MovedSynchRequest(WorkspaceSynchronizer synch, Resource resource, URI newURI) {
 		super(synch, resource);
-		
+
 		this.newURI = newURI;
 	}
-	
+
 	@Override
 	protected void doPerform() {
 		if (!synch.getDelegate().handleResourceMoved(resource, newURI)) {
 			// note that if our delegate is the default, it
-			//     will always return true
+			// will always return true
 			WorkspaceSynchronizer.defaultDelegate.handleResourceMoved(resource, newURI);
 		}
 	}

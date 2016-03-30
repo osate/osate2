@@ -80,8 +80,8 @@ public class InstantiateHandler extends AbstractHandler {
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
-	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-			.getDefault().getBundle());
+	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(
+			OsateCorePlugin.getDefault().getBundle());
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -121,8 +121,8 @@ public class InstantiateHandler extends AbstractHandler {
 				}
 			}
 		} else if (activeEditor != null) {
-			XtextEditor xtextEditor = (activeEditor == null) ? null : (XtextEditor) activeEditor
-					.getAdapter(XtextEditor.class);
+			XtextEditor xtextEditor = (activeEditor == null) ? null
+					: (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
 			if (part instanceof ContentOutline) {
 				selection = ((ContentOutline) part).getSelection();
 			} else {

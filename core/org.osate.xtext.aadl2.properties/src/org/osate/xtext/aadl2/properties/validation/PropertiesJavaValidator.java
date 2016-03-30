@@ -554,21 +554,21 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
 		PackageSection containingPackageSection = EcoreUtil2.getContainerOfType(context, PackageSection.class);
-		if (containingPackageSection == null){
+		if (containingPackageSection == null) {
 			AadlPackage aadlPackage = EcoreUtil2.getContainerOfType(context, AadlPackage.class);
 			EList<ModelUnit> importedPropertySets = null;
 			PackageSection packageSection = aadlPackage.getPublicSection();
 			if (packageSection == null) {
 				packageSection = aadlPackage.getPrivateSection();
 			}
-			if (packageSection != null){
+			if (packageSection != null) {
 				importedPropertySets = packageSection.getImportedUnits();
 				for (ModelUnit importedPropertySet : importedPropertySets) {
 					if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-							&& (importedPropertySet == referenceNS
-									|| (referenceNS.getQualifiedName().equalsIgnoreCase(importedPropertySet.getQualifiedName())))) {
+							&& (importedPropertySet == referenceNS || (referenceNS.getQualifiedName()
+									.equalsIgnoreCase(importedPropertySet.getQualifiedName())))) {
 						return;
-					} 
+					}
 				}
 			}
 			if (packageSection != null) {
@@ -580,22 +580,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 						EcoreUtil.getURI(packageSection).toString());
 			} else {
 				error("The referenced property set '" + referenceNS.getName() + "' of "
-					+ (pse instanceof Property ? "property '"
-							: (pse instanceof PropertyType ? "property type '" : "property constant '"))
-					+ pse.getName() + "' is not listed in a with clause.", 
-					context, null);
+						+ (pse instanceof Property ? "property '"
+								: (pse instanceof PropertyType ? "property type '" : "property constant '"))
+						+ pse.getName() + "' is not listed in a with clause.", context, null);
 			}
 		}
 	}
 
-	
-	
 	protected void checkPropertyAssociation(PropertyAssociation pa) {
 		// type check value against type
 		Property pdef = pa.getProperty();
-		
-		checkPropertySetElementReferenceForPackageProperties(pdef, pa); 
-		
+
+		checkPropertySetElementReferenceForPackageProperties(pdef, pa);
+
 		checkPropertySetElementReference(pdef, pa);
 		if (Aadl2Util.isNull(pdef)) {
 			return;

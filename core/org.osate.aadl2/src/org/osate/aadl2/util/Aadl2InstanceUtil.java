@@ -213,7 +213,8 @@ public class Aadl2InstanceUtil {
 		return null;
 	}
 
-	public static ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref) {
+	public static ConnectionReference getNextConnectionReference(ConnectionInstance conni,
+			ConnectionReference connref) {
 		EList<ConnectionReference> crlist = conni.getConnectionReferences();
 		int idx = crlist.indexOf(connref);
 		if (idx < crlist.size() - 1) {
