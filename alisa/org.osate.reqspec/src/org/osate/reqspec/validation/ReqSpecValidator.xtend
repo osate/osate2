@@ -456,7 +456,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkRequirementShadowing(Requirement req){
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
-		val containingSysReqs = req.containingRequirements
+		val containingSysReqs = req.containingRequirementSet
 		if (containingSysReqs instanceof SystemRequirementSet){
 		val componentClassifier = containingSysReqs.target
 		val classifierParents = new ArrayList<ComponentClassifier>
@@ -497,13 +497,13 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkRequirementRefinement(Requirement req){
 		switch req {
 			case req.refinesReference.nullOrEmpty : {}
-			case req.refinesReference.head.containingRequirements === req.containingRequirements : {}
+			case req.refinesReference.head.containingRequirementSet === req.containingRequirementSet : {}
 			default : {
 				val classifierParents = new ArrayList<ComponentClassifier>
-				val reqs = req.containingRequirements
+				val reqs = req.containingRequirementSet
 				if (reqs instanceof SystemRequirementSet){
 				reqs.target.buildExtended(classifierParents)
-				val refinedreqs = req.refinesReference.head.containingRequirements
+				val refinedreqs = req.refinesReference.head.containingRequirementSet
 				if (refinedreqs instanceof SystemRequirementSet){
 				if (classifierParents.contains(refinedreqs.target)) return;
 				error("Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name + 

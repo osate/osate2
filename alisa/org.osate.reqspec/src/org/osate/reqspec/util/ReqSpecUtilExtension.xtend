@@ -69,7 +69,7 @@ class ReqSpecUtilExtension {
 		sh.getContainerOfType(Requirement)
 	}
 
-	def static containingRequirements(EObject sh) {
+	def static containingRequirementSet(EObject sh) {
 		sh.getContainerOfType(RequirementSet)
 	}
 
@@ -93,7 +93,7 @@ class ReqSpecUtilExtension {
 		}
 
 		def static getImportedGlobals(EObject context) {
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(context)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(context)
 			val sg = containingStakeholderGoals(context)
 			val res = sr?.importConstants ?: sg?.importConstants
 			res
@@ -112,7 +112,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes + sr.constants,
@@ -176,7 +176,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
@@ -199,7 +199,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForComputeReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes,

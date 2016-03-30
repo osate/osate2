@@ -184,7 +184,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
 // use delegate to get other scopes including the global scope
 		var result = delegateGetScope(context, reference) // IScope.NULLSCOPE
-		val reqs = containingRequirements(context)
+		val reqs = containingRequirementSet(context)
 		if (reqs instanceof SystemRequirementSet) {
 			val targetComponentClassifier = reqs.target
 			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.

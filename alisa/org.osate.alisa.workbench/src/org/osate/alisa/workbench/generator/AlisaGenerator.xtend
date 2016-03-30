@@ -216,7 +216,7 @@ class AlisaGenerator implements IGenerator {
 						}
 					} else {
 						val greq = incl.include as Requirement
-						val greqs = greq.containingRequirements
+						val greqs = greq.containingRequirementSet
 						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, vplan)
 						for (vp : plans) {
 							for (claim : vp.claim) {
@@ -278,7 +278,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 		var plansize = globalPlans.size
 		while (plansize > globalPlansTop) {
-			globalClaims.remove(plansize - 1)
+			globalPlans.remove(plansize - 1)
 			plansize = plansize - 1
 		}
 		var claimsize = globalClaims.size
