@@ -1,3 +1,4 @@
+import it.xsemantics.runtime.RuleFailedException
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.Aadl2Factory
@@ -23,6 +24,7 @@ import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ABinaryOperation
+import org.osate.alisa.common.common.AConditional
 import org.osate.alisa.common.common.AExpression
 import org.osate.alisa.common.common.AFunctionCall
 import org.osate.alisa.common.common.AModelReference
@@ -37,7 +39,6 @@ import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.validation.AbstractCommonValidator
-import it.xsemantics.runtime.RuleFailedException
 
 system org.osate.alisa.common.typing.CommonTypeSystem
 
@@ -218,15 +219,15 @@ from {
 			}
 		}
 		case INTDIV, case MOD: {
-			if (!(leftType instanceof AadlInteger && rightType instanceof AadlInteger)) {
+			if (!(leftType instanceof AadlInteger)) {
 				fail
-					error 'typing: one argument is not an integer'
-					source binary
+					error 'typing: argument must be an integer'
+					source binary.left
 			} else
-			if (!(leftType instanceof AadlInteger && rightType instanceof AadlInteger)) {
+			if (!(rightType instanceof AadlInteger)) {
 				fail
-					error 'typing: one argument is not an integer'
-					source binary
+					error 'typing: argument must be an integer'
+					source binary.right
 			}
 			type = Aadl2Factory.eINSTANCE.createAadlInteger
 		}
@@ -274,22 +275,62 @@ rule RangeExpression
 from {
 	G |- rangeExp.minimum : var PropertyType minType
 	G |- rangeExp.maximum : var PropertyType maxType
-	G |- minType ~~ maxType
+	
+	if (!(minType instanceof NumberType)) {
+		fail
+			error 'typing: lower bound must be numeric'
+			source rangeExp.minimum
+	}
+	if (!(maxType instanceof NumberType)) {
+		fail
+			error 'typing: upper bound must be numeric'
+			source rangeExp.maximum
+	}
+	
+	try {
+		G |- minType ~~ maxType
+	} catch (RuleFailedException e) {
+		fail
+			error "typing: lower and upper bound have different units"
+			source rangeExp
+	}
 	
 	val range = Aadl2Factory.eINSTANCE.createRangeType
-	{
-		minType instanceof AadlReal || maxType instanceof AadlReal
+	if (minType instanceof AadlReal || maxType instanceof AadlReal) {
 		range.createOwnedNumberType(Aadl2Package.eINSTANCE.aadlReal)
-		range.numberType.referencedUnitsType = (minType as NumberType).unitsType
-		type = range
-	}
-	or
-	{
+	} else {
 		range.createOwnedNumberType(Aadl2Package.eINSTANCE.aadlInteger)
-		range.numberType.referencedUnitsType = (minType as NumberType).unitsType
-		type = range
+	}
+	range.numberType.referencedUnitsType = (minType as NumberType).unitsType
+	type = range
+}
+
+rule IfExpression
+	G |- AConditional ifExp : PropertyType type
+from {
+	G |- ifExp.^if : var PropertyType ifType
+	G |- ifExp.^then : var PropertyType thenType
+	G |- ifExp.^else : var PropertyType elseType
+	
+	if (!(ifType instanceof AadlBoolean)) {
+		fail
+			error 'typing: condition must be boolean'
+			source ifExp.^if
 	}
 	
+	try {
+		G |- thenType ~~ elseType
+	} catch (RuleFailedException e) {
+		fail
+			error 'typing: then and else part must have the same type'
+			source ifExp
+	}
+	
+	if (thenType instanceof NumberType) {
+		type = combineNumeric(thenType, elseType as NumberType)
+	} else {
+		type = thenType
+	}
 }
 
 rule FunctionCall
@@ -396,7 +437,6 @@ from {
 		G |- l.propertyType ~~ r.propertyType
 	}
 }	
-
 
 
 // type compatibility
