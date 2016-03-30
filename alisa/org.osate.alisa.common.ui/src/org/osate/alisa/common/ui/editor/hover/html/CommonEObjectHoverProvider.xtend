@@ -19,46 +19,28 @@ package org.osate.alisa.common.ui.editor.hover.html;
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlString
-import org.osate.aadl2.Property
-import org.osate.alisa.common.common.ModelRef
+import org.osate.alisa.common.typing.CommonStringRepresentation
 import org.osate.alisa.common.typing.CommonTypeSystem
 
 public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
 	@Inject
 	var CommonTypeSystem cts;
+	
+	@Inject
+	var CommonStringRepresentation csr;
 
 	override def getFirstLine(EObject o) {
 		val result = cts.type(o);
 
-		if (!result.failed()) {
-			val label = getLabel(o);
-			val type = result.getValue();
-			val typename = if (type == null)
-						'no type'
-					else if (type.name == null) {
-					val owner = type.eContainer
-					if (owner instanceof Property) {
-						'typeof(' + owner.qualifiedName() + ')'
-					} else {
-						switch (type) {
-							AadlInteger: 'integer'
-							AadlReal: 'real'
-							AadlBoolean: 'boolean'
-							AadlString: 'string'
-							ModelRef: 'model element'
-						}
-					}
-				} else {
-					type.qualifiedName()
-				}
-			typename + if (label != null) ' <b>' + label + '</b>' else ''
+		if (result.failed()) {
+			'no type '
 		} else {
-			super.getFirstLine(o);
+			val label = getLabel(o)
+			val type = result.first
+			val typename = csr.string(type)
+
+			typename + if (label != null) ' <b>' + label + '</b>' else ''
 		}
 	}
 }
