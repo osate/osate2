@@ -66,10 +66,10 @@ public class PropagationGraphBackwardTraversal {
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-//	XXX		ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), targetType);
-			if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations()) // && type subset matches
-			) {
-				EObject res = handleOutgoingErrorPropagationCondition(component, opc, type);
+			ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), type);
+			if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+					&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
+				EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
 				if (res != null) {
 					subResults.add(res);
 				}
