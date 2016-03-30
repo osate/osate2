@@ -60,9 +60,10 @@ public class PropagationGraphBackwardTraversal {
 			final ErrorPropagation errorPropagation, ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = getTargetType(errorPropagation.getTypeSet(), type);
-		EObject newparam = preProcessOutgoingErrorPropagation(component, errorPropagation, type);
-		if (newparam != null) {
-			return newparam;
+		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type);
+		if (found != null) {
+			// used to return cached object
+			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 //	XXX		ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), targetType);
@@ -82,16 +83,18 @@ public class PropagationGraphBackwardTraversal {
 				ErrorPath ep = (ErrorPath) ef;
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)
 						&& EM2TypeSetUtil.contains(type, ep.getTargetToken())) {
-					for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component,
-							ep.getIncoming())) {
-						// traverse incoming
-						ComponentInstance componentSource = ppe.getComponentInstance();
-						ErrorPropagation propagationSource = ppe.getErrorPropagation();
-						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
-						if (result != null) {
-							subResults.add(result);
-						}
-					}
+//					for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component,
+//							ep.getIncoming())) {
+//						// traverse incoming
+//						ComponentInstance componentSource = ppe.getComponentInstance();
+//						ErrorPropagation propagationSource = ppe.getErrorPropagation();
+//						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+//						if (result != null) {
+//							subResults.add(result);
+//						}
+//					}
+					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
+					subResults.add(newEvent);
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
@@ -350,7 +353,7 @@ public class PropagationGraphBackwardTraversal {
 			ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = getTargetType(errorPropagation.getTypeSet(), type);
-		preProcessOutgoingErrorPropagation(component, errorPropagation, type);
+		preProcessIncomingErrorPropagation(component, errorPropagation, type);
 		for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation)) {
 			// traverse incoming
 			ComponentInstance componentSource = ppe.getComponentInstance();
@@ -431,6 +434,13 @@ public class PropagationGraphBackwardTraversal {
 		return component;
 	}
 
+	protected EObject preProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+			ErrorTypes type) {
+		OsateDebug.osateDebug("preProcessIncomingErrorPropagation " + component.getName() + " propagation "
+				+ EMV2Util.getPropagationName(errorPropagation));
+		return component;
+	}
+
 	protected EObject processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
 			ErrorTypes type) {
 		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
@@ -440,7 +450,7 @@ public class PropagationGraphBackwardTraversal {
 
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
-		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
+		OsateDebug.osateDebug("postProcessIncomingErrorPropagation " + component.getName() + " propagation "
 				+ EMV2Util.getPropagationName(errorPropagation));
 		return component;
 	}
