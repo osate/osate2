@@ -283,6 +283,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         requirementsWithoutPlanClaimCount=INT? 
 	 *         noVerificationPlansCount=INT? 
 	 *         requirementsCount=INT? 
+	 *         exceptionsCount=INT? 
+	 *         reqTargetHasEMV2SubclauseCount=INT? 
 	 *         weight=INT? 
 	 *         executionTime=AInt?
 	 *     )

@@ -49,6 +49,8 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsCount <em>Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExceptionsCount <em>Exceptions Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -376,6 +378,46 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int requirementsCount = REQUIREMENTS_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getExceptionsCount() <em>Exceptions Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExceptionsCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int EXCEPTIONS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getExceptionsCount() <em>Exceptions Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExceptionsCount()
+   * @generated
+   * @ordered
+   */
+  protected int exceptionsCount = EXCEPTIONS_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getReqTargetHasEMV2SubclauseCount() <em>Req Target Has EMV2 Subclause Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReqTargetHasEMV2SubclauseCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getReqTargetHasEMV2SubclauseCount() <em>Req Target Has EMV2 Subclause Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReqTargetHasEMV2SubclauseCount()
+   * @generated
+   * @ordered
+   */
+  protected int reqTargetHasEMV2SubclauseCount = REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -811,6 +853,52 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getExceptionsCount()
+  {
+    return exceptionsCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExceptionsCount(int newExceptionsCount)
+  {
+    int oldExceptionsCount = exceptionsCount;
+    exceptionsCount = newExceptionsCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__EXCEPTIONS_COUNT, oldExceptionsCount, exceptionsCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getReqTargetHasEMV2SubclauseCount()
+  {
+    return reqTargetHasEMV2SubclauseCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReqTargetHasEMV2SubclauseCount(int newReqTargetHasEMV2SubclauseCount)
+  {
+    int oldReqTargetHasEMV2SubclauseCount = reqTargetHasEMV2SubclauseCount;
+    reqTargetHasEMV2SubclauseCount = newReqTargetHasEMV2SubclauseCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT, oldReqTargetHasEMV2SubclauseCount, reqTargetHasEMV2SubclauseCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getWeight()
   {
     return weight;
@@ -894,6 +982,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getNoVerificationPlansCount();
       case AssurePackage.METRICS__REQUIREMENTS_COUNT:
         return getRequirementsCount();
+      case AssurePackage.METRICS__EXCEPTIONS_COUNT:
+        return getExceptionsCount();
+      case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
+        return getReqTargetHasEMV2SubclauseCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -959,6 +1051,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__REQUIREMENTS_COUNT:
         setRequirementsCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__EXCEPTIONS_COUNT:
+        setExceptionsCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
+        setReqTargetHasEMV2SubclauseCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
@@ -1028,6 +1126,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__REQUIREMENTS_COUNT:
         setRequirementsCount(REQUIREMENTS_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__EXCEPTIONS_COUNT:
+        setExceptionsCount(EXCEPTIONS_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
+        setReqTargetHasEMV2SubclauseCount(REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
@@ -1080,6 +1184,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return noVerificationPlansCount != NO_VERIFICATION_PLANS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__REQUIREMENTS_COUNT:
         return requirementsCount != REQUIREMENTS_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__EXCEPTIONS_COUNT:
+        return exceptionsCount != EXCEPTIONS_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
+        return reqTargetHasEMV2SubclauseCount != REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -1131,6 +1239,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(noVerificationPlansCount);
     result.append(", requirementsCount: ");
     result.append(requirementsCount);
+    result.append(", exceptionsCount: ");
+    result.append(exceptionsCount);
+    result.append(", reqTargetHasEMV2SubclauseCount: ");
+    result.append(reqTargetHasEMV2SubclauseCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(", executionTime: ");

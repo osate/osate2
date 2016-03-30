@@ -49,6 +49,8 @@ import org.osate.assure.ui.labeling.AssureNoVerificationPlansColumnLabelProvider
 import org.osate.assure.ui.labeling.AssureQualityCategoryRequirementsColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageNameColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsWithNoPlanClaimColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider;
 
 import com.google.inject.Inject;
 
@@ -167,7 +169,21 @@ import com.google.inject.Inject;
 	        column4.getColumn().setWidth(150);
 	        column4.getColumn().setResizable(true);
 	        column4.setLabelProvider(new AssureNoVerificationPlansColumnLabelProvider());
-	        	        
+
+	        TreeViewerColumn column5 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+	        column5.getColumn().setAlignment(SWT.LEFT);
+	        column5.getColumn().setText("Reqs w/Exception");
+	        column5.getColumn().setWidth(150);
+	        column5.getColumn().setResizable(true);
+	        column5.setLabelProvider(new AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider());
+
+	        TreeViewerColumn column6 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+	        column6.getColumn().setAlignment(SWT.LEFT);
+	        column6.getColumn().setText("Reqs w/Target has EMV2 subclause");
+	        column6.getColumn().setWidth(150);
+	        column6.getColumn().setResizable(true);
+	        column6.setLabelProvider(new AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider());
+
 
 //	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 	        getSite().setSelectionProvider(treeViewer);

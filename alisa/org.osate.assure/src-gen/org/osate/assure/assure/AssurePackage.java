@@ -756,13 +756,31 @@ public interface AssurePackage extends EPackage
   int METRICS__REQUIREMENTS_COUNT = 15;
 
   /**
+   * The feature id for the '<em><b>Exceptions Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__EXCEPTIONS_COUNT = 16;
+
+  /**
+   * The feature id for the '<em><b>Req Target Has EMV2 Subclause Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = 17;
+
+  /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS__WEIGHT = 16;
+  int METRICS__WEIGHT = 18;
 
   /**
    * The feature id for the '<em><b>Execution Time</b></em>' attribute.
@@ -771,7 +789,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS__EXECUTION_TIME = 17;
+  int METRICS__EXECUTION_TIME = 19;
 
   /**
    * The number of structural features of the '<em>Metrics</em>' class.
@@ -780,7 +798,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 18;
+  int METRICS_FEATURE_COUNT = 20;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVerificationPlanElementReferenceImpl <em>Qualified Verification Plan Element Reference</em>}' class.
@@ -1863,6 +1881,28 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_RequirementsCount();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getExceptionsCount <em>Exceptions Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Exceptions Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getExceptionsCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_ExceptionsCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Req Target Has EMV2 Subclause Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getReqTargetHasEMV2SubclauseCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_ReqTargetHasEMV2SubclauseCount();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2600,6 +2640,22 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__REQUIREMENTS_COUNT = eINSTANCE.getMetrics_RequirementsCount();
+
+    /**
+     * The meta object literal for the '<em><b>Exceptions Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__EXCEPTIONS_COUNT = eINSTANCE.getMetrics_ExceptionsCount();
+
+    /**
+     * The meta object literal for the '<em><b>Req Target Has EMV2 Subclause Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = eINSTANCE.getMetrics_ReqTargetHasEMV2SubclauseCount();
 
     /**
      * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.

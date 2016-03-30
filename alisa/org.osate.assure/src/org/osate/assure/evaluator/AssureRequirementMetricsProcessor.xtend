@@ -3,19 +3,21 @@ package org.osate.assure.evaluator;
 import com.google.inject.ImplementedBy
 import com.google.inject.Inject
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import org.osate.aadl2.ClassifierFeature
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.categories.categories.Categories
+import org.osate.categories.categories.CategoriesPackage
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
+
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolveAll
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
-import org.osate.categories.categories.CategoriesPackage
-import org.eclipse.emf.ecore.EObject
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.hasEMV2Subclause
 
 @ImplementedBy(AssureRequirementMetricsProcessor)
 interface IAssureRequirementMetricsProcessor {
@@ -55,13 +57,18 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val verificationPlans = plan.assure
 		val claimReqs = verificationPlans.map[claim.map[requirement]].flatten.toSet
 		val targetReqs = reqSpecrefFinder.getSystemRequirementSets(targetComponent)
-
+		val exceptionReqCount = targetReqs.map[requirements].flatten.map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
+		val mitigatesReqCount = targetReqs.map[requirements.filter[exception != null]].flatten.size 
+		
 		modelResult.metrics.totalQualityCategoryCount = modelResult.totalQualityCategoriesCount
 		modelResult.metrics.requirementsCount = targetReqs.map[requirements].flatten.toSet.size
 		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
 		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("quality")].toSet.size
 		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size		
 		modelResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
+		modelResult.metrics.exceptionsCount = exceptionReqCount + mitigatesReqCount
+		modelResult.metrics.reqTargetHasEMV2SubclauseCount = targetReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.size
+
 		modelResult.subsystemResult.forEach[subsystemResult|subsystemResult.process]	
 		modelResult.subAssuranceCase.forEach[subAssuranceCase|subAssuranceCase.process]
 	}
@@ -73,6 +80,8 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val verificationPlans = claimResults.map[targetReference.verificationPlan] 
 		val claimReqs = claimResults.map[targetReference.verificationPlan.claim].flatten.map[requirement].toSet
 		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(targetSystem.componentType)
+		val exceptionReqCount = sysReqs.map[requirements].flatten.map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
+		val mitigatesReqCount = sysReqs.map[requirements.filter[exception != null]].flatten.size 
 
 		caseResult.metrics.totalQualityCategoryCount = caseResult.totalQualityCategoriesCount
 		caseResult.metrics.requirementsCount = sysReqs.map[requirements].flatten.toSet.size
@@ -80,6 +89,9 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		caseResult.metrics.qualityCategoryRequirementsCount = sysReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.map[category].flatten.toSet.size
 		caseResult.metrics.featuresRequirementsCount = sysReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size	
 		caseResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
+		caseResult.metrics.exceptionsCount = exceptionReqCount + mitigatesReqCount
+		caseResult.metrics.reqTargetHasEMV2SubclauseCount = sysReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.size
+
 		caseResult.subsystemResult.forEach[subcaseResult|subcaseResult.process]
 	}
 

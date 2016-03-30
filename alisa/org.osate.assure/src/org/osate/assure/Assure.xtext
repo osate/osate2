@@ -153,6 +153,9 @@ Metrics returns Metrics:
 	('requirementswithoutplanclaimcount'  requirementsWithoutPlanClaimCount=INT)?
 	('noverificationplanscount'  noVerificationPlansCount=INT)?
 	('requirementscount'  requirementsCount=INT)?
+	('exceptionscount' exceptionsCount=INT)?
+	('reqtargethasemv2subclausecount' reqTargetHasEMV2SubclauseCount=INT)?
+	
 	('weight' weight = INT)?
 	('time' executionTime = AInt)?
 ;

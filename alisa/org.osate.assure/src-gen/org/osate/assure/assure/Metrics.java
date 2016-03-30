@@ -42,6 +42,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsWithoutPlanClaimCount <em>Requirements Without Plan Claim Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getNoVerificationPlansCount <em>No Verification Plans Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getExceptionsCount <em>Exceptions Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -467,6 +469,58 @@ public interface Metrics extends EObject
    * @generated
    */
   void setRequirementsCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Exceptions Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exceptions Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exceptions Count</em>' attribute.
+   * @see #setExceptionsCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_ExceptionsCount()
+   * @model
+   * @generated
+   */
+  int getExceptionsCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getExceptionsCount <em>Exceptions Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exceptions Count</em>' attribute.
+   * @see #getExceptionsCount()
+   * @generated
+   */
+  void setExceptionsCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Req Target Has EMV2 Subclause Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Req Target Has EMV2 Subclause Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Req Target Has EMV2 Subclause Count</em>' attribute.
+   * @see #setReqTargetHasEMV2SubclauseCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_ReqTargetHasEMV2SubclauseCount()
+   * @model
+   * @generated
+   */
+  int getReqTargetHasEMV2SubclauseCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Req Target Has EMV2 Subclause Count</em>' attribute.
+   * @see #getReqTargetHasEMV2SubclauseCount()
+   * @generated
+   */
+  void setReqTargetHasEMV2SubclauseCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.
