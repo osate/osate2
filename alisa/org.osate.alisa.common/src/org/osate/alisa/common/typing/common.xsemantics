@@ -255,7 +255,13 @@ from {
 			}
 		case NOT:
 			type = Aadl2Factory.eINSTANCE.createAadlBoolean
-		default: {}
+		default: {
+			// should not happen
+			fail
+				error 'typing: unhandled unary operator encountered'
+				source unary
+			
+		}
 	}
 }
 
