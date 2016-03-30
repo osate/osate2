@@ -105,7 +105,8 @@ public class StyledTextXtextAdapter {
 
 	private ControlDecoration decoration;
 
-	public StyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider, IProject project) {
+	public StyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider,
+			IProject project) {
 		this.contextFakeResourceProvider = contextFakeResourceProvider;
 		injector.injectMembers(this);
 
@@ -188,7 +189,7 @@ public class StyledTextXtextAdapter {
 				}
 			});
 		} catch (NullPointerException ex) {
-			//Do nothing, not opened within editor context
+			// Do nothing, not opened within editor context
 		}
 
 	}
@@ -198,8 +199,8 @@ public class StyledTextXtextAdapter {
 		decoration.setShowHover(true);
 		decoration.setShowOnlyOnFocus(true);
 
-		final Image image = ImageDescriptor.createFromFile(XtextStyledTextCellEditor.class,
-				"images/content_assist_cue.gif").createImage();
+		final Image image = ImageDescriptor
+				.createFromFile(XtextStyledTextCellEditor.class, "images/content_assist_cue.gif").createImage();
 		decoration.setImage(image);
 		decoration.setDescriptionText("Content Assist Available (CTRL + Space)");
 		decoration.setMarginWidth(2);
@@ -216,8 +217,9 @@ public class StyledTextXtextAdapter {
 	}
 
 	protected ValidationJob createValidationJob() {
-		return new ValidationJob(validator, document, new AnnotationIssueProcessor(document,
-				sourceviewer.getAnnotationModel(), resolutionProvider), CheckMode.ALL);
+		return new ValidationJob(validator, document,
+				new AnnotationIssueProcessor(document, sourceviewer.getAnnotationModel(), resolutionProvider),
+				CheckMode.ALL);
 	}
 
 	protected void createFakeResourceContext(Injector injector, IProject project) {
@@ -336,9 +338,9 @@ public class StyledTextXtextAdapter {
 
 		public XtextStyledTextSelectionProvider() {
 		}
-		
+
 		public void setSelection(ISelection selection) {
-			
+
 		}
 
 		public void removeSelectionChangedListener(ISelectionChangedListener listener) {
@@ -389,12 +391,12 @@ public class StyledTextXtextAdapter {
 		}
 
 		public void widgetDisposed(DisposeEvent e) {
-            if (selectionProviderOnFocusLost != null) {
-                site.setSelectionProvider(selectionProviderOnFocusLost);
-            }
-            ((StyledText) e.getSource()).removeFocusListener(this);
-            ((StyledText) e.getSource()).removeDisposeListener(this);
-        }
+			if (selectionProviderOnFocusLost != null) {
+				site.setSelectionProvider(selectionProviderOnFocusLost);
+			}
+			((StyledText) e.getSource()).removeFocusListener(this);
+			((StyledText) e.getSource()).removeDisposeListener(this);
+		}
 
 	}
 }

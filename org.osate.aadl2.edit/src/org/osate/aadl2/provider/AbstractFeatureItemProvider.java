@@ -87,11 +87,11 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider {
 	 * @generated
 	 */
 	protected void addFeaturePrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_AbstractFeature_featurePrototype_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_AbstractFeature_featurePrototype_feature",
-								"_UI_AbstractFeature_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_AbstractFeature_featurePrototype_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_AbstractFeature_featurePrototype_feature",
+						"_UI_AbstractFeature_type"),
 				Aadl2Package.eINSTANCE.getAbstractFeature_FeaturePrototype(), true, false, true, null, null, null));
 	}
 
@@ -107,8 +107,8 @@ public class AbstractFeatureItemProvider extends DirectedFeatureItemProvider {
 						getResourceLocator(), getString("_UI_AbstractFeature_abstractFeatureClassifier_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_AbstractFeature_abstractFeatureClassifier_feature", "_UI_AbstractFeature_type"),
-				Aadl2Package.eINSTANCE.getAbstractFeature_AbstractFeatureClassifier(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getAbstractFeature_AbstractFeatureClassifier(), true, false, true, null,
+						null, null));
 	}
 
 	/**

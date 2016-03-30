@@ -102,7 +102,7 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 						getResourceLocator(), getString("_UI_ComponentImplementation_type_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_type_feature",
 								"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_Type(), true, false, true, null, null, null));
+						Aadl2Package.eINSTANCE.getComponentImplementation_Type(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -149,8 +149,8 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 						getResourceLocator(), getString("_UI_ComponentImplementation_noCalls_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_noCalls_feature",
 								"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_NoCalls(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						Aadl2Package.eINSTANCE.getComponentImplementation_NoCalls(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -166,8 +166,8 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ComponentImplementation_ownedProcessorFeature_feature",
 								"_UI_ComponentImplementation_type"),
-				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorFeature(), false, false, false, null,
-				null, null));
+						Aadl2Package.eINSTANCE.getComponentImplementation_OwnedProcessorFeature(), false, false, false,
+						null, null, null));
 	}
 
 	/**
@@ -209,11 +209,11 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	 * @generated
 	 */
 	protected void addExtendedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ComponentImplementation_extended_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_extended_feature",
-								"_UI_ComponentImplementation_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ComponentImplementation_extended_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_extended_feature",
+						"_UI_ComponentImplementation_type"),
 				Aadl2Package.eINSTANCE.getComponentImplementation_Extended(), true, false, true, null, null, null));
 	}
 

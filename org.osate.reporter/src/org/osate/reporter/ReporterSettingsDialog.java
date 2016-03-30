@@ -157,10 +157,10 @@ public class ReporterSettingsDialog extends Dialog {
 	protected void okPressed() {
 		// Following lines generate a ReporterSettings object and saves it.
 		int[] groupAndSortSettings = new int[6];
-		groupAndSortSettings[ReporterSettings.GROUP_BY_FIELD] = groupByFiles.getSelection() ? ReporterSettings.GROUP_BY_FILE
-				: ReporterSettings.GROUP_BY_TYPE;
-		groupAndSortSettings[ReporterSettings.SORT_GROUPS_BY_FIELD] = sortGroupsByFileName.getSelection() ? ReporterSettings.SORT_BY_FILE_NAME
-				: ReporterSettings.SORT_BY_FILE_TYPE;
+		groupAndSortSettings[ReporterSettings.GROUP_BY_FIELD] = groupByFiles.getSelection()
+				? ReporterSettings.GROUP_BY_FILE : ReporterSettings.GROUP_BY_TYPE;
+		groupAndSortSettings[ReporterSettings.SORT_GROUPS_BY_FIELD] = sortGroupsByFileName.getSelection()
+				? ReporterSettings.SORT_BY_FILE_NAME : ReporterSettings.SORT_BY_FILE_TYPE;
 		for (int i = 0; i < sortMarkers.length; i++) {
 			int sortSetting = ReporterSettings.DEFAULT;
 			String selectedValue = sortMarkers[i].getItem(sortMarkers[i].getSelectionIndex());
@@ -195,8 +195,8 @@ public class ReporterSettingsDialog extends Dialog {
 		ReporterSettings settings = new ReporterSettings(groupAndSortSettings, summarySettings,
 				markersToExclude.isEmpty() ? null : markersToExclude);
 		try {
-			FileOutputStream fout = new FileOutputStream(affectedProject.getLocation().toOSString() + File.separator
-					+ SETTINGS_FILE_NAME);
+			FileOutputStream fout = new FileOutputStream(
+					affectedProject.getLocation().toOSString() + File.separator + SETTINGS_FILE_NAME);
 			ObjectOutputStream oout = new ObjectOutputStream(fout);
 			oout.writeObject(settings);
 			oout.close();
@@ -311,18 +311,19 @@ public class ReporterSettingsDialog extends Dialog {
 		column = new TableColumn(markerTable, SWT.LEFT);
 		column.setText("Parent Type");
 
-		IExtensionPoint markerExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(
-				"org.eclipse.core.resources.markers");
+		IExtensionPoint markerExtensionPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint("org.eclipse.core.resources.markers");
 		IExtension[] markerExtensions = markerExtensionPoint.getExtensions();
 		TableItem item;
 		for (int i = 0; i < markerExtensions.length; i++) {
 			if (extendsFromProblemMarker(markerExtensions[i])) {
 				item = new TableItem(markerTable, SWT.NONE);
-				item.setText(new String[] {
-						markerExtensions[i].getLabel(),
-						Platform.getExtensionRegistry()
-								.getExtension(markerExtensions[i].getConfigurationElements()[0].getAttribute("type"))
-								.getLabel() });
+				item.setText(
+						new String[] { markerExtensions[i].getLabel(),
+								Platform.getExtensionRegistry()
+										.getExtension(
+												markerExtensions[i].getConfigurationElements()[0].getAttribute("type"))
+										.getLabel() });
 				item.setData(markerExtensions[i].getUniqueIdentifier());
 				item.setChecked(true);
 			}
@@ -358,7 +359,8 @@ public class ReporterSettingsDialog extends Dialog {
 					groupByFiles.setSelection(false);
 					changeSortGroupsSelections();
 				}
-				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
+				if (settings.getGroupByAndSortBy(
+						ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
 					sortGroupsByFileType.setSelection(true);
 					sortGroupsByFileName.setSelection(false);
 				}
@@ -384,14 +386,14 @@ public class ReporterSettingsDialog extends Dialog {
 					}
 				}
 				showSeverity.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_SEVERITY_FIELD));
-				showNumOfTextAndObjectFiles.setSelection(settings
-						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES));
+				showNumOfTextAndObjectFiles
+						.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TEXT_AND_OBJECT_FILES));
 				showNumOfFiles.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_FILES));
 				showNumOfTypes.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_TYPES));
-				showNumOfMarkersPerFile.setSelection(settings
-						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_FILES));
-				showNumOfMarkersPerType.setSelection(settings
-						.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_TYPE));
+				showNumOfMarkersPerFile
+						.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_FILES));
+				showNumOfMarkersPerType
+						.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_NUM_OF_MARKERS_PER_TYPE));
 				showTotalMarkers.setSelection(settings.getShowInSummary(ReporterSettings.SHOW_TOTAL_NUM_OF_MARKERS));
 				if (settings.getProblemMarkersToExclude() != null) {
 					for (int i = 0; i < markerTable.getItemCount(); i++) {

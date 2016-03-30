@@ -770,7 +770,8 @@ public class PropertyUtils {
 	 *
 	 * @throws IllegalArgumentException Thrown if min is greater than max.
 	 */
-	public static RangeValue createRealRangeValue(double min, double max, double delta) throws IllegalArgumentException {
+	public static RangeValue createRealRangeValue(double min, double max, double delta)
+			throws IllegalArgumentException {
 		RangeValue newPropertyValue = createRealRangeValue(min, max);
 		newPropertyValue.setDelta(createRealValue(delta));
 		return newPropertyValue;
@@ -928,9 +929,9 @@ public class PropertyUtils {
 	 *             RangeType or a NumberType.
 	 */
 	private static PropertyExpression checkUnitsAndGetSimplePropertyValue(final NamedElement ph, final Property pd,
-			final UnitLiteral unit) throws InvalidModelException, PropertyNotPresentException,
-			PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException, PropertyIsListException, ClassCastException {
+			final UnitLiteral unit) throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException,
+			IllegalStateException, IllegalArgumentException, PropertyDoesNotApplyToHolderException,
+			PropertyIsListException, ClassCastException {
 		if (unit == null) {
 			throw new IllegalArgumentException("UnitLiteral unit cannot be null.");
 		}
@@ -941,8 +942,8 @@ public class PropertyUtils {
 		}
 		final UnitsType theUnitsType = ((NumberType) pt).getUnitsType();
 		if (unit.eContainer() != theUnitsType) {
-			throw new IllegalArgumentException("Unit literal " + unit.getName() + " is not from the property's type "
-					+ theUnitsType.getName());
+			throw new IllegalArgumentException(
+					"Unit literal " + unit.getName() + " is not from the property's type " + theUnitsType.getName());
 		}
 		return pv;
 	}

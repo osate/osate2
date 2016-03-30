@@ -46,7 +46,8 @@ public class PropertyDoesNotApplyToHolderException extends PropertyLookupExcepti
 	private NamedElement holder = null;
 	private Property definition = null;
 
-	public PropertyDoesNotApplyToHolderException(final NamedElement holder, final Property definition, final String msg) {
+	public PropertyDoesNotApplyToHolderException(final NamedElement holder, final Property definition,
+			final String msg) {
 		super(msg);
 		this.holder = holder;
 		this.definition = definition;

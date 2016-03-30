@@ -139,8 +139,8 @@ import org.osate.emf.workspace.util.WorkspaceSynchronizer;
  * <!-- end-user-doc -->
  * @generated NOT
  */
-public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
-		IMenuListener, IViewerProvider, IGotoMarker {
+public class Aadl2ModelEditor extends MultiPageEditorPart
+		implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 	/**
 	 * This keeps track of the editing domain that is used to track all changes to the model.
 	 * <!-- begin-user-doc -->
@@ -418,8 +418,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 
 					// remove the default undo context so that we can have
 					// independent undo/redo of independent resource changes
-					operation.removeContext(((IWorkspaceCommandStack) getEditingDomain().getCommandStack())
-							.getDefaultUndoContext());
+					operation.removeContext(
+							((IWorkspaceCommandStack) getEditingDomain().getCommandStack()).getDefaultUndoContext());
 
 					// add our undo context to populate our undo menu
 					operation.addContext(getUndoContext());
@@ -1073,7 +1073,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 				// .CUSTOM: Use a transactional label provider
 				selectionViewer.setLabelProvider(new DecoratingColumLabelProvider(
 						new TransactionalAdapterFactoryLabelProvider((TransactionalEditingDomain) getEditingDomain(),
-								adapterFactory), new DiagnosticDecorator(editingDomain, selectionViewer,
+								adapterFactory),
+						new DiagnosticDecorator(editingDomain, selectionViewer,
 								Aadl2EditorPlugin.getPlugin().getDialogSettings())));
 
 				// .CUSTOM: I edit only a single resource
@@ -1200,8 +1201,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 					contentOutlineViewer.setLabelProvider(new DecoratingColumLabelProvider(
 							new TransactionalAdapterFactoryLabelProvider(
 									(TransactionalEditingDomain) getEditingDomain(), adapterFactory),
-							new DiagnosticDecorator(editingDomain, contentOutlineViewer, Aadl2EditorPlugin.getPlugin()
-									.getDialogSettings())));
+							new DiagnosticDecorator(editingDomain, contentOutlineViewer,
+									Aadl2EditorPlugin.getPlugin().getDialogSettings())));
 
 					contentOutlineViewer.addFilter(new ViewerFilter() {
 						@Override
@@ -1477,8 +1478,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 			return;
 		}
 
-		IProgressMonitor progressMonitor = getActionBars().getStatusLineManager() != null ? getActionBars()
-				.getStatusLineManager().getProgressMonitor() : new NullProgressMonitor();
+		IProgressMonitor progressMonitor = getActionBars().getStatusLineManager() != null
+				? getActionBars().getStatusLineManager().getProgressMonitor() : new NullProgressMonitor();
 		doSave(progressMonitor);
 	}
 
@@ -1605,8 +1606,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 * @generated
 	 */
 	public void setStatusLineManager(ISelection selection) {
-		IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer ? contentOutlineStatusLineManager
-				: getActionBars().getStatusLineManager();
+		IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer
+				? contentOutlineStatusLineManager : getActionBars().getStatusLineManager();
 
 		if (statusLineManager != null) {
 			if (selection instanceof IStructuredSelection) {
@@ -1622,8 +1623,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 					break;
 				}
 				default: {
-					statusLineManager.setMessage(getString(
-							"_UI_MultiObjectSelected", Integer.toString(collection.size()))); //$NON-NLS-1$
+					statusLineManager
+							.setMessage(getString("_UI_MultiObjectSelected", Integer.toString(collection.size()))); //$NON-NLS-1$
 					break;
 				}
 				}

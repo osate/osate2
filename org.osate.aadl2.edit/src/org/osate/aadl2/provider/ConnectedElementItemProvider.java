@@ -99,11 +99,11 @@ public class ConnectedElementItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addConnectionEndPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ConnectedElement_connectionEnd_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ConnectedElement_connectionEnd_feature",
-								"_UI_ConnectedElement_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ConnectedElement_connectionEnd_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ConnectedElement_connectionEnd_feature",
+						"_UI_ConnectedElement_type"),
 				Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd(), true, false, true, null, null, null));
 	}
 

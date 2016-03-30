@@ -34,12 +34,12 @@ class ChangedSynchRequest extends SynchRequest {
 	ChangedSynchRequest(WorkspaceSynchronizer synch, Resource resource) {
 		super(synch, resource);
 	}
-	
+
 	@Override
 	protected void doPerform() {
 		if (!synch.getDelegate().handleResourceChanged(resource)) {
 			// note that if our delegate is the default, it
-			//     will always return true
+			// will always return true
 			WorkspaceSynchronizer.defaultDelegate.handleResourceChanged(resource);
 		}
 	}

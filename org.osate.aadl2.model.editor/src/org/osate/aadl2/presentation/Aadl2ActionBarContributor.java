@@ -256,8 +256,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	public void contributeToMenu(IMenuManager menuManager) {
 		super.contributeToMenu(menuManager);
 
-		IMenuManager submenuManager = new MenuManager(
-				Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditor_menu"), "org.osate.aadl2.instanceMenuID"); //$NON-NLS-1$ //$NON-NLS-2$
+		IMenuManager submenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_InstanceEditor_menu"), //$NON-NLS-1$
+				"org.osate.aadl2.instanceMenuID"); //$NON-NLS-1$
 		menuManager.insertAfter("additions", submenuManager); //$NON-NLS-1$
 		submenuManager.add(new Separator("settings")); //$NON-NLS-1$
 		submenuManager.add(new Separator("actions")); //$NON-NLS-1$

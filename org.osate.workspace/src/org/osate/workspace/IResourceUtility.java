@@ -24,8 +24,8 @@ public class IResourceUtility {
 	 * the qualified name for tagging an aaxl file as invalid due to syntax
 	 * errors in text file
 	 */
-	public static final QualifiedName ResourceWithSyntaxErrors = new QualifiedName(
-			"org.osate.ResourceWithSyntaxErrors", "BadAadlFile");
+	public static final QualifiedName ResourceWithSyntaxErrors = new QualifiedName("org.osate.ResourceWithSyntaxErrors",
+			"BadAadlFile");
 	public static final QualifiedName ResourceDerived = new QualifiedName("org.osate.ResourceDerived",
 			"IResourceDerived");
 	public static final QualifiedName IsInstanceModel = new QualifiedName("org.osate.IsInstanceModel",
@@ -177,9 +177,9 @@ public class IResourceUtility {
 	 */
 	public static boolean isInstanceFile(IResource file) {
 		if (file instanceof IFile) {
-			return (file.getName().endsWith(
-					WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.MODEL_FILE_EXT) || file.getName()
-					.endsWith(WorkspacePlugin.INSTANCE_FILE_EXT));
+			return (file.getName()
+					.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.MODEL_FILE_EXT)
+					|| file.getName().endsWith(WorkspacePlugin.INSTANCE_FILE_EXT));
 		}
 		if (file != null && file.exists()) {
 			try {

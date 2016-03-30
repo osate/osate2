@@ -32,8 +32,7 @@ import org.eclipse.ui.PlatformUI;
  * @author alexander.nyssen@itemis.de
  * 
  */
-public class ActiveEditorTracker implements IPageListener, IPartListener,
-		IStartup, IWindowListener {
+public class ActiveEditorTracker implements IPageListener, IPartListener, IStartup, IWindowListener {
 
 	private static final String SINGLETON_MSG = "This class is a singleton and may only be instantiated once!";
 
@@ -66,8 +65,7 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 			// Let's try to get the current active editor instead.
 			if (PlatformUI.getWorkbench() != null) {
 				if (PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null) {
-					return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-							.getActivePage().getActiveEditor();
+					return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				}
 			}
 			return null;
@@ -84,8 +82,7 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 			// not yet initialized, e.g. when another early startups blocks us!
 			// Let's try to get any editor with the specified id instead.
 			if (PlatformUI.getWorkbench() != null) {
-				final IWorkbenchWindow window = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow();
+				final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				if (window != null) {
 					final IWorkbenchPage page = window.getActivePage();
 					if (page != null) {
@@ -115,9 +112,7 @@ public class ActiveEditorTracker implements IPageListener, IPartListener,
 		if (editor instanceof IEditingDomainProvider) {
 			domain = ((IEditingDomainProvider) editor).getEditingDomain();
 		} else if (editor.getAdapter(IEditingDomainProvider.class) != null) {
-			domain = ((IEditingDomainProvider) editor
-					.getAdapter(IEditingDomainProvider.class))
-					.getEditingDomain();
+			domain = ((IEditingDomainProvider) editor.getAdapter(IEditingDomainProvider.class)).getEditingDomain();
 		} else if (editor.getAdapter(EditingDomain.class) != null) {
 			domain = (EditingDomain) editor.getAdapter(EditingDomain.class);
 		}

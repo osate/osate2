@@ -133,8 +133,8 @@ public class ResourceConversionUtil {
 		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
 			path = path.trimSegments(1);
 		}
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName());
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+				.appendSegment(filename + "_" + si.getTypeName() + "_" + si.getImplementationName());
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}

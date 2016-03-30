@@ -99,9 +99,9 @@ public class TraverseWorkspace {
 					String ext = file.getFileExtension();
 					if (ext != null) {
 						if ((extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-								&& (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)) || (extension
-								.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2) && ext
-								.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)))) {
+								&& (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT))
+								|| (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)
+										&& ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)))) {
 							result.add((IFile) resources[i]);
 						}
 						// looking for old style instance file names (i.e., extension aaxl2

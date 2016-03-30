@@ -58,9 +58,11 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 									if (instanceOrProxy != null) {
 										URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(instanceOrProxy);
 										if (targetURIs.contains(refURI)) {
-											sourceURI = (sourceURI == null) ? EcoreUtil2
-													.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
-											acceptor.accept(sourceCandidate, sourceURI, ref, i, instanceOrProxy, refURI);
+											sourceURI = (sourceURI == null)
+													? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate)
+													: sourceURI;
+											acceptor.accept(sourceCandidate, sourceURI, ref, i, instanceOrProxy,
+													refURI);
 										}
 									}
 								}
@@ -70,8 +72,9 @@ public class Aadl2ReferenceFinder extends ReferenceFinder {
 								if (instanceOrProxy != null) {
 									URI refURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(instanceOrProxy);
 									if (targetURIs.contains(refURI)) {
-										sourceURI = (sourceURI == null) ? EcoreUtil2
-												.getPlatformResourceOrNormalizedURI(sourceCandidate) : sourceURI;
+										sourceURI = (sourceURI == null)
+												? EcoreUtil2.getPlatformResourceOrNormalizedURI(sourceCandidate)
+												: sourceURI;
 										acceptor.accept(sourceCandidate, sourceURI, ref, -1, instanceOrProxy, refURI);
 									}
 								}

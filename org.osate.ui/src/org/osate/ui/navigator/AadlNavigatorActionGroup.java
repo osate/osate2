@@ -78,9 +78,8 @@ public class AadlNavigatorActionGroup extends org.eclipse.ui.navigator.CommonAct
 	@Override
 	public void fillContextMenu(IMenuManager menu) {
 		Object selectedElement = ((IStructuredSelection) getContext().getSelection()).getFirstElement();
-		if (selectedElement instanceof IResource
-				&& ((IResource) selectedElement).getProject().getName()
-						.equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+		if (selectedElement instanceof IResource && ((IResource) selectedElement).getProject().getName()
+				.equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 			if (selectedElement instanceof IFile) {
 				menu.add(openForModificationAction);
 				menu.add(revertToContributedAction);
@@ -113,9 +112,9 @@ public class AadlNavigatorActionGroup extends org.eclipse.ui.navigator.CommonAct
 	@Override
 	public void init(final ICommonActionExtensionSite aSite) {
 		final ICommonViewerSite viewSite = aSite.getViewSite();
-		if(viewSite instanceof ICommonViewerWorkbenchSite) {
-			final ICommonViewerWorkbenchSite workbenchSite = (ICommonViewerWorkbenchSite)viewSite;
-			
+		if (viewSite instanceof ICommonViewerWorkbenchSite) {
+			final ICommonViewerWorkbenchSite workbenchSite = (ICommonViewerWorkbenchSite) viewSite;
+
 			openForModificationAction = new Action("Open For Modification") {
 				@Override
 				public void run() {

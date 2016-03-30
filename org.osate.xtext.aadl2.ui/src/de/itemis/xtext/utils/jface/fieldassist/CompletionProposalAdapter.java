@@ -44,8 +44,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	 * @param keyStroke
 	 * @param autoActivationCharacters
 	 */
-	public CompletionProposalAdapter(Control control,
-			IContentAssistant contentAssistant, KeyStroke keyStroke,
+	public CompletionProposalAdapter(Control control, IContentAssistant contentAssistant, KeyStroke keyStroke,
 			char[] autoActivationCharacters) {
 
 		this.control = control;
@@ -223,8 +222,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	 * Remove the specified listener from the list of content proposal listeners
 	 * that are notified when a content proposal popup is opened or closed.
 	 */
-	public void removeContentProposalListener(
-			ICompletionProposalListener listener) {
+	public void removeContentProposalListener(ICompletionProposalListener listener) {
 		proposalListeners2.remove(listener);
 	}
 
@@ -234,8 +232,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 	 */
 	private void addControlListener(Control control) {
 		if (DEBUG) {
-			System.out
-					.println("ContentProposalListener#installControlListener()"); //$NON-NLS-1$
+			System.out.println("ContentProposalListener#installControlListener()"); //$NON-NLS-1$
 		}
 
 		if (controlListener != null) {
@@ -267,11 +264,11 @@ public class CompletionProposalAdapter implements ICompletionListener {
 					// if (DEBUG) {
 					// StringBuffer sb;
 					// if (e.type == SWT.Traverse) {
-					//								sb = new StringBuffer("Traverse"); //$NON-NLS-1$
+					// sb = new StringBuffer("Traverse"); //$NON-NLS-1$
 					// } else {
-					//								sb = new StringBuffer("KeyDown"); //$NON-NLS-1$
+					// sb = new StringBuffer("KeyDown"); //$NON-NLS-1$
 					// }
-					//							sb.append(" after being handled by popup"); //$NON-NLS-1$
+					// sb.append(" after being handled by popup"); //$NON-NLS-1$
 					// dump(sb.toString(), e);
 					// }
 					// // See
@@ -294,12 +291,12 @@ public class CompletionProposalAdapter implements ICompletionListener {
 					if (triggerKeyStroke != null) {
 						// Either there are no modifiers for the trigger and we
 						// check the character field...
-						if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke
-								.getNaturalKey() == e.character) ||
+						if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY
+								&& triggerKeyStroke.getNaturalKey() == e.character) ||
 						// ...or there are modifiers, in which case the
 						// keycode and state must match
-								(triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke
-										.getModifierKeys() & e.stateMask) == triggerKeyStroke
+						(triggerKeyStroke.getNaturalKey() == e.keyCode
+								&& ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
 										.getModifierKeys()))) {
 							// We never propagate the keystroke for an explicit
 							// keystroke invocation of the popup
@@ -354,7 +351,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 				// case SWT.Modify:
 				// if (allowsAutoActivate() && watchModify) {
 				// if (DEBUG) {
-				//								dump("Modify event triggers popup open or close", e); //$NON-NLS-1$
+				// dump("Modify event triggers popup open or close", e); //$NON-NLS-1$
 				// }
 				// watchModify = false;
 				// // We are in autoactivation mode, either for specific
@@ -397,8 +394,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 			 *            the event
 			 */
 			private void dump(String who, Event e) {
-				StringBuffer sb = new StringBuffer(
-						"--- [ContentProposalAdapter]\n"); //$NON-NLS-1$
+				StringBuffer sb = new StringBuffer("--- [ContentProposalAdapter]\n"); //$NON-NLS-1$
 				sb.append(who);
 				sb.append(" - e: keyCode=" + e.keyCode + hex(e.keyCode)); //$NON-NLS-1$
 				sb.append("; character=" + e.character + hex(e.character)); //$NON-NLS-1$
@@ -418,8 +414,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		control.addListener(SWT.Modify, controlListener);
 
 		if (DEBUG) {
-			System.out
-					.println("ContentProposalAdapter#installControlListener() - installed"); //$NON-NLS-1$
+			System.out.println("ContentProposalAdapter#installControlListener() - installed"); //$NON-NLS-1$
 		}
 	}
 
@@ -512,8 +507,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		}
 		final Object[] listenerArray = proposalListeners2.getListeners();
 		for (int i = 0; i < listenerArray.length; i++) {
-			((ICompletionProposalListener) listenerArray[i])
-					.proposalPopupOpened(this);
+			((ICompletionProposalListener) listenerArray[i]).proposalPopupOpened(this);
 		}
 	}
 
@@ -526,8 +520,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		}
 		final Object[] listenerArray = proposalListeners2.getListeners();
 		for (int i = 0; i < listenerArray.length; i++) {
-			((ICompletionProposalListener) listenerArray[i])
-					.proposalPopupClosed(this);
+			((ICompletionProposalListener) listenerArray[i]).proposalPopupClosed(this);
 		}
 	}
 
@@ -555,16 +548,14 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		 * access it.
 		 */
 		try {
-			final Method m = ContentAssistant.class
-					.getDeclaredMethod("isProposalPopupActive");
+			final Method m = ContentAssistant.class.getDeclaredMethod("isProposalPopupActive");
 			m.setAccessible(true);
 			try {
 				final Object result = m.invoke(contentAssistant);
 				if (result != null && result instanceof Boolean) {
 					return (Boolean) result;
 				} else {
-					throw new IllegalStateException(
-							"Method is expected to return boolean!");
+					throw new IllegalStateException("Method is expected to return boolean!");
 				}
 			} catch (InvocationTargetException e) {
 				throw e.getCause(); // cause was thrown by method m.
@@ -583,8 +574,7 @@ public class CompletionProposalAdapter implements ICompletionListener {
 		notifyPopupClosed();
 	}
 
-	public void selectionChanged(ICompletionProposal proposal,
-			boolean smartToggle) {
+	public void selectionChanged(ICompletionProposal proposal, boolean smartToggle) {
 		// do nothing
 	}
 

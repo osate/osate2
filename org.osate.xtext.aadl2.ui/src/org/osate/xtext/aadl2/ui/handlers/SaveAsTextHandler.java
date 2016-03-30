@@ -82,8 +82,8 @@ public class SaveAsTextHandler extends AbstractHandler {
 								Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource) f), true);
 								Element target = (Element) res.getContents().get(0);
 								URI aaxluri = res.getURI();
-								URI xtxturi = aaxluri.trimFileExtension().appendFileExtension(
-										WorkspacePlugin.SOURCE_FILE_EXT);
+								URI xtxturi = aaxluri.trimFileExtension()
+										.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
 								Resource xtxtres = rs.createResource(xtxturi);
 								xtxtres.getContents().add(target);
 								OsateResourceUtil.save(xtxtres);
