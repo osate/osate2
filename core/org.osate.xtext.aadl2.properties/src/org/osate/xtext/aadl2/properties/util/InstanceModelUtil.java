@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.properties.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,6 +11,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DeviceSubcomponent;
@@ -160,6 +162,19 @@ public class InstanceModelUtil {
 		return ((bus instanceof ComponentInstance)
 				&& (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
 				|| bus instanceof BusSubcomponent;
+	}
+
+	/**
+	 * true of NamedElement is a ComponentInstance of category bus or a BusSubcomponent
+	 * @param bus
+	 * @return
+	 */
+	public static boolean isBusAccessConnection(final ConnectionInstance conni) {
+		return ((conni.getSource() instanceof FeatureInstance
+				&& ((FeatureInstance) conni.getSource()).getFeature() instanceof BusAccess)
+				|| (conni.getDestination() instanceof FeatureInstance
+						&& ((FeatureInstance) conni.getDestination()).getFeature() instanceof BusAccess));
+
 	}
 
 	/**
@@ -871,6 +886,9 @@ public class InstanceModelUtil {
 	public static List<ComponentInstance> deriveBoundBuses(ConnectionInstance connectionInstance) {
 		ComponentInstance srcHW = getHardwareComponent(connectionInstance.getSource());
 		ComponentInstance dstHW = getHardwareComponent(connectionInstance.getDestination());
+		if (isBusAccessConnection(connectionInstance)) {
+			return Collections.EMPTY_LIST;
+		}
 		return connectedByBus(srcHW, dstHW);
 	}
 
@@ -897,18 +915,16 @@ public class InstanceModelUtil {
 	 */
 	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
 			List<ComponentInstance> visitedBuses) {
-		if (srcHW == null || dstHW == null) {
-			return visitedBuses;
-		}
-		if (srcHW == dstHW) {
+		if (srcHW == null || dstHW == null || srcHW == dstHW) {
 			return visitedBuses;
 		}
 		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
-		for (Iterator<FeatureInstance> it = busaccesslist.iterator(); it.hasNext();) {
-			FeatureInstance fi = it.next();
+		for (FeatureInstance fi : srcHW.getFeatureInstances()) {
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
 				for (ConnectionInstance aci : fi.getDstConnectionInstances()) {
-					ComponentInstance curBus = aci.getSource().getComponentInstance();
+					ConnectionInstanceEnd src = aci.getSource();
+					ComponentInstance curBus = src instanceof ComponentInstance ? (ComponentInstance) src
+							: ((FeatureInstance) src).getComponentInstance();
 					if (!visitedBuses.contains(curBus)) {
 						if (connectedToBus(dstHW, curBus)) {
 							List<ComponentInstance> res = new ArrayList<ComponentInstance>();
@@ -924,7 +940,7 @@ public class InstanceModelUtil {
 							} else {
 								// check for buses that are connected to this bus
 								for (ConnectionInstance srcaci : curBus.getSrcConnectionInstances()) {
-									ComponentInstance bi = srcaci.getDestination().getComponentInstance();
+									ComponentInstance bi = srcaci.getDestination().getContainingComponentInstance();
 									if (bi.getCategory() == ComponentCategory.BUS) {
 										if (connectedToBus(dstHW, bi)) {
 											res = new BasicEList<ComponentInstance>();
@@ -986,7 +1002,7 @@ public class InstanceModelUtil {
 		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
 		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
 			ConnectionInstance srcaci = it.next();
-			if (srcaci.getDestination().getComponentInstance() == HWcomp) {
+			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
 				return true;
 			}
 		}
@@ -994,7 +1010,7 @@ public class InstanceModelUtil {
 		acl = bus.getDstConnectionInstances();
 		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
 			ConnectionInstance dstaci = it.next();
-			if (dstaci.getSource().getComponentInstance() == HWcomp) {
+			if (dstaci.getSource().getContainingComponentInstance() == HWcomp) {
 				return true;
 			}
 		}
@@ -1012,13 +1028,13 @@ public class InstanceModelUtil {
 	 */
 	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
 		for (ConnectionInstance srcaci : bus.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getComponentInstance() == HWcomp) {
+			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
 				return srcaci;
 			}
 		}
 		// check the other way
 		for (ConnectionInstance srcaci : HWcomp.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getComponentInstance() == bus) {
+			if (srcaci.getDestination().getContainingComponentInstance() == bus) {
 				return srcaci;
 			}
 		}
