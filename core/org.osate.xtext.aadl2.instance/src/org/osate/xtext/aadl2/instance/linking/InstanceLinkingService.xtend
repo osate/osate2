@@ -1,7 +1,8 @@
 package org.osate.xtext.aadl2.instance.linking
 
 import com.google.inject.Inject
-import java.util.Collections
+import java.util.List
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.linking.impl.DefaultLinkingService
@@ -14,6 +15,7 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.BehavioredImplementation
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.ClassifierFeature
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
@@ -32,6 +34,7 @@ import org.osate.aadl2.instance.SystemInstance
 
 import static extension java.lang.Integer.parseInt
 import static extension java.lang.Long.parseLong
+import static extension java.util.Collections.singletonList
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
@@ -56,100 +59,24 @@ class InstanceLinkingService extends DefaultLinkingService {
 			val qName = qualifiedNameConverter.toQualifiedName(crossRefString)
 			switch ref {
 				case systemInstance_ComponentImplementation: if (qName.segmentCount >= 2) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentImplementation, qName, false).map[EObjectOrProxy].head
+					context.getExportedObject(componentImplementation, qName)
 				}
 				case featureInstance_Feature: if (qName.segmentCount >= 3) {
-					switch classifier : rdp.getResourceDescriptions(context.eResource).getExportedObjects(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context)].head {
-						ComponentType: classifier.ownedFeatures.findFirst[name == qName.lastSegment]
-						FeatureGroupType: classifier.ownedFeatures.findFirst[name == qName.lastSegment]
-					}
+					context.getClassifierFeature(classifier, qName, [switch it {
+						ComponentType: ownedFeatures
+						FeatureGroupType: ownedFeatures
+						default: emptyList
+					}])
 				}
 				case componentInstance_InMode: if (qName.segmentCount == 1) {
 					context.eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst[name == qName.firstSegment]
 				}
 				case componentInstance_Subcomponent: if (qName.segmentCount >= 3) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentImplementation, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentImplementation].head?.ownedSubcomponents.findFirst[name == qName.lastSegment]
+					context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedSubcomponents])
 				}
-				case connectionInstance_Source: if (qName.segmentCount == 1) {
-					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
-						val request = switch bracketIndex : segment.indexOf("[") {
-							case -1: segment -> emptyList
-							default: segment.substring(0, bracketIndex) -> segment.substring(bracketIndex + 1, segment.length - 1).split("\\]\\[").map[parseLong]
-						}
-						val requestedName = request.key
-						val requestedIndices = request.value
-						switch container {
-							FeatureInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}]
-							ComponentInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}] ?: container.componentInstances.findFirst[name == requestedName && indices == requestedIndices]
-						}
-					}])
-				}
-				case connectionInstance_Destination: if (qName.segmentCount == 1) {
-					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
-						val request = switch bracketIndex : segment.indexOf("[") {
-							case -1: segment -> emptyList
-							default: segment.substring(0, bracketIndex) -> segment.substring(bracketIndex + 1, segment.length - 1).split("\\]\\[").map[parseLong]
-						}
-						val requestedName = request.key
-						val requestedIndices = request.value
-						switch container {
-							FeatureInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}]
-							ComponentInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}] ?: container.componentInstances.findFirst[name == requestedName && indices == requestedIndices]
-						}
-					}])
-				}
-				case connectionInstance_InSystemOperationMode: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("som#")) {
-					val somIndex = qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt
-					val soms = context.getContainerOfType(SystemInstance).systemOperationModes
-					if (somIndex < soms.size) {
-						soms.get(somIndex)
-					}
-				}
-				case connectionInstance_InModeTransition: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("transition#")) {
-					val transitionIndex = qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt
-					val transitions = context.getContainerOfType(ComponentInstance).modeTransitionInstances
-					if (transitionIndex < transitions.size) {
-						transitions.get(transitionIndex)
-					}
-				}
-				case connectionReference_Source: if (qName.segmentCount == 1) {
-					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
-						val request = switch bracketIndex : segment.indexOf("[") {
-							case -1: segment -> emptyList
-							default: segment.substring(0, bracketIndex) -> segment.substring(bracketIndex + 1, segment.length - 1).split("\\]\\[").map[parseLong]
-						}
-						val requestedName = request.key
-						val requestedIndices = request.value
-						switch container {
-							FeatureInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}]
-							ComponentInstance: container.featureInstances.findFirst[name == requestedName && if (index == 0) {
-								requestedIndices.empty
-							} else {
-								requestedIndices.size == 1 && index == requestedIndices.head
-							}] ?: container.componentInstances.findFirst[name == requestedName && indices == requestedIndices]
-						}
-					}])
-				}
+				case connectionInstance_Source,
+				case connectionInstance_Destination,
+				case connectionReference_Source,
 				case connectionReference_Destination: if (qName.segmentCount == 1) {
 					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
 						val request = switch bracketIndex : segment.indexOf("[") {
@@ -172,8 +99,17 @@ class InstanceLinkingService extends DefaultLinkingService {
 						}
 					}])
 				}
+				case connectionInstance_InSystemOperationMode,
+				case endToEndFlowInstance_InSystemOperationMode,
+				case modalElement_InMode: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("som#")) {
+					context.getContainerOfType(SystemInstance).systemOperationModes.guardedGet(qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt)
+				}
+				case connectionInstance_InModeTransition,
+				case flowSpecificationInstance_InModeTransition: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("transition#")) {
+					context.getContainerOfType(ComponentInstance).modeTransitionInstances.guardedGet(qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt)
+				}
 				case connectionReference_Connection: if (qName.segmentCount >= 3) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentImplementation, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentImplementation].head?.ownedConnections.findFirst[name == qName.lastSegment]
+					context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedConnections])
 				}
 				case connectionReference_Context: if (qName.segmentCount == 1) {
 					if (qName.firstSegment == "parent") {
@@ -191,24 +127,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 						}])
 					}
 				}
-				case flowSpecificationInstance_Source: if (qName.segmentCount == 1) {
-					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
-						val request = switch bracketIndex : segment.indexOf("[") {
-							case -1: segment -> emptyList
-							default: segment.substring(0, bracketIndex) -> segment.substring(bracketIndex + 1, segment.length - 1).split("\\]\\[").map[parseLong]
-						}
-						val requestedName = request.key
-						val requestedIndices = request.value
-						switch container {
-							FeatureInstance: container.featureInstances
-							ComponentInstance: container.featureInstances
-						}.findFirst[name == requestedName && if (index == 0) {
-							requestedIndices.empty
-						} else {
-							requestedIndices.size == 1 && index == requestedIndices.head
-						}]
-					}])
-				}
+				case flowSpecificationInstance_Source,
 				case flowSpecificationInstance_Destination: if (qName.segmentCount == 1) {
 					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
 						val request = switch bracketIndex : segment.indexOf("[") {
@@ -227,18 +146,13 @@ class InstanceLinkingService extends DefaultLinkingService {
 						}]
 					}])
 				}
-				case flowSpecificationInstance_InMode: if (qName.segmentCount == 1) {
+				case flowSpecificationInstance_InMode,
+				case modeTransitionInstance_Source,
+				case modeTransitionInstance_Destination: if (qName.segmentCount == 1) {
 					context.getContainerOfType(ComponentInstance).modeInstances.findFirst[name == qName.firstSegment]
 				}
-				case flowSpecificationInstance_InModeTransition: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("transition#")) {
-					val transitionIndex = qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt
-					val transitions = context.getContainerOfType(ComponentInstance).modeTransitionInstances
-					if (transitionIndex < transitions.size) {
-						transitions.get(transitionIndex)
-					}
-				}
 				case flowSpecificationInstance_FlowSpecification: if (qName.segmentCount >= 3) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentType, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentType].head?.ownedFlowSpecifications.findFirst[name == qName.lastSegment]
+					context.<ComponentType>getClassifierFeature(componentType, qName, [ownedFlowSpecifications])
 				}
 				case endToEndFlowInstance_FlowElement: if (qName.segmentCount == 1) {
 					qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container instanceof ComponentInstance) {
@@ -248,47 +162,28 @@ class InstanceLinkingService extends DefaultLinkingService {
 							val requestedIndices = segment.substring(bracketIndex + 1, segment.length - 1).split("\\]\\[").map[parseLong]
 							container.componentInstances.findFirst[name == requestedName && indices == requestedIndices]
 						} else if (segment.startsWith("connection#")) {
-							val connectionIndex = segment.substring(segment.indexOf("#") + 1).parseInt
-							if (connectionIndex < container.connectionInstances.size) {
-								container.connectionInstances.get(connectionIndex)
-							}
+							container.connectionInstances.guardedGet(segment.substring(segment.indexOf("#") + 1).parseInt)
 						} else {
 							(container.componentInstances.filter[indices.empty] + container.endToEndFlows + container.flowSpecifications).findFirst[name == segment]
 						}
 					}])
 				}
-				case endToEndFlowInstance_InSystemOperationMode: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("som#")) {
-					val somIndex = qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt
-					val soms = context.getContainerOfType(SystemInstance).systemOperationModes
-					if (somIndex < soms.size) {
-						soms.get(somIndex)
-					}
-				}
 				case endToEndFlowInstance_EndToEndFlow: if (qName.segmentCount >= 3) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentImplementation, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentImplementation].head?.ownedEndToEndFlows.findFirst[name == qName.lastSegment]
+					context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedEndToEndFlows])
 				}
 				case modeInstance_Parent: if (qName.segmentCount == 1) {
 					context.getContainerOfType(ComponentInstance).eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst[name == qName.firstSegment]
 				}
 				case modeInstance_Mode: if (qName.segmentCount >= 3) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentClassifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentClassifier].head?.ownedModes.findFirst[name == qName.lastSegment]
-				}
-				case modeTransitionInstance_Source: if (qName.segmentCount == 1) {
-					context.getContainerOfType(ComponentInstance).modeInstances.findFirst[name == qName.firstSegment]
-				}
-				case modeTransitionInstance_Destination: if (qName.segmentCount == 1) {
-					context.getContainerOfType(ComponentInstance).modeInstances.findFirst[name == qName.firstSegment]
+					context.<ComponentClassifier>getClassifierFeature(componentClassifier, qName, [ownedModes])
 				}
 				case modeTransitionInstance_ModeTransition: if (qName.segmentCount >= 3) {
-					val classifier = rdp.getResourceDescriptions(context.eResource).getExportedObjects(componentClassifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as ComponentClassifier].head
+					val classifier = context.getExportedObject(componentClassifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)))?.resolve(context) as ComponentClassifier
 					if (classifier != null) {
 						if (qName.lastSegment.startsWith("transition#")) {
-							val transitionIndex = qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt
-							if (transitionIndex < classifier.ownedModeTransitions.size) {
-								val transition = classifier.ownedModeTransitions.get(transitionIndex)
-								if (transition.name == null) {
-									transition
-								}
+							val transition = classifier.ownedModeTransitions.guardedGet(qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt)
+							if (transition != null && transition.name == null) {
+								transition
 							}
 						} else {
 							classifier.ownedModeTransitions.findFirst[name == qName.lastSegment]
@@ -308,51 +203,33 @@ class InstanceLinkingService extends DefaultLinkingService {
 					}])
 				}
 				case propertyAssociation_Property: if (qName.segmentCount == 2) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(property, qName, false).map[EObjectOrProxy].head
+					context.getExportedObject(property, qName)
 				}
 				case propertyAssociationInstance_PropertyAssociation: if (qName.segmentCount >= 3 && qName.lastSegment.startsWith("classifierProperty#")) {
-					val classifier = rdp.getResourceDescriptions(context.eResource).getExportedObjects(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context) as Classifier].head
-					val associationIndex = qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt
-					val associations = classifier?.ownedPropertyAssociations
-					if (associations != null && associationIndex < associations.size) {
-						associations.get(associationIndex)
-					}
+					val classifier = context.getExportedObject(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)))?.resolve(context) as Classifier
+					classifier?.ownedPropertyAssociations?.guardedGet(qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt)
 				} else if (qName.segmentCount >= 4 && qName.lastSegment.startsWith("curlyProperty#")) {
 					val elementName = qName.getSegment(qName.segmentCount - 2)
-					val element = switch classifier : rdp.getResourceDescriptions(context.eResource).getExportedObjects(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 2)), false).map[EObjectOrProxy.resolve(context)].head {
+					val element = switch classifier : context.getExportedObject(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 2)))?.resolve(context) {
 						FeatureGroupType: classifier.ownedFeatures.findFirst[name == elementName]
 						ComponentClassifier case elementName.startsWith("transition#"): {
-							val transitionIndex = elementName.substring(elementName.indexOf("#") + 1).parseInt
-							if (transitionIndex < classifier.ownedModeTransitions.size) {
-								val transition = classifier.ownedModeTransitions.get(transitionIndex)
-								if (transition.name == null) {
-									transition
-								}
+							val transition = classifier.ownedModeTransitions.guardedGet(elementName.substring(elementName.indexOf("#") + 1).parseInt)
+							if (transition != null && transition.name == null) {
+								transition
 							}
 						}
 						ComponentType: (classifier.ownedFeatures + classifier.ownedFlowSpecifications + classifier.ownedModes + classifier.ownedModeTransitions).findFirst[name == elementName]
 						ComponentImplementation: (classifier.ownedModes + classifier.ownedSubcomponents + classifier.ownedConnections + classifier.ownedEndToEndFlows + classifier.ownedModeTransitions).findFirst[name == elementName]
 					}
-					val propertyIndex = qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt
-					val associations = element?.ownedPropertyAssociations
-					if (associations != null && propertyIndex < associations.size) {
-						associations.get(propertyIndex)
-					}
-				}
-				case modalElement_InMode: if (qName.segmentCount == 1 && qName.firstSegment.startsWith("som#")) {
-					val somIndex = qName.firstSegment.substring(qName.firstSegment.indexOf("#") + 1).parseInt
-					val soms = context.getContainerOfType(SystemInstance).systemOperationModes
-					if (somIndex < soms.size) {
-						soms.get(somIndex)
-					}
+					element?.ownedPropertyAssociations?.guardedGet(qName.lastSegment.substring(qName.lastSegment.indexOf("#") + 1).parseInt)
 				}
 				case containmentPathElement_NamedElement: if (qName.segmentCount >= 3) {
-					switch classifier : rdp.getResourceDescriptions(context.eResource).getExportedObjects(classifier, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)), false).map[EObjectOrProxy.resolve(context)].head {
-						FeatureGroupType: classifier.ownedPrototypes + classifier.ownedFeatureGroups
-						ComponentType: classifier.componentClassifierReferenceElements + classifier.ownedFeatureGroups
-						BehavioredImplementation: classifier.implReferenceElements + classifier.ownedSubprogramCallSequences + classifier.subprogramCalls()
-						ComponentImplementation: classifier.implReferenceElements
-					}.findFirst[name == qName.lastSegment]
+					context.getClassifierFeature(classifier, qName, [switch it {
+						FeatureGroupType: ownedPrototypes + ownedFeatureGroups
+						ComponentType: componentClassifierReferenceElements + ownedFeatureGroups
+						BehavioredImplementation: implReferenceElements + ownedSubprogramCallSequences + subprogramCalls()
+						ComponentImplementation: implReferenceElements
+					}])
 				}
 				case instanceReferenceValue_ReferencedInstanceObject: if (qName.segmentCount == 1) {
 					qName.firstSegment.split("\\.").fold(context.getContainerOfType(SystemInstance), [InstanceObject container, segment | if (container != null) {
@@ -370,10 +247,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 							}
 						} else if (segment.startsWith("connection#")) {
 							if (container instanceof ComponentInstance) {
-								val connectionIndex = segment.substring(segment.indexOf("#") + 1).parseInt
-								if (connectionIndex < container.connectionInstances.size) {
-									container.connectionInstances.get(connectionIndex)
-								}
+								container.connectionInstances.guardedGet(segment.substring(segment.indexOf("#") + 1).parseInt)
 							}
 						} else if (container instanceof FeatureInstance) {
 							container.featureInstances.findFirst[index == 0 && name == segment]
@@ -383,7 +257,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 					}])
 				}
 				case classifierValue_Classifier: if (qName.segmentCount >= 2) {
-					rdp.getResourceDescriptions(context.eResource).getExportedObjects(classifier, qName, false).map[EObjectOrProxy].head
+					context.getExportedObject(classifier, qName)
 				}
 				case namedValue_NamedValue: if (qName.segmentCount == 1) {
 					val property = context.getContainerOfType(BasicPropertyAssociation)?.property ?: context.getContainerOfType(PropertyAssociation).property
@@ -392,8 +266,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 						type.ownedLiterals.findFirst[name == qName.firstSegment]
 					}
 				} else if (qName.segmentCount == 2) {
-					val descriptions = rdp.getResourceDescriptions(context.eResource)
-					(descriptions.getExportedObjects(property, qName, false) + descriptions.getExportedObjects(propertyConstant, qName, false)).map[EObjectOrProxy].head
+					context.getExportedObject(property, qName) ?: context.getExportedObject(propertyConstant, qName)
 				}
 				case numberValue_Unit: if (qName.segmentCount == 1) {
 					val property = context.getContainerOfType(BasicPropertyAssociation)?.property ?: context.getContainerOfType(PropertyAssociation).property
@@ -409,14 +282,26 @@ class InstanceLinkingService extends DefaultLinkingService {
 						RecordType: type.ownedFields.findFirst[name == qName.firstSegment]
 					}
 				}
-//				default: super.getLinkedObjects(context, ref, node).head
-				default: throw new AssertionError("Missed reference: " + ref)
+				default: super.getLinkedObjects(context, ref, node).head
 			}
 		}
-		if (result == null) {
-			emptyList
-		} else {
-			Collections.singletonList(result)
+		result?.singletonList ?: emptyList
+	}
+	
+	def private getExportedObject(EObject context, EClass type, QualifiedName qName) {
+		rdp.getResourceDescriptions(context.eResource).getExportedObjects(type, qName, false).map[EObjectOrProxy].head
+	}
+	
+	def private <T extends Classifier> getClassifierFeature(EObject context, EClass type, QualifiedName qName, (T)=>Iterable<? extends ClassifierFeature> featureGetter) {
+		val classifier = context.getExportedObject(type, QualifiedName.create(qName.segments.take(qName.segmentCount - 1)))?.resolve(context) as T
+		if (classifier != null) {
+			featureGetter.apply(classifier).findFirst[name == qName.lastSegment]
+		}
+	}
+	
+	def private static <T> guardedGet(List<T> list, int index) {
+		if (index < list.size) {
+			list.get(index)
 		}
 	}
 }
