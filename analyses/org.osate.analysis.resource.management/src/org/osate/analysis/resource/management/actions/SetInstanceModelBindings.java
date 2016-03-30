@@ -16,7 +16,6 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
 /**
  * Command used by {@link Binpack} to set the properties in the instance model
  * to match the results of the binpacking/scheduling operation.  This command
@@ -27,37 +26,37 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 class SetInstanceModelBindings extends AbstractCommand {
 	private final Map threadsToProc;
 	private final Map oldThreadsToProc;
-	
+
 	public SetInstanceModelBindings(final Map bindings) {
 		// Clone the input because we are going to modify the map
 		threadsToProc = new HashMap(bindings);
 		oldThreadsToProc = new HashMap();
 	}
-	
+
 	public void execute() {
-		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
 			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
 		}
 	}
-	
+
 	public void redo() {
 		// same as execute
-		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
 			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
 		}
 	}
-	
+
 	public boolean canUndo() {
 		return true;
 	}
-	
+
 	public void undo() {
 		// reset to the old property values -- or remove entirely if the old val is null
-		for (Iterator iter = oldThreadsToProc.keySet().iterator(); iter.hasNext(); ) {
+		for (Iterator iter = oldThreadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final PropertyValue oldVal = (PropertyValue) oldThreadsToProc.get(thread);
 			if (oldVal == null) {
@@ -67,39 +66,39 @@ class SetInstanceModelBindings extends AbstractCommand {
 			}
 		}
 	}
-	
+
 	public boolean prepare() {
-		/* First get the old processor bindings so we can undo.
+		/*
+		 * First get the old processor bindings so we can undo.
 		 * We assume that the bindings are NOT modal!
 		 */
 		try {
-			for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+			for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 				final ComponentInstance thread = (ComponentInstance) iter.next();
 				// Get the old val, may not have been set
 				PropertyValue oldVal;
-				try
-				{
-					oldVal = (PropertyValue)thread.getSimplePropertyValue(GetProperties.getActualProcessorBindingProperty(thread));
-				}
-				catch (PropertyNotPresentException e)
-				{
+				try {
+					oldVal = (PropertyValue) thread
+							.getSimplePropertyValue(GetProperties.getActualProcessorBindingProperty(thread));
+				} catch (PropertyNotPresentException e) {
 					oldVal = null;
 				}
 				oldThreadsToProc.put(thread, oldVal);
 			}
-			
-			/* Next we go through the given thread->proc map and change it to be a 
-			 * map from theads to InstanceReferenceValues.  This way we don't have 
+
+			/*
+			 * Next we go through the given thread->proc map and change it to be a
+			 * map from theads to InstanceReferenceValues. This way we don't have
 			 * to keep recreating reference values.
 			 */
-			for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+			for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 				final ComponentInstance thread = (ComponentInstance) iter.next();
 				final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
 				final InstanceReferenceValue val = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
 				val.setReferencedInstanceObject(proc);
 				threadsToProc.put(thread, val);
 			}
-			
+
 			// always ready to go
 			return true;
 		} catch (InvalidModelException e) {
@@ -113,11 +112,11 @@ class SetInstanceModelBindings extends AbstractCommand {
 		oldThreadsToProc.clear();
 		threadsToProc.clear();
 	}
-	
+
 	public String getLabel() {
 		return "Bind threads to processors";
 	}
-	
+
 	public String getDescription() {
 		return "Sets the Actual_Processor_Binding property of all the threads in the system based on a bin packing algorithm.";
 	}

@@ -47,12 +47,9 @@ import java.util.List;
 
 import org.osate.importer.model.Component;
 
+public class LdmWriter {
 
-public class LdmWriter  
-{
-
-	private static void writeHeader (Writer out) throws IOException
-	{
+	private static void writeHeader(Writer out) throws IOException {
 		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 
 		out.write("<lattix version=\"7.0\">\n");
@@ -70,66 +67,60 @@ public class LdmWriter
 		out.write("  <property name=\"lattix.project.name\" value=\"Project\"/>\n");
 		out.write("  <property name=\"lattix.project.useAtomDB\" value=\"true\"/>\n");
 		out.write(" </properties>\n");
-		
+
 	}
-	
-	
-	private static void writeSources (Writer out, Collection<Component> entities) throws IOException
-	{
+
+	private static void writeSources(Writer out, Collection<Component> entities) throws IOException {
 		Iterator<Component> iter;
 		out.write("<source>\n");
 		out.write("  <sourceset id=\"lattix.plugin.manual\">\n");
-		out.write("  <file name=\"manual\" kind=\"manual\" date=\"31/12/1969 19:00:00\" dateadded=\"27/11/2012 20:24:53\" type=\"lattix.plugin.manual\" sourceIndex=\"0\">\n");
-		
+		out.write(
+				"  <file name=\"manual\" kind=\"manual\" date=\"31/12/1969 19:00:00\" dateadded=\"27/11/2012 20:24:53\" type=\"lattix.plugin.manual\" sourceIndex=\"0\">\n");
+
 		iter = entities.iterator();
-		while (iter.hasNext())
-		{ 
+		while (iter.hasNext()) {
 			Component e = iter.next();
-			out.write("<base name=\"" + e.getAadlName() +"\" kind=\"manual\">\n");
-			for (Component dest : e.getOutgoingDependencies())
-			{
-				out.write("  <uses name=\"" + dest.getAadlName() +"\" kind=\"Manual\"/>\n");
+			out.write("<base name=\"" + e.getAadlName() + "\" kind=\"manual\">\n");
+			for (Component dest : e.getOutgoingDependencies()) {
+				out.write("  <uses name=\"" + dest.getAadlName() + "\" kind=\"Manual\"/>\n");
 			}
-			out.write("</base>\n");  
+			out.write("</base>\n");
 		}
 		out.write("</file>\n");
 		out.write("</sourceset>\n");
 		out.write("</source>\n");
-		
+
 	}
-	private static void writePartitions (Writer out, Collection<Component> entities) throws IOException
-	{
+
+	private static void writePartitions(Writer out, Collection<Component> entities) throws IOException {
 		Iterator<Component> iter;
 		out.write(" <partitions>\n");
 		out.write("  <partition name=\"$root\" type=\"root\">\n");
 		out.write("   <rule name=\"generic\">\n");
 		out.write("   <access verb=\"can-use\" nametype=\"partition\" name=\"$root\"/>\n");
 		out.write("  </rule>\n");
-		   
-		   
-	
+
 		iter = entities.iterator();
-		while (iter.hasNext())
-		{ 
+		while (iter.hasNext()) {
 			Component e = iter.next();
-			out.write("<partition name=\""+ e.getAadlName()+"\" type=\"leaf\">\n");
-			out.write("  <atom name=\""+ e.getAadlName()+"\" kind=\"manual\" sourceIndex=\"0\" comp=\"lattix.plugin.manual\">\n");
+			out.write("<partition name=\"" + e.getAadlName() + "\" type=\"leaf\">\n");
+			out.write("  <atom name=\"" + e.getAadlName()
+					+ "\" kind=\"manual\" sourceIndex=\"0\" comp=\"lattix.plugin.manual\">\n");
 			out.write("     <property name=\"reason\" value=\"manual\"/>\n");
 			out.write("  </atom>\n");
 			out.write("</partition>\n");
-			
+
 		}
-		out.write("</partition>\n"); 
+		out.write("</partition>\n");
 		out.write("</partitions>\n");
-		
+
 	}
-	private static void writeFooter (Writer out) throws IOException
-	{
+
+	private static void writeFooter(Writer out) throws IOException {
 		out.write("</lattix>\n");
 	}
-	
-	public static void writeFile (String fileName, Collection<Component> entities) throws Exception
-	{
+
+	public static void writeFile(String fileName, Collection<Component> entities) throws Exception {
 
 		FileWriter fstream = new FileWriter(fileName);
 		BufferedWriter out = new BufferedWriter(fstream);

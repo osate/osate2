@@ -27,32 +27,33 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.imv.aadldiagram.viewer.AadlDiagramViewer;
 import org.osate.imv.model.ElementInhibitStatus;
 
-
 public class ComponentFilter extends ViewerFilter implements PropertyChangeListener {
 
 	private Map<ComponentCategory, Boolean> componentMap;
 
 	private AadlDiagramViewer viewer;
 
-	public ComponentFilter(List<ElementInhibitStatus<ComponentCategory>> componentInhibitList, AadlDiagramViewer viewer){
+	public ComponentFilter(List<ElementInhibitStatus<ComponentCategory>> componentInhibitList,
+			AadlDiagramViewer viewer) {
 		this.viewer = viewer;
 		populateFeatureMap(componentInhibitList);
 	}
 
-	public void inhibitComponentCategory(ComponentCategory category, boolean inhibit){
-		synchronized(componentMap){
+	public void inhibitComponentCategory(ComponentCategory category, boolean inhibit) {
+		synchronized (componentMap) {
 			componentMap.put(category, inhibit);
 		}
 	}
 
-	protected void populateFeatureMap(List<ElementInhibitStatus<ComponentCategory>> componentInhibitList){
+	protected void populateFeatureMap(List<ElementInhibitStatus<ComponentCategory>> componentInhibitList) {
 		// Create map to store key/value pairs consisting of a component category and a boolean value indicating
 		// if the component should be visible.
 		componentMap = new HashMap<ComponentCategory, Boolean>();
 
-		synchronized(componentMap){
+		synchronized (componentMap) {
 			// Populate map with component categories. All components will initially be visible.
-			for(Iterator<ElementInhibitStatus<ComponentCategory>> it = componentInhibitList.iterator(); it.hasNext();){
+			for (Iterator<ElementInhibitStatus<ComponentCategory>> it = componentInhibitList.iterator(); it
+					.hasNext();) {
 				ElementInhibitStatus<ComponentCategory> inhibitStatus = it.next();
 				// Register for property change events.
 				inhibitStatus.addPropertyChangeListener(ElementInhibitStatus.INHIBIT_PROPERTY, this);
@@ -62,27 +63,27 @@ public class ComponentFilter extends ViewerFilter implements PropertyChangeListe
 		}
 	}
 
-	protected boolean isComponentVisible(NamedElement component){
+	protected boolean isComponentVisible(NamedElement component) {
 		Boolean inhibit = null;
 
-		ComponentCategory category = component instanceof ComponentInstance?((ComponentInstance)component).getCategory():((ComponentClassifier)component).getCategory();
-		synchronized(componentMap){
+		ComponentCategory category = component instanceof ComponentInstance
+				? ((ComponentInstance) component).getCategory() : ((ComponentClassifier) component).getCategory();
+		synchronized (componentMap) {
 			inhibit = componentMap.get(category);
 		}
-		if(inhibit == null)
+		if (inhibit == null)
 			inhibit = false; // Should never happen.
 
 		return !inhibit.booleanValue();
 	}
-
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		boolean displayElement = true;
 		// If the parentElement is null, then the element object corresponds to the
 		// active figure. The active figure will always be visible so it will not be filtered.
-		if(parentElement != null && (element instanceof ComponentInstance|| element instanceof ComponentClassifier)){
-			displayElement = isComponentVisible((NamedElement)element);
+		if (parentElement != null && (element instanceof ComponentInstance || element instanceof ComponentClassifier)) {
+			displayElement = isComponentVisible((NamedElement) element);
 		}
 
 		return displayElement;
@@ -91,9 +92,9 @@ public class ComponentFilter extends ViewerFilter implements PropertyChangeListe
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		String property = event.getPropertyName();
-		if(property.equals(ElementInhibitStatus.INHIBIT_PROPERTY)){
+		if (property.equals(ElementInhibitStatus.INHIBIT_PROPERTY)) {
 			Object source = event.getSource();
-			if(source instanceof ElementInhibitStatus) {
+			if (source instanceof ElementInhibitStatus) {
 				ElementInhibitStatus<ComponentCategory> inhibitStatus = (ElementInhibitStatus<ComponentCategory>) source;
 				inhibitComponentCategory(inhibitStatus.getCategory(), inhibitStatus.isInhibited());
 				viewer.runFilters();

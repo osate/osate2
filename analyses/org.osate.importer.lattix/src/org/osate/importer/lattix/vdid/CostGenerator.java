@@ -60,142 +60,120 @@ import org.osate.importer.properties.SlocProperty;
 
 import java.util.*;
 
-public class CostGenerator 
-{
+public class CostGenerator {
 	public final static int DSM_TYPE_BOOLEAN = 0;
-	
+
 	private MatrixGenerator matrix;
 	private ComponentInstance mainComponent;
 	private DsmGenerator dsmGenerator;
-	HashMap<String,CostImpactReport> impactReports;
+	HashMap<String, CostImpactReport> impactReports;
 
 	private double total;
 	private double cost;
 	private int depth;
 
-	public CostGenerator (MatrixGenerator m, ComponentInstance ci)
-	{
-		this (m, ci, DsmGenerator.DSM_TYPE_BOOLEAN);
+	public CostGenerator(MatrixGenerator m, ComponentInstance ci) {
+		this(m, ci, DsmGenerator.DSM_TYPE_BOOLEAN);
 	}
-	
-	public CostGenerator (MatrixGenerator m, ComponentInstance ci, int type)
-	{
+
+	public CostGenerator(MatrixGenerator m, ComponentInstance ci, int type) {
 		mainComponent = ci;
 		matrix = m;
 		dsmGenerator = new DsmGenerator(matrix, mainComponent, type);
 		depth = dsmGenerator.getDepth();
-		cost  = 0;
+		cost = 0;
 		total = 0;
-		impactReports = new HashMap<String,CostImpactReport>();
+		impactReports = new HashMap<String, CostImpactReport>();
 	}
-	
-	
-	public double getCost ()
-	{
+
+	public double getCost() {
 		return this.cost;
 	}
-	
-	public double getTotal ()
-	{
+
+	public double getTotal() {
 		return this.total;
 	}
-	
-	public int getDepth ()
-	{
+
+	public int getDepth() {
 		return this.depth;
 	}
-	
-	public void compute ()
-	{
+
+	public void compute() {
 		int[][][] dsms;
 		int[][] dsm;
 		CostImpactReport impactReport;
 		String componentName;
 		dsms = new int[depth][depth][depth];
-		
-		if (depth == 0)
-		{
-			System.out.println ("[COSTGENERATOR] ERROR depth==0");
+
+		if (depth == 0) {
+			System.out.println("[COSTGENERATOR] ERROR depth==0");
 			return;
 		}
-		
-		
+
 		/*
 		 * Compute all DSM matrixes
 		 */
-		for (int i = 0 ; i < depth ; i++)
-		{
+		for (int i = 0; i < depth; i++) {
 			dsms[i] = dsmGenerator.getDsm(i);
 		}
-		
+
 		/*
 		 * Compute the final cost impact
 		 */
-		for (int i = 0 ; i < depth ; i++)
-		{
-			for (int j = 0 ; j < depth ; j++)
-			{
-				for (int k = 0 ; k < depth ; k++)
-				{
-					total += (double)dsms[i][j][k];
+		for (int i = 0; i < depth; i++) {
+			for (int j = 0; j < depth; j++) {
+				for (int k = 0; k < depth; k++) {
+					total += (double) dsms[i][j][k];
 				}
 			}
 		}
-		
-		
+
 		/*
 		 * Compute the slocs impact for each component
 		 */
-		for (int c = 0 ; c < dsmGenerator.getComponents().size() ; c++)
-		{
+		for (int c = 0; c < dsmGenerator.getComponents().size(); c++) {
 			long slocs;
 			int crit;
 			String depName;
 			ComponentInstance depInstance;
 			ComponentInstance component;
-			
+
 			component = dsmGenerator.getComponents().get(c);
 			componentName = Utils.getComponentName(component);
-			
+
 			impactReport = new CostImpactReport(componentName);
 //			System.out.println ("Cost analysis for: " + componentName);
-			for (int d = 0 ; d < depth ; d++)
-			{
+			for (int d = 0; d < depth; d++) {
 //				System.out.println ("DEPTH=" + d);
 				dsm = dsmGenerator.getDsm(d);
 
-				for (int dep = 0 ; dep < dsmGenerator.getComponents().size() ; dep++)
-				{
+				for (int dep = 0; dep < dsmGenerator.getComponents().size(); dep++) {
 					depInstance = dsmGenerator.getComponents().get(dep);
 					depName = Utils.getComponentName(depInstance);
 
 					slocs = SlocProperty.getSloc(depInstance);
-					crit  = CriticalityProperty.getCriticality(depInstance);
+					crit = CriticalityProperty.getCriticality(depInstance);
 //					System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
 
-					if (dsm[dep][c] > 0)
-					{
+					if (dsm[dep][c] > 0) {
 //						System.out.println ("   Looking for dep (depth="+d+"): " + depName + "(crit=" + crit + ";slocs=" + slocs + ";coeff="+ dsm[c][dep] +")");
-						impactReport.addSlocs (slocs * dsm[dep][c], crit);
+						impactReport.addSlocs(slocs * dsm[dep][c], crit);
 					}
 				}
 			}
-			impactReports.put (componentName, impactReport);
+			impactReports.put(componentName, impactReport);
 		}
 
-		cost = total / (double)((depth * depth));
-		System.out.println ("[COSTGENERATOR] Cost=" + cost + "(total = " + total + " depth=" + depth + ")");
+		cost = total / (double) ((depth * depth));
+		System.out.println("[COSTGENERATOR] Cost=" + cost + "(total = " + total + " depth=" + depth + ")");
 
 	}
-	
-	public CostImpactReport getReport (String n)
-	{
+
+	public CostImpactReport getReport(String n) {
 		return impactReports.get(n);
 	}
 
-
-	public ComponentInstance getMainComponent ()
-	{
+	public ComponentInstance getMainComponent() {
 		return this.mainComponent;
 	}
 }

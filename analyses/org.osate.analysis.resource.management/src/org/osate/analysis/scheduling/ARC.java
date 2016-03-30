@@ -1,6 +1,5 @@
 package org.osate.analysis.scheduling;
 
-
 import java.util.Vector;
 
 /** this whole package is translated from the C++ version. It covers
@@ -10,31 +9,43 @@ import java.util.Vector;
  *  @author Jun Li
  *  created in May 12, 1999.
  */
-public class ARC  {
-   //data fields
-   private int ARCID;
-   private Vector processList;
-   private int coordinate;
+public class ARC {
+	// data fields
+	private int ARCID;
+	private Vector processList;
+	private int coordinate;
 
-   //trivial constructor
-   public ARC () { }
+	// trivial constructor
+	public ARC() {
+	}
 
-   public ARC (int id) {
-      ARCID= id;
-      processList = new Vector();
-   }
+	public ARC(int id) {
+		ARCID = id;
+		processList = new Vector();
+	}
 
-   public void setARCID(int id) {ARCID= id; }
-   public int  getARCID() { return ARCID; }
+	public void setARCID(int id) {
+		ARCID = id;
+	}
 
-   public Vector getProcessList( ) { return processList; }
+	public int getARCID() {
+		return ARCID;
+	}
 
-   public int  getNumberOfProcesses() { return processList.size(); }
+	public Vector getProcessList() {
+		return processList;
+	}
 
-   public void setCoordinate(int position) { coordinate= position; }
-   public int  getCoordinate() { return coordinate; }
+	public int getNumberOfProcesses() {
+		return processList.size();
+	}
 
+	public void setCoordinate(int position) {
+		coordinate = position;
+	}
+
+	public int getCoordinate() {
+		return coordinate;
+	}
 
 }
-
-

@@ -228,4 +228,4 @@ public enum FeatureDirectionType {
 		return literal;
 	}
 
-} //DirectionType
+} // DirectionType

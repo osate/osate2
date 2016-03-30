@@ -7,9 +7,8 @@ import EAnalysis.BinPacking.BPErrorReporter;
 
 public class BinPackErrorReporter implements BPErrorReporter {
 
-	public void reportError(int errorCode, AssignmentProblem problem) 
-	{
-		OsateDebug.osateDebug ("error"+errorCode);
+	public void reportError(int errorCode, AssignmentProblem problem) {
+		OsateDebug.osateDebug("error" + errorCode);
 	}
 
 }

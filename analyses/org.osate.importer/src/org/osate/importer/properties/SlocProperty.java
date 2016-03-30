@@ -39,36 +39,29 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class SlocProperty {
 
-
 	private static Property slocProperty = null;
-	
-	
+
 	public static long getSloc(final NamedElement ph) {
 		PropertyExpression pv;
 		long val;
-		
-		if (slocProperty == null)
-		{
-			slocProperty = GetProperties.lookupPropertyDefinition (ph, SEI._NAME, SEI.NSLOC);
+
+		if (slocProperty == null) {
+			slocProperty = GetProperties.lookupPropertyDefinition(ph, SEI._NAME, SEI.NSLOC);
 		}
-		
+
 		val = 0;
-		
-		try
-		{
+
+		try {
 			pv = ph.getSimplePropertyValue(slocProperty);
-			
-			if (pv instanceof IntegerLiteral) 
-			{
+
+			if (pv instanceof IntegerLiteral) {
 				val = ((IntegerLiteral) pv).getValue();
 			}
-		}
-		catch (PropertyLookupException e)
-		{	
+		} catch (PropertyLookupException e) {
 			return 0;
 		}
-		//System.out.println ("return sloc: " + val);
+		// System.out.println ("return sloc: " + val);
 		return val;
 	}
-	
+
 }

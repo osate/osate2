@@ -32,7 +32,6 @@ import org.osate.imv.ui.IImageKeys;
 import org.osate.imv.ui.ImvUiPlugin;
 import org.osate.imv.ui.util.GradientHelper;
 
-
 public class ImvEditorToolbar extends Composite {
 
 	private AadlPersistentDiagramViewer mevViewer;
@@ -56,7 +55,7 @@ public class ImvEditorToolbar extends Composite {
 		this.mevViewer = viewer;
 	}
 
-	protected void createControl(){
+	protected void createControl() {
 		// We will use grid layout for this composite.
 		GridLayout gridLayout = new GridLayout(2, false);
 		gridLayout.marginHeight = 0;
@@ -64,7 +63,7 @@ public class ImvEditorToolbar extends Composite {
 
 		// Apply gradient background.
 		final Composite thisComposite = this;
-		this.addListener(SWT.Resize,new Listener() {
+		this.addListener(SWT.Resize, new Listener() {
 			public void handleEvent(Event event) {
 				GradientHelper.applyGradientBG(thisComposite);
 			}
@@ -173,7 +172,8 @@ public class ImvEditorToolbar extends Composite {
 
 		// Hierarchical connection in nested component view
 		ToolItem hierarchicalConnection = new ToolItem(toolbar, SWT.PUSH);
-		hierarchicalConnection.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.HIERARCHICAL_CONNECTION_ICON));
+		hierarchicalConnection
+				.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.HIERARCHICAL_CONNECTION_ICON));
 		hierarchicalConnection.setToolTipText("Hierarchial connections");
 		hierarchicalConnection.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -181,7 +181,7 @@ public class ImvEditorToolbar extends Composite {
 				mevViewer.hierarchicalConnectionHandler();
 			}
 		});
-		
+
 		// Separator.
 		new ToolItem(toolbar, SWT.SEPARATOR);
 		// Show errors propagation
@@ -203,7 +203,6 @@ public class ImvEditorToolbar extends Composite {
 				mevViewer.hideErrors();
 			}
 		});
-	
 
 		// Separator.
 		new ToolItem(toolbar, SWT.SEPARATOR);
@@ -284,7 +283,7 @@ public class ImvEditorToolbar extends Composite {
 		return toolbar;
 	}
 
-	protected Scale createScaleSlider(){
+	protected Scale createScaleSlider() {
 		Composite container = new Composite(this, SWT.RIGHT_TO_LEFT);
 
 		// Layout data.
@@ -318,14 +317,13 @@ public class ImvEditorToolbar extends Composite {
 		this.zoomLabel = new Label(container, SWT.NONE);
 		updateZoomLevel();
 
-
 		// Add listener.
 		slider.addListener(SWT.Selection, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
 				int zoomLevel = slider.getSelection();
-				if(mevViewer != null)
+				if (mevViewer != null)
 					mevViewer.getAadlDiagram().setScale(zoomLevel / 100.0f);
 
 				updateZoomLevel();
@@ -339,21 +337,21 @@ public class ImvEditorToolbar extends Composite {
 	}
 
 	protected void scaleToFitHandler() {
-		if(mevViewer != null) {
+		if (mevViewer != null) {
 			mevViewer.getAadlDiagram().scaleToFit();
 			updateZoomLevel();
 		}
 	}
 
 	protected void incrementZoomHandler() {
-		if(mevViewer != null) {
+		if (mevViewer != null) {
 			mevViewer.getAadlDiagram().incrementScale();
 			updateZoomLevel();
 		}
 	}
 
 	protected void decrementZoomHandler() {
-		if(mevViewer != null) {
+		if (mevViewer != null) {
 			mevViewer.getAadlDiagram().decrementScale();
 			updateZoomLevel();
 		}
@@ -362,16 +360,15 @@ public class ImvEditorToolbar extends Composite {
 	protected void updateZoomLevel() {
 		int zoomLevel = 100;
 
-		if(this.mevViewer != null)
-			zoomLevel = (int)(this.mevViewer.getAadlDiagram().getScale() * 100);
+		if (this.mevViewer != null)
+			zoomLevel = (int) (this.mevViewer.getAadlDiagram().getScale() * 100);
 
-		if(this.zoomLabel != null)
+		if (this.zoomLabel != null)
 			this.zoomLabel.setText(zoomLevel + "%");
 
-		if(this.scaleSlider != null)
+		if (this.scaleSlider != null)
 			this.scaleSlider.setSelection(zoomLevel);
 	}
-
 
 	public Scale getScaleSlider() {
 		return this.scaleSlider;
@@ -380,7 +377,5 @@ public class ImvEditorToolbar extends Composite {
 	protected void performAutoLayout() {
 		this.mevViewer.getAadlDiagram().performAutoLayout();
 	}
-
-
 
 }

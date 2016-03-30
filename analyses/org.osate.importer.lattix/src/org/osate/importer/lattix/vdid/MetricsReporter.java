@@ -65,12 +65,10 @@ import org.osate.importer.properties.CriticalityProperty;
 import org.osate.importer.properties.SlocProperty;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
-
 public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 
 	private long sloc[];
-	
+
 	private int nProcessor[];
 	private int nMemory[];
 	private int nThread[];
@@ -82,272 +80,225 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 	private int nDevice[];
 	private int nAbstract[];
 	private int nData[];
-	
+
 	private int nConnection;
-	
-	public int getNbConnection ()
-	{
+
+	public int getNbConnection() {
 		return this.nConnection;
 	}
-	
-	public int getNbDevice (int i)
-	{
+
+	public int getNbDevice(int i) {
 		return nDevice[i];
 	}
-	
-	public int getNbDevice ()
-	{
+
+	public int getNbDevice() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbDevice (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbDevice(i);
 		}
 		return sum;
 	}
-	
-	public int getNbMemory (int i)
-	{
+
+	public int getNbMemory(int i) {
 		return nMemory[i];
 	}
-	
-	public int getNbMemory ()
-	{
+
+	public int getNbMemory() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbMemory (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbMemory(i);
 		}
 		return sum;
 	}
-	
-	public int getNbBus (int i)
-	{
+
+	public int getNbBus(int i) {
 		return this.nBus[i];
 	}
-	
-	public int getNbBus ()
-	{
+
+	public int getNbBus() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbBus (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbBus(i);
 		}
 		return sum;
 	}
 
-	public int getNbVirtualProcessor (int i)
-	{
+	public int getNbVirtualProcessor(int i) {
 		return this.nVirtualProcessor[i];
 	}
-	
-	public int getNbVirtualProcessor ()
-	{
+
+	public int getNbVirtualProcessor() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbVirtualProcessor (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbVirtualProcessor(i);
 		}
 		return sum;
 	}
 
-	public int getNbVirtualBus (int i)
-	{
+	public int getNbVirtualBus(int i) {
 		return this.nVirtualBus[i];
 	}
-	
-	public int getNbVirtualBus ()
-	{
+
+	public int getNbVirtualBus() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbVirtualBus (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbVirtualBus(i);
 		}
 		return sum;
 	}
-	
-	
-	public int getNbThread (int i)
-	{
+
+	public int getNbThread(int i) {
 		return this.nThread[i];
 	}
-	
-	public int getNbThread ()
-	{
+
+	public int getNbThread() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbThread (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbThread(i);
 		}
 		return sum;
 	}
-	
-	public int getNbProcess (int i)
-	{
+
+	public int getNbProcess(int i) {
 		return this.nProcess[i];
 	}
-	
-	public int getNbProcess ()
-	{
+
+	public int getNbProcess() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbProcess (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbProcess(i);
 		}
 		return sum;
 	}
-	
-	public int getNbSystem (int i)
-	{
+
+	public int getNbSystem(int i) {
 		return this.nSystem[i];
 	}
-	
-	public int getNbSystem ()
-	{
+
+	public int getNbSystem() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbSystem (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbSystem(i);
 		}
 		return sum;
 	}
-	
-	public int getNbProcessor (int i)
-	{
+
+	public int getNbProcessor(int i) {
 		return this.nProcessor[i];
 	}
-	
-	public int getNbProcessor ()
-	{
+
+	public int getNbProcessor() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbProcessor (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbProcessor(i);
 		}
 		return sum;
 	}
-	
-	
-	public int getNbData (int i)
-	{
+
+	public int getNbData(int i) {
 		return this.nData[i];
 	}
-	
-	public int getNbData ()
-	{
+
+	public int getNbData() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbData (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbData(i);
 		}
 		return sum;
 	}
-	
-	public int getNbAbstract (int i)
-	{
+
+	public int getNbAbstract(int i) {
 		return this.nAbstract[i];
 	}
-	
-	public int getNbAbstract ()
-	{
+
+	public int getNbAbstract() {
 		int sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getNbAbstract (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getNbAbstract(i);
 		}
 		return sum;
 	}
-	
-	public long getSLOCS (int i)
-	{
+
+	public long getSLOCS(int i) {
 		return this.sloc[i];
 	}
-	
-	public long getSLOCS ()
-	{
+
+	public long getSLOCS() {
 		long sum;
 		sum = 0;
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
-			sum += getSLOCS (i);
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
+			sum += getSLOCS(i);
 		}
 		return sum;
 	}
-	
-	
-	
-	
+
 	private HashMap<String, List<String>> dsmMatrix;
-	
+
 	public MetricsReporter(final IProgressMonitor monitor) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		dsmMatrix = new HashMap<String,List<String>> ();
+		dsmMatrix = new HashMap<String, List<String>>();
 		this.initMetrics();
 	}
 
 	public MetricsReporter(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) {
-		super(monitor, PROCESS_PRE_ORDER_ALL,errmgr);
+		super(monitor, PROCESS_PRE_ORDER_ALL, errmgr);
 
-		dsmMatrix = new HashMap<String,List<String>> ();
+		dsmMatrix = new HashMap<String, List<String>>();
 		this.initMetrics();
 	}
-	
-	
-	public boolean useCriticalityLevel (int i)
-	{
+
+	public boolean useCriticalityLevel(int i) {
 		if (this.sloc[i] != 0)
 			return true;
-		
+
 		if (this.nProcessor[i] != 0)
 			return true;
-		
+
 		if (this.nMemory[i] != 0)
 			return true;
-		
+
 		if (this.nThread[i] != 0)
 			return true;
-		
+
 		if (this.nProcess[i] != 0)
 			return true;
-		
-		
+
 		if (this.nBus[i] != 0)
 			return true;
-		
+
 		if (this.nVirtualProcessor[i] != 0)
 			return true;
-		
+
 		if (this.nVirtualBus[i] != 0)
 			return true;
-		
+
 		if (this.nSystem[i] != 0)
 			return true;
-		
+
 		if (this.nAbstract[i] != 0)
 			return true;
-		
+
 		if (this.nDevice[i] != 0)
 			return true;
-		
+
 		if (this.nData[i] != 0)
 			return true;
-		
+
 		return false;
 	}
-	
-	
-	public void initMetrics ()
-	{
+
+	public void initMetrics() {
 		this.sloc = new long[CriticalityProperty.NB_CRITICALITIES];
 		this.nProcessor = new int[CriticalityProperty.NB_CRITICALITIES];
 		this.nMemory = new int[CriticalityProperty.NB_CRITICALITIES];
@@ -361,9 +312,8 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 		this.nDevice = new int[CriticalityProperty.NB_CRITICALITIES];
 		this.nConnection = 0;
 		this.nData = new int[CriticalityProperty.NB_CRITICALITIES];
-		
-		for (int i = 0 ; i < CriticalityProperty.NB_CRITICALITIES ; i++)
-		{
+
+		for (int i = 0; i < CriticalityProperty.NB_CRITICALITIES; i++) {
 			this.sloc[i] = 0;
 			this.nProcessor[i] = 0;
 			this.nMemory[i] = 0;
@@ -375,14 +325,12 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 			this.nSystem[i] = 0;
 			this.nAbstract[i] = 0;
 			this.nDevice[i] = 0;
-			
+
 			this.nData[i] = 0;
 		}
 	}
-	
 
 	protected final void initSwitches() {
-
 
 		aadl2Switch = new Aadl2Switch<String>() {
 
@@ -395,7 +343,7 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 
 				return DONE;
 			}
-			
+
 			public String caseFlowSpecification(FlowSpecification obj) {
 
 				return DONE;
@@ -407,14 +355,12 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 			}
 		};
 
-
-		
 		instanceSwitch = new InstanceSwitch<String>() {
 			public String caseComponentInstance(ComponentInstance obj) {
 				int crit;
-				crit = CriticalityProperty.getCriticality (obj);
+				crit = CriticalityProperty.getCriticality(obj);
 				sloc[crit] = sloc[crit] + SlocProperty.getSloc(obj);
-				//System.out.println ("Adding slocs " + SlocProperty.getSloc(obj) + " to criticality level " + crit);
+				// System.out.println ("Adding slocs " + SlocProperty.getSloc(obj) + " to criticality level " + crit);
 				switch (obj.getCategory()) {
 				case THREAD:
 					nThread[crit]++;
@@ -453,8 +399,7 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 				return DONE;
 			}
 
-			public String caseConnectionInstance(ConnectionInstance ci) 
-			{
+			public String caseConnectionInstance(ConnectionInstance ci) {
 				nConnection++;
 				return DONE;
 			}
@@ -465,6 +410,5 @@ public class MetricsReporter extends AadlProcessingSwitchWithProgress {
 		};
 
 	}
-	
 
 }

@@ -37,14 +37,14 @@ public class ConnectionDecoratorLocator extends ConnectionLocator {
 		RotatableDecoration decorator = (RotatableDecoration) target;
 		decorator.setLocation(getLocation(points));
 
-		if(getAlignment() == MIDDLE) {
+		if (getAlignment() == MIDDLE) {
 			Connection connection = getConnection();
 			Point refPoint = connection.getTargetAnchor().getLocation(null);
 			connection.translateToRelative(refPoint);
 			decorator.setReferencePoint(refPoint);
-		}else if (getAlignment() == SOURCE) {
+		} else if (getAlignment() == SOURCE) {
 			decorator.setReferencePoint(points.getPoint(1));
-		}else if (getAlignment() == TARGET) {
+		} else if (getAlignment() == TARGET) {
 			decorator.setReferencePoint(points.getPoint(points.size() - 2));
 		}
 	}

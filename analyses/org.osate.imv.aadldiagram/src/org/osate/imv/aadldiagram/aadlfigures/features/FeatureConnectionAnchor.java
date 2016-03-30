@@ -14,17 +14,16 @@ package org.osate.imv.aadldiagram.aadlfigures.features;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.geometry.Point;
 
+public class FeatureConnectionAnchor extends AbstractConnectionAnchor {
 
-public class FeatureConnectionAnchor extends AbstractConnectionAnchor{
-
-	public FeatureConnectionAnchor(FeatureFigure owner){
+	public FeatureConnectionAnchor(FeatureFigure owner) {
 		super(owner);
 	}
 
 	@Override
 	public Point getLocation(Point reference) {
 		Point point = null;
-		FeatureFigure figure = (FeatureFigure)getOwner();
+		FeatureFigure figure = (FeatureFigure) getOwner();
 
 		point = figure.getConnectionAnchorPoint();
 

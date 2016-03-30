@@ -10,11 +10,11 @@ import org.osgi.framework.BundleContext;
  * The main plugin class to be used in the desktop.
  */
 public class FlowanalysisPlugin extends AbstractUIPlugin {
-	//The shared instance.
+	// The shared instance.
 	private static FlowanalysisPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */

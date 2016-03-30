@@ -17,22 +17,20 @@ public class SizeLinksBandwidthExpansor extends NFCExpansor {
 	/**
 	 * Don't create initial hardware
 	 */
-	public void createInitialHardware(OutDegreeAssignmentProblem problem,
-			TreeSet validProcessors, double softwareLoad) {
+	public void createInitialHardware(OutDegreeAssignmentProblem problem, TreeSet validProcessors,
+			double softwareLoad) {
 	}
 
 	/**
 	 * cannot expand
 	 */
-	public boolean expandProcessorForModule(SoftwareNode module,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem,
-			HardwareNode[] largestProcessor, Site[] largestSite) {
+	public boolean expandProcessorForModule(SoftwareNode module, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem, HardwareNode[] largestProcessor, Site[] largestSite) {
 		for (Iterator iter = validProcessors.iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			if (largestProcessor[0] == null)
 				largestProcessor[0] = node;
-			else if (largestProcessor[0].getAvailableCapacity() < node
-					.getAvailableCapacity())
+			else if (largestProcessor[0].getAvailableCapacity() < node.getAvailableCapacity())
 				largestProcessor[0] = node;
 		}
 
@@ -44,10 +42,9 @@ public class SizeLinksBandwidthExpansor extends NFCExpansor {
 	/**
 	 * Create Infinitely large link with all processors connected to it
 	 */
-	public Link addLinkBetween(HardwareNode node1, HardwareNode node2,
-			Message msg, OutDegreeAssignmentProblem problem) {
-		Link link = new Link(problem.capComparator, new EDFScheduler(
-				problem.bwComparator), 1000000000);
+	public Link addLinkBetween(HardwareNode node1, HardwareNode node2, Message msg,
+			OutDegreeAssignmentProblem problem) {
+		Link link = new Link(problem.capComparator, new EDFScheduler(problem.bwComparator), 1000000000);
 
 		for (Iterator iter = problem.hardwareGraph.iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
@@ -59,8 +56,8 @@ public class SizeLinksBandwidthExpansor extends NFCExpansor {
 		return link;
 	}
 
-	public HardwareNode cloneProcessorInto(HardwareNode n, Location site,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem) {
+	public HardwareNode cloneProcessorInto(HardwareNode n, Location site, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem) {
 		return null;
 	}
 }

@@ -13,6 +13,8 @@ package org.osate.imv.aadldiagram.adapters;
 
 public interface IAadlElementAdapterListener {
 	public void singleClickOnFigure(IAadlElementAdapter source);
+
 	public void doubleClickOnFigure(IAadlElementAdapter source);
+
 	public void figureMoved(IAadlElementAdapter source);
 }

@@ -84,7 +84,8 @@ public class ExcelGenerator {
 	private static WritableCellFormat timesBoldUnderline;
 	private static WritableCellFormat times;
 
-	private static void getSubprogramsWithThreads(HashMap<SubprogramCall, ComponentInstance> spgs, ComponentInstance ci) {
+	private static void getSubprogramsWithThreads(HashMap<SubprogramCall, ComponentInstance> spgs,
+			ComponentInstance ci) {
 		if ((ci.getCategory() == ComponentCategory.THREAD)
 				&& (ci.getComponentClassifier() instanceof ThreadImplementation)) {
 			ThreadImplementation ti = (ThreadImplementation) ci.getComponentClassifier();
@@ -565,8 +566,8 @@ public class ExcelGenerator {
 		addNumber(sheet, 1, line++, costGenerator.getCost());
 	}
 
-	private static void addCaption(WritableSheet sheet, int column, int row, String s) throws RowsExceededException,
-			WriteException {
+	private static void addCaption(WritableSheet sheet, int column, int row, String s)
+			throws RowsExceededException, WriteException {
 		addCaption(sheet, column, row, s, true);
 	}
 
@@ -585,36 +586,36 @@ public class ExcelGenerator {
 		sheet.addCell(label);
 	}
 
-	private static void addNumber(WritableSheet sheet, int column, int row, Integer integer) throws WriteException,
-			RowsExceededException {
+	private static void addNumber(WritableSheet sheet, int column, int row, Integer integer)
+			throws WriteException, RowsExceededException {
 		Number number;
 		number = new Number(column, row, integer, times);
 		sheet.addCell(number);
 	}
 
-	private static void addNumber(WritableSheet sheet, int column, int row, Long integer) throws WriteException,
-			RowsExceededException {
+	private static void addNumber(WritableSheet sheet, int column, int row, Long integer)
+			throws WriteException, RowsExceededException {
 		Number number;
 		number = new Number(column, row, integer, times);
 		sheet.addCell(number);
 	}
 
-	private static void addNumber(WritableSheet sheet, int column, int row, Double integer) throws WriteException,
-			RowsExceededException {
+	private static void addNumber(WritableSheet sheet, int column, int row, Double integer)
+			throws WriteException, RowsExceededException {
 		Number number;
 		number = new Number(column, row, integer, times);
 		sheet.addCell(number);
 	}
 
-	private static void addLabel(WritableSheet sheet, int column, int row, String s) throws WriteException,
-			RowsExceededException {
+	private static void addLabel(WritableSheet sheet, int column, int row, String s)
+			throws WriteException, RowsExceededException {
 		Label label;
 		label = new Label(column, row, s, times);
 		sheet.addCell(label);
 	}
 
-	private static void addLabel(WritableSheet sheet, int column, int row, String s, Colour col) throws WriteException,
-			RowsExceededException {
+	private static void addLabel(WritableSheet sheet, int column, int row, String s, Colour col)
+			throws WriteException, RowsExceededException {
 		Label label;
 		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
 		WritableCellFormat t = new WritableCellFormat(times10pt);

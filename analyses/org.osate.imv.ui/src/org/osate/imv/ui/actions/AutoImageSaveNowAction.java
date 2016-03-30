@@ -21,7 +21,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.osate.imv.image.AutoImageType;
 import org.osate.imv.image.ImageSaver;
 
-
 public class AutoImageSaveNowAction extends Action implements ActionFactory.IWorkbenchAction, PropertyChangeListener {
 
 	private static final String ID = "org.osate.imv.ui.actions.autoImageSaveNow";
@@ -35,7 +34,8 @@ public class AutoImageSaveNowAction extends Action implements ActionFactory.IWor
 
 		setId(ID);
 		setText(LABEL);
-		this.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_SAVE_EDIT));
+		this.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_SAVE_EDIT));
 
 		updateState();
 
@@ -55,7 +55,7 @@ public class AutoImageSaveNowAction extends Action implements ActionFactory.IWor
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if(event.getPropertyName().equals(ImageSaver.AUTO_IMAGE_TYPE_PROPERTY)) {
+		if (event.getPropertyName().equals(ImageSaver.AUTO_IMAGE_TYPE_PROPERTY)) {
 			updateState();
 		}
 	}

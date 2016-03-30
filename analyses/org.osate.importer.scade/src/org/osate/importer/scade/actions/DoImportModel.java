@@ -153,7 +153,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 						return Status.OK_STATUS;
 					}
 				};
-			} 
+			}
 
 			if (fileSuffix.equalsIgnoreCase("etp")) {
 				aadlGenerator = new Job("SCADE2AADL") {

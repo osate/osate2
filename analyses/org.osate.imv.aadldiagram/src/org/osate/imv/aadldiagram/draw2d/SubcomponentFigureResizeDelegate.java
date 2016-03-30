@@ -16,7 +16,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure.ResizeType;
 
-
 public class SubcomponentFigureResizeDelegate implements IResizableFigureDelegate {
 
 	private static final Dimension MINIMUM_SIZE = new Dimension(50, 50);
@@ -26,7 +25,7 @@ public class SubcomponentFigureResizeDelegate implements IResizableFigureDelegat
 		Point origin = Point.SINGLETON;
 		Dimension dimension = Dimension.SINGLETON;
 
-		switch(resizeType) {
+		switch (resizeType) {
 		case NW:
 			origin.x = location.x;
 			origin.y = location.y;
@@ -53,12 +52,11 @@ public class SubcomponentFigureResizeDelegate implements IResizableFigureDelegat
 			break;
 		}
 
-		if(dimension.width < MINIMUM_SIZE.width)
+		if (dimension.width < MINIMUM_SIZE.width)
 			dimension.width = MINIMUM_SIZE.width;
 
-		if(dimension.height < MINIMUM_SIZE.height)
+		if (dimension.height < MINIMUM_SIZE.height)
 			dimension.height = MINIMUM_SIZE.height;
-
 
 		return new Rectangle(origin, dimension);
 	}

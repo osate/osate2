@@ -50,8 +50,6 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-
-
 /**
  * @author phf
  */
@@ -61,9 +59,8 @@ public class ConnectionInstanceLevelChecker extends AadlProcessingSwitch {
 
 	private final LevelComparator levelComp;
 
-	public ConnectionInstanceLevelChecker(
-			final AnalysisErrorReporterManager errMgr,
-			final Property pd, final LevelComparator lc) {
+	public ConnectionInstanceLevelChecker(final AnalysisErrorReporterManager errMgr, final Property pd,
+			final LevelComparator lc) {
 		super(PROCESS_POST_ORDER_ALL, errMgr);
 		property = pd;
 		levelComp = lc;
@@ -75,7 +72,8 @@ public class ConnectionInstanceLevelChecker extends AadlProcessingSwitch {
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 					NamedElement scxt = conni.getSource().getContainingComponentInstance();
 					NamedElement dcxt = conni.getDestination().getContainingComponentInstance();
-					if (scxt == null || dcxt == null) return DONE;
+					if (scxt == null || dcxt == null)
+						return DONE;
 					try {
 						long slv;
 						try {
@@ -90,8 +88,7 @@ public class ConnectionInstanceLevelChecker extends AadlProcessingSwitch {
 							dlv = 0;
 						}
 						if (!levelComp.compareLevels(slv, dlv)) {
-							error(conni, "Level violation for " + 
-									property.getQualifiedName() + ": Source has level "
+							error(conni, "Level violation for " + property.getQualifiedName() + ": Source has level "
 									+ slv + " and destination has level " + dlv);
 						}
 					} catch (InvalidModelException e) {

@@ -23,7 +23,6 @@ import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
 import org.osate.imv.aadldiagram.layout.GraphLayoutFlowPath;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
 public class AadlFlowPathAdapter extends AbstractAadlElementAdapter {
 
 	public static final int HIGLIGHTED_LINE_WIDTH = 3;
@@ -41,7 +40,9 @@ public class AadlFlowPathAdapter extends AbstractAadlElementAdapter {
 	 */
 	private LayoutRelationship layoutItem;
 
-	public AadlFlowPathAdapter(Object modelElement, /*ConnectionDecorationType decorationType,*/ ILabelProvider labelProvider, IAadlElementAdapter sourceAdapter, IAadlElementAdapter destinationAdapter) {
+	public AadlFlowPathAdapter(Object modelElement,
+			/* ConnectionDecorationType decorationType, */ ILabelProvider labelProvider,
+			IAadlElementAdapter sourceAdapter, IAadlElementAdapter destinationAdapter) {
 		super(modelElement, labelProvider);
 
 		Assert.isNotNull(sourceAdapter);
@@ -54,7 +55,7 @@ public class AadlFlowPathAdapter extends AbstractAadlElementAdapter {
 
 	@Override
 	public SelectableMevConnectionFigure getFigure() {
-		if(figure == null) {
+		if (figure == null) {
 			// Build figure.
 			figure = AadlFigureFactory.getInstance().buildFigure(this);
 			figure.addMouseListener(this);
@@ -64,7 +65,6 @@ public class AadlFlowPathAdapter extends AbstractAadlElementAdapter {
 
 		return figure;
 	}
-
 
 	@Override
 	public void accept(AadlAdapterVisitor visitor) {
@@ -76,7 +76,7 @@ public class AadlFlowPathAdapter extends AbstractAadlElementAdapter {
 		super.highlight(highlight, highlightColor);
 		// Since this is a connection, the line width will be increased when the connection
 		// is highlighted.
-		if(highlight)
+		if (highlight)
 			this.getFigure().setLineWidth(HIGLIGHTED_LINE_WIDTH);
 		else
 			this.getFigure().setLineWidth(NORMAL_LINE_WIDTH);

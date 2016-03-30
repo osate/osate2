@@ -39,36 +39,29 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class InspectProperty {
 
-
 	private static Property inspectProperty = null;
-	
-	
+
 	public static boolean shallInspect(final NamedElement ph) {
 		PropertyExpression pv;
 		boolean val;
-		
-		if (inspectProperty == null)
-		{
-			inspectProperty = GetProperties.lookupPropertyDefinition (ph, SEI._NAME, SEI.VDID_INSPECT);
+
+		if (inspectProperty == null) {
+			inspectProperty = GetProperties.lookupPropertyDefinition(ph, SEI._NAME, SEI.VDID_INSPECT);
 		}
-		
+
 		val = false;
-		
-		try
-		{
+
+		try {
 			pv = ph.getSimplePropertyValue(inspectProperty);
-			
-			if (pv instanceof BooleanLiteral) 
-			{
+
+			if (pv instanceof BooleanLiteral) {
 				val = ((BooleanLiteral) pv).getValue();
 			}
-		}
-		catch (PropertyLookupException e)
-		{	
+		} catch (PropertyLookupException e) {
 			return false;
 		}
-		System.out.println ("return inspect: " + val + " on comp " + ph);
+		System.out.println("return inspect: " + val + " on comp " + ph);
 		return val;
 	}
-	
+
 }

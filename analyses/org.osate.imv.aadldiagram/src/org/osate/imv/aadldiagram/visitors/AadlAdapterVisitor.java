@@ -42,7 +42,7 @@ public class AadlAdapterVisitor {
 	public void visitAadlFlowPathAdapter(AadlFlowPathAdapter adapter) {
 		// Explicitly do nothing - this is a default implementation.
 	}
-	
+
 	public void visitAadlBindingAdapter(AadlBindingAdapter adapter) {
 		// Explicitly do nothing - this is a default implementation.
 	}

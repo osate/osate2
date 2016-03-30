@@ -62,8 +62,8 @@ public class LayoutGraphNode implements LayoutEntity {
 	}
 
 	public void setLocationInLayout(double x, double y) {
-		if(target.getParent() != null) {
-			Rectangle constraint = new Rectangle(new Point((int)x, (int)y), this.target.getSize());
+		if (target.getParent() != null) {
+			Rectangle constraint = new Rectangle(new Point((int) x, (int) y), this.target.getSize());
 			this.target.getParent().getLayoutManager().setConstraint(this.target, constraint);
 			this.target.setBounds(constraint);
 		}

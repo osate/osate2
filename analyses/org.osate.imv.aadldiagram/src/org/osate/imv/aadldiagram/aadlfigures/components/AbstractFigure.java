@@ -25,7 +25,7 @@ public class AbstractFigure extends ComponentFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		// Configure context.

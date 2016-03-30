@@ -37,74 +37,61 @@
 package org.osate.importer.lattix.common;
 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 
 public class Matrix {
 
-	private String 				name;
-	private List<Partition>		partitions;
-	private List<Component>		modules;
-	
-	public Matrix (String n)
-	{
+	private String name;
+	private List<Partition> partitions;
+	private List<Component> modules;
+
+	public Matrix(String n) {
 		this.name = n;
-		this.partitions 	= new ArrayList<Partition>();
-		this.modules  		= new ArrayList<Component>();
+		this.partitions = new ArrayList<Partition>();
+		this.modules = new ArrayList<Component>();
 	}
 
-
-	public void addPartition (Partition p)
-	{
+	public void addPartition(Partition p) {
 		this.partitions.add(p);
 	}
-	
-	public boolean removePartition (Partition p)
-	{
+
+	public boolean removePartition(Partition p) {
 		return this.partitions.remove(p);
 	}
-	
-	public List<Partition> getPartitions ()
-	{
+
+	public List<Partition> getPartitions() {
 		return this.partitions;
 	}
-	
-	public Component getModule (String n)
-	{
-		for (Component m : this.modules)
-		{
-			if (m.getName().equals(n))
-			{
+
+	public Component getModule(String n) {
+		for (Component m : this.modules) {
+			if (m.getName().equals(n)) {
 				return m;
 			}
 		}
 		return null;
 	}
-	
-	public boolean hasModule (String n)
-	{
+
+	public boolean hasModule(String n) {
 		return (this.getModule(n) == null ? false : true);
 	}
-	
-	public Component addModule (Component m)
-	{
-		
-		if (! this.hasModule(m.getName()))
-		{
+
+	public Component addModule(Component m) {
+
+		if (!this.hasModule(m.getName())) {
 			this.modules.add(m);
 		}
 		return m;
 	}
-	
-	public boolean removeModule (Component m)
-	{
+
+	public boolean removeModule(Component m) {
 		return this.modules.remove(m);
 	}
-	
-	public List<Component> getModules ()
-	{
+
+	public List<Component> getModules() {
 		return this.modules;
 	}
 }

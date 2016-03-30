@@ -37,32 +37,27 @@ public class AffinityComparator implements Comparator {
 
 	OutDegreeAssignmentProblem problem;
 
-	public AffinityComparator(SoftwareNode node,
-			OutDegreeAssignmentProblem problem) {
+	public AffinityComparator(SoftwareNode node, OutDegreeAssignmentProblem problem) {
 		targetNode = node;
 		neighborsMap = (TreeMap) problem.softwareConnectivity.get(node);
-		neighborsByTarget = (Hashtable) problem.softConnectivityByTarget
-				.get(node);
+		neighborsByTarget = (Hashtable) problem.softConnectivityByTarget.get(node);
 		if (neighborsMap != null)
 			neighbors = neighborsMap.values();
 		this.problem = problem;
 	}
 
 	public int compare(Object o1, Object o2) {
-		if (o1 instanceof HardwareNode && o2 instanceof HardwareNode){
-			if (((HardwareNode) o1).getUniqueID() == ((HardwareNode) o2)
-					.getUniqueID())
+		if (o1 instanceof HardwareNode && o2 instanceof HardwareNode) {
+			if (((HardwareNode) o1).getUniqueID() == ((HardwareNode) o2).getUniqueID())
 				return 0;
 		} else {
 			if (o1.hashCode() == o2.hashCode())
 				return 0;
 		}
-			
 
 		CapacityProvider n1 = (CapacityProvider) o1;
 		CapacityProvider n2 = (CapacityProvider) o2;
-		double difference = n1.getAvailableCapacity()
-				- n2.getAvailableCapacity();
+		double difference = n1.getAvailableCapacity() - n2.getAvailableCapacity();
 
 		/* check for neighbors deployed there */
 		if (neighbors != null && neighbors.size() > 0) {
@@ -111,45 +106,32 @@ public class AffinityComparator implements Comparator {
 				/* try neighbors in neighboring hardware */
 				Double bw2nd = (Double) bandwidthByNeighbor2nd.get(h1);
 				if (bw2nd == null) {
-					TreeSet connectivitySet = (TreeSet) problem.hardwareConnectivity
-							.get(h1);
+					TreeSet connectivitySet = (TreeSet) problem.hardwareConnectivity.get(h1);
 					if (connectivitySet != null) {
-						for (Iterator iter = connectivitySet.iterator(); iter
-								.hasNext();) {
+						for (Iterator iter = connectivitySet.iterator(); iter.hasNext();) {
 							Link l = (Link) iter.next();
-							for (Iterator iter2 = l.getConnectedNodes()
-									.iterator(); iter2.hasNext();) {
-								HardwareNode hardNeighbor = (HardwareNode) iter2
-										.next();
-								Double bw = (Double) bandwidthByNeighbor
-										.get(hardNeighbor);
+							for (Iterator iter2 = l.getConnectedNodes().iterator(); iter2.hasNext();) {
+								HardwareNode hardNeighbor = (HardwareNode) iter2.next();
+								Double bw = (Double) bandwidthByNeighbor.get(hardNeighbor);
 								if (bw == null) {
-									taskSet1 = hardNeighbor.scheduler
-											.getTaskSet();
-									TreeSet n1Neighbors = (TreeSet) taskSet1
-											.clone();
+									taskSet1 = hardNeighbor.scheduler.getTaskSet();
+									TreeSet n1Neighbors = (TreeSet) taskSet1.clone();
 									double neighborBandwidth = 0.0;
 									n1Neighbors.retainAll(neighbors);
-									for (Iterator iter3 = n1Neighbors
-											.iterator(); iter3.hasNext();) {
-										SoftwareNode neighbor = (SoftwareNode) iter3
-												.next();
-										Message m = (Message) neighborsByTarget
-												.get(neighbor);
+									for (Iterator iter3 = n1Neighbors.iterator(); iter3.hasNext();) {
+										SoftwareNode neighbor = (SoftwareNode) iter3.next();
+										Message m = (Message) neighborsByTarget.get(neighbor);
 										if (m != null) {
-											neighborBandwidth += m
-													.getBandwidth();
+											neighborBandwidth += m.getBandwidth();
 										}
 									}
-									bandwidthByNeighbor.put(hardNeighbor,
-											new Double(neighborBandwidth));
+									bandwidthByNeighbor.put(hardNeighbor, new Double(neighborBandwidth));
 									n1Bandwidth2nd += neighborBandwidth;
 								} else {
 									n1Bandwidth2nd += bw.doubleValue();
 								}
 							}
-							bandwidthByNeighbor2nd.put(h1, new Double(
-									n1Bandwidth2nd));
+							bandwidthByNeighbor2nd.put(h1, new Double(n1Bandwidth2nd));
 						}
 					}
 				} else
@@ -157,45 +139,32 @@ public class AffinityComparator implements Comparator {
 
 				bw2nd = (Double) bandwidthByNeighbor2nd.get(h1);
 				if (bw2nd == null) {
-					TreeSet connectivitySet = (TreeSet) problem.hardwareConnectivity
-							.get(h2);
+					TreeSet connectivitySet = (TreeSet) problem.hardwareConnectivity.get(h2);
 					if (connectivitySet != null) {
-						for (Iterator iter = connectivitySet.iterator(); iter
-								.hasNext();) {
+						for (Iterator iter = connectivitySet.iterator(); iter.hasNext();) {
 							Link l = (Link) iter.next();
-							for (Iterator iter2 = l.getConnectedNodes()
-									.iterator(); iter2.hasNext();) {
-								HardwareNode hardNeighbor = (HardwareNode) iter2
-										.next();
-								Double bw = (Double) bandwidthByNeighbor
-										.get(hardNeighbor);
+							for (Iterator iter2 = l.getConnectedNodes().iterator(); iter2.hasNext();) {
+								HardwareNode hardNeighbor = (HardwareNode) iter2.next();
+								Double bw = (Double) bandwidthByNeighbor.get(hardNeighbor);
 								if (bw == null) {
 									double neighborBandwidth = 0.0;
-									taskSet2 = hardNeighbor.scheduler
-											.getTaskSet();
-									TreeSet n2Neighbors = (TreeSet) taskSet2
-											.clone();
+									taskSet2 = hardNeighbor.scheduler.getTaskSet();
+									TreeSet n2Neighbors = (TreeSet) taskSet2.clone();
 									n2Neighbors.retainAll(neighbors);
-									for (Iterator iter3 = n2Neighbors
-											.iterator(); iter3.hasNext();) {
-										SoftwareNode neighbor = (SoftwareNode) iter3
-												.next();
-										Message m = (Message) neighborsByTarget
-												.get(neighbor);
+									for (Iterator iter3 = n2Neighbors.iterator(); iter3.hasNext();) {
+										SoftwareNode neighbor = (SoftwareNode) iter3.next();
+										Message m = (Message) neighborsByTarget.get(neighbor);
 										if (m != null) {
-											neighborBandwidth += m
-													.getBandwidth();
+											neighborBandwidth += m.getBandwidth();
 										}
 									}
-									bandwidthByNeighbor.put(hardNeighbor,
-											new Double(neighborBandwidth));
+									bandwidthByNeighbor.put(hardNeighbor, new Double(neighborBandwidth));
 									n2Bandwidth2nd += neighborBandwidth;
 								} else {
 									n2Bandwidth2nd += bw.doubleValue();
 								}
 							}
-							bandwidthByNeighbor2nd.put(h2, new Double(
-									n2Bandwidth2nd));
+							bandwidthByNeighbor2nd.put(h2, new Double(n2Bandwidth2nd));
 						}
 					}
 				} else
@@ -205,17 +174,14 @@ public class AffinityComparator implements Comparator {
 			difference = difference / Math.abs(difference);
 
 			double bandwidthDifference = n2Bandwidth - n1Bandwidth;
-			bandwidthDifference = (bandwidthDifference != 0.0) ? (bandwidthDifference / Math
-					.abs(bandwidthDifference)) * 100.0
-					: 0.0;
+			bandwidthDifference = (bandwidthDifference != 0.0)
+					? (bandwidthDifference / Math.abs(bandwidthDifference)) * 100.0 : 0.0;
 
 			double bandwidthDifference2nd = n2Bandwidth2nd - n1Bandwidth2nd;
-			bandwidthDifference2nd = (bandwidthDifference2nd != 0.0) ? (bandwidthDifference2nd / Math
-					.abs(bandwidthDifference2nd)) * 10.0
-					: 0.0;
+			bandwidthDifference2nd = (bandwidthDifference2nd != 0.0)
+					? (bandwidthDifference2nd / Math.abs(bandwidthDifference2nd)) * 10.0 : 0.0;
 
-			difference = difference + bandwidthDifference
-					+ bandwidthDifference2nd;
+			difference = difference + bandwidthDifference + bandwidthDifference2nd;
 		}
 		if (difference < 0.0) {
 			return (int) Math.floor(difference);
@@ -226,9 +192,8 @@ public class AffinityComparator implements Comparator {
 			 * We cheat to enable duplicate entries int the set. Int this case
 			 * we break the tie with the hashcode of the objects
 			 */
-			if (o1 instanceof HardwareNode && o2 instanceof HardwareNode){
-				return (int)(((HardwareNode) o1).getUniqueID() - ((HardwareNode) o2)
-						.getUniqueID());
+			if (o1 instanceof HardwareNode && o2 instanceof HardwareNode) {
+				return (int) (((HardwareNode) o1).getUniqueID() - ((HardwareNode) o2).getUniqueID());
 			}
 			return o1.hashCode() - o2.hashCode();
 		}

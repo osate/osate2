@@ -14,11 +14,9 @@ package org.osate.imv.aadldiagram.aadlfigures.features;
 import org.eclipse.draw2d.Graphics;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public abstract class DirectedFeatureFigure extends FeatureFigure {
 
-	public DirectedFeatureFigure(String label, FeatureDirectionType direction,
-			FeatureLabelStyle labelStyle) {
+	public DirectedFeatureFigure(String label, FeatureDirectionType direction, FeatureLabelStyle labelStyle) {
 		super(label, direction, labelStyle);
 	}
 
@@ -33,9 +31,9 @@ public abstract class DirectedFeatureFigure extends FeatureFigure {
 		float deg = 0.0f;
 		float dx = 0, dy = 0;
 		// Rotate to account for port direction.
-		switch(direction){
+		switch (direction) {
 		case IN: // in port direction
-			switch(orientation){
+			switch (orientation) {
 			case NORTH:
 			case WEST:
 				deg = 180.0f;
@@ -46,7 +44,7 @@ public abstract class DirectedFeatureFigure extends FeatureFigure {
 			}
 			break;
 		case OUT: // out port direction
-			switch(orientation){
+			switch (orientation) {
 			case NORTH:
 			case WEST:
 				deg = 0.0f;
@@ -57,7 +55,7 @@ public abstract class DirectedFeatureFigure extends FeatureFigure {
 			}
 			break;
 		case IN_OUT:
-			switch(orientation){
+			switch (orientation) {
 			case NORTH:
 			case WEST:
 				deg = 0.0f;
@@ -76,6 +74,5 @@ public abstract class DirectedFeatureFigure extends FeatureFigure {
 		g.rotate(deg); // Apply rotation.
 		g.translate(-dx, -dy);
 	}
-
 
 }

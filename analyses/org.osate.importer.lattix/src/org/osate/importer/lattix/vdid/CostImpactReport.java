@@ -42,54 +42,44 @@ import org.osate.importer.properties.CriticalityProperty;
 public class CostImpactReport {
 	private String componentName;
 	private double impactedSlocs[];
-	
-	
-	public CostImpactReport (String n)
-	{
+
+	public CostImpactReport(String n) {
 		this.componentName = n;
-		impactedSlocs = new double[6]; 
-		for (int i = 0 ; i < 6 ; i++)
-		{
+		impactedSlocs = new double[6];
+		for (int i = 0; i < 6; i++) {
 			impactedSlocs[i] = 0;
 		}
 	}
-	
-	public double getImpactedSlocs (int crit)
-	{
+
+	public double getImpactedSlocs(int crit) {
 		return impactedSlocs[crit];
 	}
-	
-	public double getTotalImpactedSlocs ()
-	{
+
+	public double getTotalImpactedSlocs() {
 		double total;
-		
+
 		total = 0;
-		
-		for (int i = 0 ; i < 6 ; i++)
-		{
+
+		for (int i = 0; i < 6; i++) {
 			total = total + impactedSlocs[i];
 		}
-		
+
 		return total;
 	}
-	
-	public void addSlocs (double n)
-	{
+
+	public void addSlocs(double n) {
 		addSlocs(n, CriticalityProperty.INVALID_CRITICALITY);
 	}
-	
-	public void addSlocs (double n, int level)
-	{
-		if (level > 5)
-		{
+
+	public void addSlocs(double n, int level) {
+		if (level > 5) {
 			level = CriticalityProperty.INVALID_CRITICALITY;
 		}
-		
+
 		impactedSlocs[level] = impactedSlocs[level] + n;
 	}
-	
-	public String getComponentName ()
-	{
+
+	public String getComponentName() {
 		return componentName;
 	}
 }

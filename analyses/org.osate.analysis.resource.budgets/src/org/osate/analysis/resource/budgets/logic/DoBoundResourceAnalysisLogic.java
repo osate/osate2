@@ -177,10 +177,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			return;
 		}
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)) {
-			errManager
-					.warningSummary(curProcessor, som.getName(),
-							"Virtual processor " + curProcessor.getComponentInstancePath()
-									+ " has no MIPS capacity or budget.");
+			errManager.warningSummary(curProcessor, som.getName(), "Virtual processor "
+					+ curProcessor.getComponentInstancePath() + " has no MIPS capacity or budget.");
 			return;
 		}
 		if (MIPScapacity == 0 && InstanceModelUtil.isProcessor(curProcessor)) {
@@ -224,9 +222,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 		logHeader("Total,," + GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
-			errManager.errorSummary(
-					curProcessor,
-					som.getName(),
+			errManager.errorSummary(curProcessor, som.getName(),
 					"Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral)
 							+ " of bound tasks exceeds MIPS capacity "
 							+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
@@ -287,8 +283,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		double totalMemory = 0.0;
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		String resourceName = isROM ? "ROM" : "RAM";
-		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0) : GetProperties
-				.getRAMCapacityInKB(curMemory, 0.0);
+		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0)
+				: GetProperties.getRAMCapacityInKB(curMemory, 0.0);
 		if (boundComponents.size() == 0 && Memorycapacity > 0) {
 			errManager.infoSummary(curMemory, somName,
 					"No application components bound to " + curMemory.getComponentInstancePath() + " with "
@@ -330,28 +326,24 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 				}
 			} else {
 				// add only the current actual; the children actual have been added before
-				double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0) : GetProperties
-						.getRAMActualInKB(bci, 0.0);
+				double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0)
+						: GetProperties.getRAMActualInKB(bci, 0.0);
 				detailedLog(bci, budget, kbliteral);
 				totalMemory += currentActual;
 			}
 		}
 		if (Memorycapacity == 0)
-			errManager.errorSummary(curMemory, somName,
-					"" + (isROM ? "ROM" : "RAM") + " memory " + curMemory.getComponentInstancePath()
-							+ " has no memory capacity specified");
+			errManager.errorSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
+					+ curMemory.getComponentInstancePath() + " has no memory capacity specified");
 		if (totalMemory > Memorycapacity) {
 			errManager.errorSummary(curMemory, somName,
 					"Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity " + Memorycapacity
 							+ " KB of " + curMemory.getComponentInstancePath());
 		} else if (totalMemory == 0.0 && Memorycapacity == 0.0) {
-			errManager.warningSummary(curMemory, somName,
-					"" + (isROM ? "ROM" : "RAM") + " memory " + curMemory.getComponentInstancePath()
-							+ " has no capacity. Bound app's have no memory budget.");
+			errManager.warningSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
+					+ curMemory.getComponentInstancePath() + " has no capacity. Bound app's have no memory budget.");
 		} else {
-			errManager.infoSummary(
-					curMemory,
-					somName,
+			errManager.infoSummary(curMemory, somName,
 					"Total " + (isROM ? "ROM" : "RAM") + " memory " + totalMemory
 							+ " KB of bound tasks within Memory capacity " + Memorycapacity + " KB of "
 							+ curMemory.getComponentInstancePath());
@@ -367,15 +359,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
 		double budget = calcBandWidthLoad(si, som);
 		errManager.logInfo("");
-		errManager.infoSummary(si, Aadl2Util.getPrintableSOMName(som), "Connection bandwidth budget total: " + budget
-				+ " KBytesps");
+		errManager.infoSummary(si, Aadl2Util.getPrintableSOMName(som),
+				"Connection bandwidth budget total: " + budget + " KBytesps");
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
 				double buscapacity = GetProperties.getBandWidthCapacityInKbps((ComponentInstance) obj, 0.0);
-				errManager
-						.infoSummary((NamedElement) obj, Aadl2Util.getPrintableSOMName(som), "Bus "
-								+ ((ComponentInstance) obj).getFullName() + " bandwidth capacity: " + buscapacity
+				errManager.infoSummary((NamedElement) obj, Aadl2Util.getPrintableSOMName(som),
+						"Bus " + ((ComponentInstance) obj).getFullName() + " bandwidth capacity: " + buscapacity
 								+ " KBytesps");
 			}
 		};
@@ -503,11 +494,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 		if (Buscapacity == 0) {
 			if (!budgetedConnections.isEmpty()) {
-				errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath()
-						+ " has no capacity but bound connections");
+				errManager.errorSummary(curBus, som.getName(),
+						curBus.getComponentInstancePath() + " has no capacity but bound connections");
 			} else {
-				errManager.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath()
-						+ " has no capacity and no demand");
+				errManager.warningSummary(curBus, som.getName(),
+						curBus.getComponentInstancePath() + " has no capacity and no demand");
 			}
 			return;
 		}
@@ -529,7 +520,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			double budget = 0.0;
 			double actual = 0.0;
 
-			if ((!connectionInstance.getSource().isActive(som)) || (!connectionInstance.getDestination().isActive(som))) {
+			if ((!connectionInstance.getSource().isActive(som))
+					|| (!connectionInstance.getDestination().isActive(som))) {
 				continue;
 			}
 
@@ -557,13 +549,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 		detailedLog(null, totalBandWidth, kbspsliteral);
 		if (totalBandWidth > Buscapacity) {
-			errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
-					+ Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth
-					+ " Kbps");
+			errManager.errorSummary(curBus, som.getName(),
+					curBus.getComponentInstancePath() + " bandwidth capacity " + Buscapacity
+							+ " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
 		} else if (totalBandWidth > 0.0) {
-			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
-					+ Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth
-					+ " Kbps");
+			errManager.infoSummary(curBus, som.getName(),
+					curBus.getComponentInstancePath() + " bandwidth capacity " + Buscapacity
+							+ " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth
+							+ " Kbps");
 		} else {
 			errManager.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
 					+ Buscapacity + " KBytesps and bound connections without bandwidth budget");
@@ -642,8 +635,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		if (doDetailedLog) {
 			String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
 			String actualmsg = actual + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName() : ((ComponentInstance) obj)
-					.getComponentInstancePath();
+			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
+					: ((ComponentInstance) obj).getComponentInstancePath();
 			errManager.logInfo(obj.getFullName() + ", " + budgetmsg + actualmsg + msg);
 		}
 

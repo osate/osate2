@@ -23,8 +23,7 @@ public class Message extends SoftwareNode implements Cloneable {
 		this.name = name;
 	}
 
-	public Message(long cycles, long period, long deadline, SoftwareNode s,
-			SoftwareNode r) {
+	public Message(long cycles, long period, long deadline, SoftwareNode s, SoftwareNode r) {
 		super(cycles, period, deadline);
 		sender = s;
 		receiver = r;
@@ -33,8 +32,7 @@ public class Message extends SoftwareNode implements Cloneable {
 		}
 	}
 
-	public Message(long cycles, long period, long deadline, SoftwareNode s,
-			SoftwareNode r, String name) {
+	public Message(long cycles, long period, long deadline, SoftwareNode s, SoftwareNode r, String name) {
 		this(cycles, period, deadline, s, r);
 		this.name = name;
 	}

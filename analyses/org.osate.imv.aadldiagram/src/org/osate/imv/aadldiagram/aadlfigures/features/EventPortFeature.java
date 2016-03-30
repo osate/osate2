@@ -15,13 +15,11 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public class EventPortFeature extends PortFeatureFigure {
 	private int triangleHeight;
 	private int triangleBase;
 
-	public EventPortFeature(String label,
-			FeatureDirectionType direction, FeatureLabelStyle labelStyle) {
+	public EventPortFeature(String label, FeatureDirectionType direction, FeatureLabelStyle labelStyle) {
 		super(label, direction, labelStyle);
 		triangleHeight = V_EXTENT;
 		triangleBase = H_EXTENT;
@@ -36,10 +34,9 @@ public class EventPortFeature extends PortFeatureFigure {
 		g.setLineWidth(2);
 		g.setLineCap(SWT.CAP_ROUND);
 
+		int centerPoint = (int) Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
 
-		int centerPoint = (int)Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
-
-		/* Draw outline for outer triangle.*/
+		/* Draw outline for outer triangle. */
 		g.drawLine(centerPoint, 0, 0, triangleHeight); // Left side of triangle.
 		g.drawLine(centerPoint, 0, triangleBase, triangleHeight); // Right side of triangle.
 	}

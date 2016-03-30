@@ -15,6 +15,8 @@ import org.eclipse.draw2d.IFigure;
 
 public interface AadlDiagramViewerListener {
 	public void inputElementWillChange(Object currentElement, Object newElement);
+
 	public void inputElementChanged(Object newElement);
+
 	public void figureMoved(IFigure source);
 }

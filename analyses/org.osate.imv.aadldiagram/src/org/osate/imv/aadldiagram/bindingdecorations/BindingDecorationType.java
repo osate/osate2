@@ -36,7 +36,5 @@
 package org.osate.imv.aadldiagram.bindingdecorations;
 
 public enum BindingDecorationType {
-	MEMORY,
-	PROCESSOR,
-	NONE;
+	MEMORY, PROCESSOR, NONE;
 }

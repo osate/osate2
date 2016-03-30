@@ -15,25 +15,25 @@ public class CompositeMsgNode extends Message {
 
 	public void add(Message m) {
 		if (!components.contains(m)) {
-			// 		if (m instanceof CompositeMsgNode)
-			// 		    {
-			// 			TreeSet basicMessages = new TreeSet(comparator);
-			// 			getBasicMessages(basicMessages);
-			// 			for (Iterator iter = basicMessages.iterator(); iter.hasNext();)
-			// 			    {
-			// 				Message msg = (Message) iter.next();
-			// 				if (!components.contains(msg))
-			// 				    {
-			// 					components.add(msg);
-			// 					totalBandwidth += msg.getBandwidth();
-			// 				    }
-			// 			    }
-			// 		    }
-			// 		else
-			// 		    {
+			// if (m instanceof CompositeMsgNode)
+			// {
+			// TreeSet basicMessages = new TreeSet(comparator);
+			// getBasicMessages(basicMessages);
+			// for (Iterator iter = basicMessages.iterator(); iter.hasNext();)
+			// {
+			// Message msg = (Message) iter.next();
+			// if (!components.contains(msg))
+			// {
+			// components.add(msg);
+			// totalBandwidth += msg.getBandwidth();
+			// }
+			// }
+			// }
+			// else
+			// {
 			components.add(m);
 			totalBandwidth += m.getBandwidth();
-			// 		    }
+			// }
 		}
 	}
 

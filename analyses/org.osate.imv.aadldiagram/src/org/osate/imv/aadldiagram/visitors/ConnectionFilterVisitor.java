@@ -14,7 +14,6 @@ package org.osate.imv.aadldiagram.visitors;
 import org.eclipse.draw2d.IFigure;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 
-
 public class ConnectionFilterVisitor extends AadlAdapterVisitor {
 
 	public void visitAadlConnectionAdapter(AadlConnectionAdapter adapter) {

@@ -18,7 +18,7 @@ import org.eclipse.ui.IPersistableElement;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.instance.SystemInstance;
 
-public class IMVEditorInput implements IEditorInput{
+public class IMVEditorInput implements IEditorInput {
 	// TODO this is not used anywhere
 
 	// Constants.
@@ -28,7 +28,7 @@ public class IMVEditorInput implements IEditorInput{
 	private AadlPackage pkg;
 	private String name;
 
-	public IMVEditorInput(SystemInstance si){
+	public IMVEditorInput(SystemInstance si) {
 		super();
 		// System instance should never be null.
 		Assert.isNotNull(si);
@@ -37,7 +37,7 @@ public class IMVEditorInput implements IEditorInput{
 		createName();
 	}
 
-	public IMVEditorInput(AadlPackage pkg){
+	public IMVEditorInput(AadlPackage pkg) {
 		super();
 		// System instance should never be null.
 		Assert.isNotNull(pkg);
@@ -74,7 +74,7 @@ public class IMVEditorInput implements IEditorInput{
 		return name;
 	}
 
-	private void createName(){
+	private void createName() {
 		if (si != null)
 			this.name = si.getFullName() + IMV_EXT;
 		if (pkg != null)
@@ -110,7 +110,6 @@ public class IMVEditorInput implements IEditorInput{
 	public IPersistableElement getPersistable() {
 		return null;
 	}
-
 
 	@Override
 	public String getToolTipText() {

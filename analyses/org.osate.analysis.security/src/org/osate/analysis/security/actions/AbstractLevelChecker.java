@@ -55,10 +55,9 @@ import org.osate.analysis.security.LevelComparator;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
 
-
 public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarativeModelModifyActionAction {
 	private boolean initialized = false;
-	
+
 	/**
 	 * Connection level comparator for levels that must be greater on the
 	 * connection source.
@@ -78,71 +77,64 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 			return dest >= src;
 		}
 	};
-	
+
 	/**
 	 * The property we are checking.
 	 */
 	private Property theProperty;
-			
+
 	/**
 	 * Empty implementation to prevent subclasses from mistakenly overridding
 	 * this method as they normally would.
 	 */
 	protected final void initPropertyReferences() {
 	}
-	
+
 	/**
 	 * Make this method abstract to force subclasses to differentiate
 	 * their markers.
 	 */
 	protected abstract String getMarkerType();
-	
+
 	/**
 	 * Make this abstract to force subclasses to differentiate there
 	 * action noame.
 	 */
 	protected abstract String getActionName();
-	
+
 	/**
 	 * Return the name of the property set in which the level property
 	 * is declared.
 	 */
 	protected abstract String getLevelPropertyPropertySet();
-	
+
 	/**
 	 * Return the name of the property to analyse.  This property must
 	 * be of type aadlinteger.
 	 */
 	protected abstract String getLevelPropertyName();
-	
+
 	/**
 	 * Return the connection level comparator to be used.
 	 */
 	protected abstract LevelComparator getLevelComparator();
-	
-	protected boolean initializeAnalysis()
-	{
-		if (initialized)
-		{
+
+	protected boolean initializeAnalysis() {
+		if (initialized) {
 			return true;
 		}
-		theProperty = lookupOptionalPropertyDefinition(
-				getLevelPropertyPropertySet(), getLevelPropertyName());
-		if (theProperty == null)
-		{
+		theProperty = lookupOptionalPropertyDefinition(getLevelPropertyPropertySet(), getLevelPropertyName());
+		if (theProperty == null) {
 			final String propName = getLevelPropertyPropertySet() + "::" + getLevelPropertyName();
 			Dialog.showError("Error", "Cannot find property " + propName + ".");
 			return false;
-		}
-		else
-		{
+		} else {
 			initialized = true;
 			return true;
 		}
 	}
 
-	protected void analyzeDeclarativeModel(
-			IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
 		final Element as;
 		initializeAnalysis();
@@ -151,13 +143,14 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		} else {
 			as = declarativeObject;
 		}
-					
-		/* ensure that enclosing component security level encompasses contained
-		 * security levels.  The switch acts as filter on the model object
-		 * classes.  
+
+		/*
+		 * ensure that enclosing component security level encompasses contained
+		 * security levels. The switch acts as filter on the model object
+		 * classes.
 		 */
-		final ComponentLevelChecker componentSecuritySwitch =
-			new ComponentLevelChecker(monitor, errManager, theProperty);
+		final ComponentLevelChecker componentSecuritySwitch = new ComponentLevelChecker(monitor, errManager,
+				theProperty);
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		if (as instanceof ComponentImplementation) {
 			componentSecuritySwitch.processBottomUpComponentImpl((ComponentImplementation) as);
@@ -167,11 +160,10 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		if (componentSecuritySwitch.cancelled()) {
 			throw new OperationCanceledException();
 		}
-				
-		final ConnectionLevelChecker connectionSecuritySwitch =
-			new ConnectionLevelChecker(monitor, errManager,
-					theProperty, getLevelComparator());
-		if (as instanceof ComponentImplementation){
+
+		final ConnectionLevelChecker connectionSecuritySwitch = new ConnectionLevelChecker(monitor, errManager,
+				theProperty, getLevelComparator());
+		if (as instanceof ComponentImplementation) {
 			connectionSecuritySwitch.processTopDownComponentImpl((ComponentImplementation) as);
 		} else {
 			connectionSecuritySwitch.processAllComponentImpl();
@@ -182,20 +174,19 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		monitor.done();
 	}
 
-	protected void analyzeInstanceModel(
-			IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
-		/* ensure that enclosing component security level encompasses contained
-		 * security levels.  The switch acts as filter on the model object
-		 * classes.  
+		/*
+		 * ensure that enclosing component security level encompasses contained
+		 * security levels. The switch acts as filter on the model object
+		 * classes.
 		 */
 		initializeAnalysis();
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		final ComponentInstanceLevelChecker componentSecuritySwitch =
-			new ComponentInstanceLevelChecker(errManager, theProperty);
-		final ConnectionInstanceLevelChecker connectionSecuritySwitch =
-			new ConnectionInstanceLevelChecker(
-					errManager, theProperty,	getLevelComparator());
+		final ComponentInstanceLevelChecker componentSecuritySwitch = new ComponentInstanceLevelChecker(errManager,
+				theProperty);
+		final ConnectionInstanceLevelChecker connectionSecuritySwitch = new ConnectionInstanceLevelChecker(errManager,
+				theProperty, getLevelComparator());
 		componentSecuritySwitch.processPostOrderAll(root);
 		connectionSecuritySwitch.processPostOrderAll(root);
 		monitor.done();

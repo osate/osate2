@@ -32,7 +32,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.imv.ui.ImvAdapterFactory;
 import org.osate.imv.ui.editor.ImvInstanceEditor;
 
-
 public class ImvContentOutlinePage extends ContentOutlinePage {
 
 	private IAdapterFactory adapterFactory = new ImvAdapterFactory();
@@ -45,34 +44,33 @@ public class ImvContentOutlinePage extends ContentOutlinePage {
 	 */
 	private TreeViewer viewer;
 
-	public ImvContentOutlinePage(ImvInstanceEditor editor){
+	public ImvContentOutlinePage(ImvInstanceEditor editor) {
 		Assert.isNotNull(editor);
 		this.editor = editor;
 	}
 
 	@Override
-	public void createControl(Composite parent){
+	public void createControl(Composite parent) {
 		super.createControl(parent);
 		registerAdapters();
 		configureTree();
 	}
 
-
-	private void configureTree(){
+	private void configureTree() {
 		/* Set up content and label providers. */
 		viewer = this.getTreeViewer();
 		viewer.setAutoExpandLevel(2);
 		viewer.setLabelProvider(new WorkbenchLabelProvider());
 		viewer.setContentProvider(new BaseWorkbenchContentProvider());
 
-		IWorkbenchAdapter root = new IWorkbenchAdapter(){
+		IWorkbenchAdapter root = new IWorkbenchAdapter() {
 
 			@Override
 			public Object[] getChildren(Object o) {
 				if (editor.getSystemInstance() != null)
-				return new Object[] {editor.getSystemInstance()};
+					return new Object[] { editor.getSystemInstance() };
 				if (editor.getAadlPackage() != null)
-				return new Object[] {editor.getAadlPackage()};
+					return new Object[] { editor.getAadlPackage() };
 				return null;
 			}
 
@@ -97,7 +95,7 @@ public class ImvContentOutlinePage extends ContentOutlinePage {
 		viewer.setInput(root);
 	}
 
-	private void registerAdapters(){
+	private void registerAdapters() {
 		// Register adapters for model objects.
 		Platform.getAdapterManager().registerAdapters(adapterFactory, SystemInstance.class);
 		Platform.getAdapterManager().registerAdapters(adapterFactory, ComponentInstance.class);
@@ -109,11 +107,11 @@ public class ImvContentOutlinePage extends ContentOutlinePage {
 		Platform.getAdapterManager().registerAdapters(adapterFactory, Feature.class);
 	}
 
-	private void unregisterAdapters(){
+	private void unregisterAdapters() {
 		Platform.getAdapterManager().unregisterAdapters(adapterFactory);
 	}
 
-	public void dispose(){
+	public void dispose() {
 		unregisterAdapters();
 		super.dispose();
 	}

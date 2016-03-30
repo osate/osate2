@@ -101,13 +101,9 @@ public final class AADLProcessor extends Processor {
 	}
 
 	public String getReport() {
-		String res = "Processor "
-				+ this.name
-				+ " instructions per second "
-				+ this.cyclesPerSecond
-				+ " Scheduler "
-				+ (this.scheduler instanceof EDFScheduler ? "EDF" : (this.scheduler instanceof RMScheduler ? "RMS"
-						: "DMS"));
+		String res = "Processor " + this.name + " instructions per second " + this.cyclesPerSecond + " Scheduler "
+				+ (this.scheduler instanceof EDFScheduler ? "EDF"
+						: (this.scheduler instanceof RMScheduler ? "RMS" : "DMS"));
 		return res;
 	}
 }

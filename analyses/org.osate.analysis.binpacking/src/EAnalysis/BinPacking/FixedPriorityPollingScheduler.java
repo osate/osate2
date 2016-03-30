@@ -25,24 +25,20 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 		taskSet.add(s1Node);
 		System.out.println("addIfFeasible(" + s1Node.getName() + ")");
 		for (Iterator iter1 = taskSet.iterator(); iter1.hasNext();) {
-			FixedPriorityProcessingLoad sNode = (FixedPriorityProcessingLoad) iter1
-					.next();
+			FixedPriorityProcessingLoad sNode = (FixedPriorityProcessingLoad) iter1.next();
 			/**
 			 * Obtain largest preemption.
 			 */
 			long largestPreemption = 0;
 			for (Iterator iter = taskSet.iterator(); iter.hasNext();) {
-				FixedPriorityProcessingLoad p = (FixedPriorityProcessingLoad) iter
-						.next();
+				FixedPriorityProcessingLoad p = (FixedPriorityProcessingLoad) iter.next();
 				if (p.equals(sNode))
 					continue;
 
 				if (sNode.getPriority() <= p.getPriority()) {
 					if (((p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond)) > largestPreemption) {
-						System.out.println("\t\t Largest preemption from task("
-								+ p.getName() + ")");
-						largestPreemption = (p.getCycles() * 1000000000)
-								/ ((long) node.cyclesPerSecond);
+						System.out.println("\t\t Largest preemption from task(" + p.getName() + ")");
+						largestPreemption = (p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond);
 					}
 				}
 			}
@@ -55,44 +51,33 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 
 			do {
 				largestCompletion = currentCompletion;
-				System.out.println("Preemption: msg cycles("
-						+ sNode.getCycles() + ") node.cyclesps("
+				System.out.println("Preemption: msg cycles(" + sNode.getCycles() + ") node.cyclesps("
 						+ node.cyclesPerSecond + ")");
 
 				// preemption in nanoseconds
 				currentCompletion = ((sNode.getCycles() * 1000000000) / ((long) node.cyclesPerSecond))
 						+ pollingTimePerTask;
-				//largestPreemption+( (sNode.getCycles() * 1000000000)/
+				// largestPreemption+( (sNode.getCycles() * 1000000000)/
 				// ((long)node.cyclesPerSecond)) + pollingTimePerTask;
 				for (Iterator iter = taskSet.iterator(); iter.hasNext();) {
 					long numberOfPreemptions = 0;
-					FixedPriorityProcessingLoad p = (FixedPriorityProcessingLoad) iter
-							.next();
+					FixedPriorityProcessingLoad p = (FixedPriorityProcessingLoad) iter.next();
 					if (p.equals(sNode))
 						continue;
 
 					if (p.getPriority() <= sNode.getPriority()) {
-						numberOfPreemptions = (long) Math
-								.ceil(((double) largestCompletion)
-										/ ((double) p.getPeriod()));
-						System.out
-								.println("\t calculating preemption from task("
-										+ p.getName() + ") largestCompletion("
-										+ largestCompletion
-										+ ") numPreemptions("
-										+ numberOfPreemptions + ")");
+						numberOfPreemptions = (long) Math.ceil(((double) largestCompletion) / ((double) p.getPeriod()));
+						System.out.println("\t calculating preemption from task(" + p.getName() + ") largestCompletion("
+								+ largestCompletion + ") numPreemptions(" + numberOfPreemptions + ")");
 						currentCompletion += numberOfPreemptions
 								* (((p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond)) + pollingTimePerTask);
 					}
 				}
-			} while ((currentCompletion != largestCompletion)
-					&& (largestCompletion <= sNode.getDeadline()));
+			} while ((currentCompletion != largestCompletion) && (largestCompletion <= sNode.getDeadline()));
 
-			System.out.println("\t Task(" + sNode.getName()
-					+ ") final Completion = " + largestCompletion + " ns");
+			System.out.println("\t Task(" + sNode.getName() + ") final Completion = " + largestCompletion + " ns");
 
-			((FixedPrioritySoftwareNode) sNode)
-					.setCompletionTime(largestCompletion);
+			((FixedPrioritySoftwareNode) sNode).setCompletionTime(largestCompletion);
 			if (!(largestCompletion <= sNode.getDeadline())) {
 				taskSet.remove(s1Node);
 				return false;
@@ -142,12 +127,9 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 		net.cyclesPerSecond = 1000000000.0;
 		scheduler.setHardwareNode(net);
 
-		FixedPrioritySoftwareNode n1 = new FixedPrioritySoftwareNode(1, 10,
-				100, 100, "one");
-		FixedPrioritySoftwareNode n2 = new FixedPrioritySoftwareNode(2, 12,
-				200, 200, "two");
-		FixedPrioritySoftwareNode n3 = new FixedPrioritySoftwareNode(3, 14,
-				400, 400, "three");
+		FixedPrioritySoftwareNode n1 = new FixedPrioritySoftwareNode(1, 10, 100, 100, "one");
+		FixedPrioritySoftwareNode n2 = new FixedPrioritySoftwareNode(2, 12, 200, 200, "two");
+		FixedPrioritySoftwareNode n3 = new FixedPrioritySoftwareNode(3, 14, 400, 400, "three");
 		boolean res = false;
 		res = scheduler.addIfFeasible(n1);
 		res = scheduler.addIfFeasible(n2);

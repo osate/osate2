@@ -30,7 +30,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 
 	public static final int COMPONENT_FIGURE_TYPE = 0;
@@ -50,17 +49,17 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 
 	@Override
 	public void saveRootAdapter(AadlComponentAdapter rootAdapter) {
-		String name = ((NamedElement)rootAdapter.getModelElement()).getFullName();
+		String name = ((NamedElement) rootAdapter.getModelElement()).getFullName();
 		// Get root xml element.
 		Element rootElement = xmlDoc.getDocumentElement();
 
 		// Check if container element already exists.
 		NodeList nList = rootElement.getChildNodes();
-		for(int i = 0; i < nList.getLength(); i++) {
+		for (int i = 0; i < nList.getLength(); i++) {
 			Node node = nList.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element)node;
-				if(element.getAttribute("name").equals(name)) {
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (element.getAttribute("name").equals(name)) {
 					// The container element already exists so we will remove it.
 					rootElement.removeChild(element);
 					break;
@@ -75,7 +74,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(COMPONENT_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
+		e.setAttribute("name", ((NamedElement) adapter.getModelElement()).getFullName());
 
 		ComponentFigure figure = adapter.getFigure();
 
@@ -93,13 +92,13 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element childrenElement = xmlDoc.createElement("children");
 
 		// Save subcomopnents.
-		for(Iterator<AadlComponentAdapter> it = adapter.getChildComponents(); it.hasNext();)
+		for (Iterator<AadlComponentAdapter> it = adapter.getChildComponents(); it.hasNext();)
 			this.writeAdapter(it.next(), childrenElement);
 		// Save features.
-		for(Iterator<AadlFeatureAdapter> it = adapter.getChildFeatures(); it.hasNext();)
+		for (Iterator<AadlFeatureAdapter> it = adapter.getChildFeatures(); it.hasNext();)
 			this.writeAdapter(it.next(), childrenElement);
 		// Save connections.
-		for(Iterator<AadlConnectionAdapter> it = adapter.getChildConnections(); it.hasNext();)
+		for (Iterator<AadlConnectionAdapter> it = adapter.getChildConnections(); it.hasNext();)
 			this.writeAdapter(it.next(), childrenElement);
 
 		e.appendChild(childrenElement);
@@ -110,7 +109,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(FEATURE_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
+		e.setAttribute("name", ((NamedElement) adapter.getModelElement()).getFullName());
 
 		FeatureFigure figure = adapter.getFigure();
 
@@ -135,13 +134,13 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(CONNECTION_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
+		e.setAttribute("name", ((NamedElement) adapter.getModelElement()).getFullName());
 
 		Connection figure = adapter.getFigure();
 
 		// Get point list.
 		PointList points = figure.getPoints();
-		for(int i = 0; i < points.size(); i++) {
+		for (int i = 0; i < points.size(); i++) {
 			Point p = points.getPoint(i);
 			Element pointElement = xmlDoc.createElement("point");
 			pointElement.setAttribute("x", Integer.toString(p.x));

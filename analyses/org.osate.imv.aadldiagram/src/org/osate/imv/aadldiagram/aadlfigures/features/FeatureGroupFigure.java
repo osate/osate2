@@ -16,7 +16,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public class FeatureGroupFigure extends DirectedFeatureFigure {
 
 	private static final int H_EXTENT = 21;

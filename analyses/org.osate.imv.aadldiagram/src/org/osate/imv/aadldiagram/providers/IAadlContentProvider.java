@@ -11,9 +11,10 @@
 
 package org.osate.imv.aadldiagram.providers;
 
-
 public interface IAadlContentProvider {
 	public Object getParent(Object object);
+
 	public Object getRoot(Object object);
+
 	public boolean isAllowedToBeContainer(Object element);
 }

@@ -41,131 +41,103 @@ import org.osate.importer.model.sm.Transition;
 
 public class Utils {
 
-	public static boolean needConnection (StateMachine stateMachine, String portName)
-	{
-		for (String v : stateMachine.getVariables())
-		{
-			if (v.equalsIgnoreCase(portName))
-			{
+	public static boolean needConnection(StateMachine stateMachine, String portName) {
+		for (String v : stateMachine.getVariables()) {
+			if (v.equalsIgnoreCase(portName)) {
 				return true;
 			}
 		}
-		
-		for (State s : stateMachine.getStates())
-		{
-			if (needConnection (s.getInternalStateMachine(), portName))
-			{
+
+		for (State s : stateMachine.getStates()) {
+			if (needConnection(s.getInternalStateMachine(), portName)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
 
-	public static void writeSubprogramSubcomponents
-		(StateMachine sm, BufferedWriter out, List<String> existingSubcomponents) throws IOException
-	{
-		
-		if (sm.getVariables().size() > 0)
-		{
-			for (String var : sm.getVariables())
-			{
-				if (existingSubcomponents.contains(var))
-				{
+	public static void writeSubprogramSubcomponents(StateMachine sm, BufferedWriter out,
+			List<String> existingSubcomponents) throws IOException {
+
+		if (sm.getVariables().size() > 0) {
+			for (String var : sm.getVariables()) {
+				if (existingSubcomponents.contains(var)) {
 					continue;
 				}
-				
-				existingSubcomponents.add (var);
-				out.write ("   "+var+" : data ");
 
-				if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
-				{
-					out.write ("generictype_boolean;\n");
-				}
-				else
-				{
-					out.write ("generictype;\n");
+				existingSubcomponents.add(var);
+				out.write("   " + var + " : data ");
+
+				if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
+					out.write("generictype_boolean;\n");
+				} else {
+					out.write("generictype;\n");
 				}
 			}
 		}
-		
-		
+
 		/**
 		 * Here, we try to see if we need to declare variables
 		 * from the nested statemachine.
 		 */
-		if (sm.hasNestedStateMachines())
-		{
-			for (State s : sm.getStates())
-			{
-				writeSubprogramSubcomponents (s.getInternalStateMachine(), out, existingSubcomponents);
+		if (sm.hasNestedStateMachines()) {
+			for (State s : sm.getStates()) {
+				writeSubprogramSubcomponents(s.getInternalStateMachine(), out, existingSubcomponents);
 			}
 		}
 	}
-	
-	
-	public static void writeBehaviorAnnex (StateMachine sm, BufferedWriter out) throws IOException
-	{
-		//OsateDebug.osateDebug("WE GOT TWO !");
-		out.write ("annex behavior_specification {**\n");
 
-		if (sm.getStates().size() > 0)
-		{
+	public static void writeBehaviorAnnex(StateMachine sm, BufferedWriter out) throws IOException {
+		// OsateDebug.osateDebug("WE GOT TWO !");
+		out.write("annex behavior_specification {**\n");
+
+		if (sm.getStates().size() > 0) {
 			boolean sectionStatesDeclared = false;
 
-			for (State state : sm.getStates())
-			{
-				
-				if (sectionStatesDeclared == false)
-				{
-					out.write ("states\n");
+			for (State state : sm.getStates()) {
+
+				if (sectionStatesDeclared == false) {
+					out.write("states\n");
 					sectionStatesDeclared = true;
 				}
-				
-				if ( sm.isInitialState (state))
-				{
-					out.write ("   " + state.getName() + ": initial final state;\n");
+
+				if (sm.isInitialState(state)) {
+					out.write("   " + state.getName() + ": initial final state;\n");
 				}
 
-				if ( ! sm.isInitialState (state))
-				{
-					out.write ("   " + state.getName() + ": state;\n");
+				if (!sm.isInitialState(state)) {
+					out.write("   " + state.getName() + ": state;\n");
 				}
 			}
 		}
 
-		if (sm.getTransitions().size() > 0)
-		{
+		if (sm.getTransitions().size() > 0) {
 			int transitionId = 0;
-			out.write ("transitions\n");
-			for (Transition t : sm.getTransitions())
-			{
+			out.write("transitions\n");
+			for (Transition t : sm.getTransitions()) {
 				State src = t.getSrcState();
 				State dst = t.getDstState();
-				if ((src != null) && (dst != null) && src.isValid() && dst.isValid())
-				{
+				if ((src != null) && (dst != null) && src.isValid() && dst.isValid()) {
 
-					out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName());
+					out.write("   t" + transitionId++ + " : " + src.getName() + "-[" + t.getCondition() + "]->"
+							+ dst.getName());
 
-					if ((dst.hasEntrypoint()) || (t.getAction().length() > 0))
-					{
-						out.write ("{");
-						if (dst.hasEntrypoint())
-						{
-							out.write (dst.getEntrypoint());
+					if ((dst.hasEntrypoint()) || (t.getAction().length() > 0)) {
+						out.write("{");
+						if (dst.hasEntrypoint()) {
+							out.write(dst.getEntrypoint());
 						}
-						if (t.getAction().length() > 0)
-						{
-							out.write ("{" + t.getAction() + "}");
+						if (t.getAction().length() > 0) {
+							out.write("{" + t.getAction() + "}");
 						}
-						out.write ("}");	
+						out.write("}");
 					}
-					out.write (";\n");
+					out.write(";\n");
 
 				}
 			}
 		}
-		out.write ("**};\n");
+		out.write("**};\n");
 	}
 }

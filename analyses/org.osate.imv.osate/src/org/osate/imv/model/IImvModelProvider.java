@@ -22,14 +22,24 @@ import org.osate.aadl2.instance.FeatureCategory;
 public interface IImvModelProvider {
 	public static final String CURRENT_MODE_PROPERTY = "currentMode";
 	public static final String CONTAINER_COMPONENT_PROPERTY = "containerComponent";
+
 	public Mode getCurrentMode();
+
 	public void setCurrentMode(Mode mode);
+
 	public NamedElement getContainerComponent();
+
 	public void setContainerComponent(NamedElement container);
+
 	public List<FlowHighlighter> getFlowHighlighters();
+
 	public List<ElementInhibitStatus<FeatureCategory>> getFeatureInhibitList();
+
 	public List<ElementInhibitStatus<ComponentCategory>> getComponentInhibitList();
+
 	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
 	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
 	public void dispose();
 }

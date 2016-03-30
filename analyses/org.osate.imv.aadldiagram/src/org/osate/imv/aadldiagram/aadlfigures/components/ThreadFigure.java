@@ -23,12 +23,12 @@ public class ThreadFigure extends ComponentFigure {
 
 	private int lineWidth;
 
-	public ThreadFigure(){
+	public ThreadFigure() {
 		lineWidth = LINE_WIDTH;
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		g.setLineWidth(lineWidth);

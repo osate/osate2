@@ -58,20 +58,18 @@ import org.osate.importer.Utils;
 
 import java.util.*;
 
-public class DsmGenerator 
-{
+public class DsmGenerator {
 	public final static int DSM_TYPE_BOOLEAN = 0;
-	
+
 	private int dsmType;
 	private MatrixGenerator matrix;
 	private ComponentInstance mainComponent;
 	private List<String> componentsList;
 	private List<ComponentInstance> components;
-	
+
 	private int dsmDepth;
-	
-	public DsmGenerator (MatrixGenerator m, ComponentInstance ci)
-	{
+
+	public DsmGenerator(MatrixGenerator m, ComponentInstance ci) {
 		String componentName;
 		ComponentInstance subci;
 		mainComponent = ci;
@@ -80,153 +78,125 @@ public class DsmGenerator
 		dsmDepth = 0;
 		componentsList = new ArrayList<String>();
 		components = new ArrayList<ComponentInstance>();
-		
-		for (Element c : ci.getChildren())
-		{
-			if (c instanceof ComponentInstance)
-			{
+
+		for (Element c : ci.getChildren()) {
+			if (c instanceof ComponentInstance) {
 				dsmDepth++;
 				subci = (ComponentInstance) c;
 				componentsList.add(Utils.getComponentName(subci));
 				components.add(subci);
 			}
 		}
-	//	System.out.println ("[DSMGENERATOR] Depth=" + dsmDepth);
-	}
-	
-	public DsmGenerator (MatrixGenerator m, ComponentInstance ci, int t)
-	{
-		this (m, ci);
-		dsmType = t;		
+		// System.out.println ("[DSMGENERATOR] Depth=" + dsmDepth);
 	}
 
-	public int getDepth ()
-	{
+	public DsmGenerator(MatrixGenerator m, ComponentInstance ci, int t) {
+		this(m, ci);
+		dsmType = t;
+	}
+
+	public int getDepth() {
 		return this.dsmDepth;
 	}
-	
-	public int[][] getDsm (int d)
-	{
+
+	public int[][] getDsm(int d) {
 		String compSource;
 		String compDest;
 		int[][] res;
-		
+
 		res = new int[dsmDepth][dsmDepth];
-		
-		for (int i = 0 ; i < dsmDepth ; i++)
-		{
-			for (int j = 0 ; j < dsmDepth ; j++)
-			{
-				res[i][j] = 0;	
+
+		for (int i = 0; i < dsmDepth; i++) {
+			for (int j = 0; j < dsmDepth; j++) {
+				res[i][j] = 0;
 			}
-			
+
 		}
-		
-		
+
 		/*
 		 * If we ask for depth 0, we return the
 		 * identity matrix.
 		 */
-		if (d == 0)
-		{
-			for (int i = 0 ; i < dsmDepth ; i++)
-			{
+		if (d == 0) {
+			for (int i = 0; i < dsmDepth; i++) {
 				res[i][i] = 1;
 			}
-		
-		}
-		else
-		{
-			for (int i = 0 ; i < dsmDepth ; i++)
-			{
+
+		} else {
+			for (int i = 0; i < dsmDepth; i++) {
 				compSource = componentsList.get(i);
-				for (int j = 0 ; j < dsmDepth ; j++)
-				{
+				for (int j = 0; j < dsmDepth; j++) {
 					compDest = componentsList.get(j);
-					if ( (compSource.equals(compDest) == false ) &&
-						 (isUsing (compSource, compDest, d)) )
-					{
-						//System.out.println ("[DSMGENERATOR] Component " + compSource + " uses " + compDest + " at depth " + d);
+					if ((compSource.equals(compDest) == false) && (isUsing(compSource, compDest, d))) {
+						// System.out.println ("[DSMGENERATOR] Component " + compSource + " uses " + compDest + " at depth " + d);
 						res[j][i] = 1;
 					}
-				}	
+				}
 			}
 		}
-		
+
 		/*
 		 * Print matrix
 		 */
-		for (int i = 0 ; i < dsmDepth ; i++)
-		{
-			//System.out.println ("[DSMGENERATOR] Component " + i + "=" + componentsList.get(i));
+		for (int i = 0; i < dsmDepth; i++) {
+			// System.out.println ("[DSMGENERATOR] Component " + i + "=" + componentsList.get(i));
 		}
 		/*
-		System.out.println ("[DSMGENERATOR] Matrix for depth=" + d);
-		System.out.print ("  ");
-		for (int i = 0 ; i < dsmDepth ; i++)
-		{
-			System.out.print (componentsList.get(i) + " ");
-		}
-		System.out.print ("\n");
-		for (int i = 0 ; i < dsmDepth ; i++)
-		{
-			System.out.print (componentsList.get(i) + " ");
-			for (int j = 0 ; j < dsmDepth ; j++)
-			{
-				
-				System.out.print (res[i][j]);
-				System.out.print (" ");
-			}
-			System.out.print ("\n");
-		}
-		*/
+		 * System.out.println ("[DSMGENERATOR] Matrix for depth=" + d);
+		 * System.out.print ("  ");
+		 * for (int i = 0 ; i < dsmDepth ; i++)
+		 * {
+		 * System.out.print (componentsList.get(i) + " ");
+		 * }
+		 * System.out.print ("\n");
+		 * for (int i = 0 ; i < dsmDepth ; i++)
+		 * {
+		 * System.out.print (componentsList.get(i) + " ");
+		 * for (int j = 0 ; j < dsmDepth ; j++)
+		 * {
+		 * 
+		 * System.out.print (res[i][j]);
+		 * System.out.print (" ");
+		 * }
+		 * System.out.print ("\n");
+		 * }
+		 */
 		return res;
 	}
-	
 
-	private boolean isUsing (String src, String dst, int d)
-	{
+	private boolean isUsing(String src, String dst, int d) {
 		List<String> deps;
-		
-		if (d < 1)
-		{
+
+		if (d < 1) {
 			return false;
 		}
-		
+
 		deps = matrix.getMatrix().get(src);
-		
-		if (deps == null)
-		{
-			//System.out.println ("[DSMGENERATOR] null list for " + src);
+
+		if (deps == null) {
+			// System.out.println ("[DSMGENERATOR] null list for " + src);
 			return false;
 		}
-		for (String s : deps)
-		{
-			//System.out.println ("[DSMGENERATOR] Try to see if " + src + " uses " + s + " for depth" + d);
-			if (d > 1)
-			{
-				return isUsing (s, dst, d - 1);
-			}
-			else
-			{
-				if (s.equals(src))
-				{
-				//	System.out.println ("[DSMGENERATOR] cyclic dependency " + src);
+		for (String s : deps) {
+			// System.out.println ("[DSMGENERATOR] Try to see if " + src + " uses " + s + " for depth" + d);
+			if (d > 1) {
+				return isUsing(s, dst, d - 1);
+			} else {
+				if (s.equals(src)) {
+					// System.out.println ("[DSMGENERATOR] cyclic dependency " + src);
 					continue;
 				}
-				
-				if (s.equals(dst))
-				{
-					//System.out.println ("[DSMGENERATOR] "+ src + " USES " + s);
+
+				if (s.equals(dst)) {
+					// System.out.println ("[DSMGENERATOR] "+ src + " USES " + s);
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
-	public List<ComponentInstance> getComponents()
-	{
+
+	public List<ComponentInstance> getComponents() {
 		return this.components;
 	}
 

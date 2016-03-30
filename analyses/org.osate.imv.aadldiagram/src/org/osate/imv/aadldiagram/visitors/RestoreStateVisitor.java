@@ -17,7 +17,6 @@ import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.viewer.IAadlAdapterRestorerDelegate;
 
-
 public class RestoreStateVisitor extends AadlAdapterVisitor {
 
 	private IAadlAdapterRestorerDelegate delegate;

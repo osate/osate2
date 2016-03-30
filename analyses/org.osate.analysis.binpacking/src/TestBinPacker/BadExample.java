@@ -31,33 +31,33 @@ import EAnalysis.BinPacking.SoftwareNode;
  */
 public class BadExample {
 	public static void main(String[] args) {
-		/* One site to rule them all!  We don't care about the site
+		/*
+		 * One site to rule them all! We don't care about the site
 		 * architecture, so just create one site to hold everything.
 		 * We aren't worried about power or space issues either, so
 		 * we just set them to 100.0 because those are nice values.
-		 * The site accepts all processors. 
+		 * The site accepts all processors.
 		 */
 		final SiteArchitecture siteArchitecture = new SiteArchitecture();
-		final Processor prototype = new Processor("PROTOTYPE", new EDFScheduler(new BandwidthComparator()), 1000000000L);
+		final Processor prototype = new Processor("PROTOTYPE", new EDFScheduler(new BandwidthComparator()),
+				1000000000L);
 		final Site theSite = new Site(100.0, 100.0, new SiteGuest[] { prototype });
 		siteArchitecture.addSite(theSite);
 
-		/* The hardware is fixed, based on the AADL specification, so we 
+		/*
+		 * The hardware is fixed, based on the AADL specification, so we
 		 * use the NoExpansionExpansor to keep the hardware from being
 		 * generated for us.
 		 */
 		final NFCExpansor expansor = new NoExpansionExpansor();
 		expansor.setSiteArchitecture(siteArchitecture);
 
-		/* Create our problem space */ 
-		final OutDegreeAssignmentProblem problem = new OutDegreeAssignmentProblem(
-				new OutDegreeComparator(), new BandwidthComparator(),
-				new CapacityComparator());
-		
-		
-		
+		/* Create our problem space */
+		final OutDegreeAssignmentProblem problem = new OutDegreeAssignmentProblem(new OutDegreeComparator(),
+				new BandwidthComparator(), new CapacityComparator());
+
 		// --- Add procs ---
-		
+
 		// Processor with 35 cycles/second
 //		final Scheduler s = new EDFScheduler(new BandwidthComparator());
 		final Scheduler s = new RMASchedulerNew();
@@ -65,8 +65,6 @@ public class BadExample {
 		siteArchitecture.addSiteGuest(proc, theSite);
 		problem.hardwareGraph.add(proc);
 
-		
-		
 		// --- Add threads ---
 
 		final SoftwareNode t1 = new SoftwareNode(2, 50L, 50L, "t1");
@@ -88,13 +86,11 @@ public class BadExample {
 		double totalCapacityGap = 0.0;
 		double totalBandwidthRequirement = 0.0;
 		int moduleNumber = 0;
-		for (Iterator iter = result.problem.hardwareGraph.iterator(); iter
-				.hasNext();) {
+		for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
 			System.out.println("Hardware " + n.name);
 			System.out.println("Available Capacity = " + n.getAvailableCapacity() + " cycles/sec");
-			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet
-					.hasNext();) {
+			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
 				if (m instanceof CompositeSoftNode) {
 					CompositeSoftNode cn = (CompositeSoftNode) m;
@@ -104,10 +100,8 @@ public class BadExample {
 					moduleNumber += 1;
 				}
 				totalBandwidthRequirement += m.getBandwidth();
-				System.out.println("  Software " + m.name + ": " + m.getCycles()
-						+ " cycles, " + m.getPeriod() + " ns period, "
-						+ m.getDeadline() + " ns deadline, "
-						+ m.getBandwidth() + " cycles/sec load");
+				System.out.println("  Software " + m.name + ": " + m.getCycles() + " cycles, " + m.getPeriod()
+						+ " ns period, " + m.getDeadline() + " ns deadline, " + m.getBandwidth() + " cycles/sec load");
 			}
 			totalCapacityGap += (n.getAvailableCapacity() / n.cyclesPerSecond);
 		}

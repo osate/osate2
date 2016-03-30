@@ -65,23 +65,22 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 
 	public SelectableMevBindingFigure() {
 		// Initially the connection is NOT selected.
-		
+
 		this.isSelected = false;
 		this.isMoveInProgress = false;
 		this.cursorHelper = new CursorHelper();
 		super.setLineStyle(SWT.LINE_DASH);
-		
-	} 
 
+	}
 
 	public void setSelected(boolean isSelected) {
-		
-		if(this.isSelected == isSelected)
+
+		if (this.isSelected == isSelected)
 			return; // No changes need to be made.
 		super.setLineStyle(SWT.LINE_DASH);
 		this.isSelected = isSelected;
 
-		if(isSelected) {
+		if (isSelected) {
 			this.lineWidth = this.getLineWidth();
 			super.setLineWidth(SETECTED_LINE_WIDTH);
 		} else {
@@ -93,16 +92,12 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 	@Override
 	public void setLineWidth(int lineWidth) {
 		this.setLineStyle(SWT.LINE_DASH);
-		if(this.isSelected)
-		{
+		if (this.isSelected) {
 			this.lineWidth = lineWidth;
-		}
-		else
-		{
-			super.setLineWidth(lineWidth );
+		} else {
+			super.setLineWidth(lineWidth);
 		}
 	}
-
 
 	public boolean isSelected() {
 		return this.isSelected;
@@ -118,22 +113,24 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 		int halfWidth = (int) Math.ceil(SELECTION_HANDLE_SIZE / 2.0f);
 
 		Point point = points.getFirstPoint();
-		handles[0] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE, SELECTION_HANDLE_SIZE);
+		handles[0] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE,
+				SELECTION_HANDLE_SIZE);
 
 		point = points.getPoint(1);
-		handles[1] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE, SELECTION_HANDLE_SIZE);
+		handles[1] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE,
+				SELECTION_HANDLE_SIZE);
 
 		point = points.getLastPoint();
-		handles[2] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE, SELECTION_HANDLE_SIZE);
+		handles[2] = new Rectangle(point.x - halfWidth, point.y - halfWidth, SELECTION_HANDLE_SIZE,
+				SELECTION_HANDLE_SIZE);
 
 		return handles;
 	}
 
-
 	protected boolean intersectsSelectionHandle(Point location) {
 		Point midPoint = this.getPoints().getMidpoint();
 		Rectangle rect = Rectangle.SINGLETON;
-		
+
 		rect.setLocation(midPoint);
 		rect.setWidth(SELECTION_HANDLE_SIZE);
 		rect.setHeight(SELECTION_HANDLE_SIZE);
@@ -150,15 +147,13 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 		this.setSelected(true);
 	}
 
-
 	public void mouseReleased(MouseEvent me) {
-		if(this.isMoveInProgress) {
+		if (this.isMoveInProgress) {
 			me.consume();
 			this.isMoveInProgress = false;
 
 		}
 	}
-
 
 	public void mouseDragged(MouseEvent me) {
 
@@ -167,50 +162,48 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 
 			// Create absolute bendpoint.
 			Point location = me.getLocation();
-			Bendpoint bp = BendpointHelper.calculateRelativeBendpoint(location, this.getPoints().getFirstPoint(), this.getPoints().getLastPoint(), this);
+			Bendpoint bp = BendpointHelper.calculateRelativeBendpoint(location, this.getPoints().getFirstPoint(),
+					this.getPoints().getLastPoint(), this);
 
 			ConnectionRouter router = this.getConnectionRouter();
-			router.setConstraint(this, Arrays.asList(new Bendpoint[] {bp}));
+			router.setConstraint(this, Arrays.asList(new Bendpoint[] { bp }));
 			this.layout();
 		}
 	}
-
 
 	public void mouseMoved(MouseEvent me) {
 		this.cursorHelper.updateCursor(this.intersectsSelectionHandle(me.getLocation()));
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		int x;
 		int y;
 		super.paintFigure(g);
 
 		// Highlight figure if it is selected.
-		if(this.isSelected){
+		if (this.isSelected) {
 			// Save graphics state.
 			g.pushState();
 
 			// Configure context.
 			g.setBackgroundColor(ColorConstants.green);
 			g.setForegroundColor(ColorConstants.white);
-			
 
 			/* Draw selection handles. */
 
 			// Get the selection handles.
 			Rectangle[] handles = this.getSelectionHandles();
-			for(int i = 0; i < handles.length - 1 ; i++) {
+			for (int i = 0; i < handles.length - 1; i++) {
 				// Draw handles.
-				//System.out.println (" handle " + i + ", x = " +  handles[i].getCenter().x + ", y = " +  handles[i].getCenter().y);
+				// System.out.println (" handle " + i + ", x = " + handles[i].getCenter().x + ", y = " + handles[i].getCenter().y);
 				g.fillRectangle(handles[i]);
 				g.drawRectangle(handles[i]);
 			}
-			
-			
+
 			/*
 			 * JD : TODO an FIXME
-			 * Here, we try to put an arrow on the target component but 
+			 * Here, we try to put an arrow on the target component but
 			 * at this time, the arrow needs to be oriented according to the
 			 * other figures (position, etc ...). Check for the rotation parameter.
 			 */
@@ -220,15 +213,14 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 			g.setForegroundColor(ColorConstants.black);
 			x = handles[handles.length - 1].x;
 			y = handles[handles.length - 1].y;
-			int[] points = {x - 10 , y + 10, x , y , x + 10, y + 10};
-			//g.rotate(-90);
+			int[] points = { x - 10, y + 10, x, y, x + 10, y + 10 };
+			// g.rotate(-90);
 			g.drawPolyline(points);
 
 			// Restore graphics state.
 			g.popState();
 		}
 	}
-
 
 	@Override
 	public void removeNotify() {
@@ -239,34 +231,29 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 		this.setRoutingConstraint(constraint);
 	}
 
-
 	public void mouseEntered(MouseEvent me) {
 	}
-
 
 	public void mouseExited(MouseEvent me) {
 		this.cursorHelper.updateCursor(false);
 	}
 
-
 	public void mouseHover(MouseEvent me) {
 		// Not used.
 	}
 
-
 	public void mouseDoubleClicked(MouseEvent me) {
 		// Not used.
 	}
-
 
 	private class CursorHelper {
 		private boolean handCursorSet = false;
 		private final Cursor handCursor = Display.getCurrent().getSystemCursor(SWT.CURSOR_HAND);
 
 		public void updateCursor(boolean showHandCursor) {
-			if(showHandCursor && !handCursorSet) {
+			if (showHandCursor && !handCursorSet) {
 				setHandCursor(true);
-			} else if(!showHandCursor && handCursorSet) {
+			} else if (!showHandCursor && handCursorSet) {
 				setHandCursor(false);
 			}
 		}

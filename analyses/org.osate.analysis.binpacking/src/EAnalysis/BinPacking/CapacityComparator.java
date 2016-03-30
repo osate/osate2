@@ -6,10 +6,8 @@ public class CapacityComparator implements Comparator {
 
 	public int compare(Object o1, Object o2) {
 
-
 		if (o1 instanceof HardwareNode && o2 instanceof HardwareNode) {
-			if (((HardwareNode) o1).getUniqueID() == ((HardwareNode) o2)
-					.getUniqueID())
+			if (((HardwareNode) o1).getUniqueID() == ((HardwareNode) o2).getUniqueID())
 				return 0;
 		} else {
 			if (o1.hashCode() == o2.hashCode())
@@ -18,8 +16,7 @@ public class CapacityComparator implements Comparator {
 
 		CapacityProvider n1 = (CapacityProvider) o1;
 		CapacityProvider n2 = (CapacityProvider) o2;
-		double difference = n1.getAvailableCapacity()
-				- n2.getAvailableCapacity();
+		double difference = n1.getAvailableCapacity() - n2.getAvailableCapacity();
 		if (difference < 0) {
 			return (int) Math.floor(difference);
 		} else if (difference > 0) {
@@ -32,7 +29,7 @@ public class CapacityComparator implements Comparator {
 			if (o1 instanceof HardwareNode && o2 instanceof HardwareNode) {
 				return (int) (((HardwareNode) o1).getUniqueID() - ((HardwareNode) o2).getUniqueID());
 			}
-			
+
 			return o1.hashCode() - o2.hashCode();
 		}
 	}

@@ -6,7 +6,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 
-
 public class SecurityLevel {
 	private final Property securityLevel;
 
@@ -25,8 +24,7 @@ public class SecurityLevel {
 
 	public void setSecurityLevel(final NamedElement ph, final long level) {
 		// Create new property value: An Integer value
-		final IntegerLiteral newpv =
-			Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		final IntegerLiteral newpv = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		// Set the integer value to the new value
 		newpv.setValue(level);
 		// Set the property association

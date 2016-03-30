@@ -18,7 +18,6 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 import org.osate.imv.aadldiagram.adapters.AadlFlowPathAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 
-
 public class GraphLayoutFlowPath implements LayoutRelationship {
 
 	private Object layoutInformation = null;
@@ -37,10 +36,10 @@ public class GraphLayoutFlowPath implements LayoutRelationship {
 		// We need to return the destinations parent figure if the parent figure is not
 		// currently the container figure.
 		IAadlElementAdapter parentAdapter = this.adapter.getDestinationAdapter().getParentAdapter();
-		if(!parentAdapter.isContainer())
-			return (LayoutEntity)parentAdapter.getLayoutItem();
+		if (!parentAdapter.isContainer())
+			return (LayoutEntity) parentAdapter.getLayoutItem();
 		else
-			return (LayoutEntity)this.adapter.getDestinationAdapter().getLayoutItem();
+			return (LayoutEntity) this.adapter.getDestinationAdapter().getLayoutItem();
 	}
 
 	public Object getLayoutInformation() {
@@ -51,10 +50,10 @@ public class GraphLayoutFlowPath implements LayoutRelationship {
 		// We need to return the sources parent figure if the parent figure is not
 		// currently the container figure.
 		IAadlElementAdapter parentAdapter = this.adapter.getSourceAdapter().getParentAdapter();
-		if(!parentAdapter.isContainer())
-			return (LayoutEntity)parentAdapter.getLayoutItem();
+		if (!parentAdapter.isContainer())
+			return (LayoutEntity) parentAdapter.getLayoutItem();
 		else
-			return (LayoutEntity)this.adapter.getSourceAdapter().getLayoutItem();
+			return (LayoutEntity) this.adapter.getSourceAdapter().getLayoutItem();
 	}
 
 	public void populateLayoutConstraint(LayoutConstraint constraint) {

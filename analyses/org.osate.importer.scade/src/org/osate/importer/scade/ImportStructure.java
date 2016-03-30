@@ -112,8 +112,7 @@ public class ImportStructure {
 							 */
 							Node dataNode;
 							dataNode = operator;
-							while (dataNode.getParentNode() != null)
-							{
+							while (dataNode.getParentNode() != null) {
 								dataNode = dataNode.getParentNode();
 							}
 //							OsateDebug.osateDebug("Import SCADE", "parent0" + operator.getParentNode());
@@ -171,8 +170,8 @@ public class ImportStructure {
 	 * @param  - varName the name of the input variable
 	 * @return - a list of component that use this variable name
 	 */
-	public static void getComponentsUsingVariable(Node currentNode, Component mainComponent,
-			List<Component> components, String varName) {
+	public static void getComponentsUsingVariable(Node currentNode, Component mainComponent, List<Component> components,
+			String varName) {
 		NodeList nList = currentNode.getChildNodes();
 		Node attrName = null;
 		String foundName;

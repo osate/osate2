@@ -12,46 +12,55 @@ import java.util.Vector;
  *  @author Jun Li
  *  created in May 12, 1999.
  */
- public class ARCForArray {
-     //data fields
-     private int numberOfProcesses;
-     private double phaseOffsetUpdate;
-     private Vector processIncluded;
-     private int coordinate;
+public class ARCForArray {
+	// data fields
+	private int numberOfProcesses;
+	private double phaseOffsetUpdate;
+	private Vector processIncluded;
+	private int coordinate;
 
-     //trivial constructor
-     public ARCForArray () { }
+	// trivial constructor
+	public ARCForArray() {
+	}
 
-     public ARCForArray (int number) {
-        numberOfProcesses = 0 ;
+	public ARCForArray(int number) {
+		numberOfProcesses = 0;
 		processIncluded = new Vector(number);
 
-     }
+	}
 
-     public RuntimeProcess getProcess(int index) {
-         return ( (RuntimeProcess)processIncluded.elementAt(index));
-     }
+	public RuntimeProcess getProcess(int index) {
+		return ((RuntimeProcess) processIncluded.elementAt(index));
+	}
 
-     //to make some sufficated, you have to throw some exception!
-     public void addProcess(int index, RuntimeProcess newComing) {
-	     numberOfProcesses++;
-	     processIncluded.insertElementAt(newComing, index);
-     }
-	 
-	 public void setProcess(int index, RuntimeProcess newComing) {
-	     processIncluded.setElementAt(newComing, index);
-	 }
+	// to make some sufficated, you have to throw some exception!
+	public void addProcess(int index, RuntimeProcess newComing) {
+		numberOfProcesses++;
+		processIncluded.insertElementAt(newComing, index);
+	}
 
-     public int getNumberOfProcesses() { return numberOfProcesses; }
-     public void setPhaseOffsetUpdate(double phase) { phaseOffsetUpdate= phase; }
+	public void setProcess(int index, RuntimeProcess newComing) {
+		processIncluded.setElementAt(newComing, index);
+	}
 
-     public double getPhaseOffsetUpdate() { return phaseOffsetUpdate; }
+	public int getNumberOfProcesses() {
+		return numberOfProcesses;
+	}
 
-     public void setCoordinate(int position) { coordinate= position; }
-     public int getCoordinate() { return coordinate; }
+	public void setPhaseOffsetUpdate(double phase) {
+		phaseOffsetUpdate = phase;
+	}
 
- }
+	public double getPhaseOffsetUpdate() {
+		return phaseOffsetUpdate;
+	}
 
+	public void setCoordinate(int position) {
+		coordinate = position;
+	}
 
+	public int getCoordinate() {
+		return coordinate;
+	}
 
-
+}

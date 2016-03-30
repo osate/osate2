@@ -29,65 +29,54 @@
 
 package org.osate.importer.model;
 
-
 public class Connection {
 	String content;
 	Component source;
 	Component destination;
-	
-	public Connection (String c, Component s, Component d)
-	{
+
+	public Connection(String c, Component s, Component d) {
 		this.content = c;
 		this.source = s;
 		this.destination = d;
 	}
-	
-	public Connection (Component s, Component d)
-	{
-		this ("1", s, d);
+
+	public Connection(Component s, Component d) {
+		this("1", s, d);
 	}
-	
-	public Connection (Component s, Component d, int st)
-	{
-		
-		this (new String ("" + st), s, d);
+
+	public Connection(Component s, Component d, int st) {
+
+		this(new String("" + st), s, d);
 	}
-	
-	public Component getSource ()
-	{
+
+	public Component getSource() {
 		return this.source;
 	}
-	
-	public Component getDestination ()
-	{
+
+	public Component getDestination() {
 		return this.destination;
 	}
-	
-	public String getContent ()
-	{
+
+	public String getContent() {
 		return this.content;
 	}
-	
-	public void setSource (Component s)
-	{
+
+	public void setSource(Component s) {
 		this.source = s;
 	}
-	
-	public void setDestination (Component d)
-	{
+
+	public void setDestination(Component d) {
 		this.destination = d;
 	}
-	public String toString ()
-	{
+
+	public String toString() {
 		String r;
 		r = "Connection value=" + this.content;
-		if (this.source != null)
-		{
-			r += " (src="+this.source+") ";
+		if (this.source != null) {
+			r += " (src=" + this.source + ") ";
 		}
-		if (this.destination != null)
-		{
-			r += " (dst="+this.destination+") ";
+		if (this.destination != null) {
+			r += " (dst=" + this.destination + ") ";
 		}
 		return r;
 	}

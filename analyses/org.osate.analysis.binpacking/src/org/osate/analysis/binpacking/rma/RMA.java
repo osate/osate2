@@ -19,34 +19,29 @@ import java.util.Vector;
 public class RMA {
 	/** Default EPSILON value for scheduling fixed-point */
 	public static final double DEFAULT_EPSILON = 0.0000000000001;
-	
-	
-	
-	Vector taskList = null;			// List of task objects
-	Vector subTaskList = null;		// List of subtask facts
-	Hashtable taskFactList = null;
-	Hashtable latencyList = null;	// Calculated latencies for each task
-	Hashtable spareCapacityList = null;  // Calculated spare capacities for each task
 
+	Vector taskList = null; // List of task objects
+	Vector subTaskList = null; // List of subtask facts
+	Hashtable taskFactList = null;
+	Hashtable latencyList = null; // Calculated latencies for each task
+	Hashtable spareCapacityList = null; // Calculated spare capacities for each task
 
 	/** The tasks to be scheduled, sorted by priority. */
 	private PER_TaskObj[] tasks;
-	
+
 	/**
 	 * The completion times for the processes. Indexes correspond to the
 	 * processes in {@link #tasks}.  Unschedulable tasks have a completion
 	 * time of {@link Double#POSITIVE_INFINITY}.
 	 */
 	private double[] completionTime;
-	
+
 	/**
 	 * The total utilization of the schedule. Value is undefined if the tasks
 	 * are not schedulable.
 	 */
 	private double totalUtilization = 0.0;
-	
 
-	
 	/**
 	 * Create a new analysis instance.
 	 * 
@@ -58,14 +53,14 @@ public class RMA {
 		tasks = new PER_TaskObj[taskSet.size()];
 		taskSet.toArray(tasks);
 		Arrays.sort(tasks, new PER_TaskComparatorByPriority());
-		
+
 		// Init the completion times
 		completionTime = new double[tasks.length];
 		for (int i = 0; i < tasks.length; i++) {
 			completionTime[i] = Double.POSITIVE_INFINITY;
 		}
 	}
-	
+
 	/**
 	 * Create a new analysis instance
 	 * 
@@ -77,14 +72,14 @@ public class RMA {
 		// Init the tasks
 		tasks = new PER_TaskObj[taskArray.length];
 		System.arraycopy(taskArray, 0, tasks, 0, taskArray.length);
-		
+
 		// Init the completion times
 		completionTime = new double[tasks.length];
 		for (int i = 0; i < tasks.length; i++) {
 			completionTime[i] = Double.POSITIVE_INFINITY;
 		}
 	}
-	
+
 	/**
 	 * Get the total utilization of the tasks.  This value is 
 	 * undefined if the tasks aren't scheduable.
@@ -92,7 +87,7 @@ public class RMA {
 	public double getUtilization() {
 		return totalUtilization;
 	}
-	
+
 	/**
 	 * Get the completion time of a task.  If the task isn't scheduable
 	 * then the value is {@link Double#POSITIVE_INFINITY}.
@@ -107,16 +102,15 @@ public class RMA {
 		}
 		throw new IllegalArgumentException("Task not part of task set");
 	}
-	
+
 	public boolean solve() {
 		return solve(DEFAULT_EPSILON);
 	}
-	
+
 	public boolean solve(final double epsilon) {
 		// try to add each task one-by-one
 		boolean schedulable = true;
-		for (int taskToSchedule = 0; taskToSchedule < tasks.length
-				&& schedulable; taskToSchedule++) {
+		for (int taskToSchedule = 0; taskToSchedule < tasks.length && schedulable; taskToSchedule++) {
 			totalUtilization += tasks[taskToSchedule].getUtilization();
 			if (totalUtilization <= 1.0) {
 				final double latency = calculateLatency(tasks, taskToSchedule, epsilon, -1);
@@ -132,9 +126,8 @@ public class RMA {
 		return schedulable;
 	}
 
-	private double calculateLatency(
-			final PER_TaskObj[] taskArray, final int taskIndex,
-			final double epsilon, final double initialApprox) {
+	private double calculateLatency(final PER_TaskObj[] taskArray, final int taskIndex, final double epsilon,
+			final double initialApprox) {
 		double Lnext = 0, Lcurrent = 0, Ci, Ti;
 		double Ecurrent = 0, Emax = 0;
 		double taskBlockingTime, taskExecTime, taskPeriod, taskDeadline, startVal;
@@ -179,16 +172,16 @@ public class RMA {
 					Lnext += Math.ceil(Lcurrent / Ti) * Ci;
 				}
 
-				//if (Lnext > (((k - 1) * taskPeriod) + taskDeadline)) {
-				//System.out.println("Algorithm terminated: Lnext = " + Lnext +
+				// if (Lnext > (((k - 1) * taskPeriod) + taskDeadline)) {
+				// System.out.println("Algorithm terminated: Lnext = " + Lnext +
 				// " Deadline = " + (((k - 1) * taskExecTime) + taskDeadline));
-				//pastDeadline = true;
-				//break;
-				//}
+				// pastDeadline = true;
+				// break;
+				// }
 			}
 
 			Ecurrent = Lnext - taskPeriod * (k - 1);
-			//System.out.println("Ecurrent = " + Ecurrent);
+			// System.out.println("Ecurrent = " + Ecurrent);
 			if (pastDeadline == true) {
 				break;
 			}

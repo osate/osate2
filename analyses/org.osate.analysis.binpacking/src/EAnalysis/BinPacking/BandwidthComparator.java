@@ -9,8 +9,8 @@ import java.util.Comparator;
  */
 public class BandwidthComparator implements Comparator {
 	public int compare(Object o1, Object o2) {
-		// 	if (o1.hashCode() == o2.hashCode())
-		// 	    return 0;
+		// if (o1.hashCode() == o2.hashCode())
+		// return 0;
 
 		ProcessingLoad n1 = (ProcessingLoad) o2;
 		ProcessingLoad n2 = (ProcessingLoad) o1;
@@ -29,7 +29,7 @@ public class BandwidthComparator implements Comparator {
 			 * break the tie arbitrarily. Int this case we break it with the
 			 * hash number
 			 */
-			// 		return (o1.hashCode() - o2.hashCode());
+			// return (o1.hashCode() - o2.hashCode());
 			return (int) (n1.getUniqueID() - n2.getUniqueID());
 		}
 	}

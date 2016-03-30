@@ -37,7 +37,7 @@ public enum FeatureOrientation {
 	}
 
 	public static FeatureOrientation get(int value) {
-		switch(value) {
+		switch (value) {
 		case NORTH_VALUE:
 			return NORTH;
 		case EAST_VALUE:

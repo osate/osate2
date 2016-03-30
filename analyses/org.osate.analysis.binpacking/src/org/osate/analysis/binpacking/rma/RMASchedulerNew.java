@@ -27,22 +27,21 @@ import EAnalysis.BinPacking.SoftwareNode;
 public final class RMASchedulerNew extends BaseScheduler {
 	/** Singleton comparator of rates */
 	private static final Comparator RATE_ORDER = new RateOrderComparator();
-	
+
 	/** The node we are scheduling for */
 	private HardwareNode node;
 	/** The current tasks on the node, sorted by period (i.e., rate) */
-	/* Why does this need to be a sorted set??  Cheat here for now.  Problem:
-	 * I assume the intent is that the tasks should be sorted in priority 
+	/*
+	 * Why does this need to be a sorted set?? Cheat here for now. Problem:
+	 * I assume the intent is that the tasks should be sorted in priority
 	 * order, but I cannot get the period from a CompositeSoftwareNode, so
 	 * my ordering gets all screwed up.
 	 */
 	private final TreeSet compTasks = new TreeSet(new BandwidthComparator());
-	
+
 	/** The utilization of the given task set on the associated processor */
 	private double utilization;
-	
-	
-	
+
 	/**
 	 * Comparator for sorting the tasks by their rate.
 	 */
@@ -53,7 +52,8 @@ public final class RMASchedulerNew extends BaseScheduler {
 			final double period1 = pl1.getPeriod();
 			final double period2 = pl2.getPeriod();
 			if (period1 == period2) {
-				/* We want to allow items with equal periods.  So we
+				/*
+				 * We want to allow items with equal periods. So we
 				 * order then by unique id.
 				 */
 				final int val = (int) (((pl1.getUniqueID() - pl2.getUniqueID()) | 0x4000000000000000L) >> 32);
@@ -63,15 +63,13 @@ public final class RMASchedulerNew extends BaseScheduler {
 			} else {
 				return 1;
 			}
-		}		
+		}
 	}
-	
-	
-	
+
 	public RMASchedulerNew() {
 		utilization = 0.0;
 	}
-	
+
 	public void setHardwareNode(final HardwareNode n) {
 		node = n;
 	}
@@ -87,7 +85,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 	private double getUtilization(final ProcessingLoad task) {
 		return task.getBandwidth() / node.cyclesPerSecond;
 	}
-	
+
 	/**
 	 * Get the execution time in nanoseconds for the given task on the processor
 	 * associated with this scheduler.
@@ -97,23 +95,24 @@ public final class RMASchedulerNew extends BaseScheduler {
 	}
 
 	public boolean canAddToFeasibility(final ProcessingLoad task) {
-		/* Unfortunately the entire set of tasks must be re-evaluated because
-		 * I don't think I'm guaranteed anything about the order in which 
-		 * loads are presented to the scheduler.  
+		/*
+		 * Unfortunately the entire set of tasks must be re-evaluated because
+		 * I don't think I'm guaranteed anything about the order in which
+		 * loads are presented to the scheduler.
 		 */
 		final Set localCopy = new HashSet(compTasks);
 		localCopy.add(task);
 		SortedSet temp = flattenAndSortTasks(localCopy);
 		return isSchedulableInternal(temp);
 	}
-	
+
 	public boolean addIfFeasible(final ProcessingLoad task) {
 		if (canAddToFeasibility(task)) {
 			compTasks.add(task);
 			utilization += getUtilization(task);
 			task.setDeployedTo(node);
 			return true;
-		} else { 
+		} else {
 			return false;
 		}
 	}
@@ -145,9 +144,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 		int id = 0;
 		for (final Iterator i = basicNodes.iterator(); i.hasNext(); id += 1) {
 			final SoftwareNode sn = (SoftwareNode) i.next();
-			final PER_TaskObj task =
-				new PER_TaskObj(id, id, getComputeTime(sn), 
-						sn.getPeriod(), sn.getDeadline(), 0.0);
+			final PER_TaskObj task = new PER_TaskObj(id, id, getComputeTime(sn), sn.getPeriod(), sn.getDeadline(), 0.0);
 			tasks[id] = task;
 			System.out.println(task.toString());
 		}
@@ -183,9 +180,10 @@ public final class RMASchedulerNew extends BaseScheduler {
 	}
 
 	public void cloneTo(final Scheduler from, final Scheduler to) {
-		/* apparently we don't have to copy of the contents of the 
-		 * scheduler to the new scheduler.  At least the cloneTo()
-		 * method in EDFScheduler doesn't do that. 
+		/*
+		 * apparently we don't have to copy of the contents of the
+		 * scheduler to the new scheduler. At least the cloneTo()
+		 * method in EDFScheduler doesn't do that.
 		 */
 		((RMASchedulerNew) to).compTasks.clear();
 	}

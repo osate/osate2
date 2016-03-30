@@ -64,7 +64,6 @@ import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
 import org.osate.imv.aadldiagram.layout.AadlComponentLayout;
 import org.osate.imv.aadldiagram.propertydecorations.PropertyDecorationSupport;
 
-
 public class AadlFigureFactory {
 	/** Singleton instance. */
 	private static AadlFigureFactory instance;
@@ -138,7 +137,6 @@ public class AadlFigureFactory {
 		default:
 			System.err.println("Component category " + adapter.getCategory() + " is NOT currently supported.");
 		}
-		
 
 		if (figure != null) {
 			figure.setAdapter(adapter);
@@ -159,7 +157,8 @@ public class AadlFigureFactory {
 			}
 
 			// Add property decorations.
-			this.propertyDecorationSupport.addPropertyDecorations(adapter.getCategory(), figure, adapter.getModelElement());
+			this.propertyDecorationSupport.addPropertyDecorations(adapter.getCategory(), figure,
+					adapter.getModelElement());
 		}
 
 		return figure;
@@ -223,11 +222,10 @@ public class AadlFigureFactory {
 		figure.setLayoutManager(new DelegatingLayout());
 		Object ele = adapter.getModelElement();
 		ILabelProvider lp = adapter.getLabelProvider();
-		String s2=lp.getText(ele);
-			if (s2 != null && s2.length() > 0){
-				figure.setToolTip(new Label(s2));
+		String s2 = lp.getText(ele);
+		if (s2 != null && s2.length() > 0) {
+			figure.setToolTip(new Label(s2));
 		}
-		
 
 		BendpointHelper.setDefaultBendpoints(figure);
 
@@ -235,18 +233,17 @@ public class AadlFigureFactory {
 		figure.setAntialias(SWT.ON);
 
 		// Set decoration.
-		switch(adapter.getDecorationType()) 
-		{
-			case IMMEDIATE:
-			{
-				figure.add(new PortConnectionDecoration(DecorationType.IMMEDIATE), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-				break;
-			}
-			case DELAYED:
-			{
-				figure.add(new PortConnectionDecoration(DecorationType.DELAYED), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-				break;
-			}
+		switch (adapter.getDecorationType()) {
+		case IMMEDIATE: {
+			figure.add(new PortConnectionDecoration(DecorationType.IMMEDIATE),
+					new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			break;
+		}
+		case DELAYED: {
+			figure.add(new PortConnectionDecoration(DecorationType.DELAYED),
+					new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			break;
+		}
 		}
 
 		return figure;
@@ -268,11 +265,10 @@ public class AadlFigureFactory {
 		figure.setLayoutManager(new DelegatingLayout());
 		Object ele = adapter.getModelElement();
 		ILabelProvider lp = adapter.getLabelProvider();
-		String s2=lp.getText(ele);
-		if (s2 != null && s2.length() > 0){
+		String s2 = lp.getText(ele);
+		if (s2 != null && s2.length() > 0) {
 			figure.setToolTip(new Label(s2));
-	}
-		
+		}
 
 		BendpointHelper.setDefaultBendpoints(figure);
 
@@ -318,32 +314,30 @@ public class AadlFigureFactory {
 		figure.setAntialias(SWT.ON);
 
 		// Set decoration.
-		switch(adapter.getDecorationType()) 
-		{
-		
-		case MEMORY:
-			{
-				figure.add(new BindingDecoration(BindingDecorationType.MEMORY), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+		switch (adapter.getDecorationType()) {
+
+		case MEMORY: {
+			figure.add(new BindingDecoration(BindingDecorationType.MEMORY),
+					new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
 			break;
-			}
-		
-		case PROCESSOR:
-			{
-				figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-				break;
-			}
-			
-			default:
-			{
-				figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-				break;
-			}
+		}
+
+		case PROCESSOR: {
+			figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR),
+					new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			break;
+		}
+
+		default: {
+			figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR),
+					new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			break;
+		}
 		}
 
 		return figure;
 	}
-	
-	
+
 	private ComponentFigure buildBusFigure(AadlComponentAdapter adapter, boolean virtual) {
 		ComponentFigure figure = new BusFigure(virtual);
 		return figure;
@@ -420,7 +414,8 @@ public class AadlFigureFactory {
 	}
 
 	private FeatureFigure buildAccessFeatureFigure(AadlFeatureAdapter adapter, FeatureLabelStyle style) {
-		AccessFeatureFigure figure = new AccessFeatureFigure(adapter.toString(), adapter.getDirectionType(), style, adapter.getCategory());
+		AccessFeatureFigure figure = new AccessFeatureFigure(adapter.toString(), adapter.getDirectionType(), style,
+				adapter.getCategory());
 		return figure;
 	}
 

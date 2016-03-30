@@ -39,7 +39,6 @@
  */
 package org.osate.analysis.security;
 
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.ComponentImplementation;
@@ -62,13 +61,11 @@ public class ConnectionLevelChecker extends ForAllElement {
 	private final Property property;
 
 	private final LevelComparator levelComp;
-	
+
 	private final IProgressMonitor monitor;
-	
-	
-	public ConnectionLevelChecker(final IProgressMonitor monitor,
-			final AnalysisErrorReporterManager errMgr, final Property pd,
-			final LevelComparator lc) {
+
+	public ConnectionLevelChecker(final IProgressMonitor monitor, final AnalysisErrorReporterManager errMgr,
+			final Property pd, final LevelComparator lc) {
 		super(PROCESS_TOP_DOWN_COMPONENT_IMPL, errMgr);
 		this.monitor = monitor;
 		this.property = pd;
@@ -77,12 +74,11 @@ public class ConnectionLevelChecker extends ForAllElement {
 
 	@Override
 	public void process(Element obj) {
-		if (obj instanceof ComponentImplementation){
+		if (obj instanceof ComponentImplementation) {
 			monitor.subTask("Checking connections in " + ((ComponentImplementation) obj).getQualifiedName());
-			this.processPostOrderAll(((ComponentImplementation)obj).getAllConnections());
+			this.processPostOrderAll(((ComponentImplementation) obj).getAllConnections());
 			monitor.worked(1);
-		} else
-		if (obj instanceof Connection) {
+		} else if (obj instanceof Connection) {
 			checkSecurityLevel((Connection) obj);
 			if (monitor.isCanceled()) {
 				cancelTraversal();
@@ -94,10 +90,11 @@ public class ConnectionLevelChecker extends ForAllElement {
 		if (conn instanceof AccessConnection) {
 			return;
 		}
-		
+
 		NamedElement scxt = conn.getAllSrcContextComponent();
 		NamedElement dcxt = conn.getAllDstContextComponent();
-		if (scxt == null || dcxt == null) return;
+		if (scxt == null || dcxt == null)
+			return;
 		try {
 			long slv;
 			try {
@@ -108,7 +105,7 @@ public class ConnectionLevelChecker extends ForAllElement {
 				warning(scxt, "Modal property association for property \"" + property.getQualifiedName() + "\"");
 				slv = 0;
 			}
-			
+
 			long dlv;
 			try {
 				dlv = PropertyUtils.getIntegerValue(dcxt, property, 0);
@@ -118,11 +115,10 @@ public class ConnectionLevelChecker extends ForAllElement {
 				warning(scxt, "Modal property association for property \"" + property.getQualifiedName() + "\"");
 				dlv = 0;
 			}
-			
+
 			if (!levelComp.compareLevels(slv, dlv)) {
-				error(conn, "Level violation for " + property.getQualifiedName() +
-						": Source has level " + slv +
-						" and destination has level " + dlv);
+				error(conn, "Level violation for " + property.getQualifiedName() + ": Source has level " + slv
+						+ " and destination has level " + dlv);
 			}
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());

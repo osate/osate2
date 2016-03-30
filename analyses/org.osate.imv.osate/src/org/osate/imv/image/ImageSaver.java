@@ -40,7 +40,6 @@ import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
 
-
 public class ImageSaver {
 
 	public static final String AUTO_IMAGE_TYPE_PROPERTY = "autoImageType";
@@ -50,7 +49,7 @@ public class ImageSaver {
 
 	private static final AutoImageType DEFAULT_AUTO_IMAGE_TYPE = AutoImageType.NONE;
 
-	private static int[] SWT_IMAGE_TYPES = {SWT.IMAGE_PNG, SWT.IMAGE_JPEG, SWT.IMAGE_GIF};
+	private static int[] SWT_IMAGE_TYPES = { SWT.IMAGE_PNG, SWT.IMAGE_JPEG, SWT.IMAGE_GIF };
 
 	private AutoImageType autoImageType = DEFAULT_AUTO_IMAGE_TYPE;
 
@@ -81,7 +80,8 @@ public class ImageSaver {
 	}
 
 	public void setAutoImageType(AutoImageType autoImageType) {
-		this.propertyChangeSupport.firePropertyChange(AUTO_IMAGE_TYPE_PROPERTY, this.autoImageType, this.autoImageType = autoImageType);
+		this.propertyChangeSupport.firePropertyChange(AUTO_IMAGE_TYPE_PROPERTY, this.autoImageType,
+				this.autoImageType = autoImageType);
 	}
 
 	public void save() {
@@ -94,7 +94,7 @@ public class ImageSaver {
 		final FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(), SWT.SAVE);
 		dialog.setFilterNames(new String[] { "PNG File", "JPEG File" });
 		dialog.setFilterExtensions(new String[] { "*.png", "*.jpg" });
-		//dialog.setFilterPath(null);
+		// dialog.setFilterPath(null);
 		dialog.setFileName(getImageName(adapter));
 		final String path = dialog.open();
 
@@ -110,7 +110,7 @@ public class ImageSaver {
 	}
 
 	public void forceAutomaticSave() {
-		switch(this.getAutoImageType()) {
+		switch (this.getAutoImageType()) {
 		case PNG:
 			this.forceAutomaticSave(SWT.IMAGE_PNG, PNG_EXTENSION);
 			break;
@@ -118,18 +118,18 @@ public class ImageSaver {
 			this.forceAutomaticSave(SWT.IMAGE_JPEG, JPG_EXTENSION);
 			break;
 		case GIF:
-			//this.forceAutomaticSave(SWT.IMAGE_GIF);
+			// this.forceAutomaticSave(SWT.IMAGE_GIF);
 			break;
 		}
 	}
 
 	private void forceAutomaticSave(final int type, final String extension) {
-		if(this.imvFolder == null)
+		if (this.imvFolder == null)
 			return;
 
 		// Get all dirty adapters while we are still in the context of the main thread.
 		final List<AadlComponentAdapter> dirtyAdapters = new ArrayList<AadlComponentAdapter>();
-		for(Iterator<AadlComponentAdapter> it = viewer.getDirtyAdapters(); it.hasNext();)
+		for (Iterator<AadlComponentAdapter> it = viewer.getDirtyAdapters(); it.hasNext();)
 			dirtyAdapters.add(it.next());
 
 		new Job("Image Auto Save") {
@@ -137,7 +137,7 @@ public class ImageSaver {
 
 				try {
 
-					for(Iterator<AadlComponentAdapter> it = dirtyAdapters.iterator(); it.hasNext();) {
+					for (Iterator<AadlComponentAdapter> it = dirtyAdapters.iterator(); it.hasNext();) {
 						IAadlElementAdapter adapter = it.next();
 
 						setImageLoaderData(adapter.getFigure());
@@ -147,7 +147,7 @@ public class ImageSaver {
 							imagesFolder.create(true, true, null);
 
 						IFolder instanceFolder = imagesFolder.getFolder(getSystemInstanceName(adapter));
-						if(!instanceFolder.exists())
+						if (!instanceFolder.exists())
 							instanceFolder.create(true, true, null);
 
 						IFile imageFile = instanceFolder.getFile(getImageName(adapter) + extension);
@@ -155,8 +155,9 @@ public class ImageSaver {
 
 						imageLoader.save(outputStream, type);
 
-						if(imageFile.exists())
-							imageFile.setContents(new ByteArrayInputStream(outputStream.toByteArray()), true, false, null);
+						if (imageFile.exists())
+							imageFile.setContents(new ByteArrayInputStream(outputStream.toByteArray()), true, false,
+									null);
 						else
 							imageFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true, null);
 					}
@@ -175,24 +176,22 @@ public class ImageSaver {
 		Display.getDefault().syncExec(new Runnable() {
 			public void run() {
 				Image image = ImageUtils.getImage(figure);
-				imageLoader.data = new ImageData[] {image.getImageData()};
+				imageLoader.data = new ImageData[] { image.getImageData() };
 			}
 		});
 	}
 
 	private String getSystemInstanceName(IAadlElementAdapter adapter) {
-		return ((InstanceObject)adapter.getModelElement()).getSystemInstance().getFullName();
+		return ((InstanceObject) adapter.getModelElement()).getSystemInstance().getFullName();
 	}
 
 	private String getImageName(IAadlElementAdapter adapter) {
-		return ((NamedElement)adapter.getModelElement()).getFullName();
+		return ((NamedElement) adapter.getModelElement()).getFullName();
 	}
 
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
 	}
-
 
 	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		propertyChangeSupport.removePropertyChangeListener(propertyName, listener);

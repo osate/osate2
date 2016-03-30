@@ -23,8 +23,7 @@ public class Average {
 
 		TreeMap samples = new TreeMap();
 		try {
-			PrintWriter writer = new PrintWriter(new FileOutputStream(
-					outFileName));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(outFileName));
 			File dir = new File(".");
 			String[] files = dir.list();
 			for (int i = 0; i < files.length; i++) {
@@ -33,8 +32,7 @@ public class Average {
 				if (!(fileName.startsWith(prefix) && fileName.endsWith(sufix)))
 					continue;
 
-				BufferedReader reader = new BufferedReader(new FileReader(
-						fileName));
+				BufferedReader reader = new BufferedReader(new FileReader(fileName));
 				System.out.println("Reading filename(" + fileName + ")");
 				String line;
 				while ((line = reader.readLine()) != null) {
@@ -42,8 +40,7 @@ public class Average {
 					int index = Integer.parseInt(tokenizer.nextToken());
 					double value = Double.parseDouble(tokenizer.nextToken());
 					Integer savedIndex = new Integer(index);
-					SampleRecord record = (SampleRecord) samples
-							.get(savedIndex);
+					SampleRecord record = (SampleRecord) samples.get(savedIndex);
 					if (record == null) {
 						record = new SampleRecord(index, 0.0, 0);
 						samples.put(savedIndex, record);

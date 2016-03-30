@@ -15,8 +15,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
-public class DataPortFeature extends PortFeatureFigure{
+public class DataPortFeature extends PortFeatureFigure {
 
 	private int triangleHeight;
 	private int triangleBase;
@@ -27,7 +26,6 @@ public class DataPortFeature extends PortFeatureFigure{
 		triangleBase = H_EXTENT;
 	}
 
-
 	@Override
 	protected void drawSymbol(Graphics g) {
 		super.drawSymbol(g);
@@ -35,12 +33,11 @@ public class DataPortFeature extends PortFeatureFigure{
 		// Create point list that defines the symbol.
 		PointList points = new PointList();
 
-		int centerPoint = (int)Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
-
+		int centerPoint = (int) Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
 
 		/* Populate point list. */
-		if(this.getDirection() == FeatureDirectionType.IN_OUT) {
-			int halfHeight = (int)Math.ceil(triangleHeight / 2.0f);
+		if (this.getDirection() == FeatureDirectionType.IN_OUT) {
+			int halfHeight = (int) Math.ceil(triangleHeight / 2.0f);
 
 			points.addPoint(centerPoint, 0);
 			points.addPoint(0, halfHeight);

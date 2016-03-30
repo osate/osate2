@@ -14,22 +14,20 @@ public class NoExpansionExpansor extends NFCExpansor {
 	/**
 	 * Don't create initial hardware
 	 */
-	public void createInitialHardware(OutDegreeAssignmentProblem problem,
-			TreeSet validProcessors, double softwareLoad) {
+	public void createInitialHardware(OutDegreeAssignmentProblem problem, TreeSet validProcessors,
+			double softwareLoad) {
 	}
 
 	/**
 	 * cannot expand
 	 */
-	public boolean expandProcessorForModule(SoftwareNode module,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem,
-			HardwareNode[] largestProcessor, Site[] largestSite) {
+	public boolean expandProcessorForModule(SoftwareNode module, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem, HardwareNode[] largestProcessor, Site[] largestSite) {
 		for (Iterator iter = validProcessors.iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			if (largestProcessor[0] == null)
 				largestProcessor[0] = node;
-			else if (largestProcessor[0].getAvailableCapacity() < node
-					.getAvailableCapacity())
+			else if (largestProcessor[0].getAvailableCapacity() < node.getAvailableCapacity())
 				largestProcessor[0] = node;
 		}
 
@@ -41,13 +39,13 @@ public class NoExpansionExpansor extends NFCExpansor {
 	/**
 	 * Cannot add new links
 	 */
-	public Link addLinkBetween(HardwareNode node1, HardwareNode node2,
-			Message msg, OutDegreeAssignmentProblem problem) {
+	public Link addLinkBetween(HardwareNode node1, HardwareNode node2, Message msg,
+			OutDegreeAssignmentProblem problem) {
 		return null;
 	}
 
-	public HardwareNode cloneProcessorInto(HardwareNode n, Location site,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem) {
+	public HardwareNode cloneProcessorInto(HardwareNode n, Location site, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem) {
 		return null;
 	}
 }

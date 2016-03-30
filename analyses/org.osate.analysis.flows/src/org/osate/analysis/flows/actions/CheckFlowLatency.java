@@ -122,8 +122,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 
 	public void invoke(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root,
 			SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
-				getAnalysisErrorReporterFactory());
+		this.errManager = errManager != null ? errManager
+				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
 		summaryReport = new StringBuffer();
 		initializeAnalysis(root);
 		analyzeInstanceModel(monitor, this.errManager, root, som);

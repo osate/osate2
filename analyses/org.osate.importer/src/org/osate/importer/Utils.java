@@ -48,32 +48,26 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.properties.InspectProperty;
 
+public class Utils {
 
-public class Utils 
-{
+	public static final int INVALID_ID = -99;
 
-	public static final int INVALID_ID = -99;	
-	
-	public static String toAadl(String s)
-	{
+	public static String toAadl(String s) {
 		String result;
 
-		if (s.equalsIgnoreCase("set"))
-		{
+		if (s.equalsIgnoreCase("set")) {
 			return "set_t";
 		}
-		
+
 		result = s.replaceAll("root", "");
-		if (result.contains("::"))
-		{
+		if (result.contains("::")) {
 			result = result.substring(result.indexOf("::") + 2);
 		}
-		
-		if (result.charAt(0) == '_')
-		{
+
+		if (result.charAt(0) == '_') {
 			result = "v" + result;
 		}
-		
+
 		result = result.replace('\n', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
@@ -81,23 +75,21 @@ public class Utils
 		result = result.replaceAll(" ", "");
 		result = result.replaceAll("/", "_");
 		result = result.toLowerCase();
-		
-		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_"))
-		{
+
+		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_")) {
 			result = result.substring(0, result.length() - 1);
 		}
-		
+
 		/**
 		 * Check for some reserved keywords in AADL.
 		 */
-		if (result.equalsIgnoreCase("constant"))
-		{
+		if (result.equalsIgnoreCase("constant")) {
 			return "cconstant";
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Refresh the complete Workspace. Useful when adding
 	 * files in the workspace.
@@ -105,10 +97,8 @@ public class Utils
 	 * @param monitor The monitor used by the underlying action
 	 * that performs the refresh.
 	 */
-	public static void refreshWorkspace (IProgressMonitor monitor)
-	{
-		for(IProject ip : ResourcesPlugin.getWorkspace().getRoot().getProjects())
-		{
+	public static void refreshWorkspace(IProgressMonitor monitor) {
+		for (IProject ip : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 			try {
 				ip.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (CoreException e) {
@@ -117,136 +107,104 @@ public class Utils
 			}
 		}
 	}
-	
-	public static String getComponentName (ComponentInstance ci)
-	{
-		if (ci.getContainingComponentInstance() != null)
-		{
-			return getComponentName(ci.getContainingComponentInstance()).toLowerCase() + "." + ci.getName().toLowerCase();
-		}
-		else
-		{
+
+	public static String getComponentName(ComponentInstance ci) {
+		if (ci.getContainingComponentInstance() != null) {
+			return getComponentName(ci.getContainingComponentInstance()).toLowerCase() + "."
+					+ ci.getName().toLowerCase();
+		} else {
 			return ci.getName().toLowerCase();
 		}
-		
+
 	}
-	
-	public static boolean shallAnalyze (ComponentInstance ci)
-	{
-		if (ci.getContainingComponentInstance() != null)
-		{
-			if (InspectProperty.shallInspect(ci.getContainingComponentInstance()))
-			{
+
+	public static boolean shallAnalyze(ComponentInstance ci) {
+		if (ci.getContainingComponentInstance() != null) {
+			if (InspectProperty.shallInspect(ci.getContainingComponentInstance())) {
 				return true;
 			}
-			
-			if (ci.getContainingComponentInstance() == ci.getSystemInstance())
-			{
+
+			if (ci.getContainingComponentInstance() == ci.getSystemInstance()) {
 				return true;
 			}
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 		return false;
 	}
-	
-	
-	public static void listComponents (ComponentInstance si, List<ComponentInstance> componentList)
-	{
 
-		for (Element c : si.getChildren())
-		{
-			if (c instanceof ComponentInstance)
-			{
-		
+	public static void listComponents(ComponentInstance si, List<ComponentInstance> componentList) {
+
+		for (Element c : si.getChildren()) {
+			if (c instanceof ComponentInstance) {
+
 				ComponentInstance ci = (ComponentInstance) c;
-				
-				if (InspectProperty.shallInspect(ci))
-				{
+
+				if (InspectProperty.shallInspect(ci)) {
 					listComponents(ci, componentList);
-				}
-				else
-				{
+				} else {
 					componentList.add(ci);
 				}
 			}
 		}
 	}
-	
-	public static void listComponentsNames (ComponentInstance si, List<String> componentList)
-	{
 
-		for (Element c : si.getChildren())
-		{
-			if (c instanceof ComponentInstance)
-			{
-		
+	public static void listComponentsNames(ComponentInstance si, List<String> componentList) {
+
+		for (Element c : si.getChildren()) {
+			if (c instanceof ComponentInstance) {
+
 				ComponentInstance ci = (ComponentInstance) c;
-				
-				if (InspectProperty.shallInspect(ci))
-				{
+
+				if (InspectProperty.shallInspect(ci)) {
 					listComponentsNames(ci, componentList);
-				}
-				else
-				{
+				} else {
 					String componentName = Utils.getComponentName(ci);
-					System.out.println (componentName);
+					System.out.println(componentName);
 					componentList.add(componentName);
 				}
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Get the selected directory
 	 * in the workspace, returns null otherwise.
 	 * @return the OS-dependent path of the selected directory in the workspace
 	 */
-	public static String getSelectedDirectory ()
-	{
+	public static String getSelectedDirectory() {
 		String selectedFolder;
 		ISelection selection;
-		IFolder selectedIFolder;;
-		
+		IFolder selectedIFolder;
+		;
+
 		selectedFolder = null;
-		
-		 selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
-	        if (selection != null) 
-	        {
-	        	try
-	        	{
-	            if (selection instanceof IStructuredSelection) 
-	            {
-	                if (selection instanceof ITreeSelection) 
-	                {
-	                    TreeSelection treeSelection = (TreeSelection) selection;
-	                    TreePath[] treePaths = treeSelection.getPaths();
-	                    TreePath treePath = treePaths[0];
 
-	                    Object lastSegmentObj = treePath.getLastSegment();
+		selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
+		if (selection != null) {
+			try {
+				if (selection instanceof IStructuredSelection) {
+					if (selection instanceof ITreeSelection) {
+						TreeSelection treeSelection = (TreeSelection) selection;
+						TreePath[] treePaths = treeSelection.getPaths();
+						TreePath treePath = treePaths[0];
 
+						Object lastSegmentObj = treePath.getLastSegment();
 
-	                    if(lastSegmentObj instanceof IFolder) 
-	                    {
-	                    	
-	                    	selectedIFolder = (IFolder) ((IAdaptable) lastSegmentObj).getAdapter(IFolder.class);
-	                        if(selectedIFolder != null) 
-	                        {
-	                        	selectedFolder = selectedIFolder.getRawLocation().toOSString();
-	                        }
-	                        
-	                    }
-	                }
-	            }
-	        	}
-	        	catch (NullPointerException npe)
-	        	{
-	        		selectedFolder = null;
-	        	}
-	        }
-	        return selectedFolder;
+						if (lastSegmentObj instanceof IFolder) {
+
+							selectedIFolder = (IFolder) ((IAdaptable) lastSegmentObj).getAdapter(IFolder.class);
+							if (selectedIFolder != null) {
+								selectedFolder = selectedIFolder.getRawLocation().toOSString();
+							}
+
+						}
+					}
+				}
+			} catch (NullPointerException npe) {
+				selectedFolder = null;
+			}
+		}
+		return selectedFolder;
 	}
 }

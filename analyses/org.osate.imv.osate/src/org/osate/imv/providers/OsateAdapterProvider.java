@@ -71,43 +71,42 @@ import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-
-
-public class OsateAdapterProvider implements IAadlAdapterProvider{
+public class OsateAdapterProvider implements IAadlAdapterProvider {
 
 	private Map<Object, IAadlElementAdapter> modelElementToAdapterMap;
 
 	private ILabelProvider labelProvider;
-	
+
 	private boolean doDirectConnections;
 
-	public OsateAdapterProvider()
-	{
+	public OsateAdapterProvider() {
 		this.modelElementToAdapterMap = new HashMap<Object, IAadlElementAdapter>();
 		this.labelProvider = new FigureLabelProvider();
 	}
-	
-	public void setDirectConnection(boolean dir){
+
+	public void setDirectConnection(boolean dir) {
 		this.doDirectConnections = dir;
 	}
 
 	public AadlComponentAdapter getContainerComponentAdapter(Object modelElement, int nesting) {
-		if(modelElement == null || !(modelElement instanceof ComponentInstance||modelElement instanceof ComponentClassifier || !(modelElement instanceof Subcomponent)))
-			throw new IllegalArgumentException("Model element cannot be null and it must be a ComponentInstance, ComponentClassifier, or Subcomponent");
+		if (modelElement == null || !(modelElement instanceof ComponentInstance
+				|| modelElement instanceof ComponentClassifier || !(modelElement instanceof Subcomponent)))
+			throw new IllegalArgumentException(
+					"Model element cannot be null and it must be a ComponentInstance, ComponentClassifier, or Subcomponent");
 
 		// This adapter will be the top-level container adapter.
-		AadlComponentAdapter containerAdapter = new AadlComponentAdapter(modelElement, this.getComponentCategory(modelElement), this.labelProvider);
+		AadlComponentAdapter containerAdapter = new AadlComponentAdapter(modelElement,
+				this.getComponentCategory(modelElement), this.labelProvider);
 		containerAdapter.setContainer(true);
 
 		// Add the container's features.
 		this.addFeaturesToAdapter(containerAdapter);
-		if ((modelElement instanceof ComponentImplementation) || (modelElement instanceof ComponentInstance))
-		{
+		if ((modelElement instanceof ComponentImplementation) || (modelElement instanceof ComponentInstance)) {
 			// Add the container's subcomponents.
 			this.addSubcomponentsToComponent(containerAdapter, nesting);
 			// Add connections.
 			this.addConnectionsToComponent(containerAdapter);
-			if (modelElement instanceof ComponentInstance){
+			if (modelElement instanceof ComponentInstance) {
 				this.addBindingsToComponent(containerAdapter);
 			}
 		}
@@ -117,43 +116,33 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 	public void updateContainerComponentAdapter(AadlComponentAdapter containerAdapter, int nesting) {
 
-
 		// Add the container's features.
 //		this.addFeaturesToAdapter(containerAdapter);
-			// Add the container's subcomponents.
-			this.updateSubcomponentsOfComponent(containerAdapter, nesting);
-			// Add connections.
+		// Add the container's subcomponents.
+		this.updateSubcomponentsOfComponent(containerAdapter, nesting);
+		// Add connections.
 //			this.addConnectionsToComponent(containerAdapter);
 //			if (modelElement instanceof ComponentInstance){
 //				this.addBindingsToComponent(containerAdapter);
 //			}
 	}
 
-
-	private ComponentAdapterCategory getComponentCategory (Object comp) 
-	{
-		ComponentAdapterCategory category 	= null;
-		ComponentCategory cat 				= null;
-		if (comp instanceof ComponentClassifier)
-		{
-			cat =((ComponentClassifier)comp).getCategory();
-		}
-		else if (comp instanceof Subcomponent)
-		{
-			cat =((Subcomponent)comp).getCategory();
-		}
-		else if (comp instanceof ComponentInstance)
-		{
-			cat =((ComponentInstance)comp).getCategory();
+	private ComponentAdapterCategory getComponentCategory(Object comp) {
+		ComponentAdapterCategory category = null;
+		ComponentCategory cat = null;
+		if (comp instanceof ComponentClassifier) {
+			cat = ((ComponentClassifier) comp).getCategory();
+		} else if (comp instanceof Subcomponent) {
+			cat = ((Subcomponent) comp).getCategory();
+		} else if (comp instanceof ComponentInstance) {
+			cat = ((ComponentInstance) comp).getCategory();
 		}
 
-		if (cat == null)
-		{
+		if (cat == null) {
 			return null;
 		}
 
-		switch(cat) 
-		{
+		switch (cat) {
 		case SYSTEM:
 			category = ComponentAdapterCategory.SYSTEM;
 			break;
@@ -203,14 +192,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return category;
 	}
 
-
 	private void addFeaturesToAdapter(AadlComponentAdapter componentAdapter) {
 		EList features = this.getFeatures(componentAdapter.getModelElement());
-		for(Object obj: features){
-			NamedElement feature = (NamedElement)obj;
+		for (Object obj : features) {
+			NamedElement feature = (NamedElement) obj;
 			FeatureAdapterCategory category = this.getFeatureCategory(feature);
 			FeatureDirectionType directionType = this.getFeatureDirectionType(feature);
-			AadlFeatureAdapter featureAdapter = new AadlFeatureAdapter(feature,category ,directionType , this.labelProvider);
+			AadlFeatureAdapter featureAdapter = new AadlFeatureAdapter(feature, category, directionType,
+					this.labelProvider);
 			// Update adapter map.
 			this.modelElementToAdapterMap.put(obj, featureAdapter);
 			// Add feature to the container adapter.
@@ -218,15 +207,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 	}
 
-
 	private void updateFeaturesOfAdapter(AadlComponentAdapter componentAdapter) {
 		EList features = this.getFeatures(componentAdapter.getModelElement());
 		// remove adapters without corresponding model element
 		EList<AadlFeatureAdapter> removeme = new BasicEList<AadlFeatureAdapter>();
-		for (Iterator<AadlFeatureAdapter> it = componentAdapter.getChildFeatures(); it.hasNext();){
+		for (Iterator<AadlFeatureAdapter> it = componentAdapter.getChildFeatures(); it.hasNext();) {
 			AadlFeatureAdapter kid = it.next();
 			Object feature = kid.getModelElement();
-			if (!features.contains(feature)){
+			if (!features.contains(feature)) {
 				removeme.add(kid);
 				this.modelElementToAdapterMap.remove(feature);
 			}
@@ -234,14 +222,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		for (AadlFeatureAdapter kidadapter : removeme) {
 			componentAdapter.removeChild(kidadapter);
 		}
-		for(Object obj: features){
-			AadlFeatureAdapter featureAdapter = (AadlFeatureAdapter)this.modelElementToAdapterMap.get(obj);
-			if (featureAdapter == null){
+		for (Object obj : features) {
+			AadlFeatureAdapter featureAdapter = (AadlFeatureAdapter) this.modelElementToAdapterMap.get(obj);
+			if (featureAdapter == null) {
 
-				NamedElement feature = (NamedElement)obj;
+				NamedElement feature = (NamedElement) obj;
 				FeatureAdapterCategory category = this.getFeatureCategory(feature);
 				FeatureDirectionType directionType = this.getFeatureDirectionType(feature);
-				featureAdapter = new AadlFeatureAdapter(feature,category ,directionType , this.labelProvider);
+				featureAdapter = new AadlFeatureAdapter(feature, category, directionType, this.labelProvider);
 				// Update adapter map.
 				this.modelElementToAdapterMap.put(obj, featureAdapter);
 				// Add feature to the container adapter.
@@ -252,8 +240,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 	private void addSubcomponentsToComponent(AadlComponentAdapter componentAdapter, int nesting) {
 		EList subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
-		for (Object sub: subcomponents) {
-			AadlComponentAdapter subcomponentAdapter = new AadlComponentAdapter(sub, this.getComponentCategory(sub), this.labelProvider);
+		for (Object sub : subcomponents) {
+			AadlComponentAdapter subcomponentAdapter = new AadlComponentAdapter(sub, this.getComponentCategory(sub),
+					this.labelProvider);
 			// Update adapter map.
 			this.modelElementToAdapterMap.put(sub, subcomponentAdapter);
 			// Add feature elements to the subcomonent.
@@ -261,9 +250,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			// Add subcomponent to component.
 			componentAdapter.addChild(subcomponentAdapter);
 			// phf: recursively add subcomponents
-			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance))
-			{
-				this.addSubcomponentsToComponent(subcomponentAdapter, nesting-1);
+			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance)) {
+				this.addSubcomponentsToComponent(subcomponentAdapter, nesting - 1);
 				// Add connections.
 				this.addConnectionsToComponent(subcomponentAdapter);
 			}
@@ -286,9 +274,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 //			componentAdapter.removeChild(kidadapter);
 //		}
 		// add missing adapters
-		for (Object sub: subcomponents) {
-			AadlComponentAdapter subcomponentAdapter = (AadlComponentAdapter)this.modelElementToAdapterMap.get(sub);
-			if (subcomponentAdapter == null){
+		for (Object sub : subcomponents) {
+			AadlComponentAdapter subcomponentAdapter = (AadlComponentAdapter) this.modelElementToAdapterMap.get(sub);
+			if (subcomponentAdapter == null) {
 				subcomponentAdapter = new AadlComponentAdapter(sub, this.getComponentCategory(sub), this.labelProvider);
 				// Update adapter map.
 				this.modelElementToAdapterMap.put(sub, subcomponentAdapter);
@@ -300,10 +288,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 //				this.updateFeaturesOfAdapter(subcomponentAdapter);
 			}
 			// phf: recursively add subcomponents
-			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance))
-			{
+			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance)) {
 				// Add feature elements to the subcomponent.
-				this.updateSubcomponentsOfComponent(subcomponentAdapter, nesting-1);
+				this.updateSubcomponentsOfComponent(subcomponentAdapter, nesting - 1);
 				// Add connections.
 				this.addConnectionsToComponent(subcomponentAdapter);
 			}
@@ -311,88 +298,80 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	}
 
 	// JD: Add bindings information
-	public void addBindingsToComponent(AadlComponentAdapter componentAdapter) 
-	{
-		EList 				subcomponents;
-		IAadlElementAdapter 	adapter;
+	public void addBindingsToComponent(AadlComponentAdapter componentAdapter) {
+		EList subcomponents;
+		IAadlElementAdapter adapter;
 		List<ComponentInstance> boundProcessors;
-		ComponentInstance 		boundProcessor;
+		ComponentInstance boundProcessor;
 		List<ComponentInstance> boundMemories;
-		ComponentInstance 		boundMemory;
-		ComponentInstance		processorContainer;
-		ComponentInstance		process;
-		IAadlElementAdapter 	processAdapter;
-		ComponentInstance		memoryContainer;
-		ComponentInstance		memory;
-		IAadlElementAdapter 	boundResourceAdapter;
-		AadlBindingAdapter	 	bindingAdapter; 
+		ComponentInstance boundMemory;
+		ComponentInstance processorContainer;
+		ComponentInstance process;
+		IAadlElementAdapter processAdapter;
+		ComponentInstance memoryContainer;
+		ComponentInstance memory;
+		IAadlElementAdapter boundResourceAdapter;
+		AadlBindingAdapter bindingAdapter;
 
-		//System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
-		process 			= null;
-		boundProcessor 		= null;
-		processorContainer 	= null;
-		memory 				= null;
-		boundMemory 		= null;
-		memoryContainer 	= null;
-		
+		// System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " +
+		// componentAdapter);
+		process = null;
+		boundProcessor = null;
+		processorContainer = null;
+		memory = null;
+		boundMemory = null;
+		memoryContainer = null;
+
 		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
 
-		for (Object sub : subcomponents) 
-		{
-			if (! this.modelElementToAdapterMap.containsKey(sub))
-			{
+		for (Object sub : subcomponents) {
+			if (!this.modelElementToAdapterMap.containsKey(sub)) {
 
 				continue;
 			}
 
 			adapter = this.modelElementToAdapterMap.get(sub);
 
-			
 			/*
 			 * For each process, try to find the associated processor/virtual processor
 			 * and add a binding relation with it.
 			 */
-			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)||
-					(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE)||
-					(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.VIRTUAL_PROCESSOR))
-			{
-				//System.out.println ("process " + adapter.getModelElement());
+			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+					|| (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE)
+					|| (this.getComponentCategory(
+							adapter.getModelElement()) == ComponentAdapterCategory.VIRTUAL_PROCESSOR)) {
+				// System.out.println ("process " + adapter.getModelElement());
 				process = (ComponentInstance) adapter.getModelElement();
-				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
+				boundProcessors = GetProperties
+						.getActualProcessorBinding((ComponentInstance) adapter.getModelElement());
 
-
-				for (int k = 0 ; k < boundProcessors.size() ; k++)
-				{
+				for (int k = 0; k < boundProcessors.size(); k++) {
 					boundProcessor = boundProcessors.get(k);
-					//System.out.println ("associated processor " + boundProcessor);
-					if (boundProcessor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-					{
+					// System.out.println ("associated processor " + boundProcessor);
+					if (boundProcessor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
 						processorContainer = boundProcessor.getContainingComponentInstance();
-						//System.out.println ("containing associated processor " + processorContainer);
+						// System.out.println ("containing associated processor " + processorContainer);
 						/*
 						 * If the boundProcessor component is not in the list of the components
 						 * to be shown in the diagram, we try to take the main component, which
 						 * should be hopefully a processor (in case of a virtual processor).
 						 */
-						if ( ! (this.modelElementToAdapterMap.containsKey(boundProcessor)))
-						{
-							//System.out.println ("virtual processor not visible, try to take " + processorContainer);
+						if (!(this.modelElementToAdapterMap.containsKey(boundProcessor))) {
+							// System.out.println ("virtual processor not visible, try to take " + processorContainer);
 							boundProcessor = processorContainer;
-						}	
+						}
 					}
 
-					if ( (process != null) && (boundProcessor != null))
-					{
+					if ((process != null) && (boundProcessor != null)) {
 						processAdapter = this.modelElementToAdapterMap.get(process);
 						boundResourceAdapter = this.modelElementToAdapterMap.get(boundProcessor);
-						if ( (processAdapter != null) && (boundResourceAdapter != null))
-						{
-							bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
+						if ((processAdapter != null) && (boundResourceAdapter != null)) {
+							bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR,
+									this.labelProvider, processAdapter, boundResourceAdapter);
 
 							// JD: check if this happens
 
-							if (bindingAdapter != null)
-							{
+							if (bindingAdapter != null) {
 								// JD: Add to the main component.
 								componentAdapter.addChild(bindingAdapter);
 							}
@@ -401,59 +380,49 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 			}
 
-			
 			/*
 			 * Now, for each proceess, try to find the associated memory component
 			 * and add a binding relation between these two.
 			 */
-			
-			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)||
-				(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE))
-			{
-				//System.out.println ("memory " + adapter.getModelElement());
-				memory = (ComponentInstance) adapter.getModelElement();
-				boundMemories = GetProperties.getActualMemoryBinding((ComponentInstance)adapter.getModelElement());
 
-				if (boundMemories.size() > 0)
-				{
+			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+					|| (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE)) {
+				// System.out.println ("memory " + adapter.getModelElement());
+				memory = (ComponentInstance) adapter.getModelElement();
+				boundMemories = GetProperties.getActualMemoryBinding((ComponentInstance) adapter.getModelElement());
+
+				if (boundMemories.size() > 0) {
 					boundMemory = boundMemories.get(0);
-					//System.out.println ("associated memory " + boundMemory);
-					if (boundMemory.getCategory() == ComponentCategory.MEMORY)
-					{
+					// System.out.println ("associated memory " + boundMemory);
+					if (boundMemory.getCategory() == ComponentCategory.MEMORY) {
 						memoryContainer = boundMemory.getContainingComponentInstance();
-						//System.out.println ("containing associated memory " + memoryContainer);
+						// System.out.println ("containing associated memory " + memoryContainer);
 						/*
 						 * We check if the memory is in the list of the components
 						 * to be supposed to be shown. If the target component
 						 * is not in the list, we try to establish a connection with the
 						 * container, which should be hopefully another memory.
 						 */
-						if ( ! (this.modelElementToAdapterMap.containsKey(boundMemory)))
-						{
-							//System.out.println ("memory not visible, try to take " + memoryContainer);
+						if (!(this.modelElementToAdapterMap.containsKey(boundMemory))) {
+							// System.out.println ("memory not visible, try to take " + memoryContainer);
 							boundMemory = memoryContainer;
-						}	
+						}
 					}
-				}
-				else
-				{
+				} else {
 //					OsateDebug.osateDebug ("no memory associated");
 				}
 
-
-				if ( (memory != null) && (boundMemory != null))
-				{
+				if ((memory != null) && (boundMemory != null)) {
 					processAdapter = this.modelElementToAdapterMap.get(process);
 
 					boundResourceAdapter = this.modelElementToAdapterMap.get(boundMemory);
-					if ( (processAdapter != null) && (boundResourceAdapter != null))
-					{
-						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.MEMORY, this.labelProvider, processAdapter, boundResourceAdapter);
+					if ((processAdapter != null) && (boundResourceAdapter != null)) {
+						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.MEMORY,
+								this.labelProvider, processAdapter, boundResourceAdapter);
 
 						// JD: check if this happens
 
-						if (bindingAdapter != null)
-						{
+						if (bindingAdapter != null) {
 							// JD: Add to the main component.
 							componentAdapter.addChild(bindingAdapter);
 						}
@@ -463,17 +432,18 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 		}
 	}
-	
-	protected IAadlElementAdapter getSourceAdapter(ConnectionReference topConnRef){
-		ConnectionInstance conni = (ConnectionInstance)topConnRef.getOwner();
+
+	protected IAadlElementAdapter getSourceAdapter(ConnectionReference topConnRef) {
+		ConnectionInstance conni = (ConnectionInstance) topConnRef.getOwner();
 		IAadlElementAdapter result = null;
 		ConnectionReference connRef = topConnRef;
 		IAadlElementAdapter found = getAadlElementAdapter(connRef.getSource());
-		if (!doDirectConnections) return found;
-		while (found != null){
+		if (!doDirectConnections)
+			return found;
+		while (found != null) {
 			result = found;
 			connRef = Aadl2InstanceUtil.getPreviousConnectionReference(conni, connRef);
-			if (connRef != null){
+			if (connRef != null) {
 				found = getAadlElementAdapter(connRef.getSource());
 			} else {
 				found = null;
@@ -481,17 +451,18 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 		return result;
 	}
-	
-	protected IAadlElementAdapter getDestinationAdapter(ConnectionReference topConnRef){
-		ConnectionInstance conni = (ConnectionInstance)topConnRef.getOwner();
+
+	protected IAadlElementAdapter getDestinationAdapter(ConnectionReference topConnRef) {
+		ConnectionInstance conni = (ConnectionInstance) topConnRef.getOwner();
 		IAadlElementAdapter result = null;
 		ConnectionReference connRef = topConnRef;
 		IAadlElementAdapter found = getAadlElementAdapter(connRef.getDestination());
-		if (!doDirectConnections) return found;
-		while (found != null){
+		if (!doDirectConnections)
+			return found;
+		while (found != null) {
 			result = found;
 			connRef = Aadl2InstanceUtil.getNextConnectionReference(conni, connRef);
-			if (connRef != null){
+			if (connRef != null) {
 				found = getAadlElementAdapter(connRef.getDestination());
 			} else {
 				found = null;
@@ -499,42 +470,40 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 		return result;
 	}
-	
-	protected IAadlElementAdapter getAadlElementAdapter(ConnectionInstanceEnd cie){
+
+	protected IAadlElementAdapter getAadlElementAdapter(ConnectionInstanceEnd cie) {
 		IAadlElementAdapter adapter = this.modelElementToAdapterMap.get(cie);
-		while (adapter == null&&cie instanceof FeatureInstance){
+		while (adapter == null && cie instanceof FeatureInstance) {
 			adapter = this.modelElementToAdapterMap.get(cie.getOwner());
 			cie = (ConnectionInstanceEnd) cie.getOwner();
 		}
 		return adapter;
 	}
-	
 
-
-
-	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) 
-	{
+	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) {
 		Object me = componentAdapter.getModelElement();
 		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
-		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
+		for (Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();) {
 			ConnectionItem connectionItem = it.next();
 			ConnectionReference connref = connectionItem.getConnectionReference();
-			if (connref != null){
+			if (connref != null) {
 				IAadlElementAdapter srcAdapter = getSourceAdapter(connref);
 				IAadlElementAdapter dstAdapter = getDestinationAdapter(connref);
-				if(srcAdapter != null && dstAdapter != null) {
+				if (srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
-					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref, this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref,
+							this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter,
+							dstAdapter);
 					// Add to component.
 					componentAdapter.addChild(connectionAdapter);
 				}
 			} else {
 				// declarative model
-				Connection connectionRef = (Connection)connectionItem.getModelElement();
+				Connection connectionRef = (Connection) connectionItem.getModelElement();
 				IAadlElementAdapter srcAdapter = null;
 				IAadlElementAdapter dstAdapter = null;
-				if (me instanceof InstanceObject){
-					if (connectionItem.getSrc() instanceof InstanceObject){
+				if (me instanceof InstanceObject) {
+					if (connectionItem.getSrc() instanceof InstanceObject) {
 						srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
 						dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
 					} else {
@@ -545,43 +514,50 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				} else {
 					Context dstCxt = connectionRef.getAllDestinationContext();
 					Context srcCxt = connectionRef.getAllSourceContext();
-					if (srcCxt instanceof Subcomponent){
-						srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
-					} else	if (srcCxt instanceof FeatureGroup){
-						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
-					} else	if (connectionItem.getSrc() instanceof Subcomponent){
-						srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
+					if (srcCxt instanceof Subcomponent) {
+						srcAdapter = this.findFeatureAdapter(
+								(AadlComponentAdapter) this.modelElementToAdapterMap.get(srcCxt),
+								(NamedElement) connectionItem.getSrc());
+					} else if (srcCxt instanceof FeatureGroup) {
+						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) srcCxt);
+					} else if (connectionItem.getSrc() instanceof Subcomponent) {
+						srcAdapter = this.modelElementToAdapterMap.get((NamedElement) connectionItem.getSrc());
 					} else {
-						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) connectionItem.getSrc());
 					}
-					if (dstCxt instanceof Subcomponent){
-						dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
-					} else	if (dstCxt instanceof FeatureGroup){
-						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
-					} else if (connectionItem.getDest() instanceof Subcomponent){
-						dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
+					if (dstCxt instanceof Subcomponent) {
+						dstAdapter = this.findFeatureAdapter(
+								(AadlComponentAdapter) this.modelElementToAdapterMap.get(dstCxt),
+								(NamedElement) connectionItem.getDest());
+					} else if (dstCxt instanceof FeatureGroup) {
+						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) dstCxt);
+					} else if (connectionItem.getDest() instanceof Subcomponent) {
+						dstAdapter = this.modelElementToAdapterMap.get((NamedElement) connectionItem.getDest());
 					} else {
-						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) connectionItem.getDest());
 					}
 				}
 
-				if(srcAdapter != null && dstAdapter != null) {
+				if (srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
-					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef, this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef,
+							this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter,
+							dstAdapter);
 					// Add to component.
 					componentAdapter.addChild(connectionAdapter);
 				}
 			}
 		}
 	}
-	
-	private IAadlElementAdapter findFeatureInstanceAdapter(Object ce){
+
+	private IAadlElementAdapter findFeatureInstanceAdapter(Object ce) {
 		Set<Object> keys = modelElementToAdapterMap.keySet();
 		for (Object object : keys) {
-			if (!(object instanceof InstanceObject)) return null;
-			if (object instanceof FeatureInstance){
-				FeatureInstance fi = (FeatureInstance)object;
-				if (fi.getFeature() == ce){
+			if (!(object instanceof InstanceObject))
+				return null;
+			if (object instanceof FeatureInstance) {
+				FeatureInstance fi = (FeatureInstance) object;
+				if (fi.getFeature() == ce) {
 					return modelElementToAdapterMap.get(fi);
 				}
 			}
@@ -589,67 +565,71 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return null;
 	}
 
-	public void addFlowPathsToComponent(AadlComponentAdapter componentAdapter) 
-	{
+	public void addFlowPathsToComponent(AadlComponentAdapter componentAdapter) {
 		Object me = componentAdapter.getModelElement();
 		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
-		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
+		for (Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();) {
 			ConnectionItem connectionItem = it.next();
-			Connection connectionRef = (Connection)connectionItem.getModelElement();
+			Connection connectionRef = (Connection) connectionItem.getModelElement();
 			IAadlElementAdapter srcAdapter = null;
 			IAadlElementAdapter dstAdapter = null;
-			if (me instanceof InstanceObject){
+			if (me instanceof InstanceObject) {
 				srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
 				dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
 			} else {
 				Context dstCxt = connectionRef.getAllDestinationContext();
 				Context srcCxt = connectionRef.getAllSourceContext();
-				if (srcCxt instanceof Subcomponent){
-					srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
-				} else	if (srcCxt instanceof FeatureGroup){
-					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
-				} else	if (connectionItem.getSrc() instanceof Subcomponent){
-					srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
+				if (srcCxt instanceof Subcomponent) {
+					srcAdapter = this.findFeatureAdapter(
+							(AadlComponentAdapter) this.modelElementToAdapterMap.get(srcCxt),
+							(NamedElement) connectionItem.getSrc());
+				} else if (srcCxt instanceof FeatureGroup) {
+					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) srcCxt);
+				} else if (connectionItem.getSrc() instanceof Subcomponent) {
+					srcAdapter = this.modelElementToAdapterMap.get((NamedElement) connectionItem.getSrc());
 				} else {
-					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) connectionItem.getSrc());
 				}
-				if (dstCxt instanceof Subcomponent){
-					dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
-				} else	if (dstCxt instanceof FeatureGroup){
-					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
-				} else if (connectionItem.getDest() instanceof Subcomponent){
-					dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
+				if (dstCxt instanceof Subcomponent) {
+					dstAdapter = this.findFeatureAdapter(
+							(AadlComponentAdapter) this.modelElementToAdapterMap.get(dstCxt),
+							(NamedElement) connectionItem.getDest());
+				} else if (dstCxt instanceof FeatureGroup) {
+					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) dstCxt);
+				} else if (connectionItem.getDest() instanceof Subcomponent) {
+					dstAdapter = this.modelElementToAdapterMap.get((NamedElement) connectionItem.getDest());
 				} else {
-					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement) connectionItem.getDest());
 				}
 			}
 
-			if(srcAdapter != null && dstAdapter != null) {
+			if (srcAdapter != null && dstAdapter != null) {
 				// Create connection adapter for this connection.
-				AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef, this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
+				AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef,
+						this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
 				// Add to component.
 				componentAdapter.addChild(connectionAdapter);
 			}
 		}
 	}
 
-
-	public AadlFeatureAdapter findFeatureAdapter(AadlComponentAdapter componentAdapter, NamedElement feature){
+	public AadlFeatureAdapter findFeatureAdapter(AadlComponentAdapter componentAdapter, NamedElement feature) {
 		Iterator<AadlFeatureAdapter> collection = componentAdapter.getChildFeatures();
 		for (Iterator<AadlFeatureAdapter> iterator = collection; iterator.hasNext();) {
 			AadlFeatureAdapter afa = (AadlFeatureAdapter) iterator.next();
-			if (afa.getModelElement().equals(feature)){
+			if (afa.getModelElement().equals(feature)) {
 				return afa;
 			}
 		}
 		return null;
 	}
 
-	public AadlComponentAdapter findSubcomponentAdapter(AadlComponentAdapter componentAdapter, NamedElement subcomponent){
+	public AadlComponentAdapter findSubcomponentAdapter(AadlComponentAdapter componentAdapter,
+			NamedElement subcomponent) {
 		Iterator<AadlComponentAdapter> collection = componentAdapter.getChildComponents();
 		for (Iterator<AadlComponentAdapter> iterator = collection; iterator.hasNext();) {
 			AadlComponentAdapter afa = (AadlComponentAdapter) iterator.next();
-			if (afa.getModelElement().equals(subcomponent)){
+			if (afa.getModelElement().equals(subcomponent)) {
 				return afa;
 			}
 		}
@@ -658,41 +638,41 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 	public EList getSubcomponents(Object object) {
 
-		if(object instanceof ComponentInstance){
+		if (object instanceof ComponentInstance) {
 
 			// Get subcomponents.
-			return ((ComponentInstance)object).getComponentInstances();
+			return ((ComponentInstance) object).getComponentInstances();
 		}
-		if(object instanceof ComponentImplementation){
+		if (object instanceof ComponentImplementation) {
 			// Get subcomponents.
-			return ((ComponentImplementation)object).getAllSubcomponents();
-		} else return null;
+			return ((ComponentImplementation) object).getAllSubcomponents();
+		} else
+			return null;
 	}
 
-
 	public EList getFeatures(Object object) {
-		if (object instanceof ComponentInstance){
-			return ((ComponentInstance)object).getFeatureInstances();
+		if (object instanceof ComponentInstance) {
+			return ((ComponentInstance) object).getFeatureInstances();
 		}
-		if(object instanceof ComponentClassifier){
-			return ((ComponentClassifier)object).getAllFeatures();
+		if (object instanceof ComponentClassifier) {
+			return ((ComponentClassifier) object).getAllFeatures();
 		}
-		if (object instanceof Subcomponent){
-			return ((Subcomponent)object).getAllFeatures();
+		if (object instanceof Subcomponent) {
+			return ((Subcomponent) object).getAllFeatures();
 		}
 		return null;
 	}
 
-
 	public List<ConnectionItem> getConnections(Object element) {
 		List<ConnectionItem> connectionList = new ArrayList<ConnectionItem>();
-		if(element instanceof ComponentInstance){
-			ComponentInstance ci = (ComponentInstance)element;
-			if (doDirectConnections){
+		if (element instanceof ComponentInstance) {
+			ComponentInstance ci = (ComponentInstance) element;
+			if (doDirectConnections) {
 				// do it based on connection instances
 				List<ConnectionInstance> conns = EcoreUtil2.getAllContentsOfType(ci, ConnectionInstance.class);
 				for (ConnectionInstance connectionInstance : conns) {
-					connectionList.add(new ConnectionItem(Aadl2InstanceUtil.getTopConnectionReference(connectionInstance)));
+					connectionList
+							.add(new ConnectionItem(Aadl2InstanceUtil.getTopConnectionReference(connectionInstance)));
 				}
 			} else {
 				// do conenctions one layer at a time
@@ -713,21 +693,22 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				// enable in/out only connection instances or not
 				// now any incoming or outgoing that are not represented by connection instances
 				ComponentClassifier cl = ci.getComponentClassifier();
-				if (cl instanceof ComponentImplementation){
-					ComponentImplementation cimpl = (ComponentImplementation)cl;
+				if (cl instanceof ComponentImplementation) {
+					ComponentImplementation cimpl = (ComponentImplementation) cl;
 					List<Connection> connections = cimpl.getAllConnections();
-					for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+					for (Iterator<Connection> it = connections.iterator(); it.hasNext();) {
 						Connection conn = it.next();
-						if (!(conn.getAllDestinationContext() instanceof Subcomponent)||!(conn.getAllSourceContext() instanceof Subcomponent)){
+						if (!(conn.getAllDestinationContext() instanceof Subcomponent)
+								|| !(conn.getAllSourceContext() instanceof Subcomponent)) {
 							// one end must not be a subcomponent
 							// Get connection source.
 							ConnectionEnd srcEnd = conn.getAllSource();
 							// Get connection destination.
 							ConnectionEnd dstEnd = conn.getAllDestination();
-							if(srcEnd != null && dstEnd != null) {
+							if (srcEnd != null && dstEnd != null) {
 								// We need to check for duplicate feature group connections (i.e. only one connection should be returned
 								// for feature group connections.
-								if (!duplicateConnectionItem(connectionList, conn, srcEnd, dstEnd)){
+								if (!duplicateConnectionItem(connectionList, conn, srcEnd, dstEnd)) {
 									connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
 								}
 							}
@@ -737,11 +718,11 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			}
 		}
 		// Only component implementations have connections.
-		if(element instanceof ComponentImplementation){
-			ComponentImplementation cimpl = (ComponentImplementation)element;
+		if (element instanceof ComponentImplementation) {
+			ComponentImplementation cimpl = (ComponentImplementation) element;
 			// Get connection .
 			List<Connection> connections = cimpl.getAllConnections();
-			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+			for (Iterator<Connection> it = connections.iterator(); it.hasNext();) {
 				Connection conn = it.next();
 
 				// Get connection source.
@@ -750,7 +731,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				// Get connection destination.
 				ConnectionEnd dstEnd = conn.getAllDestination();
 
-				if(srcEnd != null && dstEnd != null) {
+				if (srcEnd != null && dstEnd != null) {
 					// We need to check for duplicate feature group connections (i.e. only one connection should be returned
 					// for feature group connections.
 					connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
@@ -760,12 +741,13 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 		return connectionList;
 	}
-	
-	private boolean duplicateConnectionItem(List<ConnectionItem> connectionList,Connection conn, ConnectionEnd src, ConnectionEnd dst){
+
+	private boolean duplicateConnectionItem(List<ConnectionItem> connectionList, Connection conn, ConnectionEnd src,
+			ConnectionEnd dst) {
 		for (ConnectionItem connectionItem : connectionList) {
-			if (connectionItem.getConnectionReference()!=null){
+			if (connectionItem.getConnectionReference() != null) {
 				ConnectionReference connref = connectionItem.getConnectionReference();
-				if (connref.getConnection() == conn){
+				if (connref.getConnection() == conn) {
 					return true;
 				}
 			}
@@ -773,8 +755,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return false;
 	}
 
-
-	
 	public List<ConnectionItem> getFlowPaths(Object element) {
 		List<ConnectionItem> connectionList = new ArrayList<ConnectionItem>();
 ////		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
@@ -855,26 +835,25 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return connectionList;
 	}
 
-	private ConnectionInstanceEnd getConnectionInstanceEnd(ComponentInstance connectionContext, NamedElement connectionEndContext, NamedElement connectionEnd) {
+	private ConnectionInstanceEnd getConnectionInstanceEnd(ComponentInstance connectionContext,
+			NamedElement connectionEndContext, NamedElement connectionEnd) {
 		ConnectionInstanceEnd connectionEndInstance = null;
 
 		if (connectionEndContext == null || connectionEndContext instanceof ComponentImplementation) {
-			if(connectionEnd instanceof Feature) {
-				//lookup feature in the context using the connection src
+			if (connectionEnd instanceof Feature) {
+				// lookup feature in the context using the connection src
 				connectionEndInstance = connectionContext.findFeatureInstance((Feature) connectionEnd);
-			} else if(connectionEnd instanceof Subcomponent) {
-				connectionEndInstance = connectionContext.findSubcomponentInstance((Subcomponent)connectionEnd);
+			} else if (connectionEnd instanceof Subcomponent) {
+				connectionEndInstance = connectionContext.findSubcomponentInstance((Subcomponent) connectionEnd);
 			}
 		} else if (connectionEndContext instanceof Subcomponent) {
-			//lookup feature in the subcomponent
-			connectionEndInstance = connectionContext.findSubcomponentInstance((Subcomponent) connectionEndContext).findFeatureInstance(
-					(Feature) connectionEnd);
+			// lookup feature in the subcomponent
+			connectionEndInstance = connectionContext.findSubcomponentInstance((Subcomponent) connectionEndContext)
+					.findFeatureInstance((Feature) connectionEnd);
 		}
 
 		return connectionEndInstance;
 	}
-
-
 
 	private FeatureAdapterCategory getFeatureCategory(NamedElement feature) {
 		FeatureAdapterCategory category = null;
@@ -899,8 +878,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		if (feature instanceof Parameter)
 			return FeatureAdapterCategory.PARAMETER;
 
-		if (feature instanceof FeatureInstance){
-			switch(((FeatureInstance)feature).getCategory()) {
+		if (feature instanceof FeatureInstance) {
+			switch (((FeatureInstance) feature).getCategory()) {
 			case DATA_PORT:
 				category = FeatureAdapterCategory.DATA_PORT;
 				break;
@@ -940,9 +919,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	private FeatureDirectionType getFeatureDirectionType(NamedElement feature) {
 		FeatureDirectionType directionType = null;
 		if (feature instanceof FeatureInstance)
-			feature = ((FeatureInstance)feature).getFeature();
+			feature = ((FeatureInstance) feature).getFeature();
 		if (feature instanceof Access) {
-			AccessType accessType = ((Access)feature).getKind();
+			AccessType accessType = ((Access) feature).getKind();
 			switch (accessType) {
 			case PROVIDES:
 				directionType = FeatureDirectionType.OUT;
@@ -951,8 +930,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				directionType = FeatureDirectionType.IN;
 				break;
 			}
-		} else if (feature instanceof DirectedFeature){
-			switch (((DirectedFeature)feature).getDirection()) {
+		} else if (feature instanceof DirectedFeature) {
+			switch (((DirectedFeature) feature).getDirection()) {
 			case IN:
 				directionType = FeatureDirectionType.IN;
 				break;
@@ -968,10 +947,11 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return directionType;
 	}
 
-	private ConnectionDecorationType getConnectionDecorationType(Connection connection ){
+	private ConnectionDecorationType getConnectionDecorationType(Connection connection) {
 		ConnectionDecorationType type = ConnectionDecorationType.NONE;
 
-		Property property = GetProperties.lookupPropertyDefinition(connection, CommunicationProperties._NAME, CommunicationProperties.TIMING);
+		Property property = GetProperties.lookupPropertyDefinition(connection, CommunicationProperties._NAME,
+				CommunicationProperties.TIMING);
 		if (property != null) {
 			try {
 				EnumerationLiteral enumLiteral = PropertyUtils.getEnumLiteral(connection, property);
@@ -986,7 +966,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 		return type;
 	}
-
 
 	private class FeatureGroupConnection {
 		private ConnectionInstanceEnd end1;
@@ -1060,24 +1039,31 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			this.destCxt = destCxt;
 			this.modelElement = item;
 		}
+
 		public Object getModelElement() {
 			return modelElement;
 		}
+
 		public ConnectionReference getConnectionReference() {
 			return connRef;
 		}
+
 		public void setModelElement(Object item) {
 			this.modelElement = item;
 		}
+
 		public Object getSrc() {
 			return src;
 		}
+
 		public Object getDest() {
 			return dest;
 		}
+
 		public Object getSrcCxt() {
 			return srcCxt;
 		}
+
 		public Object getDestCxt() {
 			return destCxt;
 		}

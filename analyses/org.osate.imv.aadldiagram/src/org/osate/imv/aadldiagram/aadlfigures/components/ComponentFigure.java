@@ -26,7 +26,6 @@ import org.osate.imv.aadldiagram.propertydecorations.IPropertyDecorationDelegate
 import org.osate.imv.aadldiagram.util.ErrorUtil;
 import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
 
-
 public class ComponentFigure extends ResizableMevFigure {
 
 	private List<IPropertyDecorationDelegate> propertyDecorations;
@@ -37,66 +36,57 @@ public class ComponentFigure extends ResizableMevFigure {
 		this.adapter = null;
 	}
 
-	public void setAdapter (AadlComponentAdapter a)
-	{
+	public void setAdapter(AadlComponentAdapter a) {
 		this.adapter = a;
 	}
-	
-	public Color getAADLBackgroundColor ()
-	{
+
+	public Color getAADLBackgroundColor() {
 		Color c;
 		int factor;
 
 		factor = ErrorUtil.INVALID_FACTOR;
-		
-		if (! AadlPersistentDiagramViewer.useError())
-		{
+
+		if (!AadlPersistentDiagramViewer.useError()) {
 			return getBackgroundColor();
 		}
-		
-		if ( (adapter != null) && (adapter.getModelElement() instanceof ComponentInstance))
-		{
+
+		if ((adapter != null) && (adapter.getModelElement() instanceof ComponentInstance)) {
 //			factor = ErrorUtil.getFactorWithPath (AadlPersistentDiagramViewer.getErrorComponent(), 
 //										  		 ((ComponentInstance) adapter.getModelElement()));
-			factor = ErrorUtil.getFactorWithPath ((ComponentInstance) adapter.getModelElement());
-			ErrorUtil.setCacheValue((ComponentInstance)adapter.getModelElement(), factor);
+			factor = ErrorUtil.getFactorWithPath((ComponentInstance) adapter.getModelElement());
+			ErrorUtil.setCacheValue((ComponentInstance) adapter.getModelElement(), factor);
 		}
 
-		if ( (AadlPersistentDiagramViewer.useError()) && (factor != -1 ))
-		{
+		if ((AadlPersistentDiagramViewer.useError()) && (factor != -1)) {
 			/*
 			 * The factor is on a scale between 0 .. 100
 			 * The RGB should be on a scale between 0 .. 255
 			 * So, to scale the error factor to the RGB value,
 			 * we make the following operation: rgb_value = error_factor * 2.5
 			 * As we operate with integer only, we have to separate
-			 * the * 2.5 into * 25 / 10. 
+			 * the * 2.5 into * 25 / 10.
 			 */
 			c = new Color(null, 200 + factor / 3, 50 + factor / 3, 50 + factor);
-			
-			
-		}	
-		else
-		{
+
+		} else {
 			c = getBackgroundColor();
 		}
 		return c;
 	}
-	
+
 	public Rectangle getFeatureBounds() {
 		// Clip bounds so that features will be contained within the client area
 		// but the resize handle should still be visible outside of the client area.
 		Rectangle featureBounds = getBounds().getCopy();
 		Insets borderInsets = getInsets();
 		int insetOffset = (int) ResizableMevFigure.SELECTION_HANDLE_WIDTH;
-		featureBounds.shrink(new Insets(borderInsets.top - insetOffset,
-				borderInsets.left - insetOffset, borderInsets.bottom
-						- insetOffset, borderInsets.right - insetOffset));
+		featureBounds.shrink(new Insets(borderInsets.top - insetOffset, borderInsets.left - insetOffset,
+				borderInsets.bottom - insetOffset, borderInsets.right - insetOffset));
 		return featureBounds;
 	}
 
 	public void addPropertyDecorationDelegate(IPropertyDecorationDelegate delegate) {
-		//delegate.setAadlElement(getElement());
+		// delegate.setAadlElement(getElement());
 		this.propertyDecorations.add(delegate);
 	}
 
@@ -131,9 +121,8 @@ public class ComponentFigure extends ResizableMevFigure {
 		graphics.popState();
 	}
 
-
 	public void dispose() {
-		for(IPropertyDecorationDelegate delegate : this.propertyDecorations)
+		for (IPropertyDecorationDelegate delegate : this.propertyDecorations)
 			delegate.dispose();
 	}
 

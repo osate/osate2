@@ -52,10 +52,8 @@ public class MacroPreprocessor {
 			macros = new MacroEntry[v.size()];
 			for (int i = 0; i < v.size(); i++) {
 				macros[i] = (MacroEntry) v.get(i);
-				System.out
-						.println("Macro name(" + macros[i].macroName
-								+ ") substitution("
-								+ macros[i].macroSubstitution + ")");
+				System.out.println(
+						"Macro name(" + macros[i].macroName + ") substitution(" + macros[i].macroSubstitution + ")");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,15 +68,13 @@ public class MacroPreprocessor {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				for (int i = 0; i < macros.length; i++) {
-					System.out.println("\t Testing macro[name("
-							+ macros[i].macroName + ") substitition("
+					System.out.println("\t Testing macro[name(" + macros[i].macroName + ") substitition("
 							+ macros[i].macroSubstitution + ")]");
 					int start = 0;
 					int searchStart = 0;
 					String newLine;
 					while ((searchStart < line.length())
-							&& (start = line.indexOf(macros[i].macroName,
-									searchStart)) != -1) {
+							&& (start = line.indexOf(macros[i].macroName, searchStart)) != -1) {
 						newLine = line.substring(searchStart, start - 1);
 						newLine += macros[i].macroSubstitution;
 						searchStart = newLine.length() - 1;

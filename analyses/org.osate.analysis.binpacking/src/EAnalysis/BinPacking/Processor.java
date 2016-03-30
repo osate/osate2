@@ -21,15 +21,15 @@ public class Processor extends HardwareNode {
 	public TreeSet classNetInterfaces = new TreeSet(new CapacityComparator());
 
 	public void attachToLink(Link l) {
-		// 	try{throw new Exception();}catch(Exception e)
-		// 	    {
-		// 		StackTraceElement[] el = e.getStackTrace();
-		// 		String s="--- TRACE ---\n";
-		// 		for (int i=0;i<el.length;i++)
-		// 		    s += el[i].toString()+"\n";
-		// 		s+="-----------";
-		// 		if (!traces.contains(s)) traces.add(s);
-		// 	    }
+		// try{throw new Exception();}catch(Exception e)
+		// {
+		// StackTraceElement[] el = e.getStackTrace();
+		// String s="--- TRACE ---\n";
+		// for (int i=0;i<el.length;i++)
+		// s += el[i].toString()+"\n";
+		// s+="-----------";
+		// if (!traces.contains(s)) traces.add(s);
+		// }
 
 		for (Iterator iter = netInterfaces.iterator(); iter.hasNext();) {
 			NetInterface nic = (NetInterface) iter.next();
@@ -42,7 +42,7 @@ public class Processor extends HardwareNode {
 			NetInterface nic = (NetInterface) iter.next();
 			if (nic.link.getClass().isAssignableFrom(l.getClass())
 					|| l.getClass().isAssignableFrom(nic.link.getClass())) {
-				//iter.remove();
+				// iter.remove();
 				NetInterface nicClone = (NetInterface) nic.clone();
 				netInterfaces.add(nicClone);
 				nicClone.connectTo(l);
@@ -64,18 +64,18 @@ public class Processor extends HardwareNode {
 
 	public static void cloneTo(Processor from, Processor to) {
 		HardwareNode.cloneTo(from, to);
-		//DebugMonitor.println(DebugMonitor.channels[4],
+		// DebugMonitor.println(DebugMonitor.channels[4],
 		// "proc("+to.toString()+") clonning:");
 		for (Iterator iter = from.classNetInterfaces.iterator(); iter.hasNext();) {
 			NetInterface n = (NetInterface) iter.next();
 			to.classNetInterfaces.add(n.clone());
-			//DebugMonitor.println(DebugMonitor.channels[4], "\t
+			// DebugMonitor.println(DebugMonitor.channels[4], "\t
 			// link("+n.link.toString()+")");
 		}
 		for (Iterator iter = from.netInterfaces.iterator(); iter.hasNext();) {
 			NetInterface n = (NetInterface) iter.next();
 			to.classNetInterfaces.add(n.clone());
-			//DebugMonitor.println(DebugMonitor.channels[4], "\t
+			// DebugMonitor.println(DebugMonitor.channels[4], "\t
 			// link("+n.link.toString()+")");
 		}
 	}
@@ -106,8 +106,7 @@ public class Processor extends HardwareNode {
 		this("", s, cyclesPerSec);
 	}
 
-	public Processor(String name, Scheduler s, double cyclesPerSec,
-			NetInterface[] netInterfaces) {
+	public Processor(String name, Scheduler s, double cyclesPerSec, NetInterface[] netInterfaces) {
 		this(name, s, cyclesPerSec);
 		for (int i = 0; i < netInterfaces.length; i++)
 			classNetInterfaces.add(netInterfaces[i]);
@@ -119,8 +118,7 @@ public class Processor extends HardwareNode {
 	 * should call super() to instantiate the interfaces defined in the
 	 * constructor without parameters
 	 */
-	public Processor(Scheduler s, double cyclesPerSec,
-			NetInterface[] netInterfaces) {
+	public Processor(Scheduler s, double cyclesPerSec, NetInterface[] netInterfaces) {
 		this(s, cyclesPerSec);
 		for (int i = 0; i < netInterfaces.length; i++)
 			classNetInterfaces.add(netInterfaces[i]);
@@ -129,13 +127,10 @@ public class Processor extends HardwareNode {
 	public boolean canTalkTo(Processor other) {
 		for (Iterator iter = netInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			for (Iterator oIter = other.netInterfaces.iterator(); oIter
-					.hasNext();) {
+			for (Iterator oIter = other.netInterfaces.iterator(); oIter.hasNext();) {
 				NetInterface otherNetInterface = (NetInterface) iter.next();
-				if (otherNetInterface.link.getClass().isAssignableFrom(
-						myNetInterface.link.getClass())
-						|| myNetInterface.link.getClass().isAssignableFrom(
-								otherNetInterface.link.getClass()))
+				if (otherNetInterface.link.getClass().isAssignableFrom(myNetInterface.link.getClass())
+						|| myNetInterface.link.getClass().isAssignableFrom(otherNetInterface.link.getClass()))
 					return true;
 			}
 		}
@@ -148,13 +143,10 @@ public class Processor extends HardwareNode {
 	public boolean couldTalkTo(Processor other) {
 		for (Iterator iter = classNetInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter
-					.hasNext();) {
+			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter.hasNext();) {
 				NetInterface otherNetInterface = (NetInterface) iter.next();
-				if (otherNetInterface.link.getClass().isAssignableFrom(
-						myNetInterface.link.getClass())
-						|| myNetInterface.link.getClass().isAssignableFrom(
-								otherNetInterface.link.getClass()))
+				if (otherNetInterface.link.getClass().isAssignableFrom(myNetInterface.link.getClass())
+						|| myNetInterface.link.getClass().isAssignableFrom(otherNetInterface.link.getClass()))
 					return true;
 			}
 		}
@@ -164,26 +156,22 @@ public class Processor extends HardwareNode {
 	public boolean couldReplaceLink(Link newLink, Link oldLink) {
 		for (Iterator iter = classNetInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			if (myNetInterface.link.getClass().isAssignableFrom(
-					newLink.getClass())
-					|| newLink.getClass().isAssignableFrom(
-							myNetInterface.link.getClass()))
+			if (myNetInterface.link.getClass().isAssignableFrom(newLink.getClass())
+					|| newLink.getClass().isAssignableFrom(myNetInterface.link.getClass()))
 				return true;
 			else {
-				//DebugMonitor.println(DebugMonitor.channels[4], "\t\t NOT
+				// DebugMonitor.println(DebugMonitor.channels[4], "\t\t NOT
 				// COMPATIBLE WITH LINK("+myNetInterface.link.toString()+")");
 			}
 		}
 		for (Iterator iter = netInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
 			if (oldLink.equals(myNetInterface.link)) {
-				if (myNetInterface.link.getClass().isAssignableFrom(
-						newLink.getClass())
-						|| newLink.getClass().isAssignableFrom(
-								myNetInterface.link.getClass()))
+				if (myNetInterface.link.getClass().isAssignableFrom(newLink.getClass())
+						|| newLink.getClass().isAssignableFrom(myNetInterface.link.getClass()))
 					return true;
 				else {
-					//DebugMonitor.println(DebugMonitor.channels[4], "\t\t NOT
+					// DebugMonitor.println(DebugMonitor.channels[4], "\t\t NOT
 					// COMPATIBLE WITH
 					// LINK("+myNetInterface.link.toString()+")");
 				}
@@ -200,13 +188,10 @@ public class Processor extends HardwareNode {
 
 		for (Iterator iter = netInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			for (Iterator oIter = other.netInterfaces.iterator(); oIter
-					.hasNext();) {
+			for (Iterator oIter = other.netInterfaces.iterator(); oIter.hasNext();) {
 				NetInterface otherNetInterface = (NetInterface) iter.next();
-				if (otherNetInterface.link.getClass().isAssignableFrom(
-						myNetInterface.link.getClass())
-						|| myNetInterface.link.getClass().isAssignableFrom(
-								otherNetInterface.link.getClass())) {
+				if (otherNetInterface.link.getClass().isAssignableFrom(myNetInterface.link.getClass())
+						|| myNetInterface.link.getClass().isAssignableFrom(otherNetInterface.link.getClass())) {
 					commonLinks.add(myNetInterface.link);
 				}
 			}
@@ -220,21 +205,18 @@ public class Processor extends HardwareNode {
 	 */
 	public TreeSet getCommonLinkTypes(Processor other) {
 		TreeSet commonLinks = new TreeSet(new DecreasingCapacityComparator());
-		// 	System.out.println("this("+this+").Interface.size("+classNetInterfaces.size()+
-		// 			   ")
+		// System.out.println("this("+this+").Interface.size("+classNetInterfaces.size()+
+		// ")
 		// other("+other+").Interfaces.size("+other.classNetInterfaces.size()+")");
 		for (Iterator iter = classNetInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			//System.out.println("myLink("+myNetInterface.link+")");
-			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter
-					.hasNext();) {
+			// System.out.println("myLink("+myNetInterface.link+")");
+			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter.hasNext();) {
 				NetInterface otherNetInterface = (NetInterface) oIter.next();
-				//System.out.println("\t
+				// System.out.println("\t
 				// otherLink("+otherNetInterface.link+")");
-				if (otherNetInterface.link.getClass().isAssignableFrom(
-						myNetInterface.link.getClass())
-						|| myNetInterface.link.getClass().isAssignableFrom(
-								otherNetInterface.link.getClass())) {
+				if (otherNetInterface.link.getClass().isAssignableFrom(myNetInterface.link.getClass())
+						|| myNetInterface.link.getClass().isAssignableFrom(otherNetInterface.link.getClass())) {
 					commonLinks.add(myNetInterface.link);
 				}
 			}
@@ -245,13 +227,10 @@ public class Processor extends HardwareNode {
 	public Link getLargestCommonLinkType(Processor other) {
 		for (Iterator iter = classNetInterfaces.iterator(); iter.hasNext();) {
 			NetInterface myNetInterface = (NetInterface) iter.next();
-			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter
-					.hasNext();) {
+			for (Iterator oIter = other.classNetInterfaces.iterator(); oIter.hasNext();) {
 				NetInterface otherNetInterface = (NetInterface) iter.next();
-				if (otherNetInterface.link.getClass().isAssignableFrom(
-						myNetInterface.link.getClass())
-						|| myNetInterface.link.getClass().isAssignableFrom(
-								otherNetInterface.link.getClass())) {
+				if (otherNetInterface.link.getClass().isAssignableFrom(myNetInterface.link.getClass())
+						|| myNetInterface.link.getClass().isAssignableFrom(otherNetInterface.link.getClass())) {
 					return myNetInterface.link;
 				}
 			}

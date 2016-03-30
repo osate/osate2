@@ -53,9 +53,10 @@ public class FlowLatencyLogicComponent {
 		 */
 		boolean checkLastImmediate = false;
 		if (period > 0
-				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) ? (!InstanceModelUtil
-				.isSporadicComponent(componentInstance) && !InstanceModelUtil.isTimedComponent(componentInstance))
-				: true) {
+				&& (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
+						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
+								&& !InstanceModelUtil.isTimedComponent(componentInstance))
+						: true) {
 			// period is set, and if thread or device needs to be dispatched as periodic
 			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance);
 			samplingLatencyContributor.setSamplingPeriod(period);
@@ -177,8 +178,8 @@ public class FlowLatencyLogicComponent {
 		if (InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance)) {
 			// take into account queuing delay
 			FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
-			if (fi != null
-					&& (fi.getCategory() == FeatureCategory.EVENT_PORT || fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
+			if (fi != null && (fi.getCategory() == FeatureCategory.EVENT_PORT
+					|| fi.getCategory() == FeatureCategory.EVENT_DATA_PORT)) {
 				LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance);
 				// take into account queuing delay on event and event data ports.
 				double qs = GetProperties.getQueueSize(fi);
@@ -192,7 +193,8 @@ public class FlowLatencyLogicComponent {
 					if (qs > 0) {
 						// subtract one since the arriving element becomes the last element
 						qs = qs - 1;
-						ql.reportInfo("Sporadic or periodic has queue delay reduced by one. It is accounted for in the sampling delay");
+						ql.reportInfo(
+								"Sporadic or periodic has queue delay reduced by one. It is accounted for in the sampling delay");
 					}
 				} else {
 					dl = worstCaseValue;

@@ -19,7 +19,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.osate.imv.image.AutoImageType;
 import org.osate.imv.image.ImageSaver;
 
-
 public class AutoImageAction extends Action implements ActionFactory.IWorkbenchAction, PropertyChangeListener {
 
 	private static final String ID = "org.osate.imv.ui.actions.autoImage";
@@ -29,7 +28,6 @@ public class AutoImageAction extends Action implements ActionFactory.IWorkbenchA
 	private static final String JPG_LBL = "JPG";
 	private static final String GIF_LBL = "GIF";
 
-
 	private AutoImageType imageType;
 	private ImageSaver imageSaver;
 
@@ -37,7 +35,7 @@ public class AutoImageAction extends Action implements ActionFactory.IWorkbenchA
 		this.imageType = imageType;
 		this.imageSaver = imageSaver;
 		String label = "";
-		switch(imageType) {
+		switch (imageType) {
 		case NONE:
 			label = NONE_LBL;
 			break;
@@ -73,7 +71,7 @@ public class AutoImageAction extends Action implements ActionFactory.IWorkbenchA
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if(event.getPropertyName().equals(ImageSaver.AUTO_IMAGE_TYPE_PROPERTY)) {
+		if (event.getPropertyName().equals(ImageSaver.AUTO_IMAGE_TYPE_PROPERTY)) {
 			this.setChecked(imageSaver.getAutoImageType() == imageType);
 		}
 	}

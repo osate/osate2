@@ -25,12 +25,12 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
  */
 public class PriorityInversion {
 	private AnalysisErrorReporterManager errManager;
-	
-	//Only meant to be used with a list of Threads.
+
+	// Only meant to be used with a list of Threads.
 	private QuickSort periodSort = new QuickSort() {
 		protected int compare(Object obj1, Object obj2) {
-			final double a = GetProperties.getPeriodinMS((ComponentInstance)obj1);
-			final double b = GetProperties.getPeriodinMS((ComponentInstance)obj2);
+			final double a = GetProperties.getPeriodinMS((ComponentInstance) obj1);
+			final double b = GetProperties.getPeriodinMS((ComponentInstance) obj2);
 			if (a > b)
 				return 1;
 			if (a == b)
@@ -50,8 +50,7 @@ public class PriorityInversion {
 				checkPriorityInversion((ComponentInstance) obj);
 			}
 		};
-		mal.processPreOrderComponentInstance(si,
-				ComponentCategory.PROCESSOR);
+		mal.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
 	}
 
 	/**
@@ -64,26 +63,22 @@ public class PriorityInversion {
 		EList boundThreads = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance)obj)) return false;
+				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance) obj))
+					return false;
 				List<ComponentInstance> boundProcessor;
-				try
-				{
-					boundProcessor = GetProperties.getActualProcessorBinding((ComponentInstance)obj);
-				}
-				catch (PropertyNotPresentException e)
-				{
+				try {
+					boundProcessor = GetProperties.getActualProcessorBinding((ComponentInstance) obj);
+				} catch (PropertyNotPresentException e) {
 					return false;
 				}
 				return boundProcessor.contains(currentProcessor);
 			}
-		}.processPreOrderComponentInstance(root,
-				ComponentCategory.THREAD);
+		}.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 		// we will sort the thread list by period and
 		// check to make sure the assigned priority is monotonically decreasing
 		periodSort.quickSort(boundThreads);
 		checkIncreasingMonotonicity(boundThreads);
 	}
-
 
 	public void checkIncreasingMonotonicity(EList threadList) {
 		if (threadList.isEmpty())
@@ -109,10 +104,8 @@ public class PriorityInversion {
 				if (nextPriority != -1) {
 					if (nextPriority < prevRateGroupMaxPriority) {
 						// priority inversion
-						errManager.error(nextThread,
-								"Thread '" + nextThread.getName() +
-								"' with priority " +nextPriority +
-								" causes priority inversion");
+						errManager.error(nextThread, "Thread '" + nextThread.getName() + "' with priority "
+								+ nextPriority + " causes priority inversion");
 					}
 				}
 			}

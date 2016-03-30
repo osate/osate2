@@ -30,7 +30,7 @@ public class ThreadGroupFigure extends ComponentFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		// Configure GC.
@@ -44,10 +44,8 @@ public class ThreadGroupFigure extends ComponentFigure {
 		Rectangle r = this.getClientArea();
 
 		// Fill and draw figure.
-		g.fillRoundRectangle(r, Math.max(0, this.cornerWidth),
-				Math.max(0, this.cornerHeight));
-		g.drawRoundRectangle(r, Math.max(0, this.cornerWidth),
-				Math.max(0, this.cornerHeight));
+		g.fillRoundRectangle(r, Math.max(0, this.cornerWidth), Math.max(0, this.cornerHeight));
+		g.drawRoundRectangle(r, Math.max(0, this.cornerWidth), Math.max(0, this.cornerHeight));
 	}
 
 	public int getCornerWidth() {
@@ -73,7 +71,5 @@ public class ThreadGroupFigure extends ComponentFigure {
 	public void setLineWidth(int lineWidth) {
 		this.lineWidth = lineWidth;
 	}
-
-
 
 }

@@ -35,130 +35,114 @@ import org.osate.importer.Utils;
 import org.osate.importer.model.sm.StateMachine;
 
 public class Component implements Comparable {
-	
 
 	public enum ComponentType {
 		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, REFERENCE, UNKNOWN
 	};
-	
+
 	public enum PortType {
 		BOOL, FLOAT, DOUBLE, INT, UNKNOWN
 	};
-	
-	private String 				name;
-	private ComponentType 		type;
-	private int    				identifier;
-	private List<Connection> 	connections;
-	private List<Component> 	subEntities;
-	private Component 			parent;
-	private List<StateMachine>	stateMachines; 
-	private PortType			portType;
-	private String				referencedModel;
-	private String				referencedComponent;
-	
+
+	private String name;
+	private ComponentType type;
+	private int identifier;
+	private List<Connection> connections;
+	private List<Component> subEntities;
+	private Component parent;
+	private List<StateMachine> stateMachines;
+	private PortType portType;
+	private String referencedModel;
+	private String referencedComponent;
+
 	/**
 	 * These two lists are here to keep track of the order of the
 	 * ports.
 	 */
-	public List<Component> 		inports;
-	public List<Component> 		outports;
-	
-	public final int COMPONENT_TYPE_EXTERNAL_INPORT  	= 1;
-	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT 	= 2;
-	public final int COMPONENT_TYPE_BLOCK	 			= 3;
-	
+	public List<Component> inports;
+	public List<Component> outports;
 
-	public Component copy()
-	{
-		Component instance = new Component (this.name);
+	public final int COMPONENT_TYPE_EXTERNAL_INPORT = 1;
+	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT = 2;
+	public final int COMPONENT_TYPE_BLOCK = 3;
+
+	public Component copy() {
+		Component instance = new Component(this.name);
 		instance.setIdentifier(this.identifier);
 		instance.setParent(this.parent);
 		instance.setPortType(this.getPortType());
 		instance.setType(this.type);
-		
-		for (Connection c : this.connections)
-		{
+
+		for (Connection c : this.connections) {
 			instance.addConnection(c);
 		}
-		for (Component c : this.subEntities)
-		{
+		for (Component c : this.subEntities) {
 			instance.addSubsystem(c);
 		}
-		for (StateMachine sm : this.stateMachines)
-		{
+		for (StateMachine sm : this.stateMachines) {
 			instance.addStateMachine(sm);
 		}
 		return instance;
 	}
-	
-	public Component (String n)
-	{
-		this.name 					= n;
-		this.connections 			= new ArrayList<Connection>();
-		this.subEntities  			= new ArrayList<Component>();
-		this.inports  				= new ArrayList<Component>();
-		this.outports  				= new ArrayList<Component>();
-		this.stateMachines  		= new ArrayList<StateMachine>();
-		this.parent 				= null;
-		this.identifier 			= Utils.INVALID_ID;
-		this.type 					= ComponentType.UNKNOWN;
-		this.referencedComponent 	= null;
-		this.referencedModel     	= null;
+
+	public Component(String n) {
+		this.name = n;
+		this.connections = new ArrayList<Connection>();
+		this.subEntities = new ArrayList<Component>();
+		this.inports = new ArrayList<Component>();
+		this.outports = new ArrayList<Component>();
+		this.stateMachines = new ArrayList<StateMachine>();
+		this.parent = null;
+		this.identifier = Utils.INVALID_ID;
+		this.type = ComponentType.UNKNOWN;
+		this.referencedComponent = null;
+		this.referencedModel = null;
 	}
-	
-	public String getReferencedComponent ()
-	{
+
+	public String getReferencedComponent() {
 		return this.referencedComponent;
 	}
-	
-	public String getReferencedModel ()
-	{
+
+	public String getReferencedModel() {
 		return this.referencedModel;
 	}
-	
-	public String getAadlReferencedModel ()
-	{
-		return Utils.toAadl (this.referencedModel);
+
+	public String getAadlReferencedModel() {
+		return Utils.toAadl(this.referencedModel);
 	}
-	
-	public String getAadlReferencedComponent ()
-	{
-		return Utils.toAadl (this.referencedComponent);
+
+	public String getAadlReferencedComponent() {
+		return Utils.toAadl(this.referencedComponent);
 	}
-	
-	public void setReferencedModel (String m)
-	{
+
+	public void setReferencedModel(String m) {
 		this.referencedModel = m;
 	}
-	
-	public void setReferencedComponent (String c)
-	{
+
+	public void setReferencedComponent(String c) {
 		this.referencedComponent = c;
 	}
-	
+
 	/**
 	 * get a list of sub components having the type given
 	 * in parameter.
 	 * @param type - the expected type of the subcomponent
 	 * @return a list of all subcomponents having the type passed as parameter.
 	 */
-	public List<Component> getSubcomponents(ComponentType type)
-	{
+	public List<Component> getSubcomponents(ComponentType type) {
 		List<Component> result;
-		
-		result = new ArrayList<Component> ();
-		for (Component c : this.subEntities)
-		{
-			if (c.getType() == type)
-			{
-				result.add (c);
+
+		result = new ArrayList<Component>();
+		for (Component c : this.subEntities) {
+			if (c.getType() == type) {
+				result.add(c);
 			}
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 	/**
 	 * returns a value is the component has any interface
 	 * with another system - either through a port
@@ -166,381 +150,297 @@ public class Component implements Comparable {
 	 * @return - a boolean that indicates if the component
 	 *           has any dependency or not.
 	 */
-	public boolean hasInterfaces ()
-	{
-		if (this.getIncomingDependencies().size() > 0)
-		{
+	public boolean hasInterfaces() {
+		if (this.getIncomingDependencies().size() > 0) {
 			return true;
-		}	
-		if (this.getOutgoingDependencies().size() > 0)
-		{
+		}
+		if (this.getOutgoingDependencies().size() > 0) {
 			return true;
-		}	
-		
-		for (Component c : subEntities)
-		{
-			if ((c.getType() == ComponentType.EXTERNAL_INPORT) ||
-				(c.getType() == ComponentType.EXTERNAL_OUTPORT))
-			{
+		}
+
+		for (Component c : subEntities) {
+			if ((c.getType() == ComponentType.EXTERNAL_INPORT) || (c.getType() == ComponentType.EXTERNAL_OUTPORT)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
-	
+
 	/**
 	 * indicate if the current component has block
 	 * subcomponents.
 	 * 
 	 * @return - true if the components has subcomponents that are block. false otherwise
 	 */
-	public boolean hasSubcomponents ()
-	{
-		for (Component c : subEntities)
-		{
-			if ( (c.getType() == ComponentType.BLOCK) || (c.getType() == ComponentType.REFERENCE))
-			{
+	public boolean hasSubcomponents() {
+		for (Component c : subEntities) {
+			if ((c.getType() == ComponentType.BLOCK) || (c.getType() == ComponentType.REFERENCE)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
-	
-	public boolean hasIncomingDependencies ()
-	{
+
+	public boolean hasIncomingDependencies() {
 		return (this.getIncomingDependencies().size() > 0);
 	}
 
-	public boolean hasOutgoingDependencies ()
-	{
+	public boolean hasOutgoingDependencies() {
 		return (this.getOutgoingDependencies().size() > 0);
-	}	
-	
-	public void setPortType (PortType pt)
-	{
+	}
+
+	public void setPortType(PortType pt) {
 		this.portType = pt;
 	}
-	
-	public PortType getPortType ()
-	{
+
+	public PortType getPortType() {
 		return this.portType;
 	}
-	
-	public void addStateMachine (StateMachine sm)
-	{
+
+	public void addStateMachine(StateMachine sm) {
 		this.stateMachines.add(sm);
 	}
-	
-	public List<StateMachine> getStateMachines ()
-	{
+
+	public List<StateMachine> getStateMachines() {
 		return (this.stateMachines);
 	}
-	
-	public ComponentType getType ()
-	{
+
+	public ComponentType getType() {
 		return this.type;
 	}
-	
-	public Component findSubcomponent (String n)
-	{
-		for (Component c : subEntities)
-		{
-			if (c.getName().equalsIgnoreCase(n))
-			{
+
+	public Component findSubcomponent(String n) {
+		for (Component c : subEntities) {
+			if (c.getName().equalsIgnoreCase(n)) {
 				return c;
 			}
 		}
 		return null;
 	}
-	
-	public Component findSubcomponentById (int id)
-	{
+
+	public Component findSubcomponentById(int id) {
 		Component tmp;
-		
-		for (Component c : subEntities)
-		{
-			if (c.getIdentifier() == id)
-			{
+
+		for (Component c : subEntities) {
+			if (c.getIdentifier() == id) {
 				return c;
 			}
-		
+
 			tmp = c.findSubcomponentById(id);
-			
-			if (tmp != null)
-			{
+
+			if (tmp != null) {
 				return tmp;
 			}
 		}
 		return null;
 	}
-	
-	public Component findSubcomponentByName (String n)
-	{
+
+	public Component findSubcomponentByName(String n) {
 		Component tmp;
-		
-		for (Component c : subEntities)
-		{
-			if (c.getName().equalsIgnoreCase(n))
-			{
+
+		for (Component c : subEntities) {
+			if (c.getName().equalsIgnoreCase(n)) {
 				return c;
 			}
-		
+
 			tmp = c.findSubcomponentByName(n);
-			
-			if (tmp != null)
-			{
+
+			if (tmp != null) {
 				return tmp;
 			}
 		}
 		return null;
 	}
-	
-	public void setType (ComponentType t)
-	{
+
+	public void setType(ComponentType t) {
 		this.type = t;
 	}
-	
-	public Component getParent ()
-	{
+
+	public Component getParent() {
 		return this.parent;
 	}
-	
-	public void setIdentifier (int i)
-	{
+
+	public void setIdentifier(int i) {
 		this.identifier = i;
 	}
-	
-	public int getIdentifier ()
-	{
+
+	public int getIdentifier() {
 		return this.identifier;
 	}
-	
-	public void setParent (Component e)
-	{
+
+	public void setParent(Component e) {
 		this.parent = e;
 	}
-	
-	public List<Component> getSubEntities()
-	{
+
+	public List<Component> getSubEntities() {
 		return this.subEntities;
 	}
-	
-	public boolean isContainer ()
-	{
-		return (! this.subEntities.isEmpty());
+
+	public boolean isContainer() {
+		return (!this.subEntities.isEmpty());
 	}
-	
-	public boolean contains (Component e)
-	{
+
+	public boolean contains(Component e) {
 		return this.subEntities.contains(e);
 	}
-	
-	public void addOutgoingDependency (Component destination, int s)
-	{
-		Connection conn = new Connection (this, destination, s);
+
+	public void addOutgoingDependency(Component destination, int s) {
+		Connection conn = new Connection(this, destination, s);
 		connections.add(conn);
 	}
-	
-	public void addIncomingDependency (Component source, int s)
-	{
-		Connection conn = new Connection (source, this, s);
+
+	public void addIncomingDependency(Component source, int s) {
+		Connection conn = new Connection(source, this, s);
 		connections.add(conn);
 	}
-	
-	
-	public void addSubsystem (Component s)
-	{
-		for (Component e : subEntities)
-		{
-			if ( (e.getName().equals(s.getName())) && s.getType() == e.getType())
-			{
+
+	public void addSubsystem(Component s) {
+		for (Component e : subEntities) {
+			if ((e.getName().equals(s.getName())) && s.getType() == e.getType()) {
 				return;
 			}
 		}
-		
-		if (s.getType() == ComponentType.EXTERNAL_INPORT)
-		{
+
+		if (s.getType() == ComponentType.EXTERNAL_INPORT) {
 			this.inports.add(s);
 		}
-		
-		if (s.getType() == ComponentType.EXTERNAL_OUTPORT)
-		{
+
+		if (s.getType() == ComponentType.EXTERNAL_OUTPORT) {
 			this.outports.add(s);
 		}
-		
+
 		this.subEntities.add(s);
 	}
-	
-	public Component getInPort (int i)
-	{
-		if (i >= this.inports.size())
-		{
+
+	public Component getInPort(int i) {
+		if (i >= this.inports.size()) {
 			return null;
 		}
-		
+
 		return this.inports.get(i);
 	}
-	
-	public Component getOutPort (int i)
-	{
-		if (i >= this.outports.size())
-		{
+
+	public Component getOutPort(int i) {
+		if (i >= this.outports.size()) {
 			return null;
 		}
-		
+
 		return this.outports.get(i);
 	}
-	
-	public int getInportIndex (Component s)
-	{
+
+	public int getInportIndex(Component s) {
 		int index = 0;
-	
-		for (int i = 0 ; i < this.inports.size() ; i++)
-		{
-			if (this.inports.get(i) == s)
-			{
+
+		for (int i = 0; i < this.inports.size(); i++) {
+			if (this.inports.get(i) == s) {
 				index = i;
 			}
 		}
-		
+
 		return index;
 	}
-	
-	
-	public int getOutportIndex (Component s)
-	{
+
+	public int getOutportIndex(Component s) {
 		int index = 0;
-	
-		for (int i = 0 ; i < this.outports.size() ; i++)
-		{
-			if (this.outports.get(i) == s)
-			{
+
+		for (int i = 0; i < this.outports.size(); i++) {
+			if (this.outports.get(i) == s) {
 				index = i;
 			}
 		}
-		
+
 		return index;
 	}
-	
-	
-	public boolean equalsTo (Component e)
-	{
-		if (e.getName().equals(this.name))
-		{
+
+	public boolean equalsTo(Component e) {
+		if (e.getName().equals(this.name)) {
 			return true;
 		}
 		return false;
 	}
-	
-	public String getName ()
-	{
+
+	public String getName() {
 		return this.name;
 	}
-	
-	public String getAadlName()
-	{
-		return Utils.toAadl (this.name);
+
+	public String getAadlName() {
+		return Utils.toAadl(this.name);
 	}
-	
-	public List<Component> getIncomingDependencies ()
-	{
+
+	public List<Component> getIncomingDependencies() {
 		List<Component> result;
-		
+
 		result = new ArrayList<Component>();
-		
-		for (Connection ec : connections)
-		{
-			if ((ec.getDestination().getName() == this.getName()) &&
-			    (! result.contains(ec.getSource())))
-			{
+
+		for (Connection ec : connections) {
+			if ((ec.getDestination().getName() == this.getName()) && (!result.contains(ec.getSource()))) {
 				result.add(ec.getSource());
 			}
 		}
-		
+
 		return result;
 	}
-	
-	public List<Component> getOutgoingDependencies ()
-	{
+
+	public List<Component> getOutgoingDependencies() {
 		List<Component> result;
-		
+
 		result = new ArrayList<Component>();
-		
-		for (Connection ec : connections)
-		{
-			if ((ec.getSource().getName() == this.getName()) &&
-				(! result.contains (ec.getDestination())))
-			{
+
+		for (Connection ec : connections) {
+			if ((ec.getSource().getName() == this.getName()) && (!result.contains(ec.getDestination()))) {
 				result.add(ec.getDestination());
 			}
 		}
-		
-		return result;	
+
+		return result;
 	}
-	
-	
-	public List<Connection> getConnections ()
-	{
+
+	public List<Connection> getConnections() {
 		return this.connections;
 	}
-	
-	
-	public void addConnection (Connection ec)
-	{
-		for (Connection c : connections)
-		{
-			if ((c.getSource().getName() == ec.getSource().getName()) &&
-				(c.getDestination().getName() == ec.getDestination().getName()))
-			{
+
+	public void addConnection(Connection ec) {
+		for (Connection c : connections) {
+			if ((c.getSource().getName() == ec.getSource().getName())
+					&& (c.getDestination().getName() == ec.getDestination().getName())) {
 				OsateDebug.osateDebug("[Component] not adding the connection");
 				return;
 			}
 		}
-		this.connections.add (ec);
+		this.connections.add(ec);
 	}
 
-	
-	public String toString ()
-	{
+	public String toString() {
 		String r;
 		r = "Component " + this.name;
-		if (this.identifier != Utils.INVALID_ID)
-		{
-			r += " (id="+this.identifier+") ";
+		if (this.identifier != Utils.INVALID_ID) {
+			r += " (id=" + this.identifier + ") ";
 		}
-		
-		if (this.type != null)
-		{
-			r += " (type="+this.type+") ";
+
+		if (this.type != null) {
+			r += " (type=" + this.type + ") ";
 		}
 		return r;
 	}
 
 	public boolean equalsTo(Object arg0) {
-		return this.compareTo(arg0)==0;
+		return this.compareTo(arg0) == 0;
 	}
-	
-	
-	public Component getSubEntity (String name)
-	{
-		for (Component c : subEntities)
-		{
-			if (c.getName().equalsIgnoreCase(name))
-			{
+
+	public Component getSubEntity(String name) {
+		for (Component c : subEntities) {
+			if (c.getName().equalsIgnoreCase(name)) {
 				return c;
 			}
 		}
 		return null;
 	}
-	
+
 	public int compareTo(Object arg0) {
-		if (arg0 instanceof Component)
-		{
-			return (this.name.equalsIgnoreCase(((Component)arg0).getName()))?0:1 ;
+		if (arg0 instanceof Component) {
+			return (this.name.equalsIgnoreCase(((Component) arg0).getName())) ? 0 : 1;
 		}
 		return -1;
 	}

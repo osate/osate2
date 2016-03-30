@@ -29,39 +29,44 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 */
 	public void createFieldEditors() {
 		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
-				"Treat as synchronous or asynchronous system", 1, new String[][] {
-						{ "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
-						{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } }, getFieldEditorParent(), true);
+				"Treat as synchronous or asynchronous system", 1,
+				new String[][] { { "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
+						{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } },
+				getFieldEditorParent(), true);
 		addField(synchronousSystem);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
-				"Partition Output Policy", 1, new String[][] {
-						{ "Partition End (PE)", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
+				"Partition Output Policy", 1,
+				new String[][] { { "Partition End (PE)", Constants.PARTITIONING_POLICY_PARTITION_END_STR },
 						{ "Major Frame Delayed (MF)", Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR } },
 				getFieldEditorParent(), true);
 		addField(partitioningPolicy);
 		RadioGroupFieldEditor worstCaseDeadline = new RadioGroupFieldEditor(Constants.WORST_CASE_DEADLINE,
-				"For worst-case processing time use", 1, new String[][] {
-						{ "Deadline (DL)", Constants.WORST_CASE_DEADLINE_YES },
+				"For worst-case processing time use", 1,
+				new String[][] { { "Deadline (DL)", Constants.WORST_CASE_DEADLINE_YES },
 						{ "Maximum compute execution time (ET)", Constants.WORST_CASE_DEADLINE_NO } },
 				getFieldEditorParent(), true);
 		addField(worstCaseDeadline);
 		RadioGroupFieldEditor bcEmptyQueue = new RadioGroupFieldEditor(Constants.BESTCASE_EMPTY_QUEUE,
-				"Best case queuing latency on incoming ports", 1, new String[][] {
-						{ "Assume empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
-						{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } }, getFieldEditorParent(), true);
+				"Best case queuing latency on incoming ports", 1,
+				new String[][] { { "Assume empty queue (EQ)", Constants.BESTCASE_EMPTY_QUEUE_YES },
+						{ "Assume full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
+				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
 		RadioGroupFieldEditor dsProcessing = new RadioGroupFieldEditor(Constants.DATASET_PROCESSING,
 				"Data set processing: Use Data_model::dimension property as execution time multiplier", 1,
 				new String[][] { { "Yes (DS)", Constants.DATASET_PROCESSING_YES },
-						{ "No", Constants.DATASET_PROCESSING_NO } }, getFieldEditorParent(), true);
+						{ "No", Constants.DATASET_PROCESSING_NO } },
+				getFieldEditorParent(), true);
 		addField(dsProcessing);
 		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
-				"Report Subtotals", 1, new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES },
-						{ "No", Constants.REPORT_SUBTOTALS_NO } }, getFieldEditorParent(), true);
+				"Report Subtotals", 1,
+				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },
+				getFieldEditorParent(), true);
 		addField(reportSubtotals);
 		RadioGroupFieldEditor detailsMarkers = new RadioGroupFieldEditor(Constants.DETAILS_MARKERS,
-				"Generate Latency Details Markers", 1, new String[][] { { "Yes", Constants.DETAILS_MARKERS_YES },
-						{ "No", Constants.DETAILS_MARKERS_NO } }, getFieldEditorParent(), true);
+				"Generate Latency Details Markers", 1,
+				new String[][] { { "Yes", Constants.DETAILS_MARKERS_YES }, { "No", Constants.DETAILS_MARKERS_NO } },
+				getFieldEditorParent(), true);
 		addField(detailsMarkers);
 		// First tab: configuration of Ocarina
 //		addTab("Flow Analysis");

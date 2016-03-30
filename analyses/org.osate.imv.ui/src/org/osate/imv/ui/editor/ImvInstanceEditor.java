@@ -84,8 +84,8 @@ import org.osate.workspace.WorkspacePlugin;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
-public class ImvInstanceEditor extends EditorPart implements ISelectionListener, PropertyChangeListener, AadlDiagramViewerListener {
+public class ImvInstanceEditor extends EditorPart
+		implements ISelectionListener, PropertyChangeListener, AadlDiagramViewerListener {
 
 	// ID
 	public static final String ID = "org.osate.imv.ui.editor";
@@ -165,74 +165,56 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 		String fileName = resourceFile.getName();
 		IPath imvPath = resourceFile.getFullPath();
 		IPath instancePath = imvPath.removeFileExtension().removeLastSegments(2);
-		String instanceFileName = fileName.substring(0, fileName.indexOf('.') );
-		
-		if (instanceFileName.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX))
-		{
-			instancePath = instancePath.append("instances").append(instanceFileName).addFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		} 
-		else 
-		{
+		String instanceFileName = fileName.substring(0, fileName.indexOf('.'));
+
+		if (instanceFileName.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)) {
+			instancePath = instancePath.append("instances").append(instanceFileName)
+					.addFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		} else {
 			// TODO check about aadl2 extension
 			instancePath = instancePath.append(instanceFileName).addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
 		}
-		
-		
+
 		ResourceSet resourceSet = new ResourceSetImpl();
-		if (resourceSet != null) 
-		{
+		if (resourceSet != null) {
 			Resource r = null;
-			try
-			{
+			try {
 				r = resourceSet.getResource(URI.createPlatformResourceURI(instancePath.toString(), false), true);
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				instancePath = instancePath.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT2);
-				try
-				{
+				try {
 					r = resourceSet.getResource(URI.createPlatformResourceURI(instancePath.toString(), false), true);
-				} 
-				catch (Exception e1)
-				{
+				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
-			
+
 			Object root = r.getContents().get(0);
-			if (root instanceof SystemInstance) 
-			{
+			if (root instanceof SystemInstance) {
 				si = (SystemInstance) root;
 			}
-			if (root instanceof AadlPackage) 
-			{
+			if (root instanceof AadlPackage) {
 				pkg = (AadlPackage) root;
 			}
 
-			try 
-			{
+			try {
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-				if (resourceFile.exists())
-				{
+				if (resourceFile.exists()) {
 					// Create Document object from file.
 					imvDocument = docBuilder.parse(resourceFile.getContents());
 					imvDocument.getDocumentElement().normalize();
-				}
-				else
-				{
+				} else {
 					// Create empty document object.
 					imvDocument = docBuilder.newDocument();
 
 					// Create root element.
-					if (si != null)
-					{
+					if (si != null) {
 						Element rootElement = imvDocument.createElement("instance");
 						rootElement.setAttribute("name", si.getFullName());
 						imvDocument.appendChild(rootElement);
-					} 
-					else 
-					{
+					} else {
 						Element rootElement = imvDocument.createElement("package");
 						rootElement.setAttribute("name", pkg.getFullName());
 						imvDocument.appendChild(rootElement);
@@ -252,9 +234,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 
 				initialized = true;
 
-			} 
-			catch (Exception e) 
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -264,7 +244,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 
-		if(this.initialized) {
+		if (this.initialized) {
 			// We will use grid layout to replicate a border type
 			// layout (border layout is not supported by SWT).
 			// We will use grid layout for this composite.
@@ -283,12 +263,12 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 			// Setup filters.
 			setupFilters();
 
-			this.imageSaver = new ImageSaver((IFileEditorInput)this.getEditorInput(), this.viewer);
+			this.imageSaver = new ImageSaver((IFileEditorInput) this.getEditorInput(), this.viewer);
 
 			registerPropertyListeners();
 
 			// Set input to viewer.
-			//XXX TODO si is null when we open a package
+			// XXX TODO si is null when we open a package
 			viewer.setInput(si);
 			this.isDirty = false;
 		}
@@ -465,7 +445,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 
 	@Override
 	public void setFocus() {
-		if(this.viewer != null)
+		if (this.viewer != null)
 			this.viewer.getControl().setFocus();
 	}
 
@@ -479,8 +459,8 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 
 	public IImvModelProvider getModelProvider() {
 		if (modelProvider == null) {
-			if (this.getSystemInstance() != null){
-			modelProvider = new ImvModelProvider(this.getSystemInstance());
+			if (this.getSystemInstance() != null) {
+				modelProvider = new ImvModelProvider(this.getSystemInstance());
 			} else {
 				// it is a package
 				modelProvider = new ImvModelProvider(null);
@@ -490,7 +470,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	}
 
 	public Object getAdapter(Class required) {
-		if(!this.initialized)
+		if (!this.initialized)
 			return null;
 
 		if (IContentOutlinePage.class.equals(required)) {
@@ -498,7 +478,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 				outlinePage = new ImvContentOutlinePage(this);
 			}
 			return outlinePage;
-		} else if(IImvModelProvider.class.equals(required)) {
+		} else if (IImvModelProvider.class.equals(required)) {
 			return this.getModelProvider();
 		}
 		return super.getAdapter(required);
@@ -517,10 +497,11 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 			return;
 
 		if (part instanceof ContentOutline) {
-			IPage currentPage = ((ContentOutline)part).getCurrentPage();
-			if(currentPage != null && currentPage == this.outlinePage) {
+			IPage currentPage = ((ContentOutline) part).getCurrentPage();
+			if (currentPage != null && currentPage == this.outlinePage) {
 				// Set this object to the active element in the MEV.
-				if(viewer != null)  viewer.setInput(selectedObject);
+				if (viewer != null)
+					viewer.setInput(selectedObject);
 			}
 		}
 	}
@@ -528,7 +509,8 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		String propertyName = event.getPropertyName();
-		if (propertyName.equals(FlowHighlighter.HIGHLIGHT_PROPERTY) || propertyName.equals(FlowHighlighter.COLOR_PROPERTY)) {
+		if (propertyName.equals(FlowHighlighter.HIGHLIGHT_PROPERTY)
+				|| propertyName.equals(FlowHighlighter.COLOR_PROPERTY)) {
 
 			if (viewer != null)
 				viewer.runFilters();
@@ -555,7 +537,6 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 			fh.removePropertyChangeListener(FlowHighlighter.HIGHLIGHT_PROPERTY, this);
 			fh.removePropertyChangeListener(FlowHighlighter.COLOR_PROPERTY, this);
 		}
-
 
 		this.getModelProvider().setContainerComponent(component);
 

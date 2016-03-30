@@ -44,13 +44,10 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
-
 public class MissRateProperties {
-	
-	
-	public static double getStreamMissRate(final NamedElement ph) throws InvalidModelException, PropertyNotPresentException,
-			PropertyIsModalException, IllegalStateException, IllegalArgumentException,
+
+	public static double getStreamMissRate(final NamedElement ph) throws InvalidModelException,
+			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
 			PropertyDoesNotApplyToHolderException, PropertyIsListException, ClassCastException {
 		return GetProperties.getStreamMissRate(ph);
 	}
@@ -58,6 +55,7 @@ public class MissRateProperties {
 	public void setStreamMissRate(final NamedElement ph, final double rate) {
 		final RealLiteral newPropertyValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newPropertyValue.setValue(rate);
-		ph.setPropertyValue(GetProperties.lookupPropertyDefinition(ph,SEI._NAME, SEI.STREAM_MISS_RATE), newPropertyValue);
+		ph.setPropertyValue(GetProperties.lookupPropertyDefinition(ph, SEI._NAME, SEI.STREAM_MISS_RATE),
+				newPropertyValue);
 	}
 }

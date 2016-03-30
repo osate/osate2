@@ -17,17 +17,17 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-public class ProcessFigure extends ComponentFigure{
+public class ProcessFigure extends ComponentFigure {
 	private static final int TILT_WIDTH = 8;
 
 	private int lineWidth;
 
-	public ProcessFigure(){
+	public ProcessFigure() {
 		lineWidth = 2;
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		g.setLineWidth(lineWidth);

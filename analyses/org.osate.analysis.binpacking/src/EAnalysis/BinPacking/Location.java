@@ -21,11 +21,9 @@ public class Location implements CapacityProvider {
 	 * The potential classes of guest this site can support ordered in
 	 * decreasing order of capacity
 	 */
-	public TreeSet potentialGuests = new TreeSet(
-			new DecreasingCapacityComparator());
+	public TreeSet potentialGuests = new TreeSet(new DecreasingCapacityComparator());
 
-	public TreeSet increasingPotentialGuests = new TreeSet(
-			new CapacityComparator());
+	public TreeSet increasingPotentialGuests = new TreeSet(new CapacityComparator());
 
 	public TreeSet guests = new TreeSet(new DecreasingCapacityComparator());
 
@@ -36,8 +34,7 @@ public class Location implements CapacityProvider {
 		try {
 			l = (Location) getClass().newInstance();
 			l.potentialGuests = (TreeSet) potentialGuests.clone();
-			l.increasingPotentialGuests = (TreeSet) increasingPotentialGuests
-					.clone();
+			l.increasingPotentialGuests = (TreeSet) increasingPotentialGuests.clone();
 			l.guests = (TreeSet) guests.clone();
 			l.maximumPower = maximumPower;
 			l.availablePower = availablePower;
@@ -54,8 +51,7 @@ public class Location implements CapacityProvider {
 	public SiteGuest getLargestCurrentGuest() {
 		for (Iterator iter = guests.iterator(); iter.hasNext();) {
 			SiteGuest guest = (SiteGuest) iter.next();
-			if (guest.getPowerRequirement() <= availablePower
-					&& guest.getSpaceRequirement() <= availableSpace)
+			if (guest.getPowerRequirement() <= availablePower && guest.getSpaceRequirement() <= availableSpace)
 				return guest;
 		}
 
@@ -68,9 +64,8 @@ public class Location implements CapacityProvider {
 			SiteGuest guest = (SiteGuest) iter.next();
 			for (Iterator iter1 = compatibleLinks.iterator(); iter1.hasNext();) {
 				SiteGuest compatibleLink = (SiteGuest) iter1.next();
-				if ((guest.getClass().isAssignableFrom(
-						compatibleLink.getClass()) || compatibleLink.getClass()
-						.isAssignableFrom(guest.getClass()))
+				if ((guest.getClass().isAssignableFrom(compatibleLink.getClass())
+						|| compatibleLink.getClass().isAssignableFrom(guest.getClass()))
 						&& guest.getPowerRequirement() <= availablePower
 						&& guest.getSpaceRequirement() <= availableSpace)
 					return guest;
@@ -87,8 +82,7 @@ public class Location implements CapacityProvider {
 			if (!(guest instanceof Processor))
 				continue;
 
-			if (guest.getPowerRequirement() <= availablePower
-					&& guest.getSpaceRequirement() <= availableSpace) {
+			if (guest.getPowerRequirement() <= availablePower && guest.getSpaceRequirement() <= availableSpace) {
 				return guest;
 			}
 		}
@@ -98,23 +92,20 @@ public class Location implements CapacityProvider {
 	}
 
 	public HardwareNode replaceWithBestFit(HardwareNode node) {
-		double cyclesPerSecondNeeded = node.cyclesPerSecond
-				- node.getAvailableCapacity();
+		double cyclesPerSecondNeeded = node.cyclesPerSecond - node.getAvailableCapacity();
 		HardwareNode replacement = null;
-		for (Iterator iter = increasingPotentialGuests.iterator(); iter
-				.hasNext();) {
+		for (Iterator iter = increasingPotentialGuests.iterator(); iter.hasNext();) {
 			replacement = (HardwareNode) iter.next();
 			if (replacement.canReplace(node)) {
 				/* if processor check links */
 				if (node instanceof Processor) {
 					Processor proc = (Processor) node;
 					boolean stillCompatible = true;
-					for (Iterator nets = proc.netInterfaces.iterator(); stillCompatible
-							&& nets.hasNext();) {
+					for (Iterator nets = proc.netInterfaces.iterator(); stillCompatible && nets.hasNext();) {
 						NetInterface net = (NetInterface) nets.next();
 						Processor replace = (Processor) replacement;
-						for (Iterator rNets = replace.classNetInterfaces
-								.iterator(); stillCompatible && rNets.hasNext();) {
+						for (Iterator rNets = replace.classNetInterfaces.iterator(); stillCompatible
+								&& rNets.hasNext();) {
 							NetInterface rNet = (NetInterface) rNets.next();
 							if (!rNet.link.canReplace(net.link))
 								stillCompatible = false;
@@ -127,25 +118,24 @@ public class Location implements CapacityProvider {
 						break;
 					}
 				} else {
-					// 				DebugMonitor.println(DebugMonitor.channels[4], "TENTATIVE
+					// DebugMonitor.println(DebugMonitor.channels[4], "TENTATIVE
 					// REPLACEMENT LINK("+replacement.toString()+
-					// 						     ") BW("+Double.toString(replacement.cyclesPerSecond)+"
+					// ") BW("+Double.toString(replacement.cyclesPerSecond)+"
 					// bits/s)");
 					// if a link check compatibility with processors
 					Link link = (Link) replacement;
 					Link original = (Link) node;
 					boolean compatible = true;
-					for (Iterator procs = original.getConnectedNodes()
-							.iterator(); compatible && procs.hasNext();) {
+					for (Iterator procs = original.getConnectedNodes().iterator(); compatible && procs.hasNext();) {
 						Processor p = (Processor) procs.next();
 						if (!p.couldReplaceLink(link, original)) {
 							compatible = false;
-							//DebugMonitor.println(DebugMonitor.channels[4],
+							// DebugMonitor.println(DebugMonitor.channels[4],
 							// "\t NOT COMPATIBLE WITH PROC("+p.toString()+")");
-							// 						String trace = (String)
+							// String trace = (String)
 							// Processor.creationTraces.get(p);
-							// 						if (trace != null)
-							// 						    DebugMonitor.println(DebugMonitor.channels[4],
+							// if (trace != null)
+							// DebugMonitor.println(DebugMonitor.channels[4],
 							// "Creation trace:\n "+trace);
 							break;
 						}
@@ -162,25 +152,21 @@ public class Location implements CapacityProvider {
 			if (replacement instanceof Processor) {
 				Processor rep = (Processor) replacement;
 				try {
-					replacement = (HardwareNode) replacement.getClass()
-							.newInstance();
+					replacement = (HardwareNode) replacement.getClass().newInstance();
 					HardwareNode.cloneTo(rep, replacement);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				for (Iterator iter = node.getTaskSet().iterator(); iter
-						.hasNext();)
-					if (!replacement
-							.addIfFeasible((ProcessingLoad) iter.next())) {
-						//System.out.println("replacement.addIfFeasible FAILED
+				for (Iterator iter = node.getTaskSet().iterator(); iter.hasNext();)
+					if (!replacement.addIfFeasible((ProcessingLoad) iter.next())) {
+						// System.out.println("replacement.addIfFeasible FAILED
 						// !!!!");
 					}
 
 				Processor proc = (Processor) node;
 				Processor rProc = (Processor) replacement;
-				for (Iterator iter = proc.netInterfaces.iterator(); iter
-						.hasNext();) {
+				for (Iterator iter = proc.netInterfaces.iterator(); iter.hasNext();) {
 					NetInterface net = (NetInterface) iter.next();
 					rProc.attachToLink(net.link);
 					net.link.remove(proc);
@@ -190,26 +176,22 @@ public class Location implements CapacityProvider {
 			{
 				Link rep = (Link) replacement;
 				try {
-					replacement = (HardwareNode) replacement.getClass()
-							.newInstance();
+					replacement = (HardwareNode) replacement.getClass().newInstance();
 					HardwareNode.cloneTo(rep, replacement);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				for (Iterator iter = node.getTaskSet().iterator(); iter
-						.hasNext();)
-					if (!replacement
-							.addIfFeasible((ProcessingLoad) iter.next())) {
-						//System.out.println("replacement.addIfFeasible FAILED
+				for (Iterator iter = node.getTaskSet().iterator(); iter.hasNext();)
+					if (!replacement.addIfFeasible((ProcessingLoad) iter.next())) {
+						// System.out.println("replacement.addIfFeasible FAILED
 						// !!!!");
 					}
 
 				Link link = (Link) replacement;
 				Link original = (Link) node;
 				link.addAllNodes(original.getConnectedNodes());
-				for (Iterator procs = original.getConnectedNodes().iterator(); procs
-						.hasNext();) {
+				for (Iterator procs = original.getConnectedNodes().iterator(); procs.hasNext();) {
 					Processor p = (Processor) procs.next();
 					p.replaceLink(original, link);
 				}
@@ -222,8 +204,7 @@ public class Location implements CapacityProvider {
 	public SiteGuest getLargestPotentialGuest() {
 		for (Iterator iter = potentialGuests.iterator(); iter.hasNext();) {
 			SiteGuest guest = (SiteGuest) iter.next();
-			if (guest.getPowerRequirement() <= availablePower
-					&& guest.getSpaceRequirement() <= availableSpace)
+			if (guest.getPowerRequirement() <= availablePower && guest.getSpaceRequirement() <= availableSpace)
 				return guest;
 		}
 
@@ -237,28 +218,26 @@ public class Location implements CapacityProvider {
 		for (Iterator iter = potentialGuests.iterator(); iter.hasNext();) {
 
 			SiteGuest potGuest = (SiteGuest) iter.next();
-			if (potGuest.getClass().isAssignableFrom(nodeClass)
-					|| nodeClass.isAssignableFrom(potGuest.getClass())) {
+			if (potGuest.getClass().isAssignableFrom(nodeClass) || nodeClass.isAssignableFrom(potGuest.getClass())) {
 				compatible = true;
 				break;
 			}
 		}
 		SiteGuest guest = node;
-		// 	System.out.println("compatible("+compatible+
-		// 			   "), enoughPower("+(guest.getPowerRequirement() <= availablePower)+
-		// 			   "), enoughSpace("+(guest.getSpaceRequirement() <=
+		// System.out.println("compatible("+compatible+
+		// "), enoughPower("+(guest.getPowerRequirement() <= availablePower)+
+		// "), enoughSpace("+(guest.getSpaceRequirement() <=
 		// availableSpace)+")");
 
-		return (guest.getPowerRequirement() <= availablePower
-				&& guest.getSpaceRequirement() <= availableSpace && compatible);
+		return (guest.getPowerRequirement() <= availablePower && guest.getSpaceRequirement() <= availableSpace
+				&& compatible);
 	}
 
 	public boolean addGuest(HardwareNode node) {
 		SiteGuest guest = node;
 		double guestPowerReq = guest.getPowerRequirement();
 		double guestSpaceReq = guest.getSpaceRequirement();
-		if ((guestPowerReq <= availablePower)
-				&& (guestSpaceReq <= availableSpace)) {
+		if ((guestPowerReq <= availablePower) && (guestSpaceReq <= availableSpace)) {
 			guests.add(node);
 			totalAvailableCapacity += node.getAvailableCapacity();
 			availablePower -= guest.getPowerRequirement();
@@ -348,8 +327,7 @@ public class Location implements CapacityProvider {
 		}
 	}
 
-	public Location(double maxPower, double maxSpace,
-			SiteGuest[] supportedGuests) {
+	public Location(double maxPower, double maxSpace, SiteGuest[] supportedGuests) {
 		maximumPower = maxPower;
 		availablePower = maxPower;
 		basePower = maxPower;

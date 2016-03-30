@@ -11,7 +11,6 @@
 
 package org.osate.imv.aadldiagram.draw2d;
 
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
@@ -35,7 +34,7 @@ public abstract class SelectableMevFigure extends Figure {
 		this.selectionColor = selectionColor;
 	}
 
-	public void setSelected(boolean isSelected){
+	public void setSelected(boolean isSelected) {
 		selected = isSelected;
 		this.repaint();
 	}
@@ -45,9 +44,9 @@ public abstract class SelectableMevFigure extends Figure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		// Highlight figure if it is selected.
-		if(selected){
+		if (selected) {
 			// Save graphics state.
 			g.pushState();
 
@@ -58,8 +57,9 @@ public abstract class SelectableMevFigure extends Figure {
 			// Get bounds.
 			Rectangle r = Rectangle.SINGLETON.setBounds(getBounds());
 
-			int offset = (int)(ResizableMevFigure.SELECTION_HANDLE_WIDTH / 2.0f);
-			g.drawRectangle(r.x + offset, r.y + offset, r.width - ResizableMevFigure.SELECTION_HANDLE_WIDTH, r.height - ResizableMevFigure.SELECTION_HANDLE_WIDTH);
+			int offset = (int) (ResizableMevFigure.SELECTION_HANDLE_WIDTH / 2.0f);
+			g.drawRectangle(r.x + offset, r.y + offset, r.width - ResizableMevFigure.SELECTION_HANDLE_WIDTH,
+					r.height - ResizableMevFigure.SELECTION_HANDLE_WIDTH);
 
 			// Restore graphics state.
 			g.popState();

@@ -15,7 +15,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public class AbstractFeature extends DirectedFeatureFigure {
 
 	private static final int V_EXTENT = 19; // Must be odd #
@@ -44,16 +43,17 @@ public class AbstractFeature extends DirectedFeatureFigure {
 		g.setLineWidth(2);
 		g.setLineCap(SWT.CAP_ROUND);
 
-		int centerPoint = (int)Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
+		int centerPoint = (int) Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
 		int circleStartX = (int) Math.ceil((0.5f * (this.getSymbolHorizontalExtent() - this.circleDiameter)));
 
-		if(this.getDirection() != FeatureDirectionType.IN_OUT) {
+		if (this.getDirection() != FeatureDirectionType.IN_OUT) {
 			// Draw triangle.
 			g.drawLine(centerPoint, 0, 0, triangleHeight);
 			g.drawLine(centerPoint, 0, triangleBase, triangleHeight);
 
 			// Fill circle.
-			g.fillOval(circleStartX, this.getSymbolVerticalExtent() - this.circleDiameter, this.circleDiameter, this.circleDiameter);
+			g.fillOval(circleStartX, this.getSymbolVerticalExtent() - this.circleDiameter, this.circleDiameter,
+					this.circleDiameter);
 		} else {
 			// Fill circle.
 			g.fillOval(circleStartX, 0, this.circleDiameter, this.circleDiameter);

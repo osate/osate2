@@ -32,7 +32,9 @@ public class ResizableMevFigure extends SelectableMevFigure {
 	protected static final int BOTTOM_RIGHT_HANDLE = 2;
 	protected static final int BOTTOM_LEFT_HANDLE = 3;
 
-	public static enum ResizeType {NW, NE, SW, SE};
+	public static enum ResizeType {
+		NW, NE, SW, SE
+	};
 
 	/**
 	 * The location of the initial mouse press.
@@ -59,14 +61,14 @@ public class ResizableMevFigure extends SelectableMevFigure {
 	public ResizableMevFigure() {
 		this.resizeInProgress = false;
 		resizeHandles = new Rectangle[4];
-		for(int i = 0; i < resizeHandles.length; i++)
+		for (int i = 0; i < resizeHandles.length; i++)
 			resizeHandles[i] = new Rectangle();
 	}
 
 	private int getResizeCursor(int handleIndex) {
 		int cursorType = 0;
 
-		switch(handleIndex) {
+		switch (handleIndex) {
 		case TOP_LEFT_HANDLE:
 			cursorType = SWT.CURSOR_SIZENW;
 			break;
@@ -91,7 +93,7 @@ public class ResizableMevFigure extends SelectableMevFigure {
 		Point origin = new Point();
 		Dimension dimension = new Dimension();
 
-		switch(resizeType) {
+		switch (resizeType) {
 		case NW:
 			origin.x = location.x;
 			origin.y = location.y;
@@ -118,16 +120,14 @@ public class ResizableMevFigure extends SelectableMevFigure {
 			break;
 		}
 
-		return bounds.getCopy().setBounds(
-				origin, dimension);
+		return bounds.getCopy().setBounds(origin, dimension);
 	}
-
 
 	public void mousePressed(MouseEvent event) {
 
 		// Check if the mouse press was within the bounds of a resize handle.
-		for(int i = 0; i < resizeHandles.length; i++){
-			if(resizeHandles[i].contains(event.getLocation())){
+		for (int i = 0; i < resizeHandles.length; i++) {
+			if (resizeHandles[i].contains(event.getLocation())) {
 				event.consume();
 				setCursor(Display.getCurrent().getSystemCursor(getResizeCursor(i)));
 				resizeType = this.getResizeType(i);
@@ -140,11 +140,11 @@ public class ResizableMevFigure extends SelectableMevFigure {
 	}
 
 	public void mouseDragged(MouseEvent event) {
-		if(resizeInProgress && location != null){
+		if (resizeInProgress && location != null) {
 			event.consume();
 			// Get the current mouse position.
 			Point newLocation = new Point(event.x, event.y);
-			//translateToAbsolute(newLocation);
+			// translateToAbsolute(newLocation);
 
 			if (newLocation != null) {
 				Dimension offset = newLocation.getDifference(location);
@@ -158,10 +158,10 @@ public class ResizableMevFigure extends SelectableMevFigure {
 					updateMngr.addDirtyRegion(getParent(), oldBounds);
 
 					Rectangle newBounds = null;
-					if(this.delegate != null)
+					if (this.delegate != null)
 						newBounds = this.delegate.getNewBounds(this.resizeType, this.location, this.bounds.getCopy());
 
-					if(newBounds != null) {
+					if (newBounds != null) {
 						layoutMngr.setConstraint(this, newBounds);
 						this.setBounds(newBounds);
 						this.revalidate();
@@ -173,28 +173,27 @@ public class ResizableMevFigure extends SelectableMevFigure {
 	}
 
 	@Override
-	public boolean containsPoint(int x, int y){
-		if(resizeInProgress)
+	public boolean containsPoint(int x, int y) {
+		if (resizeInProgress)
 			return true;
 		else
 			return getBounds().contains(x, y);
 	}
 
 	public void mouseReleased(MouseEvent event) {
-		if(resizeInProgress){
+		if (resizeInProgress) {
 			event.consume();
 			resizeInProgress = false;
 			setCursor(null); // Default cursor.
 		}
 	}
 
-
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		// Draw selection handles if figure is selected.
-		if(selected){
+		if (selected) {
 			// Save graphics state.
 			g.pushState();
 
@@ -211,13 +210,16 @@ public class ResizableMevFigure extends SelectableMevFigure {
 			resizeHandles[TOP_LEFT_HANDLE].setBounds(r.x, r.y, SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
 			g.fillRectangle(resizeHandles[TOP_LEFT_HANDLE]); // Top left
 
-			resizeHandles[TOP_RIGHT_HANDLE].setBounds(r.x + r.width - SELECTION_HANDLE_WIDTH, r.y, SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
+			resizeHandles[TOP_RIGHT_HANDLE].setBounds(r.x + r.width - SELECTION_HANDLE_WIDTH, r.y,
+					SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
 			g.fillRectangle(resizeHandles[TOP_RIGHT_HANDLE]); // Top right
 
-			resizeHandles[BOTTOM_RIGHT_HANDLE].setBounds(r.x + r.width - SELECTION_HANDLE_WIDTH, bounds.y + r.height - SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
+			resizeHandles[BOTTOM_RIGHT_HANDLE].setBounds(r.x + r.width - SELECTION_HANDLE_WIDTH,
+					bounds.y + r.height - SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
 			g.fillRectangle(resizeHandles[BOTTOM_RIGHT_HANDLE]); // Bottom right
 
-			resizeHandles[BOTTOM_LEFT_HANDLE].setBounds(r.x, bounds.y + r.height - SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
+			resizeHandles[BOTTOM_LEFT_HANDLE].setBounds(r.x, bounds.y + r.height - SELECTION_HANDLE_WIDTH,
+					SELECTION_HANDLE_WIDTH, SELECTION_HANDLE_WIDTH);
 			g.fillRectangle(resizeHandles[BOTTOM_LEFT_HANDLE]); // Bottom left
 
 			// Restore graphics state.
@@ -239,7 +241,7 @@ public class ResizableMevFigure extends SelectableMevFigure {
 
 	private ResizeType getResizeType(int handleIndex) {
 		ResizeType type = null;
-		switch(handleIndex) {
+		switch (handleIndex) {
 		case TOP_LEFT_HANDLE:
 			type = ResizeType.NW;
 			break;

@@ -38,7 +38,6 @@ import org.osate.imv.aadldiagram.providers.FlowHighlighterDelegate;
 import org.osate.imv.model.FlowHighlighter;
 import org.osate.imv.model.ModeManager;
 
-
 public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 
 	private Mode currentMode;
@@ -70,13 +69,13 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 		Object modelElement = adapter.getModelElement();
 		List<FlowHighlighter> highlightersForElement = new ArrayList<FlowHighlighter>();
 
-		if(highlighters == null || currentMode == null)
+		if (highlighters == null || currentMode == null)
 			return;
 
 		for (FlowHighlighter highlighter : highlighters) {
 			FlowImplementation flowImpl = highlighter.getFlowImpl();
 			EndToEndFlow etef = highlighter.getETEF();
-			if (flowImpl != null){
+			if (flowImpl != null) {
 				List<Object> flowElements = getFlowElements(containerElement, flowImpl);
 				if (flowElements.contains(modelElement)) {
 					highlighterFound = true;
@@ -86,7 +85,7 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 					}
 				}
 			}
-			if (etef != null){
+			if (etef != null) {
 				List<Object> flowElements = getFlowElements(containerElement, etef);
 				if (flowElements.contains(modelElement)) {
 					highlighterFound = true;
@@ -98,10 +97,10 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 			}
 		}
 
-		if(highlighterFound) {
-			if(highlightersForElement.isEmpty())
+		if (highlighterFound) {
+			if (highlightersForElement.isEmpty())
 				adapter.highlight(false, null);
-			else if(highlightersForElement.size() > 1)
+			else if (highlightersForElement.size() > 1)
 				adapter.highlight(true, ColorConstants.red);
 			else
 				adapter.highlight(true, highlightersForElement.get(0).getColor());
@@ -135,7 +134,7 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 		return retValue;
 	}
 
-	protected boolean existsInCurrentMode(EndToEndFlow etef ) {
+	protected boolean existsInCurrentMode(EndToEndFlow etef) {
 		boolean retValue = false;
 		boolean prevEDeliver = etef.eDeliver();
 		etef.eSetDeliver(false);
@@ -165,12 +164,12 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 	public List<Object> getFlowElements(Object activeObject, Object flowObject) {
 		List<Object> flowElements = new ArrayList<Object>();
 
-		if(activeObject == null || flowObject == null)
+		if (activeObject == null || flowObject == null)
 			return flowElements; // Return empty list.
 
-		if(//activeObject instanceof ComponentInstance &&
-				flowObject instanceof FlowImplementation) {
-			FlowImplementation flowImpl = (FlowImplementation)flowObject;
+		if (// activeObject instanceof ComponentInstance &&
+		flowObject instanceof FlowImplementation) {
+			FlowImplementation flowImpl = (FlowImplementation) flowObject;
 
 			FlowSpecification flowSpec = flowImpl.getSpecification();
 			if (flowSpec.getAllInEnd() != null)
@@ -180,29 +179,29 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 				flowElements.add(flowSpec.getAllOutEnd().getFeature());
 //				flowElements.add(componentInstance.findFeatureInstance(flowSpec.getAllOutEnd().getFeature()));
 
-			for (Iterator<FlowSegment> segmentIterator = flowImpl.getOwnedFlowSegments().iterator(); segmentIterator.hasNext();) {
+			for (Iterator<FlowSegment> segmentIterator = flowImpl.getOwnedFlowSegments().iterator(); segmentIterator
+					.hasNext();) {
 				FlowSegment seg = segmentIterator.next();
 				Context context = seg.getContext();
 
 				FlowElement flowEle = seg.getFlowElement();
 				if (flowEle instanceof FlowSpecification) {
-					if (((FlowSpecification) flowEle).getAllInEnd()!=null){
-						flowElements.add( ((FlowSpecification) flowEle).getAllInEnd().getFeature());
+					if (((FlowSpecification) flowEle).getAllInEnd() != null) {
+						flowElements.add(((FlowSpecification) flowEle).getAllInEnd().getFeature());
 //						flowElements.add(featureInstanceForFeature(componentInstance, context, ((FlowSpecification) flowEle).getAllInEnd().getFeature()));
 					}
-					if (((FlowSpecification) flowEle).getAllOutEnd()!=null){
+					if (((FlowSpecification) flowEle).getAllOutEnd() != null) {
 						flowElements.add(((FlowSpecification) flowEle).getAllOutEnd().getFeature());
 //						flowElements.add(featureInstanceForFeature(componentInstance, context, ((FlowSpecification) flowEle).getAllOutEnd().getFeature()));
 					}
 					// phf: add subflow
-					if ( activeObject instanceof ComponentInstance &&
-							context instanceof Subcomponent){
+					if (activeObject instanceof ComponentInstance && context instanceof Subcomponent) {
 //						ComponentInstance ci = componentInstance.findSubcomponentInstance((Subcomponent)context);
-						ComponentClassifier cl = ((Subcomponent)context).getAllClassifier();
-						if (cl instanceof ComponentImplementation){
-							EList<FlowImplementation> fli = ((ComponentImplementation)cl).getAllFlowImplementations();
+						ComponentClassifier cl = ((Subcomponent) context).getAllClassifier();
+						if (cl instanceof ComponentImplementation) {
+							EList<FlowImplementation> fli = ((ComponentImplementation) cl).getAllFlowImplementations();
 							for (FlowImplementation flowImplementation : fli) {
-								if (flowImplementation.getSpecification() == flowEle){
+								if (flowImplementation.getSpecification() == flowEle) {
 									List<Object> sublist = getFlowElements(activeObject // was ci
 											, flowImplementation);
 									flowElements.addAll(sublist);
@@ -210,7 +209,7 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 							}
 						}
 					}
-				} else if(flowEle instanceof Connection) {
+				} else if (flowEle instanceof Connection) {
 					flowElements.add(flowEle); // We have found the connection reference associated with the connection object.
 //					List<ConnectionInstance> connectionInstances = componentInstance.findConnectionInstance((Connection)flowEle);
 //					for(Iterator<ConnectionInstance> connectionIterator = connectionInstances.iterator(); connectionIterator.hasNext();) {
@@ -222,43 +221,41 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 //							}
 //						}
 //					}
-				} else if(flowEle instanceof Subcomponent) {
-					flowElements.add((Subcomponent)flowEle);
+				} else if (flowEle instanceof Subcomponent) {
+					flowElements.add((Subcomponent) flowEle);
 //					flowElements.add(componentInstance.findSubcomponentInstance((Subcomponent)flowEle));
-				} else if(flowEle instanceof DataAccess) {
-					flowElements.add( (Feature)flowEle);
+				} else if (flowEle instanceof DataAccess) {
+					flowElements.add((Feature) flowEle);
 //					flowElements.add(featureInstanceForFeature(componentInstance, context, (Feature)flowEle));
 				} else {
 					System.err.println("Unrecognized flow element: " + flowEle);
 				}
 			}
-		} else
-		if(//activeObject instanceof ComponentInstance &&
-				flowObject instanceof EndToEndFlow) {
-			EndToEndFlow etef = (EndToEndFlow)flowObject;
+		} else if (// activeObject instanceof ComponentInstance &&
+		flowObject instanceof EndToEndFlow) {
+			EndToEndFlow etef = (EndToEndFlow) flowObject;
 
-
-			for (Iterator<EndToEndFlowSegment> segmentIterator = etef.getOwnedEndToEndFlowSegments().iterator(); segmentIterator.hasNext();) {
+			for (Iterator<EndToEndFlowSegment> segmentIterator = etef.getOwnedEndToEndFlowSegments()
+					.iterator(); segmentIterator.hasNext();) {
 				EndToEndFlowSegment seg = segmentIterator.next();
 				Context context = seg.getContext();
 
 				EndToEndFlowElement flowEle = seg.getFlowElement();
 				if (flowEle instanceof FlowSpecification) {
-					if (((FlowSpecification) flowEle).getAllInEnd()!=null)
-						flowElements.add( ((FlowSpecification) flowEle).getAllInEnd().getFeature());
+					if (((FlowSpecification) flowEle).getAllInEnd() != null)
+						flowElements.add(((FlowSpecification) flowEle).getAllInEnd().getFeature());
 //					flowElements.add(featureInstanceForFeature(componentInstance, context, ((FlowSpecification) flowEle).getAllInEnd().getFeature()));
-					if (((FlowSpecification) flowEle).getAllOutEnd()!=null)
+					if (((FlowSpecification) flowEle).getAllOutEnd() != null)
 						flowElements.add(((FlowSpecification) flowEle).getAllOutEnd().getFeature());
 //					flowElements.add(featureInstanceForFeature(componentInstance, context, ((FlowSpecification) flowEle).getAllOutEnd().getFeature()));
 					// phf: add subflow
-					if ( activeObject instanceof ComponentInstance &&
-							context instanceof Subcomponent){
+					if (activeObject instanceof ComponentInstance && context instanceof Subcomponent) {
 //						ComponentInstance ci = componentInstance.findSubcomponentInstance((Subcomponent)context);
-						ComponentClassifier cl = ((Subcomponent)context).getAllClassifier();
-						if (cl instanceof ComponentImplementation){
-							EList<FlowImplementation> fli = ((ComponentImplementation)cl).getAllFlowImplementations();
+						ComponentClassifier cl = ((Subcomponent) context).getAllClassifier();
+						if (cl instanceof ComponentImplementation) {
+							EList<FlowImplementation> fli = ((ComponentImplementation) cl).getAllFlowImplementations();
 							for (FlowImplementation flowImplementation : fli) {
-								if (flowImplementation.getSpecification() == flowEle){
+								if (flowImplementation.getSpecification() == flowEle) {
 									List<Object> sublist = getFlowElements(activeObject // was ci
 											, flowImplementation);
 									flowElements.addAll(sublist);
@@ -266,7 +263,7 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 							}
 						}
 					}
-				} else if(flowEle instanceof Connection) {
+				} else if (flowEle instanceof Connection) {
 					flowElements.add(flowEle); // We have found the connection reference associated with the connection object.
 //					List<ConnectionInstance> connectionInstances = componentInstance.findConnectionInstance((Connection)flowEle);
 //					for(Iterator<ConnectionInstance> connectionIterator = connectionInstances.iterator(); connectionIterator.hasNext();) {
@@ -278,18 +275,17 @@ public class OsateFlowHighlighterDelegate implements FlowHighlighterDelegate {
 //							}
 //						}
 //					}
-				} else if(flowEle instanceof Subcomponent) {
-					flowElements.add((Subcomponent)flowEle);
+				} else if (flowEle instanceof Subcomponent) {
+					flowElements.add((Subcomponent) flowEle);
 //					flowElements.add(componentInstance.findSubcomponentInstance((Subcomponent)flowEle));
-				} else if(flowEle instanceof DataAccess) {
-					flowElements.add( (Feature)flowEle);
+				} else if (flowEle instanceof DataAccess) {
+					flowElements.add((Feature) flowEle);
 //					flowElements.add(featureInstanceForFeature(componentInstance, context, (Feature)flowEle));
 				} else {
 					System.err.println("Unrecognized flow element: " + flowEle);
 				}
 			}
 		}
-
 
 		return flowElements;
 	}

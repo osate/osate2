@@ -12,8 +12,7 @@ public class HostComparator implements Comparator {
 
 		Location n1 = (Location) o1;
 		Location n2 = (Location) o2;
-		double difference = n1.getAvailableHostingCapacity()
-				- n2.getAvailableHostingCapacity();
+		double difference = n1.getAvailableHostingCapacity() - n2.getAvailableHostingCapacity();
 		if (difference < 0) {
 			return (int) Math.floor(difference);
 		} else if (difference > 0) {

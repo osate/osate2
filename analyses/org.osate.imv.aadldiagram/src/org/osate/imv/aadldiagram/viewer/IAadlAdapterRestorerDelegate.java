@@ -16,10 +16,12 @@ import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 
-
 public interface IAadlAdapterRestorerDelegate {
 	public void restoreDiagram(AadlDiagram diagram);
+
 	public void restoreAadlComponentAdapter(AadlComponentAdapter adapter);
+
 	public void restoreAadlFeatureAdapter(AadlFeatureAdapter adapter);
+
 	public void restoreAadlConnectionAdapter(AadlConnectionAdapter adapter);
 }

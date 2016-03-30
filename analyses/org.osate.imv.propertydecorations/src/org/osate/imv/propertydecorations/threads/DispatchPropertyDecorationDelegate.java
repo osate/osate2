@@ -11,7 +11,6 @@
 
 package org.osate.imv.propertydecorations.threads;
 
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
@@ -26,7 +25,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.imv.aadldiagram.propertydecorations.IPropertyDecorationDelegate;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
 public class DispatchPropertyDecorationDelegate implements IPropertyDecorationDelegate {
 
 	private NamedElement context;
@@ -39,7 +37,7 @@ public class DispatchPropertyDecorationDelegate implements IPropertyDecorationDe
 
 	@Override
 	public void paintDecoration(Graphics g, Dimension figureSize) {
-		if(this.context == null)
+		if (this.context == null)
 			return;
 
 		String dispatchProtocol = this.getDispatchProtocol();
@@ -76,37 +74,36 @@ public class DispatchPropertyDecorationDelegate implements IPropertyDecorationDe
 
 			Point textLoc = Point.SINGLETON;
 			// phf: added offset
-			textLoc.x = (int) (0.5f * (rect.width - textSize.width)) -5;
-			textLoc.y = (int) (0.5f * (rect.height - textSize.height)) -10;
+			textLoc.x = (int) (0.5f * (rect.width - textSize.width)) - 5;
+			textLoc.y = (int) (0.5f * (rect.height - textSize.height)) - 10;
 			g.drawText(label, textLoc);
 		}
 	}
 
 	private String getDispatchProtocol() {
 		String retVal = null;
-		EnumerationLiteral enumLiteral =  GetProperties.getDispatchProtocol(this.context);
-		if(enumLiteral != null)
+		EnumerationLiteral enumLiteral = GetProperties.getDispatchProtocol(this.context);
+		if (enumLiteral != null)
 			retVal = enumLiteral.getName();
 		return retVal;
 	}
 
-
 	private String getPeriod() {
 		String retVal = null;
 		double period = GetProperties.getPeriodinMS(this.context);
-		retVal = String.valueOf((int)period) + "ms";
+		retVal = String.valueOf((int) period) + "ms";
 		return retVal;
 	}
 
 	@Override
 	public void setAadlElement(Object element) {
-		if(element instanceof NamedElement)
-			this.context = (NamedElement)element;
+		if (element instanceof NamedElement)
+			this.context = (NamedElement) element;
 	}
 
 	@Override
 	public void dispose() {
-		if(this.labelFont != null)
+		if (this.labelFont != null)
 			this.labelFont.dispose();
 	}
 

@@ -195,8 +195,8 @@ public class LatencyReportEntry {
 					} else {
 						lc.reportInfoOnce(doMaximum, "Latency accounted for in partition latency");
 					}
-				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
-						&& wasSampled()) {
+				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc))
+						|| isPreviousConnectionSynchronous(lc)) && wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
 					res = res + diff;
@@ -215,8 +215,8 @@ public class LatencyReportEntry {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
 						lc.reportSubtotal(res, doMaximum);
-						lc.reportInfo("Best case 0 ms worst case " + lc.getSamplingPeriod()
-								+ "ms (period) sampling delay");
+						lc.reportInfo(
+								"Best case 0 ms worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
 					} else {
 //						TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
 					}
@@ -239,8 +239,8 @@ public class LatencyReportEntry {
 					} else {
 						lc.reportInfo(doMaximum, "No added latency");
 					}
-				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
-						&& wasSampled()) {
+				} else if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc))
+						|| isPreviousConnectionSynchronous(lc)) && wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double cumMin = getMinimumCumLatency(lc);
 					// for delayed the frame delay for the minimum and the maximum should be the same
@@ -276,8 +276,8 @@ public class LatencyReportEntry {
 				// partition boundary has been crossed
 				if (contributors.indexOf(lc) > 0) {
 					// add partition latency unless the first component
-					if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc)) || isPreviousConnectionSynchronous(lc))
-							&& wasSampled()) {
+					if (((doSynchronous() && isPreviousConnectionSyncUnknown(lc))
+							|| isPreviousConnectionSynchronous(lc)) && wasSampled()) {
 						// there was a previous sampling component. We can to the roundup game.
 						if (lc.isPartitionFrame()) {
 							double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum),
@@ -340,7 +340,8 @@ public class LatencyReportEntry {
 						lc.reportSubtotal(res, doMaximum);
 					}
 				} else {
-					lc.reportInfoOnce(doMaximum, "Initial " + lc.getSamplingPeriod() + "ms partition latency not added");
+					lc.reportInfoOnce(doMaximum,
+							"Initial " + lc.getSamplingPeriod() + "ms partition latency not added");
 
 				}
 				// remember the partition in all cases as a sampling unit
@@ -384,8 +385,8 @@ public class LatencyReportEntry {
 			double lastsp = last == null ? 0.0 : last.getSamplingPeriod();
 			if (last != null && sp > lastsp) {
 				last.setActualValue(0.0, doMaximum);
-				last.reportInfoOnce(doMaximum, "Sampling period of " + lastsp
-						+ "ms accounted for in suceeding protocol");
+				last.reportInfoOnce(doMaximum,
+						"Sampling period of " + lastsp + "ms accounted for in suceeding protocol");
 				if (doSynchronous() && wasSampled()) {
 					// there was a previous sampling component. We can to the roundup game.
 					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), sp);
@@ -403,15 +404,15 @@ public class LatencyReportEntry {
 					if (doMaximum) {
 						lc.setActualValue(sp, doMaximum);
 						last = lc;
-						lc.reportInfo("Best case 0 ms worst case " + lc.getSamplingPeriod()
-								+ "ms (period) sampling delay");
+						lc.reportInfo(
+								"Best case 0 ms worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
 					} else {
 //				TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
 					}
 				}
 			} else {
-				lc.reportInfoOnce(doMaximum, "Sampling contribution of " + sp
-						+ "ms accounted for in enclosing protocol");
+				lc.reportInfoOnce(doMaximum,
+						"Sampling contribution of " + sp + "ms accounted for in enclosing protocol");
 			}
 		}
 		List<LatencyContributor> sublc = lc.getSubContributors();

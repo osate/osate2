@@ -20,7 +20,6 @@ import org.osate.imv.aadldiagram.AadlDiagram;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 
-
 public class AadlHierarchicalDiagramViewer extends AadlDiagramViewer {
 
 	private Map<Object, AadlComponentAdapter> aadlDiagramCache;
@@ -32,13 +31,13 @@ public class AadlHierarchicalDiagramViewer extends AadlDiagramViewer {
 
 	@Override
 	public void dispose() {
-		for(AadlComponentAdapter adapter : this.aadlDiagramCache.values())
+		for (AadlComponentAdapter adapter : this.aadlDiagramCache.values())
 			adapter.dispose();
 	}
 
 	public void stepInto() {
 		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
-		if(selectedAdapter != AadlDiagram.NO_SELECTED_ADAPTER)
+		if (selectedAdapter != AadlDiagram.NO_SELECTED_ADAPTER)
 			this.setInput(selectedAdapter.getModelElement());
 	}
 
@@ -46,8 +45,6 @@ public class AadlHierarchicalDiagramViewer extends AadlDiagramViewer {
 		// Get the parent of the container adapter.
 		this.setInput(this.getContentProvider().getParent(this.getAadlDiagram().getRootModelElement()));
 	}
-
-
 
 	public void jumpToSystemInstance() {
 		this.setInput(this.getContentProvider().getRoot(this.getAadlDiagram().getRootModelElement()));
@@ -84,6 +81,5 @@ public class AadlHierarchicalDiagramViewer extends AadlDiagramViewer {
 		super.resetRootAdapter();
 		aadlDiagramCache.put(element, getAadlDiagram().getRootAdapter());
 	}
-
 
 }

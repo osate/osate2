@@ -32,7 +32,6 @@ import org.osate.imv.aadldiagram.figuremovers.SubComponentFigureMover;
 import org.osate.imv.aadldiagram.layout.LayoutGraphNode;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
 public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 
 	private ComponentFigure figure;
@@ -55,7 +54,6 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 
 	private ComponentAdapterCategory category;
 
-
 	public AadlComponentAdapter(Object modelElement, ComponentAdapterCategory category, ILabelProvider labelProvider) {
 		super(modelElement, labelProvider);
 		this.category = category;
@@ -67,7 +65,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.getFigure().dispose();
 
 		// Dispose of children adapters.
-		for(Iterator<IAadlElementAdapter> it = this.getAllChildren(); it.hasNext();)
+		for (Iterator<IAadlElementAdapter> it = this.getAllChildren(); it.hasNext();)
 			it.next().dispose();
 
 		super.dispose();
@@ -75,7 +73,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 
 	@Override
 	public ComponentFigure getFigure() {
-		if(this.figure == null) {
+		if (this.figure == null) {
 			// Build figure.
 			figure = AadlFigureFactory.getInstance().buildFigure(this);
 			figure.addMouseListener(this);
@@ -88,13 +86,12 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		return this.figure;
 	}
 
-
 	@Override
 	public void accept(AadlAdapterVisitor visitor) {
 		visitor.visitAadlComponentAdapter(this);
 
 		// Send visitor to direct child elements.
-		for(Iterator<IAadlElementAdapter> it = this.getAllChildren(); it.hasNext();)
+		for (Iterator<IAadlElementAdapter> it = this.getAllChildren(); it.hasNext();)
 			it.next().accept(visitor);
 	}
 
@@ -104,26 +101,25 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.getFigure().setSelected(selected);
 	}
 
-
 	@Override
 	public LayoutEntity getLayoutItem() {
-		if(this.layoutItem == null)
+		if (this.layoutItem == null)
 			this.layoutItem = new LayoutGraphNode(this.getFigure(), this.getModelElement());
 		return this.layoutItem;
 	}
 
 	public void addChild(AadlComponentAdapter adapter) {
-		this.childComponents.add (adapter);
+		this.childComponents.add(adapter);
 		this.addChildFigure(adapter);
 	}
 
 	public void removeChild(AadlComponentAdapter adapter) {
-		this.childComponents.remove (adapter);
+		this.childComponents.remove(adapter);
 		this.removeChildFigure(adapter);
 	}
-	
-	public void addChild (AadlBindingAdapter adapter) {
-		this.childBindings.add (adapter);
+
+	public void addChild(AadlBindingAdapter adapter) {
+		this.childBindings.add(adapter);
 		this.addChildFigure(adapter);
 	}
 
@@ -131,6 +127,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.childFeatures.add(adapter);
 		this.addChildFigure(adapter);
 	}
+
 	public void removeChild(AadlFeatureAdapter adapter) {
 		this.childFeatures.remove(adapter);
 		this.removeChildFigure(adapter);
@@ -170,9 +167,9 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		retList.addAll(this.childConnections);
 		retList.addAll(this.childBindings);
 		retList.addAll(this.childFlowPaths);
-		// phf:  recurse on subcomponent adapters
-		for(AadlComponentAdapter comp : this.childComponents) {
-			for(Iterator<IAadlElementAdapter> it = comp.getAllChildren(); it.hasNext();)
+		// phf: recurse on subcomponent adapters
+		for (AadlComponentAdapter comp : this.childComponents) {
+			for (Iterator<IAadlElementAdapter> it = comp.getAllChildren(); it.hasNext();)
 				retList.add(it.next());
 		}
 
@@ -200,7 +197,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	public void mousePressed(MouseEvent me) {
 		super.mousePressed(me);
 		this.getFigure().mousePressed(me);
-		if(!me.isConsumed())
+		if (!me.isConsumed())
 			this.figureMoverDelegate.mousePressed(me);
 	}
 
@@ -208,7 +205,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	public void mouseDragged(MouseEvent me) {
 		super.mouseDragged(me);
 		this.getFigure().mouseDragged(me);
-		if(!me.isConsumed())
+		if (!me.isConsumed())
 			this.figureMoverDelegate.mouseDragged(me);
 	}
 
@@ -216,7 +213,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	public void mouseReleased(MouseEvent me) {
 		super.mouseReleased(me);
 		this.getFigure().mouseReleased(me);
-		if(!me.isConsumed())
+		if (!me.isConsumed())
 			this.figureMoverDelegate.mouseReleased(me);
 	}
 
@@ -234,14 +231,14 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	}
 
 	protected IFigureMoverDelegate getFigureMoverDelegate(ComponentFigure figure) {
-		if(!this.isContainer())
+		if (!this.isContainer())
 			return new SubComponentFigureMover(figure);
 		else
 			return new DummyFigureMoverDelegate(); // Container figures cannot be moved so we'll use a dummy delegate.
 	}
 
 	protected IResizableFigureDelegate getResizableFigureDelegate() {
-		if(this.isContainer())
+		if (this.isContainer())
 			return new ContainerFigureResizeDelegate(this);
 		else
 			return new SubcomponentFigureResizeDelegate();
@@ -251,8 +248,13 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	 * Does not move figure (used for container figures).
 	 */
 	private class DummyFigureMoverDelegate implements IFigureMoverDelegate {
-		public void mouseDragged(MouseEvent event) {}
-		public void mouseReleased(MouseEvent event) {}
-		public void mousePressed(MouseEvent event) {}
+		public void mouseDragged(MouseEvent event) {
+		}
+
+		public void mouseReleased(MouseEvent event) {
+		}
+
+		public void mousePressed(MouseEvent event) {
+		}
 	}
 }

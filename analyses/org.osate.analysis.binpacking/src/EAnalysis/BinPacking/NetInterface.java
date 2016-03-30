@@ -30,7 +30,7 @@ public class NetInterface implements CapacityProvider, Cloneable {
 	public Link getLink() {
 		return link;
 	}
-	
+
 	public void disconnect() {
 		link = null;
 	}

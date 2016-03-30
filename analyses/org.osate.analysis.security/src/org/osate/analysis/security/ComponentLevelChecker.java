@@ -70,13 +70,13 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 public class ComponentLevelChecker extends AadlProcessingSwitchWithProgress {
 	/** The property to check.  Must be an aadlinteger-valued property. */
 	private final Property property;
-	
-	public ComponentLevelChecker(final IProgressMonitor monitor,
-			final AnalysisErrorReporterManager errMgr, final Property pd) {
+
+	public ComponentLevelChecker(final IProgressMonitor monitor, final AnalysisErrorReporterManager errMgr,
+			final Property pd) {
 		super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL, errMgr);
 		property = pd;
 	}
-	
+
 	protected final void initSwitches() {
 		aadl2Switch = new Aadl2Switch<String>() {
 			public String caseComponentImplementation(final ComponentImplementation ci) {
@@ -96,7 +96,7 @@ public class ComponentLevelChecker extends AadlProcessingSwitchWithProgress {
 						cipvExists = false;
 						warning(ci, "Modal property association for property \"" + property.getQualifiedName() + "\"");
 					}
-	
+
 					// Get the max security level of my subcomponents
 					long maxslv = 0;
 					final EList<Subcomponent> subs = ci.getAllSubcomponents();
@@ -111,31 +111,30 @@ public class ComponentLevelChecker extends AadlProcessingSwitchWithProgress {
 									maxslv = slv;
 								}
 							} catch (PropertyDoesNotApplyToHolderException e) {
-								//Do nothing
-							} catch (PropertyNotPresentException e)	{
-								//Do nothing
+								// Do nothing
+							} catch (PropertyNotPresentException e) {
+								// Do nothing
 							} catch (PropertyIsModalException e) {
-								warning(sci, "Modal property association for property \"" + property.getQualifiedName() + "\"");
+								warning(sci, "Modal property association for property \"" + property.getQualifiedName()
+										+ "\"");
 							}
 						}
 					}
-					
+
 					if (maxslv > cilv) {
-						/* Subcomponents have higher security level than me.
+						/*
+						 * Subcomponents have higher security level than me.
 						 * Update my declared security level.
-						 */ 
+						 */
 						if (cipvExists) { // My declared level is wrong
-							warning(ci, property.getQualifiedName() +
-									" updated to the maximum of the subcomponent values: " +
-									maxslv);
-						} else { 
-							warning(ci, property.getQualifiedName() +
-									" set to the maximum of the subcomponent values: " +
-									maxslv);
+							warning(ci, property.getQualifiedName()
+									+ " updated to the maximum of the subcomponent values: " + maxslv);
+						} else {
+							warning(ci, property.getQualifiedName() + " set to the maximum of the subcomponent values: "
+									+ maxslv);
 						}
 						// Create new property value: An Integer value
-						final IntegerLiteral newpv =
-							Aadl2Factory.eINSTANCE.createIntegerLiteral();
+						final IntegerLiteral newpv = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 						// Set to max security level
 						newpv.setValue(maxslv);
 						// Set the property association

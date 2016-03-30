@@ -121,8 +121,7 @@ public class CompositeSoftNode extends SoftwareNode {
 		return null;
 	}
 
-	public void addExternalEdgeTo(Map.Entry msgNodePair,
-			TreeMap connectivityVector, Hashtable connVectorByTarget,
+	public void addExternalEdgeTo(Map.Entry msgNodePair, TreeMap connectivityVector, Hashtable connVectorByTarget,
 			TreeMap connectivityMatrix, Hashtable connMatrixByTarget) {
 		Message msg = null;
 		try {
@@ -131,26 +130,22 @@ public class CompositeSoftNode extends SoftwareNode {
 			e.printStackTrace();
 		}
 		msg.setPartner((SoftwareNode) msgNodePair.getValue(), this);
-		//neighbors.remove();
+		// neighbors.remove();
 		connectivityVector.put(msg, msgNodePair.getValue());
 		connVectorByTarget.put(msgNodePair.getValue(), msg);
 
 		/* modify the partners connectivity vector */
-		TreeMap partnerConnectivityVector = (TreeMap) connectivityMatrix
-				.get(msgNodePair.getValue());
+		TreeMap partnerConnectivityVector = (TreeMap) connectivityMatrix.get(msgNodePair.getValue());
 		if (partnerConnectivityVector == null) {
 			partnerConnectivityVector = new TreeMap(comparator);
-			connectivityMatrix.put(msgNodePair.getValue(),
-					partnerConnectivityVector);
+			connectivityMatrix.put(msgNodePair.getValue(), partnerConnectivityVector);
 		}
 		partnerConnectivityVector.remove(msgNodePair.getKey());
 		partnerConnectivityVector.put(msg, this);
-		Hashtable partnerConnVectorByTarget = (Hashtable) connMatrixByTarget
-				.get(msgNodePair.getValue());
+		Hashtable partnerConnVectorByTarget = (Hashtable) connMatrixByTarget.get(msgNodePair.getValue());
 		if (partnerConnVectorByTarget == null) {
 			partnerConnVectorByTarget = new Hashtable();
-			connMatrixByTarget.put(msgNodePair.getValue(),
-					partnerConnVectorByTarget);
+			connMatrixByTarget.put(msgNodePair.getValue(), partnerConnVectorByTarget);
 		}
 		partnerConnVectorByTarget.remove(msgNodePair.getValue());
 		partnerConnVectorByTarget.put(this, msg);
@@ -158,24 +153,21 @@ public class CompositeSoftNode extends SoftwareNode {
 		addBandwidthOutDegree(msg.getBandwidth());
 	}
 
-	public void addAll(Collection set, TreeMap connectivityMatrix,
-			Hashtable softConnectivityByTarget, Hashtable constraints) {
+	public void addAll(Collection set, TreeMap connectivityMatrix, Hashtable softConnectivityByTarget,
+			Hashtable constraints) {
 		for (Iterator iter = set.iterator(); iter.hasNext();) {
-			add((SoftwareNode) iter.next(), connectivityMatrix,
-					softConnectivityByTarget, constraints);
+			add((SoftwareNode) iter.next(), connectivityMatrix, softConnectivityByTarget, constraints);
 		}
 	}
 
-	public void addAll(Collection set, TreeMap connectivityMatrix,
-			Hashtable softConnectivityByTarget) {
+	public void addAll(Collection set, TreeMap connectivityMatrix, Hashtable softConnectivityByTarget) {
 		for (Iterator iter = set.iterator(); iter.hasNext();) {
-			add((SoftwareNode) iter.next(), connectivityMatrix,
-					softConnectivityByTarget);
+			add((SoftwareNode) iter.next(), connectivityMatrix, softConnectivityByTarget);
 		}
 	}
 
-	public void add(SoftwareNode n, TreeMap connectivityMatrix,
-			Hashtable softConnectivityByTarget, Hashtable constraints) {
+	public void add(SoftwareNode n, TreeMap connectivityMatrix, Hashtable softConnectivityByTarget,
+			Hashtable constraints) {
 		add(n, connectivityMatrix, softConnectivityByTarget);
 		Vector v = (Vector) constraints.get(n);
 		if (v != null) {
@@ -222,14 +214,11 @@ public class CompositeSoftNode extends SoftwareNode {
 	 * @param connectivityVector
 	 *            that do not lead to an internal module
 	 */
-	public void add(SoftwareNode n, TreeMap connectivityMatrix,
-			Hashtable softConnectivityByTarget) {
+	public void add(SoftwareNode n, TreeMap connectivityMatrix, Hashtable softConnectivityByTarget) {
 		if (n instanceof CompositeSoftNode) {
-			TreeSet basicComponents = ((CompositeSoftNode) n)
-					.getBasicComponents();
+			TreeSet basicComponents = ((CompositeSoftNode) n).getBasicComponents();
 			for (Iterator iter = basicComponents.iterator(); iter.hasNext();) {
-				add((SoftwareNode) iter.next(), connectivityMatrix,
-						softConnectivityByTarget);
+				add((SoftwareNode) iter.next(), connectivityMatrix, softConnectivityByTarget);
 			}
 			return;
 		}
@@ -244,10 +233,8 @@ public class CompositeSoftNode extends SoftwareNode {
 		 * with modified hashcode we completely remove the connectivity vector
 		 * and add it at the end of the method.
 		 */
-		TreeMap thisConnectivityVector = (TreeMap) connectivityMatrix
-				.remove(this);
-		Hashtable thisConnVectorByTarget = (Hashtable) softConnectivityByTarget
-				.get(this);
+		TreeMap thisConnectivityVector = (TreeMap) connectivityMatrix.remove(this);
+		Hashtable thisConnVectorByTarget = (Hashtable) softConnectivityByTarget.get(this);
 
 		boolean firstNode = false;
 		/* Reset the message bandwidth */
@@ -261,22 +248,19 @@ public class CompositeSoftNode extends SoftwareNode {
 
 		TreeSet basicComponents = getBasicComponents();
 
-		TreeSet newBasicComponents = (n instanceof CompositeSoftNode) ? ((CompositeSoftNode) n)
-				.getBasicComponents()
+		TreeSet newBasicComponents = (n instanceof CompositeSoftNode) ? ((CompositeSoftNode) n).getBasicComponents()
 				: new TreeSet(new BandwidthComparator());
 
-		//name += name.substring(0,1)+name.substring(1,name.length()-1)+n.name+
+		// name += name.substring(0,1)+name.substring(1,name.length()-1)+n.name+
 		// name.substring(name.length()-1,name.length());
 		name += n.name;
 		totalBandwidth += n.getBandwidth();
 		TreeMap connectivityVector = (TreeMap) connectivityMatrix.get(n);
-		Hashtable connVectorByTarget = (Hashtable) softConnectivityByTarget
-				.get(n);
+		Hashtable connVectorByTarget = (Hashtable) softConnectivityByTarget.get(n);
 
 		if (thisConnectivityVector == null) {
 			if (connectivityVector != null)
-				thisConnectivityVector = new TreeMap(connectivityVector
-						.comparator());
+				thisConnectivityVector = new TreeMap(connectivityVector.comparator());
 			else
 				thisConnectivityVector = new TreeMap(new BandwidthComparator());
 		}
@@ -305,9 +289,7 @@ public class CompositeSoftNode extends SoftwareNode {
 						|| (message.getReceiver() instanceof CompositeSoftNode))
 					continue;
 
-				
-				if (addedMsgs.contains(entry.getKey()))
-				{
+				if (addedMsgs.contains(entry.getKey())) {
 					// It is included in the pending additions
 					Message msg = (Message) entry.getKey();
 					pendingAdditions.remove(entry.getKey());
@@ -317,16 +299,15 @@ public class CompositeSoftNode extends SoftwareNode {
 					removeBandwidthOutDegree(msg.getBandwidth());
 
 					System.out.println("\n**********************");
-					System.out.println("* (0) removing msg(" + /*senderID +*/ ","
-							+ /*receiverID +*/ ") bw(" + msg.getBandwidth()
-							+ ") from composite: " + hashCode());
+					System.out.println("* (0) removing msg(" + /* senderID + */ "," + /* receiverID + */ ") bw("
+							+ msg.getBandwidth() + ") from composite: " + hashCode());
 					System.out.println("**********************");
-				} else if ( //!(((Message)entry.getKey()).getSender()
+				} else if ( // !(((Message)entry.getKey()).getSender()
 							// instanceof CompositeSoftNode) &&
-				//!(((Message)entry.getKey()).getReceiver() instanceof
+				// !(((Message)entry.getKey()).getReceiver() instanceof
 				// CompositeSoftNode) &&
-				(!containsComponent(((Message) entry.getKey()).getSender()) || !containsComponent(((Message) entry
-						.getKey()).getReceiver()))
+				(!containsComponent(((Message) entry.getKey()).getSender())
+						|| !containsComponent(((Message) entry.getKey()).getReceiver()))
 						&& (((Message) entry.getKey()).getDeployedTo() == null)) {
 					/*
 					 * message to external component. The message needs to point
@@ -338,7 +319,7 @@ public class CompositeSoftNode extends SoftwareNode {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					//msg.setPartner(n, this);
+					// msg.setPartner(n, this);
 					msg.setPartner((SoftwareNode) entry.getValue(), this);
 					msg.setPartner(this, (SoftwareNode) entry.getValue());
 
@@ -359,23 +340,20 @@ public class CompositeSoftNode extends SoftwareNode {
 //											.hashCode()));
 
 					System.out.println("/////////////////////////");
-					System.out.println(" Pending addition to this("
-							+ Integer.toString(hashCode()) + ") msg("
-							+ /*senderID +*/ "," + /*receiverID +*/ ")");
+					System.out.println(" Pending addition to this(" + Integer.toString(hashCode()) + ") msg("
+							+ /* senderID + */ "," + /* receiverID + */ ")");
 					System.out.println("////////////////////////");
-					//neighbors.remove();
+					// neighbors.remove();
 
 					Message prevMsg = null;
 					/*
 					 * Merge messages
 					 */
-					if ((prevMsg = (Message) targetToMsgMap.get(entry
-							.getValue())) != null) {
+					if ((prevMsg = (Message) targetToMsgMap.get(entry.getValue())) != null) {
 						if (prevMsg instanceof CompositeMsgNode) {
 							((CompositeMsgNode) prevMsg).add(msg);
 						} else {
-							CompositeMsgNode compMsg = new CompositeMsgNode(
-									new BandwidthComparator());
+							CompositeMsgNode compMsg = new CompositeMsgNode(new BandwidthComparator());
 
 							compMsg.setSender(msg.getSender());
 							compMsg.setReceiver(msg.getReceiver());
@@ -387,29 +365,26 @@ public class CompositeSoftNode extends SoftwareNode {
 							targetToMsgMap.remove(entry.getValue());
 
 							addedMsgs.add(msg);
-							
+
 							// Add new composite
 							pendingAdditions.put(compMsg, entry.getValue());
-							pendingAdditionsByTarget.put(entry.getValue(),
-									compMsg);
+							pendingAdditionsByTarget.put(entry.getValue(), compMsg);
 							targetToMsgMap.put(entry.getValue(), compMsg);
 						}
 					} else {
 						addedMsgs.add(msg);
-						
+
 						pendingAdditions.put(msg, entry.getValue());
 						pendingAdditionsByTarget.put(entry.getValue(), msg);
 						targetToMsgMap.put(entry.getValue(), msg);
 					}
 
 					/* modify the partners connectivity vector */
-					TreeMap partnerConnectivityVector = (TreeMap) connectivityMatrix
-							.get(entry.getValue());
-					//partnerConnectivityVector.remove(entry.getKey());
+					TreeMap partnerConnectivityVector = (TreeMap) connectivityMatrix.get(entry.getValue());
+					// partnerConnectivityVector.remove(entry.getKey());
 					if (partnerConnectivityVector == null) {
 						if (comparator == null) {
-							System.out
-									.println(" ***** comparator == null ****");
+							System.out.println(" ***** comparator == null ****");
 							try {
 								throw new Exception();
 							} catch (Exception e) {
@@ -417,24 +392,21 @@ public class CompositeSoftNode extends SoftwareNode {
 							}
 						}
 						partnerConnectivityVector = new TreeMap(comparator);
-						connectivityMatrix.put(entry.getValue(),
-								partnerConnectivityVector);
+						connectivityMatrix.put(entry.getValue(), partnerConnectivityVector);
 					}
 
-					Hashtable partnerConnVectorByTarget = (Hashtable) softConnectivityByTarget
-							.get(entry.getValue());
-					//partnerConnectivityVector.remove(entry.getKey());
+					Hashtable partnerConnVectorByTarget = (Hashtable) softConnectivityByTarget.get(entry.getValue());
+					// partnerConnectivityVector.remove(entry.getKey());
 					if (partnerConnVectorByTarget == null) {
 						partnerConnVectorByTarget = new Hashtable();
-						softConnectivityByTarget.put(entry.getValue(),
-								partnerConnVectorByTarget);
+						softConnectivityByTarget.put(entry.getValue(), partnerConnVectorByTarget);
 					}
 
 					partnerConnectivityVector.put(msg, this);
-					//partnerConnectivityVector.remove(entry.getKey());
+					// partnerConnectivityVector.remove(entry.getKey());
 
 					partnerConnVectorByTarget.put(this, msg);
-					//partnerConnVectorByTarget.remove(entry.getValue());
+					// partnerConnVectorByTarget.remove(entry.getValue());
 
 					Message entryMsg = (Message) entry.getKey();
 					if (!(entryMsg.getSender() instanceof CompositeSoftNode)
@@ -442,11 +414,9 @@ public class CompositeSoftNode extends SoftwareNode {
 						totalMsgBandwidth += msg.getBandwidth();
 						addBandwidthOutDegree(msg.getBandwidth());
 					}
-				} else if (containsComponent(((Message) entry.getKey())
-						.getSender())
-						&& containsComponent(((Message) entry.getKey())
-								.getReceiver()))
-				//else if (!entry.getValue().equals(this)&&
+				} else if (containsComponent(((Message) entry.getKey()).getSender())
+						&& containsComponent(((Message) entry.getKey()).getReceiver()))
+				// else if (!entry.getValue().equals(this)&&
 				// (components.contains(entry.getValue()) ||
 				// basicComponents.contains(entry.getValue())))
 				{
@@ -472,43 +442,40 @@ public class CompositeSoftNode extends SoftwareNode {
 //											.hashCode()));
 
 					System.out.println("\n**********************");
-					System.out.println("* (1) removing msg(" + /*senderID +*/ ","
-							+ /*receiverID +*/ ") bw(" + msg.getBandwidth()
-							+ ") from composite: " + hashCode());
+					System.out.println("* (1) removing msg(" + /* senderID + */ "," + /* receiverID + */ ") bw("
+							+ msg.getBandwidth() + ") from composite: " + hashCode());
 					System.out.println("**********************");
 
 					removeBandwidthOutDegree(msg.getBandwidth());
 
 					// try removing all composing messages
-					// 				if (msg instanceof CompositeMsgNode)
-					// 				    {
-					// 					CompositeMsgNode compositeMsg = (CompositeMsgNode) msg;
-					// 					TreeSet compMsgs = new TreeSet(comparator);
-					// 					compositeMsg.getBasicMessages(compMsgs);
-					// 					for (Iterator iter=compMsgs.iterator(); iter.hasNext();)
-					// 					    {
-					// 						Message msg1 = (Message) iter.next();
-					// 						thisConnectivityVector.remove(msg1);
-					// 					    }
-					// 				    }
+					// if (msg instanceof CompositeMsgNode)
+					// {
+					// CompositeMsgNode compositeMsg = (CompositeMsgNode) msg;
+					// TreeSet compMsgs = new TreeSet(comparator);
+					// compositeMsg.getBasicMessages(compMsgs);
+					// for (Iterator iter=compMsgs.iterator(); iter.hasNext();)
+					// {
+					// Message msg1 = (Message) iter.next();
+					// thisConnectivityVector.remove(msg1);
+					// }
+					// }
 
 					/*
 					 * internal edges should dissappear in both row and column
 					 * of the connectivity matrix
 					 */
-					//neighbors.remove();
+					// neighbors.remove();
 					/* remove message from component */
-					//connectivityVector.remove(entry.getKey());
-					//connVectorByTarget.remove(entry.getValue());
+					// connectivityVector.remove(entry.getKey());
+					// connVectorByTarget.remove(entry.getValue());
 					/* remove message from composite */
-					Message msg1 = (Message) thisConnVectorByTarget.get(msg
-							.getSender());
+					Message msg1 = (Message) thisConnVectorByTarget.get(msg.getSender());
 					if (msg1 != null) {
 						thisConnVectorByTarget.remove(msg.getSender());
 						thisConnectivityVector.remove(msg1);
 					} else {
-						msg1 = (Message) thisConnVectorByTarget.get(msg
-								.getReceiver());
+						msg1 = (Message) thisConnVectorByTarget.get(msg.getReceiver());
 						if (msg1 != null) {
 							thisConnVectorByTarget.remove(msg.getReceiver());
 							thisConnectivityVector.remove(msg1);
@@ -516,14 +483,14 @@ public class CompositeSoftNode extends SoftwareNode {
 						}
 					}
 
-					// 				Message msg1 = (Message) thisConnVectorByTarget.get(n);
-					// 				if (msg1 != null)
-					// 				    {
-					// 					thisConnVectorByTarget.remove(n);
-					// 					thisConnectivityVector.remove(msg1);
-					// 				    }
-					// 				else
-					// 				    debugArea.append("cannot remove
+					// Message msg1 = (Message) thisConnVectorByTarget.get(n);
+					// if (msg1 != null)
+					// {
+					// thisConnVectorByTarget.remove(n);
+					// thisConnectivityVector.remove(msg1);
+					// }
+					// else
+					// debugArea.append("cannot remove
 					// msg("+senderID+","+receiverID+")\n");
 				} else if (entry.getValue().equals(this)) {
 //					Message msg2 = (Message) entry.getKey();
@@ -542,8 +509,7 @@ public class CompositeSoftNode extends SoftwareNode {
 //											.hashCode()));
 
 					System.out.println("************************");
-					System.out.println("* (2) removing msg(" + /*senderID +*/ ","
-							+ /*receiverID +*/ ")*");
+					System.out.println("* (2) removing msg(" + /* senderID + */ "," + /* receiverID + */ ")*");
 					System.out.println("************************");
 					/* remove message from component */
 					connectivityVector.remove(entry.getKey());
@@ -557,9 +523,8 @@ public class CompositeSoftNode extends SoftwareNode {
 					}
 				} else {
 					Message msg = (Message) entry.getKey();
-					JOptionPane.showMessageDialog(null, " msg("
-							+ msg.getSender().toString() + ","
-							+ msg.getReceiver().toString() + ")");
+					JOptionPane.showMessageDialog(null,
+							" msg(" + msg.getSender().toString() + "," + msg.getReceiver().toString() + ")");
 				}
 			}
 
@@ -567,29 +532,23 @@ public class CompositeSoftNode extends SoftwareNode {
 			 * add any pending additions. This pending additions already have
 			 * merged messages
 			 */
-			for (Iterator iter = pendingAdditions.entrySet().iterator(); iter
-					.hasNext();) {
+			for (Iterator iter = pendingAdditions.entrySet().iterator(); iter.hasNext();) {
 				Map.Entry entry = (Map.Entry) iter.next();
 				Message msg = (Message) entry.getKey();
 
-				if (!containsComponent(msg.getSender())
-						|| !containsComponent(msg.getReceiver())) {
-					thisConnectivityVector
-							.put(entry.getKey(), entry.getValue());
+				if (!containsComponent(msg.getSender()) || !containsComponent(msg.getReceiver())) {
+					thisConnectivityVector.put(entry.getKey(), entry.getValue());
 				}
 			}
-			//thisConnectivityVector.putAll(pendingAdditions);
-			for (Iterator iter = pendingAdditionsByTarget.entrySet().iterator(); iter
-					.hasNext();) {
+			// thisConnectivityVector.putAll(pendingAdditions);
+			for (Iterator iter = pendingAdditionsByTarget.entrySet().iterator(); iter.hasNext();) {
 				Map.Entry entry = (Map.Entry) iter.next();
 				Message msg = (Message) entry.getValue();
-				if (!containsComponent(msg.getSender())
-						|| !containsComponent(msg.getReceiver())) {
-					thisConnVectorByTarget
-							.put(entry.getKey(), entry.getValue());
+				if (!containsComponent(msg.getSender()) || !containsComponent(msg.getReceiver())) {
+					thisConnVectorByTarget.put(entry.getKey(), entry.getValue());
 				}
 			}
-			//thisConnVectorByTarget.putAll(pendingAdditionsByTarget);
+			// thisConnVectorByTarget.putAll(pendingAdditionsByTarget);
 
 		}
 
@@ -650,12 +609,10 @@ public class CompositeSoftNode extends SoftwareNode {
 		for (Iterator iter = components.iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
 			if (n instanceof CompositeSoftNode)
-				temp += "[" + ((CompositeSoftNode) n).componentsToString()
-						+ "]";
+				temp += "[" + ((CompositeSoftNode) n).componentsToString() + "]";
 			else
 				temp += ":" + n.name;
 		}
 		return temp;
 	}
 }
-

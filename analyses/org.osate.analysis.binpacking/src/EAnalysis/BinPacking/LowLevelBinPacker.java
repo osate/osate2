@@ -26,8 +26,7 @@ public interface LowLevelBinPacker {
 	 *            deployed. This hardware can be expanded.
 	 *  
 	 */
-	public boolean solve(TreeSet softwareGraph, TreeSet validProcessors,
-			OutDegreeAssignmentProblem problem);
+	public boolean solve(TreeSet softwareGraph, TreeSet validProcessors, OutDegreeAssignmentProblem problem);
 
 	/**
 	 * Set the nominal size of the bins to check whether an breakable object

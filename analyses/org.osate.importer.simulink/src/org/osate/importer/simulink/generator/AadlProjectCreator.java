@@ -180,9 +180,11 @@ public class AadlProjectCreator {
 
 			out.write("\n\n");
 
-			out.write("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
+			out.write(
+					"data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
 
-			out.write("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
+			out.write(
+					"data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
 
 			for (Component e : genericModel.getComponents()) {
 				if (e.getType() != Component.ComponentType.BLOCK) {
@@ -215,7 +217,8 @@ public class AadlProjectCreator {
 									out.write("   ");
 									out.write(var);
 									out.write(" : requires data access ");
-									if (s.getInternalStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
+									if (s.getInternalStateMachine()
+											.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
 										out.write("generictype_boolean");
 									} else {
 										out.write("generictype");

@@ -37,43 +37,38 @@
 package org.osate.importer.lattix.common;
 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 
 public class Partition {
 
-	private String 				name;
-	private List<Partition>		subPartitions;
-	private List<Component>		modules;
-	private Partition			parent;
-	
-	public Partition (String n)
-	{
+	private String name;
+	private List<Partition> subPartitions;
+	private List<Component> modules;
+	private Partition parent;
+
+	public Partition(String n) {
 		this.name = n;
 		this.subPartitions = new ArrayList<Partition>();
-		this.modules  = new ArrayList<Component>();
+		this.modules = new ArrayList<Component>();
 		this.parent = null;
 	}
-	
-	public Partition getParent ()
-	{
+
+	public Partition getParent() {
 		return this.parent;
 	}
-	
-	public void setParent (Partition e)
-	{
+
+	public void setParent(Partition e) {
 		this.parent = e;
 	}
-	
-	public void addModule (Component m)
-	{
+
+	public void addModule(Component m) {
 		this.modules.add(m);
 	}
-	
-	public boolean removeModule (Component m)
-	{
+
+	public boolean removeModule(Component m) {
 		return this.modules.remove(m);
 	}
 }

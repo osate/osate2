@@ -25,7 +25,6 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 
-
 public class FlowManager {
 
 	public static final NamedElement NO_CONTAINER_COMPONENT = null;
@@ -53,11 +52,11 @@ public class FlowManager {
 	}
 
 	public List<FlowHighlighter> getFlowHighlighters() {
-		if(this.containerComponent == NO_CONTAINER_COMPONENT)
+		if (this.containerComponent == NO_CONTAINER_COMPONENT)
 			return new ArrayList<FlowHighlighter>(0); // Return empty list.
 
 		List<FlowHighlighter> highlighters = flowImplMap.get(this.containerComponent);
-		if(highlighters == null) {
+		if (highlighters == null) {
 			highlighters = createFlowHighlighters(this.containerComponent);
 			flowImplMap.put(this.containerComponent, highlighters);
 		}
@@ -66,8 +65,10 @@ public class FlowManager {
 
 	protected List<FlowHighlighter> createFlowHighlighters(NamedElement element) {
 		List<FlowHighlighter> highlighters = new ArrayList<FlowHighlighter>();
-		ComponentClassifier cl = element instanceof ComponentInstance? ((ComponentInstance)element).getComponentClassifier():(ComponentImplementation) element;
-		ComponentImplementation componentImpl = cl instanceof ComponentImplementation?(ComponentImplementation) cl : null;//this.getComponentImpl(instance);
+		ComponentClassifier cl = element instanceof ComponentInstance
+				? ((ComponentInstance) element).getComponentClassifier() : (ComponentImplementation) element;
+		ComponentImplementation componentImpl = cl instanceof ComponentImplementation ? (ComponentImplementation) cl
+				: null;// this.getComponentImpl(instance);
 		if (componentImpl != null) {
 			List<FlowImplementation> flowImplementations = componentImpl.getAllFlowImplementations();
 			for (Iterator<FlowImplementation> it = flowImplementations.iterator(); it.hasNext();) {

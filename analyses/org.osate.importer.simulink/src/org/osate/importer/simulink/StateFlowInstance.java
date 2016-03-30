@@ -4,41 +4,34 @@ public class StateFlowInstance {
 	private String name;
 	private int machineId;
 	private int chartId;
-	
-	public StateFlowInstance ()
-	{
+
+	public StateFlowInstance() {
 		this.name = "unknown";
 		this.machineId = 0;
 		this.chartId = 0;
 	}
-	
-	public void setMachineId (int m)
-	{
+
+	public void setMachineId(int m) {
 		this.machineId = m;
 	}
-	
-	public void setChartId (int c)
-	{
+
+	public void setChartId(int c) {
 		this.chartId = c;
 	}
-	
-	public void setName (String s)
-	{
+
+	public void setName(String s) {
 		this.name = s;
 	}
-	
-	public String getName ()
-	{
+
+	public String getName() {
 		return this.name;
 	}
-	
-	public int getMachineId ()
-	{
+
+	public int getMachineId() {
 		return this.machineId;
 	}
-	
-	public int getChartId ()
-	{
+
+	public int getChartId() {
 		return this.chartId;
 	}
 }

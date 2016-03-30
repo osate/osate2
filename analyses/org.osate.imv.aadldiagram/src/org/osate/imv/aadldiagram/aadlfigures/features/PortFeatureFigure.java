@@ -18,7 +18,6 @@ public abstract class PortFeatureFigure extends DirectedFeatureFigure {
 	public static final int V_EXTENT = 15; // Must be odd #
 	public static final int H_EXTENT = 15; // Must be odd #
 
-
 	public PortFeatureFigure(String label, FeatureDirectionType direction, FeatureLabelStyle labelStyle) {
 		super(label, direction, labelStyle);
 	}

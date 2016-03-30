@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 import org.osate.imv.aadldiagram.adapters.ComponentAdapterCategory;
 
-
 public class PropertyDecorationSupport {
 
 	private static final String PROPERTY_DECORATION_EXTENSION_POINT = "edu.erau.aadldiagram.propertydecorations";
@@ -39,7 +38,8 @@ public class PropertyDecorationSupport {
 		this.loadPropertyDecorationExtensions();
 	}
 
-	public void addPropertyDecorations(ComponentAdapterCategory category, ComponentFigure compFigure, Object modelElement) {
+	public void addPropertyDecorations(ComponentAdapterCategory category, ComponentFigure compFigure,
+			Object modelElement) {
 		try {
 			List<IConfigurationElement> configList = this.elementTypeToConfigMap.get(category);
 			if (configList != null) {
@@ -58,7 +58,8 @@ public class PropertyDecorationSupport {
 	}
 
 	private void loadPropertyDecorationExtensions() {
-		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(PROPERTY_DECORATION_EXTENSION_POINT);
+		IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor(PROPERTY_DECORATION_EXTENSION_POINT);
 
 		for (IConfigurationElement e : config) {
 			this.addElementToDecorationMap(e.getName(), e);
@@ -68,17 +69,18 @@ public class PropertyDecorationSupport {
 	private void addElementToDecorationMap(String elementName, IConfigurationElement configElement) {
 		ComponentAdapterCategory category = null;
 
-		if(elementName.equals(ALL_ELEMENT)) {
-			for(Iterator<List<IConfigurationElement>> it = this.elementTypeToConfigMap.values().iterator(); it.hasNext();)
+		if (elementName.equals(ALL_ELEMENT)) {
+			for (Iterator<List<IConfigurationElement>> it = this.elementTypeToConfigMap.values().iterator(); it
+					.hasNext();)
 				it.next().add(configElement);
 		} else {
-			if(elementName.equals(THREAD_ELEMENT))
+			if (elementName.equals(THREAD_ELEMENT))
 				category = ComponentAdapterCategory.THREAD;
-			else if(elementName.equals(DEVICE_ELEMENT))
+			else if (elementName.equals(DEVICE_ELEMENT))
 				category = ComponentAdapterCategory.DEVICE;
 
 			List<IConfigurationElement> list = this.elementTypeToConfigMap.get(category);
-			if(list != null)
+			if (list != null)
 				list.add(configElement);
 		}
 	}

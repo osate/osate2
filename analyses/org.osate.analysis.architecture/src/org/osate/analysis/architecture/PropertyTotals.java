@@ -93,8 +93,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
 			ComponentCategory subcat = subi.getCategory();
-			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS) || subcat
-					.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
+			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS)
+					|| subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
 				double subweight = doCalcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)), indent + " ");
 				weight += subweight;
 				sublimit += GetProperties.getWeightLimit(subi, 0.0);
@@ -107,9 +107,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			weight += netconn > 0 ? netconn : grossconn;
 			reportWeight(connectionInstance.getName(), "Connection ", netconn > 0 ? netconn : grossconn, netconn > 0);
 			if (netconn > 0 || grossconn > 0) {
-				String ResultMsg = String.format(
-						connectionInstance.getName() + ": Weight of access connection %.3f kg", netconn > 0 ? netconn
-								: grossconn);
+				String ResultMsg = String.format(connectionInstance.getName() + ": Weight of access connection %.3f kg",
+						netconn > 0 ? netconn : grossconn);
 				reportinfo(connectionInstance, ResultMsg);
 			}
 			sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
@@ -131,8 +130,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				// Set gross weight
 			} else if (weight > 0 && weight < gross) {
 				// problem
-				reportwarning(ci, String.format(
-						"[G] Sum of weights %.3f kg less than grossweight %.3f kg (using gross weight)", weight, gross));
+				reportwarning(ci,
+						String.format("[G] Sum of weights %.3f kg less than grossweight %.3f kg (using gross weight)",
+								weight, gross));
 				weight = gross;
 			}
 			if (weight == 0.0) {
@@ -149,9 +149,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			} else {
 				if (sublimit > limit) {
 					// problem
-					reportwarning(ci, String.format(
-							"[L] Sum of subcomponent weight limits %.3f kg exceeds weight limit %.3f kg", sublimit,
-							limit));
+					reportwarning(ci,
+							String.format("[L] Sum of subcomponent weight limits %.3f kg exceeds weight limit %.3f kg",
+									sublimit, limit));
 				}
 				if (weight < limit) {
 					String ResultMsg = String.format(

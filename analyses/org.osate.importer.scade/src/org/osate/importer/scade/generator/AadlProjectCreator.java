@@ -186,21 +186,17 @@ public class AadlProjectCreator {
 
 	}
 
-	public static String getAadlPackagePrefix (String aadlComponentName, List<Model> models)
-	{
+	public static String getAadlPackagePrefix(String aadlComponentName, List<Model> models) {
 		String result;
 		result = "";
 
-		if (models == null)
-		{
+		if (models == null) {
 			return result;
 		}
 
-		for (Model model : models)
-		{
+		for (Model model : models) {
 			for (Component e : model.getComponents()) {
-				if (e.getAadlName().equalsIgnoreCase(aadlComponentName))
-				{
+				if (e.getAadlName().equalsIgnoreCase(aadlComponentName)) {
 					result = model.getPackageName() + "::imported::runtime";
 				}
 			}
@@ -237,14 +233,12 @@ public class AadlProjectCreator {
 					if (ctmp.getType() == ComponentType.BLOCK) {
 
 						String withClause = getAadlPackagePrefix(ctmp.getAadlName(), projectModels);
-						if (withClause.length() > 0)
-						{
-							out.write("with " + getAadlPackagePrefix(ctmp.getAadlName(), projectModels)  + ";\n");
+						if (withClause.length() > 0) {
+							out.write("with " + getAadlPackagePrefix(ctmp.getAadlName(), projectModels) + ";\n");
 						}
 					}
 				}
 			}
-
 
 			for (Component e : genericModel.getComponents()) {
 				StateMachine stateMachine = null;
@@ -275,10 +269,9 @@ public class AadlProjectCreator {
 
 				if (e.getParent() == null) {
 					out.write("system s_" + e.getAadlName() + "\n");
-					if ((e.hasInterfaces())
-							|| ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0)
-									.getIncomingDependencies().size() > 0) || (e.getSubEntities().get(0)
-									.getOutgoingDependencies().size() > 0))))) {
+					if ((e.hasInterfaces()) || ((e.getSubEntities().size() > 0)
+							&& (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0)
+									|| (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
 						out.write("features\n");
 					}
 					for (Component e2 : e.getSubEntities()) {
@@ -296,14 +289,17 @@ public class AadlProjectCreator {
 								type = "runtime_generic::generictype_boolean";
 							}
 
-							out.write("   " + e2.getAadlName() + " : " + direction + " event data port " + type + ";\n");
+							out.write(
+									"   " + e2.getAadlName() + " : " + direction + " event data port " + type + ";\n");
 						}
 					}
 					for (Component e2 : e.getIncomingDependencies()) {
-						out.write("   from_" + e2.getAadlName() + " : in event data port runtime_generic::generictype;\n");
+						out.write("   from_" + e2.getAadlName()
+								+ " : in event data port runtime_generic::generictype;\n");
 					}
 					for (Component e2 : e.getOutgoingDependencies()) {
-						out.write("   to_" + e2.getAadlName() + " : out event data port runtime_generic::generictype;\n");
+						out.write(
+								"   to_" + e2.getAadlName() + " : out event data port runtime_generic::generictype;\n");
 					}
 
 					out.write("end s_" + e.getAadlName() + ";\n\n");
@@ -311,8 +307,9 @@ public class AadlProjectCreator {
 					out.write("system implementation s_" + e.getAadlName() + ".i\n");
 
 					int connectionId = 0;
-					if (((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies()
-							.size() > 0) || (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
+					if (((e.getSubEntities().size() > 0)
+							&& (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0)
+									|| (e.getSubEntities().get(0).getOutgoingDependencies().size() > 0))))) {
 						out.write("connections\n");
 					}
 
@@ -327,13 +324,12 @@ public class AadlProjectCreator {
 								String componentClassifier;
 								componentClassifier = "";
 
-								if (projectModels != null)
-								{
+								if (projectModels != null) {
 
-									componentClassifier = getAadlPackagePrefix (ctmp.getAadlName(), projectModels) + "::";
+									componentClassifier = getAadlPackagePrefix(ctmp.getAadlName(), projectModels)
+											+ "::";
 								}
 								componentClassifier += "s_" + ctmp.getAadlName();
-
 
 								out.write("   " + ctmp.getAadlName() + " : system " + componentClassifier + ";\n");
 							}
@@ -378,8 +374,8 @@ public class AadlProjectCreator {
 							 * Connection from external interfaces to internal sub-components.
 							 */
 							if (conn.getDestination().getType() == ComponentType.EXTERNAL_OUTPORT) {
-								out.write("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName()
-										+ "." + conn.getDestination().getAadlName() + " -> "
+								out.write("   conn" + connIdentifier + " : port " + conn.getSource().getAadlName() + "."
+										+ conn.getDestination().getAadlName() + " -> "
 										+ conn.getDestination().getAadlName() + ";\n");
 							}
 
@@ -434,7 +430,7 @@ public class AadlProjectCreator {
 						// {
 						// if (! s.getStateMachine().isEmpty())
 						// {
-						// out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
+						// out.write (" call_"+s.getName()+" : system "+s.getName() + ".i;\n");
 						//
 						// }
 						// }
@@ -453,7 +449,7 @@ public class AadlProjectCreator {
 						// {
 						// for (String var : state.getStateMachine().getVariables())
 						// {
-						// out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"."
+						// out.write (" c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"."
 // + var + ";\n");
 						//
 						// }
@@ -562,7 +558,6 @@ public class AadlProjectCreator {
 
 	}
 
-
 	public static void createGenericRuntime(String outputFile) {
 		FileWriter fstream;
 		BufferedWriter out;
@@ -574,8 +569,10 @@ public class AadlProjectCreator {
 			out.write("public\n");
 			out.write("with SEI;\n");
 			out.write("with Data_Model;\n");
-			out.write("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
-			out.write("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
+			out.write(
+					"data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
+			out.write(
+					"data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
 			out.write("end runtime_generic; \n");
 
 			out.close();

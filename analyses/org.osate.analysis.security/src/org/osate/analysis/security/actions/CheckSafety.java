@@ -76,11 +76,11 @@ public final class CheckSafety extends AbstractLevelChecker {
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
 		invoke(monitor, null, root, som);
 	}
-	
+
 	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
-				getAnalysisErrorReporterFactory());
+		this.errManager = errManager != null ? errManager
+				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
 		analyzeInstanceModel(monitor, this.errManager, root, som);
 	}
 

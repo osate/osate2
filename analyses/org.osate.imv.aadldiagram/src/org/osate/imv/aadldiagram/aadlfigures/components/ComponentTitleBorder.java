@@ -24,8 +24,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure;
 
-
-public class ComponentTitleBorder extends AbstractBorder{
+public class ComponentTitleBorder extends AbstractBorder {
 
 	/**
 	 * The border's title.
@@ -35,21 +34,21 @@ public class ComponentTitleBorder extends AbstractBorder{
 	private Font font;
 	private Dimension textSize;
 
-	public ComponentTitleBorder(String title){
+	public ComponentTitleBorder(String title) {
 		this.title = title;
 		this.font = getDefaultFont();
 		this.textSize = getTextSize();
 	}
 
-	private Font getDefaultFont(){
+	private Font getDefaultFont() {
 		return new Font(Display.getCurrent(), "Arial", 9, SWT.BOLD);
 	}
 
-	private Dimension getTextSize(){
+	private Dimension getTextSize() {
 		Dimension d = null;
-		if(font != null){
+		if (font != null) {
 			d = TextUtilities.INSTANCE.getTextExtents(title, font);
-		}else{
+		} else {
 			d = new Dimension();
 		}
 		return d;
@@ -71,15 +70,15 @@ public class ComponentTitleBorder extends AbstractBorder{
 		graphics.setBackgroundColor(ColorConstants.white);
 
 		// Calculate label position.
-		int x = (int)(bounds.x + (0.5f * (bounds.width - textSize.width)));
+		int x = (int) (bounds.x + (0.5f * (bounds.width - textSize.width)));
 		int y = bounds.y + figure.getInsets().top - textSize.height;
 
 		// Draw label.
 		graphics.drawText(title, x, y);
 	}
 
-	public void dispose(){
-		if(font != null){
+	public void dispose() {
+		if (font != null) {
 			font.dispose();
 			font = null;
 		}

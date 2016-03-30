@@ -16,7 +16,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 
-
 public class SystemFigure extends ComponentFigure {
 	private static final int CORNER_WIDTH = 10;
 	private static final int CORNER_HEIGHT = 10;
@@ -24,34 +23,30 @@ public class SystemFigure extends ComponentFigure {
 	private Dimension corner = new Dimension(CORNER_WIDTH, CORNER_HEIGHT);
 	private int lineWidth;
 
-	public SystemFigure(){
+	public SystemFigure() {
 		lineWidth = 2;
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 		fillShape(g);
 		outlineShape(g);
 	}
 
-
 	protected void fillShape(Graphics g) {
 		g.pushState();
 		g.setBackgroundColor(this.getAADLBackgroundColor());
-		g.fillRoundRectangle(getClientArea(), Math.max(0, corner.width),
-				Math.max(0, corner.height));
+		g.fillRoundRectangle(getClientArea(), Math.max(0, corner.width), Math.max(0, corner.height));
 		g.popState();
 	}
-
 
 	protected void outlineShape(Graphics g) {
 		g.setLineWidth(lineWidth);
 		g.setAntialias(SWT.ON);
 		g.setForegroundColor(ColorConstants.black);
 
-		g.drawRoundRectangle(getClientArea(), Math.max(0, corner.width),
-				Math.max(0, corner.height));
+		g.drawRoundRectangle(getClientArea(), Math.max(0, corner.width), Math.max(0, corner.height));
 
 	}
 

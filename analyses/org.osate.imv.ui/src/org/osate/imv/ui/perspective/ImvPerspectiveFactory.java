@@ -18,7 +18,6 @@ import org.osate.imv.ui.views.FlowImpView;
 import org.osate.imv.ui.views.ModesView;
 import org.osate.imv.ui.views.filter.ElementFilterView;
 
-
 public class ImvPerspectiveFactory implements IPerspectiveFactory {
 
 	// ID
@@ -30,11 +29,11 @@ public class ImvPerspectiveFactory implements IPerspectiveFactory {
 		layout.setEditorAreaVisible(true);
 
 		// Create a folder that will be placed in the top/left portion of the workbench window.
-		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.TOP, (float)0.19, layout.getEditorArea());
+		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.TOP, (float) 0.19, layout.getEditorArea());
 		topLeft.addView(ModesView.ID);
 
 		// Create a folder that will be placed in the top/right portion of the workbench window.
-		IFolderLayout topRight= layout.createFolder("topRight", IPageLayout.RIGHT, (float)0.60, "topLeft");
+		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, (float) 0.60, "topLeft");
 		topRight.addView(FlowImpView.ID);
 
 		// Add outline view to the right of the editor area.
@@ -42,7 +41,6 @@ public class ImvPerspectiveFactory implements IPerspectiveFactory {
 
 		// Add filter view below the outline view.
 		layout.addView(ElementFilterView.ID, IPageLayout.BOTTOM, 0.50f, IPageLayout.ID_OUTLINE);
-
 
 		// Add the 'AADL' perspective as a perspective shortcut.
 		layout.addPerspectiveShortcut("org.osate.ui.perspective.AadlPerspective");

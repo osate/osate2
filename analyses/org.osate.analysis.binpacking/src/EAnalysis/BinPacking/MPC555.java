@@ -7,8 +7,7 @@ public class MPC555 extends Processor {
 	}
 
 	public MPC555(Scheduler s) {
-		super(s, 500000000.0, new NetInterface[] { new NetInterface(
-				new CANBus()) });
+		super(s, 500000000.0, new NetInterface[] { new NetInterface(new CANBus()) });
 	}
 
 	public MPC555(Scheduler s, NetInterface[] netInterfaces) {
@@ -17,8 +16,7 @@ public class MPC555 extends Processor {
 			classNetInterfaces.add(netInterfaces[i]);
 	}
 
-	public MPC555(String name, Scheduler s, double speed,
-			NetInterface[] netInterfaces) {
+	public MPC555(String name, Scheduler s, double speed, NetInterface[] netInterfaces) {
 		super(name, s, speed, netInterfaces);
 	}
 }

@@ -44,7 +44,6 @@ import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.Bundle;
 
-
 public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
 
 	private static final String ID = "org.osate.imv.ui.actions.OpenImvEditor";
@@ -56,7 +55,7 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 	 */
 	private Object currentSelection = null;
 
-	public OpenImvEditor(){
+	public OpenImvEditor() {
 		super();
 	}
 
@@ -68,28 +67,22 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		return "Explore Instance or Implementations in IMV";
 	}
 
-	private void openImvEditor(NamedElement si){
+	private void openImvEditor(NamedElement si) {
 		// Create the editor input object.
 		IEditorInput input = createEditorInput(si);
-		if(input != null) 
-		{
+		if (input != null) {
 			IWorkbenchPage page = window.getActivePage();
-			try
-			{
+			try {
 				page.openEditor(input, ImvInstanceEditor.ID);
 				openImvPerspective();
-			}
-			catch(PartInitException e){
+			} catch (PartInitException e) {
 				System.err.println("Failed to open IMV editor for: " + si.getFullName());
 				e.printStackTrace();
 			}
 		}
 	}
 
-
-
-	private IEditorInput createEditorInput(NamedElement si) 
-	{
+	private IEditorInput createEditorInput(NamedElement si) {
 		IEditorInput editorInput = null;
 		Resource eRes = si.eResource();
 		URI eUri = eRes.getURI();
@@ -97,21 +90,19 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		String last = eUri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = eUri.trimSegments(1);
-		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR))
-		{
+		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR)) {
 			path = path.trimSegments(1);
 		}
-		
-		URI imvURI = path.appendSegment ("imv");
-		imvURI = imvURI.appendSegment (filename);
-		imvURI = imvURI.appendFileExtension ("imv");
-		AadlUtil.makeSureFoldersExist(OsateResourceUtil.getOsatePath (imvURI));
-		IFile imvFile = OsateResourceUtil.getOsateIFile (imvURI);
-		editorInput = new FileEditorInput (imvFile);
+
+		URI imvURI = path.appendSegment("imv");
+		imvURI = imvURI.appendSegment(filename);
+		imvURI = imvURI.appendFileExtension("imv");
+		AadlUtil.makeSureFoldersExist(OsateResourceUtil.getOsatePath(imvURI));
+		IFile imvFile = OsateResourceUtil.getOsateIFile(imvURI);
+		editorInput = new FileEditorInput(imvFile);
 
 		return editorInput;
 	}
-
 
 	@Override
 	public void run(IAction action) {
@@ -121,86 +112,67 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		// the Aadl2Activator must be instantiated before we get the ResourceSet.
 		Aadl2Activator.getInstance();
 		root = AadlUtil.getElement(currentSelection);
-		if(root == null)
-		{
+		if (root == null) {
 			Resource resource = OsateResourceUtil.getResource((IResource) currentSelection);
 			EObject eobj = resource.getContents().get(0);
-			if(eobj instanceof Element)
-				root = (Element)eobj;
+			if (eobj instanceof Element)
+				root = (Element) eobj;
 		}
 
 		// Get the system instance (if any)
-		if (root instanceof InstanceObject || root instanceof AadlPackage)
-		{
-			final NamedElement si = (NamedElement)root;
-			
-			// We MUST open the IMV editor from the UI thread!
-			window.getShell().getDisplay().syncExec(new Runnable()
-			{
+		if (root instanceof InstanceObject || root instanceof AadlPackage) {
+			final NamedElement si = (NamedElement) root;
 
-				public void run() 
-				{
+			// We MUST open the IMV editor from the UI thread!
+			window.getShell().getDisplay().syncExec(new Runnable() {
+
+				public void run() {
 					// Open the IMV editor for the currently selected instance model or Aadl Package.
 					openImvEditor(si);
 				}
 			});
-		}
-		else
-		{
+		} else {
 			System.err.println("Action should NOT be enabled: OpenImvEditor");
 		}
 
 	}
 
-	private void openImvPerspective()
-	{
+	private void openImvPerspective() {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 		// Get the active page if one exists.
 		IWorkbenchPage activePage = window.getActivePage();
 		// Get perspective descriptor.
-		IPerspectiveDescriptor desc = workbench.getPerspectiveRegistry().findPerspectiveWithId(ImvPerspectiveFactory.ID);
-		if(activePage != null && desc != null)
-		{
-			try
-			{
+		IPerspectiveDescriptor desc = workbench.getPerspectiveRegistry()
+				.findPerspectiveWithId(ImvPerspectiveFactory.ID);
+		if (activePage != null && desc != null) {
+			try {
 				// Make the IMV perspective the active perspective if it is not already.
-				if(ImvPerspectiveFactory.ID != activePage.getPerspective().getId())
-				{
+				if (ImvPerspectiveFactory.ID != activePage.getPerspective().getId()) {
 					workbench.showPerspective(ImvPerspectiveFactory.ID, window);
 				}
-			} 
-			catch (WorkbenchException e) 
-			{
+			} catch (WorkbenchException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-
 	public void dispose() {
 		// Nothing to dispose of.
 	}
 
-
-
-	public void selectionChanged(IAction action, ISelection selection) 
-	{
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) 
-		{
-			Object object = ((IStructuredSelection)selection).getFirstElement();
+	public void selectionChanged(IAction action, ISelection selection) {
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
 			currentSelection = object;
 		}
 	}
 
-
-	public void init(IWorkbenchWindow window)
-	{
+	public void init(IWorkbenchWindow window) {
 		this.window = window;
 	}
 
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) 
-	{
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		this.window = targetPart.getSite().getWorkbenchWindow();
 	}
 

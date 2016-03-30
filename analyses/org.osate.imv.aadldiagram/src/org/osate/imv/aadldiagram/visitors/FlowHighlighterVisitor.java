@@ -15,7 +15,6 @@ import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.providers.FlowHighlighterDelegate;
 
-
 public class FlowHighlighterVisitor extends AadlAdapterVisitor {
 
 	private FlowHighlighterDelegate delegate;

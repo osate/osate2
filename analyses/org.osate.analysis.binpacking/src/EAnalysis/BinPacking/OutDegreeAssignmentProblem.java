@@ -18,8 +18,8 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 	public OutDegreeAssignmentProblem() {
 	}
 
-	public OutDegreeAssignmentProblem(Comparator outDegreeComparator,
-			Comparator bwComparator, Comparator capComparator) {
+	public OutDegreeAssignmentProblem(Comparator outDegreeComparator, Comparator bwComparator,
+			Comparator capComparator) {
 		super(bwComparator, capComparator);
 		this.outDegreeComparator = outDegreeComparator;
 		orderedModulesByOutDegree = new TreeSet(outDegreeComparator);
@@ -28,15 +28,13 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 	public Object clone() {
 		OutDegreeAssignmentProblem p = new OutDegreeAssignmentProblem();
 		p.siteArchitecture = (SiteArchitecture) siteArchitecture.clone();
-		//BinPackerTester.showSiteArchitecture(p.siteArchitecture);
+		// BinPackerTester.showSiteArchitecture(p.siteArchitecture);
 		p.hardwareGraph = (TreeSet) hardwareGraph.clone();
 		p.softwareGraph = new TreeSet(softwareGraph.comparator());
-		p.orderedModulesByOutDegree = new TreeSet(
-				orderedModulesByOutDegree.comparator());
+		p.orderedModulesByOutDegree = new TreeSet(orderedModulesByOutDegree.comparator());
 		p.nonDeployableModules = (TreeSet) nonDeployableModules.clone();
 		p.hardwareConnectivity = (TreeMap) hardwareConnectivity.clone();
-		p.softwareConnectivity = new TreeMap(softwareConnectivity
-				.comparator());
+		p.softwareConnectivity = new TreeMap(softwareConnectivity.comparator());
 		p.softConnectivityByTarget = new Hashtable();
 		p.constraints = (Hashtable) constraints.clone();
 		p.bwComparator = bwComparator;
@@ -64,43 +62,35 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 			SoftwareNode clone = (SoftwareNode) originalToClone.get(n);
 			TreeMap connVector = (TreeMap) softwareConnectivity.get(n);
 			if (connVector != null) {
-				TreeMap clonedConnVector = (TreeMap) p.softwareConnectivity
-						.remove(clone);
+				TreeMap clonedConnVector = (TreeMap) p.softwareConnectivity.remove(clone);
 				if (clonedConnVector == null) {
 					clonedConnVector = new TreeMap(connVector.comparator());
 				}
 				int msgCount = 0;
-				for (Iterator msgMaps = connVector.entrySet().iterator(); msgMaps
-						.hasNext();) {
+				for (Iterator msgMaps = connVector.entrySet().iterator(); msgMaps.hasNext();) {
 					msgCount++;
-					// 				System.out.print(moduleCount+":"+msgCount+"\r");
+					// System.out.print(moduleCount+":"+msgCount+"\r");
 					Map.Entry entry = (Map.Entry) msgMaps.next();
 					Message msg = (Message) entry.getKey();
 					SoftwareNode partner = (SoftwareNode) entry.getValue();
-					SoftwareNode clonedPartner = (SoftwareNode) originalToClone
-							.get(partner);
+					SoftwareNode clonedPartner = (SoftwareNode) originalToClone.get(partner);
 					if (partner == null || clonedPartner == null)
 						continue;
-					if (processedMessages.contains(Integer.toString(clone
-							.hashCode())
-							+ Integer.toString(clonedPartner.hashCode()))
-							|| processedMessages.contains(Integer
-									.toString(clonedPartner.hashCode())
-									+ Integer.toString(clone.hashCode())))
+					if (processedMessages
+							.contains(Integer.toString(clone.hashCode()) + Integer.toString(clonedPartner.hashCode()))
+							|| processedMessages.contains(
+									Integer.toString(clonedPartner.hashCode()) + Integer.toString(clone.hashCode())))
 						continue;
 
-					processedMessages.add(Integer.toString(clone.hashCode())
-							+ Integer.toString(clonedPartner.hashCode()));
-					Message clonedMsg = new Message(msg.cycles, msg.period,
-							msg.deadline, clone, clonedPartner);
+					processedMessages
+							.add(Integer.toString(clone.hashCode()) + Integer.toString(clonedPartner.hashCode()));
+					Message clonedMsg = new Message(msg.cycles, msg.period, msg.deadline, clone, clonedPartner);
 					clonedConnVector.put(msg, clonedPartner);
-					TreeMap clonedPartnerConn = (TreeMap) p.softwareConnectivity
-							.remove(clonedPartner);
+					TreeMap clonedPartnerConn = (TreeMap) p.softwareConnectivity.remove(clonedPartner);
 					if (clonedPartnerConn == null)
 						clonedPartnerConn = new TreeMap(connVector.comparator());
 					clonedPartnerConn.put(msg, clone);
-					p.softwareConnectivity
-							.put(clonedPartner, clonedPartnerConn);
+					p.softwareConnectivity.put(clonedPartner, clonedPartnerConn);
 				}
 				p.softwareConnectivity.put(clone, clonedConnVector);
 			}
@@ -124,8 +114,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 			System.out.println("Adding a joint");
 			CompositeSoftNode compNode = new CompositeSoftNode(bwComparator);
 			for (int i = 0; i < c.members.size(); i++) {
-				compNode.add((SoftwareNode) c.members.elementAt(i),
-						softwareConnectivity, softConnectivityByTarget);
+				compNode.add((SoftwareNode) c.members.elementAt(i), softwareConnectivity, softConnectivityByTarget);
 				softwareGraph.remove(c.members.elementAt(i));
 				orderedModulesByOutDegree.remove(c.members.elementAt(i));
 				Vector v = (Vector) constraints.get(c.members.get(i));
@@ -138,8 +127,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 						if (v.get(j) instanceof Joint) {
 							Joint joint = (Joint) v.get(j);
 							for (int k = 0; k < joint.members.size(); k++) {
-								compNode.add((SoftwareNode) joint.members
-										.get(k), softwareConnectivity,
+								compNode.add((SoftwareNode) joint.members.get(k), softwareConnectivity,
 										softConnectivityByTarget);
 							}
 							softwareGraph.remove(joint.getCompositeNode());
@@ -174,8 +162,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 
 	public void addSoftwareNode(SoftwareNode n) {
 		if (!softwareGraph.add(n))
-			System.out.println(this + ".addSoftwareNode(" + n
-					+ "): Failed ARGGG! ");
+			System.out.println(this + ".addSoftwareNode(" + n + "): Failed ARGGG! ");
 		orderedModulesByOutDegree.add(n);
 	}
 

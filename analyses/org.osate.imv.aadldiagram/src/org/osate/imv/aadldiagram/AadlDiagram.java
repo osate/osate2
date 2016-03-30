@@ -42,7 +42,6 @@ import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.draw2d.BendpointHelper;
 
-
 public class AadlDiagram extends FigureCanvas {
 
 	public static final IAadlElementAdapter NO_SELECTED_ADAPTER = null;
@@ -63,7 +62,7 @@ public class AadlDiagram extends FigureCanvas {
 	private AadlComponentAdapter rootAdapter;
 
 	private int nestingLevel = 1;
-	
+
 	private boolean doDirectConnections = false;
 
 	public AadlDiagram(Composite parent) {
@@ -76,16 +75,16 @@ public class AadlDiagram extends FigureCanvas {
 	public void setRootAdapter(AadlComponentAdapter rootAdapter) {
 		this.rootAdapter = rootAdapter;
 		this.figureLayer.removeAll();
-		this.figureLayer.add(rootAdapter.getFigure(), new Rectangle(new Point(0, 0), rootAdapter.getFigure().getPreferredSize()));
+		this.figureLayer.add(rootAdapter.getFigure(),
+				new Rectangle(new Point(0, 0), rootAdapter.getFigure().getPreferredSize()));
 	}
-
 
 	public AadlComponentAdapter getRootAdapter() {
 		return this.rootAdapter;
 	}
 
 	public void scaleToFit() {
-		FreeformViewport viewport = (FreeformViewport)this.scalableFigureLayeredPane.getParent();
+		FreeformViewport viewport = (FreeformViewport) this.scalableFigureLayeredPane.getParent();
 		Rectangle viewArea = viewport.getClientArea();
 		this.scalableFigureLayeredPane.setScale(1);
 		Rectangle extent = this.scalableFigureLayeredPane.getFreeformExtent().union(0, 0);
@@ -97,13 +96,13 @@ public class AadlDiagram extends FigureCanvas {
 		this.scalableFigureLayeredPane.setScale(scale);
 	}
 
-	public void setScale(double scale){
+	public void setScale(double scale) {
 		double newScale = 1;
-		if(scale >= MIN_ZOOM_LEVEL && scale <= MAX_ZOOM_LEVEL) {
+		if (scale >= MIN_ZOOM_LEVEL && scale <= MAX_ZOOM_LEVEL) {
 			newScale = scale;
-		}else if(scale < MIN_ZOOM_LEVEL) {
+		} else if (scale < MIN_ZOOM_LEVEL) {
 			newScale = MIN_ZOOM_LEVEL;
-		}else if(scale > MAX_ZOOM_LEVEL) {
+		} else if (scale > MAX_ZOOM_LEVEL) {
 			newScale = MAX_ZOOM_LEVEL;
 		}
 
@@ -124,17 +123,16 @@ public class AadlDiagram extends FigureCanvas {
 
 	public void incrementNestingLevel() {
 		Object obj = this.getRootModelElement();
-		if (obj instanceof ComponentInstance){
-			int max = hierarchyDepth((ComponentInstance)obj);
-			if (nestingLevel < max ){
+		if (obj instanceof ComponentInstance) {
+			int max = hierarchyDepth((ComponentInstance) obj);
+			if (nestingLevel < max) {
 				this.nestingLevel++;
 			}
 		}
 	}
-	
 
 	public void decrementNestingLevel() {
-		if (this.nestingLevel > 1){
+		if (this.nestingLevel > 1) {
 			this.nestingLevel--;
 		}
 	}
@@ -173,15 +171,15 @@ public class AadlDiagram extends FigureCanvas {
 //		
 //	}
 
-
-	protected int hierarchyDepth(ComponentInstance ci){
-		int result =0;
+	protected int hierarchyDepth(ComponentInstance ci) {
+		int result = 0;
 		EList<ComponentInstance> subcil = ci.getComponentInstances();
 		if (!subcil.isEmpty())
 			result = 1;
 		for (ComponentInstance componentInstance : subcil) {
 			int res = hierarchyDepth(componentInstance);
-			if (res > result-1) result = res+1;
+			if (res > result - 1)
+				result = res + 1;
 		}
 		return result;
 	}
@@ -191,17 +189,19 @@ public class AadlDiagram extends FigureCanvas {
 	}
 
 	public void resizeToFit() {
-		if(this.rootAdapter == null)
+		if (this.rootAdapter == null)
 			return;
 		Point max = Point.SINGLETON;
 		max.setLocation(0, 0);
-		for(Iterator<AadlComponentAdapter> it = this.rootAdapter.getChildComponents(); it.hasNext();) {
+		for (Iterator<AadlComponentAdapter> it = this.rootAdapter.getChildComponents(); it.hasNext();) {
 			AadlComponentAdapter compAdapter = it.next();
 			Rectangle rect = compAdapter.getFigure().getBounds();
 			Point rectBottomRight = rect.getBottomRight();
 			Dimension dif = max.getDifference(rectBottomRight);
-			if(dif.width < 0) max.x = rectBottomRight.x;
-			if(dif.height < 0) max.y = rectBottomRight.y;
+			if (dif.width < 0)
+				max.x = rectBottomRight.x;
+			if (dif.height < 0)
+				max.y = rectBottomRight.y;
 			// XXX TODO add flowpaths
 //			for (Iterator<AadlFlowPathAdapter> itt = compAdapter.getChildFlowPaths(); it.hasNext();){
 //				AadlFlowPathAdapter flowAdapter = itt.next();
@@ -214,15 +214,18 @@ public class AadlDiagram extends FigureCanvas {
 //				if(flowdif.height < 0) max.y = flowrectBottomRight.y;
 //			}
 		}
-		for(Iterator<AadlConnectionAdapter> it = this.rootAdapter.getChildConnections(); it.hasNext();) {
+		for (Iterator<AadlConnectionAdapter> it = this.rootAdapter.getChildConnections(); it.hasNext();) {
 			AadlConnectionAdapter connAdapter = it.next();
-			if(connAdapter.getSourceAdapter().getParentAdapter().isContainer() || connAdapter.getDestinationAdapter().getParentAdapter().isContainer())
+			if (connAdapter.getSourceAdapter().getParentAdapter().isContainer()
+					|| connAdapter.getDestinationAdapter().getParentAdapter().isContainer())
 				continue;
 			Rectangle rect = connAdapter.getFigure().getBounds();
 			Point rectBottomRight = rect.getBottomRight();
 			Dimension dif = max.getDifference(rectBottomRight);
-			if(dif.width < 0) max.x = rectBottomRight.x;
-			if(dif.height < 0) max.y = rectBottomRight.y;
+			if (dif.width < 0)
+				max.x = rectBottomRight.x;
+			if (dif.height < 0)
+				max.y = rectBottomRight.y;
 		}
 
 		// Add padding to edges.
@@ -231,7 +234,7 @@ public class AadlDiagram extends FigureCanvas {
 
 		ComponentFigure figure = this.rootAdapter.getFigure();
 		Point loc = figure.getBounds().getLocation();
-		Rectangle newBounds = new Rectangle(loc.x, loc.y, max.x - loc.x, max.y - loc.y );
+		Rectangle newBounds = new Rectangle(loc.x, loc.y, max.x - loc.x, max.y - loc.y);
 		figure.getParent().getLayoutManager().setConstraint(figure, newBounds);
 		figure.setBounds(newBounds);
 	}
@@ -239,7 +242,6 @@ public class AadlDiagram extends FigureCanvas {
 	public Object getRootModelElement() {
 		return this.rootAdapter.getModelElement();
 	}
-
 
 	public ScalableFreeformLayeredPane getScalableFigureLayeredPane() {
 		return scalableFigureLayeredPane;
@@ -249,8 +251,8 @@ public class AadlDiagram extends FigureCanvas {
 		this.scalableFigureLayeredPane = scalableFigureLayeredPane;
 	}
 
-	public void setSelectedAdapter(IAadlElementAdapter adapter){
-		if(selectedAdapter != NO_SELECTED_ADAPTER){
+	public void setSelectedAdapter(IAadlElementAdapter adapter) {
+		if (selectedAdapter != NO_SELECTED_ADAPTER) {
 			// un-select the previously selected figure.
 			selectedAdapter.setSelected(false);
 		}
@@ -268,14 +270,15 @@ public class AadlDiagram extends FigureCanvas {
 		List<PolylineConnection> connectionsToRestore = new ArrayList<PolylineConnection>();
 		AadlComponentAdapter rootAdapter = this.getRootAdapter();
 
-		if(rootAdapter != null) {
-			for(Iterator<AadlComponentAdapter> it = rootAdapter.getChildComponents(); it.hasNext();) {
+		if (rootAdapter != null) {
+			for (Iterator<AadlComponentAdapter> it = rootAdapter.getChildComponents(); it.hasNext();) {
 				nodesToLayout.add(it.next().getLayoutItem());
 			}
 
-			for(Iterator<AadlConnectionAdapter> it = rootAdapter.getChildConnections(); it.hasNext();) {
+			for (Iterator<AadlConnectionAdapter> it = rootAdapter.getChildConnections(); it.hasNext();) {
 				AadlConnectionAdapter connAdapter = it.next();
-				if(!connAdapter.getSourceAdapter().getParentAdapter().isContainer() && !connAdapter.getDestinationAdapter().getParentAdapter().isContainer()) {
+				if (!connAdapter.getSourceAdapter().getParentAdapter().isContainer()
+						&& !connAdapter.getDestinationAdapter().getParentAdapter().isContainer()) {
 					connectionsToRestore.add(connAdapter.getFigure());
 					connectionsToLayout.add(connAdapter.getLayoutItem());
 				}
@@ -286,9 +289,12 @@ public class AadlDiagram extends FigureCanvas {
 				Point location = new Point(0, 0);
 				Dimension size = getAutoLayoutArea();
 				Rectangle layoutArea = new Rectangle(location, size);
-				SpringLayoutAlgorithm layout = new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING | LayoutStyles.ENFORCE_BOUNDS);
+				SpringLayoutAlgorithm layout = new SpringLayoutAlgorithm(
+						LayoutStyles.NO_LAYOUT_NODE_RESIZING | LayoutStyles.ENFORCE_BOUNDS);
 				layout.setSpringLength(20);
-				layout.applyLayout(nodesToLayout.toArray(new LayoutEntity[]{}), connectionsToLayout.toArray(new LayoutRelationship[]{}), layoutArea.x, layoutArea.y, layoutArea.width, layoutArea.height, false, false);
+				layout.applyLayout(nodesToLayout.toArray(new LayoutEntity[] {}),
+						connectionsToLayout.toArray(new LayoutRelationship[] {}), layoutArea.x, layoutArea.y,
+						layoutArea.width, layoutArea.height, false, false);
 
 				// The size of the container figure is reset after the auto layout
 				// because the auto layout does not respect the initial figure boundaries.
@@ -298,7 +304,7 @@ public class AadlDiagram extends FigureCanvas {
 				figure.setBounds(newBounds);
 
 				// The layout algorithm clears the constraints for the connection figures; therefore, the default bendpoints need to be reset.
-				//this.resetBendpoints(connectionsToRestore);
+				// this.resetBendpoints(connectionsToRestore);
 
 			} catch (InvalidLayoutConfiguration e) {
 				e.printStackTrace();
@@ -314,7 +320,7 @@ public class AadlDiagram extends FigureCanvas {
 		Dimension area = new Dimension();
 		int padding = 0;
 
-		for(Iterator<AadlComponentAdapter> it = this.rootAdapter.getChildComponents(); it.hasNext();) {
+		for (Iterator<AadlComponentAdapter> it = this.rootAdapter.getChildComponents(); it.hasNext();) {
 			Rectangle bounds = it.next().getFigure().getBounds();
 			// Increase area.
 			area.expand(bounds.width + padding, bounds.height + padding);
@@ -324,7 +330,7 @@ public class AadlDiagram extends FigureCanvas {
 	}
 
 	private void resetBendpoints(List<PolylineConnection> connections) {
-		for(PolylineConnection connection : connections) {
+		for (PolylineConnection connection : connections) {
 			BendpointHelper.setDefaultBendpoints(connection);
 			connection.layout();
 		}
@@ -340,5 +346,4 @@ public class AadlDiagram extends FigureCanvas {
 		this.setContents(this.scalableFigureLayeredPane);
 	}
 
-	
 }

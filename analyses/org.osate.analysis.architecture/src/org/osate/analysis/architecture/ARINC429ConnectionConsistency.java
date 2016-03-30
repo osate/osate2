@@ -110,8 +110,8 @@ public class ARINC429ConnectionConsistency extends AadlProcessingSwitchWithProgr
 		}
 		if (srcStartBit > -1 && dstStartBit > -1) {
 			if (srcStartBit != dstStartBit) {
-				error(conni, "Source Start Bit " + srcStartBit + " and destination Start Bit " + dstStartBit
-						+ " differ");
+				error(conni,
+						"Source Start Bit " + srcStartBit + " and destination Start Bit " + dstStartBit + " differ");
 			}
 		}
 		if (srcC > 0 && dstC > 0) {

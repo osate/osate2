@@ -37,14 +37,10 @@ public class TreeTest {
 		TreeSet cs = (TreeSet) s.clone();
 		TreeMap cm = (TreeMap) m.clone();
 
-		System.out.println("cs(" + cs + ") cs.contains(nG) = "
-				+ cs.contains(nG));
-		System.out.println("cs(" + cs + ") cs.contains(nH) = "
-				+ cs.contains(nH));
-		System.out.println("cs(" + cs + ") cs.contains(nI) = "
-				+ cs.contains(nI));
-		System.out.println("cs(" + cs + ") cs.contains(nJ) = "
-				+ cs.contains(nJ));
+		System.out.println("cs(" + cs + ") cs.contains(nG) = " + cs.contains(nG));
+		System.out.println("cs(" + cs + ") cs.contains(nH) = " + cs.contains(nH));
+		System.out.println("cs(" + cs + ") cs.contains(nI) = " + cs.contains(nI));
+		System.out.println("cs(" + cs + ") cs.contains(nJ) = " + cs.contains(nJ));
 
 		System.out.println("\n\n");
 

@@ -60,9 +60,8 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 public class ComponentInstanceLevelChecker extends AadlProcessingSwitch {
 	/** The property to check.  Must be an aadlinteger-valued property. */
 	private final Property property;
-	
-	public ComponentInstanceLevelChecker(
-			final AnalysisErrorReporterManager errMgr, final Property pd) {
+
+	public ComponentInstanceLevelChecker(final AnalysisErrorReporterManager errMgr, final Property pd) {
 		super(PROCESS_POST_ORDER_ALL, errMgr);
 		property = pd;
 	}
@@ -80,7 +79,7 @@ public class ComponentInstanceLevelChecker extends AadlProcessingSwitch {
 					} catch (PropertyDoesNotApplyToHolderException e) {
 						cilv = 0;
 						cipvExists = false;
-					} catch (PropertyNotPresentException e)	{
+					} catch (PropertyNotPresentException e) {
 						cilv = 0;
 						cipvExists = false;
 					}
@@ -90,37 +89,36 @@ public class ComponentInstanceLevelChecker extends AadlProcessingSwitch {
 					final EList<ComponentInstance> subs = ci.getComponentInstances();
 					for (final Iterator<ComponentInstance> it = subs.iterator(); it.hasNext();) {
 						final ComponentInstance sub = it.next();
-						try	{
+						try {
 							long slv = PropertyUtils.getIntegerValue(sub, property);
-							//Update max subcomponent security level
-							if (slv > maxslv) maxslv = slv;
+							// Update max subcomponent security level
+							if (slv > maxslv)
+								maxslv = slv;
 						} catch (PropertyDoesNotApplyToHolderException e) {
-							//Do nothing.
-						} catch (PropertyNotPresentException e)	{
-							//Do nothing.
+							// Do nothing.
+						} catch (PropertyNotPresentException e) {
+							// Do nothing.
 						}
 					}
-					
+
 					if (maxslv > cilv) {
-						/* Subcomponents have higher security level than me.
+						/*
+						 * Subcomponents have higher security level than me.
 						 * Update my declared security level.
 						 */
 						if (cipvExists) { // My declared level is wrong
-							warning(ci, property.getQualifiedName() +
-									" updated to the maximum of the subcomponent values: " +
-									maxslv);
-						} else { 
-							warning(ci, property.getQualifiedName() +
-									" set to the maximum of the subcomponent values: " +
-									maxslv);
+							warning(ci, property.getQualifiedName()
+									+ " updated to the maximum of the subcomponent values: " + maxslv);
+						} else {
+							warning(ci, property.getQualifiedName() + " set to the maximum of the subcomponent values: "
+									+ maxslv);
 						}
-						
+
 						// Update the property value on the instance model
 						// TODO: add contained property association to the declarative model
-						
+
 						// Create new property value: An Integer value
-						final IntegerLiteral newpv =
-							Aadl2Factory.eINSTANCE.createIntegerLiteral();
+						final IntegerLiteral newpv = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 						// Set to max security level
 						newpv.setValue(maxslv);
 						// Set the property association

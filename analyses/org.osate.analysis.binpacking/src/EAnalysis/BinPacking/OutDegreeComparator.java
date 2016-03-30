@@ -12,19 +12,17 @@ import java.util.Comparator;
  */
 public class OutDegreeComparator implements Comparator {
 	public int compare(Object o1, Object o2) {
-		// 	if (o1.equals(o2))
-		// 	    return 0;
+		// if (o1.equals(o2))
+		// return 0;
 
-		if (((ProcessingLoad) o1).getUniqueID() == ((ProcessingLoad) o2)
-				.getUniqueID())
+		if (((ProcessingLoad) o1).getUniqueID() == ((ProcessingLoad) o2).getUniqueID())
 			return 0;
 
 		/* To ensure descending order, swap o1 and o2 */
 
 		SoftwareNode n1 = (SoftwareNode) o2;
 		SoftwareNode n2 = (SoftwareNode) o1;
-		double difference = n1.getBandwidthOutDegree()
-				- n2.getBandwidthOutDegree();
+		double difference = n1.getBandwidthOutDegree() - n2.getBandwidthOutDegree();
 		if (difference < 0) {
 			return (int) Math.floor(difference);
 		} else if (difference > 0) {

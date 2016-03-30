@@ -22,14 +22,13 @@ public class ElementInhibitStatus<T> {
 	private T category;
 	private boolean inhibited;
 
-	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
-			this);
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-	public ElementInhibitStatus(T category){
+	public ElementInhibitStatus(T category) {
 		this(category, false);
 	}
 
-	public ElementInhibitStatus(T category, boolean inhibited){
+	public ElementInhibitStatus(T category, boolean inhibited) {
 		this.category = category;
 		this.inhibited = inhibited;
 	}
@@ -50,12 +49,11 @@ public class ElementInhibitStatus<T> {
 		propertyChangeSupport.firePropertyChange(INHIBIT_PROPERTY, this.inhibited, this.inhibited = inhibit);
 	}
 
-	public String toString(){
+	public String toString() {
 		return category.toString();
 	}
 
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 

@@ -6,10 +6,10 @@ import org.osate.analysis.flows.FlowanalysisPlugin;
 public class Values {
 
 	private static String[] prefs;
-	
+
 	public static boolean doSynchronousSystem() {
-		if (prefs != null && prefs.length > 0){
-			return prefs[0].equals("SS"); 
+		if (prefs != null && prefs.length > 0) {
+			return prefs[0].equals("SS");
 		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.SYNCHRONOUS_SYSTEM);
@@ -17,8 +17,8 @@ public class Values {
 	}
 
 	public static boolean doMajorFrameDelay() {
-		if (prefs != null && prefs.length > 1){
-			return prefs[1].equals("MF"); 
+		if (prefs != null && prefs.length > 1) {
+			return prefs[1].equals("MF");
 		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.PARTITONING_POLICY);
@@ -32,8 +32,8 @@ public class Values {
 	}
 
 	public static boolean doWorstCaseDeadline() {
-		if (prefs != null && prefs.length > 2){
-			return prefs[2].equals("DL"); 
+		if (prefs != null && prefs.length > 2) {
+			return prefs[2].equals("DL");
 		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.WORST_CASE_DEADLINE);
@@ -53,8 +53,8 @@ public class Values {
 	}
 
 	public static boolean doBestcaseEmptyQueue() {
-		if (prefs != null && prefs.length > 3){
-			return prefs[3].equals("EQ"); 
+		if (prefs != null && prefs.length > 3) {
+			return prefs[3].equals("EQ");
 		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.BESTCASE_EMPTY_QUEUE);

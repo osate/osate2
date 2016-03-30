@@ -26,7 +26,7 @@ public class SubprogramFigure extends ComponentFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		// Configure GC.

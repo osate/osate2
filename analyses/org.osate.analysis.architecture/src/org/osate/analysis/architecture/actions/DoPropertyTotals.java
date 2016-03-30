@@ -69,16 +69,15 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		setCSVLog("WeightAnalysis", obj);
 		return true;
 	}
-	
+
 	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(
-				this.getAnalysisErrorReporterFactory());
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
-	
-	public void saveReport(){
+
+	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
-	
+
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		/*

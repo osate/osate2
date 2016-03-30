@@ -29,27 +29,27 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
 
-public class ImvAdapterFactory implements IAdapterFactory{
+public class ImvAdapterFactory implements IAdapterFactory {
 
 	private InstanceItemProviderAdapterFactory instanceFactory = new InstanceItemProviderAdapterFactory();
 
 	private Aadl2ItemProviderAdapterFactory aadl2Factory = new Aadl2ItemProviderAdapterFactory();
 
-	private IWorkbenchAdapter elementAdapter = new IWorkbenchAdapter(){
+	private IWorkbenchAdapter elementAdapter = new IWorkbenchAdapter() {
 
 		@Override
 		public Object[] getChildren(Object o) {
 			List<NamedElement> componentList = new ArrayList<NamedElement>();
-			if (o instanceof AadlPackage){
-				o = ((AadlPackage)o).getOwnedPublicSection();
+			if (o instanceof AadlPackage) {
+				o = ((AadlPackage) o).getOwnedPublicSection();
 			}
-			if(o instanceof Element){
-				for(Iterator<Element> it = ((Element)o).getChildren().iterator(); it.hasNext();){
+			if (o instanceof Element) {
+				for (Iterator<Element> it = ((Element) o).getChildren().iterator(); it.hasNext();) {
 					Element ele = it.next();
 					// Only object that are instances of ComponentInstance will be displayed in the
 					// outline view.
-					if(ele instanceof ComponentInstance|| ele instanceof ComponentImplementation)
-						componentList.add((NamedElement)ele);
+					if (ele instanceof ComponentInstance || ele instanceof ComponentImplementation)
+						componentList.add((NamedElement) ele);
 				}
 			}
 			return componentList.toArray();
@@ -59,7 +59,8 @@ public class ImvAdapterFactory implements IAdapterFactory{
 		public ImageDescriptor getImageDescriptor(Object object) {
 			ImageDescriptor desc = null;
 			try {
-				IItemLabelProvider labelProvider = (IItemLabelProvider) instanceFactory.adapt(object, IItemLabelProvider.class);
+				IItemLabelProvider labelProvider = (IItemLabelProvider) instanceFactory.adapt(object,
+						IItemLabelProvider.class);
 				if (labelProvider == null)
 					labelProvider = (IItemLabelProvider) aadl2Factory.adapt(object, IItemLabelProvider.class);
 				Object imageURL = labelProvider.getImage(object);
@@ -75,7 +76,7 @@ public class ImvAdapterFactory implements IAdapterFactory{
 
 		@Override
 		public String getLabel(Object o) {
-			IItemLabelProvider labelProvider = (IItemLabelProvider)instanceFactory.adapt(o, IItemLabelProvider.class);
+			IItemLabelProvider labelProvider = (IItemLabelProvider) instanceFactory.adapt(o, IItemLabelProvider.class);
 			if (labelProvider == null)
 				labelProvider = (IItemLabelProvider) aadl2Factory.adapt(o, IItemLabelProvider.class);
 			return labelProvider.getText(o);
@@ -83,14 +84,14 @@ public class ImvAdapterFactory implements IAdapterFactory{
 
 		@Override
 		public Object getParent(Object o) {
-			return ((Element)o).getOwner();
+			return ((Element) o).getOwner();
 		}
 
 	};
 
 	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if(adapterType == IWorkbenchAdapter.class && adaptableObject instanceof Element)
+		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof Element)
 			return elementAdapter;
 		else
 			return null;
@@ -98,7 +99,7 @@ public class ImvAdapterFactory implements IAdapterFactory{
 
 	@Override
 	public Class[] getAdapterList() {
-		return new Class[] {IWorkbenchAdapter.class};
+		return new Class[] { IWorkbenchAdapter.class };
 	}
 
 }

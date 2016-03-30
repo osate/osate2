@@ -16,7 +16,10 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 public interface IPropertyDecorationDelegate {
 	public void setAadlElement(Object element);
+
 	public String getName();
+
 	public void paintDecoration(Graphics g, Dimension figureSize);
+
 	public void dispose();
 }

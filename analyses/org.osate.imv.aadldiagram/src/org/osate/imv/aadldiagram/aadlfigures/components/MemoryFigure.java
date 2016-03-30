@@ -26,7 +26,7 @@ public class MemoryFigure extends ComponentFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		g.setLineWidth(LINE_WIDTH);
@@ -42,15 +42,18 @@ public class MemoryFigure extends ComponentFigure {
 		g.drawOval(drawingArea.x, drawingArea.getBottom().y - OVAL_HEIGHT, drawingArea.width, OVAL_HEIGHT);
 
 		// Fill inside rectangle.
-		g.fillRectangle(drawingArea.x, drawingArea.y + CURVE_HEIGHT, drawingArea.width, drawingArea.height - OVAL_HEIGHT);
+		g.fillRectangle(drawingArea.x, drawingArea.y + CURVE_HEIGHT, drawingArea.width,
+				drawingArea.height - OVAL_HEIGHT);
 
 		// Top oval.
 		g.fillOval(drawingArea.x, drawingArea.y, drawingArea.width, OVAL_HEIGHT);
 		g.drawOval(drawingArea.x, drawingArea.y, drawingArea.width, OVAL_HEIGHT);
 
 		// Sides.
-		g.drawLine(drawingArea.x, drawingArea.y + CURVE_HEIGHT, drawingArea.x, drawingArea.getBottom().y - CURVE_HEIGHT); // left
-		g.drawLine(drawingArea.getRight().x, drawingArea.y + CURVE_HEIGHT, drawingArea.getRight().x, drawingArea.getBottom().y - CURVE_HEIGHT); // right
+		g.drawLine(drawingArea.x, drawingArea.y + CURVE_HEIGHT, drawingArea.x,
+				drawingArea.getBottom().y - CURVE_HEIGHT); // left
+		g.drawLine(drawingArea.getRight().x, drawingArea.y + CURVE_HEIGHT, drawingArea.getRight().x,
+				drawingArea.getBottom().y - CURVE_HEIGHT); // right
 	}
 
 }

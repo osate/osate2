@@ -22,7 +22,6 @@ import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 
-
 public class FilterVisitor extends AadlAdapterVisitor {
 
 	private List<ViewerFilter> filters;
@@ -34,7 +33,7 @@ public class FilterVisitor extends AadlAdapterVisitor {
 	}
 
 	public void visitAadlComponentAdapter(AadlComponentAdapter adapter) {
-		if(!adapter.isContainer())
+		if (!adapter.isContainer())
 			runFilters(adapter);
 	}
 
@@ -45,7 +44,6 @@ public class FilterVisitor extends AadlAdapterVisitor {
 	public void visitAadlConnectionAdapter(AadlConnectionAdapter adapter) {
 		runFilters(adapter);
 	}
-
 
 	private void runFilters(IAadlElementAdapter adapter) {
 		IAadlElementAdapter parentAdapter = adapter.getParentAdapter();

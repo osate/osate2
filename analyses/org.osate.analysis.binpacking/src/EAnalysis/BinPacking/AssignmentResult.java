@@ -13,4 +13,3 @@ public class AssignmentResult {
 		success = r;
 	}
 }
-

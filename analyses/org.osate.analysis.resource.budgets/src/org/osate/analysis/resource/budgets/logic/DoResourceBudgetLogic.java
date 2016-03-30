@@ -253,11 +253,11 @@ public class DoResourceBudgetLogic {
 		}
 
 		if (subtotal > 0 && subtotal < budget) {
-			notes = notes
-					+ ", "
-					+ String.format(resourceName + " " + ci.getInstanceObjectPath() + " total %.1f " + unit.getName()
-							+ " below budget %.1f " + unit.getName() + " (%.1f %% slack)", subtotal, budget,
-							(budget - subtotal) / budget * 100);
+			notes = notes + ", "
+					+ String.format(
+							resourceName + " " + ci.getInstanceObjectPath() + " total %.1f " + unit.getName()
+									+ " below budget %.1f " + unit.getName() + " (%.1f %% slack)",
+							subtotal, budget, (budget - subtotal) / budget * 100);
 		}
 		if (!isSystemInstance)
 			detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);

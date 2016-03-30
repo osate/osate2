@@ -15,7 +15,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure.ResizeType;
 
-
 public interface IResizableFigureDelegate {
 	public Rectangle getNewBounds(ResizeType resizeType, Point location, Rectangle bounds);
 }

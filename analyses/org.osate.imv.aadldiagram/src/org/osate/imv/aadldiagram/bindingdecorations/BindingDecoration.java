@@ -47,7 +47,6 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 
 	private static final Dimension SIZE = new Dimension(20, 20);
 
-
 	private float rotationDegrees;
 	private BindingDecorationType decorationType;
 
@@ -64,9 +63,8 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 	 *
 	 * @param p The location
 	 */
-	public void setLocation(Point p)
-	{
-		this.getBounds().setLocation(p.x - (int)(SIZE.width / 2.0f), p.y - (int)(SIZE.height / 2.0f));
+	public void setLocation(Point p) {
+		this.getBounds().setLocation(p.x - (int) (SIZE.width / 2.0f), p.y - (int) (SIZE.height / 2.0f));
 	}
 
 	/**
@@ -75,56 +73,50 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 	 * @param p
 	 *            The reference point
 	 */
-	public void setReferencePoint(Point ref)
-	{
+	public void setReferencePoint(Point ref) {
 		Point pt = Point.SINGLETON;
 		pt.setLocation(ref);
 		pt.negate().translate(getBounds().getLocation());
-		rotationDegrees = (float)Math.toDegrees(Math.atan2(pt.y, pt.x));
+		rotationDegrees = (float) Math.toDegrees(Math.atan2(pt.y, pt.x));
 		this.repaint();
 	}
 
-	public void paintFigure(Graphics g) 
-	{
+	public void paintFigure(Graphics g) {
 
 		// Configure GC.
 		g.setForegroundColor(ColorConstants.black);
-		g.setLineWidth (5);
+		g.setLineWidth(5);
 		g.setLineStyle(SWT.LINE_SOLID);
 
-		
 		g.setAntialias(SWT.ON);
 
 		// Transform GC
 		g.translate(this.getBounds().getCenter());
 		g.rotate(this.rotationDegrees);
 
-		switch(this.decorationType)
-		{
-			default:
-			{
-				this.paintDefaultBindingDecoration(g);
-				break;
-			}
+		switch (this.decorationType) {
+		default: {
+			this.paintDefaultBindingDecoration(g);
+			break;
+		}
 
 		}
 	}
 
-
 	protected void paintDefaultBindingDecoration(Graphics g) {
 		int x = 0;
 		int h = 5;
-		int[] points = {-20, 20, 0, 0, 20, 20};
-		//g.drawLine(x, h, x, -h);
+		int[] points = { -20, 20, 0, 0, 20, 20 };
+		// g.drawLine(x, h, x, -h);
 		x = -4;
-		//g.drawLine(x, h, x, -h);
-		//g.drawLine(x, h, x -50, h - 50);
-		//g.rotate(90);
-		//g.drawLine(x, h, x -50, h - 50);
+		// g.drawLine(x, h, x, -h);
+		// g.drawLine(x, h, x -50, h - 50);
+		// g.rotate(90);
+		// g.drawLine(x, h, x -50, h - 50);
 		g.rotate(-90);
 		g.drawPolyline(points);
 
-		//g.drawPolyline({-20,0,20}, {20,0,20}, 3);
+		// g.drawPolyline({-20,0,20}, {20,0,20}, 3);
 	}
 
 }

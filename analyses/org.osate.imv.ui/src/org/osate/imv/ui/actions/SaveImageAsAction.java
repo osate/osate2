@@ -17,7 +17,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.imv.image.ImageSaver;
 
-
 public class SaveImageAsAction extends Action implements ActionFactory.IWorkbenchAction {
 
 	private static final String ID = "org.osate.imv.ui.actions.saveImageAsAction";
@@ -31,7 +30,8 @@ public class SaveImageAsAction extends Action implements ActionFactory.IWorkbenc
 
 		setId(ID);
 		setText(LABEL);
-		this.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_SAVEAS_EDIT));
+		this.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ETOOL_SAVEAS_EDIT));
 	}
 
 	@Override

@@ -12,8 +12,5 @@
 package org.osate.imv.aadldiagram.connectiondecorations;
 
 public enum ConnectionDecorationType {
-	DELAYED,
-	IMMEDIATE,
-	SAMPLED,
-	NONE;
+	DELAYED, IMMEDIATE, SAMPLED, NONE;
 }

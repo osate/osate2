@@ -15,7 +15,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public class ParameterFeatureFigure extends DirectedFeatureFigure {
 
 	public static final int V_EXTENT = 15; // Must be odd #
@@ -24,8 +23,7 @@ public class ParameterFeatureFigure extends DirectedFeatureFigure {
 	private int triangleHeight = V_EXTENT;
 	private int triangleBase = H_EXTENT;
 
-	public ParameterFeatureFigure(String label, FeatureDirectionType direction,
-			FeatureLabelStyle labelStyle) {
+	public ParameterFeatureFigure(String label, FeatureDirectionType direction, FeatureLabelStyle labelStyle) {
 		super(label, direction, labelStyle);
 	}
 
@@ -36,13 +34,12 @@ public class ParameterFeatureFigure extends DirectedFeatureFigure {
 		// Create point list that defines the symbol.
 		PointList points = new PointList();
 
-		int centerPoint = (int)Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
+		int centerPoint = (int) Math.ceil((triangleBase / 2.0f)); // Center point of odd #.
 
 		/* Populate point list. */
 		points.addPoint(centerPoint, 0);
 		points.addPoint(0, triangleHeight);
 		points.addPoint(triangleBase, triangleHeight);
-
 
 		// Configure GC.
 		g.setForegroundColor(this.getForegroundColor());

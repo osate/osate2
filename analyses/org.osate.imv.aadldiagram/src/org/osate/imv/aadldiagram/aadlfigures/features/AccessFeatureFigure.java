@@ -19,7 +19,6 @@ import org.eclipse.swt.SWT;
 import org.osate.imv.aadldiagram.adapters.FeatureAdapterCategory;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 
-
 public class AccessFeatureFigure extends DirectedFeatureFigure {
 
 	public static final int V_EXTENT = 15; // Must be odd #
@@ -27,8 +26,8 @@ public class AccessFeatureFigure extends DirectedFeatureFigure {
 
 	private FeatureAdapterCategory featureCategory;
 
-	public AccessFeatureFigure(String label, FeatureDirectionType direction,
-			FeatureLabelStyle labelStyle, FeatureAdapterCategory accessFeatureCategory) {
+	public AccessFeatureFigure(String label, FeatureDirectionType direction, FeatureLabelStyle labelStyle,
+			FeatureAdapterCategory accessFeatureCategory) {
 		super(label, direction, labelStyle);
 		this.featureCategory = accessFeatureCategory;
 	}
@@ -47,9 +46,9 @@ public class AccessFeatureFigure extends DirectedFeatureFigure {
 
 		super.drawSymbol(g);
 
-		int centerPointX = (int)Math.ceil((H_EXTENT / 2.0f)); // Center point of odd #.
+		int centerPointX = (int) Math.ceil((H_EXTENT / 2.0f)); // Center point of odd #.
 
-		switch(this.featureCategory) {
+		switch (this.featureCategory) {
 		case BUS_ACCESS:
 		case DATA_ACCESS:
 			// Configure GC.
@@ -77,7 +76,7 @@ public class AccessFeatureFigure extends DirectedFeatureFigure {
 		case SUBPROGRAM_ACCESS:
 		case SUBPROGRAM_GROUP_ACCESS:
 			// Configure GC
-			if(this.featureCategory == FeatureAdapterCategory.SUBPROGRAM_ACCESS) {
+			if (this.featureCategory == FeatureAdapterCategory.SUBPROGRAM_ACCESS) {
 				g.setBackgroundColor(ColorConstants.white);
 				g.setForegroundColor(ColorConstants.black);
 			} else {
@@ -91,10 +90,11 @@ public class AccessFeatureFigure extends DirectedFeatureFigure {
 			int ovalWidth = H_EXTENT;
 			int ovalHeight = V_EXTENT;
 			// Draw oval.
-			Rectangle ovalRect = new Rectangle((int)(0.5f * (H_EXTENT - ovalWidth)), (int)(0.5f * (V_EXTENT - ovalHeight)), ovalWidth, ovalHeight);
+			Rectangle ovalRect = new Rectangle((int) (0.5f * (H_EXTENT - ovalWidth)),
+					(int) (0.5f * (V_EXTENT - ovalHeight)), ovalWidth, ovalHeight);
 			g.fillOval(ovalRect);
 
-			if(this.featureCategory == FeatureAdapterCategory.SUBPROGRAM_ACCESS)
+			if (this.featureCategory == FeatureAdapterCategory.SUBPROGRAM_ACCESS)
 				g.drawOval(ovalRect);
 
 			int triangleWidth = 7;
@@ -109,6 +109,5 @@ public class AccessFeatureFigure extends DirectedFeatureFigure {
 			break;
 		}
 	}
-
 
 }

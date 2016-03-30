@@ -34,6 +34,7 @@ public class ImvUiPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
@@ -43,6 +44,7 @@ public class ImvUiPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
@@ -61,21 +63,35 @@ public class ImvUiPlugin extends AbstractUIPlugin {
 
 	@Override
 	protected void initializeImageRegistry(ImageRegistry registry) {
-	     // Add image descriptors to registry.
-	     registry.put(IImageKeys.ARROW_STOP_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ARROW_STOP_ICON));
-	     registry.put(IImageKeys.STEP_INTO_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.STEP_INTO_ICON));
-	     registry.put(IImageKeys.STEP_OUT_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.STEP_OUT_ICON));
-	     registry.put(IImageKeys.INCR_NESTING_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.INCR_NESTING_ICON));
-	     registry.put(IImageKeys.DECR_NESTING_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.DECR_NESTING_ICON));
-	     registry.put(IImageKeys.ZOOM_IN_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ZOOM_IN_ICON));
-	     registry.put(IImageKeys.ZOOM_OUT_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ZOOM_OUT_ICON));
-	     registry.put(IImageKeys.RESIZE_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ICON));
-	     registry.put(IImageKeys.AUTO_LAYOUT_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.AUTO_LAYOUT_ICON));
-	     registry.put(IImageKeys.RESIZE_ACTUAL_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ACTUAL_ICON));
-	     registry.put(IImageKeys.SHOW_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.SHOW_ERROR_ICON));
-	     registry.put(IImageKeys.HIDE_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIDE_ERROR_ICON));
-	     registry.put(IImageKeys.DIRECT_CONNECTION_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.DIRECT_CONNECTION_ICON));
-	     registry.put(IImageKeys.HIERARCHICAL_CONNECTION_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIERARCHICAL_CONNECTION_ICON));
+		// Add image descriptors to registry.
+		registry.put(IImageKeys.ARROW_STOP_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ARROW_STOP_ICON));
+		registry.put(IImageKeys.STEP_INTO_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.STEP_INTO_ICON));
+		registry.put(IImageKeys.STEP_OUT_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.STEP_OUT_ICON));
+		registry.put(IImageKeys.INCR_NESTING_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.INCR_NESTING_ICON));
+		registry.put(IImageKeys.DECR_NESTING_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.DECR_NESTING_ICON));
+		registry.put(IImageKeys.ZOOM_IN_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ZOOM_IN_ICON));
+		registry.put(IImageKeys.ZOOM_OUT_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.ZOOM_OUT_ICON));
+		registry.put(IImageKeys.RESIZE_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ICON));
+		registry.put(IImageKeys.AUTO_LAYOUT_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.AUTO_LAYOUT_ICON));
+		registry.put(IImageKeys.RESIZE_ACTUAL_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ACTUAL_ICON));
+		registry.put(IImageKeys.SHOW_ERROR_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.SHOW_ERROR_ICON));
+		registry.put(IImageKeys.HIDE_ERROR_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIDE_ERROR_ICON));
+		registry.put(IImageKeys.DIRECT_CONNECTION_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.DIRECT_CONNECTION_ICON));
+		registry.put(IImageKeys.HIERARCHICAL_CONNECTION_ICON,
+				ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIERARCHICAL_CONNECTION_ICON));
 
 	}
 

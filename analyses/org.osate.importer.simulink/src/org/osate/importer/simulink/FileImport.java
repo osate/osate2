@@ -1,6 +1,4 @@
 
-
-
 /*
  * Copyright 2013-2014 Carnegie Mellon University
  * 
@@ -55,51 +53,42 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class FileImport {
-	
+
 	public static List<Model> models;
-	
-	public static void init ()
-	{
+
+	public static void init() {
 		models = new ArrayList<Model>();
 	}
 
 	private static String SIMULINK_ENTRYFILE = "simulink/blockdiagram.xml";
-	
+
 	private static List<StateFlowInstance> stateFlowInstances;
-	
-	
-	public static List<StateFlowInstance> getStateFlowInstances ()
-	{
+
+	public static List<StateFlowInstance> getStateFlowInstances() {
 		return stateFlowInstances;
 	}
-	
-	public static void addStateFlowInstance (StateFlowInstance sfi)
-	{
+
+	public static void addStateFlowInstance(StateFlowInstance sfi) {
 		stateFlowInstances.add(sfi);
 	}
-	
-	public static StateFlowInstance getStateFlowImport (String s)
-	{
-		for (StateFlowInstance sfi : stateFlowInstances)
-		{
-			if (org.osate.importer.Utils.toAadl(sfi.getName()).equalsIgnoreCase(s))
-			{
+
+	public static StateFlowInstance getStateFlowImport(String s) {
+		for (StateFlowInstance sfi : stateFlowInstances) {
+			if (org.osate.importer.Utils.toAadl(sfi.getName()).equalsIgnoreCase(s)) {
 				return sfi;
 			}
 		}
 		return null;
 	}
-	
-	public static Document loadXMLZip (String inputFile)
-	{
-		
+
+	public static Document loadXMLZip(String inputFile) {
+
 		InputStream in;
-		ZipFile 	zipFile;
-		
+		ZipFile zipFile;
+
 		zipFile = null;
-		
-		try 
-		{
+
+		try {
 //			OsateDebug.osateDebug("[FileImport] Try to load " + inputFile);
 			/*
 			 * In fact, the simulink model (slx file) is a zip file
@@ -107,171 +96,139 @@ public class FileImport {
 			 * the file that contains all interesting information
 			 * (blockdiagram.xml).
 			 */
-			if (inputFile.contains(".slx"))
-			{
+			if (inputFile.contains(".slx")) {
 				zipFile = new ZipFile(inputFile);
 				in = zipFile.getInputStream(zipFile.getEntry(SIMULINK_ENTRYFILE));
-			}
-			else
-			{
+			} else {
 				OsateDebug.osateDebug("[FileImport] Not a Simulink model");
 				return null;
 			}
-			
+
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(in);
-			if (zipFile != null)
-			{
+			if (zipFile != null) {
 				zipFile.close();
 			}
 			in.close();
 			return doc;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 //			OsateDebug.osateDebug("[FileImport] Exception in loadXMLZip()");
 //			e.printStackTrace();
 		}
 		return null;
 	}
 
-	
-	public static Model getModel (String n)
-	{
-		for (Model m : models)
-		{
-			if (m.getName().equalsIgnoreCase(n))
-			{
+	public static Model getModel(String n) {
+		for (Model m : models) {
+			if (m.getName().equalsIgnoreCase(n)) {
 				return m;
 			}
 		}
 		return null;
 	}
 
-	
 	/**
 	 * Load a file, either a model or a library. Return a generic model.
 	 * If we are not able to load the file, it just returns null.
 	 * 
 	 * @param file      		- the file that contains the model or library
-	 */	
-	public static Model loadFile (String inputFile)
-	{
-		Node 		nNode;
-		Model		producedModel;
-		
-		producedModel 		= getModel (inputFile);
-		
-		if (producedModel != null)
-		{
+	 */
+	public static Model loadFile(String inputFile) {
+		Node nNode;
+		Model producedModel;
+
+		producedModel = getModel(inputFile);
+
+		if (producedModel != null) {
 			return producedModel;
 		}
-		
-		producedModel = new Model (Utils.getModelName (inputFile));
-		models.add (producedModel);
-		stateFlowInstances 	= new ArrayList<StateFlowInstance> ();
-		
-		try 
-		{
-			Document doc = loadXMLZip (inputFile);
-			
+
+		producedModel = new Model(Utils.getModelName(inputFile));
+		models.add(producedModel);
+		stateFlowInstances = new ArrayList<StateFlowInstance>();
+
+		try {
+			Document doc = loadXMLZip(inputFile);
+
 			/**
 			 * if doc is null, it means (most of the case) that the
 			 * file does not exist.
 			 */
-			if (doc == null)
-			{
+			if (doc == null) {
 				return null;
 			}
-			
-			doc.getDocumentElement().normalize();			
+
+			doc.getDocumentElement().normalize();
 
 			NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
-			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-			{
+			for (int s = 0; s < modelInformationNodes.getLength(); s++) {
 				nNode = modelInformationNodes.item(s);
 				NodeList children = nNode.getChildNodes();
-				
-				for (int t = 0 ; t < children.getLength() ; t++)
-				{
-					Node tNode = children.item (t);
-					
+
+				for (int t = 0; t < children.getLength(); t++) {
+					Node tNode = children.item(t);
+
 					/**
 					 * The model node contains the structure of the
 					 * simulink model (the block diagrams). We parse
 					 * it to map it into an AADL architecture model.
 					 */
-					if (tNode.getNodeName().equalsIgnoreCase("model"))
-					{
-						ImportModel.processComponents (tNode, producedModel, null);
+					if (tNode.getNodeName().equalsIgnoreCase("model")) {
+						ImportModel.processComponents(tNode, producedModel, null);
 					}
-					
-					if (tNode.getNodeName().equalsIgnoreCase("library"))
-					{
-						ImportModel.processComponents (tNode, producedModel, null);
+
+					if (tNode.getNodeName().equalsIgnoreCase("library")) {
+						ImportModel.processComponents(tNode, producedModel, null);
 					}
 
 				}
 			}
-			
-	
-			
-			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-			{
+
+			for (int s = 0; s < modelInformationNodes.getLength(); s++) {
 				nNode = modelInformationNodes.item(s);
 				NodeList children = nNode.getChildNodes();
-				
-				for (int t = 0 ; t < children.getLength() ; t++)
-				{
-					Node tNode = children.item (t);
-					
+
+				for (int t = 0; t < children.getLength(); t++) {
+					Node tNode = children.item(t);
+
 					/**
 					 * The model node contains the structure of the
 					 * simulink model (the block diagrams). We parse
 					 * it to map it into an AADL architecture model.
 					 */
-					if (tNode.getNodeName().equalsIgnoreCase("model"))
-					{
+					if (tNode.getNodeName().equalsIgnoreCase("model")) {
 						ImportModel.processNodeConnections(tNode, producedModel);
 					}
-					
-					if (tNode.getNodeName().equalsIgnoreCase("library"))
-					{
+
+					if (tNode.getNodeName().equalsIgnoreCase("library")) {
 						ImportModel.processNodeConnections(tNode, producedModel);
 					}
 
 				}
 			}
-			
-			
+
 			/**
 			 * The stateflow information are separated from the model. Then,
 			 * we associate a stateflow with the component by name matching:
 			 * if the stateflow instance matches the block name, we add
 			 * the state machine into the component description.
 			 */
-			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
-			{
+			for (int s = 0; s < modelInformationNodes.getLength(); s++) {
 				nNode = modelInformationNodes.item(s);
 				NodeList children = nNode.getChildNodes();
-				
-				for (int t = 0 ; t < children.getLength() ; t++)
-				{
-					Node tNode = children.item (t);
-					if (tNode.getNodeName().equalsIgnoreCase("stateflow"))
-					{
-						ImportStateFlow.processStateFlow (tNode, producedModel);
+
+				for (int t = 0; t < children.getLength(); t++) {
+					Node tNode = children.item(t);
+					if (tNode.getNodeName().equalsIgnoreCase("stateflow")) {
+						ImportStateFlow.processStateFlow(tNode, producedModel);
 					}
 				}
 			}
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return producedModel;
 	}
-	
 
 }

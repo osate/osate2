@@ -36,7 +36,6 @@ package org.osate.analysis.resource.budgets.autoanalyses;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 
-
 public class DoBoundSwitchBandWidthAutoAnalysis extends DoBoundResourceAutoAnalysis {
 	protected DoBoundResourceAnalysisLogic getLogicObject(AnalysisErrorReporterManager loggingErrManager) {
 		return null;

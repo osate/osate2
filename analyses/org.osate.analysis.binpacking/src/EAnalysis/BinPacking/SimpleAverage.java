@@ -11,8 +11,7 @@ import java.util.TreeMap;
 public class SimpleAverage {
 	public static void main(String args[]) {
 		if (args.length != 2) {
-			System.out
-					.println("Usage: SimpleAverage <output file> <filename-regex>");
+			System.out.println("Usage: SimpleAverage <output file> <filename-regex>");
 			return;
 		}
 
@@ -21,21 +20,19 @@ public class SimpleAverage {
 
 		TreeMap samples = new TreeMap();
 		try {
-			PrintWriter writer = new PrintWriter(new FileOutputStream(
-					outFileName));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(outFileName));
 			File dir = new File(".");
 			String[] files = dir.list();
 			double col1 = 0.0;
 			double col2 = 0.0;
 			long frequency = 0;
 			for (int i = 0; i < files.length; i++) {
-				String fileName = files[i]; //prefix+Integer.toString(i)+sufix;
+				String fileName = files[i]; // prefix+Integer.toString(i)+sufix;
 
 				if (!fileName.matches(regex))
 					continue;
 
-				BufferedReader reader = new BufferedReader(new FileReader(
-						fileName));
+				BufferedReader reader = new BufferedReader(new FileReader(fileName));
 				System.out.println("Reading filename(" + fileName + ")");
 				String line;
 				while ((line = reader.readLine()) != null) {

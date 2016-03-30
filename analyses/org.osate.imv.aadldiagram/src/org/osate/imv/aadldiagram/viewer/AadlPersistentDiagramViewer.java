@@ -23,8 +23,6 @@ import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.util.ErrorUtil;
 import org.osate.imv.aadldiagram.visitors.RestoreStateVisitor;
 
-
-
 public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 
 	private IAadlAdapterSaverDelegate saverDelegate;
@@ -32,7 +30,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 
 	private static ComponentInstance errorComponent = null;
 	private static boolean useError = false;
-	
+
 	private Set<AadlComponentAdapter> dirtyAdapters;
 
 	public AadlPersistentDiagramViewer(Composite parent) {
@@ -41,9 +39,9 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 	}
 
 	public void save() {
-		if(this.saverDelegate != null) {
+		if (this.saverDelegate != null) {
 			this.saverDelegate.saveDiagram(this.getAadlDiagram());
-			for(Iterator<AadlComponentAdapter> it = this.dirtyAdapters.iterator(); it.hasNext();)
+			for (Iterator<AadlComponentAdapter> it = this.dirtyAdapters.iterator(); it.hasNext();)
 				this.saverDelegate.saveRootAdapter(it.next());
 			this.dirtyAdapters.clear();
 		}
@@ -76,72 +74,64 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		}
 	}
 
-
-	public void showErrors()
-	{
+	public void showErrors() {
 		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
-		System.out.println ("selected=" + selectedAdapter.getModelElement());
-		if (selectedAdapter.getModelElement() instanceof ComponentInstance)
-		{
+		System.out.println("selected=" + selectedAdapter.getModelElement());
+		if (selectedAdapter.getModelElement() instanceof ComponentInstance) {
 			errorComponent = (ComponentInstance) (selectedAdapter.getModelElement());
-			ErrorUtil.generateAnalysisModel (((ComponentInstance)selectedAdapter.getModelElement()).getSystemInstance());
+			ErrorUtil
+					.generateAnalysisModel(((ComponentInstance) selectedAdapter.getModelElement()).getSystemInstance());
 			useError = true;
 		}
 		redrawDiagram();
- 	}
-	
-	public void hideErrors()
-	{
-		System.out.println ("hideerror=" );
+	}
+
+	public void hideErrors() {
+		System.out.println("hideerror=");
 
 		useError = false;
 		redrawDiagram();
- 	}
-	
-	public static boolean useError ()
-	{
+	}
+
+	public static boolean useError() {
 		return useError;
 	}
-	
-	public static ComponentInstance getErrorComponent ()
-	{
+
+	public static ComponentInstance getErrorComponent() {
 		return errorComponent;
 	}
-	
 
 	public void incrementComponentNestingHandler() {
-			this.getAadlDiagram().incrementNestingLevel();
-			this.updateRootAdapter();
-			updateDiagram();
+		this.getAadlDiagram().incrementNestingLevel();
+		this.updateRootAdapter();
+		updateDiagram();
 	}
 
 	public void decrementComponentNestingHandler() {
 		this.getAadlDiagram().decrementNestingLevel();
 		updateDiagram();
- 	}
-	
+	}
+
 	public void directConnectionHandler() {
 		this.getAdapterProvider().setDirectConnection(true);
 		updateDiagram();
- 	}
-	
+	}
+
 	public void hierarchicalConnectionHandler() {
 		this.getAdapterProvider().setDirectConnection(false);
 		updateDiagram();
- 	}
-	
-	public void updateDiagram(){
+	}
+
+	public void updateDiagram() {
 		Boolean tmprefresh = forceRefresh;
 		forceRefresh = true;
 		refresh();
 		forceRefresh = tmprefresh;
 //		redrawDiagram();
 	}
-	
-
 
 	public void restore(AadlComponentAdapter adapter) {
-		if(this.restorerDelegate != null) {
+		if (this.restorerDelegate != null) {
 			this.restorerDelegate.restoreDiagram(this.getAadlDiagram());
 			adapter.accept(new RestoreStateVisitor(this.restorerDelegate));
 			this.getAadlDiagram().getScalableFigureLayeredPane().validate();

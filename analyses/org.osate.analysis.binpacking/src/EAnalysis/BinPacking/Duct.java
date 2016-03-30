@@ -37,8 +37,7 @@ public class Duct extends Location {
 		siteMembers = new Vector();
 	}
 
-	public Duct(double maxPower, double maxSpace, SiteGuest[] supportedGuests,
-			Site[] sites) {
+	public Duct(double maxPower, double maxSpace, SiteGuest[] supportedGuests, Site[] sites) {
 		super(maxPower, maxSpace, supportedGuests);
 		siteMembers = new Vector();
 		for (int i = 0; i < sites.length; i++)

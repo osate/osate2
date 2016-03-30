@@ -15,8 +15,8 @@ public abstract class GenericExport {
 	// public static IPath getReportPath(EObject root, String subDirectory, String reportType, String fileSuffix,
 
 	public IPath getPath() {
-		return ReportUtils.getReportPath(report.getRelatedObject(), report.getReportFolder(),
-				report.getReportPostfix(), fileExtension);
+		return ReportUtils.getReportPath(report.getRelatedObject(), report.getReportFolder(), report.getReportPostfix(),
+				fileExtension);
 	}
 
 	public abstract void save();

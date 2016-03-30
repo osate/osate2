@@ -26,8 +26,6 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.imv.model.ModeManager;
 
-
-
 public class ModeFilter extends ViewerFilter {
 
 	/**
@@ -43,48 +41,48 @@ public class ModeFilter extends ViewerFilter {
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 
 		// All elements will be visible if no mode is set or mode is set to ALL_MODES.
-		if(currentMode == null || currentMode.equals(ModeManager.ALL_MODES))
+		if (currentMode == null || currentMode.equals(ModeManager.ALL_MODES))
 			return true;
 
-		if(element instanceof Feature){
+		if (element instanceof Feature) {
 			return true;
 		}
 
-		if(element instanceof Subcomponent){
+		if (element instanceof Subcomponent) {
 			// Get the mode that the subcomponent exists in.
-			List<Mode> opModeList = ((Subcomponent)element).getInModes();
-			if(opModeList.isEmpty()){
+			List<Mode> opModeList = ((Subcomponent) element).getInModes();
+			if (opModeList.isEmpty()) {
 				// null indicates that the element exists in all modes.
 				return true;
-			}else if(opModeList.contains(currentMode)){
+			} else if (opModeList.contains(currentMode)) {
 				return true;
 			}
 			return false;
 		}
 
-		if(element instanceof Connection){
+		if (element instanceof Connection) {
 			// Get the mode that the subcomponent exists in.
-			List<Mode> opModeList = ((Connection)element).getInModes();
-			if(opModeList.isEmpty()){
+			List<Mode> opModeList = ((Connection) element).getInModes();
+			if (opModeList.isEmpty()) {
 				// null indicates that the element exists in all modes.
 				return true;
-			}else if(opModeList.contains(currentMode)){
+			} else if (opModeList.contains(currentMode)) {
 				return true;
 			}
 			return false;
 		}
 
-		if(element instanceof InstanceObject){
+		if (element instanceof InstanceObject) {
 			// Get the mode that the instance object exists in.
-			List<SystemOperationMode> opModeList = ((InstanceObject)element).getExistsInModes();
-			if(opModeList == null){
+			List<SystemOperationMode> opModeList = ((InstanceObject) element).getExistsInModes();
+			if (opModeList == null) {
 				// null indicates that the element exists in all modes.
 				return true;
-			}else{
+			} else {
 				// For each SOM, get the mode list and check if the current mode is present.
-				for(Iterator<SystemOperationMode> it = opModeList.iterator(); it.hasNext(); ){
+				for (Iterator<SystemOperationMode> it = opModeList.iterator(); it.hasNext();) {
 					// Current modes list will never be null.
-					if(containsMode(it.next().getCurrentModes(),currentMode)){
+					if (containsMode(it.next().getCurrentModes(), currentMode)) {
 						return true;
 					}
 				}
@@ -94,10 +92,11 @@ public class ModeFilter extends ViewerFilter {
 
 		return false;
 	}
-	
-	protected boolean containsMode(EList<ModeInstance> ml, Mode m){
+
+	protected boolean containsMode(EList<ModeInstance> ml, Mode m) {
 		for (ModeInstance modeInstance : ml) {
-			if (modeInstance.getMode() == m) return true;
+			if (modeInstance.getMode() == m)
+				return true;
 		}
 		return false;
 	}

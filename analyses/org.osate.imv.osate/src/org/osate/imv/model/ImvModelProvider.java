@@ -47,7 +47,6 @@ public class ImvModelProvider implements IImvModelProvider {
 		populateComponentInhibitList();
 	}
 
-
 	@Override
 	public Mode getCurrentMode() {
 		return this.currentMode;
@@ -68,7 +67,8 @@ public class ImvModelProvider implements IImvModelProvider {
 	public void setContainerComponent(NamedElement container) {
 		this.currentMode = this.modeManager.getCurrentMode(container);
 		this.flowManager.setContainerComponent(container);
-		propertyChangeSupport.firePropertyChange(CONTAINER_COMPONENT_PROPERTY, this.containerComponent, this.containerComponent = container);
+		propertyChangeSupport.firePropertyChange(CONTAINER_COMPONENT_PROPERTY, this.containerComponent,
+				this.containerComponent = container);
 	}
 
 	@Override
@@ -77,15 +77,14 @@ public class ImvModelProvider implements IImvModelProvider {
 	}
 
 	@Override
-	public List<ElementInhibitStatus<FeatureCategory>> getFeatureInhibitList(){
+	public List<ElementInhibitStatus<FeatureCategory>> getFeatureInhibitList() {
 		return featureInhibitList;
 	}
 
 	@Override
-	public List<ElementInhibitStatus<ComponentCategory>> getComponentInhibitList(){
+	public List<ElementInhibitStatus<ComponentCategory>> getComponentInhibitList() {
 		return componentInhibitList;
 	}
-
 
 	@Override
 	public void dispose() {
@@ -104,14 +103,14 @@ public class ImvModelProvider implements IImvModelProvider {
 
 	private void populateFeatureInhibitList() {
 		featureInhibitList = new ArrayList<ElementInhibitStatus<FeatureCategory>>();
-		for(Iterator<FeatureCategory> it = FeatureCategory.VALUES.iterator(); it.hasNext();){
+		for (Iterator<FeatureCategory> it = FeatureCategory.VALUES.iterator(); it.hasNext();) {
 			featureInhibitList.add(new ElementInhibitStatus<FeatureCategory>(it.next()));
 		}
 	}
 
 	private void populateComponentInhibitList() {
 		componentInhibitList = new ArrayList<ElementInhibitStatus<ComponentCategory>>();
-		for(Iterator<ComponentCategory> it = ComponentCategory.VALUES.iterator(); it.hasNext();){
+		for (Iterator<ComponentCategory> it = ComponentCategory.VALUES.iterator(); it.hasNext();) {
 			componentInhibitList.add(new ElementInhibitStatus<ComponentCategory>(it.next()));
 		}
 	}

@@ -56,7 +56,6 @@ import org.osate.imv.model.IImvModelProvider;
 import org.osate.imv.model.ModeManager;
 import org.osate.imv.ui.util.EmulatedNativeCheckBoxLabelProvider;
 
-
 public class FlowImpView extends ViewPart implements PropertyChangeListener, IPartListener {
 
 	public static final String ID = "org.osate.imv.ui.views.flowsView";
@@ -73,7 +72,6 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 	private ModeFilter modeFilter;
 
-
 	public FlowImpView() {
 		this.modelProviderSet = new HashSet<IImvModelProvider>();
 	}
@@ -81,7 +79,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 	@Override
 	public void dispose() {
 		this.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-		for(Iterator<IImvModelProvider> it = this.modelProviderSet.iterator(); it.hasNext();) {
+		for (Iterator<IImvModelProvider> it = this.modelProviderSet.iterator(); it.hasNext();) {
 			IImvModelProvider next = it.next();
 			next.removePropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 			next.removePropertyChangeListener(IImvModelProvider.CURRENT_MODE_PROPERTY, this);
@@ -116,7 +114,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 		table.setLinesVisible(true);
 
 		// We do NOT want the cell background to be cleared when a row has focus or is selected.
-		table.addListener(SWT.EraseItem, new Listener(){
+		table.addListener(SWT.EraseItem, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
@@ -128,7 +126,8 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 						GC gc = event.gc;
 						Color oldBg = gc.getBackground();
 						Rectangle clipping = gc.getClipping();
-						Rectangle rect = new Rectangle(clipping.x + 4, clipping.y + 4, clipping.width - 8, clipping.height - 8);
+						Rectangle rect = new Rectangle(clipping.x + 4, clipping.y + 4, clipping.width - 8,
+								clipping.height - 8);
 						gc.setBackground(((FlowHighlighter) data).getColor());
 						gc.fillRoundRectangle(rect.x, rect.y, rect.width, rect.height, 2, 2);
 						gc.setBackground(oldBg);
@@ -143,7 +142,6 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 		});
 
-
 		// The first column contains a check box used for enabling/disabling highlighting for a particular
 		// flow.
 		TableViewerColumn col1 = createTableViewerColumn("Flow", 0, 300, viewer);
@@ -153,18 +151,18 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 			@Override
 			protected boolean isChecked(Object element) {
-				return ((FlowHighlighter)element).isHighlight();
+				return ((FlowHighlighter) element).isHighlight();
 			}
 
 			public String getText(Object element) {
 				String label = "";
-				if(element instanceof FlowHighlighter) {
-					if (((FlowHighlighter)element).getFlowImpl()!=null){
-						label = " " + ((FlowHighlighter)element).getFlowImpl().getSpecification().getName();
+				if (element instanceof FlowHighlighter) {
+					if (((FlowHighlighter) element).getFlowImpl() != null) {
+						label = " " + ((FlowHighlighter) element).getFlowImpl().getSpecification().getName();
 					} else
-						// phf: added ETEF
-					if(((FlowHighlighter)element).getETEF()!=null){
-						label = " " + ((FlowHighlighter)element).getETEF().getName();
+					// phf: added ETEF
+					if (((FlowHighlighter) element).getETEF() != null) {
+						label = " " + ((FlowHighlighter) element).getETEF().getName();
 					}
 				}
 				return label;
@@ -186,13 +184,13 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 			@Override
 			protected Object getValue(Object element) {
-				return ((FlowHighlighter)element).isHighlight();
+				return ((FlowHighlighter) element).isHighlight();
 			}
 
 			@Override
 			protected void setValue(Object element, Object value) {
 				// Set new value.
-				((FlowHighlighter)element).setHighlight(((Boolean)value).booleanValue());
+				((FlowHighlighter) element).setHighlight(((Boolean) value).booleanValue());
 				// Update cell.
 				tableViewer.refresh();
 			}
@@ -204,7 +202,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 		col2.setLabelProvider(new ColumnLabelProvider() {
 			public String getText(Object element) {
-				  return null; // No label is displayed.
+				return null; // No label is displayed.
 			}
 
 		});
@@ -238,23 +236,22 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 			protected void setValue(Object element, Object value) {
 				if (element instanceof FlowHighlighter && value instanceof RGB) {
 					FlowHighlighter highlighter = (FlowHighlighter) element;
-					Color newColor = new Color(Display.getCurrent(), (RGB)value);
+					Color newColor = new Color(Display.getCurrent(), (RGB) value);
 					// only set new value if it differs from old one
 					if (!highlighter.getColor().equals(newColor)) {
 						highlighter.setColor(newColor);
-						tableViewer.update(element, new String[]{FlowHighlighter.COLOR_PROPERTY});
+						tableViewer.update(element, new String[] { FlowHighlighter.COLOR_PROPERTY });
 					}
 				}
 			}
 		});
 
-
 		return viewer;
 	}
 
-	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int width, TableViewer viewer){
-		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
-				SWT.NONE);
+	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int width,
+			TableViewer viewer) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
 		column.setWidth(width);
 		column.setMoveable(false);
@@ -270,7 +267,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 	}
 
 	protected void handleContainerComponentChange() {
-		if(activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
+		if (activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
 			return;
 
 		this.modeFilter.setCurrentMode(this.activeModelProvider.getCurrentMode());
@@ -279,25 +276,23 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if(event.getSource() != this.activeModelProvider)
+		if (event.getSource() != this.activeModelProvider)
 			return;
 
 		String propertyName = event.getPropertyName();
 
-		if(propertyName.equals(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY)) {
+		if (propertyName.equals(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY)) {
 			handleContainerComponentChange();
-		} else if(propertyName.equals(IImvModelProvider.CURRENT_MODE_PROPERTY)) {
-			this.modeFilter.setCurrentMode((Mode)event.getNewValue());
+		} else if (propertyName.equals(IImvModelProvider.CURRENT_MODE_PROPERTY)) {
+			this.modeFilter.setCurrentMode((Mode) event.getNewValue());
 			this.tableViewer.refresh();
 		}
 	}
-
 
 	@Override
 	public void partActivated(IWorkbenchPart part) {
 		this.handleEditorActivation(part);
 	}
-
 
 	@Override
 	public void partClosed(IWorkbenchPart part) {
@@ -321,23 +316,23 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 
 	protected void attemptToSetActiveEditor() {
 		IWorkbenchPage activePage = this.getSite().getWorkbenchWindow().getActivePage();
-		if(activePage != null) {
+		if (activePage != null) {
 			IEditorPart activeEditor = activePage.getActiveEditor();
-			if(activeEditor != null)
+			if (activeEditor != null)
 				this.handleEditorActivation(activeEditor);
 		}
 	}
 
 	protected void handleEditorActivation(IWorkbenchPart part) {
-		IImvModelProvider newModelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(newModelProvider != null && newModelProvider != this.activeModelProvider) {
+		IImvModelProvider newModelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (newModelProvider != null && newModelProvider != this.activeModelProvider) {
 			this.setActiveModelProvider(newModelProvider);
 		}
 	}
 
 	protected void setActiveModelProvider(IImvModelProvider modelProvider) {
 		this.activeModelProvider = modelProvider;
-		if(this.modelProviderSet.add(modelProvider)) {
+		if (this.modelProviderSet.add(modelProvider)) {
 			modelProvider.addPropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 			modelProvider.addPropertyChangeListener(IImvModelProvider.CURRENT_MODE_PROPERTY, this);
 		}
@@ -346,14 +341,14 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 	}
 
 	protected void handleEditorClosed(IWorkbenchPart part) {
-		IImvModelProvider modelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(modelProvider != null) {
-			if(this.modelProviderSet.remove(modelProvider)) {
+		IImvModelProvider modelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (modelProvider != null) {
+			if (this.modelProviderSet.remove(modelProvider)) {
 				modelProvider.removePropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 				modelProvider.removePropertyChangeListener(IImvModelProvider.CURRENT_MODE_PROPERTY, this);
 			}
 
-			if(this.activeModelProvider == modelProvider) {
+			if (this.activeModelProvider == modelProvider) {
 				this.activeModelProvider = NO_ACTIVE_MODEL_PROVIDER;
 			}
 		}
@@ -368,16 +363,13 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 		}
 
 		@Override
-		public boolean select(Viewer viewer, Object parentElement,
-				final Object element) {
+		public boolean select(Viewer viewer, Object parentElement, final Object element) {
 			boolean keepElement = false;
 
 			if (element instanceof FlowHighlighter) {
-				final FlowImplementation flowImpl = ((FlowHighlighter) element)
-						.getFlowImpl();
-				final EndToEndFlow etef = ((FlowHighlighter) element)
-						.getETEF();
-				if (flowImpl!=null){
+				final FlowImplementation flowImpl = ((FlowHighlighter) element).getFlowImpl();
+				final EndToEndFlow etef = ((FlowHighlighter) element).getETEF();
+				if (flowImpl != null) {
 					boolean prevEDeliver = flowImpl.eDeliver();
 					flowImpl.eSetDeliver(false);
 
@@ -388,8 +380,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 					if (currentMode == ModeManager.ALL_MODES || inModesList.isEmpty()) {
 						keepElement = true;
 					} else {
-						for (Iterator<Mode> modes = inModesList
-								.iterator(); modes.hasNext();) {
+						for (Iterator<Mode> modes = inModesList.iterator(); modes.hasNext();) {
 
 							Mode mode = modes.next();
 							if (currentMode.equals(mode)) {
@@ -400,7 +391,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 					}
 
 					flowImpl.eSetDeliver(prevEDeliver);
-				} else 	if (etef!=null){
+				} else if (etef != null) {
 					boolean prevEDeliver = etef.eDeliver();
 					etef.eSetDeliver(false);
 
@@ -411,8 +402,7 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 					if (currentMode == ModeManager.ALL_MODES || inModesList.isEmpty()) {
 						keepElement = true;
 					} else {
-						for (Iterator<Mode> modes = inModesList
-								.iterator(); modes.hasNext();) {
+						for (Iterator<Mode> modes = inModesList.iterator(); modes.hasNext();) {
 
 							Mode mode = modes.next();
 							if (currentMode.equals(mode)) {
@@ -426,11 +416,9 @@ public class FlowImpView extends ViewPart implements PropertyChangeListener, IPa
 				}
 			}
 
-
 			return keepElement;
 
 		}
-
 
 		public Mode getCurrentMode() {
 			return currentMode;

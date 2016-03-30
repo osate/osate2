@@ -36,26 +36,26 @@ public class EDFScheduler extends BaseScheduler {
 
 	public boolean addIfFeasible(ProcessingLoad n) {
 		if ((currentCapacity + n.getBandwidth() / node.cyclesPerSecond) <= 1.0) {
-			// 	long potentialLoad = 0;
-			// 	potentialLoad += node.cyclesPerSecond;
-			// 	potentialLoad -= currentLoadCyclesPerSecond;
-			// 	potentialLoad -= n.getCyclesPerSecond();
+			// long potentialLoad = 0;
+			// potentialLoad += node.cyclesPerSecond;
+			// potentialLoad -= currentLoadCyclesPerSecond;
+			// potentialLoad -= n.getCyclesPerSecond();
 
-			// 	if (potentialLoad>=0)
-			// 	    {
+			// if (potentialLoad>=0)
+			// {
 			taskSet.add(n);
 			currentCapacity += n.getBandwidth() / node.cyclesPerSecond;
 			currentLoadCyclesPerSecond += n.getCyclesPerSecond();
 			n.setDeployedTo(getHardwareNode());
 			return true;
 		} else {
-			// 		System.out.println("addIfFeasible failed:");
-			// 		System.out.println("\t
+			// System.out.println("addIfFeasible failed:");
+			// System.out.println("\t
 			// node.cyclesPerSec("+node.cyclesPerSecond+")");
-			// 		System.out.println("\t module.bandwidth("+n.getBandwidth()+")");
-			// 		System.out.println("\t\t bw/cyclesPerSec ("+ (n.getBandwidth()/
+			// System.out.println("\t module.bandwidth("+n.getBandwidth()+")");
+			// System.out.println("\t\t bw/cyclesPerSec ("+ (n.getBandwidth()/
 			// node.cyclesPerSecond)+")");
-			// 		System.out.println("\t currentCapacity("+currentCapacity+")");
+			// System.out.println("\t currentCapacity("+currentCapacity+")");
 		}
 		return false;
 	}
@@ -86,12 +86,12 @@ public class EDFScheduler extends BaseScheduler {
 
 	public boolean isSchedulable(TreeSet tSet) {
 		double capacity = 0.0;
-		//long capacity =0;
+		// long capacity =0;
 		for (Iterator iter = tSet.iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
-			//capacity += n.getCyclesPerSecond();
+			// capacity += n.getCyclesPerSecond();
 			capacity += n.getBandwidth() / node.cyclesPerSecond;
-			if (capacity > 1.0) //node.cyclesPerSecond)
+			if (capacity > 1.0) // node.cyclesPerSecond)
 				return false;
 		}
 		return true;
@@ -101,8 +101,7 @@ public class EDFScheduler extends BaseScheduler {
 	}
 
 	public void cloneTo(Scheduler from, Scheduler to) {
-		((EDFScheduler) to).taskSet = new TreeSet(((EDFScheduler) from).taskSet
-				.comparator());
+		((EDFScheduler) to).taskSet = new TreeSet(((EDFScheduler) from).taskSet.comparator());
 	}
 
 	public EDFScheduler(Comparator comparator) {

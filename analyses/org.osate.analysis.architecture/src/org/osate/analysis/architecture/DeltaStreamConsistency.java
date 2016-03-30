@@ -49,15 +49,13 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
 /**
  * @author phf This class provides for checking whether delta streams are
  *         communicated over protocols with guaranteed delivery.
  */
 public class DeltaStreamConsistency extends AadlProcessingSwitchWithProgress {
 
-	public DeltaStreamConsistency(final IProgressMonitor pm,
-			final AnalysisErrorReporterManager errMgr) {
+	public DeltaStreamConsistency(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
 	}
 

@@ -26,8 +26,8 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
-public abstract class AbstractAadlElementAdapter implements IAadlElementAdapter, MouseListener, MouseMotionListener, FigureListener{
+public abstract class AbstractAadlElementAdapter
+		implements IAadlElementAdapter, MouseListener, MouseMotionListener, FigureListener {
 
 	private Object modelElement;
 
@@ -57,7 +57,7 @@ public abstract class AbstractAadlElementAdapter implements IAadlElementAdapter,
 	public void highlight(boolean highlight, Color highlightColor) {
 		IFigure figure = this.getFigure();
 		Color newColor = null;
-		if(highlight) {
+		if (highlight) {
 			newColor = highlightColor;
 		} else {
 			newColor = ColorConstants.black;
@@ -66,7 +66,6 @@ public abstract class AbstractAadlElementAdapter implements IAadlElementAdapter,
 		figure.setForegroundColor(newColor);
 		figure.setBackgroundColor(newColor);
 	}
-
 
 	@Override
 	public void accept(AadlAdapterVisitor visitor) {
@@ -120,35 +119,35 @@ public abstract class AbstractAadlElementAdapter implements IAadlElementAdapter,
 	}
 
 	public void addElementAdapterListener(IAadlElementAdapterListener listener) {
-		synchronized(this.adapterListeners) {
-			if(!this.adapterListeners.contains(listener))
+		synchronized (this.adapterListeners) {
+			if (!this.adapterListeners.contains(listener))
 				this.adapterListeners.add(listener);
 		}
 	}
 
 	public void removeElementAdapterListener(IAadlElementAdapterListener listener) {
-		synchronized(this.adapterListeners) {
+		synchronized (this.adapterListeners) {
 			this.adapterListeners.remove(listener);
 		}
 	}
 
 	protected void fireFigureMovedEvent() {
-		synchronized(this.adapterListeners) {
-			for(IAadlElementAdapterListener listener : this.adapterListeners)
+		synchronized (this.adapterListeners) {
+			for (IAadlElementAdapterListener listener : this.adapterListeners)
 				listener.figureMoved(this);
 		}
 	}
 
 	protected void fireSingleClickOnFigureEvent() {
-		synchronized(this.adapterListeners) {
-			for(IAadlElementAdapterListener listener : this.adapterListeners)
+		synchronized (this.adapterListeners) {
+			for (IAadlElementAdapterListener listener : this.adapterListeners)
 				listener.singleClickOnFigure(this);
 		}
 	}
 
 	protected void fireDoubleClickOnFigureEvent() {
-		synchronized(this.adapterListeners) {
-			for(IAadlElementAdapterListener listener : this.adapterListeners)
+		synchronized (this.adapterListeners) {
+			for (IAadlElementAdapterListener listener : this.adapterListeners)
 				listener.doubleClickOnFigure(this);
 		}
 	}

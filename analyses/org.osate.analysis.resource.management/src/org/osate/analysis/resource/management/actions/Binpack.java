@@ -166,9 +166,10 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 						+ "(2) Put them aside and continue packing all groups that fit and after "
 						+ "partition those that did not fit. Additionally it can select the "
 						+ "group to partition based on the amount of data being communicated or "
-						+ "the amount of computing cycles required by the group.", new String[] {
-						"Immediate Partition of Groups", "Defer Partition of Groups Based on Exec. Time",
-						"Defer Partition of Groups Based on Comm. Bandwidth" }, IMMEDIATE_PARTITION);
+						+ "the amount of computing cycles required by the group.",
+				new String[] { "Immediate Partition of Groups", "Defer Partition of Groups Based on Exec. Time",
+						"Defer Partition of Groups Based on Comm. Bandwidth" },
+				IMMEDIATE_PARTITION);
 		return partitionChoice != -1;
 	}
 
@@ -191,11 +192,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
 		invoke(monitor, AnalysisErrorReporterManager.NULL_ERROR_MANANGER, root, som);
 	}
-	
+
 	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
-		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
-				getAnalysisErrorReporterFactory());
+		this.errManager = errManager != null ? errManager
+				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
 		analyzeInstanceModel(monitor, this.errManager, root, som);
 	}
 
@@ -247,8 +248,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			}.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
 				final ComponentInstance o = (ComponentInstance) i.next();
-				logWarning("Thread "
-						+ o.getComponentInstancePath()
+				logWarning("Thread " + o.getComponentInstancePath()
 						+ " is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
 			}
 
@@ -536,16 +536,14 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 		// threads and processors mips spec not consistent
 		if (existsProcessorWithMIPS && existsThreadWithoutReferenceProcessor) {
-			errManager
-					.error(root,
-							"There are some processors with MIPSCapacity but some threads without execution time reference processors");
+			errManager.error(root,
+					"There are some processors with MIPSCapacity but some threads without execution time reference processors");
 			return null;
 		}
 
 		if (existsProcessorWithoutMIPS && existsThreadWithReferenceProcessor) {
-			errManager
-					.error(root,
-							"There are some threads with execution time reference processors but not all processors have MIPSCapacity");
+			errManager.error(root,
+					"There are some threads with execution time reference processors but not all processors have MIPSCapacity");
 			return null;
 		}
 
@@ -554,7 +552,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			final ConnectionInstance connInst = (ConnectionInstance) i.next();
 			if (connInst.getKind() == ConnectionKind.PORT_CONNECTION) {
 				final ConnectionInstance portConnInst = (ConnectionInstance) connInst;
-				if (!(portConnInst.getSource() instanceof FeatureInstance && portConnInst.getDestination() instanceof FeatureInstance))
+				if (!(portConnInst.getSource() instanceof FeatureInstance
+						&& portConnInst.getDestination() instanceof FeatureInstance))
 					continue;
 				final FeatureInstance src = (FeatureInstance) portConnInst.getSource();
 				final FeatureInstance dst = (FeatureInstance) portConnInst.getDestination();
@@ -888,7 +887,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			} else if (cc instanceof SystemClassifier) {// cv.getValue() == ComponentCategory.SYSTEM_LITERAL) {
 				allowedSystemClassifiers.add(cc);
 			} else {
-				internalError("Ill-formed allowed_processor_binding_class value: got a non-system non-processor component classifier");
+				internalError(
+						"Ill-formed allowed_processor_binding_class value: got a non-system non-processor component classifier");
 			}
 		}
 		final Set allowedProcs = new HashSet();

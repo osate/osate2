@@ -17,7 +17,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure.ResizeType;
 
-
 public class ContainerFigureResizeDelegate implements IResizableFigureDelegate {
 
 	private AadlComponentAdapter adapter;
@@ -31,7 +30,7 @@ public class ContainerFigureResizeDelegate implements IResizableFigureDelegate {
 		Point origin = Point.SINGLETON;
 		Dimension dimension = Dimension.SINGLETON;
 
-		switch(resizeType) {
+		switch (resizeType) {
 		case NW:
 			// Cannot resize container figure using the NW handle.
 			origin = bounds.getLocation();
@@ -59,8 +58,6 @@ public class ContainerFigureResizeDelegate implements IResizableFigureDelegate {
 			dimension.height = location.y - bounds.y;
 			break;
 		}
-
-
 
 		return new Rectangle(origin, dimension);
 	}

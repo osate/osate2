@@ -159,8 +159,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 
 		if (srcRateValue > 0 && dstRateValue > 0) {
 			if (srcRateValue != dstRateValue) {
-				error(conni, "Source data rate " + srcRateValue + " and destination data rate " + dstRateValue
-						+ " differ");
+				error(conni,
+						"Source data rate " + srcRateValue + " and destination data rate " + dstRateValue + " differ");
 			}
 		} else {
 			if (srcRateValue == 0 && dstRateValue > 0)
@@ -183,8 +183,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 
 		if (srcS.length() > 0 && dstS.length() > 0) {
 			if (!srcS.equalsIgnoreCase(dstS)) {
-				error(conni, "Source measurement unit " + srcS + " and destination measurement unit " + dstS
-						+ " differ");
+				error(conni,
+						"Source measurement unit " + srcS + " and destination measurement unit " + dstS + " differ");
 			}
 		} else {
 			if (srcS.length() == 0 && dstS.length() > 0)

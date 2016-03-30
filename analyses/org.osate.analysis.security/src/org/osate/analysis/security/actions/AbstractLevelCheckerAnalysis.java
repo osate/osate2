@@ -43,47 +43,39 @@ import org.osate.analysis.security.LevelComparator;
 import org.osate.ui.actions.AbstractAnalysis;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
+public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis {
+	protected static final LevelComparator sourceMustBeGreater = new LevelComparator() {
+		public boolean compareLevels(final long src, final long dest) {
+			return src >= dest;
+		}
+	};
 
-public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis
-{
-	protected static final LevelComparator sourceMustBeGreater = 
-			new LevelComparator()
-			{
-				public boolean compareLevels(final long src, final long dest)
-				{
-					return src >= dest;
-				}
-			};
-			
-	protected static final LevelComparator destMustBeGreater =
-			new LevelComparator()
-			{
-				public boolean compareLevels(final long src, final long dest)
-				{
-					return dest >=src;
-				}
-			};
+	protected static final LevelComparator destMustBeGreater = new LevelComparator() {
+		public boolean compareLevels(final long src, final long dest) {
+			return dest >= src;
+		}
+	};
 
-	protected boolean runImpl()
-	{
-		final Property theProperty = GetProperties.lookupPropertyDefinition(getParameter(),getLevelPropertyPropertySet(), getLevelPropertyName());
-		
-		/* ensure that enclosing component security level encompasses contained
-		 * security levels.  The switch acts as filter on the model object
+	protected boolean runImpl() {
+		final Property theProperty = GetProperties.lookupPropertyDefinition(getParameter(),
+				getLevelPropertyPropertySet(), getLevelPropertyName());
+
+		/*
+		 * ensure that enclosing component security level encompasses contained
+		 * security levels. The switch acts as filter on the model object
 		 * classes.
 		 */
-		if (getParameter() instanceof SystemInstance)
-		{ // TODO
-		}
-		else
-		{
-			final ComponentLevelChecker componentSecuritySwitch = new ComponentLevelChecker(new NullProgressMonitor(), getErrorManager(), theProperty);
+		if (getParameter() instanceof SystemInstance) { // TODO
+		} else {
+			final ComponentLevelChecker componentSecuritySwitch = new ComponentLevelChecker(new NullProgressMonitor(),
+					getErrorManager(), theProperty);
 			if (getParameter() instanceof ComponentImplementation) {
 				componentSecuritySwitch.processBottomUpComponentImpl((ComponentImplementation) getParameter());
 			} else {
 				componentSecuritySwitch.processBottomUpComponentImpl();
 			}
-			final ConnectionLevelChecker connectionSecuritySwitch = new ConnectionLevelChecker(new NullProgressMonitor(), getErrorManager(), theProperty, getLevelComparator());
+			final ConnectionLevelChecker connectionSecuritySwitch = new ConnectionLevelChecker(
+					new NullProgressMonitor(), getErrorManager(), theProperty, getLevelComparator());
 			if (getParameter() instanceof ComponentImplementation)
 				connectionSecuritySwitch.processTopDownComponentImpl((ComponentImplementation) getParameter());
 			else
@@ -92,23 +84,21 @@ public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis
 		return getErrorManager().getNumErrors() == 0;
 	}
 
-	protected boolean readyToRunImpl()
-	{
-		if (GetProperties.lookupPropertyDefinition(getParameter(),getLevelPropertyPropertySet(), getLevelPropertyName()) == null)
-		{
+	protected boolean readyToRunImpl() {
+		if (GetProperties.lookupPropertyDefinition(getParameter(), getLevelPropertyPropertySet(),
+				getLevelPropertyName()) == null) {
 			propertyDefinitionNotFound(getLevelPropertyPropertySet(), getLevelPropertyName());
 			return false;
-		}
-		else
+		} else
 			return true;
 	}
-	
+
 	protected abstract String getLevelPropertyPropertySet();
-	
+
 	protected abstract String getLevelPropertyName();
-	
+
 	protected abstract LevelComparator getLevelComparator();
-	
+
 	protected abstract String getMarkerType();
 
 }

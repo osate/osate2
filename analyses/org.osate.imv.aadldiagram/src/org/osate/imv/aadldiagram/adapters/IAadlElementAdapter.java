@@ -21,24 +21,40 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.layouts.LayoutItem;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
 public interface IAadlElementAdapter {
 	public Object getModelElement();
+
 	public void highlight(boolean highlight, Color highlightColor);
+
 	public void setSelected(boolean selected);
+
 	public boolean isSelected();
+
 	public IFigure getFigure();
+
 	public boolean isContainer();
+
 	public void setContainer(boolean container);
+
 	public void accept(AadlAdapterVisitor visitor);
+
 	public IAadlElementAdapter getParentAdapter();
+
 	public Iterator<IAadlElementAdapter> getAllChildren();
+
 	public void setParentAdapter(IAadlElementAdapter parentAdapter);
+
 	public void addElementAdapterListener(IAadlElementAdapterListener listener);
+
 	public void removeElementAdapterListener(IAadlElementAdapterListener listener);
+
 	public LayoutItem getLayoutItem();
+
 	public void setLabelProvider(ILabelProvider provider);
+
 	public ILabelProvider getLabelProvider();
+
 	public ConnectionAnchor getConnectionAnchor(Connection connection);
+
 	public void dispose();
 }

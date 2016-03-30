@@ -21,13 +21,11 @@ public class DeviceFigure extends ComponentFigure {
 	private static final int LINE_WIDTH = 2;
 	private static final int DIAGONAL_LINE_WIDTH = 2;
 
-	public DeviceFigure()
-	{
+	public DeviceFigure() {
 	}
 
 	@Override
-	public void paintFigure(Graphics g)
-	{
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		g.setLineWidth(LINE_WIDTH);

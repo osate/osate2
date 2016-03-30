@@ -8,14 +8,12 @@ public class test {
 		long procSize = 4000000000l;
 		long nextSize = procSize / 2;
 		long difference = (procSize / 4) - 1;
-		while (((procSize % difference) == 0)
-				&& ((procSize % (nextSize - difference)) == 0))
+		while (((procSize % difference) == 0) && ((procSize % (nextSize - difference)) == 0))
 			difference--;
 		moduleSizes[0] = (procSize / 2) - difference;
 		while (difference > 20) {
 			long nextDifference = (difference / 2) - 1;
-			while (((procSize % nextDifference) == 0)
-					&& ((procSize % (difference - nextDifference)) == 0))
+			while (((procSize % nextDifference) == 0) && ((procSize % (difference - nextDifference)) == 0))
 				nextDifference--;
 			moduleSizes[++numSize] = difference - nextDifference;
 			difference = nextDifference;

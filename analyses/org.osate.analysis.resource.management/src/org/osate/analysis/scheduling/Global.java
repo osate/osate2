@@ -11,10 +11,9 @@ package org.osate.analysis.scheduling;
  *
  */
 public class Global {
-    public static final int MAXNUMBER_INLINE = 80;
-    public static final int TERMINATION_TIME = 999999;
-    public static final double NEGATIVE_MAX  = -1.0e+20;
-    public static final double POSITIVE_MAX  = 1.0e+20;
+	public static final int MAXNUMBER_INLINE = 80;
+	public static final int TERMINATION_TIME = 999999;
+	public static final double NEGATIVE_MAX = -1.0e+20;
+	public static final double POSITIVE_MAX = 1.0e+20;
 
 }
-

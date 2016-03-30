@@ -45,84 +45,64 @@ public class CriticalityProperty {
 	public static final int LEVEL_C = 3;
 	public static final int LEVEL_D = 4;
 	public static final int LEVEL_E = 5;
-	
-	
+
 	public static final int NB_CRITICALITIES = 6;
-	
-	public static String toString (int criticalityValue)
-	{
-		switch (criticalityValue)
-		{
-			case LEVEL_A:
-			{
-				return "A";
-			}
-			case LEVEL_B:
-			{
-				return "B";
-			}
-			case LEVEL_C:
-			{
-				return "C";
-			}
-			case LEVEL_D:
-			{
-				return "D";
-			}
-			case LEVEL_E:
-			{
-				return "E";
-			}
-			default:
-			{
-				return "N/A";
-			}
+
+	public static String toString(int criticalityValue) {
+		switch (criticalityValue) {
+		case LEVEL_A: {
+			return "A";
+		}
+		case LEVEL_B: {
+			return "B";
+		}
+		case LEVEL_C: {
+			return "C";
+		}
+		case LEVEL_D: {
+			return "D";
+		}
+		case LEVEL_E: {
+			return "E";
+		}
+		default: {
+			return "N/A";
+		}
 		}
 	}
-	
-	public static int getCriticality(final NamedElement ph) 
-	{
 
-		if (criticalityProperty == null)
-		{
-			criticalityProperty = GetProperties.lookupPropertyDefinition (ph, ARINC653._NAME, ARINC653.DAL);
+	public static int getCriticality(final NamedElement ph) {
+
+		if (criticalityProperty == null) {
+			criticalityProperty = GetProperties.lookupPropertyDefinition(ph, ARINC653._NAME, ARINC653.DAL);
 		}
-		
-		
-		try
-		{
+
+		try {
 			EnumerationLiteral el = PropertyUtils.getEnumLiteral(ph, criticalityProperty);
-			if (el.getName().equals(ARINC653.DAL_LEVEL_A))
-			{
+			if (el.getName().equals(ARINC653.DAL_LEVEL_A)) {
 				return LEVEL_A;
 			}
-			
-			if (el.getName().equals(ARINC653.DAL_LEVEL_B))
-			{
+
+			if (el.getName().equals(ARINC653.DAL_LEVEL_B)) {
 				return LEVEL_B;
 			}
-			
-			if (el.getName().equals(ARINC653.DAL_LEVEL_C))
-			{
+
+			if (el.getName().equals(ARINC653.DAL_LEVEL_C)) {
 				return LEVEL_C;
 			}
-			
-			if (el.getName().equals(ARINC653.DAL_LEVEL_D))
-			{
+
+			if (el.getName().equals(ARINC653.DAL_LEVEL_D)) {
 				return LEVEL_D;
 			}
-			
-			if (el.getName().equals(ARINC653.DAL_LEVEL_E))
-			{
+
+			if (el.getName().equals(ARINC653.DAL_LEVEL_E)) {
 				return LEVEL_E;
 			}
 
-		}
-		catch (PropertyLookupException e)
-		{	
+		} catch (PropertyLookupException e) {
 			return INVALID_CRITICALITY;
 		}
-		
+
 		return INVALID_CRITICALITY;
 	}
 }

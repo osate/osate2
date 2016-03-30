@@ -29,13 +29,14 @@ import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevFigure;
 
-
-public abstract class FeatureFigure extends SelectableMevFigure{
+public abstract class FeatureFigure extends SelectableMevFigure {
 
 	public static final int H_LABEL_GAP = 5;
 	public static final int V_LABEL_GAP = 2;
 
-	public static enum FeatureLabelStyle {LABEL_STYLE1, LABEL_STYLE2};
+	public static enum FeatureLabelStyle {
+		LABEL_STYLE1, LABEL_STYLE2
+	};
 
 	private static final Color DEFAULT_FOREGROUND_COLOR = ColorConstants.black;
 	private static final Color DEFAULT_BACKGROUND_COLOR = ColorConstants.black;
@@ -45,8 +46,8 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 	/*
 	 * Size constants.
 	 */
-	protected  Dimension eastWestDimension;
-	protected  Dimension northSouthDimension;
+	protected Dimension eastWestDimension;
+	protected Dimension northSouthDimension;
 
 	private Dimension labelSize = null;
 
@@ -95,8 +96,8 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		drawFeature(g);
 	}
 
-
 	protected abstract int getSymbolHorizontalExtent();
+
 	protected abstract int getSymbolVerticalExtent();
 
 	protected void drawFeature(Graphics g) {
@@ -119,7 +120,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 	protected OrientationTransform getFeatureTransform() {
 		OrientationTransform transform = null;
 
-		switch(labelStyle){
+		switch (labelStyle) {
 		case LABEL_STYLE1:
 			transform = getFeatureTrasformStyle1();
 			break;
@@ -132,7 +133,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 	}
 
 	protected void drawLabel(Graphics g, Dimension labelSize) {
-		switch(labelStyle){
+		switch (labelStyle) {
 		case LABEL_STYLE1:
 			drawLabelStyle1(g, labelSize);
 			break;
@@ -149,14 +150,14 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		int verticalExtent = this.getSymbolVerticalExtent();
 
 		// Calculate coordinates.
-		switch(getOrientation()){
+		switch (getOrientation()) {
 		case NORTH:
 			x = 0;
-			y = (int)(0.5f * (verticalExtent - labelSize.height));
+			y = (int) (0.5f * (verticalExtent - labelSize.height));
 			break;
 		case SOUTH:
 			x = 0;
-			y = (int)(0.5f * (verticalExtent - labelSize.height));
+			y = (int) (0.5f * (verticalExtent - labelSize.height));
 			break;
 		case EAST:
 			y = 0;
@@ -182,20 +183,20 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		int horizontalExtent = this.getSymbolHorizontalExtent();
 
 		// Calculate coordinates.
-		switch(getOrientation()){
+		switch (getOrientation()) {
 		case NORTH:
-			x = (int)(0.5f * (bounds.width - labelSize.width));
-			y = (int)(verticalExtent + V_LABEL_GAP);
+			x = (int) (0.5f * (bounds.width - labelSize.width));
+			y = (int) (verticalExtent + V_LABEL_GAP);
 			break;
 		case SOUTH:
-			x = (int)(0.5f * (bounds.width - labelSize.width));
+			x = (int) (0.5f * (bounds.width - labelSize.width));
 			break;
 		case EAST:
-			y = (int)(0.5f * (horizontalExtent - labelSize.height));
+			y = (int) (0.5f * (horizontalExtent - labelSize.height));
 			break;
 		case WEST:
 			x = verticalExtent + H_LABEL_GAP;
-			y = (int)(0.5f * (horizontalExtent - labelSize.height));
+			y = (int) (0.5f * (horizontalExtent - labelSize.height));
 			break;
 		}
 
@@ -205,14 +206,14 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		g.drawString(label, x, y);
 	}
 
-	protected OrientationTransform getFeatureTrasformStyle1(){
+	protected OrientationTransform getFeatureTrasformStyle1() {
 		Rectangle bounds = getClientArea();
 		float dx = 0, dy = 0;
 		float angle = 0;
 		int verticalExtent = this.getSymbolVerticalExtent();
 		int horizontalExtent = this.getSymbolHorizontalExtent();
 
-		switch(getOrientation()){
+		switch (getOrientation()) {
 		case NORTH:
 			dx = bounds.width - horizontalExtent;
 			break;
@@ -234,14 +235,14 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		return new OrientationTransform(dx, dy, angle);
 	}
 
-	protected OrientationTransform getFeatureTrasformStyle2(){
+	protected OrientationTransform getFeatureTrasformStyle2() {
 		Rectangle bounds = getClientArea();
 		float dx = 0, dy = 0;
 		float angle = 0;
 		int verticalExtent = this.getSymbolVerticalExtent();
 		int horizontalExtent = this.getSymbolHorizontalExtent();
 
-		switch(getOrientation()){
+		switch (getOrientation()) {
 		case NORTH:
 			dx = 0.5f * (bounds.width - horizontalExtent);
 			break;
@@ -263,34 +264,40 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		return new OrientationTransform(dx, dy, angle);
 	}
 
-	private void setupClientArea(){
+	private void setupClientArea() {
 		// A MarginBorder will be used to insets the client area.
-		int offset = (int)ResizableMevFigure.SELECTION_HANDLE_WIDTH;
+		int offset = (int) ResizableMevFigure.SELECTION_HANDLE_WIDTH;
 		Border margins = new MarginBorder(new Insets(offset));
 		this.setBorder(margins);
 	}
 
 	protected void calculateDimensions() {
-		Dimension labelDimension  = getLabelSize();
+		Dimension labelDimension = getLabelSize();
 		int verticalExtent = this.getSymbolVerticalExtent();
 		int horizontalExtent = this.getSymbolHorizontalExtent();
 
-		if(labelStyle.equals(FeatureLabelStyle.LABEL_STYLE1)){
+		if (labelStyle.equals(FeatureLabelStyle.LABEL_STYLE1)) {
 			// Calculate east and west orientation dimension.
 			int featureWidth = labelDimension.width >= verticalExtent ? labelDimension.width : verticalExtent;
 			featureWidth += getInsets().getWidth();
-			eastWestDimension = new Dimension(featureWidth, horizontalExtent + labelDimension.height + getInsets().getHeight());
+			eastWestDimension = new Dimension(featureWidth,
+					horizontalExtent + labelDimension.height + getInsets().getHeight());
 
 			// Calculate north and south orientation dimension.
-			northSouthDimension = new Dimension(labelDimension.width + horizontalExtent + H_LABEL_GAP + getInsets().getWidth(), verticalExtent + getInsets().getHeight());
-		} else if(labelStyle.equals(FeatureLabelStyle.LABEL_STYLE2)){
+			northSouthDimension = new Dimension(
+					labelDimension.width + horizontalExtent + H_LABEL_GAP + getInsets().getWidth(),
+					verticalExtent + getInsets().getHeight());
+		} else if (labelStyle.equals(FeatureLabelStyle.LABEL_STYLE2)) {
 			// Calculate east and west orientation dimension.
-			eastWestDimension = new Dimension(labelDimension.width + verticalExtent + H_LABEL_GAP + getInsets().getWidth(), horizontalExtent + getInsets().getHeight());
+			eastWestDimension = new Dimension(
+					labelDimension.width + verticalExtent + H_LABEL_GAP + getInsets().getWidth(),
+					horizontalExtent + getInsets().getHeight());
 
 			// Calculate north and south orientation dimension.
 			int featureWidth = labelDimension.width >= horizontalExtent ? labelDimension.width : horizontalExtent;
 			featureWidth += getInsets().getWidth();
-			northSouthDimension = new Dimension(featureWidth, labelDimension.height + verticalExtent + V_LABEL_GAP + getInsets().getHeight());
+			northSouthDimension = new Dimension(featureWidth,
+					labelDimension.height + verticalExtent + V_LABEL_GAP + getInsets().getHeight());
 		}
 	}
 
@@ -300,11 +307,11 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		int verticalExtent = this.getSymbolVerticalExtent();
 		int horizontalExtent = this.getSymbolHorizontalExtent();
 
-		switch(labelStyle){
+		switch (labelStyle) {
 		case LABEL_STYLE1:
-			int baseCenter = (int)Math.ceil(0.5f * horizontalExtent);
+			int baseCenter = (int) Math.ceil(0.5f * horizontalExtent);
 			// Set the connection point based on the feature's orientation.
-			switch(getOrientation()){
+			switch (getOrientation()) {
 			case NORTH:
 				point = new Point(bounds.right() - baseCenter, bounds.y + verticalExtent - 1);
 				break;
@@ -325,7 +332,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 			break;
 		case LABEL_STYLE2:
 			// Set the connection point based on the feature's orientation.
-			switch(getOrientation()){
+			switch (getOrientation()) {
 			case NORTH:
 				point = bounds.getTop();
 				break;
@@ -349,7 +356,6 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		return point;
 	}
 
-
 	/**
 	 * Calculates and returns the size of the Label's text. Note that this
 	 * Dimension is calculated using the Label's full text, regardless of
@@ -372,8 +378,8 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		prefSize = size;
 	}
 
-	private void setDimensions(){
-		switch(orientation){
+	private void setDimensions() {
+		switch (orientation) {
 		case NORTH:
 		case SOUTH:
 			setPreferredSize(northSouthDimension);
@@ -385,8 +391,8 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		}
 	}
 
-	public void setOrientation(FeatureOrientation orientation){
-		if(this.orientation != null && this.orientation.equals(orientation))
+	public void setOrientation(FeatureOrientation orientation) {
+		if (this.orientation != null && this.orientation.equals(orientation))
 			return;
 
 		this.orientation = orientation;
@@ -394,7 +400,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		setDimensions();
 	}
 
-	public FeatureOrientation getOrientation(){
+	public FeatureOrientation getOrientation() {
 		return this.orientation;
 	}
 
@@ -414,7 +420,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		this.northSouthDimension = northSouthDimension;
 	}
 
-	protected Dimension getLabelSize(){
+	protected Dimension getLabelSize() {
 		// Never return a dimension that is null.
 		return (labelSize != null ? labelSize : new Dimension());
 	}
@@ -427,7 +433,6 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		this.direction = direction;
 	}
 
-
 	/**
 	 * Inner class that stores the transform parameters for a particular feature orientation.
 	 * Intended to be used by subclasses to transform a symbol's coordinates based on the feature's
@@ -438,15 +443,15 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 		private float dy;
 		private float rotationAngle;
 
-		public OrientationTransform(){
+		public OrientationTransform() {
 			this(0, 0);
 		}
 
-		public OrientationTransform(float dx, float dy){
+		public OrientationTransform(float dx, float dy) {
 			this(dx, dy, 0);
 		}
 
-		public OrientationTransform(float dx, float dy, float rotationAngle){
+		public OrientationTransform(float dx, float dy, float rotationAngle) {
 			this.dx = dx;
 			this.dy = dy;
 			this.rotationAngle = rotationAngle;
@@ -464,7 +469,7 @@ public abstract class FeatureFigure extends SelectableMevFigure{
 			return rotationAngle;
 		}
 
-		public void applyTransform(Graphics g)  {
+		public void applyTransform(Graphics g) {
 			g.translate(dx, dy);
 
 			// Due to a bug in the SWT graphics. A translate must be performed to force the sharedclipping

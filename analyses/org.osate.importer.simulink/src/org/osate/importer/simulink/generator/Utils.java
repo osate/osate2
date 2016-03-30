@@ -49,135 +49,108 @@ import org.osate.importer.model.sm.Transition;
 
 public class Utils {
 
-	
-	public static void writeSubprogramSubcomponents
-		(StateMachine sm, Component associatedComponent, BufferedWriter out, List<String> existingSubcomponents, boolean subComponentsPreambleWritten) throws IOException
-	{
+	public static void writeSubprogramSubcomponents(StateMachine sm, Component associatedComponent, BufferedWriter out,
+			List<String> existingSubcomponents, boolean subComponentsPreambleWritten) throws IOException {
 
-		
-		if (sm.getVariables().size() > 0)
-		{
-			for (String var : sm.getVariables())
-			{
-				if (existingSubcomponents.contains(var))
-				{
+		if (sm.getVariables().size() > 0) {
+			for (String var : sm.getVariables()) {
+				if (existingSubcomponents.contains(var)) {
 					continue;
 				}
-				
-				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var) != null))
-				{
+
+				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var) != null)) {
 					continue;
 				}
-				
-				if (! subComponentsPreambleWritten)
-				{
-					out.write ("subcomponents\n");
+
+				if (!subComponentsPreambleWritten) {
+					out.write("subcomponents\n");
 					subComponentsPreambleWritten = true;
 				}
-				
+
 				/**
 				 * Generate the data access if there is a data (in other words,
 				 * if we do not have an existing feature that represent the data).
 				 */
-				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var.toLowerCase()) != null))
-				{
+				if ((associatedComponent != null) && (associatedComponent.getSubEntity(var.toLowerCase()) != null)) {
 					continue;
 				}
-				
-				existingSubcomponents.add (var);
-				out.write ("   "+var+" : data ");
 
-				if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
-				{
-					out.write ("generictype_boolean;\n");
-				}
-				else
-				{
-					out.write ("generictype;\n");
+				existingSubcomponents.add(var);
+				out.write("   " + var + " : data ");
+
+				if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL) {
+					out.write("generictype_boolean;\n");
+				} else {
+					out.write("generictype;\n");
 				}
 			}
 		}
-		
-		
+
 		/**
 		 * Here, we try to see if we need to declare variables
 		 * from the nested statemachine.
 		 */
-		if (sm.hasNestedStateMachines())
-		{
-			for (State s : sm.getStates())
-			{
-				writeSubprogramSubcomponents (s.getInternalStateMachine(), associatedComponent, out, existingSubcomponents, subComponentsPreambleWritten);
+		if (sm.hasNestedStateMachines()) {
+			for (State s : sm.getStates()) {
+				writeSubprogramSubcomponents(s.getInternalStateMachine(), associatedComponent, out,
+						existingSubcomponents, subComponentsPreambleWritten);
 			}
 		}
 	}
-	
-	
-	public static void writeBehaviorAnnex (StateMachine sm, BufferedWriter out) throws IOException
-	{
-//		OsateDebug.osateDebug("WE GOT TWO !");
-		out.write ("annex behavior_specification {**\n");
 
-		if (sm.getStates().size() > 0)
-		{
+	public static void writeBehaviorAnnex(StateMachine sm, BufferedWriter out) throws IOException {
+//		OsateDebug.osateDebug("WE GOT TWO !");
+		out.write("annex behavior_specification {**\n");
+
+		if (sm.getStates().size() > 0) {
 			boolean sectionStatesDeclared = false;
 
-			for (State state : sm.getStates())
-			{
-				if ((! state.getInternalStateMachine().isEmpty()) || (!state.isValid()))
-				{
+			for (State state : sm.getStates()) {
+				if ((!state.getInternalStateMachine().isEmpty()) || (!state.isValid())) {
 					continue;
 				}
-				
-				if (sectionStatesDeclared == false)
-				{
-					out.write ("states\n");
+
+				if (sectionStatesDeclared == false) {
+					out.write("states\n");
 					sectionStatesDeclared = true;
 				}
-				
-				if (state.isValid() && sm.isInitialState (state))
-				{
-					out.write ("   " + state.getName() + ": initial final state;\n");
+
+				if (state.isValid() && sm.isInitialState(state)) {
+					out.write("   " + state.getName() + ": initial final state;\n");
 				}
 
-				if (state.isValid() && ( ! sm.isInitialState (state)))
-				{
-					out.write ("   " + state.getName() + ": state;\n");
+				if (state.isValid() && (!sm.isInitialState(state))) {
+					out.write("   " + state.getName() + ": state;\n");
 				}
 			}
 		}
 
-		if (sm.getTransitions().size() > 0)
-		{
+		if (sm.getTransitions().size() > 0) {
 			int transitionId = 0;
-			out.write ("transitions\n");
-			for (Transition t : sm.getTransitions())
-			{
+			out.write("transitions\n");
+			for (Transition t : sm.getTransitions()) {
 				State src = t.getSrcState();
 				State dst = t.getDstState();
-				if ((src != null) && (dst != null) && src.isValid() && dst.isValid())
-				{
+				if ((src != null) && (dst != null) && src.isValid() && dst.isValid()) {
 
-					out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName());
+					out.write("   t" + transitionId++ + " : " + src.getName() + "-[" + t.getCondition() + "]->"
+							+ dst.getName());
 
-					if ((dst.hasEntrypoint()) || (t.getAction().length() > 0))
-					{
-						out.write ("{");
-						if (dst.hasEntrypoint())
-						{
-							out.write (dst.getEntrypoint());
+					if ((dst.hasEntrypoint()) || (t.getAction().length() > 0)) {
+						out.write("{");
+						if (dst.hasEntrypoint()) {
+							out.write(dst.getEntrypoint());
 						}
-						if (t.getAction().length() > 0)
-						{
-							out.write ("{" + t.getAction() + "}");
+						if (t.getAction().length() > 0) {
+							out.write("{" + t.getAction() + "}");
 						}
-						out.write ("}");	
+						out.write("}");
 					}
-					out.write (";\n");
+					out.write(";\n");
 
 				}
 			}
 		}
-		out.write ("**};\n");
+		out.write("**};\n");
 	}
 }

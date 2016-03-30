@@ -14,8 +14,8 @@ package org.osate.imv.aadldiagram.viewer;
 import org.osate.imv.aadldiagram.AadlDiagram;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 
-
 public interface IAadlAdapterSaverDelegate {
 	public void saveDiagram(AadlDiagram diagram);
+
 	public void saveRootAdapter(AadlComponentAdapter rootAdapter);
 }

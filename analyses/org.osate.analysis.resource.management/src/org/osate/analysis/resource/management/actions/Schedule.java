@@ -161,15 +161,15 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 						+ " has threads and is not schedulable because it has no MIPS capacity");
 				return false;
 			} else {
-				warning(processor, "Processor " + processor.getInstanceObjectPath()
-						+ " is not used and has no MIPS capacity");
+				warning(processor,
+						"Processor " + processor.getInstanceObjectPath() + " is not used and has no MIPS capacity");
 				return false;
 			}
 		}
 		double demandMips = 0;
 		if (boundThreads.isEmpty()) {
-			warning(processor, "Processor " + processor.getInstanceObjectPath()
-					+ " has capacity, but has no bound threads");
+			warning(processor,
+					"Processor " + processor.getInstanceObjectPath() + " has capacity, but has no bound threads");
 			return false;
 		} else {
 			for (Element element : boundThreads) {
@@ -209,12 +209,8 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				} else {
 					// we have a processor
 					double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
-					logInfo(threadText
-							+ componentInstance.getCategory().getName()
-							+ " "
-							+ componentInstance.getComponentInstancePath()
-							+ "("
-							+ UiUtil.BestDecPoint(cpumips)
+					logInfo(threadText + componentInstance.getCategory().getName() + " "
+							+ componentInstance.getComponentInstancePath() + "(" + UiUtil.BestDecPoint(cpumips)
 							+ "MIPS)"
 							+ (cpumips > 0 ? (" Utilization " + UiUtil.OneDecPoint(threadMips / cpumips * 100) + "%")
 									: " No CPU capacity"));

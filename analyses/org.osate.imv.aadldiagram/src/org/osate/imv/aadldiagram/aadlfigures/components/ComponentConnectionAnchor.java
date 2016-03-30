@@ -24,7 +24,9 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 
 	private static final double MAX_DISTANCE = 10;
 
-	private enum SideType {NORTH, SOUTH, EAST, WEST};
+	private enum SideType {
+		NORTH, SOUTH, EAST, WEST
+	};
 
 	private ComponentFigure owner;
 	private Connection connection;
@@ -61,13 +63,13 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 		Rectangle bounds = this.owner.getClientArea();
 		Point retPoint = new Point();
 
-		if(this.initialAbsoluteLocation != null) {
+		if (this.initialAbsoluteLocation != null) {
 			this.location.sideType = findInitialSideTypeFromAbsolutePoint(this.initialAbsoluteLocation);
 			this.location.weight = this.getWeight(this.initialAbsoluteLocation, this.location.sideType);
 			this.initialAbsoluteLocation = null;
 		}
 
-		switch(this.location.getSideType()) {
+		switch (this.location.getSideType()) {
 		case NORTH:
 			retPoint.x = (int) (bounds.x + (bounds.width * this.location.getWeight()));
 			retPoint.y = bounds.y;
@@ -98,13 +100,13 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-		if(!this.moveInProgress) {
+		if (!this.moveInProgress) {
 			// Check if mouse press was within proximity to the connections end point.
 			Point endLocation = this.getLocation(null);
 			Point pressLocation = me.getLocation();
 			// Translate to absolute coordinates because the end location is in absolute coordinates.
 			this.getOwner().translateToAbsolute(pressLocation);
-			if(endLocation.getDistance(pressLocation) <= MAX_DISTANCE) {
+			if (endLocation.getDistance(pressLocation) <= MAX_DISTANCE) {
 				me.consume();
 				this.moveInProgress = true;
 			}
@@ -113,7 +115,7 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		if(this.moveInProgress) {
+		if (this.moveInProgress) {
 			me.consume();
 			this.moveInProgress = false;
 		}
@@ -121,7 +123,7 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 
 	@Override
 	public void mouseDragged(MouseEvent me) {
-		if(this.moveInProgress) {
+		if (this.moveInProgress) {
 			me.consume();
 			Point mouseLocation = me.getLocation();
 			this.updateLocation(mouseLocation);
@@ -169,18 +171,18 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 		switch (sideType) {
 		case NORTH:
 		case SOUTH:
-			weight = (mouseLocation.x - bounds.x) / (float)bounds.width;
+			weight = (mouseLocation.x - bounds.x) / (float) bounds.width;
 			break;
 		case EAST:
 		case WEST:
-			weight = (mouseLocation.y - bounds.y) / (float)bounds.height;
+			weight = (mouseLocation.y - bounds.y) / (float) bounds.height;
 			break;
 		}
 
-		if(weight < 0)
+		if (weight < 0)
 			weight = 0;
 
-		if(weight > 1)
+		if (weight > 1)
 			weight = 1;
 
 		return weight;
@@ -190,8 +192,8 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 		SideType sideType = null;
 		Rectangle bounds = this.owner.getBounds();
 		int x = mouseLocation.x, y = mouseLocation.y;
-		Point left = bounds.getLeft(), right = bounds.getRight(),
-				top = bounds.getTop(), bottom = bounds.getBottom(), center = bounds.getCenter();
+		Point left = bounds.getLeft(), right = bounds.getRight(), top = bounds.getTop(), bottom = bounds.getBottom(),
+				center = bounds.getCenter();
 
 		boolean isContained = bounds.contains(mouseLocation);
 
@@ -213,10 +215,10 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 			switch (curSideType) {
 			case NORTH:
 				if (isContained) {
-					if(y > center.y)
+					if (y > center.y)
 						sideType = SideType.SOUTH;
 				} else {
-					if(y < top.y && x < left.x)
+					if (y < top.y && x < left.x)
 						sideType = SideType.WEST;
 					else if (y < top.y && x > right.x)
 						sideType = SideType.EAST;
@@ -226,10 +228,10 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 				break;
 			case SOUTH:
 				if (isContained) {
-					if(y < center.y)
+					if (y < center.y)
 						sideType = SideType.NORTH;
 				} else {
-					if(y > bottom.y && x < left.x)
+					if (y > bottom.y && x < left.x)
 						sideType = SideType.WEST;
 					else if (y > bottom.y && x > right.x)
 						sideType = SideType.EAST;
@@ -239,10 +241,10 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 				break;
 			case EAST:
 				if (isContained) {
-					if(x < center.x)
+					if (x < center.x)
 						sideType = SideType.WEST;
 				} else {
-					if(x > right.x && y < top.y)
+					if (x > right.x && y < top.y)
 						sideType = SideType.NORTH;
 					else if (x > right.x && y > bottom.y)
 						sideType = SideType.SOUTH;
@@ -252,10 +254,10 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 				break;
 			case WEST:
 				if (isContained) {
-					if(x > center.x)
+					if (x > center.x)
 						sideType = SideType.EAST;
 				} else {
-					if(x < left.x && y < top.y)
+					if (x < left.x && y < top.y)
 						sideType = SideType.NORTH;
 					else if (x < left.x && y > bottom.y)
 						sideType = SideType.SOUTH;
@@ -268,7 +270,7 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 
 		}
 
-		if(sideType == null)
+		if (sideType == null)
 			sideType = this.location.getSideType();
 
 		return sideType;
@@ -278,16 +280,16 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 		SideType sideType = SideType.NORTH; // Default to North in case of calculation error.
 		Rectangle bounds = this.owner.getBounds();
 		int x = absolutePoint.x, y = absolutePoint.y;
-		Point left = bounds.getLeft(), right = bounds.getRight(),
-				top = bounds.getTop(), bottom = bounds.getBottom(), center = bounds.getCenter();
+		Point left = bounds.getLeft(), right = bounds.getRight(), top = bounds.getTop(), bottom = bounds.getBottom(),
+				center = bounds.getCenter();
 
-		if(x == left.x)
+		if (x == left.x)
 			sideType = SideType.WEST;
-		else if(x == right.x)
+		else if (x == right.x)
 			sideType = SideType.EAST;
-		else if(y == top.y)
+		else if (y == top.y)
 			sideType = SideType.NORTH;
-		else if(y == bottom.y)
+		else if (y == bottom.y)
 			sideType = SideType.SOUTH;
 
 		return sideType;
@@ -322,7 +324,6 @@ public class ComponentConnectionAnchor extends AbstractConnectionAnchor implemen
 		public void setWeight(float weight) {
 			this.weight = weight;
 		}
-
 
 	};
 

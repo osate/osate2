@@ -21,7 +21,6 @@ import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 import org.osate.imv.aadldiagram.aadlfigures.features.FeatureFigure;
 import org.osate.imv.aadldiagram.aadlfigures.features.FeatureOrientation;
 
-
 public class FeatureFigureMover implements IFigureMoverDelegate {
 
 	/**
@@ -34,8 +33,7 @@ public class FeatureFigureMover implements IFigureMoverDelegate {
 	*/
 	private Point location = null;
 
-
-	public FeatureFigureMover(FeatureFigure figure){
+	public FeatureFigureMover(FeatureFigure figure) {
 		this.targetFigure = figure;
 	}
 
@@ -47,15 +45,15 @@ public class FeatureFigureMover implements IFigureMoverDelegate {
 
 	@Override
 	public void mouseDragged(MouseEvent event) {
-		if(location == null)
+		if (location == null)
 			return;
 
 		Point newLocation = event.getLocation();
-		if(newLocation == null)
+		if (newLocation == null)
 			return;
 
 		Dimension offset = newLocation.getDifference(location);
-		if(offset.width == 0 && offset.height == 0)
+		if (offset.width == 0 && offset.height == 0)
 			return;
 
 		// The subcomponent cannot be moved outside the bounds of its parent component.
@@ -63,7 +61,7 @@ public class FeatureFigureMover implements IFigureMoverDelegate {
 
 		// Get the new region.
 		FeatureOrientation region = getRegion(newLocation);
-		if(region == null)
+		if (region == null)
 			return;
 
 		targetFigure.setOrientation(region);
@@ -89,45 +87,45 @@ public class FeatureFigureMover implements IFigureMoverDelegate {
 
 		// Layout bounds must be relative to the features container.
 		Rectangle containerBounds = targetFigure.getParent().getBounds();
-		layoutMngr.setConstraint(targetFigure, bounds.setLocation(bounds.x - containerBounds.x, bounds.y - containerBounds.y));
+		layoutMngr.setConstraint(targetFigure,
+				bounds.setLocation(bounds.x - containerBounds.x, bounds.y - containerBounds.y));
 
 		updateMngr.addDirtyRegion(targetFigure.getParent(), bounds);
 		event.consume();
 	}
 
-	private FeatureOrientation getRegion(Point point){
+	private FeatureOrientation getRegion(Point point) {
 		FeatureOrientation region = null;
 
 		// Get the parent figure bounds.
 		Rectangle bounds = targetFigure.getParent().getClientArea();
 
 		// Verify that the mouse is within the bounds of the parent component.
-		if(bounds.contains(point)){
+		if (bounds.contains(point)) {
 			int y = point.y;
 			int x = point.x;
 
 			// First check if the location is within the edge area.
-			int edgeArea = (int)(targetFigure.getPreferredSize().height / 2.0f);
-			if(y >= bounds.y && y <= bounds.y + edgeArea)
+			int edgeArea = (int) (targetFigure.getPreferredSize().height / 2.0f);
+			if (y >= bounds.y && y <= bounds.y + edgeArea)
 				region = FeatureOrientation.NORTH;
-			else if(y <= bounds.y + bounds.height && y >= bounds.y + bounds.height - edgeArea)
+			else if (y <= bounds.y + bounds.height && y >= bounds.y + bounds.height - edgeArea)
 				region = FeatureOrientation.SOUTH;
 
-
-			if(region == null){
-				int sectorWidth = (int)(bounds.width / 3.0f);
+			if (region == null) {
+				int sectorWidth = (int) (bounds.width / 3.0f);
 				// Check if the location is within the left or right sector.
-				if(x >= bounds.x && x <= bounds.x + sectorWidth)
+				if (x >= bounds.x && x <= bounds.x + sectorWidth)
 					region = FeatureOrientation.WEST;
-				else if(x <= bounds.x + bounds.width && x >= bounds.x + bounds.width - sectorWidth)
+				else if (x <= bounds.x + bounds.width && x >= bounds.x + bounds.width - sectorWidth)
 					region = FeatureOrientation.EAST;
 			}
 
-			if(region == null){
-				int midpoint = bounds.y + (int)(bounds.height / 2.0f);
-				if(y >= bounds.y && y <= midpoint)
+			if (region == null) {
+				int midpoint = bounds.y + (int) (bounds.height / 2.0f);
+				if (y >= bounds.y && y <= midpoint)
 					region = FeatureOrientation.NORTH;
-				else if(y <= bounds.y + bounds.height && y > bounds.y + midpoint)
+				else if (y <= bounds.y + bounds.height && y > bounds.y + midpoint)
 					region = FeatureOrientation.SOUTH;
 			}
 
@@ -170,7 +168,7 @@ public class FeatureFigureMover implements IFigureMoverDelegate {
 
 	@Override
 	public void mouseReleased(MouseEvent event) {
-		if(location == null)
+		if (location == null)
 			return;
 		location = null;
 		event.consume();

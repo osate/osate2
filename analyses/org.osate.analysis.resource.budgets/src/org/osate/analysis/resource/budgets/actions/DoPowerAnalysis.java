@@ -127,28 +127,25 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		excelExport.save();
 		return true;
 	};
-	
+
 	@Override
 	public boolean initializeAction(NamedElement obj) {
 		setCSVLog("ResourceBudgets", obj);
 		return true;
 	}
-	
+
 	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(
-				this.getAnalysisErrorReporterFactory());
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
-	
-	public void setSummaryReport(){
+
+	public void setSummaryReport() {
 		this.summaryReport = new StringBuffer();
 	}
-	
-	public void saveReport(){
+
+	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
-	
-	
-	
+
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}

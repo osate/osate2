@@ -63,7 +63,6 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.imv.model.IImvModelProvider;
 import org.osate.imv.model.ModeManager;
 
-
 public class ModesView extends ViewPart implements PropertyChangeListener, IPartListener {
 	// View ID.
 	public static final String ID = "org.osate.imv.ui.views.modesView";
@@ -90,7 +89,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 	@Override
 	public void dispose() {
 		this.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-		for(Iterator<IImvModelProvider> it = this.modelProviderSet.iterator(); it.hasNext();)
+		for (Iterator<IImvModelProvider> it = this.modelProviderSet.iterator(); it.hasNext();)
 			it.next().removePropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 	}
 
@@ -114,14 +113,14 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		// Create table viewer for modes.
 		modeTableViewer = createModeTableViewer(col1Container);
 		// Create table viewer for enabled mode transitions.
-		triggerTableViewer =  createTriggerTableViewer(col2Container);
+		triggerTableViewer = createTriggerTableViewer(col2Container);
 
 		this.attemptToSetActiveEditor();
 
 		this.getSite().getWorkbenchWindow().getPartService().addPartListener(this);
 	}
 
-	protected TableViewer createModeTableViewer(Composite parent){
+	protected TableViewer createModeTableViewer(Composite parent) {
 		String title = "Modes";
 
 		TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
@@ -132,16 +131,16 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		table.setLinesVisible(false);
 
 		// Highlight active mode.
-		table.addListener(SWT.EraseItem, new Listener(){
+		table.addListener(SWT.EraseItem, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
-				if(activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
+				if (activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
 					return;
 
-				TableItem item = (TableItem)event.item;
-				Mode mode = (Mode)item.getData();
-				if(mode != null && mode.equals(activeModelProvider.getCurrentMode())){
+				TableItem item = (TableItem) event.item;
+				Mode mode = (Mode) item.getData();
+				if (mode != null && mode.equals(activeModelProvider.getCurrentMode())) {
 					event.detail &= ~SWT.HOT; // Do not draw native backgrounds
 
 					// Highlight background.
@@ -164,14 +163,13 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 
 		});
 
-
 		// Table layout.
 		TableColumnLayout columnLayout = new TableColumnLayout();
 		parent.setLayout(columnLayout);
 
 		// The first column contains a check box used for setting the feature category inhibit status.
 		TableViewerColumn col = createTableViewerColumn(title, 0, 100, viewer, columnLayout);
-		col.setLabelProvider(new ColumnLabelProvider(){
+		col.setLabelProvider(new ColumnLabelProvider() {
 
 			public Image getImage(Object element) {
 				return null;
@@ -180,12 +178,13 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 			public String getText(Object element) {
 				String label = "";
 
-				if(element.equals(ModeManager.ALL_MODES)){
+				if (element.equals(ModeManager.ALL_MODES)) {
 					label = "all modes";
-				}else if(element instanceof Mode){
-					Mode mode = (Mode)element;
+				} else if (element instanceof Mode) {
+					Mode mode = (Mode) element;
 					label = mode.getName();
-					if(mode.isInitial()) label += " (initial mode)";
+					if (mode.isInitial())
+						label += " (initial mode)";
 				}
 
 				return label;
@@ -193,7 +192,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		});
 
 		// Content provider.
-		viewer.setContentProvider(new IStructuredContentProvider(){
+		viewer.setContentProvider(new IStructuredContentProvider() {
 
 			private NamedElement containerComponent;
 
@@ -203,8 +202,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 			}
 
 			@Override
-			public void inputChanged(Viewer viewer, Object oldInput,
-					Object newInput) {
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				this.containerComponent = (NamedElement) newInput;
 			}
 
@@ -212,25 +210,25 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 			public Object[] getElements(Object inputElement) {
 				Object[] elements = null;
 
-				if(containerComponent != null) {
-					if (containerComponent instanceof ComponentInstance){
-						List<ModeInstance> modes = ((ComponentInstance)containerComponent).getModeInstances();
+				if (containerComponent != null) {
+					if (containerComponent instanceof ComponentInstance) {
+						List<ModeInstance> modes = ((ComponentInstance) containerComponent).getModeInstances();
 						elements = new Object[modes.size() + 1];
 
 						// Add ALL_MODES to list of modes.
 						elements[0] = ModeManager.ALL_MODES;
 
-						for(int i = 0; i < modes.size(); i++) {
-							elements[i + 1] = ((ModeInstance)modes.get(i)).getMode();
+						for (int i = 0; i < modes.size(); i++) {
+							elements[i + 1] = ((ModeInstance) modes.get(i)).getMode();
 						}
 					} else {
-						List<Mode> modes = ((ComponentImplementation)containerComponent).getAllModes();
+						List<Mode> modes = ((ComponentImplementation) containerComponent).getAllModes();
 						elements = new Object[modes.size() + 1];
 
 						// Add ALL_MODES to list of modes.
 						elements[0] = ModeManager.ALL_MODES;
 
-						for(int i = 0; i < modes.size(); i++) {
+						for (int i = 0; i < modes.size(); i++) {
 							elements[i + 1] = modes.get(i);
 						}
 					}
@@ -240,11 +238,10 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 
 		});
 
-
 		return viewer;
 	}
 
-	protected TableViewer createTriggerTableViewer(Composite parent){
+	protected TableViewer createTriggerTableViewer(Composite parent) {
 		String title = "Enabled Transitions";
 
 		TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
@@ -269,7 +266,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 
 		// The first column contains a check box used for setting the feature category inhibit status.
 		TableViewerColumn col = createTableViewerColumn(title, 0, 100, viewer, columnLayout);
-		col.setLabelProvider(new ColumnLabelProvider(){
+		col.setLabelProvider(new ColumnLabelProvider() {
 
 			public Image getImage(Object element) {
 				return null;
@@ -277,13 +274,13 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 
 			public String getText(Object element) {
 				String label = "";
-				if(element instanceof ModeTransitionTableRow){
-					ModeTransitionTableRow modeTransition = (ModeTransitionTableRow)element;
+				if (element instanceof ModeTransitionTableRow) {
+					ModeTransitionTableRow modeTransition = (ModeTransitionTableRow) element;
 					ModeTransitionTrigger trigger = modeTransition.getTrigger();
 					// Add trigger name to label.
-					
+
 					label = trigger.getTriggerPort().getQualifiedName() + ":   ";
-					
+
 					// Add source mode to label.
 					label += modeTransition.getSource().getName();
 					// Add transition symbol to label.
@@ -297,7 +294,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		});
 
 		// Content provider.
-		viewer.setContentProvider(new IStructuredContentProvider(){
+		viewer.setContentProvider(new IStructuredContentProvider() {
 
 			@Override
 			public void dispose() {
@@ -305,27 +302,27 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 			}
 
 			@Override
-			public void inputChanged(Viewer viewer, Object oldInput,
-					Object newInput) {
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				// Do nothing.
 			}
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				if(inputElement.equals(ModeManager.ALL_MODES))
+				if (inputElement.equals(ModeManager.ALL_MODES))
 					return new Object[0]; // Return empty array.
 
-
 				List<ModeTransitionTableRow> modeTransitionList = new ArrayList<ModeTransitionTableRow>();
-				if(inputElement instanceof Mode) {
-					Mode mode = (Mode)inputElement;
+				if (inputElement instanceof Mode) {
+					Mode mode = (Mode) inputElement;
 					ComponentClassifier cl = (ComponentClassifier) mode.getContainingClassifier();
-					for(Iterator<ModeTransition> transitionInstanceIt = cl.getAllModeTransitions().iterator(); transitionInstanceIt.hasNext();){
+					for (Iterator<ModeTransition> transitionInstanceIt = cl.getAllModeTransitions()
+							.iterator(); transitionInstanceIt.hasNext();) {
 						ModeTransition transition = transitionInstanceIt.next();
 						Mode source = transition.getSource();
 						Mode destination = transition.getDestination();
 
-						for(Iterator<ModeTransitionTrigger> it = transition.getOwnedTriggers().iterator(); it.hasNext();){
+						for (Iterator<ModeTransitionTrigger> it = transition.getOwnedTriggers().iterator(); it
+								.hasNext();) {
 							modeTransitionList.add(new ModeTransitionTableRow(it.next(), source, destination));
 						}
 					}
@@ -339,9 +336,9 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		return viewer;
 	}
 
-	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int weight, TableViewer viewer, TableColumnLayout columnLayout){
-		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
-				SWT.NONE);
+	protected TableViewerColumn createTableViewerColumn(String title, final int columnNumber, int weight,
+			TableViewer viewer, TableColumnLayout columnLayout) {
+		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
 		columnLayout.setColumnData(column, new ColumnWeightData(weight));
 		column.setText(title);
@@ -349,34 +346,34 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		return viewerColumn;
 	}
 
-
 	@Override
 	public void setFocus() {
 		parent.setFocus();
 	}
 
 	protected void updateCurrentMode(ISelection selection) {
-		if(activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
+		if (activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
 			return;
 
-		Object selectedElement = ((IStructuredSelection)selection).getFirstElement();
+		Object selectedElement = ((IStructuredSelection) selection).getFirstElement();
 
-		if(selectedElement == null)
+		if (selectedElement == null)
 			return;
 
 		Mode selectedMode = ModeManager.NO_MODES;
-		if(selectedElement instanceof Mode) {
-			selectedMode = (Mode)selectedElement;
-		}else if(selectedElement instanceof ModeTransitionTableRow) {
-			selectedMode = ((ModeTransitionTableRow)selectedElement).getDestination();
+		if (selectedElement instanceof Mode) {
+			selectedMode = (Mode) selectedElement;
+		} else if (selectedElement instanceof ModeTransitionTableRow) {
+			selectedMode = ((ModeTransitionTableRow) selectedElement).getDestination();
 		}
 
-		if(!selectedMode.equals(this.activeModelProvider.getCurrentMode()) && !selectedMode.equals(ModeManager.NO_MODES))
+		if (!selectedMode.equals(this.activeModelProvider.getCurrentMode())
+				&& !selectedMode.equals(ModeManager.NO_MODES))
 			updateCurrentMode(selectedMode);
 	}
 
 	protected void updateCurrentMode(Mode selectedMode) {
-		if(activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
+		if (activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
 			return;
 
 		// Reset the input for the enabled mode transitions based on the current mode.
@@ -390,7 +387,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 	}
 
 	protected void handleContainerComponentChange(NamedElement containerComp) {
-		if(activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
+		if (activeModelProvider == NO_ACTIVE_MODEL_PROVIDER)
 			return;
 
 		Mode newMode = this.activeModelProvider.getCurrentMode();
@@ -405,19 +402,18 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		String propertyName = event.getPropertyName();
-		if(propertyName.equals(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY) && event.getSource() == this.activeModelProvider) {
-			handleContainerComponentChange((NamedElement)event.getNewValue());
+		if (propertyName.equals(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY)
+				&& event.getSource() == this.activeModelProvider) {
+			handleContainerComponentChange((NamedElement) event.getNewValue());
 		}
 	}
-
 
 	public class ModeTransitionTableRow {
 		private ModeTransitionTrigger trigger;
 		private Mode source;
 		private Mode destination;
 
-
-		public ModeTransitionTableRow(ModeTransitionTrigger trigger, Mode source, Mode destination){
+		public ModeTransitionTableRow(ModeTransitionTrigger trigger, Mode source, Mode destination) {
 			Assert.isNotNull(trigger);
 			Assert.isNotNull(source);
 			Assert.isNotNull(destination);
@@ -445,7 +441,6 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 		this.handleEditorActivation(part);
 	}
 
-
 	@Override
 	public void partClosed(IWorkbenchPart part) {
 		this.handleEditorClosed(part);
@@ -468,35 +463,35 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 
 	protected void attemptToSetActiveEditor() {
 		IWorkbenchPage activePage = this.getSite().getWorkbenchWindow().getActivePage();
-		if(activePage != null) {
+		if (activePage != null) {
 			IEditorPart activeEditor = activePage.getActiveEditor();
-			if(activeEditor != null)
+			if (activeEditor != null)
 				this.handleEditorActivation(activeEditor);
 		}
 	}
 
 	protected void handleEditorActivation(IWorkbenchPart part) {
-		IImvModelProvider newModelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(newModelProvider != null && newModelProvider != this.activeModelProvider) {
+		IImvModelProvider newModelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (newModelProvider != null && newModelProvider != this.activeModelProvider) {
 			this.setActiveModelProvider(newModelProvider);
 		}
 	}
 
 	protected void setActiveModelProvider(IImvModelProvider modelProvider) {
 		this.activeModelProvider = modelProvider;
-		if(this.modelProviderSet.add(modelProvider))
+		if (this.modelProviderSet.add(modelProvider))
 			modelProvider.addPropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 
 		this.handleContainerComponentChange(modelProvider.getContainerComponent());
 	}
 
 	protected void handleEditorClosed(IWorkbenchPart part) {
-		IImvModelProvider modelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(modelProvider != null) {
-			if(this.modelProviderSet.remove(modelProvider))
+		IImvModelProvider modelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (modelProvider != null) {
+			if (this.modelProviderSet.remove(modelProvider))
 				modelProvider.removePropertyChangeListener(IImvModelProvider.CONTAINER_COMPONENT_PROPERTY, this);
 
-			if(this.activeModelProvider == modelProvider) {
+			if (this.activeModelProvider == modelProvider) {
 				this.activeModelProvider = NO_ACTIVE_MODEL_PROVIDER;
 			}
 		}

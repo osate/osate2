@@ -18,8 +18,7 @@ public interface Expansor {
 	 * @param problem
 	 *            assignment problem to where the hardware is to be added.
 	 */
-	public void createInitialHardware(OutDegreeAssignmentProblem problem,
-			TreeSet validProcessors, double softwareLoad);
+	public void createInitialHardware(OutDegreeAssignmentProblem problem, TreeSet validProcessors, double softwareLoad);
 
 	/**
 	 * Largest processor possible suitable for the module. This imply that the
@@ -30,8 +29,8 @@ public interface Expansor {
 	 * @param problem
 	 *            from where to find the processor
 	 */
-	public double getLargestProcessorSizeForModule(SoftwareNode module,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem);
+	public double getLargestProcessorSizeForModule(SoftwareNode module, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem);
 
 	/**
 	 * Try to expand the processor to fit the given module
@@ -46,9 +45,8 @@ public interface Expansor {
 	 * @param largestSite
 	 *            the site for this processor
 	 */
-	public boolean expandProcessorForModule(SoftwareNode module,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem,
-			HardwareNode[] largestProcessor, Site[] largestSite);
+	public boolean expandProcessorForModule(SoftwareNode module, TreeSet validProcessors,
+			OutDegreeAssignmentProblem problem, HardwareNode[] largestProcessor, Site[] largestSite);
 
 	/**
 	 * Add new link between node1 and node2
@@ -58,11 +56,10 @@ public interface Expansor {
 	 * @param node2
 	 *            Hardware node to which the link should be added
 	 */
-	public Link addLinkBetween(HardwareNode node1, HardwareNode node2,
-			Message msg, OutDegreeAssignmentProblem problem);
+	public Link addLinkBetween(HardwareNode node1, HardwareNode node2, Message msg, OutDegreeAssignmentProblem problem);
 
-	//public Processor cloneProcessorInto(Processor n, Location site, TreeSet
+	// public Processor cloneProcessorInto(Processor n, Location site, TreeSet
 	// validProcessor, OutDegreeAssignmentProblem problem);
-	public HardwareNode cloneProcessorInto(HardwareNode n, Location site,
-			TreeSet validProcessor, OutDegreeAssignmentProblem problem);
+	public HardwareNode cloneProcessorInto(HardwareNode n, Location site, TreeSet validProcessor,
+			OutDegreeAssignmentProblem problem);
 }

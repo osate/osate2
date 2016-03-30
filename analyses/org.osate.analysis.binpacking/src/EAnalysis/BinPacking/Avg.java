@@ -26,8 +26,7 @@ public class Avg {
 
 			for (int i = 1; i < args.length; i++) {
 				System.out.print("Reading " + args[i]);
-				BufferedReader reader = new BufferedReader(new FileReader(
-						args[i]));
+				BufferedReader reader = new BufferedReader(new FileReader(args[i]));
 				String line;
 
 				// Read until End of File

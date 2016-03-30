@@ -10,9 +10,9 @@ import org.osgi.framework.BundleContext;
  * The main plugin class to be used in the desktop.
  */
 public class ResourceBudgetPlugin extends AbstractUIPlugin {
-	//The shared instance.
+	// The shared instance.
 	private static ResourceBudgetPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
 	/**

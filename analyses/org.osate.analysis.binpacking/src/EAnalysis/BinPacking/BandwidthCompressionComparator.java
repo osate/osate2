@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class BandwidthCompressionComparator implements Comparator {
 	public int compare(Object o1, Object o2) {
 
-		if (o1 instanceof ProcessingLoad && o2 instanceof ProcessingLoad){
+		if (o1 instanceof ProcessingLoad && o2 instanceof ProcessingLoad) {
 			ProcessingLoad n1 = (ProcessingLoad) o2;
 			ProcessingLoad n2 = (ProcessingLoad) o1;
 
@@ -24,10 +24,9 @@ public class BandwidthCompressionComparator implements Comparator {
 
 		/* To ensure descending order, swap o1 and o2 */
 
-		BandwidthCompressor n1 = (BandwidthCompressor) o1; //o2;
-		BandwidthCompressor n2 = (BandwidthCompressor) o2; //o1;
-		double difference = n1.getBandwidthCompressionFactor()
-				- n2.getBandwidthCompressionFactor();
+		BandwidthCompressor n1 = (BandwidthCompressor) o1; // o2;
+		BandwidthCompressor n2 = (BandwidthCompressor) o2; // o1;
+		double difference = n1.getBandwidthCompressionFactor() - n2.getBandwidthCompressionFactor();
 		if (difference < 0) {
 			return (int) Math.floor(difference);
 		} else if (difference > 0) {
@@ -38,12 +37,12 @@ public class BandwidthCompressionComparator implements Comparator {
 			 * break the tie arbitrarily. Int this case we break it with the
 			 * hash number
 			 */
-			if (o1 instanceof ProcessingLoad && o2 instanceof ProcessingLoad){
+			if (o1 instanceof ProcessingLoad && o2 instanceof ProcessingLoad) {
 				ProcessingLoad l1 = (ProcessingLoad) o2;
 				ProcessingLoad l2 = (ProcessingLoad) o1;
 				return (int) (l1.getUniqueID() - l2.getUniqueID());
 			}
-			
+
 			return (o1.hashCode() - o2.hashCode());
 		}
 	}

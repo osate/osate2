@@ -69,24 +69,21 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		InstanceModelUtil.clearCache();
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
 	}
-	
-	
+
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
-	
+
 	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(
-				this.getAnalysisErrorReporterFactory());
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
-	
-	public void setSummaryReport(){
+
+	public void setSummaryReport() {
 		this.summaryReport = new StringBuffer();
 	}
-	
-	public void saveReport(){
+
+	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
-	
-	
+
 }

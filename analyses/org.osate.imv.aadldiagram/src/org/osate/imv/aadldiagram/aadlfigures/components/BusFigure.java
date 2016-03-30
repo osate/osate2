@@ -17,18 +17,18 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-public class BusFigure extends ComponentFigure{
+public class BusFigure extends ComponentFigure {
 
 	private int lineWidth;
 	private boolean virtual;
 
-	public BusFigure(boolean virtual){
+	public BusFigure(boolean virtual) {
 		this.lineWidth = 2;
 		this.virtual = virtual;
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		g.setLineWidth(lineWidth);
@@ -36,15 +36,16 @@ public class BusFigure extends ComponentFigure{
 		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.setAntialias(SWT.ON);
 
-		if(this.virtual)
+		if (this.virtual)
 			g.setLineStyle(SWT.LINE_DASH);
 
 		Rectangle r = this.getClientArea();
 
-		int triangleHeight = (int)(r.width * 0.10f);
-		int baseHeight = (int)(r.height * 0.80f);
+		int triangleHeight = (int) (r.width * 0.10f);
+		int baseHeight = (int) (r.height * 0.80f);
 
-		Rectangle baseBounds = new Rectangle(r.x + triangleHeight, r.y + (int) ((r.height - baseHeight) / 2.0f), r.width - (triangleHeight * 2), baseHeight);
+		Rectangle baseBounds = new Rectangle(r.x + triangleHeight, r.y + (int) ((r.height - baseHeight) / 2.0f),
+				r.width - (triangleHeight * 2), baseHeight);
 
 		// Create point list.
 		PointList points = new PointList();
@@ -58,7 +59,6 @@ public class BusFigure extends ComponentFigure{
 		points.addPoint(baseBounds.getRight().x, baseBounds.getBottom().y);
 		points.addPoint(baseBounds.x, baseBounds.getBottom().y);
 		points.addPoint(r.x + triangleHeight, r.getBottom().y);
-
 
 		// Fill shape.
 		g.fillPolygon(points);

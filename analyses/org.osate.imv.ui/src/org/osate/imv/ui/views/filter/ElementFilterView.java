@@ -23,8 +23,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.imv.model.IImvModelProvider;
 
-
-
 public class ElementFilterView extends ViewPart implements IPartListener {
 
 	// View ID.
@@ -76,7 +74,6 @@ public class ElementFilterView extends ViewPart implements IPartListener {
 		this.getSite().getWorkbenchWindow().getPartService().addPartListener(this);
 	}
 
-
 	protected void createMenu() {
 		IMenuManager menuMngr = this.getViewSite().getActionBars().getMenuManager();
 		menuMngr.add(openFeatureFilterViewAction);
@@ -85,14 +82,14 @@ public class ElementFilterView extends ViewPart implements IPartListener {
 
 	protected void createActions() {
 
-		openFeatureFilterViewAction = new Action("Filter Features"){
+		openFeatureFilterViewAction = new Action("Filter Features") {
 			public void run() {
 				stackLayout.topControl = featureFilterPanel;
 				parent.layout();
 			}
 		};
 
-		openComponentFilterViewAction = new Action("Filter Components"){
+		openComponentFilterViewAction = new Action("Filter Components") {
 			public void run() {
 				stackLayout.topControl = componentFilterPanel;
 				parent.layout();
@@ -110,7 +107,6 @@ public class ElementFilterView extends ViewPart implements IPartListener {
 	public void partActivated(IWorkbenchPart part) {
 		this.handleEditorActivation(part);
 	}
-
 
 	@Override
 	public void partClosed(IWorkbenchPart part) {
@@ -134,16 +130,16 @@ public class ElementFilterView extends ViewPart implements IPartListener {
 
 	protected void attemptToSetActiveEditor() {
 		IWorkbenchPage activePage = this.getSite().getWorkbenchWindow().getActivePage();
-		if(activePage != null) {
+		if (activePage != null) {
 			IEditorPart activeEditor = activePage.getActiveEditor();
-			if(activeEditor != null)
+			if (activeEditor != null)
 				this.handleEditorActivation(activeEditor);
 		}
 	}
 
 	protected void handleEditorActivation(IWorkbenchPart part) {
-		IImvModelProvider newModelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(newModelProvider != null && newModelProvider != this.activeModelProvider) {
+		IImvModelProvider newModelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (newModelProvider != null && newModelProvider != this.activeModelProvider) {
 			this.setActiveModelProvider(newModelProvider);
 		}
 	}
@@ -155,9 +151,9 @@ public class ElementFilterView extends ViewPart implements IPartListener {
 	}
 
 	protected void handleEditorClosed(IWorkbenchPart part) {
-		IImvModelProvider modelProvider = (IImvModelProvider)part.getAdapter(IImvModelProvider.class);
-		if(modelProvider != null) {
-			if(this.activeModelProvider == modelProvider) {
+		IImvModelProvider modelProvider = (IImvModelProvider) part.getAdapter(IImvModelProvider.class);
+		if (modelProvider != null) {
+			if (this.activeModelProvider == modelProvider) {
 				this.activeModelProvider = NO_ACTIVE_MODEL_PROVIDER;
 			}
 		}

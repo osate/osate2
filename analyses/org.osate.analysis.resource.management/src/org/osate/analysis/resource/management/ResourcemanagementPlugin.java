@@ -13,11 +13,11 @@ import org.osgi.framework.BundleContext;
  */
 public class ResourcemanagementPlugin extends AbstractUIPlugin {
 	private static final String ERROR_PREFIX = "*** Internal error: ";
-	//The shared instance.
+	// The shared instance.
 	private static ResourcemanagementPlugin plugin;
-	//Resource bundle.
+	// Resource bundle.
 	private ResourceBundle resourceBundle;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -25,7 +25,8 @@ public class ResourcemanagementPlugin extends AbstractUIPlugin {
 		super();
 		plugin = this;
 		try {
-			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.resource.management.ResourcemanagementPluginResources");
+			resourceBundle = ResourceBundle
+					.getBundle("org.osate.analysis.resource.management.ResourcemanagementPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
@@ -71,7 +72,7 @@ public class ResourcemanagementPlugin extends AbstractUIPlugin {
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
 	}
-	
+
 	public static void log(IStatus aStatus) {
 		getDefault().getLog().log(aStatus);
 	}
@@ -84,13 +85,12 @@ public class ResourcemanagementPlugin extends AbstractUIPlugin {
 		} else {
 			logMsg = "Exception " + aThrowable.getClass().getName();
 		}
-		log(new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), Status.OK,
-						ERROR_PREFIX + logMsg, aThrowable));
+		log(new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), Status.OK, ERROR_PREFIX + logMsg,
+				aThrowable));
 	}
-	
+
 	public static void logErrorMessage(String aMessage) {
-		log(new Status(
-				IStatus.ERROR, plugin.getBundle().getSymbolicName(), Status.OK, aMessage, null));
+		log(new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), Status.OK, aMessage, null));
 	}
 
 }

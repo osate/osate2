@@ -39,8 +39,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-
 public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDelegate {
 
 	private Document xmlDoc;
@@ -58,7 +56,8 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 
 	@Override
 	public void restoreAadlComponentAdapter(AadlComponentAdapter adapter) {
-		Element xmlElement = this.getElementFromObject(adapter.getModelElement(), XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
+		Element xmlElement = this.getElementFromObject(adapter.getModelElement(),
+				XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
 		if (xmlElement != null) {
 			Rectangle constraint = this.getRect(xmlElement);
 
@@ -68,14 +67,16 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 				figure.setBounds(constraint.getCopy());
 				// We need to store the relative bounds.
 				Rectangle parentBounds = parent.getBounds();
-				parent.getLayoutManager().setConstraint(figure, constraint.setLocation(constraint.x - parentBounds.x, constraint.y - parentBounds.y));
+				parent.getLayoutManager().setConstraint(figure,
+						constraint.setLocation(constraint.x - parentBounds.x, constraint.y - parentBounds.y));
 			}
 		}
 	}
 
 	@Override
 	public void restoreAadlFeatureAdapter(AadlFeatureAdapter adapter) {
-		Element xmlElement = this.getElementFromObject(adapter.getModelElement(), XmlAadlAdapterSaverDelegate.FEATURE_FIGURE_TYPE);
+		Element xmlElement = this.getElementFromObject(adapter.getModelElement(),
+				XmlAadlAdapterSaverDelegate.FEATURE_FIGURE_TYPE);
 		if (xmlElement != null) {
 			Rectangle constraint = this.getRect(xmlElement);
 
@@ -85,7 +86,8 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 				figure.setBounds(constraint.getCopy());
 				// We need to store the relative bounds.
 				Rectangle parentBounds = parent.getBounds();
-				parent.getLayoutManager().setConstraint(figure, constraint.setLocation(constraint.x - parentBounds.x, constraint.y - parentBounds.y));
+				parent.getLayoutManager().setConstraint(figure,
+						constraint.setLocation(constraint.x - parentBounds.x, constraint.y - parentBounds.y));
 			}
 
 			// Restore feature orientation.
@@ -95,7 +97,8 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 
 	@Override
 	public void restoreAadlConnectionAdapter(AadlConnectionAdapter adapter) {
-		Element xmlElement = this.getElementFromObject(adapter.getModelElement(), XmlAadlAdapterSaverDelegate.CONNECTION_FIGURE_TYPE);
+		Element xmlElement = this.getElementFromObject(adapter.getModelElement(),
+				XmlAadlAdapterSaverDelegate.CONNECTION_FIGURE_TYPE);
 		if (xmlElement != null) {
 			PointList points = this.getPointList(xmlElement);
 			SelectableMevConnectionFigure figure = adapter.getFigure();
@@ -105,16 +108,16 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 			Point last = points.getLastPoint();
 
 			ConnectionAnchor srcAnchor = figure.getSourceAnchor();
-			if(srcAnchor instanceof ComponentConnectionAnchor)
-				((ComponentConnectionAnchor)srcAnchor).setInitialAbsoluteLocation(start);
+			if (srcAnchor instanceof ComponentConnectionAnchor)
+				((ComponentConnectionAnchor) srcAnchor).setInitialAbsoluteLocation(start);
 			ConnectionAnchor targetAnchor = figure.getTargetAnchor();
-			if(targetAnchor instanceof ComponentConnectionAnchor)
-				((ComponentConnectionAnchor)targetAnchor).setInitialAbsoluteLocation(last);
+			if (targetAnchor instanceof ComponentConnectionAnchor)
+				((ComponentConnectionAnchor) targetAnchor).setInitialAbsoluteLocation(last);
 
 			List<Bendpoint> bendpointList = new ArrayList<Bendpoint>(points.size() - 2);
 
 			// Restore bendbpoints.
-			for(int i = 1; i < points.size() - 1; i++) {
+			for (int i = 1; i < points.size() - 1; i++) {
 				Point p = points.getPoint(i);
 				RelativeBendpoint bp = BendpointHelper.calculateRelativeBendpoint(p, start, last, figure);
 				bendpointList.add(bp);
@@ -129,22 +132,24 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 		Element retElement = null;
 
 		Element containerElement = getContainerElement();
-		if(containerElement != null) {
-			NamedElement namedElement = (NamedElement)element;
+		if (containerElement != null) {
+			NamedElement namedElement = (NamedElement) element;
 
-			if(type == XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE || type ==  XmlAadlAdapterSaverDelegate.FEATURE_FIGURE_TYPE) {
-				NamedElement parentElement = (NamedElement)namedElement.getOwner();
-				if(parentElement == null || namedElement.getFullName().equals(containerElement.getAttribute("name"))) {
+			if (type == XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE
+					|| type == XmlAadlAdapterSaverDelegate.FEATURE_FIGURE_TYPE) {
+				NamedElement parentElement = (NamedElement) namedElement.getOwner();
+				if (parentElement == null || namedElement.getFullName().equals(containerElement.getAttribute("name"))) {
 					retElement = containerElement;
-				} else if(parentElement.getFullName().equals(containerElement.getAttribute("name"))) {
+				} else if (parentElement.getFullName().equals(containerElement.getAttribute("name"))) {
 					retElement = getChildElementByName(namedElement.getFullName(), containerElement, type);
 				} else {
-					Element newParentElement = getChildElementByName(parentElement.getFullName(), containerElement, XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
-					if(newParentElement != null) {
+					Element newParentElement = getChildElementByName(parentElement.getFullName(), containerElement,
+							XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
+					if (newParentElement != null) {
 						retElement = getChildElementByName(namedElement.getFullName(), newParentElement, type);
 					}
 				}
-			} else if(type == XmlAadlAdapterSaverDelegate.CONNECTION_FIGURE_TYPE) {
+			} else if (type == XmlAadlAdapterSaverDelegate.CONNECTION_FIGURE_TYPE) {
 				retElement = getChildElementByName(namedElement.getFullName(), containerElement, type);
 			}
 		}
@@ -156,14 +161,14 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 		Element retElement = null;
 		Element rootElement = xmlDoc.getDocumentElement();
 
-		String name = ((NamedElement)this.diagram.getRootModelElement()).getFullName();
+		String name = ((NamedElement) this.diagram.getRootModelElement()).getFullName();
 
 		NodeList nList = rootElement.getChildNodes();
-		for(int i = 0; i < nList.getLength(); i++) {
+		for (int i = 0; i < nList.getLength(); i++) {
 			Node node = nList.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element)node;
-				if(element.getAttribute("name").equals(name)) {
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (element.getAttribute("name").equals(name)) {
 					// We have found the container element.
 					retElement = element;
 					break;
@@ -178,11 +183,11 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 		Element retElement = null;
 
 		NodeList nList = parentElement.getElementsByTagName("children").item(0).getChildNodes();
-		for(int i = 0; i < nList.getLength(); i++) {
+		for (int i = 0; i < nList.getLength(); i++) {
 			Node node = nList.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element)node;
-				if(element.getAttribute("name").equals(name) && getElementType(element) == type) {
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (element.getAttribute("name").equals(name) && getElementType(element) == type) {
 					// We have found a matching element.
 					retElement = element;
 					break;
@@ -196,10 +201,10 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 	public PointList getPointList(Element element) {
 		PointList points = new PointList();
 		NodeList nodes = element.getElementsByTagName("point");
-		for(int i = 0; i < nodes.getLength(); i++) {
+		for (int i = 0; i < nodes.getLength(); i++) {
 			Node node = nodes.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element pointElement = (Element)node;
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element pointElement = (Element) node;
 				Point p = new Point();
 				p.x = Integer.parseInt(pointElement.getAttribute("x"));
 				p.y = Integer.parseInt(pointElement.getAttribute("y"));

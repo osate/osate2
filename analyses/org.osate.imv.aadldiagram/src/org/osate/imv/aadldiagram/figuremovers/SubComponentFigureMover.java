@@ -21,8 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 
-
-public class SubComponentFigureMover implements IFigureMoverDelegate{
+public class SubComponentFigureMover implements IFigureMoverDelegate {
 
 	/**
 	 * The target figure (i.e. the figure that will be moved).
@@ -34,10 +33,9 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 	*/
 	private Point location = null;
 
-	public SubComponentFigureMover(ComponentFigure figure){
+	public SubComponentFigureMover(ComponentFigure figure) {
 		this.targetFigure = figure;
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent event) {
@@ -47,19 +45,19 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 
 	@Override
 	public void mouseDragged(MouseEvent event) {
-		if(location == null)
+		if (location == null)
 			return;
 
 		Point newLocation = event.getLocation();
-		if(newLocation == null)
+		if (newLocation == null)
 			return;
 
 		Dimension offset = newLocation.getDifference(location);
-		if(offset.width == 0 && offset.height == 0)
+		if (offset.width == 0 && offset.height == 0)
 			return;
 
 		// Check for negative bounds.
-		if(checkForNegativeBounds(offset.width, offset.height))
+		if (checkForNegativeBounds(offset.width, offset.height))
 			return;
 
 		location = newLocation;
@@ -83,7 +81,7 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 		event.consume();
 	}
 
-	protected boolean checkForNegativeBounds(int dx, int dy){
+	protected boolean checkForNegativeBounds(int dx, int dy) {
 		// The container's insets.
 		Insets insets = targetFigure.getParent().getInsets();
 		// Create translated bounds.
@@ -92,7 +90,7 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 		return ((tRect.x - insets.left < 0) || (tRect.y - insets.top < 0));
 	}
 
-	protected void updateContainerSize(){
+	protected void updateContainerSize() {
 		IFigure container = targetFigure.getParent();
 		// A copy of the container's bounds.
 		Rectangle cBounds = container.getBounds().getCopy();
@@ -108,18 +106,18 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 		int width = cBounds.width;
 		int height = cBounds.height;
 		// Adjust the size of the parent container's bounds to contain the target figure.
-		if(tBounds.x < clientBounds.x){
+		if (tBounds.x < clientBounds.x) {
 			x = tBounds.x - insets.left;
 			width += clientBounds.x - tBounds.x;
 		}
-		if(tBounds.y < clientBounds.y){
+		if (tBounds.y < clientBounds.y) {
 			y = tBounds.y - insets.top;
 			height += clientBounds.y - tBounds.y;
 		}
-		if(tBounds.right() > clientBounds.right()){
+		if (tBounds.right() > clientBounds.right()) {
 			width += tBounds.right() - clientBounds.right();
 		}
-		if(tBounds.bottom() > clientBounds.bottom()){
+		if (tBounds.bottom() > clientBounds.bottom()) {
 			height += tBounds.bottom() - clientBounds.bottom();
 		}
 
@@ -137,7 +135,7 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 		updateMngr.addDirtyRegion(container.getParent(), cBounds);
 	}
 
-	private void checkContainment(Point hitPoint){
+	private void checkContainment(Point hitPoint) {
 		// Get the target figure's bounds.
 		Rectangle tBounds = targetFigure.getBounds();
 		// Get the container's client area.
@@ -147,7 +145,7 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 		// Create new rectangle to represent the future location of the figure.
 		Rectangle futureBounds = tBounds.getCopy().translate(offset.width, offset.height);
 
-		if(!cBounds.contains(futureBounds)){
+		if (!cBounds.contains(futureBounds)) {
 			// Adjust the size of the parent container's bounds to contain the target figure.
 			// TODO
 		}
@@ -155,11 +153,10 @@ public class SubComponentFigureMover implements IFigureMoverDelegate{
 
 	@Override
 	public void mouseReleased(MouseEvent event) {
-		if(location == null)
+		if (location == null)
 			return;
 		location = null;
 		event.consume();
 	}
-
 
 }

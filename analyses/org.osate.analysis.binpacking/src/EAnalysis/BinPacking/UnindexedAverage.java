@@ -10,8 +10,7 @@ import java.util.StringTokenizer;
 public class UnindexedAverage {
 	public static void main(String args[]) {
 		if (args.length != 4) {
-			System.out
-					.println("Usage: UnindexedAverage <output file> <prefix> <sufix> <#columns>");
+			System.out.println("Usage: UnindexedAverage <output file> <prefix> <sufix> <#columns>");
 			return;
 		}
 
@@ -24,25 +23,22 @@ public class UnindexedAverage {
 		for (int k = 0; k < numCols; k++)
 			average[k] = new SampleRecord(0, 0.0, 0);
 		try {
-			PrintWriter writer = new PrintWriter(new FileOutputStream(
-					outFileName));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(outFileName));
 			File dir = new File(".");
 			String[] files = dir.list();
 			for (int i = 0; i < files.length; i++) {
-				String fileName = files[i]; //prefix+Integer.toString(i)+sufix;
+				String fileName = files[i]; // prefix+Integer.toString(i)+sufix;
 
 				if (!(fileName.startsWith(prefix) && fileName.endsWith(sufix)))
 					continue;
 
-				BufferedReader reader = new BufferedReader(new FileReader(
-						fileName));
+				BufferedReader reader = new BufferedReader(new FileReader(fileName));
 				System.out.println("Reading filename(" + fileName + ")");
 				String line;
 				while ((line = reader.readLine()) != null) {
 					StringTokenizer tokenizer = new StringTokenizer(line);
 					for (int j = 0; j < numCols; j++) {
-						average[j].value = Double.parseDouble(tokenizer
-								.nextToken());
+						average[j].value = Double.parseDouble(tokenizer.nextToken());
 						average[j].frequency++;
 					}
 				}

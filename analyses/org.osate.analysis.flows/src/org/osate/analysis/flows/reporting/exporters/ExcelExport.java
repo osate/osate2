@@ -52,8 +52,8 @@ public class ExcelExport extends GenericExport {
 		defaultFont = new WritableFont(WritableFont.ARIAL, 10);
 		defaultFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
 				UnderlineStyle.NO_UNDERLINE);
-		successFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD, false,
-				UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
+		successFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD, false, UnderlineStyle.NO_UNDERLINE,
+				Colour.WHITE);
 		successFontBold = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
 				UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
 		warningFont = successFont;

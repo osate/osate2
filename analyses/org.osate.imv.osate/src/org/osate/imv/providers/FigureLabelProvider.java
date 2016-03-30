@@ -18,8 +18,7 @@ import org.eclipse.swt.graphics.Image;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ConnectionReference;
 
-
-public class FigureLabelProvider extends BaseLabelProvider implements ILabelProvider{
+public class FigureLabelProvider extends BaseLabelProvider implements ILabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
@@ -31,11 +30,11 @@ public class FigureLabelProvider extends BaseLabelProvider implements ILabelProv
 	public String getText(Object element) {
 		Assert.isNotNull(element);
 		String text = null;
-		if (element instanceof ConnectionReference){
+		if (element instanceof ConnectionReference) {
 			element = ((ConnectionReference) element).getOwner();
 		}
-		if(element instanceof NamedElement)
-			return ((NamedElement)element).getFullName();
+		if (element instanceof NamedElement)
+			return ((NamedElement) element).getFullName();
 		return text;
 	}
 

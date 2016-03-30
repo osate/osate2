@@ -54,8 +54,8 @@ public class FilterPanel extends Composite {
 	}
 
 	protected TableViewer createTableViewer(Composite parent, String title) {
-		final TableViewer viewer = new TableViewer(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
-				| SWT.FULL_SELECTION);
+		final TableViewer viewer = new TableViewer(parent,
+				SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
 
 		// Configure table.
 		final Table table = viewer.getTable();

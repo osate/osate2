@@ -24,7 +24,6 @@ import org.osate.imv.aadldiagram.figuremovers.IFigureMoverDelegate;
 import org.osate.imv.aadldiagram.layout.LayoutGraphNode;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
 public class AadlFeatureAdapter extends AbstractAadlElementAdapter {
 
 	private FeatureFigure figure;
@@ -43,7 +42,8 @@ public class AadlFeatureAdapter extends AbstractAadlElementAdapter {
 
 	private FeatureDirectionType directionType;
 
-	public AadlFeatureAdapter(Object modelElement, FeatureAdapterCategory category, FeatureDirectionType directionType, ILabelProvider labelProvider) {
+	public AadlFeatureAdapter(Object modelElement, FeatureAdapterCategory category, FeatureDirectionType directionType,
+			ILabelProvider labelProvider) {
 		super(modelElement, labelProvider);
 		this.category = category;
 		this.directionType = directionType;
@@ -51,7 +51,7 @@ public class AadlFeatureAdapter extends AbstractAadlElementAdapter {
 
 	@Override
 	public FeatureFigure getFigure() {
-		if(figure == null) {
+		if (figure == null) {
 			// Build figure.
 			figure = AadlFigureFactory.getInstance().buildFigure(this);
 			figure.addMouseListener(this);
@@ -63,7 +63,6 @@ public class AadlFeatureAdapter extends AbstractAadlElementAdapter {
 		return figure;
 	}
 
-
 	@Override
 	public void accept(AadlAdapterVisitor visitor) {
 		visitor.visitAadlFeatureAdapter(this);
@@ -71,7 +70,7 @@ public class AadlFeatureAdapter extends AbstractAadlElementAdapter {
 
 	@Override
 	public LayoutEntity getLayoutItem() {
-		if(this.layoutItem == null)
+		if (this.layoutItem == null)
 			this.layoutItem = new LayoutGraphNode(this.getFigure(), this.getModelElement());
 		return this.layoutItem;
 	}

@@ -35,22 +35,20 @@ public class NFCHoBinPacker {
 	public void buildConstrainedArchitecture(OutDegreeAssignmentProblem problem) {
 		boolean checkingConflicting = false;
 		boolean addedComposite = false;
-		TreeSet outDegreeList = (TreeSet) problem.orderedModulesByOutDegree
-				.clone();
+		TreeSet outDegreeList = (TreeSet) problem.orderedModulesByOutDegree.clone();
 		TreeSet conflicting = new TreeSet(outDegreeList.comparator());
 
-		//System.out.println("building the constrained architecture....");
+		// System.out.println("building the constrained architecture....");
 		Iterator outDegreeIterator = outDegreeList.iterator();
 		if (outDegreeList.size() > 0) {
 			SoftwareNode nextModule = (SoftwareNode) outDegreeIterator.next();
 			outDegreeIterator.remove();
 			problem.removeSoftwareNode(nextModule);
-			CompositeSoftNode composite = new CompositeSoftNode(
-					new BandwidthComparator());
+			CompositeSoftNode composite = new CompositeSoftNode(new BandwidthComparator());
 			addedComposite = false;
-			composite.add(nextModule, problem.softwareConnectivity,
-					problem.softConnectivityByTarget, problem.constraints);
-			//System.out.println("\t checking module("+nextModule.name+")
+			composite.add(nextModule, problem.softwareConnectivity, problem.softConnectivityByTarget,
+					problem.constraints);
+			// System.out.println("\t checking module("+nextModule.name+")
 			// composite("+composite.hashCode()+")");
 			ArrayList virtualNeighbors = new ArrayList(1);
 			virtualNeighbors.add(null);
@@ -58,14 +56,14 @@ public class NFCHoBinPacker {
 			Iterator neighbors = null;
 			if (map != null && map.size() != 0) {
 				neighbors = map.values().iterator();
-				//System.out.println("\t\t
+				// System.out.println("\t\t
 				// neighbors.size("+map.values().size()+")");
 			} else {
-				//System.out.println();
+				// System.out.println();
 				if (outDegreeIterator.hasNext()) {
 					virtualNeighbors.set(0, outDegreeIterator.next());
 					neighbors = virtualNeighbors.iterator();
-					//System.out.println("\t\t
+					// System.out.println("\t\t
 					// virtualneighbors.size("+virtualNeighbors.size()+")");
 				}
 			}
@@ -78,28 +76,24 @@ public class NFCHoBinPacker {
 				 * requirement with composite
 				 */
 				SoftwareNode neighbor = null;
-				while (neighbor == null && neighbors != null
-						&& neighbors.hasNext()) {
+				while (neighbor == null && neighbors != null && neighbors.hasNext()) {
 					neighbor = (SoftwareNode) neighbors.next();
 
 					if (checkingConflicting)
-						System.out.println("Checking node("
-								+ neighbor.getSemanticObject() + ")");
+						System.out.println("Checking node(" + neighbor.getSemanticObject() + ")");
 					if (neighbor instanceof CompositeSoftNode) {
-						for (Iterator iter = ((CompositeSoftNode) neighbor)
-								.getBasicComponents().iterator(); iter
+						for (Iterator iter = ((CompositeSoftNode) neighbor).getBasicComponents().iterator(); iter
 								.hasNext();) {
 							SoftwareNode node = (SoftwareNode) iter.next();
-							System.out.println("\t\t node("
-									+ node.getSemanticObject() + ")");
+							System.out.println("\t\t node(" + node.getSemanticObject() + ")");
 						}
 					}
 
-					//System.out.println("\t\t checking
+					// System.out.println("\t\t checking
 					// neighbor("+neighbor.name+")");
 					if (!outDegreeList.contains(neighbor)) {
 						neighbor = null;
-						//System.out.println("\t\t\t NOT IN outDegreeList --
+						// System.out.println("\t\t\t NOT IN outDegreeList --
 						// next neighbor");
 						continue;
 					}
@@ -124,24 +118,16 @@ public class NFCHoBinPacker {
 								 * together
 								 */
 								if (c.members.contains(composite)) {
-									System.out
-											.println("\n\n  ******* CONFLICTING *******");
-									System.out.println("\t Conflicting("
-											+ neighbor.getSemanticObject()
-											+ ")");
+									System.out.println("\n\n  ******* CONFLICTING *******");
+									System.out.println("\t Conflicting(" + neighbor.getSemanticObject() + ")");
 									if (neighbor instanceof CompositeSoftNode) {
-										for (Iterator iter = ((CompositeSoftNode) neighbor)
-												.getBasicComponents()
+										for (Iterator iter = ((CompositeSoftNode) neighbor).getBasicComponents()
 												.iterator(); iter.hasNext();) {
-											SoftwareNode node = (SoftwareNode) iter
-													.next();
-											System.out.println("\t\t node("
-													+ node.getSemanticObject()
-													+ ")");
+											SoftwareNode node = (SoftwareNode) iter.next();
+											System.out.println("\t\t node(" + node.getSemanticObject() + ")");
 										}
 									}
-									System.out
-											.println("********************************\n\n");
+									System.out.println("********************************\n\n");
 									conflicting.add(neighbor);
 									outDegreeList.remove(neighbor);
 									neighbor = null;
@@ -160,10 +146,9 @@ public class NFCHoBinPacker {
 				if (neighbor != null) {
 					outDegreeList.remove(neighbor);
 					problem.removeSoftwareNode(neighbor);
-					composite.add(neighbor, problem.softwareConnectivity,
-							problem.softConnectivityByTarget,
+					composite.add(neighbor, problem.softwareConnectivity, problem.softConnectivityByTarget,
 							problem.constraints);
-					//System.out.println("\t\t\t adding
+					// System.out.println("\t\t\t adding
 					// neighbor("+neighbor.name+")");
 
 					outDegreeIterator = outDegreeList.iterator();
@@ -189,45 +174,37 @@ public class NFCHoBinPacker {
 				if (neighbors == null || !neighbors.hasNext()) {
 					problem.addSoftwareNode(composite);
 					addedComposite = true;
-					//System.out.println("\t\t ADDED
+					// System.out.println("\t\t ADDED
 					// composite("+composite.hashCode()+")");
 					if (conflicting.size() > 0) {
-						System.out
-								.println("\n ----- Switching to explore conflicting nodes !! ----\n");
+						System.out.println("\n ----- Switching to explore conflicting nodes !! ----\n");
 						checkingConflicting = true;
 						TreeSet temp = outDegreeList;
 						outDegreeList = conflicting;
 						conflicting = temp;
 						outDegreeIterator = outDegreeList.iterator();
 						nextModule = (SoftwareNode) outDegreeIterator.next();
-						System.out.println("\t nextModule("
-								+ nextModule.getSemanticObject() + ")");
+						System.out.println("\t nextModule(" + nextModule.getSemanticObject() + ")");
 						if (nextModule instanceof CompositeSoftNode) {
-							for (Iterator iter = ((CompositeSoftNode) nextModule)
-									.getBasicComponents().iterator(); iter
+							for (Iterator iter = ((CompositeSoftNode) nextModule).getBasicComponents().iterator(); iter
 									.hasNext();) {
 								SoftwareNode node = (SoftwareNode) iter.next();
-								System.out.println("\t\t node("
-										+ node.getSemanticObject() + ")");
+								System.out.println("\t\t node(" + node.getSemanticObject() + ")");
 							}
 						}
 						outDegreeIterator.remove();
 						problem.removeSoftwareNode(nextModule);
-						composite = new CompositeSoftNode(
-								new BandwidthComparator());
+						composite = new CompositeSoftNode(new BandwidthComparator());
 						addedComposite = false;
-						composite.add(nextModule, problem.softwareConnectivity,
-								problem.softConnectivityByTarget,
+						composite.add(nextModule, problem.softwareConnectivity, problem.softConnectivityByTarget,
 								problem.constraints);
-						map = (TreeMap) problem.softwareConnectivity
-								.get(composite);
+						map = (TreeMap) problem.softwareConnectivity.get(composite);
 						neighbors = null;
 						if (map != null && map.size() != 0)
 							neighbors = map.values().iterator();
 						else {
 							if (outDegreeIterator.hasNext()) {
-								virtualNeighbors.set(0, outDegreeIterator
-										.next());
+								virtualNeighbors.set(0, outDegreeIterator.next());
 								neighbors = virtualNeighbors.iterator();
 							}
 						}
@@ -241,37 +218,37 @@ public class NFCHoBinPacker {
 	}
 
 	public boolean solve(OutDegreeAssignmentProblem problem) {
-		// 	System.out.println("--------- INITIAL SOFTWARE GRAPH ----------");
-		// 	for (Iterator iter = problem.softwareGraph.iterator();
-		// 	     iter.hasNext();)
-		// 	    {
-		// 		SoftwareNode n = (SoftwareNode) iter.next();
-		// 		System.out.println("\t node("+n.name+")");
-		// 	    }
-		// 	System.out.println("----- END OF INITIAL SOFTWARE GRAPH -------");
+		// System.out.println("--------- INITIAL SOFTWARE GRAPH ----------");
+		// for (Iterator iter = problem.softwareGraph.iterator();
+		// iter.hasNext();)
+		// {
+		// SoftwareNode n = (SoftwareNode) iter.next();
+		// System.out.println("\t node("+n.name+")");
+		// }
+		// System.out.println("----- END OF INITIAL SOFTWARE GRAPH -------");
 
 		BinPackerTester.toDeploy = problem.softwareGraph.size();
 
 		buildConstrainedArchitecture(problem);
-		// 	System.out.println("---- CONSTRAINED ARCHITECTURE -------");
-		// 	for (Iterator iter = problem.softwareGraph.iterator();
-		// 	     iter.hasNext();)
-		// 	    {
-		// 		SoftwareNode n = (SoftwareNode) iter.next();
-		// 		System.out.println("\t node("+n.name+")");
-		// 	    }
-		// 	System.out.println("---- END OF CONSTRAINED ARCHITECTURE ----");
-
-		// 	DebugMonitor.println(DebugMonitor.channels[3], " -- CONSTRAINED
-		// COMPONENTS --");
-		// 	for (Iterator iter = problem.softwareGraph.iterator();
+		// System.out.println("---- CONSTRAINED ARCHITECTURE -------");
+		// for (Iterator iter = problem.softwareGraph.iterator();
 		// iter.hasNext();)
-		// 	    {
-		// 		SoftwareNode n = (SoftwareNode) iter.next();
-		// 		DebugMonitor.println(DebugMonitor.channels[3], "\t
+		// {
+		// SoftwareNode n = (SoftwareNode) iter.next();
+		// System.out.println("\t node("+n.name+")");
+		// }
+		// System.out.println("---- END OF CONSTRAINED ARCHITECTURE ----");
+
+		// DebugMonitor.println(DebugMonitor.channels[3], " -- CONSTRAINED
+		// COMPONENTS --");
+		// for (Iterator iter = problem.softwareGraph.iterator();
+		// iter.hasNext();)
+		// {
+		// SoftwareNode n = (SoftwareNode) iter.next();
+		// DebugMonitor.println(DebugMonitor.channels[3], "\t
 		// module.size("+BinPackerTester.decFormat.format(n.getBandwidth())+")");
-		// 	    }
-		// 	DebugMonitor.println(DebugMonitor.channels[3], "--- END OF
+		// }
+		// DebugMonitor.println(DebugMonitor.channels[3], "--- END OF
 		// CONSTRAINED COMPONENTS ---");
 
 		Iterator orderedComposites = problem.softwareGraph.iterator();
@@ -288,8 +265,7 @@ public class NFCHoBinPacker {
 				continue;
 			}
 
-			TreeSet currentValidProcessors = problem
-					.getValidProcessorsForModule(composite);
+			TreeSet currentValidProcessors = problem.getValidProcessorsForModule(composite);
 
 			/*
 			 * The lowLevelBinPacking verifies hardware conflicts. If needed it
@@ -304,31 +280,27 @@ public class NFCHoBinPacker {
 				aggregates.add(composite);
 			}
 			if (packer.solve(aggregates, currentValidProcessors, problem)) {
-				//System.out.println("succesful lowlevel packer");
-				//problem.softwareGraph.remove(composite);
+				// System.out.println("succesful lowlevel packer");
+				// problem.softwareGraph.remove(composite);
 
 				problem.removeSoftwareNode(composite);
 				if (composite instanceof CompositeSoftNode) {
-					Iterator inIter = ((CompositeSoftNode) composite)
-							.getBasicComponents().iterator();
+					Iterator inIter = ((CompositeSoftNode) composite).getBasicComponents().iterator();
 					if (inIter.hasNext())
-						composite.setDeployedTo(((SoftwareNode) inIter.next())
-								.getDeployedTo());
+						composite.setDeployedTo(((SoftwareNode) inIter.next()).getDeployedTo());
 				}
 				orderedComposites = problem.softwareGraph.iterator();
 
 				if (orderedComposites.hasNext()) {
 					/* explore neighbors */
-					TreeMap connectivityVector = (TreeMap) problem.softwareConnectivity
-							.get(composite);
+					TreeMap connectivityVector = (TreeMap) problem.softwareConnectivity.get(composite);
 					if (connectivityVector != null) {
-						Iterator neighborLinks = connectivityVector.entrySet()
-								.iterator();
+						Iterator neighborLinks = connectivityVector.entrySet().iterator();
 						boolean undeployedNeighbor = false;
 						while (!undeployedNeighbor && neighborLinks.hasNext()) {
 							Map.Entry entry = (Map.Entry) neighborLinks.next();
 							composite = (SoftwareNode) entry.getValue();
-							undeployedNeighbor = !composite.deployed(); //(composite.getDeployedTo()
+							undeployedNeighbor = !composite.deployed(); // (composite.getDeployedTo()
 																		// ==
 																		// null);
 						}
@@ -341,7 +313,7 @@ public class NFCHoBinPacker {
 				} else
 					composite = null;
 			} else {
-				//System.out.println("lowlevelpacker failed");
+				// System.out.println("lowlevelpacker failed");
 				return false;
 			}
 		}
@@ -357,15 +329,14 @@ public class NFCHoBinPacker {
 	public static void unitTest() {
 	}
 
-	public static void hardwareGrowingTest(LowLevelBinPacker lowLevelBinPacker,
-			SiteArchitecture siteArchitecture) {
+	public static void hardwareGrowingTest(LowLevelBinPacker lowLevelBinPacker, SiteArchitecture siteArchitecture) {
 		/* build the software graph */
 		BandwidthComparator comparator = new BandwidthComparator();
 		CapacityComparator capComparator = new CapacityComparator();
 		OutDegreeComparator outDegreeComparator = new OutDegreeComparator();
 
-		OutDegreeAssignmentProblem prob = new OutDegreeAssignmentProblem(
-				outDegreeComparator, comparator, capComparator);
+		OutDegreeAssignmentProblem prob = new OutDegreeAssignmentProblem(outDegreeComparator, comparator,
+				capComparator);
 
 		TreeSet softGraph = new TreeSet(comparator);
 		SoftwareNode nA = new SoftwareNode(10, 50000, 50000, comparator, "A");
@@ -412,25 +383,20 @@ public class NFCHoBinPacker {
 		 * speed set to process one cycle every microsecond,i.e., can process
 		 * 1000000 cycles per second. Slow machine but just an example
 		 */
-		//HardwareNode h1 = new HardwareNode("1",new EDFScheduler(comparator),
+		// HardwareNode h1 = new HardwareNode("1",new EDFScheduler(comparator),
 		// 1000001.0);
-		MPC555 h1 = new MPC555("1", new EDFScheduler(comparator), 1000000.0,
-				new NetInterface[] { new NetInterface(new Ethernet()),
-						new NetInterface(new CANBus()),
-						new NetInterface(new CANBus()) });
+		MPC555 h1 = new MPC555("1", new EDFScheduler(comparator), 1000000.0, new NetInterface[] {
+				new NetInterface(new Ethernet()), new NetInterface(new CANBus()), new NetInterface(new CANBus()) });
 		prob.hardwareGraph.add(h1);
-		//HardwareNode h2 = new HardwareNode("2", new EDFScheduler(comparator),
+		// HardwareNode h2 = new HardwareNode("2", new EDFScheduler(comparator),
 		// 1000002.0);
 		MPC555 h2 = new MPC555("2", new EDFScheduler(comparator), 1000000.0,
-				new NetInterface[] { new NetInterface(new Ethernet()),
-						new NetInterface(new CANBus()) });
+				new NetInterface[] { new NetInterface(new Ethernet()), new NetInterface(new CANBus()) });
 		prob.hardwareGraph.add(h2);
-		//HardwareNode h3 = new HardwareNode("3", new EDFScheduler(comparator),
+		// HardwareNode h3 = new HardwareNode("3", new EDFScheduler(comparator),
 		// 1000000.0);
-		MPC555 h3 = new MPC555("3", new EDFScheduler(comparator), 1000000.0,
-				new NetInterface[] { new NetInterface(new Ethernet()),
-						new NetInterface(new CANBus()),
-						new NetInterface(new CANBus()) });
+		MPC555 h3 = new MPC555("3", new EDFScheduler(comparator), 1000000.0, new NetInterface[] {
+				new NetInterface(new Ethernet()), new NetInterface(new CANBus()), new NetInterface(new CANBus()) });
 		prob.hardwareGraph.add(h3);
 
 		/*
@@ -471,9 +437,9 @@ public class NFCHoBinPacker {
 
 		NFCHoBinPacker test = new NFCHoBinPacker(lowLevelBinPacker);
 		if (test.solve(prob)) {
-			//System.out.println("Bin Packing Succesful");
+			// System.out.println("Bin Packing Succesful");
 		} else {
-			//System.out.println("Bin Packing failed!");
+			// System.out.println("Bin Packing failed!");
 		}
 
 		System.out.println("\n\n -------- HARDWARE ---------");
@@ -486,16 +452,13 @@ public class NFCHoBinPacker {
 		for (Iterator iter = prob.hardwareGraph.iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
 			System.out.println("Node " + n.name + ":");
-			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet
-					.hasNext();) {
+			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
-				System.out.println("\t Module " + m.name + " " + "C("
-						+ m.cycles + " cycles)," + "T(" + m.period + " nanos),"
-						+ "D(" + m.deadline + " nanos)" + "BW Load("
-						+ ((ProcessingLoad) m).getBandwidth() + ") cycles/sec");
+				System.out.println("\t Module " + m.name + " " + "C(" + m.cycles + " cycles)," + "T(" + m.period
+						+ " nanos)," + "D(" + m.deadline + " nanos)" + "BW Load(" + ((ProcessingLoad) m).getBandwidth()
+						+ ") cycles/sec");
 			}
-			System.out.println("\t\t Available Capacity = "
-					+ n.getAvailableCapacity() + " cycles / sec");
+			System.out.println("\t\t Available Capacity = " + n.getAvailableCapacity() + " cycles / sec");
 		}
 		System.out.println("---- END OF ASSIGNMENTS ---");
 	}
@@ -506,8 +469,8 @@ public class NFCHoBinPacker {
 		CapacityComparator capComparator = new CapacityComparator();
 		OutDegreeComparator outDegreeComparator = new OutDegreeComparator();
 
-		OutDegreeAssignmentProblem prob = new OutDegreeAssignmentProblem(
-				outDegreeComparator, comparator, capComparator);
+		OutDegreeAssignmentProblem prob = new OutDegreeAssignmentProblem(outDegreeComparator, comparator,
+				capComparator);
 
 		TreeSet softGraph = new TreeSet(comparator);
 		SoftwareNode nA = new SoftwareNode(10, 50000, 50000, comparator, "A");
@@ -580,16 +543,13 @@ public class NFCHoBinPacker {
 		for (Iterator iter = prob.hardwareGraph.iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
 			System.out.println("Node " + n.name + ":");
-			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet
-					.hasNext();) {
+			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
-				System.out.println("\t Module " + m.name + " " + "C("
-						+ m.cycles + " cycles)," + "T(" + m.period + " nanos),"
-						+ "D(" + m.deadline + " nanos)" + "BW Load("
-						+ ((ProcessingLoad) m).getBandwidth() + ") cycles/sec");
+				System.out.println("\t Module " + m.name + " " + "C(" + m.cycles + " cycles)," + "T(" + m.period
+						+ " nanos)," + "D(" + m.deadline + " nanos)" + "BW Load(" + ((ProcessingLoad) m).getBandwidth()
+						+ ") cycles/sec");
 			}
-			System.out.println("\t\t Available Capacity = "
-					+ n.getAvailableCapacity() + " cycles / sec");
+			System.out.println("\t\t Available Capacity = " + n.getAvailableCapacity() + " cycles / sec");
 		}
 		System.out.println("------- END OF ASSIGNMENTS -----------");
 	}
@@ -598,32 +558,32 @@ public class NFCHoBinPacker {
 		/* Single site architecture for simplicity */
 		SiteArchitecture siteArchitecture = new SiteArchitecture();
 
-		Site site = new Site(500.0, 50.0, new SiteGuest[] {
-				new MPC555("", new EDFScheduler(new BandwidthComparator()),
-						1000000.0, new NetInterface[] {
-								new NetInterface(new Ethernet()),
-								new NetInterface(new CANBus()) }),
-				new Ethernet(), new CANBus() });
+		Site site = new Site(500.0, 50.0,
+				new SiteGuest[] {
+						new MPC555("",
+								new EDFScheduler(new BandwidthComparator()), 1000000.0, new NetInterface[] {
+										new NetInterface(new Ethernet()), new NetInterface(new CANBus()) }),
+						new Ethernet(), new CANBus() });
 
 		siteArchitecture.addSite(site);
-		//hardwareGrowingTest(new DFCPBinPacker(new
+		// hardwareGrowingTest(new DFCPBinPacker(new
 		// NFCExpansor(siteArchitecture)), siteArchitecture);
-		//hardwareSizingTest(new DFCPBinPacker(new
+		// hardwareSizingTest(new DFCPBinPacker(new
 		// NFCExpansor(siteArchitecture)));
 
-		//hardwareGrowingTest(new DFBPBinPacker(new
+		// hardwareGrowingTest(new DFBPBinPacker(new
 		// NFCExpansor(siteArchitecture)), siteArchitecture);
-		//hardwareSizingTest(new DFBPBinPacker(new
+		// hardwareSizingTest(new DFBPBinPacker(new
 		// NFCExpansor(siteArchitecture)));
 
-		//hardwareGrowingTest(new BFCPBinPacker(new
+		// hardwareGrowingTest(new BFCPBinPacker(new
 		// NFCExpansor(siteArchitecture)), siteArchitecture);
 		hardwareSizingTest(new BFCPBinPacker(new NFCExpansor(siteArchitecture)));
 
 		/* this are not valid combinations */
 		// hardwareGrowingTest(new BFBPBinPacker(new
 		// NFCExpansor(siteArchitecture)), siteArchitecture);
-		//hardwareSizingTest(new BFBPBinPacker(new
+		// hardwareSizingTest(new BFBPBinPacker(new
 		// NFCExpansor(siteArchitecture)));
 	}
 }

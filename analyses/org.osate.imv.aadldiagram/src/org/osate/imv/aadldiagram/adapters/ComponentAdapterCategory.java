@@ -372,8 +372,8 @@ public enum ComponentAdapterCategory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ComponentAdapterCategory[] VALUES_ARRAY = new ComponentAdapterCategory[] { ABSTRACT, BUS, DATA, DEVICE,
-			MEMORY, PROCESS, PROCESSOR, SUBPROGRAM, SUBPROGRAM_GROUP, SYSTEM, THREAD, THREAD_GROUP, VIRTUAL_BUS,
+	private static final ComponentAdapterCategory[] VALUES_ARRAY = new ComponentAdapterCategory[] { ABSTRACT, BUS, DATA,
+			DEVICE, MEMORY, PROCESS, PROCESSOR, SUBPROGRAM, SUBPROGRAM_GROUP, SYSTEM, THREAD, THREAD_GROUP, VIRTUAL_BUS,
 			VIRTUAL_PROCESSOR, };
 
 	/**
@@ -382,7 +382,8 @@ public enum ComponentAdapterCategory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ComponentAdapterCategory> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ComponentAdapterCategory> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Component Category</b></em>' literal with the specified literal value.
@@ -527,4 +528,4 @@ public enum ComponentAdapterCategory {
 		return literal;
 	}
 
-} //ComponentCategory
+} // ComponentCategory

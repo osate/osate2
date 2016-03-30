@@ -21,10 +21,8 @@ public class DebugMonitor {
 	}
 
 	public static void print(Channel n, String s) {
-		n.display.append("[" + Integer.toString(mergedLineNumber) + "]"
-				+ Integer.toString(n.lineNumber++) + ":" + s);
-		mergedChannel.display.append("[" + Integer.toString(mergedLineNumber++)
-				+ "]" + s);
+		n.display.append("[" + Integer.toString(mergedLineNumber) + "]" + Integer.toString(n.lineNumber++) + ":" + s);
+		mergedChannel.display.append("[" + Integer.toString(mergedLineNumber++) + "]" + s);
 	}
 
 	public static void println(Channel n, String s) {
@@ -39,7 +37,6 @@ public class DebugMonitor {
 	}
 
 	public static void show() {
-		JOptionPane.showMessageDialog(null, tabPane, "DebugMonitor",
-				JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null, tabPane, "DebugMonitor", JOptionPane.PLAIN_MESSAGE);
 	}
 }

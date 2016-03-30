@@ -31,7 +31,7 @@ public class ProcessorFigure extends ComponentFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g){
+	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
 		// Configure graphic context.
@@ -41,14 +41,15 @@ public class ProcessorFigure extends ComponentFigure {
 		g.setLineJoin(SWT.JOIN_ROUND);
 		g.setAntialias(SWT.ON);
 
-		if(this.virtual)
+		if (this.virtual)
 			g.setLineStyle(SWT.LINE_DASH);
 
 		Rectangle r = this.getClientArea();
 
 		int topParallelogramHeight = TOP_PARALLELOGRAM_HEIGHT;
 
-		Rectangle bottomRect = new Rectangle(r.x, r.y + topParallelogramHeight, r.width - TILT_WIDTH, r.height - topParallelogramHeight);
+		Rectangle bottomRect = new Rectangle(r.x, r.y + topParallelogramHeight, r.width - TILT_WIDTH,
+				r.height - topParallelogramHeight);
 		// Fill bottom rectangle.
 		g.fillRectangle(bottomRect);
 
@@ -67,7 +68,6 @@ public class ProcessorFigure extends ComponentFigure {
 		g.fillPolygon(points);
 		// Draw top parallelogram.
 		g.drawPolygon(points);
-
 
 		// Point list for side parallelogram.
 		points.removeAllPoints();

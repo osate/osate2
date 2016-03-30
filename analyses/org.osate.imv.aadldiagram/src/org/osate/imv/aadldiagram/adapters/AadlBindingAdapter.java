@@ -48,7 +48,6 @@ import org.osate.imv.aadldiagram.draw2d.SelectableMevBindingFigure;
 import org.osate.imv.aadldiagram.layout.GraphLayoutBinding;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
-
 public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 
 	public static final int HIGLIGHTED_LINE_WIDTH = 3;
@@ -66,18 +65,18 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 	 */
 	private LayoutRelationship layoutItem;
 
-	public AadlBindingAdapter(Object process, BindingDecorationType decorationType, ILabelProvider labelProvider, IAadlElementAdapter processAdapter, IAadlElementAdapter boundResourceAdapter) {
+	public AadlBindingAdapter(Object process, BindingDecorationType decorationType, ILabelProvider labelProvider,
+			IAadlElementAdapter processAdapter, IAadlElementAdapter boundResourceAdapter) {
 		super(process, labelProvider);
- 
-		this.processAdapter 		= processAdapter;
-		this.boundResourceAdapter 	= boundResourceAdapter;
-		this.decorationType 		= decorationType;
-		
+
+		this.processAdapter = processAdapter;
+		this.boundResourceAdapter = boundResourceAdapter;
+		this.decorationType = decorationType;
+
 	}
 
-
 	public SelectableMevBindingFigure getFigure() {
-		if(figure == null) {
+		if (figure == null) {
 			// Build figure.
 			figure = AadlFigureFactory.getInstance().buildFigure(this);
 			figure.addMouseListener(this);
@@ -88,19 +87,18 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 		return figure;
 	}
 
-
 	@Override
 	public void accept(AadlAdapterVisitor visitor) {
 		visitor.visitAadlBindingAdapter(this);
 	}
- 
+
 	@Override
 	public void highlight(boolean highlight, Color highlightColor) {
 		super.highlight(highlight, highlightColor);
 		// Since this is a connection, the line width will be increased when the connection
 		// is highlighted.
 		this.getFigure().setLineStyle(SWT.LINE_DASH);
-		if(highlight)
+		if (highlight)
 			this.getFigure().setLineWidth(HIGLIGHTED_LINE_WIDTH);
 		else
 			this.getFigure().setLineWidth(NORMAL_LINE_WIDTH);

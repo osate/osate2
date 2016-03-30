@@ -35,7 +35,7 @@ public class AadlAdapterIterator {
 		// The next adapter on the stack will be returned.
 		IAadlElementAdapter retAdapter = this.adapterStack.pop();
 		// Push the adapters children onto the stack.
-		for(Iterator<IAadlElementAdapter> it = retAdapter.getAllChildren(); it.hasNext();)
+		for (Iterator<IAadlElementAdapter> it = retAdapter.getAllChildren(); it.hasNext();)
 			this.adapterStack.push(it.next());
 
 		return retAdapter;

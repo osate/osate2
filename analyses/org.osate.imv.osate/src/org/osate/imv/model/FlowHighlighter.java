@@ -69,7 +69,7 @@ public class FlowHighlighter {
 	}
 
 	public void dispose() {
-		if(this.color != null) {
+		if (this.color != null) {
 			this.color.dispose();
 			this.color = null;
 		}
@@ -99,8 +99,7 @@ public class FlowHighlighter {
 		propertyChangeSupport.firePropertyChange(HIGHLIGHT_PROPERTY, this.highlight, this.highlight = highlight);
 	}
 
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 

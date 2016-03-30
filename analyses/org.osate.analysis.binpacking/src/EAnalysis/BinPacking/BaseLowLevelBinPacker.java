@@ -16,51 +16,48 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 	/**
 	 * Assumes that there are no conflicts among nodes in the software graph
 	 */
-	public TreeSet getDisconnectedComponents(Comparator orderer,
-			TreeSet softwareGraph, OutDegreeAssignmentProblem problem) {
+	public TreeSet getDisconnectedComponents(Comparator orderer, TreeSet softwareGraph,
+			OutDegreeAssignmentProblem problem) {
 		TreeSet disconnectedComponents = new TreeSet(orderer);
 		Iterator modules = softwareGraph.iterator();
 
 		while (modules.hasNext()) {
 			SoftwareNode nextModule = (SoftwareNode) modules.next();
 			modules.remove();
-			//System.out.println("\t starting from
+			// System.out.println("\t starting from
 			// module("+nextModule.name+")");
 			CompositeSoftNode composite = new CompositeSoftNode(orderer);
-			composite.add(nextModule, problem.softwareConnectivity,
-					problem.softConnectivityByTarget, problem.constraints);
-			Iterator neighbors = ((TreeMap) problem.softwareConnectivity
-					.get(composite)).entrySet().iterator();
+			composite.add(nextModule, problem.softwareConnectivity, problem.softConnectivityByTarget,
+					problem.constraints);
+			Iterator neighbors = ((TreeMap) problem.softwareConnectivity.get(composite)).entrySet().iterator();
 			while (neighbors.hasNext()) {
-				SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors
-						.next()).getValue();
-				//System.out.print("\t\t -- neighbor("+neighbor.name+")");
+				SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors.next()).getValue();
+				// System.out.print("\t\t -- neighbor("+neighbor.name+")");
 				/* skip neighbors not in the current aggregate */
 				if (!softwareGraph.contains(neighbor)) {
-					//System.out.println("... SKIPPED!");
+					// System.out.println("... SKIPPED!");
 					continue;
 				}
 				softwareGraph.remove(neighbor);
-				composite.add(neighbor, problem.softwareConnectivity,
-						problem.softConnectivityByTarget, problem.constraints);
-				//System.out.println("... ADDED!");
-				neighbors = ((TreeMap) problem.softwareConnectivity
-						.get(composite)).entrySet().iterator();
+				composite.add(neighbor, problem.softwareConnectivity, problem.softConnectivityByTarget,
+						problem.constraints);
+				// System.out.println("... ADDED!");
+				neighbors = ((TreeMap) problem.softwareConnectivity.get(composite)).entrySet().iterator();
 				problem.removeSoftwareNode(neighbor);
 			}
 
-			// 		DebugMonitor.println(DebugMonitor.channels[3], "---
+			// DebugMonitor.println(DebugMonitor.channels[3], "---
 			// Composite.size("+composite.getBandwidth()+") ELEMENTS ---");
-			// 		double totalLoad =0.0;
-			// 		for (Iterator iter = composite.getBasicComponents().iterator();
+			// double totalLoad =0.0;
+			// for (Iterator iter = composite.getBasicComponents().iterator();
 			// iter.hasNext();)
-			// 		    {
-			// 			SoftwareNode n = (SoftwareNode) iter.next();
-			// 			DebugMonitor.println(DebugMonitor.channels[3], "\t
+			// {
+			// SoftwareNode n = (SoftwareNode) iter.next();
+			// DebugMonitor.println(DebugMonitor.channels[3], "\t
 			// element.size("+n.getBandwidth()+")");
-			// 			totalLoad += n.getBandwidth();
-			// 		    }
-			// 		DebugMonitor.println(DebugMonitor.channels[3], "--- END OF
+			// totalLoad += n.getBandwidth();
+			// }
+			// DebugMonitor.println(DebugMonitor.channels[3], "--- END OF
 			// ELEMENTS TOTAL LOAD("+totalLoad+")---");
 			problem.addSoftwareNode(composite);
 			disconnectedComponents.add(composite);
@@ -90,18 +87,16 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 		return composite.getBandwidth() < (nominalBinSize / 3.0);
 	}
 
-	public double partition(CompositeSoftNode composite, double partitionSize,
-			TreeSet moduleList, OutDegreeAssignmentProblem problem,
-			int partitionMode, int justnotcall) {
+	public double partition(CompositeSoftNode composite, double partitionSize, TreeSet moduleList,
+			OutDegreeAssignmentProblem problem, int partitionMode, int justnotcall) {
 		/* force the bandwidth partitioning */
 		partitionMode = BY_BANDWIDTH;
 
-		System.out.println(this + ": partition(composite("
-				+ composite.getBandwidth() + "), partitionSize("
+		System.out.println(this + ": partition(composite(" + composite.getBandwidth() + "), partitionSize("
 				+ partitionSize + "))");
 		/* is this composite breakable? */
 		if (!composite.breakable) {
-			//System.out.println(" partition:not breakable");
+			// System.out.println(" partition:not breakable");
 			return -1;
 		}
 
@@ -110,9 +105,8 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 			return -1;
 
 		CompositeSoftNode part = null; // = new CompositeSoftNode(new
-									   // BandwidthComparator());
-		CompositeSoftNode part1 = new CompositeSoftNode(
-				new BandwidthComparator());
+										// BandwidthComparator());
+		CompositeSoftNode part1 = new CompositeSoftNode(new BandwidthComparator());
 		TreeSet componentMembers;
 		TreeSet componentMembers2;
 		if (partitionMode == BY_BANDWIDTH) {
@@ -124,7 +118,7 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 			componentMembers2 = composite.getComponents();
 		}
 
-		Iterator components = componentMembers.iterator(); //composite.getComponents().iterator();
+		Iterator components = componentMembers.iterator(); // composite.getComponents().iterator();
 		while (components.hasNext()) {
 			SoftwareNode module = (SoftwareNode) components.next();
 			if (!(module instanceof CompositeSoftNode)) {
@@ -132,25 +126,22 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 			} else
 				part = (CompositeSoftNode) module;
 
-			//System.out.println("partition: checking
+			// System.out.println("partition: checking
 			// module("+module.name+").BW("+module.getBandwidth()+")
 			// partitionSize("+partitionSize+")");
-			//if (part.getBandwidth() + module.getBandwidth() <= partitionSize)
+			// if (part.getBandwidth() + module.getBandwidth() <= partitionSize)
 			if (part.getBandwidth() <= partitionSize) {
 				components.remove();
 				if (partitionMode == BY_BANDWIDTH)
 					componentMembers2.remove(module);
 				if (!part.equals(module))
-					part.add(module, problem.softwareConnectivity,
-							problem.softConnectivityByTarget,
+					part.add(module, problem.softwareConnectivity, problem.softConnectivityByTarget,
 							problem.constraints);
-				//System.out.println("\t\t\t add(Module("+module.name+"))");
+				// System.out.println("\t\t\t add(Module("+module.name+"))");
 
-				Iterator neighbors = ((TreeMap) problem.softwareConnectivity
-						.get(part)).entrySet().iterator();
+				Iterator neighbors = ((TreeMap) problem.softwareConnectivity.get(part)).entrySet().iterator();
 				while (neighbors.hasNext()) {
-					SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors
-							.next()).getValue();
+					SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors.next()).getValue();
 
 					/* only neighbors members of this composite */
 					if (!componentMembers.contains(neighbor))
@@ -161,17 +152,15 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 						if (partitionMode == BY_BANDWIDTH)
 							componentMembers2.remove(neighbor);
 						components = componentMembers.iterator();
-						part.add(neighbor, problem.softwareConnectivity,
-								problem.softConnectivityByTarget,
+						part.add(neighbor, problem.softwareConnectivity, problem.softConnectivityByTarget,
 								problem.constraints);
-						//System.out.println("\t\t\t
+						// System.out.println("\t\t\t
 						// add(Module("+neighbor.name+"))");
 						/*
 						 * reinstantiate iterator to account for addition of
 						 * component
 						 */
-						neighbors = ((TreeMap) problem.softwareConnectivity
-								.get(part)).entrySet().iterator();
+						neighbors = ((TreeMap) problem.softwareConnectivity.get(part)).entrySet().iterator();
 					} else {
 						/* first one that fails */
 						break;
@@ -193,11 +182,10 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 			}
 		}
 
-		((SoftwareNode) componentMembers2.iterator().next())
-				.getBandwidthOutDegree();
-		// 	part = (CompositeSoftNode) componentMembers2.iterator().next();
-		// 	if (part.getComponentsByOutDegree().size()>0)
-		// 	    {
+		((SoftwareNode) componentMembers2.iterator().next()).getBandwidthOutDegree();
+		// part = (CompositeSoftNode) componentMembers2.iterator().next();
+		// if (part.getComponentsByOutDegree().size()>0)
+		// {
 		// // for (components = componentMembers.iterator();
 		// // components.hasNext();)
 		// // {
@@ -215,8 +203,8 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 		// // problem.addSoftwareNode(part1);
 		// // moduleList.add(part1);
 		// // }
-		// 		return part.getTotalMsgBandwidth();
-		// 	    }
+		// return part.getTotalMsgBandwidth();
+		// }
 		/* empty composite partition invalid */
 		return -1;
 	}
@@ -225,22 +213,18 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 	 * partitions composite into a part whose size <= partitionSize and the
 	 * rest. Both parts are
 	 */
-	public double partition(CompositeSoftNode composite, double partitionSize,
-			TreeSet moduleList, OutDegreeAssignmentProblem problem,
-			int partitionMode) {
-		System.out.println(this + ": partition(composite("
-				+ composite.getBandwidth() + "), partitionSize("
+	public double partition(CompositeSoftNode composite, double partitionSize, TreeSet moduleList,
+			OutDegreeAssignmentProblem problem, int partitionMode) {
+		System.out.println(this + ": partition(composite(" + composite.getBandwidth() + "), partitionSize("
 				+ partitionSize + "))");
 		/* is this composite breakable? */
 		if (!composite.breakable) {
-			//System.out.println(" partition:not breakable");
+			// System.out.println(" partition:not breakable");
 			return -1;
 		}
 
-		CompositeSoftNode part = new CompositeSoftNode(
-				new BandwidthComparator());
-		CompositeSoftNode part1 = new CompositeSoftNode(
-				new BandwidthComparator());
+		CompositeSoftNode part = new CompositeSoftNode(new BandwidthComparator());
+		CompositeSoftNode part1 = new CompositeSoftNode(new BandwidthComparator());
 		TreeSet componentMembers;
 		TreeSet componentMembers2;
 		if (partitionMode == BY_BANDWIDTH) {
@@ -252,25 +236,22 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 			componentMembers2 = composite.getComponents();
 		}
 
-		Iterator components = componentMembers.iterator(); //composite.getComponents().iterator();
+		Iterator components = componentMembers.iterator(); // composite.getComponents().iterator();
 		while (components.hasNext()) {
 			SoftwareNode module = (SoftwareNode) components.next();
-			//System.out.println("partition: checking
+			// System.out.println("partition: checking
 			// module("+module.name+").BW("+module.getBandwidth()+")
 			// partitionSize("+partitionSize+")");
 			if (part.getBandwidth() + module.getBandwidth() <= partitionSize) {
 				components.remove();
 				if (partitionMode == BY_BANDWIDTH)
 					componentMembers2.remove(module);
-				part.add(module, problem.softwareConnectivity,
-						problem.softConnectivityByTarget, problem.constraints);
-				//System.out.println("\t\t\t add(Module("+module.name+"))");
+				part.add(module, problem.softwareConnectivity, problem.softConnectivityByTarget, problem.constraints);
+				// System.out.println("\t\t\t add(Module("+module.name+"))");
 
-				Iterator neighbors = ((TreeMap) problem.softwareConnectivity
-						.get(part)).entrySet().iterator();
+				Iterator neighbors = ((TreeMap) problem.softwareConnectivity.get(part)).entrySet().iterator();
 				while (neighbors.hasNext()) {
-					SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors
-							.next()).getValue();
+					SoftwareNode neighbor = (SoftwareNode) ((Map.Entry) neighbors.next()).getValue();
 
 					/* only neighbors members of this composite */
 					if (!componentMembers.contains(neighbor))
@@ -281,24 +262,22 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 						if (partitionMode == BY_BANDWIDTH)
 							componentMembers2.remove(neighbor);
 						components = componentMembers.iterator();
-						part.add(neighbor, problem.softwareConnectivity,
-								problem.softConnectivityByTarget,
+						part.add(neighbor, problem.softwareConnectivity, problem.softConnectivityByTarget,
 								problem.constraints);
-						//System.out.println("\t\t\t
+						// System.out.println("\t\t\t
 						// add(Module("+neighbor.name+"))");
 						/*
 						 * reinstantiate iterator to account for addition of
 						 * component
 						 */
-						neighbors = ((TreeMap) problem.softwareConnectivity
-								.get(part)).entrySet().iterator();
+						neighbors = ((TreeMap) problem.softwareConnectivity.get(part)).entrySet().iterator();
 					} else {
 						/* first one that fails */
 						break;
 					}
 				}
 				/* Done */
-				//problem.softwareGraph.add(part);
+				// problem.softwareGraph.add(part);
 			} else {
 				break;
 			}
@@ -309,8 +288,7 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 				components.remove();
 				if (partitionMode == BY_BANDWIDTH)
 					componentMembers2.remove(n);
-				part1.add(n, problem.softwareConnectivity,
-						problem.softConnectivityByTarget, problem.constraints);
+				part1.add(n, problem.softwareConnectivity, problem.softConnectivityByTarget, problem.constraints);
 			}
 			problem.addSoftwareNode(part);
 			moduleList.add(part);
@@ -344,14 +322,12 @@ public abstract class BaseLowLevelBinPacker implements LowLevelBinPacker {
 
 			conn = (TreeMap) problem.softwareConnectivity.get(part1);
 
-			System.out.println("partition() = part1(" + part + ") part2("
-					+ part1 + ")");
+			System.out.println("partition() = part1(" + part + ") part2(" + part1 + ")");
 			return part.getTotalMsgBandwidth();
 		}
 		/* empty composite partition invalid */
 		return -1;
 	}
 
-	public abstract boolean solve(TreeSet moduleAggregate,
-			TreeSet validProcessors, OutDegreeAssignmentProblem problem);
+	public abstract boolean solve(TreeSet moduleAggregate, TreeSet validProcessors, OutDegreeAssignmentProblem problem);
 }

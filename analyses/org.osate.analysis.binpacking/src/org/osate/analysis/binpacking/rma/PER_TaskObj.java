@@ -26,8 +26,7 @@ public class PER_TaskObj {
 		blockingTime = 0;
 	}
 
-	public PER_TaskObj(int id, int priority, double exec_time, double period,
-			double deadline, double blocking_time) {
+	public PER_TaskObj(int id, int priority, double exec_time, double period, double deadline, double blocking_time) {
 		taskID = id;
 		taskPriority = priority;
 		executionTime = exec_time;
@@ -55,7 +54,7 @@ public class PER_TaskObj {
 	public double getUtilization() {
 		return executionTime / taskPeriod;
 	}
-	
+
 	public double getDeadline() {
 		return taskDeadline;
 	}
@@ -85,8 +84,7 @@ public class PER_TaskObj {
 	}
 
 	public String toString() {
-		return new String("Task: ID = " + taskID + " Priority = "
-				+ taskPriority + " Execution Time = " + executionTime
+		return new String("Task: ID = " + taskID + " Priority = " + taskPriority + " Execution Time = " + executionTime
 				+ " Period = " + taskPeriod + " Deadline = " + taskDeadline);
 	}
 }

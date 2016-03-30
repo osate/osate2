@@ -24,7 +24,9 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 
 	private static final Dimension SIZE = new Dimension(20, 20);
 
-	public static enum DecorationType {DELAYED, IMMEDIATE};
+	public static enum DecorationType {
+		DELAYED, IMMEDIATE
+	};
 
 	private float rotationDegrees;
 	private DecorationType decorationType;
@@ -43,9 +45,8 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 	 * @param p The location
 	 */
 	@Override
-	public void setLocation(Point p)
-	{
-		this.getBounds().setLocation(p.x - (int)(SIZE.width / 2.0f), p.y - (int)(SIZE.height / 2.0f));
+	public void setLocation(Point p) {
+		this.getBounds().setLocation(p.x - (int) (SIZE.width / 2.0f), p.y - (int) (SIZE.height / 2.0f));
 	}
 
 	/**
@@ -55,15 +56,13 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 	 *            The reference point
 	 */
 	@Override
-	public void setReferencePoint(Point ref)
-	{
+	public void setReferencePoint(Point ref) {
 		Point pt = Point.SINGLETON;
 		pt.setLocation(ref);
 		pt.negate().translate(getBounds().getLocation());
-		rotationDegrees = (float)Math.toDegrees(Math.atan2(pt.y, pt.x));
+		rotationDegrees = (float) Math.toDegrees(Math.atan2(pt.y, pt.x));
 		this.repaint();
 	}
-
 
 	@Override
 	public void paintFigure(Graphics g) {
@@ -76,18 +75,15 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 		g.translate(this.getBounds().getCenter());
 		g.rotate(this.rotationDegrees);
 
-		switch(this.decorationType)
-		{
-			case IMMEDIATE:
-			{
-				this.paintImmediateConnectionDecoration(g);
-				break;
-			}
-			case DELAYED:
-			{
-				this.paintDelayedConnectionDecoration(g);
-				break;
-			}
+		switch (this.decorationType) {
+		case IMMEDIATE: {
+			this.paintImmediateConnectionDecoration(g);
+			break;
+		}
+		case DELAYED: {
+			this.paintDelayedConnectionDecoration(g);
+			break;
+		}
 		}
 	}
 

@@ -13,4 +13,3 @@ public class SampleRecord {
 		frequency = f;
 	}
 }
-
