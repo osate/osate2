@@ -34,6 +34,7 @@
 package org.osate.aadl2.errormodel.analysis.actions;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -153,9 +154,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
-			List<EMV2PropertyAssociation> HazardPA = null;
-			List<EMV2PropertyAssociation> Sev = null;
-			List<EMV2PropertyAssociation> Like = null;
+			List<EMV2PropertyAssociation> HazardPA = Collections.EMPTY_LIST;
+			List<EMV2PropertyAssociation> Sev = Collections.EMPTY_LIST;
+			List<EMV2PropertyAssociation> Like = Collections.EMPTY_LIST;
 			TypeSet ts = null;
 			Element target = null;
 			Element localContext = null;
