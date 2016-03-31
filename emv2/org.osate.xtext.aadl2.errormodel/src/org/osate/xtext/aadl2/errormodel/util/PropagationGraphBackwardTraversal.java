@@ -83,16 +83,6 @@ public class PropagationGraphBackwardTraversal {
 				ErrorPath ep = (ErrorPath) ef;
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)
 						&& EM2TypeSetUtil.contains(type, ep.getTargetToken())) {
-//					for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component,
-//							ep.getIncoming())) {
-//						// traverse incoming
-//						ComponentInstance componentSource = ppe.getComponentInstance();
-//						ErrorPropagation propagationSource = ppe.getErrorPropagation();
-//						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
-//						if (result != null) {
-//							subResults.add(result);
-//						}
-//					}
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
 					subResults.add(newEvent);
 				}
