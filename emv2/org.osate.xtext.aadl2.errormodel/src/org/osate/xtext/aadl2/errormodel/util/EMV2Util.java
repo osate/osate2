@@ -2359,7 +2359,7 @@ public class EMV2Util {
 
 	public static String getPrintName(TypeSet ts) {
 		if (ts == null) {
-			return "{allTypes}";
+			return "";
 		}
 		EList<TypeToken> tel = ts.getTypeTokens();
 		return getPrintName(tel);
