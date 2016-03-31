@@ -264,6 +264,7 @@ public class InstantiateModel {
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
 		res.getContents().clear();
+		res.save(null);
 		res.unload();
 		OsateResourceUtil.refreshResourceSet();
 		ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
@@ -291,6 +292,8 @@ public class InstantiateModel {
 			URI uri = EcoreUtil.getURI(ci);
 			instanceRoots.add(uri);
 			instanceIResources.add(ires);
+			res.getContents().clear();
+			res.save(null);
 			res.unload();
 		}
 		OsateResourceUtil.refreshResourceSet();
