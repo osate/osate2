@@ -7,6 +7,7 @@ import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
 import org.osate.xtext.aadl2.instance.linking.InstanceLinkingService;
+import org.osate.xtext.aadl2.instance.naming.InstanceQualifiedNameConverter;
 import org.osate.xtext.aadl2.instance.serializer.InstanceCrossReferenceSerializer;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
@@ -16,7 +17,7 @@ import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter
 @SuppressWarnings("restriction")
 public class InstanceRuntimeModule extends org.osate.xtext.aadl2.instance.AbstractInstanceRuntimeModule {
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
-		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter.class;
+		return InstanceQualifiedNameConverter.class;
 	}
 	
 	@Override
