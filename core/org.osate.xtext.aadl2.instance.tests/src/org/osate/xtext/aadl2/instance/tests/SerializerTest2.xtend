@@ -88,51 +88,50 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s5.i", '''
 			system s5_i_Instance : pkg1::s5.i {
-				system s4_sub [ 0 ] : pkg1::s5.i::s4_sub {
-					out dataPort p6 : pkg1::s4::p6
-					in dataPort p7 : pkg1::s4::p7
-					flow f6 ( -> p6 ) : pkg1::s4::f6
-					flow f7 ( p7 -> ) : pkg1::s4::f7
+				system s4_sub [ 0 ] : pkg1::s5.i:s4_sub {
+					out dataPort p6 : pkg1::s4:p6
+					in dataPort p7 : pkg1::s4:p7
+					flow f6 ( -> p6 ) : pkg1::s4:f6
+					flow f7 ( p7 -> ) : pkg1::s4:f7
 				}
-				system s3_sub [ 0 ] : pkg1::s5.i::s3_sub {
-					in dataPort p4 : pkg1::s3::p4
-					out dataPort p5 : pkg1::s3::p5
-					system s1_sub [ 0 ] : pkg1::s3.i::s1_sub {
-						in dataPort p1 : pkg1::s1::p1
-						out dataPort p2 : pkg1::s1::p2
-						flow f1 ( p1 -> p2 ) : pkg1::s1::f1
+				system s3_sub [ 0 ] : pkg1::s5.i:s3_sub {
+					in dataPort p4 : pkg1::s3:p4
+					out dataPort p5 : pkg1::s3:p5
+					system s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
+						in dataPort p1 : pkg1::s1:p1
+						out dataPort p2 : pkg1::s1:p2
+						flow f1 ( p1 -> p2 ) : pkg1::s1:f1
 					}
-					system s2_sub [ 0 ] : pkg1::s3.i::s2_sub {
-						in dataPort p3 : pkg1::s2::p3
-						flow f2 ( p3 -> ) : pkg1::s2::f2
+					system s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
+						in dataPort p3 : pkg1::s2:p3
+						flow f2 ( p3 -> ) : pkg1::s2:f2
 					}
 					complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 ->
 					s2_sub[0].p3 {
-						s1_sub[0].p2 -> s2_sub[0].p3 : pkg1::s3.i::conn2 in parent
+						s1_sub[0].p2 -> s2_sub[0].p3 : pkg1::s3.i:conn2 in parent
 					}
-					flow f3 ( p4 -> ) : pkg1::s3::f3
-					flow f4 ( p4 -> ) : pkg1::s3::f4
-					flow f5 ( p4 -> p5 ) : pkg1::s3::f5
+					flow f3 ( p4 -> ) : pkg1::s3:f3
+					flow f4 ( p4 -> ) : pkg1::s3:f4
+					flow f5 ( p4 -> p5 ) : pkg1::s3:f5
 					end to end flow etef1 s1_sub[0] -> connection#0 -> s2_sub[0].f2 :
-					pkg1::s3.i::etef1
+					pkg1::s3.i:etef1
 				}
 				complete portConnection "s4_sub.p6 -> s3_sub.s1_sub.p1" : s4_sub[0].p6 ->
 				s3_sub[0].s1_sub[0].p1 {
-					s4_sub[0].p6 -> s3_sub[0].p4 : pkg1::s5.i::conn3 in parent
-					s3_sub[0].p4 -> s3_sub[0].s1_sub[0].p1 : pkg1::s3.i::conn1 in s3_sub[0]
+					s4_sub[0].p6 -> s3_sub[0].p4 : pkg1::s5.i:conn3 in parent
+					s3_sub[0].p4 -> s3_sub[0].s1_sub[0].p1 : pkg1::s3.i:conn1 in s3_sub[0]
 				}
 				complete portConnection "s3_sub.p5 -> s4_sub.p7" : s3_sub[0].p5 ->
 				s4_sub[0].p7 {
-					s3_sub[0].p5 -> s4_sub[0].p7 : pkg1::s5.i::conn4 in parent
+					s3_sub[0].p5 -> s4_sub[0].p7 : pkg1::s5.i:conn4 in parent
 				}
 				end to end flow etef2 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0].f1
-				-> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i::etef2
+				-> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef2
 				end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] ->
-				s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i::etef3
+				s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
 				end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].f5 :
-				pkg1::s5.i::etef4
-				end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 :
-				pkg1::s5.i::etef5
+				pkg1::s5.i:etef4
+				end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 : pkg1::s5.i:etef5
 				som "No Modes"
 			}''')
 	}
@@ -171,16 +170,16 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system s1_sub [ 0 ] : pkg1::s3.i::s1_sub {
-					initial mode m1 : pkg1::s1::m1
-					mode m2 : pkg1::s1::m2
+				system s1_sub [ 0 ] : pkg1::s3.i:s1_sub {
+					initial mode m1 : pkg1::s1:m1
+					mode m2 : pkg1::s1:m2
 				}
-				system s2_sub [ 0 ] : pkg1::s3.i::s2_sub {
-					initial derived mode m3 : pkg1::s2::m3
-					derived mode m4 : pkg1::s2::m4
+				system s2_sub [ 0 ] : pkg1::s3.i:s2_sub {
+					initial derived mode m3 : pkg1::s2:m3
+					derived mode m4 : pkg1::s2:m4
 				}
-				initial mode m5 : pkg1::s3::m5
-				mode m6 : pkg1::s3::m6
+				initial mode m5 : pkg1::s3:m5
+				mode m6 : pkg1::s3:m6
 				som "m5#s1_sub.m1" m5 , s1_sub[0].m1
 				som "m5#s1_sub.m2" m5 , s1_sub[0].m2
 				som "m6#s1_sub.m1" m6 , s1_sub[0].m1
@@ -235,27 +234,27 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
-				in dataPort p1 : pkg1::s1::p1
-				system sub1 [ 0 ] : pkg1::s1.i::sub1 {
-					out dataPort p2 : pkg1::s2::p2
-					flow f2 ( -> p2 ) : pkg1::s2::f2
+				in dataPort p1 : pkg1::s1:p1
+				system sub1 [ 0 ] : pkg1::s1.i:sub1 {
+					out dataPort p2 : pkg1::s2:p2
+					flow f2 ( -> p2 ) : pkg1::s2:f2
 				}
-				system sub2 [ 0 ] in modes ( m1 ) : pkg1::s1.i::sub2
-				system sub3 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i::sub3
-				system sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i::sub4 {
-					in dataPort p3 : pkg1::s3::p3
-					flow f3 ( p3 -> ) : pkg1::s3::f3
+				system sub2 [ 0 ] in modes ( m1 ) : pkg1::s1.i:sub2
+				system sub3 [ 0 ] in modes ( m1 , m2 ) : pkg1::s1.i:sub3
+				system sub4 [ 0 ] in modes ( m1 , m2 , m3 ) : pkg1::s1.i:sub4 {
+					in dataPort p3 : pkg1::s3:p3
+					flow f3 ( p3 -> ) : pkg1::s3:f3
 				}
 				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in
 				modes ( som#2 ) {
-					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i::conn1 in parent
+					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i:conn1 in parent
 				}
-				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1::f1
+				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1:f1
 				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes (
-				som#2 ) : pkg1::s1.i::etef1
-				initial mode m1 : pkg1::s1::m1
-				mode m2 : pkg1::s1::m2
-				mode m3 : pkg1::s1::m3
+				som#2 ) : pkg1::s1.i:etef1
+				initial mode m1 : pkg1::s1:m1
+				mode m2 : pkg1::s1:m2
+				mode m3 : pkg1::s1:m3
 				som "m1" m1
 				som "m2" m2
 				som "m3" m3
@@ -302,18 +301,18 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub2 [ 0 ] in modes ( m6 , m7 , m5 ) : pkg1::s3.i::sub2 {
-					system sub1 [ 0 ] in modes ( m3 , m4 ) : pkg1::s2.i::sub1 {
-						initial derived mode m1 = m3 : pkg1::s1::m1
-						derived mode m2 = m4 : pkg1::s1::m2
+				system sub2 [ 0 ] in modes ( m6 , m7 , m5 ) : pkg1::s3.i:sub2 {
+					system sub1 [ 0 ] in modes ( m3 , m4 ) : pkg1::s2.i:sub1 {
+						initial derived mode m1 = m3 : pkg1::s1:m1
+						derived mode m2 = m4 : pkg1::s1:m2
 					}
-					initial derived mode m3 = ( m6 , m7 ) : pkg1::s2::m3
-					derived mode m4 : pkg1::s2::m4
-					derived mode m5 = m5 : pkg1::s2::m5
+					initial derived mode m3 = ( m6 , m7 ) : pkg1::s2:m3
+					derived mode m4 : pkg1::s2:m4
+					derived mode m5 = m5 : pkg1::s2:m5
 				}
-				initial mode m6 : pkg1::s3::m6
-				mode m7 : pkg1::s3::m7
-				mode m5 : pkg1::s3::m5
+				initial mode m6 : pkg1::s3:m6
+				mode m7 : pkg1::s3:m7
+				mode m5 : pkg1::s3:m5
 				som "m6#sub2.m3" m6 , sub2[0].m3
 				som "m7#sub2.m3" m7 , sub2[0].m3
 				som "m5#sub2.m5" m5 , sub2[0].m5
@@ -344,16 +343,16 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				in eventPort p1 : pkg1::s::p1
-				system sub1 [ 0 ] : pkg1::s.i::sub1 {
-					in eventPort p1 : pkg1::s::p1
-					initial mode m1 : pkg1::s::m1
-					mode m2 : pkg1::s::m2
-					mode transition m1.p1.m2 m1 -> m2 : pkg1::s::mt1
+				in eventPort p1 : pkg1::s:p1
+				system sub1 [ 0 ] : pkg1::s.i:sub1 {
+					in eventPort p1 : pkg1::s:p1
+					initial mode m1 : pkg1::s:m1
+					mode m2 : pkg1::s:m2
+					mode transition m1.p1.m2 m1 -> m2 : pkg1::s:mt1
 				}
-				initial mode m1 : pkg1::s::m1
-				mode m2 : pkg1::s::m2
-				mode transition m1.p1.m2 m1 -> m2 : pkg1::s::mt1
+				initial mode m1 : pkg1::s:m1
+				mode m2 : pkg1::s:m2
+				mode transition m1.p1.m2 m1 -> m2 : pkg1::s:mt1
 				som "m1#sub1.m1" m1 , sub1[0].m1
 				som "m1#sub1.m2" m1 , sub1[0].m2
 				som "m2#sub1.m1" m2 , sub1[0].m1
@@ -400,21 +399,21 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				in eventPort p3 : pkg1::s3::p3
-				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
-					out dataPort p1 : pkg1::s1::p1
+				in eventPort p3 : pkg1::s3:p3
+				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+					out dataPort p1 : pkg1::s1:p1
 				}
-				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
-					in dataPort p2 : pkg1::s2::p2
+				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+					in dataPort p2 : pkg1::s2:p2
 				}
 				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in
 				transitions ( transition#0 ) {
-					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i::conn1 in parent
+					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i:conn1 in parent
 				}
-				flow f1 ( p3 -> ) in transitions ( transition#0 ) : pkg1::s3::f1
-				initial mode m1 : pkg1::s3::m1
-				mode m2 : pkg1::s3::m2
-				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3::mt1
+				flow f1 ( p3 -> ) in transitions ( transition#0 ) : pkg1::s3:f1
+				initial mode m1 : pkg1::s3:m1
+				mode m2 : pkg1::s3:m2
+				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3:mt1
 				som "m1" m1
 				som "m2" m2
 			}''')
@@ -478,44 +477,44 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
-					in out featureGroup fg1 : pkg1::s1::fg1 {
-						in dataPort p4 : pkg1::fgt1::p4 {
-							ps1::bool1 => true : pkg1::fgt1::p4::curlyProperty#0
+				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in dataPort p4 : pkg1::fgt1:p4 {
+							ps1::bool1 => true : pkg1::fgt1:p4:property#0
 						}
 					}
-					out dataPort p1 : pkg1::s1::p1
-					in eventPort p2 : pkg1::s1::p2
-					flow fs1 ( -> p1 ) : pkg1::s1::fs1 {
-						ps1::bool1 => true : pkg1::s1::fs1::curlyProperty#0
+					out dataPort p1 : pkg1::s1:p1
+					in eventPort p2 : pkg1::s1:p2
+					flow fs1 ( -> p1 ) : pkg1::s1:fs1 {
+						ps1::bool1 => true : pkg1::s1:fs1:property#0
 					}
-					initial mode m1 : pkg1::s1::m1 {
-						ps1::bool1 => true : pkg1::s1::m1::curlyProperty#0
+					initial mode m1 : pkg1::s1:m1 {
+						ps1::bool1 => true : pkg1::s1:m1:property#0
 					}
-					mode m2 : pkg1::s1::m2
-					mode transition m1.p2.m2 m1 -> m2 : pkg1::s1::mt1 {
-						ps1::bool1 => true : pkg1::s1::mt1::curlyProperty#0
+					mode m2 : pkg1::s1:m2
+					mode transition m1.p2.m2 m1 -> m2 : pkg1::s1:mt1 {
+						ps1::bool1 => true : pkg1::s1:mt1:property#0
 					}
-					mode transition m2.p2.m1 m2 -> m1 : pkg1::s1::transition#1 {
-						ps1::bool1 => true : pkg1::s1::transition#1::curlyProperty#0
+					mode transition m2.p2.m1 m2 -> m1 : pkg1::s1:transition#1 {
+						ps1::bool1 => true : pkg1::s1:transition#1:property#0
 					}
-					ps1::bool1 => true : pkg1::s3.i::sub1::curlyProperty#0
+					ps1::bool1 => true : pkg1::s3.i:sub1:property#0
 				}
-				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
-					in dataPort p3 : pkg1::s2::p3
-					flow fs2 ( p3 -> ) : pkg1::s2::fs2
+				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+					in dataPort p3 : pkg1::s2:p3
+					flow fs2 ( p3 -> ) : pkg1::s2:fs2
 				}
 				complete portConnection "sub1.p1 -> sub2.p3" : sub1[0].p1 -> sub2[0].p3 {
-					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i::conn1 in parent
-					ps1::bool1 => true : pkg1::s3.i::conn1::curlyProperty#0
+					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i:conn1 in parent
+					ps1::bool1 => true : pkg1::s3.i:conn1:property#0
 				}
 				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes (
-				som#0 , som#1 ) : pkg1::s3.i::etef1 {
-					ps1::bool1 => true : pkg1::s3.i::etef1::curlyProperty#0
+				som#0 , som#1 ) : pkg1::s3.i:etef1 {
+					ps1::bool1 => true : pkg1::s3.i:etef1:property#0
 				}
 				som "sub1.m1" sub1[0].m1
 				som "sub1.m2" sub1[0].m2
-				ps1::bool1 => true : pkg1::s3::classifierProperty#0
+				ps1::bool1 => true : pkg1::s3:property#0
 			}''')
 	}
 	
@@ -549,20 +548,20 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				system sub1 [ 0 ] : pkg1::s.i::sub1 {
-					initial mode m1 : pkg1::s::m1
-					mode m2 : pkg1::s::m2
+				system sub1 [ 0 ] : pkg1::s.i:sub1 {
+					initial mode m1 : pkg1::s:m1
+					mode m2 : pkg1::s:m2
 					ps1::bool1 => true in modes ( som#0 , som#2 ) , false in modes ( som#1 ,
-					som#3 ) : pkg1::s::classifierProperty#0
+					som#3 ) : pkg1::s:property#0
 				}
-				initial mode m1 : pkg1::s::m1
-				mode m2 : pkg1::s::m2
+				initial mode m1 : pkg1::s:m1
+				mode m2 : pkg1::s:m2
 				som "m1#sub1.m1" m1 , sub1[0].m1
 				som "m1#sub1.m2" m1 , sub1[0].m2
 				som "m2#sub1.m1" m2 , sub1[0].m1
 				som "m2#sub1.m2" m2 , sub1[0].m2
 				ps1::bool1 => true in modes ( som#0 , som#1 ) , false in modes ( som#2 , som#3
-				) : pkg1::s::classifierProperty#0
+				) : pkg1::s:property#0
 			}''')
 	}
 	
@@ -643,26 +642,25 @@ class SerializerTest2 extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				som "No Modes"
-				ps1::bool1 => true : pkg1::s::classifierProperty#0
-				ps1::string1 => "value" : pkg1::s::classifierProperty#1
-				ps1::int1 => 42 : pkg1::s::classifierProperty#2
-				ps1::int2 => -42 : pkg1::s::classifierProperty#3
-				ps1::int3 => 42 cm : pkg1::s::classifierProperty#4
-				ps1::real1 => 3.14 : pkg1::s::classifierProperty#5
-				ps1::real2 => -3.14 : pkg1::s::classifierProperty#6
-				ps1::real3 => 3.14 cm : pkg1::s::classifierProperty#7
-				ps1::range1 => 0 .. 10 : pkg1::s::classifierProperty#8
-				ps1::range2 => 0 .. 10 delta 2 : pkg1::s::classifierProperty#9
-				ps1::range3 => 0 cm .. 10 cm : pkg1::s::classifierProperty#10
-				ps1::int4 => 42 : pkg1::s::classifierProperty#11
-				ps1::int5 => 42 : pkg1::s::classifierProperty#12
-				ps1::enum1 => two : pkg1::s::classifierProperty#13
-				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s::classifierProperty#14
-				ps1::int6 => compute ( function1 ) : pkg1::s::classifierProperty#15
+				ps1::bool1 => true : pkg1::s:property#0
+				ps1::string1 => "value" : pkg1::s:property#1
+				ps1::int1 => 42 : pkg1::s:property#2
+				ps1::int2 => -42 : pkg1::s:property#3
+				ps1::int3 => 42 cm : pkg1::s:property#4
+				ps1::real1 => 3.14 : pkg1::s:property#5
+				ps1::real2 => -3.14 : pkg1::s:property#6
+				ps1::real3 => 3.14 cm : pkg1::s:property#7
+				ps1::range1 => 0 .. 10 : pkg1::s:property#8
+				ps1::range2 => 0 .. 10 delta 2 : pkg1::s:property#9
+				ps1::range3 => 0 cm .. 10 cm : pkg1::s:property#10
+				ps1::int4 => 42 : pkg1::s:property#11
+				ps1::int5 => 42 : pkg1::s:property#12
+				ps1::enum1 => two : pkg1::s:property#13
+				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s:property#14
+				ps1::int6 => compute ( function1 ) : pkg1::s:property#15
 				ps1::record1 => [ field1 => 42 ; field2 => [ field3 => 42 ; ] ; field4 => two
-				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] :
-				pkg1::s::classifierProperty#16
-				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s::classifierProperty#17
+				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] : pkg1::s:property#16
+				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s:property#17
 			}''')
 	}
 	
@@ -755,41 +753,37 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s1.i", '''
 			system s1_i_Instance : pkg1::s1.i {
-				in out featureGroup fg1 : pkg1::s1::fg1 {
-					in out featureGroup fg2 : pkg1::fgt1::fg2
-					in out featureGroup fg3 [ 1 ] : pkg1::fgt1::fg3
-					in out featureGroup fg3 [ 2 ] : pkg1::fgt1::fg3
+				in out featureGroup fg1 : pkg1::s1:fg1 {
+					in out featureGroup fg2 : pkg1::fgt1:fg2
+					in out featureGroup fg3 [ 1 ] : pkg1::fgt1:fg3
+					in out featureGroup fg3 [ 2 ] : pkg1::fgt1:fg3
 				}
-				in eventPort p1 : pkg1::s1::p1
-				abstract sub2 [ 0 ] : pkg1::s1.i::sub2 {
-					in out subprogramAccess sa1 : pkg1::a1::sa1
+				in eventPort p1 : pkg1::s1:p1
+				abstract sub2 [ 0 ] : pkg1::s1.i:sub2 {
+					in out subprogramAccess sa1 : pkg1::a1:sa1
 				}
-				system sub1 [ 0 ] : pkg1::s1.i::sub1
-				initial mode m1 : pkg1::s1::m1
-				mode m2 : pkg1::s1::m2
-				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1::mt1
+				system sub1 [ 0 ] : pkg1::s1.i:sub1
+				initial mode m1 : pkg1::s1:m1
+				mode m2 : pkg1::s1:m2
+				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1:mt1
 				som "m1" m1
 				som "m2" m2
-				ps1::reference1 => reference ( pkg1::s1::proto1 ) :
-				pkg1::s1.i::classifierProperty#0
-				ps1::reference2 => reference ( pkg1::s1::fg1 / pkg1::fgt1::proto2 ) :
-				pkg1::s1.i::classifierProperty#1
-				ps1::reference3 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg2 /
-				pkg1::fgt2::proto3 ) : pkg1::s1.i::classifierProperty#2
-				ps1::reference4 => reference ( pkg1::s1::fg1 / pkg1::fgt1::fg3 [ 1 ] /
-				pkg1::fgt2::proto3 ) : pkg1::s1.i::classifierProperty#3
-				ps1::reference5 => reference ( pkg1::s1.i::sub1 / pkg1::s2::proto4 ) :
-				pkg1::s1.i::classifierProperty#4
-				ps1::reference6 => reference ( pkg1::s1.i::es1 ) :
-				pkg1::s1.i::classifierProperty#5
-				ps1::reference7 => reference ( pkg1::s1.i::pp1 ) :
-				pkg1::s1.i::classifierProperty#6
-				ps1::reference8 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::sequence1 ) :
-				pkg1::s1.i::classifierProperty#7
-				ps1::reference9 => reference ( pkg1::s1.i::sub2 / pkg1::a1.i::call1 ) :
-				pkg1::s1.i::classifierProperty#8
-				ps1::reference10 => reference ( pkg1::s1::mt1 ) :
-				pkg1::s1.i::classifierProperty#9
+				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0
+				ps1::reference2 => reference ( pkg1::s1:fg1 / pkg1::fgt1:proto2 ) :
+				pkg1::s1.i:property#1
+				ps1::reference3 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg2 /
+				pkg1::fgt2:proto3 ) : pkg1::s1.i:property#2
+				ps1::reference4 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg3 [ 1 ] /
+				pkg1::fgt2:proto3 ) : pkg1::s1.i:property#3
+				ps1::reference5 => reference ( pkg1::s1.i:sub1 / pkg1::s2:proto4 ) :
+				pkg1::s1.i:property#4
+				ps1::reference6 => reference ( pkg1::s1.i:es1 ) : pkg1::s1.i:property#5
+				ps1::reference7 => reference ( pkg1::s1.i:pp1 ) : pkg1::s1.i:property#6
+				ps1::reference8 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:sequence1 ) :
+				pkg1::s1.i:property#7
+				ps1::reference9 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:call1 ) :
+				pkg1::s1.i:property#8
+				ps1::reference10 => reference ( pkg1::s1:mt1 ) : pkg1::s1.i:property#9
 			}''')
 	}
 	
@@ -851,28 +845,26 @@ class SerializerTest2 extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s3.i", '''
 			system s3_i_Instance : pkg1::s3.i {
-				system sub1 [ 0 ] : pkg1::s3.i::sub1 {
-					out dataPort p1 : pkg1::s1::p1
-					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1::classifierProperty#0
+				system sub1 [ 0 ] : pkg1::s3.i:sub1 {
+					out dataPort p1 : pkg1::s1:p1
+					ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s1:property#0
 				}
-				system sub2 [ 0 ] : pkg1::s3.i::sub2 {
-					in dataPort p2 : pkg1::s2::p2
-					flow f1 ( p2 -> ) : pkg1::s2::f1
+				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
+					in dataPort p2 : pkg1::s2:p2
+					flow f1 ( p2 -> ) : pkg1::s2:f1
 				}
 				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 {
-					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i::conn1 in parent
+					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i:conn1 in parent
 				}
-				end to end flow etef1 sub1[0] -> connection#0 -> sub2[0].f1 :
-				pkg1::s3.i::etef1
-				initial mode m1 : pkg1::s3::m1
+				end to end flow etef1 sub1[0] -> connection#0 -> sub2[0].f1 : pkg1::s3.i:etef1
+				initial mode m1 : pkg1::s3:m1
 				som "m1" m1
-				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i::classifierProperty#0
-				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i::classifierProperty#1
-				ps1::reference3 => reference ( m1 ) : pkg1::s3.i::classifierProperty#2
-				ps1::reference4 => reference ( sub1[0] ) : pkg1::s3.i::classifierProperty#3
-				ps1::reference5 => reference ( connection#0 ) :
-				pkg1::s3.i::classifierProperty#4
-				ps1::reference6 => reference ( etef1 ) : pkg1::s3.i::classifierProperty#5
+				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i:property#0
+				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i:property#1
+				ps1::reference3 => reference ( m1 ) : pkg1::s3.i:property#2
+				ps1::reference4 => reference ( sub1[0] ) : pkg1::s3.i:property#3
+				ps1::reference5 => reference ( connection#0 ) : pkg1::s3.i:property#4
+				ps1::reference6 => reference ( etef1 ) : pkg1::s3.i:property#5
 			}''')
 	}
 }

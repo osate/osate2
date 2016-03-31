@@ -43,7 +43,7 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case flowSpecificationInstance_FlowSpecification,
 			case endToEndFlowInstance_EndToEndFlow,
 			case modeInstance_Mode,
-			case containmentPathElement_NamedElement: target.getContainerOfType(Classifier).getQualifiedName + "::" + (target as NamedElement).name
+			case containmentPathElement_NamedElement: target.getContainerOfType(Classifier).getQualifiedName + ":" + (target as NamedElement).name
 			
 			case componentInstance_InMode,
 			case flowSpecificationInstance_InMode,
@@ -62,13 +62,6 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case endToEndFlowInstance_FlowElement,
 			case systemOperationMode_CurrentMode: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(ComponentInstance))
 			
-			case connectionReference_Context: switch rootComponent : semanticObject.getContainerOfType(ComponentInstance) {
-				case target: "parent"
-				default: target.serializeChainedInstanceReference(rootComponent)
-			}
-			
-			case instanceReferenceValue_ReferencedInstanceObject: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(SystemInstance))
-			
 			case connectionInstance_InSystemOperationMode,
 			case endToEndFlowInstance_InSystemOperationMode,
 			case modalElement_InMode: "som#" + target.getContainerOfType(SystemInstance).systemOperationModes.indexOf(target)
@@ -76,30 +69,38 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case connectionInstance_InModeTransition,
 			case flowSpecificationInstance_InModeTransition: "transition#" + target.getContainerOfType(ComponentInstance).modeTransitionInstances.indexOf(target)
 			
+			case connectionReference_Context: switch rootComponent : semanticObject.getContainerOfType(ComponentInstance) {
+				case target: "parent"
+				default: target.serializeChainedInstanceReference(rootComponent)
+			}
+			
 			case modeTransitionInstance_ModeTransition: {
 				val classifier = target.getContainerOfType(ComponentClassifier)
 				val transition = target as ModeTransition
-				classifier.getQualifiedName + "::" + (transition.name ?: "transition#" + classifier.ownedModeTransitions.indexOf(transition))
+				classifier.getQualifiedName + ":" + (transition.name ?: "transition#" + classifier.ownedModeTransitions.indexOf(transition))
 			}
 			
 			case propertyAssociationInstance_PropertyAssociation: {
 				val classifier = target.getContainerOfType(Classifier)
-				classifier.getQualifiedName + "::" + if (target.eContainer == classifier) {
-					"classifierProperty#" + classifier.ownedPropertyAssociations.indexOf(target)
+				classifier.getQualifiedName + ":" + if (target.eContainer == classifier) {
+					"property#" + classifier.ownedPropertyAssociations.indexOf(target)
 				} else {
 					val parent = target.eContainer as NamedElement
 					switch parent {
 						ModeTransition case parent.name == null: "transition#" + (classifier as ComponentClassifier).ownedModeTransitions.indexOf(parent)
 						default: parent.name
-					} + "::curlyProperty#" + parent.ownedPropertyAssociations.indexOf(target)
+					} +":property#" + parent.ownedPropertyAssociations.indexOf(target)
 				}
 			}
+			
+			case instanceReferenceValue_ReferencedInstanceObject: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(SystemInstance))
 			
 			case namedValue_NamedValue: switch target {
 				EnumerationLiteral: target.name
 				Property,
 				PropertyConstant: target.getQualifiedName
 			}
+			
 			default: super.serializeCrossRef(semanticObject, crossref, target, node, errors)
 		}
 	}

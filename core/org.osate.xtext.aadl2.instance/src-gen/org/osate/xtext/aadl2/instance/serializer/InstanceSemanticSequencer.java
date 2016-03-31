@@ -226,8 +226,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         source=[ConnectionInstanceEnd|InstanceRef] 
 	 *         bidirectional?='<->'? 
 	 *         destination=[ConnectionInstanceEnd|InstanceRef] 
-	 *         (inSystemOperationMode+=[SystemOperationMode|InstanceRef] inSystemOperationMode+=[SystemOperationMode|InstanceRef]*)? 
-	 *         (inModeTransition+=[ModeTransitionInstance|InstanceRef] inModeTransition+=[ModeTransitionInstance|InstanceRef]*)? 
+	 *         (inSystemOperationMode+=[SystemOperationMode|SomRef] inSystemOperationMode+=[SystemOperationMode|SomRef]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|TransitionRef] inModeTransition+=[ModeTransitionInstance|TransitionRef]*)? 
 	 *         (connectionReference+=ConnectionReference | ownedPropertyAssociation+=PropertyAssociationInstance)+
 	 *     )
 	 */
@@ -264,7 +264,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (flowElement+=[FlowElementInstance|InstanceRef] flowElement+=[FlowElementInstance|InstanceRef]*)? 
-	 *         (inSystemOperationMode+=[SystemOperationMode|InstanceRef] inSystemOperationMode+=[SystemOperationMode|InstanceRef]*)? 
+	 *         (inSystemOperationMode+=[SystemOperationMode|SomRef] inSystemOperationMode+=[SystemOperationMode|SomRef]*)? 
 	 *         endToEndFlow=[EndToEndFlow|DeclarativeRef] 
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
@@ -297,7 +297,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         source=[FeatureInstance|InstanceRef]? 
 	 *         destination=[FeatureInstance|InstanceRef]? 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
-	 *         (inModeTransition+=[ModeTransitionInstance|InstanceRef] inModeTransition+=[ModeTransitionInstance|InstanceRef]*)? 
+	 *         (inModeTransition+=[ModeTransitionInstance|TransitionRef] inModeTransition+=[ModeTransitionInstance|TransitionRef]*)? 
 	 *         flowSpecification=[FlowSpecification|DeclarativeRef] 
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance*
 	 *     )
@@ -349,7 +349,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedValue=PropertyExpression (inMode+=[Mode|InstanceRef] inMode+=[Mode|InstanceRef]*)?)
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|SomRef] inMode+=[Mode|SomRef]*)?)
 	 */
 	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
