@@ -19,8 +19,8 @@ import com.google.inject.Injector;
 
 public class EMV2AnnexLinkingService implements AnnexLinkingService {
 
-	final private Injector injector = OsateCorePlugin.getDefault().getInjector(
-			"org.osate.xtext.aadl2.errormodel.ErrorModel");
+	final private Injector injector = OsateCorePlugin.getDefault()
+			.getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
 
 	private ILinkingService linkingService;
 

@@ -16,6 +16,5 @@ import org.osate.aadl2.Element;
  * @model
  * @generated
  */
-public interface ConditionExpression extends EObject, Element
-{
+public interface ConditionExpression extends EObject, Element {
 } // ConditionExpression

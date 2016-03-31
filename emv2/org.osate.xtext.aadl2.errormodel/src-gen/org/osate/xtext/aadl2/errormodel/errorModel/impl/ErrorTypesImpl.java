@@ -16,27 +16,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
  *
  * @generated
  */
-public class ErrorTypesImpl extends NamedElementImpl implements ErrorTypes
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ErrorTypesImpl()
-  {
-    super();
-  }
+public class ErrorTypesImpl extends NamedElementImpl implements ErrorTypes {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ErrorTypesImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return ErrorModelPackage.Literals.ERROR_TYPES;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ErrorModelPackage.Literals.ERROR_TYPES;
+	}
 
-} //ErrorTypesImpl
+} // ErrorTypesImpl

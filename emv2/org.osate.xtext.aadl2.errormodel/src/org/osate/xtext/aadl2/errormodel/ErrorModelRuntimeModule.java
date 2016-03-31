@@ -50,7 +50,7 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider.class;
 	}
-	
+
 	public Class<? extends IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return ErrorModelQualifiedNameConverter.class;
 	}
@@ -59,26 +59,27 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
 		return org.osate.xtext.aadl2.errormodel.serializer.EMV2TransientValueService.class;
 	}
-	
+
 	@Override
 	public Class<? extends ILinkingService> bindILinkingService() {
 		return EMLinkingService.class;
 	}
-	
+
 	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return ErrorModelCrossReferenceSerializer.class;
 	}
-	
+
 	@Override
 	public Class<? extends ISerializer> bindISerializer() {
 		return ErrorModelSerializer.class;
 	}
-	
+
 	@Override
 	public void configureSerializerIScopeProvider(Binder binder) {
-		binder.bind(IScopeProvider.class).annotatedWith(SerializerScopeProviderBinding.class).to(ErrorModelSerializerScopeProvider.class);
+		binder.bind(IScopeProvider.class).annotatedWith(SerializerScopeProviderBinding.class)
+				.to(ErrorModelSerializerScopeProvider.class);
 	}
-	
+
 	@Override
 	public void configureIScopeProviderDelegate(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
