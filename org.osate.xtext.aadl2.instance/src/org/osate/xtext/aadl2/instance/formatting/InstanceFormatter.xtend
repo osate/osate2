@@ -21,6 +21,7 @@ class InstanceFormatter extends AbstractDeclarativeFormatter {
 	@Inject extension InstanceGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
+		c.autoLinewrap = 1000
 		findKeywordPairs("{", "}").forEach[
 			c.setIndentationIncrement.after(first)
 			c.setLinewrap.after(first)
