@@ -42,7 +42,7 @@ import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
 
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
-class SerializerTest2 extends AbstractSerializerTest {
+class Serializer2Test extends AbstractSerializerTest {
 	override getProjectName() {
 		"SerializerTest2"
 	}

@@ -44,7 +44,7 @@ import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
-class SerializerTest1 extends AbstractSerializerTest {
+class Serializer1Test extends AbstractSerializerTest {
 	override getProjectName() {
 		"SerializerTest1"
 	}
