@@ -85,11 +85,11 @@ public class ModeTransitionTriggerItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addContextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ModeTransitionTrigger_context_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_context_feature",
-								"_UI_ModeTransitionTrigger_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ModeTransitionTrigger_context_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_context_feature",
+						"_UI_ModeTransitionTrigger_type"),
 				Aadl2Package.eINSTANCE.getModeTransitionTrigger_Context(), true, false, true, null, null, null));
 	}
 
@@ -100,11 +100,11 @@ public class ModeTransitionTriggerItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addTriggerPortPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_ModeTransitionTrigger_triggerPort_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_triggerPort_feature",
-								"_UI_ModeTransitionTrigger_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ModeTransitionTrigger_triggerPort_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionTrigger_triggerPort_feature",
+						"_UI_ModeTransitionTrigger_type"),
 				Aadl2Package.eINSTANCE.getModeTransitionTrigger_TriggerPort(), true, false, true, null, null, null));
 	}
 

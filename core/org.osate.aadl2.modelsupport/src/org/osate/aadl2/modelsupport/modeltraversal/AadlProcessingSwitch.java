@@ -168,8 +168,8 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 			return;
 		}
 		theEClass = theElement.eClass();
-		if (aadl2Switch != null
-				&& (theEClass.eContainer() == Aadl2Package.eINSTANCE || theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause)) {
+		if (aadl2Switch != null && (theEClass.eContainer() == Aadl2Package.eINSTANCE
+				|| theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause)) {
 			aadl2Switch.doSwitch(theElement);
 		} else if (instanceSwitch != null && theEClass.eContainer() == InstancePackage.eINSTANCE) {
 			instanceSwitch.doSwitch(theElement);

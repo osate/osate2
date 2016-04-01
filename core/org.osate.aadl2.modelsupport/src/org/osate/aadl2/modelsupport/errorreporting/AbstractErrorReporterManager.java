@@ -22,8 +22,9 @@ import org.osate.core.OsateCorePlugin;
  * @author aarong
  */
 public abstract class AbstractErrorReporterManager implements ErrorReporterManager {
-	private static InternalErrorReporter internalErrDelegate = Platform.isRunning() ? new LogInternalErrorReporter(
-			OsateCorePlugin.getDefault().getBundle()) : WriterInternalErrorReporter.SYSTEM_ERR;
+	private static InternalErrorReporter internalErrDelegate = Platform.isRunning()
+			? new LogInternalErrorReporter(OsateCorePlugin.getDefault().getBundle())
+			: WriterInternalErrorReporter.SYSTEM_ERR;
 
 	protected AbstractErrorReporterManager() {
 	}

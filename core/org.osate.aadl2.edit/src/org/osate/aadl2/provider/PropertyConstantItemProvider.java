@@ -94,8 +94,8 @@ public class PropertyConstantItemProvider extends TypedElementItemProvider {
 						getResourceLocator(), getString("_UI_PropertyConstant_referencedPropertyType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_PropertyConstant_referencedPropertyType_feature", "_UI_PropertyConstant_type"),
-				Aadl2Package.eINSTANCE.getPropertyConstant_ReferencedPropertyType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getPropertyConstant_ReferencedPropertyType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

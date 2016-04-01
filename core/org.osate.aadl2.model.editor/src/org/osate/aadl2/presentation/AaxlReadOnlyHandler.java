@@ -76,8 +76,8 @@ import org.osate.workspace.WorkspacePlugin;
 public abstract class AaxlReadOnlyHandler extends AbstractHandler {
 	private static final String DEFAULT_NAME = "Analysis";
 
-	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-			.getDefault().getBundle());
+	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(
+			OsateCorePlugin.getDefault().getBundle());
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -131,8 +131,8 @@ public abstract class AaxlReadOnlyHandler extends AbstractHandler {
 				}
 			}
 		} else if (activeEditor != null) {
-			Aadl2ModelEditor aadl2Editor = (activeEditor == null) ? null : (Aadl2ModelEditor) activeEditor
-					.getAdapter(Aadl2ModelEditor.class);
+			Aadl2ModelEditor aadl2Editor = (activeEditor == null) ? null
+					: (Aadl2ModelEditor) activeEditor.getAdapter(Aadl2ModelEditor.class);
 			if (part instanceof ContentOutline) {
 				selection = ((ContentOutline) part).getSelection();
 			} else {

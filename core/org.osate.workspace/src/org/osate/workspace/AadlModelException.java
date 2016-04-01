@@ -107,6 +107,7 @@ public class AadlModelException extends CoreException {
 	 * @see IAadlWorkspaceStatus#isDoesNotExist()
 	 * @see IJavaModelStatusConstants#ELEMENT_DOES_NOT_EXIST
 	 */
+
 	// public boolean isDoesNotExist() {
 	// IAadlWorkspaceStatus javaModelStatus = getJavaModelStatus();
 	// return javaModelStatus != null && javaModelStatus.isDoesNotExist();

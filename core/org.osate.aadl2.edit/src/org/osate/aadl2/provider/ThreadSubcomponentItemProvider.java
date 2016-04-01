@@ -90,8 +90,8 @@ public class ThreadSubcomponentItemProvider extends SubcomponentItemProvider {
 						getResourceLocator(), getString("_UI_ThreadSubcomponent_threadSubcomponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ThreadSubcomponent_threadSubcomponentType_feature", "_UI_ThreadSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getThreadSubcomponent_ThreadSubcomponentType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

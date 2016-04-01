@@ -71,8 +71,8 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 									references.add(reference);
 								}
 							};
-							SimpleLocalResourceAccess localResourceAccess = new SimpleLocalResourceAccess(resource
-									.getResourceSet());
+							SimpleLocalResourceAccess localResourceAccess = new SimpleLocalResourceAccess(
+									resource.getResourceSet());
 							referenceFinder.findReferences(getTargetURIs(target), singleton(resource.getURI()),
 									localResourceAccess, acceptor, monitor.newChild(40));
 							if (monitor.isCanceled()) {
@@ -99,8 +99,8 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 								try {
 									EObject source = resource.getEObject(reference.getSourceEObjectUri().fragment());
 									if (source != null && reference.getEReference() != null) { // prevent exception for outdated data
-										ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(
-												source, reference.getEReference(), reference.getIndexInList());
+										ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(source,
+												reference.getEReference(), reference.getIndexInList());
 										addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, textRegion,
 												result);
 									}

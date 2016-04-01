@@ -75,8 +75,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllPackagesInWorkspace() {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getAadlPackage());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -91,8 +91,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllPackagesInWorkspace(EObject context) {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getAadlPackage());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -116,8 +116,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static AadlPackage getPackageInWorkspace(String pname, XtextResourceSet resourceSet) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getAadlPackage());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
@@ -146,8 +146,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static AadlPackage getPackageInWorkspace(EObject context, String pname, XtextResourceSet resourceSet) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getAadlPackage());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
@@ -168,8 +168,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllPropertySetsInWorkspace() {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertySet());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -184,8 +184,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllPropertySetsInWorkspace(EObject context) {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertySet());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -200,8 +200,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static PropertySet getPropertySetInWorkspace(EObject context, String pname) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertySet());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
@@ -230,8 +230,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static PropertySet getPropertySetInWorkspace(String pname, XtextResourceSet resourceSet) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertySet());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
@@ -322,8 +322,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static PropertyType getPropertyTypeInWorkspace(ResourceSet rs, String ptname) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(rs);
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertyType());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertyType());
 		for (IEObjectDescription eod : packagedlist) {
 			if (ptname.lastIndexOf("::") == -1) {
 				String name = eod.getName().toString("::");
@@ -375,8 +375,8 @@ public class EMFIndexRetrieval {
 	*/
 	public static PropertyConstant getPropertyConstantInWorkspace(ResourceSet rs, String pcname) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(rs);
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getPropertyConstant());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertyConstant());
 		for (IEObjectDescription eod : packagedlist) {
 			if (pcname.lastIndexOf("::") == -1) {
 				String name = eod.getName().toString("::");
@@ -448,8 +448,8 @@ public class EMFIndexRetrieval {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(res);
 		for (QualifiedName qn : namelist) {
 			System.out.println("ImportedName " + qn.getLastSegment() + " more " + qn);
-			Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(
-					Aadl2Package.eINSTANCE.getAadlPackage(), qn, true);
+			Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(Aadl2Package.eINSTANCE.getAadlPackage(),
+					qn, true);
 			for (IEObjectDescription eod : packagedlist) {
 				System.out.println("Imported package " + eod.getQualifiedName());
 				AadlPackage respack = (AadlPackage) eod.getEObjectOrProxy();
@@ -473,8 +473,8 @@ public class EMFIndexRetrieval {
 		Iterable<QualifiedName> namelist = packrd.getImportedNames();
 		for (QualifiedName qn : namelist) {
 			System.out.println("ImportedName " + qn.getLastSegment() + " more " + qn);
-			Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(
-					Aadl2Package.eINSTANCE.getAadlPackage(), qn, true);
+			Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(Aadl2Package.eINSTANCE.getAadlPackage(),
+					qn, true);
 			for (IEObjectDescription eod : packagedlist) {
 				System.out.println("Imported package " + eod.getQualifiedName());
 				AadlPackage respack = (AadlPackage) eod.getEObjectOrProxy();
@@ -499,8 +499,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllClassifiersInWorkspace() {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getClassifier());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -515,8 +515,8 @@ public class EMFIndexRetrieval {
 	public static EList<IEObjectDescription> getAllClassifiersInWorkspace(EObject context) {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getClassifier());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
 		for (IEObjectDescription eod : packagedlist) {
 			packlist.add(eod);
 		}
@@ -545,7 +545,8 @@ public class EMFIndexRetrieval {
 	* @param classifierType EClass of desired Classifiers
 	* @return list of EObjects in IEObjectDescription format
 	*/
-	public static EList<IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EObject context, EClass classifierType) {
+	public static EList<IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EObject context,
+			EClass classifierType) {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
 		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifierType);
@@ -718,8 +719,8 @@ public class EMFIndexRetrieval {
 	 */
 	public static Classifier getClassifierInWorkspace(ResourceSet rs, String cname) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(rs);
-		Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE
-				.getClassifier());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(cname)) {
 				EObject res = eod.getEObjectOrProxy();

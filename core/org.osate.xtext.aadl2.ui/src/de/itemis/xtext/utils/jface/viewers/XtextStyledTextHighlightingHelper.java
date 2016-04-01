@@ -47,13 +47,11 @@ class XtextStyledTextHighlightingHelper implements IPropertyChangeListener {
 
 	private IPreferenceStore preferenceStore;
 
-	public void install(StyledTextXtextAdapter styledTextXtextAdapter,
-			XtextSourceViewer sourceViewer) {
+	public void install(StyledTextXtextAdapter styledTextXtextAdapter, XtextSourceViewer sourceViewer) {
 		this.styledTextXtextAdapter = styledTextXtextAdapter;
 		fSourceViewer = sourceViewer;
 		if (styledTextXtextAdapter != null) {
-			fConfiguration = styledTextXtextAdapter
-					.getXtextSourceViewerConfiguration();
+			fConfiguration = styledTextXtextAdapter.getXtextSourceViewerConfiguration();
 			fPresentationReconciler = (XtextPresentationReconciler) fConfiguration
 					.getPresentationReconciler(sourceViewer);
 		} else {
@@ -113,8 +111,7 @@ class XtextStyledTextHighlightingHelper implements IPropertyChangeListener {
 		return fReconciler;
 	}
 
-	public void setReconcilerProvider(
-			Provider<XtextStyledTextHighlightingReconciler> reconcilerProvider) {
+	public void setReconcilerProvider(Provider<XtextStyledTextHighlightingReconciler> reconcilerProvider) {
 		this.reconcilerProvider = reconcilerProvider;
 	}
 
@@ -122,8 +119,7 @@ class XtextStyledTextHighlightingHelper implements IPropertyChangeListener {
 		return reconcilerProvider;
 	}
 
-	public void setPresenterProvider(
-			Provider<HighlightingPresenter> presenterProvider) {
+	public void setPresenterProvider(Provider<HighlightingPresenter> presenterProvider) {
 		this.presenterProvider = presenterProvider;
 	}
 
@@ -131,8 +127,7 @@ class XtextStyledTextHighlightingHelper implements IPropertyChangeListener {
 		return presenterProvider;
 	}
 
-	public void setPreferenceStoreAccessor(
-			IPreferenceStoreAccess preferenceStoreAccessor) {
+	public void setPreferenceStoreAccessor(IPreferenceStoreAccess preferenceStoreAccessor) {
 		this.preferenceStoreAccessor = preferenceStoreAccessor;
 	}
 
@@ -141,8 +136,7 @@ class XtextStyledTextHighlightingHelper implements IPropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
-		if (fReconciler != null
-				&& event.getProperty().contains(".syntaxColorer.tokenStyles")) {
+		if (fReconciler != null && event.getProperty().contains(".syntaxColorer.tokenStyles")) {
 			textAttributeProvider.propertyChange(event);
 			fReconciler.refresh();
 		}

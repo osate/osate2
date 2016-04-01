@@ -79,8 +79,8 @@ public class AnnexInstantiationController extends ForAllElement {
 					.getSelfPlusAllExtended();
 			for (final Iterator<Classifier> iter = classifiers.iterator(); iter.hasNext();) {
 				final Classifier classifier = iter.next();
-				for (Iterator<AnnexSubclause> subclauseIter = classifier.getOwnedAnnexSubclauses().iterator(); subclauseIter
-						.hasNext();) {
+				for (Iterator<AnnexSubclause> subclauseIter = classifier.getOwnedAnnexSubclauses()
+						.iterator(); subclauseIter.hasNext();) {
 					AnnexSubclause annexSubclause = subclauseIter.next();
 					String annexName = annexSubclause.getName();
 

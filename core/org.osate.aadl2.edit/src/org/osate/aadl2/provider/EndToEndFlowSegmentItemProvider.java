@@ -84,11 +84,11 @@ public class EndToEndFlowSegmentItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	protected void addFlowElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_EndToEndFlowSegment_flowElement_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowSegment_flowElement_feature",
-								"_UI_EndToEndFlowSegment_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_EndToEndFlowSegment_flowElement_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowSegment_flowElement_feature",
+						"_UI_EndToEndFlowSegment_type"),
 				Aadl2Package.eINSTANCE.getEndToEndFlowSegment_FlowElement(), true, false, true, null, null, null));
 	}
 
@@ -104,7 +104,7 @@ public class EndToEndFlowSegmentItemProvider extends ElementItemProvider {
 						getResourceLocator(), getString("_UI_EndToEndFlowSegment_context_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_EndToEndFlowSegment_context_feature",
 								"_UI_EndToEndFlowSegment_type"),
-				Aadl2Package.eINSTANCE.getEndToEndFlowSegment_Context(), true, false, true, null, null, null));
+						Aadl2Package.eINSTANCE.getEndToEndFlowSegment_Context(), true, false, true, null, null, null));
 	}
 
 	/**

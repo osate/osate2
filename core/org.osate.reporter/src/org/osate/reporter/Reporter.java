@@ -103,10 +103,8 @@ public class Reporter {
 		String fileString = null;
 		do {
 			fileString = saveDialog.open();
-		} while (fileString != null
-				&& new File(fileString).exists()
-				&& !MessageDialog.openQuestion(null, "Save As", fileString
-						+ " already exists.\nDo you want to replace it?"));
+		} while (fileString != null && new File(fileString).exists() && !MessageDialog.openQuestion(null, "Save As",
+				fileString + " already exists.\nDo you want to replace it?"));
 		if (fileString != null && fileString.endsWith(".aadl")) {
 			fileString += ".html";
 		}
@@ -120,17 +118,11 @@ public class Reporter {
 		ReporterSettings settings = getSettings(toReport.getProject());
 		SummaryTotals totals = new SummaryTotals(settings);
 		IMarker[] markers = getProblemMarkers(toReport, settings);
-		StringBuffer output = new StringBuffer("<html>\n"
-				+ "<head>\n"
-				+ "	<title>AADL Markers</title>\n"
-				+ "</head>\n"
-				+ "<body>\n"
-				+ "<h1>AADL Markers For "
-				+ toReport.getName()
-				+ "</h1>\n"
-				+ "Report generated on "
-				+ DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(
-						Calendar.getInstance().getTime()) + "<br>\n" + "<br>\n" + "<br>\n" + "<br>\n");
+		StringBuffer output = new StringBuffer("<html>\n" + "<head>\n" + "	<title>AADL Markers</title>\n" + "</head>\n"
+				+ "<body>\n" + "<h1>AADL Markers For " + toReport.getName() + "</h1>\n" + "Report generated on "
+				+ DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+						.format(Calendar.getInstance().getTime())
+				+ "<br>\n" + "<br>\n" + "<br>\n" + "<br>\n");
 		String groupIdentifier = getGroupIdentifier(markers[0], settings);
 		int groupStart = 0;
 		for (int i = 1; i < markers.length; i++) {
@@ -228,8 +220,8 @@ public class Reporter {
 						+ markers[sourceIndex].getAttribute(IMarker.LINE_NUMBER);
 			}
 			if (markerTypeColumn != -1) {
-				markersTable[destinationIndex][markerTypeColumn] = markers[sourceIndex].getType().substring(
-						markers[sourceIndex].getType().lastIndexOf('.') + 1);
+				markersTable[destinationIndex][markerTypeColumn] = markers[sourceIndex].getType()
+						.substring(markers[sourceIndex].getType().lastIndexOf('.') + 1);
 			} else {
 				markersTable[destinationIndex][fileNameColumn] = markers[sourceIndex].getResource().getName();
 			}
@@ -244,14 +236,15 @@ public class Reporter {
 		StringBuffer output = new StringBuffer("<table style=\"text-align: left; width: 900px;\" border=\"1\"\n"
 				+ "cellpadding=\"2\" cellspacing=\"2\"\n" + "	<tbody>\n" + "		<tr>\n");
 		for (int column = 0; column < toPrint[0].length; column++) {
-			output.append("			<td style=\"vertical-align: top;\">\n" + "			<h3>" + toPrint[0][column] + "</h3>\n"
-					+ "			</td>\n");
+			output.append("			<td style=\"vertical-align: top;\">\n" + "			<h3>" + toPrint[0][column]
+					+ "</h3>\n" + "			</td>\n");
 		}
 		output.append("		</tr>\n");
 		for (int row = 1; row < toPrint.length; row++) {
 			output.append("		<tr>\n");
 			for (int column = 0; column < toPrint[row].length; column++) {
-				output.append("			<td style=\"vertical-align: top;\">" + toPrint[row][column] + "<br>\n" + "			</td>\n");
+				output.append("			<td style=\"vertical-align: top;\">" + toPrint[row][column] + "<br>\n"
+						+ "			</td>\n");
 			}
 			output.append("		</tr>\n");
 		}
@@ -282,8 +275,8 @@ public class Reporter {
 			}
 		}
 		if (markers.isEmpty()) {
-			throw new NoMarkersException(markersSource.getName()
-					+ " does not contain any problem markers enabled from the filter.");
+			throw new NoMarkersException(
+					markersSource.getName() + " does not contain any problem markers enabled from the filter.");
 		}
 		Collections.sort(markers, new AadlMarkerComparator(settings));
 		return markers.toArray(new IMarker[0]);

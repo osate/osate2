@@ -112,8 +112,8 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 						getResourceLocator(), getString("_UI_FeaturePrototype_constrainingClassifier_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_FeaturePrototype_constrainingClassifier_feature", "_UI_FeaturePrototype_type"),
-				Aadl2Package.eINSTANCE.getFeaturePrototype_ConstrainingClassifier(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getFeaturePrototype_ConstrainingClassifier(), true, false, true, null,
+						null, null));
 	}
 
 	/**

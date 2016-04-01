@@ -107,7 +107,8 @@ public final class Dialog {
 		return obj.answer;
 	}
 
-	public static int askQuestion(final String title, final String question, final String[] choices, final int defChoice) {
+	public static int askQuestion(final String title, final String question, final String[] choices,
+			final int defChoice) {
 		final IntAnswer obj = new IntAnswer() {
 			@Override
 			public void run() {

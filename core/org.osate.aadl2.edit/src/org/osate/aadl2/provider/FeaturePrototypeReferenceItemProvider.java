@@ -144,8 +144,8 @@ public class FeaturePrototypeReferenceItemProvider extends FeaturePrototypeActua
 						getResourceLocator(), getString("_UI_FeaturePrototypeReference_out_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_FeaturePrototypeReference_out_feature",
 								"_UI_FeaturePrototypeReference_type"),
-				Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Out(), true, false, false,
-				ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						Aadl2Package.eINSTANCE.getFeaturePrototypeReference_Out(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**

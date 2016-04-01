@@ -60,6 +60,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -722,12 +723,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
 							importedUnitURI);
 					continue ImportedUnitsLoop;
-
 				}
 
-				TreeIterator<EObject> packageContents = packageSection.eAllContents();
-				while (packageContents.hasNext()) {
-					EObject nextObject = packageContents.next();
+				TreeIterator<EObject> packageSectionContents = packageSection.eAllContents();
+				while (packageSectionContents.hasNext()) {
+					EObject nextObject = packageSectionContents.next();
 					EList<EObject> crossReferences = nextObject.eCrossReferences();
 					for (EObject crossReference : crossReferences) {
 						EObject container = crossReference.eContainer();
@@ -744,6 +744,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
+
+				AadlPackage aadlPackage = EcoreUtil2.getContainerOfType(packageSection, AadlPackage.class);
+				if (packageSection instanceof PublicPackageSection || aadlPackage.getPublicSection() == null) {
+					TreeIterator<EObject> packageContents = aadlPackage.eAllContents();
+					while (packageContents.hasNext()) {
+						EObject nextObject = packageContents.next();
+						PackageSection packSec = EcoreUtil2.getContainerOfType(nextObject, PackageSection.class);
+						if (packSec != null) {
+							continue;
+						}
+						EList<EObject> crossReferences = nextObject.eCrossReferences();
+						for (EObject crossReference : crossReferences) {
+							EObject container = crossReference.eContainer();
+							if (nextImportedUnit.equals(container)) {
+								continue ImportedUnitsLoop;
+							} else {
+								while (container != null && !(container instanceof AadlPackage)
+										&& !(container instanceof PropertySet)) {
+									container = container.eContainer();
+									if (container.equals(nextImportedUnit)) {
+										continue ImportedUnitsLoop;
+									}
+								}
+							}
+						}
+					}
+				}
+
 				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
 				errMsg.append(" in 'with' clause of ");
 				String publicOrPrivate = "public";

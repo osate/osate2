@@ -53,7 +53,7 @@ public final class SEI {
 
 	public static final String DATA_RATE = "Data_Rate";
 	public static final String MESSAGE_RATE = "Message_Rate";
-	
+
 	public static final String NSLOC = "nsloc";
 	public static final String VDID_INSPECT = "vdid_inspect";
 

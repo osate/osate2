@@ -90,8 +90,8 @@ public class SystemSubcomponentItemProvider extends SubcomponentItemProvider {
 						getResourceLocator(), getString("_UI_SystemSubcomponent_systemSubcomponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_SystemSubcomponent_systemSubcomponentType_feature", "_UI_SystemSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getSystemSubcomponent_SystemSubcomponentType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

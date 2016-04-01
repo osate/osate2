@@ -70,7 +70,7 @@ public class OsateResourceUtil {
 
 	private static boolean DEBUG = true;
 	public static boolean USES_GUI = true;
-	//    private static Injector injector = OsateCorePlugin
+	// private static Injector injector = OsateCorePlugin
 //            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
 	private static Injector injector;
 	private static IResourceSetProvider fResourceSetProvider;
@@ -483,9 +483,8 @@ public class OsateResourceUtil {
 		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
 			path = path.trimSegments(1);
 		}
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(
-				filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
-						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
+				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}

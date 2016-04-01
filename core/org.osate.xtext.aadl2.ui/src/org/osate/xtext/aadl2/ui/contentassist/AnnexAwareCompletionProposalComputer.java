@@ -61,8 +61,8 @@ public class AnnexAwareCompletionProposalComputer extends CompletionProposalComp
 
 		@Override
 		public ITemplateProposalProvider getTemplateProposalProvider() {
-			return (templateProposalProvider != null) ? templateProposalProvider : delegate
-					.getTemplateProposalProvider();
+			return (templateProposalProvider != null) ? templateProposalProvider
+					: delegate.getTemplateProposalProvider();
 		}
 
 		@Override

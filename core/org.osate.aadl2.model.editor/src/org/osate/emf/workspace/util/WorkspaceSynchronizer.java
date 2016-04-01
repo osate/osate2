@@ -86,18 +86,16 @@ import org.eclipse.emf.workspace.internal.l10n.Messages;
 public final class WorkspaceSynchronizer {
 	private final TransactionalEditingDomain domain;
 	private Delegate delegate;
-	
+
 	// we employ a copy-on-write strategy on this collection for thread safety
-	private static Collection<WorkspaceSynchronizer> synchronizers =
-		new java.util.ArrayList<WorkspaceSynchronizer>();
-	
+	private static Collection<WorkspaceSynchronizer> synchronizers = new java.util.ArrayList<WorkspaceSynchronizer>();
+
 	// we use a single listener to serve all synchronizers.
-	private static IResourceChangeListener workspaceListener =
-		new WorkspaceListener();
+	private static IResourceChangeListener workspaceListener = new WorkspaceListener();
 
 	// the default synchronization strategies
 	static Delegate defaultDelegate = new DefaultDelegate();
-	
+
 	/**
 	 * Initializes me with the editing domain for which I synchronize resources,
 	 * using the default change-handling behaviour.
@@ -110,7 +108,7 @@ public final class WorkspaceSynchronizer {
 	public WorkspaceSynchronizer(TransactionalEditingDomain domain) {
 		this(domain, null);
 	}
-	
+
 	/**
 	 * Initializes me with the editing domain for which I synchronize resources,
 	 * using the specified delegate to handle resource changes.
@@ -126,17 +124,17 @@ public final class WorkspaceSynchronizer {
 		if (domain == null) {
 			throw new IllegalArgumentException("null domain"); //$NON-NLS-1$
 		}
-		
+
 		if (delegate == null) {
 			delegate = defaultDelegate;
 		}
-		
+
 		this.domain = domain;
 		this.delegate = delegate;
-		
+
 		startListening(this);
 	}
-	
+
 	/**
 	 * Queries the editing domain whose resources I synchronize with the
 	 * workspace.
@@ -146,7 +144,7 @@ public final class WorkspaceSynchronizer {
 	public TransactionalEditingDomain getEditingDomain() {
 		return domain;
 	}
-	
+
 	/**
 	 * Obtains the delegate that handles resource changes.
 	 * 
@@ -155,14 +153,14 @@ public final class WorkspaceSynchronizer {
 	Delegate getDelegate() {
 		return delegate;
 	}
-	
+
 	/**
 	 * Disposes me, in particular disconnecting me from the workspace so that
 	 * I no longer respond to resource change events.
 	 */
 	public void dispose() {
 		stopListening(this);
-		
+
 		synchronized (this) {
 			if (!isDisposed()) {
 				delegate.dispose();
@@ -170,7 +168,7 @@ public final class WorkspaceSynchronizer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Queries whether I am disposed already.
 	 * 
@@ -181,7 +179,7 @@ public final class WorkspaceSynchronizer {
 	boolean isDisposed() {
 		return delegate == null;
 	}
-	
+
 	/**
 	 * Processes a resource delta to determine whether it corresponds to a
 	 * resource in my editing domain and, if so, how to handle removal or
@@ -191,23 +189,22 @@ public final class WorkspaceSynchronizer {
 	 * @param synchRequests accumulates synch requests for the deltas
 	 * @param affectedFiles accumulates the files affected by the deltas
 	 */
-	void processDelta(IResourceDelta delta, List<SynchRequest> synchRequests,
-			List<IFile> affectedFiles) {
-	    String fullPath = delta.getFullPath().toString();
-	    URI uri = URI.createPlatformResourceURI(fullPath, false);
-	    ResourceSet rset = getEditingDomain().getResourceSet();
-	    
-	    // try the unencoded URI first, in case the client doesn't encode
+	void processDelta(IResourceDelta delta, List<SynchRequest> synchRequests, List<IFile> affectedFiles) {
+		String fullPath = delta.getFullPath().toString();
+		URI uri = URI.createPlatformResourceURI(fullPath, false);
+		ResourceSet rset = getEditingDomain().getResourceSet();
+
+		// try the unencoded URI first, in case the client doesn't encode
 		Resource resource = rset.getResource(uri, false);
 		if (resource == null) {
-		    URI encodedURI = URI.createPlatformResourceURI(fullPath, true);
-		    if (!encodedURI.equals(uri)) {
-		        // the URI needs to be encoded.  Try it, then
-		        uri = encodedURI;
-		        resource = rset.getResource(uri, false);
-		    }
+			URI encodedURI = URI.createPlatformResourceURI(fullPath, true);
+			if (!encodedURI.equals(uri)) {
+				// the URI needs to be encoded. Try it, then
+				uri = encodedURI;
+				resource = rset.getResource(uri, false);
+			}
 		}
-		
+
 		if ((resource != null) && resource.isLoaded()) {
 			switch (delta.getKind()) {
 			case IResourceDelta.ADDED:
@@ -217,26 +214,23 @@ public final class WorkspaceSynchronizer {
 				break;
 			case IResourceDelta.REMOVED:
 				if ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
-				    // first, see whether a resource with the new URI already
-				    //   exists.  If so, then we will use the same URI (whether
-				    //   encoded or not) because that seems to be what the
-				    //   client prefers.  Otherwise, always encode
-				    String newPath = delta.getMovedToPath().toString();
-				    URI newURI = URI.createPlatformResourceURI(newPath, false);
-				    if (rset.getResource(newURI, false) == null) {
-				        // this may be the same, depending on absence of
-				        //    special characters
-				        newURI = URI.createPlatformResourceURI(newPath, true);
-				    }
-				    
-					synchRequests.add(new MovedSynchRequest(
-							this,
-							resource,
-							newURI));
+					// first, see whether a resource with the new URI already
+					// exists. If so, then we will use the same URI (whether
+					// encoded or not) because that seems to be what the
+					// client prefers. Otherwise, always encode
+					String newPath = delta.getMovedToPath().toString();
+					URI newURI = URI.createPlatformResourceURI(newPath, false);
+					if (rset.getResource(newURI, false) == null) {
+						// this may be the same, depending on absence of
+						// special characters
+						newURI = URI.createPlatformResourceURI(newPath, true);
+					}
+
+					synchRequests.add(new MovedSynchRequest(this, resource, newURI));
 				} else {
 					synchRequests.add(new DeletedSynchRequest(this, resource));
 				}
-				
+
 				break;
 			case IResourceDelta.CHANGED:
 				if ((delta.getFlags() & IResourceDelta.MARKERS) != 0) {
@@ -250,7 +244,7 @@ public final class WorkspaceSynchronizer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Obtains the workspace file corresponding to the specified resource, if
 	 * it has a platform-resource URI.  Note that the resulting file, if not
@@ -274,12 +268,9 @@ public final class WorkspaceSynchronizer {
 		if (resource == null) {
 			return null;
 		}
-        ResourceSet rset = resource.getResourceSet();
-        
-        return getFile(
-            resource.getURI(),
-            (rset != null)? rset.getURIConverter() : null,
-            false);
+		ResourceSet rset = resource.getResourceSet();
+
+		return getFile(resource.getURI(), (rset != null) ? rset.getURIConverter() : null, false);
 	}
 
 	/**
@@ -304,97 +295,91 @@ public final class WorkspaceSynchronizer {
 	 * @since 1.2
 	 */
 	public static IFile getUnderlyingFile(Resource resource) {
-        ResourceSet rset = resource.getResourceSet();
-        
-        return getFile(
-            resource.getURI(),
-            (rset != null)? rset.getURIConverter() : null,
-            true);
-	}
-    
-    /**
-     * Finds the file corresponding to the specified URI, using a URI converter
-     * if necessary (and provided) to normalize it.
-     * 
-     * @param uri a URI
-     * @param converter an optional URI converter (may be <code>null</code>)
-     * 
-     * @return the file, if available in the workspace
-     */
-    private static IFile getFile(URI uri, URIConverter converter, boolean considerArchives) {
-        IFile result = null;
-        
-        if (considerArchives && uri.isArchive()) {
-            class MyArchiveURLConnection extends ArchiveURLConnection {
-              public MyArchiveURLConnection(String url) {
-                super(url);
-              }
-              public String getNestedURI() {
-                try
-                {
-                  return getNestedURL();
-                }
-                catch (IOException exception)
-                {
-                  return ""; //$NON-NLS-1$
-                }
-              }
-            }
-            MyArchiveURLConnection archiveURLConnection = new MyArchiveURLConnection(uri.toString());
-            result = getFile(URI.createURI(archiveURLConnection.getNestedURI()), converter, considerArchives);
-        } else if (uri.isPlatformPlugin()) {
-            /* resource with platform plug-in URI could not be in the workspace */
-            return result;
-        } else if (uri.isPlatformResource()) {
-            IPath path = new Path(uri.toPlatformString(true));
-            result = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-        } else if (uri.isFile() && !uri.isRelative()) {
-            result = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(
-                new Path(uri.toFileString()));
-        } else {
-            // normalize, to see whether may we can resolve it this time
-            if (converter != null) {
-                URI normalized = converter.normalize(uri);
-                
-                if (!uri.equals(normalized)) {
-                    // recurse on the new URI
-                    result = getFile(normalized, converter, considerArchives);
-                }
-            }
-        }
-        
-        if ((result == null) && !uri.isRelative()) {
-            try {
-            	java.net.URI location = new java.net.URI(uri.toString());
+		ResourceSet rset = resource.getResourceSet();
 
-            	if (hasRegisteredEFS(location)) {
-            		IFile[] files = ResourcesPlugin.getWorkspace().getRoot()
-            				.findFilesForLocationURI(new java.net.URI(uri.toString()));
-            		if (files.length > 0) {
-            			// set the result to be the first file found
-            			result = files[0];
-            		}
-            	}
-            } catch (URISyntaxException e) {
-                // won't get this because EMF provides a well-formed URI
-            }
-        }
-        
-        return result;
-    }
-	
-    private static boolean hasRegisteredEFS(java.net.URI location) {
-      	  try {
-              if(EFS.getStore(location)!=null){
-                return true;
-              }
-      	  } catch(CoreException ex) {
-      	    
-      	    return false;
-      	  }
-          return false;
-    }
-    
+		return getFile(resource.getURI(), (rset != null) ? rset.getURIConverter() : null, true);
+	}
+
+	/**
+	 * Finds the file corresponding to the specified URI, using a URI converter
+	 * if necessary (and provided) to normalize it.
+	 * 
+	 * @param uri a URI
+	 * @param converter an optional URI converter (may be <code>null</code>)
+	 * 
+	 * @return the file, if available in the workspace
+	 */
+	private static IFile getFile(URI uri, URIConverter converter, boolean considerArchives) {
+		IFile result = null;
+
+		if (considerArchives && uri.isArchive()) {
+			class MyArchiveURLConnection extends ArchiveURLConnection {
+				public MyArchiveURLConnection(String url) {
+					super(url);
+				}
+
+				public String getNestedURI() {
+					try {
+						return getNestedURL();
+					} catch (IOException exception) {
+						return ""; //$NON-NLS-1$
+					}
+				}
+			}
+			MyArchiveURLConnection archiveURLConnection = new MyArchiveURLConnection(uri.toString());
+			result = getFile(URI.createURI(archiveURLConnection.getNestedURI()), converter, considerArchives);
+		} else if (uri.isPlatformPlugin()) {
+			/* resource with platform plug-in URI could not be in the workspace */
+			return result;
+		} else if (uri.isPlatformResource()) {
+			IPath path = new Path(uri.toPlatformString(true));
+			result = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+		} else if (uri.isFile() && !uri.isRelative()) {
+			result = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(uri.toFileString()));
+		} else {
+			// normalize, to see whether may we can resolve it this time
+			if (converter != null) {
+				URI normalized = converter.normalize(uri);
+
+				if (!uri.equals(normalized)) {
+					// recurse on the new URI
+					result = getFile(normalized, converter, considerArchives);
+				}
+			}
+		}
+
+		if ((result == null) && !uri.isRelative()) {
+			try {
+				java.net.URI location = new java.net.URI(uri.toString());
+
+				if (hasRegisteredEFS(location)) {
+					IFile[] files = ResourcesPlugin.getWorkspace().getRoot()
+							.findFilesForLocationURI(new java.net.URI(uri.toString()));
+					if (files.length > 0) {
+						// set the result to be the first file found
+						result = files[0];
+					}
+				}
+			} catch (URISyntaxException e) {
+				// won't get this because EMF provides a well-formed URI
+			}
+		}
+
+		return result;
+	}
+
+	private static boolean hasRegisteredEFS(java.net.URI location) {
+		try {
+			if (EFS.getStore(location) != null) {
+				return true;
+			}
+		} catch (CoreException ex) {
+
+			return false;
+		}
+		return false;
+	}
+
 	/**
 	 * Starts a synchronizer listening to resource change events.
 	 * 
@@ -403,15 +388,14 @@ public final class WorkspaceSynchronizer {
 	static void startListening(WorkspaceSynchronizer synchronizer) {
 		// copy-on-write for thread safety
 		synchronized (synchronizers) {
-			Collection<WorkspaceSynchronizer> newList =
-				new java.util.ArrayList<WorkspaceSynchronizer>(synchronizers.size() + 1);
+			Collection<WorkspaceSynchronizer> newList = new java.util.ArrayList<WorkspaceSynchronizer>(
+					synchronizers.size() + 1);
 			newList.addAll(synchronizers);
 			newList.add(synchronizer);
 			synchronizers = newList;
-			
+
 			// ensure that we are listening to the workspace
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(
-					workspaceListener,
+			ResourcesPlugin.getWorkspace().addResourceChangeListener(workspaceListener,
 					IResourceChangeEvent.POST_CHANGE);
 		}
 	}
@@ -424,19 +408,17 @@ public final class WorkspaceSynchronizer {
 	static void stopListening(WorkspaceSynchronizer synchronizer) {
 		// copy-on-write for thread safety
 		synchronized (synchronizers) {
-			Collection<WorkspaceSynchronizer> newList =
-				new java.util.ArrayList<WorkspaceSynchronizer>(synchronizers);
+			Collection<WorkspaceSynchronizer> newList = new java.util.ArrayList<WorkspaceSynchronizer>(synchronizers);
 			newList.remove(synchronizer);
 			synchronizers = newList;
-			
+
 			if (synchronizers.isEmpty()) {
 				// stop listening to the workspace
-				ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-						workspaceListener);
+				ResourcesPlugin.getWorkspace().removeResourceChangeListener(workspaceListener);
 			}
 		}
 	}
-	
+
 	/**
 	 * Obtains the synchronizers that need to process a resource change event.
 	 * 
@@ -446,7 +428,7 @@ public final class WorkspaceSynchronizer {
 		// does not need synchronization because we copy on write
 		return synchronizers;
 	}
-	
+
 	/**
 	 * Call-back interface for an object to which a {@link WorkspaceSynchronizer}
 	 * delegates the algorithms for handling different kinds of resource
@@ -474,7 +456,7 @@ public final class WorkspaceSynchronizer {
 		 *    default algorithm
 		 */
 		boolean handleResourceDeleted(Resource resource);
-		
+
 		/**
 		 * Optionally handles the move of the physical workspace resource
 		 * behind the specified EMF resource.  Both in-place renames of a
@@ -489,7 +471,7 @@ public final class WorkspaceSynchronizer {
 		 *    default algorithm
 		 */
 		boolean handleResourceMoved(Resource resource, URI newURI);
-		
+
 		/**
 		 * Optionally handles a change to the physical workspace resource
 		 * behind the specified EMF resource.
@@ -503,13 +485,13 @@ public final class WorkspaceSynchronizer {
 		boolean handleResourceChanged(Resource resource);
 
 		boolean handleResourceMarkersChanged(Resource resource, IFile file);
-		
+
 		/**
 		 * Disposes me.  This is called by the synchronizer when it is disposed.
 		 */
 		void dispose();
 	}
-	
+
 	/**
 	 * The single shared workspace listener that passes workspace changes
 	 * along to the currently active synchronizers.
@@ -520,14 +502,12 @@ public final class WorkspaceSynchronizer {
 		@Override
 		public void resourceChanged(IResourceChangeEvent event) {
 			IResourceDelta delta = event.getDelta();
-			
+
 			try {
-				final List<SynchRequest> synchRequests =
-					new java.util.ArrayList<SynchRequest>();
-				
-				final List<IFile> affectedFiles =
-					new java.util.ArrayList<IFile>();
-				
+				final List<SynchRequest> synchRequests = new java.util.ArrayList<SynchRequest>();
+
+				final List<IFile> affectedFiles = new java.util.ArrayList<IFile>();
+
 				delta.accept(new IResourceDeltaVisitor() {
 					@Override
 					public boolean visit(IResourceDelta delta) {
@@ -544,8 +524,9 @@ public final class WorkspaceSynchronizer {
 						}
 
 						return true;
-					}});
-				
+					}
+				});
+
 				if (!synchRequests.isEmpty()) {
 					new ResourceSynchJob(synchRequests, affectedFiles).schedule();
 				}
@@ -554,7 +535,7 @@ public final class WorkspaceSynchronizer {
 				EMFWorkspacePlugin.INSTANCE.log(e);
 			}
 		}
-		
+
 		/**
 		 * Passes the delta to all available synchronizers, to process it.
 		 * 
@@ -562,14 +543,13 @@ public final class WorkspaceSynchronizer {
 		 * @param synchRequests accumulates synch requests for the deltas
 		 * @param affectedFiles accumulates files affected by the deltas
 		 */
-		private void processDelta(IResourceDelta delta, List<SynchRequest> synchRequests,
-				List<IFile> affectedFiles) {
+		private void processDelta(IResourceDelta delta, List<SynchRequest> synchRequests, List<IFile> affectedFiles) {
 			for (WorkspaceSynchronizer next : getSynchronizers()) {
 				next.processDelta(delta, synchRequests, affectedFiles);
 			}
 		}
 	}
-	
+
 	/**
 	 * The default algorithms for handling workspace resource changes.
 	 *
@@ -595,11 +575,10 @@ public final class WorkspaceSynchronizer {
 			try {
 				resource.load(resource.getResourceSet().getLoadOptions());
 			} catch (IOException e) {
-				Tracing.catching(DefaultDelegate.class,
-						"handleResourceChanged", e); //$NON-NLS-1$
+				Tracing.catching(DefaultDelegate.class, "handleResourceChanged", e); //$NON-NLS-1$
 				EMFWorkspacePlugin.INSTANCE.log(e);
 			}
-			
+
 			return true;
 		}
 
@@ -613,7 +592,7 @@ public final class WorkspaceSynchronizer {
 			// nothing to dispose (especially as I am shared)
 		}
 	}
-	
+
 	/**
 	 * A job that runs under the workspace scheduling rule to process one or
 	 * more resource synchronization requests.
@@ -622,7 +601,7 @@ public final class WorkspaceSynchronizer {
 	 */
 	private static class ResourceSynchJob extends WorkspaceJob {
 		private final List<SynchRequest> synchRequests;
-		
+
 		/**
 		 * Initializes me with the list of resources changes that I am to
 		 * process.
@@ -630,15 +609,14 @@ public final class WorkspaceSynchronizer {
 		 * @param synchRequests the resource synchronization requests
 		 * @param affectedResources the resources affected by the workspace changes
 		 */
-		ResourceSynchJob(List<SynchRequest> synchRequests,
-				List<? extends IResource> affectedResources) {
+		ResourceSynchJob(List<SynchRequest> synchRequests, List<? extends IResource> affectedResources) {
 			super(Messages.synchJobName);
-			
+
 			this.synchRequests = synchRequests;
-			
+
 			setRule(getRule(affectedResources));
 		}
-		
+
 		/**
 		 * Processes my queued resource synchronization requests.
 		 */
@@ -661,10 +639,10 @@ public final class WorkspaceSynchronizer {
 				Tracing.catching(ResourceSynchJob.class, "run", e); //$NON-NLS-1$
 				return Status.CANCEL_STATUS;
 			}
-			
+
 			return Status.OK_STATUS;
 		}
-		
+
 		/**
 		 * Obtains a scheduling rule to schedule myself on to give my delegate
 		 * access to the specified affected resources.
@@ -675,15 +653,15 @@ public final class WorkspaceSynchronizer {
 		 */
 		private ISchedulingRule getRule(List<? extends IResource> affectedResources) {
 			ISchedulingRule result = null;
-			
+
 			if (!affectedResources.isEmpty()) {
 				IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
-				
+
 				for (IResource next : affectedResources) {
 					result = MultiRule.combine(result, factory.modifyRule(next));
 				}
 			}
-			
+
 			return result;
 		}
 	}

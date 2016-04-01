@@ -90,8 +90,8 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider {
 						getResourceLocator(), getString("_UI_MemorySubcomponent_memorySubcomponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_MemorySubcomponent_memorySubcomponentType_feature", "_UI_MemorySubcomponent_type"),
-				Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

@@ -399,8 +399,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseBusSubcomponent(BusSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "bus");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "bus");
 				return null;
 			}
 
@@ -431,8 +431,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseDataSubcomponent(DataSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "data");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "data");
 				return null;
 			}
 
@@ -464,8 +464,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseDeviceSubcomponent(DeviceSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "device");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "device");
 				return null;
 			}
 
@@ -495,8 +495,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseMemorySubcomponent(MemorySubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "memory");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "memory");
 				return null;
 			}
 
@@ -536,8 +536,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " virtual processor");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " virtual processor");
 				return null;
 			}
 
@@ -567,8 +567,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseVirtualBusSubcomponent(VirtualBusSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " virtual bus");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " virtual bus");
 				return null;
 			}
 
@@ -598,8 +598,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseAbstractSubcomponent(AbstractSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "abstract");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "abstract");
 				return null;
 			}
 
@@ -629,8 +629,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseProcessorSubcomponent(ProcessorSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "processor");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "processor");
 				return null;
 			}
 
@@ -651,8 +651,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseProcessSubcomponent(ProcessSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "process");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "process");
 				return null;
 			}
 
@@ -683,8 +683,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSystemSubcomponent(SystemSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "system");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "system");
 				return null;
 			}
 
@@ -714,8 +714,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseThreadGroupSubcomponent(ThreadGroupSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "thread group");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "thread group");
 				return null;
 			}
 
@@ -746,8 +746,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseThreadSubcomponent(ThreadSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "thread");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "thread");
 				return null;
 			}
 
@@ -787,8 +787,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSubprogramSubcomponent(SubprogramSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "subprogram");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "subprogram");
 				return null;
 			}
 
@@ -818,8 +818,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSubprogramGroupSubcomponent(SubprogramGroupSubcomponent object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "subprogram group");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "subprogram group");
 				return null;
 			}
 
@@ -833,8 +833,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSubprogramPrototype(SubprogramPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " subprogram");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " subprogram");
 				return null;
 			}
 
@@ -844,8 +844,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSystemPrototype(SystemPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " system");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " system");
 				return null;
 			}
 
@@ -855,8 +855,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseAbstractPrototype(AbstractPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " abstract");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " abstract");
 				return null;
 			}
 
@@ -866,8 +866,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseProcessPrototype(ProcessPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " process");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " process");
 				return null;
 			}
 
@@ -877,8 +877,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseThreadGroupPrototype(ThreadGroupPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " thread group");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " thread group");
 				return null;
 			}
 
@@ -888,8 +888,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseThreadPrototype(ThreadPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " thread");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " thread");
 				return null;
 			}
 
@@ -899,8 +899,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseProcessorPrototype(ProcessorPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " processor");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " processor");
 				return null;
 			}
 
@@ -910,8 +910,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseMemoryPrototype(MemoryPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " memory");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " memory");
 				return null;
 			}
 
@@ -921,8 +921,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseBusPrototype(BusPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " bus");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " bus");
 				return null;
 			}
 
@@ -932,8 +932,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseDevicePrototype(DevicePrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " device");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " device");
 				return null;
 			}
 
@@ -943,8 +943,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseVirtualProcessorPrototype(VirtualProcessorPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " virtual processor");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " virtual processor");
 				return null;
 			}
 
@@ -954,8 +954,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseVirtualBusPrototype(VirtualBusPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " virtual bus");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " virtual bus");
 				return null;
 			}
 
@@ -965,8 +965,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseSubprogramGroupPrototype(SubprogramGroupPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " subprogram group");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " subprogram group");
 				return null;
 			}
 
@@ -989,8 +989,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseFeatureGroupPrototype(FeatureGroupPrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " feature group");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " feature group");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getConstrainingFeatureGroupType(), object));
 				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1004,8 +1004,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseFeaturePrototype(FeaturePrototype object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":") : (object.getRefined()
-						.getName() + " refined to")) + " feature");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ":")
+						: (object.getRefined().getName() + " refined to")) + " feature");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getConstrainingClassifier(), object));
 				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1283,8 +1283,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(object.getName() + ": " + (object.getRefined() != null ? "refined to " : "") + d
 						+ " subprogram group access ");
 
-				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getSubprogramGroupFeatureClassifier(),
-						object));
+				aadlText.addOutput(
+						AadlUtil.getSubcomponentTypeName(object.getSubprogramGroupFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1313,8 +1313,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseDataPort(DataPort object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + object.getDirection().getName() + " data port ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + object.getDirection().getName()
+						+ " data port ");
 				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				return null;
 			}
@@ -1330,8 +1331,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					return DONE;
 				}
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + object.getDirection().getName() + " event data port ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + object.getDirection().getName()
+						+ " event data port ");
 				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				return null;
 			}
@@ -1347,8 +1349,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					return DONE;
 				}
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + object.getDirection().getName() + " event port ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + object.getDirection().getName()
+						+ " event port ");
 				return null;
 			}
 
@@ -1369,8 +1372,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseParameter(Parameter object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + object.getDirection() + " parameter ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + object.getDirection() + " parameter ");
 				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
@@ -1383,8 +1386,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseFeatureGroup(FeatureGroup object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "feature group ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "feature group ");
 				if (object.isInverse()) {
 					aadlText.addOutput("inverse of ");
 				}
@@ -1428,8 +1431,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			@Override
 			public String caseAbstractFeature(AbstractFeature object) {
 				processComments(object);
-				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ") : (object.getRefined()
-						.getName() + ": refined to ")) + "feature ");
+				aadlText.addOutput((object.getRefined() == null ? (object.getName() + ": ")
+						: (object.getRefined().getName() + ": refined to ")) + "feature ");
 				aadlText.addOutput(AadlUtil.getFeaturePrototypeName(object.getFeaturePrototype(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");

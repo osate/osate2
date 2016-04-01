@@ -89,9 +89,9 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 		try {
 			textpositionresolver = (AnnexTextPositionResolver) configElem.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			AnnexPlugin.logError(
-					"Failed to instantiate " + annexName + " text position resolver " + className + " in type: " + id
-							+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+			AnnexPlugin.logError("Failed to instantiate " + annexName + " text position resolver " + className
+					+ " in type: " + id + " in plugin " + configElem.getDeclaringExtension().getContributor().getName(),
+					e);
 		}
 		return textpositionresolver;
 	}

@@ -255,12 +255,11 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			Throwable t = e.getTargetException();
 			if (t instanceof CoreException) {
 				if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
-					MessageDialog
-							.openError(getShell(),
-									"Creation Problems", //$NON-NLS-1$
-									MessageFormat
-											.format("The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
-							);
+					MessageDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
+							MessageFormat.format(
+									"The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", //$NON-NLS-1$
+									newProjectHandle.getName()) // ,
+					);
 				} else {
 					ErrorDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
 							null, // no special message
@@ -367,12 +366,10 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
-			MessageDialog
-					.openError(getShell(),
-							"Refresh Problems Problems", //$NON-NLS-1$
-							MessageFormat
-									.format("Resource changes are disallowed during certain types of resource change event notification",
-											e2.getStackTrace().toString()));
+			MessageDialog.openError(getShell(), "Refresh Problems Problems", //$NON-NLS-1$
+					MessageFormat.format(
+							"Resource changes are disallowed during certain types of resource change event notification",
+							e2.getStackTrace().toString()));
 		}
 		try {
 			if (!p.hasNature(XtextProjectHelper.NATURE_ID)) {

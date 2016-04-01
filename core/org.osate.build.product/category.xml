@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.osate.core.feature_2.2.1.qualifier.jar" id="org.osate.core.feature" version="2.2.1.qualifier">
+   <feature id="org.osate.core.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.plugins.feature_2.2.1.qualifier.jar" id="org.osate.plugins.feature" version="2.2.1.qualifier">
+   <feature id="org.osate.plugins.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.ge.feature_2.2.1.qualifier.jar" id="org.osate.ge.feature" version="2.2.1.qualifier">
+   <feature id="org.osate.ge.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.ge.feature.source_2.2.1.qualifier.jar" id="org.osate.ge.feature.source" version="2.2.1.qualifier">
+   <feature id="org.osate.ge.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.core.feature.source_2.2.1.qualifier.jar" id="org.osate.core.feature.source" version="2.2.1.qualifier">
+   <feature id="org.osate.core.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.plugins.feature.source_2.2.1.qualifier.jar" id="org.osate.plugins.feature.source" version="2.2.1.qualifier">
+   <feature id="org.osate.plugins.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.2.1.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.2.1.qualifier">
+   <feature id="org.osate.xtext.aadl2.errormodel.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.xtext.aadl2.errormodel.feature.source_2.2.1.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature.source" version="2.2.1.qualifier">
+   <feature id="org.osate.xtext.aadl2.errormodel.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.ocarina.feature_0.0.1.qualifier.jar" id="org.osate.ocarina.feature" version="0.0.1.qualifier">
+   <feature id="org.osate.ocarina.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.ocarina.feature.source_0.0.1.qualifier.jar" id="org.osate.ocarina.feature.source" version="0.0.1.qualifier">
+   <feature id="org.osate.ocarina.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.ba.feature_1.0.0.qualifier.jar" id="org.osate.ba.feature" version="1.0.0.qualifier">
+   <feature id="org.osate.ba.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.utils.feature_1.0.0.qualifier.jar" id="org.osate.utils.feature" version="1.0.0.qualifier">
+   <feature id="org.osate.utils.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/com.rockwellcollins.atc.agree.feature_2.1.2.qualifier.jar" id="com.rockwellcollins.atc.agree.feature" version="2.1.2.qualifier">
+   <feature id="com.rockwellcollins.atc.agree.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/com.rockwellcollins.atc.resolute.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.resolute.feature" version="1.0.0.qualifier">
+   <feature id="com.rockwellcollins.atc.resolute.feature">
       <category name="osate2"/>
    </feature>
-   <feature url="features/com.rockwellcollins.atc.agree.source.feature_2.1.2.qualifier.jar" id="com.rockwellcollins.atc.agree.source.feature" version="2.1.2.qualifier">
+   <feature id="com.rockwellcollins.atc.agree.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/com.rockwellcollins.atc.resolute.source.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.resolute.source.feature" version="1.0.0.qualifier">
+   <feature id="com.rockwellcollins.atc.resolute.feature.source">
       <category name="osate2source"/>
    </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
@@ -54,5 +54,5 @@
       </description>
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
-   <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true"/>
+   <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>

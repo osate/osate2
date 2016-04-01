@@ -90,8 +90,8 @@ public class StructuralFeatureItemProvider extends RefinableElementItemProvider 
 						getResourceLocator(), getString("_UI_ClassifierFeature_featuringClassifier_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ClassifierFeature_featuringClassifier_feature", "_UI_ClassifierFeature_type"),
-				Aadl2Package.eINSTANCE.getClassifierFeature_FeaturingClassifier(), false, false, false, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getClassifierFeature_FeaturingClassifier(), false, false, false, null,
+						null, null));
 	}
 
 	/**

@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 abstract class SynchRequest {
 	protected final WorkspaceSynchronizer synch;
 	protected final Resource resource;
-	
+
 	/**
 	 * Initializes me with the synchronizer on whose behalf I perform a
 	 * synchronization and the resource whose workspace partner is changed.
@@ -41,7 +41,7 @@ abstract class SynchRequest {
 		this.synch = synch;
 		this.resource = resource;
 	}
-	
+
 	/**
 	 * Performs the synchronization on the synchronizer's behalf.
 	 * Clients must hold my {@linkplain #getLock() synchronization lock} when
@@ -56,15 +56,16 @@ abstract class SynchRequest {
 		synch.getEditingDomain().runExclusive(new Runnable() {
 			public void run() {
 				doPerform();
-			}});
+			}
+		});
 	}
-	
+
 	/**
 	 * Implemented by subclasses to actually perform their synchronization
 	 * by delegation to the synchronizer's delegate.
 	 */
 	protected abstract void doPerform();
-	
+
 	/**
 	 * Queries whether I am disposed.  If I am disposed, then I should not
 	 * be performed.  Clients must hold my
@@ -78,7 +79,7 @@ abstract class SynchRequest {
 	protected final boolean isDisposed() {
 		return synch.isDisposed();
 	}
-	
+
 	/**
 	 * My synchronization lock, for external synchronization of calls to
 	 * such methods as {@link #isDisposed()} and {@link #perform()}.
