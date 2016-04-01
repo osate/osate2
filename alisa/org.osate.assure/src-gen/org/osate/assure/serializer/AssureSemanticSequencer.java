@@ -43,6 +43,7 @@ import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ARange;
 import org.osate.alisa.common.common.AUnaryOperation;
+import org.osate.alisa.common.common.AUnitExpression;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
@@ -152,8 +153,38 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			}
 		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
-				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
-				return; 
+				if(context == grammarAccess.getAExpressionRule() ||
+				   context == grammarAccess.getAOrExpressionRule() ||
+				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAAndExpressionRule() ||
+				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAEqualityExpressionRule() ||
+				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AAdditiveExpression_AEqualityExpression_AMultiplicativeExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAAdditiveExpressionRule() ||
+				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AAdditiveExpression_AMultiplicativeExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getARelationalExpressionRule() ||
+				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AAdditiveExpression_AMultiplicativeExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAMultiplicativeExpressionRule() ||
+				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()) {
+					sequence_AMultiplicativeExpression(context, (ABinaryOperation) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.ACONDITIONAL:
 				sequence_AIfExpression(context, (AConditional) semanticObject); 
 				return; 
@@ -176,7 +207,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAOrExpressionRule() ||
 				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAParenthesizedExpressionRule() ||
 				   context == grammarAccess.getAPrimaryExpressionRule() ||
 				   context == grammarAccess.getARelationalExpressionRule() ||
 				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
@@ -194,6 +224,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
+				return; 
+			case CommonPackage.AUNIT_EXPRESSION:
+				sequence_AParenthesizedExpression(context, (AUnitExpression) semanticObject); 
 				return; 
 			case CommonPackage.AVARIABLE_REFERENCE:
 				sequence_AVariableReference(context, (AVariableReference) semanticObject); 

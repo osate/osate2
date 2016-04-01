@@ -46,7 +46,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.AFunctionCallImpl#getFunction <em>Function</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.AFunctionCallImpl#getFunctionCallArguments <em>Function Call Arguments</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AFunctionCallImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
  * @generated
@@ -74,14 +74,14 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
   protected String function = FUNCTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFunctionCallArguments() <em>Function Call Arguments</em>}' containment reference list.
+   * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFunctionCallArguments()
+   * @see #getArguments()
    * @generated
    * @ordered
    */
-  protected EList<PropertyExpression> functionCallArguments;
+  protected EList<PropertyExpression> arguments;
 
   /**
    * <!-- begin-user-doc -->
@@ -132,13 +132,13 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyExpression> getFunctionCallArguments()
+  public EList<PropertyExpression> getArguments()
   {
-    if (functionCallArguments == null)
+    if (arguments == null)
     {
-      functionCallArguments = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS);
+      arguments = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, CommonPackage.AFUNCTION_CALL__ARGUMENTS);
     }
-    return functionCallArguments;
+    return arguments;
   }
 
   /**
@@ -151,8 +151,8 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
   {
     switch (featureID)
     {
-      case CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS:
-        return ((InternalEList<?>)getFunctionCallArguments()).basicRemove(otherEnd, msgs);
+      case CommonPackage.AFUNCTION_CALL__ARGUMENTS:
+        return ((InternalEList<?>)getArguments()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -169,8 +169,8 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
     {
       case CommonPackage.AFUNCTION_CALL__FUNCTION:
         return getFunction();
-      case CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS:
-        return getFunctionCallArguments();
+      case CommonPackage.AFUNCTION_CALL__ARGUMENTS:
+        return getArguments();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -189,9 +189,9 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
       case CommonPackage.AFUNCTION_CALL__FUNCTION:
         setFunction((String)newValue);
         return;
-      case CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS:
-        getFunctionCallArguments().clear();
-        getFunctionCallArguments().addAll((Collection<? extends PropertyExpression>)newValue);
+      case CommonPackage.AFUNCTION_CALL__ARGUMENTS:
+        getArguments().clear();
+        getArguments().addAll((Collection<? extends PropertyExpression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,8 +210,8 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
       case CommonPackage.AFUNCTION_CALL__FUNCTION:
         setFunction(FUNCTION_EDEFAULT);
         return;
-      case CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS:
-        getFunctionCallArguments().clear();
+      case CommonPackage.AFUNCTION_CALL__ARGUMENTS:
+        getArguments().clear();
         return;
     }
     super.eUnset(featureID);
@@ -229,8 +229,8 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
     {
       case CommonPackage.AFUNCTION_CALL__FUNCTION:
         return FUNCTION_EDEFAULT == null ? function != null : !FUNCTION_EDEFAULT.equals(function);
-      case CommonPackage.AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS:
-        return functionCallArguments != null && !functionCallArguments.isEmpty();
+      case CommonPackage.AFUNCTION_CALL__ARGUMENTS:
+        return arguments != null && !arguments.isEmpty();
     }
     return super.eIsSet(featureID);
   }

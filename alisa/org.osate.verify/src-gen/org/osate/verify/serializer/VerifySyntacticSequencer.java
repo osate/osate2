@@ -33,8 +33,6 @@ import org.osate.verify.services.VerifyGrammarAccess;
 public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected VerifyGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
-	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_a;
 	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_p;
 	protected AbstractElementAlias match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_5_0__q;
@@ -55,8 +53,6 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
-		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
-		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_Claim_ActivitiesKeyword_5_0_0_a = new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
 		match_Claim_ActivitiesKeyword_5_0_0_p = new TokenAlias(true, false, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
 		match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_5_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_5_5_0()));
@@ -87,11 +83,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
-				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
-				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_ActivitiesKeyword_5_0_0_a.equals(syntax))
+			if(match_Claim_ActivitiesKeyword_5_0_0_a.equals(syntax))
 				emit_Claim_ActivitiesKeyword_5_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Claim_ActivitiesKeyword_5_0_0_p.equals(syntax))
 				emit_Claim_ActivitiesKeyword_5_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -127,56 +119,6 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
-	/**
-	 * Ambiguous syntax:
-	 *     '('*
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '[' minimum=AExpression
-	 *     (rule start) (ambiguity) 'false' (rule start)
-	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
-	 *     (rule start) (ambiguity) 'this' (rule start)
-	 *     (rule start) (ambiguity) function=ID
-	 *     (rule start) (ambiguity) operator=OpUnary
-	 *     (rule start) (ambiguity) value=AInt
-	 *     (rule start) (ambiguity) value=AReal
-	 *     (rule start) (ambiguity) value=NoQuoteString
-	 *     (rule start) (ambiguity) value?='true'
-	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
-	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
-	 */
-	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '('+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '[' minimum=AExpression
-	 *     (rule start) (ambiguity) 'false' ')' (rule start)
-	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' ')' (rule start)
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
-	 *     (rule start) (ambiguity) function=ID
-	 *     (rule start) (ambiguity) operator=OpUnary
-	 *     (rule start) (ambiguity) value=AInt
-	 *     (rule start) (ambiguity) value=AReal
-	 *     (rule start) (ambiguity) value=NoQuoteString
-	 *     (rule start) (ambiguity) value?='true'
-	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
-	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
-	 */
-	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
 	/**
 	 * Ambiguous syntax:
 	 *     'activities'*

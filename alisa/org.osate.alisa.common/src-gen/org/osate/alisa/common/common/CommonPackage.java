@@ -901,13 +901,22 @@ public interface CommonPackage extends EPackage
   int AVARIABLE_REFERENCE__VARIABLE = AEXPRESSION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVARIABLE_REFERENCE__UNIT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>AVariable Reference</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AVARIABLE_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+  int AVARIABLE_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl <em>ABinary Operation</em>}' class.
@@ -1066,13 +1075,13 @@ public interface CommonPackage extends EPackage
   int AFUNCTION_CALL__FUNCTION = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Function Call Arguments</b></em>' containment reference list.
+   * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+  int AFUNCTION_CALL__ARGUMENTS = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>AFunction Call</em>' class.
@@ -1212,6 +1221,61 @@ public interface CommonPackage extends EPackage
   int ACONDITIONAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
+   * @generated
+   */
+  int AUNIT_EXPRESSION = 23;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__EXPRESSION = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__UNIT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>AUnit Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1219,7 +1283,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssueType()
    * @generated
    */
-  int RESULT_ISSUE_TYPE = 23;
+  int RESULT_ISSUE_TYPE = 24;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.Operation <em>Operation</em>}' enum.
@@ -1229,7 +1293,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 24;
+  int OPERATION = 25;
 
 
   /**
@@ -1721,6 +1785,17 @@ public interface CommonPackage extends EPackage
   EReference getAVariableReference_Variable();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AVariableReference#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.AVariableReference#getUnit()
+   * @see #getAVariableReference()
+   * @generated
+   */
+  EReference getAVariableReference_Unit();
+
+  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ABinaryOperation <em>ABinary Operation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1817,15 +1892,15 @@ public interface CommonPackage extends EPackage
   EAttribute getAFunctionCall_Function();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.AFunctionCall#getFunctionCallArguments <em>Function Call Arguments</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.AFunctionCall#getArguments <em>Arguments</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Function Call Arguments</em>'.
-   * @see org.osate.alisa.common.common.AFunctionCall#getFunctionCallArguments()
+   * @return the meta object for the containment reference list '<em>Arguments</em>'.
+   * @see org.osate.alisa.common.common.AFunctionCall#getArguments()
    * @see #getAFunctionCall()
    * @generated
    */
-  EReference getAFunctionCall_FunctionCallArguments();
+  EReference getAFunctionCall_Arguments();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ARange <em>ARange</em>}'.
@@ -1912,6 +1987,38 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getAConditional_Else();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AUnit Expression</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression
+   * @generated
+   */
+  EClass getAUnitExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AUnitExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#getExpression()
+   * @see #getAUnitExpression()
+   * @generated
+   */
+  EReference getAUnitExpression_Expression();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#getUnit()
+   * @see #getAUnitExpression()
+   * @generated
+   */
+  EReference getAUnitExpression_Unit();
 
   /**
    * Returns the meta object for enum '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}'.
@@ -2361,6 +2468,14 @@ public interface CommonPackage extends EPackage
     EReference AVARIABLE_REFERENCE__VARIABLE = eINSTANCE.getAVariableReference_Variable();
 
     /**
+     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AVARIABLE_REFERENCE__UNIT = eINSTANCE.getAVariableReference_Unit();
+
+    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl <em>ABinary Operation</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2439,12 +2554,12 @@ public interface CommonPackage extends EPackage
     EAttribute AFUNCTION_CALL__FUNCTION = eINSTANCE.getAFunctionCall_Function();
 
     /**
-     * The meta object literal for the '<em><b>Function Call Arguments</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS = eINSTANCE.getAFunctionCall_FunctionCallArguments();
+    EReference AFUNCTION_CALL__ARGUMENTS = eINSTANCE.getAFunctionCall_Arguments();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ARangeImpl <em>ARange</em>}' class.
@@ -2513,6 +2628,32 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference ACONDITIONAL__ELSE = eINSTANCE.getAConditional_Else();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl <em>AUnit Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AUnitExpressionImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnitExpression()
+     * @generated
+     */
+    EClass AUNIT_EXPRESSION = eINSTANCE.getAUnitExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AUNIT_EXPRESSION__EXPRESSION = eINSTANCE.getAUnitExpression_Expression();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AUNIT_EXPRESSION__UNIT = eINSTANCE.getAUnitExpression_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.ResultIssueType <em>Result Issue Type</em>}' enum.

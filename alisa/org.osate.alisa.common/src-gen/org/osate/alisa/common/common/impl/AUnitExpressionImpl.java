@@ -16,6 +16,7 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -23,37 +24,39 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.UnitLiteral;
 
-import org.osate.alisa.common.common.AVariableDeclaration;
-import org.osate.alisa.common.common.AVariableReference;
+import org.osate.aadl2.impl.PropertyExpressionImpl;
+
+import org.osate.alisa.common.common.AUnitExpression;
 import org.osate.alisa.common.common.CommonPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>AVariable Reference</b></em>'.
+ * An implementation of the model object '<em><b>AUnit Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl#getVariable <em>Variable</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl#getUnit <em>Unit</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AVariableReferenceImpl extends AExpressionImpl implements AVariableReference
+public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnitExpression
 {
   /**
-   * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
+   * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVariable()
+   * @see #getExpression()
    * @generated
    * @ordered
    */
-  protected AVariableDeclaration variable;
+  protected PropertyExpression expression;
 
   /**
    * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -70,7 +73,7 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AVariableReferenceImpl()
+  protected AUnitExpressionImpl()
   {
     super();
   }
@@ -83,7 +86,7 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.AVARIABLE_REFERENCE;
+    return CommonPackage.Literals.AUNIT_EXPRESSION;
   }
 
   /**
@@ -91,19 +94,9 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
-  public AVariableDeclaration getVariable()
+  public PropertyExpression getExpression()
   {
-    if (variable != null && variable.eIsProxy())
-    {
-      InternalEObject oldVariable = (InternalEObject)variable;
-      variable = (AVariableDeclaration)eResolveProxy(oldVariable);
-      if (variable != oldVariable)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AVARIABLE_REFERENCE__VARIABLE, oldVariable, variable));
-      }
-    }
-    return variable;
+    return expression;
   }
 
   /**
@@ -111,22 +104,37 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
-  public AVariableDeclaration basicGetVariable()
+  public NotificationChain basicSetExpression(PropertyExpression newExpression, NotificationChain msgs)
   {
-    return variable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVariable(AVariableDeclaration newVariable)
-  {
-    AVariableDeclaration oldVariable = variable;
-    variable = newVariable;
+    PropertyExpression oldExpression = expression;
+    expression = newExpression;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_REFERENCE__VARIABLE, oldVariable, variable));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.AUNIT_EXPRESSION__EXPRESSION, oldExpression, newExpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExpression(PropertyExpression newExpression)
+  {
+    if (newExpression != expression)
+    {
+      NotificationChain msgs = null;
+      if (expression != null)
+        msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AUNIT_EXPRESSION__EXPRESSION, null, msgs);
+      if (newExpression != null)
+        msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AUNIT_EXPRESSION__EXPRESSION, null, msgs);
+      msgs = basicSetExpression(newExpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNIT_EXPRESSION__EXPRESSION, newExpression, newExpression));
   }
 
   /**
@@ -143,7 +151,7 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
       if (unit != oldUnit)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AVARIABLE_REFERENCE__UNIT, oldUnit, unit));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AUNIT_EXPRESSION__UNIT, oldUnit, unit));
       }
     }
     return unit;
@@ -169,7 +177,23 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
     UnitLiteral oldUnit = unit;
     unit = newUnit;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_REFERENCE__UNIT, oldUnit, unit));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNIT_EXPRESSION__UNIT, oldUnit, unit));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
+        return basicSetExpression(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -182,10 +206,9 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
-        if (resolve) return getVariable();
-        return basicGetVariable();
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
+      case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
+        return getExpression();
+      case CommonPackage.AUNIT_EXPRESSION__UNIT:
         if (resolve) return getUnit();
         return basicGetUnit();
     }
@@ -202,10 +225,10 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
-        setVariable((AVariableDeclaration)newValue);
+      case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
+        setExpression((PropertyExpression)newValue);
         return;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
+      case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)newValue);
         return;
     }
@@ -222,10 +245,10 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
-        setVariable((AVariableDeclaration)null);
+      case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
+        setExpression((PropertyExpression)null);
         return;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
+      case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)null);
         return;
     }
@@ -242,12 +265,12 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
   {
     switch (featureID)
     {
-      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
-        return variable != null;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
+      case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
+        return expression != null;
+      case CommonPackage.AUNIT_EXPRESSION__UNIT:
         return unit != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //AVariableReferenceImpl
+} //AUnitExpressionImpl

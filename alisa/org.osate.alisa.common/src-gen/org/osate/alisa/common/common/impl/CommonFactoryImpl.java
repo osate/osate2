@@ -101,6 +101,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
       case CommonPackage.ARANGE: return createARange();
       case CommonPackage.ACONDITIONAL: return createAConditional();
+      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -395,6 +396,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AConditionalImpl aConditional = new AConditionalImpl();
     return aConditional;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AUnitExpression createAUnitExpression()
+  {
+    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
+    return aUnitExpression;
   }
 
   /**

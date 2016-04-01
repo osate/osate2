@@ -723,12 +723,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cVariableAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cVariableAVariableDeclarationCrossReference_1_0 = (CrossReference)cVariableAssignment_1.eContents().get(0);
 		private final RuleCall cVariableAVariableDeclarationIDTerminalRuleCall_1_0_1 = (RuleCall)cVariableAVariableDeclarationCrossReference_1_0.eContents().get(1);
+		private final Assignment cUnitAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cUnitUnitLiteralCrossReference_2_0 = (CrossReference)cUnitAssignment_2.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_2_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_2_0.eContents().get(1);
 		
 		//AVariableReference returns AExpression:
-		//	{AVariableReference} variable=[AVariableDeclaration];
+		//	{AVariableReference} variable=[AVariableDeclaration] unit=[aadl2::UnitLiteral]?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AVariableReference} variable=[AVariableDeclaration]
+		//{AVariableReference} variable=[AVariableDeclaration] unit=[aadl2::UnitLiteral]?
 		public Group getGroup() { return cGroup; }
 
 		//{AVariableReference}
@@ -742,6 +745,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1() { return cVariableAVariableDeclarationIDTerminalRuleCall_1_0_1; }
+
+		//unit=[aadl2::UnitLiteral]?
+		public Assignment getUnitAssignment_2() { return cUnitAssignment_2; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_2_0() { return cUnitUnitLiteralCrossReference_2_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_2_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_2_0_1; }
 	}
 
 	public class ShowValueElements extends AbstractParserRuleElementFinder {
@@ -1307,19 +1319,19 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAPrimaryExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//AUnaryOperation returns aadl2::PropertyExpression:
-		//	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
+		//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression
+		//{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | APrimaryExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{AUnaryOperation} operator=OpUnary operand=AUnaryOperation
+		//{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation
 		public Group getGroup_0() { return cGroup_0; }
 
 		//{AUnaryOperation}
 		public Action getAUnaryOperationAction_0_0() { return cAUnaryOperationAction_0_0; }
 
-		//operator=OpUnary
+		//=> operator=OpUnary
 		public Assignment getOperatorAssignment_0_1() { return cOperatorAssignment_0_1; }
 
 		//OpUnary
@@ -1408,19 +1420,19 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFunctionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cFunctionIDTerminalRuleCall_1_0 = (RuleCall)cFunctionAssignment_1.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cFunctionCallArgumentsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cFunctionCallArgumentsAExpressionParserRuleCall_3_0 = (RuleCall)cFunctionCallArgumentsAssignment_3.eContents().get(0);
+		private final Assignment cArgumentsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cArgumentsAExpressionParserRuleCall_3_0 = (RuleCall)cArgumentsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cFunctionCallArgumentsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cFunctionCallArgumentsAExpressionParserRuleCall_4_1_0 = (RuleCall)cFunctionCallArgumentsAssignment_4_1.eContents().get(0);
+		private final Assignment cArgumentsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cArgumentsAExpressionParserRuleCall_4_1_0 = (RuleCall)cArgumentsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//AFunctionCall returns aadl2::PropertyExpression:
-		//	{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+		//	{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")"
+		//{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")"
 		public Group getGroup() { return cGroup; }
 
 		//{AFunctionCall}
@@ -1435,23 +1447,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//functionCallArguments+=AExpression
-		public Assignment getFunctionCallArgumentsAssignment_3() { return cFunctionCallArgumentsAssignment_3; }
+		//arguments+=AExpression
+		public Assignment getArgumentsAssignment_3() { return cArgumentsAssignment_3; }
 
 		//AExpression
-		public RuleCall getFunctionCallArgumentsAExpressionParserRuleCall_3_0() { return cFunctionCallArgumentsAExpressionParserRuleCall_3_0; }
+		public RuleCall getArgumentsAExpressionParserRuleCall_3_0() { return cArgumentsAExpressionParserRuleCall_3_0; }
 
-		//("," functionCallArguments+=AExpression)*
+		//("," arguments+=AExpression)*
 		public Group getGroup_4() { return cGroup_4; }
 
 		//","
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//functionCallArguments+=AExpression
-		public Assignment getFunctionCallArgumentsAssignment_4_1() { return cFunctionCallArgumentsAssignment_4_1; }
+		//arguments+=AExpression
+		public Assignment getArgumentsAssignment_4_1() { return cArgumentsAssignment_4_1; }
 
 		//AExpression
-		public RuleCall getFunctionCallArgumentsAExpressionParserRuleCall_4_1_0() { return cFunctionCallArgumentsAExpressionParserRuleCall_4_1_0; }
+		public RuleCall getArgumentsAExpressionParserRuleCall_4_1_0() { return cArgumentsAExpressionParserRuleCall_4_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
@@ -1766,25 +1778,45 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class AParenthesizedExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AParenthesizedExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAExpressionParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cAUnitExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cExpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cExpressionAExpressionParserRuleCall_2_0 = (RuleCall)cExpressionAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cUnitAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cUnitUnitLiteralCrossReference_4_0 = (CrossReference)cUnitAssignment_4.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_4_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_4_0.eContents().get(1);
 		
 		//AParenthesizedExpression returns aadl2::PropertyExpression:
-		//	"(" AExpression ")";
+		//	{AUnitExpression} "(" expression=AExpression ")" unit=[aadl2::UnitLiteral]?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"(" AExpression ")"
+		//{AUnitExpression} "(" expression=AExpression ")" unit=[aadl2::UnitLiteral]?
 		public Group getGroup() { return cGroup; }
 
+		//{AUnitExpression}
+		public Action getAUnitExpressionAction_0() { return cAUnitExpressionAction_0; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+
+		//expression=AExpression
+		public Assignment getExpressionAssignment_2() { return cExpressionAssignment_2; }
 
 		//AExpression
-		public RuleCall getAExpressionParserRuleCall_1() { return cAExpressionParserRuleCall_1; }
+		public RuleCall getExpressionAExpressionParserRuleCall_2_0() { return cExpressionAExpressionParserRuleCall_2_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+
+		//unit=[aadl2::UnitLiteral]?
+		public Assignment getUnitAssignment_4() { return cUnitAssignment_4; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_4_0() { return cUnitUnitLiteralCrossReference_4_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_4_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_4_0_1; }
 	}
 
 	public class ComponentCategoryElements extends AbstractParserRuleElementFinder {
@@ -2496,7 +2528,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AVariableReference returns AExpression:
-	//	{AVariableReference} variable=[AVariableDeclaration];
+	//	{AVariableReference} variable=[AVariableDeclaration] unit=[aadl2::UnitLiteral]?;
 	public AVariableReferenceElements getAVariableReferenceAccess() {
 		return pAVariableReference;
 	}
@@ -2693,7 +2725,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnaryOperation returns aadl2::PropertyExpression:
-	//	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
 	public AUnaryOperationElements getAUnaryOperationAccess() {
 		return pAUnaryOperation;
 	}
@@ -2724,7 +2756,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AFunctionCall returns aadl2::PropertyExpression:
-	//	{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+	//	{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")";
 	public AFunctionCallElements getAFunctionCallAccess() {
 		return pAFunctionCall;
 	}
@@ -2841,7 +2873,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AParenthesizedExpression returns aadl2::PropertyExpression:
-	//	"(" AExpression ")";
+	//	{AUnitExpression} "(" expression=AExpression ")" unit=[aadl2::UnitLiteral]?;
 	public AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
 		return pAParenthesizedExpression;
 	}

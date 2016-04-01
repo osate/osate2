@@ -287,6 +287,15 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.AUNIT_EXPRESSION:
+      {
+        AUnitExpression aUnitExpression = (AUnitExpression)theEObject;
+        T result = caseAUnitExpression(aUnitExpression);
+        if (result == null) result = casePropertyExpression(aUnitExpression);
+        if (result == null) result = caseElement(aUnitExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -655,6 +664,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAConditional(AConditional object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAUnitExpression(AUnitExpression object)
   {
     return null;
   }

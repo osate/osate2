@@ -95,6 +95,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration" eSuperTypes="#//AVariableDeclaration"/>
   <eClassifiers xsi:type="ecore:EClass" name="AVariableReference" eSuperTypes="#//AExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//AVariableDeclaration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ABinaryOperation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
@@ -110,8 +111,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AFunctionCall" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="function" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="functionCallArguments"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ARange" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
@@ -129,5 +130,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AUnitExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
   </eClassifiers>
 </ecore:EPackage>

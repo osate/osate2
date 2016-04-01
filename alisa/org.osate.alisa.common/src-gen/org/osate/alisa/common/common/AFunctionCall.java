@@ -31,7 +31,7 @@ import org.osate.aadl2.PropertyExpression;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.AFunctionCall#getFunction <em>Function</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.AFunctionCall#getFunctionCallArguments <em>Function Call Arguments</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AFunctionCall#getArguments <em>Arguments</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAFunctionCall()
@@ -67,19 +67,19 @@ public interface AFunctionCall extends EObject, PropertyExpression
   void setFunction(String value);
 
   /**
-   * Returns the value of the '<em><b>Function Call Arguments</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Function Call Arguments</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Arguments</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Function Call Arguments</em>' containment reference list.
-   * @see org.osate.alisa.common.common.CommonPackage#getAFunctionCall_FunctionCallArguments()
+   * @return the value of the '<em>Arguments</em>' containment reference list.
+   * @see org.osate.alisa.common.common.CommonPackage#getAFunctionCall_Arguments()
    * @model containment="true"
    * @generated
    */
-  EList<PropertyExpression> getFunctionCallArguments();
+  EList<PropertyExpression> getArguments();
 
 } // AFunctionCall

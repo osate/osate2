@@ -7038,7 +7038,20 @@ ruleAVariableReference returns [EObject current=null]
 	}
 
 )
-))
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAVariableReferenceRule());
+	        }
+        }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getAVariableReferenceAccess().getUnitUnitLiteralCrossReference_2_0()); 
+	}
+
+)
+)?)
 ;
 
 
@@ -7938,7 +7951,11 @@ ruleAUnaryOperation returns [EObject current=null]
             grammarAccess.getAUnaryOperationAccess().getAUnaryOperationAction_0_0(),
             $current);
     }
-)(
+)((
+(
+ruleOpUnary
+)
+)=>
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAUnaryOperationAccess().getOperatorOpUnaryParserRuleCall_0_1_0()); 
@@ -8169,16 +8186,16 @@ ruleAFunctionCall returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getFunctionCallArgumentsAExpressionParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
 	    }
-		lv_functionCallArguments_3_0=ruleAExpression		{
+		lv_arguments_3_0=ruleAExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
 	        }
        		add(
        			$current, 
-       			"functionCallArguments",
-        		lv_functionCallArguments_3_0, 
+       			"arguments",
+        		lv_arguments_3_0, 
         		"AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -8192,16 +8209,16 @@ ruleAFunctionCall returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getFunctionCallArgumentsAExpressionParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
 	    }
-		lv_functionCallArguments_5_0=ruleAExpression		{
+		lv_arguments_5_0=ruleAExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
 	        }
        		add(
        			$current, 
-       			"functionCallArguments",
-        		lv_functionCallArguments_5_0, 
+       			"arguments",
+        		lv_arguments_5_0, 
         		"AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -8776,26 +8793,54 @@ ruleAParenthesizedExpression returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
-	otherlv_0=LeftParenthesis
+((
     {
-    	newLeafNode(otherlv_0, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
-    }
-
-    { 
-        newCompositeNode(grammarAccess.getAParenthesizedExpressionAccess().getAExpressionParserRuleCall_1()); 
-    }
-    this_AExpression_1=ruleAExpression
-    {
-        $current = $this_AExpression_1.current;
-        afterParserOrEnumRuleCall();
-    }
-
-	otherlv_2=RightParenthesis
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2());
+        $current = forceCreateModelElement(
+            grammarAccess.getAParenthesizedExpressionAccess().getAUnitExpressionAction_0(),
+            $current);
     }
 )
+	otherlv_1=LeftParenthesis
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAParenthesizedExpressionAccess().getExpressionAExpressionParserRuleCall_2_0()); 
+	    }
+		lv_expression_2_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAParenthesizedExpressionRule());
+	        }
+       		set(
+       			$current, 
+       			"expression",
+        		lv_expression_2_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_3=RightParenthesis
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_3());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAParenthesizedExpressionRule());
+	        }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getAParenthesizedExpressionAccess().getUnitUnitLiteralCrossReference_4_0()); 
+	}
+
+)
+)?)
 ;
 
 

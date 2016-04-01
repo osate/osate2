@@ -82,7 +82,7 @@ APropertyReference returns APropertyReference:
 ;
 
 AVariableReference returns AExpression:
-	{AVariableReference} variable=[AVariableDeclaration|ID]
+	{AVariableReference} variable=[AVariableDeclaration|ID] (unit=[aadl2::UnitLiteral|ID])?
 ;
 
 
@@ -102,37 +102,44 @@ enum Operation:
 	| PLUS='+' | MINUS='-'
 	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
 	| NOT='not'
-	
 ;
 
-AExpression returns aadl2::PropertyExpression: AOrExpression;
+AExpression returns aadl2::PropertyExpression: 
+	AOrExpression
+;
 
 AOrExpression returns aadl2::PropertyExpression:
-	AAndExpression (=>({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*;
+	AAndExpression (=>({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*
+;
 
 OpOr returns Operation:
 	'or';
 
 AAndExpression returns aadl2::PropertyExpression:
-	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*;
+	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*
+;
 
 OpAnd returns Operation:
-	'and';
+	'and'
+;
 
 AEqualityExpression returns aadl2::PropertyExpression:
-	ARelationalExpression (=>({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*;
+	ARelationalExpression (=>({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*
+;
 
 OpEquality returns Operation:
-	'==' | '!=' ;
+	'==' | '!=' 
+;
 
 ARelationalExpression returns aadl2::PropertyExpression:
 //	AOtherOperatorExpression
 //	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
-	AAdditiveExpression
-	( =>({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*;
+	AAdditiveExpression ( =>({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*
+;
 
 OpCompare returns Operation:
-	'>=' | '<=' | '>' | '<' ;
+	'>=' | '<=' | '>' | '<'
+;
 
 //AOtherOperatorExpression returns aadl2::PropertyExpression:
 //	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
@@ -150,29 +157,36 @@ OpCompare returns Operation:
 //	| '?:';
 
 AAdditiveExpression returns aadl2::PropertyExpression:
-	AMultiplicativeExpression (=>({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
+	AMultiplicativeExpression (=>({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*
+;
 
 OpAdd returns Operation:
-	'+' | '-';
+	'+' | '-'
+;
 
 AMultiplicativeExpression returns aadl2::PropertyExpression:
-	AUnaryOperation (=>({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*;
+	AUnaryOperation (=>({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*
+;
 
 OpMulti returns Operation:
-	'*' | '/' | 'div' | 'mod';
+	'*' | '/' | 'div' | 'mod'
+;
 
 AUnaryOperation returns aadl2::PropertyExpression:
-	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	{AUnaryOperation} =>operator=OpUnary operand=AUnaryOperation | APrimaryExpression
+;
 
 OpUnary returns Operation:
-	"not" | "-" | "+";
+	"not" | "-" | "+"
+;
 	
 APrimaryExpression returns aadl2::PropertyExpression:
 	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall | ARangeExpression | AIfExpression
-	| AParenthesizedExpression;
+	| AParenthesizedExpression
+;
 
 AFunctionCall returns aadl2::PropertyExpression:
-	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+	{AFunctionCall} function=ID '(' arguments+=AExpression (',' arguments+=AExpression)* ')'
 ;
 
 ARangeExpression returns aadl2::PropertyExpression:
@@ -229,13 +243,14 @@ NoQuoteString :
 ;
 
 AParenthesizedExpression returns aadl2::PropertyExpression:
-	'(' AExpression ')'
+	{AUnitExpression} '(' expression=AExpression ')' (unit=[aadl2::UnitLiteral|ID])?
 ;
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
 	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor'
+;
 
 
 terminal fragment

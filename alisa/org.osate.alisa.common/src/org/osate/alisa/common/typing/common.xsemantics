@@ -31,8 +31,10 @@ import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.APropertyReference
 import org.osate.alisa.common.common.ARange
 import org.osate.alisa.common.common.AUnaryOperation
+import org.osate.alisa.common.common.AUnitExpression
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.CommonFactory
+import org.osate.alisa.common.common.CommonPackage
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
@@ -259,8 +261,7 @@ from {
 			// should not happen
 			fail
 				error 'typing: unhandled unary operator encountered'
-				source unary
-			
+				source unary		
 		}
 	}
 }
@@ -271,7 +272,34 @@ from {
 rule AVariableReference
 	G |- AVariableReference vRef : PropertyType type
 from {
-	G |- vRef.variable : type
+	G |- vRef.variable : var PropertyType vType
+	
+	{
+		vRef.unit == null
+		type = vType
+	}
+	or
+	{
+		if (vType instanceof NumberType) {
+			if (vType.unitsType != null) {
+				fail
+					error 'typing: value already has a unit'
+					source vRef.variable
+			}
+			val result = 
+					if (vType instanceof AadlInteger) 
+						Aadl2Factory.eINSTANCE.createAadlInteger
+					else
+						Aadl2Factory.eINSTANCE.createAadlReal
+			result.referencedUnitsType = vRef.unit.eContainer as UnitsType
+			type = result
+		} else {
+			fail
+				error 'typing: can only assign unit to a numeric type'
+				source vRef
+				feature CommonPackage.eINSTANCE.AVariableReference_Unit
+		}
+	}
 }
 
 // types for primary expressions
@@ -345,6 +373,36 @@ rule FunctionCall
 from {
 	// TODO figure out how to handle built-in functions
 	fail
+}
+
+rule UnitExpression
+	G |- AUnitExpression unitExp : PropertyType type
+from {
+	G |- unitExp.expression : var PropertyType expType
+	
+	if (unitExp.unit == null) {
+		type = expType
+	} else {
+		if (expType instanceof NumberType) {
+			if (expType.unitsType != null) {
+				fail
+					error 'typing: expression already has a unit'
+					source unitExp.expression
+			}
+			val result = 
+					if (expType instanceof AadlInteger) 
+						Aadl2Factory.eINSTANCE.createAadlInteger
+					else
+						Aadl2Factory.eINSTANCE.createAadlReal
+			result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+			type = result
+		} else {
+			fail
+				error 'typing: can only assign unit to a numeric type'
+				source unitExp
+				feature CommonPackage.eINSTANCE.AUnitExpression_Unit
+		}
+	}
 }
 
 // primitive types

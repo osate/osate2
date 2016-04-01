@@ -15,52 +15,55 @@
  */
 package org.osate.alisa.common.common;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.UnitLiteral;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>AVariable Reference</b></em>'.
+ * A representation of the model object '<em><b>AUnit Expression</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.AVariableReference#getVariable <em>Variable</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.AVariableReference#getUnit <em>Unit</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AUnitExpression#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}</li>
  * </ul>
  *
- * @see org.osate.alisa.common.common.CommonPackage#getAVariableReference()
+ * @see org.osate.alisa.common.common.CommonPackage#getAUnitExpression()
  * @model
  * @generated
  */
-public interface AVariableReference extends AExpression
+public interface AUnitExpression extends EObject, PropertyExpression
 {
   /**
-   * Returns the value of the '<em><b>Variable</b></em>' reference.
+   * Returns the value of the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Variable</em>' reference isn't clear,
+   * If the meaning of the '<em>Expression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Variable</em>' reference.
-   * @see #setVariable(AVariableDeclaration)
-   * @see org.osate.alisa.common.common.CommonPackage#getAVariableReference_Variable()
-   * @model
+   * @return the value of the '<em>Expression</em>' containment reference.
+   * @see #setExpression(PropertyExpression)
+   * @see org.osate.alisa.common.common.CommonPackage#getAUnitExpression_Expression()
+   * @model containment="true"
    * @generated
    */
-  AVariableDeclaration getVariable();
+  PropertyExpression getExpression();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AVariableReference#getVariable <em>Variable</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AUnitExpression#getExpression <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Variable</em>' reference.
-   * @see #getVariable()
+   * @param value the new value of the '<em>Expression</em>' containment reference.
+   * @see #getExpression()
    * @generated
    */
-  void setVariable(AVariableDeclaration value);
+  void setExpression(PropertyExpression value);
 
   /**
    * Returns the value of the '<em><b>Unit</b></em>' reference.
@@ -72,14 +75,14 @@ public interface AVariableReference extends AExpression
    * <!-- end-user-doc -->
    * @return the value of the '<em>Unit</em>' reference.
    * @see #setUnit(UnitLiteral)
-   * @see org.osate.alisa.common.common.CommonPackage#getAVariableReference_Unit()
+   * @see org.osate.alisa.common.common.CommonPackage#getAUnitExpression_Unit()
    * @model
    * @generated
    */
   UnitLiteral getUnit();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AVariableReference#getUnit <em>Unit</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Unit</em>' reference.
@@ -88,4 +91,4 @@ public interface AVariableReference extends AExpression
    */
   void setUnit(UnitLiteral value);
 
-} // AVariableReference
+} // AUnitExpression

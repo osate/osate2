@@ -774,7 +774,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AVariableReference returns AExpression:
-	//	{AVariableReference} variable=[AVariableDeclaration];
+	//	{AVariableReference} variable=[AVariableDeclaration] unit=[aadl2::UnitLiteral]?;
 	public CommonGrammarAccess.AVariableReferenceElements getAVariableReferenceAccess() {
 		return gaCommon.getAVariableReferenceAccess();
 	}
@@ -971,7 +971,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnaryOperation returns aadl2::PropertyExpression:
-	//	{AUnaryOperation} operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
 	public CommonGrammarAccess.AUnaryOperationElements getAUnaryOperationAccess() {
 		return gaCommon.getAUnaryOperationAccess();
 	}
@@ -1002,7 +1002,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AFunctionCall returns aadl2::PropertyExpression:
-	//	{AFunctionCall} function=ID "(" functionCallArguments+=AExpression ("," functionCallArguments+=AExpression)* ")";
+	//	{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")";
 	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
 		return gaCommon.getAFunctionCallAccess();
 	}
@@ -1119,7 +1119,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AParenthesizedExpression returns aadl2::PropertyExpression:
-	//	"(" AExpression ")";
+	//	{AUnitExpression} "(" expression=AExpression ")" unit=[aadl2::UnitLiteral]?;
 	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
 		return gaCommon.getAParenthesizedExpressionAccess();
 	}
