@@ -20,7 +20,7 @@
 		<module>../../org.osate.aadl2.instance.textual</module>
 		<module>../../org.osate.aadl2.instance.textual.ui</module>
 		<module>../../org.osate.aadl2.instance.ui</module>
-		<module>../../org.osate.aadl2.instantiation</module>
+		<module>../../org.osate.instantiation</module>
 		<module>../../org.osate.aadl2.model.editor</module>
 		<module>../../org.osate.aadl2.modelsupport</module>
 		<module>../../org.osate.annexsupport</module>
