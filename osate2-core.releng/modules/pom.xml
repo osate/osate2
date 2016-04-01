@@ -17,6 +17,10 @@
 	<modules>
 		<module>../../org.osate.aadl2</module>
 		<module>../../org.osate.aadl2.edit</module>
+		<module>../../org.osate.aadl2.instance.textual</module>
+		<module>../../org.osate.aadl2.instance.textual.ui</module>
+		<module>../../org.osate.aadl2.instance.ui</module>
+		<module>../../org.osate.aadl2.instantiation</module>
 		<module>../../org.osate.aadl2.model.editor</module>
 		<module>../../org.osate.aadl2.modelsupport</module>
 		<module>../../org.osate.annexsupport</module>
@@ -26,7 +30,6 @@
 		<module>../../org.osate.contribution.sei</module>
 		<module>../../org.osate.core</module>
 		<module>../../org.osate.core.feature</module>
-		<module>../../org.osate.instantiation</module>
 		<module>../../org.osate.help</module>
 		<module>../../org.osate.resolute.help</module>
 		<module>../../org.osate.pluginsupport</module>
@@ -39,6 +42,7 @@
 		<module>../../org.osate.xtext.aadl2.properties.ui</module>
 		<module>../../org.osate.xtext.aadl2.ui</module>
 
+		<module>../../org.osate.aadl2.instance.textual.tests</module>
 		<module>../../org.osate.core.tests</module>
 		<module>../../org.osate.core.tests.log4j</module>
 	</modules>
