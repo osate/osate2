@@ -100,9 +100,8 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 		});
 
 		// adapt to xtext
-		xtextAdapter = new StyledTextXtextAdapter(injector,
-				contextFakeResourceProvider == null ? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER
-						: contextFakeResourceProvider, project);
+		xtextAdapter = new StyledTextXtextAdapter(injector, contextFakeResourceProvider == null
+				? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER : contextFakeResourceProvider, project);
 		xtextAdapter.adapt(styledText);
 		if (provider != null) {
 			xtextAdapter.getFakeResourceContext().getFakeResource().eAdapters()
@@ -112,8 +111,8 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 		// configure content assist
 		final IContentAssistant contentAssistant = xtextAdapter.getContentAssistant();
 
-		completionProposalAdapter = new CompletionProposalAdapter(styledText, contentAssistant, KeyStroke.getInstance(
-				SWT.CTRL, SWT.SPACE), null);
+		completionProposalAdapter = new CompletionProposalAdapter(styledText, contentAssistant,
+				KeyStroke.getInstance(SWT.CTRL, SWT.SPACE), null);
 
 		// This listener notifies the modification, when text is selected via
 		// proposal. A ModifyEvent is not thrown by the StyledText in this case.
@@ -255,7 +254,7 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 	public void setVisibleRegion(int start, int length) {
 		xtextAdapter.setVisibleRegion(start, length);
 	}
-	
+
 	public StyledTextXtextAdapter getXtextAdapter() {
 		return xtextAdapter;
 	}

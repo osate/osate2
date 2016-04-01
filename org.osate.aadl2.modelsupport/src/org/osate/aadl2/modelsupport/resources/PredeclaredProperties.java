@@ -121,8 +121,8 @@ public class PredeclaredProperties {
 									resourceName.append("/");
 								}
 								resourceName.append(segs[i]);
-								IFile contributedResourceInWorkspace = pluginResourcesProject.getFile(resourceName
-										.toString());
+								IFile contributedResourceInWorkspace = pluginResourcesProject
+										.getFile(resourceName.toString());
 								// exists() is true even though the file doesn't exist!
 								if (!contributedResourceInWorkspace.exists()
 										|| contributedResourceInWorkspace.getResourceAttributes() == null
@@ -250,10 +250,10 @@ public class PredeclaredProperties {
 					IResource resource = container.findMember(currentSegment);
 					if (resource != null) {
 						if (resource.getType() == IResource.FILE) {
-							String msg = NLS.bind(IDEWorkbenchMessages.ContainerGenerator_pathOccupied, resource
-									.getFullPath().makeRelative());
-							throw new CoreException(new Status(IStatus.ERROR, IDEWorkbenchPlugin.IDE_WORKBENCH, 1, msg,
-									null));
+							String msg = NLS.bind(IDEWorkbenchMessages.ContainerGenerator_pathOccupied,
+									resource.getFullPath().makeRelative());
+							throw new CoreException(
+									new Status(IStatus.ERROR, IDEWorkbenchPlugin.IDE_WORKBENCH, 1, msg, null));
 						}
 						container = (IContainer) resource;
 					} else {
@@ -273,20 +273,21 @@ public class PredeclaredProperties {
 		}
 	}
 
-	public static void revertToContributed(final IFile contributedResourceInWorkspace) throws IOException,
-			CoreException {
+	public static void revertToContributed(final IFile contributedResourceInWorkspace)
+			throws IOException, CoreException {
 		if (!contributedResourceInWorkspace.getProject().getName().equals(PLUGIN_RESOURCES_PROJECT_NAME)) {
-			throw new IllegalArgumentException("contributedResourceInWorkspace is not in the project "
-					+ PLUGIN_RESOURCES_PROJECT_NAME);
+			throw new IllegalArgumentException(
+					"contributedResourceInWorkspace is not in the project " + PLUGIN_RESOURCES_PROJECT_NAME);
 		}
 		for (final URI contributedResourceUri : PluginSupportUtil.getContributedAadl()) {
 			if (contributedResourceUri.lastSegment().equals(contributedResourceInWorkspace.getName())) { // FIXME: compare path!
 				try {
 					new WorkspaceModifyOperation() {
 						@Override
-						protected void execute(IProgressMonitor monitor) throws CoreException,
-								InvocationTargetException {
-							copyContributedResourceIntoWorkspace(contributedResourceUri, contributedResourceInWorkspace);
+						protected void execute(IProgressMonitor monitor)
+								throws CoreException, InvocationTargetException {
+							copyContributedResourceIntoWorkspace(contributedResourceUri,
+									contributedResourceInWorkspace);
 						}
 					}.run(null);
 				} catch (InvocationTargetException e) {

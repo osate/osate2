@@ -139,8 +139,8 @@ public class ParseUtil {
 									"Integer value is not representable: cannot represent exponent");
 						}
 					} else {
-						throw new IllegalArgumentException("Unexpected character '" + c + "' at string index "
-								+ currentIdx);
+						throw new IllegalArgumentException(
+								"Unexpected character '" + c + "' at string index " + currentIdx);
 					}
 				}
 

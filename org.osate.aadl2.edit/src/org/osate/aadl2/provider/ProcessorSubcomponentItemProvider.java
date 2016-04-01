@@ -91,8 +91,8 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider 
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ProcessorSubcomponent_processorSubcomponentType_feature",
 								"_UI_ProcessorSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorSubcomponentType(), true, false, true, null,
-				null, null));
+						Aadl2Package.eINSTANCE.getProcessorSubcomponent_ProcessorSubcomponentType(), true, false, true,
+						null, null, null));
 	}
 
 	/**

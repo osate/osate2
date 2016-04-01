@@ -74,7 +74,8 @@ public class AadlMarkerComparator implements Comparator<IMarker> {
 		try {
 			int compareResult = 0;
 			if (settings.getGroupByAndSortBy(ReporterSettings.GROUP_BY_FIELD) == ReporterSettings.GROUP_BY_FILE) {
-				if (settings.getGroupByAndSortBy(ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
+				if (settings.getGroupByAndSortBy(
+						ReporterSettings.SORT_GROUPS_BY_FIELD) == ReporterSettings.SORT_BY_FILE_TYPE) {
 					boolean marker1IsAadl = marker1.getResource().getName().endsWith(".aadl");
 					boolean marker2IsAadl = marker2.getResource().getName().endsWith(".aadl");
 					if (marker1IsAadl != marker2IsAadl) {
@@ -104,10 +105,12 @@ public class AadlMarkerComparator implements Comparator<IMarker> {
 							.compareTo(marker2.getAttribute(IMarker.MESSAGE).toString());
 					break;
 				case ReporterSettings.SORT_BY_LOCATION:
-					String marker1Location = (marker1.getType().endsWith("AadlTextMarker")) ? marker1.getAttribute(
-							IMarker.LINE_NUMBER).toString() : marker1.getAttribute(AadlConstants.AADLURI).toString();
-					String marker2Location = (marker2.getType().endsWith("AadlTextMarker")) ? marker2.getAttribute(
-							IMarker.LINE_NUMBER).toString() : marker2.getAttribute(AadlConstants.AADLURI).toString();
+					String marker1Location = (marker1.getType().endsWith("AadlTextMarker"))
+							? marker1.getAttribute(IMarker.LINE_NUMBER).toString()
+							: marker1.getAttribute(AadlConstants.AADLURI).toString();
+					String marker2Location = (marker2.getType().endsWith("AadlTextMarker"))
+							? marker2.getAttribute(IMarker.LINE_NUMBER).toString()
+							: marker2.getAttribute(AadlConstants.AADLURI).toString();
 					compareResult = marker1Location.compareTo(marker2Location);
 					break;
 				case ReporterSettings.SORT_BY_FILE_NAME:

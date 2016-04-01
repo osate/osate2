@@ -97,8 +97,8 @@ public class ComponentPrototypeActualItemProvider extends ArrayableElementItemPr
 						getResourceLocator(), getString("_UI_ComponentPrototypeActual_category_feature"),
 						getString("_UI_PropertyDescriptor_description", "_UI_ComponentPrototypeActual_category_feature",
 								"_UI_ComponentPrototypeActual_type"),
-				Aadl2Package.eINSTANCE.getComponentPrototypeActual_Category(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						Aadl2Package.eINSTANCE.getComponentPrototypeActual_Category(), true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

@@ -89,11 +89,11 @@ public class BasicPropertyItemProvider extends TypedElementItemProvider {
 	 * @generated
 	 */
 	protected void addReferencedPropertyTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_BasicProperty_referencedPropertyType_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_BasicProperty_referencedPropertyType_feature", "_UI_BasicProperty_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_BasicProperty_referencedPropertyType_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_BasicProperty_referencedPropertyType_feature",
+						"_UI_BasicProperty_type"),
 				Aadl2Package.eINSTANCE.getBasicProperty_ReferencedPropertyType(), true, false, true, null, null, null));
 	}
 

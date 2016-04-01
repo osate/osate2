@@ -143,9 +143,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (Platform.isRunning()) {
 				PredeclaredProperties.initPluginContributedAadl();
 			}
-			Resource rsrc = OsateResourceUtil.getResource(URI
-					.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME
-							+ "/AADL_Project.aadl"));
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(
+					PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + "/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
 		}
 		return eInstance;
@@ -202,7 +201,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	* @param crossRefString
 	* @return
 	*/
-	public Iterable<IEObjectDescription> getIndexedObjects(EObject context, EReference reference, String crossRefString) {
+	public Iterable<IEObjectDescription> getIndexedObjects(EObject context, EReference reference,
+			String crossRefString) {
 		// List<EObject> el;
 		try {
 
@@ -437,7 +437,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					Subcomponent cpesub = null;
 					for (ContainmentPathElement containmentPathElement : cpelist) {
 						if (containmentPathElement.getNamedElement() instanceof Subcomponent) {
-							cpesub = (Subcomponent)containmentPathElement.getNamedElement();
+							cpesub = (Subcomponent) containmentPathElement.getNamedElement();
 						} else {
 							break;
 						}
@@ -487,10 +487,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						if (ns != null) {
 							res = ns.findNamedElement(name);
 							if (res == null
-									&& (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent || ne instanceof AbstractSubcomponent)
+									&& (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent
+											|| ne instanceof AbstractSubcomponent)
 									&& ns instanceof BehavioredImplementation) {
-								res = AadlUtil.findNamedElementInList(
-										((BehavioredImplementation) ns).subprogramCalls(), name);
+								res = AadlUtil.findNamedElementInList(((BehavioredImplementation) ns).subprogramCalls(),
+										name);
 							}
 						}
 					} else if (ne instanceof FeatureGroup) {
@@ -543,7 +544,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							}
 						} else {
 							ns = (Classifier) containingPropertyAssociation.getContainingClassifier();
-						}  
+						}
 					}
 					if (ns != null) {
 						res = ns.findNamedElement(name);
@@ -952,8 +953,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		// prototype binding. In PrototypeFormalReference,
 		// we should check that component prototypes are bound by component
 		// prototype bindings.
-		ComponentPrototypeBinding binding = (ComponentPrototypeBinding) findPrototypeBinding(
-				classifierPrototypeContext, subcomponentPrototypeContext, prototype);
+		ComponentPrototypeBinding binding = (ComponentPrototypeBinding) findPrototypeBinding(classifierPrototypeContext,
+				subcomponentPrototypeContext, prototype);
 		if (binding != null && binding.getActuals().size() >= 1) {
 			SubcomponentType st = binding.getActuals().get(0).getSubcomponentType();
 			if (st instanceof ComponentClassifier) {
@@ -995,8 +996,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		// prototype binding. In PrototypeFormalReference,
 		// we should check that feature group prototypes are bound by feature
 		// group prototype bindings.
-		FeatureGroupPrototypeBinding binding = (FeatureGroupPrototypeBinding) findPrototypeBinding(
-				containingClassifier, prototype);
+		FeatureGroupPrototypeBinding binding = (FeatureGroupPrototypeBinding) findPrototypeBinding(containingClassifier,
+				prototype);
 		if (binding != null) {
 			if (binding.getActual() instanceof FeatureGroupPrototypeActual) {
 				FeatureType ft = binding.getActual().getFeatureType();
@@ -1049,8 +1050,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		NamedElement result = context.findInternallyVisibleNamedElement(name);
 		if (result == null && context instanceof PrivatePackageSection
 				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null) {
-			result = ((AadlPackage) context.eContainer()).getOwnedPublicSection().findInternallyVisibleNamedElement(
-					name);
+			result = ((AadlPackage) context.eContainer()).getOwnedPublicSection()
+					.findInternallyVisibleNamedElement(name);
 		}
 		return result;
 	}
@@ -1102,7 +1103,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param reference
 	 * @return
 	 */
-	public EObject findNamedElementInPredeclaredPropertySets(String propertyName, EObject context, EReference reference) {
+	public EObject findNamedElementInPredeclaredPropertySets(String propertyName, EObject context,
+			EReference reference) {
 		for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 			EObject res = getIndexedObject(context, reference, getQualifiedName(predeclaredPSName, propertyName));
 			if (res != null) {

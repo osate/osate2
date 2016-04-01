@@ -15,7 +15,8 @@ public class Aadl2NamesAreUniqueValidationHelper extends NamesAreUniqueValidatio
 
 	@Override
 	protected void checkDescriptionForDuplicatedName(IEObjectDescription description,
-			Map<EClass, Map<QualifiedName, IEObjectDescription>> clusterTypeToName, ValidationMessageAcceptor acceptor) {
+			Map<EClass, Map<QualifiedName, IEObjectDescription>> clusterTypeToName,
+			ValidationMessageAcceptor acceptor) {
 		EObject object = description.getEObjectOrProxy();
 		EClass eClass = object.eClass();
 		QualifiedName qualifiedName = description.getName().toLowerCase();

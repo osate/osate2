@@ -31,6 +31,7 @@ import org.eclipse.emf.workspace.util.WorkspaceValidateEditSupport;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+
 /**
  */
 public class ModelEditingDomainFactory implements TransactionalEditingDomain.Factory {

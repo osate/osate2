@@ -12,8 +12,8 @@ import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 import com.google.inject.Injector;
 
 public class Aadl2InjectorProvider implements IInjectorProvider, IRegistryConfigurator {
-	
-    protected GlobalStateMemento stateBeforeInjectorCreation;
+
+	protected GlobalStateMemento stateBeforeInjectorCreation;
 	protected GlobalStateMemento stateAfterInjectorCreation;
 	protected Injector injector;
 
@@ -21,8 +21,7 @@ public class Aadl2InjectorProvider implements IInjectorProvider, IRegistryConfig
 		GlobalRegistries.initializeDefaults();
 	}
 
-	public Injector getInjector()
-	{
+	public Injector getInjector() {
 		if (injector == null) {
 			stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 			this.injector = internalCreateInjector();
@@ -30,9 +29,9 @@ public class Aadl2InjectorProvider implements IInjectorProvider, IRegistryConfig
 		}
 		return injector;
 	}
-	
+
 	protected Injector internalCreateInjector() {
-	    return new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 	}
 
 	public void restoreRegistry() {

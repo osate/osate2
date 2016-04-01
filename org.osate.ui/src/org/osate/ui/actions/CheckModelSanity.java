@@ -43,7 +43,7 @@ package org.osate.ui.actions;
  * XXX: Commented out entire class to remove error markers.  Not currently used in Aadl 2 beta.
  * Need to check if this should be used after implementing the Xtext parser.
  */
-public final class CheckModelSanity /* extends AaxlReadOnlyActionAsJob */{
+public final class CheckModelSanity /* extends AaxlReadOnlyActionAsJob */ {
 //	protected Bundle getBundle() {
 //		return OsateUiPlugin.getDefault().getBundle();
 //	}

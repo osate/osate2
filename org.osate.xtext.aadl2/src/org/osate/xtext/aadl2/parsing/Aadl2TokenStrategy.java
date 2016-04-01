@@ -44,9 +44,8 @@ public class Aadl2TokenStrategy extends AbstractWordAwareDoubleClickStrategy {
 					if (leadingToken.getLength() > 1
 							&& leadingToken.getLexerTokenType() == InternalAadl2Lexer.RULE_ANNEXTEXT) {
 						return super.findWord(document, offset);
-					} else if (leadingToken.getLength() > 1
-							&& (trailingToken == null || !Character
-									.isLetter(document.getChar(trailingToken.getOffset())))) {
+					} else if (leadingToken.getLength() > 1 && (trailingToken == null
+							|| !Character.isLetter(document.getChar(trailingToken.getOffset())))) {
 						return new Region(leadingToken.getOffset(), leadingToken.getLength());
 					} else if (trailingToken != null) {
 						return new Region(trailingToken.getOffset(), trailingToken.getLength());

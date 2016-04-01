@@ -224,8 +224,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
-		AbstractAaxlAction.this.context = root instanceof SystemInstance ? ((SystemInstance) root)
-				.getComponentImplementation() : root;
+		AbstractAaxlAction.this.context = root instanceof SystemInstance
+				? ((SystemInstance) root).getComponentImplementation() : root;
 
 		// Init the properties
 		notFound.clear();
@@ -320,8 +320,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final UnitLiteral lookupUnitLiteral(final String ps, final String unitType, final String literalName) {
 		final UnitLiteral literal = GetProperties.findUnitLiteral(context, ps + "::" + unitType, literalName);
 		if (literal == null) {
-			notFound.add(MessageFormat.format("unit literal {0} in type {1}::{2}", new Object[] { literalName, ps,
-					unitType }));
+			notFound.add(MessageFormat.format("unit literal {0} in type {1}::{2}",
+					new Object[] { literalName, ps, unitType }));
 		}
 		return literal;
 	}
@@ -338,8 +338,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		final EnumerationLiteral literal = GetProperties.findEnumerationLiteral(context, ps + "::" + enumType,
 				literalName);
 		if (literal == null) {
-			notFound.add(MessageFormat.format("enumeration literal {0} in type {1}::{2}", new Object[] { literalName,
-					ps, enumType }));
+			notFound.add(MessageFormat.format("enumeration literal {0} in type {1}::{2}",
+					new Object[] { literalName, ps, enumType }));
 		}
 		return literal;
 	}
@@ -380,8 +380,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final UnitLiteral lookupUnitLiteral(final String unitType, final String literalName) {
 		final UnitLiteral literal = GetProperties.findUnitLiteral(context, unitType, literalName);
 		if (literal == null) {
-			notFound.add(MessageFormat.format("unit literal {0} in predeclared type {1}", new Object[] { literalName,
-					unitType }));
+			notFound.add(MessageFormat.format("unit literal {0} in predeclared type {1}",
+					new Object[] { literalName, unitType }));
 		}
 		return literal;
 	}
@@ -397,8 +397,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final EnumerationLiteral lookupEnumerationLiteral(final String enumType, final String literalName) {
 		final EnumerationLiteral literal = GetProperties.findEnumerationLiteral(context, enumType, literalName);
 		if (literal == null) {
-			notFound.add(MessageFormat.format("enumeration literal {0} in predeclared type {1}", new Object[] {
-					literalName, enumType }));
+			notFound.add(MessageFormat.format("enumeration literal {0} in predeclared type {1}",
+					new Object[] { literalName, enumType }));
 		}
 		return literal;
 	}
@@ -589,7 +589,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	}
 
 	protected final synchronized Shell getShell() {
-		if (window== null) return null;
+		if (window == null)
+			return null;
 		return window.getShell();
 	}
 

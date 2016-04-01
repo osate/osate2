@@ -166,14 +166,13 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		}
 		return numErr;
 	}
-	
-	 /**
-   * Remove all the stored reporters (list and map).
-   * 
-   */
-  public void clean()
-  {
-    reportersList.clear();
-    reportersMap.clear(); 
-  }
+
+	/**
+	* Remove all the stored reporters (list and map).
+	* 
+	*/
+	public void clean() {
+		reportersList.clear();
+		reportersMap.clear();
+	}
 }

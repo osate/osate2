@@ -90,8 +90,8 @@ public class DeviceSubcomponentItemProvider extends SubcomponentItemProvider {
 						getResourceLocator(), getString("_UI_DeviceSubcomponent_deviceSubcomponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_DeviceSubcomponent_deviceSubcomponentType_feature", "_UI_DeviceSubcomponent_type"),
-				Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceSubcomponentType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getDeviceSubcomponent_DeviceSubcomponentType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

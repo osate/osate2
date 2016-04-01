@@ -297,9 +297,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (sci != null) {
 					processSubcomponentFlow(sci, etei, (FlowSpecification) fe, iter);
 				} else {
-					error(errorElement, "Incomplete End-to-end flow instance " + etei.getName()
-							+ ": Could not find component instance for subcomponent " + sc.getName()
-							+ " in flow implementation " + errorElement.getName());
+					error(errorElement,
+							"Incomplete End-to-end flow instance " + etei.getName()
+									+ ": Could not find component instance for subcomponent " + sc.getName()
+									+ " in flow implementation " + errorElement.getName());
 				}
 			} else if (fe instanceof Subcomponent) {
 				ComponentInstance sci = ci.findSubcomponentInstance((Subcomponent) fe);
@@ -784,8 +785,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				// append a subcomponent instance
 				etei.getFlowElements().add(ci);
 			} else {
-				ConnectionInstance preConn = (ConnectionInstance) etei.getFlowElements().get(
-						etei.getFlowElements().size() - 1);
+				ConnectionInstance preConn = (ConnectionInstance) etei.getFlowElements()
+						.get(etei.getFlowElements().size() - 1);
 				ConnectionInstanceEnd end = preConn.getDestination();
 				ComponentInstance comp = end.getContainingComponentInstance();
 				if (end instanceof ComponentInstance || comp == ci) {
@@ -953,8 +954,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			FlowElementInstance fei = etei;
 
 			while (fei instanceof EndToEndFlowInstance) {
-				fei = ((EndToEndFlowInstance) fei).getFlowElements().get(
-						((EndToEndFlowInstance) fei).getFlowElements().size() - 1);
+				fei = ((EndToEndFlowInstance) fei).getFlowElements()
+						.get(((EndToEndFlowInstance) fei).getFlowElements().size() - 1);
 			}
 			if (fei instanceof FlowSpecificationInstance) {
 				fei = fei.getComponentInstance();
@@ -1060,8 +1061,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		// first, calculate intersection of all connection and ete instance SOMs
 		EList<FlowElementInstance> feis = etei.getFlowElements();
-		List<SystemOperationMode> soms = new ArrayList<SystemOperationMode>(etei.getSystemInstance()
-				.getSystemOperationModes());
+		List<SystemOperationMode> soms = new ArrayList<SystemOperationMode>(
+				etei.getSystemInstance().getSystemOperationModes());
 
 		for (FlowElementInstance fei : feis) {
 			List<SystemOperationMode> newSoms = new ArrayList<SystemOperationMode>();

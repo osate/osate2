@@ -104,8 +104,8 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 		if (annexRoot != null) {
 			// delegate to annex specific outline tree provider
-			EObject annexElement = (modelElement instanceof DefaultAnnexLibrary || modelElement instanceof DefaultAnnexSubclause) ? annexRoot
-					: modelElement;
+			EObject annexElement = (modelElement instanceof DefaultAnnexLibrary
+					|| modelElement instanceof DefaultAnnexSubclause) ? annexRoot : modelElement;
 			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexElement);
 			if (annexParseResult != null) {
 				String grammarName = getGrammarName(annexParseResult.getRootNode());
@@ -232,8 +232,8 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
 		if (sysInstance.getOwnedElements().isEmpty()) {
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
-							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+					new AnalysisErrorReporterManager(
+							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			instantiateModel.fillSystemInstance(sysInstance);
 		}
 		super._createChildren(parentNode, sysInstance);

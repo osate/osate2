@@ -77,8 +77,8 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 					getAnnexLinkingServiceRegistry();
 				}
 				if (annexlinkingserviceregistry != null) {
-					AnnexLinkingService linkingservice = getAnnexLinkingServiceRegistry().getAnnexLinkingService(
-							annexName);
+					AnnexLinkingService linkingservice = getAnnexLinkingServiceRegistry()
+							.getAnnexLinkingService(annexName);
 					if (linkingservice != null) {
 						return linkingservice.getFullyQualifiedName(obj);
 					}

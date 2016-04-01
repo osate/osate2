@@ -282,7 +282,8 @@ public class InstanceUtil {
 									((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
-						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
+						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj,
+								classifierCache);
 
 						if (fpa != null) {
 							ic = new InstantiatedClassifier((FeatureGroupType) fpa.getFeatureType(), fpa.getBindings());

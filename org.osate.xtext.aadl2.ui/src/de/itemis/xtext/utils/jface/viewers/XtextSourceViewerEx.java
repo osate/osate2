@@ -25,8 +25,7 @@ class XtextSourceViewerEx extends XtextSourceViewer {
 	private final StyledText styledText;
 	private final IPreferenceStore preferenceStore;
 
-	public XtextSourceViewerEx(StyledText styledText,
-			IPreferenceStore preferenceStore) {
+	public XtextSourceViewerEx(StyledText styledText, IPreferenceStore preferenceStore) {
 		// super constructor will create a new text widget by calling
 		// createControl(). As we want to use the passed in styled text, we have
 		// to disable this mechanism.
@@ -50,8 +49,7 @@ class XtextSourceViewerEx extends XtextSourceViewer {
 	 * Overwritten to handle offset properly.
 	 */
 	@Override
-	protected boolean updateSlaveDocument(IDocument slaveDocument,
-			int modelRangeOffset, int modelRangeLength)
+	protected boolean updateSlaveDocument(IDocument slaveDocument, int modelRangeOffset, int modelRangeLength)
 			throws BadLocationException {
 		if (slaveDocument instanceof ProjectionDocument) {
 			ProjectionDocument projection = (ProjectionDocument) slaveDocument;
@@ -86,8 +84,7 @@ class XtextSourceViewerEx extends XtextSourceViewer {
 		// uses package visibility for the setter
 		Field declaredField;
 		try {
-			declaredField = TextSourceViewerConfiguration.class
-					.getDeclaredField("fPreferenceStore");
+			declaredField = TextSourceViewerConfiguration.class.getDeclaredField("fPreferenceStore");
 			declaredField.setAccessible(true);
 			declaredField.set(configuration, preferenceStore);
 		} catch (Exception e) {
@@ -104,8 +101,7 @@ class XtextSourceViewerEx extends XtextSourceViewer {
 	 */
 	private void setPrivateHandleProjectionChangesField(boolean value) {
 		try {
-			Field declaredField = ProjectionViewer.class
-					.getDeclaredField("fHandleProjectionChanges");
+			Field declaredField = ProjectionViewer.class.getDeclaredField("fHandleProjectionChanges");
 			declaredField.setAccessible(true);
 			declaredField.set(this, value);
 		} catch (Exception e) {

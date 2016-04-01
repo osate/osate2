@@ -97,8 +97,8 @@ public class AadlProject extends AadlElement implements IAadlProject {
 
 		PreferenceStore projectProperties = WorkspacePlugin.getPreferenceStore(project);
 		String currentPath = projectProperties.getString(WorkspacePlugin.PROJECT_SOURCE_DIR);
-		filename = name.replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR)
-				+ "." + WorkspacePlugin.SOURCE_FILE_EXT;
+		filename = name.replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + "."
+				+ WorkspacePlugin.SOURCE_FILE_EXT;
 		f = findAadlFile(new Path(currentPath), filename);
 		if (f == null) {
 			filename = name.replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR)
@@ -221,13 +221,13 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		IPath src = new Path(projectProperties.getString(WorkspacePlugin.PROJECT_SOURCE_DIR));
 		if (src.isPrefixOf(p)) {
 			int i = src.segmentCount();
-			result = new Path(projectProperties.getString(WorkspacePlugin.PROJECT_MODEL_DIR)).append(p
-					.removeFirstSegments(i));
+			result = new Path(projectProperties.getString(WorkspacePlugin.PROJECT_MODEL_DIR))
+					.append(p.removeFirstSegments(i));
 			result = result.removeFileExtension().addFileExtension(WorkspacePlugin.MODEL_FILE_EXT);
 			result = new Path(project.getName()).append(result);
 		} else {
-			result = new Path(project.getName()).append(p.removeFileExtension().addFileExtension(
-					WorkspacePlugin.MODEL_FILE_EXT));
+			result = new Path(project.getName())
+					.append(p.removeFileExtension().addFileExtension(WorkspacePlugin.MODEL_FILE_EXT));
 		}
 		return result;
 	}
@@ -494,8 +494,8 @@ public class AadlProject extends AadlElement implements IAadlProject {
 				@Override
 				protected boolean suchThat(IFile obj) {
 					String name = obj.getName();
-					return (name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT) || name
-							.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2));
+					return (name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)
+							|| name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2));
 				}
 			}.traverse(folder);
 			return result;

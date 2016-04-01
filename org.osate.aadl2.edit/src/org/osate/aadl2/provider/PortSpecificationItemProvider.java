@@ -141,11 +141,11 @@ public class PortSpecificationItemProvider extends FeaturePrototypeActualItemPro
 	 * @generated
 	 */
 	protected void addComponentPrototypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_PortSpecification_componentPrototype_feature"),
-						getString("_UI_PropertyDescriptor_description",
-								"_UI_PortSpecification_componentPrototype_feature", "_UI_PortSpecification_type"),
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_PortSpecification_componentPrototype_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_componentPrototype_feature",
+						"_UI_PortSpecification_type"),
 				Aadl2Package.eINSTANCE.getPortSpecification_ComponentPrototype(), true, false, true, null, null, null));
 	}
 

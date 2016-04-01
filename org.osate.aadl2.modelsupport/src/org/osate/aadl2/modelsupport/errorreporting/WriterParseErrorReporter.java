@@ -58,15 +58,15 @@ public final class WriterParseErrorReporter extends AbstractParseErrorReporter {
 	 * Singleton reference to an error reporter that sends the messages to
 	 * {@link System#out}.
 	 */
-	public static final WriterParseErrorReporter SYSTEM_OUT = new WriterParseErrorReporter(new OutputStreamWriter(
-			System.out));
+	public static final WriterParseErrorReporter SYSTEM_OUT = new WriterParseErrorReporter(
+			new OutputStreamWriter(System.out));
 
 	/**
 	 * Singleton reference to an error reporter that sends the messages to
 	 * {@link System#err}.
 	 */
-	public static final WriterParseErrorReporter SYSTEM_ERR = new WriterParseErrorReporter(new OutputStreamWriter(
-			System.err));
+	public static final WriterParseErrorReporter SYSTEM_ERR = new WriterParseErrorReporter(
+			new OutputStreamWriter(System.err));
 
 	/**
 	 * Singleton reference to an factory that creates reporters that send the

@@ -18,8 +18,8 @@ public class AadlIdentifierInputValidator implements IInputValidator {
 			"flow", "flows", "group", "implementation", "in", "inherit", "initial", "inverse", "is", "list", "memory",
 			"mode", "modes", "none", "not", "of", "or", "out", "package", "parameter", "path", "port", "private",
 			"process", "processor", "properties", "property", "provides", "public", "range", "reference", "refined",
-			"refines", "requires", "server", "set", "sink", "source", "subcomponents", "subprogram", "system",
-			"thread", "to", "true", "type", "units", "value" };
+			"refines", "requires", "server", "set", "sink", "source", "subcomponents", "subprogram", "system", "thread",
+			"to", "true", "type", "units", "value" };
 
 	private static final Set<String> keywordsSet = new HashSet<String>();
 

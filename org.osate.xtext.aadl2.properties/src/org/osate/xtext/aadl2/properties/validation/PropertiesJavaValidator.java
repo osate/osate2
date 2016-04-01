@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
@@ -80,6 +81,7 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
@@ -94,6 +96,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
@@ -545,9 +548,51 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
+	public void checkPropertySetElementReferenceForPackageProperties(NamedElement pse, Element context) {
+		if (Aadl2Util.isNull(pse)) {
+			return;
+		}
+		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
+		PackageSection containingPackageSection = EcoreUtil2.getContainerOfType(context, PackageSection.class);
+		if (containingPackageSection == null) {
+			AadlPackage aadlPackage = EcoreUtil2.getContainerOfType(context, AadlPackage.class);
+			EList<ModelUnit> importedPropertySets = null;
+			PackageSection packageSection = aadlPackage.getPublicSection();
+			if (packageSection == null) {
+				packageSection = aadlPackage.getPrivateSection();
+			}
+			if (packageSection != null) {
+				importedPropertySets = packageSection.getImportedUnits();
+				for (ModelUnit importedPropertySet : importedPropertySets) {
+					if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
+							&& (importedPropertySet == referenceNS || (referenceNS.getQualifiedName()
+									.equalsIgnoreCase(importedPropertySet.getQualifiedName())))) {
+						return;
+					}
+				}
+			}
+			if (packageSection != null) {
+				error("The referenced property set '" + referenceNS.getName() + "' of "
+						+ (pse instanceof Property ? "property '"
+								: (pse instanceof PropertyType ? "property type '" : "property constant '"))
+						+ pse.getName() + "' is not listed in a with clause.", context, null, MISSING_WITH,
+						referenceNS.getName(), EcoreUtil.getURI(referenceNS).toString(),
+						EcoreUtil.getURI(packageSection).toString());
+			} else {
+				error("The referenced property set '" + referenceNS.getName() + "' of "
+						+ (pse instanceof Property ? "property '"
+								: (pse instanceof PropertyType ? "property type '" : "property constant '"))
+						+ pse.getName() + "' is not listed in a with clause.", context, null);
+			}
+		}
+	}
+
 	protected void checkPropertyAssociation(PropertyAssociation pa) {
 		// type check value against type
 		Property pdef = pa.getProperty();
+
+		checkPropertySetElementReferenceForPackageProperties(pdef, pa);
+
 		checkPropertySetElementReference(pdef, pa);
 		if (Aadl2Util.isNull(pdef)) {
 			return;

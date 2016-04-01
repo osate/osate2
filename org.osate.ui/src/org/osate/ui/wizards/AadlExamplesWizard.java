@@ -74,8 +74,8 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 
 		protected void setSelectedItems(String[][] items, File rootExamplePath) {
 			for (String[] entry : items) {
-				_ALREADY_SELECTED.put(computeCategory(entry[0]), new File(rootExamplePath + File.separator + entry[0]
-						+ File.separator + entry[1]));
+				_ALREADY_SELECTED.put(computeCategory(entry[0]),
+						new File(rootExamplePath + File.separator + entry[0] + File.separator + entry[1]));
 			}
 		}
 
@@ -259,7 +259,8 @@ public class AadlExamplesWizard extends AadlProjectWizard {
 			setControl(inheritePanel);
 		}
 
-		public void initAlreadySelectedItem(Map<String, List<Integer>> itemList, Map<String, List<Integer>> selectedItem) {
+		public void initAlreadySelectedItem(Map<String, List<Integer>> itemList,
+				Map<String, List<Integer>> selectedItem) {
 			for (Entry<String, File> entry : _ALREADY_SELECTED.entrySet()) {
 				String catName = entry.getKey();
 				File file = entry.getValue();

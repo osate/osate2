@@ -362,7 +362,8 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 
 //			OsateDebug.osateDebug("non modal value" + ele.getOwnedValue());
 			if ((ele.getOwnedValue() != null) && (!(ele.getOwnedValue() instanceof RangeValue))
-					&& (!(ele.getOwnedValue() instanceof RecordValue)) && (!(ele.getOwnedValue() instanceof ListValue))) {
+					&& (!(ele.getOwnedValue() instanceof RecordValue))
+					&& (!(ele.getOwnedValue() instanceof ListValue))) {
 				label += " " + text(ele.getOwnedValue());
 			}
 

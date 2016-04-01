@@ -2117,7 +2117,8 @@ public final class CharOperation {
 	 * @return true if the pattern matches the filepath using the pathSepatator,
 	 *         false otherwise
 	 */
-	public static final boolean pathMatch(char[] pattern, char[] filepath, boolean isCaseSensitive, char pathSeparator) {
+	public static final boolean pathMatch(char[] pattern, char[] filepath, boolean isCaseSensitive,
+			char pathSeparator) {
 
 		if (filepath == null) {
 			return false; // null name cannot match
@@ -2181,8 +2182,8 @@ public final class CharOperation {
 
 		/* check sequence of doubleStar+segment */
 		int pSegmentRestart;
-		if ((pSegmentStart >= pLength && freeTrailingDoubleStar)
-				|| (pSegmentEnd == pSegmentStart + 2 && pattern[pSegmentStart] == '*' && pattern[pSegmentStart + 1] == '*')) {
+		if ((pSegmentStart >= pLength && freeTrailingDoubleStar) || (pSegmentEnd == pSegmentStart + 2
+				&& pattern[pSegmentStart] == '*' && pattern[pSegmentStart + 1] == '*')) {
 			pSegmentEnd = CharOperation.indexOf(pathSeparator, pattern, pSegmentStart = pSegmentEnd + 1);
 			// skip separator
 			if (pSegmentEnd < 0) {
@@ -2223,7 +2224,8 @@ public final class CharOperation {
 			}
 
 			/* path segment is ending */
-			if (pSegmentEnd == pSegmentStart + 2 && pattern[pSegmentStart] == '*' && pattern[pSegmentStart + 1] == '*') {
+			if (pSegmentEnd == pSegmentStart + 2 && pattern[pSegmentStart] == '*'
+					&& pattern[pSegmentStart + 1] == '*') {
 				pSegmentEnd = CharOperation.indexOf(pathSeparator, pattern, pSegmentStart = pSegmentEnd + 1);
 				// skip separator
 				if (pSegmentEnd < 0) {

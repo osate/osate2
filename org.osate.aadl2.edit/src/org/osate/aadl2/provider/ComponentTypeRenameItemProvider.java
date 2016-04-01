@@ -109,8 +109,8 @@ public class ComponentTypeRenameItemProvider extends NamedElementItemProvider {
 						getResourceLocator(), getString("_UI_ComponentTypeRename_renamedComponentType_feature"),
 						getString("_UI_PropertyDescriptor_description",
 								"_UI_ComponentTypeRename_renamedComponentType_feature", "_UI_ComponentTypeRename_type"),
-				Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType(), true, false, true, null, null,
-				null));
+						Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType(), true, false, true, null,
+						null, null));
 	}
 
 	/**

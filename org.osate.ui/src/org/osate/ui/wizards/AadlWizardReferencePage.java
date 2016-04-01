@@ -41,8 +41,8 @@ public class AadlWizardReferencePage extends WizardNewProjectReferencePage {
 						}
 					} catch (CoreException e) {
 						MessageDialog.openError(getShell(), "Project Problems", //$NON-NLS-1$
-								MessageFormat.format("Project does not exist or is not open", e.getStackTrace()
-										.toString()));
+								MessageFormat.format("Project does not exist or is not open",
+										e.getStackTrace().toString()));
 					}
 				}
 
