@@ -140,7 +140,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 				case numberValue_Unit: switch type : context.property?.propertyType?.basePropertyType {
 					NumberType: type.unitsType
 					RangeType: type.numberType.unitsType
-				}?.ownedLiterals.findFirst[name == qName.firstSegment]
+				}?.ownedLiterals?.findFirst[name == qName.firstSegment]
 				case basicPropertyAssociation_Property: switch type : context.getContainerOfType(RecordValue).property?.propertyType?.basePropertyType {
 					RecordType: type.ownedFields.findFirst[name == qName.firstSegment]
 				}
