@@ -106,31 +106,24 @@ class SerializerTest2 extends AbstractSerializerTest {
 						in dataPort p3 : pkg1::s2:p3
 						flow f2 ( p3 -> ) : pkg1::s2:f2
 					}
-					complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 ->
-					s2_sub[0].p3 {
+					complete portConnection "s1_sub.p2 -> s2_sub.p3" : s1_sub[0].p2 -> s2_sub[0].p3 {
 						s1_sub[0].p2 -> s2_sub[0].p3 : pkg1::s3.i:conn2 in parent
 					}
 					flow f3 ( p4 -> ) : pkg1::s3:f3
 					flow f4 ( p4 -> ) : pkg1::s3:f4
 					flow f5 ( p4 -> p5 ) : pkg1::s3:f5
-					end to end flow etef1 s1_sub[0] -> connection#0 -> s2_sub[0].f2 :
-					pkg1::s3.i:etef1
+					end to end flow etef1 s1_sub[0] -> connection#0 -> s2_sub[0].f2 : pkg1::s3.i:etef1
 				}
-				complete portConnection "s4_sub.p6 -> s3_sub.s1_sub.p1" : s4_sub[0].p6 ->
-				s3_sub[0].s1_sub[0].p1 {
+				complete portConnection "s4_sub.p6 -> s3_sub.s1_sub.p1" : s4_sub[0].p6 -> s3_sub[0].s1_sub[0].p1 {
 					s4_sub[0].p6 -> s3_sub[0].p4 : pkg1::s5.i:conn3 in parent
 					s3_sub[0].p4 -> s3_sub[0].s1_sub[0].p1 : pkg1::s3.i:conn1 in s3_sub[0]
 				}
-				complete portConnection "s3_sub.p5 -> s4_sub.p7" : s3_sub[0].p5 ->
-				s4_sub[0].p7 {
+				complete portConnection "s3_sub.p5 -> s4_sub.p7" : s3_sub[0].p5 -> s4_sub[0].p7 {
 					s3_sub[0].p5 -> s4_sub[0].p7 : pkg1::s5.i:conn4 in parent
 				}
-				end to end flow etef2 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0].f1
-				-> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef2
-				end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] ->
-				s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
-				end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].f5 :
-				pkg1::s5.i:etef4
+				end to end flow etef2 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0].f1 -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef2
+				end to end flow etef3 s4_sub[0].f6 -> connection#0 -> s3_sub[0].s1_sub[0] -> s3_sub[0].connection#0 -> s3_sub[0].s2_sub[0].f2 : pkg1::s5.i:etef3
+				end to end flow etef4 s4_sub[0].f6 -> connection#0 -> s3_sub[0].f5 : pkg1::s5.i:etef4
 				end to end flow etef5 etef4 -> connection#1 -> s4_sub[0].f7 : pkg1::s5.i:etef5
 				som "No Modes"
 			}''')
@@ -245,13 +238,11 @@ class SerializerTest2 extends AbstractSerializerTest {
 					in dataPort p3 : pkg1::s3:p3
 					flow f3 ( p3 -> ) : pkg1::s3:f3
 				}
-				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in
-				modes ( som#2 ) {
+				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in modes ( som#2 ) {
 					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i:conn1 in parent
 				}
 				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1:f1
-				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes (
-				som#2 ) : pkg1::s1.i:etef1
+				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes ( som#2 ) : pkg1::s1.i:etef1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
 				mode m3 : pkg1::s1:m3
@@ -406,8 +397,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				system sub2 [ 0 ] : pkg1::s3.i:sub2 {
 					in dataPort p2 : pkg1::s2:p2
 				}
-				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in
-				transitions ( transition#0 ) {
+				complete portConnection "sub1.p1 -> sub2.p2" : sub1[0].p1 -> sub2[0].p2 in transitions ( transition#0 ) {
 					sub1[0].p1 -> sub2[0].p2 : pkg1::s3.i:conn1 in parent
 				}
 				flow f1 ( p3 -> ) in transitions ( transition#0 ) : pkg1::s3:f1
@@ -508,8 +498,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i:conn1 in parent
 					ps1::bool1 => true : pkg1::s3.i:conn1:property#0
 				}
-				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes (
-				som#0 , som#1 ) : pkg1::s3.i:etef1 {
+				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes ( som#0 , som#1 ) : pkg1::s3.i:etef1 {
 					ps1::bool1 => true : pkg1::s3.i:etef1:property#0
 				}
 				som "sub1.m1" sub1[0].m1
@@ -551,8 +540,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				system sub1 [ 0 ] : pkg1::s.i:sub1 {
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
-					ps1::bool1 => true in modes ( som#0 , som#2 ) , false in modes ( som#1 ,
-					som#3 ) : pkg1::s:property#0
+					ps1::bool1 => true in modes ( som#0 , som#2 ) , false in modes ( som#1 , som#3 ) : pkg1::s:property#0
 				}
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
@@ -560,8 +548,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m1#sub1.m2" m1 , sub1[0].m2
 				som "m2#sub1.m1" m2 , sub1[0].m1
 				som "m2#sub1.m2" m2 , sub1[0].m2
-				ps1::bool1 => true in modes ( som#0 , som#1 ) , false in modes ( som#2 , som#3
-				) : pkg1::s:property#0
+				ps1::bool1 => true in modes ( som#0 , som#1 ) , false in modes ( som#2 , som#3 ) : pkg1::s:property#0
 			}''')
 	}
 	
@@ -658,8 +645,7 @@ class SerializerTest2 extends AbstractSerializerTest {
 				ps1::enum1 => two : pkg1::s:property#13
 				ps1::classifier1 => classifier ( pkg1::s ) : pkg1::s:property#14
 				ps1::int6 => compute ( function1 ) : pkg1::s:property#15
-				ps1::record1 => [ field1 => 42 ; field2 => [ field3 => 42 ; ] ; field4 => two
-				; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] : pkg1::s:property#16
+				ps1::record1 => [ field1 => 42 ; field2 => [ field3 => 42 ; ] ; field4 => two ; field5 => 42 cm ; field6 => 0 cm .. 10 cm ; ] : pkg1::s:property#16
 				ps1::list1 => ( 1 , 2 , 4 , 8 ) : pkg1::s:property#17
 			}''')
 	}
@@ -769,20 +755,14 @@ class SerializerTest2 extends AbstractSerializerTest {
 				som "m1" m1
 				som "m2" m2
 				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0
-				ps1::reference2 => reference ( pkg1::s1:fg1 / pkg1::fgt1:proto2 ) :
-				pkg1::s1.i:property#1
-				ps1::reference3 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg2 /
-				pkg1::fgt2:proto3 ) : pkg1::s1.i:property#2
-				ps1::reference4 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg3 [ 1 ] /
-				pkg1::fgt2:proto3 ) : pkg1::s1.i:property#3
-				ps1::reference5 => reference ( pkg1::s1.i:sub1 / pkg1::s2:proto4 ) :
-				pkg1::s1.i:property#4
+				ps1::reference2 => reference ( pkg1::s1:fg1 / pkg1::fgt1:proto2 ) : pkg1::s1.i:property#1
+				ps1::reference3 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg2 / pkg1::fgt2:proto3 ) : pkg1::s1.i:property#2
+				ps1::reference4 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg3 [ 1 ] / pkg1::fgt2:proto3 ) : pkg1::s1.i:property#3
+				ps1::reference5 => reference ( pkg1::s1.i:sub1 / pkg1::s2:proto4 ) : pkg1::s1.i:property#4
 				ps1::reference6 => reference ( pkg1::s1.i:es1 ) : pkg1::s1.i:property#5
 				ps1::reference7 => reference ( pkg1::s1.i:pp1 ) : pkg1::s1.i:property#6
-				ps1::reference8 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:sequence1 ) :
-				pkg1::s1.i:property#7
-				ps1::reference9 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:call1 ) :
-				pkg1::s1.i:property#8
+				ps1::reference8 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:sequence1 ) : pkg1::s1.i:property#7
+				ps1::reference9 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:call1 ) : pkg1::s1.i:property#8
 				ps1::reference10 => reference ( pkg1::s1:mt1 ) : pkg1::s1.i:property#9
 			}''')
 	}

@@ -402,8 +402,7 @@ class SerializerTest1 extends AbstractSerializerTest {
 						in dataPort ip : pkg1::t2:ip
 					}
 				}
-				complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" :
-				p1sub[0].t1sub[0].op -> p2sub[0].t2sub[0].ip {
+				complete portConnection "p1sub.t1sub.op -> p2sub.t2sub.ip" : p1sub[0].t1sub[0].op -> p2sub[0].t2sub[0].ip {
 					p1sub[0].t1sub[0].op -> p1sub[0].op : pkg1::p1.i:p1conn in p1sub[0]
 					p1sub[0].op -> p2sub[0].ip : pkg1::s.i:conn in parent
 					p2sub[0].ip -> p2sub[0].t2sub[0].ip : pkg1::p2.i:p2conn in p2sub[0]
@@ -564,20 +563,16 @@ class SerializerTest1 extends AbstractSerializerTest {
 					in out busAccess ba2 : pkg1::a2:ba2
 					in eventPort ep2 : pkg1::a2:ep2
 				}
-				complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 ->
-				a2sub[0].fg2 {
+				complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 -> a2sub[0].fg2 {
 					a1sub[0].fg1 -> a2sub[0].fg2 : pkg1::top.i:conn4 in parent
 				}
-				complete featureConnection "a1sub.af1 -> a2sub.af2" : a1sub[0].af1 ->
-				a2sub[0].af2 {
+				complete featureConnection "a1sub.af1 -> a2sub.af2" : a1sub[0].af1 -> a2sub[0].af2 {
 					a1sub[0].af1 -> a2sub[0].af2 : pkg1::top.i:conn1 in parent
 				}
-				complete accessConnection "a1sub.ba1 -> a2sub.ba2" : a1sub[0].ba1 ->
-				a2sub[0].ba2 {
+				complete accessConnection "a1sub.ba1 -> a2sub.ba2" : a1sub[0].ba1 -> a2sub[0].ba2 {
 					a1sub[0].ba1 -> a2sub[0].ba2 : pkg1::top.i:conn2 in parent
 				}
-				complete portConnection "a1sub.ep1 -> a2sub.ep2" : a1sub[0].ep1 ->
-				a2sub[0].ep2 {
+				complete portConnection "a1sub.ep1 -> a2sub.ep2" : a1sub[0].ep1 -> a2sub[0].ep2 {
 					a1sub[0].ep1 -> a2sub[0].ep2 : pkg1::top.i:conn3 in parent
 				}
 				som "No Modes"
@@ -694,26 +689,22 @@ class SerializerTest1 extends AbstractSerializerTest {
 						in out featureGroup fg9 : pkg1::t2:fg9
 					}
 				}
-				complete portConnection "p1sub.t1sub.fg1.dp1 -> p2sub.t2sub.fg7.dp1" :
-				p1sub[0].t1sub[0].fg1.dp1 -> p2sub[0].t2sub[0].fg7.dp1 {
+				complete portConnection "p1sub.t1sub.fg1.dp1 -> p2sub.t2sub.fg7.dp1" : p1sub[0].t1sub[0].fg1.dp1 -> p2sub[0].t2sub[0].fg7.dp1 {
 					p1sub[0].t1sub[0].fg1.dp1 -> p1sub[0].fg4.dp1 : pkg1::p1.i:conn1 in p1sub[0]
 					p1sub[0].fg4.dp1 -> p2sub[0].fg10.dp1 : pkg1::s.i:conn7 in parent
 					p2sub[0].fg10.dp1 -> p2sub[0].t2sub[0].fg7.dp1 : pkg1::p2.i:conn4 in p2sub[0]
 				}
-				complete portConnection "p1sub.t1sub.fg1.ep1 -> p2sub.t2sub.fg7.ep1" :
-				p1sub[0].t1sub[0].fg1.ep1 -> p2sub[0].t2sub[0].fg7.ep1 {
+				complete portConnection "p1sub.t1sub.fg1.ep1 -> p2sub.t2sub.fg7.ep1" : p1sub[0].t1sub[0].fg1.ep1 -> p2sub[0].t2sub[0].fg7.ep1 {
 					p1sub[0].t1sub[0].fg1.ep1 -> p1sub[0].fg4.ep1 : pkg1::p1.i:conn1 in p1sub[0]
 					p1sub[0].fg4.ep1 -> p2sub[0].fg10.ep1 : pkg1::s.i:conn7 in parent
 					p2sub[0].fg10.ep1 -> p2sub[0].t2sub[0].fg7.ep1 : pkg1::p2.i:conn4 in p2sub[0]
 				}
-				complete featureGroupConnection "p1sub.t1sub.fg2 -> p2sub.t2sub.fg8" :
-				p1sub[0].t1sub[0].fg2 -> p2sub[0].t2sub[0].fg8 {
+				complete featureGroupConnection "p1sub.t1sub.fg2 -> p2sub.t2sub.fg8" : p1sub[0].t1sub[0].fg2 -> p2sub[0].t2sub[0].fg8 {
 					p1sub[0].t1sub[0].fg2 -> p1sub[0].fg5 : pkg1::p1.i:conn2 in p1sub[0]
 					p1sub[0].fg5 -> p2sub[0].fg11 : pkg1::s.i:conn8 in parent
 					p2sub[0].fg11 -> p2sub[0].t2sub[0].fg8 : pkg1::p2.i:conn5 in p2sub[0]
 				}
-				complete featureGroupConnection "p1sub.t1sub.fg3 -> p2sub.t2sub.fg9" :
-				p1sub[0].t1sub[0].fg3 -> p2sub[0].t2sub[0].fg9 {
+				complete featureGroupConnection "p1sub.t1sub.fg3 -> p2sub.t2sub.fg9" : p1sub[0].t1sub[0].fg3 -> p2sub[0].t2sub[0].fg9 {
 					p1sub[0].t1sub[0].fg3 -> p1sub[0].fg6 : pkg1::p1.i:conn3 in p1sub[0]
 					p1sub[0].fg6 -> p2sub[0].fg12 : pkg1::s.i:conn9 in parent
 					p2sub[0].fg12 -> p2sub[0].t2sub[0].fg9 : pkg1::p2.i:conn6 in p2sub[0]
