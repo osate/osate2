@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.aadl2.instance.textual.ui
-Bundle-Vendor: SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.aadl2.instance.textual.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -12,7 +12,6 @@ Require-Bundle: org.osate.aadl2.instance.textual;visibility:=reexport,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  org.eclipse.xtext.builder,
- org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.compare,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",

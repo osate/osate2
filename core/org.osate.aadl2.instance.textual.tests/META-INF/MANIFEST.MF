@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.aadl2.instance.textual.tests
-Bundle-Vendor: SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.aadl2.instance.textual.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
