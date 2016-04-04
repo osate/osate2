@@ -83,6 +83,13 @@ import org.osate.assure.assure.QualifiedClaimReference
 import org.osate.verify.verify.VerificationPlan
 import org.osate.assure.assure.QualifiedVerificationPlanElementReference
 import org.junit.runner.Result
+import org.eclipse.core.resources.WorkspaceJob
+import org.eclipse.xtext.resource.XtextResource
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.xtext.util.concurrent.IUnitOfWork
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.Status
 
 class AssureUtilExtension {
 
@@ -1356,10 +1363,28 @@ class AssureUtilExtension {
 		if (Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si == null) {
+			
 			System.out.println("Instantiating "+cimpl.getQualifiedName())
-			si = cimpl.buildInstanceModelFile
-			setInstanceModel(cimpl, si)
+//			si = cimpl.buildInstanceModelFile
+//			setInstanceModel(cimpl, si)
+
+			//mnam: Trying to make this a separate job due to schedule rule conflict when called by assure handler
+			val job = new WorkspaceJob("Instantiating " +cimpl.getQualifiedName()) {
+				override runInWorkspace(IProgressMonitor monitor) throws CoreException {
+					val si = cimpl.buildInstanceModelFile
+					setInstanceModel(cimpl, si)
+					Status.OK_STATUS
+				}
+			};
+			//job.setRule
+			job.schedule();
+			job.join();
+			
+
 		}
+		
+		si = instanceModelRecord.get(cimpl.name) as SystemInstance
+		
 		return si
 	}
 	
