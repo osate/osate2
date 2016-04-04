@@ -41,6 +41,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#isConvert <em>Convert</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -57,6 +58,26 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * @ordered
    */
   protected PropertyExpression expression;
+
+  /**
+   * The default value of the '{@link #isConvert() <em>Convert</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConvert()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CONVERT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isConvert() <em>Convert</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConvert()
+   * @generated
+   * @ordered
+   */
+  protected boolean convert = CONVERT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -142,6 +163,29 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isConvert()
+  {
+    return convert;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConvert(boolean newConvert)
+  {
+    boolean oldConvert = convert;
+    convert = newConvert;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNIT_EXPRESSION__CONVERT, oldConvert, convert));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public UnitLiteral getUnit()
   {
     if (unit != null && ((EObject)unit).eIsProxy())
@@ -208,6 +252,8 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
     {
       case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
         return getExpression();
+      case CommonPackage.AUNIT_EXPRESSION__CONVERT:
+        return isConvert();
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         if (resolve) return getUnit();
         return basicGetUnit();
@@ -227,6 +273,9 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
     {
       case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
         setExpression((PropertyExpression)newValue);
+        return;
+      case CommonPackage.AUNIT_EXPRESSION__CONVERT:
+        setConvert((Boolean)newValue);
         return;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)newValue);
@@ -248,6 +297,9 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
       case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
         setExpression((PropertyExpression)null);
         return;
+      case CommonPackage.AUNIT_EXPRESSION__CONVERT:
+        setConvert(CONVERT_EDEFAULT);
+        return;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)null);
         return;
@@ -267,10 +319,29 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
     {
       case CommonPackage.AUNIT_EXPRESSION__EXPRESSION:
         return expression != null;
+      case CommonPackage.AUNIT_EXPRESSION__CONVERT:
+        return convert != CONVERT_EDEFAULT;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         return unit != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (convert: ");
+    result.append(convert);
+    result.append(')');
+    return result.toString();
   }
 
 } //AUnitExpressionImpl

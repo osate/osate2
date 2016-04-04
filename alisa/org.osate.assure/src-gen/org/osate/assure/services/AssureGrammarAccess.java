@@ -2107,7 +2107,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AVariableReference returns AExpression:
-	//	{AVariableReference} variable=[AVariableDeclaration] unit=[aadl2::UnitLiteral]?;
+	//	{AVariableReference} variable=[AVariableDeclaration];
 	public CommonGrammarAccess.AVariableReferenceElements getAVariableReferenceAccess() {
 		return gaCommon.getAVariableReferenceAccess();
 	}
@@ -2304,7 +2304,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnaryOperation returns aadl2::PropertyExpression:
-	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | APrimaryExpression;
+	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | AUnitExpression;
 	public CommonGrammarAccess.AUnaryOperationElements getAUnaryOperationAccess() {
 		return gaCommon.getAUnaryOperationAccess();
 	}
@@ -2321,6 +2321,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getOpUnaryRule() {
 		return getOpUnaryAccess().getRule();
+	}
+
+	//AUnitExpression returns aadl2::PropertyExpression:
+	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] |
+	//	unit=[aadl2::UnitLiteral]))?;
+	public CommonGrammarAccess.AUnitExpressionElements getAUnitExpressionAccess() {
+		return gaCommon.getAUnitExpressionAccess();
+	}
+	
+	public ParserRule getAUnitExpressionRule() {
+		return getAUnitExpressionAccess().getRule();
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
@@ -2375,7 +2386,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AIntegerTerm returns aadl2::IntegerLiteral:
-	//	value=AInt unit=[aadl2::UnitLiteral]?;
+	//	value=AInt;
 	public CommonGrammarAccess.AIntegerTermElements getAIntegerTermAccess() {
 		return gaCommon.getAIntegerTermAccess();
 	}
@@ -2395,7 +2406,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ARealTerm returns aadl2::RealLiteral:
-	//	value=AReal unit=[aadl2::UnitLiteral]?;
+	//	value=AReal;
 	public CommonGrammarAccess.ARealTermElements getARealTermAccess() {
 		return gaCommon.getARealTermAccess();
 	}
@@ -2452,7 +2463,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AParenthesizedExpression returns aadl2::PropertyExpression:
-	//	{AUnitExpression} "(" expression=AExpression ")" unit=[aadl2::UnitLiteral]?;
+	//	"(" AExpression ")";
 	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
 		return gaCommon.getAParenthesizedExpressionAccess();
 	}

@@ -93,7 +93,6 @@
     <genClasses ecoreClass="Common.ecore#//ComputeDeclaration"/>
     <genClasses ecoreClass="Common.ecore#//AVariableReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/variable"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ABinaryOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/left"/>
@@ -103,6 +102,11 @@
     <genClasses ecoreClass="Common.ecore#//AUnaryOperation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/operator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AUnitExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/convert"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AFunctionCall">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AFunctionCall/function"/>
@@ -117,10 +121,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/if"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/then"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AConditional/else"/>
-    </genClasses>
-    <genClasses ecoreClass="Common.ecore#//AUnitExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

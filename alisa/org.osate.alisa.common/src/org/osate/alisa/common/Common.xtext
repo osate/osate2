@@ -82,7 +82,7 @@ APropertyReference returns APropertyReference:
 ;
 
 AVariableReference returns AExpression:
-	{AVariableReference} variable=[AVariableDeclaration|ID] (unit=[aadl2::UnitLiteral|ID])?
+	{AVariableReference} variable=[AVariableDeclaration|ID]
 ;
 
 
@@ -173,13 +173,16 @@ OpMulti returns Operation:
 ;
 
 AUnaryOperation returns aadl2::PropertyExpression:
-	{AUnaryOperation} =>operator=OpUnary operand=AUnaryOperation | APrimaryExpression
+	{AUnaryOperation} =>operator=OpUnary operand=AUnaryOperation | AUnitExpression
 ;
 
 OpUnary returns Operation:
 	"not" | "-" | "+"
 ;
-	
+AUnitExpression returns aadl2::PropertyExpression:
+	APrimaryExpression ({AUnitExpression.expression=current} (convert?='in' unit=[aadl2::UnitLiteral|ID] | unit=[aadl2::UnitLiteral|ID]))?
+;
+
 APrimaryExpression returns aadl2::PropertyExpression:
 	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall | ARangeExpression | AIfExpression
 	| AParenthesizedExpression
@@ -205,7 +208,7 @@ ALiteral returns aadl2::PropertyExpression:
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:
-	value=AInt (unit=[aadl2::UnitLiteral|ID])?
+	value=AInt
 ;
 
 AInt returns aadl2::Integer:
@@ -213,7 +216,7 @@ AInt returns aadl2::Integer:
 ;
 
 ARealTerm returns aadl2::RealLiteral:
-	value=AReal (unit=[aadl2::UnitLiteral|ID])?
+	value=AReal
 ;
 
 AReal returns aadl2::Real:
@@ -243,7 +246,7 @@ NoQuoteString :
 ;
 
 AParenthesizedExpression returns aadl2::PropertyExpression:
-	{AUnitExpression} '(' expression=AExpression ')' (unit=[aadl2::UnitLiteral|ID])?
+	'(' AExpression ')'
 ;
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'

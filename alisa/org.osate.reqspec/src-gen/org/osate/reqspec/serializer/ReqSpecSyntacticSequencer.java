@@ -33,6 +33,8 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ReqSpecGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_DocGoal_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_DocGoal_EvolvesKeyword_5_8_0_q;
 	protected AbstractElementAlias match_DocGoal_IssuesKeyword_5_12_0_q;
@@ -90,6 +92,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ReqSpecGrammarAccess) access;
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_DocGoal_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getCategoryKeyword_5_0_0());
 		match_DocGoal_EvolvesKeyword_5_8_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getEvolvesKeyword_5_8_0());
 		match_DocGoal_IssuesKeyword_5_12_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getIssuesKeyword_5_12_0());
@@ -157,7 +161,11 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_DocGoal_CategoryKeyword_5_0_0_q.equals(syntax))
+			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocGoal_CategoryKeyword_5_0_0_q.equals(syntax))
 				emit_DocGoal_CategoryKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DocGoal_EvolvesKeyword_5_8_0_q.equals(syntax))
 				emit_DocGoal_EvolvesKeyword_5_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -267,6 +275,58 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) 'this' (rule start)
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' ')' (rule start)
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     'category'?

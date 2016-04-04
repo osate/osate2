@@ -98,10 +98,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
+      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
       case CommonPackage.ARANGE: return createARange();
       case CommonPackage.ACONDITIONAL: return createAConditional();
-      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -370,6 +370,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AUnitExpression createAUnitExpression()
+  {
+    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
+    return aUnitExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AFunctionCall createAFunctionCall()
   {
     AFunctionCallImpl aFunctionCall = new AFunctionCallImpl();
@@ -396,17 +407,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AConditionalImpl aConditional = new AConditionalImpl();
     return aConditional;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AUnitExpression createAUnitExpression()
-  {
-    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
-    return aUnitExpression;
   }
 
   /**

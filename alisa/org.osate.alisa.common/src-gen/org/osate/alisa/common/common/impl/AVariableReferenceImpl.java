@@ -18,12 +18,9 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.UnitLiteral;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.AVariableReference;
@@ -38,7 +35,6 @@ import org.osate.alisa.common.common.CommonPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl#getVariable <em>Variable</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @generated
@@ -54,16 +50,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * @ordered
    */
   protected AVariableDeclaration variable;
-
-  /**
-   * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnit()
-   * @generated
-   * @ordered
-   */
-  protected UnitLiteral unit;
 
   /**
    * <!-- begin-user-doc -->
@@ -134,49 +120,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
-  public UnitLiteral getUnit()
-  {
-    if (unit != null && ((EObject)unit).eIsProxy())
-    {
-      InternalEObject oldUnit = (InternalEObject)unit;
-      unit = (UnitLiteral)eResolveProxy(oldUnit);
-      if (unit != oldUnit)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AVARIABLE_REFERENCE__UNIT, oldUnit, unit));
-      }
-    }
-    return unit;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UnitLiteral basicGetUnit()
-  {
-    return unit;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnit(UnitLiteral newUnit)
-  {
-    UnitLiteral oldUnit = unit;
-    unit = newUnit;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_REFERENCE__UNIT, oldUnit, unit));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -185,9 +128,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
       case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
         if (resolve) return getVariable();
         return basicGetVariable();
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
-        if (resolve) return getUnit();
-        return basicGetUnit();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -204,9 +144,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
     {
       case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
         setVariable((AVariableDeclaration)newValue);
-        return;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
-        setUnit((UnitLiteral)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -225,9 +162,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
       case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
         setVariable((AVariableDeclaration)null);
         return;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
-        setUnit((UnitLiteral)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -244,8 +178,6 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
     {
       case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
         return variable != null;
-      case CommonPackage.AVARIABLE_REFERENCE__UNIT:
-        return unit != null;
     }
     return super.eIsSet(featureID);
   }

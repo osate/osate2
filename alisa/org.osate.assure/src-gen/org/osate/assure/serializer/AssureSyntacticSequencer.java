@@ -33,6 +33,8 @@ import org.osate.assure.services.AssureGrammarAccess;
 public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AssureGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	protected AbstractElementAlias match_ShowValue_PercentSignKeyword_1_0_q;
@@ -42,6 +44,8 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AssureGrammarAccess) access;
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getIssuesKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_8_3()));
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 		match_ShowValue_PercentSignKeyword_1_0_q = new TokenAlias(false, true, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
@@ -61,7 +65,11 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -75,6 +83,58 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) 'this' (rule start)
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' ')' (rule start)
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('issues' '[' ']')?

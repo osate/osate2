@@ -33,6 +33,8 @@ import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlisaGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_AssurancePlan_AssureKeyword_7_1_0_q;
 	protected AbstractElementAlias match_AssurancePlan_IssuesKeyword_7_5_0_q;
 	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q;
@@ -46,6 +48,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlisaGrammarAccess) access;
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_AssurancePlan_AssureKeyword_7_1_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_1_0());
 		match_AssurancePlan_IssuesKeyword_7_5_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_5_0());
 		match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_4_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_4_1()));
@@ -69,7 +73,11 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AssurancePlan_AssureKeyword_7_1_0_q.equals(syntax))
+			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan_AssureKeyword_7_1_0_q.equals(syntax))
 				emit_AssurancePlan_AssureKeyword_7_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssurancePlan_IssuesKeyword_7_5_0_q.equals(syntax))
 				emit_AssurancePlan_IssuesKeyword_7_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -91,6 +99,58 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) 'this' (rule start)
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
+	 *     (rule start) (ambiguity) 'this' ')' (rule start)
+	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
+	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     'assure'?

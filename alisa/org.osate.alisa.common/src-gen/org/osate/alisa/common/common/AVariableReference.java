@@ -15,7 +15,6 @@
  */
 package org.osate.alisa.common.common;
 
-import org.osate.aadl2.UnitLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +26,6 @@ import org.osate.aadl2.UnitLiteral;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.AVariableReference#getVariable <em>Variable</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.AVariableReference#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAVariableReference()
@@ -61,31 +59,5 @@ public interface AVariableReference extends AExpression
    * @generated
    */
   void setVariable(AVariableDeclaration value);
-
-  /**
-   * Returns the value of the '<em><b>Unit</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Unit</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Unit</em>' reference.
-   * @see #setUnit(UnitLiteral)
-   * @see org.osate.alisa.common.common.CommonPackage#getAVariableReference_Unit()
-   * @model
-   * @generated
-   */
-  UnitLiteral getUnit();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AVariableReference#getUnit <em>Unit</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Unit</em>' reference.
-   * @see #getUnit()
-   * @generated
-   */
-  void setUnit(UnitLiteral value);
 
 } // AVariableReference

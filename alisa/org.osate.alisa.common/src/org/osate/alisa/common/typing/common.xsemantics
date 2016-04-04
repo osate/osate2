@@ -272,34 +272,7 @@ from {
 rule AVariableReference
 	G |- AVariableReference vRef : PropertyType type
 from {
-	G |- vRef.variable : var PropertyType vType
-	
-	{
-		vRef.unit == null
-		type = vType
-	}
-	or
-	{
-		if (vType instanceof NumberType) {
-			if (vType.unitsType != null) {
-				fail
-					error 'typing: value already has a unit'
-					source vRef.variable
-			}
-			val result = 
-					if (vType instanceof AadlInteger) 
-						Aadl2Factory.eINSTANCE.createAadlInteger
-					else
-						Aadl2Factory.eINSTANCE.createAadlReal
-			result.referencedUnitsType = vRef.unit.eContainer as UnitsType
-			type = result
-		} else {
-			fail
-				error 'typing: can only assign unit to a numeric type'
-				source vRef
-				feature CommonPackage.eINSTANCE.AVariableReference_Unit
-		}
-	}
+	G |- vRef.variable : type
 }
 
 // types for primary expressions
@@ -382,6 +355,34 @@ from {
 	
 	if (unitExp.unit == null) {
 		type = expType
+	} else if (unitExp.convert) {
+		val targetType = unitExp.unit.eContainer as UnitsType
+		if (expType instanceof NumberType) {
+			if (expType.unitsType == null) {
+				fail
+					error 'typing: expression has no unit'
+					source unitExp.expression
+			}
+			try {
+				G |- expType.unitsType ~~ targetType
+			} catch (RuleFailedException e) {
+				fail
+					error 'typing: cannot convert ' + stringRep(expType) + ' to ' + stringRep(targetType)
+					source CommonPackage.eINSTANCE.AUnitExpression_Convert
+			}
+			val result = 
+					if (expType instanceof AadlInteger) 
+						Aadl2Factory.eINSTANCE.createAadlInteger
+					else
+						Aadl2Factory.eINSTANCE.createAadlReal
+			result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+			type = result
+		} else {
+			fail
+				error 'typing: can only convert unit of a numeric type'
+				source unitExp
+				feature CommonPackage.eINSTANCE.AUnitExpression_Convert
+		}
 	} else {
 		if (expType instanceof NumberType) {
 			if (expType.unitsType != null) {
@@ -421,18 +422,10 @@ axiom ModelReference
 	G |- AModelReference _ : CommonFactory.eINSTANCE.createModelRef
 
 axiom IntegerLiteral
-	G |- IntegerLiteral value : {
-		val intType = Aadl2Factory.eINSTANCE.createAadlInteger
-		intType.referencedUnitsType = value.unit?.eContainer as UnitsType
-		intType
-	}
+	G |- IntegerLiteral value : Aadl2Factory.eINSTANCE.createAadlInteger
 
 axiom RealLiteral
-	G |- RealLiteral value : {
-		val realType = Aadl2Factory.eINSTANCE.createAadlReal
-		realType.referencedUnitsType = value.unit?.eContainer as UnitsType
-		realType
-	}
+	G |- RealLiteral value : Aadl2Factory.eINSTANCE.createAadlReal
 
 axiom BooleanLiteral
 	G |- BooleanLiteral _ : Aadl2Factory.eINSTANCE.createAadlBoolean

@@ -216,6 +216,15 @@ public interface CommonFactory extends EFactory
   AUnaryOperation createAUnaryOperation();
 
   /**
+   * Returns a new object of class '<em>AUnit Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AUnit Expression</em>'.
+   * @generated
+   */
+  AUnitExpression createAUnitExpression();
+
+  /**
    * Returns a new object of class '<em>AFunction Call</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -241,15 +250,6 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   AConditional createAConditional();
-
-  /**
-   * Returns a new object of class '<em>AUnit Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AUnit Expression</em>'.
-   * @generated
-   */
-  AUnitExpression createAUnitExpression();
 
   /**
    * Returns the package supported by this factory.
