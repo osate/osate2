@@ -4,7 +4,7 @@ import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 
-class AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider extends AssureMetricsColumnLabelProvider {
+class AssureRequirementsCoverageMetricsEMV2ColumnLabelProvider extends AssureMetricsColumnLabelProvider {
 
 	def int getCumulativeReqTargetHasEMV2SubclauseCount(Object ele){
 		switch ele {
@@ -48,20 +48,20 @@ class AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider extends AssureMetr
 //				ele.metrics.exceptionsCount.toString + " of " +
 //					ele.metrics.requirementsCount + 
 //					" | Cumulative: " + 
-					"Cumulative: " + 
+					"" + 
 					ele.cumulativeReqTargetHasEMV2SubclauseCount + 
 						" of "  + ele.cumulativeRequirementsCount 
 			}
 			ModelResult : {
 				ele.metrics.cumulativeReqTargetHasEMV2SubclauseCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeReqTargetHasEMV2SubclauseCount + 
+						" | Cume: " + ele.cumulativeReqTargetHasEMV2SubclauseCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 			SubsystemResult : {
 				ele.metrics.cumulativeReqTargetHasEMV2SubclauseCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeReqTargetHasEMV2SubclauseCount + 
+						" | Cume: " + ele.cumulativeReqTargetHasEMV2SubclauseCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 //			ResultIssue : {

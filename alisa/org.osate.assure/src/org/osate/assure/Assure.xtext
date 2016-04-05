@@ -155,7 +155,8 @@ Metrics returns Metrics:
 	('requirementscount'  requirementsCount=INT)?
 	('exceptionscount' exceptionsCount=INT)?
 	('reqtargethasemv2subclausecount' reqTargetHasEMV2SubclauseCount=INT)?
-	
+	('featuresrequiringclassifiercount' featuresRequiringClassifierCount=INT)?
+	('featureswithrequiredclassifiercount' featuresWithRequiredClassifierCount=INT)?
 	('weight' weight = INT)?
 	('time' executionTime = AInt)?
 ;

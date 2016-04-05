@@ -35,16 +35,16 @@ class AssureNoVerificationPlansColumnLabelProvider extends AssureRequirementsCov
 			AssuranceCaseResult : {
 //				ele.metrics.noVerificationPlansCount.toString + 
 //					" | Cumulative: " + 
-					"Cumulative: " + 
+					"" + 
 					ele.cumulativeNoVerificationPlansCount 
 			}
 			ModelResult : {
 				ele.metrics.noVerificationPlansCount.toString + 
-					" | Cumulative: " + ele.cumulativeNoVerificationPlansCount 
+					" | Cume: " + ele.cumulativeNoVerificationPlansCount 
 			}
 			SubsystemResult : {
 				ele.metrics.noVerificationPlansCount.toString + 
-					" | Cumulative: " + ele.cumulativeNoVerificationPlansCount 
+					" | Cume: " + ele.cumulativeNoVerificationPlansCount 
 			}
 
 			ResultIssue : {

@@ -44,6 +44,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getRequirementsCount <em>Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExceptionsCount <em>Exceptions Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesRequiringClassifierCount <em>Features Requiring Classifier Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getFeaturesWithRequiredClassifierCount <em>Features With Required Classifier Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -521,6 +523,58 @@ public interface Metrics extends EObject
    * @generated
    */
   void setReqTargetHasEMV2SubclauseCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Features Requiring Classifier Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Features Requiring Classifier Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Features Requiring Classifier Count</em>' attribute.
+   * @see #setFeaturesRequiringClassifierCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_FeaturesRequiringClassifierCount()
+   * @model
+   * @generated
+   */
+  int getFeaturesRequiringClassifierCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getFeaturesRequiringClassifierCount <em>Features Requiring Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Features Requiring Classifier Count</em>' attribute.
+   * @see #getFeaturesRequiringClassifierCount()
+   * @generated
+   */
+  void setFeaturesRequiringClassifierCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Features With Required Classifier Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Features With Required Classifier Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Features With Required Classifier Count</em>' attribute.
+   * @see #setFeaturesWithRequiredClassifierCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_FeaturesWithRequiredClassifierCount()
+   * @model
+   * @generated
+   */
+  int getFeaturesWithRequiredClassifierCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getFeaturesWithRequiredClassifierCount <em>Features With Required Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Features With Required Classifier Count</em>' attribute.
+   * @see #getFeaturesWithRequiredClassifierCount()
+   * @generated
+   */
+  void setFeaturesWithRequiredClassifierCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

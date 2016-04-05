@@ -879,7 +879,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMetrics_Weight()
+  public EAttribute getMetrics_FeaturesRequiringClassifierCount()
   {
     return (EAttribute)metricsEClass.getEStructuralFeatures().get(18);
   }
@@ -889,9 +889,29 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMetrics_ExecutionTime()
+  public EAttribute getMetrics_FeaturesWithRequiredClassifierCount()
   {
     return (EAttribute)metricsEClass.getEStructuralFeatures().get(19);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_Weight()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(20);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_ExecutionTime()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(21);
   }
 
   /**
@@ -1193,6 +1213,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(metricsEClass, METRICS__REQUIREMENTS_COUNT);
     createEAttribute(metricsEClass, METRICS__EXCEPTIONS_COUNT);
     createEAttribute(metricsEClass, METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT);
+    createEAttribute(metricsEClass, METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT);
+    createEAttribute(metricsEClass, METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT);
     createEAttribute(metricsEClass, METRICS__WEIGHT);
     createEAttribute(metricsEClass, METRICS__EXECUTION_TIME);
 
@@ -1349,6 +1371,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getMetrics_RequirementsCount(), theEcorePackage.getEInt(), "requirementsCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ExceptionsCount(), theEcorePackage.getEInt(), "exceptionsCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ReqTargetHasEMV2SubclauseCount(), theEcorePackage.getEInt(), "reqTargetHasEMV2SubclauseCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_FeaturesRequiringClassifierCount(), theEcorePackage.getEInt(), "featuresRequiringClassifierCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_FeaturesWithRequiredClassifierCount(), theEcorePackage.getEInt(), "featuresWithRequiredClassifierCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetrics_ExecutionTime(), theAadl2Package.getInteger(), "executionTime", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

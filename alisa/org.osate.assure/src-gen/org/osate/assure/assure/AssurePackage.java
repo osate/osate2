@@ -774,13 +774,31 @@ public interface AssurePackage extends EPackage
   int METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = 17;
 
   /**
+   * The feature id for the '<em><b>Features Requiring Classifier Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT = 18;
+
+  /**
+   * The feature id for the '<em><b>Features With Required Classifier Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT = 19;
+
+  /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS__WEIGHT = 18;
+  int METRICS__WEIGHT = 20;
 
   /**
    * The feature id for the '<em><b>Execution Time</b></em>' attribute.
@@ -789,7 +807,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS__EXECUTION_TIME = 19;
+  int METRICS__EXECUTION_TIME = 21;
 
   /**
    * The number of structural features of the '<em>Metrics</em>' class.
@@ -798,7 +816,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 20;
+  int METRICS_FEATURE_COUNT = 22;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVerificationPlanElementReferenceImpl <em>Qualified Verification Plan Element Reference</em>}' class.
@@ -1903,6 +1921,28 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_ReqTargetHasEMV2SubclauseCount();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getFeaturesRequiringClassifierCount <em>Features Requiring Classifier Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Features Requiring Classifier Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getFeaturesRequiringClassifierCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_FeaturesRequiringClassifierCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getFeaturesWithRequiredClassifierCount <em>Features With Required Classifier Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Features With Required Classifier Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getFeaturesWithRequiredClassifierCount()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_FeaturesWithRequiredClassifierCount();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2656,6 +2696,22 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = eINSTANCE.getMetrics_ReqTargetHasEMV2SubclauseCount();
+
+    /**
+     * The meta object literal for the '<em><b>Features Requiring Classifier Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT = eINSTANCE.getMetrics_FeaturesRequiringClassifierCount();
+
+    /**
+     * The meta object literal for the '<em><b>Features With Required Classifier Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT = eINSTANCE.getMetrics_FeaturesWithRequiredClassifierCount();
 
     /**
      * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.

@@ -5,14 +5,17 @@ import com.google.inject.Inject
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
+import org.osate.aadl2.BusAccess
 import org.osate.aadl2.ClassifierFeature
+import org.osate.aadl2.DataAccess
+import org.osate.aadl2.DataPort
+import org.osate.aadl2.EventDataPort
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolveAll
@@ -59,7 +62,29 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val targetReqs = reqSpecrefFinder.getSystemRequirementSets(targetComponent)
 		val exceptionReqCount = targetReqs.map[requirements].flatten.map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
 		val mitigatesReqCount = targetReqs.map[requirements.filter[exception != null]].flatten.size 
-		
+
+		val featuresRequiringClassifiers = targetReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).filter[
+			switch it {
+				BusAccess : true
+				DataPort : true
+				EventDataPort : true 
+				DataAccess : true
+				default : false
+			}
+		]
+		featuresRequiringClassifiers.forEach[resolveAll]
+		val featuresWithRequiredClassifier = featuresRequiringClassifiers.filter[
+			switch it {
+				BusAccess : busFeatureClassifier != null
+				DataPort : dataFeatureClassifier != null
+				EventDataPort : dataFeatureClassifier != null
+				DataAccess : dataFeatureClassifier != null
+				default: false
+			}
+		]
+
+		modelResult.metrics.featuresRequiringClassifierCount = featuresRequiringClassifiers.size
+		modelResult.metrics.featuresWithRequiredClassifierCount = featuresWithRequiredClassifier.size
 		modelResult.metrics.totalQualityCategoryCount = modelResult.totalQualityCategoriesCount
 		modelResult.metrics.requirementsCount = targetReqs.map[requirements].flatten.toSet.size
 		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size
@@ -83,6 +108,28 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val exceptionReqCount = sysReqs.map[requirements].flatten.map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
 		val mitigatesReqCount = sysReqs.map[requirements.filter[exception != null]].flatten.size 
 
+		val featuresRequiringClassifiers = sysReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).filter[
+			switch it {
+				BusAccess : true
+				DataPort : true
+				EventDataPort : true 
+				DataAccess : true
+				default : false
+			}
+		]
+		featuresRequiringClassifiers.forEach[resolveAll]
+		val featuresWithRequiredClassifier = featuresRequiringClassifiers.filter[
+			switch it {
+				BusAccess : busFeatureClassifier != null
+				DataPort : dataFeatureClassifier != null
+				EventDataPort : dataFeatureClassifier != null
+				DataAccess : dataFeatureClassifier != null
+				default: false
+			}
+		]
+		
+		caseResult.metrics.featuresRequiringClassifierCount = featuresRequiringClassifiers.size
+		caseResult.metrics.featuresWithRequiredClassifierCount = featuresWithRequiredClassifier.size
 		caseResult.metrics.totalQualityCategoryCount = caseResult.totalQualityCategoriesCount
 		caseResult.metrics.requirementsCount = sysReqs.map[requirements].flatten.toSet.size
 		caseResult.metrics.requirementsWithoutPlanClaimCount = sysReqs.map[requirements].flatten.toSet.filter[sysReq | !claimReqs.contains(sysReq)].size

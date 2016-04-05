@@ -49,8 +49,9 @@ import org.osate.assure.ui.labeling.AssureNoVerificationPlansColumnLabelProvider
 import org.osate.assure.ui.labeling.AssureQualityCategoryRequirementsColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageNameColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsWithNoPlanClaimColumnLabelProvider;
-import org.osate.assure.ui.labeling.AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider;
-import org.osate.assure.ui.labeling.AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsEMV2ColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsExceptionColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsFeaturesRequiringClassifierLabelProvider;
 
 import com.google.inject.Inject;
 
@@ -145,28 +146,28 @@ import com.google.inject.Inject;
 	        TreeViewerColumn column1 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column1.getColumn().setAlignment(SWT.LEFT);
 	        column1.getColumn().setText("Reqs w/no plan claim");
-	        column1.getColumn().setWidth(200);
+	        column1.getColumn().setWidth(160);
 	        column1.getColumn().setResizable(true);
 	        column1.setLabelProvider(new AssureRequirementsWithNoPlanClaimColumnLabelProvider());
 
 	        TreeViewerColumn column2 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column2.getColumn().setAlignment(SWT.LEFT);
-	        column2.getColumn().setText("Quality Categories Coverage");
-	        column2.getColumn().setWidth(280);
+	        column2.getColumn().setText("Quality Categories Cvrg");
+	        column2.getColumn().setWidth(180);
 	        column2.getColumn().setResizable(true);
 	        column2.setLabelProvider(new AssureQualityCategoryRequirementsColumnLabelProvider());
 
 	        TreeViewerColumn column3 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column3.getColumn().setAlignment(SWT.LEFT);
 	        column3.getColumn().setText("Requirement for Features");
-	        column3.getColumn().setWidth(220);
+	        column3.getColumn().setWidth(180);
 	        column3.getColumn().setResizable(true);
 	        column3.setLabelProvider(new AssureFeaturesRequirementsColumnLabelProvider());
 	             
 	        TreeViewerColumn column4 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column4.getColumn().setAlignment(SWT.LEFT);
-	        column4.getColumn().setText("No Verification Plans");
-	        column4.getColumn().setWidth(150);
+	        column4.getColumn().setText("No Verify Plans");
+	        column4.getColumn().setWidth(120);
 	        column4.getColumn().setResizable(true);
 	        column4.setLabelProvider(new AssureNoVerificationPlansColumnLabelProvider());
 
@@ -175,15 +176,21 @@ import com.google.inject.Inject;
 	        column5.getColumn().setText("Reqs w/Exception");
 	        column5.getColumn().setWidth(150);
 	        column5.getColumn().setResizable(true);
-	        column5.setLabelProvider(new AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider());
+	        column5.setLabelProvider(new AssureRequirementsCoverageMetricsExceptionColumnLabelProvider());
 
 	        TreeViewerColumn column6 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
 	        column6.getColumn().setAlignment(SWT.LEFT);
-	        column6.getColumn().setText("Reqs w/Target has EMV2 subclause");
+	        column6.getColumn().setText("Req Target w/EMV2");
 	        column6.getColumn().setWidth(150);
 	        column6.getColumn().setResizable(true);
-	        column6.setLabelProvider(new AssureRequirmentsCoverageMetricsEMV2ColumnLabelProvider());
+	        column6.setLabelProvider(new AssureRequirementsCoverageMetricsEMV2ColumnLabelProvider());
 
+	        TreeViewerColumn column7 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+	        column7.getColumn().setAlignment(SWT.LEFT);
+	        column7.getColumn().setText("Classifiers for Features Requiring");
+	        column7.getColumn().setWidth(150);
+	        column7.getColumn().setResizable(true);
+	        column7.setLabelProvider(new AssureRequirementsCoverageMetricsFeaturesRequiringClassifierLabelProvider());
 
 //	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 	        getSite().setSelectionProvider(treeViewer);

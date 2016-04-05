@@ -1114,13 +1114,21 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cReqTargetHasEMV2SubclauseCountAssignment_18_1 = (Assignment)cGroup_18.eContents().get(1);
 		private final RuleCall cReqTargetHasEMV2SubclauseCountINTTerminalRuleCall_18_1_0 = (RuleCall)cReqTargetHasEMV2SubclauseCountAssignment_18_1.eContents().get(0);
 		private final Group cGroup_19 = (Group)cGroup.eContents().get(19);
-		private final Keyword cWeightKeyword_19_0 = (Keyword)cGroup_19.eContents().get(0);
-		private final Assignment cWeightAssignment_19_1 = (Assignment)cGroup_19.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_19_1_0 = (RuleCall)cWeightAssignment_19_1.eContents().get(0);
+		private final Keyword cFeaturesrequiringclassifiercountKeyword_19_0 = (Keyword)cGroup_19.eContents().get(0);
+		private final Assignment cFeaturesRequiringClassifierCountAssignment_19_1 = (Assignment)cGroup_19.eContents().get(1);
+		private final RuleCall cFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0 = (RuleCall)cFeaturesRequiringClassifierCountAssignment_19_1.eContents().get(0);
 		private final Group cGroup_20 = (Group)cGroup.eContents().get(20);
-		private final Keyword cTimeKeyword_20_0 = (Keyword)cGroup_20.eContents().get(0);
-		private final Assignment cExecutionTimeAssignment_20_1 = (Assignment)cGroup_20.eContents().get(1);
-		private final RuleCall cExecutionTimeAIntParserRuleCall_20_1_0 = (RuleCall)cExecutionTimeAssignment_20_1.eContents().get(0);
+		private final Keyword cFeatureswithrequiredclassifiercountKeyword_20_0 = (Keyword)cGroup_20.eContents().get(0);
+		private final Assignment cFeaturesWithRequiredClassifierCountAssignment_20_1 = (Assignment)cGroup_20.eContents().get(1);
+		private final RuleCall cFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0 = (RuleCall)cFeaturesWithRequiredClassifierCountAssignment_20_1.eContents().get(0);
+		private final Group cGroup_21 = (Group)cGroup.eContents().get(21);
+		private final Keyword cWeightKeyword_21_0 = (Keyword)cGroup_21.eContents().get(0);
+		private final Assignment cWeightAssignment_21_1 = (Assignment)cGroup_21.eContents().get(1);
+		private final RuleCall cWeightINTTerminalRuleCall_21_1_0 = (RuleCall)cWeightAssignment_21_1.eContents().get(0);
+		private final Group cGroup_22 = (Group)cGroup.eContents().get(22);
+		private final Keyword cTimeKeyword_22_0 = (Keyword)cGroup_22.eContents().get(0);
+		private final Assignment cExecutionTimeAssignment_22_1 = (Assignment)cGroup_22.eContents().get(1);
+		private final RuleCall cExecutionTimeAIntParserRuleCall_22_1_0 = (RuleCall)cExecutionTimeAssignment_22_1.eContents().get(0);
 		
 		//Metrics:
 		//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
@@ -1131,8 +1139,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	("totalqualitycategorycount" totalQualityCategoryCount=INT)? ("requirementswithoutplanclaimcount"
 		//	requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)?
 		//	("requirementscount" requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)?
-		//	("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("weight" weight=INT)? ("time"
-		//	executionTime=AInt)?;
+		//	("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount"
+		//	featuresRequiringClassifierCount=INT)? ("featureswithrequiredclassifiercount"
+		//	featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
@@ -1143,8 +1152,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//("totalqualitycategorycount" totalQualityCategoryCount=INT)? ("requirementswithoutplanclaimcount"
 		//requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)?
 		//("requirementscount" requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)?
-		//("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("weight" weight=INT)? ("time"
-		//executionTime=AInt)?
+		//("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount"
+		//featuresRequiringClassifierCount=INT)? ("featureswithrequiredclassifiercount"
+		//featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -1366,29 +1376,53 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getReqTargetHasEMV2SubclauseCountINTTerminalRuleCall_18_1_0() { return cReqTargetHasEMV2SubclauseCountINTTerminalRuleCall_18_1_0; }
 
-		//("weight" weight=INT)?
+		//("featuresrequiringclassifiercount" featuresRequiringClassifierCount=INT)?
 		public Group getGroup_19() { return cGroup_19; }
 
-		//"weight"
-		public Keyword getWeightKeyword_19_0() { return cWeightKeyword_19_0; }
+		//"featuresrequiringclassifiercount"
+		public Keyword getFeaturesrequiringclassifiercountKeyword_19_0() { return cFeaturesrequiringclassifiercountKeyword_19_0; }
 
-		//weight=INT
-		public Assignment getWeightAssignment_19_1() { return cWeightAssignment_19_1; }
+		//featuresRequiringClassifierCount=INT
+		public Assignment getFeaturesRequiringClassifierCountAssignment_19_1() { return cFeaturesRequiringClassifierCountAssignment_19_1; }
 
 		//INT
-		public RuleCall getWeightINTTerminalRuleCall_19_1_0() { return cWeightINTTerminalRuleCall_19_1_0; }
+		public RuleCall getFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0() { return cFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0; }
 
-		//("time" executionTime=AInt)?
+		//("featureswithrequiredclassifiercount" featuresWithRequiredClassifierCount=INT)?
 		public Group getGroup_20() { return cGroup_20; }
 
+		//"featureswithrequiredclassifiercount"
+		public Keyword getFeatureswithrequiredclassifiercountKeyword_20_0() { return cFeatureswithrequiredclassifiercountKeyword_20_0; }
+
+		//featuresWithRequiredClassifierCount=INT
+		public Assignment getFeaturesWithRequiredClassifierCountAssignment_20_1() { return cFeaturesWithRequiredClassifierCountAssignment_20_1; }
+
+		//INT
+		public RuleCall getFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0() { return cFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0; }
+
+		//("weight" weight=INT)?
+		public Group getGroup_21() { return cGroup_21; }
+
+		//"weight"
+		public Keyword getWeightKeyword_21_0() { return cWeightKeyword_21_0; }
+
+		//weight=INT
+		public Assignment getWeightAssignment_21_1() { return cWeightAssignment_21_1; }
+
+		//INT
+		public RuleCall getWeightINTTerminalRuleCall_21_1_0() { return cWeightINTTerminalRuleCall_21_1_0; }
+
+		//("time" executionTime=AInt)?
+		public Group getGroup_22() { return cGroup_22; }
+
 		//"time"
-		public Keyword getTimeKeyword_20_0() { return cTimeKeyword_20_0; }
+		public Keyword getTimeKeyword_22_0() { return cTimeKeyword_22_0; }
 
 		//executionTime=AInt
-		public Assignment getExecutionTimeAssignment_20_1() { return cExecutionTimeAssignment_20_1; }
+		public Assignment getExecutionTimeAssignment_22_1() { return cExecutionTimeAssignment_22_1; }
 
 		//AInt
-		public RuleCall getExecutionTimeAIntParserRuleCall_20_1_0() { return cExecutionTimeAIntParserRuleCall_20_1_0; }
+		public RuleCall getExecutionTimeAIntParserRuleCall_22_1_0() { return cExecutionTimeAIntParserRuleCall_22_1_0; }
 	}
 
 	public class QualifiedVerificationPlanElementReferenceElements extends AbstractParserRuleElementFinder {
@@ -1924,8 +1958,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	("totalqualitycategorycount" totalQualityCategoryCount=INT)? ("requirementswithoutplanclaimcount"
 	//	requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)?
 	//	("requirementscount" requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)?
-	//	("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("weight" weight=INT)? ("time"
-	//	executionTime=AInt)?;
+	//	("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount"
+	//	featuresRequiringClassifierCount=INT)? ("featureswithrequiredclassifiercount"
+	//	featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 	public MetricsElements getMetricsAccess() {
 		return pMetrics;
 	}

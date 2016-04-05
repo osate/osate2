@@ -1940,15 +1940,59 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_37='weight' 
+))?(	otherlv_37='featuresrequiringclassifiercount' 
     {
-    	newLeafNode(otherlv_37, grammarAccess.getMetricsAccess().getWeightKeyword_19_0());
+    	newLeafNode(otherlv_37, grammarAccess.getMetricsAccess().getFeaturesrequiringclassifiercountKeyword_19_0());
     }
 (
 (
-		lv_weight_38_0=RULE_INT
+		lv_featuresRequiringClassifierCount_38_0=RULE_INT
 		{
-			newLeafNode(lv_weight_38_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_19_1_0()); 
+			newLeafNode(lv_featuresRequiringClassifierCount_38_0, grammarAccess.getMetricsAccess().getFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetricsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"featuresRequiringClassifierCount",
+        		lv_featuresRequiringClassifierCount_38_0, 
+        		"INT");
+	    }
+
+)
+))?(	otherlv_39='featureswithrequiredclassifiercount' 
+    {
+    	newLeafNode(otherlv_39, grammarAccess.getMetricsAccess().getFeatureswithrequiredclassifiercountKeyword_20_0());
+    }
+(
+(
+		lv_featuresWithRequiredClassifierCount_40_0=RULE_INT
+		{
+			newLeafNode(lv_featuresWithRequiredClassifierCount_40_0, grammarAccess.getMetricsAccess().getFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetricsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"featuresWithRequiredClassifierCount",
+        		lv_featuresWithRequiredClassifierCount_40_0, 
+        		"INT");
+	    }
+
+)
+))?(	otherlv_41='weight' 
+    {
+    	newLeafNode(otherlv_41, grammarAccess.getMetricsAccess().getWeightKeyword_21_0());
+    }
+(
+(
+		lv_weight_42_0=RULE_INT
+		{
+			newLeafNode(lv_weight_42_0, grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_21_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1957,28 +2001,28 @@ ruleMetrics returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"weight",
-        		lv_weight_38_0, 
+        		lv_weight_42_0, 
         		"INT");
 	    }
 
 )
-))?(	otherlv_39='time' 
+))?(	otherlv_43='time' 
     {
-    	newLeafNode(otherlv_39, grammarAccess.getMetricsAccess().getTimeKeyword_20_0());
+    	newLeafNode(otherlv_43, grammarAccess.getMetricsAccess().getTimeKeyword_22_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_20_1_0()); 
+	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_22_1_0()); 
 	    }
-		lv_executionTime_40_0=ruleAInt		{
+		lv_executionTime_44_0=ruleAInt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMetricsRule());
 	        }
        		set(
        			$current, 
        			"executionTime",
-        		lv_executionTime_40_0, 
+        		lv_executionTime_44_0, 
         		"AInt");
 	        afterParserOrEnumRuleCall();
 	    }

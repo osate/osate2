@@ -60,19 +60,19 @@ class AssureQualityCategoryRequirementsColumnLabelProvider extends AssureRequire
 //				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
 //					ele.metrics.totalQualityCategoryCount +  
 //						" | Cumulative Coverage: " + 
-						"Cumulative Coverage: " + 
+						"" + 
 						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
 			}
 			ModelResult : {
 				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
 					ele.metrics.totalQualityCategoryCount +  
-						" | Cumulative Coverage: " + 
+						" | Cume: " + 
 						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
 			}
 			SubsystemResult : {
 				ele.metrics.qualityCategoryRequirementsCount.toString + " of " +
 					ele.metrics.totalQualityCategoryCount +  
-						" | Cumulative Coverage: " + 
+						" | Cume: " + 
 						ele.cumulativeQualityCategoryRequirementsCount.percentOfNumber(ele.cumulativeTotalQualityCategorysCount)
 			}
 			ResultIssue : {

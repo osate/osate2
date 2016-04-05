@@ -49,25 +49,27 @@ class AssureRequirementsWithNoPlanClaimColumnLabelProvider extends AssureRequire
 
 
 	override getText(Object ele) {
+		val sep = System.getProperty("line.separator")
+		
 		switch ele {
 			AssuranceCaseResult : {
 //				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
 //					ele.metrics.requirementsCount + 
 //					" | Cumulative: " + 
-					"Cumulative: " + 
+					"" + 
 					ele.cumulativeRequirementsWithoutPlanClaimCount + 
 						" of "  + ele.cumulativeRequirementsCount 
 			}
 			ModelResult : {
 				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
+						" | Cume: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 			SubsystemResult : {
 				ele.metrics.requirementsWithoutPlanClaimCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
+						" | Cume: " + ele.cumulativeRequirementsWithoutPlanClaimCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 			ResultIssue : {

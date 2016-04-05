@@ -53,20 +53,20 @@ class  AssureFeaturesRequirementsColumnLabelProvider extends AssureRequirementsC
 //				ele.metrics.featuresRequirementsCount.toString + " for " +
 //					ele.metrics.featuresCount +  
 //						" | Cumulative: " + 
-						"Cumulative: " + 
+						"" + 
 						ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			ModelResult : {
 				ele.metrics.featuresRequirementsCount.toString + " for " +
 					ele.metrics.featuresCount +  
-						" | Cumulative: " + ele.cumulativeFeaturesRequirementsCount + 
+						" | Cume: " + ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			SubsystemResult : {
 				ele.metrics.featuresRequirementsCount.toString + " for " +
 					ele.metrics.featuresCount +  
-						" | Cumulative: " + ele.cumulativeFeaturesRequirementsCount + 
+						" | Cume: " + ele.cumulativeFeaturesRequirementsCount + 
 							 " for " + ele.cumulativeFeaturesCount
 			}
 			ResultIssue : {

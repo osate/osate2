@@ -51,6 +51,8 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getRequirementsCount <em>Requirements Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExceptionsCount <em>Exceptions Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getReqTargetHasEMV2SubclauseCount <em>Req Target Has EMV2 Subclause Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesRequiringClassifierCount <em>Features Requiring Classifier Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFeaturesWithRequiredClassifierCount <em>Features With Required Classifier Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
@@ -418,6 +420,46 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int reqTargetHasEMV2SubclauseCount = REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFeaturesRequiringClassifierCount() <em>Features Requiring Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesRequiringClassifierCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int FEATURES_REQUIRING_CLASSIFIER_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getFeaturesRequiringClassifierCount() <em>Features Requiring Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesRequiringClassifierCount()
+   * @generated
+   * @ordered
+   */
+  protected int featuresRequiringClassifierCount = FEATURES_REQUIRING_CLASSIFIER_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFeaturesWithRequiredClassifierCount() <em>Features With Required Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesWithRequiredClassifierCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getFeaturesWithRequiredClassifierCount() <em>Features With Required Classifier Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFeaturesWithRequiredClassifierCount()
+   * @generated
+   * @ordered
+   */
+  protected int featuresWithRequiredClassifierCount = FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -899,6 +941,52 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getFeaturesRequiringClassifierCount()
+  {
+    return featuresRequiringClassifierCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeaturesRequiringClassifierCount(int newFeaturesRequiringClassifierCount)
+  {
+    int oldFeaturesRequiringClassifierCount = featuresRequiringClassifierCount;
+    featuresRequiringClassifierCount = newFeaturesRequiringClassifierCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT, oldFeaturesRequiringClassifierCount, featuresRequiringClassifierCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getFeaturesWithRequiredClassifierCount()
+  {
+    return featuresWithRequiredClassifierCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeaturesWithRequiredClassifierCount(int newFeaturesWithRequiredClassifierCount)
+  {
+    int oldFeaturesWithRequiredClassifierCount = featuresWithRequiredClassifierCount;
+    featuresWithRequiredClassifierCount = newFeaturesWithRequiredClassifierCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT, oldFeaturesWithRequiredClassifierCount, featuresWithRequiredClassifierCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getWeight()
   {
     return weight;
@@ -986,6 +1074,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getExceptionsCount();
       case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
         return getReqTargetHasEMV2SubclauseCount();
+      case AssurePackage.METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT:
+        return getFeaturesRequiringClassifierCount();
+      case AssurePackage.METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT:
+        return getFeaturesWithRequiredClassifierCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -1057,6 +1149,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
         setReqTargetHasEMV2SubclauseCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT:
+        setFeaturesRequiringClassifierCount((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT:
+        setFeaturesWithRequiredClassifierCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
@@ -1132,6 +1230,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
         setReqTargetHasEMV2SubclauseCount(REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT:
+        setFeaturesRequiringClassifierCount(FEATURES_REQUIRING_CLASSIFIER_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT:
+        setFeaturesWithRequiredClassifierCount(FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT_EDEFAULT);
+        return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
@@ -1188,6 +1292,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return exceptionsCount != EXCEPTIONS_COUNT_EDEFAULT;
       case AssurePackage.METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT:
         return reqTargetHasEMV2SubclauseCount != REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT:
+        return featuresRequiringClassifierCount != FEATURES_REQUIRING_CLASSIFIER_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT:
+        return featuresWithRequiredClassifierCount != FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
       case AssurePackage.METRICS__EXECUTION_TIME:
@@ -1243,6 +1351,10 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(exceptionsCount);
     result.append(", reqTargetHasEMV2SubclauseCount: ");
     result.append(reqTargetHasEMV2SubclauseCount);
+    result.append(", featuresRequiringClassifierCount: ");
+    result.append(featuresRequiringClassifierCount);
+    result.append(", featuresWithRequiredClassifierCount: ");
+    result.append(featuresWithRequiredClassifierCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(", executionTime: ");

@@ -4,7 +4,7 @@ import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 
-class AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider
+class AssureRequirementsCoverageMetricsExceptionColumnLabelProvider
 		extends AssureRequirementsCoverageMetricsColumnLabelProvider {
 
 	def int getCumulativeExceptionsCount(Object ele){
@@ -49,20 +49,20 @@ class AssureRequirmentsCoverageMetricsExceptionColumnLabelProvider
 //				ele.metrics.exceptionsCount.toString + " of " +
 //					ele.metrics.requirementsCount + 
 //					" | Cumulative: " + 
-					"Cumulative: " + 
+					"" + 
 					ele.cumulativeExceptionsCount + 
 						" of "  + ele.cumulativeRequirementsCount 
 			}
 			ModelResult : {
 				ele.metrics.exceptionsCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeExceptionsCount + 
+						" | Cume: " + ele.cumulativeExceptionsCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 			SubsystemResult : {
 				ele.metrics.exceptionsCount.toString + " of " +
 					ele.metrics.requirementsCount + 
-						" | Cumulative: " + ele.cumulativeExceptionsCount + 
+						" | Cume: " + ele.cumulativeExceptionsCount + 
 							" of " + ele.cumulativeRequirementsCount
 			}
 //			ResultIssue : {
