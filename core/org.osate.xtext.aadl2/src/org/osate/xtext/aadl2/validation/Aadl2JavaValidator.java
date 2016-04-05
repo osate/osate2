@@ -358,6 +358,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			checkClassifierReferenceInWith(feature.getClassifier(), feature);
 		}
+		checkRefinedFeatureAsTransitionTrigger(feature);
 		// checkPropertyAssocs(feature);
 	}
 
@@ -4377,6 +4378,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// "Cannot specify an array dimension size because the refined feature
 		// already specified the array dimension size.");
 		// }
+	}
+	
+	/**
+	 * See issue #671.
+	 * If an AbstractFeature is a trigger port, then it cannot be refined to another feature which is not a subtype of TriggerPort.
+	 */
+	private void checkRefinedFeatureAsTransitionTrigger(Feature feature) {
+		ComponentType component = EcoreUtil2.getContainerOfType(feature, ComponentType.class);
+		Feature refined = feature.getRefined();
+		if (component != null && refined instanceof AbstractFeature && !(feature instanceof TriggerPort)) {
+			Stream<ModeTransition> transitions = component.getAllModeTransitions().stream();
+			Stream<ModeTransitionTrigger> triggers = transitions.flatMap(transition -> transition.getOwnedTriggers().stream());
+			if (triggers.anyMatch(trigger -> trigger.getTriggerPort() == refined)) {
+				error("Cannot refine to " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ". '" + feature.getName() + "' is used as a mode transition trigger.",
+						feature, Aadl2Package.eINSTANCE.getFeature_Refined());
+			}
+		}
 	}
 
 	/**
