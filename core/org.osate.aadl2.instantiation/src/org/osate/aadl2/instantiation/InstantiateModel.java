@@ -225,7 +225,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci) throws Exception {
+	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci, IProgressMonitor monitor) throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		ComponentImplementation ici = ci;
@@ -237,7 +237,7 @@ public class InstantiateModel {
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
-		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor,
 				new AnalysisErrorReporterManager(
 						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
@@ -245,6 +245,10 @@ public class InstantiateModel {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
 		return root;
+	}
+	
+	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
+		return buildInstanceModelFile(ci, new NullProgressMonitor());
 	}
 
 	/*
@@ -334,7 +338,11 @@ public class InstantiateModel {
 
 			@Override
 			protected void doExecute() {
-				instance = createSystemInstanceInt(ci, aadlResource);
+				try {
+					instance = createSystemInstanceInt(ci, aadlResource);
+				} catch (InterruptedException e) {
+					//Do nothing.  Will be thrown after execute.
+				}
 			}
 
 			@Override
@@ -344,6 +352,9 @@ public class InstantiateModel {
 		};
 
 		((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
@@ -359,7 +370,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource) {
+	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource) throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
@@ -375,6 +386,8 @@ public class InstantiateModel {
 
 			try {
 				fillSystemInstance(root);
+			} catch (InterruptedException e) {
+				throw e;
 			} catch (Exception e) {
 				InstantiateModel.setErrorMessage(e.getMessage());
 				e.printStackTrace();
@@ -396,6 +409,8 @@ public class InstantiateModel {
 
 			npe.getMessage();
 			return null;
+		} catch (InterruptedException e) {
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 			errorMessage = e.getMessage();
@@ -410,26 +425,20 @@ public class InstantiateModel {
 	 * Will in fill instance model under system instance but not save it
 	 * @param root
 	 */
-	public void fillSystemInstance(SystemInstance root) {
+	public void fillSystemInstance(SystemInstance root) throws InterruptedException {
 		populateComponentInstance(root, 0);
-		if (monitor.isCanceled()) {
-			return;
-		}
 
 		monitor.subTask("Creating system operation modes");
 		createSystemOperationModes(root);
-		if (monitor.isCanceled()) {
-			return;
-		}
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return;
+			throw new InterruptedException();
 		}
 
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return;
+			throw new InterruptedException();
 		}
 
 		/*
@@ -463,20 +472,17 @@ public class InstantiateModel {
 				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
 		if (monitor.isCanceled()) {
-			return;
+			throw new InterruptedException();
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager,
 				propertyDefinitionList, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return;
+			throw new InterruptedException();
 		}
 		// handle connection patterns
 		processConnections(root);
-		if (monitor.isCanceled()) {
-			return;
-		}
 
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
@@ -499,7 +505,7 @@ public class InstantiateModel {
 	/*
 	 * Fill in modes, transitions, subcomponent instances, features, flow specs.
 	 */
-	protected void populateComponentInstance(ComponentInstance ci, int index) {
+	protected void populateComponentInstance(ComponentInstance ci, int index) throws InterruptedException {
 		ComponentImplementation impl = getComponentImplementation(ci);
 		ComponentType type = getComponentType(ci);
 		if (ci.getContainingComponentInstance() instanceof SystemInstance) {
@@ -517,10 +523,6 @@ public class InstantiateModel {
 			fillModesAndTransitions(ci, type.getAllModes(), type.getAllModeTransitions());
 		}
 		if (impl != null) {
-			if (monitor.isCanceled()) {
-				return;
-			}
-
 			// Recursively add subcomponents
 			instantiateSubcomponents(ci, impl);
 
@@ -541,19 +543,16 @@ public class InstantiateModel {
 		// do it only if subcomponent has type
 		if (type != null) {
 			instantiateFeatures(ci);
-			if (monitor.isCanceled()) {
-				return;
-			}
 			instantiateFlowSpecs(ci);
-			if (monitor.isCanceled()) {
-				return;
-			}
 		}
 		return;
 	}
 
-	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans) {
+	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans) throws InterruptedException {
 		for (Mode m : modes) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
 
 			mi.setMode(m);
@@ -565,6 +564,9 @@ public class InstantiateModel {
 				ComponentInstance parentci = ci.getContainingComponentInstance();
 
 				for (ModeBinding mb : sub.getOwnedModeBindings()) {
+					if (monitor.isCanceled()) {
+						throw new InterruptedException();
+					}
 					if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
 							&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
 						mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
@@ -574,6 +576,9 @@ public class InstantiateModel {
 			ci.getModeInstances().add(mi);
 		}
 		for (ModeTransition m : modetrans) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			ModeTransitionInstance mti = InstanceFactory.eINSTANCE.createModeTransitionInstance();
 			Mode srcmode = m.getSource();
 			Mode dstmode = m.getDestination();
@@ -605,8 +610,11 @@ public class InstantiateModel {
 	 * 
 	 * @param impl
 	 */
-	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl) {
+	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl) throws InterruptedException {
 		for (final Subcomponent sub : impl.getAllSubcomponents()) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			if (hasSubcomponentInstance(ci, sub)) {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
 						+ "' has already been instantiated as enclosing component.");
@@ -619,12 +627,15 @@ public class InstantiateModel {
 				} else {
 					final int dimensions = dims.size();
 					class ArrayInstantiator {
-						void process(int dim, Stack<Long> indexStack) {
+						void process(int dim, Stack<Long> indexStack) throws InterruptedException {
 							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
 							long count = getElementCount(arraySize, ci);
 
 							for (int i = 1; i <= count; i++) {
+								if (monitor.isCanceled()) {
+									throw new InterruptedException();
+								}
 								if (dim + 1 < dimensions) {
 									indexStack.push(Long.valueOf(i));
 									process(dim + 1, indexStack);
@@ -637,9 +648,6 @@ public class InstantiateModel {
 					}
 					new ArrayInstantiator().process(0, indexStack);
 				}
-			}
-			if (monitor.isCanceled()) {
-				return;
 			}
 		}
 	}
@@ -669,7 +677,7 @@ public class InstantiateModel {
 	}
 
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
-			final Subcomponent sub, Stack<Long> indexStack, int index) {
+			final Subcomponent sub, Stack<Long> indexStack, int index) throws InterruptedException {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
@@ -699,6 +707,9 @@ public class InstantiateModel {
 		}
 
 		for (Mode mode : mm.getAllInModes()) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			ModeInstance mi = parent.findModeInstance(mode);
 
 			if (mi != null) {
@@ -713,8 +724,11 @@ public class InstantiateModel {
 	 * It adds the flow instances on demand when ETEF is created
 	 * @param ci
 	 */
-	private void instantiateFlowSpecs(ComponentInstance ci) {
+	private void instantiateFlowSpecs(ComponentInstance ci) throws InterruptedException {
 		for (FlowSpecification spec : getComponentType(ci).getAllFlowSpecifications()) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			FlowSpecificationInstance speci = ci.createFlowSpecification();
 			speci.setName(spec.getName());
 			speci.setFlowSpecification(spec);
@@ -757,6 +771,9 @@ public class InstantiateModel {
 				}
 			}
 			for (Mode mode : spec.getAllInModes()) {
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
 				ModeInstance mi = ci.findModeInstance(mode);
 				if (mi != null) {
 					speci.getInModes().add(mi);
@@ -764,6 +781,9 @@ public class InstantiateModel {
 			}
 
 			for (ModeTransition mt : spec.getInModeTransitions()) {
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
 				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
 
 				if (ti != null) {
@@ -776,8 +796,11 @@ public class InstantiateModel {
 	/*
 	 * Add feature instances to component instance
 	 */
-	protected void instantiateFeatures(final ComponentInstance ci) {
+	protected void instantiateFeatures(final ComponentInstance ci) throws InterruptedException {
 		for (final Feature feature : getInstantiatedClassifier(ci).classifier.getAllFeatures()) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
@@ -999,7 +1022,10 @@ public class InstantiateModel {
 	// Methods for connection sets and connection patterns
 	// --------------------------------------------------------------------------------------------
 
-	private void processConnections(SystemInstance root) {
+	private void processConnections(SystemInstance root) throws InterruptedException {
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 		EList<ComponentInstance> replicateConns = new UniqueEList<ComponentInstance>();
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
 		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
@@ -1857,7 +1883,10 @@ public class InstantiateModel {
 	 * @param si System Implementation
 	 * @return property definitions
 	 */
-	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) {
+	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 		EList<Property> result = new UniqueEList<Property>();
 
 		addUsedProperties(root, root.getComponentImplementation(), result);
@@ -1989,7 +2018,7 @@ public class InstantiateModel {
 	/*
 	 * Create the system operation mode objects for the instance model.
 	 */
-	protected void createSystemOperationModes(SystemInstance root) {
+	protected void createSystemOperationModes(SystemInstance root) throws InterruptedException {
 		/*
 		 * Get an prefix list of all the components in the system. This way we
 		 * can easily test if the component exists in the SOM being built.
@@ -2028,19 +2057,25 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances) {
+	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances) throws InterruptedException {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
 
 		if (!modes.isEmpty()) {
 			for (ModeInstance mi : modes) {
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
 				if (!mi.isDerived()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
 
 					nextModes.add(mi);
 					for (ComponentInstance child : instances[0].getComponentInstances()) {
 						for (ModeInstance childMode : child.getModeInstances()) {
+							if (monitor.isCanceled()) {
+								throw new InterruptedException();
+							}
 							if (childMode.isDerived() && childMode.getParents().contains(mi)) {
 								nextModes.add(childMode);
 							}
@@ -2073,7 +2108,10 @@ public class InstantiateModel {
 	 * should be turned into a System Operation Mode object.
 	 */
 	protected void enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
-			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState) {
+			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState) throws InterruptedException {
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 		if (currentInstance == instances.length) {
 			// Completed an SOM
 			root.getSystemOperationModes().add(createSOM(modeState));
@@ -2092,11 +2130,17 @@ public class InstantiateModel {
 				if (modes != null && modes.size() > 0) {
 					// Modal component
 					for (ModeInstance mi : modes) {
+						if (monitor.isCanceled()) {
+							throw new InterruptedException();
+						}
 						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
 
 						nextModes.add(mi);
 						for (ComponentInstance child : ci.getComponentInstances()) {
 							for (ModeInstance childMode : child.getModeInstances()) {
+								if (monitor.isCanceled()) {
+									throw new InterruptedException();
+								}
 								if (childMode.isDerived() && childMode.getParents().contains(mi)) {
 									nextModes.add(childMode);
 								}
@@ -2118,9 +2162,12 @@ public class InstantiateModel {
 		}
 	}
 
-	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes) {
+	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes) throws InterruptedException {
 		if (inModes != null && inModes.size() > 0) {
 			for (ModeInstance mi : inModes) {
+				if (monitor.isCanceled()) {
+					throw new InterruptedException();
+				}
 				if (modeState.contains(mi)) {
 					return true;
 				}
@@ -2134,11 +2181,14 @@ public class InstantiateModel {
 	/*
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
-	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) {
+	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) throws InterruptedException {
 		final SystemOperationMode som;
 
 		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
 		for (ModeInstance mi : modeInstances) {
+			if (monitor.isCanceled()) {
+				throw new InterruptedException();
+			}
 			List<SystemOperationMode> soms = mode2som.get(mi);
 			if (soms == null) {
 				soms = new ArrayList<SystemOperationMode>();

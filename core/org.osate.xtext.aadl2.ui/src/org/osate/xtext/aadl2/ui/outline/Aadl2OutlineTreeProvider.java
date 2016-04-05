@@ -234,7 +234,11 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			instantiateModel.fillSystemInstance(sysInstance);
+			try {
+				instantiateModel.fillSystemInstance(sysInstance);
+			} catch (InterruptedException e) {
+				//Do Nothing
+			}
 		}
 		super._createChildren(parentNode, sysInstance);
 	}
