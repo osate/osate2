@@ -199,6 +199,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) throws UnsupportedOperationException {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				if (!(ci instanceof SystemInstance)) {
 					if (isFirstArrayElement(ci)) {
 						// process first component of innermost array only

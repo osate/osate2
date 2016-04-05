@@ -99,6 +99,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		instanceSwitch = new InstanceSwitch<String>() {
 			@Override
 			public String caseSystemInstance(final SystemInstance si) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				monitor.subTask("Caching system instance contained property associations");
 				processContainedPropertyAssociations(si, si,
 						si.getComponentImplementation().getAllPropertyAssociations());
@@ -107,6 +111,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 					monitor.subTask("Caching contained property associations in " + ci.getName());
 				}
@@ -193,6 +201,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 
 			@Override
 			public String caseFeatureInstance(final FeatureInstance fi) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
 					if (fgType != null) {
