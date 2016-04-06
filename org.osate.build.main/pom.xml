@@ -174,7 +174,7 @@
 						<fileset>
 							<directory>xsemantics-gen</directory>
 							<excludes>
-								<exclude>.gitignore</exclude>
+								<exclude>**/.gitignore</exclude>
 							</excludes>
 						</fileset>
 					</filesets>
