@@ -2,7 +2,8 @@
 <feature
       id="org.osate.reqspec.sdk"
       label="ALISA Requirement Specification Language"
-      version="1.0.0.qualifier">
+      version="1.0.0.qualifier"
+      plugin="org.osate.branding">
 
    <copyright>
       Copyright 2015 Carnegie Mellon University
