@@ -149,7 +149,6 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAUnaryOperationAccess().getGroup_0(), "rule__AUnaryOperation__Group_0__0");
 					put(grammarAccess.getAUnitExpressionAccess().getGroup(), "rule__AUnitExpression__Group__0");
 					put(grammarAccess.getAUnitExpressionAccess().getGroup_1(), "rule__AUnitExpression__Group_1__0");
-					put(grammarAccess.getAUnitExpressionAccess().getGroup_1_1_0(), "rule__AUnitExpression__Group_1_1_0__0");
 					put(grammarAccess.getAFunctionCallAccess().getGroup(), "rule__AFunctionCall__Group__0");
 					put(grammarAccess.getAFunctionCallAccess().getGroup_4(), "rule__AFunctionCall__Group_4__0");
 					put(grammarAccess.getARangeExpressionAccess().getGroup(), "rule__ARangeExpression__Group__0");
@@ -240,9 +239,9 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getRightAssignment_1_1(), "rule__AMultiplicativeExpression__RightAssignment_1_1");
 					put(grammarAccess.getAUnaryOperationAccess().getOperatorAssignment_0_1(), "rule__AUnaryOperation__OperatorAssignment_0_1");
 					put(grammarAccess.getAUnaryOperationAccess().getOperandAssignment_0_2(), "rule__AUnaryOperation__OperandAssignment_0_2");
-					put(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0_0(), "rule__AUnitExpression__ConvertAssignment_1_1_0_0");
-					put(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_0_1(), "rule__AUnitExpression__UnitAssignment_1_1_0_1");
-					put(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_1(), "rule__AUnitExpression__UnitAssignment_1_1_1");
+					put(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0(), "rule__AUnitExpression__ConvertAssignment_1_1_0");
+					put(grammarAccess.getAUnitExpressionAccess().getDropAssignment_1_1_1(), "rule__AUnitExpression__DropAssignment_1_1_1");
+					put(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_2(), "rule__AUnitExpression__UnitAssignment_1_2");
 					put(grammarAccess.getAFunctionCallAccess().getFunctionAssignment_1(), "rule__AFunctionCall__FunctionAssignment_1");
 					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3(), "rule__AFunctionCall__ArgumentsAssignment_3");
 					put(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_4_1(), "rule__AFunctionCall__ArgumentsAssignment_4_1");

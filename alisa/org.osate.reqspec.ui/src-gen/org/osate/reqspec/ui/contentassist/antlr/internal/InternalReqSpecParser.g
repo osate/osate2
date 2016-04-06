@@ -70,10 +70,12 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("ColonColon", "'::'");
 		tokenNameToValue.put("LessThanSignEqualsSign", "'<='");
 		tokenNameToValue.put("EqualsSignEqualsSign", "'=='");
+		tokenNameToValue.put("GreaterThanSignLessThanSign", "'><'");
 		tokenNameToValue.put("GreaterThanSignEqualsSign", "'>='");
 		tokenNameToValue.put("If", "'if'");
 		tokenNameToValue.put("In", "'in'");
 		tokenNameToValue.put("Or", "'or'");
+		tokenNameToValue.put("To", "'to'");
 		tokenNameToValue.put("And", "'and'");
 		tokenNameToValue.put("Bus", "'bus'");
 		tokenNameToValue.put("Div", "'div'");
@@ -2908,6 +2910,14 @@ rule__OpCompare__Alternatives
 { after(grammarAccess.getOpCompareAccess().getLessThanSignKeyword_3()); }
 )
 
+    |(
+{ before(grammarAccess.getOpCompareAccess().getGreaterThanSignLessThanSignKeyword_4()); }
+
+	GreaterThanSignLessThanSign 
+
+{ after(grammarAccess.getOpCompareAccess().getGreaterThanSignLessThanSignKeyword_4()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -3043,15 +3053,15 @@ rule__AUnitExpression__Alternatives_1_1
     }
 :
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getGroup_1_1_0()); }
-(rule__AUnitExpression__Group_1_1_0__0)
-{ after(grammarAccess.getAUnitExpressionAccess().getGroup_1_1_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0()); }
+(rule__AUnitExpression__ConvertAssignment_1_1_0)
+{ after(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0()); }
 )
 
     |(
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_1()); }
-(rule__AUnitExpression__UnitAssignment_1_1_1)
-{ after(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_1()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getDropAssignment_1_1_1()); }
+(rule__AUnitExpression__DropAssignment_1_1_1)
+{ after(grammarAccess.getAUnitExpressionAccess().getDropAssignment_1_1_1()); }
 )
 
 ;
@@ -18280,6 +18290,7 @@ rule__AUnitExpression__Group_1__1
     }
 :
 	rule__AUnitExpression__Group_1__1__Impl
+	rule__AUnitExpression__Group_1__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -18292,7 +18303,7 @@ rule__AUnitExpression__Group_1__1__Impl
 :
 (
 { before(grammarAccess.getAUnitExpressionAccess().getAlternatives_1_1()); }
-(rule__AUnitExpression__Alternatives_1_1)
+(rule__AUnitExpression__Alternatives_1_1)?
 { after(grammarAccess.getAUnitExpressionAccess().getAlternatives_1_1()); }
 )
 
@@ -18302,31 +18313,26 @@ finally {
 }
 
 
-
-
-
-
-rule__AUnitExpression__Group_1_1_0__0
+rule__AUnitExpression__Group_1__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__AUnitExpression__Group_1_1_0__0__Impl
-	rule__AUnitExpression__Group_1_1_0__1
+	rule__AUnitExpression__Group_1__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AUnitExpression__Group_1_1_0__0__Impl
+rule__AUnitExpression__Group_1__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0_0()); }
-(rule__AUnitExpression__ConvertAssignment_1_1_0_0)
-{ after(grammarAccess.getAUnitExpressionAccess().getConvertAssignment_1_1_0_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_2()); }
+(rule__AUnitExpression__UnitAssignment_1_2)
+{ after(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_2()); }
 )
 
 ;
@@ -18335,32 +18341,6 @@ finally {
 }
 
 
-rule__AUnitExpression__Group_1_1_0__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__AUnitExpression__Group_1_1_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__AUnitExpression__Group_1_1_0__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_0_1()); }
-(rule__AUnitExpression__UnitAssignment_1_1_0_1)
-{ after(grammarAccess.getAUnitExpressionAccess().getUnitAssignment_1_1_0_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 
 
@@ -28002,41 +27982,45 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AUnitExpression__ConvertAssignment_1_1_0_0
+rule__AUnitExpression__ConvertAssignment_1_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getConvertInKeyword_1_1_0_0_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getConvertInKeyword_1_1_0_0_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+
+	To 
+
+{ after(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+)
+
+{ after(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AUnitExpression__DropAssignment_1_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); }
+(
+{ before(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); }
 
 	In 
 
-{ after(grammarAccess.getAUnitExpressionAccess().getConvertInKeyword_1_1_0_0_0()); }
+{ after(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); }
 )
 
-{ after(grammarAccess.getAUnitExpressionAccess().getConvertInKeyword_1_1_0_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__AUnitExpression__UnitAssignment_1_1_0_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_0_1_0()); }
-(
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1_0_1()); }
-)
-{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_0_1_0()); }
+{ after(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); }
 )
 
 ;
@@ -28044,18 +28028,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AUnitExpression__UnitAssignment_1_1_1
+rule__AUnitExpression__UnitAssignment_1_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_1_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_2_0()); }
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_2_0_1()); }
+	RULE_ID{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_2_0_1()); }
 )
-{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_1_0()); }
+{ after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_2_0()); }
 )
 
 ;

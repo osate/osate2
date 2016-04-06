@@ -4122,6 +4122,13 @@ ruleOpCompare returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_3()); 
     }
+
+    |
+	kw='><' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignLessThanSignKeyword_4()); 
+    }
 )
     ;
 
@@ -4512,36 +4519,38 @@ ruleAUnitExpression returns [EObject current=null]
             grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0(),
             $current);
     }
-)(((
+)((
 (
-		lv_convert_2_0=	'in' 
+		lv_convert_2_0=	'to' 
     {
-        newLeafNode(lv_convert_2_0, grammarAccess.getAUnitExpressionAccess().getConvertInKeyword_1_1_0_0_0());
+        newLeafNode(lv_convert_2_0, grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAUnitExpressionRule());
 	        }
-       		setWithLastConsumed($current, "convert", true, "in");
+       		setWithLastConsumed($current, "convert", true, "to");
 	    }
 
 )
-)(
+)
+    |(
 (
-		{
-			if ($current==null) {
+		lv_drop_3_0=	'in' 
+    {
+        newLeafNode(lv_drop_3_0, grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAUnitExpressionRule());
 	        }
-        }
-	otherlv_3=RULE_ID
-	{
-		newLeafNode(otherlv_3, grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_0_1_0()); 
-	}
+       		setWithLastConsumed($current, "drop", true, "in");
+	    }
 
 )
-))
-    |(
+))?(
 (
 		{
 			if ($current==null) {
@@ -4550,11 +4559,11 @@ ruleAUnitExpression returns [EObject current=null]
         }
 	otherlv_4=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_1_1_0()); 
+		newLeafNode(otherlv_4, grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_2_0()); 
 	}
 
 )
-)))?)
+))?)
 ;
 
 

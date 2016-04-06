@@ -200,6 +200,8 @@ LessThanSignEqualsSign : '<=';
 
 EqualsSignEqualsSign : '==';
 
+GreaterThanSignLessThanSign : '><';
+
 GreaterThanSignEqualsSign : '>=';
 
 If : 'if';
@@ -207,6 +209,8 @@ If : 'if';
 In : 'in';
 
 Or : 'or';
+
+To : 'to';
 
 NumberSign : '#';
 

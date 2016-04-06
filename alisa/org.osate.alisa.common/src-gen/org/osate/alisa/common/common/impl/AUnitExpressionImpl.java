@@ -42,6 +42,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#isConvert <em>Convert</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#isDrop <em>Drop</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnitExpressionImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -78,6 +79,26 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * @ordered
    */
   protected boolean convert = CONVERT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isDrop() <em>Drop</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDrop()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DROP_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDrop() <em>Drop</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDrop()
+   * @generated
+   * @ordered
+   */
+  protected boolean drop = DROP_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -186,6 +207,29 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isDrop()
+  {
+    return drop;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDrop(boolean newDrop)
+  {
+    boolean oldDrop = drop;
+    drop = newDrop;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNIT_EXPRESSION__DROP, oldDrop, drop));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public UnitLiteral getUnit()
   {
     if (unit != null && ((EObject)unit).eIsProxy())
@@ -254,6 +298,8 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
         return getExpression();
       case CommonPackage.AUNIT_EXPRESSION__CONVERT:
         return isConvert();
+      case CommonPackage.AUNIT_EXPRESSION__DROP:
+        return isDrop();
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         if (resolve) return getUnit();
         return basicGetUnit();
@@ -276,6 +322,9 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
         return;
       case CommonPackage.AUNIT_EXPRESSION__CONVERT:
         setConvert((Boolean)newValue);
+        return;
+      case CommonPackage.AUNIT_EXPRESSION__DROP:
+        setDrop((Boolean)newValue);
         return;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)newValue);
@@ -300,6 +349,9 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
       case CommonPackage.AUNIT_EXPRESSION__CONVERT:
         setConvert(CONVERT_EDEFAULT);
         return;
+      case CommonPackage.AUNIT_EXPRESSION__DROP:
+        setDrop(DROP_EDEFAULT);
+        return;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         setUnit((UnitLiteral)null);
         return;
@@ -321,6 +373,8 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
         return expression != null;
       case CommonPackage.AUNIT_EXPRESSION__CONVERT:
         return convert != CONVERT_EDEFAULT;
+      case CommonPackage.AUNIT_EXPRESSION__DROP:
+        return drop != DROP_EDEFAULT;
       case CommonPackage.AUNIT_EXPRESSION__UNIT:
         return unit != null;
     }
@@ -340,6 +394,8 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (convert: ");
     result.append(convert);
+    result.append(", drop: ");
+    result.append(drop);
     result.append(')');
     return result.toString();
   }

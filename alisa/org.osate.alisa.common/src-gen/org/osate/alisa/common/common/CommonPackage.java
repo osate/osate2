@@ -1075,13 +1075,22 @@ public interface CommonPackage extends EPackage
   int AUNIT_EXPRESSION__CONVERT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Drop</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNIT_EXPRESSION__DROP = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Unit</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AUNIT_EXPRESSION__UNIT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 2;
+  int AUNIT_EXPRESSION__UNIT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>AUnit Expression</em>' class.
@@ -1090,7 +1099,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AUNIT_EXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 3;
+  int AUNIT_EXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AFunctionCallImpl <em>AFunction Call</em>}' class.
@@ -1892,6 +1901,17 @@ public interface CommonPackage extends EPackage
   EAttribute getAUnitExpression_Convert();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AUnitExpression#isDrop <em>Drop</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Drop</em>'.
+   * @see org.osate.alisa.common.common.AUnitExpression#isDrop()
+   * @see #getAUnitExpression()
+   * @generated
+   */
+  EAttribute getAUnitExpression_Drop();
+
+  /**
    * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AUnitExpression#getUnit <em>Unit</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2552,6 +2572,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute AUNIT_EXPRESSION__CONVERT = eINSTANCE.getAUnitExpression_Convert();
+
+    /**
+     * The meta object literal for the '<em><b>Drop</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AUNIT_EXPRESSION__DROP = eINSTANCE.getAUnitExpression_Drop();
 
     /**
      * The meta object literal for the '<em><b>Unit</b></em>' reference feature.

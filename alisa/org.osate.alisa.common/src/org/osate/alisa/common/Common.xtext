@@ -98,7 +98,7 @@ enum Operation:
 	OR='or' 
 	| AND='and'
 	| EQ='==' | NEQ='!='
-	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<'
+	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
 	| PLUS='+' | MINUS='-'
 	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
 	| NOT='not'
@@ -138,7 +138,7 @@ ARelationalExpression returns aadl2::PropertyExpression:
 ;
 
 OpCompare returns Operation:
-	'>=' | '<=' | '>' | '<'
+	'>=' | '<=' | '>' | '<' | '><'
 ;
 
 //AOtherOperatorExpression returns aadl2::PropertyExpression:
@@ -180,7 +180,7 @@ OpUnary returns Operation:
 	"not" | "-" | "+"
 ;
 AUnitExpression returns aadl2::PropertyExpression:
-	APrimaryExpression ({AUnitExpression.expression=current} (convert?='in' unit=[aadl2::UnitLiteral|ID] | unit=[aadl2::UnitLiteral|ID]))?
+	APrimaryExpression ({AUnitExpression.expression=current} (convert?='to' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
 ;
 
 APrimaryExpression returns aadl2::PropertyExpression:

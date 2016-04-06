@@ -876,9 +876,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAUnitExpression_Drop()
+  {
+    return (EAttribute)aUnitExpressionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAUnitExpression_Unit()
   {
-    return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(2);
+    return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1117,6 +1127,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aUnitExpressionEClass = createEClass(AUNIT_EXPRESSION);
     createEReference(aUnitExpressionEClass, AUNIT_EXPRESSION__EXPRESSION);
     createEAttribute(aUnitExpressionEClass, AUNIT_EXPRESSION__CONVERT);
+    createEAttribute(aUnitExpressionEClass, AUNIT_EXPRESSION__DROP);
     createEReference(aUnitExpressionEClass, AUNIT_EXPRESSION__UNIT);
 
     aFunctionCallEClass = createEClass(AFUNCTION_CALL);
@@ -1264,6 +1275,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(aUnitExpressionEClass, AUnitExpression.class, "AUnitExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAUnitExpression_Expression(), theAadl2Package.getPropertyExpression(), null, "expression", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAUnitExpression_Convert(), theEcorePackage.getEBoolean(), "convert", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAUnitExpression_Drop(), theEcorePackage.getEBoolean(), "drop", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAUnitExpression_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aFunctionCallEClass, AFunctionCall.class, "AFunctionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1298,6 +1310,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     addEEnumLiteral(operationEEnum, Operation.LEQ);
     addEEnumLiteral(operationEEnum, Operation.GT);
     addEEnumLiteral(operationEEnum, Operation.LT);
+    addEEnumLiteral(operationEEnum, Operation.IN);
     addEEnumLiteral(operationEEnum, Operation.PLUS);
     addEEnumLiteral(operationEEnum, Operation.MINUS);
     addEEnumLiteral(operationEEnum, Operation.MULT);

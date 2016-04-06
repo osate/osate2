@@ -303,7 +303,10 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (expression=AUnitExpression_AUnitExpression_1_0 ((convert?='in' unit=[UnitLiteral|ID]) | unit=[UnitLiteral|ID]))
+	 *     (
+	 *         (expression=AUnitExpression_AUnitExpression_1_0 (convert?='to' | drop?='in')? unit=[UnitLiteral|ID]) | 
+	 *         (expression=AUnitExpression_AUnitExpression_1_0 unit=[UnitLiteral|ID])
+	 *     )
 	 */
 	protected void sequence_AUnitExpression(EObject context, AUnitExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

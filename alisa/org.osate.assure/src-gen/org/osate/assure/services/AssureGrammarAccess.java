@@ -2148,8 +2148,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Expressions
 	//enum Operation:
-	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
-	//	DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" | PLUS="+" | MINUS="-" |
+	//	MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 	public CommonGrammarAccess.OperationElements getOperationAccess() {
 		return gaCommon.getOperationAccess();
 	}
@@ -2240,7 +2240,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpCompare returns Operation:
-	//	">=" | "<=" | ">" | "<";
+	//	">=" | "<=" | ">" | "<" | "><";
 	public CommonGrammarAccess.OpCompareElements getOpCompareAccess() {
 		return gaCommon.getOpCompareAccess();
 	}
@@ -2324,8 +2324,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnitExpression returns aadl2::PropertyExpression:
-	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] |
-	//	unit=[aadl2::UnitLiteral]))?;
+	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.AUnitExpressionElements getAUnitExpressionAccess() {
 		return gaCommon.getAUnitExpressionAccess();
 	}

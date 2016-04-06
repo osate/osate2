@@ -37,6 +37,7 @@ import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.CommonPackage
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.ModelRef
+import org.osate.alisa.common.common.Operation
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
@@ -159,22 +160,29 @@ from {
 			}
 			type = Aadl2Factory.eINSTANCE.createAadlBoolean
 		}
-		case LT, case LEQ, case GT, case GEQ,
+		case LT, case LEQ, case GT, case GEQ, case IN,
 		case PLUS, case MINUS, case MULT, case DIV: {
-			if (!(leftType instanceof NumberType)) {
+			if (!(leftType instanceof NumberType || leftType instanceof RangeType)) {
 				fail	
-					error 'typing: operand must be numeric'
+					error 'typing: operand must be numeric or a range'
 					source binary.left
 			}
-			if (!(rightType instanceof NumberType)) {
+			if (!(rightType instanceof NumberType || rightType instanceof RangeType)) {
 				fail	
-					error 'typing: operand must be numeric'
+					error 'typing: operand must be numeric or a range'
 					source binary.right
 			}
-			val leftNum = leftType as NumberType
-			val rightNum = rightType as NumberType
+			if (op == Operation.IN) {
+				if (!(rightType instanceof RangeType)) {
+					fail
+						error 'typing: operand must be a range'
+						source binary.right
+				}
+			}
+			val leftNum = if (leftType instanceof RangeType) leftType.numberType else leftType as NumberType
+			val rightNum = if (rightType instanceof RangeType) rightType.numberType else rightType as NumberType
 			switch (op) {
-				case LT, case LEQ, case GT, case GEQ: {
+				case LT, case LEQ, case GT, case GEQ, case IN: {
 					try {
 						G |- leftNum ~~ rightNum
 					} catch (RuleFailedException e) {
@@ -203,14 +211,23 @@ from {
 					type = combineNumeric(leftNum, rightNum)
 				}
 				case DIV: {
-					try {
-						G |- leftNum ~~ rightNum
-					} catch (RuleFailedException e) {
+					val t = Aadl2Factory.eINSTANCE.createAadlReal
+					if (leftNum.unitsType != null && rightNum.unitsType != null) {
+						try {
+							G |- leftNum ~~ rightNum
+						} catch (RuleFailedException e) {
+							fail
+								error 'typing: arguments have different unit types'
+								source binary
+						}
+					} else if (rightNum.unitsType != null) {
 						fail
-							error 'typing: arguments have different unit types'
-							source binary
+							error 'typing: argument must have a unit when dividing by a number with unit'
+							source binary.left
+					} else {
+						t.referencedUnitsType = leftNum.unitsType
 					}
-					type = combineNumeric(leftNum, rightNum)
+					type = t
 				}
 				default: {
 					// should not happen
@@ -231,7 +248,26 @@ from {
 					error 'typing: argument must be an integer'
 					source binary.right
 			}
-			type = Aadl2Factory.eINSTANCE.createAadlInteger
+			val leftNum = leftType as NumberType
+			val rightNum = rightType as NumberType
+			val t = Aadl2Factory.eINSTANCE.createAadlInteger
+
+			if (leftNum.unitsType != null && rightNum.unitsType != null) {
+				try {
+					G |- leftNum ~~ rightNum
+				} catch (RuleFailedException e) {
+					fail
+						error 'typing: arguments have different unit types'
+						source binary
+				}
+			} else if (rightNum.unitsType != null) {
+				fail
+					error 'typing: argument must have a unit when dividing by a number with unit'
+					source binary.left
+			} else {
+				t.referencedUnitsType = leftNum.unitsType
+			}
+			type = t
 		}
 		default: {
 			// should not happen
@@ -355,7 +391,7 @@ from {
 	
 	if (unitExp.unit == null) {
 		type = expType
-	} else if (unitExp.convert) {
+	} else if (unitExp.convert || unitExp.drop) {
 		val targetType = unitExp.unit.eContainer as UnitsType
 		if (expType instanceof NumberType) {
 			if (expType.unitsType == null) {
@@ -375,7 +411,9 @@ from {
 						Aadl2Factory.eINSTANCE.createAadlInteger
 					else
 						Aadl2Factory.eINSTANCE.createAadlReal
-			result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+			if (unitExp.convert) {
+				result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+			}
 			type = result
 		} else {
 			fail

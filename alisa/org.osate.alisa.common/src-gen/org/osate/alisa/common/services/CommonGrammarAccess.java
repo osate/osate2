@@ -1116,12 +1116,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLessThanSignEqualsSignKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cGreaterThanSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		private final Keyword cLessThanSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cGreaterThanSignLessThanSignKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
 		
 		//OpCompare returns Operation:
-		//	">=" | "<=" | ">" | "<";
+		//	">=" | "<=" | ">" | "<" | "><";
 		@Override public ParserRule getRule() { return rule; }
 
-		//">=" | "<=" | ">" | "<"
+		//">=" | "<=" | ">" | "<" | "><"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//">="
@@ -1135,6 +1136,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"<"
 		public Keyword getLessThanSignKeyword_3() { return cLessThanSignKeyword_3; }
+
+		//"><"
+		public Keyword getGreaterThanSignLessThanSignKeyword_4() { return cGreaterThanSignLessThanSignKeyword_4; }
 	}
 
 	public class AAdditiveExpressionElements extends AbstractParserRuleElementFinder {
@@ -1366,63 +1370,53 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Action cAUnitExpressionExpressionAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Group cGroup_1_1_0 = (Group)cAlternatives_1_1.eContents().get(0);
-		private final Assignment cConvertAssignment_1_1_0_0 = (Assignment)cGroup_1_1_0.eContents().get(0);
-		private final Keyword cConvertInKeyword_1_1_0_0_0 = (Keyword)cConvertAssignment_1_1_0_0.eContents().get(0);
-		private final Assignment cUnitAssignment_1_1_0_1 = (Assignment)cGroup_1_1_0.eContents().get(1);
-		private final CrossReference cUnitUnitLiteralCrossReference_1_1_0_1_0 = (CrossReference)cUnitAssignment_1_1_0_1.eContents().get(0);
-		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_1_0_1_0.eContents().get(1);
-		private final Assignment cUnitAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
-		private final CrossReference cUnitUnitLiteralCrossReference_1_1_1_0 = (CrossReference)cUnitAssignment_1_1_1.eContents().get(0);
-		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_1_1_0.eContents().get(1);
+		private final Assignment cConvertAssignment_1_1_0 = (Assignment)cAlternatives_1_1.eContents().get(0);
+		private final Keyword cConvertToKeyword_1_1_0_0 = (Keyword)cConvertAssignment_1_1_0.eContents().get(0);
+		private final Assignment cDropAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
+		private final Keyword cDropInKeyword_1_1_1_0 = (Keyword)cDropAssignment_1_1_1.eContents().get(0);
+		private final Assignment cUnitAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cUnitUnitLiteralCrossReference_1_2_0 = (CrossReference)cUnitAssignment_1_2.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_2_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_2_0.eContents().get(1);
 		
 		//AUnitExpression returns aadl2::PropertyExpression:
-		//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] |
-		//	unit=[aadl2::UnitLiteral]))?;
+		//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//APrimaryExpression ({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] |
-		//unit=[aadl2::UnitLiteral]))?
+		//APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?
 		public Group getGroup() { return cGroup; }
 
 		//APrimaryExpression
 		public RuleCall getAPrimaryExpressionParserRuleCall_0() { return cAPrimaryExpressionParserRuleCall_0; }
 
-		//({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] | unit=[aadl2::UnitLiteral]))?
+		//({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{AUnitExpression.expression=current}
 		public Action getAUnitExpressionExpressionAction_1_0() { return cAUnitExpressionExpressionAction_1_0; }
 
-		//convert?="in" unit=[aadl2::UnitLiteral] | unit=[aadl2::UnitLiteral]
+		//(convert?="to" | drop?="in")?
 		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
-		//convert?="in" unit=[aadl2::UnitLiteral]
-		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
+		//convert?="to"
+		public Assignment getConvertAssignment_1_1_0() { return cConvertAssignment_1_1_0; }
 
-		//convert?="in"
-		public Assignment getConvertAssignment_1_1_0_0() { return cConvertAssignment_1_1_0_0; }
+		//"to"
+		public Keyword getConvertToKeyword_1_1_0_0() { return cConvertToKeyword_1_1_0_0; }
+
+		//drop?="in"
+		public Assignment getDropAssignment_1_1_1() { return cDropAssignment_1_1_1; }
 
 		//"in"
-		public Keyword getConvertInKeyword_1_1_0_0_0() { return cConvertInKeyword_1_1_0_0_0; }
+		public Keyword getDropInKeyword_1_1_1_0() { return cDropInKeyword_1_1_1_0; }
 
 		//unit=[aadl2::UnitLiteral]
-		public Assignment getUnitAssignment_1_1_0_1() { return cUnitAssignment_1_1_0_1; }
+		public Assignment getUnitAssignment_1_2() { return cUnitAssignment_1_2; }
 
 		//[aadl2::UnitLiteral]
-		public CrossReference getUnitUnitLiteralCrossReference_1_1_0_1_0() { return cUnitUnitLiteralCrossReference_1_1_0_1_0; }
+		public CrossReference getUnitUnitLiteralCrossReference_1_2_0() { return cUnitUnitLiteralCrossReference_1_2_0; }
 
 		//ID
-		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1_0_1; }
-
-		//unit=[aadl2::UnitLiteral]
-		public Assignment getUnitAssignment_1_1_1() { return cUnitAssignment_1_1_1; }
-
-		//[aadl2::UnitLiteral]
-		public CrossReference getUnitUnitLiteralCrossReference_1_1_1_0() { return cUnitUnitLiteralCrossReference_1_1_1_0; }
-
-		//ID
-		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1; }
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_2_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_2_0_1; }
 	}
 
 	public class APrimaryExpressionElements extends AbstractParserRuleElementFinder {
@@ -2113,29 +2107,31 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGTGreaterThanSignKeyword_6_0 = (Keyword)cGTEnumLiteralDeclaration_6.eContents().get(0);
 		private final EnumLiteralDeclaration cLTEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
 		private final Keyword cLTLessThanSignKeyword_7_0 = (Keyword)cLTEnumLiteralDeclaration_7.eContents().get(0);
-		private final EnumLiteralDeclaration cPLUSEnumLiteralDeclaration_8 = (EnumLiteralDeclaration)cAlternatives.eContents().get(8);
-		private final Keyword cPLUSPlusSignKeyword_8_0 = (Keyword)cPLUSEnumLiteralDeclaration_8.eContents().get(0);
-		private final EnumLiteralDeclaration cMINUSEnumLiteralDeclaration_9 = (EnumLiteralDeclaration)cAlternatives.eContents().get(9);
-		private final Keyword cMINUSHyphenMinusKeyword_9_0 = (Keyword)cMINUSEnumLiteralDeclaration_9.eContents().get(0);
-		private final EnumLiteralDeclaration cMULTEnumLiteralDeclaration_10 = (EnumLiteralDeclaration)cAlternatives.eContents().get(10);
-		private final Keyword cMULTAsteriskKeyword_10_0 = (Keyword)cMULTEnumLiteralDeclaration_10.eContents().get(0);
-		private final EnumLiteralDeclaration cDIVEnumLiteralDeclaration_11 = (EnumLiteralDeclaration)cAlternatives.eContents().get(11);
-		private final Keyword cDIVSolidusKeyword_11_0 = (Keyword)cDIVEnumLiteralDeclaration_11.eContents().get(0);
-		private final EnumLiteralDeclaration cINTDIVEnumLiteralDeclaration_12 = (EnumLiteralDeclaration)cAlternatives.eContents().get(12);
-		private final Keyword cINTDIVDivKeyword_12_0 = (Keyword)cINTDIVEnumLiteralDeclaration_12.eContents().get(0);
-		private final EnumLiteralDeclaration cMODEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
-		private final Keyword cMODModKeyword_13_0 = (Keyword)cMODEnumLiteralDeclaration_13.eContents().get(0);
-		private final EnumLiteralDeclaration cNOTEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
-		private final Keyword cNOTNotKeyword_14_0 = (Keyword)cNOTEnumLiteralDeclaration_14.eContents().get(0);
+		private final EnumLiteralDeclaration cINEnumLiteralDeclaration_8 = (EnumLiteralDeclaration)cAlternatives.eContents().get(8);
+		private final Keyword cINGreaterThanSignLessThanSignKeyword_8_0 = (Keyword)cINEnumLiteralDeclaration_8.eContents().get(0);
+		private final EnumLiteralDeclaration cPLUSEnumLiteralDeclaration_9 = (EnumLiteralDeclaration)cAlternatives.eContents().get(9);
+		private final Keyword cPLUSPlusSignKeyword_9_0 = (Keyword)cPLUSEnumLiteralDeclaration_9.eContents().get(0);
+		private final EnumLiteralDeclaration cMINUSEnumLiteralDeclaration_10 = (EnumLiteralDeclaration)cAlternatives.eContents().get(10);
+		private final Keyword cMINUSHyphenMinusKeyword_10_0 = (Keyword)cMINUSEnumLiteralDeclaration_10.eContents().get(0);
+		private final EnumLiteralDeclaration cMULTEnumLiteralDeclaration_11 = (EnumLiteralDeclaration)cAlternatives.eContents().get(11);
+		private final Keyword cMULTAsteriskKeyword_11_0 = (Keyword)cMULTEnumLiteralDeclaration_11.eContents().get(0);
+		private final EnumLiteralDeclaration cDIVEnumLiteralDeclaration_12 = (EnumLiteralDeclaration)cAlternatives.eContents().get(12);
+		private final Keyword cDIVSolidusKeyword_12_0 = (Keyword)cDIVEnumLiteralDeclaration_12.eContents().get(0);
+		private final EnumLiteralDeclaration cINTDIVEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
+		private final Keyword cINTDIVDivKeyword_13_0 = (Keyword)cINTDIVEnumLiteralDeclaration_13.eContents().get(0);
+		private final EnumLiteralDeclaration cMODEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
+		private final Keyword cMODModKeyword_14_0 = (Keyword)cMODEnumLiteralDeclaration_14.eContents().get(0);
+		private final EnumLiteralDeclaration cNOTEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
+		private final Keyword cNOTNotKeyword_15_0 = (Keyword)cNOTEnumLiteralDeclaration_15.eContents().get(0);
 		
 		//// Expressions
 		//enum Operation:
-		//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
-		//	DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+		//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" | PLUS="+" | MINUS="-" |
+		//	MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 		public EnumRule getRule() { return rule; }
 
-		//OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
-		//DIV="/" | INTDIV="div" | MOD="mod" | NOT="not"
+		//OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" | PLUS="+" | MINUS="-" |
+		//MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//OR="or"
@@ -2186,47 +2182,53 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"<"
 		public Keyword getLTLessThanSignKeyword_7_0() { return cLTLessThanSignKeyword_7_0; }
 
+		//IN="><"
+		public EnumLiteralDeclaration getINEnumLiteralDeclaration_8() { return cINEnumLiteralDeclaration_8; }
+
+		//"><"
+		public Keyword getINGreaterThanSignLessThanSignKeyword_8_0() { return cINGreaterThanSignLessThanSignKeyword_8_0; }
+
 		//PLUS="+"
-		public EnumLiteralDeclaration getPLUSEnumLiteralDeclaration_8() { return cPLUSEnumLiteralDeclaration_8; }
+		public EnumLiteralDeclaration getPLUSEnumLiteralDeclaration_9() { return cPLUSEnumLiteralDeclaration_9; }
 
 		//"+"
-		public Keyword getPLUSPlusSignKeyword_8_0() { return cPLUSPlusSignKeyword_8_0; }
+		public Keyword getPLUSPlusSignKeyword_9_0() { return cPLUSPlusSignKeyword_9_0; }
 
 		//MINUS="-"
-		public EnumLiteralDeclaration getMINUSEnumLiteralDeclaration_9() { return cMINUSEnumLiteralDeclaration_9; }
+		public EnumLiteralDeclaration getMINUSEnumLiteralDeclaration_10() { return cMINUSEnumLiteralDeclaration_10; }
 
 		//"-"
-		public Keyword getMINUSHyphenMinusKeyword_9_0() { return cMINUSHyphenMinusKeyword_9_0; }
+		public Keyword getMINUSHyphenMinusKeyword_10_0() { return cMINUSHyphenMinusKeyword_10_0; }
 
 		//MULT="*"
-		public EnumLiteralDeclaration getMULTEnumLiteralDeclaration_10() { return cMULTEnumLiteralDeclaration_10; }
+		public EnumLiteralDeclaration getMULTEnumLiteralDeclaration_11() { return cMULTEnumLiteralDeclaration_11; }
 
 		//"*"
-		public Keyword getMULTAsteriskKeyword_10_0() { return cMULTAsteriskKeyword_10_0; }
+		public Keyword getMULTAsteriskKeyword_11_0() { return cMULTAsteriskKeyword_11_0; }
 
 		//DIV="/"
-		public EnumLiteralDeclaration getDIVEnumLiteralDeclaration_11() { return cDIVEnumLiteralDeclaration_11; }
+		public EnumLiteralDeclaration getDIVEnumLiteralDeclaration_12() { return cDIVEnumLiteralDeclaration_12; }
 
 		//"/"
-		public Keyword getDIVSolidusKeyword_11_0() { return cDIVSolidusKeyword_11_0; }
+		public Keyword getDIVSolidusKeyword_12_0() { return cDIVSolidusKeyword_12_0; }
 
 		//INTDIV="div"
-		public EnumLiteralDeclaration getINTDIVEnumLiteralDeclaration_12() { return cINTDIVEnumLiteralDeclaration_12; }
+		public EnumLiteralDeclaration getINTDIVEnumLiteralDeclaration_13() { return cINTDIVEnumLiteralDeclaration_13; }
 
 		//"div"
-		public Keyword getINTDIVDivKeyword_12_0() { return cINTDIVDivKeyword_12_0; }
+		public Keyword getINTDIVDivKeyword_13_0() { return cINTDIVDivKeyword_13_0; }
 
 		//MOD="mod"
-		public EnumLiteralDeclaration getMODEnumLiteralDeclaration_13() { return cMODEnumLiteralDeclaration_13; }
+		public EnumLiteralDeclaration getMODEnumLiteralDeclaration_14() { return cMODEnumLiteralDeclaration_14; }
 
 		//"mod"
-		public Keyword getMODModKeyword_13_0() { return cMODModKeyword_13_0; }
+		public Keyword getMODModKeyword_14_0() { return cMODModKeyword_14_0; }
 
 		//NOT="not"
-		public EnumLiteralDeclaration getNOTEnumLiteralDeclaration_14() { return cNOTEnumLiteralDeclaration_14; }
+		public EnumLiteralDeclaration getNOTEnumLiteralDeclaration_15() { return cNOTEnumLiteralDeclaration_15; }
 
 		//"not"
-		public Keyword getNOTNotKeyword_14_0() { return cNOTNotKeyword_14_0; }
+		public Keyword getNOTNotKeyword_15_0() { return cNOTNotKeyword_15_0; }
 	}
 	
 	private final DescriptionElements pDescription;
@@ -2573,8 +2575,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Expressions
 	//enum Operation:
-	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | PLUS="+" | MINUS="-" | MULT="*" |
-	//	DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" | PLUS="+" | MINUS="-" |
+	//	MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 	public OperationElements getOperationAccess() {
 		return unknownRuleOperation;
 	}
@@ -2665,7 +2667,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpCompare returns Operation:
-	//	">=" | "<=" | ">" | "<";
+	//	">=" | "<=" | ">" | "<" | "><";
 	public OpCompareElements getOpCompareAccess() {
 		return pOpCompare;
 	}
@@ -2749,8 +2751,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnitExpression returns aadl2::PropertyExpression:
-	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="in" unit=[aadl2::UnitLiteral] |
-	//	unit=[aadl2::UnitLiteral]))?;
+	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?;
 	public AUnitExpressionElements getAUnitExpressionAccess() {
 		return pAUnitExpression;
 	}

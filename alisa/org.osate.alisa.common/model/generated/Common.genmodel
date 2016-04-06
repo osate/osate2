@@ -25,6 +25,7 @@
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LEQ"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/GT"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/LT"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/IN"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/PLUS"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MINUS"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/MULT"/>
@@ -106,6 +107,7 @@
     <genClasses ecoreClass="Common.ecore#//AUnitExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/convert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/drop"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AFunctionCall">
