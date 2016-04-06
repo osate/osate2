@@ -2,4 +2,3 @@
 /xtend-gen/
 /target/
 *.jar
-*.java._trace
