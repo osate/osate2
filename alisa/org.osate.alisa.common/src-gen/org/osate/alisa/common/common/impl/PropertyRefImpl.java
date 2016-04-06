@@ -15,56 +15,52 @@
  */
 package org.osate.alisa.common.common.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.Property;
 
-import org.osate.aadl2.impl.PropertyExpressionImpl;
+import org.osate.aadl2.impl.PropertyTypeImpl;
 
-import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.PropertyRef;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>AList Term</b></em>'.
+ * An implementation of the model object '<em><b>Property Ref</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AListTermImpl#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.PropertyRefImpl#getRef <em>Ref</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
+public class PropertyRefImpl extends PropertyTypeImpl implements PropertyRef
 {
   /**
-   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElements()
+   * @see #getRef()
    * @generated
    * @ordered
    */
-  protected EList<PropertyExpression> elements;
+  protected Property ref;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AListTermImpl()
+  protected PropertyRefImpl()
   {
     super();
   }
@@ -77,7 +73,7 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.ALIST_TERM;
+    return CommonPackage.Literals.PROPERTY_REF;
   }
 
   /**
@@ -85,13 +81,19 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyExpression> getElements()
+  public Property getRef()
   {
-    if (elements == null)
+    if (ref != null && ((EObject)ref).eIsProxy())
     {
-      elements = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, CommonPackage.ALIST_TERM__ELEMENTS);
+      InternalEObject oldRef = (InternalEObject)ref;
+      ref = (Property)eResolveProxy(oldRef);
+      if (ref != oldRef)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.PROPERTY_REF__REF, oldRef, ref));
+      }
     }
-    return elements;
+    return ref;
   }
 
   /**
@@ -99,15 +101,22 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public Property basicGetRef()
   {
-    switch (featureID)
-    {
-      case CommonPackage.ALIST_TERM__ELEMENTS:
-        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    return ref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRef(Property newRef)
+  {
+    Property oldRef = ref;
+    ref = newRef;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.PROPERTY_REF__REF, oldRef, ref));
   }
 
   /**
@@ -120,8 +129,9 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
   {
     switch (featureID)
     {
-      case CommonPackage.ALIST_TERM__ELEMENTS:
-        return getElements();
+      case CommonPackage.PROPERTY_REF__REF:
+        if (resolve) return getRef();
+        return basicGetRef();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -131,15 +141,13 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CommonPackage.ALIST_TERM__ELEMENTS:
-        getElements().clear();
-        getElements().addAll((Collection<? extends PropertyExpression>)newValue);
+      case CommonPackage.PROPERTY_REF__REF:
+        setRef((Property)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -155,8 +163,8 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
   {
     switch (featureID)
     {
-      case CommonPackage.ALIST_TERM__ELEMENTS:
-        getElements().clear();
+      case CommonPackage.PROPERTY_REF__REF:
+        setRef((Property)null);
         return;
     }
     super.eUnset(featureID);
@@ -172,10 +180,10 @@ public class AListTermImpl extends PropertyExpressionImpl implements AListTerm
   {
     switch (featureID)
     {
-      case CommonPackage.ALIST_TERM__ELEMENTS:
-        return elements != null && !elements.isEmpty();
+      case CommonPackage.PROPERTY_REF__REF:
+        return ref != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //AListTermImpl
+} //PropertyRefImpl

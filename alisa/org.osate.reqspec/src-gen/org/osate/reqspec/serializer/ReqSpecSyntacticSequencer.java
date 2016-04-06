@@ -73,6 +73,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_ReqDocument_IssuesKeyword_4_3_0_q;
 	protected AbstractElementAlias match_ReqDocument___SeeKeyword_4_2_0_DocumentKeyword_4_2_1__q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
+	protected AbstractElementAlias match_ShowValue_PercentSignKeyword_1_0_q;
 	protected AbstractElementAlias match_StakeholderGoals_IssuesKeyword_7_4_0_q;
 	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q;
 	protected AbstractElementAlias match_SystemRequirementSet_IssuesKeyword_9_7_0_q;
@@ -131,6 +132,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_ReqDocument_IssuesKeyword_4_3_0_q = new TokenAlias(false, true, grammarAccess.getReqDocumentAccess().getIssuesKeyword_4_3_0());
 		match_ReqDocument___SeeKeyword_4_2_0_DocumentKeyword_4_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getReqDocumentAccess().getSeeKeyword_4_2_0()), new TokenAlias(false, false, grammarAccess.getReqDocumentAccess().getDocumentKeyword_4_2_1()));
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
+		match_ShowValue_PercentSignKeyword_1_0_q = new TokenAlias(false, true, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
 		match_StakeholderGoals_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_7_4_0());
 		match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_7_3_1()));
 		match_SystemRequirementSet_IssuesKeyword_9_7_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementSetAccess().getIssuesKeyword_9_7_0());
@@ -239,6 +241,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_ReqDocument___SeeKeyword_4_2_0_DocumentKeyword_4_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ShowValue_PercentSignKeyword_1_0_q.equals(syntax))
+				emit_ShowValue_PercentSignKeyword_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals_IssuesKeyword_7_4_0_q.equals(syntax))
 				emit_StakeholderGoals_IssuesKeyword_7_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q.equals(syntax))
@@ -277,23 +281,21 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '[' ']' (rule start)
-	 *     (rule start) (ambiguity) '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
-	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
 	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) 'this' (rule start)
-	 *     (rule start) (ambiguity) '{' '}' (rule start)
-	 *     (rule start) (ambiguity) '{' elements+=AExpression
-	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -305,23 +307,21 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
-	 *     (rule start) (ambiguity) '[' ']' ')' (rule start)
-	 *     (rule start) (ambiguity) '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
-	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) 'if' if=AExpression
 	 *     (rule start) (ambiguity) 'this' ')' (rule start)
 	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
-	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '{' elements+=AExpression
-	 *     (rule start) (ambiguity) feature=OpUnary
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
-	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -745,6 +745,17 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     target=[EObject|URIID] (ambiguity) (rule end)
 	 */
 	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '%'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     ref=[AVariableDeclaration|ID] (ambiguity) (rule end)
+	 */
+	protected void emit_ShowValue_PercentSignKeyword_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -38,8 +38,9 @@
     <eLiterals name="FAIL" value="5" literal="fail"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AVariableDeclaration">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NestedModelElement">
@@ -63,8 +64,33 @@
   <eClassifiers xsi:type="ecore:EClass" name="ImageReference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="imgfile" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Operation">
+    <eLiterals name="OR" literal="or"/>
+    <eLiterals name="AND" value="1" literal="and"/>
+    <eLiterals name="EQ" value="2" literal="=="/>
+    <eLiterals name="NEQ" value="3" literal="!="/>
+    <eLiterals name="GEQ" value="4" literal=">="/>
+    <eLiterals name="LEQ" value="5" literal="&lt;="/>
+    <eLiterals name="GT" value="6" literal=">"/>
+    <eLiterals name="LT" value="7" literal="&lt;"/>
+    <eLiterals name="IN" value="8" literal=">&lt;"/>
+    <eLiterals name="PLUS" value="9" literal="+"/>
+    <eLiterals name="MINUS" value="10" literal="-"/>
+    <eLiterals name="MULT" value="11" literal="*"/>
+    <eLiterals name="DIV" value="12" literal="/"/>
+    <eLiterals name="INTDIV" value="13" literal="div"/>
+    <eLiterals name="MOD" value="14" literal="mod"/>
+    <eLiterals name="NOT" value="15" literal="not"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValDeclaration" eSuperTypes="#//AVariableDeclaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration" eSuperTypes="#//AVariableDeclaration"/>
@@ -72,32 +98,44 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//AVariableDeclaration"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ABinaryOperation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//Operation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AUnaryOperation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//Operation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AUnitExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="convert" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="drop" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AFunctionCall" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="function" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="functionCallArguments"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ASetLiteral" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AListTerm" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+  <eClassifiers xsi:type="ecore:EClass" name="ARange" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="minimum" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="maximum" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delta" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ANullLiteral" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AConditional" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="if" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

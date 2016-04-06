@@ -23,7 +23,10 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.Type;
 
 import org.osate.alisa.common.common.*;
 
@@ -151,6 +154,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createImageReferenceAdapter();
       }
       @Override
+      public Adapter caseModelRef(ModelRef object)
+      {
+        return createModelRefAdapter();
+      }
+      @Override
+      public Adapter caseTypeRef(TypeRef object)
+      {
+        return createTypeRefAdapter();
+      }
+      @Override
+      public Adapter casePropertyRef(PropertyRef object)
+      {
+        return createPropertyRefAdapter();
+      }
+      @Override
       public Adapter caseValDeclaration(ValDeclaration object)
       {
         return createValDeclarationAdapter();
@@ -176,24 +194,24 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAUnaryOperationAdapter();
       }
       @Override
+      public Adapter caseAUnitExpression(AUnitExpression object)
+      {
+        return createAUnitExpressionAdapter();
+      }
+      @Override
       public Adapter caseAFunctionCall(AFunctionCall object)
       {
         return createAFunctionCallAdapter();
       }
       @Override
-      public Adapter caseASetLiteral(ASetLiteral object)
+      public Adapter caseARange(ARange object)
       {
-        return createASetLiteralAdapter();
+        return createARangeAdapter();
       }
       @Override
-      public Adapter caseAListTerm(AListTerm object)
+      public Adapter caseAConditional(AConditional object)
       {
-        return createAListTermAdapter();
-      }
-      @Override
-      public Adapter caseANullLiteral(ANullLiteral object)
-      {
-        return createANullLiteralAdapter();
+        return createAConditionalAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -204,6 +222,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter casePropertyExpression(PropertyExpression object)
       {
         return createPropertyExpressionAdapter();
+      }
+      @Override
+      public Adapter caseNamedElement(NamedElement object)
+      {
+        return createNamedElementAdapter();
+      }
+      @Override
+      public Adapter caseType(Type object)
+      {
+        return createTypeAdapter();
+      }
+      @Override
+      public Adapter casePropertyType(PropertyType object)
+      {
+        return createPropertyTypeAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -408,6 +441,51 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ModelRef <em>Model Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ModelRef
+   * @generated
+   */
+  public Adapter createModelRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.TypeRef <em>Type Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.TypeRef
+   * @generated
+   */
+  public Adapter createTypeRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.PropertyRef <em>Property Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.PropertyRef
+   * @generated
+   */
+  public Adapter createPropertyRefAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ValDeclaration <em>Val Declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -483,6 +561,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.AUnitExpression
+   * @generated
+   */
+  public Adapter createAUnitExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AFunctionCall <em>AFunction Call</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -498,46 +591,31 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ARange <em>ARange</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.ASetLiteral
+   * @see org.osate.alisa.common.common.ARange
    * @generated
    */
-  public Adapter createASetLiteralAdapter()
+  public Adapter createARangeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AListTerm <em>AList Term</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AConditional <em>AConditional</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.AListTerm
+   * @see org.osate.alisa.common.common.AConditional
    * @generated
    */
-  public Adapter createAListTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ANullLiteral <em>ANull Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ANullLiteral
-   * @generated
-   */
-  public Adapter createANullLiteralAdapter()
+  public Adapter createAConditionalAdapter()
   {
     return null;
   }
@@ -568,6 +646,51 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertyExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.NamedElement <em>Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.NamedElement
+   * @generated
+   */
+  public Adapter createNamedElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Type
+   * @generated
+   */
+  public Adapter createTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyType <em>Property Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.PropertyType
+   * @generated
+   */
+  public Adapter createPropertyTypeAdapter()
   {
     return null;
   }

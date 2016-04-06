@@ -15,56 +15,52 @@
  */
 package org.osate.alisa.common.common.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyType;
 
-import org.osate.aadl2.impl.PropertyExpressionImpl;
+import org.osate.aadl2.impl.PropertyTypeImpl;
 
-import org.osate.alisa.common.common.ASetLiteral;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.TypeRef;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>ASet Literal</b></em>'.
+ * An implementation of the model object '<em><b>Type Ref</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.ASetLiteralImpl#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.TypeRefImpl#getRef <em>Ref</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiteral
+public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
 {
   /**
-   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElements()
+   * @see #getRef()
    * @generated
    * @ordered
    */
-  protected EList<PropertyExpression> elements;
+  protected PropertyType ref;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ASetLiteralImpl()
+  protected TypeRefImpl()
   {
     super();
   }
@@ -77,7 +73,7 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.ASET_LITERAL;
+    return CommonPackage.Literals.TYPE_REF;
   }
 
   /**
@@ -85,13 +81,19 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyExpression> getElements()
+  public PropertyType getRef()
   {
-    if (elements == null)
+    if (ref != null && ((EObject)ref).eIsProxy())
     {
-      elements = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, CommonPackage.ASET_LITERAL__ELEMENTS);
+      InternalEObject oldRef = (InternalEObject)ref;
+      ref = (PropertyType)eResolveProxy(oldRef);
+      if (ref != oldRef)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.TYPE_REF__REF, oldRef, ref));
+      }
     }
-    return elements;
+    return ref;
   }
 
   /**
@@ -99,15 +101,22 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public PropertyType basicGetRef()
   {
-    switch (featureID)
-    {
-      case CommonPackage.ASET_LITERAL__ELEMENTS:
-        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    return ref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRef(PropertyType newRef)
+  {
+    PropertyType oldRef = ref;
+    ref = newRef;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.TYPE_REF__REF, oldRef, ref));
   }
 
   /**
@@ -120,8 +129,9 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
   {
     switch (featureID)
     {
-      case CommonPackage.ASET_LITERAL__ELEMENTS:
-        return getElements();
+      case CommonPackage.TYPE_REF__REF:
+        if (resolve) return getRef();
+        return basicGetRef();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -131,15 +141,13 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CommonPackage.ASET_LITERAL__ELEMENTS:
-        getElements().clear();
-        getElements().addAll((Collection<? extends PropertyExpression>)newValue);
+      case CommonPackage.TYPE_REF__REF:
+        setRef((PropertyType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -155,8 +163,8 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
   {
     switch (featureID)
     {
-      case CommonPackage.ASET_LITERAL__ELEMENTS:
-        getElements().clear();
+      case CommonPackage.TYPE_REF__REF:
+        setRef((PropertyType)null);
         return;
     }
     super.eUnset(featureID);
@@ -172,10 +180,10 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
   {
     switch (featureID)
     {
-      case CommonPackage.ASET_LITERAL__ELEMENTS:
-        return elements != null && !elements.isEmpty();
+      case CommonPackage.TYPE_REF__REF:
+        return ref != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //ASetLiteralImpl
+} //TypeRefImpl

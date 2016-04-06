@@ -27,14 +27,14 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AConditional;
 import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.AFunctionCall;
-import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.AModelReference;
-import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
-import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.ARange;
 import org.osate.alisa.common.common.AUnaryOperation;
+import org.osate.alisa.common.common.AUnitExpression;
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonFactory;
@@ -43,11 +43,15 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.NestedModelElement;
+import org.osate.alisa.common.common.Operation;
+import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ResultIssueType;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 
@@ -148,6 +152,27 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass modelRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass valDeclarationEClass = null;
 
   /**
@@ -183,6 +208,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass aUnitExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass aFunctionCallEClass = null;
 
   /**
@@ -190,21 +222,14 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass aSetLiteralEClass = null;
+  private EClass aRangeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass aListTermEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass aNullLiteralEClass = null;
+  private EClass aConditionalEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -212,6 +237,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EEnum resultIssueTypeEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum operationEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -484,7 +516,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAVariableDeclaration_Type()
+  public EAttribute getAVariableDeclaration_Name()
   {
     return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(0);
   }
@@ -494,9 +526,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAVariableDeclaration_Name()
+  public EReference getAVariableDeclaration_Type()
   {
-    return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(1);
+    return (EReference)aVariableDeclarationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -644,6 +676,56 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getModelRef()
+  {
+    return modelRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeRef()
+  {
+    return typeRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypeRef_Ref()
+  {
+    return (EReference)typeRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyRef()
+  {
+    return propertyRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyRef_Ref()
+  {
+    return (EReference)propertyRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getValDeclaration()
   {
     return valDeclarationEClass;
@@ -654,7 +736,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getValDeclaration_Right()
+  public EReference getValDeclaration_Value()
   {
     return (EReference)valDeclarationEClass.getEStructuralFeatures().get(0);
   }
@@ -704,7 +786,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getABinaryOperation_LeftOperand()
+  public EReference getABinaryOperation_Left()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(0);
   }
@@ -714,7 +796,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getABinaryOperation_Feature()
+  public EAttribute getABinaryOperation_Operator()
   {
     return (EAttribute)aBinaryOperationEClass.getEStructuralFeatures().get(1);
   }
@@ -724,7 +806,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getABinaryOperation_RightOperand()
+  public EReference getABinaryOperation_Right()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(2);
   }
@@ -744,7 +826,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAUnaryOperation_Feature()
+  public EAttribute getAUnaryOperation_Operator()
   {
     return (EAttribute)aUnaryOperationEClass.getEStructuralFeatures().get(0);
   }
@@ -757,6 +839,56 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EReference getAUnaryOperation_Operand()
   {
     return (EReference)aUnaryOperationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAUnitExpression()
+  {
+    return aUnitExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAUnitExpression_Expression()
+  {
+    return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAUnitExpression_Convert()
+  {
+    return (EAttribute)aUnitExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAUnitExpression_Drop()
+  {
+    return (EAttribute)aUnitExpressionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAUnitExpression_Unit()
+  {
+    return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -784,7 +916,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAFunctionCall_FunctionCallArguments()
+  public EReference getAFunctionCall_Arguments()
   {
     return (EReference)aFunctionCallEClass.getEStructuralFeatures().get(1);
   }
@@ -794,9 +926,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getASetLiteral()
+  public EClass getARange()
   {
-    return aSetLiteralEClass;
+    return aRangeEClass;
   }
 
   /**
@@ -804,9 +936,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getASetLiteral_Elements()
+  public EReference getARange_Minimum()
   {
-    return (EReference)aSetLiteralEClass.getEStructuralFeatures().get(0);
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -814,9 +946,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAListTerm()
+  public EReference getARange_Maximum()
   {
-    return aListTermEClass;
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -824,9 +956,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAListTerm_Elements()
+  public EReference getARange_Delta()
   {
-    return (EReference)aListTermEClass.getEStructuralFeatures().get(0);
+    return (EReference)aRangeEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -834,9 +966,39 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getANullLiteral()
+  public EClass getAConditional()
   {
-    return aNullLiteralEClass;
+    return aConditionalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_If()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_Then()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAConditional_Else()
+  {
+    return (EReference)aConditionalEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -847,6 +1009,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EEnum getResultIssueType()
   {
     return resultIssueTypeEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EEnum getOperation()
+  {
+    return operationEEnum;
   }
 
   /**
@@ -904,8 +1076,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(resultIssueEClass, RESULT_ISSUE__ISSUES);
 
     aVariableDeclarationEClass = createEClass(AVARIABLE_DECLARATION);
-    createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__TYPE);
     createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__NAME);
+    createEReference(aVariableDeclarationEClass, AVARIABLE_DECLARATION__TYPE);
 
     aExpressionEClass = createEClass(AEXPRESSION);
 
@@ -927,8 +1099,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     imageReferenceEClass = createEClass(IMAGE_REFERENCE);
     createEAttribute(imageReferenceEClass, IMAGE_REFERENCE__IMGFILE);
 
+    modelRefEClass = createEClass(MODEL_REF);
+
+    typeRefEClass = createEClass(TYPE_REF);
+    createEReference(typeRefEClass, TYPE_REF__REF);
+
+    propertyRefEClass = createEClass(PROPERTY_REF);
+    createEReference(propertyRefEClass, PROPERTY_REF__REF);
+
     valDeclarationEClass = createEClass(VAL_DECLARATION);
-    createEReference(valDeclarationEClass, VAL_DECLARATION__RIGHT);
+    createEReference(valDeclarationEClass, VAL_DECLARATION__VALUE);
 
     computeDeclarationEClass = createEClass(COMPUTE_DECLARATION);
 
@@ -936,28 +1116,37 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(aVariableReferenceEClass, AVARIABLE_REFERENCE__VARIABLE);
 
     aBinaryOperationEClass = createEClass(ABINARY_OPERATION);
-    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__LEFT_OPERAND);
-    createEAttribute(aBinaryOperationEClass, ABINARY_OPERATION__FEATURE);
-    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__RIGHT_OPERAND);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__LEFT);
+    createEAttribute(aBinaryOperationEClass, ABINARY_OPERATION__OPERATOR);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__RIGHT);
 
     aUnaryOperationEClass = createEClass(AUNARY_OPERATION);
-    createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__FEATURE);
+    createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__OPERATOR);
     createEReference(aUnaryOperationEClass, AUNARY_OPERATION__OPERAND);
+
+    aUnitExpressionEClass = createEClass(AUNIT_EXPRESSION);
+    createEReference(aUnitExpressionEClass, AUNIT_EXPRESSION__EXPRESSION);
+    createEAttribute(aUnitExpressionEClass, AUNIT_EXPRESSION__CONVERT);
+    createEAttribute(aUnitExpressionEClass, AUNIT_EXPRESSION__DROP);
+    createEReference(aUnitExpressionEClass, AUNIT_EXPRESSION__UNIT);
 
     aFunctionCallEClass = createEClass(AFUNCTION_CALL);
     createEAttribute(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION);
-    createEReference(aFunctionCallEClass, AFUNCTION_CALL__FUNCTION_CALL_ARGUMENTS);
+    createEReference(aFunctionCallEClass, AFUNCTION_CALL__ARGUMENTS);
 
-    aSetLiteralEClass = createEClass(ASET_LITERAL);
-    createEReference(aSetLiteralEClass, ASET_LITERAL__ELEMENTS);
+    aRangeEClass = createEClass(ARANGE);
+    createEReference(aRangeEClass, ARANGE__MINIMUM);
+    createEReference(aRangeEClass, ARANGE__MAXIMUM);
+    createEReference(aRangeEClass, ARANGE__DELTA);
 
-    aListTermEClass = createEClass(ALIST_TERM);
-    createEReference(aListTermEClass, ALIST_TERM__ELEMENTS);
-
-    aNullLiteralEClass = createEClass(ANULL_LITERAL);
+    aConditionalEClass = createEClass(ACONDITIONAL);
+    createEReference(aConditionalEClass, ACONDITIONAL__IF);
+    createEReference(aConditionalEClass, ACONDITIONAL__THEN);
+    createEReference(aConditionalEClass, ACONDITIONAL__ELSE);
 
     // Create enums
     resultIssueTypeEEnum = createEEnum(RESULT_ISSUE_TYPE);
+    operationEEnum = createEEnum(OPERATION);
   }
 
   /**
@@ -996,15 +1185,18 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aExpressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aModelReferenceEClass.getESuperTypes().add(this.getAExpression());
     aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
+    modelRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
+    typeRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
+    propertyRefEClass.getESuperTypes().add(theAadl2Package.getPropertyType());
     valDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
     computeDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
     aVariableReferenceEClass.getESuperTypes().add(this.getAExpression());
     aBinaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aUnitExpressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aFunctionCallEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aRangeEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aConditionalEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1032,8 +1224,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getResultIssue_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aVariableDeclarationEClass, AVariableDeclaration.class, "AVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAVariableDeclaration_Type(), theEcorePackage.getEString(), "type", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAVariableDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAVariableDeclaration_Type(), theAadl2Package.getPropertyType(), null, "type", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aExpressionEClass, AExpression.class, "AExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1055,8 +1247,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(imageReferenceEClass, ImageReference.class, "ImageReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImageReference_Imgfile(), theEcorePackage.getEString(), "imgfile", null, 0, 1, ImageReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(modelRefEClass, ModelRef.class, "ModelRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeRefEClass, TypeRef.class, "TypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeRef_Ref(), theAadl2Package.getPropertyType(), null, "ref", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyRefEClass, PropertyRef.class, "PropertyRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyRef_Ref(), theAadl2Package.getProperty(), null, "ref", null, 0, 1, PropertyRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(valDeclarationEClass, ValDeclaration.class, "ValDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getValDeclaration_Right(), theAadl2Package.getPropertyExpression(), null, "right", null, 0, 1, ValDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getValDeclaration_Value(), theAadl2Package.getPropertyExpression(), null, "value", null, 0, 1, ValDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1064,25 +1264,33 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getAVariableReference_Variable(), this.getAVariableDeclaration(), null, "variable", null, 0, 1, AVariableReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aBinaryOperationEClass, ABinaryOperation.class, "ABinaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getABinaryOperation_LeftOperand(), theAadl2Package.getPropertyExpression(), null, "leftOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getABinaryOperation_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getABinaryOperation_RightOperand(), theAadl2Package.getPropertyExpression(), null, "rightOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getABinaryOperation_Left(), theAadl2Package.getPropertyExpression(), null, "left", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getABinaryOperation_Operator(), this.getOperation(), "operator", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getABinaryOperation_Right(), theAadl2Package.getPropertyExpression(), null, "right", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aUnaryOperationEClass, AUnaryOperation.class, "AUnaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAUnaryOperation_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAUnaryOperation_Operator(), this.getOperation(), "operator", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAUnaryOperation_Operand(), theAadl2Package.getPropertyExpression(), null, "operand", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aUnitExpressionEClass, AUnitExpression.class, "AUnitExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAUnitExpression_Expression(), theAadl2Package.getPropertyExpression(), null, "expression", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAUnitExpression_Convert(), theEcorePackage.getEBoolean(), "convert", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAUnitExpression_Drop(), theEcorePackage.getEBoolean(), "drop", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAUnitExpression_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, AUnitExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aFunctionCallEClass, AFunctionCall.class, "AFunctionCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAFunctionCall_Function(), theEcorePackage.getEString(), "function", null, 0, 1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAFunctionCall_FunctionCallArguments(), theAadl2Package.getPropertyExpression(), null, "functionCallArguments", null, 0, -1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAFunctionCall_Arguments(), theAadl2Package.getPropertyExpression(), null, "arguments", null, 0, -1, AFunctionCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(aSetLiteralEClass, ASetLiteral.class, "ASetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getASetLiteral_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, ASetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(aRangeEClass, ARange.class, "ARange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getARange_Minimum(), theAadl2Package.getPropertyExpression(), null, "minimum", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getARange_Maximum(), theAadl2Package.getPropertyExpression(), null, "maximum", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getARange_Delta(), theAadl2Package.getPropertyExpression(), null, "delta", null, 0, 1, ARange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(aListTermEClass, AListTerm.class, "AListTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAListTerm_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, AListTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(aNullLiteralEClass, ANullLiteral.class, "ANullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(aConditionalEClass, AConditional.class, "AConditional", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAConditional_If(), theAadl2Package.getPropertyExpression(), null, "if", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAConditional_Then(), theAadl2Package.getPropertyExpression(), null, "then", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAConditional_Else(), theAadl2Package.getPropertyExpression(), null, "else", null, 0, 1, AConditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(resultIssueTypeEEnum, ResultIssueType.class, "ResultIssueType");
@@ -1092,6 +1300,24 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.INFO);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.SUCCESS);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.FAIL);
+
+    initEEnum(operationEEnum, Operation.class, "Operation");
+    addEEnumLiteral(operationEEnum, Operation.OR);
+    addEEnumLiteral(operationEEnum, Operation.AND);
+    addEEnumLiteral(operationEEnum, Operation.EQ);
+    addEEnumLiteral(operationEEnum, Operation.NEQ);
+    addEEnumLiteral(operationEEnum, Operation.GEQ);
+    addEEnumLiteral(operationEEnum, Operation.LEQ);
+    addEEnumLiteral(operationEEnum, Operation.GT);
+    addEEnumLiteral(operationEEnum, Operation.LT);
+    addEEnumLiteral(operationEEnum, Operation.IN);
+    addEEnumLiteral(operationEEnum, Operation.PLUS);
+    addEEnumLiteral(operationEEnum, Operation.MINUS);
+    addEEnumLiteral(operationEEnum, Operation.MULT);
+    addEEnumLiteral(operationEEnum, Operation.DIV);
+    addEEnumLiteral(operationEEnum, Operation.INTDIV);
+    addEEnumLiteral(operationEEnum, Operation.MOD);
+    addEEnumLiteral(operationEEnum, Operation.NOT);
 
     // Create resource
     createResource(eNS_URI);

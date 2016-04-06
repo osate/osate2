@@ -14,15 +14,19 @@
 		
 		<osate.stable.version>2.2.0</osate.stable.version>
 		<xtext.stable.version>2.8.4</xtext.stable.version>
+		<xsemantics.stable.version>1.8.1</xsemantics.stable.version>
 		<xtext.testing.version>2.8.4</xtext.testing.version>
+		<xsemantics.testing.version>1.8.1</xsemantics.testing.version>
 
 		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
 		<eclipse.stable.url>http://download.eclipse.org/releases/mars/201510021000</eclipse.stable.url>
 		<xtext.stable.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.stable.version}/</xtext.stable.url>
+		<xsemantics.stable.url>http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8</xsemantics.stable.url>
 
 		<osate.testing.url>http://www.aadl.info/aadl/osate/testing/update-site/</osate.testing.url>
 		<eclipse.testing.url>http://download.eclipse.org/releases/mars/201510021000</eclipse.testing.url>
 		<xtext.testing.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.testing.version}/</xtext.testing.url>
+		<xsemantics.testing.url>http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8</xsemantics.testing.url>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -57,6 +61,11 @@
 					<url>${xtext.stable.url}</url>
 					<layout>p2</layout>
 				</repository>
+				<repository>
+					<id>xsemantics</id>
+					<url>${xsemantics.stable.url}</url>
+					<layout>p2</layout>
+				</repository>
 			</repositories>
 		</profile>
 		
@@ -79,6 +88,11 @@
 				<repository>
 					<id>xtext</id>
 					<url>${xtext.testing.url}</url>
+					<layout>p2</layout>
+				</repository>
+				<repository>
+					<id>xsemantics</id>
+					<url>${xsemantics.testing.url}</url>
 					<layout>p2</layout>
 				</repository>
 			</repositories>

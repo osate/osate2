@@ -15,44 +15,53 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>AList Term</b></em>'.
+ * A representation of the model object '<em><b>Property Ref</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.AListTerm#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.PropertyRef#getRef <em>Ref</em>}</li>
  * </ul>
  *
- * @see org.osate.alisa.common.common.CommonPackage#getAListTerm()
+ * @see org.osate.alisa.common.common.CommonPackage#getPropertyRef()
  * @model
  * @generated
  */
-public interface AListTerm extends EObject, PropertyExpression
+public interface PropertyRef extends EObject, PropertyType
 {
   /**
-   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
+   * Returns the value of the '<em><b>Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Ref</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Elements</em>' containment reference list.
-   * @see org.osate.alisa.common.common.CommonPackage#getAListTerm_Elements()
-   * @model containment="true"
+   * @return the value of the '<em>Ref</em>' reference.
+   * @see #setRef(Property)
+   * @see org.osate.alisa.common.common.CommonPackage#getPropertyRef_Ref()
+   * @model
    * @generated
    */
-  EList<PropertyExpression> getElements();
+  Property getRef();
 
-} // AListTerm
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.PropertyRef#getRef <em>Ref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ref</em>' reference.
+   * @see #getRef()
+   * @generated
+   */
+  void setRef(Property value);
+
+} // PropertyRef

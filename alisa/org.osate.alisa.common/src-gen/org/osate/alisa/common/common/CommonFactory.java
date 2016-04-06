@@ -144,6 +144,33 @@ public interface CommonFactory extends EFactory
   ImageReference createImageReference();
 
   /**
+   * Returns a new object of class '<em>Model Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Model Ref</em>'.
+   * @generated
+   */
+  ModelRef createModelRef();
+
+  /**
+   * Returns a new object of class '<em>Type Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Ref</em>'.
+   * @generated
+   */
+  TypeRef createTypeRef();
+
+  /**
+   * Returns a new object of class '<em>Property Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Ref</em>'.
+   * @generated
+   */
+  PropertyRef createPropertyRef();
+
+  /**
    * Returns a new object of class '<em>Val Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -189,6 +216,15 @@ public interface CommonFactory extends EFactory
   AUnaryOperation createAUnaryOperation();
 
   /**
+   * Returns a new object of class '<em>AUnit Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AUnit Expression</em>'.
+   * @generated
+   */
+  AUnitExpression createAUnitExpression();
+
+  /**
    * Returns a new object of class '<em>AFunction Call</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -198,31 +234,22 @@ public interface CommonFactory extends EFactory
   AFunctionCall createAFunctionCall();
 
   /**
-   * Returns a new object of class '<em>ASet Literal</em>'.
+   * Returns a new object of class '<em>ARange</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>ASet Literal</em>'.
+   * @return a new object of class '<em>ARange</em>'.
    * @generated
    */
-  ASetLiteral createASetLiteral();
+  ARange createARange();
 
   /**
-   * Returns a new object of class '<em>AList Term</em>'.
+   * Returns a new object of class '<em>AConditional</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>AList Term</em>'.
+   * @return a new object of class '<em>AConditional</em>'.
    * @generated
    */
-  AListTerm createAListTerm();
-
-  /**
-   * Returns a new object of class '<em>ANull Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ANull Literal</em>'.
-   * @generated
-   */
-  ANullLiteral createANullLiteral();
+  AConditional createAConditional();
 
   /**
    * Returns the package supported by this factory.

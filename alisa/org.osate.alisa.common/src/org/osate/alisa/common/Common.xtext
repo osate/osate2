@@ -41,19 +41,32 @@ enum ResultIssueType:
 	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
 ;
 
+TypeRef returns aadl2::PropertyType:
+	{aadl2::AadlBoolean} 'boolean'
+	| {aadl2::AadlInteger} 'integer'
+	| {aadl2::AadlReal} 'real'
+	| {aadl2::AadlString} 'string'
+	| {ModelRef} 'model' 'element'
+	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+;
+
+PropertyRef returns aadl2::PropertyType:
+	{PropertyRef} ref=[aadl2::Property|AADLPROPERTYREFERENCE]
+;
+
 ValDeclaration returns AVariableDeclaration:
-	 {ValDeclaration} 'val' (=> (type=ID name=ID) | name=ID) '=' right=AExpression  
-	 ;
+	 {ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef) )? '=' value=AExpression  
+;
 
 ComputeDeclaration returns AVariableDeclaration:
 	{ComputeDeclaration}
-	 'compute' (=> (type=ID name=ID) | name=ID) 
+	 'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef)
 ;
 
 // Reference to property, property constant, or model element.
 AModelOrPropertyReference returns AExpression:
-	(AModelReference (=>({APropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
-		) | APropertyReference
+	AModelReference (=>({APropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])? 
+	| APropertyReference
 ;
 
 NestedModelelement returns NestedModelElement:
@@ -74,156 +87,173 @@ AVariableReference returns AExpression:
 
 
  
- ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%' unit=[aadl2::UnitLiteral|ID])?;	
+ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
 
 ImageReference : 'img' imgfile=IMGREF;
 
 IMGREF : (ID '/')* ID '.' ID; 
 
 // Expressions
-
-AExpression returns aadl2::PropertyExpression: AOrExpression;
-
-AOrExpression returns aadl2::PropertyExpression:
-	AAndExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOr) rightOperand=AAndExpression)*;
-
-OpOr:
-	'||';
-
-AAndExpression returns aadl2::PropertyExpression:
-	AEqualityExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAnd) rightOperand=AEqualityExpression)*;
-
-OpAnd:
-	'&&';
-
-AEqualityExpression returns aadl2::PropertyExpression:
-	ARelationalExpression (=>({ABinaryOperation.leftOperand=current} feature=OpEquality)
-	rightOperand=ARelationalExpression)*;
-
-OpEquality:
-	'==' | '!=' ;
-
-ARelationalExpression returns aadl2::PropertyExpression:
-	AOtherOperatorExpression
-	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
-
-OpCompare:
-	'>=' | '<' '=' | '>' | '<' ;
-
-AOtherOperatorExpression returns aadl2::PropertyExpression:
-	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
-	rightOperand=AAdditiveExpression)*;
-
-OpOther:
-	  '->' 
-	| '..<'
-	| '>' '..'
-	| '..'
-	| '=>' 
-	| '>' (=>('>' '>') | '>') 
-	| '<' (=>('<' '<') | '<' | '=>')
-	| '<>'
-	| '?:';
-
-AAdditiveExpression returns aadl2::PropertyExpression:
-	AMultiplicativeExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAdd)
-	rightOperand=AMultiplicativeExpression)*;
-
-OpAdd:
-	'+' | '-';
-
-AMultiplicativeExpression returns aadl2::PropertyExpression:
-	AUnaryOperation (=>({ABinaryOperation.leftOperand=current} feature=OpMulti) rightOperand=AUnaryOperation)*;
-
-OpMulti:
-	'*' | '**' | '/' | '%';
-
-AUnaryOperation returns aadl2::PropertyExpression:
-	{AUnaryOperation} feature=OpUnary operand=AUnaryOperation | APrimaryExpression;
-
-OpUnary:
-	"!" | "-" | "+";
-	
-APrimaryExpression returns aadl2::PropertyExpression:
-	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall 
-	| AParenthesizedExpression;
-
-AFunctionCall returns aadl2::PropertyExpression:
-	{AFunctionCall} function=ID '('functionCallArguments+=AExpression (',' functionCallArguments+=AExpression)* ')'
+enum Operation:
+	OR='or' 
+	| AND='and'
+	| EQ='==' | NEQ='!='
+	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
+	| PLUS='+' | MINUS='-'
+	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+	| NOT='not'
 ;
 
-//AThis returns aadl2::PropertyExpression:
-//	{AThis} 'this'
-//;
+AExpression returns aadl2::PropertyExpression: 
+	AOrExpression
+;
+
+AOrExpression returns aadl2::PropertyExpression:
+	AAndExpression (=>({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*
+;
+
+OpOr returns Operation:
+	'or';
+
+AAndExpression returns aadl2::PropertyExpression:
+	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*
+;
+
+OpAnd returns Operation:
+	'and'
+;
+
+AEqualityExpression returns aadl2::PropertyExpression:
+	ARelationalExpression (=>({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*
+;
+
+OpEquality returns Operation:
+	'==' | '!=' 
+;
+
+ARelationalExpression returns aadl2::PropertyExpression:
+//	AOtherOperatorExpression
+//	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
+	AAdditiveExpression ( =>({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*
+;
+
+OpCompare returns Operation:
+	'>=' | '<=' | '>' | '<' | '><'
+;
+
+//AOtherOperatorExpression returns aadl2::PropertyExpression:
+//	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+//	rightOperand=AAdditiveExpression)*;
+//
+//OpOther:
+//	  '->' 
+//	| '..<'
+//	| '>' '..'
+//	| '..'
+//	| '=>' 
+//	| '>' (=>('>' '>') | '>') 
+//	| '<' (=>('<' '<') | '<' | '=>')
+//	| '<>'
+//	| '?:';
+
+AAdditiveExpression returns aadl2::PropertyExpression:
+	AMultiplicativeExpression (=>({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*
+;
+
+OpAdd returns Operation:
+	'+' | '-'
+;
+
+AMultiplicativeExpression returns aadl2::PropertyExpression:
+	AUnaryOperation (=>({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*
+;
+
+OpMulti returns Operation:
+	'*' | '/' | 'div' | 'mod'
+;
+
+AUnaryOperation returns aadl2::PropertyExpression:
+	{AUnaryOperation} =>operator=OpUnary operand=AUnaryOperation | AUnitExpression
+;
+
+OpUnary returns Operation:
+	"not" | "-" | "+"
+;
+AUnitExpression returns aadl2::PropertyExpression:
+	APrimaryExpression ({AUnitExpression.expression=current} (convert?='to' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
+;
+
+APrimaryExpression returns aadl2::PropertyExpression:
+	ALiteral | AVariableReference | AModelOrPropertyReference |  AFunctionCall | ARangeExpression | AIfExpression
+	| AParenthesizedExpression
+;
+
+AFunctionCall returns aadl2::PropertyExpression:
+	{AFunctionCall} function=ID '(' arguments+=AExpression (',' arguments+=AExpression)* ')'
+;
+
+ARangeExpression returns aadl2::PropertyExpression:
+	{ARange} '[' minimum=AExpression '..' maximum=AExpression (=> 'delta' delta=AExpression)? ']'
+;
+
+AIfExpression returns aadl2::PropertyExpression:
+	{AConditional} 'if' if=AExpression 'then' then=AExpression ('else' else=AExpression)? 'endif'
+;
 
 ALiteral returns aadl2::PropertyExpression:
-	ASetTerm | AListTerm |
+//	ASetTerm | AListTerm |
 	ABooleanLiteral |
-	ARealTerm | AIntegerTerm |  
-	ANullLiteral |
+	ARealTerm | AIntegerTerm |
 	StringTerm 
 ;
 
 AIntegerTerm returns aadl2::IntegerLiteral:
-	value=AInt (unit=[aadl2::UnitLiteral|ID])?
-	;
+	value=AInt
+;
 
 AInt returns aadl2::Integer:
-	INT ;
+	INT
+;
 
 ARealTerm returns aadl2::RealLiteral:
-	value=AReal (unit=[aadl2::UnitLiteral|ID])?
-	;
+	value=AReal
+;
 
 AReal returns aadl2::Real:
-	REAL_LIT ;
-
-ANumericRangeTerm returns aadl2::RangeValue:
-	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-		
-	)?
-	;
-
-NumAlt  returns aadl2::PropertyExpression: 
-	ARealTerm|AIntegerTerm
+	REAL_LIT
 ;
 
-ASetTerm returns aadl2::PropertyExpression:
-	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-;
-
-AListTerm returns aadl2::PropertyExpression:
-	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
-;
-
-
-AParenthesizedExpression returns aadl2::PropertyExpression:
-	'(' AExpression ')';
+//ASetTerm returns aadl2::PropertyExpression:
+//	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+//;
+//
+//AListTerm returns aadl2::PropertyExpression:
+//	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+//;
 
 ABooleanLiteral returns aadl2::PropertyExpression :
-	  {aadl2::BooleanLiteral}(value?='true'|'false');
-
-
-ANullLiteral returns aadl2::PropertyExpression :
-	{ANullLiteral} 'null';
+	{aadl2::BooleanLiteral}(value?='true'|'false')
+;
 
 
 StringTerm returns aadl2::StringLiteral:
-	value=NoQuoteString ;
-
+	value=NoQuoteString
+;
 
 NoQuoteString :
 	// remove quotes from string in ValueConverter
 	STRING
 ;
 
+AParenthesizedExpression returns aadl2::PropertyExpression:
+	'(' AExpression ')'
+;
 
 ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
 	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
+	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor'
+;
 
 
 terminal fragment

@@ -1,5 +1,4 @@
 /bin/
 /xtend-gen/
-/xsemantics-gen/
 /target/
 *.jar

@@ -74,13 +74,19 @@ Informal : 'informal';
 
 Inherits : 'inherits';
 
+Boolean : 'boolean';
+
 Compute : 'compute';
 
 Dropped : 'dropped';
 
+Element : 'element';
+
 Evolves : 'evolves';
 
 Include : 'include';
+
+Integer : 'integer';
 
 Process : 'process';
 
@@ -106,13 +112,19 @@ Issues : 'issues';
 
 Memory : 'memory';
 
+String : 'string';
+
 KW_System : 'system';
 
 Target : 'target';
 
 Thread : 'thread';
 
+Typeof : 'typeof';
+
 Delta : 'delta';
+
+Endif : 'endif';
 
 Error : 'error';
 
@@ -122,11 +134,15 @@ Goals : 'goals';
 
 Group : 'group';
 
+Model : 'model';
+
 State : 'state';
 
 Value : 'value';
 
 Data : 'data';
+
+Else : 'else';
 
 Fail : 'fail';
 
@@ -136,9 +152,11 @@ Info : 'info';
 
 Mode : 'mode';
 
-Null : 'null';
+Real : 'real';
 
 Self : 'self';
+
+Then : 'then';
 
 This : 'this';
 
@@ -150,13 +168,19 @@ When : 'when';
 
 With : 'with';
 
-FullStopFullStopLessThanSign : '..<';
+And : 'and';
 
 Bus : 'bus';
+
+Div : 'div';
 
 For : 'for';
 
 Img : 'img';
+
+Mod : 'mod';
+
+Not : 'not';
 
 See : 'see';
 
@@ -168,31 +192,25 @@ Val : 'val';
 
 ExclamationMarkEqualsSign : '!=';
 
-AmpersandAmpersand : '&&';
-
-AsteriskAsterisk : '**';
-
-HyphenMinusGreaterThanSign : '->';
-
 FullStopFullStop : '..';
 
 ColonColon : '::';
 
-LessThanSignGreaterThanSign : '<>';
+LessThanSignEqualsSign : '<=';
 
 EqualsSignEqualsSign : '==';
 
-EqualsSignGreaterThanSign : '=>';
+GreaterThanSignLessThanSign : '><';
 
 GreaterThanSignEqualsSign : '>=';
 
-QuestionMarkColon : '?:';
+If : 'if';
 
 In : 'in';
 
-VerticalLineVerticalLine : '||';
+Or : 'or';
 
-ExclamationMark : '!';
+To : 'to';
 
 NumberSign : '#';
 
@@ -225,10 +243,6 @@ GreaterThanSign : '>';
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
-
-LeftCurlyBracket : '{';
-
-RightCurlyBracket : '}';
 
 
 

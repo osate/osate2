@@ -32,7 +32,7 @@ class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 				return res
 			}
 		}
-		return "No message!!"
+		return super.getHoverInfoAsHtml(o)
 	}
 
 }

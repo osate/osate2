@@ -36,7 +36,7 @@ import org.osate.alisa.common.common.ValDeclaration;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.ValDeclarationImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ValDeclarationImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -44,14 +44,14 @@ import org.osate.alisa.common.common.ValDeclaration;
 public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValDeclaration
 {
   /**
-   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRight()
+   * @see #getValue()
    * @generated
    * @ordered
    */
-  protected PropertyExpression right;
+  protected PropertyExpression value;
 
   /**
    * <!-- begin-user-doc -->
@@ -79,9 +79,9 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyExpression getRight()
+  public PropertyExpression getValue()
   {
-    return right;
+    return value;
   }
 
   /**
@@ -89,13 +89,13 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(PropertyExpression newRight, NotificationChain msgs)
+  public NotificationChain basicSetValue(PropertyExpression newValue, NotificationChain msgs)
   {
-    PropertyExpression oldRight = right;
-    right = newRight;
+    PropertyExpression oldValue = value;
+    value = newValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.VAL_DECLARATION__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.VAL_DECLARATION__VALUE, oldValue, newValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -106,20 +106,20 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(PropertyExpression newRight)
+  public void setValue(PropertyExpression newValue)
   {
-    if (newRight != right)
+    if (newValue != value)
     {
       NotificationChain msgs = null;
-      if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.VAL_DECLARATION__RIGHT, null, msgs);
-      if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.VAL_DECLARATION__RIGHT, null, msgs);
-      msgs = basicSetRight(newRight, msgs);
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.VAL_DECLARATION__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.VAL_DECLARATION__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.VAL_DECLARATION__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.VAL_DECLARATION__VALUE, newValue, newValue));
   }
 
   /**
@@ -132,8 +132,8 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
   {
     switch (featureID)
     {
-      case CommonPackage.VAL_DECLARATION__RIGHT:
-        return basicSetRight(null, msgs);
+      case CommonPackage.VAL_DECLARATION__VALUE:
+        return basicSetValue(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -148,8 +148,8 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
   {
     switch (featureID)
     {
-      case CommonPackage.VAL_DECLARATION__RIGHT:
-        return getRight();
+      case CommonPackage.VAL_DECLARATION__VALUE:
+        return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -164,8 +164,8 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
   {
     switch (featureID)
     {
-      case CommonPackage.VAL_DECLARATION__RIGHT:
-        setRight((PropertyExpression)newValue);
+      case CommonPackage.VAL_DECLARATION__VALUE:
+        setValue((PropertyExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -181,8 +181,8 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
   {
     switch (featureID)
     {
-      case CommonPackage.VAL_DECLARATION__RIGHT:
-        setRight((PropertyExpression)null);
+      case CommonPackage.VAL_DECLARATION__VALUE:
+        setValue((PropertyExpression)null);
         return;
     }
     super.eUnset(featureID);
@@ -198,8 +198,8 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
   {
     switch (featureID)
     {
-      case CommonPackage.VAL_DECLARATION__RIGHT:
-        return right != null;
+      case CommonPackage.VAL_DECLARATION__VALUE:
+        return value != null;
     }
     return super.eIsSet(featureID);
   }

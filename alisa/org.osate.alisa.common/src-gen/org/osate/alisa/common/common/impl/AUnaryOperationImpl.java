@@ -29,6 +29,7 @@ import org.osate.aadl2.impl.PropertyExpressionImpl;
 
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.Operation;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +39,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AUnaryOperationImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AUnaryOperationImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AUnaryOperationImpl#getOperand <em>Operand</em>}</li>
  * </ul>
  *
@@ -47,24 +48,24 @@ import org.osate.alisa.common.common.CommonPackage;
 public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnaryOperation
 {
   /**
-   * The default value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected static final String FEATURE_EDEFAULT = null;
+  protected static final Operation OPERATOR_EDEFAULT = Operation.OR;
 
   /**
-   * The cached value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected String feature = FEATURE_EDEFAULT;
+  protected Operation operator = OPERATOR_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getOperand() <em>Operand</em>}' containment reference.
@@ -102,9 +103,9 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFeature()
+  public Operation getOperator()
   {
-    return feature;
+    return operator;
   }
 
   /**
@@ -112,12 +113,12 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFeature(String newFeature)
+  public void setOperator(Operation newOperator)
   {
-    String oldFeature = feature;
-    feature = newFeature;
+    Operation oldOperator = operator;
+    operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNARY_OPERATION__FEATURE, oldFeature, feature));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AUNARY_OPERATION__OPERATOR, oldOperator, operator));
   }
 
   /**
@@ -194,8 +195,8 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
   {
     switch (featureID)
     {
-      case CommonPackage.AUNARY_OPERATION__FEATURE:
-        return getFeature();
+      case CommonPackage.AUNARY_OPERATION__OPERATOR:
+        return getOperator();
       case CommonPackage.AUNARY_OPERATION__OPERAND:
         return getOperand();
     }
@@ -212,8 +213,8 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
   {
     switch (featureID)
     {
-      case CommonPackage.AUNARY_OPERATION__FEATURE:
-        setFeature((String)newValue);
+      case CommonPackage.AUNARY_OPERATION__OPERATOR:
+        setOperator((Operation)newValue);
         return;
       case CommonPackage.AUNARY_OPERATION__OPERAND:
         setOperand((PropertyExpression)newValue);
@@ -232,8 +233,8 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
   {
     switch (featureID)
     {
-      case CommonPackage.AUNARY_OPERATION__FEATURE:
-        setFeature(FEATURE_EDEFAULT);
+      case CommonPackage.AUNARY_OPERATION__OPERATOR:
+        setOperator(OPERATOR_EDEFAULT);
         return;
       case CommonPackage.AUNARY_OPERATION__OPERAND:
         setOperand((PropertyExpression)null);
@@ -252,8 +253,8 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
   {
     switch (featureID)
     {
-      case CommonPackage.AUNARY_OPERATION__FEATURE:
-        return FEATURE_EDEFAULT == null ? feature != null : !FEATURE_EDEFAULT.equals(feature);
+      case CommonPackage.AUNARY_OPERATION__OPERATOR:
+        return operator != OPERATOR_EDEFAULT;
       case CommonPackage.AUNARY_OPERATION__OPERAND:
         return operand != null;
     }
@@ -271,8 +272,8 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (feature: ");
-    result.append(feature);
+    result.append(" (operator: ");
+    result.append(operator);
     result.append(')');
     return result.toString();
   }

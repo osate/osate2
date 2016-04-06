@@ -13,22 +13,43 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.alisa.common.common;
+package org.osate.alisa.common.common.impl;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EClass;
 
-import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.impl.PropertyTypeImpl;
+
+import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ModelRef;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>ANull Literal</b></em>'.
+ * An implementation of the model object '<em><b>Model Ref</b></em>'.
  * <!-- end-user-doc -->
  *
- *
- * @see org.osate.alisa.common.common.CommonPackage#getANullLiteral()
- * @model
  * @generated
  */
-public interface ANullLiteral extends EObject, PropertyExpression
+public class ModelRefImpl extends PropertyTypeImpl implements ModelRef
 {
-} // ANullLiteral
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ModelRefImpl()
+  {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return CommonPackage.Literals.MODEL_REF;
+  }
+
+} //ModelRefImpl

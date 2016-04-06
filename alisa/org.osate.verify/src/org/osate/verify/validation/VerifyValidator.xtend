@@ -44,13 +44,14 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 import org.osate.verify.verify.JUnit4Method
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 
 /**
  * Custom validation rules. 
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends AbstractVerifyValidator {
+class VerifyValidator extends VerifyTypeSystemValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_CLASS_PATH = "org.osate.verify.incorrectClassPath"

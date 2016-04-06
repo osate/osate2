@@ -90,15 +90,18 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
+      case CommonPackage.MODEL_REF: return createModelRef();
+      case CommonPackage.TYPE_REF: return createTypeRef();
+      case CommonPackage.PROPERTY_REF: return createPropertyRef();
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
+      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
-      case CommonPackage.ASET_LITERAL: return createASetLiteral();
-      case CommonPackage.ALIST_TERM: return createAListTerm();
-      case CommonPackage.ANULL_LITERAL: return createANullLiteral();
+      case CommonPackage.ARANGE: return createARange();
+      case CommonPackage.ACONDITIONAL: return createAConditional();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -116,6 +119,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.RESULT_ISSUE_TYPE:
         return createResultIssueTypeFromString(eDataType, initialValue);
+      case CommonPackage.OPERATION:
+        return createOperationFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -133,6 +138,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.RESULT_ISSUE_TYPE:
         return convertResultIssueTypeToString(eDataType, instanceValue);
+      case CommonPackage.OPERATION:
+        return convertOperationToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -275,6 +282,39 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ModelRef createModelRef()
+  {
+    ModelRefImpl modelRef = new ModelRefImpl();
+    return modelRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeRef createTypeRef()
+  {
+    TypeRefImpl typeRef = new TypeRefImpl();
+    return typeRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyRef createPropertyRef()
+  {
+    PropertyRefImpl propertyRef = new PropertyRefImpl();
+    return propertyRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ValDeclaration createValDeclaration()
   {
     ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
@@ -330,6 +370,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AUnitExpression createAUnitExpression()
+  {
+    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
+    return aUnitExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AFunctionCall createAFunctionCall()
   {
     AFunctionCallImpl aFunctionCall = new AFunctionCallImpl();
@@ -341,10 +392,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ASetLiteral createASetLiteral()
+  public ARange createARange()
   {
-    ASetLiteralImpl aSetLiteral = new ASetLiteralImpl();
-    return aSetLiteral;
+    ARangeImpl aRange = new ARangeImpl();
+    return aRange;
   }
 
   /**
@@ -352,21 +403,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AListTerm createAListTerm()
+  public AConditional createAConditional()
   {
-    AListTermImpl aListTerm = new AListTermImpl();
-    return aListTerm;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ANullLiteral createANullLiteral()
-  {
-    ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
-    return aNullLiteral;
+    AConditionalImpl aConditional = new AConditionalImpl();
+    return aConditional;
   }
 
   /**
@@ -387,6 +427,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * @generated
    */
   public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Operation createOperationFromString(EDataType eDataType, String initialValue)
+  {
+    Operation result = Operation.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertOperationToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

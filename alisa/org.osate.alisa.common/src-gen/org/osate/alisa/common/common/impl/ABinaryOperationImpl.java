@@ -29,6 +29,7 @@ import org.osate.aadl2.impl.PropertyExpressionImpl;
 
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.Operation;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,9 +39,9 @@ import org.osate.alisa.common.common.CommonPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getLeftOperand <em>Left Operand</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getRightOperand <em>Right Operand</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @generated
@@ -48,44 +49,44 @@ import org.osate.alisa.common.common.CommonPackage;
 public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABinaryOperation
 {
   /**
-   * The cached value of the '{@link #getLeftOperand() <em>Left Operand</em>}' containment reference.
+   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLeftOperand()
+   * @see #getLeft()
    * @generated
    * @ordered
    */
-  protected PropertyExpression leftOperand;
+  protected PropertyExpression left;
 
   /**
-   * The default value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected static final String FEATURE_EDEFAULT = null;
+  protected static final Operation OPERATOR_EDEFAULT = Operation.OR;
 
   /**
-   * The cached value of the '{@link #getFeature() <em>Feature</em>}' attribute.
+   * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeature()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected String feature = FEATURE_EDEFAULT;
+  protected Operation operator = OPERATOR_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRightOperand() <em>Right Operand</em>}' containment reference.
+   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRightOperand()
+   * @see #getRight()
    * @generated
    * @ordered
    */
-  protected PropertyExpression rightOperand;
+  protected PropertyExpression right;
 
   /**
    * <!-- begin-user-doc -->
@@ -113,9 +114,9 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyExpression getLeftOperand()
+  public PropertyExpression getLeft()
   {
-    return leftOperand;
+    return left;
   }
 
   /**
@@ -123,13 +124,13 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeftOperand(PropertyExpression newLeftOperand, NotificationChain msgs)
+  public NotificationChain basicSetLeft(PropertyExpression newLeft, NotificationChain msgs)
   {
-    PropertyExpression oldLeftOperand = leftOperand;
-    leftOperand = newLeftOperand;
+    PropertyExpression oldLeft = left;
+    left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__LEFT_OPERAND, oldLeftOperand, newLeftOperand);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -140,20 +141,20 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeftOperand(PropertyExpression newLeftOperand)
+  public void setLeft(PropertyExpression newLeft)
   {
-    if (newLeftOperand != leftOperand)
+    if (newLeft != left)
     {
       NotificationChain msgs = null;
-      if (leftOperand != null)
-        msgs = ((InternalEObject)leftOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__LEFT_OPERAND, null, msgs);
-      if (newLeftOperand != null)
-        msgs = ((InternalEObject)newLeftOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__LEFT_OPERAND, null, msgs);
-      msgs = basicSetLeftOperand(newLeftOperand, msgs);
+      if (left != null)
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__LEFT, null, msgs);
+      if (newLeft != null)
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__LEFT, null, msgs);
+      msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__LEFT_OPERAND, newLeftOperand, newLeftOperand));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -161,9 +162,9 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFeature()
+  public Operation getOperator()
   {
-    return feature;
+    return operator;
   }
 
   /**
@@ -171,12 +172,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFeature(String newFeature)
+  public void setOperator(Operation newOperator)
   {
-    String oldFeature = feature;
-    feature = newFeature;
+    Operation oldOperator = operator;
+    operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__FEATURE, oldFeature, feature));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__OPERATOR, oldOperator, operator));
   }
 
   /**
@@ -184,9 +185,9 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropertyExpression getRightOperand()
+  public PropertyExpression getRight()
   {
-    return rightOperand;
+    return right;
   }
 
   /**
@@ -194,13 +195,13 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRightOperand(PropertyExpression newRightOperand, NotificationChain msgs)
+  public NotificationChain basicSetRight(PropertyExpression newRight, NotificationChain msgs)
   {
-    PropertyExpression oldRightOperand = rightOperand;
-    rightOperand = newRightOperand;
+    PropertyExpression oldRight = right;
+    right = newRight;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND, oldRightOperand, newRightOperand);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__RIGHT, oldRight, newRight);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -211,20 +212,20 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRightOperand(PropertyExpression newRightOperand)
+  public void setRight(PropertyExpression newRight)
   {
-    if (newRightOperand != rightOperand)
+    if (newRight != right)
     {
       NotificationChain msgs = null;
-      if (rightOperand != null)
-        msgs = ((InternalEObject)rightOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND, null, msgs);
-      if (newRightOperand != null)
-        msgs = ((InternalEObject)newRightOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND, null, msgs);
-      msgs = basicSetRightOperand(newRightOperand, msgs);
+      if (right != null)
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__RIGHT, null, msgs);
+      if (newRight != null)
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.ABINARY_OPERATION__RIGHT, null, msgs);
+      msgs = basicSetRight(newRight, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND, newRightOperand, newRightOperand));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ABINARY_OPERATION__RIGHT, newRight, newRight));
   }
 
   /**
@@ -237,10 +238,10 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   {
     switch (featureID)
     {
-      case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
-        return basicSetLeftOperand(null, msgs);
-      case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
-        return basicSetRightOperand(null, msgs);
+      case CommonPackage.ABINARY_OPERATION__LEFT:
+        return basicSetLeft(null, msgs);
+      case CommonPackage.ABINARY_OPERATION__RIGHT:
+        return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -255,12 +256,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   {
     switch (featureID)
     {
-      case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
-        return getLeftOperand();
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        return getFeature();
-      case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
-        return getRightOperand();
+      case CommonPackage.ABINARY_OPERATION__LEFT:
+        return getLeft();
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        return getOperator();
+      case CommonPackage.ABINARY_OPERATION__RIGHT:
+        return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -275,14 +276,14 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   {
     switch (featureID)
     {
-      case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
-        setLeftOperand((PropertyExpression)newValue);
+      case CommonPackage.ABINARY_OPERATION__LEFT:
+        setLeft((PropertyExpression)newValue);
         return;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        setFeature((String)newValue);
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        setOperator((Operation)newValue);
         return;
-      case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
-        setRightOperand((PropertyExpression)newValue);
+      case CommonPackage.ABINARY_OPERATION__RIGHT:
+        setRight((PropertyExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -298,14 +299,14 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   {
     switch (featureID)
     {
-      case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
-        setLeftOperand((PropertyExpression)null);
+      case CommonPackage.ABINARY_OPERATION__LEFT:
+        setLeft((PropertyExpression)null);
         return;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        setFeature(FEATURE_EDEFAULT);
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        setOperator(OPERATOR_EDEFAULT);
         return;
-      case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
-        setRightOperand((PropertyExpression)null);
+      case CommonPackage.ABINARY_OPERATION__RIGHT:
+        setRight((PropertyExpression)null);
         return;
     }
     super.eUnset(featureID);
@@ -321,12 +322,12 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
   {
     switch (featureID)
     {
-      case CommonPackage.ABINARY_OPERATION__LEFT_OPERAND:
-        return leftOperand != null;
-      case CommonPackage.ABINARY_OPERATION__FEATURE:
-        return FEATURE_EDEFAULT == null ? feature != null : !FEATURE_EDEFAULT.equals(feature);
-      case CommonPackage.ABINARY_OPERATION__RIGHT_OPERAND:
-        return rightOperand != null;
+      case CommonPackage.ABINARY_OPERATION__LEFT:
+        return left != null;
+      case CommonPackage.ABINARY_OPERATION__OPERATOR:
+        return operator != OPERATOR_EDEFAULT;
+      case CommonPackage.ABINARY_OPERATION__RIGHT:
+        return right != null;
     }
     return super.eIsSet(featureID);
   }
@@ -342,8 +343,8 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (feature: ");
-    result.append(feature);
+    result.append(" (operator: ");
+    result.append(operator);
     result.append(')');
     return result.toString();
   }

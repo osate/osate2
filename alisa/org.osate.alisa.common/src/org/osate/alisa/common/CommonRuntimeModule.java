@@ -22,6 +22,8 @@ package org.osate.alisa.common;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 
+import it.xsemantics.runtime.StringRepresentation;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
@@ -41,4 +43,7 @@ public class CommonRuntimeModule extends org.osate.alisa.common.AbstractCommonRu
 		return org.osate.alisa.common.scoping.CommonScopeProvider.class;
 	}
 
+	public Class<? extends StringRepresentation> bindStringRepresentation() {
+		return org.osate.alisa.common.typing.CommonStringRepresentation.class;
+	}
 }

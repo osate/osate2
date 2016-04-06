@@ -35,6 +35,6 @@ class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 			PreconditionResult: return o.message?:"No message"
 			ResultIssue: return o.message?:"No message"
 		}
-		return "No message!!"
+		return super.getHoverInfoAsHtml(o)
 	}
 }

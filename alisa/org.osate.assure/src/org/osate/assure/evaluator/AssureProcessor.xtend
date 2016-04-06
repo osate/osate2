@@ -546,7 +546,7 @@ class AssureProcessor implements IAssureProcessor {
 			val variable = iter2.next
 
 			try {
-				val value = variable.right
+				val value = variable.value
 				if (value instanceof NumberValue) {
 					val unit = value.unit
 					val reqValue = value.getScaledValue(unit)
