@@ -11,7 +11,7 @@ package org.osate.ge.util;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.osate.ge.util.StringUtil;
+import org.osate.ge.internal.util.StringUtil;
 
 public class StringUtilTest {
 

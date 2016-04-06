@@ -15,11 +15,10 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import org.osate.ge.layout.Connection;
-import org.osate.ge.layout.LayoutAlgorithm;
-import org.osate.ge.layout.MonteCarloLayoutAlgorithm;
-import org.osate.ge.layout.Shape;
-import org.osate.ge.layout.SimpleLayoutAlgorithm;
+import org.osate.ge.internal.layout.Connection;
+import org.osate.ge.internal.layout.LayoutAlgorithm;
+import org.osate.ge.internal.layout.Shape;
+import org.osate.ge.internal.layout.SimpleLayoutAlgorithm;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;

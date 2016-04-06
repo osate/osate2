@@ -810,6 +810,7 @@
 				<title>Tools</title>
 				<para>Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own user interface to provide feedback to the user. Tools are displayed in the toolbar.</para>
 				<para>The tools extension point(<emphasis>org.osate.ge.tools</emphasis>) is used to register tools. The graphical editor implements tool extensions which may be used as examples. Those tools are contained in the <emphasis>org.osate.ge.tools</emphasis> package.</para>
+				<emphasis role="bold">NOTE: The tool extension point is currently limited to internal use only. The tools implemented by the graphical editor makes us of internal interfaces which are not API. The tools extension point should not be used at this time.</emphasis>
 				<para>Required Annotations:</para>
 				<itemizedlist>
 					<listitem><para>Activate</para></listitem>
@@ -824,55 +825,53 @@
 					<listitem><para>CanActivate</para></listitem>
 					<listitem><para>SelectionChanged</para></listitem>
 				</itemizedlist>
-				<para>Supported named parameters:</para>
-				<itemizedlist>
-					<listitem><para>SELECTED_PICTOGRAM_ELEMENTS(SelectionChanged)</para></listitem>
-				</itemizedlist>
 			</section>
 			<section>
 				<title>Adding Support for a new Business Object</title>
 				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
 				<section>
-					<title>Reference Handlers</title>
-					<para>Referenced handlers are registered using the org.osate.ge.referenceHandlers extension point. The graphical editor uses reference handlers to generate a reference to a business object and to retrieve a business object using the previously generated reference.</para>
-					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference handler. A single reference handler may handle multiple types of business objects.</para>
-					<para>The DeclarativeReferenceHandler class may be used as an example of a reference handler.</para>
-					<para>Reference handlers differ from other extensions in a couple ways.</para>
-					<itemizedlist>
-						<listitem><para>Instances are not shared between diagrams.</para></listitem>
-						<listitem><para>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</para></listitem>
-					</itemizedlist>
-					<para>Required Annotations:</para>
-					<itemizedlist>
-						<listitem><para>BuildReference</para></listitem>
-						<listitem><para>ResolveReference</para></listitem>
-					</itemizedlist>
-					<para>Optional Annotations:</para>
-					<itemizedlist>
-						<listitem><para>PreDestroy</para></listitem>
-					</itemizedlist>
-					<para>Supported named parameters:</para>
-					<itemizedlist>
-						<listitem><para>BUSINESS_OBJECT(BuildReference)</para></listitem>
-						<listitem><para>REFERENCE(ResolveReference)</para></listitem>
-					</itemizedlist>
-				</section>
-				<section>
-					<title>Styles</title>
-					<para>The graphical editor manages creating and updating the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
-					<para>The graphical editor implements style factories which may be used as examples. Those style factories are contained in the <emphasis>org.osate.ge.styles</emphasis> package.</para>
-					<para>Required Annotations:</para>
-					<itemizedlist>
-						<listitem><para>Activate</para></listitem>
-					</itemizedlist>
-					<para>Optional Annotations:</para>
-					<itemizedlist>
-						<listitem><para>None</para></listitem>
-					</itemizedlist>
-					<para>Supported named parameters:</para>
-					<itemizedlist>
-						<listitem><para>STYLE_ID(Activate)</para></listitem>
-					</itemizedlist>
+					<title>Reference Builders and Reference Resolvers</title>
+					<para>Referenced Builders and Reference Resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object.  Reference resolvers are used to retrieve a business object using the previously generated reference.</para>
+					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference builder and resolver. A single reference builder/resolver pair may handle multiple types of business objects.</para>					
+					<section>
+						<title>Reference Builders</title>
+						<para>In addition to building references, reference builders may optionally produce a user friendly title for a business object. It may also provide the ability to determine the project to which the business object belongs. The latter capabilities are required when the object may serve as the root business object for a diagram.</para>
+						<para>The DeclarativeReferenceBuilder class may be used as an example of a reference builder.</para>
+						<para>Required Annotations:</para>
+						<itemizedlist>
+							<listitem><para>BuildReference</para></listitem>
+						</itemizedlist>
+						<para>Optional Annotations:</para>
+						<itemizedlist>
+							<listitem><para>GetProject</para></listitem>
+							<listitem><para>GetTitle</para></listitem>
+						</itemizedlist>
+						<para>Supported named parameters:</para>
+						<itemizedlist>
+							<listitem><para>BUSINESS_OBJECT(BuildReference)</para></listitem>
+						</itemizedlist>
+					</section>
+					<section>
+						<title>Reference Resolvers</title>
+						<para>The DeclarativeReferenceResolver class may be used as an example of a reference resolver.</para>
+						<para>Reference resolvers differ from reference builders and other extensions in a couple ways.</para>
+						<itemizedlist>
+							<listitem><para>Instances are not shared between diagrams.</para></listitem>
+							<listitem><para>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</para></listitem>
+						</itemizedlist>
+						<para>Required Annotations:</para>
+						<itemizedlist>
+							<listitem><para>ResolveReference</para></listitem>
+						</itemizedlist>
+						<para>Optional Annotations:</para>
+						<itemizedlist>
+							<listitem><para>PreDestroy</para></listitem>
+						</itemizedlist>
+						<para>Supported named parameters:</para>
+						<itemizedlist>
+							<listitem><para>REFERENCE(ResolveReference)</para></listitem>
+						</itemizedlist>
+					</section>
 				</section>
 				<section>
 					<title>Categories</title>

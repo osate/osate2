@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: AADL Graphical Editor
 Bundle-SymbolicName: org.osate.ge;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.osate.ge.Activator
+Bundle-Activator: org.osate.ge.internal.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.graphiti,
@@ -38,7 +38,10 @@ Import-Package: org.eclipse.draw2d.graph,
  org.eclipse.ui.views.contentoutline
 Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultDiagramService.xml,
- components/DefaultSavedAadlPackageService.xml
-Export-Package: org.osate.ge.ext,
- org.osate.ge.ext.annotations
+ components/DefaultReferenceBuilderService.xml,
+ components/DefaultSavedAadlPackageService.xml,
+ components/DefaultGraphicalEditorService.xml
+Export-Package: org.osate.ge,
+ org.osate.ge.di,
+ org.osate.ge.services
 

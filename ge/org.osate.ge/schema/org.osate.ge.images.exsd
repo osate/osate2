@@ -6,7 +6,7 @@
          <meta.schema plugin="org.osate.ge" id="org.osate.ge.images" name="Images"/>
       </appinfo>
       <documentation>
-         Defines the images for the palette elements used by the AADL Graphical Editor (AGE).
+         Defines images used by the OSATE Graphical Editor.
       </documentation>
    </annotation>
 
@@ -88,7 +88,7 @@
       </appinfo>
       <documentation>
          &lt;extension point=&quot;org.osate.ge.images&quot;&gt;
-       &lt;image id = &quot;org.osate.ge.images.FlowSink&quot; pluginId = &quot;org.osate.aadl2.edit&quot; path = &quot;icons/full/obj16/FlowSink.gif&quot;/&gt;
+       &lt;image id = &quot;org.osate.ge.images.FlowSink&quot; plugin = &quot;org.osate.aadl2.edit&quot; path = &quot;icons/full/obj16/FlowSink.gif&quot;/&gt;
 &lt;/extension&gt;
       </documentation>
    </annotation>
@@ -100,8 +100,8 @@
       <documentation>
          Element: image
  Attribute: id - unique identifier for the image
- Attribute pluginId (optional) - plugin identifier, used if filepath is relative to a specified plugin
- Attribute path - filepath of the image
+ Attribute: plugin (optional) - plugin identifier, used if filepath is relative to a specified plugin
+ Attribute: path - filepath of the image
       </documentation>
    </annotation>
 
