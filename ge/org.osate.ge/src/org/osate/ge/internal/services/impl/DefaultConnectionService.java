@@ -8,6 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -61,6 +64,18 @@ public class DefaultConnectionService implements ConnectionService {
 				new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper),
 				new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper)
 		};
+	}
+	
+	@Override
+	public List<Connection> getConnections(ContainerShape ownerShape) {
+		final List<Connection> retValue = new ArrayList<Connection>();
+		final Diagram diagram = getDiagram();
+		for(final Connection c : diagram.getConnections()) {
+			if(getOwnerShape(c) == ownerShape) {
+				retValue.add(c);
+			}
+		}
+		return retValue;		
 	}
 	
 	/* (non-Javadoc)

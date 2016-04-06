@@ -91,7 +91,6 @@ import org.osate.ge.internal.features.PictogramHandlerDirectEditFeature;
 import org.osate.ge.internal.features.PictogramHandlerLayoutFeature;
 import org.osate.ge.internal.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
-import org.osate.ge.internal.features.TestQueryFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
@@ -328,9 +327,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(SetModeTransitionTriggersFeature.class));		
 		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(make(SetDimensionsFeature.class));
-		
-		// TODO: Remove this
-		features.add(make(TestQueryFeature.class));
 		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();

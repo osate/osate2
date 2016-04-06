@@ -1,10 +1,10 @@
 package org.osate.ge.internal.query;
 
-import java.util.Deque;
 import java.util.function.Predicate;
 
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.query.FilterArguments;
+import org.osate.ge.query.Supplier;
 
 public abstract class PictogramQuery<A> extends Query<A> implements DiagramElementQuery<A> {
 	public PictogramQuery(final Query<A> prev) {
@@ -18,12 +18,12 @@ public abstract class PictogramQuery<A> extends Query<A> implements DiagramEleme
 
 	@Override
 	public PictogramQuery<A> filter(final Predicate<FilterArguments<A>> filter) {
-		throw new RuntimeException("Unimplemented");
+		return new FilterByPredicate<A>(this, filter);
 	}
 	
 	@Override
-	public DiagramElementQuery<A> filterByBusinessObject(final Object bo) {
-		throw new RuntimeException("Unimplemented");
+	public PictogramQuery<A> filterByBusinessObject(final Supplier<A, Object> boSupplier) {
+		return new FilterByBusinessObjectQuery<A>(this, boSupplier);
 	}
 
 	@Override
@@ -46,6 +46,12 @@ public abstract class PictogramQuery<A> extends Query<A> implements DiagramEleme
 		return new AncestorsQuery<A>(this);
 	}
 
-	// TODO: Remove should be abstract part of Query
-	abstract void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryArguments<A> args, final QueryResult result);
+	@Override
+	public PictogramQuery<A> commonAncestors(DiagramElementQuery<A> q2) {
+		if(!(q2 instanceof PictogramQuery)) {
+			throw new RuntimeException("q2 must be of type PictogramQuery");
+		}
+		
+		return new CommonAncestorsQuery<A>(this, (PictogramQuery<A>)q2);
+	}
 }

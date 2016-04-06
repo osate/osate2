@@ -118,11 +118,7 @@ public class DeclarativeReferenceBuilder {
 			return null;
 		}
 	}
-	
-	private static String toLower(final String str) {
-		return str == null ? null : str.toLowerCase();
-	}
-	
+
 	private static String getNameForSerialization(final NamedElement ne) {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}

@@ -15,14 +15,13 @@ public class RootPictogramQuery extends PictogramQuery<Object> {
 	}
 
 	@Override
-	void run(final Deque<Query<Object>> remainingQueries, final Object ctx, final QueryArguments<Object> args, final QueryResult result) {		
-		System.err.println("RUN: " + this);
+	void run(final Deque<Query<Object>> remainingQueries, final Object ctx, final QueryExecutionState<Object> state, final QueryResult result) {		
 		final Object suppliedObject = supplier.get();
 		if(suppliedObject == null) {
-			// TODO: Mark as done. null result
+			result.done = true;
 			return;
 		}
 
-		processResultValue(remainingQueries, suppliedObject, args, result);
+		processResultValue(remainingQueries, suppliedObject, state, result);
 	}
 }
