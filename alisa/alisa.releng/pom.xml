@@ -15,7 +15,7 @@
 
 	<profiles>
 		<profile>
-			<id>full</id>
+			<id>alisa-full</id>
 			<modules>
 				<module>../org.osate.alisa.common</module>
 				<module>../org.osate.alisa.common.ui</module>
@@ -48,7 +48,7 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>reqspec-only</id>
+			<id>alisa-reqspec-only</id>
 			<modules>
 				<module>../org.osate.reqspec.sdk</module>
 				<module>../org.osate.alisa.updatesite/reqspec</module>
@@ -65,7 +65,7 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>reqspec-with-reqif</id>
+			<id>alisa-reqspec-with-reqif</id>
 			<modules>
 				<module>../org.osate.reqspec.sdk</module>
 				<module>../org.osate.alisa.updatesite/reqspec-reqif</module>
