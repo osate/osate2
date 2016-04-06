@@ -34,7 +34,6 @@
  */
 package org.osate.xtext.aadl2.ui.outline;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
@@ -68,10 +67,6 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.modelsupport.AadlConstants;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
@@ -230,12 +225,6 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		if (sysInstance.getOwnedElements().isEmpty()) {
-			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-					new AnalysisErrorReporterManager(
-							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			instantiateModel.fillSystemInstance(sysInstance);
-		}
 		super._createChildren(parentNode, sysInstance);
 	}
 

@@ -112,6 +112,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		instanceSwitch = new InstanceSwitch<String>() {
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				final int size;
 				if (ci instanceof SystemInstance) {
 					size = ((SystemInstance) ci).getComponentImplementation().getOwnedPropertyAssociations().size();
@@ -126,17 +130,28 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 			@Override
 			public String caseConnectionInstance(ConnectionInstance conni) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				cacheConnectionPropertyAssociations(conni);
 				return DONE;
 			}
 
 			@Override
 			public String caseConnectionReference(ConnectionReference cr) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+				}
 				return DONE;
 			}
 
 			@Override
 			public String caseInstanceObject(InstanceObject iobj) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				cachePropertyAssociations(iobj);
 				return DONE;
 			}

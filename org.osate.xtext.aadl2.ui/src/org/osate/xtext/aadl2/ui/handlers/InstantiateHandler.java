@@ -34,15 +34,18 @@
  */
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -54,6 +57,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
@@ -64,11 +68,9 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.navigator.AadlNavigator;
@@ -109,12 +111,9 @@ public class InstantiateHandler extends AbstractHandler {
 							}
 						}
 
-						Resource res = OsateResourceUtil.getResource((IResource) f);
-
 						try {
 							InstantiateModel.rebuildInstanceModelFile((IResource) f);// res);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -152,20 +151,30 @@ public class InstantiateHandler extends AbstractHandler {
 						if (targetElement != null) {
 							if (targetElement instanceof Element) {
 								ComponentImplementation cc = ((Element) targetElement).getContainingComponentImpl();
-								if (!(cc instanceof ComponentImplementation)) {
-									Dialog.showInfo("Model Instantiation",
-											"Only component implementations can be instantiated..\n" + "Selected "
-													+ targetElement.eClass().getName());
-								} else if (cc instanceof SubprogramImplementation
+								if (cc instanceof SubprogramImplementation
 										|| cc instanceof SubprogramGroupImplementation) {
 									Dialog.showInfo("Model Instantiation",
 											"Components of categories subprogram and subprogram group cannot be instantiated.\n"
 													+ "Selected " + targetElement.eClass().getName());
 								} else {
-									System.out.println("instantiate " + cc.getName());
 									try {
-										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(cc);
-										if (sinst == null) {
+										AtomicBoolean instantiationSuccessful = new AtomicBoolean();
+										new ProgressMonitorDialog(HandlerUtil.getActiveShell(event)).run(true, true, monitor -> {
+											monitor.beginTask("Instantiating " + cc.getQualifiedName(), IProgressMonitor.UNKNOWN);
+											try {
+												instantiationSuccessful.set(InstantiateModel.buildInstanceModelFile(cc, monitor) != null);
+												if (monitor.isCanceled()) {
+													throw new InterruptedException();
+												}
+											} catch (InterruptedException e) {
+												throw e;
+											} catch (Exception e) {
+												throw new InvocationTargetException(e);
+											} finally {
+												monitor.done();
+											}
+										});
+										if (!instantiationSuccessful.get()) {
 											String message;
 											message = "Error when instantiating the model";
 											if (InstantiateModel.getErrorMessage() != null) {
@@ -174,12 +183,16 @@ public class InstantiateHandler extends AbstractHandler {
 											}
 											Dialog.showError("Model Instantiate", message);
 										}
-									} catch (UnsupportedOperationException uoe) {
-										Dialog.showError("Model Instantiate",
-												"Operation is not supported: " + uoe.getMessage());
-									} catch (Exception other) {
-										other.printStackTrace();
-										Dialog.showError("Model Instantiate", "Error when instantiating the model");
+									} catch (InvocationTargetException e) {
+										if (e.getCause() instanceof UnsupportedOperationException) {
+											Dialog.showError("Model Instantiate",
+													"Operation is not supported: " + e.getCause().getMessage());
+										} else {
+											e.getCause().printStackTrace();
+											Dialog.showError("Model Instantiate", "Error when instantiating the model");
+										}
+									} catch (InterruptedException e) {
+										//Instantiation was canceled by the user.
 									}
 								}
 							} else {
@@ -196,44 +209,4 @@ public class InstantiateHandler extends AbstractHandler {
 		}
 		return null;
 	}
-
-	// @Override
-	// public boolean isEnabled() {
-	// IWorkbench wb = PlatformUI.getWorkbench();
-	// IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-	// IWorkbenchPage page = win.getActivePage();
-	// IWorkbenchPart part = page.getActivePart();
-	// IEditorPart activeEditor = page.getActiveEditor();
-	// if (activeEditor == null)
-	// return false;
-	// XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-	// final ISelection selection;
-	// if (xtextEditor != null) {
-	// if (part instanceof ContentOutline) {
-	// selection = ((ContentOutline) part).getSelection();
-	// } else {
-	// selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-	// }
-	// }
-	// Resource resource = xtextEditor.getResource();
-	// Resource resource = xtextEditor.getEditorSite().g;
-	// EObject targetElement = null;
-	// if (selection instanceof IStructuredSelection) {
-	// IStructuredSelection ss = (IStructuredSelection) selection;
-	// Object eon = ss.getFirstElement();
-	// if (eon instanceof EObjectNode) {
-	// targetElement = ((EObjectNode)eon).getEObject(resource);
-	// }
-	// } else {
-	// targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-	// ((ITextSelection)selection).getOffset());
-	// }
-	//
-	// return true;
-	// }
-
-	/*
-	 * XXX buildInstanceModelFile has moved to InstantiateModel
-	 */
-
 }
