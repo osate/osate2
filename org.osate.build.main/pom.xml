@@ -173,6 +173,9 @@
 						</fileset>
 						<fileset>
 							<directory>xsemantics-gen</directory>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
 						</fileset>
 					</filesets>
 				</configuration>
@@ -187,6 +190,7 @@
 							<goal>compile</goal>
 							<!-- <goal>testCompile</goal> -->
 						</goals>
+						<!--  force after xtext-maven-plugin -->
 						<phase>process-sources</phase>
 						<configuration>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
