@@ -75,8 +75,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
-import org.osate.ge.ExtensionPaletteEntry;
-import org.osate.ge.ExtensionPaletteEntry.Type;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.internal.features.GoToPackageDiagramFeature;
@@ -93,6 +91,7 @@ import org.osate.ge.internal.features.PictogramHandlerDirectEditFeature;
 import org.osate.ge.internal.features.PictogramHandlerLayoutFeature;
 import org.osate.ge.internal.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
+import org.osate.ge.internal.features.TestQueryFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
@@ -133,6 +132,7 @@ import org.osate.ge.internal.features.RenameFlowSpecificationFeature;
 import org.osate.ge.internal.features.SetAccessFeatureKindFeature;
 import org.osate.ge.internal.features.SetFeatureDirectionFeature;
 import org.osate.ge.internal.features.SetFeatureGroupInverseFeature;
+import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -329,6 +329,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(make(SetDimensionsFeature.class));
 		
+		// TODO: Remove this
+		features.add(make(TestQueryFeature.class));
+		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			try {
@@ -494,11 +497,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
 				if(extPaletteEntries != null) {
-					for(final ExtensionPaletteEntry entry : extPaletteEntries) {
-						if(entry.getType() == Type.CREATE) {
-							features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, entry, pictogramHandler));
+					for(final PaletteEntry entry : extPaletteEntries) {
+						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
+						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
+							features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, simpleEntry, pictogramHandler));
 						}
 					}
 				}
@@ -571,11 +575,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
 			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final ExtensionPaletteEntry[] extPaletteEntries = (ExtensionPaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
 				if(extPaletteEntries != null) {
-					for(final ExtensionPaletteEntry entry : extPaletteEntries) {
-						if(entry.getType() == Type.CREATE_CONNECTION) {
-							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, entry, pictogramHandler));
+					for(final PaletteEntry entry : extPaletteEntries) {
+						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
+						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
+							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, simpleEntry, pictogramHandler));
 						}
 					}
 				}

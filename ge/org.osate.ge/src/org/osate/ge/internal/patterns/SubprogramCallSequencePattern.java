@@ -182,6 +182,8 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	
 	// Shared Between add and update
 	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
+		
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildren(shape);

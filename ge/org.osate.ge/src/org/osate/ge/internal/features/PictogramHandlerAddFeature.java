@@ -85,6 +85,7 @@ public class PictogramHandlerAddFeature extends AbstractAddFeature implements IC
 			if(newPe != null) {
 			    getFeatureProvider().link(newPe, context.getNewObject());
 				ghostingService.setIsGhost(newPe, false);	
+				propertyService.setIsLogicalTreeNode(newPe, true);
 			}
 			
 			if(childContainer != null) {

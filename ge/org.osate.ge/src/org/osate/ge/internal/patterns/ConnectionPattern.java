@@ -123,7 +123,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.bor = bor;

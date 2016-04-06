@@ -62,6 +62,7 @@ import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
@@ -86,8 +87,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
 			final ColoringService coloringService, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
-			final NamingService namingService, final BusinessObjectResolutionService bor) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+			final NamingService namingService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.shapeService = shapeService;

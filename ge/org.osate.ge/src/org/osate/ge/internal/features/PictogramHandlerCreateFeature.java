@@ -14,8 +14,8 @@ import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.ExtensionPaletteEntry;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CreateBusinessObject;
 import org.osate.ge.di.GetCreateOwningBusinessObject;
@@ -32,11 +32,11 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final ShapeService shapeService;
-	private final ExtensionPaletteEntry paletteEntry;
+	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
 	public PictogramHandlerCreateFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final AadlModificationService aadlModService, 
-			final ShapeService shapeService, final IFeatureProvider fp, final ExtensionPaletteEntry paletteEntry, final Object pictogramHandler) {
+			final ShapeService shapeService, final IFeatureProvider fp, final SimplePaletteEntry paletteEntry, final Object pictogramHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");

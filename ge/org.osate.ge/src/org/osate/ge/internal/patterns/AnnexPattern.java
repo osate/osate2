@@ -313,6 +313,7 @@ public class AnnexPattern extends AgePattern {
 	
 	// Refresh
 	private void refresh(final ContainerShape shape) {
+		propertyService.setIsLogicalTreeNode(shape, true); 
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildShapes(shape);
 		

@@ -11,5 +11,6 @@ package org.osate.ge.services;
 import org.osate.aadl2.AadlPackage;
 
 public interface ReferenceService {
+	// TODO: Review. Need something more generic? Getting owner?
 	AadlPackage getAadlPackage(String qualifiedName);
 }

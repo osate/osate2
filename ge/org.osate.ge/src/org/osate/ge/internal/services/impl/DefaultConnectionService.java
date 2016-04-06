@@ -68,6 +68,7 @@ public class DefaultConnectionService implements ConnectionService {
 	 */
 	@Override
 	public Connection getConnection(final ContainerShape ownerShape, final Object bo) {
+		// TODO: Improve performance.
 		// Find all connections that match the anchors
 		final Diagram diagram = getDiagram();
 		for(final Connection c : diagram.getConnections()) {

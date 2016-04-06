@@ -11,10 +11,10 @@ package org.osate.ge.errormodel.model;
 import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.ReferenceEObjectProvider;
+import org.osate.ge.EObjectReferenceProvider;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
-public class ErrorTypeLibrary implements ReferenceEObjectProvider {
+public class ErrorTypeLibrary implements EObjectReferenceProvider {
 	private final ErrorModelLibrary errorModelLib;
 	
 	public ErrorTypeLibrary(final ErrorModelLibrary errorModelLib) {
@@ -26,7 +26,7 @@ public class ErrorTypeLibrary implements ReferenceEObjectProvider {
 	}
 
 	@Override
-	public EObject getRefereneEObject() {
+	public EObject getEObjectReference() {
 		return errorModelLib;
 	}
 }

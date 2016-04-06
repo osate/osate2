@@ -101,6 +101,9 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature impleme
 			}
 		}
 		
+		// Set properties
+		propertyService.setIsLogicalTreeNode(pe, true);
+		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			// Store the current position of the graphics algorithm

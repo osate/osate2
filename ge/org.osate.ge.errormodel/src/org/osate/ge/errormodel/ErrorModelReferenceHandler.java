@@ -63,7 +63,7 @@ public class ErrorModelReferenceHandler {
 		
 		return null;
 	}
-	
+		
 	@GetTitle
 	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
 		final NamedElement elementRoot = typeLib.getErrorModelLibrary().getElementRoot();

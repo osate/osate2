@@ -15,7 +15,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called to retrieve palette entries from a pictogram handler
+ * Use this annotation to tag methods called to retrieve palette entries from an extension. The annotated method must return an object of type
+ * PaletteEntry[] containing elements created by the PaletteEntryFactory class.
  * This annotation must not be applied to more than one method per class.
  */
 @Documented

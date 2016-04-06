@@ -333,6 +333,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	}
 	
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
 		ghostingService.setIsGhost(shape, false);
 		anchorService.removeAnchorsWithoutConnections(shape);
 		

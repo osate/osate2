@@ -10,8 +10,8 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.osate.ge.ExtensionPaletteEntry;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.di.CanCreateConnection;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.CreateConnectionBusinessObject;
@@ -25,10 +25,10 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
-	private final ExtensionPaletteEntry paletteEntry;
+	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
-	public PictogramHandlerCreateConnectionFeature(final ExtensionService extService, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final IFeatureProvider fp, final ExtensionPaletteEntry paletteEntry, final Object pictogramHandler) {
+	public PictogramHandlerCreateConnectionFeature(final ExtensionService extService, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final IFeatureProvider fp, final SimplePaletteEntry paletteEntry, final Object pictogramHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");

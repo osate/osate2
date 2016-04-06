@@ -18,6 +18,7 @@ import org.osate.aadl2.Element;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.PropertyService;
 
 /**
  * Class for shapes that have their inside recreated on updating. Even though they may have child shapes they are created as an automatic unit because their children may 
@@ -26,11 +27,13 @@ import org.osate.ge.internal.services.GhostingService;
  */
 public abstract class AgeLeafShapePattern extends AgePattern {
 	private final AnchorService anchorUtil;
-	private GhostingService ghostingService;
+	private final GhostingService ghostingService;
+	private final PropertyService propertyService;
 	
-	public AgeLeafShapePattern(final AnchorService anchorUtil, final GhostingService ghostingService) {
+	public AgeLeafShapePattern(final AnchorService anchorUtil, final GhostingService ghostingService, final PropertyService propertyService) {
 		this.anchorUtil = anchorUtil;
 		this.ghostingService = ghostingService;
+		this.propertyService = propertyService;
 	}
 	
 	@Override
@@ -46,7 +49,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
         createGaAndInnerShapes(container, element, context.getX(), context.getY());
         
         updateAnchors(container);
-        setShapeProperties(container, element);
+        afterRefresh(container, element);
 
         layoutPictogramElement(container);
         
@@ -76,7 +79,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 			
 			updateAnchors(shape);
 			
-			setShapeProperties(shape, bo);
+			afterRefresh(shape, bo);
 			
 			// Layout the shape
 			layoutPictogramElement(shape);
@@ -87,6 +90,11 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 
 	protected GhostingService getVisibilityService() {
 		return ghostingService;
+	}
+	
+	private void afterRefresh(final ContainerShape shape, final Object bo) {
+		propertyService.setIsLogicalTreeNode(shape, true);
+		setShapeProperties(shape, bo);
 	}
 	
 	/**

@@ -6,11 +6,18 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105
  *******************************************************************************/
-package org.osate.ge;
+package org.osate.ge.internal;
 
 import java.util.Objects;
 
-public final class SimplePaletteEntry implements ExtensionPaletteEntry {
+import org.osate.ge.PaletteEntry;
+
+public class SimplePaletteEntry implements PaletteEntry {
+	public enum Type {
+		CREATE,
+		CREATE_CONNECTION
+	}
+	
 	private final String category;
 	private final Type type;
 	private final String label;
@@ -31,29 +38,25 @@ public final class SimplePaletteEntry implements ExtensionPaletteEntry {
 		this.imageId = imageId;
 		this.context = context;
 	}
-
-	@Override
-	public String getCategory() {
+	
+	public final String getCategory() {
 		return category;
 	}
 
-	@Override
-	public String getLabel() {
+	public final String getLabel() {
 		return label;
 	}
 
-	@Override
-	public String getImageId() {
+	public final String getImageId() {
 		return imageId;
 	}
 	
-	@Override
-	public Type getType() {
+	public final Type getType() {
 		return type;
 	}
 	
-	@Override
-	public Object getContext() {
+	// Extension supplied object that can be used to distinguish between palette entries.
+	public final Object getContext() {
 		return context;
 	}
 }

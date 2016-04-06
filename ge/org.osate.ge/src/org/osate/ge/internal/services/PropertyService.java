@@ -79,6 +79,11 @@ public interface PropertyService {
 	boolean isTransient(PictogramElement pe);
 	void setIsTransient(PictogramElement pe, boolean value);
 	
+	// A logical tree node is one that is used as the basis for navigating the diagram when when using queries.
+	// Each business object which appears in the diagram should have one pictogram element which is a logical tree node.
+	boolean isLogicalTreeNode(PictogramElement pe);
+	void setIsLogicalTreeNode(PictogramElement pe, boolean value);
+	
 	/**
 	 * Sets whether the shape is a "background" shape. Background shapes are inner shape that are used when a non-selectable inner shape that will be behind other features is needed. Disables overlap checks.
 	 * @param pe

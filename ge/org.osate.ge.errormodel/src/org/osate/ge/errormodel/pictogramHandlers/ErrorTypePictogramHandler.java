@@ -11,9 +11,8 @@ package org.osate.ge.errormodel.pictogramHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ge.ExtensionPaletteEntry;
-import org.osate.ge.SimplePaletteEntry;
-import org.osate.ge.ExtensionPaletteEntry.Type;
+import org.osate.ge.PaletteEntry;
+import org.osate.ge.PaletteEntryFactory;
 import org.osate.ge.di.AllowDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CreateBusinessObject;
@@ -43,9 +42,9 @@ public class ErrorTypePictogramHandler {
 	}
 	
 	@GetPaletteEntries
-	public ExtensionPaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {
-		return new ExtensionPaletteEntry[] { 
-			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE, "Error Type", null, null)
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {
+		return new PaletteEntry[] { 
+				PaletteEntryFactory.makeCreateEntry(ErrorModelCategories.ERROR_MODEL, "Error Type", null, null)
 		};
 	}
 	

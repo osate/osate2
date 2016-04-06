@@ -93,7 +93,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
 			final SubcomponentService subcomponentService, final ComponentImplementationService componentImplementationService) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
 		this.namingService = namingService;

@@ -92,7 +92,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
 			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
 			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
-		super(anchorUtil, ghostingService);
+		super(anchorUtil, ghostingService, propertyUtil);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;

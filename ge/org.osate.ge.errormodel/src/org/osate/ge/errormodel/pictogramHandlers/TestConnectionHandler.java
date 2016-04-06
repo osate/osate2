@@ -11,9 +11,8 @@ package org.osate.ge.errormodel.pictogramHandlers;
 import javax.inject.Named;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.ExtensionPaletteEntry;
-import org.osate.ge.SimplePaletteEntry;
-import org.osate.ge.ExtensionPaletteEntry.Type;
+import org.osate.ge.PaletteEntry;
+import org.osate.ge.PaletteEntryFactory;
 import org.osate.ge.di.CanCreateConnection;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.CreateConnectionBusinessObject;
@@ -23,9 +22,9 @@ import org.osate.ge.di.Names;
 
 public class TestConnectionHandler {
 	@GetPaletteEntries
-	public ExtensionPaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
-		return new ExtensionPaletteEntry[] { 
-			new SimplePaletteEntry(ErrorModelCategories.ERROR_MODEL, Type.CREATE_CONNECTION, "Connection Test", null, null)
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
+		return new PaletteEntry[] { 
+			PaletteEntryFactory.makeCreateConnectionEntry(ErrorModelCategories.ERROR_MODEL, "Connection Test", null, null)
 		};
 	}
 	// TODO

@@ -210,6 +210,8 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	
 	// Shared Between add and update
 	private void refresh(final ContainerShape shape, final SubprogramCall call, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
+		
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildShapes(shape);

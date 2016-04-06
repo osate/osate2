@@ -28,6 +28,7 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
 	private static final String IS_TRANSIENT_KEY = "is_transient";
+	private static final String IS_LOGICAL_TREE_NODE = "is_lt_node";
 	private static final String IS_BACKGROUND_KEY = "is_background";
 	private static final String IS_COLORING_CONTAINER_KEY = "is_coloring_container";
 	private static final String IS_COLORING_CHILD_KEY = "is_coloring_child";
@@ -214,6 +215,16 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void setIsTransient(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isLogicalTreeNode(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_LOGICAL_TREE_NODE));
+	}
+	
+	@Override
+	public void setIsLogicalTreeNode(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_LOGICAL_TREE_NODE, value ? "true" : "false");
 	}
 	
 	@Override
