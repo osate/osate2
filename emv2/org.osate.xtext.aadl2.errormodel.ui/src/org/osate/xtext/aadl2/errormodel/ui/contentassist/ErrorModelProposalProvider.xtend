@@ -120,7 +120,7 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			[
 				val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
 				val validSuperTypesOfProposed = new ArrayList<ErrorTypes>
-				if (proposedObj instanceof ErrorTypes) getProposedObjectSuperTypes(proposedObj as ErrorTypes, validSuperTypesOfProposed, proposedObj)
+				if (proposedObj instanceof ErrorTypes) getProposedObjectSuperTypes(proposedObj, validSuperTypesOfProposed, proposedObj)
 				validErrorTypesList.contains(proposedObj) || 
 					validErrorTypesList.exists[type| validSuperTypesOfProposed.contains(type)] 
 			])

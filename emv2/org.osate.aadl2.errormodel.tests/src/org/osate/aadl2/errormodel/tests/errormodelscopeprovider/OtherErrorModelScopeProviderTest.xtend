@@ -12,15 +12,14 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
-import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 @RunWith(XtextRunner2)
 @InjectWith(ErrorModelUiInjectorProvider)
