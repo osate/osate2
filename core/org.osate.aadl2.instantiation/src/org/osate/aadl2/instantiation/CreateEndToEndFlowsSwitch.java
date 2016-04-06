@@ -216,6 +216,10 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
+				if (monitor.isCanceled()) {
+					cancelTraversal();
+					return DONE;
+				}
 				ComponentImplementation impl;
 
 				if (ci.getContainingComponentInstance() instanceof SystemInstance) {
