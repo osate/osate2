@@ -46,7 +46,6 @@ import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.ClassifierValue
 import org.osate.aadl2.EnumerationLiteral
-import org.osate.aadl2.MetaclassReference
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant

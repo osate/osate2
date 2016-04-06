@@ -58,13 +58,11 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.util.AadlProject
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService
-import org.osate.contribution.sei.names.SEI
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
