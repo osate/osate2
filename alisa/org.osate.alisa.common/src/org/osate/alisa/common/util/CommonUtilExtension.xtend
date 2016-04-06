@@ -28,21 +28,20 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.APropertyReference
+import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.aadl2.PropertyConstant
-import org.osate.alisa.common.common.AVariableReference
-import org.eclipse.emf.ecore.EObject
-import org.osate.aadl2.PropertyExpression
 
 class CommonUtilExtension {
 
@@ -154,7 +153,7 @@ class CommonUtilExtension {
 			ext = ext.getExtended();
 		}
 		if (target instanceof ComponentImplementation) {
-			ext = (target as ComponentImplementation).getType();
+			ext = target.getType();
 			while (ext != null) {
 				if (ancestorURI == EcoreUtil.getURI(ext)) {
 					return true;
@@ -222,7 +221,7 @@ class CommonUtilExtension {
 			val pari = vd.property
 			if (pari instanceof PropertyConstant) {
 				return EcoreUtil.copy(pari.constantValue)
-			} else if (pari instanceof org.osate.aadl2.Property) {
+			} else if (pari instanceof Property) {
 			}
 		} else {
 			// the value literal object as found in AExpression

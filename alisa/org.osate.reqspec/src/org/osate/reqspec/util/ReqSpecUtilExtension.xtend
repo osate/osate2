@@ -16,27 +16,24 @@
 
 package org.osate.reqspec.util
 
+import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.ComponentCategory
+import org.osate.alisa.common.common.AVariableDeclaration
+import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.alisa.common.util.CommonUtilExtension
-import org.osate.alisa.common.common.AVariableDeclaration
-import org.eclipse.emf.common.util.BasicEList
-import org.osate.aadl2.ComponentCategory
-import org.osate.reqspec.reqSpec.RequirementSet
-import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.Feature
-import org.osate.aadl2.FeatureGroup
 
 class ReqSpecUtilExtension {
 
@@ -51,10 +48,10 @@ class ReqSpecUtilExtension {
 		while (container.eContainer != null) {
 			container = container.eContainer
 			if (container instanceof SystemRequirementSet) {
-				val rs = container as SystemRequirementSet
+				val rs = container
 				if(rs.target != null) return rs.target
 			} else if (container instanceof StakeholderGoals) {
-				val rs = container as StakeholderGoals
+				val rs = container
 				if(rs.target != null) return rs.target
 			}
 		}
@@ -93,7 +90,7 @@ class ReqSpecUtilExtension {
 		}
 
 		def static getImportedGlobals(EObject context) {
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(context)
+			val sr = ReqSpecUtilExtension.containingRequirementSet(context)
 			val sg = containingStakeholderGoals(context)
 			val res = sr?.importConstants ?: sg?.importConstants
 			res
@@ -112,7 +109,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
+			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes + sr.constants,
@@ -176,7 +173,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
+			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
@@ -199,7 +196,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForComputeReq(r, result)
 			}
-			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirementSet(req)
+			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes,

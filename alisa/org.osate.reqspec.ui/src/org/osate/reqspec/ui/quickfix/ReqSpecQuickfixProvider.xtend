@@ -215,7 +215,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove " + elementType + " from section.", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet()
 						val section  = resourceSet.getEObject(URI.createURI(sectionURI), true) as DocumentSection
 						val illegalObject = element 
 						section.content.remove(illegalObject)
@@ -239,7 +239,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet()
 						val reqDoc  = resourceSet.getEObject(URI.createURI(reqDocURI), true) as ReqDocument
 						val illegalObject = element 
 						reqDoc.content.remove(illegalObject)
@@ -263,7 +263,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet()
 						val reqSpec  = resourceSet.getEObject(URI.createURI(reqSpecURI), true) as ReqSpec
 						val illegalObject = element 
 						reqSpec.parts.remove(illegalObject)

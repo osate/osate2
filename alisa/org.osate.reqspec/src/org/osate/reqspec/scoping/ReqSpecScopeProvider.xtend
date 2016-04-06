@@ -30,6 +30,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
@@ -37,13 +38,13 @@ import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Feature
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.Subcomponent
-import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.NestedModelElement
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.ReqPredicate
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirementSet
@@ -53,8 +54,6 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.aadl2.Classifier
-import org.osate.reqspec.reqSpec.ReqPredicate
 
 /**
  * This class contains custom scoping description.
@@ -247,7 +246,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 
 		// If implementation collect for type
 		if (cl instanceof ComponentImplementation) {
-			temp = (cl as ComponentImplementation).type
+			temp = cl.type
 			cls.add(temp);
 			while (temp.getExtended() != null) {
 				if (cls.contains(temp.getExtended())) {

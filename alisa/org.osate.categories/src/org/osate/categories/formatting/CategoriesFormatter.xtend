@@ -19,11 +19,10 @@
  */
 package org.osate.categories.formatting
 
+import com.google.inject.Inject
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
-import com.google.inject.Inject
 import org.osate.categories.services.CategoriesGrammarAccess
-import org.eclipse.xtext.Keyword;
 
 /**
  * This class contains custom formatting description.

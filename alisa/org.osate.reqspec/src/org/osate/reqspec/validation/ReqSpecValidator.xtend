@@ -466,7 +466,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		var ComponentType compType
 		if (componentClassifier instanceof ComponentImplementation)	 compType = componentClassifier.type
 		classifierParents.toSet.toList.forEach[ classifierParent |
-			reqSpecrefFinder.getSystemRequirementSets(classifierParent as ComponentClassifier).forEach[ sysreqs |
+			reqSpecrefFinder.getSystemRequirementSets(classifierParent).forEach[ sysreqs |
 				if (sysreqs.requirements.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
 					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
 							"' shadows a requirement of the same name in the System Requirements for '" +

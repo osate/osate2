@@ -142,8 +142,8 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			if (cls.contains(temp.getExtended())) {
 				return cls;
 			}
-			temp = temp.getExtended() as Classifier;
-			cls.add(temp);
+			temp = temp.getExtended()
+			cls.add(temp)
 		}
 
 		// If implementation collect for type
@@ -154,8 +154,8 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 				if (cls.contains(temp2.getExtended())) {
 					return cls;
 				}
-				temp2 = temp2.getExtended();
-				cls.add(temp2);
+				temp2 = temp2.getExtended()
+				cls.add(temp2)
 			}
 
 		}

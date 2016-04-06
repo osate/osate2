@@ -19,7 +19,6 @@ package org.osate.alisa.workbench.ui.contentassist
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.osate.alisa.workbench.alisa.AssuranceCase
-import org.osate.alisa.workbench.alisa.AssurancePlan
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
