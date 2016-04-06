@@ -49,6 +49,8 @@
       <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
+      <feature id="org.osate.reqspec.sdk" installMode="root"/>
+      <feature id="it.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.emf"/>

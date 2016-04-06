@@ -14,7 +14,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>../../osate2-core/osate2-core.releng/modules</module>
+		<module>../../osate2-core/osate2-core.releng/modules</module>		
+		<module>../../alisa/alisa.releng/modules</module>
 		<module>../../osate2-plugins/osate2-plugins.releng/modules</module>
 		<module>../../ErrorModelV2/emv2.releng/modules</module>
 		<module>../../osate2-ocarina/osate2-ocarina.releng/modules</module>
