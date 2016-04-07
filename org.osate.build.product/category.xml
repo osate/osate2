@@ -48,10 +48,10 @@
    <feature id="com.rockwellcollins.atc.resolute.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature id="org.osate.reqspec.sdk.feature">
+   <feature id="org.osate.reqspec.sdk">
       <category name="reqspec"/>
    </feature>
-   <feature id="org.osate.reqspec.sdk.feature.source">
+   <feature id="org.osate.reqspec.sdk.source">
       <category name="reqspec"/>
    </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
@@ -60,6 +60,6 @@
       </description>
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
-   <category-def nmae="reqspec" label="ALISA Requirements Specification Language"/>
+   <category-def name="reqspec" label="ALISA Requirements Specification Language"/>
    <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>
