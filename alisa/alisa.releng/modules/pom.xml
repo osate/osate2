@@ -25,6 +25,7 @@
 		<module>../../org.osate.reqspec</module>
 		<module>../../org.osate.reqspec.ui</module>
 		<module>../../org.osate.reqspec.sdk</module>
+		<module>../../org.osate.reqtrace</module>
 	</modules>
 
 </project>
