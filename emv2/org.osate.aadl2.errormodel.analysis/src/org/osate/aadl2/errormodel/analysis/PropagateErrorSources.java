@@ -207,7 +207,8 @@ public class PropagateErrorSources {
 
 				boolean used = false;
 				for (ErrorBehaviorState s : states) {
-					if (s.getName().equalsIgnoreCase(opc.getState().getName())) {
+					if (opc.isAllStates()
+							|| (opc.getState() != null && s.getName().equalsIgnoreCase(opc.getState().getName()))) {
 						used = true;
 					}
 				}
@@ -681,8 +682,10 @@ public class PropagateErrorSources {
 						if (!treated.contains(opc)) {
 							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getTypeTokens().get(0), ef);
 							treated.add(outp);
-							traceErrorPaths(ci, outp, newtt, depth + 1, entryText + ", from state "
-									+ opc.getState().getName() + " " + generateFailureModeText(ci, ep, tt));
+							traceErrorPaths(ci, outp, newtt, depth + 1,
+									entryText + ", from state "
+											+ (opc.getState() != null ? opc.getState().getName() : "all") + " "
+											+ generateFailureModeText(ci, ep, tt));
 						}
 					}
 					handled = true;
