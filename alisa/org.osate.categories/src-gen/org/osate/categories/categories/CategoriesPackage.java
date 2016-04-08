@@ -89,13 +89,22 @@ public interface CategoriesPackage extends EPackage
   int CATEGORIES_DEFINITIONS__CATEGORIES = 0;
 
   /**
+   * The feature id for the '<em><b>Category Filters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CATEGORIES_DEFINITIONS__CATEGORY_FILTERS = 1;
+
+  /**
    * The number of structural features of the '<em>Definitions</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 1;
+  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.
@@ -229,6 +238,17 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getCategoriesDefinitions_Categories();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.CategoriesDefinitions#getCategoryFilters <em>Category Filters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Category Filters</em>'.
+   * @see org.osate.categories.categories.CategoriesDefinitions#getCategoryFilters()
+   * @see #getCategoriesDefinitions()
+   * @generated
+   */
+  EReference getCategoriesDefinitions_CategoryFilters();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.Categories <em>Categories</em>}'.
@@ -366,6 +386,14 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference CATEGORIES_DEFINITIONS__CATEGORIES = eINSTANCE.getCategoriesDefinitions_Categories();
+
+    /**
+     * The meta object literal for the '<em><b>Category Filters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CATEGORIES_DEFINITIONS__CATEGORY_FILTERS = eINSTANCE.getCategoriesDefinitions_CategoryFilters();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.

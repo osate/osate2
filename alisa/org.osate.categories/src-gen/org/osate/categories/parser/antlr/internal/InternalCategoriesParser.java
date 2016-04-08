@@ -128,20 +128,25 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategoriesDefinitions"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:82:1: ruleCategoriesDefinitions returns [EObject current=null] : ( (lv_categories_0_0= ruleCategories ) )* ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:82:1: ruleCategoriesDefinitions returns [EObject current=null] : ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) ;
     public final EObject ruleCategoriesDefinitions() throws RecognitionException {
         EObject current = null;
 
         EObject lv_categories_0_0 = null;
 
+        EObject lv_categoryFilters_1_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:85:28: ( ( (lv_categories_0_0= ruleCategories ) )* )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:1: ( (lv_categories_0_0= ruleCategories ) )*
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:85:28: ( ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:1: ( (lv_categories_0_0= ruleCategories ) )*
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:2: ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
+            {
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:86:2: ( (lv_categories_0_0= ruleCategories ) )*
             loop1:
             do {
                 int alt1=2;
@@ -160,9 +165,9 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
             	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:88:3: lv_categories_0_0= ruleCategories
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0()); 
+            	    	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleCategories_in_ruleCategoriesDefinitions122);
+            	    pushFollow(FOLLOW_ruleCategories_in_ruleCategoriesDefinitions123);
             	    lv_categories_0_0=ruleCategories();
 
             	    state._fsp--;
@@ -190,6 +195,58 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:104:3: ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
+
+                if ( (LA2_0==Filter) ) {
+                    alt2=1;
+                }
+
+
+                switch (alt2) {
+            	case 1 :
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:105:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
+            	    {
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:105:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:106:3: lv_categoryFilters_1_0= ruleCategoryFilter
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersCategoryFilterParserRuleCall_1_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleCategoryFilter_in_ruleCategoriesDefinitions145);
+            	    lv_categoryFilters_1_0=ruleCategoryFilter();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getCategoriesDefinitionsRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"categoryFilters",
+            	            		lv_categoryFilters_1_0, 
+            	            		"CategoryFilter");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop2;
+                }
+            } while (true);
+
+
+            }
+
 
             }
 
@@ -208,7 +265,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategories"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:112:1: entryRuleCategories returns [EObject current=null] : iv_ruleCategories= ruleCategories EOF ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:130:1: entryRuleCategories returns [EObject current=null] : iv_ruleCategories= ruleCategories EOF ;
     public final EObject entryRuleCategories() throws RecognitionException {
         EObject current = null;
 
@@ -216,17 +273,17 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:113:2: (iv_ruleCategories= ruleCategories EOF )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:114:2: iv_ruleCategories= ruleCategories EOF
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:131:2: (iv_ruleCategories= ruleCategories EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:132:2: iv_ruleCategories= ruleCategories EOF
             {
              newCompositeNode(grammarAccess.getCategoriesRule()); 
-            pushFollow(FOLLOW_ruleCategories_in_entryRuleCategories157);
+            pushFollow(FOLLOW_ruleCategories_in_entryRuleCategories181);
             iv_ruleCategories=ruleCategories();
 
             state._fsp--;
 
              current =iv_ruleCategories; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCategories167); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCategories191); 
 
             }
 
@@ -244,7 +301,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategories"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:121:1: ruleCategories returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:139:1: ruleCategories returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) ;
     public final EObject ruleCategories() throws RecognitionException {
         EObject current = null;
 
@@ -257,19 +314,19 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:124:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:125:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:142:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:143:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:125:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:125:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:143:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:143:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:125:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:126:1: (lv_name_0_0= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:143:2: ( (lv_name_0_0= RULE_ID ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:144:1: (lv_name_0_0= RULE_ID )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:126:1: (lv_name_0_0= RULE_ID )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:127:3: lv_name_0_0= RULE_ID
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:144:1: (lv_name_0_0= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:145:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCategories209); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCategories233); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getCategoriesAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -289,33 +346,33 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleCategories227); 
+            otherlv_1=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleCategories251); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getCategoriesAccess().getLeftSquareBracketKeyword_1());
                 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:148:1: ( (lv_category_2_0= ruleCategory ) )+
-            int cnt2=0;
-            loop2:
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:166:1: ( (lv_category_2_0= ruleCategory ) )+
+            int cnt3=0;
+            loop3:
             do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                int alt3=2;
+                int LA3_0 = input.LA(1);
 
-                if ( (LA2_0==RULE_ID) ) {
-                    alt2=1;
+                if ( (LA3_0==RULE_ID) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt3) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:149:1: (lv_category_2_0= ruleCategory )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:167:1: (lv_category_2_0= ruleCategory )
             	    {
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:149:1: (lv_category_2_0= ruleCategory )
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:150:3: lv_category_2_0= ruleCategory
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:167:1: (lv_category_2_0= ruleCategory )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:168:3: lv_category_2_0= ruleCategory
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getCategoriesAccess().getCategoryCategoryParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleCategory_in_ruleCategories247);
+            	    pushFollow(FOLLOW_ruleCategory_in_ruleCategories271);
             	    lv_category_2_0=ruleCategory();
 
             	    state._fsp--;
@@ -339,15 +396,15 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt2 >= 1 ) break loop2;
+            	    if ( cnt3 >= 1 ) break loop3;
                         EarlyExitException eee =
-                            new EarlyExitException(2, input);
+                            new EarlyExitException(3, input);
                         throw eee;
                 }
-                cnt2++;
+                cnt3++;
             } while (true);
 
-            otherlv_3=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleCategories261); 
+            otherlv_3=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleCategories285); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getCategoriesAccess().getRightSquareBracketKeyword_3());
                 
@@ -372,7 +429,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategory"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:179:1: entryRuleCategory returns [EObject current=null] : iv_ruleCategory= ruleCategory EOF ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:197:1: entryRuleCategory returns [EObject current=null] : iv_ruleCategory= ruleCategory EOF ;
     public final EObject entryRuleCategory() throws RecognitionException {
         EObject current = null;
 
@@ -380,17 +437,17 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:180:2: (iv_ruleCategory= ruleCategory EOF )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:181:2: iv_ruleCategory= ruleCategory EOF
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:198:2: (iv_ruleCategory= ruleCategory EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:199:2: iv_ruleCategory= ruleCategory EOF
             {
              newCompositeNode(grammarAccess.getCategoryRule()); 
-            pushFollow(FOLLOW_ruleCategory_in_entryRuleCategory295);
+            pushFollow(FOLLOW_ruleCategory_in_entryRuleCategory319);
             iv_ruleCategory=ruleCategory();
 
             state._fsp--;
 
              current =iv_ruleCategory; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCategory305); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCategory329); 
 
             }
 
@@ -408,7 +465,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategory"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:188:1: ruleCategory returns [EObject current=null] : ( (lv_name_0_0= RULE_ID ) ) ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:206:1: ruleCategory returns [EObject current=null] : ( (lv_name_0_0= RULE_ID ) ) ;
     public final EObject ruleCategory() throws RecognitionException {
         EObject current = null;
 
@@ -417,16 +474,16 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:191:28: ( ( (lv_name_0_0= RULE_ID ) ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:192:1: ( (lv_name_0_0= RULE_ID ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:209:28: ( ( (lv_name_0_0= RULE_ID ) ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:210:1: ( (lv_name_0_0= RULE_ID ) )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:192:1: ( (lv_name_0_0= RULE_ID ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:193:1: (lv_name_0_0= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:210:1: ( (lv_name_0_0= RULE_ID ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:211:1: (lv_name_0_0= RULE_ID )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:193:1: (lv_name_0_0= RULE_ID )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:194:3: lv_name_0_0= RULE_ID
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:211:1: (lv_name_0_0= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:212:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCategory346); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCategory370); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getCategoryAccess().getNameIDTerminalRuleCall_0()); 
             		
@@ -463,8 +520,201 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleCategory"
 
 
+    // $ANTLR start "entryRuleCategoryFilter"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:236:1: entryRuleCategoryFilter returns [EObject current=null] : iv_ruleCategoryFilter= ruleCategoryFilter EOF ;
+    public final EObject entryRuleCategoryFilter() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleCategoryFilter = null;
+
+
+        try {
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:237:2: (iv_ruleCategoryFilter= ruleCategoryFilter EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:238:2: iv_ruleCategoryFilter= ruleCategoryFilter EOF
+            {
+             newCompositeNode(grammarAccess.getCategoryFilterRule()); 
+            pushFollow(FOLLOW_ruleCategoryFilter_in_entryRuleCategoryFilter409);
+            iv_ruleCategoryFilter=ruleCategoryFilter();
+
+            state._fsp--;
+
+             current =iv_ruleCategoryFilter; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCategoryFilter419); 
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleCategoryFilter"
+
+
+    // $ANTLR start "ruleCategoryFilter"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:245:1: ruleCategoryFilter returns [EObject current=null] : (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) ;
+    public final EObject ruleCategoryFilter() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token lv_name_1_0=null;
+        Token otherlv_2=null;
+        Token lv_anyCategory_4_0=null;
+        Token otherlv_5=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:248:28: ( (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:249:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
+            {
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:249:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:250:2: otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket
+            {
+            otherlv_0=(Token)match(input,Filter,FOLLOW_Filter_in_ruleCategoryFilter457); 
+
+                	newLeafNode(otherlv_0, grammarAccess.getCategoryFilterAccess().getFilterKeyword_0());
+                
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:254:1: ( (lv_name_1_0= RULE_ID ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:255:1: (lv_name_1_0= RULE_ID )
+            {
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:255:1: (lv_name_1_0= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:256:3: lv_name_1_0= RULE_ID
+            {
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCategoryFilter473); 
+
+            			newLeafNode(lv_name_1_0, grammarAccess.getCategoryFilterAccess().getNameIDTerminalRuleCall_1_0()); 
+            		
+
+            	        if (current==null) {
+            	            current = createModelElement(grammarAccess.getCategoryFilterRule());
+            	        }
+                   		setWithLastConsumed(
+                   			current, 
+                   			"name",
+                    		lv_name_1_0, 
+                    		"ID");
+            	    
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleCategoryFilter491); 
+
+                	newLeafNode(otherlv_2, grammarAccess.getCategoryFilterAccess().getLeftSquareBracketKeyword_2());
+                
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:277:1: ( ( ruleCatRef ) )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==RULE_ID) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:278:1: ( ruleCatRef )
+            	    {
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:278:1: ( ruleCatRef )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:279:3: ruleCatRef
+            	    {
+
+            	    			if (current==null) {
+            	    	            current = createModelElement(grammarAccess.getCategoryFilterRule());
+            	    	        }
+            	            
+            	     
+            	    	        newCompositeNode(grammarAccess.getCategoryFilterAccess().getCategoryCategoryCrossReference_3_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleCatRef_in_ruleCategoryFilter513);
+            	    ruleCatRef();
+
+            	    state._fsp--;
+
+            	     
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:292:3: ( (lv_anyCategory_4_0= Any ) )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
+
+            if ( (LA5_0==Any) ) {
+                alt5=1;
+            }
+            switch (alt5) {
+                case 1 :
+                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:293:1: (lv_anyCategory_4_0= Any )
+                    {
+                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:293:1: (lv_anyCategory_4_0= Any )
+                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:294:3: lv_anyCategory_4_0= Any
+                    {
+                    lv_anyCategory_4_0=(Token)match(input,Any,FOLLOW_Any_in_ruleCategoryFilter533); 
+
+                            newLeafNode(lv_anyCategory_4_0, grammarAccess.getCategoryFilterAccess().getAnyCategoryAnyKeyword_4_0());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getCategoryFilterRule());
+                    	        }
+                           		setWithLastConsumed(current, "anyCategory", true, "any");
+                    	    
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_5=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleCategoryFilter558); 
+
+                	newLeafNode(otherlv_5, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_5());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleCategoryFilter"
+
+
     // $ANTLR start "entryRuleCatRef"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:220:1: entryRuleCatRef returns [String current=null] : iv_ruleCatRef= ruleCatRef EOF ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:321:1: entryRuleCatRef returns [String current=null] : iv_ruleCatRef= ruleCatRef EOF ;
     public final String entryRuleCatRef() throws RecognitionException {
         String current = null;
 
@@ -472,17 +722,17 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:221:1: (iv_ruleCatRef= ruleCatRef EOF )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:222:2: iv_ruleCatRef= ruleCatRef EOF
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:322:1: (iv_ruleCatRef= ruleCatRef EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:323:2: iv_ruleCatRef= ruleCatRef EOF
             {
              newCompositeNode(grammarAccess.getCatRefRule()); 
-            pushFollow(FOLLOW_ruleCatRef_in_entryRuleCatRef388);
+            pushFollow(FOLLOW_ruleCatRef_in_entryRuleCatRef593);
             iv_ruleCatRef=ruleCatRef();
 
             state._fsp--;
 
              current =iv_ruleCatRef.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCatRef399); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCatRef604); 
 
             }
 
@@ -500,7 +750,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCatRef"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:229:1: ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:330:1: ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleCatRef() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -511,25 +761,25 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:233:6: ( (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:234:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:334:6: ( (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:335:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:234:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:234:6: this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:335:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:335:6: this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef439); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef644); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
                 
-            kw=(Token)match(input,FullStop,FOLLOW_FullStop_in_ruleCatRef457); 
+            kw=(Token)match(input,FullStop,FOLLOW_FullStop_in_ruleCatRef662); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
                 
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef472); 
+            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef677); 
 
             		current.merge(this_ID_2);
                 
@@ -563,20 +813,29 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleCategoriesDefinitions_in_entryRuleCategoriesDefinitions67 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCategoriesDefinitions77 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCategories_in_ruleCategoriesDefinitions122 = new BitSet(new long[]{0x0000000000000202L});
-    public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories157 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCategories167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCategories209 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleCategories227 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ruleCategory_in_ruleCategories247 = new BitSet(new long[]{0x0000000000000300L});
-    public static final BitSet FOLLOW_RightSquareBracket_in_ruleCategories261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCategory_in_entryRuleCategory295 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCategory305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCategory346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_entryRuleCatRef388 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCatRef399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef439 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_FullStop_in_ruleCatRef457 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCategories_in_ruleCategoriesDefinitions123 = new BitSet(new long[]{0x0000000000000212L});
+    public static final BitSet FOLLOW_ruleCategoryFilter_in_ruleCategoriesDefinitions145 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories181 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCategories191 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCategories233 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleCategories251 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ruleCategory_in_ruleCategories271 = new BitSet(new long[]{0x0000000000000300L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_ruleCategories285 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCategory_in_entryRuleCategory319 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCategory329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCategory370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCategoryFilter_in_entryRuleCategoryFilter409 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCategoryFilter419 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Filter_in_ruleCategoryFilter457 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCategoryFilter473 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleCategoryFilter491 = new BitSet(new long[]{0x0000000000000320L});
+    public static final BitSet FOLLOW_ruleCatRef_in_ruleCategoryFilter513 = new BitSet(new long[]{0x0000000000000320L});
+    public static final BitSet FOLLOW_Any_in_ruleCategoryFilter533 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_ruleCategoryFilter558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_entryRuleCatRef593 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCatRef604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef644 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_FullStop_in_ruleCatRef662 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef677 = new BitSet(new long[]{0x0000000000000002L});
 
 }

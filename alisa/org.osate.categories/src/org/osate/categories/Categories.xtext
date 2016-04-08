@@ -2,7 +2,7 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-CategoriesDefinitions :  categories+=Categories*
+CategoriesDefinitions :  categories+=Categories* categoryFilters+=CategoryFilter*
 ;
 
 

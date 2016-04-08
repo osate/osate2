@@ -49,10 +49,12 @@ public class CategoriesParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getCategoriesDefinitionsAccess().getGroup(), "rule__CategoriesDefinitions__Group__0");
 					put(grammarAccess.getCategoriesAccess().getGroup(), "rule__Categories__Group__0");
 					put(grammarAccess.getCategoryFilterAccess().getGroup(), "rule__CategoryFilter__Group__0");
 					put(grammarAccess.getCatRefAccess().getGroup(), "rule__CatRef__Group__0");
-					put(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesAssignment(), "rule__CategoriesDefinitions__CategoriesAssignment");
+					put(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesAssignment_0(), "rule__CategoriesDefinitions__CategoriesAssignment_0");
+					put(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersAssignment_1(), "rule__CategoriesDefinitions__CategoryFiltersAssignment_1");
 					put(grammarAccess.getCategoriesAccess().getNameAssignment_0(), "rule__Categories__NameAssignment_0");
 					put(grammarAccess.getCategoriesAccess().getCategoryAssignment_2(), "rule__Categories__CategoryAssignment_2");
 					put(grammarAccess.getCategoryAccess().getNameAssignment(), "rule__Category__NameAssignment");

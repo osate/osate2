@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getCategories <em>Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getCategoryFilters <em>Category Filters</em>}</li>
  * </ul>
  *
  * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions()
@@ -52,5 +53,21 @@ public interface CategoriesDefinitions extends EObject
    * @generated
    */
   EList<Categories> getCategories();
+
+  /**
+   * Returns the value of the '<em><b>Category Filters</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.categories.categories.CategoryFilter}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Category Filters</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Category Filters</em>' containment reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_CategoryFilters()
+   * @model containment="true"
+   * @generated
+   */
+  EList<CategoryFilter> getCategoryFilters();
 
 } // CategoriesDefinitions

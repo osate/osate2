@@ -22,7 +22,7 @@ import org.eclipse.xtext.ui.generator.*
 import org.osate.alisa.common.*
 
 var grammarURI = "classpath:/org/osate/categories/Categories.xtext"
-var fileExtensions = "cat"
+var fileExtensions = "cat,filter"
 var projectName = "org.osate.categories"
 var runtimeProject = "../${projectName}"
 var generateXtendStub = true

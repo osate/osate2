@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.CategoriesDefinitions;
 import org.osate.categories.categories.CategoriesPackage;
+import org.osate.categories.categories.CategoryFilter;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,6 +43,7 @@ import org.osate.categories.categories.CategoriesPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getCategories <em>Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getCategoryFilters <em>Category Filters</em>}</li>
  * </ul>
  *
  * @generated
@@ -57,6 +59,16 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * @ordered
    */
   protected EList<Categories> categories;
+
+  /**
+   * The cached value of the '{@link #getCategoryFilters() <em>Category Filters</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCategoryFilters()
+   * @generated
+   * @ordered
+   */
+  protected EList<CategoryFilter> categoryFilters;
 
   /**
    * <!-- begin-user-doc -->
@@ -98,6 +110,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<CategoryFilter> getCategoryFilters()
+  {
+    if (categoryFilters == null)
+    {
+      categoryFilters = new EObjectContainmentEList<CategoryFilter>(CategoryFilter.class, this, CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS);
+    }
+    return categoryFilters;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -105,6 +131,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORIES:
         return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS:
+        return ((InternalEList<?>)getCategoryFilters()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -121,6 +149,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORIES:
         return getCategories();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS:
+        return getCategoryFilters();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -140,6 +170,10 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
         getCategories().clear();
         getCategories().addAll((Collection<? extends Categories>)newValue);
         return;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS:
+        getCategoryFilters().clear();
+        getCategoryFilters().addAll((Collection<? extends CategoryFilter>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -157,6 +191,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORIES:
         getCategories().clear();
         return;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS:
+        getCategoryFilters().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -173,6 +210,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORIES:
         return categories != null && !categories.isEmpty();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORY_FILTERS:
+        return categoryFilters != null && !categoryFilters.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -5,6 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="CategoriesDefinitions">
     <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
         eType="#//Categories" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categoryFilters" upperBound="-1"
+        eType="#//CategoryFilter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Categories">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

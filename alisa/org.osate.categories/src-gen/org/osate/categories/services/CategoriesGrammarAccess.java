@@ -32,18 +32,30 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class CategoriesDefinitionsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CategoriesDefinitions");
-		private final Assignment cCategoriesAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cCategoriesCategoriesParserRuleCall_0 = (RuleCall)cCategoriesAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cCategoriesAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cCategoriesCategoriesParserRuleCall_0_0 = (RuleCall)cCategoriesAssignment_0.eContents().get(0);
+		private final Assignment cCategoryFiltersAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cCategoryFiltersCategoryFilterParserRuleCall_1_0 = (RuleCall)cCategoryFiltersAssignment_1.eContents().get(0);
 		
 		//CategoriesDefinitions:
-		//	categories+=Categories*;
+		//	categories+=Categories* categoryFilters+=CategoryFilter*;
 		@Override public ParserRule getRule() { return rule; }
 
+		//categories+=Categories* categoryFilters+=CategoryFilter*
+		public Group getGroup() { return cGroup; }
+
 		//categories+=Categories*
-		public Assignment getCategoriesAssignment() { return cCategoriesAssignment; }
+		public Assignment getCategoriesAssignment_0() { return cCategoriesAssignment_0; }
 
 		//Categories
-		public RuleCall getCategoriesCategoriesParserRuleCall_0() { return cCategoriesCategoriesParserRuleCall_0; }
+		public RuleCall getCategoriesCategoriesParserRuleCall_0_0() { return cCategoriesCategoriesParserRuleCall_0_0; }
+
+		//categoryFilters+=CategoryFilter*
+		public Assignment getCategoryFiltersAssignment_1() { return cCategoryFiltersAssignment_1; }
+
+		//CategoryFilter
+		public RuleCall getCategoryFiltersCategoryFilterParserRuleCall_1_0() { return cCategoryFiltersCategoryFilterParserRuleCall_1_0; }
 	}
 
 	public class CategoriesElements extends AbstractParserRuleElementFinder {
@@ -234,7 +246,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//CategoriesDefinitions:
-	//	categories+=Categories*;
+	//	categories+=Categories* categoryFilters+=CategoryFilter*;
 	public CategoriesDefinitionsElements getCategoriesDefinitionsAccess() {
 		return pCategoriesDefinitions;
 	}

@@ -9,7 +9,7 @@
             class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="cat"
+            extensions="cat,filter"
             id="org.osate.categories.Categories"
             name="Categories Editor">
         </editor>
@@ -252,7 +252,7 @@
          point="org.eclipse.xtext.builder.participant">
       <participant
             class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
-            fileExtensions="cat"
+            fileExtensions="cat,filter"
             >
       </participant>
    </extension>
@@ -380,19 +380,19 @@
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="org.osate.categories.Categories.compare.contentViewers"
             class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="cat">
+            extensions="cat,filter">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
     <viewer id="org.osate.categories.Categories.compare.contentMergeViewers"
             class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="cat" label="Categories Compare">
+            extensions="cat,filter" label="Categories Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
     <provider id="org.osate.categories.Categories.editors.documentProviders"
             class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="cat">
+            extensions="cat,filter">
     </provider>
   </extension>
 

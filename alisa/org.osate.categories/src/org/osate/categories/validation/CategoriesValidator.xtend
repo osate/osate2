@@ -20,13 +20,16 @@
 package org.osate.categories.validation
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.categories.categories.Category
 import org.osate.categories.categories.Categories
+import org.osate.categories.categories.CategoriesDefinitions
+import org.osate.categories.categories.Category
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -36,6 +39,8 @@ import org.osate.categories.categories.Categories
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
 
+	public static val CAT_FILE_EXT = "cat"
+  	public static val FILTER_FILE_EXT = "filter"
 	public static val DUPLICATE_CATEGORY = 'org.osate.categories.validation.duplicate.category'
 
 	@Inject
@@ -53,4 +58,29 @@ class CategoriesValidator extends AbstractCategoriesValidator {
 				categories.name, "" + node.offset, "" + node.length)
 		}
 	}
+	
+	@Check (CheckType.FAST)
+	def void checkFileTypeContents(CategoriesDefinitions categoriesDefinitions) {
+		val categoriesDefinitionURI = EcoreUtil.getURI(categoriesDefinitions)
+		val fileExt = categoriesDefinitionURI.fileExtension.toLowerCase
+		switch fileExt{
+			case CAT_FILE_EXT : {
+				categoriesDefinitions.categoryFilters.forEach[part |
+					fileTypeWarning(fileExt, "filter", part)	
+				]
+			} 
+			case FILTER_FILE_EXT : {
+				categoriesDefinitions.categories.forEach[part |
+					fileTypeWarning(fileExt, "category", part)	
+				]
+			} 
+			default : {}
+		}
+	}	
+		
+	def void fileTypeWarning(String fileType, String partName, EObject part){
+		warning( partName +" not allowed in '"+ fileType + "' file.", part, null)
+	}
+	
+	
 }

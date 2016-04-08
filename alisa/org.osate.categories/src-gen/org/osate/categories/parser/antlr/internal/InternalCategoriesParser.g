@@ -83,10 +83,10 @@ ruleCategoriesDefinitions returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0_0()); 
 	    }
 		lv_categories_0_0=ruleCategories		{
 	        if ($current==null) {
@@ -101,7 +101,25 @@ ruleCategoriesDefinitions returns [EObject current=null]
 	    }
 
 )
-)*
+)*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersCategoryFilterParserRuleCall_1_0()); 
+	    }
+		lv_categoryFilters_1_0=ruleCategoryFilter		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getCategoriesDefinitionsRule());
+	        }
+       		add(
+       			$current, 
+       			"categoryFilters",
+        		lv_categoryFilters_1_0, 
+        		"CategoryFilter");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*)
 ;
 
 
@@ -211,6 +229,89 @@ ruleCategory returns [EObject current=null]
 ;
 
 
+
+
+
+// Entry rule entryRuleCategoryFilter
+entryRuleCategoryFilter returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getCategoryFilterRule()); }
+	 iv_ruleCategoryFilter=ruleCategoryFilter 
+	 { $current=$iv_ruleCategoryFilter.current; } 
+	 EOF 
+;
+
+// Rule CategoryFilter
+ruleCategoryFilter returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=Filter
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getCategoryFilterAccess().getFilterKeyword_0());
+    }
+(
+(
+		lv_name_1_0=RULE_ID
+		{
+			newLeafNode(lv_name_1_0, grammarAccess.getCategoryFilterAccess().getNameIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getCategoryFilterRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_1_0, 
+        		"ID");
+	    }
+
+)
+)
+	otherlv_2=LeftSquareBracket
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getCategoryFilterAccess().getLeftSquareBracketKeyword_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getCategoryFilterRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getCategoryFilterAccess().getCategoryCategoryCrossReference_3_0()); 
+	    }
+		ruleCatRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*(
+(
+		lv_anyCategory_4_0=
+	Any
+    {
+        newLeafNode(lv_anyCategory_4_0, grammarAccess.getCategoryFilterAccess().getAnyCategoryAnyKeyword_4_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getCategoryFilterRule());
+	        }
+       		setWithLastConsumed($current, "anyCategory", true, "any");
+	    }
+
+)
+)?
+	otherlv_5=RightSquareBracket
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_5());
+    }
+)
+;
 
 
 

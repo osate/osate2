@@ -62,7 +62,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     categories+=Categories*
+	 *     (categories+=Categories* categoryFilters+=CategoryFilter*)
 	 */
 	protected void sequence_CategoriesDefinitions(EObject context, CategoriesDefinitions semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

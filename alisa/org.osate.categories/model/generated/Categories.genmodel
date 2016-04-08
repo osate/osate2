@@ -7,9 +7,10 @@
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.categories.edit"
     editorPluginID="org.osate.categories.editor" runtimeVersion="2.11" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
-      fileExtensions="cat" ecorePackage="Categories.ecore#/">
+      fileExtensions="cat,filter" ecorePackage="Categories.ecore#/">
     <genClasses ecoreClass="Categories.ecore#//CategoriesDefinitions">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/categories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/categoryFilters"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//Categories">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Categories/name"/>
