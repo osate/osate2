@@ -54,6 +54,18 @@
    <feature id="org.osate.reqspec.sdk.source">
       <category name="reqspec"/>
    </feature>
+   <feature id="edu.cmu.emfta.feature">
+      <category name="emfta"/>
+   </feature>
+   <feature id="edu.cmu.emfta.feature.source">
+      <category name="emfta"/>
+   </feature>
+   <feature id="org.osate.aadl2.errormodel.emfta.feature">
+      <category name="emfta"/>
+   </feature>
+   <feature id="org.osate.aadl2.errormodel.emfta.feature.source">
+      <category name="emfta"/>
+   </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
@@ -61,5 +73,6 @@
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
    <category-def name="reqspec" label="ALISA Requirements Specification Language"/>
+   <category-def name="emfta" label="EMFTA"/>
    <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>
