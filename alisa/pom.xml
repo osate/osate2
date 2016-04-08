@@ -9,23 +9,27 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>0.23.0</tycho.version>
-		<tycho-extras.version>0.23.0</tycho-extras.version>
-		
+		<tycho.version>0.24.0</tycho.version>
+		<tycho-extras.version>0.24.0</tycho-extras.version>
+
 		<osate.stable.version>2.2.0</osate.stable.version>
 		<xtext.stable.version>2.8.4</xtext.stable.version>
+		<emft.stable.version>2.8.1</emft.stable.version>
 		<xsemantics.stable.version>1.8.1</xsemantics.stable.version>
 		<xtext.testing.version>2.8.4</xtext.testing.version>
-		<xsemantics.testing.version>1.8.1</xsemantics.testing.version>
+		<emft.testing.version>2.8.1</emft.testing.version>
+		<xsemantics.version>1.8.1</xsemantics.version>
 
 		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
-		<eclipse.stable.url>http://download.eclipse.org/releases/mars/201510021000</eclipse.stable.url>
+		<eclipse.stable.url>http://download.eclipse.org/releases/mars/201602261000</eclipse.stable.url>
 		<xtext.stable.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.stable.version}/</xtext.stable.url>
+		<emft.stable.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.stable.version}/</emft.stable.url>
 		<xsemantics.stable.url>http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8</xsemantics.stable.url>
 
 		<osate.testing.url>http://www.aadl.info/aadl/osate/testing/update-site/</osate.testing.url>
-		<eclipse.testing.url>http://download.eclipse.org/releases/mars/201510021000</eclipse.testing.url>
+		<eclipse.testing.url>http://download.eclipse.org/releases/mars/201602261000</eclipse.testing.url>
 		<xtext.testing.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.testing.version}/</xtext.testing.url>
+		<emft.testing.url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/${emft.testing.version}/</emft.testing.url>
 		<xsemantics.testing.url>http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8</xsemantics.testing.url>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,7 +42,7 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
-	
+
 	<profiles>
 		<profile>
 			<id>osate2.stable</id>
@@ -68,7 +72,7 @@
 				</repository>
 			</repositories>
 		</profile>
-		
+
 		<profile>
 			<id>osate2.testing</id>
 			<properties>
@@ -88,6 +92,11 @@
 				<repository>
 					<id>xtext</id>
 					<url>${xtext.testing.url}</url>
+					<layout>p2</layout>
+				</repository>
+				<repository>
+					<id>emft</id>
+					<url>${emft.testing.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
@@ -133,6 +142,12 @@
 								<include>**</include>
 							</includes>
 						</fileset>
+						<fileset>
+							<directory>xsemantics-gen</directory>
+							<excludes>
+								<exclude>**/.gitignore</exclude>
+							</excludes>
+						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
@@ -146,6 +161,8 @@
 							<goal>compile</goal>
 							<!-- <goal>testCompile</goal> -->
 						</goals>
+						<!-- force after xtext-maven-plugin -->
+						<phase>process-sources</phase>
 						<configuration>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 						</configuration>
@@ -172,6 +189,37 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.eclipse.xtext</groupId>
+					<artifactId>xtext-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<languages>
+							<language>
+								<setup>it.xsemantics.dsl.XsemanticsStandaloneSetup</setup>
+								<outputConfigurations>
+									<outputConfiguration>
+										<outputDirectory>${basedir}/xsemantics-gen</outputDirectory>
+									</outputConfiguration>
+								</outputConfigurations>
+							</language>
+						</languages>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>net.sf.xsemantics</groupId>
+							<artifactId>it.xsemantics.dsl</artifactId>
+							<version>${xsemantics.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-packaging-plugin</artifactId>
