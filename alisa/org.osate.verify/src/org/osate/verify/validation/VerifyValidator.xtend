@@ -29,9 +29,11 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
+import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
@@ -42,16 +44,13 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
-import org.osate.verify.verify.JUnit4Method
-import org.osate.reqspec.reqSpec.SystemRequirementSet
-import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 
 /**
  * Custom validation rules. 
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends VerifyTypeSystemValidator {
+class VerifyValidator extends AbstractVerifyValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_CLASS_PATH = "org.osate.verify.incorrectClassPath"
