@@ -10,6 +10,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -26,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
@@ -254,6 +256,22 @@ public class PropagationGraphBackwardTraversal {
 
 			return postProcessAnd(component, condition, type, scale, subResults);
 		}
+		if (condition instanceof AllExpression) {
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			AllExpression allCondition = (AllExpression) condition;
+			if (allCondition.getCount() == 0) {
+				preProcessAnd(component, condition, type, scale);
+				AndExpression expression = (AndExpression) condition;
+				for (ConditionExpression ce : expression.getOperands()) {
+					EObject res = processCondition(component, ce, type, scale);
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+			}
+			return postProcessAnd(component, condition, type, scale, subResults);
+		}
 
 		if (condition instanceof OrExpression) {
 			preProcessXor(component, condition, type, scale);
@@ -267,6 +285,22 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 			return postProcessXor(component, condition, type, scale, subResults);
+		}
+
+		if (condition instanceof OrmoreExpression) {
+			OrmoreExpression omCondition = (OrmoreExpression) condition;
+			List<EObject> subResults = new LinkedList<EObject>();
+
+			if (omCondition.getCount() == 1) {
+				preProcessOr(component, condition, type, scale);
+				for (ConditionExpression ce : omCondition.getOperands()) {
+					EObject res = processCondition(component, ce, type, scale);
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+			}
+			return postProcessOr(component, condition, type, scale, subResults);
 		}
 
 		/**
@@ -513,6 +547,18 @@ public class PropagationGraphBackwardTraversal {
 	protected EObject preProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
 		OsateDebug.osateDebug("postProcessXor " + component.getName());
+		return component;
+	}
+
+	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+			double scale, List<EObject> subResults) {
+		OsateDebug.osateDebug("postProcessOr " + component.getName());
+		return component;
+	}
+
+	protected EObject preProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
+			double scale) {
+		OsateDebug.osateDebug("postProcessOr " + component.getName());
 		return component;
 	}
 
