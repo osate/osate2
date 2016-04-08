@@ -146,7 +146,7 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * process error state according to transitions. Recursively deal with source states of transitions (an AND gate).
+	 * process error state. Recursively deal with source states of transitions (an AND gate).
 	 * We only process error events (not recover or repair) and error propagations referenced by the expression.
 	 * @param component ComponentInstance
 	 * @param state ErrorBehaviorState
@@ -163,9 +163,12 @@ public class PropagationGraphBackwardTraversal {
 			ConditionExpression conditionExpression = null;
 			// XXX deal with types
 			double scale = 1;
+			boolean sameState = false;
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())) {
-				if (!EMV2Util.isSame(ebt.getSource(), state)) {
+				if (!(EMV2Util.isSame(ebt.getSource(), state) || ebt.isSteadyState())) {
 					conditionExpression = ebt.getCondition();
+				} else {
+					sameState = true;
 				}
 			} else {
 				// deal with transition branches
@@ -193,7 +196,7 @@ public class PropagationGraphBackwardTraversal {
 			if (conditionExpression != null) {
 				EObject conditionResult = processCondition(component, conditionExpression, type, scale);
 				// XXX this is the recursive call
-				EObject stateResult = traverseErrorBehaviorState(component, ebt.getSource(), type);
+				EObject stateResult = sameState ? null : traverseErrorBehaviorState(component, ebt.getSource(), type);
 				if (conditionResult != null && stateResult != null) {
 					subResults.add(
 							processTransitionCondition(component, ebt.getSource(), type, conditionResult, stateResult));
