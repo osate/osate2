@@ -190,7 +190,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 				case outputFile.length - 1: "No Format in Specified Output File"
 				default: switch fileExt : outputFile.substring(dotLocation + 1) {
 					case fileExt.indexOf(File.separator) != -1: "No Format in Specified Output File"
-					case !formats.contains(fileExt): '''Invalid Format: "«fileExt»"'''
+					case !formats.contains(fileExt): '''Invalid Format: "Â«fileExtÂ»"'''
 				}
 			}
 		}
