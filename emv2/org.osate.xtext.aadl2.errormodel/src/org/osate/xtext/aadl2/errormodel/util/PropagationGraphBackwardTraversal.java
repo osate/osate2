@@ -42,7 +42,7 @@ public class PropagationGraphBackwardTraversal {
 	public PropagationGraphBackwardTraversal(ComponentInstance root) {
 
 		rootComponent = root;
-		currentAnalysisModel = new AnalysisModel(rootComponent);
+		currentAnalysisModel = new AnalysisModel(rootComponent, false);
 	}
 
 	public ComponentInstance getRootComponent() {
@@ -85,7 +85,8 @@ public class PropagationGraphBackwardTraversal {
 				ErrorPath ep = (ErrorPath) ef;
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)
 						&& EM2TypeSetUtil.contains(type, ep.getTargetToken())) {
-					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(), type);
+					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
+							getTargetType(ep.getTypeTokenConstraint(), type));
 					subResults.add(newEvent);
 				}
 			} else if (ef instanceof ErrorSource) {
@@ -334,7 +335,6 @@ public class PropagationGraphBackwardTraversal {
 					if (result != null) {
 						return result;
 					}
-					// XXX should this be just process instead of traverse?
 					return traverseErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
 							referencedErrorType);
 				}
@@ -346,12 +346,13 @@ public class PropagationGraphBackwardTraversal {
 
 				ComponentInstance relatedComponent = EMV2Util.getLastComponentInstance(path, component);
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
+				ErrorTypes referencedErrorType = conditionElement.getConstraint();
 				/**
 				 * Here, we have an error event. Likely, this is something we
 				 * can get when we are analyzing error component behavior.
 				 */
 				if (errorModelElement instanceof ErrorEvent) {
-					return processErrorEvent(component, (ErrorEvent) errorModelElement, type, scale);
+					return processErrorEvent(component, (ErrorEvent) errorModelElement, referencedErrorType, scale);
 				}
 
 				/**
@@ -363,10 +364,10 @@ public class PropagationGraphBackwardTraversal {
 					// XXX deal with type constraint
 					if (errorPropagation.getDirection() == DirectionType.IN) {
 						return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
-								conditionElement.getConstraint());
+								referencedErrorType);
 					} else {
 						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
-								conditionElement.getConstraint());
+								referencedErrorType);
 					}
 				}
 
@@ -385,9 +386,17 @@ public class PropagationGraphBackwardTraversal {
 			// traverse incoming
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
-			EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
-			if (result != null) {
-				subResults.add(result);
+			if (propagationSource.getDirection() == DirectionType.IN) {
+				// we have an external incoming propagation
+				EObject result = processIncomingErrorPropagation(componentSource, propagationSource, type);
+				if (result != null) {
+					subResults.add(result);
+				}
+			} else {
+				EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+				if (result != null) {
+					subResults.add(result);
+				}
 			}
 		}
 		if (!subResults.isEmpty()) {
