@@ -78,7 +78,7 @@ class RequirementsTracingHandler extends AbstractHandler {
 				val factory = Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY) as IReportEngineFactory
 				val config = new EngineConfig => [appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.class.classLoader)]
 				factory.createReportEngine(config) => [
-					val report = openReportDesign(new URL('''platform:/plugin/Â«Activator.PLUGIN_IDÂ»/reqtrace.rptdesign''').openConnection.inputStream)
+					val report = openReportDesign(new URL('''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign''').openConnection.inputStream)
 					createRunAndRenderTask(report) => [
 						setParameterValue("AADLFile", selectionPath.toString)
 						setParameterValue("FileType", fileType)
