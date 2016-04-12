@@ -6,11 +6,12 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2</artifactId>
-		<version>2.2.1-SNAPSHOT</version>
+		<version>2.2.1.vfinal</version>
 		<relativePath>../org.osate.build.main/pom.xml</relativePath>
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2-modules</artifactId>
+	<version>2.2.1.vfinal</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -33,6 +34,7 @@
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
 		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
+		<module>../../smaccm/fm-workbench/z3/com.rockwellcollins.atc.z3</module>
 
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
