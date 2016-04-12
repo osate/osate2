@@ -5,7 +5,7 @@ import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext"
-var file.extensions = "emv2"
+var file.extensions = "emv2,emv2lib"
 var projectName = "org.osate.xtext.aadl2.errormodel"
 var runtimeProject = "../${projectName}"
 
@@ -115,7 +115,7 @@ Workflow {
     		options = {
         		ignoreCase = true
 //				backtrack = true
-				classSplitting = true
+//				classSplitting = true
     			}
 			}
 			
@@ -168,7 +168,7 @@ Workflow {
 				options = {
         			ignoreCase = true
 //        			backtrack=true
-					classSplitting = true
+//					classSplitting = true
 				}
 				partialParsing = true
 			}

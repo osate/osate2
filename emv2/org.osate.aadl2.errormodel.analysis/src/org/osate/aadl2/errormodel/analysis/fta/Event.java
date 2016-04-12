@@ -10,9 +10,13 @@ public class Event {
 	protected List<Event> subEvents;
 	protected boolean showProbability;
 	protected EventType type;
-	protected static int generalId = 1;
+	private static int generalId;
 	protected String identifier;
 	protected Event parent;
+
+	public static void init() {
+		generalId = 0;
+	}
 
 	public Event() {
 		identifier = "event" + generalId;

@@ -14,29 +14,9 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
  */
 
 // allow either of the two to be the root. Needed dummy 'library' keyword
-
-EMV2Library returns ErrorModelLibrary:
-	{ErrorModelLibrary} 'library' name=QEMREF
-  //    '{**' 
-	(
-    'error' 'types' 
-   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-    ('extends' extends+=[ErrorModelLibrary|QEMREF] (','extends+=[ErrorModelLibrary|QEMREF])*
-    'with')?     
-(((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
-    ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
-     'end' 'types' ';'
-	)?
-    (behaviors+=ErrorBehaviorStateMachine )*
-	(mappings+=TypeMappingSet )* 
-	(transformations+=TypeTransformationSet )*
-//	'**}'
-	 ;
-//
-//ErrorModelGrammarRoot : 	 'library' eml=ErrorModelLibrary  
-//	| emsc=ErrorModelSubclause
-//;
+EMV2Root returns aadl2::NamedElement: 
+	 {EMV2Root} (library=EMV2Library | subclauses+=EMV2Subclause*)
+;
 
 AnnexLibrary returns aadl2::AnnexLibrary:
 	 ErrorModelLibrary 
@@ -53,7 +33,7 @@ ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
 |PropagationPath | PropagationPoint |CompositeState
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation
+|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation 
 ;
 
 ModalElement returns aadl2::ModalElement:
@@ -61,13 +41,13 @@ ErrorModelSubclause
 ;
 
 Element returns aadl2::Element:
-TypeSetElement|TypeToken 
+TypeSetElement 
 |TypeTransformation|TypeMapping
 |QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
 |ConditionElement | AndExpression | ConditionTerm
-|ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
+|ConditionExpression|OrmoreExpression|OrlessExpression
 	|ErrorStateToModeMapping|QualifiedErrorBehaviorState
-| SubcomponentElement | FeatureorPPReference  
+| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation |EMV2Path | EMV2PathElement
 ;
 
 
@@ -117,9 +97,63 @@ ErrorModelSubclause returns ErrorModelSubclause:
 	'end' 'paths' ';'
   )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation)+)?
+ 	(properties+=EMV2PropertyAssociation)+)?
 //	'**}'
 	 ;
+
+
+EMV2Subclause returns ErrorModelSubclause:
+     {ErrorModelSubclause} 'subclause' name=QCREF
+     //'{**' 
+   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
+   ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
+   ('use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF] ';')?
+   ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
+//   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
+   ';' )?
+  ( 'error' 'propagations'
+   (propagations+=ErrorPropagation)* 
+   ( 'flows'
+   (flows+=ErrorFlow)+)? 
+   'end' 'propagations' ';'
+  )?
+ (	'component' 'error' 'behavior' 
+   ('use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF] ';')?
+  ( 'events' (events+=ErrorBehaviorEvent )+ )?
+  (  'transitions' ( transitions+=ErrorBehaviorTransition )+ )?
+  ( 'propagations'
+    ( outgoingPropagationConditions+=OutgoingPropagationCondition )+ )?
+  ( 'detections'
+    ( errorDetections+=ErrorDetection )+ )?
+  ( 'mode' 'mappings'
+    ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
+   'end' 'component' ';'
+ )?
+  
+  (	'composite' 'error' 'behavior' 
+   ( 'states' 
+    ( states+=CompositeState )+ 
+    )?
+   'end' 'composite' ';'
+  )?
+  (	'connection' 'error' 
+	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+	( connectionErrorSources+= ConnectionErrorSource )*
+	'end' 'connection' ';'
+  )?
+
+  (
+  		'propagation' 'paths' 
+	( points+=PropagationPoint)*
+	( paths+=PropagationPath)*
+	'end' 'paths' ';'
+  )?
+    ('properties'
+ 	(properties+=EMV2PropertyAssociation)+)?
+//	'**}'
+'end' 'subclause'';'
+	 ;
+
 
 ErrorModelLibrary returns ErrorModelLibrary:
 	{ErrorModelLibrary}
@@ -131,7 +165,7 @@ ErrorModelLibrary returns ErrorModelLibrary:
     'with')?     
 (((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
      'end' 'types' ';'
 	)?
     (behaviors+=ErrorBehaviorStateMachine )*
@@ -139,7 +173,87 @@ ErrorModelLibrary returns ErrorModelLibrary:
 	(transformations+=TypeTransformationSet )*
 //	'**}'
 	 ;
+
+EMV2Library returns ErrorModelLibrary:
+	{ErrorModelLibrary} 
+	('library' name=QEMREF
+  //    '{**' 
+	(
+    'error' 'types' 
+   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
+    ('extends' extends+=[ErrorModelLibrary|QEMREF] (','extends+=[ErrorModelLibrary|QEMREF])*
+    'with')?     
+(((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
+    ('properties'
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
+     'end' 'types' ';'
+	)?
+    (behaviors+=ErrorBehaviorStateMachine )*
+	(mappings+=TypeMappingSet )* 
+	(transformations+=TypeTransformationSet )*
+	) |
+	(	'package' name=QEMREF 'public'
+  'annex' ID  '{**' 
+	(
+    'error' 'types' 
+   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
+    ('extends' extends+=[ErrorModelLibrary|QEMREF] (','extends+=[ErrorModelLibrary|QEMREF])*
+    'with')?     
+(((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
+    ('properties'
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
+     'end' 'types' ';'
+	)?
+    (behaviors+=ErrorBehaviorStateMachine )*
+	(mappings+=TypeMappingSet )* 
+	(transformations+=TypeTransformationSet )*
+	'**}' ';' 'end' QEMREF ';'
+	)
+	 ;
 	
+
+EMV2PropertyAssociation returns EMV2PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' 
+	( 
+	 ownedValues+=OptionalModalPropertyValue
+	( ',' ownedValues+=OptionalModalPropertyValue )*
+	)
+	('applies' 'to' (
+		emv2Path+=EMV2Path ( ',' emv2Path+=EMV2Path)*
+	))?
+	';';
+
+BasicEMV2PropertyAssociation returns EMV2PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' 
+	( 
+	 ownedValues+=OptionalModalPropertyValue
+	( ',' ownedValues+=OptionalModalPropertyValue )*
+	)
+	('applies' 'to' (emv2Path+=BasicEMV2Path ( ',' emv2Path+=BasicEMV2Path)*))?
+	';';
+	
+EMV2Path returns EMV2Path:
+		('^' containmentPath=ContainmentPathElement '@' )?
+	 emv2Target=EMV2PathElementOrKind 
+;
+	
+BasicEMV2Path returns EMV2Path:
+ 	emv2Target=EMV2PathElementOrKind
+;
+
+EMV2PathElementOrKind returns EMV2PathElement:
+	( emv2PropagationKind=PropagationKind ( '.' errorType=[ErrorTypes|ID])?
+	)
+	| (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2PathElement)?)
+;
+
+EMV2PathElement returns EMV2PathElement:
+ (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2PathElement)?)
+;
 
 ErrorTypes returns ErrorTypes:
 	TypeDefinition | TypeSetDefinition 
@@ -199,15 +313,17 @@ NoErrorTypeToken returns TypeToken:
 	noError?='noerror'
 ;
 
-TypeToken returns TypeToken:
-	{TypeToken}
-     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
-;
+TypeToken returns TypeSet:TypeSetReference;
+//returns TypeToken:
+//	{TypeToken}
+//     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+//;
 
-TypeTokenOrNoError returns TypeToken:
-	TypeToken //| '(' NoErrorTypeToken ')' 
-	| '{' NoErrorTypeToken '}'
-;
+TypeTokenOrNoError returns TypeSet: TypeSetReference | NoErrorTypeSet;
+//returns TypeToken:
+//	TypeToken  
+//	| '{' NoErrorTypeToken '}'
+//;
 
 TypeTokenConstraint returns TypeSet:
 	TypeSetReference
@@ -274,14 +390,12 @@ ErrorSource returns ErrorSource:
   name=ID ':' 'error' 'source' (outgoing=[ErrorPropagation|ErrorPropagationPoint]
   	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
-  	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
+  	('when' (( failureModeReference = [ErrorBehaviorState|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
      ( 'if' condition=CONDITION)?
      ';'
   ;
- 
-ErrorBehaviorStateOrTypeSet: ErrorBehaviorState | TypeSetDefinition;
 
 ErrorSink returns ErrorSink:
   name=ID ':' 'error' 'sink' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
@@ -296,7 +410,7 @@ ErrorPath returns ErrorPath:
 
 // reference to error propagation  
 ErrorPropagationPoint :
-   PropagationKind | (ID  ('.' ID)*)
+   (ID ".")*(PropagationKind | ID  )
    ;
 
    
@@ -323,7 +437,7 @@ ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine:
   ( 'states' (states+=ErrorBehaviorState )+ )?
   ( 'transitions' (transitions+=ErrorBehaviorTransition )+ )?
     ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
+ 	(properties+=BasicEMV2PropertyAssociation )+)?
   'end' 'behavior' ';';
   
 ErrorBehaviorEvent returns ErrorBehaviorEvent: 
@@ -374,7 +488,7 @@ TransitionBranch returns TransitionBranch:
 ;
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 
-	{BranchValue}
+	{BranchValue} 
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
@@ -398,6 +512,11 @@ ConditionExpression returns ConditionExpression:
 
 AndExpression returns ConditionExpression:
   ConditionTerm ({AndExpression.operands+=current} 'and' operands+=ConditionTerm)*;
+
+AllExpression returns ConditionExpression:
+  {AllExpression} 'all' ( '-' count=INTVALUE)?'(' operands+=ConditionElement
+	            ( ',' operands+=ConditionElement)* ')' ;
+
   
 OrmoreExpression returns OrmoreExpression: 
 	count=INTVALUE 'ormore' '(' operands+=ConditionElement
@@ -413,13 +532,33 @@ ConditionTerm returns ConditionExpression:
 	  ConditionElement
       |  OrmoreExpression 
       |  OrlessExpression 
+      |  AllExpression
       | '(' ConditionExpression ')'
   ;
   
 ConditionElement returns ConditionElement:
-	// (subcomponents+=SubcomponentElement '.')* subcomponent element is captured by ErrorPropagationPoint as . path
-  incoming=[EventOrPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?
+  qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation ( constraint=TypeTokenConstraintNoError )?
   ;
+  
+//QualifiedErrorPropagation returns QualifiedErrorPropagation:
+//	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+//;
+//
+//NestedModelElement returns NestedModelElement:
+//	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
+//;
+	
+QualifiedErrorEventOrPropagation returns EMV2Path:
+ 	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath
+;
+
+EMV2ErrorPropagationPath returns EMV2PathElement:
+	( emv2PropagationKind=PropagationKind 
+	)
+	| (namedElement=[aadl2::NamedElement|ID]
+		('.' path=EMV2ErrorPropagationPath)?)
+;
+
 
 EventOrPropagation :
 	ErrorBehaviorEvent | ErrorPropagation
@@ -469,11 +608,11 @@ CompositeState returns CompositeState:
 // condition expressions for composite states
 // based on states only  
 SConditionExpression returns ConditionExpression:
-  SAndExpression ( {SOrExpression.operands+=current} 'or' operands+=SAndExpression)*;
+  SAndExpression ( {OrExpression.operands+=current} 'or' operands+=SAndExpression)*;
 
 
 SAndExpression returns ConditionExpression:
-  SConditionTerm ({SAndExpression.operands+=current} 'and' operands+=SConditionTerm)*;
+  SConditionTerm ({AndExpression.operands+=current} 'and' operands+=SConditionTerm)*;
   
 SOrmoreExpression returns OrmoreExpression: 
 	count=INTVALUE 'ormore' '(' operands+=SConditionElement
@@ -484,19 +623,30 @@ SOrlessExpression returns OrlessExpression:
 	count=INTVALUE 'orless' '(' operands+=SConditionElement
 	            ( ',' operands+=SConditionElement)* ')'
 ;
+
+SAllExpression returns ConditionExpression:
+  {AllExpression} 'all' ( '-' count=INTVALUE)? 
+  '(' operands+=SConditionElement ( ',' operands+=SConditionElement)* ')' ;
+
   
 SConditionTerm returns ConditionExpression:
 	  SConditionElement
       |  SOrmoreExpression 
       |  SOrlessExpression 
+      |  SAllExpression
       | '(' SConditionExpression ')'
   ;
 
+	
+QualifiedErrorPropagation returns EMV2Path:
+ 	{QualifiedErrorPropagation} emv2Target=EMV2ErrorPropagationPath
+;
   
 SConditionElement returns ConditionElement:
-	(qualifiedState=QualifiedErrorBehaviorState (constraint=TypeTokenConstraint)?)
+	{SConditionElement}((qualifiedState=QualifiedErrorBehaviorState (constraint=TypeTokenConstraint)?)
 	|
-  	'in' (incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
+  	'in' (qualifiedErrorPropagationReference=QualifiedErrorPropagation ( constraint=TypeTokenConstraintNoError )?)
+  	)
   ;
 
 QualifiedErrorBehaviorState:
@@ -506,6 +656,16 @@ QualifiedErrorBehaviorState:
 SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]
 ;
+
+// XXX new grammar rules for aligning state path with EMV2Path
+//NewQualifiedErrorBehaviorState returns EMV2Path:
+// 	{QualifiedErrorBehaviorState} emv2Target=EMV2ErrorStatePath
+//;
+//
+//EMV2ErrorStatePath returns EMV2PathElement:
+//	namedElement=[aadl2::NamedElement|ID]
+//		('.' path=EMV2ErrorStatePath)?
+//;
 
 
  CONDITION:
@@ -521,6 +681,6 @@ terminal INTEGER_LIT : ('0'..'9')+;
 
 
 QEMREF:
-	 (ID '::')* ID ;//('.' ID )?;
+	 ID ('::' ID)* ;//('.' ID )?;
 
 

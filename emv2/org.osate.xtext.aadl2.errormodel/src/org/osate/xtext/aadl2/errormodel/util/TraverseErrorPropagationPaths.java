@@ -43,7 +43,6 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -94,7 +93,7 @@ public class TraverseErrorPropagationPaths {
 		this.maxLevel = maxLevel;
 	}
 
-	public EList<ComponentInstance> getSubcomponents() {
+	public Collection<ComponentInstance> getSubcomponents() {
 		return faultModel.getSubcomponents();
 	}
 
@@ -157,7 +156,8 @@ public class TraverseErrorPropagationPaths {
 	 * traverse through the destination of the connection instance
 	 * @param conni
 	 */
-	protected void traverseErrorPaths(ComponentInstance ci, ErrorPropagation ep, int depth, TypeToken tt, Object param) {
+	protected void traverseErrorPaths(ComponentInstance ci, ErrorPropagation ep, int depth, TypeToken tt,
+			Object param) {
 		EList<PropagationPathRecord> paths = faultModel.getAllPropagationPaths(ci, ep);
 		if (paths.isEmpty()) {
 			processEnd(ci, ep, depth, tt, param);
@@ -197,14 +197,14 @@ public class TraverseErrorPropagationPaths {
 			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
 			if (!flowlist.isEmpty()) {
 				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(
-							inprop, ci)) {
+					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util
+							.getErrorPropagationFeature(inprop, ci)) {
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
 						if (outfi != null) {
 							ErrorPropagation outprop = EMV2Util.getOutgoingErrorPropagation(outfi);
 							Object newparam = processFlow(ci, inprop, outprop, tt, param);
-							traverseErrorPaths(ci, outprop, depth + 1,
-									EMV2Util.mapToken(tt, flowSpecificationInstance), newparam);
+							traverseErrorPaths(ci, outprop, depth + 1, EMV2Util.mapToken(tt, flowSpecificationInstance),
+									newparam);
 						}
 					}
 				}
@@ -228,24 +228,14 @@ public class TraverseErrorPropagationPaths {
 		if (ts == null) {
 			ep.getTypeSet();
 		}
-		ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-		ErrorBehaviorState failureMode = null;
-		if (fmr instanceof ErrorBehaviorState) {
-			// XXX TODO how about the other case
-			failureMode = (ErrorBehaviorState) fmr;
-		}
+		ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
 		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
 				EMV2Util.getUseTypes(errorSource));
 		return sourceTokenSet;
 	}
 
 	protected Object processSource(ComponentInstance ci, ErrorSource es, TypeToken tt, Object param) {
-		ErrorBehaviorStateOrTypeSet fmr = es.getFailureModeReference();
-		ErrorBehaviorState failureMode = null;
-		if (fmr instanceof ErrorBehaviorState) {
-			// XXX TODO how about the other case
-			failureMode = (ErrorBehaviorState) fmr;
-		}
+		ErrorBehaviorState failureMode = es.getFailureModeReference();
 		return param;
 	}
 

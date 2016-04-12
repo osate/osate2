@@ -5,6 +5,15 @@ import java.util.Collection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
+/**
+ * This class is used to track the error behavior state as well as the tokens associated with a component instance..
+ * We can record the current state and token.
+ * We also track a history of tokens, i.e., whether the token has been there before.
+ * This is useful for identifying cycles when performing impact analysis or other forms os simulated
+ * error propagation.
+ * @author phf
+ *
+ */
 public interface ErrorModelState {
 
 	/**

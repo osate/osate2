@@ -16,6 +16,5 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface ErrorTypes extends EObject, NamedElement
-{
+public interface ErrorTypes extends EObject, NamedElement {
 } // ErrorTypes

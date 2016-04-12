@@ -65,7 +65,7 @@ class PropertyReferenceTest extends OsateTest {
 					end component;
 					
 					properties
-						ps1::def1 => 0.8 applies to transition2;
+						ps1::def1 => 0.7 applies to transition2;
 				**};
 				end a;
 			end subclause1;
@@ -190,6 +190,7 @@ class PropertyReferenceTest extends OsateTest {
 			"Timing_Properties::Reference_Processor", "Timing_Properties::Scheduler_Quantum",
 			"Timing_Properties::Slot_Time", "Timing_Properties::Startup_Deadline",
 			"Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time"
+			, "Reference_Time","Timing_Properties::Reference_Time"
 		]
 		
 		val lib1TestResult = testFile(lib1FileName)

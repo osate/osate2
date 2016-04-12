@@ -16,27 +16,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  *
  * @generated
  */
-public class ConditionExpressionImpl extends ElementImpl implements ConditionExpression
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ConditionExpressionImpl()
-  {
-    super();
-  }
+public class ConditionExpressionImpl extends ElementImpl implements ConditionExpression {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConditionExpressionImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return ErrorModelPackage.Literals.CONDITION_EXPRESSION;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ErrorModelPackage.Literals.CONDITION_EXPRESSION;
+	}
 
-} //ConditionExpressionImpl
+} // ConditionExpressionImpl

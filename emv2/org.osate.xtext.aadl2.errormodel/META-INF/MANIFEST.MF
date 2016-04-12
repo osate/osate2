@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.8.0,2.9.0)";visibility:=ree
  org.antlr.runtime,
  org.eclipse.xtext.common.types;bundle-version="[2.8.0,2.9.0)",
  org.osate.aadl2,
- org.osate.xtext.aadl2.properties,
+ org.osate.xtext.aadl2.properties;visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="3.7.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.core;bundle-version="1.0.0",

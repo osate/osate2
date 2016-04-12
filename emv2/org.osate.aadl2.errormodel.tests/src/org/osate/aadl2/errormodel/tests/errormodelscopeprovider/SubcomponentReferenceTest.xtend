@@ -8,9 +8,9 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
@@ -145,7 +145,7 @@ class SubcomponentReferenceTest extends OsateTest {
 						"compositeState1".assertEquals(name)
 						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
 							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
@@ -156,7 +156,7 @@ class SubcomponentReferenceTest extends OsateTest {
 						"compositeState2".assertEquals(name)
 						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
 							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])
@@ -172,7 +172,7 @@ class SubcomponentReferenceTest extends OsateTest {
 						"compositeState3".assertEquals(name)
 						//Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub1"])
-						(condition as ConditionElement).qualifiedState => [
+						(condition as SConditionElement).qualifiedState => [
 							"asub1".assertEquals(subcomponent.subcomponent.name)
 							//Tests scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference)
 							assertScope(ErrorModelPackage.eINSTANCE.subcomponentElement_Subcomponent, #["asub2"])

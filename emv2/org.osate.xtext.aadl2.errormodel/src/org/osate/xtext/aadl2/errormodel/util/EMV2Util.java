@@ -1,29 +1,35 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -41,6 +47,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -48,6 +56,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -55,6 +64,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
@@ -62,8 +72,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -71,10 +80,19 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class EMV2Util {
 
 	public final static String ErrorModelAnnexName = "EMV2";
+
+	public static String getLibraryName(ErrorModelLibrary lib) {
+		AadlPackage root = EcoreUtil2.getContainerOfType(lib, AadlPackage.class);
+		if (root != null) {
+			return root.getName();
+		}
+		return lib.getName();
+	}
 
 	public static ErrorSource getErrorSource(ComponentInstance ci, ErrorPropagation ep) {
 		Collection<ErrorFlow> flows = getAllErrorFlows(ci);
@@ -95,7 +113,7 @@ public class EMV2Util {
 	 * @param cl classifier
 	 * @return ErrorModelSubclause
 	 */
-	private static void getClassifierEMV2Subclause(Classifier cl, EList<ErrorModelSubclause> result) {
+	private static void getClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) {
 			result.add(ems);
@@ -110,10 +128,10 @@ public class EMV2Util {
 	 * @param cl Component Implementation
 	 * @param result list of EMV2 subclauses
 	 */
-	private static void getAllClassifierEMV2Subclause(Classifier cl, EList<ErrorModelSubclause> result) {
+	private static void getAllClassifierEMV2Subclause(ComponentClassifier cl, EList<ErrorModelSubclause> result) {
 		if (!Aadl2Util.isNull(cl)) {
 			getClassifierEMV2Subclause(cl, result);
-			getAllClassifierEMV2Subclause(cl.getExtended(), result);
+			getAllClassifierEMV2Subclause((ComponentClassifier) cl.getExtended(), result);
 		}
 	}
 
@@ -123,36 +141,79 @@ public class EMV2Util {
 	 * @param element declarative model element or error annex element or instance object
 	 * @return ErrorModelSubclause
 	 */
-	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(EObject element) {
+	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
 		Classifier cl = null;
 		if (element instanceof InstanceObject) {
 			ComponentInstance ci = ((InstanceObject) element).getComponentInstance();
 			cl = ci.getComponentClassifier();
 		} else if (element != null) {
-			cl = AadlUtil.getContainingClassifier(element);
+			cl = getAssociatedClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
-		if (cl == null)
+		if (cl == null) {
+			ErrorModelSubclause localemsc = getContainingErrorModelSubclause(element);
+			if (localemsc != null)
+				result.add(localemsc);
 			return result;
+		}
 		if (cl instanceof ComponentImplementation) {
-			getAllClassifierEMV2Subclause(cl, result);
+			getAllClassifierEMV2Subclause((ComponentImplementation) cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
-		} else {
-			getAllClassifierEMV2Subclause(cl, result);
+		} else if (cl instanceof ComponentType) {
+			getAllClassifierEMV2Subclause((ComponentType) cl, result);
 		}
 		return result;
 	}
 
 	/**
+	 * return the component classifier that this subclause element belongs to.
+	 * The subclause can be embedded or separate.
+	 * @param an EObject in a EMV2 subclause
+	 * @return ComponentClassifier
+	 */
+	public static ComponentClassifier getAssociatedClassifier(Element emv2Element) {
+
+		ComponentClassifier cl = (ComponentClassifier) emv2Element.getContainingClassifier();
+		if (cl != null)
+			return cl;
+		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
+		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2"))
+			return null;
+		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
+				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
+	}
+
+	/**
+	 * get the separately stored EMV2 subclause, which is assumed to have the name of the classifier
+	 * @param cl Component Classifier
+	 * @return ErrorModelSubclause
+	 */
+	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
+		return (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(cl,
+				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), cl.getQualifiedName());
+	}
+
+	/**
 	 * get the error model subclause for the specified classifier.
+	 * Do it for the separately stored first, if not found then embedded subclause
 	 * Does not look in the extends hierarchy
 	 * @param cl CLassifier
 	 * @return
 	 */
-	public static ErrorModelSubclause getOwnEMV2Subclause(Classifier cl) {
+	public static ErrorModelSubclause getOwnEMV2Subclause(ComponentClassifier cl) {
 		if (cl == null) {
 			return null;
 		}
+		// separately stored EMV2 subclause
+		ErrorModelSubclause emsc = getAssociatedEMV2Subclause(cl);
+		if (emsc != null)
+			return emsc;
+		// embedded EMV2 subclause
+		return getEmbeddedEMV2Subclause(cl);
+	}
+
+	public static ErrorModelSubclause getEmbeddedEMV2Subclause(ComponentClassifier cl) {
+		// embedded EMV2 subclause
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl) {
 			AnnexSubclause actal = ((DefaultAnnexSubclause) al).getParsedAnnexSubclause();
@@ -161,6 +222,7 @@ public class EMV2Util {
 			}
 		}
 		return null;
+
 	}
 
 	/**
@@ -170,7 +232,7 @@ public class EMV2Util {
 	 * @param cl
 	 * @return
 	 */
-	public static ErrorModelSubclause getExtendsEMV2Subclause(Classifier cl) {
+	public static ErrorModelSubclause getExtendsEMV2Subclause(ComponentClassifier cl) {
 		if (cl == null) {
 			return null;
 		}
@@ -179,7 +241,7 @@ public class EMV2Util {
 			return ems;
 		}
 		if (!Aadl2Util.isNull(cl.getExtended())) {
-			ems = getExtendsEMV2Subclause(cl.getExtended());
+			ems = getExtendsEMV2Subclause((ComponentClassifier) cl.getExtended());
 			if (ems != null) {
 				return ems;
 			}
@@ -202,38 +264,23 @@ public class EMV2Util {
 
 	/**
 	 * Check to see if all NamedElements in the Elist have a unique name.
+	 * Do not account for Error Propagations. They are checked separately.
 	 * this method handles error propagations as well, using their printname.
 	 *
 	 * list can contain object that are not NamedElements.
 	 * @param el EList or NamedElements or other objects
 	 * @return EList of NameElements that are defining a previously defined name
 	 */
-	public static EList<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
-		EList<NamedElement> result = new BasicEList<NamedElement>();
+	public static List<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
+		List<NamedElement> result = new ArrayList<NamedElement>();
 		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
 			for (final Iterator i = el.iterator(); i.hasNext();) {
 				final Object obj = i.next();
-				if (obj instanceof NamedElement) {
+				if (obj instanceof NamedElement && !(obj instanceof ErrorPropagation)) {
 					final NamedElement lit = (NamedElement) obj;
 					String name = lit.getName();
-
-					/**
-					 * Comment code - JD
-					 */
-					if (obj instanceof ErrorPropagation && !((ErrorPropagation) obj).isNot()) {
-						name = getPrintName((ErrorPropagation) obj);
-					}
-
-					/**
-					 * FIXME-JD
-					 * Does not try to find duplicates for error propagation
-					 */
-					if (obj instanceof ErrorPropagation) {
-						continue;
-					}
-
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
 						if (!seen.add(name)) {
@@ -265,6 +312,32 @@ public class EMV2Util {
 		return null;
 	}
 
+	public static String getPath(FeatureorPPReference ref) {
+		if (ref == null)
+			return "";
+		if (ref.getNext() != null) {
+			return ref.getFeatureorPP().getName() + "." + getPath(ref.getNext());
+		} else {
+			return ref.getFeatureorPP().getName();
+		}
+	}
+
+	/**
+	 * Find error propagation in classifier hierarchy
+	 * name can be a dotted name
+	 * @param elem the context whose containing classifier is searched hierarchically to find the error propagation
+	 * @param name
+	 * @param dir
+	 * @return
+	 */
+	public static ErrorPropagation findErrorContainment(Element elem, String name, DirectionType dir) {
+		Classifier cl = getAssociatedClassifier(elem);
+		if (cl != null) {
+			return findErrorContainment(cl, name, dir);
+		}
+		return null;
+	}
+
 	/**
 	 * Find error propagation  starting with the specified classifier
 	 * goes up the inheritance hierarchy
@@ -280,23 +353,15 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-					if (!refs.isEmpty()) {
-						String refname = "";
-						for (FeatureorPPReference FeatureorPPReference : refs) {
-							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-								return null;
-							}
-							refname = refname + (refname.isEmpty() ? "" : ".")
-									+ FeatureorPPReference.getFeatureorPP().getName();
+					if (ep.getKind() != null) {
+						if (ep.getKind().equalsIgnoreCase(name)) {
+							return ep;
 						}
+					} else {
+						String refname = EMV2Util.getPath(ep.getFeatureorPPRef());
 						if (refname.equalsIgnoreCase(name)) {
 							return ep;
 						}
-					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name) && (dir == null || dir.equals(ep.getDirection()))) {
-						return ep;
 					}
 				}
 			}
@@ -305,9 +370,10 @@ public class EMV2Util {
 	}
 
 	public static ErrorPropagation findSubcomponentOrIncomingErrorProparation(Element elem, String name) {
-		Classifier cl = elem.getContainingClassifier();
-		if (cl == null)
+		Classifier cl = getAssociatedClassifier(elem);
+		if (cl == null) {
 			return null;
+		}
 		EList<Subcomponent> subs;
 		int idx = name.indexOf('.');
 		boolean foundSub = false;
@@ -345,7 +411,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorPropagation findErrorPropagation(Element elem, String name, DirectionType dir) {
-		Classifier cl = elem.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(elem);
 		if (cl != null) {
 			return findErrorPropagation(cl, name, dir);
 		}
@@ -366,23 +432,15 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (!ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-					if (!refs.isEmpty()) {
-						String refname = "";
-						for (FeatureorPPReference FeatureorPPReference : refs) {
-							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-								return null;
-							}
-							refname = refname + (refname.isEmpty() ? "" : ".")
-									+ FeatureorPPReference.getFeatureorPP().getName();
-						}
-						if (refname.equalsIgnoreCase(name)) {
+					if (ep.getKind() != null) {
+						if (ep.getKind().equalsIgnoreCase(name)) {
 							return ep;
 						}
-					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name) && (dir == null || dir.equals(ep.getDirection()))) {
-						return ep;
+					} else {
+						String refname = EMV2Util.getPath(ep.getFeatureorPPRef());
+						if (refname != null && name.equalsIgnoreCase(refname)) {
+							return ep;
+						}
 					}
 				}
 			}
@@ -564,7 +622,7 @@ public class EMV2Util {
 	 * @return ErrorFlow
 	 */
 	public static ErrorFlow findErrorFlow(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
 			Collection<ErrorFlow> eflist = getAllErrorFlows(cl);
 			return (ErrorFlow) AadlUtil.findNamedElementInList(eflist, name);
@@ -580,7 +638,7 @@ public class EMV2Util {
 	 * ConnectionErrorSource by the specified name was found
 	 */
 	public static ConnectionErrorSource findConnectionErrorSource(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
 			Collection<ConnectionErrorSource> ceslist = getAllConnectionErrorSources(cl);
 			return (ConnectionErrorSource) AadlUtil.findNamedElementInList(ceslist, name);
@@ -589,24 +647,47 @@ public class EMV2Util {
 	}
 
 	/**
-	 * Find ErrorType with given name by looking through all error types 
+	 * Find ErrorType with given name by looking through all error types
 	 * referenced in all EMV2 subclauses of the supplied element's containing
-	 * classifier 
+	 * classifier
 	 * @param el the element whose classifier we're using
 	 * @param name the name of the Errortype to search for
 	 * @return the specified error type, or null, if either the element's classifier is null or no
 	 * ErrorType by the specified name was found
 	 */
 	public static ErrorType findErrorType(Element el, String name) {
-		Classifier cl = el.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(el);
 		if (cl != null) {
-			for(ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl))
-				for(ErrorModelLibrary currLibrary : currSubclause.getUseTypes())
+			for (ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl)) {
+				for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
 					return (ErrorType) AadlUtil.findNamedElementInList(currLibrary.getTypes(), name);
+				}
+			}
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Find ErrorType set with given name by looking through all error types
+	 * referenced in all EMV2 subclauses of the supplied element's containing
+	 * classifier
+	 * @param el the element whose classifier we're using
+	 * @param name the name of the ErrorTypeSet to search for
+	 * @return the specified error type set, or null, if either the element's classifier is null or no
+	 * ErrorType by the specified name was found
+	 */
+	public static TypeSet findErrorTypeSet(Element el, String name) {
+		Classifier cl = getAssociatedClassifier(el);
+		if (cl != null) {
+			for (ErrorModelSubclause currSubclause : getAllContainingClassifierEMV2Subclauses(cl)) {
+				for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
+					return (TypeSet) AadlUtil.findNamedElementInList(currLibrary.getTypesets(), name);
+				}
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * find the error flow whose incoming error propagation point is flowSource
 	 * @param eps List of error propagations
@@ -633,23 +714,10 @@ public class EMV2Util {
 	}
 
 	public static boolean areEquivalent(ErrorPropagation ep1, ErrorPropagation ep2) {
-		boolean result = true;
-
-		for (FeatureorPPReference fr1 : getFeatureorPPRefs(ep1)) {
-			boolean found = false;
-			for (FeatureorPPReference fr2 : getFeatureorPPRefs(ep2)) {
-				if (fr1.getFeatureorPP() == fr2.getFeatureorPP()) {
-					if (EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
-							&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet())) {
-						found = true;
-					}
-				}
-			}
-			if (found == false) {
-				result = false;
-			}
-		}
-		return result;
+		String path1 = getPath(ep1.getFeatureorPPRef());
+		String path2 = getPath(ep2.getFeatureorPPRef());
+		return path1.equalsIgnoreCase(path2) && EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
+				&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet());
 	}
 
 	/**
@@ -666,8 +734,9 @@ public class EMV2Util {
 		boolean result = false;
 		if (conditionExpression instanceof ConditionElement) {
 			ConditionElement ce = (ConditionElement) conditionExpression;
-			if (ce.getIncoming() instanceof ErrorPropagation) {
-				if (areEquivalent((ErrorPropagation) ce.getIncoming(), errorPropagation)) {
+			NamedElement eop = getErrorModelElement(ce);
+			if (eop instanceof ErrorPropagation) {
+				if (areEquivalent((ErrorPropagation) eop, errorPropagation)) {
 					return true;
 				}
 			}
@@ -801,7 +870,7 @@ public class EMV2Util {
 			eplist = new BasicEList<ErrorPropagation>();
 			eplist.add(errorSource.getOutgoing());
 		} else if (errorSource.isAllOutgoing()) {
-			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorSource.getContainingClassifier());
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(getAssociatedClassifier(errorSource));
 		}
 		return eplist;
 	}
@@ -812,7 +881,7 @@ public class EMV2Util {
 			eplist = new BasicEList<ErrorPropagation>();
 			eplist.add(errorPath.getOutgoing());
 		} else if (errorPath.isAllOutgoing()) {
-			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorPath.getContainingClassifier());
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(getAssociatedClassifier(errorPath));
 		}
 		return eplist;
 	}
@@ -913,7 +982,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorBehaviorTransition findErrorBehaviorTransition(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl != null) {
 			// we are not in an error library
 			ErrorBehaviorTransition ebt = findErrorBehaviorTransitioninCEB(cl, name);
@@ -952,7 +1021,8 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	private static ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name) {
+	private static ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm,
+			String name) {
 		if (ebsm != null) {
 			EList<ErrorBehaviorTransition> ebsl = ebsm.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl) {
@@ -1022,7 +1092,7 @@ public class EMV2Util {
 
 	/**
 	 * find the error behavior event in the component error behavior looking in all inherited subclauses according to extends and type of implementation
-	 * @param cl
+	 * @param cl ComponentClassifier (May be null)
 	 * @param name
 	 * @return
 	 */
@@ -1048,7 +1118,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorBehaviorEvent findErrorBehaviorEvent(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		// we are not in an error library
 		ErrorBehaviorEvent ebt = findErrorBehaviorEventinCEB(cl, name);
 		if (ebt != null) {
@@ -1102,7 +1172,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorDetection findErrorDetection(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
@@ -1122,7 +1192,8 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems, String name) {
+	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems,
+			String name) {
 		if (ems == null) {
 			return null;
 		}
@@ -1143,7 +1214,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name) {
-		Classifier cl = context.getContainingClassifier();
+		Classifier cl = getAssociatedClassifier(context);
 		if (cl == null) {
 			return null;
 		}
@@ -1221,6 +1292,40 @@ public class EMV2Util {
 		return result.values();
 	}
 
+	/**
+	 * determine if two propagations match by name.
+	 * This is useful when we have inherited error propagations and one reference points
+	 * to the original and the second one to the one overriding the original.
+	 * @param ep1
+	 * @param ep2
+	 * @return
+	 */
+	public static boolean isSame(ErrorPropagation ep1, ErrorPropagation ep2) {
+		return (getPropagationName(ep1).equalsIgnoreCase(getPropagationName(ep2)));
+
+	}
+
+	/**
+	 * compare NamedElements by name.
+	 * Useful when dealing with inheritence.
+	 * @param errorModelElement1
+	 * @param errorModelElement2
+	 * @return
+	 */
+	public static boolean isSame(NamedElement errorModelElement1, NamedElement errorModelElement2) {
+		if (errorModelElement1 instanceof ErrorPropagation && errorModelElement2 instanceof ErrorPropagation) {
+			return isSame((ErrorPropagation) errorModelElement1, (ErrorPropagation) errorModelElement2);
+		}
+		return (errorModelElement1.getName().equalsIgnoreCase(errorModelElement2.getName()));
+	}
+
+	/**
+	 * Determine if the two expressions are the same.
+	 * Compare operators and compare referenced elements by pathname
+	 * @param ce1
+	 * @param ce2
+	 * @return
+	 */
 	public static boolean isEqual(ConditionExpression ce1, ConditionExpression ce2) {
 		if ((ce1 == null) && (ce2 == null)) {
 			return true;
@@ -1244,10 +1349,13 @@ public class EMV2Util {
 		// SOrExpression
 		// SAndExpression
 		// OrmoreExpression
+		// They are the same class, so we test for only one being a certain class
 		if (ce1 instanceof ConditionElement) {
 			ConditionElement element1 = (ConditionElement) ce1;
 			ConditionElement element2 = (ConditionElement) ce2;
-			return (element1.getIncoming() == element2.getIncoming());
+			return (getPathNameWithoutType(element1.getQualifiedErrorPropagationReference().getEmv2Target())
+					.equalsIgnoreCase(
+							getPathNameWithoutType(element2.getQualifiedErrorPropagationReference().getEmv2Target())));
 		}
 
 		if (ce1 instanceof AndExpression) {
@@ -1279,37 +1387,6 @@ public class EMV2Util {
 			}
 			return true;
 		}
-
-		if (ce1 instanceof SAndExpression) {
-			SAndExpression expr1 = (SAndExpression) ce1;
-			SAndExpression expr2 = (SAndExpression) ce2;
-			if (expr1.getOperands().size() != expr2.getOperands().size()) {
-				return false;
-			}
-
-			for (int i = 0; i < expr1.getOperands().size(); i++) {
-				if (!isEqual(expr1.getOperands().get(i), expr2.getOperands().get(i))) {
-					return false;
-				}
-			}
-			return true;
-		}
-
-		if (ce1 instanceof SOrExpression) {
-			SOrExpression expr1 = (SOrExpression) ce1;
-			SOrExpression expr2 = (SOrExpression) ce2;
-			if (expr1.getOperands().size() != expr2.getOperands().size()) {
-				return false;
-			}
-
-			for (int i = 0; i < expr1.getOperands().size(); i++) {
-				if (!isEqual(expr1.getOperands().get(i), expr2.getOperands().get(i))) {
-					return false;
-				}
-			}
-			return true;
-		}
-
 		OsateDebug.osateDebug("[EMV2Util] isEqual does not handled this class type " + ce1 + "|" + ce2);
 		return false;
 	}
@@ -1380,6 +1457,35 @@ public class EMV2Util {
 		return result.values();
 	}
 
+	public static Collection<ErrorSource> getAllErrorSources(ComponentInstance ci) {
+		return getAllErrorSources(ci.getComponentClassifier());
+	}
+
+	/**
+	 * return list of error paths including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorSource> list of error paths declared in the flow section
+	 */
+	public static Collection<ErrorPath> getAllErrorPaths(Classifier cl) {
+		HashMap<String, ErrorPath> result = new HashMap<String, ErrorPath>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			EList<ErrorFlow> eflist = errorModelSubclause.getFlows();
+			for (ErrorFlow errorFlow : eflist) {
+				if (errorFlow instanceof ErrorPath) {
+					if (!result.containsKey(errorFlow.getName())) {
+						result.put(errorFlow.getName(), (ErrorPath) errorFlow);
+					}
+				}
+			}
+		}
+		return result.values();
+	}
+
+	public static Collection<ErrorPath> getAllErrorPaths(ComponentInstance ci) {
+		return getAllErrorPaths(ci.getComponentClassifier());
+	}
+
 	/**
 	 * return list of error sinks including those inherited from classifiers being extended
 	 * @param cl Classifier
@@ -1403,6 +1509,15 @@ public class EMV2Util {
 
 	public static Collection<ErrorSink> getAllErrorSinks(ComponentInstance ci) {
 		return getAllErrorSinks(ci.getComponentClassifier());
+	}
+
+	/** return the name for an error propagation **/
+	public static String getPropagationName(ErrorPropagation propagation) {
+		String res = propagation.getKind();
+		if (res != null) {
+			return res;
+		}
+		return getPath(propagation.getFeatureorPPRef());
 	}
 
 	/**
@@ -1567,8 +1682,9 @@ public class EMV2Util {
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
 
 		BasicEList<ErrorBehaviorTransition> result = new BasicEList<ErrorBehaviorTransition>();
-		if (cl == null)
+		if (cl == null) {
 			return result;
+		}
 		result.addAll(res);
 		result.addAll(unlist);
 		return result;
@@ -1586,14 +1702,14 @@ public class EMV2Util {
 			propagations.add(element);
 		}
 
-		if (ce instanceof SAndExpression) {
-			SAndExpression and = (SAndExpression) ce;
+		if (ce instanceof AndExpression) {
+			AndExpression and = (AndExpression) ce;
 			for (ConditionExpression foobar : and.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
 		}
-		if (ce instanceof SOrExpression) {
-			SOrExpression or = (SOrExpression) ce;
+		if (ce instanceof OrExpression) {
+			OrExpression or = (OrExpression) ce;
 			for (ConditionExpression foobar : or.getOperands()) {
 				getAllConditionElementsFromConditionExpression(propagations, foobar);
 			}
@@ -1867,19 +1983,33 @@ public class EMV2Util {
 	}
 
 	/**
+	 * get the enclosing error model subclause.
+	 * Returns null if the element is not in a error model subclause
+	 * @param element
+	 * @return ErrorModelSubclause or null
+	 */
+	public static ErrorModelSubclause getContainingErrorModelSubclause(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof ErrorModelSubclause)) {
+			container = container.eContainer();
+		}
+		return (ErrorModelSubclause) container;
+	}
+
+	/**
 	 * return the feature the error propagation is pointing to or null
 	 * @param ep
 	 * @return Feature
 	 */
 	public static Feature getFeature(ErrorPropagation ep) {
-		EList<FeatureorPPReference> freflist = getFeatureorPPRefs(ep);
-		if (!freflist.isEmpty()) {
-			FeatureorPPReference fref = freflist.get(freflist.size() - 1);
-			NamedElement f = fref.getFeatureorPP();
-			if (f instanceof Feature) {
-				return (Feature) f;
-			}
+		FeatureorPPReference forppref = ep.getFeatureorPPRef();
+		if (forppref == null)
+			return null;
+		while (forppref.getNext() != null) {
+			forppref = forppref.getNext();
 		}
+		if (forppref.getFeatureorPP() instanceof Feature)
+			return (Feature) forppref.getFeatureorPP();
 		return null;
 	}
 
@@ -1890,7 +2020,7 @@ public class EMV2Util {
 	 */
 	public static boolean isAccess(ErrorPropagation ep) {
 		String s = ep.getKind();
-		return s.equalsIgnoreCase("access");
+		return (s != null) && (s.equalsIgnoreCase("access"));
 	}
 
 	/**
@@ -1900,19 +2030,23 @@ public class EMV2Util {
 	 */
 	public static boolean isBinding(ErrorPropagation ep) {
 		String s = ep.getKind();
-		return s.equalsIgnoreCase("binding");
+		return (s != null) && (s.equalsIgnoreCase("bindings"));
 	}
 
 	public static String getPrintName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getPrintName(ep);
+		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getPrintName(ts);
+		}
 		if (el instanceof NamedElement) {
 			NamedElement ne = (NamedElement) el;
 			if (ne.getName() != null) {
 				return ne.getName();
 			}
-		}
-		if (el instanceof ErrorPropagation) {
-			ErrorPropagation ep = (ErrorPropagation) el;
-			return getPrintName(ep);
 		}
 		return "";
 	}
@@ -1923,26 +2057,309 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-		String refname = "";
-		if (refs.isEmpty()) {
-			if (ep.getKind() != null) {
-				return ep.getKind();
-			}
+		return getPropagationName(ep);
+	}
+
+	public static String getPrintNameWithoutType(EMV2Path ep) {
+		if (ep == null)
+			return "";
+		EMV2PathElement epe = ep.getEmv2Target();
+		if (epe == null)
+			return "";
+		ContainmentPathElement cpe = ep.getContainmentPath();
+		String prefix;
+		if (cpe == null) {
+			prefix = "";
 		} else {
-			for (FeatureorPPReference FeatureorPPReference : refs) {
-				if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) {
-					return null;
-				}
-				refname = refname + (refname.isEmpty() ? "" : ".") + FeatureorPPReference.getFeatureorPP().getName();
+			prefix = "^" + cpe.getNamedElement().getName();
+		}
+		while (cpe.getPath() != null) {
+			cpe = cpe.getPath();
+			prefix = prefix + "." + cpe.getNamedElement().getName();
+		}
+		if (!prefix.isEmpty()) {
+			prefix = prefix + '@';
+		}
+		if (epe.getEmv2PropagationKind() != null) {
+			return prefix + epe.getEmv2PropagationKind();
+		} else {
+			return getPathNameWithoutType(epe);
+		}
+	}
+
+	public static String getPrintName(EMV2Path ep) {
+		if (ep == null)
+			return "";
+		EMV2PathElement epe = ep.getEmv2Target();
+		if (epe == null)
+			return "";
+		ContainmentPathElement cpe = ep.getContainmentPath();
+		String prefix;
+		if (cpe == null) {
+			prefix = "";
+		} else {
+			prefix = "^" + cpe.getNamedElement().getName();
+		}
+		while (cpe.getPath() != null) {
+			cpe = cpe.getPath();
+			prefix = prefix + "." + cpe.getNamedElement().getName();
+		}
+		if (!prefix.isEmpty()) {
+			prefix = prefix + '@';
+		}
+		if (epe.getEmv2PropagationKind() != null) {
+			return prefix + epe.getEmv2PropagationKind()
+					+ (epe.getErrorType() != null ? "." + epe.getErrorType().getName() : "");
+		} else {
+			return getPathName(epe);
+		}
+	}
+
+	/**
+	 * **********************************
+	 * methods for retrieving elements in an EMV2Path
+	 */
+
+	/**
+	 * This method returns the error type if referenced in the containment path
+	 * This applies only to paths in EMV2PropertionAssociation
+	 * In ConditionElement the type or type set is 
+	 * @param ep
+	 * @return
+	 */
+	public static ErrorTypes getErrorType(EMV2Path ep) {
+		EMV2PathElement last = getLast(ep.getEmv2Target());
+		if (last.getNamedElement() instanceof ErrorTypes) {
+			return (ErrorTypes) last.getNamedElement();
+		}
+		return null;
+	}
+
+	/**
+	 * Get the error model element pointed to by the EMV2Path.
+	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
+	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
+	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * @param ce ConditionElement
+	 * @return NamedElement
+	 */
+	public static NamedElement getErrorModelElement(ConditionElement ce) {
+		return getErrorModelElement(ce.getQualifiedErrorPropagationReference());
+	}
+
+	/**
+	 * get the error propagation pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param ce ConditionElement
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation getErrorPropagation(SConditionElement ce) {
+		return getErrorPropagation(ce.getQualifiedErrorPropagationReference());
+	}
+
+	/**
+	 * get the error propagation or error behavior event pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param ce ConditionElement
+	 * @return EventOrPropagation
+	 */
+	public static EventOrPropagation getErrorEventOrPropagation(ConditionElement ce) {
+		return getErrorEventOrPropagation(ce.getQualifiedErrorPropagationReference());
+	}
+
+	/**
+	 * get the error propagation pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param epath EMV2Path
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation getErrorPropagation(EMV2Path epath) {
+		NamedElement res = getErrorModelElement(epath);
+		if (res instanceof ErrorPropagation)
+			return (ErrorPropagation) res;
+		return null;
+	}
+
+	/**
+	 * get the error propagation or error behavior event pointed to by the EMV2Path or null if not an error propagation.
+	 * This method calls getErrorModelElement
+	 * @param epath EMV2Path
+	 * @return EventOrPropagation
+	 */
+	public static EventOrPropagation getErrorEventOrPropagation(EMV2Path epath) {
+		if (epath == null)
+			return null;
+		NamedElement res = getErrorModelElement(epath);
+		if (res instanceof ErrorPropagation || res instanceof ErrorBehaviorEvent)
+			return (EventOrPropagation) res;
+		return null;
+	}
+
+	/**
+	 * Get the error model element pointed to by the EMV2Path.
+	 * An error model element can be ErrorSource, ErrorSink, ErrorPath, ErrorPropagaiton, ErrorState,
+	 * ErrorBehaviorEvent (ErrorEvent, RecoverEvent, RepairEvent), ErrorBehaviorTransition
+	 * This works for condition elements (ConditionElement, SConditionElement) 
+	 * @param epath EMV2Path
+	 * @return NamedElement
+	 */
+	public static NamedElement getErrorModelElement(EMV2Path epath) {
+		if (epath == null)
+			return null;
+		EMV2PathElement target = getLast(epath.getEmv2Target());
+		if (target.getNamedElement() instanceof ErrorTypes) {
+			EObject prev = target.eContainer();
+			if (prev instanceof EMV2PathElement) {
+				target = (EMV2PathElement) prev;
+			} else {
+				return null;
 			}
 		}
-		return refname;
+		NamedElement prop = target.getNamedElement();
+		if (prop != null) {
+			return prop;
+		}
+		String kind = target.getEmv2PropagationKind();
+		ComponentClassifier cxtcl = EMV2Util.getAssociatedClassifier(epath);
+		if (target.eContainer() instanceof EMV2PathElement) {
+			// should be a subcomponent reference
+			NamedElement cxt = ((EMV2PathElement) target.eContainer()).getNamedElement();
+			if (cxt instanceof Subcomponent) {
+				cxtcl = ((Subcomponent) cxt).getAllClassifier();
+			}
+		} else {
+			if (epath.getContainmentPath() != null) {
+				ContainmentPathElement last = getLast(epath.getContainmentPath());
+				if (last.getNamedElement() instanceof Subcomponent) {
+					cxtcl = ((Subcomponent) last.getNamedElement()).getAllClassifier();
+				}
+			}
+		}
+		ErrorPropagation ep = findErrorPropagation(cxtcl, kind, DirectionType.IN);
+		if (ep == null) {
+			ep = findErrorPropagation(cxtcl, kind, DirectionType.OUT);
+		}
+		return ep;
+	}
+
+	public static EMV2PathElement getLast(EMV2PathElement ep) {
+		EMV2PathElement result = ep;
+		while (result.getPath() != null) {
+			result = result.getPath();
+		}
+		return result;
+	}
+
+	/**
+	 * return the last subcomponent in the EMV2Path
+	 * @param epath EMV2Path
+	 * @return Subcomponent
+	 */
+	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath.getContainmentPath() != null) {
+			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
+			ContainmentPathElement last = getLast(epath.getContainmentPath());
+			if (last.getNamedElement() instanceof Subcomponent) {
+				return (Subcomponent) last.getNamedElement();
+			}
+			return null;
+		}
+		EMV2PathElement epe = epath.getEmv2Target();
+		Subcomponent result = null;
+		while (epe != null) {
+			if (epe.getNamedElement() instanceof Subcomponent) {
+				result = (Subcomponent) epe.getNamedElement();
+			}
+			epe = epe.getPath();
+		}
+		return result;
+	}
+
+	/**
+	 * get the last component instance in the epath relative to the component instance root
+	 * Returns root if the path does not include subcomponents.
+	 * Returns null if the component instance is not found, i.e., the path subcomponent references cannot be found in the
+	 * component instance hierarchy.
+	 * @param epath EMV2Path that includes EMV2PathElements pointing to subcomponents.
+	 * @param root ComponentInstance that is the root of the subcomponent section of the path
+	 * @return ComponentInstance
+	 */
+	public static ComponentInstance getLastComponentInstance(EMV2Path epath, ComponentInstance root) {
+		ComponentInstance result = root;
+		if (epath.getContainmentPath() != null) {
+			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
+			ContainmentPathElement ce = epath.getContainmentPath();
+			while (ce != null && result != null) {
+				if (ce.getNamedElement() instanceof Subcomponent) {
+					Subcomponent sub = (Subcomponent) ce.getNamedElement();
+					result = result.findSubcomponentInstance(sub);
+				}
+				ce = ce.getPath();
+			}
+			return result;
+		}
+		EMV2PathElement epe = epath.getEmv2Target();
+		while (epe != null && result != null) {
+			if (epe.getNamedElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) epe.getNamedElement();
+				result = result.findSubcomponentInstance(sub);
+			}
+			epe = epe.getPath();
+		}
+		return result;
+	}
+
+	public static ComponentInstance getLastComponentInstance(QualifiedErrorBehaviorState qs, ComponentInstance root) {
+		ComponentInstance referencedInstance;
+		referencedInstance = root;
+		while (qs != null && referencedInstance != null) {
+			referencedInstance = referencedInstance.findSubcomponentInstance(qs.getSubcomponent().getSubcomponent());
+			qs = qs.getNext();
+		}
+		return referencedInstance;
+	}
+
+	public static ContainmentPathElement getLast(ContainmentPathElement ep) {
+		if (ep == null)
+			return null;
+		ContainmentPathElement result = ep;
+		while (result.getPath() != null) {
+			result = result.getPath();
+		}
+		return result;
+	}
+
+	public static String getPathNameWithoutType(EMV2PathElement ep) {
+		if (ep == null || ep.getNamedElement() instanceof ErrorTypes)
+			return "";
+		String path = getPathNameWithoutType(ep.getPath());
+		String myname = getPrintName(ep.getNamedElement());
+		if (myname == null)
+			return path;
+		if (!path.isEmpty()) {
+			return myname + "." + path;
+		} else {
+			return myname;
+		}
+	}
+
+	public static String getPathName(EMV2PathElement ep) {
+		if (ep == null)
+			return "";
+		String path = getPathName(ep.getPath());
+		String myname = getPrintName(ep.getNamedElement());
+		if (myname == null)
+			return path;
+		if (!path.isEmpty()) {
+			return myname + "." + path;
+		} else {
+			return myname;
+		}
 	}
 
 	public static String getPrintName(TypeSet ts) {
 		if (ts == null) {
-			return "<allTypes>";
+			return "";
 		}
 		EList<TypeToken> tel = ts.getTypeTokens();
 		return getPrintName(tel);
@@ -2011,8 +2428,13 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(et)) {
 			return null;
 		}
+		HashSet<ErrorType> result = new HashSet<ErrorType>();
 		while (!Aadl2Util.isNull(et.getAliasedType())) {
+			result.add(et);
 			et = et.getAliasedType();
+			if (result.contains(et)) {
+				return et;
+			}
 		}
 		return et;
 	}
@@ -2026,8 +2448,13 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(typeset)) {
 			return null;
 		}
+		HashSet<TypeSet> result = new HashSet<TypeSet>();
 		while (!Aadl2Util.isNull(typeset.getAliasedType())) {
+			result.add(typeset);
 			typeset = typeset.getAliasedType();
+			if (result.contains(typeset)) {
+				return typeset;
+			}
 		}
 		return typeset;
 	}
@@ -2065,7 +2492,7 @@ public class EMV2Util {
 		} else if (path instanceof ErrorPath) {
 			ErrorPath epath = (ErrorPath) path;
 			// map the token
-			TypeToken ttup = epath.getTargetToken();
+			TypeSet ttup = epath.getTargetToken();
 			if (ttup == null) {
 				// map token via tms
 				TypeMappingSet tms = getUseMappings(epath);
@@ -2073,7 +2500,7 @@ public class EMV2Util {
 					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
 				}
 			} else {
-				result = ttup;
+				result = ttup.getTypeTokens().get(0);
 			}
 		} else if (path instanceof FlowSpecificationInstance) {
 			// pass on source token
@@ -2108,10 +2535,12 @@ public class EMV2Util {
 	 * @param context Type use context
 	 * @return EList<ErrorModelLibrary>
 	 */
-	public static EList<ErrorModelLibrary> getUseTypes(EObject context) {
+	public static EList<ErrorModelLibrary> getUseTypes(Element context) {
 		EObject useTypesContainer = context;
-		while (!(useTypesContainer instanceof ErrorModelLibrary || useTypesContainer instanceof ErrorModelSubclause
-				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet || useTypesContainer instanceof ErrorBehaviorStateMachine)) {
+		while (useTypesContainer != null && !(useTypesContainer instanceof ErrorModelLibrary
+				|| useTypesContainer instanceof ErrorModelSubclause
+				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet
+				|| useTypesContainer instanceof ErrorBehaviorStateMachine)) {
 			useTypesContainer = useTypesContainer.eContainer();
 		}
 		if (useTypesContainer instanceof ErrorModelSubclause) {
@@ -2291,6 +2720,21 @@ public class EMV2Util {
 		return false;
 	}
 
+	public static boolean hasOutgoingPropagationCondition(ComponentInstance ci) {
+		return hasOutgoingPropagationCondition(ci.getComponentClassifier());
+	}
+
+	public static boolean hasOutgoingPropagationCondition(ComponentClassifier cl) {
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			EList<OutgoingPropagationCondition> ceb = errorModelSubclause.getOutgoingPropagationConditions();
+			if (!ceb.isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * retrieve list of component instances that have EMV2 clauses
 	 * @param ci ComponentInstance
@@ -2330,8 +2774,8 @@ public class EMV2Util {
 		EList result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance && (EMV2Util
-						.hasComponentErrorBehaviorStates((ComponentInstance) obj)));
+				return (obj instanceof ComponentInstance
+						&& (EMV2Util.hasComponentErrorBehaviorStates((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
 		return result;
@@ -2347,8 +2791,8 @@ public class EMV2Util {
 		EList result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance && (EMV2Util
-						.hasComponentErrorBehaviorTransitions((ComponentInstance) obj)));
+				return (obj instanceof ComponentInstance
+						&& (EMV2Util.hasComponentErrorBehaviorTransitions((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
 		return result;
@@ -2363,8 +2807,8 @@ public class EMV2Util {
 		EList result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance && (EMV2Util
-						.hasCompositeErrorBehavior((ComponentInstance) obj)));
+				return (obj instanceof ComponentInstance
+						&& (EMV2Util.hasCompositeErrorBehavior((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
 		return result;
@@ -2380,18 +2824,16 @@ public class EMV2Util {
 		if (ep == null) {
 			return null;
 		}
-
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
+		FeatureorPPReference forppref = ep.getFeatureorPPRef();
+		if (forppref == null || forppref.getFeatureorPP() instanceof PropagationPoint)
 			return null;
-		}
-		InstanceObject container = ci;
-		for (FeatureorPPReference FeatureorPPReference : frefs) {
-			NamedElement ne = FeatureorPPReference.getFeatureorPP();
+		FeatureInstance container = ci.findFeatureInstance((Feature) forppref.getFeatureorPP());
+		while (forppref.getNext() != null) {
+			forppref = forppref.getNext();
+			NamedElement ne = forppref.getFeatureorPP();
 			if (ne instanceof Feature) {
 				Feature fe = (Feature) ne;
-				FeatureInstance fi = (container instanceof ComponentInstance ? ((ComponentInstance) container)
-						.findFeatureInstance(fe) : ((FeatureInstance) container).findFeatureInstance(fe));
+				FeatureInstance fi = container.findFeatureInstance(fe);
 				if (fi != null) {
 					container = fi;
 				} else {
@@ -2401,7 +2843,7 @@ public class EMV2Util {
 				return null;
 			}
 		}
-		return (FeatureInstance) container;
+		return container;
 	}
 
 	/**
@@ -2411,11 +2853,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static NamedElement getErrorPropagationFeature(ErrorPropagation ep, ComponentInstance ci) {
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
+		Feature f = getFeature(ep);
+		if (f == null) {
 			return ci;
 		}
-		return frefs.get(frefs.size() - 1).getFeatureorPP();
+		return f;
 	}
 
 	/**
@@ -2425,11 +2867,12 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static DirectionType getErrorPropagationFeatureDirection(ErrorPropagation ep) {
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
+		FeatureorPPReference fref = ep.getFeatureorPPRef();
 		boolean inverse = false;
 		NamedElement f = null;
-		for (int i = 0; i < frefs.size() - 1; i++) {
-			f = frefs.get(i).getFeatureorPP();
+		DirectionType featuredir = DirectionType.IN_OUT;
+		while (fref != null) {
+			f = fref.getFeatureorPP();
 			if (f instanceof FeatureGroup) {
 				FeatureGroup fg = (FeatureGroup) f;
 				FeatureGroupType fgt = fg.getAllFeatureGroupType();
@@ -2440,17 +2883,18 @@ public class EMV2Util {
 					inverse = !inverse;
 				}
 			}
+			fref = fref.getNext();
 		}
-		if (f instanceof Port) {
-			DirectionType portd = ((Port) f).getDirection();
+
+		if (f instanceof DirectedFeature) {
+			featuredir = ((DirectedFeature) f).getDirection();
 			if (inverse) {
-				return portd.getInverseDirection();
+				return featuredir.getInverseDirection();
 			} else {
-				return portd;
+				return featuredir;
 			}
 		}
-		// for anything but the port we assume in_out
-		return DirectionType.IN_OUT;
+		return featuredir;
 	}
 
 	/**
@@ -2463,30 +2907,22 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(fi.getFeature())) {
 			return false; // not to a feature
 		}
-		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
-		if (frefs.isEmpty()) {
-			return false;
-		}
-		for (int i = frefs.size() - 1; i > 0; i--) {
-			FeatureorPPReference fref = frefs.get(i);
-			if (!Aadl2Util.isNull(fref.getFeatureorPP()) && fref.getFeatureorPP() == fi.getFeature()) {
-				return false;
-			}
-		}
-		return false;
+		Feature f = getFeature(ep);
+		return f.getName().equalsIgnoreCase(fi.getFeature().getName());
 	}
 
 	public static PropagationPoint getPropagationPoint(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
-		if (!refs.isEmpty()) {
-			FeatureorPPReference ref = refs.get(0);
-			if (ref instanceof PropagationPoint) {
-				return (PropagationPoint) ref;
-			}
+		FeatureorPPReference ref = ep.getFeatureorPPRef();
+		if (ref instanceof PropagationPoint) {
+			return (PropagationPoint) ref;
 		}
 		return null;
 	}
 
+	/**
+	 * for compatibility reasons.
+	 * The path is now right recursive and most code interprets that path.
+	 */
 	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
 		final EList<FeatureorPPReference> list = new BasicEList<>();
 		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current
@@ -2504,7 +2940,7 @@ public class EMV2Util {
 		return list;
 	}
 
-	public static EList<SubcomponentElement> getSubcomponents(ConditionElement conditionElement) {
+	public static EList<SubcomponentElement> getSubcomponents(SConditionElement conditionElement) {
 		final EList<SubcomponentElement> list = new BasicEList<>();
 		for (QualifiedErrorBehaviorState current = conditionElement
 				.getQualifiedState(); current != null; current = current.getNext()) {
@@ -2513,7 +2949,7 @@ public class EMV2Util {
 		return list;
 	}
 
-	public static ErrorBehaviorState getState(ConditionElement conditionElement) {
+	public static ErrorBehaviorState getState(SConditionElement conditionElement) {
 		for (QualifiedErrorBehaviorState current = conditionElement
 				.getQualifiedState(); current != null; current = current.getNext()) {
 			if (current.getState() != null) {
@@ -2546,6 +2982,14 @@ public class EMV2Util {
 			shetl.remove(etl);
 		}
 		return result;
+	}
+
+	public static boolean isProcessor(ErrorPropagation ep) {
+		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
+	}
+
+	public static boolean isNoError(TypeSet type) {
+		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
 
 }

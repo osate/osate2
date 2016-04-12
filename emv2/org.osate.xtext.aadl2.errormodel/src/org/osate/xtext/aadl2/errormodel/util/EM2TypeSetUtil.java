@@ -83,12 +83,11 @@ public class EM2TypeSetUtil {
 		}
 		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
 		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
-		while (type != null) {
-			if (type == supertype || type == resolvedsupertype || resolvedtype == supertype
-					|| resolvedtype == resolvedsupertype) {
+		while (resolvedtype != null) {
+			if (resolvedtype == resolvedsupertype) {
 				return true;
 			} else {
-				type = type.getSuperType();
+				resolvedtype = EMV2Util.resolveAlias(resolvedtype.getSuperType());
 			}
 		}
 		return false;
@@ -106,10 +105,36 @@ public class EM2TypeSetUtil {
 
 	public static boolean contains(ErrorTypes constraint, TypeSet type) {
 		if (constraint instanceof ErrorType) {
-			return contains(constraint, type);
+			return contains((ErrorType) constraint, type);
 		}
 		if (constraint instanceof TypeSet) {
 			return contains((TypeSet) constraint, type);
+		}
+		return false;
+	}
+
+	public static boolean contains(ErrorType constraint, TypeSet ts) {
+		ts = EMV2Util.resolveAlias(ts);
+		for (TypeToken tselement : ts.getTypeTokens()) {
+			if (!contains(constraint, tselement)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean contains(ErrorType constraint, TypeToken token) {
+		if (constraint == null || token == null) {
+			return false;
+		}
+		if (token.isNoError()) {
+			return false;
+		}
+		EList<ErrorTypes> tsetype = token.getType();
+		for (ErrorTypes errorType : tsetype) {
+			if (contains(constraint, errorType)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -120,6 +145,16 @@ public class EM2TypeSetUtil {
 		}
 		if (type instanceof TypeSet) {
 			return contains(constraint, (TypeSet) type);
+		}
+		return true;
+	}
+
+	public static boolean contains(ErrorTypes constraint, TypeToken type) {
+		if (constraint instanceof ErrorType) {
+			return contains((ErrorType) constraint, type);
+		}
+		if (constraint instanceof TypeSet) {
+			return contains((TypeSet) constraint, type);
 		}
 		return true;
 	}
@@ -515,7 +550,7 @@ public class EM2TypeSetUtil {
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
 			if (contains(src, token)) {
-				return typeMapping.getTarget();
+				return typeMapping.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -526,7 +561,7 @@ public class EM2TypeSetUtil {
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
 			if (contains(src, token)) {
-				return typeMapping.getTarget();
+				return typeMapping.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -544,7 +579,7 @@ public class EM2TypeSetUtil {
 		EList<TypeMapping> tmlist = tms.getMapping();
 		for (TypeMapping typeMapping : tmlist) {
 			TypeSet src = typeMapping.getSource();
-			TypeToken trg = typeMapping.getTarget();
+			TypeSet trg = typeMapping.getTarget();
 			if (contains(trg, token)) {
 				return src.getTypeTokens().get(0);
 			}
@@ -565,7 +600,7 @@ public class EM2TypeSetUtil {
 		for (TypeTransformation typeXform : ttlist) {
 			TypeSet src = typeXform.getSource();
 			if (contains(src, token)) {
-				return typeXform.getTarget();
+				return typeXform.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;
@@ -586,7 +621,7 @@ public class EM2TypeSetUtil {
 			TypeSet src = typeXform.getSource();
 			TypeSet contrib = typeXform.getContributor();
 			if (contains(src, srctoken) && contains(contrib, contributortoken)) {
-				return typeXform.getTarget();
+				return typeXform.getTarget().getTypeTokens().get(0);
 			}
 		}
 		return null;

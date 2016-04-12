@@ -16,27 +16,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
  *
  * @generated
  */
-public class PropagationPointImpl extends NamedElementImpl implements PropagationPoint
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected PropagationPointImpl()
-  {
-    super();
-  }
+public class PropagationPointImpl extends NamedElementImpl implements PropagationPoint {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PropagationPointImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return ErrorModelPackage.Literals.PROPAGATION_POINT;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return ErrorModelPackage.Literals.PROPAGATION_POINT;
+	}
 
-} //PropagationPointImpl
+} // PropagationPointImpl

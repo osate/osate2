@@ -13,18 +13,16 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @see org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelResourceFactoryImpl
  * @generated
  */
-public class ErrorModelResourceImpl extends XMLResourceImpl
-{
-  /**
-   * Creates an instance of the resource.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param uri the URI of the new resource.
-   * @generated
-   */
-  public ErrorModelResourceImpl(URI uri)
-  {
-    super(uri);
-  }
+public class ErrorModelResourceImpl extends XMLResourceImpl {
+	/**
+	 * Creates an instance of the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param uri the URI of the new resource.
+	 * @generated
+	 */
+	public ErrorModelResourceImpl(URI uri) {
+		super(uri);
+	}
 
-} //ErrorModelResourceImpl
+} // ErrorModelResourceImpl

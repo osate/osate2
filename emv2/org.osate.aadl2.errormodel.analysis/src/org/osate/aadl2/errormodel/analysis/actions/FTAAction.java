@@ -105,9 +105,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
 
-				InputDialog fd = new InputDialog(
-						sh,
-						"Error State name",
+				InputDialog fd = new InputDialog(sh, "Error State name",
 						"Please specify the name of the error state name\n(with the optional error type separated by a space)",
 						"failed", null);
 				if (fd.open() == Window.OK) {
@@ -134,6 +132,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 			errorType = null;
 
 			FTAUtils.init(si);
+			Event.init();
 
 			if (ERROR_STATE_NAME.contains(" ")) {
 				errorStateName = ERROR_STATE_NAME.substring(0, ERROR_STATE_NAME.indexOf(" "));

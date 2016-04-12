@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -14,6 +12,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -113,10 +112,10 @@ public class Util {
 		condition = trans.getCondition();
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			EventOrPropagation event = conditionElement.getIncoming();
+			EventOrPropagation event = EMV2Util.getErrorEventOrPropagation(conditionElement);
 			TypeSet typeSet = conditionElement.getConstraint();
 
-			// OsateDebug.osateDebug("[Utils]    incoming :" + event);
+			// OsateDebug.osateDebug("[Utils] incoming :" + event);
 
 			if ((event != null) && (event instanceof ErrorPropagation)) {
 				ComponentInstance instanceSource = null;
@@ -124,24 +123,24 @@ public class Util {
 				ErrorPropagation ep = (ErrorPropagation) event;
 
 				// instance.getAllEnclosingConnectionInstances()
-				// OsateDebug.osateDebug("[Utils]       ErrorPropagation kind:" + ep);
-				// OsateDebug.osateDebug("[Utils]       ErrorPropagation associated feature:" + associatedFeature);
+				// OsateDebug.osateDebug("[Utils] ErrorPropagation kind:" + ep);
+				// OsateDebug.osateDebug("[Utils] ErrorPropagation associated feature:" + associatedFeature);
 				for (ConnectionInstance ci : instance.getAllEnclosingConnectionInstances()) {
 					for (ConnectionReference cr : ci.getConnectionReferences()) {
-						// OsateDebug.osateDebug("[Utils]       ErrorPropagation cr dest cl:" + cr.getConnection().getAllDestination());
+						// OsateDebug.osateDebug("[Utils] ErrorPropagation cr dest cl:" + cr.getConnection().getAllDestination());
 						// TODO deal with access connections pointing to component instances
 						if (EMV2Util.isErrorPropagationOf(ep, (FeatureInstance) cr.getDestination())) {
-							// OsateDebug.osateDebug("[Utils]       crSource:" + cr.getSource());
+							// OsateDebug.osateDebug("[Utils] crSource:" + cr.getSource());
 							instanceSource = cr.getSource().getContainingComponentInstance();
 							found = true;
 						}
 					}
 
 					if ((found = true) && (instanceSource != null)) {
-						// OsateDebug.osateDebug("[Utils]       Instance src:" + instanceSource);
-						// OsateDebug.osateDebug("[Utils]       Feature src:" + featureSource);
-						Collection<ErrorSource> flows = EMV2Util.getAllErrorSources(instanceSource
-								.getComponentClassifier());
+						// OsateDebug.osateDebug("[Utils] Instance src:" + instanceSource);
+						// OsateDebug.osateDebug("[Utils] Feature src:" + featureSource);
+						Collection<ErrorSource> flows = EMV2Util
+								.getAllErrorSources(instanceSource.getComponentClassifier());
 						for (ErrorFlow flow : flows) {
 
 							if (flow instanceof ErrorSource) {
@@ -151,16 +150,16 @@ public class Util {
 										.getAllPropagationDestinationEnds(instance, errorSource.getOutgoing());
 								PropagationPathEnd ppe = propagationEnds.get(0);
 								ErrorBehaviorState state = (ErrorBehaviorState) errorSource.getFailureModeReference();
-								// OsateDebug.osateDebug("[Utils]       ErrorSource feature:" + errorSource.getOutgoing().getFeature());
+								// OsateDebug.osateDebug("[Utils] ErrorSource feature:" + errorSource.getOutgoing().getFeature());
 								if (errorSource.getOutgoing() == ep) {
 									TypeSet ts = errorSource.getTypeTokenConstraint();
 									TypeToken tt = ts.getTypeTokens().get(0);
 									ErrorTypes et = tt.getType().get(0);
-									// OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
-									Expression e = new Equal(new Terminal(Util.getFeatureName(instanceSource,
-											EMV2Util.getPrintName(ep))), new Terminal(""
-											+ Model.getCurrentInstance().getErrorTypeCode(
-													ppe,
+									// OsateDebug.osateDebug("[Utils] ErrorSource token:" + et);
+									Expression e = new Equal(
+											new Terminal(
+													Util.getFeatureName(instanceSource, EMV2Util.getPrintName(ep))),
+											new Terminal("" + Model.getCurrentInstance().getErrorTypeCode(ppe,
 													errorSource.getTypeTokenConstraint().getTypeTokens().get(0)
 															.getType().get(0))));
 
@@ -175,7 +174,7 @@ public class Util {
 				}
 
 			}
-			// OsateDebug.osateDebug("[Utils]    constraint :" + typeSet);
+			// OsateDebug.osateDebug("[Utils] constraint :" + typeSet);
 		}
 
 		return exprs;
@@ -213,20 +212,20 @@ public class Util {
 		double res = 0.0;
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
-			EventOrPropagation event = conditionElement.getIncoming();
+			EventOrPropagation event = EMV2Util.getErrorEventOrPropagation(conditionElement);
+			;
 			TypeSet typeSet = conditionElement.getConstraint();
 
-			// OsateDebug.osateDebug("[Utils]    incoming :" + event);
+			// OsateDebug.osateDebug("[Utils] incoming :" + event);
 			if ((event != null) && (event instanceof ErrorEvent)) {
 
 				ErrorEvent ee = (ErrorEvent) event;
-				// OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
+				// OsateDebug.osateDebug("[Utils] Event kind:" + ee);
 
-				EList<ContainedNamedElement> PAlist = EMV2Properties.getOccurenceDistributionProperty(instance, ee,
+				List<EMV2PropertyAssociation> PAList = EMV2Properties.getOccurrenceDistributionProperty(instance, ee,
 						null);
-				// OsateDebug.osateDebug("[Utils]       PA :" + PA);
-				if (!PAlist.isEmpty()) {
-					ContainedNamedElement PA = PAlist.get(0);
+				EMV2PropertyAssociation PA = PAList.isEmpty() ? null : PAList.get(0);
+				if (PA != null) {
 					/**
 					 * 
 					 * Consistency check for the distribution method
@@ -255,21 +254,15 @@ public class Util {
 						PRISMAction.reportWarning(instance,
 								"Distribution occurence should be set to poisson for CTMC generation");
 					}
-
-					res = EMV2Properties.getOccurenceValue(PA);
+					res = EMV2Properties.getProbability(instance, ee, null);
 				}
 			}
 
 			if ((event != null) && (event instanceof RecoverEvent)) {
 				RecoverEvent re = (RecoverEvent) event;
-				// OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
+				// OsateDebug.osateDebug("[Utils] Recover kind:" + re);
 
-				EList<ContainedNamedElement> PAlist = EMV2Properties.getOccurenceDistributionProperty(instance, re,
-						null);
-				// OsateDebug.osateDebug("[Utils]       PA :" + PA);
-				if (!PAlist.isEmpty()) {
-					res = EMV2Properties.getOccurenceValue(PAlist.get(0));
-				}
+				res = EMV2Properties.getProbability(instance, re, null);
 			}
 
 			/**
@@ -287,7 +280,7 @@ public class Util {
 					&& (Model.getCurrentInstance().getType() == ModelType.DTMC)) {
 				res = 1.0;
 			}
-			// OsateDebug.osateDebug("[Utils]    constraint :" + typeSet);
+			// OsateDebug.osateDebug("[Utils] constraint :" + typeSet);
 		}
 
 		return res;

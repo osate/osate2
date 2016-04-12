@@ -42,6 +42,8 @@ Processor : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|
 
 Reference : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
+Subclause : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('L'|'l')('A'|'a')('U'|'u')('S'|'s')('E'|'e');
+
 Behavior : ('B'|'b')('E'|'e')('H'|'h')('A'|'a')('V'|'v')('I'|'i')('O'|'o')('R'|'r');
 
 Bindings : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g')('S'|'s');
@@ -64,6 +66,8 @@ Library : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
 
 Noerror : ('N'|'n')('O'|'o')('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
 
+Package : ('P'|'p')('A'|'a')('C'|'c')('K'|'k')('A'|'a')('G'|'g')('E'|'e');
+
 Recover : ('R'|'r')('E'|'e')('C'|'c')('O'|'o')('V'|'v')('E'|'e')('R'|'r');
 
 Renames : ('R'|'r')('E'|'e')('N'|'n')('A'|'a')('M'|'m')('E'|'e')('S'|'s');
@@ -80,11 +84,15 @@ Ormore : ('O'|'o')('R'|'r')('M'|'m')('O'|'o')('R'|'r')('E'|'e');
 
 Others : ('O'|'o')('T'|'t')('H'|'h')('E'|'e')('R'|'r')('S'|'s');
 
+Public : ('P'|'p')('U'|'u')('B'|'b')('L'|'l')('I'|'i')('C'|'c');
+
 Repair : ('R'|'r')('E'|'e')('P'|'p')('A'|'a')('I'|'i')('R'|'r');
 
 Source : ('S'|'s')('O'|'o')('U'|'u')('R'|'r')('C'|'c')('E'|'e');
 
 States : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
+
+Annex : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
 
 Delta : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
 
@@ -122,6 +130,8 @@ When : ('W'|'w')('H'|'h')('E'|'e')('N'|'n');
 
 With : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
 
+AsteriskAsteriskRightCurlyBracket : '*''*''}';
+
 PlusSignEqualsSignGreaterThanSign : '+''=''>';
 
 RightSquareBracketHyphenMinusGreaterThanSign : ']''-''>';
@@ -139,6 +149,8 @@ Out : ('O'|'o')('U'|'u')('T'|'t');
 Set : ('S'|'s')('E'|'e')('T'|'t');
 
 Use : ('U'|'u')('S'|'s')('E'|'e');
+
+LeftCurlyBracketAsteriskAsterisk : '{''*''*';
 
 HyphenMinusGreaterThanSign : '-''>';
 
@@ -178,9 +190,13 @@ Colon : ':';
 
 Semicolon : ';';
 
+CommercialAt : '@';
+
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
+
+CircumflexAccent : '^';
 
 LeftCurlyBracket : '{';
 

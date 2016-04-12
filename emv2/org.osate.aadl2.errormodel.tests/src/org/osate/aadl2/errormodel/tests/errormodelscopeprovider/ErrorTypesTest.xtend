@@ -160,7 +160,7 @@ class ErrorTypesTest extends OsateTest {
 						processor: in propagation {t1};
 					flows
 						errSource1: error source all {t1} when {t1};
-						errSource2: error source all {t1} when ts1 {t1};
+						errSource2: error source all {t1} when {ts1};
 						errSink1: error sink all {t1};
 						errPath1: error path all {t1} -> all {t1};
 					end propagations;

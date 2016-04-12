@@ -19,7 +19,11 @@ package org.osate.xtext.aadl2.errormodel.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -29,6 +33,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -65,14 +71,36 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		return "orless " + ele.getCount();
 	}
 
+	String text(OutgoingPropagationCondition ele) {
+		NamedElement res = ele.getOutgoing().getFeatureorPPRef().getFeatureorPP();
+		String fname;
+		if (res instanceof Feature) {
+			fname = ((Feature) res).getName();
+		} else {
+			fname = ((PropagationPoint) res).getName();
+		}
+		String s = ele.getName() == null ? fname : ele.getName();
+		return "out propagation " + s + " when";
+	}
+
 	String text(ErrorDetection ele) {
 		String s = ele.getDetectionReportingPort().getName();
 		return "event " + s + " when";
 	}
 
+	String text(CompositeState ele) {
+		String s = ele.getState().getName();
+		return "state " + s + " when";
+	}
+
 	String text(ErrorBehaviorTransition ele) {
-		String s = ele.isSteadyState() ? "steady state" : ele.getName();
+		String s = ele.isSteadyState() ? "steady state" : (ele.getName() == null ? "<unnamed>" : ele.getName());
 		return "transition " + s + " when";
+	}
+
+	String text(EMV2PropertyAssociation ele) {
+		String s = ele.getProperty().getName();
+		return "property " + s;
 	}
 
 	String text(ErrorModelLibrary ele) {

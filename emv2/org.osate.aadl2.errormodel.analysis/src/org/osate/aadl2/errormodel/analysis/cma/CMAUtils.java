@@ -10,12 +10,13 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.cma.CMAReportEntry.EntryType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -78,8 +79,8 @@ public class CMAUtils {
 
 //		OsateDebug.osateDebug("[CMAUtils] expression " + expression);
 
-		if (expression instanceof SAndExpression) {
-			SAndExpression sand = (SAndExpression) expression;
+		if (expression instanceof AndExpression) {
+			AndExpression sand = (AndExpression) expression;
 			List<ConditionExpression> exprs = sand.getOperands();
 
 			for (ConditionExpression element : exprs) {
@@ -94,15 +95,16 @@ public class CMAUtils {
 			result.addAll(processConditionElements(analysisModel, componentInstance, toAnalyze));
 		}
 
-		if (expression instanceof ConditionElement) {
-			ConditionElement element = (ConditionElement) expression;
+		if (expression instanceof SConditionElement) {
+			SConditionElement element = (SConditionElement) expression;
 
 			SubcomponentElement selt = element.getQualifiedState().getSubcomponent();
 			Subcomponent subcomp = selt.getSubcomponent();
 			ComponentInstance subcompInstance = findComponentInstance(analysisModel.getRoot().getComponentInstance(),
 					subcomp);
 			if (subcompInstance != null) {
-				result.addAll(processState(analysisModel, subcompInstance, EMV2Util.getState(element), element.getConstraint()));
+				result.addAll(processState(analysisModel, subcompInstance, EMV2Util.getState(element),
+						element.getConstraint()));
 			}
 		}
 
@@ -146,39 +148,42 @@ public class CMAUtils {
 			/**
 			 * Here, the condition come from a subcomponent.
 			 */
-			if (elt.getQualifiedState() != null && elt.getQualifiedState().getNext() == null) {
-				/**
-				 * Here, we retrieve the subcomponent related to the condition.
-				 */
-				SubcomponentElement selt = elt.getQualifiedState().getSubcomponent();
-				Subcomponent subcomp = selt.getSubcomponent();
-				ComponentInstance subcompInstance = findComponentInstance(componentInstance, subcomp);
-				referencedInstances.add(subcompInstance);
+			if (elt instanceof SConditionElement) {
+				SConditionElement scondelt = (SConditionElement) elt;
+				if (scondelt.getQualifiedState() != null && scondelt.getQualifiedState().getNext() == null) {
+					/**
+					 * Here, we retrieve the subcomponent related to the condition.
+					 */
+					SubcomponentElement selt = scondelt.getQualifiedState().getSubcomponent();
+					Subcomponent subcomp = selt.getSubcomponent();
+					ComponentInstance subcompInstance = findComponentInstance(componentInstance, subcomp);
+					referencedInstances.add(subcompInstance);
 
-				/**
-				 * Then, we get all the classifiers used by the subcomponent.
-				 */
-				usedClassifiers = new ArrayList<ComponentClassifier>();
-				getAllClassifiers(subcompInstance, usedClassifiers);
+					/**
+					 * Then, we get all the classifiers used by the subcomponent.
+					 */
+					usedClassifiers = new ArrayList<ComponentClassifier>();
+					getAllClassifiers(subcompInstance, usedClassifiers);
 
-				/**
-				 * For each component involved in the condition, we stored
-				 * all the used classifiers.
-				 */
-				componentClassifiers.put(subcompInstance, usedClassifiers);
+					/**
+					 * For each component involved in the condition, we stored
+					 * all the used classifiers.
+					 */
+					componentClassifiers.put(subcompInstance, usedClassifiers);
 
-				/**
-				 * Then, we get all the error propagations that might
-				 * impact the component.
-				 */
-				relatedErrorSources = new ArrayList<PropagationPathEnd>();
-				getAllErrorSources(subcompInstance, analysisModel, relatedErrorSources);
+					/**
+					 * Then, we get all the error propagations that might
+					 * impact the component.
+					 */
+					relatedErrorSources = new ArrayList<PropagationPathEnd>();
+					getAllErrorSources(subcompInstance, analysisModel, relatedErrorSources);
 
-				/**
-				 * For each component involved in the condition, we stored
-				 * all the used classifiers.
-				 */
-				errorSources.put(subcompInstance, relatedErrorSources);
+					/**
+					 * For each component involved in the condition, we stored
+					 * all the used classifiers.
+					 */
+					errorSources.put(subcompInstance, relatedErrorSources);
+				}
 			}
 		}
 
@@ -212,8 +217,8 @@ public class CMAUtils {
 					for (int esInd2 = 0; esInd2 < errorSources.get(secondComponent).size(); esInd2++) {
 						ppe2 = errorSources.get(secondComponent).get(esInd2);
 
-						if (EMV2Util.getFeatureorPPRefs(ppe1.getErrorPropagation()) == 
-								EMV2Util.getFeatureorPPRefs(ppe2.getErrorPropagation())) {
+						if (EMV2Util.getPropagationName(ppe1.getErrorPropagation())
+								.equalsIgnoreCase(EMV2Util.getPropagationName(ppe2.getErrorPropagation()))) {
 							foundInOther = true;
 							errorSourcesduplicates.add(ppe1);
 							errorSourcesduplicates.add(ppe2);

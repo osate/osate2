@@ -38,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -76,8 +77,11 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming != null : {
 				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSource case modelContainer.outgoing != null : {
+			ErrorSource case modelContainer.outgoing != null && modelContainer.typeTokenConstraint == model: {
 				filterTypeSetTokenTypes(modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
+			}
+			ErrorSource case modelContainer.failureModeReference != null && modelContainer.failureModeType == model: {
+				filterTypeSetTokenTypes(modelContainer.failureModeReference.typeSet, model, assignment, context, acceptor)
 			}
 			ErrorSink case modelContainer.incoming != null : {
 				filterTypeSetTokenTypes(modelContainer.incoming.typeSet, model, assignment, context, acceptor)
@@ -85,31 +89,29 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			ErrorBehaviorTransition case model instanceof TypeSet: {
 				filterTypeSetTokenTypes(modelContainer.source.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).incoming != null : {
-				val incoming = (model as ConditionElement).incoming
+			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).qualifiedErrorPropagationReference != null : {
+				val incoming = EMV2Util.getErrorEventOrPropagation(model as ConditionElement)
 				switch incoming {
 					ErrorPropagation : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
 					ErrorEvent : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
 				}
-				
-				filterTypeSetTokenTypes(((model as ConditionElement).incoming as ErrorPropagation).typeSet, model, assignment, context, acceptor)
 			}
 			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)
 		}
 	}
-
-	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		val modelContainer = model.eContainer
-		switch modelContainer{
-			ErrorPath case modelContainer.outgoing != null : {
-				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
-			}
-			ErrorBehaviorTransition case modelContainer.target != null: {
-				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
-			}
-			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
-		}
-	}
+//
+//	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		val modelContainer = model.eContainer
+//		switch modelContainer{
+//			ErrorPath case modelContainer.outgoing != null : {
+//				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
+//			}
+//			ErrorBehaviorTransition case modelContainer.target != null: {
+//				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
+//			}
+//			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
+//		}
+//	}
 
 	def filterTypeSetTokenTypes(TypeSet typeSet, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
 		val validErrorTypesList = new ArrayList<ErrorTypes> 
@@ -118,7 +120,7 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 			[
 				val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
 				val validSuperTypesOfProposed = new ArrayList<ErrorTypes>
-				if (proposedObj instanceof ErrorTypes) getProposedObjectSuperTypes(proposedObj as ErrorTypes, validSuperTypesOfProposed, proposedObj)
+				if (proposedObj instanceof ErrorTypes) getProposedObjectSuperTypes(proposedObj, validSuperTypesOfProposed, proposedObj)
 				validErrorTypesList.contains(proposedObj) || 
 					validErrorTypesList.exists[type| validSuperTypesOfProposed.contains(type)] 
 			])

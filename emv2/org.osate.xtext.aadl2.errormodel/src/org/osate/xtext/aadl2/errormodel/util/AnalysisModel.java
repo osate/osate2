@@ -2,13 +2,12 @@ package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -30,21 +29,79 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
- * The purpose of this class is to keep track of model elements involved in a particular EM analysis.
+ * The purpose of this class is to keep track of model elements involved in a
+ * particular EM analysis.
+ * 
  * @author phf
  *
  */
 public class AnalysisModel {
 
-	protected ComponentInstance root; // component instance that is the root of the analysis
-	protected EList<PropagationPathRecord> propagationPaths = new BasicEList<PropagationPathRecord>(); // component instances (with emv2 propagations) within
-// the root
-	protected EList<ComponentInstance> subcomponents = new UniqueEList<ComponentInstance>(); // component instances (with emv2 propagations) within the root
-	protected EList<ConnectionInstance> connections = new BasicEList<ConnectionInstance>(); // connection instances whose bond resources have a emv2 propagation
+	protected ComponentInstance root; // component instance that is the root of
+										// the analysis
+	// propagation paths
+	protected Collection<PropagationPathRecord> propagationPaths = new ArrayList<PropagationPathRecord>();
+	// component instances that are involved in propagation paths
+	protected Collection<ComponentInstance> subcomponents = new HashSet<ComponentInstance>();
+	// connection instances as source or taraget of a propagation path
+	protected Collection<ConnectionInstance> connections = new ArrayList<ConnectionInstance>();
+
+	public static AnalysisModel createAnalysisModel(ComponentInstance root) {
+		return new AnalysisModel(root);
+	}
 
 	public AnalysisModel(ComponentInstance root) {
-		this(root, false);
-// printPropagationPaths();
+		this(root, PropagationPathLevel.LEAF, true);
+	}
+
+	public AnalysisModel(ComponentInstance root, boolean complete) {
+		this(root, PropagationPathLevel.LEAF, complete);
+	}
+
+	/**
+	 * build up a propagation path graph of propagations within a system as well
+	 * as external ones.
+	 * 
+	 * @param root
+	 *            ComponentInstance that is the root of the system
+	 * @param level
+	 *            LEAF: propagations between leaf (lowest level)components with
+	 *            error propagations only TOP: propagations between highest
+	 *            level components with error propagations only ALL: between all
+	 *            leaf and enclosing components at the source and at the
+	 *            destination
+	 * @param completeConnectionsOnly
+	 *            Only for connections within a system. Otherwise outgoing only
+	 *            and incoming only connections will be included.
+	 */
+	public AnalysisModel(ComponentInstance root, PropagationPathLevel level, boolean completeConnectionsOnly) {
+		this.root = root;
+		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(root, ConnectionInstance.class);
+		for (ConnectionInstance connectionInstance : cilist) {
+			if (!(completeConnectionsOnly && !connectionInstance.isComplete())) {
+				populateConnectionPropagationPaths(connectionInstance, level);
+				populateBindingPaths(connectionInstance);
+
+			}
+		}
+		/**
+		 * We also browse the list of all component instances and add user declared propagation paths.
+		 * We also add binding related propagation paths.
+		 */
+		List<ComponentInstance> complist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
+		for (ComponentInstance ci : complist) {
+			if (!EMV2Util.hasEMV2Subclause(ci)) {
+				continue;
+			}
+			populateUserDeclaredPropagationPaths(ci);
+//			if (ci.getCategory() == ComponentCategory.PROCESS || ci.getCategory() == ComponentCategory.ABSTRACT
+//					|| ci.getCategory() == ComponentCategory.SYSTEM || ci.getCategory() == ComponentCategory.PROCESSOR
+//					|| ci.getCategory() == ComponentCategory.THREAD || ci.getCategory() == ComponentCategory.VIRTUAL_BUS
+//					|| ci.getCategory() == ComponentCategory.THREAD_GROUP
+//					|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
+			populateBindingPaths(ci);
+//			}
+		}
 	}
 
 	public boolean impact(PropagationPathEnd src, PropagationPathEnd dst) {
@@ -76,50 +133,15 @@ public class AnalysisModel {
 		return false;
 	}
 
-	public AnalysisModel(ComponentInstance root, boolean closest) {
-		this.root = root;
-		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(root, ConnectionInstance.class);
-		for (ConnectionInstance connectionInstance : cilist) {
-			if (closest) {
-				populateShortestConnectionPropagationPaths(connectionInstance);
-			} else {
-				populateConnectionPropagationPaths(connectionInstance);
-			}
-		}
-		/**
-		 *
-		 * We also browse the list of all component instances.
-		 * Then, for each process, we add an error path between the process
-		 * and its associated processor. When being bound to a virtual processor,
-		 * we also add a binding between the virtual processor and the physical
-		 * processor. Also, the GetActualProcessingBinding returns the parent
-		 * processor for virtual processors.
-		 */
-		List<ComponentInstance> complist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
-		for (ComponentInstance ci : complist) {
-			if (!EMV2Util.hasEMV2Subclause(ci)) {
-				continue;
-			}
-			if (ci.getCategory() == ComponentCategory.PROCESS || ci.getCategory() == ComponentCategory.ABSTRACT
-					|| ci.getCategory() == ComponentCategory.SYSTEM || ci.getCategory() == ComponentCategory.PROCESSOR
-					|| ci.getCategory() == ComponentCategory.THREAD
-					|| ci.getCategory() == ComponentCategory.THREAD_GROUP
-					|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
-				populateBindingPaths(ci);
-			}
-			populatePropagationPaths(ci);
-		}
-	}
-
-	public EList<PropagationPathRecord> getPropagationPaths() {
+	public Collection<PropagationPathRecord> getPropagationPaths() {
 		return propagationPaths;
 	}
 
-	public EList<ComponentInstance> getSubcomponents() {
+	public Collection<ComponentInstance> getSubcomponents() {
 		return subcomponents;
 	}
 
-	public EList<ConnectionInstance> getConnections() {
+	public Collection<ConnectionInstance> getConnections() {
 		return connections;
 	}
 
@@ -132,18 +154,14 @@ public class AnalysisModel {
 	}
 
 	public void printPropagationPaths() {
-		EList<PropagationPathRecord> pl = getPropagationPaths();
+		Collection<PropagationPathRecord> pl = getPropagationPaths();
 		for (PropagationPathRecord propagationPath : pl) {
-			OsateDebug.osateDebug("PP src "
-					+ propagationPath.getSrcCI().getComponentInstancePath()
-					+ ":"
-					+ generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation())
-					+ " dst "
-					+ propagationPath.getDstCI().getComponentInstancePath()
-					+ ":"
-					+ generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation())
-					+ (propagationPath.getConnectionInstance() != null ? " conni "
-							+ propagationPath.getConnectionInstance().getName() : ""));
+			OsateDebug.osateDebug("PP src " + propagationPath.getSrcCI().getComponentInstancePath() + ":"
+					+ generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation()) + " dst "
+					+ propagationPath.getDstCI().getComponentInstancePath() + ":"
+					+ generateErrorPropTypeSetText(propagationPath.getPathDst().getErrorPropagation())
+					+ (propagationPath.getConnectionInstance() != null
+							? " conni " + propagationPath.getConnectionInstance().getName() : ""));
 		}
 	}
 
@@ -156,10 +174,14 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * find the propagation paths with endpoints that are the lowest in the containment hierarchy
+	 * find the propagation paths between component instances with error propagations.
+	 * This method handles different levels.
+	 * It also handles both complete and incomplete connection instances (the latter are out only and in only connections
 	 * @param connectionInstance
+	 * @param level LEAF (lowest), TOP (highest), ALL (all combinations)
 	 */
-	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance) {
+	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance,
+			PropagationPathLevel level) {
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) {
 			return;
@@ -169,60 +191,61 @@ public class AnalysisModel {
 		ErrorPropagation dstprop = null;
 		ComponentInstance dstCI = null;
 		ConnectionReference first = connrefs.get(0);
+		// inonly is an incomplete connection instance that is only incoming,
+		// i.e., we only have incoming propagations.
 		boolean inonly = (first.getSource().getComponentInstance() == first.getContext());
 		ConnectionReference last = connrefs.get(connrefs.size() - 1);
+		// outonly is an incomplete connection instance that is only outgoing,
+		// i.e., we only have outgoing propagations.
 		boolean outonly = (last.getDestination().getComponentInstance() == last.getContext());
-		EList<ComponentInstance> addlSrcCI = new BasicEList<ComponentInstance>();
-		EList<ErrorPropagation> addlSrcEP = new BasicEList<ErrorPropagation>();
+		// list of additional source error propagations (i.e., those of
+		// enclosing components.
+		List<ComponentInstance> addlSrcCI = new ArrayList<ComponentInstance>();
+		List<ErrorPropagation> addlSrcEP = new ArrayList<ErrorPropagation>();
+		List<ComponentInstance> addlDstCI = new ArrayList<ComponentInstance>();
+		List<ErrorPropagation> addlDstEP = new ArrayList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
-			if (srcprop == null) {
-				// remember the first src with EP
-				ErrorPropagation foundEP = null;
-				if (src instanceof FeatureInstance) {
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
-					}
-				} else if (src instanceof ComponentInstance) {
-					// a shared model element
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-					}
+			// remember the first (lowest in the hierarchy) src component
+			// instance with Error propagation
+			// srcprop is null until we found the source error propagation
+			ErrorPropagation foundEP = null;
+			if (src instanceof FeatureInstance) {
+				if (inonly) {
+					foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
+				} else {
+					foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
 				}
-				if (foundEP != null) {
+			} else if (src instanceof ComponentInstance) {
+				// deal with an access connection pointing to a component
+				// instance instead of a feature instance
+				if (inonly) {
+					foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+				} else {
+					foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
+				}
+			}
+			if (foundEP != null) {
+				switch (level) {
+				case TOP:
 					srcprop = foundEP;
 					srcCI = src.getComponentInstance();
-				}
-			} else {
-				// for enclosing components record an outgoing path
-				// this is because we may have an incoming path ending here.
-				ErrorPropagation foundEP = null;
-				if (src instanceof FeatureInstance) {
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+					break;
+				case LEAF:
+					if (srcprop == null) {
+						srcprop = foundEP;
+						srcCI = src.getComponentInstance();
 					}
-				} else if (src instanceof ComponentInstance) {
-					// a shared model element
-					if (inonly) {
-						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-					} else {
-						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-					}
-				}
-				if (foundEP != null) {
+					break;
+				case ALL:
 					addlSrcEP.add(foundEP);
 					addlSrcCI.add(src.getComponentInstance());
+					break;
 				}
-
 			}
-			// we have source. now find destination
+			// We look for destination error propagations
+			// it should be incoming except when outonly
 			ErrorPropagation founddst = null;
 			if (dst instanceof FeatureInstance) {
 				if (outonly) {
@@ -239,84 +262,106 @@ public class AnalysisModel {
 				}
 			}
 			if (founddst != null) {
-				// remember the last destination with EP
-				dstprop = founddst;
-				dstCI = dst.getComponentInstance();
+				switch (level) {
+				case TOP:
+					if (dstprop == null) {
+						dstprop = founddst;
+						dstCI = dst.getComponentInstance();
+					}
+					break;
+				case LEAF:
+					dstprop = founddst;
+					dstCI = dst.getComponentInstance();
+					break;
+				case ALL:
+					addlDstEP.add(foundEP);
+					addlDstCI.add(src.getComponentInstance());
+					break;
+				}
 			}
 
 		}
-		if (srcprop != null && dstprop != null) {
-			if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-				PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,
-						connectionInstance);
-				propagationPaths.add(path);
-				subcomponents.add(srcCI);
-				subcomponents.add(dstCI);
-			}
-			for (int i = 0; i < addlSrcCI.size(); i++) {
-				srcCI = addlSrcCI.get(i);
-				srcprop = addlSrcEP.get(i);
-				if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-					PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,
-							connectionInstance);
-					propagationPaths.add(path);
-					subcomponents.add(srcCI);
+		// done with all connection references
+		// record the results
+		switch (level) {
+		case TOP:
+		case LEAF:
+			if (srcprop != null && dstprop != null) {
+				// we found a source and destination. Add it if not already
+				// there.
+				addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
+			} else {
+				if (srcprop != null && addlSrcEP.size() > 1) {
+					dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
+					dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
 				}
 			}
+			break;
+		case ALL:
+			// add all combinations
+			for (int i = 0; i < addlSrcCI.size(); i++) {
+				for (int j = 0; i < addlDstCI.size(); i++) {
+					srcCI = addlSrcCI.get(i);
+					srcprop = addlSrcEP.get(i);
+					dstCI = addlDstCI.get(i);
+					dstprop = addlDstEP.get(i);
+					addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
+				}
+			}
+			break;
 		}
 		if (connectionInstance.isBidirectional()) {
+			// now work in the inverse direction since the conneciton is
+			// bi-directional
+			srcprop = null;
+			srcCI = null;
+			dstprop = null;
+			dstCI = null;
 			addlSrcCI.clear();
 			addlSrcEP.clear();
+			addlDstCI.clear();
+			addlDstEP.clear();
 			for (int i = connrefs.size() - 1; i >= 0; i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
 				ConnectionInstanceEnd dst = connectionReference.getSource();
 				ConnectionInstanceEnd src = connectionReference.getDestination();
-				if (srcprop == null) {
-					// remember the first src with EP
-					ErrorPropagation foundEP = null;
-					if (src instanceof FeatureInstance) {
-						if (inonly) {
-							foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-						} else {
-							foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
-						}
-					} else if (src instanceof ComponentInstance) {
-						// a shared model element
-						if (inonly) {
-							foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-						} else {
-							foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-						}
+				ErrorPropagation foundEP = null;
+				if (src instanceof FeatureInstance) {
+					if (inonly) {
+						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
 					}
-					if (foundEP != null) {
+				} else if (src instanceof ComponentInstance) {
+					// deal with an access connection pointing to a component
+					// instance instead of a feature instance
+					if (inonly) {
+						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
+					}
+				}
+
+				if (foundEP != null) {
+					switch (level) {
+					case TOP:
 						srcprop = foundEP;
 						srcCI = src.getComponentInstance();
-					}
-				} else {
-					// for enclosing components record an outgoing path
-					// this is because we may have an incoming path ending here.
-					ErrorPropagation foundEP = null;
-					if (src instanceof FeatureInstance) {
-						if (inonly) {
-							foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance) src);
-						} else {
-							foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+						break;
+					case LEAF:
+						if (srcprop == null) {
+							srcprop = foundEP;
+							srcCI = src.getComponentInstance();
 						}
-					} else if (src instanceof ComponentInstance) {
-						// a shared model element
-						if (inonly) {
-							foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
-						} else {
-							foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-						}
-					}
-					if (foundEP != null) {
+						break;
+					case ALL:
 						addlSrcEP.add(foundEP);
 						addlSrcCI.add(src.getComponentInstance());
+						break;
 					}
-
 				}
-				// we have source. now find destination
+				// We look for destination error propagations
+				// it should be incoming except when outonly
 				ErrorPropagation founddst = null;
 				if (dst instanceof FeatureInstance) {
 					if (outonly) {
@@ -333,36 +378,78 @@ public class AnalysisModel {
 					}
 				}
 				if (founddst != null) {
-					// remember the last destination with EP
-					dstprop = founddst;
-					dstCI = dst.getComponentInstance();
-				}
-
-			}
-			if (srcprop != null && dstprop != null) {
-				if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-					PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,
-							connectionInstance);
-					propagationPaths.add(path);
-					subcomponents.add(srcCI);
-					subcomponents.add(dstCI);
-				}
-				for (int i = 0; i < addlSrcCI.size(); i++) {
-					srcCI = addlSrcCI.get(i);
-					srcprop = addlSrcEP.get(i);
-					if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
-						PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,
-								connectionInstance);
-						propagationPaths.add(path);
-						subcomponents.add(srcCI);
+					switch (level) {
+					case TOP:
+						if (dstprop == null) {
+							dstprop = founddst;
+							dstCI = dst.getComponentInstance();
+						}
+						break;
+					case LEAF:
+						dstprop = founddst;
+						dstCI = dst.getComponentInstance();
+						break;
+					case ALL:
+						addlDstEP.add(foundEP);
+						addlDstCI.add(src.getComponentInstance());
+						break;
 					}
 				}
+			}
+			// done with all connection references
+			// record the results
+			switch (level) {
+			case TOP:
+			case LEAF:
+				if (srcprop != null && dstprop != null) {
+					// we found a source and destination. Add it if not already
+					// there.
+					addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
+				} else {
+					if (srcprop != null && addlSrcEP.size() > 1) {
+						dstprop = addlSrcEP.get(addlSrcEP.size() - 1);
+						dstCI = addlSrcCI.get(addlSrcCI.size() - 1);
+					}
+				}
+				break;
+			case ALL:
+				// add all combinations
+				for (int i = 0; i < addlSrcCI.size(); i++) {
+					for (int j = 0; i < addlDstCI.size(); i++) {
+						srcCI = addlSrcCI.get(i);
+						srcprop = addlSrcEP.get(i);
+						dstCI = addlDstCI.get(i);
+						dstprop = addlDstEP.get(i);
+						addPropagationpathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
+					}
+				}
+				break;
 			}
 		}
 	}
 
 	/**
+	 * add a propagation path record only if it does not exist already.
+	 * It also updates the list of "saubcomponent" i.e., component instances involved in propagation paths
+	 * @param srcCI
+	 * @param srcprop
+	 * @param dstCI
+	 * @param dstprop
+	 * @param connectionInstance
+	 */
+	private void addPropagationpathRecord(ComponentInstance srcCI, ErrorPropagation srcprop, ComponentInstance dstCI,
+			ErrorPropagation dstprop, ConnectionInstance connectionInstance) {
+		if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance)) {
+			PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance);
+			propagationPaths.add(path);
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
+	}
+
+	/**
 	 * populate direct bindings from the specified component to its resources
+	 * 
 	 * @param ci
 	 */
 	protected void populateBindingPaths(InstanceObject obj) {
@@ -403,14 +490,17 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * This is made to support the binding between component. Here, the first argument is the component
-	 * bound to a resource (e.g. a process) and the boundResource argument the associated resources (e.g. a processor).
+	 * Add a binding as propagation path.
+	 * The first argument is the component bound to a resource (e.g. a process) and the
+	 * boundResource argument the associated resources (e.g. a processor).
+	 * We will add the propagation path in each direction if declared in the EMV2 annex.
 	 * @param comp
 	 * @param boundResource
 	 */
 	protected void populateBindingPropagationPaths(ComponentInstance comp, ComponentInstance boundResource,
 			String resourcebindingKind) {
-		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
+		// source prop kind determined by destination and vice versa (BR = bound
+		// resource, BC bound component
 		boolean added = false;
 		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
 				"bindings");
@@ -418,59 +508,42 @@ public class AnalysisModel {
 				resourcebindingKind);
 
 		if (BRsrcprop != null && BCdstprop != null) {
-//			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
-//			{
-			propagationPaths.add(new PropagationPathRecord(boundResource, BRsrcprop, comp, BCdstprop, null));
-			added = true;
-//			} else {
-//				// error message about mismatch of type set
-//			}
+			addPropagationpathRecord(boundResource, BRsrcprop, comp, BCdstprop, null);
 		}
 		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),
 				resourcebindingKind);
 		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
 				"bindings");
 		if (BCsrcprop != null && BRdstprop != null) {
-//			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
-//			 {
-			propagationPaths.add(new PropagationPathRecord(comp, BCsrcprop, boundResource, BRdstprop, null));
-			added = true;
-//			 } else {
-//				 // error message about mismatch of type set
-//			 }
-		}
-		if (added) {
-			subcomponents.add(comp);
-			subcomponents.add(boundResource);
+			addPropagationpathRecord(comp, BCsrcprop, boundResource, BRdstprop, null);
 		}
 	}
 
 	/**
-	 * This is made to support the binding between connection and components. Here, the first argument is the connection
-	 * bound to a resource and the boundResource argument the associated resources (e.g. a bus).
+	 * This is made to support the binding between connection and components.
+	 * Here, the first argument is the connection bound to a resource and the
+	 * boundResource argument the associated resources (e.g. a bus).
+	 * 
 	 * @param conn
 	 * @param boundResource
 	 */
 	protected void populateBindingPropagationPaths(ConnectionInstance conn, ComponentInstance boundResource,
 			String bindingKind) {
 		boolean added = false;
-		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
+		// source prop kind determined by destination and vice versa (BR = bound
+		// resource, BC bound component
 		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
-				bindingKind);
+				"bindings");
 
 		if (BRsrcprop != null) {
 			propagationPaths.add(new PropagationPathRecord(boundResource, BRsrcprop, conn));
 			added = true;
-		} else {
-			// error message about mismatch of type set
 		}
 		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
-				bindingKind);
+				"bindings");
 		if (BRdstprop != null) {
 			propagationPaths.add(new PropagationPathRecord(conn, boundResource, BRdstprop));
 			added = true;
-		} else {
-			// error message about mismatch of type set
 		}
 		if (added) {
 			connections.add(conn);
@@ -479,38 +552,37 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * populate propagation paths declared in this component instance
-	 * the paths are between subcomponents
-	 * @param ci ComponentInstance
+	 * populate with user declared propagation paths declared in this component
+	 * instance the paths are between subcomponents
+	 * 
+	 * @param ci
+	 *            ComponentInstance
 	 */
-	protected void populatePropagationPaths(InstanceObject obj) {
+	protected void populateUserDeclaredPropagationPaths(InstanceObject obj) {
 		if (obj instanceof ComponentInstance) {
 			ComponentInstance ci = (ComponentInstance) obj;
 			Collection<PropagationPath> pplist = EMV2Util.getAllPropagationPaths(ci.getComponentClassifier());
 			for (PropagationPath propagationPath : pplist) {
-				addPropagationPath(ci, propagationPath);
+				addUserDeclaredPropagationPath(ci, propagationPath);
 			}
 		}
 	}
 
-	protected void addPropagationPath(ComponentInstance ci, PropagationPath pp) {
+	protected void addUserDeclaredPropagationPath(ComponentInstance ci, PropagationPath pp) {
 		ErrorPropagation srcEP = null;
 		ErrorPropagation dstEP = null;
 		ComponentInstance srcCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getSource()));
 		ComponentInstance dstCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getTarget()));
 		if (srcCI != null) {
-			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getSource().getPropagationPoint()
-					.getName(), DirectionType.OUT);
+			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
+					pp.getSource().getPropagationPoint().getName(), DirectionType.OUT);
 		}
 		if (dstCI != null) {
-			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getTarget().getPropagationPoint()
-					.getName(), DirectionType.IN);
+			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(),
+					pp.getTarget().getPropagationPoint().getName(), DirectionType.IN);
 		}
-		if (srcEP != null && dstEP != null) {
-			propagationPaths.add(new PropagationPathRecord(srcCI, srcEP, dstCI, dstEP));
-			subcomponents.add(srcCI);
-			subcomponents.add(dstCI);
-		}
+		addPropagationpathRecord(srcCI, srcEP, dstCI, dstEP, null);
+
 	}
 
 	protected ComponentInstance getComponentInstance(ComponentInstance ci, EList<SubcomponentElement> sublist) {
@@ -522,53 +594,6 @@ public class AnalysisModel {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * find the ends with EP that are the highest in the containment hierarchy
-	 * @param connectionInstance
-	 */
-	protected void populateShortestConnectionPropagationPaths(ConnectionInstance connectionInstance) {
-		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
-		ErrorPropagation srcprop = null;
-		ComponentInstance srcCI = null;
-		ErrorPropagation dstprop = null;
-		ComponentInstance dstCI = null;
-		for (ConnectionReference connectionReference : connrefs) {
-			ConnectionInstanceEnd src = connectionReference.getSource();
-			ConnectionInstanceEnd dst = connectionReference.getDestination();
-			ErrorPropagation foundsrc = null;
-			if (src instanceof FeatureInstance) {
-				// remember the first src with EP
-				foundsrc = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
-				if (foundsrc != null) {
-					// remember the highest source with EP
-					srcprop = foundsrc;
-					srcCI = ((FeatureInstance) src).getContainingComponentInstance();
-				}
-			} else if (src instanceof ComponentInstance) {
-				foundsrc = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src);
-				if (foundsrc != null) {
-					// remember the highest source with EP
-					srcprop = foundsrc;
-					srcCI = (ComponentInstance) src;
-				}
-			}
-			if (dstprop == null) {
-				if (dst instanceof FeatureInstance) {
-					dstprop = EMV2Util.getIncomingErrorPropagation((FeatureInstance) dst);
-					dstCI = ((FeatureInstance) dst).getContainingComponentInstance();
-				} else if (dst instanceof ComponentInstance) {
-					dstprop = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) dst);
-					dstCI = (ComponentInstance) dst;
-				}
-			}
-		}
-		if (srcprop != null && dstprop != null) {
-			propagationPaths.add(new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop, connectionInstance));
-			subcomponents.add(srcCI);
-			subcomponents.add(dstCI);
-		}
 	}
 
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ComponentInstance ci, ErrorPropagation outEP) {
@@ -585,8 +610,7 @@ public class AnalysisModel {
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ConnectionInstance ci) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
 		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
-			PropagationPathEnd src = propagationPathRecord.getPathSrc();
-			if (src.getConnectionInstance() == ci) {
+			if (propagationPathRecord.getConnectionInstance() == ci) {
 				result.add(propagationPathRecord.getPathDst());
 			}
 		}
@@ -594,8 +618,9 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * return all propagation paths out of the outgoing error propagation
-	 * we assume that any type token to be propagated meets the ep type constraint
+	 * return all propagation paths out of the outgoing error propagation we
+	 * assume that any type token to be propagated meets the ep type constraint
+	 * 
 	 * @param ci
 	 * @param outEP
 	 * @return
@@ -611,7 +636,8 @@ public class AnalysisModel {
 					// check if one EP is in an ancestor feature instance
 					FeatureInstance outepfi = EMV2Util.findFeatureInstance(outEP, ci);
 					FeatureInstance srcfi = EMV2Util.findFeatureInstance(src.getErrorPropagation(), ci);
-					if (Aadl2InstanceUtil.containedIn(outepfi, srcfi) || Aadl2InstanceUtil.containedIn(srcfi, outepfi)) {
+					if (Aadl2InstanceUtil.containedIn(outepfi, srcfi)
+							|| Aadl2InstanceUtil.containedIn(srcfi, outepfi)) {
 						result.add(propagationPathRecord);
 					}
 				}
@@ -676,8 +702,10 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * return all feature (or for access component) instances that are the connection destination of the given feature instance
-	 * The source and destinations are assumed to be components with error models
+	 * return all feature (or for access component) instances that are the
+	 * connection destination of the given feature instance The source and
+	 * destinations are assumed to be components with error models
+	 * 
 	 * @param fi
 	 * @return list of ConnectionInstanceEnd
 	 */
@@ -715,7 +743,8 @@ public class AnalysisModel {
 			ErrorPropagation dstEP, ConnectionInstance conni) {
 		for (PropagationPathRecord pp : propagationPaths) {
 			if (pp.getConnectionInstance() == conni && pp.getSrcCI() == srcCI && pp.getDstCI() == dstCI
-					&& pp.getPathSrc().getErrorPropagation() == srcEP && pp.getPathDst().getErrorPropagation() == dstEP) {
+					&& pp.getPathSrc().getErrorPropagation() == srcEP
+					&& pp.getPathDst().getErrorPropagation() == dstEP) {
 				return true;
 			}
 		}

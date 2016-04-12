@@ -37,8 +37,8 @@ public class EMV2AnnexParser implements AnnexParser {
 	@Override
 	public AnnexLibrary parseAnnexLibrary(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) {
-		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(getParser(), source, getGrammarAccess()
-				.getErrorModelLibraryRule(), filename, line, column, errReporter);
+		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(getParser(), source,
+				getGrammarAccess().getErrorModelLibraryRule(), filename, line, column, errReporter);
 		return eal;
 
 	}
@@ -46,8 +46,8 @@ public class EMV2AnnexParser implements AnnexParser {
 	@Override
 	public AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) {
-		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(getParser(), source, getGrammarAccess()
-				.getErrorModelSubclauseRule(), filename, line, column, errReporter);
+		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(getParser(), source,
+				getGrammarAccess().getErrorModelSubclauseRule(), filename, line, column, errReporter);
 		return eas;
 	}
 
