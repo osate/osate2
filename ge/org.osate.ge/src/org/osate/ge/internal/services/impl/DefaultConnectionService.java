@@ -8,8 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -33,6 +34,8 @@ import org.osate.ge.internal.connections.SubprogramCallOrderInfoProvider;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.CachingService;
+import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.SerializableReferenceService;
@@ -44,13 +47,25 @@ public class DefaultConnectionService implements ConnectionService {
 	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
+	private final CachingService cachingService;
 	private final ConnectionInfoProvider[] infoProviders;
-	
-	public DefaultConnectionService(final AnchorService anchorUtil, final SerializableReferenceService referenceService, final ShapeService shapeHelper, final PropertyService propertyService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	private final Map<Shape, Map<Object, Connection>> ownerShapeToBusinessObjectToConnectionMap = new HashMap<>();
+	final Map<Connection, ConnectionInfoProvider> connectionToProviderMap = new HashMap<>();
+	private final Cache cache = new Cache() {
+		@Override
+		public void invalidate() {
+			ownerShapeToBusinessObjectToConnectionMap.clear();
+			connectionToProviderMap.clear();
+		}			
+	};
+
+	public DefaultConnectionService(final AnchorService anchorUtil, final SerializableReferenceService referenceService, final ShapeService shapeHelper, 
+			final PropertyService propertyService, final BusinessObjectResolutionService bor, final CachingService cachingService, final IFeatureProvider fp) {
 		this.anchorService = anchorUtil;
 		this.referenceService = referenceService;
 		this.bor = bor;
 		this.fp = fp;
+		this.cachingService = cachingService;
 		
 		// TODO: Use extension point or something
 		final Diagram diagram = getDiagram();
@@ -64,18 +79,14 @@ public class DefaultConnectionService implements ConnectionService {
 				new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper),
 				new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper)
 		};
+		
+		this.cachingService.registerCache(cache);
 	}
 	
 	@Override
-	public List<Connection> getConnections(ContainerShape ownerShape) {
-		final List<Connection> retValue = new ArrayList<Connection>();
-		final Diagram diagram = getDiagram();
-		for(final Connection c : diagram.getConnections()) {
-			if(getOwnerShape(c) == ownerShape) {
-				retValue.add(c);
-			}
-		}
-		return retValue;		
+	public Collection<Connection> getConnections(ContainerShape ownerShape) {
+		ensureCacheIsPopulated();
+		return getBusinessObjectToConnectionMap(ownerShape).values();	
 	}
 	
 	/* (non-Javadoc)
@@ -83,16 +94,10 @@ public class DefaultConnectionService implements ConnectionService {
 	 */
 	@Override
 	public Connection getConnection(final ContainerShape ownerShape, final Object bo) {
-		// TODO: Improve performance.
-		// Find all connections that match the anchors
-		final Diagram diagram = getDiagram();
-		for(final Connection c : diagram.getConnections()) {
-			if(getOwnerShape(c) == ownerShape && bor.areBusinessObjectsEqual(bor.getBusinessObjectForPictogramElement(c), bo)) {
-				return c;
-			}
-		}
-		
-		return null;
+		// TODO: Not using:  bor.areBusinessObjectsEqual(bor.getBusinessObjectForPictogramElement(c), bo). Problem?
+		ensureCacheIsPopulated();
+		final Connection result = getBusinessObjectToConnectionMap(ownerShape).get(bo);;
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -148,8 +153,14 @@ public class DefaultConnectionService implements ConnectionService {
 	}
 	
 	private ConnectionInfoProvider getInfoProviderByConnection(final Connection c) {
+		final ConnectionInfoProvider infoProvider = connectionToProviderMap.get(c);
+		if(infoProvider != null) {
+			return infoProvider;			
+		}
+		
 		for(final ConnectionInfoProvider p : infoProviders) {
 			if(p.isApplicable(c)) {
+				connectionToProviderMap.put(c, p);
 				return p;
 			}
 		}
@@ -169,7 +180,7 @@ public class DefaultConnectionService implements ConnectionService {
 			return null;
 		}
 		
-		// DEtermine the name of the anchor
+		// Determine the name of the anchor
 		final String anchorName = getMidpointAnchorName(connection);
 		if(anchorName == null) {
 			return null;
@@ -224,5 +235,36 @@ public class DefaultConnectionService implements ConnectionService {
 				createUpdateMidpointAnchor(connection);
 			}
 		}
+	}
+	
+	// Caching
+	private void populateCache() {
+		final Diagram diagram = getDiagram();
+		for(final Connection c : diagram.getConnections()) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(c);
+			if(bo != null) {
+				final Shape ownerShape = getOwnerShape(c);
+				if(ownerShape != null) {
+					Map<Object, Connection> boToConnectionMap = getBusinessObjectToConnectionMap(ownerShape);					
+					boToConnectionMap.put(bo, c);
+				}
+			}
+		}
+	}
+	
+	private void ensureCacheIsPopulated() {
+		if(ownerShapeToBusinessObjectToConnectionMap.size() == 0) {
+			populateCache();
+		}
+	}
+	
+	private Map<Object, Connection> getBusinessObjectToConnectionMap(final Shape ownerShape) {		
+		Map<Object, Connection> boToConnectionMap = ownerShapeToBusinessObjectToConnectionMap.get(ownerShape);
+		if(boToConnectionMap == null) {
+			boToConnectionMap = new HashMap<>();
+			ownerShapeToBusinessObjectToConnectionMap.put(ownerShape, boToConnectionMap);
+		}
+		
+		return boToConnectionMap;
 	}
 }

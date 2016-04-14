@@ -122,7 +122,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
-		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
+		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, cachingService, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
 		styleService = new DefaultStyleService(fp);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
