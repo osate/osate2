@@ -55,22 +55,9 @@
       <feature id="it.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
-      <feature id="org.eclipse.emf"/>
-      <feature id="org.eclipse.emf.transaction"/>
       <feature id="org.eclipse.equinox.executable"/>
-      <feature id="org.eclipse.equinox.p2.core.feature"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
-      <feature id="org.eclipse.gmf"/>
-      <feature id="org.eclipse.graphiti.feature"/>
-      <feature id="org.eclipse.help"/>
-      <feature id="org.eclipse.m2e.logback.feature"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.uml2"/>
-      <feature id="org.eclipse.zest"/>
-      <feature id="org.eclipse.xtext.redist"/>
    </features>
 
    <configurations>
