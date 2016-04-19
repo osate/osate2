@@ -73,7 +73,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://aadl.info/aadl/osate/stable/2.2.1" enabled="true" />
+      <repository location="http://aadl.info/aadl/osate/stable/2.2.1/update-site/" enabled="true" />
       <repository location="http://www.eclipse.org/modeling/amalgam/downloads/package/modeling/mars/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.5" enabled="true" />
       <repository location="http://download.eclipse.org/releases/mars" enabled="true" />
