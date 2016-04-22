@@ -3770,8 +3770,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef returns aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" | {aadl2::AadlReal} "real" | {aadl2::AadlString}
-	//	"string" | {ModelRef} "model" "element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
+	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
+	//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -3894,8 +3896,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Expressions
 	//enum Operation:
-	//	OR="or" | AND="and" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" | PLUS="+" | MINUS="-" |
-	//	MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+	//	OR="or" | OR="||" | AND="and" | AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" |
+	//	PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 	public CommonGrammarAccess.OperationElements getOperationAccess() {
 		return gaCommon.getOperationAccess();
 	}

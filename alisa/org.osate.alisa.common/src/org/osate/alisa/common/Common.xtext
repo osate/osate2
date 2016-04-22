@@ -43,8 +43,8 @@ enum ResultIssueType:
 
 TypeRef returns aadl2::PropertyType:
 	{aadl2::AadlBoolean} 'boolean'
-	| {aadl2::AadlInteger} 'integer'
-	| {aadl2::AadlReal} 'real'
+	| {aadl2::AadlInteger} 'integer' ('unit' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+	| {aadl2::AadlReal} 'real' ('unit' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 	| {aadl2::AadlString} 'string'
 	| {ModelRef} 'model' 'element'
 	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
@@ -95,8 +95,8 @@ IMGREF : (ID '/')* ID '.' ID;
 
 // Expressions
 enum Operation:
-	OR='or' 
-	| AND='and'
+	OR='or' | OR='||'
+	| AND='and' | AND='&&'
 	| EQ='==' | NEQ='!='
 	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
 	| PLUS='+' | MINUS='-'

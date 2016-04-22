@@ -6448,7 +6448,27 @@ ruleTypeRef returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeRefAccess().getIntegerKeyword_1_1());
     }
+(
+	otherlv_4=Unit
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTypeRefRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0()); 
+	    }
+		ruleAADLPROPERTYREFERENCE		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+))?)
     |((
     {
         $current = forceCreateModelElement(
@@ -6456,11 +6476,31 @@ ruleTypeRef returns [EObject current=null]
             $current);
     }
 )
-	otherlv_5=Real
+	otherlv_7=Real
     {
-    	newLeafNode(otherlv_5, grammarAccess.getTypeRefAccess().getRealKeyword_2_1());
+    	newLeafNode(otherlv_7, grammarAccess.getTypeRefAccess().getRealKeyword_2_1());
     }
+(
+	otherlv_8=Unit
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTypeRefRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0()); 
+	    }
+		ruleAADLPROPERTYREFERENCE		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+))?)
     |((
     {
         $current = forceCreateModelElement(
@@ -6468,9 +6508,9 @@ ruleTypeRef returns [EObject current=null]
             $current);
     }
 )
-	otherlv_7=String
+	otherlv_11=String
     {
-    	newLeafNode(otherlv_7, grammarAccess.getTypeRefAccess().getStringKeyword_3_1());
+    	newLeafNode(otherlv_11, grammarAccess.getTypeRefAccess().getStringKeyword_3_1());
     }
 )
     |((
@@ -6480,14 +6520,14 @@ ruleTypeRef returns [EObject current=null]
             $current);
     }
 )
-	otherlv_9=Model
+	otherlv_13=Model
     {
-    	newLeafNode(otherlv_9, grammarAccess.getTypeRefAccess().getModelKeyword_4_1());
+    	newLeafNode(otherlv_13, grammarAccess.getTypeRefAccess().getModelKeyword_4_1());
     }
 
-	otherlv_10=Element
+	otherlv_14=Element
     {
-    	newLeafNode(otherlv_10, grammarAccess.getTypeRefAccess().getElementKeyword_4_2());
+    	newLeafNode(otherlv_14, grammarAccess.getTypeRefAccess().getElementKeyword_4_2());
     }
 )
     |((

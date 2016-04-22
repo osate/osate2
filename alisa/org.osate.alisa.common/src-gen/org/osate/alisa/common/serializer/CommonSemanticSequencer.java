@@ -444,7 +444,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     {AadlInteger}
+	 *     (referencedUnitsType=[UnitsType|AADLPROPERTYREFERENCE]?)
 	 */
 	protected void sequence_TypeRef(EObject context, AadlInteger semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -453,7 +453,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     {AadlReal}
+	 *     (referencedUnitsType=[UnitsType|AADLPROPERTYREFERENCE]?)
 	 */
 	protected void sequence_TypeRef(EObject context, AadlReal semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
