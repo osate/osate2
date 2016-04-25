@@ -314,8 +314,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 					switch part {
 						SystemRequirementSet : {}
 						GlobalRequirementSet : {}
-						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
-						ReqDocument : fileTypeWarning(fileExt, "document", part)	
+//						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
+//						ReqDocument : fileTypeWarning(fileExt, "document", part)	
 						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
