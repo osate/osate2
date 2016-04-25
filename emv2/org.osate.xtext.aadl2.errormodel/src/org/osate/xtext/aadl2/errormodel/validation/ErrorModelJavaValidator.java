@@ -833,7 +833,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorBehaviorState ebs = ebt.getTarget();
 		if (ebs != null) {
 			TypeSet ebsTS = ebs.getTypeSet();
-			TypeToken ebtargetTS = ebt.getTargetToken().getTypeTokens().get(0);
+			TypeSet tt = ebt.getTargetToken();
+			if (tt == null || tt.getTypeTokens().isEmpty())
+				return;
+			TypeToken ebtargetTS = tt.getTypeTokens().get(0);
 			if (ebtargetTS == null) {
 				return;
 			}
@@ -899,7 +902,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorBehaviorState ebs = ebt.getTarget();
 		if (ebs != null) {
 			TypeSet ebsTS = ebs.getTypeSet();
-			TypeToken ebtargetTS = ebt.getTargetToken().getTypeTokens().get(0);
+			TypeSet tt = ebt.getTargetToken();
+			if (tt == null || tt.getTypeTokens().isEmpty())
+				return;
+			TypeToken ebtargetTS = tt.getTypeTokens().get(0);
 			if (ebtargetTS == null) {
 				return;
 			}
