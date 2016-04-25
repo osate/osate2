@@ -230,7 +230,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	}
 	
 	@Check(CheckType.FAST)
-	def void checkVerificationMethodForResoluteDefinitionCompliance(VerificationMethod vm) {
+	def void checkVerificationMethodSignature(VerificationMethod vm) {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod : {
 				val vmName = vm.name
