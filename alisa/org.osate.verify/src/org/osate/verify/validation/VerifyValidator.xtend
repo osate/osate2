@@ -44,6 +44,12 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlString
+import org.osate.alisa.common.common.PropertyRef
 
 /**
  * Custom validation rules. 
@@ -232,10 +238,10 @@ class VerifyValidator extends AbstractVerifyValidator {
 				val indexOfVmName = oldVMText.indexOf(vmName)
 				val vmNameEnd = indexOfVmName + vmName.length
 				val parenPos = oldVMText.indexOf(")", vmNameEnd)
-				val colonPos = oldVMText.indexOf(":", vmNameEnd)
+				val colonPos = oldVMText.indexOf(":", if(parenPos < 0)  vmNameEnd else parenPos)
 				val bracketPos = oldVMText.indexOf("[", vmNameEnd)
 				
-				val possibleEnds = newArrayOfSize(3)
+				val possibleEnds = newArrayOfSize(3) 
 				possibleEnds.set(0, if (parenPos < 0) Integer.MAX_VALUE else parenPos)
 				possibleEnds.set(1, if (colonPos < 0) Integer.MAX_VALUE else colonPos)
 				possibleEnds.set(2, if (bracketPos < 0) Integer.MAX_VALUE else bracketPos)
@@ -245,7 +251,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 				val  methodRefName = methodKind.methodReference.name
 				val methodArgs = methodKind.methodReference.args
 				val methodArgsString = vmName + 
-						methodArgs.filter[it.name != "self"].join(" ( ", ", ", " ) ", [arg | ((arg.type) as BaseType).type + " " + arg.name])
+						methodArgs.filter[it.name != "self"].join(" ( ", ", ", " ) ", [arg | arg.name + ": " + ((arg.type) as BaseType).type ])
 				if (vmParms.size != methodArgs.filter[it.name != "self"].size ){
 					val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
 					val issueData = newArrayOfSize(2)
@@ -263,7 +269,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 							default : 0
 						}
 					val baseType = methodArgs.get(j + i).type as BaseType
-					if (vmParm.parameterType != baseType.type){
+					if (!matchResoluteType(vmParm.type,baseType)){
 						val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
 						val issueData = newArrayOfSize(2)
 						issueData.set(0, "" + oldVMText)
@@ -278,6 +284,17 @@ class VerifyValidator extends AbstractVerifyValidator {
 				]
 			}
 		}
+	}
+	
+	def boolean matchResoluteType(PropertyType formalType, BaseType resoluteType){
+		switch (formalType){
+			AadlBoolean: return resoluteType.type.equalsIgnoreCase("bool")
+			AadlReal: return resoluteType.type.equalsIgnoreCase("real")
+			AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
+			AadlString: return resoluteType.type.equalsIgnoreCase("string")
+			PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+		}
+		false
 	}
 
 
