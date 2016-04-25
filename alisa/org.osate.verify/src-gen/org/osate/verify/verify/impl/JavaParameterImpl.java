@@ -15,77 +15,78 @@
  */
 package org.osate.verify.verify.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Java Method</b></em>'.
+ * An implementation of the model object '<em><b>Java Parameter</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.JavaMethodImpl#getMethodPath <em>Method Path</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.JavaMethodImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.JavaParameterImpl#getParameterType <em>Parameter Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.JavaParameterImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
+public class JavaParameterImpl extends MinimalEObjectImpl.Container implements JavaParameter
 {
   /**
-   * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
+   * The default value of the '{@link #getParameterType() <em>Parameter Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodPath()
+   * @see #getParameterType()
    * @generated
    * @ordered
    */
-  protected static final String METHOD_PATH_EDEFAULT = null;
+  protected static final String PARAMETER_TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
+   * The cached value of the '{@link #getParameterType() <em>Parameter Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodPath()
+   * @see #getParameterType()
    * @generated
    * @ordered
    */
-  protected String methodPath = METHOD_PATH_EDEFAULT;
+  protected String parameterType = PARAMETER_TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getParams()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<JavaParameter> params;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected JavaMethodImpl()
+  protected JavaParameterImpl()
   {
     super();
   }
@@ -98,7 +99,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.JAVA_METHOD;
+    return VerifyPackage.Literals.JAVA_PARAMETER;
   }
 
   /**
@@ -106,9 +107,9 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getMethodPath()
+  public String getParameterType()
   {
-    return methodPath;
+    return parameterType;
   }
 
   /**
@@ -116,12 +117,12 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodPath(String newMethodPath)
+  public void setParameterType(String newParameterType)
   {
-    String oldMethodPath = methodPath;
-    methodPath = newMethodPath;
+    String oldParameterType = parameterType;
+    parameterType = newParameterType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.JAVA_METHOD__METHOD_PATH, oldMethodPath, methodPath));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.JAVA_PARAMETER__PARAMETER_TYPE, oldParameterType, parameterType));
   }
 
   /**
@@ -129,13 +130,9 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<JavaParameter> getParams()
+  public String getName()
   {
-    if (params == null)
-    {
-      params = new EObjectContainmentEList<JavaParameter>(JavaParameter.class, this, VerifyPackage.JAVA_METHOD__PARAMS);
-    }
-    return params;
+    return name;
   }
 
   /**
@@ -143,15 +140,12 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setName(String newName)
   {
-    switch (featureID)
-    {
-      case VerifyPackage.JAVA_METHOD__PARAMS:
-        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.JAVA_PARAMETER__NAME, oldName, name));
   }
 
   /**
@@ -164,10 +158,10 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
   {
     switch (featureID)
     {
-      case VerifyPackage.JAVA_METHOD__METHOD_PATH:
-        return getMethodPath();
-      case VerifyPackage.JAVA_METHOD__PARAMS:
-        return getParams();
+      case VerifyPackage.JAVA_PARAMETER__PARAMETER_TYPE:
+        return getParameterType();
+      case VerifyPackage.JAVA_PARAMETER__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -177,18 +171,16 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case VerifyPackage.JAVA_METHOD__METHOD_PATH:
-        setMethodPath((String)newValue);
+      case VerifyPackage.JAVA_PARAMETER__PARAMETER_TYPE:
+        setParameterType((String)newValue);
         return;
-      case VerifyPackage.JAVA_METHOD__PARAMS:
-        getParams().clear();
-        getParams().addAll((Collection<? extends JavaParameter>)newValue);
+      case VerifyPackage.JAVA_PARAMETER__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -204,11 +196,11 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
   {
     switch (featureID)
     {
-      case VerifyPackage.JAVA_METHOD__METHOD_PATH:
-        setMethodPath(METHOD_PATH_EDEFAULT);
+      case VerifyPackage.JAVA_PARAMETER__PARAMETER_TYPE:
+        setParameterType(PARAMETER_TYPE_EDEFAULT);
         return;
-      case VerifyPackage.JAVA_METHOD__PARAMS:
-        getParams().clear();
+      case VerifyPackage.JAVA_PARAMETER__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -224,10 +216,10 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
   {
     switch (featureID)
     {
-      case VerifyPackage.JAVA_METHOD__METHOD_PATH:
-        return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
-      case VerifyPackage.JAVA_METHOD__PARAMS:
-        return params != null && !params.isEmpty();
+      case VerifyPackage.JAVA_PARAMETER__PARAMETER_TYPE:
+        return PARAMETER_TYPE_EDEFAULT == null ? parameterType != null : !PARAMETER_TYPE_EDEFAULT.equals(parameterType);
+      case VerifyPackage.JAVA_PARAMETER__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
@@ -243,10 +235,12 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (methodPath: ");
-    result.append(methodPath);
+    result.append(" (parameterType: ");
+    result.append(parameterType);
+    result.append(", name: ");
+    result.append(name);
     result.append(')');
     return result.toString();
   }
 
-} //JavaMethodImpl
+} //JavaParameterImpl

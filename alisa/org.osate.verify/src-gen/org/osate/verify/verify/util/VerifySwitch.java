@@ -203,6 +203,13 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.JAVA_PARAMETER:
+      {
+        JavaParameter javaParameter = (JavaParameter)theEObject;
+        T result = caseJavaParameter(javaParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.THEN_EXPR:
       {
         ThenExpr thenExpr = (ThenExpr)theEObject;
@@ -507,6 +514,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseJUnit4Method(JUnit4Method object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Java Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Java Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJavaParameter(JavaParameter object)
   {
     return null;
   }

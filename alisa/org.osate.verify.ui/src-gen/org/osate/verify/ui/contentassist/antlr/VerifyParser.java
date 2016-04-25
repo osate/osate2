@@ -53,6 +53,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getElseEvidenceExprAccess().getAlternatives(), "rule__ElseEvidenceExpr__Alternatives");
 					put(grammarAccess.getSingleElseEvidenceExprAccess().getAlternatives_1_1(), "rule__SingleElseEvidenceExpr__Alternatives_1_1");
 					put(grammarAccess.getCompositeEvidenceExprAccess().getAlternatives(), "rule__CompositeEvidenceExpr__Alternatives");
+					put(grammarAccess.getFormalParameterAccess().getAlternatives_2(), "rule__FormalParameter__Alternatives_2");
 					put(grammarAccess.getVerificationMethodAccess().getAlternatives_2_6(), "rule__VerificationMethod__Alternatives_2_6");
 					put(grammarAccess.getVerificationMethodAccess().getAlternatives_4_1(), "rule__VerificationMethod__Alternatives_4_1");
 					put(grammarAccess.getMethodKindAccess().getAlternatives(), "rule__MethodKind__Alternatives");
@@ -129,7 +130,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodRegistryAccess().getGroup_3(), "rule__VerificationMethodRegistry__Group_3__0");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getGroup_5(), "rule__VerificationMethodRegistry__Group_5__0");
 					put(grammarAccess.getFormalParameterAccess().getGroup(), "rule__FormalParameter__Group__0");
-					put(grammarAccess.getFormalParameterAccess().getGroup_2(), "rule__FormalParameter__Group_2__0");
+					put(grammarAccess.getFormalParameterAccess().getGroup_2_1(), "rule__FormalParameter__Group_2_1__0");
+					put(grammarAccess.getFormalParameterAccess().getGroup_3(), "rule__FormalParameter__Group_3__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup(), "rule__VerificationMethod__Group__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup_2(), "rule__VerificationMethod__Group_2__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup_2_1(), "rule__VerificationMethod__Group_2_1__0");
@@ -153,6 +155,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPluginMethodAccess().getGroup(), "rule__PluginMethod__Group__0");
 					put(grammarAccess.getAgreeMethodAccess().getGroup(), "rule__AgreeMethod__Group__0");
 					put(grammarAccess.getJUnit4MethodAccess().getGroup(), "rule__JUnit4Method__Group__0");
+					put(grammarAccess.getJavaParameterAccess().getGroup(), "rule__JavaParameter__Group__0");
 					put(grammarAccess.getCatRefAccess().getGroup(), "rule__CatRef__Group__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
@@ -286,9 +289,10 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodRegistryAccess().getTitleAssignment_3_1(), "rule__VerificationMethodRegistry__TitleAssignment_3_1");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionAssignment_5_0(), "rule__VerificationMethodRegistry__DescriptionAssignment_5_0");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_5_1(), "rule__VerificationMethodRegistry__MethodsAssignment_5_1");
-					put(grammarAccess.getFormalParameterAccess().getParameterTypeAssignment_0(), "rule__FormalParameter__ParameterTypeAssignment_0");
-					put(grammarAccess.getFormalParameterAccess().getNameAssignment_1(), "rule__FormalParameter__NameAssignment_1");
-					put(grammarAccess.getFormalParameterAccess().getUnitAssignment_2_1(), "rule__FormalParameter__UnitAssignment_2_1");
+					put(grammarAccess.getFormalParameterAccess().getNameAssignment_0(), "rule__FormalParameter__NameAssignment_0");
+					put(grammarAccess.getFormalParameterAccess().getTypeAssignment_2_0(), "rule__FormalParameter__TypeAssignment_2_0");
+					put(grammarAccess.getFormalParameterAccess().getTypeAssignment_2_1_1(), "rule__FormalParameter__TypeAssignment_2_1_1");
+					put(grammarAccess.getFormalParameterAccess().getUnitAssignment_3_1(), "rule__FormalParameter__UnitAssignment_3_1");
 					put(grammarAccess.getVerificationMethodAccess().getNameAssignment_1(), "rule__VerificationMethod__NameAssignment_1");
 					put(grammarAccess.getVerificationMethodAccess().getTargetTypeAssignment_2_1_0(), "rule__VerificationMethod__TargetTypeAssignment_2_1_0");
 					put(grammarAccess.getVerificationMethodAccess().getParamsAssignment_2_2_0(), "rule__VerificationMethod__ParamsAssignment_2_2_0");
@@ -316,6 +320,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAgreeMethodAccess().getSingleLayerAssignment_1_0(), "rule__AgreeMethod__SingleLayerAssignment_1_0");
 					put(grammarAccess.getAgreeMethodAccess().getAllAssignment_1_1(), "rule__AgreeMethod__AllAssignment_1_1");
 					put(grammarAccess.getJUnit4MethodAccess().getClassPathAssignment_1(), "rule__JUnit4Method__ClassPathAssignment_1");
+					put(grammarAccess.getJavaParameterAccess().getParameterTypeAssignment_0(), "rule__JavaParameter__ParameterTypeAssignment_0");
+					put(grammarAccess.getJavaParameterAccess().getNameAssignment_1(), "rule__JavaParameter__NameAssignment_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");
