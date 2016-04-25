@@ -180,6 +180,15 @@ public interface VerifyFactory extends EFactory
   JUnit4Method createJUnit4Method();
 
   /**
+   * Returns a new object of class '<em>Java Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Java Parameter</em>'.
+   * @generated
+   */
+  JavaParameter createJavaParameter();
+
+  /**
    * Returns a new object of class '<em>Then Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -168,6 +168,11 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createJUnit4MethodAdapter();
       }
       @Override
+      public Adapter caseJavaParameter(JavaParameter object)
+      {
+        return createJavaParameterAdapter();
+      }
+      @Override
       public Adapter caseThenExpr(ThenExpr object)
       {
         return createThenExprAdapter();
@@ -455,6 +460,21 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createJUnit4MethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.JavaParameter <em>Java Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.JavaParameter
+   * @generated
+   */
+  public Adapter createJavaParameterAdapter()
   {
     return null;
   }

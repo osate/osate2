@@ -61,8 +61,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethodRegistry/methods"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//FormalParameter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//FormalParameter/parameterType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//FormalParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//FormalParameter/type"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//FormalParameter/unit"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethod">
@@ -102,6 +102,10 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//JUnit4Method">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//JUnit4Method/classPath"/>
+    </genClasses>
+    <genClasses ecoreClass="Verify.ecore#//JavaParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//JavaParameter/parameterType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//JavaParameter/name"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/left"/>

@@ -16,6 +16,7 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 
 import org.osate.verify.verify.FormalParameter;
@@ -37,8 +39,8 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getParameterType <em>Parameter Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -46,26 +48,6 @@ import org.osate.verify.verify.VerifyPackage;
  */
 public class FormalParameterImpl extends MinimalEObjectImpl.Container implements FormalParameter
 {
-  /**
-   * The default value of the '{@link #getParameterType() <em>Parameter Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameterType()
-   * @generated
-   * @ordered
-   */
-  protected static final String PARAMETER_TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getParameterType() <em>Parameter Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameterType()
-   * @generated
-   * @ordered
-   */
-  protected String parameterType = PARAMETER_TYPE_EDEFAULT;
-
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -85,6 +67,16 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected PropertyType type;
 
   /**
    * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -122,29 +114,6 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getParameterType()
-  {
-    return parameterType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setParameterType(String newParameterType)
-  {
-    String oldParameterType = parameterType;
-    parameterType = newParameterType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FORMAL_PARAMETER__PARAMETER_TYPE, oldParameterType, parameterType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getName()
   {
     return name;
@@ -161,6 +130,54 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FORMAL_PARAMETER__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyType getType()
+  {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetType(PropertyType newType, NotificationChain msgs)
+  {
+    PropertyType oldType = type;
+    type = newType;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.FORMAL_PARAMETER__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(PropertyType newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FORMAL_PARAMETER__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FORMAL_PARAMETER__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FORMAL_PARAMETER__TYPE, newType, newType));
   }
 
   /**
@@ -212,14 +229,30 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case VerifyPackage.FORMAL_PARAMETER__TYPE:
+        return basicSetType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case VerifyPackage.FORMAL_PARAMETER__PARAMETER_TYPE:
-        return getParameterType();
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         return getName();
+      case VerifyPackage.FORMAL_PARAMETER__TYPE:
+        return getType();
       case VerifyPackage.FORMAL_PARAMETER__UNIT:
         if (resolve) return getUnit();
         return basicGetUnit();
@@ -237,11 +270,11 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case VerifyPackage.FORMAL_PARAMETER__PARAMETER_TYPE:
-        setParameterType((String)newValue);
-        return;
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.FORMAL_PARAMETER__TYPE:
+        setType((PropertyType)newValue);
         return;
       case VerifyPackage.FORMAL_PARAMETER__UNIT:
         setUnit((UnitLiteral)newValue);
@@ -260,11 +293,11 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case VerifyPackage.FORMAL_PARAMETER__PARAMETER_TYPE:
-        setParameterType(PARAMETER_TYPE_EDEFAULT);
-        return;
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         setName(NAME_EDEFAULT);
+        return;
+      case VerifyPackage.FORMAL_PARAMETER__TYPE:
+        setType((PropertyType)null);
         return;
       case VerifyPackage.FORMAL_PARAMETER__UNIT:
         setUnit((UnitLiteral)null);
@@ -283,10 +316,10 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case VerifyPackage.FORMAL_PARAMETER__PARAMETER_TYPE:
-        return PARAMETER_TYPE_EDEFAULT == null ? parameterType != null : !PARAMETER_TYPE_EDEFAULT.equals(parameterType);
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.FORMAL_PARAMETER__TYPE:
+        return type != null;
       case VerifyPackage.FORMAL_PARAMETER__UNIT:
         return unit != null;
     }
@@ -304,9 +337,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (parameterType: ");
-    result.append(parameterType);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(')');
     return result.toString();
