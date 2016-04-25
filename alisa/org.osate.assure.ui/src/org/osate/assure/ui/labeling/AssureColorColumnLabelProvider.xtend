@@ -100,6 +100,7 @@ class AssureColorColumnLabelProvider extends ColumnLabelProvider {
 				if (ele.isZeroCount) return SWT.COLOR_DARK_BLUE
 				SWT.COLOR_BLUE
 			}
+			default : SWT.COLOR_BLUE
 		}
 	}
 }
