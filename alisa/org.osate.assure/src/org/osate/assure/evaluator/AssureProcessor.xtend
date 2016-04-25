@@ -73,6 +73,10 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.aadl2.PropertyExpression
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.AadlBoolean
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -282,7 +286,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				
-				val paramType = formalParam.parameterType
+				val paramType = formalParam.type
 				if (actual == null){
 					return
 				}
@@ -291,11 +295,12 @@ class AssureProcessor implements IAssureProcessor {
 				if (idx >=0) typeName = typeName.substring(idx+1)
 				if (typeName.endsWith("Impl")) typeName = typeName.substring(0,typeName.length-4)
 				if (typeName != null && paramType != null && 
-					! (typeName.equalsIgnoreCase(paramType)
-						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("real")
-						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("int")
-						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("string")
-						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("bool")
+					! (
+//	                    typeName.equalsIgnoreCase(paramType) || 
+						typeName.equalsIgnoreCase("RealLiteral") && paramType instanceof AadlReal
+						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType instanceof AadlInteger
+						|| typeName.equalsIgnoreCase("StringLiteral") && paramType instanceof AadlString
+						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType instanceof AadlBoolean
 					)
 				) {
 					setToError(verificationResult,
