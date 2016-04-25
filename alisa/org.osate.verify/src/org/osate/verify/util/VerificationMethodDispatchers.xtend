@@ -52,6 +52,8 @@ import javax.sound.sampled.BooleanControl.Type
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.verify.verify.JavaParameter
+import javax.xml.bind.PropertyException
+import java.util.Iterator
 
 class VerificationMethodDispatchers {
 
@@ -145,8 +147,10 @@ class VerificationMethodDispatchers {
 			val method = clazz.getMethod(methodName, newClasses)
 			val objects = new ArrayList()
 			objects.add(target)
+			val fpiter = formalparameters.iterator
 			for (o : parameters) {
-				objects.add(o)
+				val fp = fpiter.next
+				objects.add(toJavaActual(fp,o,vm))
 			}
 			method.invoke(instance, objects.toArray)
 		} catch (Exception e) {
@@ -280,6 +284,16 @@ class VerificationMethodDispatchers {
 				return Class.forName(name)
 			}
 		}
+	}
+	
+	def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm){
+		val jparameters = vm.params
+		for (jp : jparameters){
+			if (formal.name.equalsIgnoreCase(jp.name)){
+				return convertToJavaObject(jp,actual)
+			}
+		}
+		actual
 	}
 
 	def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
