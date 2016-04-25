@@ -48,6 +48,10 @@ import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import javax.sound.sampled.BooleanControl.Type
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.instance.InstancePackage
+import org.osate.verify.verify.JavaParameter
 
 class VerificationMethodDispatchers {
 
@@ -134,14 +138,10 @@ class VerificationMethodDispatchers {
 			val newClasses = newArrayList()
 			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : formalparameters) {
-				val pt = par.type
-				val cl = forName(pt);
+				val cl = getJavaClass(par,vm);
 				newClasses.add(cl);
 			}
 
-//			for (o : parameters) {
-//				newClasses.add(o.class as Class<?>)
-//			}
 			val method = clazz.getMethod(methodName, newClasses)
 			val objects = new ArrayList()
 			objects.add(target)
@@ -197,8 +197,7 @@ class VerificationMethodDispatchers {
 			val newClasses = newArrayList()
 			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : parameters) {
-				val pt = par.type
-				val cl = forName(pt);
+				val cl = getJavaClass(par,vm);
 				newClasses.add(cl);
 			}
 
@@ -229,46 +228,72 @@ class VerificationMethodDispatchers {
 			}
 		}
 	}
+	
+	def Class<?> getJavaClass(FormalParameter fp, JavaMethod vm){
+		val jparameters = vm.params
+		for (jp : jparameters){
+			if (fp.name.equalsIgnoreCase(jp.name)){
+				return forName(jp.parameterType)
+			}
+		}
+		forName(fp.type)
+	}
 
+	/**
+	 * return Java Class for PropertyType
+	 */
 	def Class<?> forName(PropertyType type) throws ClassNotFoundException {
 		switch (type) {
-//			case void.name: return typeof(void)
-//			case byte.name: return typeof(byte)
-//			case char.name: return typeof(char)
-//			case short.name: return typeof(short)
-//			case int.name: return typeof(int)
-//			case float.name: return typeof(float)
-//			case long.name: return typeof(long)
-//			case double.name: return typeof(double)
 			AadlString: return typeof(String)
-//			case "Double": return typeof(Double)
-//			case "Long": return typeof(Long)
 			AadlReal: return typeof(RealLiteral)
 			AadlInteger: return typeof(IntegerLiteral)
 			AadlBoolean: return typeof(BooleanLiteral)
-//			default: {
-//				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
-//				if (ecl == null){
-//					InstancePackage.eINSTANCE.getEClassifier(name)
-//				}
-//				if (ecl != null) return ecl.instanceClass
-//				return Class.forName(name)
-//			}
 		}
 	}
 
-//	def Object convertToJavaObject(FormalParameter formalParam, PropertyExpression actual) {
-//		var Object result = actual
-//		switch (actual) {
-//			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
-//				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
-//			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long") ||
-//				formalParam.parameterType.equalsIgnoreCase("int")) result = actual.value
-//			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
-//			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
-//		}
-//		return result
-//	}
+	/**
+	 * return Java Class for class specified by name in JavaParameter
+	 */
+	def Class<?> forName(String name) throws ClassNotFoundException {
+		switch (name) {
+			case void.name: return typeof(void)
+			case boolean.name: return typeof(boolean)
+			case byte.name: return typeof(byte)
+			case char.name: return typeof(char)
+			case short.name: return typeof(short)
+			case int.name: return typeof(int)
+			case float.name: return typeof(float)
+			case long.name: return typeof(long)
+			case double.name: return typeof(double)
+			case String.name: return typeof(String)
+			case "Double": return typeof(Double)
+			case "Long": return typeof(Long)
+			case AadlReal.name: return typeof(RealLiteral)
+			case AadlInteger.name: return typeof(IntegerLiteral)
+			case AadlBoolean.name: return typeof(BooleanLiteral)
+			default: {
+				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
+				if (ecl == null){
+					InstancePackage.eINSTANCE.getEClassifier(name)
+				}
+				if (ecl != null) return ecl.instanceClass
+				return Class.forName(name)
+			}
+		}
+	}
+
+	def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
+		var Object result = actual
+		switch (actual) {
+			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
+				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
+			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long") ||
+				formalParam.parameterType.equalsIgnoreCase("int")) result = actual.value
+			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
+			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
+		}
+		return result
+	}
 
 	def String classExists(String className) {
 		try {
