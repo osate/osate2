@@ -962,14 +962,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class OpOrElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpOr");
-		private final Keyword cOrKeyword = (Keyword)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cOrKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cVerticalLineVerticalLineKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
 		//OpOr returns Operation:
-		//	"or";
+		//	"or" | "||";
 		@Override public ParserRule getRule() { return rule; }
 
+		//"or" | "||"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//"or"
-		public Keyword getOrKeyword() { return cOrKeyword; }
+		public Keyword getOrKeyword_0() { return cOrKeyword_0; }
+
+		//"||"
+		public Keyword getVerticalLineVerticalLineKeyword_1() { return cVerticalLineVerticalLineKeyword_1; }
 	}
 
 	public class AAndExpressionElements extends AbstractParserRuleElementFinder {
@@ -1022,14 +1030,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class OpAndElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpAnd");
-		private final Keyword cAndKeyword = (Keyword)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAndKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cAmpersandAmpersandKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
 		//OpAnd returns Operation:
-		//	"and";
+		//	"and" | "&&";
 		@Override public ParserRule getRule() { return rule; }
 
+		//"and" | "&&"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//"and"
-		public Keyword getAndKeyword() { return cAndKeyword; }
+		public Keyword getAndKeyword_0() { return cAndKeyword_0; }
+
+		//"&&"
+		public Keyword getAmpersandAmpersandKeyword_1() { return cAmpersandAmpersandKeyword_1; }
 	}
 
 	public class AEqualityExpressionElements extends AbstractParserRuleElementFinder {
@@ -2668,7 +2684,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpOr returns Operation:
-	//	"or";
+	//	"or" | "||";
 	public OpOrElements getOpOrAccess() {
 		return pOpOr;
 	}
@@ -2688,7 +2704,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpAnd returns Operation:
-	//	"and";
+	//	"and" | "&&";
 	public OpAndElements getOpAndAccess() {
 		return pOpAnd;
 	}

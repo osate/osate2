@@ -113,14 +113,15 @@ AOrExpression returns aadl2::PropertyExpression:
 ;
 
 OpOr returns Operation:
-	'or';
+	'or' | '||'
+;
 
 AAndExpression returns aadl2::PropertyExpression:
 	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*
 ;
 
 OpAnd returns Operation:
-	'and'
+	'and' | '&&'
 ;
 
 AEqualityExpression returns aadl2::PropertyExpression:
