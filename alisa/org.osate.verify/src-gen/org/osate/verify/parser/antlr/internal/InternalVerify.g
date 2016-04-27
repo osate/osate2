@@ -3898,13 +3898,20 @@ ruleOpOr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-
+(
 	kw='or' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpOrAccess().getOrKeyword()); 
+        newLeafNode(kw, grammarAccess.getOpOrAccess().getOrKeyword_0()); 
     }
 
+    |
+	kw='||' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getOpOrAccess().getVerticalLineVerticalLineKeyword_1()); 
+    }
+)
     ;
 
 
@@ -4002,13 +4009,20 @@ ruleOpAnd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-
+(
 	kw='and' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpAndAccess().getAndKeyword()); 
+        newLeafNode(kw, grammarAccess.getOpAndAccess().getAndKeyword_0()); 
     }
 
+    |
+	kw='&&' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getOpAndAccess().getAmpersandAmpersandKeyword_1()); 
+    }
+)
     ;
 
 

@@ -64,6 +64,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_4(), "rule__ComputeDeclaration__Alternatives_4");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getAlternatives(), "rule__AModelOrPropertyReference__Alternatives");
 					put(grammarAccess.getShowValueAccess().getAlternatives_1(), "rule__ShowValue__Alternatives_1");
+					put(grammarAccess.getOpOrAccess().getAlternatives(), "rule__OpOr__Alternatives");
+					put(grammarAccess.getOpAndAccess().getAlternatives(), "rule__OpAnd__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
 					put(grammarAccess.getOpCompareAccess().getAlternatives(), "rule__OpCompare__Alternatives");
 					put(grammarAccess.getOpAddAccess().getAlternatives(), "rule__OpAdd__Alternatives");
