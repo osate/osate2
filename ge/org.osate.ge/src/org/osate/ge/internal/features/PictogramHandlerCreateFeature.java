@@ -67,7 +67,7 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.CONTAINER_BO, containerBo);
-			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx);
+			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
 			eclipseCtx.dispose();
 		}
@@ -118,7 +118,7 @@ public class PictogramHandlerCreateFeature extends AbstractCreateFeature impleme
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.CONTAINER_BO, bor.getBusinessObjectForPictogramElement(container));
-			final EObject ownerBo = (EObject) ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
+			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;
 			}

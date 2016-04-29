@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -35,20 +36,14 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String BINDING_TYPE_KEY = "binding_type";
 	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
 
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	@Override
-	public final String getName(final PictogramElement pe) {
-		return Graphiti.getPeService().getPropertyValue(pe, NAME_KEY);
+	public final String getName(final PropertyContainer pc) {
+		return Graphiti.getPeService().getPropertyValue(pc, NAME_KEY);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setName(org.eclipse.graphiti.mm.pictograms.PictogramElement, java.lang.String)
-	 */
+
 	@Override
-	public final void setName(final PictogramElement pe, final String typeName) {
-		Graphiti.getPeService().setPropertyValue(pe, NAME_KEY, typeName);
+	public final void setName(final PropertyContainer pc, final String typeName) {
+		Graphiti.getPeService().setPropertyValue(pc, NAME_KEY, typeName);
 	}
 	
 	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property

@@ -8,32 +8,38 @@
  *******************************************************************************/
 package org.osate.ge.errormodel.pictogramHandlers;
 
+import java.util.stream.Stream;
+
 import javax.inject.Named;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.Graphic;
+import org.osate.ge.GraphicFactory;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryFactory;
 import org.osate.ge.di.AllowDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CreateBusinessObject;
+import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwningBusinessObject;
 import org.osate.ge.di.GetGraphicalRepresentation;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelBusinessObjectHelper;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
+import org.osate.ge.services.GraphicalEditorService;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Ellipse;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorStateMachinePictogramHandler {
-	private static final Ellipse graphics = new Ellipse();
+	private static final Graphic graphic = GraphicFactory.createEllipse();
 	
 	@IsApplicable
 	@AllowDelete
@@ -74,8 +80,8 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 	}	
 	
 	@GetGraphicalRepresentation
-	public Ellipse getGraphicalRepresentation() {
-		return graphics;
+	public Graphic getGraphicalRepresentation() {
+		return graphic;
 	}
 	
 	@GetName
@@ -92,5 +98,17 @@ public class ErrorBehaviorStateMachinePictogramHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final @Named(Names.NAME) String value) {
 		stateMachine.setName(value);
+	}
+	
+	@GetChildren
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine) {
+		return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), 
+				stateMachine.getStates().stream()),
+				stateMachine.getTransitions().stream());
+	}
+	
+	@HandleDoubleClick
+	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final GraphicalEditorService editorService) {
+		editorService.openBusinessObject(stateMachine);
 	}
 }

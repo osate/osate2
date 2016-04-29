@@ -15,11 +15,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called to create a business object for a connection
  * This annotation must not be applied to more than one method per class.
  */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CreateConnectionBusinessObject {
+public @interface Delete {
 }

@@ -34,17 +34,17 @@ import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.util.Log;
 
 public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature, DiagramUpdateFeature {
-	private final ReferenceBuilderService refBuilder;
+	private final InternalReferenceBuilderService refBuilder;
 	private final StyleService styleService;
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	
 	@Inject
-	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
+	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final InternalReferenceBuilderService refBuilder, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
 		super(fp);
 		this.refBuilder = refBuilder;
 		this.styleService = styleService;

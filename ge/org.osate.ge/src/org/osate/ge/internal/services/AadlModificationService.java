@@ -29,12 +29,13 @@ public interface AadlModificationService {
 		R modify(Resource resource, final E bo);
 		
 		/**
-		 * Called after a modification but before the AADL text file has been updated and the diagram has been updated. Is not executed if the modification is aborted.
+		 * Called after a modification but before the AADL text file has been updated and the diagram has been updated. It is not executed if the modification is aborted.
+		 * Because of this, annexes will not have been relinked prior to beforeCommit() being executed.
 		 */
 		void beforeCommit(Resource resource, E bo, R modificationResult);
 		
 		/**
-		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. Is not executed if the modification is aborted.
+		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. It is not executed if the modification is aborted.
 		 */
 		void afterCommit(Resource resource);
 	}

@@ -129,15 +129,17 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		nestingDepthSelectorItem.setActiveEditor(editor);
 		
 		// Update the visibility of contribution items
-		final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
-		if(ageEditor.getDiagramTypeProvider() != null) {
-			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
-			final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
-		
-			final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
-			final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
-			updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
-			updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+		if(editor instanceof AgeDiagramEditor) {
+			final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
+			if(ageEditor.getDiagramTypeProvider() != null) {
+				final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
+				final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
+			
+				final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
+				final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
+				updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+				updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+			}
 		}
 	}
 	private void updateItemVisibility(final IContributionManager mgr, final boolean isComponentClassifierDiagram, final boolean isComponentImplementationDiagram) {

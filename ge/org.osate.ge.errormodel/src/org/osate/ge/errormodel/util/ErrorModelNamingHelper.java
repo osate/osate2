@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
@@ -27,6 +28,11 @@ public class ErrorModelNamingHelper {
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);		
 	}
 	
+	public static String buildUniqueIdentifier(final ErrorBehaviorStateMachine sm, final String baseIdentifier) {
+		final Set<String> existingIdentifiers = buildNameSet(sm);
+		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);		
+	}
+	
 	/**
 	 * Returns null if validation succeeds. Otherwise, returns a reason the name is not valid.
 	 * @param lib
@@ -35,13 +41,20 @@ public class ErrorModelNamingHelper {
 	 * @return
 	 */
 	public static String validateName(final ErrorModelLibrary lib, final String oldName, final String newName) {
-		// TODO: Check reserved words?
+		return validateName(buildNameSet(lib), oldName, newName);
+	}
+	
+	public static String validateName(final ErrorBehaviorStateMachine sm, final String oldName, final String newName) {
+		return validateName(buildNameSet(sm), oldName, newName);
+	}
+	
+	public static String validateName(final Set<String> existingNames, final String oldName, final String newName) {
     	if(newName.equalsIgnoreCase(oldName)) {
     		// Name is unchanged
     		return null;
     	}
     	
-		final Set<String> existingIdentifiers = buildNameSet(lib);
+		final Set<String> existingIdentifiers = existingNames;
 		if(existingIdentifiers.contains(newName.toLowerCase())) {
 			return "The specified name conflicts with an existing element.";
 		}
@@ -89,9 +102,17 @@ public class ErrorModelNamingHelper {
 		addToNameSet(names, sc.getStates());
 		addToNameSet(names, sc.getTransitions());		
 		return names;
-	}
+	}	
 	
-	private static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
+	private static Set<String> buildNameSet(final ErrorBehaviorStateMachine sm) {
+		final Set<String> names = new HashSet<String>();
+		ErrorModelNamingHelper.addToNameSet(names, sm.getEvents());
+		ErrorModelNamingHelper.addToNameSet(names, sm.getStates());
+		ErrorModelNamingHelper.addToNameSet(names, sm.getTransitions());
+		return names;
+	}
+		
+	public static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
 		for(final NamedElement el : elements) {
 			if(el.getName() != null) {
 				names.add(el.getName().toLowerCase());

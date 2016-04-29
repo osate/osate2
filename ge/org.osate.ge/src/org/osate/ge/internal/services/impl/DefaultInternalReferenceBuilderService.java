@@ -31,31 +31,37 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 import org.osate.ge.di.GetProject;
 import org.osate.ge.di.GetTitle;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
-public class DefaultReferenceBuilderService implements ReferenceBuilderService {
+public class DefaultInternalReferenceBuilderService implements InternalReferenceBuilderService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
 	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
 	private List<Object> referenceBuilders = null;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
+	private final IEclipseContext serviceContext;
 	
-	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceBuilderService> {
+	public static class ContextFunction extends SimpleServiceContextFunction<InternalReferenceBuilderService> {
 		@Override
-		public ReferenceBuilderService createService(final IEclipseContext context) {
-			return new DefaultReferenceBuilderService();
+		public InternalReferenceBuilderService createService(final IEclipseContext context) {
+			return new DefaultInternalReferenceBuilderService();
 		}		
 	}
 
-	public DefaultReferenceBuilderService() {
+	public DefaultInternalReferenceBuilderService() {
 		referenceBuilders = instantiateReferenceBuilders();
+		
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 	}
 	
 	private static List<Object> instantiateReferenceBuilders() {		
 		final List<Object> referenceBuilders = new ArrayList<>();
 		
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();	
-		final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
+		final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultInternalReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
 		for(final IExtension extension : point.getExtensions()) {
 			for(final IConfigurationElement ce : extension.getConfigurationElements()) {
 				if(ce.getName().equals(REFERENCE_BUILDER_ELEMENT_NAME)) {
@@ -78,9 +84,9 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, null, argCtx, null);
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, serviceContext, argCtx, null);
 				if(ref != null) {
-					return String.join(" ", ref);
+					return segmentsToReference(ref);
 				}
 			}
 		} finally {
@@ -91,13 +97,28 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 		return null;
 	}
 	
+	private static String segmentsToReference(final String[] segs) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append(ReferenceEncoder.encodeSegment(segs[0]));
+		for(int i = 1; i < segs.length; i++) {
+			sb.append(' ');
+			sb.append(ReferenceEncoder.encodeSegment(segs[i]));
+		}
+		
+		return sb.toString();
+	}
+	
 	@Override
 	public String getTitle(Object bo) {
+		if(bo == null) {
+			return null;
+		}
+		
 		try {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, null, argCtx, null);
+				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, serviceContext, argCtx, null);
 				if(title != null) {
 					return title;
 				}
@@ -127,7 +148,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, null, argCtx, null);
+				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, serviceContext, argCtx, null);
 				if(project != null) {
 					return project;
 				}
@@ -151,7 +172,7 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetResource.class, null, argCtx, null);
+				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetResource.class, serviceContext, argCtx, null);
 				if(res!= null) {
 					return res;
 				}

@@ -10,20 +10,19 @@ package org.osate.ge.services.impl;
 
 import java.util.Objects;
 
-import org.osate.aadl2.AadlPackage;
-import org.osate.ge.services.ReferenceService;
+import org.osate.ge.services.ReferenceResolutionService;
+import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.SerializableReferenceService;
 
-public class DefaultReferenceService implements ReferenceService {
+public class DefaultReferenceResolutionService implements ReferenceResolutionService {
 	private final SerializableReferenceService srService;
 	
-	public DefaultReferenceService(final SerializableReferenceService srService) {
+	public DefaultReferenceResolutionService(final SerializableReferenceService srService) {
 		this.srService = Objects.requireNonNull(srService, "srService must not be null");
 	}
 	
 	@Override
-	public AadlPackage getAadlPackage(final String qualifiedName) {
-		return srService.getAadlPackage(qualifiedName);
+	public Object getReferencedObject(final String reference) {
+		return AadlElementWrapper.unwrap(srService.getReferencedObject(reference));
 	}
-
 }

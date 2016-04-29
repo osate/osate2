@@ -32,7 +32,6 @@ import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
-import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -57,7 +56,6 @@ import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
@@ -89,6 +87,7 @@ import org.osate.ge.internal.features.PictogramHandlerCreateFeature;
 import org.osate.ge.internal.features.PictogramHandlerDeleteFeature;
 import org.osate.ge.internal.features.PictogramHandlerDirectEditFeature;
 import org.osate.ge.internal.features.PictogramHandlerLayoutFeature;
+import org.osate.ge.internal.features.PictogramHandlerRefreshHelper;
 import org.osate.ge.internal.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
@@ -135,54 +134,65 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
+import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.services.StyleService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
 	private IEclipseContext eclipseContext;
 	private ConnectionService connectionService;
 	private ExtensionService extService;
-	private ReferenceBuilderService refBuilder;
-	private GhostingService ghostingService;
+	private InternalReferenceBuilderService refBuilder;
 	private AadlModificationService aadlModService;
 	private ShapeService shapeService;
 	private DiagramModificationService diagramModService;
 	private LabelService labelService;
 	private ShapeCreationService shapeCreationService;
+	private ConnectionCreationService connectionCreationService;
+	private AnchorService anchorService;
 	private BusinessObjectResolutionService bor;
 	private PropertyService propertyService;
 	private PictogramHandlerDeleteFeature defaultDeleteFeature;
 	private PictogramHandlerDirectEditFeature defaultDirectEditFeature;
 	private PictogramHandlerLayoutFeature defaultLayoutFeature;
+	private PictogramHandlerRefreshHelper pictogramRefreshHelper;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
 	}
 	
 	public void initialize(final IEclipseContext context) {
+		// TODO: Remove fields only used to instantiated the refresh helper
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.connectionService = Objects.requireNonNull(eclipseContext.get(ConnectionService.class), "unable to get connection service");		
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
-		this.refBuilder = Objects.requireNonNull(eclipseContext.get(ReferenceBuilderService.class), "unable to retrieve reference builder service");
-		this.ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
+		this.refBuilder = Objects.requireNonNull(eclipseContext.get(InternalReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
 		this.diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
 		this.labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
 		this.shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
+		this.connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
+		this.anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
+		
+		final GhostingService ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
+		final StyleService styleService = Objects.requireNonNull(context.get(StyleService.class), "unable to retrieve style service");
+		this.pictogramRefreshHelper = new PictogramHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -512,13 +522,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			
 	@Override
 	protected IAddFeature getAddFeatureAdditional(final IAddContext addCtx) {
-		if(addCtx instanceof IAddConnectionContext) {
-			// TODO: Support connections
-		} else {
-			final Object pictogramHandler = extService.getApplicablePictogramHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
-			if(pictogramHandler != null) {
-				return new PictogramHandlerAddFeature(extService, ghostingService, labelService, shapeCreationService, shapeService, propertyService, this, pictogramHandler);
-			}
+		final Object pictogramHandler = extService.getApplicablePictogramHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
+		if(pictogramHandler != null) {
+			return new PictogramHandlerAddFeature(extService, pictogramRefreshHelper, this, pictogramHandler);
 		}
 
 		return super.getAddFeatureAdditional(addCtx);
@@ -527,15 +533,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	protected IUpdateFeature getUpdateFeatureAdditional(final IUpdateContext updateCtx) {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
-		if(pe instanceof Shape) {
-			final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(pe));
-			if(pictogramHandler != null) {
-				return new PictogramHandlerUpdateFeature(extService, refBuilder, ghostingService, bor, labelService, shapeCreationService, shapeService, propertyService, this, pictogramHandler);
-			}
-		} else if(pe instanceof Connection) {
-			// TODO: Support connections
+		final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(pe));
+		if(pictogramHandler != null) {
+			return new PictogramHandlerUpdateFeature(refBuilder, bor, connectionService, pictogramRefreshHelper, this, pictogramHandler);
 		}
-		
+
 		return super.getUpdateFeatureAdditional(updateCtx);
 	}
 	
@@ -576,7 +578,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, this, simpleEntry, pictogramHandler));
+							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, bor, this, simpleEntry, pictogramHandler));
 						}
 					}
 				}
@@ -858,6 +860,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	protected ILayoutFeature getLayoutFeatureAdditional(final ILayoutContext context) {
 		return defaultLayoutFeature;
+	}
+	
+	@Override
+	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
+		// If one of the business objects is an Element whose root is not an AadlPackage, prevent the linkage from occurring. 
+		// This is designed to prevent cases where linkage is attempting before annexes have been linked to the main model.
+		for(final Object rawBo : businessObjects) {
+			final Object bo = AadlElementWrapper.unwrap(rawBo);
+			if(bo instanceof Element) {
+				if(!(((Element)bo).getElementRoot() instanceof AadlPackage)) {
+					return;
+				}
+			}
+		}
+		
+		super.link(pictogramElement, businessObjects);
 	}
 }
 

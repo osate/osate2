@@ -26,18 +26,18 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 
 public class DefaultSerializableReferenceService implements SerializableReferenceService {
 	private static final String REFERENCE_RESOLVER_ELEMENT_NAME = "referenceResolver";
-	private final ReferenceBuilderService referenceBuilderService;
+	private final InternalReferenceBuilderService referenceBuilderService;
 	private final IEclipseContext ctx;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private List<Object> referenceResolvers = null;
 	private DeclarativeReferenceResolver declarativeReferenceResolver;
 	
-	public DefaultSerializableReferenceService(final ExtensionService extService, final ReferenceBuilderService referenceBuilderService) {
+	public DefaultSerializableReferenceService(final ExtensionService extService, final InternalReferenceBuilderService referenceBuilderService) {
 		this.referenceBuilderService = referenceBuilderService;
 		ctx = extService.createChildContext();
 	}
@@ -63,7 +63,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			// Instantiate other reference handlers
 			
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();	
-			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
+			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultInternalReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
 			for(final IExtension extension : point.getExtensions()) {
 				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
 					if(ce.getName().equals(REFERENCE_RESOLVER_ELEMENT_NAME)) {
@@ -84,7 +84,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	public String getReference(final Object bo) {
 		return referenceBuilderService.getReference(bo);
 	}
-		
+
 	@Override
 	public Object getReferencedObject(final String referenceStr) {
 		Objects.requireNonNull(referenceStr, "referenceStr must not be null");
@@ -95,7 +95,12 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		if(ref.length < 2) {
 			return null;
 		}
-			
+		
+		// Restore spaces
+		for(int i = 0; i < ref.length; i++) {
+			ref[i] = ReferenceEncoder.decodeSegment(ref[i]);
+		}
+		
 		try {
 			// Set context fields
 			argCtx.set(Names.REFERENCE, ref);	

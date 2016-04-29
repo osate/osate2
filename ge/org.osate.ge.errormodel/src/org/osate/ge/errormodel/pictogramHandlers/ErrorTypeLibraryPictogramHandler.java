@@ -12,19 +12,20 @@ import java.util.stream.Stream;
 
 import javax.inject.Named;
 
+import org.osate.ge.Graphic;
+import org.osate.ge.GraphicFactory;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphicalRepresentation;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
+import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Rectangle;
 import org.osate.ge.services.GraphicalEditorService;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeLibraryPictogramHandler {
-	private static final Rectangle graphics = new Rectangle();
+	private static final Graphic graphic = GraphicFactory.createRectangle();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
@@ -32,13 +33,18 @@ public class ErrorTypeLibraryPictogramHandler {
 	}
 	
 	@GetChildren
-	public Stream<ErrorType> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		return typeLib.getErrorModelLibrary().getTypes().stream();
+	public Stream<Object> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+		// TODO: Also ensure that super type is added to diagram if it is part of another error type library?
+		
+		return Stream.concat(typeLib.getErrorModelLibrary().getTypes().stream(), 
+				typeLib.getErrorModelLibrary().getTypes().stream(). // Error Type Extensions
+					filter((et) -> et.getSuperType() != null).
+					map((et) -> new ErrorTypeExtension(et.getSuperType(), et)));
 	}
 
 	@GetGraphicalRepresentation
-	public Rectangle getGraphicalRepresentation() {
-		return graphics;
+	public Graphic getGraphicalRepresentation() {
+		return graphic;
 	}
 	
 	@HandleDoubleClick

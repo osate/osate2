@@ -11,6 +11,8 @@ package org.osate.ge.errormodel.pictogramHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.Graphic;
+import org.osate.ge.GraphicFactory;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryFactory;
 import org.osate.ge.di.AllowDelete;
@@ -27,13 +29,12 @@ import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Ellipse;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypePictogramHandler {
-	private static final Ellipse graphics = new Ellipse();
+	private static final Graphic graphic = GraphicFactory.createEllipse();
 	
 	@IsApplicable
 	@AllowDelete
@@ -72,8 +73,8 @@ public class ErrorTypePictogramHandler {
 	}
 
 	@GetGraphicalRepresentation
-	public Ellipse getGraphicalRepresentation() {
-		return graphics;
+	public Graphic getGraphicalRepresentation() {
+		return graphic;
 	}
 	
 	@GetName

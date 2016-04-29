@@ -6,11 +6,20 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105
  *******************************************************************************/
-package org.osate.ge.services;
+package org.osate.ge.di;
 
-import org.osate.aadl2.AadlPackage;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface ReferenceService {
-	// TODO: Review. Need something more generic? Getting owner?
-	AadlPackage getAadlPackage(String qualifiedName);
+/**
+ * Use this annotation to tag methods called to create a query to determine the diagram element which will be the source for the connection.
+ * This annotation must not be applied to more than one method per class.
+ */
+@Documented
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CreateSourceQuery {
 }

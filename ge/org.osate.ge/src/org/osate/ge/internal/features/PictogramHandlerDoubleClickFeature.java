@@ -52,7 +52,7 @@ public class PictogramHandlerDoubleClickFeature extends AbstractCustomFeature {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-
+			
 			// Call the double-click handler method
 			ContextInjectionFactory.invoke(pictogramHandler, HandleDoubleClick.class, eclipseCtx);
 		} finally {

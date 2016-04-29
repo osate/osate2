@@ -17,8 +17,8 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 
 	@Override
 	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final List<? extends PictogramElement> q1Result = state.queryRunner.run(q1, state.arg);		
-		final List<? extends PictogramElement> q2Result = state.queryRunner.run(q2, state.arg);
+		final List<? extends PictogramElement> q1Result = state.queryRunner.getPictogramElements(q1, state.arg);		
+		final List<? extends PictogramElement> q2Result = state.queryRunner.getPictogramElements(q2, state.arg);
 		
 		// Check sizes
 		if(q1Result.size() == 0 || q2Result.size() == 0) {

@@ -46,19 +46,19 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
-	private final ReferenceBuilderService referenceBuilder;
+	private final InternalReferenceBuilderService referenceBuilder;
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
-			return new DefaultDiagramService(context.get(ReferenceBuilderService.class));
+			return new DefaultDiagramService(context.get(InternalReferenceBuilderService.class));
 		}		
 	}
 	
@@ -133,8 +133,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 	
-	public DefaultDiagramService(final ReferenceBuilderService referenceBuilder) {
-		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder service");
+	public DefaultDiagramService(final InternalReferenceBuilderService referenceBuilder) {
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "unable to retrieve internal reference builder service");
 	}
 		
 	@Override
@@ -309,8 +309,13 @@ public class DefaultDiagramService implements DiagramService {
 	
 			// Create the diagram and its file
 			final IPeService peService = Graphiti.getPeService();
-			final Diagram diagram = peService.createDiagram(diagramTypeId, referenceBuilder.getTitle(bo), true);
+			final String title = referenceBuilder.getTitle(bo);
+			if(title == null) {
+				Log.error("Unable to get title for business object: " + bo);
+				throw new RuntimeException("Unable to get title for business object: " + bo);
+			}
 			
+			final Diagram diagram = peService.createDiagram(diagramTypeId, title, true);
 			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo instanceof NamedElement ? new AadlElementWrapper((NamedElement)bo) : bo);
 			
 			// Create a resource to hold the diagram
@@ -319,7 +324,7 @@ public class DefaultDiagramService implements DiagramService {
 				throw new RuntimeException("Unable to get project for business object: " + bo);
 			}
 			final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
-			
+
 			// Store the diagram in the resource
 			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 				@Override
@@ -327,7 +332,7 @@ public class DefaultDiagramService implements DiagramService {
 					createdResource.getContents().add(diagram);
 				}			
 			});		
-			
+
 			try {
 				createdResource.save(null);
 			} catch (IOException e) {

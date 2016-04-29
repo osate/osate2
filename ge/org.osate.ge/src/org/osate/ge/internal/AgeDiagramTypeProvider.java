@@ -40,7 +40,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.RefactoringService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeCreationService;
@@ -79,8 +79,8 @@ import org.osate.ge.internal.services.impl.DefaultSubcomponentService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
 import org.osate.ge.internal.ui.util.impl.DefaultGhostPurger;
-import org.osate.ge.services.ReferenceService;
-import org.osate.ge.services.impl.DefaultReferenceService;
+import org.osate.ge.services.ReferenceResolutionService;
+import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -102,7 +102,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Create objects for the context
-		final ReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
+		final InternalReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
 		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
@@ -120,9 +120,9 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
+		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
-		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, cachingService, fp);
+		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, cachingService, extensionService, refBuilder, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
 		styleService = new DefaultStyleService(fp);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
@@ -169,8 +169,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(LabelService.class, labelService);
 		context.set(GraphitiService.class, graphitiService);
 		
-		// Create Public/Extension Services
-		context.set(ReferenceService.class, new DefaultReferenceService(serializableReferenceService));
+		// Create Public Services
+		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));
 				
 		return context;
 	}

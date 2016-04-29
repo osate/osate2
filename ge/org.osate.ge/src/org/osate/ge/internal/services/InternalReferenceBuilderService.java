@@ -10,12 +10,12 @@ package org.osate.ge.internal.services;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.osate.ge.services.ReferenceBuilderService;
 
 /**
  * Service for building string references to business objects
  */
-public interface ReferenceBuilderService {
-	String getReference(Object bo);
+public interface InternalReferenceBuilderService extends ReferenceBuilderService {
 	String getTitle(Object bo);
 	IProject getProject(Object bo);
 	Resource getResource(Object bo);

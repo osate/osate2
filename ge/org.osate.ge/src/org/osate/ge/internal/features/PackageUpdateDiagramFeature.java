@@ -55,11 +55,11 @@ import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
-	private final ReferenceBuilderService refBuilder;
+	private final InternalReferenceBuilderService refBuilder;
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GhostingService ghostingService;
@@ -68,7 +68,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final PropertyService propertyService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final InternalReferenceBuilderService refBuilder, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
 			final ShapeCreationService shapeCreationService, final PropertyService propertyService) {
 		super(fp);
 		this.refBuilder = refBuilder;

@@ -139,7 +139,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								modifier.afterCommit(res);
 								return null;
 							}
-						});	
+						});
 					}
 				}
 

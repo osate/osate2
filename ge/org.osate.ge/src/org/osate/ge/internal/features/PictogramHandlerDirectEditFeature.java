@@ -150,7 +150,7 @@ public class PictogramHandlerDirectEditFeature extends AbstractDirectEditingFeat
     		}	
      		
      		@Override
-    		public void beforeCommit(final Resource resource, final EObject bo, final Object modificationResult) {
+			public void beforeCommit(final Resource resource, final EObject bo, final Object modificationResult) {
     			diagramMod.commit();
     		}
      	});

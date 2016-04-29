@@ -7,7 +7,7 @@
             class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypePictogramHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.TestConnectionHandler">
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeExtensionPictogramHandler">
       </handler>
       <handler
             class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorStateMachinePictogramHandler">
@@ -20,6 +20,15 @@
       </handler>
       <handler
             class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeLibraryPictogramHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorEventPictogramHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorStatePictogramHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorTransitionPictogramHandler">
       </handler>
    </extension>
    <extension

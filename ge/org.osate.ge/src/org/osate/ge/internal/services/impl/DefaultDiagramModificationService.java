@@ -39,7 +39,7 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.util.Log;
 
@@ -49,11 +49,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	}
 	
 	private final DiagramService diagramService;
-	private final ReferenceBuilderService refBuilder;
+	private final InternalReferenceBuilderService refBuilder;
 	private final BusinessObjectResolutionService bor;
 	private final GhostPurger ghostPurger;
 	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final ReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
 		this.ghostPurger = ghostPurger;
 		this.refBuilder = refBuilder;

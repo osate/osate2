@@ -25,6 +25,9 @@ class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 		if(boRef == null) {
 			final Object bo = boSupplier.get(state.arg);
 			boRef = bo == null ? nullBoRef : state.refBuilder.getReference(bo);
+			if(boRef == null) {
+				boRef = nullBoRef;
+			}
 			state.cache.put(this, boRef);
 		}
 		

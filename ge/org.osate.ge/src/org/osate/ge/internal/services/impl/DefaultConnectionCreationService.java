@@ -52,6 +52,9 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 				final IAddFeature addFeature = fp.getAddFeature(addContext);
 				if(addFeature != null && addFeature.canAdd(addContext)) {
 					connection = (Connection)addFeature.add(addContext);
+					if(connection != null) {
+						connectionService.onConnectionCreated(ownerShape, bo, connection);
+					}
 				}
 			}
 		} else {

@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
 
 /**
  * Use this annotation to tag methods called to get a title for a business object
- * This annotation must not be applied to more than one method per class.
  */
 @Documented
 @Target({ElementType.METHOD})

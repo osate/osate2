@@ -11,6 +11,7 @@ package org.osate.ge.internal.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -20,9 +21,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  *
  */
 public interface PropertyService {
-	String getName(PictogramElement pe);
+	String getName(PropertyContainer pc);
 
-	void setName(PictogramElement pe, String typeName);
+	void setName(PropertyContainer pc, String typeName);
 
 	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property
 	boolean getIsLeft(PictogramElement pe);

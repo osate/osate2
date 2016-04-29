@@ -51,4 +51,7 @@ public interface ConnectionService {
 	 * @param shape
 	 */
 	void updateConnectionAnchors(Shape shape);
+
+	// Called to notify the connection service of a new connection. Must be called to ensure cache contains all connections
+	void onConnectionCreated(final Shape ownerShape, final Object bo, final Connection c);
 }
