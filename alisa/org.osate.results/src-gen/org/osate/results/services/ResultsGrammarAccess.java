@@ -756,7 +756,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AModelReference:
-	//	{AModelReference} "this" ("." next=NestedModelelement)?;
+	//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
 	public CommonGrammarAccess.AModelReferenceElements getAModelReferenceAccess() {
 		return gaCommon.getAModelReferenceAccess();
 	}
@@ -1233,6 +1233,16 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getQualifiedNameRule() {
 		return getQualifiedNameAccess().getRule();
+	}
+
+	//ThisKeyword:
+	//	"this";
+	public CommonGrammarAccess.ThisKeywordElements getThisKeywordAccess() {
+		return gaCommon.getThisKeywordAccess();
+	}
+	
+	public ParserRule getThisKeywordRule() {
+		return getThisKeywordAccess().getRule();
 	}
 
 	//terminal ID:

@@ -258,7 +258,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (next=NestedModelelement?)
+	 *     (modelElement=[NamedElement|ThisKeyword] next=NestedModelelement?)
 	 */
 	protected void sequence_AModelReference(EObject context, AModelReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
