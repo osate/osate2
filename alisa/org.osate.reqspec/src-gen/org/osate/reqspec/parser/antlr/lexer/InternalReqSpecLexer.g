@@ -214,8 +214,6 @@ In : 'in';
 
 Or : 'or';
 
-To : 'to';
-
 VerticalLineVerticalLine : '||';
 
 NumberSign : '#';

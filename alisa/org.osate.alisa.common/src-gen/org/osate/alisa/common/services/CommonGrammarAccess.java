@@ -471,15 +471,28 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTypeofKeyword_3_1_1_0 = (Keyword)cGroup_3_1_1.eContents().get(0);
 		private final Assignment cTypeAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
 		private final RuleCall cTypePropertyRefParserRuleCall_3_1_1_1_0 = (RuleCall)cTypeAssignment_3_1_1_1.eContents().get(0);
+		private final Group cGroup_3_1_2 = (Group)cAlternatives_3_1.eContents().get(2);
+		private final Assignment cRangeAssignment_3_1_2_0 = (Assignment)cGroup_3_1_2.eContents().get(0);
+		private final Keyword cRangeLeftSquareBracketKeyword_3_1_2_0_0 = (Keyword)cRangeAssignment_3_1_2_0.eContents().get(0);
+		private final Alternatives cAlternatives_3_1_2_1 = (Alternatives)cGroup_3_1_2.eContents().get(1);
+		private final Assignment cTypeAssignment_3_1_2_1_0 = (Assignment)cAlternatives_3_1_2_1.eContents().get(0);
+		private final RuleCall cTypeTypeRefParserRuleCall_3_1_2_1_0_0 = (RuleCall)cTypeAssignment_3_1_2_1_0.eContents().get(0);
+		private final Group cGroup_3_1_2_1_1 = (Group)cAlternatives_3_1_2_1.eContents().get(1);
+		private final Keyword cTypeofKeyword_3_1_2_1_1_0 = (Keyword)cGroup_3_1_2_1_1.eContents().get(0);
+		private final Assignment cTypeAssignment_3_1_2_1_1_1 = (Assignment)cGroup_3_1_2_1_1.eContents().get(1);
+		private final RuleCall cTypePropertyRefParserRuleCall_3_1_2_1_1_1_0 = (RuleCall)cTypeAssignment_3_1_2_1_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_1_2_2 = (Keyword)cGroup_3_1_2.eContents().get(2);
 		private final Keyword cEqualsSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cValueAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cValueAExpressionParserRuleCall_5_0 = (RuleCall)cValueAssignment_5.eContents().get(0);
 		
 		//ValDeclaration returns AVariableDeclaration:
-		//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression;
+		//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof"
+		//	type=PropertyRef) "]"))? "=" value=AExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression
+		//{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof"
+		//type=PropertyRef) "]"))? "=" value=AExpression
 		public Group getGroup() { return cGroup; }
 
 		//{ValDeclaration}
@@ -494,13 +507,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//(":" (type=TypeRef | "typeof" type=PropertyRef))?
+		//(":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//":"
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//type=TypeRef | "typeof" type=PropertyRef
+		//type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//type=TypeRef
@@ -520,6 +533,39 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyRef
 		public RuleCall getTypePropertyRefParserRuleCall_3_1_1_1_0() { return cTypePropertyRefParserRuleCall_3_1_1_1_0; }
+
+		//range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
+		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
+
+		//range?="["
+		public Assignment getRangeAssignment_3_1_2_0() { return cRangeAssignment_3_1_2_0; }
+
+		//"["
+		public Keyword getRangeLeftSquareBracketKeyword_3_1_2_0_0() { return cRangeLeftSquareBracketKeyword_3_1_2_0_0; }
+
+		//type=TypeRef | "typeof" type=PropertyRef
+		public Alternatives getAlternatives_3_1_2_1() { return cAlternatives_3_1_2_1; }
+
+		//type=TypeRef
+		public Assignment getTypeAssignment_3_1_2_1_0() { return cTypeAssignment_3_1_2_1_0; }
+
+		//TypeRef
+		public RuleCall getTypeTypeRefParserRuleCall_3_1_2_1_0_0() { return cTypeTypeRefParserRuleCall_3_1_2_1_0_0; }
+
+		//"typeof" type=PropertyRef
+		public Group getGroup_3_1_2_1_1() { return cGroup_3_1_2_1_1; }
+
+		//"typeof"
+		public Keyword getTypeofKeyword_3_1_2_1_1_0() { return cTypeofKeyword_3_1_2_1_1_0; }
+
+		//type=PropertyRef
+		public Assignment getTypeAssignment_3_1_2_1_1_1() { return cTypeAssignment_3_1_2_1_1_1; }
+
+		//PropertyRef
+		public RuleCall getTypePropertyRefParserRuleCall_3_1_2_1_1_1_0() { return cTypePropertyRefParserRuleCall_3_1_2_1_1_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_1_2_2() { return cRightSquareBracketKeyword_3_1_2_2; }
 
 		//"="
 		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
@@ -546,12 +592,25 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTypeofKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
 		private final Assignment cTypeAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
 		private final RuleCall cTypePropertyRefParserRuleCall_4_1_1_0 = (RuleCall)cTypeAssignment_4_1_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cAlternatives_4.eContents().get(2);
+		private final Assignment cRangeAssignment_4_2_0 = (Assignment)cGroup_4_2.eContents().get(0);
+		private final Keyword cRangeLeftSquareBracketKeyword_4_2_0_0 = (Keyword)cRangeAssignment_4_2_0.eContents().get(0);
+		private final Alternatives cAlternatives_4_2_1 = (Alternatives)cGroup_4_2.eContents().get(1);
+		private final Assignment cTypeAssignment_4_2_1_0 = (Assignment)cAlternatives_4_2_1.eContents().get(0);
+		private final RuleCall cTypeTypeRefParserRuleCall_4_2_1_0_0 = (RuleCall)cTypeAssignment_4_2_1_0.eContents().get(0);
+		private final Group cGroup_4_2_1_1 = (Group)cAlternatives_4_2_1.eContents().get(1);
+		private final Keyword cTypeofKeyword_4_2_1_1_0 = (Keyword)cGroup_4_2_1_1.eContents().get(0);
+		private final Assignment cTypeAssignment_4_2_1_1_1 = (Assignment)cGroup_4_2_1_1.eContents().get(1);
+		private final RuleCall cTypePropertyRefParserRuleCall_4_2_1_1_1_0 = (RuleCall)cTypeAssignment_4_2_1_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_2_2 = (Keyword)cGroup_4_2.eContents().get(2);
 		
 		//ComputeDeclaration returns AVariableDeclaration:
-		//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef);
+		//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef |
+		//	"typeof" type=PropertyRef) "]");
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef)
+		//{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef |
+		//"typeof" type=PropertyRef) "]")
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
@@ -569,7 +628,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//type=TypeRef | "typeof" type=PropertyRef
+		//type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//type=TypeRef
@@ -589,6 +648,39 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyRef
 		public RuleCall getTypePropertyRefParserRuleCall_4_1_1_0() { return cTypePropertyRefParserRuleCall_4_1_1_0; }
+
+		//range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
+		public Group getGroup_4_2() { return cGroup_4_2; }
+
+		//range?="["
+		public Assignment getRangeAssignment_4_2_0() { return cRangeAssignment_4_2_0; }
+
+		//"["
+		public Keyword getRangeLeftSquareBracketKeyword_4_2_0_0() { return cRangeLeftSquareBracketKeyword_4_2_0_0; }
+
+		//type=TypeRef | "typeof" type=PropertyRef
+		public Alternatives getAlternatives_4_2_1() { return cAlternatives_4_2_1; }
+
+		//type=TypeRef
+		public Assignment getTypeAssignment_4_2_1_0() { return cTypeAssignment_4_2_1_0; }
+
+		//TypeRef
+		public RuleCall getTypeTypeRefParserRuleCall_4_2_1_0_0() { return cTypeTypeRefParserRuleCall_4_2_1_0_0; }
+
+		//"typeof" type=PropertyRef
+		public Group getGroup_4_2_1_1() { return cGroup_4_2_1_1; }
+
+		//"typeof"
+		public Keyword getTypeofKeyword_4_2_1_1_0() { return cTypeofKeyword_4_2_1_1_0; }
+
+		//type=PropertyRef
+		public Assignment getTypeAssignment_4_2_1_1_1() { return cTypeAssignment_4_2_1_1_1; }
+
+		//PropertyRef
+		public RuleCall getTypePropertyRefParserRuleCall_4_2_1_1_1_0() { return cTypePropertyRefParserRuleCall_4_2_1_1_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_2_2() { return cRightSquareBracketKeyword_4_2_2; }
 	}
 
 	public class AModelOrPropertyReferenceElements extends AbstractParserRuleElementFinder {
@@ -1431,7 +1523,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAUnitExpressionExpressionAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
 		private final Assignment cConvertAssignment_1_1_0 = (Assignment)cAlternatives_1_1.eContents().get(0);
-		private final Keyword cConvertToKeyword_1_1_0_0 = (Keyword)cConvertAssignment_1_1_0.eContents().get(0);
+		private final Keyword cConvertPercentSignKeyword_1_1_0_0 = (Keyword)cConvertAssignment_1_1_0.eContents().get(0);
 		private final Assignment cDropAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
 		private final Keyword cDropInKeyword_1_1_1_0 = (Keyword)cDropAssignment_1_1_1.eContents().get(0);
 		private final Assignment cUnitAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
@@ -1439,29 +1531,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_2_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_2_0.eContents().get(1);
 		
 		//AUnitExpression returns aadl2::PropertyExpression:
-		//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?;
+		//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="%" | drop?="in")? unit=[aadl2::UnitLiteral])?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?
+		//APrimaryExpression ({AUnitExpression.expression=current} (convert?="%" | drop?="in")? unit=[aadl2::UnitLiteral])?
 		public Group getGroup() { return cGroup; }
 
 		//APrimaryExpression
 		public RuleCall getAPrimaryExpressionParserRuleCall_0() { return cAPrimaryExpressionParserRuleCall_0; }
 
-		//({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?
+		//({AUnitExpression.expression=current} (convert?="%" | drop?="in")? unit=[aadl2::UnitLiteral])?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{AUnitExpression.expression=current}
 		public Action getAUnitExpressionExpressionAction_1_0() { return cAUnitExpressionExpressionAction_1_0; }
 
-		//(convert?="to" | drop?="in")?
+		//(convert?="%" | drop?="in")?
 		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
-		//convert?="to"
+		//convert?="%"
 		public Assignment getConvertAssignment_1_1_0() { return cConvertAssignment_1_1_0; }
 
-		//"to"
-		public Keyword getConvertToKeyword_1_1_0_0() { return cConvertToKeyword_1_1_0_0; }
+		//"%"
+		public Keyword getConvertPercentSignKeyword_1_1_0_0() { return cConvertPercentSignKeyword_1_1_0_0; }
 
 		//drop?="in"
 		public Assignment getDropAssignment_1_1_1() { return cDropAssignment_1_1_1; }
@@ -2153,12 +2245,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cOREnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cOROrKeyword_0_0 = (Keyword)cOREnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cOREnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cORVerticalLineVerticalLineKeyword_1_0 = (Keyword)cOREnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cALT_OREnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cALT_ORVerticalLineVerticalLineKeyword_1_0 = (Keyword)cALT_OREnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cANDEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cANDAndKeyword_2_0 = (Keyword)cANDEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cANDEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cANDAmpersandAmpersandKeyword_3_0 = (Keyword)cANDEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cALT_ANDEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cALT_ANDAmpersandAmpersandKeyword_3_0 = (Keyword)cALT_ANDEnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cEQEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cEQEqualsSignEqualsSignKeyword_4_0 = (Keyword)cEQEnumLiteralDeclaration_4.eContents().get(0);
 		private final EnumLiteralDeclaration cNEQEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
@@ -2190,12 +2282,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Expressions
 		//enum Operation:
-		//	OR="or" | OR="||" | AND="and" | AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" |
-		//	PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+		//	OR="or" | ALT_OR="||" | AND="and" | ALT_AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" |
+		//	IN="><" | PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 		public EnumRule getRule() { return rule; }
 
-		//OR="or" | OR="||" | AND="and" | AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" |
-		//PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not"
+		//OR="or" | ALT_OR="||" | AND="and" | ALT_AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><"
+		//| PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//OR="or"
@@ -2204,11 +2296,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"or"
 		public Keyword getOROrKeyword_0_0() { return cOROrKeyword_0_0; }
 
-		//OR="||"
-		public EnumLiteralDeclaration getOREnumLiteralDeclaration_1() { return cOREnumLiteralDeclaration_1; }
+		//ALT_OR="||"
+		public EnumLiteralDeclaration getALT_OREnumLiteralDeclaration_1() { return cALT_OREnumLiteralDeclaration_1; }
 
 		//"||"
-		public Keyword getORVerticalLineVerticalLineKeyword_1_0() { return cORVerticalLineVerticalLineKeyword_1_0; }
+		public Keyword getALT_ORVerticalLineVerticalLineKeyword_1_0() { return cALT_ORVerticalLineVerticalLineKeyword_1_0; }
 
 		//AND="and"
 		public EnumLiteralDeclaration getANDEnumLiteralDeclaration_2() { return cANDEnumLiteralDeclaration_2; }
@@ -2216,11 +2308,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"and"
 		public Keyword getANDAndKeyword_2_0() { return cANDAndKeyword_2_0; }
 
-		//AND="&&"
-		public EnumLiteralDeclaration getANDEnumLiteralDeclaration_3() { return cANDEnumLiteralDeclaration_3; }
+		//ALT_AND="&&"
+		public EnumLiteralDeclaration getALT_ANDEnumLiteralDeclaration_3() { return cALT_ANDEnumLiteralDeclaration_3; }
 
 		//"&&"
-		public Keyword getANDAmpersandAmpersandKeyword_3_0() { return cANDAmpersandAmpersandKeyword_3_0; }
+		public Keyword getALT_ANDAmpersandAmpersandKeyword_3_0() { return cALT_ANDAmpersandAmpersandKeyword_3_0; }
 
 		//EQ="=="
 		public EnumLiteralDeclaration getEQEnumLiteralDeclaration_4() { return cEQEnumLiteralDeclaration_4; }
@@ -2550,7 +2642,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValDeclaration returns AVariableDeclaration:
-	//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef))? "=" value=AExpression;
+	//	{ValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof"
+	//	type=PropertyRef) "]"))? "=" value=AExpression;
 	public ValDeclarationElements getValDeclarationAccess() {
 		return pValDeclaration;
 	}
@@ -2560,7 +2653,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration returns AVariableDeclaration:
-	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef);
+	//	{ComputeDeclaration} "compute" name=ID ":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef |
+	//	"typeof" type=PropertyRef) "]");
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}
@@ -2653,8 +2747,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Expressions
 	//enum Operation:
-	//	OR="or" | OR="||" | AND="and" | AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" | IN="><" |
-	//	PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
+	//	OR="or" | ALT_OR="||" | AND="and" | ALT_AND="&&" | EQ="==" | NEQ="!=" | GEQ=">=" | LEQ="<=" | GT=">" | LT="<" |
+	//	IN="><" | PLUS="+" | MINUS="-" | MULT="*" | DIV="/" | INTDIV="div" | MOD="mod" | NOT="not";
 	public OperationElements getOperationAccess() {
 		return unknownRuleOperation;
 	}
@@ -2829,7 +2923,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnitExpression returns aadl2::PropertyExpression:
-	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="to" | drop?="in")? unit=[aadl2::UnitLiteral])?;
+	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?="%" | drop?="in")? unit=[aadl2::UnitLiteral])?;
 	public AUnitExpressionElements getAUnitExpressionAccess() {
 		return pAUnitExpression;
 	}

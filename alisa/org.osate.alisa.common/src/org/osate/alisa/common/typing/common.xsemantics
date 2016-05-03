@@ -53,7 +53,6 @@ import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.CommonPackage
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.ModelRef
-import org.osate.alisa.common.common.Operation
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
@@ -77,7 +76,6 @@ judgments {
 		error stringRep(exp) + ' cannot be assigned to ' + stringRep(target)
 		source exp
 	compatible |- PropertyType left <: PropertyType right
-		error stringRep(left) + ' is not compatible with ' + stringRep(right)
 	sameType |- PropertyType left ~~ PropertyType right
 	sameTypes |= EList<BasicProperty> left ~~ EList<BasicProperty> right
 }
@@ -105,12 +103,27 @@ rule ValDeclaration
 from {
 	val declared = valDecl.getType()
 	{
-		declared != null
+		declared != null && !valDecl.range
 		G |- declared : type
 	}
 	or
 	{
-		// infer type from expression
+		declared != null && valDecl.range
+		var PropertyType numeric
+		G |- declared : numeric
+		if (numeric instanceof NumberType) {
+			val rt = Aadl2Factory.eINSTANCE.createRangeType
+			rt.ownedNumberType = numeric
+			type = rt
+		} else {
+			fail
+				error 'typing: ranges must be numeric'
+				source declared
+		}
+	}
+	or
+	{
+		declared == null
 		G |- valDecl.value : type
 	}
 }
@@ -153,7 +166,7 @@ from {
 	G |- binary.right : var PropertyType rightType
 	val op = binary.operator
 	switch op {
-		case OR, case AND: {
+		case OR, case ALT_OR, case AND, case ALT_AND: {
 			if (!(leftType instanceof AadlBoolean)) {
 				fail
 					error 'typing: operand must be boolean'
@@ -188,13 +201,34 @@ from {
 					error 'typing: operand must be numeric or a range'
 					source binary.right
 			}
-			if (op == Operation.IN) {
-				if (!(rightType instanceof RangeType)) {
-					fail
-						error 'typing: operand must be a range'
-						source binary.right
-				}
+			// Check where ranges are allowed
+			switch (op) {
+				case PLUS, case MULT:
+					if (!(leftType instanceof RangeType && rightType instanceof RangeType
+						|| leftType instanceof NumberType && rightType instanceof NumberType
+					)) {
+						fail
+							error 'typing: operands must be both numeric or both ranges'
+							source binary
+					}
+				case IN:
+					if (!(rightType instanceof RangeType)) {
+						fail
+							error 'typing: operand must be a range'
+							source binary.right
+					}
+				default:
+					if (!(leftType instanceof NumberType)) {
+						fail
+							error 'typing: operand must be numeric'
+							source binary.left
+					} else if (!(rightType instanceof NumberType)) {
+						fail
+							error 'typing: operand must be numeric'
+							source binary.right
+					}
 			}
+			// check for correct units types
 			val leftNum = if (leftType instanceof RangeType) leftType.numberType else leftType as NumberType
 			val rightNum = if (rightType instanceof RangeType) rightType.numberType else rightType as NumberType
 			switch (op) {
@@ -473,7 +507,7 @@ axiom PropertyReference
 	}
 
 axiom ModelReference
-	G |- AModelReference _ : CommonFactory.eINSTANCE.createModelRef
+	G |- AModelReference ref : CommonFactory.eINSTANCE.createModelRef
 
 axiom IntegerLiteral
 	G |- IntegerLiteral value : Aadl2Factory.eINSTANCE.createAadlInteger
@@ -482,10 +516,10 @@ axiom RealLiteral
 	G |- RealLiteral value : Aadl2Factory.eINSTANCE.createAadlReal
 
 axiom BooleanLiteral
-	G |- BooleanLiteral _ : Aadl2Factory.eINSTANCE.createAadlBoolean
+	G |- BooleanLiteral bool : Aadl2Factory.eINSTANCE.createAadlBoolean
 
 axiom StringLiteral
-	G |- StringLiteral _ : Aadl2Factory.eINSTANCE.createAadlString
+	G |- StringLiteral str : Aadl2Factory.eINSTANCE.createAadlString
 
 
 // type equality
@@ -557,7 +591,13 @@ rule ExpressionAssignableToType
 from {
 	var PropertyType expType
 	G |- exp : expType
-	G |- expType <: type
+	try {
+		G |- expType <: type
+	} catch (RuleFailedException e) {
+		fail
+			error e.issue
+			source exp
+	}
 }
 
 axiom PrimitiveString
@@ -587,7 +627,6 @@ from {
 
 rule NotCompatible
 	G |- PropertyType left <: PropertyType right
-	error 'types not compatible: cannot assign ' + stringRep(left) + ' to ' + stringRep(right)
 from {
 	fail
 }
@@ -600,7 +639,14 @@ from {
  	empty |- valDecl.value : var PropertyType valueType
 	if (valDecl.getType() != null) {
 	  empty |- valDecl : var PropertyType valType
-  	empty |- valueType <: valType
+	  try {
+  		empty |- valueType <: valType
+  	} catch (RuleFailedException e) {
+  		fail
+  			error 'types not compatible: cannot assign ' + stringRep(valueType) + ' to ' + stringRep(valType)
+  			source valDecl
+  			feature CommonPackage.eINSTANCE.valDeclaration_Value
+  	}
   }
 }
 

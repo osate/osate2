@@ -304,7 +304,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         (expression=AUnitExpression_AUnitExpression_1_0 (convert?='to' | drop?='in')? unit=[UnitLiteral|ID]) | 
+	 *         (expression=AUnitExpression_AUnitExpression_1_0 (convert?='%' | drop?='in')? unit=[UnitLiteral|ID]) | 
 	 *         (expression=AUnitExpression_AUnitExpression_1_0 unit=[UnitLiteral|ID])
 	 *     )
 	 */
@@ -324,7 +324,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (type=TypeRef | type=PropertyRef))
+	 *     (name=ID (type=TypeRef | type=PropertyRef | (range?='[' (type=TypeRef | type=PropertyRef))))
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -498,7 +498,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (type=TypeRef | type=PropertyRef)? value=AExpression)
+	 *     (name=ID (type=TypeRef | type=PropertyRef | (range?='[' (type=TypeRef | type=PropertyRef)))? value=AExpression)
 	 */
 	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
