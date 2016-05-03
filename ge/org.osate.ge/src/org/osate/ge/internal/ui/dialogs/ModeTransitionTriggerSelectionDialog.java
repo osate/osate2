@@ -22,8 +22,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
@@ -73,15 +71,15 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 		
 		// Get ports from the classifier and it's feature groups
 		for(final Feature f : cc.getAllFeatures()) {
-			if(f instanceof Port) {
-				ports.add(new ModeTransitionTriggerInfo((Port)f, null));
+			if(f instanceof TriggerPort) {
+				ports.add(new ModeTransitionTriggerInfo((TriggerPort)f, null));
 			} else if(f instanceof FeatureGroup) {
 				final FeatureGroup fg = (FeatureGroup)f;
 				final FeatureGroupType fgt = fg.getAllFeatureGroupType();
 				if(fgt != null) {
 					for(final Feature fgFeature : fgt.getAllFeatures()) {
-						if(fgFeature instanceof Port) {
-							ports.add(new ModeTransitionTriggerInfo((Port)fgFeature, fg));
+						if(fgFeature instanceof TriggerPort) {
+							ports.add(new ModeTransitionTriggerInfo((TriggerPort)fgFeature, fg));
 						}
 					}
 				}
@@ -98,16 +96,16 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			
 			// Get Port Proxies
 			for(final ProcessorFeature f : componentImplementationService.getAllProcessorFeatures(ci)) {
-				if(f instanceof PortProxy) {
-					ports.add(new ModeTransitionTriggerInfo((PortProxy)f, null));
+				if(f instanceof TriggerPort) {
+					ports.add(new ModeTransitionTriggerInfo((TriggerPort)f, null));
 				}				
 			}
 			
 			// Gets ports from the subcomponents
 			for(final Subcomponent sc : ci.getAllSubcomponents()) {
 				for(final Feature f : sc.getAllFeatures()) {
-					if(f instanceof Port) {
-						ports.add(new ModeTransitionTriggerInfo((Port)f, sc));
+					if(f instanceof TriggerPort) {
+						ports.add(new ModeTransitionTriggerInfo((TriggerPort)f, sc));
 					}
 				}
 			}	
