@@ -4215,18 +4215,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Element e = feature.getOwner();
 		if (e instanceof ComponentType) {
 			ComponentType componentType = (ComponentType) e;
-			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType)
-					&& !(componentType instanceof DataType) && !(componentType instanceof MemoryType)
-					&& !(componentType instanceof BusType) &&
-					// JD : allow for system type as well
-					!(componentType instanceof SystemType) && !(componentType instanceof DeviceType)
-					&& !(componentType instanceof ProcessorType)) {
-				if (!feature.getArrayDimensions().isEmpty()) {
-					error(feature,
-							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, system and processor classifiers.");
-					return;
-				}
-			}
+//			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType)
+//					&& !(componentType instanceof DataType) && !(componentType instanceof MemoryType)
+//					&& !(componentType instanceof BusType) &&
+//					// JD : allow for system type as well
+//					!(componentType instanceof SystemType) && !(componentType instanceof DeviceType)
+//					&& !(componentType instanceof ProcessorType)) {
+//				if (!feature.getArrayDimensions().isEmpty()) {
+//					error(feature,
+//							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, system and processor classifiers.");
+//					return;
+//				}
+//			}
 			if (feature instanceof FeatureGroup) {
 				// feature array can either be on the feature group declaration
 				// or on
@@ -4379,7 +4379,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// already specified the array dimension size.");
 		// }
 	}
-	
+
 	/**
 	 * See issue #671.
 	 * If an AbstractFeature is a trigger port, then it cannot be refined to another feature which is not a subtype of TriggerPort.
@@ -4389,10 +4389,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Feature refined = feature.getRefined();
 		if (component != null && refined instanceof AbstractFeature && !(feature instanceof TriggerPort)) {
 			Stream<ModeTransition> transitions = component.getAllModeTransitions().stream();
-			Stream<ModeTransitionTrigger> triggers = transitions.flatMap(transition -> transition.getOwnedTriggers().stream());
+			Stream<ModeTransitionTrigger> triggers = transitions
+					.flatMap(transition -> transition.getOwnedTriggers().stream());
 			if (triggers.anyMatch(trigger -> trigger.getTriggerPort() == refined)) {
-				error("Cannot refine to " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ". '" + feature.getName() + "' is used as a mode transition trigger.",
-						feature, Aadl2Package.eINSTANCE.getFeature_Refined());
+				error("Cannot refine to " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ". '"
+						+ feature.getName() + "' is used as a mode transition trigger.", feature,
+						Aadl2Package.eINSTANCE.getFeature_Refined());
 			}
 		}
 	}
