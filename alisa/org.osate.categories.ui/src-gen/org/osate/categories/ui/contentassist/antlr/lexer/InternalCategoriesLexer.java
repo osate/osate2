@@ -751,27 +751,19 @@ public class InternalCategoriesLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\2\17\3\uffff\1\15\2\uffff\3\15\2\uffff\1\17\1\uffff\1"+
-        "\17\10\uffff\1\17\1\34\1\17\1\uffff\1\17\1\37\1\uffff";
+        "\1\uffff\2\17\3\uffff\1\15\2\uffff\3\15\2\uffff\1\17\1\uffff\1\17\10\uffff\1\17\1\34\1\17\1\uffff\1\17\1\37\1\uffff";
     static final String DFA12_eofS =
         "\40\uffff";
     static final String DFA12_minS =
-        "\1\0\1\151\1\156\3\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1\154\1"+
-        "\uffff\1\171\10\uffff\1\164\1\60\1\145\1\uffff\1\162\1\60\1\uffff";
+        "\1\0\1\151\1\156\3\uffff\1\101\2\uffff\2\0\1\52\2\uffff\1\154\1\uffff\1\171\10\uffff\1\164\1\60\1\145\1\uffff\1\162\1\60\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\151\1\156\3\uffff\1\172\2\uffff\2\uffff\1\57\2\uffff"+
-        "\1\154\1\uffff\1\171\10\uffff\1\164\1\172\1\145\1\uffff\1\162\1"+
-        "\172\1\uffff";
+        "\1\uffff\1\151\1\156\3\uffff\1\172\2\uffff\2\uffff\1\57\2\uffff\1\154\1\uffff\1\171\10\uffff\1\164\1\172\1\145\1\uffff\1\162\1\172\1\uffff";
     static final String DFA12_acceptS =
-        "\3\uffff\1\3\1\4\1\5\1\uffff\1\6\1\7\3\uffff\1\13\1\14\1\uffff"+
-        "\1\6\1\uffff\1\3\1\4\1\5\1\7\1\10\1\11\1\12\1\13\3\uffff\1\2\2\uffff"+
-        "\1\1";
+        "\3\uffff\1\3\1\4\1\5\1\uffff\1\6\1\7\3\uffff\1\13\1\14\1\uffff\1\6\1\uffff\1\3\1\4\1\5\1\7\1\10\1\11\1\12\1\13\3\uffff\1\2\2\uffff\1\1";
     static final String DFA12_specialS =
         "\1\2\10\uffff\1\1\1\0\25\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\15\2\14\2\15\1\14\22\15\1\14\1\15\1\11\4\15\1\12\6\15\1"+
-            "\3\1\13\12\10\7\15\32\7\1\4\1\15\1\5\1\6\1\7\1\15\1\2\4\7\1"+
-            "\1\24\7\uff85\15",
+            "\11\15\2\14\2\15\1\14\22\15\1\14\1\15\1\11\4\15\1\12\6\15\1\3\1\13\12\10\7\15\32\7\1\4\1\15\1\5\1\6\1\7\1\15\1\2\4\7\1\1\24\7\uff85\15",
             "\1\16",
             "\1\20",
             "",

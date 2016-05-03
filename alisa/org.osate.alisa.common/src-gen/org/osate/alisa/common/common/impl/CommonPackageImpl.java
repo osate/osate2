@@ -596,9 +596,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAModelReference_Next()
+  public EReference getAModelReference_ModelElement()
   {
     return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAModelReference_Next()
+  {
+    return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1097,6 +1107,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(nestedModelElementEClass, NESTED_MODEL_ELEMENT__NEXT);
 
     aModelReferenceEClass = createEClass(AMODEL_REFERENCE);
+    createEReference(aModelReferenceEClass, AMODEL_REFERENCE__MODEL_ELEMENT);
     createEReference(aModelReferenceEClass, AMODEL_REFERENCE__NEXT);
 
     aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
@@ -1246,6 +1257,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getNestedModelElement_Next(), this.getNestedModelElement(), null, "next", null, 0, 1, NestedModelElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aModelReferenceEClass, AModelReference.class, "AModelReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAModelReference_ModelElement(), theAadl2Package.getNamedElement(), null, "modelElement", null, 0, 1, AModelReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAModelReference_Next(), this.getNestedModelElement(), null, "next", null, 0, 1, AModelReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

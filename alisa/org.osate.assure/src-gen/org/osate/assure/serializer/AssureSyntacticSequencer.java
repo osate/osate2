@@ -92,9 +92,8 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
-	 *     (rule start) (ambiguity) 'this' (rule start)
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
@@ -118,9 +117,8 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' ')' (rule start)
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
