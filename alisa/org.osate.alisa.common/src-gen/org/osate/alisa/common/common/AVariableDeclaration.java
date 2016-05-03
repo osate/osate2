@@ -30,6 +30,7 @@ import org.osate.aadl2.PropertyType;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.AVariableDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.AVariableDeclaration#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AVariableDeclaration#isRange <em>Range</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAVariableDeclaration()
@@ -89,5 +90,31 @@ public interface AVariableDeclaration extends EObject
    * @generated
    */
   void setType(PropertyType value);
+
+  /**
+   * Returns the value of the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Range</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Range</em>' attribute.
+   * @see #setRange(boolean)
+   * @see org.osate.alisa.common.common.CommonPackage#getAVariableDeclaration_Range()
+   * @model
+   * @generated
+   */
+  boolean isRange();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.AVariableDeclaration#isRange <em>Range</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Range</em>' attribute.
+   * @see #isRange()
+   * @generated
+   */
+  void setRange(boolean value);
 
 } // AVariableDeclaration

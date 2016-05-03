@@ -322,13 +322,22 @@ public interface CommonPackage extends EPackage
   int AVARIABLE_DECLARATION__TYPE = 1;
 
   /**
+   * The feature id for the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVARIABLE_DECLARATION__RANGE = 2;
+
+  /**
    * The number of structural features of the '<em>AVariable Declaration</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AVARIABLE_DECLARATION_FEATURE_COUNT = 2;
+  int AVARIABLE_DECLARATION_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.AExpressionImpl <em>AExpression</em>}' class.
@@ -809,6 +818,15 @@ public interface CommonPackage extends EPackage
   int VAL_DECLARATION__TYPE = AVARIABLE_DECLARATION__TYPE;
 
   /**
+   * The feature id for the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAL_DECLARATION__RANGE = AVARIABLE_DECLARATION__RANGE;
+
+  /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -853,6 +871,15 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int COMPUTE_DECLARATION__TYPE = AVARIABLE_DECLARATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__RANGE = AVARIABLE_DECLARATION__RANGE;
 
   /**
    * The number of structural features of the '<em>Compute Declaration</em>' class.
@@ -1540,6 +1567,17 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getAVariableDeclaration_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AVariableDeclaration#isRange <em>Range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Range</em>'.
+   * @see org.osate.alisa.common.common.AVariableDeclaration#isRange()
+   * @see #getAVariableDeclaration()
+   * @generated
+   */
+  EAttribute getAVariableDeclaration_Range();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.AExpression <em>AExpression</em>}'.
@@ -2270,6 +2308,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference AVARIABLE_DECLARATION__TYPE = eINSTANCE.getAVariableDeclaration_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Range</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AVARIABLE_DECLARATION__RANGE = eINSTANCE.getAVariableDeclaration_Range();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AExpressionImpl <em>AExpression</em>}' class.

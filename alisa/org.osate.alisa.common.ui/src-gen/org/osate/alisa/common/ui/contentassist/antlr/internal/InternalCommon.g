@@ -1419,6 +1419,8 @@ finally {
 
 
 
+
+
 rule__AModelOrPropertyReference__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -3115,6 +3117,10 @@ rule__PropertyRef__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+
+
 
 
 
@@ -7084,6 +7090,12 @@ finally {
 
 
 
+
+
+
+
+
+
 rule__AModelOrPropertyReference__PropertyAssignment_0_1_1
     @init {
 		int stackSize = keepStackSize();
@@ -7459,16 +7471,16 @@ rule__AUnitExpression__ConvertAssignment_1_1_0
     }
 :
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); }
 (
-{ before(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+{ before(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); }
 
-	'to' 
+	'%' 
 
-{ after(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+{ after(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); }
 )
 
-{ after(grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0()); }
+{ after(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); }
 )
 
 ;

@@ -41,6 +41,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="range" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NestedModelElement">
@@ -66,21 +67,23 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Operation">
     <eLiterals name="OR" literal="or"/>
-    <eLiterals name="AND" value="1" literal="and"/>
-    <eLiterals name="EQ" value="2" literal="=="/>
-    <eLiterals name="NEQ" value="3" literal="!="/>
-    <eLiterals name="GEQ" value="4" literal=">="/>
-    <eLiterals name="LEQ" value="5" literal="&lt;="/>
-    <eLiterals name="GT" value="6" literal=">"/>
-    <eLiterals name="LT" value="7" literal="&lt;"/>
-    <eLiterals name="IN" value="8" literal=">&lt;"/>
-    <eLiterals name="PLUS" value="9" literal="+"/>
-    <eLiterals name="MINUS" value="10" literal="-"/>
-    <eLiterals name="MULT" value="11" literal="*"/>
-    <eLiterals name="DIV" value="12" literal="/"/>
-    <eLiterals name="INTDIV" value="13" literal="div"/>
-    <eLiterals name="MOD" value="14" literal="mod"/>
-    <eLiterals name="NOT" value="15" literal="not"/>
+    <eLiterals name="ALT_OR" value="1" literal="||"/>
+    <eLiterals name="AND" value="2" literal="and"/>
+    <eLiterals name="ALT_AND" value="3" literal="&amp;&amp;"/>
+    <eLiterals name="EQ" value="4" literal="=="/>
+    <eLiterals name="NEQ" value="5" literal="!="/>
+    <eLiterals name="GEQ" value="6" literal=">="/>
+    <eLiterals name="LEQ" value="7" literal="&lt;="/>
+    <eLiterals name="GT" value="8" literal=">"/>
+    <eLiterals name="LT" value="9" literal="&lt;"/>
+    <eLiterals name="IN" value="10" literal=">&lt;"/>
+    <eLiterals name="PLUS" value="11" literal="+"/>
+    <eLiterals name="MINUS" value="12" literal="-"/>
+    <eLiterals name="MULT" value="13" literal="*"/>
+    <eLiterals name="DIV" value="14" literal="/"/>
+    <eLiterals name="INTDIV" value="15" literal="div"/>
+    <eLiterals name="MOD" value="16" literal="mod"/>
+    <eLiterals name="NOT" value="17" literal="not"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeRef" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyType">

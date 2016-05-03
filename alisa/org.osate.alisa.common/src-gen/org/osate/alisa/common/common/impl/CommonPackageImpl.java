@@ -536,6 +536,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAVariableDeclaration_Range()
+  {
+    return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAExpression()
   {
     return aExpressionEClass;
@@ -1078,6 +1088,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aVariableDeclarationEClass = createEClass(AVARIABLE_DECLARATION);
     createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__NAME);
     createEReference(aVariableDeclarationEClass, AVARIABLE_DECLARATION__TYPE);
+    createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__RANGE);
 
     aExpressionEClass = createEClass(AEXPRESSION);
 
@@ -1226,6 +1237,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(aVariableDeclarationEClass, AVariableDeclaration.class, "AVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAVariableDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAVariableDeclaration_Type(), theAadl2Package.getPropertyType(), null, "type", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAVariableDeclaration_Range(), theEcorePackage.getEBoolean(), "range", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aExpressionEClass, AExpression.class, "AExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1303,7 +1315,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEEnum(operationEEnum, Operation.class, "Operation");
     addEEnumLiteral(operationEEnum, Operation.OR);
+    addEEnumLiteral(operationEEnum, Operation.ALT_OR);
     addEEnumLiteral(operationEEnum, Operation.AND);
+    addEEnumLiteral(operationEEnum, Operation.ALT_AND);
     addEEnumLiteral(operationEEnum, Operation.EQ);
     addEEnumLiteral(operationEEnum, Operation.NEQ);
     addEEnumLiteral(operationEEnum, Operation.GEQ);
