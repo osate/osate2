@@ -15,6 +15,7 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.IAddFeature;
@@ -131,6 +132,7 @@ import org.osate.ge.internal.features.RenameFlowSpecificationFeature;
 import org.osate.ge.internal.features.SetAccessFeatureKindFeature;
 import org.osate.ge.internal.features.SetFeatureDirectionFeature;
 import org.osate.ge.internal.features.SetFeatureGroupInverseFeature;
+import org.osate.ge.EObjectOwnerProvider;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
@@ -867,14 +869,28 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	@Override
 	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
-		// If one of the business objects is an Element whose root is not an AadlPackage, prevent the linkage from occurring. 
-		// This is designed to prevent cases where linkage is attempting before annexes have been linked to the main model.
+		// Prevent linkage from occurring if we are unable to get a resource for the EObject.
+		// This is to prevent linking when the root of the EObject is not an expected object. In such cases, annex references may be invalid because such references
+		// often depend on getting the reference for the root package.
 		for(final Object rawBo : businessObjects) {
-			final Object bo = AadlElementWrapper.unwrap(rawBo);
-			if(bo instanceof Element) {
-				if(!(((Element)bo).getElementRoot() instanceof AadlPackage)) {
-					return;
-				}
+			// Get an EMF object
+			Object bo = AadlElementWrapper.unwrap(rawBo);
+			if(bo instanceof EObjectOwnerProvider) {
+				bo = ((EObjectOwnerProvider) bo).getEObjectOwner();
+			}
+			
+			if(bo == null) {
+				return;
+			}
+			
+			if(!(bo instanceof EObject)) {
+				return;
+			}
+			
+			// Check if the resource is valid.
+			final EObject eobj = (EObject)bo;
+			if(eobj.eResource() == null) {
+				return;
 			}
 		}
 		

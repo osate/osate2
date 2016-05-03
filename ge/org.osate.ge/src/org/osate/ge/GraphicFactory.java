@@ -7,6 +7,7 @@ import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FreeFormConnection;
 import org.osate.ge.internal.graphics.Polygon;
 import org.osate.ge.internal.graphics.Rectangle;
+import org.osate.ge.internal.graphics.RoundedRectangle;
 
 public class GraphicFactory {
 	public static Graphic createEllipse() {
@@ -15,6 +16,10 @@ public class GraphicFactory {
 	
 	public static Graphic createRectangle() {
 		return new Rectangle();
+	}
+	
+	public static Graphic createRoundedRectangle() {
+		return new RoundedRectangle();
 	}
 	
 	// TODO: Rename? unfilledPolygon? The others don't have wording to indicate unfilled

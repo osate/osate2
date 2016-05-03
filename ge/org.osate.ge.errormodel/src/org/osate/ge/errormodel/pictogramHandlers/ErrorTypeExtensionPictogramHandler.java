@@ -84,6 +84,7 @@ public class ErrorTypeExtensionPictogramHandler {
 	
 	@CreateBusinessObject
 	public ErrorTypeExtension createConnectionBusinessObject(@Named(Names.SOURCE_BO) final ErrorType subtype, @Named(Names.DESTINATION_BO) final ErrorType supertype) {
+		System.err.println("CREATING: " + subtype + " : " + supertype);
 		subtype.setSuperType(supertype);
 		return new ErrorTypeExtension(supertype, subtype);
 	}

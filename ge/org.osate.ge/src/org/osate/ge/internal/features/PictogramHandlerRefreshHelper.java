@@ -37,6 +37,7 @@ import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FreeFormConnection;
 import org.osate.ge.internal.graphics.Polygon;
 import org.osate.ge.internal.graphics.Rectangle;
+import org.osate.ge.internal.graphics.RoundedRectangle;
 import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.ConnectionCreationService;
@@ -299,6 +300,9 @@ public class PictogramHandlerRefreshHelper {
 			return; 
 		} else if(gr instanceof Rectangle) {
 			ga = Graphiti.getGaService().createPlainRectangle(shape);
+			ga.setFilled(false);
+		} else if(gr instanceof RoundedRectangle) {
+			ga = Graphiti.getGaService().createPlainRoundedRectangle(shape, 25, 25);
 			ga.setFilled(false);
 		} else if(gr instanceof Ellipse) {
 	        ga = Graphiti.getGaService().createPlainEllipse(shape);

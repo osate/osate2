@@ -4,8 +4,10 @@ import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -81,6 +83,12 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 				return false;
 			}			
 			
+			// TODO: Determine mechanism to allow usage of source and destination objects which are not EMF Objects. Need to be able to find them in resource which is being modified.
+			// Source and destination must both be an EObject
+			if(!(srcBo instanceof EObject && dstBo instanceof EObject)) {
+				return false;
+			}
+			
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
@@ -99,21 +107,38 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 			return null;
 		}
 
+		// TODO: Support non-EMF Objects
+		final URI srcUri = EcoreUtil.getURI((EObject)srcBo);
+		final URI dstUri = EcoreUtil.getURI((EObject)dstBo);
+		if(srcUri == null || dstUri == null) {
+			return null;
+		}
+
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
-			
+								
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwningBusinessObject.class, eclipseCtx, null);
 			if(ownerBo == null) {
 				return null;
-			}	
+			}
 			
 			// Modify the model
 			aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
 				@Override
-				public Object modify(Resource resource, EObject ownerBo) {
+				public Object modify(final Resource resource, final EObject ownerBo) {
+					// TODO: Support Non EMF Objects	
+					final EObject srcBo = resource.getResourceSet().getEObject(srcUri, true);
+					final EObject dstBo = resource.getResourceSet().getEObject(dstUri, true);
+					if(srcBo == null || dstBo == null) {
+						return null;
+					}
+					
+					eclipseCtx.set(Names.SOURCE_BO, srcBo);
+					eclipseCtx.set(Names.DESTINATION_BO, dstBo);
+					
 					return ContextInjectionFactory.invoke(handler, CreateBusinessObject.class, eclipseCtx, null);					
 				}
 			});

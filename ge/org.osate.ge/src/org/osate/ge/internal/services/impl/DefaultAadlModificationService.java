@@ -190,7 +190,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			@Override
 			public R modify(final Resource resource, final EObject defaultAnnexElement) {
 				// Modify the cloned object
-				final R result = modifier.modify(resource, clonedUserObject);
+				final R result = modifier.modify(clonedUserObject.eResource(), clonedUserObject);
 				
 				// Unparse the annex text of the cloned object and update the Xtext document
 				if(parsedAnnexRootClone instanceof AnnexLibrary) {

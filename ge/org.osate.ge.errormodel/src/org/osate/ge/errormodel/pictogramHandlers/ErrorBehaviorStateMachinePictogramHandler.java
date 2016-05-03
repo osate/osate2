@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorStateMachinePictogramHandler {
-	private static final Graphic graphic = GraphicFactory.createEllipse();
+	private static final Graphic graphic = GraphicFactory.createRoundedRectangle();
 	
 	@IsApplicable
 	@AllowDelete
