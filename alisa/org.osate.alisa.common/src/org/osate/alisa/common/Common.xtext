@@ -74,7 +74,7 @@ NestedModelelement returns NestedModelElement:
 ;
 
 AModelReference returns AModelReference:
-	{AModelReference} 'this' ('.' next=NestedModelelement)?
+	modelElement=[aadl2::NamedElement|ThisKeyword] ('.' next=NestedModelelement)?
 ;
 
 APropertyReference returns APropertyReference:
@@ -113,14 +113,15 @@ AOrExpression returns aadl2::PropertyExpression:
 ;
 
 OpOr returns Operation:
-	'or';
+	'or' | '||'
+;
 
 AAndExpression returns aadl2::PropertyExpression:
 	AEqualityExpression (=>({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*
 ;
 
 OpAnd returns Operation:
-	'and'
+	'and' | '&&'
 ;
 
 AEqualityExpression returns aadl2::PropertyExpression:
@@ -297,4 +298,6 @@ URIID: STRING;
 
 QualifiedName: ID ('.' ID)*;
 
-	
+ThisKeyword:
+	'this'
+;

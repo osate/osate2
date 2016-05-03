@@ -695,37 +695,41 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class AModelReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAModelReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cThisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cNextAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cNextNestedModelelementParserRuleCall_2_1_0 = (RuleCall)cNextAssignment_2_1.eContents().get(0);
+		private final Assignment cModelElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cModelElementNamedElementCrossReference_0_0 = (CrossReference)cModelElementAssignment_0.eContents().get(0);
+		private final RuleCall cModelElementNamedElementThisKeywordParserRuleCall_0_0_1 = (RuleCall)cModelElementNamedElementCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cNextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cNextNestedModelelementParserRuleCall_1_1_0 = (RuleCall)cNextAssignment_1_1.eContents().get(0);
 		
 		//AModelReference:
-		//	{AModelReference} "this" ("." next=NestedModelelement)?;
+		//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AModelReference} "this" ("." next=NestedModelelement)?
+		//modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?
 		public Group getGroup() { return cGroup; }
 
-		//{AModelReference}
-		public Action getAModelReferenceAction_0() { return cAModelReferenceAction_0; }
+		//modelElement=[aadl2::NamedElement|ThisKeyword]
+		public Assignment getModelElementAssignment_0() { return cModelElementAssignment_0; }
 
-		//"this"
-		public Keyword getThisKeyword_1() { return cThisKeyword_1; }
+		//[aadl2::NamedElement|ThisKeyword]
+		public CrossReference getModelElementNamedElementCrossReference_0_0() { return cModelElementNamedElementCrossReference_0_0; }
+
+		//ThisKeyword
+		public RuleCall getModelElementNamedElementThisKeywordParserRuleCall_0_0_1() { return cModelElementNamedElementThisKeywordParserRuleCall_0_0_1; }
 
 		//("." next=NestedModelelement)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_1() { return cGroup_1; }
 
 		//"."
-		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 
 		//next=NestedModelelement
-		public Assignment getNextAssignment_2_1() { return cNextAssignment_2_1; }
+		public Assignment getNextAssignment_1_1() { return cNextAssignment_1_1; }
 
 		//NestedModelelement
-		public RuleCall getNextNestedModelelementParserRuleCall_2_1_0() { return cNextNestedModelelementParserRuleCall_2_1_0; }
+		public RuleCall getNextNestedModelelementParserRuleCall_1_1_0() { return cNextNestedModelelementParserRuleCall_1_1_0; }
 	}
 
 	public class APropertyReferenceElements extends AbstractParserRuleElementFinder {
@@ -962,14 +966,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class OpOrElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpOr");
-		private final Keyword cOrKeyword = (Keyword)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cOrKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cVerticalLineVerticalLineKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
 		//OpOr returns Operation:
-		//	"or";
+		//	"or" | "||";
 		@Override public ParserRule getRule() { return rule; }
 
+		//"or" | "||"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//"or"
-		public Keyword getOrKeyword() { return cOrKeyword; }
+		public Keyword getOrKeyword_0() { return cOrKeyword_0; }
+
+		//"||"
+		public Keyword getVerticalLineVerticalLineKeyword_1() { return cVerticalLineVerticalLineKeyword_1; }
 	}
 
 	public class AAndExpressionElements extends AbstractParserRuleElementFinder {
@@ -1022,14 +1034,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class OpAndElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OpAnd");
-		private final Keyword cAndKeyword = (Keyword)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAndKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cAmpersandAmpersandKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
 		//OpAnd returns Operation:
-		//	"and";
+		//	"and" | "&&";
 		@Override public ParserRule getRule() { return rule; }
 
+		//"and" | "&&"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//"and"
-		public Keyword getAndKeyword() { return cAndKeyword; }
+		public Keyword getAndKeyword_0() { return cAndKeyword_0; }
+
+		//"&&"
+		public Keyword getAmpersandAmpersandKeyword_1() { return cAmpersandAmpersandKeyword_1; }
 	}
 
 	public class AEqualityExpressionElements extends AbstractParserRuleElementFinder {
@@ -2070,6 +2090,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
+
+	public class ThisKeywordElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ThisKeyword");
+		private final Keyword cThisKeyword = (Keyword)rule.eContents().get(1);
+		
+		//ThisKeyword:
+		//	"this";
+		@Override public ParserRule getRule() { return rule; }
+
+		//"this"
+		public Keyword getThisKeyword() { return cThisKeyword; }
+	}
 	
 	
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
@@ -2350,6 +2382,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final AADLPROPERTYREFERENCEElements pAADLPROPERTYREFERENCE;
 	private final URIIDElements pURIID;
 	private final QualifiedNameElements pQualifiedName;
+	private final ThisKeywordElements pThisKeyword;
 	
 	private final Grammar grammar;
 
@@ -2419,6 +2452,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAADLPROPERTYREFERENCE = new AADLPROPERTYREFERENCEElements();
 		this.pURIID = new URIIDElements();
 		this.pQualifiedName = new QualifiedNameElements();
+		this.pThisKeyword = new ThisKeywordElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -2576,7 +2610,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AModelReference:
-	//	{AModelReference} "this" ("." next=NestedModelelement)?;
+	//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
 	public AModelReferenceElements getAModelReferenceAccess() {
 		return pAModelReference;
 	}
@@ -2668,7 +2702,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpOr returns Operation:
-	//	"or";
+	//	"or" | "||";
 	public OpOrElements getOpOrAccess() {
 		return pOpOr;
 	}
@@ -2688,7 +2722,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpAnd returns Operation:
-	//	"and";
+	//	"and" | "&&";
 	public OpAndElements getOpAndAccess() {
 		return pOpAnd;
 	}
@@ -3053,6 +3087,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getQualifiedNameRule() {
 		return getQualifiedNameAccess().getRule();
+	}
+
+	//ThisKeyword:
+	//	"this";
+	public ThisKeywordElements getThisKeywordAccess() {
+		return pThisKeyword;
+	}
+	
+	public ParserRule getThisKeywordRule() {
+		return getThisKeywordAccess().getRule();
 	}
 
 	//terminal ID:

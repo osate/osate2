@@ -47,6 +47,7 @@ import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqPredicate
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.WhenCondition
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelScopeProvider
@@ -227,6 +228,28 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 			return thescope
 		} else {
 			IScope.NULLSCOPE
+		}
+	}
+	
+	def IScope scope_AModelReference_modelElement(SystemRequirementSet context, EReference reference) {
+		new SimpleScope(#[EObjectDescription.create("this", context.target)])
+	}
+	
+	def IScope scope_AModelReference_modelElement(StakeholderGoals context, EReference reference) {
+		if (context.target != null) {
+			new SimpleScope(#[EObjectDescription.create("this", context.target)])
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+	
+	def IScope scope_AModelReference_modelElement(ContractualElement context, EReference reference) {
+		if (context.targetElement != null) {
+			new SimpleScope(#[EObjectDescription.create("this", context.targetElement)])
+		} else if (context.target != null) {
+			new SimpleScope(#[EObjectDescription.create("this", context.target)])
+		} else {
+			getScope(context.eContainer, reference)
 		}
 	}
 

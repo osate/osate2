@@ -15,6 +15,7 @@
  */
 package org.osate.alisa.common.common;
 
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +26,7 @@ package org.osate.alisa.common.common;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}</li>
  * </ul>
  *
@@ -34,6 +36,32 @@ package org.osate.alisa.common.common;
  */
 public interface AModelReference extends AExpression
 {
+  /**
+   * Returns the value of the '<em><b>Model Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Model Element</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Model Element</em>' reference.
+   * @see #setModelElement(NamedElement)
+   * @see org.osate.alisa.common.common.CommonPackage#getAModelReference_ModelElement()
+   * @model
+   * @generated
+   */
+  NamedElement getModelElement();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Model Element</em>' reference.
+   * @see #getModelElement()
+   * @generated
+   */
+  void setModelElement(NamedElement value);
+
   /**
    * Returns the value of the '<em><b>Next</b></em>' containment reference.
    * <!-- begin-user-doc -->
