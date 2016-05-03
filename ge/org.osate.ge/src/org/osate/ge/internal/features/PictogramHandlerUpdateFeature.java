@@ -5,7 +5,9 @@ import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -82,13 +84,21 @@ public class PictogramHandlerUpdateFeature extends AbstractUpdateFeature impleme
 		refreshHelper.refresh(bo, handler, pe, x, y, null, srcAnchor, dstAnchor);
 		
 		// Special handling for diagrams
-		final boolean isDiagram = pe instanceof Diagram;
-		if(isDiagram) {
+		if(pe instanceof Diagram) {
 			// Update the diagram's name
 			final Diagram diagram = (Diagram)pe;
 			final String newTitle = refBuilder.getTitle(bo);
 			if(newTitle != null) {
 				diagram.setName(newTitle);
+			}
+			
+			// Adjust positions of shapes that have not been positioned.
+			final ICustomContext layoutCtx = LayoutDiagramFeature.createContext(false);
+			for(ICustomFeature feature : this.getFeatureProvider().getCustomFeatures(layoutCtx)) {
+				if(feature instanceof LayoutDiagramFeature) {
+					feature.execute(layoutCtx);
+					break;
+				}
 			}
 		}
 

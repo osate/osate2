@@ -88,6 +88,7 @@ import org.osate.ge.internal.features.PictogramHandlerDeleteFeature;
 import org.osate.ge.internal.features.PictogramHandlerDirectEditFeature;
 import org.osate.ge.internal.features.PictogramHandlerLayoutFeature;
 import org.osate.ge.internal.features.PictogramHandlerRefreshHelper;
+import org.osate.ge.internal.features.PictogramHandlerResizeShapeFeature;
 import org.osate.ge.internal.features.PictogramHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
@@ -139,7 +140,6 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
@@ -157,7 +157,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private InternalReferenceBuilderService refBuilder;
 	private AadlModificationService aadlModService;
 	private ShapeService shapeService;
-	private DiagramModificationService diagramModService;
 	private LabelService labelService;
 	private ShapeCreationService shapeCreationService;
 	private ConnectionCreationService connectionCreationService;
@@ -182,7 +181,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.refBuilder = Objects.requireNonNull(eclipseContext.get(InternalReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
-		this.diagramModService = Objects.requireNonNull(eclipseContext.get(DiagramModificationService.class), "unable to retrieve diagram modification service");
 		this.labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
 		this.shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
 		this.connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
@@ -578,7 +576,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, diagramModService, bor, this, simpleEntry, pictogramHandler));
+							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, bor, this, simpleEntry, pictogramHandler));
 						}
 					}
 				}
@@ -854,6 +852,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return null;
 		}
 		
+		final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
+		if(pictogramHandler != null) {
+			return new PictogramHandlerResizeShapeFeature(bor, extService, this, pictogramHandler);
+		}
+
 		return super.getResizeShapeFeatureAdditional(context);
 	}
 	

@@ -2,8 +2,6 @@ package org.osate.ge.internal.graphics;
 
 import java.util.Objects;
 
-import javax.lang.model.SourceVersion;
-
 import org.osate.ge.ConnectionTerminator;
 
 public class FreeFormConnection implements AgeConnection {

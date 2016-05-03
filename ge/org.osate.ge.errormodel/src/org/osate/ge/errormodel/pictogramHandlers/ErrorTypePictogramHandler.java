@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypePictogramHandler {
-	private static final Graphic graphic = GraphicFactory.createEllipse();
+	private static final Graphic graphic = GraphicFactory.createRectangle();
 	
 	@IsApplicable
 	@AllowDelete

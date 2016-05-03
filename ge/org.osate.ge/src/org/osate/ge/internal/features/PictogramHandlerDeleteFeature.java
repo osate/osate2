@@ -18,7 +18,6 @@ import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.EObjectOwnerProvider;
 import org.osate.ge.di.AllowDelete;
-import org.osate.ge.di.CreateBusinessObject;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;

@@ -27,7 +27,7 @@ import org.osate.ge.query.DiagramElementQuery;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeExtensionPictogramHandler {
-	private static final Graphic graphic = GraphicFactory.createSolidFreeFormConnection(ConnectionTerminator.OPEN_ARROW, ConnectionTerminator.FILLED_ARROW);
+	private static final Graphic graphic = GraphicFactory.createSolidFreeFormConnection(null, ConnectionTerminator.OPEN_ARROW);
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {

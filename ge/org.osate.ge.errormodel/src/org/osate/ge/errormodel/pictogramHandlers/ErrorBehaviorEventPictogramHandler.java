@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.errormodel.pictogramHandlers;
 
+import java.awt.geom.Point2D;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
@@ -34,7 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorEventPictogramHandler {
-	private static final Graphic graphic = GraphicFactory.createEllipse(); // TODO
+	private static final Graphic graphic = GraphicFactory.createPolygon(new Point2D.Double(0.0, 1.0), new Point2D.Double(1.0, 1.0), new Point2D.Double(0.5, 0.0));
 	
 	@IsApplicable
 	@AllowDelete

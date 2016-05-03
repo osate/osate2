@@ -8,15 +8,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
-import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.di.CanCreateConnection;
@@ -26,7 +21,6 @@ import org.osate.ge.di.GetCreateOwningBusinessObject;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
@@ -34,18 +28,16 @@ import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConnectionFeature implements Categorized, ICustomUndoRedoFeature {
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
-	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
 	public PictogramHandlerCreateConnectionFeature(final ExtensionService extService, final AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp, 
+			final BusinessObjectResolutionService bor, final IFeatureProvider fp, 
 			final SimplePaletteEntry paletteEntry, final Object pictogramHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
-		this.diagramModService = Objects.requireNonNull(diagramModService, "diagramModService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(pictogramHandler, "pictogramHandler must not be null");
@@ -119,7 +111,7 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 			}	
 			
 			// Modify the model
-			final Object newBo = aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
+			aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
 				@Override
 				public Object modify(Resource resource, EObject ownerBo) {
 					return ContextInjectionFactory.invoke(handler, CreateBusinessObject.class, eclipseCtx, null);					
@@ -129,8 +121,6 @@ public class PictogramHandlerCreateConnectionFeature extends AbstractCreateConne
 			eclipseCtx.dispose();
 		}
 		
-		// TODO: Get the new connection
-
 		return null;
 	}
 

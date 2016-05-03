@@ -10,13 +10,11 @@ package org.osate.ge.errormodel.pictogramHandlers;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.osate.ge.ConnectionTerminator;
 import org.osate.ge.Graphic;
 import org.osate.ge.GraphicFactory;
 import org.osate.ge.PaletteEntry;
-import org.osate.ge.PaletteEntryFactory;
 import org.osate.ge.di.AllowDelete;
 import org.osate.ge.di.CanCreateConnection;
 import org.osate.ge.di.CanStartConnection;
@@ -30,7 +28,6 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.di.Names;
@@ -44,7 +41,8 @@ public class ErrorBehaviorTransitionPictogramHandler {
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorBehaviorStateMachine stateMachine) {
 		return new PaletteEntry[] { 
-			PaletteEntryFactory.makeCreateConnectionEntry(ErrorModelCategories.ERROR_MODEL, "Transition", null, null)
+			// Disabled until UI for creating transitions is implemented.
+			//PaletteEntryFactory.makeCreateConnectionEntry(ErrorModelCategories.ERROR_MODEL, "Transition", null, null)
 		};
 	}
 	

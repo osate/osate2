@@ -1,5 +1,6 @@
 package org.osate.ge.internal.features;
 
+import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -34,6 +35,7 @@ import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FreeFormConnection;
+import org.osate.ge.internal.graphics.Polygon;
 import org.osate.ge.internal.graphics.Rectangle;
 import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.services.AnchorService;
@@ -287,8 +289,11 @@ public class PictogramHandlerRefreshHelper {
 	    return ga;
 	}
 	
-	private void refreshShapeGraphicsFromRepresentation(final Shape shape, final Object gr) {
-		final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();			
+	private void refreshShapeGraphicsFromRepresentation(final Shape shape, final Object gr) {		
+		final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
+		final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
+		final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
+		
 		final GraphicsAlgorithm ga;
 		if(gr == null) {
 			return; 
@@ -298,13 +303,32 @@ public class PictogramHandlerRefreshHelper {
 		} else if(gr instanceof Ellipse) {
 	        ga = Graphiti.getGaService().createPlainEllipse(shape);
 	        ga.setFilled(false);
+		} else if(gr instanceof Polygon) {
+			final Polygon poly = (Polygon)gr;
+			ga = createPolygon(shape, poly, width, height);
 		} else {
 			throw new RuntimeException("Unsupported object: " + gr);
 		}
 		
 		// Set to appropriate size. If just recreating the graphics algorithm, retain previous size
-		ga.setWidth(Math.max(50, oldGa == null ? 0 : oldGa.getWidth()));
-        ga.setHeight(Math.max(50, oldGa == null ? 50 : oldGa.getHeight()));
+		ga.setWidth(width);
+        ga.setHeight(height);
+	}
+	
+	public static GraphicsAlgorithm createPolygon(final Shape shape, final Polygon poly, final int width, final int height) {
+		final int[] coords = new int[poly.getPoints().length * 2];
+		int i = 0;
+
+		// Build points based on the specified size
+		for(final Point2D.Double p : poly.getPoints()) {
+			coords[i++] = (int)(p.x * width);
+			coords[i++] = (int)(p.y * height);
+		}
+		
+		final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolygon(shape, coords);
+		ga.setFilled(false);
+		
+		return ga;
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

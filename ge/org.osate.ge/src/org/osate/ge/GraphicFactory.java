@@ -1,8 +1,11 @@
 package org.osate.ge;
 
+import java.awt.geom.Point2D;
+
 import org.osate.ge.internal.graphics.ConnectionStyle;
 import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FreeFormConnection;
+import org.osate.ge.internal.graphics.Polygon;
 import org.osate.ge.internal.graphics.Rectangle;
 
 public class GraphicFactory {
@@ -12,6 +15,12 @@ public class GraphicFactory {
 	
 	public static Graphic createRectangle() {
 		return new Rectangle();
+	}
+	
+	// TODO: Rename? unfilledPolygon? The others don't have wording to indicate unfilled
+	// TODO: could be createScaledPolygon() or similiar ?
+	public static Graphic createPolygon(final Point2D.Double... points) {
+		return new Polygon(points);
 	}
 	
 	// TODO: Rework these methods

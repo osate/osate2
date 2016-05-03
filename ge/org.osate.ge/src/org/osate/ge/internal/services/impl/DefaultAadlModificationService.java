@@ -86,11 +86,11 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						try {
 							savedAadlResourceService.setSaveInProgress(res, true);
 							res.save(SaveOptions.defaultOptions().toOptionsMap());
-						} catch (IOException e) {
+						} catch (final IOException e) {
 							throw new RuntimeException(e);
 						} finally {
 							savedAadlResourceService.setSaveInProgress(res, false);
-						};
+						}
 						
 						// Update the diagram
 						Display.getDefault().syncExec(new Runnable() {
