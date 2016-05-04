@@ -19,9 +19,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -35,6 +38,7 @@ import org.osate.alisa.common.common.NestedModelElement;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getNext <em>Next</em>}</li>
  * </ul>
  *
@@ -42,6 +46,16 @@ import org.osate.alisa.common.common.NestedModelElement;
  */
 public class AModelReferenceImpl extends AExpressionImpl implements AModelReference
 {
+  /**
+   * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModelElement()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement modelElement;
+
   /**
    * The cached value of the '{@link #getNext() <em>Next</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -71,6 +85,49 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   protected EClass eStaticClass()
   {
     return CommonPackage.Literals.AMODEL_REFERENCE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement getModelElement()
+  {
+    if (modelElement != null && ((EObject)modelElement).eIsProxy())
+    {
+      InternalEObject oldModelElement = (InternalEObject)modelElement;
+      modelElement = (NamedElement)eResolveProxy(oldModelElement);
+      if (modelElement != oldModelElement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
+      }
+    }
+    return modelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetModelElement()
+  {
+    return modelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModelElement(NamedElement newModelElement)
+  {
+    NamedElement oldModelElement = modelElement;
+    modelElement = newModelElement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
   }
 
   /**
@@ -147,6 +204,9 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        if (resolve) return getModelElement();
+        return basicGetModelElement();
       case CommonPackage.AMODEL_REFERENCE__NEXT:
         return getNext();
     }
@@ -163,6 +223,9 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        setModelElement((NamedElement)newValue);
+        return;
       case CommonPackage.AMODEL_REFERENCE__NEXT:
         setNext((NestedModelElement)newValue);
         return;
@@ -180,6 +243,9 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        setModelElement((NamedElement)null);
+        return;
       case CommonPackage.AMODEL_REFERENCE__NEXT:
         setNext((NestedModelElement)null);
         return;
@@ -197,6 +263,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        return modelElement != null;
       case CommonPackage.AMODEL_REFERENCE__NEXT:
         return next != null;
     }

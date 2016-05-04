@@ -442,13 +442,22 @@ public interface CommonPackage extends EPackage
   int AMODEL_REFERENCE__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
 
   /**
+   * The feature id for the '<em><b>Model Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AMODEL_REFERENCE__MODEL_ELEMENT = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Next</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AMODEL_REFERENCE__NEXT = AEXPRESSION_FEATURE_COUNT + 0;
+  int AMODEL_REFERENCE__NEXT = AEXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>AModel Reference</em>' class.
@@ -457,7 +466,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AMODEL_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+  int AMODEL_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
@@ -1632,6 +1641,17 @@ public interface CommonPackage extends EPackage
   EClass getAModelReference();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Model Element</em>'.
+   * @see org.osate.alisa.common.common.AModelReference#getModelElement()
+   * @see #getAModelReference()
+   * @generated
+   */
+  EReference getAModelReference_ModelElement();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2362,6 +2382,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EClass AMODEL_REFERENCE = eINSTANCE.getAModelReference();
+
+    /**
+     * The meta object literal for the '<em><b>Model Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AMODEL_REFERENCE__MODEL_ELEMENT = eINSTANCE.getAModelReference_ModelElement();
 
     /**
      * The meta object literal for the '<em><b>Next</b></em>' containment reference feature.

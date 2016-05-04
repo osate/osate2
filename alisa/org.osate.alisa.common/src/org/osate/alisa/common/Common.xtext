@@ -74,7 +74,7 @@ NestedModelelement returns NestedModelElement:
 ;
 
 AModelReference returns AModelReference:
-	{AModelReference} 'this' ('.' next=NestedModelelement)?
+	modelElement=[aadl2::NamedElement|ThisKeyword] ('.' next=NestedModelelement)?
 ;
 
 APropertyReference returns APropertyReference:
@@ -298,4 +298,6 @@ URIID: STRING;
 
 QualifiedName: ID ('.' ID)*;
 
-	
+ThisKeyword:
+	'this'
+;

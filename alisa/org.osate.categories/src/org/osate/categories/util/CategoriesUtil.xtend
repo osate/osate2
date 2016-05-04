@@ -18,11 +18,28 @@ package org.osate.categories.util
 
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.Category
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashSet
 
 class CategoriesUtil {
 
 	def static Categories containingCategories(Category sh) {
 		sh.eContainer() as Categories
+	}
+
+	def static boolean matches(Iterable<? extends Category> specifiedCategories, Iterable<? extends Category> filterCriteria,
+		boolean any) {
+		if(filterCriteria.empty) return true 
+		if (specifiedCategories.empty) return any
+		val filterCTS = filterCriteria.categoriesSet
+		var result = true
+		for (ct : filterCTS){
+			val filterCS = filterCriteria.getCategorySet(ct)
+			val specifiedCS = specifiedCategories.getCategorySet(ct)
+			result = result && specifiedCS.intersects(filterCS,any)
+		}
+		return result
 	}
 
 	def static boolean intersects(Iterable<? extends Category> specifiedCategories, Iterable<? extends Category> filterCriteria,
@@ -35,6 +52,33 @@ class CategoriesUtil {
 			}
 		}
 		return false
+	}
+
+	def static Iterable<? extends Category> intersection(Iterable<? extends Category> set1, Iterable<? extends Category> set2) {
+		val Collection<Category> result = new ArrayList<Category>();
+		if(set1.empty || set2.empty) return result 
+		for (crit1 : set1){
+			for (crit2 : set2) {
+				if(crit1.name.equalsIgnoreCase(crit2.name)) result.add(crit1)
+			}
+		}
+		return result
+	}
+
+	def static Iterable<? extends Categories> getCategoriesSet(Iterable<? extends Category> set1) {
+		val Collection<Categories> result = new HashSet<Categories>();
+		for (crit1 : set1){
+			result.add(crit1.containingCategories)
+		}
+		return result
+	}
+
+	def static Iterable<? extends Category> getCategorySet(Iterable<? extends Category> set1, Categories categoryType) {
+		val Collection<Category> result = new HashSet<Category>();
+		for (crit1 : set1){
+			if (crit1.containingCategories.name.equalsIgnoreCase(categoryType.name)) result.add(crit1)
+		}
+		return result
 	}
 
 }
