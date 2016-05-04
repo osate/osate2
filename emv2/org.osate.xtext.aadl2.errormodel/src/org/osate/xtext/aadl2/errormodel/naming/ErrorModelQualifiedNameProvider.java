@@ -38,6 +38,9 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 			}
 			return getConverter().toQualifiedName(getTheName(namedElement));
 		}
+		if (obj instanceof AadlPackage) {
+			return getConverter().toQualifiedName(((AadlPackage) obj).getName());
+		}
 		return null;
 	}
 
