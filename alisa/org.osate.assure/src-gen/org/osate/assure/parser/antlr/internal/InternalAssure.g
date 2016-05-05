@@ -3901,16 +3901,16 @@ ruleAUnitExpression returns [EObject current=null]
     }
 )((
 (
-		lv_convert_2_0=	'to' 
+		lv_convert_2_0=	'%' 
     {
-        newLeafNode(lv_convert_2_0, grammarAccess.getAUnitExpressionAccess().getConvertToKeyword_1_1_0_0());
+        newLeafNode(lv_convert_2_0, grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAUnitExpressionRule());
 	        }
-       		setWithLastConsumed($current, "convert", true, "to");
+       		setWithLastConsumed($current, "convert", true, "\%");
 	    }
 
 )

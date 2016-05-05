@@ -18,7 +18,9 @@
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//Operation">
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/ALT_OR"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/ALT_AND"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/EQ"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/NEQ"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//Operation/GEQ"/>
@@ -61,6 +63,7 @@
     <genClasses ecoreClass="Common.ecore#//AVariableDeclaration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/range"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AExpression"/>
     <genClasses ecoreClass="Common.ecore#//AModelReference">

@@ -43,6 +43,16 @@ public enum Operation implements Enumerator
   OR(0, "OR", "or"),
 
   /**
+   * The '<em><b>ALT OR</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ALT_OR_VALUE
+   * @generated
+   * @ordered
+   */
+  ALT_OR(1, "ALT_OR", "||"),
+
+  /**
    * The '<em><b>AND</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -50,7 +60,17 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  AND(1, "AND", "and"),
+  AND(2, "AND", "and"),
+
+  /**
+   * The '<em><b>ALT AND</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #ALT_AND_VALUE
+   * @generated
+   * @ordered
+   */
+  ALT_AND(3, "ALT_AND", "&&"),
 
   /**
    * The '<em><b>EQ</b></em>' literal object.
@@ -60,7 +80,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  EQ(2, "EQ", "=="),
+  EQ(4, "EQ", "=="),
 
   /**
    * The '<em><b>NEQ</b></em>' literal object.
@@ -70,7 +90,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  NEQ(3, "NEQ", "!="),
+  NEQ(5, "NEQ", "!="),
 
   /**
    * The '<em><b>GEQ</b></em>' literal object.
@@ -80,7 +100,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  GEQ(4, "GEQ", ">="),
+  GEQ(6, "GEQ", ">="),
 
   /**
    * The '<em><b>LEQ</b></em>' literal object.
@@ -90,7 +110,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  LEQ(5, "LEQ", "<="),
+  LEQ(7, "LEQ", "<="),
 
   /**
    * The '<em><b>GT</b></em>' literal object.
@@ -100,7 +120,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  GT(6, "GT", ">"),
+  GT(8, "GT", ">"),
 
   /**
    * The '<em><b>LT</b></em>' literal object.
@@ -110,7 +130,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  LT(7, "LT", "<"),
+  LT(9, "LT", "<"),
 
   /**
    * The '<em><b>IN</b></em>' literal object.
@@ -120,7 +140,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  IN(8, "IN", "><"),
+  IN(10, "IN", "><"),
 
   /**
    * The '<em><b>PLUS</b></em>' literal object.
@@ -130,7 +150,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  PLUS(9, "PLUS", "+"),
+  PLUS(11, "PLUS", "+"),
 
   /**
    * The '<em><b>MINUS</b></em>' literal object.
@@ -140,7 +160,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  MINUS(10, "MINUS", "-"),
+  MINUS(12, "MINUS", "-"),
 
   /**
    * The '<em><b>MULT</b></em>' literal object.
@@ -150,7 +170,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  MULT(11, "MULT", "*"),
+  MULT(13, "MULT", "*"),
 
   /**
    * The '<em><b>DIV</b></em>' literal object.
@@ -160,7 +180,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  DIV(12, "DIV", "/"),
+  DIV(14, "DIV", "/"),
 
   /**
    * The '<em><b>INTDIV</b></em>' literal object.
@@ -170,7 +190,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  INTDIV(13, "INTDIV", "div"),
+  INTDIV(15, "INTDIV", "div"),
 
   /**
    * The '<em><b>MOD</b></em>' literal object.
@@ -180,7 +200,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  MOD(14, "MOD", "mod"),
+  MOD(16, "MOD", "mod"),
 
   /**
    * The '<em><b>NOT</b></em>' literal object.
@@ -190,7 +210,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  NOT(15, "NOT", "not");
+  NOT(17, "NOT", "not");
 
   /**
    * The '<em><b>OR</b></em>' literal value.
@@ -208,6 +228,21 @@ public enum Operation implements Enumerator
   public static final int OR_VALUE = 0;
 
   /**
+   * The '<em><b>ALT OR</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ALT OR</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ALT_OR
+   * @model literal="||"
+   * @generated
+   * @ordered
+   */
+  public static final int ALT_OR_VALUE = 1;
+
+  /**
    * The '<em><b>AND</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -220,7 +255,22 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int AND_VALUE = 1;
+  public static final int AND_VALUE = 2;
+
+  /**
+   * The '<em><b>ALT AND</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ALT AND</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ALT_AND
+   * @model literal="&&"
+   * @generated
+   * @ordered
+   */
+  public static final int ALT_AND_VALUE = 3;
 
   /**
    * The '<em><b>EQ</b></em>' literal value.
@@ -235,7 +285,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int EQ_VALUE = 2;
+  public static final int EQ_VALUE = 4;
 
   /**
    * The '<em><b>NEQ</b></em>' literal value.
@@ -250,7 +300,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int NEQ_VALUE = 3;
+  public static final int NEQ_VALUE = 5;
 
   /**
    * The '<em><b>GEQ</b></em>' literal value.
@@ -265,7 +315,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int GEQ_VALUE = 4;
+  public static final int GEQ_VALUE = 6;
 
   /**
    * The '<em><b>LEQ</b></em>' literal value.
@@ -280,7 +330,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LEQ_VALUE = 5;
+  public static final int LEQ_VALUE = 7;
 
   /**
    * The '<em><b>GT</b></em>' literal value.
@@ -295,7 +345,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int GT_VALUE = 6;
+  public static final int GT_VALUE = 8;
 
   /**
    * The '<em><b>LT</b></em>' literal value.
@@ -310,7 +360,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int LT_VALUE = 7;
+  public static final int LT_VALUE = 9;
 
   /**
    * The '<em><b>IN</b></em>' literal value.
@@ -325,7 +375,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int IN_VALUE = 8;
+  public static final int IN_VALUE = 10;
 
   /**
    * The '<em><b>PLUS</b></em>' literal value.
@@ -340,7 +390,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int PLUS_VALUE = 9;
+  public static final int PLUS_VALUE = 11;
 
   /**
    * The '<em><b>MINUS</b></em>' literal value.
@@ -355,7 +405,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MINUS_VALUE = 10;
+  public static final int MINUS_VALUE = 12;
 
   /**
    * The '<em><b>MULT</b></em>' literal value.
@@ -370,7 +420,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MULT_VALUE = 11;
+  public static final int MULT_VALUE = 13;
 
   /**
    * The '<em><b>DIV</b></em>' literal value.
@@ -385,7 +435,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int DIV_VALUE = 12;
+  public static final int DIV_VALUE = 14;
 
   /**
    * The '<em><b>INTDIV</b></em>' literal value.
@@ -400,7 +450,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int INTDIV_VALUE = 13;
+  public static final int INTDIV_VALUE = 15;
 
   /**
    * The '<em><b>MOD</b></em>' literal value.
@@ -415,7 +465,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MOD_VALUE = 14;
+  public static final int MOD_VALUE = 16;
 
   /**
    * The '<em><b>NOT</b></em>' literal value.
@@ -430,7 +480,7 @@ public enum Operation implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int NOT_VALUE = 15;
+  public static final int NOT_VALUE = 17;
 
   /**
    * An array of all the '<em><b>Operation</b></em>' enumerators.
@@ -442,7 +492,9 @@ public enum Operation implements Enumerator
     new Operation[]
     {
       OR,
+      ALT_OR,
       AND,
+      ALT_AND,
       EQ,
       NEQ,
       GEQ,
@@ -522,7 +574,9 @@ public enum Operation implements Enumerator
     switch (value)
     {
       case OR_VALUE: return OR;
+      case ALT_OR_VALUE: return ALT_OR;
       case AND_VALUE: return AND;
+      case ALT_AND_VALUE: return ALT_AND;
       case EQ_VALUE: return EQ;
       case NEQ_VALUE: return NEQ;
       case GEQ_VALUE: return GEQ;
