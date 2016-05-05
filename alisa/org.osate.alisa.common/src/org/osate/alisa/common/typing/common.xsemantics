@@ -651,7 +651,7 @@ from {
 }
 
 checkrule CheckExpressions for
-	AExpression exp
+	PropertyExpression exp
 from {
-	
+	empty |- exp : var PropertyType type
 }
