@@ -1,74 +1,79 @@
-//import org.osate.alisa.common.typing.CommonTypeSystem
-//import org.osate.verify.verify.VerificationActivity
-//
-//system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
-//
-//// can't do this!  validatorExtends AbstractVerifyValidator
-//// instead copied getPackages into VerifyValidator
-//
-//judgments {
-//	 type |- EObject verifyObject : output PropertyType
-//		error "cannot type " + stringRep(verifyObject)
-//		source verifyObject
-//	assign |- VerificationActivity owner ~> FormalParameter type <- PropertyExpression actual
-//	assignablesequence |- VerificationActivity owner ~> List<FormalParameter> formalParams << List<PropertyExpression> actuals
-//        error "invalid arguments for expected parameters"
-//        source owner
-//}
-//
-//rule VerificationActivity derives
-//	G |- VerificationActivity activity : PropertyType type
-//from {
-//	val method = activity.method
-//	G |- activity ~> method.params << activity.parameters
-//}
-//
-//rule FormalParameter derives
-//	G |- FormalParameter param : PropertyType type
-//from {
-//	type = 
-//	  switch param.parameterType {
-//	    case "boolean": Aadl2Factory.eINSTANCE.createAadlBoolean
-//		  case "integer": Aadl2Factory.eINSTANCE.createAadlInteger
-//		  case "real": Aadl2Factory.eINSTANCE.createAadlReal
-//		  case "string": Aadl2Factory.eINSTANCE.createAadlString
-//	}
-//}
-//
-//rule AssignableSequence derives
-//  G |- VerificationActivity owner ~> List<FormalParameter> formals << EList<PropertyExpression> actuals
-//from {
-//  actuals.size == formals.size
-//  or
-//  fail
-//    error "expected " + formals.size + " arguments, but got " + actuals.size
-//    source owner 
-//    
-//  val formalsIterator = formals.iterator
-//  for (actual : actuals) {
-//  	val formal = formalsIterator.next
-//    G |- owner ~> formal <- actual
-//	  or
-//	    fail
-//		  error "bla " + previousFailure.message
-//		  feature VerifyPackage.eINSTANCE.verificationActivity_Parameters
-//		  source owner
-//  }
-//}
-//
-//rule Assignable derives
-//  G |- VerificationActivity owner ~> FormalParameter formal <- PropertyExpression actual
-//from {
-//	var PropertyType formalType
-//	var PropertyType actualType
-//	G |- formal : formalType
-//	G |- actual : actualType
-//	
-//	formalType == actualType
-//}
-//
-//checkrule CheckActivityCalls for 
-//	VerificationActivity activity 
-//from {
-////  empty |- activity: var PropertyType type
-//}
+import java.util.List
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyType
+import org.osate.alisa.common.typing.CommonTypeSystem
+import org.osate.verify.verify.FormalParameter
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerifyPackage
+
+system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
+
+// can't do this!  validatorExtends AbstractVerifyValidator
+// instead copied getPackages into VerifyValidator
+
+judgments {
+	assign |- VerificationActivity owner ~> FormalParameter type <- PropertyExpression actual
+	assignablesequence |- VerificationActivity owner ~> List<FormalParameter> formalParams << List<PropertyExpression> actuals
+        error "invalid arguments for expected parameters"
+        source owner
+}
+
+rule VerificationActivity derives
+	G |- VerificationActivity activity : PropertyType type
+from {
+	val method = activity.method
+	G |- activity ~> method.params << activity.parameters
+}
+
+rule FormalParameter derives
+	G |- FormalParameter param : PropertyType type
+from {
+	type = 
+	  switch param.type {
+	    case "boolean": Aadl2Factory.eINSTANCE.createAadlBoolean
+		  case "integer": Aadl2Factory.eINSTANCE.createAadlInteger
+		  case "real": Aadl2Factory.eINSTANCE.createAadlReal
+		  case "string": Aadl2Factory.eINSTANCE.createAadlString
+	}
+}
+
+rule AssignableSequence derives
+  G |- VerificationActivity owner ~> List<FormalParameter> formals << EList<PropertyExpression> actuals
+from {
+  actuals.size == formals.size
+  or
+  fail
+    error "expected " + formals.size + " arguments, but got " + actuals.size
+    source owner 
+    
+  val formalsIterator = formals.iterator
+  for (actual : actuals) {
+  	val formal = formalsIterator.next
+    G |- owner ~> formal <- actual
+	  or
+	    fail
+		  error "bla " + previousFailure.message
+		  feature VerifyPackage.eINSTANCE.verificationActivity_Parameters
+		  source owner
+  }
+}
+
+rule Assignable derives
+  G |- VerificationActivity owner ~> FormalParameter formal <- PropertyExpression actual
+from {
+	var PropertyType formalType
+	var PropertyType actualType
+	G |- formal : formalType
+	G |- actual : actualType
+	
+	formalType == actualType
+}
+
+checkrule CheckActivityCalls for 
+	VerificationActivity activity 
+from {
+//  empty |- activity: var PropertyType type
+}
