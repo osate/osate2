@@ -652,46 +652,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getAPropertyReferenceParserRuleCall_1() { return cAPropertyReferenceParserRuleCall_1; }
 	}
 
-	public class NestedModelelementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NestedModelelement");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cModelElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cModelElementNamedElementCrossReference_0_0 = (CrossReference)cModelElementAssignment_0.eContents().get(0);
-		private final RuleCall cModelElementNamedElementIDTerminalRuleCall_0_0_1 = (RuleCall)cModelElementNamedElementCrossReference_0_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cNextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cNextNestedModelelementParserRuleCall_1_1_0 = (RuleCall)cNextAssignment_1_1.eContents().get(0);
-		
-		//NestedModelelement returns NestedModelElement:
-		//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
-		@Override public ParserRule getRule() { return rule; }
-
-		//modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?
-		public Group getGroup() { return cGroup; }
-
-		//modelElement=[aadl2::NamedElement]
-		public Assignment getModelElementAssignment_0() { return cModelElementAssignment_0; }
-
-		//[aadl2::NamedElement]
-		public CrossReference getModelElementNamedElementCrossReference_0_0() { return cModelElementNamedElementCrossReference_0_0; }
-
-		//ID
-		public RuleCall getModelElementNamedElementIDTerminalRuleCall_0_0_1() { return cModelElementNamedElementIDTerminalRuleCall_0_0_1; }
-
-		//("." next=NestedModelelement)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"."
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
-
-		//next=NestedModelelement
-		public Assignment getNextAssignment_1_1() { return cNextAssignment_1_1; }
-
-		//NestedModelelement
-		public RuleCall getNextNestedModelelementParserRuleCall_1_1_0() { return cNextNestedModelelementParserRuleCall_1_1_0; }
-	}
-
 	public class AModelReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AModelReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -699,15 +659,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cModelElementNamedElementCrossReference_0_0 = (CrossReference)cModelElementAssignment_0.eContents().get(0);
 		private final RuleCall cModelElementNamedElementThisKeywordParserRuleCall_0_0_1 = (RuleCall)cModelElementNamedElementCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cNextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cNextNestedModelelementParserRuleCall_1_1_0 = (RuleCall)cNextAssignment_1_1.eContents().get(0);
+		private final Action cAModelReferencePrevAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cModelElementAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cModelElementNamedElementCrossReference_1_2_0 = (CrossReference)cModelElementAssignment_1_2.eContents().get(0);
+		private final RuleCall cModelElementNamedElementIDTerminalRuleCall_1_2_0_1 = (RuleCall)cModelElementNamedElementCrossReference_1_2_0.eContents().get(1);
 		
 		//AModelReference:
-		//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
+		//	modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} "."
+		//	modelElement=[aadl2::NamedElement])*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?
+		//modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} "." modelElement=[aadl2::NamedElement])*
 		public Group getGroup() { return cGroup; }
 
 		//modelElement=[aadl2::NamedElement|ThisKeyword]
@@ -719,17 +682,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ThisKeyword
 		public RuleCall getModelElementNamedElementThisKeywordParserRuleCall_0_0_1() { return cModelElementNamedElementThisKeywordParserRuleCall_0_0_1; }
 
-		//("." next=NestedModelelement)?
+		//({AModelReference.prev=current} "." modelElement=[aadl2::NamedElement])*
 		public Group getGroup_1() { return cGroup_1; }
 
+		//{AModelReference.prev=current}
+		public Action getAModelReferencePrevAction_1_0() { return cAModelReferencePrevAction_1_0; }
+
 		//"."
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
 
-		//next=NestedModelelement
-		public Assignment getNextAssignment_1_1() { return cNextAssignment_1_1; }
+		//modelElement=[aadl2::NamedElement]
+		public Assignment getModelElementAssignment_1_2() { return cModelElementAssignment_1_2; }
 
-		//NestedModelelement
-		public RuleCall getNextNestedModelelementParserRuleCall_1_1_0() { return cNextNestedModelelementParserRuleCall_1_1_0; }
+		//[aadl2::NamedElement]
+		public CrossReference getModelElementNamedElementCrossReference_1_2_0() { return cModelElementNamedElementCrossReference_1_2_0; }
+
+		//ID
+		public RuleCall getModelElementNamedElementIDTerminalRuleCall_1_2_0_1() { return cModelElementNamedElementIDTerminalRuleCall_1_2_0_1; }
 	}
 
 	public class APropertyReferenceElements extends AbstractParserRuleElementFinder {
@@ -2334,7 +2303,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ValDeclarationElements pValDeclaration;
 	private final ComputeDeclarationElements pComputeDeclaration;
 	private final AModelOrPropertyReferenceElements pAModelOrPropertyReference;
-	private final NestedModelelementElements pNestedModelelement;
 	private final AModelReferenceElements pAModelReference;
 	private final APropertyReferenceElements pAPropertyReference;
 	private final AVariableReferenceElements pAVariableReference;
@@ -2404,7 +2372,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pValDeclaration = new ValDeclarationElements();
 		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pAModelOrPropertyReference = new AModelOrPropertyReferenceElements();
-		this.pNestedModelelement = new NestedModelelementElements();
 		this.pAModelReference = new AModelReferenceElements();
 		this.pAPropertyReference = new APropertyReferenceElements();
 		this.pAVariableReference = new AVariableReferenceElements();
@@ -2599,18 +2566,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getAModelOrPropertyReferenceAccess().getRule();
 	}
 
-	//NestedModelelement returns NestedModelElement:
-	//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
-	public NestedModelelementElements getNestedModelelementAccess() {
-		return pNestedModelelement;
-	}
-	
-	public ParserRule getNestedModelelementRule() {
-		return getNestedModelelementAccess().getRule();
-	}
-
 	//AModelReference:
-	//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
+	//	modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} "."
+	//	modelElement=[aadl2::NamedElement])*;
 	public AModelReferenceElements getAModelReferenceAccess() {
 		return pAModelReference;
 	}

@@ -63,13 +63,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableDeclaration/type"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AExpression"/>
-    <genClasses ecoreClass="Common.ecore#//NestedModelElement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//NestedModelElement/modelElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//NestedModelElement/next"/>
-    </genClasses>
     <genClasses ecoreClass="Common.ecore#//AModelReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/modelElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/next"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AModelReference/prev"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//APropertyReference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/modelElementReference"/>
