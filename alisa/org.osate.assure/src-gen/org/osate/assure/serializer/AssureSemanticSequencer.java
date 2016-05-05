@@ -51,7 +51,6 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
-import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
@@ -218,9 +217,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.MODEL_REF:
 				sequence_TypeRef(context, (ModelRef) semanticObject); 
-				return; 
-			case CommonPackage.NESTED_MODEL_ELEMENT:
-				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
 				return; 
 			case CommonPackage.PROPERTY_REF:
 				sequence_PropertyRef(context, (PropertyRef) semanticObject); 

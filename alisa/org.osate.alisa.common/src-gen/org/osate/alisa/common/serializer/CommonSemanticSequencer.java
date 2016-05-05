@@ -52,7 +52,6 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
-import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
@@ -164,9 +163,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case CommonPackage.MODEL_REF:
 				sequence_TypeRef(context, (ModelRef) semanticObject); 
 				return; 
-			case CommonPackage.NESTED_MODEL_ELEMENT:
-				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
-				return; 
 			case CommonPackage.PROPERTY_REF:
 				sequence_PropertyRef(context, (PropertyRef) semanticObject); 
 				return; 
@@ -258,7 +254,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (modelElement=[NamedElement|ThisKeyword] next=NestedModelelement?)
+	 *     ((prev=AModelReference_AModelReference_1_0 modelElement=[NamedElement|ID]) | modelElement=[NamedElement|ThisKeyword])
 	 */
 	protected void sequence_AModelReference(EObject context, AModelReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -362,15 +358,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0(), semanticObject.getImgfile());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (modelElement=[NamedElement|ID] next=NestedModelelement?)
-	 */
-	protected void sequence_NestedModelelement(EObject context, NestedModelElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

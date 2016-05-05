@@ -699,18 +699,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAModelOrPropertyReferenceAccess().getRule();
 	}
 
-	//NestedModelelement returns NestedModelElement:
-	//	modelElement=[aadl2::NamedElement] ("." next=NestedModelelement)?;
-	public CommonGrammarAccess.NestedModelelementElements getNestedModelelementAccess() {
-		return gaCommon.getNestedModelelementAccess();
-	}
-	
-	public ParserRule getNestedModelelementRule() {
-		return getNestedModelelementAccess().getRule();
-	}
-
 	//AModelReference:
-	//	modelElement=[aadl2::NamedElement|ThisKeyword] ("." next=NestedModelelement)?;
+	//	modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} "."
+	//	modelElement=[aadl2::NamedElement])*;
 	public CommonGrammarAccess.AModelReferenceElements getAModelReferenceAccess() {
 		return gaCommon.getAModelReferenceAccess();
 	}

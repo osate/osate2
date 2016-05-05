@@ -69,12 +69,8 @@ AModelOrPropertyReference returns AExpression:
 	| APropertyReference
 ;
 
-NestedModelelement returns NestedModelElement:
-	modelElement=[aadl2::NamedElement|ID] ('.' next=NestedModelelement)?
-;
-
-AModelReference returns AModelReference:
-	modelElement=[aadl2::NamedElement|ThisKeyword] ('.' next=NestedModelelement)?
+AModelReference:
+	modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} '.' modelElement=[aadl2::NamedElement|ID])*
 ;
 
 APropertyReference returns APropertyReference:
