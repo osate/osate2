@@ -2723,62 +2723,6 @@ ruleAModelOrPropertyReference returns [EObject current=null]
 
 
 
-// Entry rule entryRuleNestedModelelement
-entryRuleNestedModelelement returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getNestedModelelementRule()); }
-	 iv_ruleNestedModelelement=ruleNestedModelelement 
-	 { $current=$iv_ruleNestedModelelement.current; } 
-	 EOF 
-;
-
-// Rule NestedModelelement
-ruleNestedModelelement returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getNestedModelelementRule());
-	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getNestedModelelementAccess().getModelElementNamedElementCrossReference_0_0()); 
-	}
-
-)
-)(	otherlv_1='.' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getNestedModelelementAccess().getFullStopKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getNestedModelelementAccess().getNextNestedModelelementParserRuleCall_1_1_0()); 
-	    }
-		lv_next_2_0=ruleNestedModelelement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNestedModelelementRule());
-	        }
-       		set(
-       			$current, 
-       			"next",
-        		lv_next_2_0, 
-        		"NestedModelelement");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?)
-;
-
-
-
-
-
 // Entry rule entryRuleAModelReference
 entryRuleAModelReference returns [EObject current=null] 
 	:
@@ -2808,29 +2752,30 @@ ruleAModelReference returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_1='.' 
+)((
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAModelReferenceAccess().getFullStopKeyword_1_0());
+        $current = forceCreateModelElementAndSet(
+            grammarAccess.getAModelReferenceAccess().getAModelReferencePrevAction_1_0(),
+            $current);
+    }
+)	otherlv_2='.' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getAModelReferenceAccess().getFullStopKeyword_1_1());
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getAModelReferenceAccess().getNextNestedModelelementParserRuleCall_1_1_0()); 
-	    }
-		lv_next_2_0=ruleNestedModelelement		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAModelReferenceRule());
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAModelReferenceRule());
 	        }
-       		set(
-       			$current, 
-       			"next",
-        		lv_next_2_0, 
-        		"NestedModelelement");
-	        afterParserOrEnumRuleCall();
-	    }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_1_2_0()); 
+	}
 
 )
-))?)
+))*)
 ;
 
 

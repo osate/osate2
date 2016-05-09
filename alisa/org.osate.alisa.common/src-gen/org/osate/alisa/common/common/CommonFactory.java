@@ -99,15 +99,6 @@ public interface CommonFactory extends EFactory
   AExpression createAExpression();
 
   /**
-   * Returns a new object of class '<em>Nested Model Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Nested Model Element</em>'.
-   * @generated
-   */
-  NestedModelElement createNestedModelElement();
-
-  /**
    * Returns a new object of class '<em>AModel Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

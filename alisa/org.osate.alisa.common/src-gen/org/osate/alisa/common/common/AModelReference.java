@@ -27,7 +27,7 @@ import org.osate.aadl2.NamedElement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.AModelReference#getModelElement <em>Model Element</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.AModelReference#getPrev <em>Prev</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAModelReference()
@@ -63,29 +63,29 @@ public interface AModelReference extends AExpression
   void setModelElement(NamedElement value);
 
   /**
-   * Returns the value of the '<em><b>Next</b></em>' containment reference.
+   * Returns the value of the '<em><b>Prev</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Next</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Prev</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Next</em>' containment reference.
-   * @see #setNext(NestedModelElement)
-   * @see org.osate.alisa.common.common.CommonPackage#getAModelReference_Next()
+   * @return the value of the '<em>Prev</em>' containment reference.
+   * @see #setPrev(AModelReference)
+   * @see org.osate.alisa.common.common.CommonPackage#getAModelReference_Prev()
    * @model containment="true"
    * @generated
    */
-  NestedModelElement getNext();
+  AModelReference getPrev();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.AModelReference#getNext <em>Next</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.AModelReference#getPrev <em>Prev</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Next</em>' containment reference.
-   * @see #getNext()
+   * @param value the new value of the '<em>Prev</em>' containment reference.
+   * @see #getPrev()
    * @generated
    */
-  void setNext(NestedModelElement value);
+  void setPrev(AModelReference value);
 
 } // AModelReference

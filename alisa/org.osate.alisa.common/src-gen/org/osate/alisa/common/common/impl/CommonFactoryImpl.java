@@ -85,7 +85,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.RESULT_ISSUE: return createResultIssue();
       case CommonPackage.AVARIABLE_DECLARATION: return createAVariableDeclaration();
       case CommonPackage.AEXPRESSION: return createAExpression();
-      case CommonPackage.NESTED_MODEL_ELEMENT: return createNestedModelElement();
       case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.SHOW_VALUE: return createShowValue();
@@ -220,17 +219,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AExpressionImpl aExpression = new AExpressionImpl();
     return aExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NestedModelElement createNestedModelElement()
-  {
-    NestedModelElementImpl nestedModelElement = new NestedModelElementImpl();
-    return nestedModelElement;
   }
 
   /**

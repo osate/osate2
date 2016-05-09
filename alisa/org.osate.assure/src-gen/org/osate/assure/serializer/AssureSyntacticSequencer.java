@@ -101,6 +101,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {AModelReference.prev=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */
@@ -126,6 +127,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {AModelReference.prev=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */

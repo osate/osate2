@@ -21,6 +21,7 @@ package org.osate.reqspec.scoping
 
 import com.google.inject.Inject
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.eclipse.emf.ecore.util.EcoreUtil
@@ -33,18 +34,19 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.DirectionType
-import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.Subcomponent
+import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.AVariableReference
-import org.osate.alisa.common.common.NestedModelElement
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
-import org.osate.reqspec.reqSpec.ReqPredicate
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
@@ -56,6 +58,9 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider.allMembers
+
 /**
  * This class contains custom scoping description.
  * 
@@ -66,29 +71,6 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 class ReqSpecScopeProvider extends CommonScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
-	// For Reference is from Goal, Requirement 
-	def scope_NestedModelElement_modelElement(ReqPredicate context, EReference reference) {
-			val ne = containingContractualElement(context).targetElement
-			var Classifier tcl = null
-			if (ne instanceof Feature){
-				tcl = ne.allClassifier
-			} else if (ne instanceof Subcomponent){
-				tcl=  ne.allClassifier
-			} else {
-		tcl = targetClassifier(containingContractualElement(context))
-			}
-		switch (tcl){
-			FeatureGroupType: return tcl.getAllFeatures.scopeFor
-			ComponentType: return new SimpleScope(IScope::NULLSCOPE,
-				Scopes::scopedElementsFor(tcl.getAllFeatures + tcl.allModes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			ComponentImplementation: new SimpleScope(IScope::NULLSCOPE,
-					Scopes::scopedElementsFor(tcl.getAllFeatures + tcl.allModes+tcl.allSubcomponents + tcl.allEndToEndFlows,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			default: return IScope.NULLSCOPE
-		}
-	}
-	
 	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
@@ -106,29 +88,6 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		} else {
 			IScope.NULLSCOPE
 		}
-	}
-
-	/**
-	 * Scope for nested model elements 
-	 */
-	def scope_NestedModelElement_modelElement(NestedModelElement context, EReference reference) {
-		val ne = (context.eContainer as NestedModelElement).modelElement
-		val classifier = if (ne instanceof Subcomponent) {
-				ne.allClassifier
-			} else if (ne instanceof Feature) {
-				ne.allClassifier
-			} else {
-				null
-			}
-		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else if (classifier instanceof FeatureGroupType) {
-				classifier.getAllFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else {
-				emptySet
-			}
-		new SimpleScope(subCoreElementDescriptions, true)
 	}
 
 	def scope_Mode(WhenCondition context, EReference reference) {
@@ -231,28 +190,33 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		}
 	}
 	
-	def IScope scope_AModelReference_modelElement(SystemRequirementSet context, EReference reference) {
-		new SimpleScope(#[EObjectDescription.create("this", context.target)])
+	def IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
+		val contractualElement = context.getContainerOfType(ContractualElement)
+		val target = contractualElement?.targetElement ?:
+				contractualElement?.target ?:
+				context.getContainerOfType(StakeholderGoals)?.target ?:
+				context.getContainerOfType(SystemRequirementSet).target
+		new SimpleScope(#[EObjectDescription.create("this", target)])
 	}
 	
-	def IScope scope_AModelReference_modelElement(StakeholderGoals context, EReference reference) {
-		if (context.target != null) {
-			new SimpleScope(#[EObjectDescription.create("this", context.target)])
+	def IScope scope_AModelReference_modelElement(AModelReference context, EReference reference) {
+		if (context.prev == null) {
+			scope_AModelReference_modelElement(context.eContainer, reference)
 		} else {
-			IScope.NULLSCOPE
+			switch prevElement : context.prev.modelElement {
+				Classifier: prevElement
+				FeatureGroup: switch featureType : prevElement.featureType {
+					FeatureGroupType: featureType
+					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+				}
+				Subcomponent: switch subcomponentType : prevElement.subcomponentType {
+					ComponentClassifier: subcomponentType
+					ComponentPrototype: subcomponentType.constrainingClassifier
+				}
+			}?.allMembers?.scopeFor
 		}
 	}
 	
-	def IScope scope_AModelReference_modelElement(ContractualElement context, EReference reference) {
-		if (context.targetElement != null) {
-			new SimpleScope(#[EObjectDescription.create("this", context.targetElement)])
-		} else if (context.target != null) {
-			new SimpleScope(#[EObjectDescription.create("this", context.target)])
-		} else {
-			getScope(context.eContainer, reference)
-		}
-	}
-
 	// Brought from Aadl2JavaValidator
 	def EList<ComponentClassifier> getSelfPlusAncestors(ComponentClassifier cl) {
 		val cls = new BasicInternalEList<ComponentClassifier>(typeof(ComponentClassifier));

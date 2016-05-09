@@ -193,8 +193,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1(), "rule__AModelOrPropertyReference__Group_0_1__0");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1_0(), "rule__AModelOrPropertyReference__Group_0_1_0__0");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getGroup_0_1_0_0(), "rule__AModelOrPropertyReference__Group_0_1_0_0__0");
-					put(grammarAccess.getNestedModelelementAccess().getGroup(), "rule__NestedModelelement__Group__0");
-					put(grammarAccess.getNestedModelelementAccess().getGroup_1(), "rule__NestedModelelement__Group_1__0");
 					put(grammarAccess.getAModelReferenceAccess().getGroup(), "rule__AModelReference__Group__0");
 					put(grammarAccess.getAModelReferenceAccess().getGroup_1(), "rule__AModelReference__Group_1__0");
 					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
@@ -362,10 +360,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_4_2_1_0(), "rule__ComputeDeclaration__TypeAssignment_4_2_1_0");
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_4_2_1_1_1(), "rule__ComputeDeclaration__TypeAssignment_4_2_1_1_1");
 					put(grammarAccess.getAModelOrPropertyReferenceAccess().getPropertyAssignment_0_1_1(), "rule__AModelOrPropertyReference__PropertyAssignment_0_1_1");
-					put(grammarAccess.getNestedModelelementAccess().getModelElementAssignment_0(), "rule__NestedModelelement__ModelElementAssignment_0");
-					put(grammarAccess.getNestedModelelementAccess().getNextAssignment_1_1(), "rule__NestedModelelement__NextAssignment_1_1");
 					put(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_0(), "rule__AModelReference__ModelElementAssignment_0");
-					put(grammarAccess.getAModelReferenceAccess().getNextAssignment_1_1(), "rule__AModelReference__NextAssignment_1_1");
+					put(grammarAccess.getAModelReferenceAccess().getModelElementAssignment_1_2(), "rule__AModelReference__ModelElementAssignment_1_2");
 					put(grammarAccess.getAPropertyReferenceAccess().getPropertyAssignment_2(), "rule__APropertyReference__PropertyAssignment_2");
 					put(grammarAccess.getAVariableReferenceAccess().getVariableAssignment_1(), "rule__AVariableReference__VariableAssignment_1");
 					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");
