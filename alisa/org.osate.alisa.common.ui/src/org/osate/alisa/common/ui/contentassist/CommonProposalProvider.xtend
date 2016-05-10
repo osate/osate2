@@ -19,79 +19,43 @@
  */
 package org.osate.alisa.common.ui.contentassist
 
-import org.osate.alisa.common.ui.contentassist.AbstractCommonProposalProvider
-import com.google.common.base.Function
-import org.eclipse.xtext.resource.IEObjectDescription
-import org.eclipse.jface.text.contentassist.ICompletionProposal
-import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
-import org.eclipse.xtext.conversion.ValueConverterException
-import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal
+import com.google.common.base.Predicate
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.jface.viewers.StyledString
-import org.eclipse.swt.graphics.Image
-import org.osate.aadl2.Aadl2Package
-import org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class CommonProposalProvider extends AbstractCommonProposalProvider {
-
-
-
-	override void completeAModelOrPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | model.propertyUsedIn(context.currentModel)]
-		);
+	val protected Predicate<IEObjectDescription> predeclaredFilter = [
+		val segment = name.toString
+		val colonColon = segment.indexOf("::")
+		colonColon == -1 || !segment.substring(0, colonColon).predeclaredPropertySet
+	]
+	
+	override completeTypeRef_ReferencedUnitsType(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
 	}
 	
-	def propertyUsedIn(EObject model, EObject context){
-		true
+	override completeTypeRef_Ref(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
 	}
-
 	
-	val Aadl2QualifiedNameConverter aadl2QNC = new Aadl2QualifiedNameConverter()
+	override completePropertyRef_Ref(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
+	}
 	
-	override Function<IEObjectDescription, ICompletionProposal> getProposalFactory( String ruleName,
-			ContentAssistContext contentAssistContext) {
-		return new DefaultProposalCreator(contentAssistContext, ruleName, getQualifiedNameConverter()) {
-
-		override ICompletionProposal apply(IEObjectDescription candidate) {
-			if (candidate == null)
-				return null;
-			var ICompletionProposal result = null;
-			var String proposal = if (Aadl2Package.eINSTANCE.classifier.isSuperTypeOf(candidate.EClass))  
-					aadl2QNC.toString(candidate.name) 
-				else qualifiedNameConverter.toString(candidate.getName()) ;
-			if (valueConverter != null) {
-				try {
-					proposal = valueConverter.toString(proposal);
-				} catch (ValueConverterException e) {
-					return null;
-				}
-			} else if (ruleName != null) {
-				try {
-					proposal = getValueConverter().toString(proposal, ruleName);
-				} catch (ValueConverterException e) {
-					return null;
-				}
-			}
-			val EObject objectOrProxy = candidate.getEObjectOrProxy();
-			val StyledString displayString = getStyledDisplayString(candidate);
-			val Image image = getImage(objectOrProxy);
-			result = createCompletionProposal(proposal, displayString, image, contentAssistContext);
-			if (result instanceof ConfigurableCompletionProposal) {
-				result.setProposalContextResource(contentAssistContext.getResource());
-				result.setAdditionalProposalInfo(objectOrProxy);
-				result.setHover(hover);
-			}
-			getPriorityHelper().adjustCrossReferencePriority(result, contentAssistContext.getPrefix());
-			return result;
-		}
-			
-		}
+	override completeAModelOrPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
+	}
+	
+	override completeAPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
 	}
 }
