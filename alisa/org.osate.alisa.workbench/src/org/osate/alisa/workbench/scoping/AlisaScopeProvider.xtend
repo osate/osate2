@@ -19,13 +19,15 @@
  */
 package org.osate.alisa.workbench.scoping
 
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.workbench.alisa.AssurancePlan
 
 /**
@@ -35,7 +37,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan
  * on how and when to use it 
  *
  */
-class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
+class AlisaScopeProvider extends CommonScopeProvider {
 	def scope_Subcomponent(AssurancePlan context, EReference reference) {
 		val targetClassifier = context.target
 		if (targetClassifier != null) {
@@ -47,5 +49,8 @@ class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
 			IScope.NULLSCOPE
 		}
 	}
-
+	
+	def IScope scope_AssuranceCase_system(EObject context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.toString("::"), EObjectOrProxy)], true)
+	}
 }

@@ -34,10 +34,6 @@ public class CommonQualifiedNameConverter extends IQualifiedNameConverter.Defaul
 		if (Strings.isEmpty(getDelimiter())) {
 			return QualifiedName.create(qualifiedNameAsString);
 		}
-		if (qualifiedNameAsString.contains("::")) {
-			List<String> segs = Strings.split(qualifiedNameAsString, "::");
-			return QualifiedName.create(segs);
-		}
 		List<String> segs = Strings.split(qualifiedNameAsString, getDelimiter());
 		return QualifiedName.create(segs);
 	}

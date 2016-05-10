@@ -19,21 +19,21 @@
  */
 package org.osate.assure.scoping
 
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.emf.ecore.EReference
-import org.osate.assure.assure.ClaimResult
-import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.ComponentImplementation
-import org.osate.assure.assure.SubsystemResult
+import org.osate.alisa.common.scoping.CommonScopeProvider
+import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ModelResult
-import static extension org.osate.assure.util.AssureUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.NestedClaimReference
+import org.osate.assure.assure.QualifiedVAReference
+import org.osate.assure.assure.SubsystemResult
+
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -42,7 +42,7 @@ import org.osate.assure.assure.NestedClaimReference
  * on how and when to use it 
  *
  */
-class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
+class AssureScopeProvider extends CommonScopeProvider {
 
 	def scope_NamedElement(ClaimResult context, EReference reference) {
 		val targetClassifier = context.caseTargetClassifier
