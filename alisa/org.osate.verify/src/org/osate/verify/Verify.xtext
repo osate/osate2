@@ -123,7 +123,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 
 	
 FormalParameter returns FormalParameter:
-	parameterType=ID name=ID ('%' unit=[aadl2::UnitLiteral|ID])?;
+	name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef) ('in' unit=[aadl2::UnitLiteral|ID])?;
 
 enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element';
 
@@ -165,7 +165,7 @@ MethodKind:
 	;
 	
 	JavaMethod:
-		'java' methodPath=QualifiedName ('(' (params+=FormalParameter (',' params+=FormalParameter)*)?')')?
+		'java' methodPath=QualifiedName ('(' (params+=JavaParameter (',' params+=JavaParameter)*)?')')?
 	;
 	
 	ManualMethod:
@@ -183,6 +183,10 @@ MethodKind:
 	JUnit4Method:
 		'junit' classPath=QualifiedName
 	;
+
+	
+JavaParameter returns JavaParameter:
+	parameterType=ID name=ID ;
 
 
 CatRef : ID '.' ID;

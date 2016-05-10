@@ -129,11 +129,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAExpressionAdapter();
       }
       @Override
-      public Adapter caseNestedModelElement(NestedModelElement object)
-      {
-        return createNestedModelElementAdapter();
-      }
-      @Override
       public Adapter caseAModelReference(AModelReference object)
       {
         return createAModelReferenceAdapter();
@@ -361,21 +356,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.NestedModelElement <em>Nested Model Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.NestedModelElement
-   * @generated
-   */
-  public Adapter createNestedModelElementAdapter()
   {
     return null;
   }

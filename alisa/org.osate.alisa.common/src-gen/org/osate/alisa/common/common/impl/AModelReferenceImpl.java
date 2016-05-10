@@ -19,13 +19,15 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.NamedElement;
+
 import org.osate.alisa.common.common.AModelReference;
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.NestedModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +37,8 @@ import org.osate.alisa.common.common.NestedModelElement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getNext <em>Next</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getModelElement <em>Model Element</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AModelReferenceImpl#getPrev <em>Prev</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,14 +46,24 @@ import org.osate.alisa.common.common.NestedModelElement;
 public class AModelReferenceImpl extends AExpressionImpl implements AModelReference
 {
   /**
-   * The cached value of the '{@link #getNext() <em>Next</em>}' containment reference.
+   * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNext()
+   * @see #getModelElement()
    * @generated
    * @ordered
    */
-  protected NestedModelElement next;
+  protected NamedElement modelElement;
+
+  /**
+   * The cached value of the '{@link #getPrev() <em>Prev</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrev()
+   * @generated
+   * @ordered
+   */
+  protected AModelReference prev;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,9 +91,19 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
-  public NestedModelElement getNext()
+  public NamedElement getModelElement()
   {
-    return next;
+    if (modelElement != null && ((EObject)modelElement).eIsProxy())
+    {
+      InternalEObject oldModelElement = (InternalEObject)modelElement;
+      modelElement = (NamedElement)eResolveProxy(oldModelElement);
+      if (modelElement != oldModelElement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
+      }
+    }
+    return modelElement;
   }
 
   /**
@@ -88,13 +111,46 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetNext(NestedModelElement newNext, NotificationChain msgs)
+  public NamedElement basicGetModelElement()
   {
-    NestedModelElement oldNext = next;
-    next = newNext;
+    return modelElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModelElement(NamedElement newModelElement)
+  {
+    NamedElement oldModelElement = modelElement;
+    modelElement = newModelElement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT, oldModelElement, modelElement));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AModelReference getPrev()
+  {
+    return prev;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetPrev(AModelReference newPrev, NotificationChain msgs)
+  {
+    AModelReference oldPrev = prev;
+    prev = newPrev;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__NEXT, oldNext, newNext);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__PREV, oldPrev, newPrev);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -105,20 +161,20 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setNext(NestedModelElement newNext)
+  public void setPrev(AModelReference newPrev)
   {
-    if (newNext != next)
+    if (newPrev != prev)
     {
       NotificationChain msgs = null;
-      if (next != null)
-        msgs = ((InternalEObject)next).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__NEXT, null, msgs);
-      if (newNext != null)
-        msgs = ((InternalEObject)newNext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__NEXT, null, msgs);
-      msgs = basicSetNext(newNext, msgs);
+      if (prev != null)
+        msgs = ((InternalEObject)prev).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__PREV, null, msgs);
+      if (newPrev != null)
+        msgs = ((InternalEObject)newPrev).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.AMODEL_REFERENCE__PREV, null, msgs);
+      msgs = basicSetPrev(newPrev, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__NEXT, newNext, newNext));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AMODEL_REFERENCE__PREV, newPrev, newPrev));
   }
 
   /**
@@ -131,8 +187,8 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__NEXT:
-        return basicSetNext(null, msgs);
+      case CommonPackage.AMODEL_REFERENCE__PREV:
+        return basicSetPrev(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -147,8 +203,11 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__NEXT:
-        return getNext();
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        if (resolve) return getModelElement();
+        return basicGetModelElement();
+      case CommonPackage.AMODEL_REFERENCE__PREV:
+        return getPrev();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -163,8 +222,11 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__NEXT:
-        setNext((NestedModelElement)newValue);
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        setModelElement((NamedElement)newValue);
+        return;
+      case CommonPackage.AMODEL_REFERENCE__PREV:
+        setPrev((AModelReference)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -180,8 +242,11 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__NEXT:
-        setNext((NestedModelElement)null);
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        setModelElement((NamedElement)null);
+        return;
+      case CommonPackage.AMODEL_REFERENCE__PREV:
+        setPrev((AModelReference)null);
         return;
     }
     super.eUnset(featureID);
@@ -197,8 +262,10 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
   {
     switch (featureID)
     {
-      case CommonPackage.AMODEL_REFERENCE__NEXT:
-        return next != null;
+      case CommonPackage.AMODEL_REFERENCE__MODEL_ELEMENT:
+        return modelElement != null;
+      case CommonPackage.AMODEL_REFERENCE__PREV:
+        return prev != null;
     }
     return super.eIsSet(featureID);
   }

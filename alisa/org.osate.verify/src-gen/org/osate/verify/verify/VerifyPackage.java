@@ -493,22 +493,22 @@ public interface VerifyPackage extends EPackage
   int FORMAL_PARAMETER = 7;
 
   /**
-   * The feature id for the '<em><b>Parameter Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FORMAL_PARAMETER__PARAMETER_TYPE = 0;
-
-  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORMAL_PARAMETER__NAME = 1;
+  int FORMAL_PARAMETER__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Unit</b></em>' reference.
@@ -888,6 +888,43 @@ public interface VerifyPackage extends EPackage
   int JUNIT4_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.JavaParameterImpl <em>Java Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.JavaParameterImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaParameter()
+   * @generated
+   */
+  int JAVA_PARAMETER = 16;
+
+  /**
+   * The feature id for the '<em><b>Parameter Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_PARAMETER__PARAMETER_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_PARAMETER__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>Java Parameter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_PARAMETER_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -895,7 +932,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 16;
+  int THEN_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -932,7 +969,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 17;
+  int ELSE_EXPR = 18;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -987,7 +1024,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 18;
+  int ALL_EXPR = 19;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1015,7 +1052,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 19;
+  int REF_EXPR = 20;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -1043,7 +1080,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 20;
+  int VERIFICATION_VALIDATION = 21;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1080,7 +1117,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 21;
+  int VERIFICATION_PRECONDITION = 22;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1117,7 +1154,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getTargetType()
    * @generated
    */
-  int TARGET_TYPE = 22;
+  int TARGET_TYPE = 23;
 
 
   /**
@@ -1542,17 +1579,6 @@ public interface VerifyPackage extends EPackage
   EClass getFormalParameter();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FormalParameter#getParameterType <em>Parameter Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Parameter Type</em>'.
-   * @see org.osate.verify.verify.FormalParameter#getParameterType()
-   * @see #getFormalParameter()
-   * @generated
-   */
-  EAttribute getFormalParameter_ParameterType();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.FormalParameter#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1562,6 +1588,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getFormalParameter_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FormalParameter#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.verify.verify.FormalParameter#getType()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EReference getFormalParameter_Type();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.verify.verify.FormalParameter#getUnit <em>Unit</em>}'.
@@ -1906,6 +1943,38 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getJUnit4Method_ClassPath();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.JavaParameter <em>Java Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Java Parameter</em>'.
+   * @see org.osate.verify.verify.JavaParameter
+   * @generated
+   */
+  EClass getJavaParameter();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.JavaParameter#getParameterType <em>Parameter Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Parameter Type</em>'.
+   * @see org.osate.verify.verify.JavaParameter#getParameterType()
+   * @see #getJavaParameter()
+   * @generated
+   */
+  EAttribute getJavaParameter_ParameterType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.JavaParameter#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.verify.verify.JavaParameter#getName()
+   * @see #getJavaParameter()
+   * @generated
+   */
+  EAttribute getJavaParameter_Name();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
@@ -2417,20 +2486,20 @@ public interface VerifyPackage extends EPackage
     EClass FORMAL_PARAMETER = eINSTANCE.getFormalParameter();
 
     /**
-     * The meta object literal for the '<em><b>Parameter Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FORMAL_PARAMETER__PARAMETER_TYPE = eINSTANCE.getFormalParameter_ParameterType();
-
-    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute FORMAL_PARAMETER__NAME = eINSTANCE.getFormalParameter_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORMAL_PARAMETER__TYPE = eINSTANCE.getFormalParameter_Type();
 
     /**
      * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
@@ -2703,6 +2772,32 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute JUNIT4_METHOD__CLASS_PATH = eINSTANCE.getJUnit4Method_ClassPath();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.JavaParameterImpl <em>Java Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.JavaParameterImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaParameter()
+     * @generated
+     */
+    EClass JAVA_PARAMETER = eINSTANCE.getJavaParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Parameter Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute JAVA_PARAMETER__PARAMETER_TYPE = eINSTANCE.getJavaParameter_ParameterType();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute JAVA_PARAMETER__NAME = eINSTANCE.getJavaParameter_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.

@@ -52,7 +52,6 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
-import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
@@ -164,9 +163,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case CommonPackage.MODEL_REF:
 				sequence_TypeRef(context, (ModelRef) semanticObject); 
 				return; 
-			case CommonPackage.NESTED_MODEL_ELEMENT:
-				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
-				return; 
 			case CommonPackage.PROPERTY_REF:
 				sequence_PropertyRef(context, (PropertyRef) semanticObject); 
 				return; 
@@ -258,7 +254,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (next=NestedModelelement?)
+	 *     ((prev=AModelReference_AModelReference_1_0 modelElement=[NamedElement|ID]) | modelElement=[NamedElement|ThisKeyword])
 	 */
 	protected void sequence_AModelReference(EObject context, AModelReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -304,7 +300,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         (expression=AUnitExpression_AUnitExpression_1_0 (convert?='to' | drop?='in')? unit=[UnitLiteral|ID]) | 
+	 *         (expression=AUnitExpression_AUnitExpression_1_0 (convert?='%' | drop?='in')? unit=[UnitLiteral|ID]) | 
 	 *         (expression=AUnitExpression_AUnitExpression_1_0 unit=[UnitLiteral|ID])
 	 *     )
 	 */
@@ -324,7 +320,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (type=TypeRef | type=PropertyRef))
+	 *     (name=ID (type=TypeRef | type=PropertyRef | (range?='[' (type=TypeRef | type=PropertyRef))))
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -362,15 +358,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0(), semanticObject.getImgfile());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (modelElement=[NamedElement|ID] next=NestedModelelement?)
-	 */
-	protected void sequence_NestedModelelement(EObject context, NestedModelElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -444,7 +431,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     {AadlInteger}
+	 *     (referencedUnitsType=[UnitsType|AADLPROPERTYREFERENCE]?)
 	 */
 	protected void sequence_TypeRef(EObject context, AadlInteger semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -453,7 +440,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     {AadlReal}
+	 *     (referencedUnitsType=[UnitsType|AADLPROPERTYREFERENCE]?)
 	 */
 	protected void sequence_TypeRef(EObject context, AadlReal semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -498,7 +485,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (type=TypeRef | type=PropertyRef)? value=AExpression)
+	 *     (name=ID (type=TypeRef | type=PropertyRef | (range?='[' (type=TypeRef | type=PropertyRef)))? value=AExpression)
 	 */
 	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

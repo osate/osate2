@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.JavaMethod;
+import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
@@ -78,7 +78,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * @generated
    * @ordered
    */
-  protected EList<FormalParameter> params;
+  protected EList<JavaParameter> params;
 
   /**
    * <!-- begin-user-doc -->
@@ -129,11 +129,11 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FormalParameter> getParams()
+  public EList<JavaParameter> getParams()
   {
     if (params == null)
     {
-      params = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.JAVA_METHOD__PARAMS);
+      params = new EObjectContainmentEList<JavaParameter>(JavaParameter.class, this, VerifyPackage.JAVA_METHOD__PARAMS);
     }
     return params;
   }
@@ -188,7 +188,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
         return;
       case VerifyPackage.JAVA_METHOD__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends FormalParameter>)newValue);
+        getParams().addAll((Collection<? extends JavaParameter>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

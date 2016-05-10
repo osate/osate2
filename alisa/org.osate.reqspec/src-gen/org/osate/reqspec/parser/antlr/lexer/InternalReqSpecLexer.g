@@ -162,6 +162,8 @@ This : 'this';
 
 True : 'true';
 
+Unit : 'unit';
+
 Upto : 'upto';
 
 When : 'when';
@@ -192,6 +194,8 @@ Val : 'val';
 
 ExclamationMarkEqualsSign : '!=';
 
+AmpersandAmpersand : '&&';
+
 FullStopFullStop : '..';
 
 ColonColon : '::';
@@ -210,7 +214,7 @@ In : 'in';
 
 Or : 'or';
 
-To : 'to';
+VerticalLineVerticalLine : '||';
 
 NumberSign : '#';
 

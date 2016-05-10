@@ -18,7 +18,6 @@
 		<profile>
 			<id>alisa-full</id>
 			<modules>
-				<module>../../org.osate.alisa.help</module>
 				<module>../../org.osate.alisa.updatesite</module>
 				<module>../../org.osate.alisa.workbench</module>
 				<module>../../org.osate.alisa.workbench.sdk</module>

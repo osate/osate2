@@ -25,29 +25,35 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.EList
 import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.JavaCore
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.ModeInstance
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.StringLiteral;
+import org.osate.verify.verify.TargetType
+import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
-import org.osate.aadl2.StringLiteral
-import org.eclipse.emf.ecore.EObject
-import org.osate.verify.verify.VerificationMethod
-import org.osate.aadl2.PropertyExpression
-import org.osate.verify.verify.TargetType
-import org.osate.aadl2.instance.FeatureInstance
-import org.osate.aadl2.PropertyConstant
+import javax.sound.sampled.BooleanControl.Type
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.instance.InstancePackage
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.aadl2.instance.EndToEndFlowInstance
-import org.osate.aadl2.instance.ModeInstance
+import org.osate.verify.verify.JavaParameter
+import javax.xml.bind.PropertyException
+import java.util.Iterator
 
 class VerificationMethodDispatchers {
 
@@ -134,19 +140,17 @@ class VerificationMethodDispatchers {
 			val newClasses = newArrayList()
 			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : formalparameters) {
-				val pt = par.parameterType
-				val cl = forName(pt);
+				val cl = getJavaClass(par,vm);
 				newClasses.add(cl);
 			}
 
-//			for (o : parameters) {
-//				newClasses.add(o.class as Class<?>)
-//			}
 			val method = clazz.getMethod(methodName, newClasses)
 			val objects = new ArrayList()
 			objects.add(target)
+			val fpiter = formalparameters.iterator
 			for (o : parameters) {
-				objects.add(o)
+				val fp = fpiter.next
+				objects.add(toJavaActual(fp,o,vm))
 			}
 			method.invoke(instance, objects.toArray)
 		} catch (Exception e) {
@@ -197,8 +201,7 @@ class VerificationMethodDispatchers {
 			val newClasses = newArrayList()
 			newClasses.add(forTargetType((vm.eContainer as VerificationMethod)))
 			for (par : parameters) {
-				val pt = par.parameterType
-				val cl = forName(pt);
+				val cl = getJavaClass(par,vm);
 				newClasses.add(cl);
 			}
 
@@ -229,7 +232,32 @@ class VerificationMethodDispatchers {
 			}
 		}
 	}
+	
+	def Class<?> getJavaClass(FormalParameter fp, JavaMethod vm){
+		val jparameters = vm.params
+		for (jp : jparameters){
+			if (fp.name.equalsIgnoreCase(jp.name)){
+				return forName(jp.parameterType)
+			}
+		}
+		forName(fp.type)
+	}
 
+	/**
+	 * return Java Class for PropertyType
+	 */
+	def Class<?> forName(PropertyType type) throws ClassNotFoundException {
+		switch (type) {
+			AadlString: return typeof(String)
+			AadlReal: return typeof(RealLiteral)
+			AadlInteger: return typeof(IntegerLiteral)
+			AadlBoolean: return typeof(BooleanLiteral)
+		}
+	}
+
+	/**
+	 * return Java Class for class specified by name in JavaParameter
+	 */
 	def Class<?> forName(String name) throws ClassNotFoundException {
 		switch (name) {
 			case void.name: return typeof(void)
@@ -241,13 +269,12 @@ class VerificationMethodDispatchers {
 			case float.name: return typeof(float)
 			case long.name: return typeof(long)
 			case double.name: return typeof(double)
-			case "String": return typeof(String)
+			case String.name: return typeof(String)
 			case "Double": return typeof(Double)
 			case "Long": return typeof(Long)
-			case "aadlreal": return typeof(RealLiteral)
-			case "aadlinteger": return typeof(IntegerLiteral)
-			case "aadlstring": return typeof(StringLiteral)
-			case "aadlboolean": return typeof(BooleanLiteral)
+			case AadlReal.name: return typeof(RealLiteral)
+			case AadlInteger.name: return typeof(IntegerLiteral)
+			case AadlBoolean.name: return typeof(BooleanLiteral)
 			default: {
 				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
 				if (ecl == null){
@@ -258,8 +285,18 @@ class VerificationMethodDispatchers {
 			}
 		}
 	}
+	
+	def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm){
+		val jparameters = vm.params
+		for (jp : jparameters){
+			if (formal.name.equalsIgnoreCase(jp.name)){
+				return convertToJavaObject(jp,actual)
+			}
+		}
+		actual
+	}
 
-	def Object convertToJavaObject(FormalParameter formalParam, PropertyExpression actual) {
+	def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
 		var Object result = actual
 		switch (actual) {
 			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||

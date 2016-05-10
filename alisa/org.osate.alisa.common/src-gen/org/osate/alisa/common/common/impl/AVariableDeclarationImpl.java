@@ -39,6 +39,7 @@ import org.osate.alisa.common.common.CommonPackage;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AVariableDeclarationImpl#isRange <em>Range</em>}</li>
  * </ul>
  *
  * @generated
@@ -74,6 +75,26 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected PropertyType type;
+
+  /**
+   * The default value of the '{@link #isRange() <em>Range</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isRange()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean RANGE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isRange() <em>Range</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isRange()
+   * @generated
+   * @ordered
+   */
+  protected boolean range = RANGE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -172,6 +193,29 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isRange()
+  {
+    return range;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRange(boolean newRange)
+  {
+    boolean oldRange = range;
+    range = newRange;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_DECLARATION__RANGE, oldRange, range));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -197,6 +241,8 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
         return getName();
       case CommonPackage.AVARIABLE_DECLARATION__TYPE:
         return getType();
+      case CommonPackage.AVARIABLE_DECLARATION__RANGE:
+        return isRange();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -216,6 +262,9 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
         return;
       case CommonPackage.AVARIABLE_DECLARATION__TYPE:
         setType((PropertyType)newValue);
+        return;
+      case CommonPackage.AVARIABLE_DECLARATION__RANGE:
+        setRange((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -237,6 +286,9 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
       case CommonPackage.AVARIABLE_DECLARATION__TYPE:
         setType((PropertyType)null);
         return;
+      case CommonPackage.AVARIABLE_DECLARATION__RANGE:
+        setRange(RANGE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -255,6 +307,8 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CommonPackage.AVARIABLE_DECLARATION__TYPE:
         return type != null;
+      case CommonPackage.AVARIABLE_DECLARATION__RANGE:
+        return range != RANGE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -272,6 +326,8 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", range: ");
+    result.append(range);
     result.append(')');
     return result.toString();
   }

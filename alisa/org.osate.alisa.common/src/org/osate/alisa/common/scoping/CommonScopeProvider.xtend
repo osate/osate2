@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
@@ -33,6 +34,8 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
@@ -64,5 +67,50 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 		return result;
 	}
-
+	
+	def IScope scope_NumberType_referencedUnitsType(EObject context, EReference reference) {
+		propertySetMemberScope(context, reference)
+	}
+	
+	def IScope scope_TypeRef_ref(EObject context, EReference reference) {
+		propertySetMemberScope(context, reference)
+	}
+	
+	def IScope scope_Property(EObject context, EReference reference) {
+		propertySetMemberScope(context, reference)
+	}
+	
+	def IScope scope_APropertyReference_property(EObject context, EReference reference) {
+		propertySetMemberScope(context, reference)
+	}
+	
+	def IScope scope_ComponentImplementation(EObject context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[convertImplName], true)
+	}
+	
+	def IScope scope_ComponentClassifier(EObject context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[
+			if (Aadl2Package.eINSTANCE.componentImplementation.isSuperTypeOf(EObjectOrProxy.eClass)) {
+				convertImplName
+			} else {
+				EObjectDescription.create(name.toString("::"), EObjectOrProxy)
+			}
+		], true)
+	}
+	
+	def private propertySetMemberScope(EObject context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[
+			#[EObjectDescription.create(name.toString("::"), EObjectOrProxy)] + if (name.firstSegment.predeclaredPropertySet) {
+				#[EObjectDescription.create(name.lastSegment, EObjectOrProxy)]
+			} else {
+				emptyList
+			}
+		].flatten, true)
+	}
+	
+	def private convertImplName(IEObjectDescription description) {
+		val implName = description.name.lastSegment.split("\\.")
+		val newName = QualifiedName.create(description.name.skipLast(1).toString("::") + "::" + implName.get(0), implName.get(1))
+		EObjectDescription.create(newName, description.EObjectOrProxy)
+	}
 }

@@ -17,6 +17,7 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 
 /**
@@ -28,8 +29,8 @@ import org.osate.aadl2.UnitLiteral;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.FormalParameter#getParameterType <em>Parameter Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.FormalParameter#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.FormalParameter#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.FormalParameter#getUnit <em>Unit</em>}</li>
  * </ul>
  *
@@ -39,32 +40,6 @@ import org.osate.aadl2.UnitLiteral;
  */
 public interface FormalParameter extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Parameter Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameter Type</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameter Type</em>' attribute.
-   * @see #setParameterType(String)
-   * @see org.osate.verify.verify.VerifyPackage#getFormalParameter_ParameterType()
-   * @model
-   * @generated
-   */
-  String getParameterType();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.FormalParameter#getParameterType <em>Parameter Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Parameter Type</em>' attribute.
-   * @see #getParameterType()
-   * @generated
-   */
-  void setParameterType(String value);
-
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -90,6 +65,32 @@ public interface FormalParameter extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(PropertyType)
+   * @see org.osate.verify.verify.VerifyPackage#getFormalParameter_Type()
+   * @model containment="true"
+   * @generated
+   */
+  PropertyType getType();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.FormalParameter#getType <em>Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
+   * @generated
+   */
+  void setType(PropertyType value);
 
   /**
    * Returns the value of the '<em><b>Unit</b></em>' reference.

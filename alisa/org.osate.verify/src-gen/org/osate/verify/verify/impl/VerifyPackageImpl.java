@@ -42,6 +42,7 @@ import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.JUnit4Method;
 import org.osate.verify.verify.JavaMethod;
+import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.MethodKind;
 import org.osate.verify.verify.PluginMethod;
@@ -179,6 +180,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass jUnit4MethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass javaParameterEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -691,7 +699,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFormalParameter_ParameterType()
+  public EAttribute getFormalParameter_Name()
   {
     return (EAttribute)formalParameterEClass.getEStructuralFeatures().get(0);
   }
@@ -701,9 +709,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFormalParameter_Name()
+  public EReference getFormalParameter_Type()
   {
-    return (EAttribute)formalParameterEClass.getEStructuralFeatures().get(1);
+    return (EReference)formalParameterEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1031,6 +1039,36 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getJavaParameter()
+  {
+    return javaParameterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getJavaParameter_ParameterType()
+  {
+    return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getJavaParameter_Name()
+  {
+    return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getThenExpr()
   {
     return thenExprEClass;
@@ -1252,8 +1290,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationMethodRegistryEClass, VERIFICATION_METHOD_REGISTRY__METHODS);
 
     formalParameterEClass = createEClass(FORMAL_PARAMETER);
-    createEAttribute(formalParameterEClass, FORMAL_PARAMETER__PARAMETER_TYPE);
     createEAttribute(formalParameterEClass, FORMAL_PARAMETER__NAME);
+    createEReference(formalParameterEClass, FORMAL_PARAMETER__TYPE);
     createEReference(formalParameterEClass, FORMAL_PARAMETER__UNIT);
 
     verificationMethodEClass = createEClass(VERIFICATION_METHOD);
@@ -1294,6 +1332,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     jUnit4MethodEClass = createEClass(JUNIT4_METHOD);
     createEAttribute(jUnit4MethodEClass, JUNIT4_METHOD__CLASS_PATH);
+
+    javaParameterEClass = createEClass(JAVA_PARAMETER);
+    createEAttribute(javaParameterEClass, JAVA_PARAMETER__PARAMETER_TYPE);
+    createEAttribute(javaParameterEClass, JAVA_PARAMETER__NAME);
 
     thenExprEClass = createEClass(THEN_EXPR);
     createEReference(thenExprEClass, THEN_EXPR__LEFT);
@@ -1416,8 +1458,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEReference(getVerificationMethodRegistry_Methods(), this.getVerificationMethod(), null, "methods", null, 0, -1, VerificationMethodRegistry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(formalParameterEClass, FormalParameter.class, "FormalParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFormalParameter_ParameterType(), theEcorePackage.getEString(), "parameterType", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFormalParameter_Name(), theEcorePackage.getEString(), "name", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFormalParameter_Type(), theAadl2Package.getPropertyType(), null, "type", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFormalParameter_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, FormalParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationMethodEClass, VerificationMethod.class, "VerificationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1444,7 +1486,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(javaMethodEClass, JavaMethod.class, "JavaMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getJavaMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getJavaMethod_Params(), this.getFormalParameter(), null, "params", null, 0, -1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getJavaMethod_Params(), this.getJavaParameter(), null, "params", null, 0, -1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(manualMethodEClass, ManualMethod.class, "ManualMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getManualMethod_DialogID(), theEcorePackage.getEString(), "dialogID", null, 0, 1, ManualMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1458,6 +1500,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(jUnit4MethodEClass, JUnit4Method.class, "JUnit4Method", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getJUnit4Method_ClassPath(), theEcorePackage.getEString(), "classPath", null, 0, 1, JUnit4Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(javaParameterEClass, JavaParameter.class, "JavaParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getJavaParameter_ParameterType(), theEcorePackage.getEString(), "parameterType", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getJavaParameter_Name(), theEcorePackage.getEString(), "name", null, 0, 1, JavaParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(thenExprEClass, ThenExpr.class, "ThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

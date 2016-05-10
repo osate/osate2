@@ -51,7 +51,6 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ModelRef;
-import org.osate.alisa.common.common.NestedModelElement;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
@@ -68,6 +67,7 @@ import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.JUnit4Method;
 import org.osate.verify.verify.JavaMethod;
+import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
@@ -184,9 +184,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.MODEL_REF:
 				sequence_TypeRef(context, (ModelRef) semanticObject); 
 				return; 
-			case CommonPackage.NESTED_MODEL_ELEMENT:
-				sequence_NestedModelelement(context, (NestedModelElement) semanticObject); 
-				return; 
 			case CommonPackage.PROPERTY_REF:
 				sequence_PropertyRef(context, (PropertyRef) semanticObject); 
 				return; 
@@ -244,6 +241,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.JAVA_METHOD:
 				sequence_JavaMethod(context, (JavaMethod) semanticObject); 
+				return; 
+			case VerifyPackage.JAVA_PARAMETER:
+				sequence_JavaParameter(context, (JavaParameter) semanticObject); 
 				return; 
 			case VerifyPackage.MANUAL_METHOD:
 				sequence_ManualMethod(context, (ManualMethod) semanticObject); 
@@ -329,7 +329,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parameterType=ID name=ID unit=[UnitLiteral|ID]?)
+	 *     (name=ID (type=TypeRef | type=PropertyRef) unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_FormalParameter(EObject context, FormalParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -354,10 +354,29 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (methodPath=QualifiedName (params+=FormalParameter params+=FormalParameter*)?)
+	 *     (methodPath=QualifiedName (params+=JavaParameter params+=JavaParameter*)?)
 	 */
 	protected void sequence_JavaMethod(EObject context, JavaMethod semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (parameterType=ID name=ID)
+	 */
+	protected void sequence_JavaParameter(EObject context, JavaParameter semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.JAVA_PARAMETER__PARAMETER_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.JAVA_PARAMETER__PARAMETER_TYPE));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.JAVA_PARAMETER__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.JAVA_PARAMETER__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJavaParameterAccess().getParameterTypeIDTerminalRuleCall_0_0(), semanticObject.getParameterType());
+		feeder.accept(grammarAccess.getJavaParameterAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

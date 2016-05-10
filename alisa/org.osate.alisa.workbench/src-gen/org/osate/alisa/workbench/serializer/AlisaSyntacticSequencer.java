@@ -108,9 +108,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
-	 *     (rule start) (ambiguity) 'this' (rule start)
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
@@ -118,6 +117,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {AModelReference.prev=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */
@@ -134,9 +134,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) 'this' ')' (rule start)
-	 *     (rule start) (ambiguity) 'this' '.' next=NestedModelelement
 	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
 	 *     (rule start) (ambiguity) value=AReal
@@ -144,6 +143,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.left=}
+	 *     (rule start) (ambiguity) {AModelReference.prev=}
 	 *     (rule start) (ambiguity) {APropertyReference.modelElementReference=}
 	 *     (rule start) (ambiguity) {AUnitExpression.expression=}
 	 */

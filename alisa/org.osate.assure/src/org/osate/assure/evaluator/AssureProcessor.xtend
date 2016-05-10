@@ -28,8 +28,6 @@ import com.rockwellcollins.atc.resolute.resolute.ThisExpr
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
@@ -38,10 +36,7 @@ import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.alisa.common.common.APropertyReference
-import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.CommonFactory
-import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
@@ -66,15 +61,17 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.PropertyConstant
 import org.junit.runner.JUnitCore
-import org.junit.runner.Result
 import org.osate.verify.verify.JUnit4Method
 import org.osate.aadl2.PropertyExpression
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
 import org.eclipse.core.runtime.OperationCanceledException
 import org.osate.categories.categories.CategoryFilter
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.AadlBoolean
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -292,7 +289,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				
-				val paramType = formalParam.parameterType
+				val paramType = formalParam.type
 				if (actual == null){
 					return
 				}
@@ -301,11 +298,12 @@ class AssureProcessor implements IAssureProcessor {
 				if (idx >=0) typeName = typeName.substring(idx+1)
 				if (typeName.endsWith("Impl")) typeName = typeName.substring(0,typeName.length-4)
 				if (typeName != null && paramType != null && 
-					! (typeName.equalsIgnoreCase(paramType)
-						|| typeName.equalsIgnoreCase("RealLiteral") && paramType.equalsIgnoreCase("real")
-						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType.equalsIgnoreCase("int")
-						|| typeName.equalsIgnoreCase("StringLiteral") && paramType.equalsIgnoreCase("string")
-						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType.equalsIgnoreCase("bool")
+					! (
+//	                    typeName.equalsIgnoreCase(paramType) || 
+						typeName.equalsIgnoreCase("RealLiteral") && paramType instanceof AadlReal
+						|| typeName.equalsIgnoreCase("IntegerLiteral") && paramType instanceof AadlInteger
+						|| typeName.equalsIgnoreCase("StringLiteral") && paramType instanceof AadlString
+						|| typeName.equalsIgnoreCase("BooleanLiteral") && paramType instanceof AadlBoolean
 					)
 				) {
 					setToError(verificationResult,
