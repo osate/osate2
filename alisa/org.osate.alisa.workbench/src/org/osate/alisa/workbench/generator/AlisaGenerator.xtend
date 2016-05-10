@@ -64,11 +64,12 @@ import org.osate.reqspec.reqSpec.GlobalRequirementSet
 class AlisaGenerator implements IGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		//Turning off generator
 		val mycase = resource.contents.get(0) as AssuranceCase
 		if (mycase != null) {
-			fsa.generateFile('''«mycase.name».assure''', generateFullAssuranceCase(mycase))
+			fsa.generateFile('''«mycase.name»_debug.assure''', generateFullAssuranceCase(mycase))
 			mycase.tasks.forEach [ task |
-				fsa.generateFile('''«task.name».assure''', generateAssuranceTask(task as AssuranceTask))
+				fsa.generateFile('''«task.name»_debug.assure''', generateAssuranceTask(task as AssuranceTask))
 			]
 		}
 	}
@@ -296,7 +297,7 @@ class AlisaGenerator implements IGenerator {
 		if(subc.isAssumeSubsystem(parentap)) return subc.generateSubsystemGlobalOnly(parentap)
 		switch (cc) {
 			ComponentType:
-				generateSubsystemGlobalOnly(subc,parentap)
+				subc.generateSubsystemGlobalOnly(parentap)
 			ComponentImplementation: {
 				val subacs = refFinder.getAssuranceCases(cc)
 				if (subacs.empty) {

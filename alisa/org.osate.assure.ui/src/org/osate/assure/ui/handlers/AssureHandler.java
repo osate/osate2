@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.evaluator.AssureProcessor;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.ui.views.AssureProgressView;
 import org.osate.assure.util.AssureUtilExtension;
@@ -109,7 +110,10 @@ public class AssureHandler extends AlisaHandler {
 		drawProofs(rootCaseResult);
 
 		try {
-			assureProcessor.processCase(rootCaseResult, monitor);
+			if (assureProcessor == null) {
+				assureProcessor = new AssureProcessor();
+			}
+			assureProcessor.processCase(rootCaseResult, filter, monitor);
 		} catch (Exception e) {
 			if (e instanceof java.lang.NoSuchMethodException) {
 

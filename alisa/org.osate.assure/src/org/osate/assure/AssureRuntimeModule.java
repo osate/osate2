@@ -16,6 +16,7 @@
 
 package org.osate.assure;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 
 /**
@@ -27,6 +28,11 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.assure.linking.AssureLinkingService.class;
 	}
 
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return org.osate.alisa.common.valueconversion.CommonValueConverters.class;
+	}
+
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
 	}
@@ -35,6 +41,7 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.assure.serializer.AssureCrossReferenceSerializer.class;
 	}
+
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return org.osate.assure.scoping.AssureScopeProvider.class;

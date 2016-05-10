@@ -73,10 +73,12 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.aadl2.PropertyExpression
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
+import org.eclipse.core.runtime.OperationCanceledException
+import org.osate.categories.categories.CategoryFilter
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor);
+	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
 	def void setProgressTreeViewer (TreeViewer viewPage);
 }
 
@@ -111,11 +113,16 @@ class AssureProcessor implements IAssureProcessor {
 			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
-	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
+	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
 		progressmonitor = monitor
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
-		progressmonitor.beginTask(assureResult.name, count)
-		assureResult.process
+		try {
+			progressmonitor.beginTask(assureResult.name, count)
+			assureResult.process
+		}finally{
+			progressmonitor.done
+		}
+		
 	}
 
 	def dispatch void process(AssuranceCaseResult caseResult) {
@@ -200,6 +207,9 @@ class AssureProcessor implements IAssureProcessor {
 	 * null or bool for analysis with results in marker/diagnostic, or the result report object
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
+		if( progressmonitor.isCanceled )
+			throw new OperationCanceledException
+			
 		val method = verificationResult.method;
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
@@ -353,7 +363,17 @@ class AssureProcessor implements IAssureProcessor {
 							setToFail(verificationResult, proveri.issues)
 						}
 					}
-					verificationResult.eResource.save(null)
+					if(verificationResult == null){
+						System.out.println("verificationResult 4444444eod    ");
+					}
+					if(verificationResult.eResource == null){
+						System.out.println("verificationResult eResource 4444444eod    ");
+					}
+					try{
+						verificationResult.eResource.save(null)
+					}catch (NullPointerException ee) {
+						System.out.println("Null Resource in saving");
+					}
 					updateProgress(verificationResult)
 				}
 				AgreeMethod: {
@@ -415,6 +435,7 @@ class AssureProcessor implements IAssureProcessor {
 							setToFail(verificationResult, proveri.issues)
 						}
 					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
 				ManualMethod: {
 					verificationResult.eResource.save(null)
@@ -430,7 +451,11 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 			//e.printStackTrace;
-			verificationResult.eResource.save(null)
+			try{
+				verificationResult.eResource.save(null)
+			}catch (NullPointerException ee) {
+				System.out.println("Null Resource in saving");
+			}
 			updateProgress(verificationResult)
 		}
 		//verificationResult.eResource.save(null)

@@ -434,6 +434,13 @@
           icon="icons/claims.png"
           name="Assurance Prog."
           class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureProgressView"/>
+       <view
+          category="org.osate.alisa.assure"
+          id="org.osate.assure.ui.views.alisaView"
+          icon="icons/claims.png"
+          name="Alisa View"
+          class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AlisaView"
+          restorable="true"/>
    </extension>
      
          <extension point="org.eclipse.core.expressions.definitions">

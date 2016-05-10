@@ -32,7 +32,6 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -76,11 +75,11 @@ public class AssureProgressView extends ViewPart {
 					if (inputURI != null) {
 						AssuranceCaseResult assuranceCase = xtextDoc
 								.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>() {
-							@Override
-							public AssuranceCaseResult exec(XtextResource state) throws Exception {
-								return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
-							}
-						});
+									@Override
+									public AssuranceCaseResult exec(XtextResource state) throws Exception {
+										return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
+									}
+								});
 						// treeViewer.setInput(Arrays.asList(assuranceCase));
 						treeViewer.setInput(assuranceCase);
 					}
@@ -93,8 +92,8 @@ public class AssureProgressView extends ViewPart {
 	@Inject
 	GlobalURIEditorOpener globalURIEditorOpener;
 
-	@Inject
-	ILabelProvider labelProvider;
+//	@Inject
+//	ILabelProvider labelProvider;
 	URI inputURI;
 
 	@Override
@@ -169,7 +168,8 @@ public class AssureProgressView extends ViewPart {
 	}
 
 	public void dispose() {
-		xtextDoc.removeModelListener(modelListener);
+		if (xtextDoc != null)
+			xtextDoc.removeModelListener(modelListener);
 	}
 
 	private IAction createHyperlinkAction(String text, final EObject eObject) {

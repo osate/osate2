@@ -31,88 +31,86 @@ import org.osate.assure.assure.AssureResult;
 import org.osate.assure.ui.views.AssureView;
 import org.osate.assure.util.AssureUtilExtension;
 
+public class RunAssureHandler extends AlisaHandler {
+	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAssure";
+	private IHandlerActivation rerunActivation;
 
-	public class RunAssureHandler extends AlisaHandler {
-		private static final String RERUN_ID = "org.osate.alisa.commands.rerunAssure";
-		private IHandlerActivation rerunActivation;
+	@Override
+	protected String getJobName() {
+		return "Assure Verification";
+	}
 
-		@Override
-		protected String getJobName() {
-			return "Assure Verification";
+	@Override
+	protected IStatus runJob(EObject root, IProgressMonitor monitor) {
+		clearProofs();
+		disableRerunHandler();
+
+		long start = System.currentTimeMillis();
+
+		if (root instanceof AssureResult) {
+			AssuranceCaseResult ac = AssureUtilExtension.getAssuranceCaseResult(root);
+			drawProofs(ac);
 		}
 
-		@Override
-		protected IStatus runJob(EObject root, IProgressMonitor monitor) {
-			clearProofs();
-			disableRerunHandler();
+		long stop = System.currentTimeMillis();
+		System.out.println("RunAssure evaluation time: " + (stop - start) / 1000.0 + "s");
 
-			long start = System.currentTimeMillis();
+		enableRerunHandler(root);
+		System.out.println(EcoreUtil2.getURI(root));
 
-			if (root instanceof AssureResult){
-				AssuranceCaseResult ac = AssureUtilExtension.getAssuranceCaseResult(root); 
-				drawProofs(ac);
+		return Status.OK_STATUS;
+	}
+
+	private void enableRerunHandler(final EObject root) {
+		getWindow().getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IHandlerService handlerService = getHandlerService();
+//					rerunActivation = handlerService
+//							.activateHandler(RERUN_ID, new RerunAssureHandler(root, RunAssureHandler.this));
 			}
+		});
+	}
 
-			long stop = System.currentTimeMillis();
-			System.out.println("RunAssure evaluation time: " + (stop - start) / 1000.0 + "s");
-
-			enableRerunHandler(root);
-			System.out.println(EcoreUtil2.getURI(root));
-
-			return Status.OK_STATUS;
-		}
-
-		private void enableRerunHandler(final EObject root) {
+	private void disableRerunHandler() {
+		if (rerunActivation != null) {
 			getWindow().getShell().getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
 					IHandlerService handlerService = getHandlerService();
-//					rerunActivation = handlerService
-//							.activateHandler(RERUN_ID, new RerunAssureHandler(root, RunAssureHandler.this));
+					handlerService.deactivateHandler(rerunActivation);
+					rerunActivation = null;
 				}
 			});
-		}
-
-		private void disableRerunHandler() {
-			if (rerunActivation != null) {
-				getWindow().getShell().getDisplay().syncExec(new Runnable() {
-					@Override
-					public void run() {
-						IHandlerService handlerService = getHandlerService();
-						handlerService.deactivateHandler(rerunActivation);
-						rerunActivation = null;
-					}
-				});
-			}
-		}
-
-		private IHandlerService getHandlerService() {
-			return (IHandlerService) getWindow().getService(IHandlerService.class);
-		}
-
-
-		private void drawProofs(final AssuranceCaseResult ac) {
-			final IWorkbenchPage page = getWindow().getActivePage();
-
-			Display.getDefault().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					displayView(ac, page);
-				}
-			});
-		}
-
-		private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
-			try {
-				AssureView view = (AssureView) page.showView(AssureView.ID);
-				view.setProofs(ac);
-				view.setFocus();
-			} catch (PartInitException e) {
-				e.printStackTrace();
-			}
-		}
-
-		protected void clearProofs() {
-			drawProofs(null);
 		}
 	}
+
+	private IHandlerService getHandlerService() {
+		return (IHandlerService) getWindow().getService(IHandlerService.class);
+	}
+
+	private void drawProofs(final AssuranceCaseResult ac) {
+		final IWorkbenchPage page = getWindow().getActivePage();
+
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				displayView(ac, page);
+			}
+		});
+	}
+
+	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
+		try {
+			AssureView view = (AssureView) page.showView(AssureView.ID);
+			view.setProofs(ac);
+			view.setFocus();
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void clearProofs() {
+		drawProofs(null);
+	}
+}

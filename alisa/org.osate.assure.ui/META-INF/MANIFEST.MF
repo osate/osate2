@@ -26,7 +26,9 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.osate.reqspec;bundle-version="1.0.0",
  org.eclipse.ui.console,
  org.osate.results;bundle-version="1.0.0",
- org.osate.results.ui;bundle-version="1.0.0"
+ org.osate.results.ui;bundle-version="1.0.0",
+ org.osate.alisa.workbench,
+ org.osate.categories
 Import-Package: org.apache.log4j,
  org.eclipse.emf.transaction,
  org.eclipse.gmf.runtime.diagram.core.preferences,
