@@ -2873,7 +2873,8 @@ public class EMV2Util {
 		DirectionType featuredir = DirectionType.IN_OUT;
 		while (fref != null) {
 			f = fref.getFeatureorPP();
-			if (f instanceof FeatureGroup) {
+			fref = fref.getNext();
+			if (f instanceof FeatureGroup && fref != null) {
 				FeatureGroup fg = (FeatureGroup) f;
 				FeatureGroupType fgt = fg.getAllFeatureGroupType();
 				if (fg.isInverse()) {
@@ -2883,7 +2884,6 @@ public class EMV2Util {
 					inverse = !inverse;
 				}
 			}
-			fref = fref.getNext();
 		}
 
 		if (f instanceof DirectedFeature) {
