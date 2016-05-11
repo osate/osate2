@@ -272,4 +272,8 @@ class ConnectionInfo {
 		return bidirectional;
 	}
 
+	public boolean isAcross() {
+		return across;
+	}
+
 }
