@@ -654,11 +654,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						for (Connection nextConn : conns) {
 							final ConnectionInfo clone = connInfo.cloneInfo();
 
-							// TODO-LW: check if this logic is correct
 							EList<Feature> toflist = toFeature.getAllFeatureRefinements();
+							Context dstCtx = nextConn.getAllDestinationContext();
+							// dstCtx is null if we're going down and in opposite direction
 							final boolean opposite = toflist.contains(nextConn.getAllDestination())
-									&& toCtx == nextConn.getAllDestinationContext()
-									|| toflist.contains(nextConn.getAllDestinationContext());
+									&& (dstCtx == null || toCtx == dstCtx) || toflist.contains(dstCtx);
 							appendSegment(clone, nextConn, toCi, opposite);
 						}
 					}
