@@ -1055,22 +1055,26 @@ public final class AadlUtil {
 //			}
 //		}
 		Classifier ext = extension;
-		while (ext != null) {
+		int i = 0;
+		while (ext != null && i < 100) {
 			if (origin == ext) {
 				return true;
 			}
 			ext = ext.getExtended();
+			i++;
 		}
 		if (extension instanceof FeatureGroupType && origin instanceof FeatureGroupType) {
 			if (extension.getExtended() == null && ((FeatureGroupType) extension).getInverse() != null
 					&& ((FeatureGroupType) origin).getInverse() != null) {
 				ext = ((FeatureGroupType) extension).getInverse();
 				FeatureGroupType orig = ((FeatureGroupType) origin).getInverse();
-				while (ext != null) {
+				i = 0;
+				while (ext != null && i < 100) {
 					if (orig == ext) {
 						return true;
 					}
 					ext = ext.getExtended();
+					i++;
 				}
 			}
 		}
