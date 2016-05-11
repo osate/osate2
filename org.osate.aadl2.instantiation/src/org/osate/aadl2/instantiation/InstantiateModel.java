@@ -43,7 +43,6 @@ import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -225,7 +224,8 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci, IProgressMonitor monitor) throws Exception {
+	public static SystemInstance buildInstanceModelFile(final ComponentImplementation ci, IProgressMonitor monitor)
+			throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		ComponentImplementation ici = ci;
@@ -237,16 +237,15 @@ public class InstantiateModel {
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
-		final InstantiateModel instantiateModel = new InstantiateModel(monitor,
-				new AnalysisErrorReporterManager(
-						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
 		return root;
 	}
-	
+
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
 		return buildInstanceModelFile(ci, new NullProgressMonitor());
 	}
@@ -341,7 +340,7 @@ public class InstantiateModel {
 				try {
 					instance = createSystemInstanceInt(ci, aadlResource);
 				} catch (InterruptedException e) {
-					//Do nothing.  Will be thrown after execute.
+					// Do nothing. Will be thrown after execute.
 				}
 			}
 
@@ -370,7 +369,8 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource) throws InterruptedException {
+	public SystemInstance createSystemInstanceInt(ComponentImplementation ci, Resource aadlResource)
+			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
@@ -548,7 +548,8 @@ public class InstantiateModel {
 		return;
 	}
 
-	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans) throws InterruptedException {
+	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans)
+			throws InterruptedException {
 		for (Mode m : modes) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
@@ -610,7 +611,8 @@ public class InstantiateModel {
 	 * 
 	 * @param impl
 	 */
-	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl) throws InterruptedException {
+	protected void instantiateSubcomponents(final ComponentInstance ci, ComponentImplementation impl)
+			throws InterruptedException {
 		for (final Subcomponent sub : impl.getAllSubcomponents()) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
@@ -1396,23 +1398,10 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private Collection<PropertyExpression> getOffsetList(ConnectionInstance conni) {
-		for (ConnectionReference connref : conni.getConnectionReferences()) {
-			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
-				if (pa.getProperty().getName().equalsIgnoreCase("Index_Offset")
-						&& ((PropertySet) pa.getProperty().getOwner()).getName()
-								.equalsIgnoreCase("Communication_Properties")) {
-					return ((ListValue) pa.getOwnedValues().get(0).getOwnedValue()).getOwnedListElements();
-				}
-			}
-		}
-		return null;
-	}
-
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
 		InstanceObject current = end;
-		while ((current != container) && (current != null)) {
+		while ((current != container) && !(current instanceof SystemInstance)) {// &&(current != null)) {
 			int d = 0;
 
 			if (names != null) {
@@ -2057,7 +2046,8 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances) throws InterruptedException {
+	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances)
+			throws InterruptedException {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
@@ -2108,7 +2098,8 @@ public class InstantiateModel {
 	 * should be turned into a System Operation Mode object.
 	 */
 	protected void enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
-			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState) throws InterruptedException {
+			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState)
+			throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -2162,7 +2153,8 @@ public class InstantiateModel {
 		}
 	}
 
-	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes) throws InterruptedException {
+	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes)
+			throws InterruptedException {
 		if (inModes != null && inModes.size() > 0) {
 			for (ModeInstance mi : inModes) {
 				if (monitor.isCanceled()) {
