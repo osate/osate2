@@ -77,4 +77,7 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 		);
 	}
 	
+	override completeVerificationMethod_Properties(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, predeclaredFilter)
+	}
 }

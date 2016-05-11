@@ -31,7 +31,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.aadl2.Aadl2Package
+import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.verify.verify.Claim
@@ -39,8 +39,7 @@ import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.alisa.common.common.AVariableReference
+import static org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -94,11 +93,6 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		]
 		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
 			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-	}
-
-	def scope_Property(EObject context, EReference reference) {
-		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
-		new SimpleScope(IScope::NULLSCOPE, props, true)
 	}
 
 	def scope_VerificationActivity(EObject context, EReference reference) {
