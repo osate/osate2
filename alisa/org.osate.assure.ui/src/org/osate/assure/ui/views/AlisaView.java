@@ -21,7 +21,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,8 +34,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -63,13 +65,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.menus.IMenuService;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
@@ -92,6 +94,7 @@ import org.osate.assure.ui.handlers.AssureHandler;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.CategoryFilter;
+import org.osate.workspace.WorkspacePlugin;
 
 import com.google.inject.Inject;
 
@@ -111,10 +114,14 @@ public class AlisaView extends ViewPart {
 	private Combo filterCombo;
 	private Button alisaButton;
 	private AssuranceCase selectedAssuranceCase;
-	private URI assureURI;
+	private URI assureDirURI, assureURI;
 	private Map<String, CategoryFilter> globalFilterList = Collections
 			.synchronizedMap(new HashMap<String, CategoryFilter>());
 //	private NoClaimResultsFilter noClaimsResultFilter = new NoClaimResultsFilter();
+
+	private ISchedulingRule msr;
+	private WorkspaceJob loadAssuranceCaseJob;
+	private ArrayList<AssuranceCase> loadAssuranceCaseResult = new ArrayList<AssuranceCase>();
 
 	IXtextDocument xtextDoc;
 	IXtextModelListener modelListener = new IXtextModelListener() {
@@ -343,14 +350,54 @@ public class AlisaView extends ViewPart {
 						assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
 					} else {
 						System.out.println("  >>>>>>>>>>>>Found existing assure resource");
+
+						// Just for now to have assureDirURI
+						URI uri = null;
+						if (selectedAssuranceCase instanceof EObjectNode) {
+							uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
+						} else if (selectedAssuranceCase instanceof EObject) {
+							uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
+						}
+						URI file_uri = uri;
+						IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+						for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+							IProject tempProject = myWorkspaceRoot.getProjects()[i];
+							if (tempProject.isAccessible()) {
+								System.out.println("Project paths: " + tempProject.getFullPath());
+								if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
+
+									System.out.println(
+											"Found Project, creating String for assure: " + tempProject.getFullPath()
+													+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
+
+									assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure",
+											false);
+								}
+							}
+						}
 					}
 
-					// assuranceCaseResult does not have filter applied.
-
-//					if (uri != null) {
 					// TODO: should send filter
-					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), assureURI);
-//					}
+
+					Resource res = selectedAssuranceCase.getSystem().eResource();
+					URI modeluri = res.getURI();
+//					String last = modeluri.lastSegment();
+//					String filename = last.substring(0, last.indexOf('.'));
+					URI path = modeluri.trimSegments(1);
+					if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+						path = path.trimSegments(1);
+					}
+					URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
+					System.out.println("  >>>>>>>>>>>>instanceDirURI: " + instanceDirURI.toString());
+					System.out.println("  >>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
+
+					msr = MultiRule.combine(
+							ResourcesPlugin.getWorkspace().getRoot()
+									.getFolder(new Path(instanceDirURI.toPlatformString(true))),
+							ResourcesPlugin.getWorkspace().getRoot()
+									.getFolder(new Path(assureDirURI.toPlatformString(true))));
+
+					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
 
 				}
 
@@ -368,15 +415,63 @@ public class AlisaView extends ViewPart {
 						assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
 					} else {
 						System.out.println("2  >>>>>>>>>>>>Found assure resource");
+						// Just for now to have assureDirURI
+						URI uri = null;
+						if (selectedAssuranceCase instanceof EObjectNode) {
+							uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
+						} else if (selectedAssuranceCase instanceof EObject) {
+							uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
+						}
+						URI file_uri = uri;
+						IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+						for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+							IProject tempProject = myWorkspaceRoot.getProjects()[i];
+							if (tempProject.isAccessible()) {
+								System.out.println("Project paths: " + tempProject.getFullPath());
+								if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
+
+									System.out.println(
+											"Found Project, creating String for assure: " + tempProject.getFullPath()
+													+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
+
+									assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure",
+											false);
+								}
+							}
+						}
 					}
 
 					// assuranceCaseResult does not have filter applied.
 
 //					if (uri != null) {
 					AssureHandler ah = new AssureHandler();
+					ah.prepare();
 
-					// TODO: should send filter
-					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), assureURI);
+					Resource res = selectedAssuranceCase.getSystem().eResource();
+					URI modeluri = res.getURI();
+//					String last = modeluri.lastSegment();
+//					String filename = last.substring(0, last.indexOf('.'));
+					URI path = modeluri.trimSegments(1);
+					if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+						path = path.trimSegments(1);
+					}
+					URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
+					System.out.println("  >>>>>>>>>>>>instanceDirURI: " + instanceDirURI.toString());
+					System.out.println("  >>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
+
+//					if (instanceDirURI.isPlatform()) {
+//						System.out.println("  >>>>>>>>>>>>0000: " + instanceDirURI.toString());
+					msr = MultiRule.combine(
+							ResourcesPlugin.getWorkspace().getRoot()
+									.getFolder(new Path(instanceDirURI.toPlatformString(true))),
+							ResourcesPlugin.getWorkspace().getRoot()
+									.getFolder(new Path(assureDirURI.toPlatformString(true))));
+//					} else if (instanceDirURI.isFile()) {
+//						System.out.println("  >>>>>>>>>>>>1111: " + instanceDirURI.toString());
+//						msr = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceDirURI.toFileString()));
+//					}
+
+					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
 //					}
 
 				}
@@ -458,6 +553,8 @@ public class AlisaView extends ViewPart {
 					System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
 							+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
 
+					assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+
 					assureURI = URI.createPlatformResourceURI(
 							tempProject.getFullPath() + "/assure/" + selectedAssuranceCase.getName() + ".assure",
 							false);
@@ -470,71 +567,20 @@ public class AlisaView extends ViewPart {
 						rrr = rs.createResource(assureURI);
 					}
 
-					// See if above works if not use below
-//					final Resource rsc = rrr;
-//					else {
-//						if (rrr.isLoaded()) {
-//							rrr.unload();
-//						}
-//						resourceSetProvider.get().getResources().remove(rrr);
-//						rrr = resourceSetProvider.get().createResource(uri);
-//					}
-
-//					final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
-//							.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-//					Command cmd = new RecordingCommand(domain) {
-//						public AssuranceCaseResult acr;
-//
-//						@Override
-//						protected void doExecute() {
-////							try {
-//							acr = assureConstructor.generateFullAssuranceCase(selectedAssuranceCase);
-//							rsc.getContents().add(acr);
-//
-//							try {
-//								rsc.save(null);
-//							} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//
-//						}
-//
-//						@Override
-//						public List<AssuranceCaseResult> getResult() {
-//							return Collections.singletonList(acr);
-//						}
-//					};
-//
-//					try {
-//						((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} catch (RollbackException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//					acr = ((List<AssuranceCaseResult>) cmd.getResult()).get(0);
-
 					acr = assureConstructor.generateFullAssuranceCase(selectedAssuranceCase);
 					AssureUtilExtension.resetToTBD(acr);
 					AssureUtilExtension.recomputeAllCounts(acr);
 
 					rrr.getContents().add(acr);
 
-					try {
-						rrr.save(null);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					// Going to save later from the job
+//					try {
+//						rrr.save(null);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 
-					// Not sure we need this
-					if (rrr instanceof LazyLinkingResource) {
-						LazyLinkingResource new_name = (LazyLinkingResource) rrr;
-						new_name.resolveLazyCrossReferences(null);
-					}
 					System.out.println("Resource saved: " + rrr.toString());
 
 					break;
@@ -613,63 +659,81 @@ public class AlisaView extends ViewPart {
 
 		xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
 
-		ArrayList<AssuranceCase> result = new ArrayList<AssuranceCase>();
+//		ArrayList<AssuranceCase> result = new ArrayList<AssuranceCase>();
 
 //		result.addAll((Collection<? extends AssuranceCase>) refFinder.getAssuranceCases(null));
+		if (loadAssuranceCaseJob == null) { // to make sure loading job is at max only once scheduled
+			loadAssuranceCaseJob = new WorkspaceJob("Alisa View") {
+				@Override
+				public IStatus runInWorkspace(final IProgressMonitor monitor) {
+					return xtextDoc.readOnly(new IUnitOfWork<IStatus, XtextResource>() {
+						@Override
+						public IStatus exec(XtextResource resource) throws Exception {
+							currentResourceSet = resource.getResourceSet();
+							loadAssuranceCaseResult.clear();
 
-		WorkspaceJob job = new WorkspaceJob("Alisa View") {
-			@Override
-			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				return xtextDoc.readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-					@Override
-					public IStatus exec(XtextResource resource) throws Exception {
-						currentResourceSet = resource.getResourceSet();
+							for (Iterator iterator = rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE)
+									.iterator(); iterator.hasNext();) {
+								IEObjectDescription eod = (IEObjectDescription) iterator.next();
 
-						for (Iterator iterator = rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE)
-								.iterator(); iterator.hasNext();) {
-							IEObjectDescription eod = (IEObjectDescription) iterator.next();
+								// result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), eod.getEObjectOrProxy().eResource()));
+								loadAssuranceCaseResult.add(
+										(AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), currentResourceSet));
 
-							// result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), eod.getEObjectOrProxy().eResource()));
-							result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), currentResourceSet));
+							}
+							System.out.println("AlisaView.loadAssuranceCases()   loadAssuranceCaseResult size: "
+									+ loadAssuranceCaseResult.size());
+							globalFilterList.clear();
 
+							for (Iterator iterator = rds
+									.getExportedObjectsByType(CategoriesPackage.Literals.CATEGORY_FILTER)
+									.iterator(); iterator.hasNext();) {
+								IEObjectDescription eod = (IEObjectDescription) iterator.next();
+
+								// result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), eod.getEObjectOrProxy().eResource()));
+								CategoryFilter cf = (CategoryFilter) EcoreUtil.resolve(eod.getEObjectOrProxy(),
+										currentResourceSet);
+								globalFilterList.put(cf.getName(), cf);
+
+							}
+
+							Display.getDefault().asyncExec(new Runnable() {
+								@Override
+								public void run() {
+									if (treeViewer.getTree().isDisposed()) {
+										return;
+									}
+									treeViewer.setInput(loadAssuranceCaseResult);
+
+									updateFilterCombo(globalFilterList.values());
+
+								}
+							});
+
+							return Status.OK_STATUS;
 						}
-//						System.out.println("AlisaView.loadAssuranceCases()   size: " + result.size());
-						globalFilterList.clear();
-
-						for (Iterator iterator = rds
-								.getExportedObjectsByType(CategoriesPackage.Literals.CATEGORY_FILTER)
-								.iterator(); iterator.hasNext();) {
-							IEObjectDescription eod = (IEObjectDescription) iterator.next();
-
-							// result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), eod.getEObjectOrProxy().eResource()));
-							CategoryFilter cf = (CategoryFilter) EcoreUtil.resolve(eod.getEObjectOrProxy(),
-									currentResourceSet);
-							globalFilterList.put(cf.getName(), cf);
-
-						}
-
-						return Status.OK_STATUS;
-					}
-				});
-			}
-		};
-
-		// job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
-		try {
-			job.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+					});
+				}
+			};
 		}
 
-		if (treeViewer.getTree().isDisposed()) {
-			return;
-		}
+		// If an analysis is going on, msr will make it wait for the analysis job to finish.
+//		loadAssuranceCaseJob.setRule(msr);
+		loadAssuranceCaseJob.schedule();
+//		try {
+//			loadAssuranceCaseJob.join();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
-		treeViewer.setInput(result);
+//		if (treeViewer.getTree().isDisposed()) {
+//			return;
+//		}
+//
+//		treeViewer.setInput(loadAssuranceCaseResult);
 
-		updateFilterCombo(globalFilterList.values());
+//		updateFilterCombo(globalFilterList.values());
 		// Watch out for synchronized if we fire to other views to load filter
 
 	}
@@ -776,4 +840,5 @@ public class AlisaView extends ViewPart {
 	public TreeViewer getTreeViewer() {
 		return treeViewer;
 	}
+
 }

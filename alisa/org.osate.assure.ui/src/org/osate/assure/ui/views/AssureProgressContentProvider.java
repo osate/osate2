@@ -24,10 +24,18 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.VerificationResult;
+import org.osate.categories.categories.CategoryFilter;
 
 public class AssureProgressContentProvider implements ITreeContentProvider {
 
 	private static final Object[] EMPTY = new Object[] {};
+
+	// Use filter to show subset of verification results
+	private CategoryFilter filter;
+
+	public AssureProgressContentProvider(CategoryFilter filter) {
+		this.filter = filter;
+	}
 
 	@Override
 	public void dispose() {

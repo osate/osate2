@@ -117,6 +117,7 @@ class AssureProcessor implements IAssureProcessor {
 			progressmonitor.beginTask(assureResult.name, count)
 			assureResult.process
 		}finally{
+			//assureResult.eResource.save(null)
 			progressmonitor.done
 		}
 		
@@ -361,17 +362,7 @@ class AssureProcessor implements IAssureProcessor {
 							setToFail(verificationResult, proveri.issues)
 						}
 					}
-					if(verificationResult == null){
-						System.out.println("verificationResult 4444444eod    ");
-					}
-					if(verificationResult.eResource == null){
-						System.out.println("verificationResult eResource 4444444eod    ");
-					}
-					try{
-						verificationResult.eResource.save(null)
-					}catch (NullPointerException ee) {
-						System.out.println("Null Resource in saving");
-					}
+					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
 				AgreeMethod: {
@@ -449,11 +440,7 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 			//e.printStackTrace;
-			try{
-				verificationResult.eResource.save(null)
-			}catch (NullPointerException ee) {
-				System.out.println("Null Resource in saving");
-			}
+			verificationResult.eResource.save(null)
 			updateProgress(verificationResult)
 		}
 		//verificationResult.eResource.save(null)

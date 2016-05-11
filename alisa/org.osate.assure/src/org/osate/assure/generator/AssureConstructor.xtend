@@ -751,6 +751,7 @@ class AssureConstructor implements IAssureConstructor{
 	def void doConstruct(List<VerificationExpr> arl, ThenExpr expr) {
 		val thenres = factory.createThenResult
 		thenres.metrics = factory.createMetrics
+		thenres.metrics.tbdCount = 0
 		thenres.first.construct(expr.left)
 		thenres.second.construct(expr.successor)
 		if (thenres.first.empty) return;
@@ -764,6 +765,7 @@ class AssureConstructor implements IAssureConstructor{
 	def void doConstruct(List<VerificationExpr> arl, ElseExpr expr) {
 		val elseres = factory.createElseResult
 		elseres.metrics = factory.createMetrics
+		elseres.metrics.tbdCount = 0
 		elseres.first.construct(expr.left)
 		elseres.error.construct(expr.error)
 		if(expr.fail != null) elseres.fail.construct(expr.fail)
@@ -831,6 +833,7 @@ class AssureConstructor implements IAssureConstructor{
 		
 		
 			vr.metrics = factory.createMetrics
+			vr.metrics.tbdCount = 0
 			arl += vr
 			
 			

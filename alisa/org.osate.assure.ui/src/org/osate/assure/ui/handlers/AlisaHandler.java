@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -100,12 +101,13 @@ public abstract class AlisaHandler extends AbstractHandler {
 	/**
 	 * For executing programmatically instead of execute and executeURI
 	 * @param assuranceCaseResult
-	 * @param categoryFilter 
+	 * @param categoryFilter null when there is no filter
+	 * @param msr 
 	 * @param assureURI
 	 * @return
 	 */
 	public Object execute2(final AssuranceCaseResult assuranceCaseResult, CategoryFilter categoryFilter,
-			URI assureURI) {
+			ISchedulingRule msr) {
 		filter = categoryFilter;
 
 		URI uri = null;
@@ -119,7 +121,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 		System.out.println("AlisaHandler.execute2() assuranceCaseResult: " + assuranceCaseResult.getName());
 		System.out.println("AlisaHandler.execute2() uri from AssuranceCaseResult, if null we can have deadlock: "
 				+ uri.toString());
-		System.out.println("AlisaHandler.execute2() assureURI generated just checking : " + assureURI.toString());
+		// System.out.println("AlisaHandler.execute2() assureURI generated just checking : " + assureURI.toString());
 
 //		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
 //		if (xtextEditor == null) {
@@ -137,7 +139,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 //			uri = assureURI;
 //		}
 
-		scheduleJob(job, uri);
+		scheduleJob(job, msr, uri);
 
 		return null;
 	}
@@ -151,11 +153,11 @@ public abstract class AlisaHandler extends AbstractHandler {
 			return null;
 		}
 		WorkspaceJob job = getWorkspaceJob(getJobName(), xtextEditor, uri);
-		scheduleJob(job, uri);
+		scheduleJob(job, new org.osate.assure.ui.views.MutexSchedulingRule(), uri);
 		return null;
 	}
 
-	protected Object scheduleJob(WorkspaceJob job, final URI uri) {
+	protected Object scheduleJob(WorkspaceJob job, ISchedulingRule msr, final URI uri) {
 //		job.setRule(ResourcesPlugin.getWorkspace().getRoot()); // This will block workspace
 
 		// Scheduling with a lower rule and made instantiation that are needed in the process to be separate rule job.
@@ -166,7 +168,8 @@ public abstract class AlisaHandler extends AbstractHandler {
 		} else if (uri.isFile()) {
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
 		}
-		job.setRule(file);
+		// job.setRule(file);
+		job.setRule(MultiRule.combine(msr, file));
 		job.schedule();
 		return null;
 	}
@@ -191,13 +194,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-//				return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-//					@Override
-//					public IStatus exec(XtextResource resource) throws Exception {
-//						EObject eobj = resource.getResourceSet().getEObject(uri, true);
 				return runJob(assuranceCaseResult, monitor);
-//					}
-//				});
 			}
 		};
 		return job;

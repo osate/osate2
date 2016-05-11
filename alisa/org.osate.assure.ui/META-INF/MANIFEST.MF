@@ -28,7 +28,8 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.osate.results;bundle-version="1.0.0",
  org.osate.results.ui;bundle-version="1.0.0",
  org.osate.alisa.workbench,
- org.osate.categories
+ org.osate.categories,
+ org.osate.workspace
 Import-Package: org.apache.log4j,
  org.eclipse.emf.transaction,
  org.eclipse.gmf.runtime.diagram.core.preferences,

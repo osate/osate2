@@ -52,6 +52,7 @@ import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 
 import com.google.inject.Inject;
 
@@ -200,7 +201,7 @@ public class AssureProgressView extends ViewPart {
 		return result;
 	}
 
-	public void setProofs(AssuranceCaseResult proofTrees) {
+	public void setProofs(AssuranceCaseResult proofTrees, CategoryFilter filter) {
 		if (xtextDoc != null) {
 			xtextDoc.removeModelListener(modelListener);
 		}
@@ -208,6 +209,10 @@ public class AssureProgressView extends ViewPart {
 		xtextDoc.addModelListener(modelListener);
 //		Object[] expandedElements = treeViewer.getExpandedElements();
 //		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
+
+		if (filter != null) {
+			treeViewer.setContentProvider(new AssureProgressContentProvider(filter));
+		}
 		if (proofTrees != null) {
 			inputURI = EcoreUtil.getURI(proofTrees);
 			// treeViewer.setInput(Arrays.asList(proofTrees));

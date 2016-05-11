@@ -19,6 +19,8 @@ package org.osate.assure.ui.handlers;
 import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
 import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -103,6 +105,13 @@ public class AssureHandler extends AlisaHandler {
 		long start = System.currentTimeMillis();
 		resetToTBD(rootCaseResult);
 		recomputeAllCounts(rootCaseResult);
+		try {
+			rootCaseResult.eResource().save(null);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
 
@@ -141,7 +150,7 @@ public class AssureHandler extends AlisaHandler {
 	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 		try {
 			AssureProgressView view = (AssureProgressView) page.showView(AssureProgressView.ID);
-			view.setProofs(ac);
+			view.setProofs(ac, filter);
 			view.setFocus();
 			assureProcessor.setProgressTreeViewer(view.getTreeViewer());
 		} catch (PartInitException e) {

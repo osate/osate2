@@ -90,6 +90,12 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.Status
+import org.eclipse.emf.common.util.URI
+import org.eclipse.core.runtime.jobs.ISchedulingRule
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.core.runtime.NullProgressMonitor
 
 class AssureUtilExtension {
 
@@ -1365,21 +1371,45 @@ class AssureUtilExtension {
 		if (si == null) {
 			
 			System.out.println("Instantiating "+cimpl.getQualifiedName())
-//			si = cimpl.buildInstanceModelFile
-//			setInstanceModel(cimpl, si)
+			si = cimpl.buildInstanceModelFile
+			setInstanceModel(cimpl, si)
 
 			//mnam: Trying to make this a separate job due to schedule rule conflict when called by assure handler
-			val job = new WorkspaceJob("Instantiating " +cimpl.getQualifiedName()) {
-				override runInWorkspace(IProgressMonitor monitor) throws CoreException {
-					val si = cimpl.buildInstanceModelFile
-					setInstanceModel(cimpl, si)
-					Status.OK_STATUS
-				}
-			};
-			//job.setRule
-			job.schedule();
-			job.join();
 			
+			//This is from InstantiateModel.buildInstanceModelFile
+//			var ComponentImplementation ici = cimpl;
+//			var eobj = OsateResourceUtil.loadElementIntoResourceSet(cimpl);
+//			if (eobj instanceof ComponentImplementation) {
+//				ici = eobj as ComponentImplementation;
+//			}
+//			val URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
+//			
+//			//upto making the resource for instantiation.
+//			val aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
+//			
+//			
+//			val job = new WorkspaceJob("Instantiating " +cimpl.getQualifiedName()) {
+//				override runInWorkspace(IProgressMonitor monitor) throws CoreException {
+//					val sii = cimpl.buildInstanceModelFile(aadlResource, new NullProgressMonitor())
+//					setInstanceModel(cimpl, sii)
+//					Status.OK_STATUS
+//				}
+//			};
+//			
+//			System.out.println("instance uri: "+instanceURI.toString)
+//			//building scheduling rule with the instance uri
+//			var ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot();
+//			if (instanceURI.isPlatform()) {
+//				file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceURI.toPlatformString(true)));
+//			} else if (instanceURI.isFile()) {
+//				file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceURI.toFileString()));
+//			}
+//			
+//			job.setRule(file)
+//			
+//			job.schedule();
+//			job.join();
+			//-----------mnam
 
 		}
 		
