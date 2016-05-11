@@ -29,10 +29,12 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListType
 import org.osate.aadl2.NumberType
+import org.osate.aadl2.NumberValue
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.PropertyValue
 import org.osate.aadl2.RangeType
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordType
@@ -72,9 +74,11 @@ judgments {
 	type |- EObject o : output PropertyType
 		error 'cannot type ' + stringRep(o)
 		source o
+
 	assignable |- AExpression exp |> PropertyType target
 		error stringRep(exp) + ' cannot be assigned to ' + stringRep(target)
 		source exp
+
 	compatible |- PropertyType left <: PropertyType right
 	sameType |- PropertyType left ~~ PropertyType right
 	sameTypes |= EList<BasicProperty> left ~~ EList<BasicProperty> right
@@ -655,3 +659,4 @@ checkrule CheckExpressions for
 from {
 	empty |- exp : var PropertyType type
 }
+
