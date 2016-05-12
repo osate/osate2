@@ -63,7 +63,7 @@ SystemRequirementSet returns RequirementSet:
 	(
 	 description=Description? 
 	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
+//	& computes+=ComputeDeclaration* 
 	& requirements+= SystemRequirement*
 	& include+= IncludeGlobalRequirement*
 	 &('see''document'  docReference+=ExternalDocument+)? 
@@ -80,7 +80,7 @@ GlobalRequirementSet returns RequirementSet:
 	(
 	 description=Description? 
 	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
+//	& computes+=ComputeDeclaration* 
 	& requirements+= (GlobalRequirement)*
 	 &('see''document'  docReference+=ExternalDocument+)? 
 	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
