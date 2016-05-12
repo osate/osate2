@@ -59,8 +59,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
@@ -78,7 +78,6 @@ import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -90,7 +89,6 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -964,23 +962,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
 			} else if (isLeafFeature(srcFi)) {
-				for (FeatureInstance dst : dstFi.getFeatureInstances()) {
+				FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
+				if (dst != null) {
 					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
 				}
 			} else if (isLeafFeature(dstFi)) {
-				for (FeatureInstance src : srcFi.getFeatureInstances()) {
-					expandFeatureGroupConnection(parentci, connInfo, src, dstFi);
+				FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
+				if (target != null) {
+					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
 				}
 			} else {
-				boolean isSubset = isSubsetMatch(parentci.getComponentClassifier());
-				if (!isSubset) {
-					// find it in connection declaration
-					List<Connection> conns = connInfo.connections;
-					for (Connection connection : conns) {
-						isSubset = isSubset || isSubsetMatch(connection);
-					}
-				}
-
+				boolean isSubset = subsetMatch(connInfo.connections);
 				if (!isSubset) {
 					Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
 					Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
@@ -995,8 +987,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						FeatureInstance src = findFeatureInstance(srcFi.getFeatureInstances(), dst.getName());
 						if (src != null) {
 							expandFeatureGroupConnection(parentci, connInfo, src, dst);
-//						} else {
-//							Assert.isTrue(false, "Feature " + dst.getName() + " not found in source feature group.");
 						}
 					}
 				}
@@ -1017,6 +1007,51 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	private boolean isLeafFeature(FeatureInstance fi) {
 		return fi.getFeatureInstances().isEmpty();
+	}
+
+	FeatureInstance findSourceFeatureInstance(ConnectionInfo connInfo, FeatureInstance fgi) {
+		Classifier fgt = fgi.getFeature().getAllClassifier();
+		String fgname = fgi.getName();
+		List<Connection> connlist = connInfo.connections;
+		for (Connection connection : connlist) {
+			Context cxt = connection.getAllSourceContext();
+			if (cxt instanceof FeatureGroup) {
+				FeatureGroup fg = (FeatureGroup) cxt;
+				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
+						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())) {
+					// we found the connection reaching into the feature group
+					ConnectionEnd src = connection.getAllSource();
+					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
+					if (fgeFI != null) {
+						return fgeFI;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	FeatureInstance findDestinationFeatureInstance(ConnectionInfo connInfo, FeatureInstance fgi) {
+		Classifier fgt = fgi.getFeature().getAllClassifier();
+		String fgname = fgi.getName();
+		List<Connection> connlist = connInfo.connections;
+		for (Connection connection : connlist) {
+			Context cxt = connection.getAllDestinationContext();
+			if (cxt instanceof FeatureGroup) {
+				FeatureGroup fg = (FeatureGroup) cxt;
+				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
+						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())) {
+					// we found the connection reaching into the feature group
+					ConnectionEnd src = connection.getAllDestination();
+					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
+					if (fgeFI != null) {
+						return fgeFI;
+					}
+				}
+			}
+		}
+		return null;
+
 	}
 
 	// ------------------------------------------------------------------------
@@ -1460,27 +1495,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				|| ctx instanceof ProcessorSubcomponent || ctx instanceof VirtualProcessorSubcomponent;
 	}
 
-	private boolean isSubsetMatch(ComponentClassifier cl) {
-		if (cl instanceof ComponentImplementation) {
-			ComponentImplementation cimpl = (ComponentImplementation) cl;
-			EList<PropertyAssociation> pas = cimpl.getAllPropertyAssociations();
-			for (PropertyAssociation propertyAssociation : pas) {
-				String pname = propertyAssociation.getProperty().getName();
-				if (pname.equalsIgnoreCase("Classifier_Matching_Rule")) {
-					EList<ModalPropertyValue> vals = propertyAssociation.getOwnedValues();
-					for (ModalPropertyValue modalPropertyValue : vals) {
-						PropertyExpression val = modalPropertyValue.getOwnedValue();
-						EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) val).getNamedValue();
-						if (enumLit.getName().equalsIgnoreCase("subset")) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private boolean isSubsetMatch(Connection conn) {
 		EList<PropertyExpression> vals = conn.getPropertyValues("Modeling_Properties", "Classifier_Matching_Rule");
 		for (PropertyExpression val : vals) {
@@ -1490,6 +1504,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return false;
+	}
+
+	boolean subsetMatch(List<Connection> conns) {
+		boolean isSubset = false; // find it in connection declaration
+		for (Connection connection : conns) {
+			isSubset = isSubset || isSubsetMatch(connection);
+		}
+		return isSubset;
 	}
 
 }
