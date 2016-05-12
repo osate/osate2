@@ -7614,13 +7614,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			// }
 			// }
 			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)
-						&& !checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType,
-								destination.isInverse())) {
+				if (!checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType,
+						destination.isInverse())) {
 					error(connection,
 							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
 									+ sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName()
-									+ "') are not inverse types and they do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of each feature group must be a"
+									+ "') do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of each feature group must be a"
 									+ " subset of the outgoing features in the opposite feature group.");
 				}
 			}
