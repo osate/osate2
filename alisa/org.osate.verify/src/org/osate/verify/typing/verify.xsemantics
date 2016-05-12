@@ -1,10 +1,9 @@
 import java.util.List
 import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
-import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.typing.CommonTypeSystem
+import org.osate.verify.verify.ComputeRef
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerifyPackage
@@ -15,65 +14,93 @@ system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
 // instead copied getPackages into VerifyValidator
 
 judgments {
-	assign |- VerificationActivity owner ~> FormalParameter type <- PropertyExpression actual
-	assignablesequence |- VerificationActivity owner ~> List<FormalParameter> formalParams << List<PropertyExpression> actuals
-        error "invalid arguments for expected parameters"
-        source owner
+	assignArgument |- FormalParameter formal <- PropertyExpression actual
+	assignReturn |- FormalParameter ret --> ComputeRef compute
+	assignarguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
+	assignreturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
 }
 
-rule VerificationActivity derives
-	G |- VerificationActivity activity : PropertyType type
-from {
-	val method = activity.method
-	G |- activity ~> method.params << activity.parameters
-}
-
-rule FormalParameter derives
+rule TypeFormalParameter
 	G |- FormalParameter param : PropertyType type
 from {
-	type = 
-	  switch param.type {
-	    case "boolean": Aadl2Factory.eINSTANCE.createAadlBoolean
-		  case "integer": Aadl2Factory.eINSTANCE.createAadlInteger
-		  case "real": Aadl2Factory.eINSTANCE.createAadlReal
-		  case "string": Aadl2Factory.eINSTANCE.createAadlString
-	}
+	val declared = param.getType
+	declared != null
+	G |- declared : type
 }
 
-rule AssignableSequence derives
+rule ArgumentSequence
   G |- VerificationActivity owner ~> List<FormalParameter> formals << EList<PropertyExpression> actuals
 from {
   actuals.size == formals.size
   or
   fail
-    error "expected " + formals.size + " arguments, but got " + actuals.size
+    error 'expected ' + formals.size + ' arguments, but got ' + actuals.size
     source owner 
     
-  val formalsIterator = formals.iterator
-  for (actual : actuals) {
-  	val formal = formalsIterator.next
-    G |- owner ~> formal <- actual
-	  or
-	    fail
-		  error "bla " + previousFailure.message
-		  feature VerifyPackage.eINSTANCE.verificationActivity_Parameters
-		  source owner
+  val aIter = actuals.iterator
+  val fIter = formals.iterator
+  while (aIter.hasNext && fIter.hasNext) {
+  	val actual = aIter.next
+  	val formal = fIter.next
+    G |- formal <- actual
   }
 }
 
-rule Assignable derives
-  G |- VerificationActivity owner ~> FormalParameter formal <- PropertyExpression actual
+rule Argument
+  G |- FormalParameter formal <- PropertyExpression actual
 from {
-	var PropertyType formalType
-	var PropertyType actualType
-	G |- formal : formalType
-	G |- actual : actualType
+	G |- formal : var PropertyType formalType
+	G |- actual : var PropertyType actualType
 	
-	formalType == actualType
+	G |- formalType <: actualType
+  or
+    fail
+	  	error 'typing: ' + stringRep(actualType) + 'cannot be assigned to ' + stringRep(formalType)
+	  	source actual
 }
 
-checkrule CheckActivityCalls for 
+rule ReturnSequence
+  G |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computeRefs
+from {
+  computeRefs.size == returns.size
+  or
+  fail
+    error 'expected ' + returns.size + ' return values, but got ' + computeRefs.size
+    feature VerifyPackage.eINSTANCE.verificationActivity_Computes
+    source owner 
+    
+  val cIter = computeRefs.iterator
+  val rIter = returns.iterator
+  while (cIter.hasNext && rIter.hasNext) {
+  	val computeRef = cIter.next
+  	val ret = rIter.next
+    G |- ret --> computeRef
+  }
+}
+
+rule Return
+  G |- FormalParameter ret --> ComputeRef computeRef
+from {
+	G |- ret : var PropertyType retType
+	G |- computeRef.compute : var PropertyType computeType
+	
+	G |- computeType <: retType
+  or
+    fail
+	  	error 'typing: ' + stringRep(retType) + 'cannot be assigned to ' + stringRep(computeType)
+	  	source computeRef
+}
+
+checkrule CheckActivityArguments for 
 	VerificationActivity activity 
 from {
-//  empty |- activity: var PropertyType type
+	val method = activity.method
+	empty |- activity ~> method.formals << activity.actuals
+}
+
+checkrule CheckActivityReturns for 
+	VerificationActivity activity 
+from {
+	val method = activity.method
+	empty |- activity ~> method.results >> activity.computes
 }

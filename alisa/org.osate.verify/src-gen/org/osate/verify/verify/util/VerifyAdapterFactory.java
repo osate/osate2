@@ -108,6 +108,11 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createArgumentExprAdapter();
       }
       @Override
+      public Adapter caseComputeRef(ComputeRef object)
+      {
+        return createComputeRefAdapter();
+      }
+      @Override
       public Adapter caseVerificationActivity(VerificationActivity object)
       {
         return createVerificationActivityAdapter();
@@ -280,6 +285,21 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArgumentExprAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ComputeRef <em>Compute Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.ComputeRef
+   * @generated
+   */
+  public Adapter createComputeRefAdapter()
   {
     return null;
   }

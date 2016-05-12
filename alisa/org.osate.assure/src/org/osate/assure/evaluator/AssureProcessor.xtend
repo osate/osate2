@@ -231,7 +231,7 @@ class AssureProcessor implements IAssureProcessor {
 		//actualParameters are those specified as part of the method call in the verification activity
 		var Iterable actualParameters
 		if (verificationResult instanceof VerificationActivityResult) {
-			actualParameters = verificationResult.target.parameters
+			actualParameters = verificationResult.target.actuals
 		} else if (verificationResult instanceof ValidationResult) {
 			actualParameters = method.validation.parameters
 		} else if (verificationResult instanceof PreconditionResult) {
@@ -239,12 +239,12 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		// the actual parameters can be fewer than the formal parameters. i.e., the last few may be optional
-		if (actualParameters.size < method.params.size) {
+		if (actualParameters.size < method.formals.size) {
 			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
 				null)
 			return
 		}
-		val nbParams = method.params.size
+		val nbParams = method.formals.size
 		var i = 0
 		// actualParameterObjects is the list of objects actually passed to the call.
 		// This means actual parameter values that are references to "val" are resolved to the value object
@@ -257,8 +257,8 @@ class AssureProcessor implements IAssureProcessor {
 			// first handle references to formal parameters, as used in precondition and validation calls
 			if (ap instanceof FormalParameter) {
 				val varesult = verificationResult.eContainer as VerificationActivityResult
-				val aps = varesult.target.parameters
-				val idx = method.params.indexOf(ap)
+				val aps = varesult.target.actuals
+				val idx = method.formals.indexOf(ap)
 				if (idx >= 0) {
 					actual = aps.get(idx).valueCopy
 				} else {
@@ -270,7 +270,7 @@ class AssureProcessor implements IAssureProcessor {
 			} else if (ap instanceof PropertyExpression){
 				actual = ap.valueCopy
 			} else {
-				var formalParam = method.params.get(i)
+				var formalParam = method.formals.get(i)
 				setToError(verificationResult,
 					"Actual parameter for " + formalParam.name + " of method " + method.name +
 						" does not have an actual value", null)
@@ -278,7 +278,7 @@ class AssureProcessor implements IAssureProcessor {
 			}
 
 			if (i < nbParams) {
-				var formalParam = method.params.get(i)
+				var formalParam = method.formals.get(i)
 				if (actual instanceof NumberValue) {
 					if (formalParam.unit != null && actual.unit != null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {

@@ -19,6 +19,8 @@ package org.osate.alisa.common.ui.editor.hover.html;
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
+import org.osate.alisa.common.common.ValDeclaration
+import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.alisa.common.typing.CommonStringRepresentation
 import org.osate.alisa.common.typing.CommonTypeSystem
 
@@ -26,6 +28,9 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
 	@Inject
 	var CommonTypeSystem cts;
+	
+	@Inject
+	CommonInterpreter inter;
 	
 	@Inject
 	var CommonStringRepresentation csr;
@@ -38,9 +43,15 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		} else {
 			val label = getLabel(o)
 			val type = result.first
-			val typename = csr.string(type)
+			var str = csr.string(type)
+			
+			if (o instanceof ValDeclaration) {
+				val value = inter.interpretExpression(o.value)
+				if (!value.failed)
+					str += value.value
+			}
 
-			typename + if (label != null) ' <b>' + label + '</b>' else ''
+			str + if (label != null) ' <b>' + label + '</b>' else ''
 		}
 	}
 }

@@ -59,9 +59,9 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTargetType <em>Target Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getFormals <em>Formals</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getResultValues <em>Result Values</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
@@ -119,14 +119,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected TargetType targetType = TARGET_TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
+   * The cached value of the '{@link #getFormals() <em>Formals</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getParams()
+   * @see #getFormals()
    * @generated
    * @ordered
    */
-  protected EList<FormalParameter> params;
+  protected EList<FormalParameter> formals;
 
   /**
    * The cached value of the '{@link #getProperties() <em>Properties</em>}' reference list.
@@ -139,14 +139,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected EList<Property> properties;
 
   /**
-   * The cached value of the '{@link #getResultValues() <em>Result Values</em>}' containment reference list.
+   * The cached value of the '{@link #getResults() <em>Results</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getResultValues()
+   * @see #getResults()
    * @generated
    * @ordered
    */
-  protected EList<FormalParameter> resultValues;
+  protected EList<FormalParameter> results;
 
   /**
    * The default value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
@@ -350,13 +350,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FormalParameter> getParams()
+  public EList<FormalParameter> getFormals()
   {
-    if (params == null)
+    if (formals == null)
     {
-      params = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
+      formals = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__FORMALS);
     }
-    return params;
+    return formals;
   }
 
   /**
@@ -378,13 +378,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FormalParameter> getResultValues()
+  public EList<FormalParameter> getResults()
   {
-    if (resultValues == null)
+    if (results == null)
     {
-      resultValues = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES);
+      results = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__RESULTS);
     }
-    return resultValues;
+    return results;
   }
 
   /**
@@ -729,10 +729,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
-        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
-      case VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES:
-        return ((InternalEList<?>)getResultValues()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__FORMALS:
+        return ((InternalEList<?>)getFormals()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__RESULTS:
+        return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
         return basicSetMethodKind(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
@@ -759,12 +759,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getName();
       case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
         return getTargetType();
-      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
-        return getParams();
+      case VerifyPackage.VERIFICATION_METHOD__FORMALS:
+        return getFormals();
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
         return getProperties();
-      case VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES:
-        return getResultValues();
+      case VerifyPackage.VERIFICATION_METHOD__RESULTS:
+        return getResults();
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         return isIsPredicate();
       case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
@@ -807,17 +807,17 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
         setTargetType((TargetType)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
-        getParams().clear();
-        getParams().addAll((Collection<? extends FormalParameter>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__FORMALS:
+        getFormals().clear();
+        getFormals().addAll((Collection<? extends FormalParameter>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
         getProperties().clear();
         getProperties().addAll((Collection<? extends Property>)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES:
-        getResultValues().clear();
-        getResultValues().addAll((Collection<? extends FormalParameter>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__RESULTS:
+        getResults().clear();
+        getResults().addAll((Collection<? extends FormalParameter>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         setIsPredicate((Boolean)newValue);
@@ -871,14 +871,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
         setTargetType(TARGET_TYPE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
-        getParams().clear();
+      case VerifyPackage.VERIFICATION_METHOD__FORMALS:
+        getFormals().clear();
         return;
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
         getProperties().clear();
         return;
-      case VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES:
-        getResultValues().clear();
+      case VerifyPackage.VERIFICATION_METHOD__RESULTS:
+        getResults().clear();
         return;
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         setIsPredicate(IS_PREDICATE_EDEFAULT);
@@ -928,12 +928,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_METHOD__TARGET_TYPE:
         return targetType != TARGET_TYPE_EDEFAULT;
-      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
-        return params != null && !params.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__FORMALS:
+        return formals != null && !formals.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
         return properties != null && !properties.isEmpty();
-      case VerifyPackage.VERIFICATION_METHOD__RESULT_VALUES:
-        return resultValues != null && !resultValues.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__RESULTS:
+        return results != null && !results.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         return isPredicate != IS_PREDICATE_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
