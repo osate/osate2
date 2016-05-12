@@ -38,9 +38,9 @@ import org.osate.categories.categories.Category;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTargetType <em>Target Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getFormals <em>Formals</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getResultValues <em>Result Values</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
@@ -115,20 +115,20 @@ public interface VerificationMethod extends EObject
   void setTargetType(TargetType value);
 
   /**
-   * Returns the value of the '<em><b>Params</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Formals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Formals</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Params</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Params()
+   * @return the value of the '<em>Formals</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Formals()
    * @model containment="true"
    * @generated
    */
-  EList<FormalParameter> getParams();
+  EList<FormalParameter> getFormals();
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' reference list.
@@ -147,20 +147,20 @@ public interface VerificationMethod extends EObject
   EList<Property> getProperties();
 
   /**
-   * Returns the value of the '<em><b>Result Values</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Results</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Result Values</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Result Values</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_ResultValues()
+   * @return the value of the '<em>Results</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Results()
    * @model containment="true"
    * @generated
    */
-  EList<FormalParameter> getResultValues();
+  EList<FormalParameter> getResults();
 
   /**
    * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.

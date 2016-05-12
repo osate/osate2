@@ -35,13 +35,16 @@
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArgumentExpr"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComputeRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compute" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="result" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
+        eType="#//ComputeRef" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actuals" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyValues" unique="false"
@@ -82,11 +85,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="VerificationMethod">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetType" eType="#//TargetType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formals" upperBound="-1"
         eType="#//FormalParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="resultValues" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//FormalParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPredicate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isResultReport" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>

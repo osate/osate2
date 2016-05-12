@@ -102,7 +102,7 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	}
 
 	def scope_FormalParameter(EObject context, EReference reference) {
-		val formalparams = getContainingVerificationMethod(context)?.params
+		val formalparams = getContainingVerificationMethod(context)?.formals
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(formalparams,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
