@@ -962,14 +962,29 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
 			} else if (isLeafFeature(srcFi)) {
+				// first find the feature instance as an element of the other end
 				FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
-				if (dst != null) {
+				if (dst != null && dst.getDirection().incoming()) {
 					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
+				} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+					// we may have a feature group with no FGT or an empty FGT
+					for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
+						if (dstelem.getDirection().incoming()) {
+							expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
+						}
+					}
 				}
 			} else if (isLeafFeature(dstFi)) {
 				FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
-				if (target != null) {
+				if (target != null && target.getDirection().outgoing()) {
 					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
+				} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+					// we may have a feature group with no FGT or an empty FGT
+					for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
+						if (srcelem.getDirection().outgoing()) {
+							expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
+						}
+					}
 				}
 			} else {
 				boolean isSubset = subsetMatch(connInfo.connections);
@@ -977,16 +992,22 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
 					Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
 					while (srcIter.hasNext() && dstIter.hasNext()) {
-						expandFeatureGroupConnection(parentci, connInfo, srcIter.next(), dstIter.next());
+						FeatureInstance src = srcIter.next();
+						FeatureInstance dst = dstIter.next();
+						if (src.getDirection().outgoing()) {
+							expandFeatureGroupConnection(parentci, connInfo, src, dst);
+						}
 					}
 					Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
 							"Connected feature groups do not have the same number of features");
 				} else {
 					// subset matching features by name
 					for (FeatureInstance dst : dstFi.getFeatureInstances()) {
-						FeatureInstance src = findFeatureInstance(srcFi.getFeatureInstances(), dst.getName());
-						if (src != null) {
-							expandFeatureGroupConnection(parentci, connInfo, src, dst);
+						if (dst.getDirection().incoming()) {
+							FeatureInstance src = findFeatureInstance(srcFi.getFeatureInstances(), dst.getName());
+							if (src != null) {
+								expandFeatureGroupConnection(parentci, connInfo, src, dst);
+							}
 						}
 					}
 				}
