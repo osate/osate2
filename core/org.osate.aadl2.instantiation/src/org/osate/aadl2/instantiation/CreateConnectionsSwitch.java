@@ -964,24 +964,29 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			} else if (isLeafFeature(srcFi)) {
 				// first find the feature instance as an element of the other end
 				FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
-				if (dst != null && dst.getDirection().incoming()) {
+				// we need to deal with outgoing/incoming only and check the direction correctly
+				if (dst != null
+						&& ((connInfo.isAcross() && dst.getDirection().incoming()) || dst.getDirection().outgoing())) {
 					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
 				} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					// we may have a feature group with no FGT or an empty FGT
 					for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
-						if (dstelem.getDirection().incoming()) {
+						if ((connInfo.isAcross() && dstelem.getDirection().incoming())
+								|| dstelem.getDirection().outgoing()) {
 							expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
 						}
 					}
 				}
 			} else if (isLeafFeature(dstFi)) {
 				FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
-				if (target != null && target.getDirection().outgoing()) {
+				if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
+						|| target.getDirection().incoming())) {
 					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
 				} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					// we may have a feature group with no FGT or an empty FGT
 					for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
-						if (srcelem.getDirection().outgoing()) {
+						if ((connInfo.isAcross() && srcelem.getDirection().outgoing())
+								|| srcelem.getDirection().incoming()) {
 							expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
 						}
 					}
@@ -994,7 +999,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					while (srcIter.hasNext() && dstIter.hasNext()) {
 						FeatureInstance src = srcIter.next();
 						FeatureInstance dst = dstIter.next();
-						if (src.getDirection().outgoing()) {
+						if ((connInfo.isAcross() && src.getDirection().outgoing()) || src.getDirection().incoming()) {
 							expandFeatureGroupConnection(parentci, connInfo, src, dst);
 						}
 					}
@@ -1003,7 +1008,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				} else {
 					// subset matching features by name
 					for (FeatureInstance dst : dstFi.getFeatureInstances()) {
-						if (dst.getDirection().incoming()) {
+						if ((connInfo.isAcross() && dst.getDirection().incoming()) || dst.getDirection().outgoing()) {
 							FeatureInstance src = findFeatureInstance(srcFi.getFeatureInstances(), dst.getName());
 							if (src != null) {
 								expandFeatureGroupConnection(parentci, connInfo, src, dst);
@@ -1039,7 +1044,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (cxt instanceof FeatureGroup) {
 				FeatureGroup fg = (FeatureGroup) cxt;
 				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
-						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())) {
+//						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())
+				) {
 					// we found the connection reaching into the feature group
 					ConnectionEnd src = connection.getAllSource();
 					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
@@ -1061,7 +1067,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (cxt instanceof FeatureGroup) {
 				FeatureGroup fg = (FeatureGroup) cxt;
 				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
-						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())) {
+//						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())
+				) {
 					// we found the connection reaching into the feature group
 					ConnectionEnd src = connection.getAllDestination();
 					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
