@@ -35,9 +35,9 @@ class Issue480Test extends OsateTest {
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 		assertEquals('top_i_Instance', instance.name)
 
-		// check if there are 17 connections
+		// check if there are 21 connections
 		val connections = instance.connectionInstances
-		assertTrue('In top_i_Instance: Expected 17 connections but found ' + connections.size, connections.size == 17)
+		assertTrue('In top_i_Instance: Expected 21 connections but found ' + connections.size, connections.size == 21)
 	}
 
 	val aadlText = '''
