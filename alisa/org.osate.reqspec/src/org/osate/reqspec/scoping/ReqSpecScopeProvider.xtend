@@ -31,12 +31,14 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.AbstractFeature
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.DirectionType
+import org.osate.aadl2.Feature
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupType
@@ -205,9 +207,18 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		} else {
 			switch prevElement : context.prev.modelElement {
 				Classifier: prevElement
+				AbstractFeature: switch featureClassifier : prevElement.abstractFeatureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
+					default: prevElement.featurePrototype.constrainingClassifier
+				}
 				FeatureGroup: switch featureType : prevElement.featureType {
 					FeatureGroupType: featureType
 					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+				}
+				Feature: switch featureClassifier : prevElement.featureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
 				}
 				Subcomponent: switch subcomponentType : prevElement.subcomponentType {
 					ComponentClassifier: subcomponentType
