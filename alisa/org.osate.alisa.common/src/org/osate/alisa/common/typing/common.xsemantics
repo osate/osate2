@@ -29,12 +29,10 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ListType
 import org.osate.aadl2.NumberType
-import org.osate.aadl2.NumberValue
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
-import org.osate.aadl2.PropertyValue
 import org.osate.aadl2.RangeType
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordType
@@ -72,8 +70,8 @@ auxiliary {
 
 judgments {
 	type |- EObject o : output PropertyType
-		error 'cannot type ' + stringRep(o)
-		source o
+//		error 'cannot type ' + stringRep(o)
+//		source o
 
 	assignable |- AExpression exp |> PropertyType target
 		error stringRep(exp) + ' cannot be assigned to ' + stringRep(target)
@@ -431,11 +429,111 @@ from {
 }
 
 rule FunctionCall
-	G |- AFunctionCall _ : PropertyType type
-	error 'typing of built-in functions not implemented'
+	G |- AFunctionCall call : PropertyType type
 from {
-	// TODO figure out how to handle built-in functions
-	fail
+	switch (call.function) {
+		case 'min', case 'max': {
+			call.arguments.size >= 1 
+			or 
+			{
+				fail
+					error call.function + ' must have at least one argument'
+					source call
+			}
+			val unitsType = {
+					G |- call.arguments.get(0) : var PropertyType t
+					if (t instanceof NumberType) {
+						t.unitsType
+					} else if (t instanceof RangeType) {
+						t.numberType.unitsType
+					}
+			} 
+			call.arguments.forEach [arg |
+				G |- arg : var PropertyType argType
+				switch (argType) {
+					AadlReal: {
+						if (argType.unitsType != unitsType) {
+							fail
+								error 'typing: all arguments must have the same units type'
+								source arg
+						}
+					}
+					AadlInteger: {
+						if (argType.unitsType != unitsType) {
+							fail
+								error 'typing: all arguments must have the same units type'
+								source arg
+						}
+					}
+					RangeType: {
+						if (argType.numberType.unitsType != unitsType) {
+							fail
+								error 'typing: all arguments must have the same units type'
+								source arg
+						}
+					}
+					default: {
+						fail
+					  	error 'typing: argument must be numeric or a range'
+					  	source arg
+					}
+				}
+			]
+			val allInt =
+					call.arguments.forall [arg |
+						G |- arg : var PropertyType argType
+						switch (argType) {
+							AadlReal: false
+							AadlInteger: true
+							RangeType: argType.numberType instanceof AadlInteger
+							default: false
+						}
+					]
+			type = if (allInt) Aadl2Factory.eINSTANCE.createAadlInteger else Aadl2Factory.eINSTANCE.createAadlReal;
+			(type as NumberType).referencedUnitsType = unitsType
+		}
+		case 'abs': {
+			call.arguments.size == 1 
+			or 
+			{
+				fail
+					error 'abs must have one argument'
+					source call
+			}
+			val arg = call.arguments.get(0)
+			G |- arg : var PropertyType argType
+			if (!(argType instanceof NumberType)) {
+				fail
+			  	error 'typing: argument must be numeric'
+			  	source arg
+			}
+			type = argType				
+		}
+		case 'floor', case 'ceil', case 'round': {
+			call.arguments.size == 1 
+			or 
+			{
+				fail
+					error 'abs must have one argument'
+					source call
+			}
+			val arg = call.arguments.get(0)
+			G |- arg : var PropertyType argType
+			if (argType instanceof NumberType) {
+				type = Aadl2Factory.eINSTANCE.createAadlInteger;				
+				(type as NumberType).referencedUnitsType = argType.unitsType
+			} else {
+				fail
+			  	error 'typing: argument must be numeric'
+			  	source arg
+			}
+		}
+		default: {
+			fail
+				error 'unsupported function: ' + call.function
+				source call
+		}
+	}
 }
 
 rule UnitExpression
