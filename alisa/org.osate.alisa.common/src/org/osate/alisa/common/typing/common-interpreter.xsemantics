@@ -1,0 +1,244 @@
+/**
+ * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ *
+ * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
+ * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
+ * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
+ * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
+ * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
+ * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ *
+ * See COPYRIGHT file for full details.
+ */
+
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NumberType
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyValue
+import org.osate.aadl2.RangeValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.alisa.common.common.ABinaryOperation
+import org.osate.alisa.common.common.AConditional
+import org.osate.alisa.common.common.ARange
+import org.osate.alisa.common.common.AUnaryOperation
+import org.osate.alisa.common.common.AUnitExpression
+import org.osate.alisa.common.common.AVariableDeclaration
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.Operation
+import org.osate.alisa.common.common.ValDeclaration
+
+system org.osate.alisa.common.typing.CommonInterpreter
+
+
+auxiliary {
+	combineNumeric(NumberType left, NumberType right): NumberType
+}
+
+
+judgments {
+	// environment contains values for computed variables
+	interpretExpression |- PropertyExpression expression ~> output PropertyValue
+	interpretVariable ||- AVariableDeclaration decl ~> output PropertyValue
+}
+
+
+auxiliary combineNumeric(NumberType left, NumberType right) {
+	val result =
+			if (left instanceof AadlInteger && right instanceof AadlInteger)
+				Aadl2Factory.eINSTANCE.createAadlInteger
+			else
+				Aadl2Factory.eINSTANCE.createAadlReal
+	result.referencedUnitsType =
+			if (left.unitsType != null)
+				left.unitsType
+			else
+				right.unitsType
+	result
+}
+
+
+// expression interpreter
+
+rule InterpretBinaryExpression
+	G |- ABinaryOperation binary ~> PropertyValue propVal
+from {
+	G |- binary.left ~> var PropertyValue leftVal
+	G |- binary.right ~> var PropertyValue rightVal
+	
+	switch (binary.operator) {
+		case AND, case OR: {
+			val left = leftVal as BooleanLiteral
+			val right = rightVal as BooleanLiteral
+			if (binary.operator == Operation.AND) {
+				left.value = left.getValue && right.getValue
+			} else {
+				left.value = left.getValue && right.getValue
+			}
+			left
+		}
+		case EQ, case NEQ: {
+			val boolVal = Aadl2Factory.eINSTANCE.createBooleanLiteral
+			boolVal.value = leftVal.sameAs(rightVal)
+			boolVal
+		}
+		case LT, case LEQ, case GT, case GEQ: {
+			val boolVal = Aadl2Factory.eINSTANCE.createBooleanLiteral
+			boolVal.value = false
+			boolVal
+		}
+		case IN: {
+			val right = rightVal as RangeValue
+			var boolean cmpVal =
+					if (leftVal instanceof RealLiteral) {
+						true
+					} else if (leftVal instanceof IntegerLiteral) {
+						true
+					} else if (leftVal instanceof RangeValue) {
+						true
+					} else {
+						false
+					}
+			val boolVal = Aadl2Factory.eINSTANCE.createBooleanLiteral
+			boolVal.value = cmpVal
+			boolVal
+		}
+		case PLUS, case MINUS, case MULT, case DIV: {
+			
+		}
+	}
+}
+
+rule InterpretUnaryExpression
+	G |- AUnaryOperation unary ~> PropertyValue propVal
+from {
+	G |- unary.operand ~> propVal
+	
+	switch (unary.operator) {
+		case MINUS:
+			switch (propVal) {
+				RealLiteral: propVal.value = -propVal.value
+				IntegerLiteral: propVal.value = -propVal.value
+			}
+		case NOT:
+			switch (propVal) {
+				BooleanLiteral: propVal.value = !propVal.getValue
+			}
+		default: {
+			// nothing
+		}
+	}
+	propVal
+}
+
+rule InterpretUnitExpression
+	G |- AUnitExpression unit ~> NumberValue number
+from {
+	G |- unit.expression ~> var PropertyValue propval
+	number = (propval as NumberValue)
+		
+	if (unit.drop) {
+		number.getScaledValue(unit.unit)
+		number.unit = null
+	} else if (unit.convert) {
+		number.getScaledValue(unit.unit)
+		number.unit = unit.unit
+	} else {
+		number.unit = unit.unit
+	}
+}
+
+// primary expressions
+
+rule InterpretVal
+	G ||- ValDeclaration varDecl ~> PropertyValue propVal
+from {
+	G |- varDecl.value ~> propVal
+}
+
+rule InterpretCompute
+	G ||- ComputeDeclaration varDecl ~> PropertyValue propVal
+from {
+	fail
+		error 'interpreter: compute variables are not yet implemented'
+		source varDecl
+}
+
+rule InterpetITE
+	G |- AConditional ite ~> PropertyValue propVal
+from {
+	G |- ite.^if ~> var BooleanLiteral cond
+	if (cond.getValue) {
+		G |- ite.then ~> propVal
+	} else {
+		G |- ite.^else ~> propVal
+	}
+}
+
+// TODO
+//rule InterpretModelReference
+//	G |- AModelReference ref ~> PropertyValue propVal
+//from {
+//}
+//
+//rule InterpretPropertyReference
+//	G |- APropertyReference prop ~> PropertyValue propVal
+//from {
+//}
+
+// literals
+
+axiom InterpretIntegerLiteral
+	G |- IntegerLiteral integer ~> {
+		val intVal = Aadl2Factory.eINSTANCE.createIntegerLiteral
+		intVal.value = integer.value
+		intVal
+	}
+
+axiom InterpretRealLiteral
+	G |- RealLiteral real ~> {
+		val realVal = Aadl2Factory.eINSTANCE.createRealLiteral
+		realVal.value = real.value
+		realVal
+	}
+
+axiom InterpretStringLiteral
+	G |- StringLiteral string ~> {
+		val stringVal = Aadl2Factory.eINSTANCE.createStringLiteral
+		stringVal.value = string.value
+		stringVal
+	}
+
+axiom InterpretBooleanLiteral
+	G |- BooleanLiteral bool ~> {
+		val boolVal = Aadl2Factory.eINSTANCE.createBooleanLiteral
+		boolVal.value = bool.getValue
+		boolVal
+	}
+
+rule InterpretRange
+	G |- ARange range ~> PropertyValue propVal
+from {
+	val rangeVal = Aadl2Factory.eINSTANCE.createRangeValue
+	G |- range.minimum ~> var NumberValue lower
+	G |- range.maximum ~> var NumberValue upper
+	rangeVal.minimum = lower
+	rangeVal.maximum = upper
+	rangeVal
+}
+
+
+rule NotImplemented
+	G |- PropertyExpression expression ~> PropertyValue propVal
+from {
+	fail
+		error 'not implemented'
+		source expression
+}
